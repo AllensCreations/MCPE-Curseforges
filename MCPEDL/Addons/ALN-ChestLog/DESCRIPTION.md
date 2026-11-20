@@ -78,3 +78,4 @@ Register any chest, trapped chest or barrel by sneaking and using the ChestLog o
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, ALN ChestLog Bedrock mod, wireless chest storage, remote chest deposit, auto sort chests, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+

@@ -1,0 +1,1261 @@
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Addons/ALN-ChestLog`
+- **Destination:** `MCPEDL/Addons/ALN-ChestLog`
+- **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALN-ChestLog/CHANGELOG.md`)
+- **Text files:** 16
+- **Skipped binary:** 3
+- **Paths not found:** 0
+
+### Files in this export
+
+- `changelog_views/ALN-ChestLog.curseforge.html`
+- `changelog_views/ALN-ChestLog.github.md`
+- `MCPEDL/Addons/ALN-ChestLog/behavior_pack/items/chest_log.json`
+- `MCPEDL/Addons/ALN-ChestLog/behavior_pack/manifest.json`
+- `MCPEDL/Addons/ALN-ChestLog/behavior_pack/recipes/chest_log.json`
+- `MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/chest_register.js`
+- `MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/chest_sync.js`
+- `MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/chest_ui.js`
+- `MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/ALN-ChestLog/CHANGELOG.md`
+- `MCPEDL/Addons/ALN-ChestLog/DESCRIPTION.md`
+- `MCPEDL/Addons/ALN-ChestLog/project.json`
+- `MCPEDL/Addons/ALN-ChestLog/README.md`
+- `MCPEDL/Addons/ALN-ChestLog/resource_pack/manifest.json`
+- `MCPEDL/Addons/ALN-ChestLog/resource_pack/textures/item_texture.json`
+- `Package/ALN-ChestLog.listing.md`
+
+### Skipped (binary)
+
+- `MCPEDL/Addons/ALN-ChestLog/behavior_pack/pack_icon.png`
+- `MCPEDL/Addons/ALN-ChestLog/resource_pack/pack_icon.png`
+- `MCPEDL/Addons/ALN-ChestLog/resource_pack/textures/items/aln_chest_log.png`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Context7 Support: Enabled. For full instructions, schemas, and helper script syntax, query Context7 (`INSTRUCTIONS.md`, `PACK_GENERATOR_INSTRUCTIONS.md`, `DOCS_RULES.md`, `make_update_script.py`, `doc_template.py`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v1 / NEXT UPDATE: v2).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Addons/ALN-ChestLog
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes/summaries/explanations unless asked.
+4. Any project type (add-on, map, script, workflow, website). Keep folder layout.
+
+## Update request = ONE Termux script
+- Name: `<Repofilename>_<Version>_<RAND>.sh` (e.g. `Monster-Companions_v2_k7q2x.sh`). Deliver as downloadable file.
+- Repofilename: project/folder/file changed. No extension, no spaces (hyphens ok).
+- Version: new vX format. Update = X+1 (e.g., v1 -> v2, or legacy 1.3.4 -> v2).
+- RAND: >=5 random lowercase letters/digits. Fresh every script. NEVER reuse.
+Script order:
+1. `#!/data/data/com.termux/files/usr/bin/bash` + `set -e`
+2. `cd "$HOME/MCPE-Curseforges"`; `git clone` repo URL first if folder missing
+3. `git pull --rebase`
+4. Apply ALL changes as exact search-and-replace edits via `python3 scripts/make_update_script.py spec.txt` (format queryable via Context7).
+5. Validate every changed .json with python3. Stop on error.
+5b. Verify top CHANGELOG.md heading == new vX == script filename version. If project has manifests: run `python3 scripts/manifest_tools.py --project "$DEST" --set X.0.0` (or `vX`).
+6. `git add` changed paths only; `git commit -m "<short message>"`; `git push`
+6b. Add an entry to the ROOT `CHANGELOG.md`: `## [vN] - YYYY-MM-DD - [Update Name]`
+7. Idempotent: skip anything already applied.
+8. Last line: `rm -f -- "$SELF"` (self-deleting script).
+
+## Documentation Standards
+- Query Context7 for exact `DOCS_RULES.md` formatting templates.
+- CHANGELOG.md: MANDATORY on every update (`## [vX] - YYYY-MM-DD - [Update Name]`).
+- Player-facing only: in-game item names ("Diamond"), NEVER code identifiers (`minecraft:diamond`), internal function names, or raw JSON keys.
+- README.md: download landing page only (11 non-empty lines).
+- DESCRIPTION.md: full details, standard badges, feature cards, guidelines block.
+
+## Reply Format (STRICT)
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`.
+
+---
+
+## File Contents
+
+## FILE: changelog_views/ALN-ChestLog.curseforge.html (2 lines, 532 bytes)
+
+```
+<h2>1.0.0 - 2026-11-20 - First Release</h2><h3>Added</h3><ul><li><strong>ChestLog item</strong>: Craft it from a Book, an Ender Pearl and Redstone.</li><li><strong>Chest registration</strong>: Sneak and use the item on a chest, trapped chest or barrel to name and register it.</li><li><strong>Remote menu</strong>: Deposit everything with one button or choose exact amounts per item for a single chest.</li><li><strong>Unloaded chunk buffer</strong>: Items for unloaded chests are held and delivered when the chunk loads.</li></ul>
+```
+
+## FILE: changelog_views/ALN-ChestLog.github.md (10 lines, 470 bytes)
+
+```
+# Changelog — ALN ChestLog
+
+## [1.0.0] - 2026-11-20 - First Release
+
+### Added
+- **ChestLog item**: Craft it from a Book, an Ender Pearl and Redstone.
+- **Chest registration**: Sneak and use the item on a chest, trapped chest or barrel to name and register it.
+- **Remote menu**: Deposit everything with one button or choose exact amounts per item for a single chest.
+- **Unloaded chunk buffer**: Items for unloaded chests are held and delivered when the chunk loads.
+```
+
+## FILE: MCPEDL/Addons/ALN-ChestLog/behavior_pack/items/chest_log.json (22 lines, 427 bytes)
+
+```
+{
+  "format_version": "1.21.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:chest_log",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "aln_chest_log"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "§6ChestLog"
+      },
+      "minecraft:max_stack_size": 1
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-ChestLog/behavior_pack/manifest.json (65 lines, 1144 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN:ChestLog (v1)",
+    "description": "Wireless remote chest deposit with an unloaded-chunk buffer. by ALNStudios. Not tested in game.",
+    "uuid": "508375a5-6723-4177-a6f3-14cadb14c44d",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      50
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "6d472727-d893-43be-826d-1234f7fc1ec3",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "d3fc3875-f45e-4b37-8448-c512868ef912",
+      "version": [
+        1,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.3.0"
+    },
+    {
+      "uuid": "a1e6b4d9-74db-40e9-bd2e-0531e0c02b3e",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "version": "1.0.0",
+    "authors": [
+      "ALNStudios"
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-ChestLog/behavior_pack/recipes/chest_log.json (31 lines, 510 bytes)
+
+```
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "aln:chest_log"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:book"
+      },
+      {
+        "item": "minecraft:ender_pearl"
+      },
+      {
+        "item": "minecraft:redstone"
+      }
+    ],
+    "result": {
+      "item": "aln:chest_log",
+      "count": 1
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/chest_register.js (146 lines, 4449 bytes)
+
+```
+import { world, system, BlockPermutation, BlockInventoryComponent } from "@minecraft/server";
+import { ModalFormData } from "@minecraft/server-ui";
+import {
+  ITEM_ID,
+  CONTAINER_TYPES,
+  loadList,
+  saveList,
+  matchEntry,
+  refreshKnown,
+  markSuppressed,
+} from "./chest_sync.js";
+
+const DEFAULT_NAME = "Storage Chest";
+const NEIGHBORS = [
+  { x: 1, y: 0, z: 0 },
+  { x: -1, y: 0, z: 0 },
+  { x: 0, y: 0, z: 1 },
+  { x: 0, y: 0, z: -1 },
+];
+
+function findPartner(block) {
+  if (block.typeId === "minecraft:barrel") return undefined;
+  const component = block.getComponent(BlockInventoryComponent.componentId);
+  if (!component || !component.container || component.container.size <= 27) return undefined;
+  for (const offset of NEIGHBORS) {
+    const neighbor = block.offset(offset);
+    if (neighbor && neighbor.typeId === block.typeId) {
+      return { x: neighbor.x, y: neighbor.y, z: neighbor.z };
+    }
+  }
+  return undefined;
+}
+
+function labelChest(dimension, location, name, wasLabeled) {
+  try {
+    const above = dimension.getBlock({ x: location.x, y: location.y + 1, z: location.z });
+    if (!above) return false;
+    if (above.typeId === "minecraft:standing_sign") {
+      if (!wasLabeled) return false;
+    } else {
+      if (wasLabeled || !above.isAir) return false;
+      above.setPermutation(
+        BlockPermutation.resolve("minecraft:standing_sign", { ground_sign_direction: 0 })
+      );
+    }
+    const sign = above.getComponent("minecraft:sign");
+    if (!sign) return false;
+    sign.setText(`${name} - Registered`);
+    sign.setWaxed(true);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function openRegisterForm(player, dimensionId, clicked) {
+  const dimension = world.getDimension(dimensionId);
+  const block = dimension.getBlock(clicked);
+  if (!block) return;
+
+  let location = { x: clicked.x, y: clicked.y, z: clicked.z };
+  let partner = findPartner(block);
+  if (partner && (partner.x < location.x || (partner.x === location.x && partner.z < location.z))) {
+    const swap = location;
+    location = partner;
+    partner = swap;
+  }
+
+  const existingList = loadList(player);
+  const existingIndex = matchEntry(existingList, dimensionId, clicked);
+  const defaultName = existingIndex >= 0 ? existingList[existingIndex].name : DEFAULT_NAME;
+
+  let response;
+  try {
+    response = await new ModalFormData()
+      .title("§6§lRegister Chest")
+      .textField("Enter Chest Name", "e.g., Ores, Building Blocks, Mob Drops", {
+        defaultValue: defaultName,
+      })
+      .submitButton("Register")
+      .show(player);
+  } catch {
+    return;
+  }
+  if (response.canceled || !response.formValues) return;
+
+  const typed = String(response.formValues[0] ?? "");
+  const name = typed.replace(/§./g, "").trim().slice(0, 32) || DEFAULT_NAME;
+
+  const list = loadList(player);
+  const index = matchEntry(list, dimensionId, clicked);
+  let entry;
+  if (index >= 0) {
+    entry = list[index];
+    entry.name = name;
+  } else {
+    entry = {
+      id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+      name,
+      dimensionId,
+      location,
+      pendingQueue: [],
+      known: [],
+    };
+    if (partner) entry.partner = partner;
+    list.push(entry);
+  }
+  refreshKnown(entry);
+  const wasLabeled = !!entry.labeled;
+  entry.labeled = labelChest(dimension, entry.location, name, wasLabeled) || wasLabeled;
+
+  if (!saveList(player, list)) {
+    player.onScreenDisplay.setActionBar("§c[ChestLog] §fCould not save the chest list.");
+    return;
+  }
+
+  try {
+    player.playSound("random.orb");
+  } catch {}
+  try {
+    dimension.spawnParticle("minecraft:totem_particle", {
+      x: entry.location.x + 0.5,
+      y: entry.location.y + 1.2,
+      z: entry.location.z + 0.5,
+    });
+  } catch {}
+  player.onScreenDisplay.setActionBar(`§a[ChestLog] §e${name} - Registered`);
+}
+
+export function initRegister() {
+  world.beforeEvents.playerInteractWithBlock.subscribe((event) => {
+    const { player, block, itemStack, isFirstEvent } = event;
+    if (!itemStack || itemStack.typeId !== ITEM_ID) return;
+    if (!CONTAINER_TYPES.has(block.typeId)) return;
+    markSuppressed(player);
+    if (!player.isSneaking) return;
+    event.cancel = true;
+    if (!isFirstEvent) return;
+    const dimensionId = block.dimension.id;
+    const clicked = { x: block.x, y: block.y, z: block.z };
+    system.run(() => {
+      openRegisterForm(player, dimensionId, clicked).catch(() => {});
+    });
+  });
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/chest_sync.js (434 lines, 12963 bytes)
+
+```
+import {
+  world,
+  system,
+  ItemStack,
+  EnchantmentType,
+  BlockInventoryComponent,
+  EntityInventoryComponent,
+} from "@minecraft/server";
+
+export const ITEM_ID = "aln:chest_log";
+export const LIST_KEY = "aln_chestlog_list";
+export const CONTAINER_TYPES = new Set([
+  "minecraft:chest",
+  "minecraft:trapped_chest",
+  "minecraft:barrel",
+]);
+
+const MAX_KNOWN = 150;
+const ALERT_COOLDOWN = 600;
+const alertTicks = new Map();
+const suppressed = new Map();
+
+export function markSuppressed(player) {
+  suppressed.set(player.id, system.currentTick);
+}
+
+export function isSuppressed(player) {
+  const tick = suppressed.get(player.id);
+  return tick !== undefined && system.currentTick - tick <= 3;
+}
+
+export function dimensionColor(dimensionId) {
+  if (dimensionId.includes("nether")) return "§c";
+  if (dimensionId.includes("the_end")) return "§d";
+  return "§a";
+}
+
+export function coloredName(entry) {
+  return dimensionColor(entry.dimensionId) + entry.name;
+}
+
+export function itemDisplayName(item) {
+  if (item.nameTag) return item.nameTag;
+  return item.typeId
+    .replace(/^[^:]+:/, "")
+    .split("_")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
+export function getInventory(player) {
+  const component = player.getComponent(EntityInventoryComponent.componentId);
+  return component ? component.container : undefined;
+}
+
+export function loadList(player) {
+  const raw = player.getDynamicProperty(LIST_KEY);
+  if (typeof raw !== "string") return [];
+  try {
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+export function saveList(player, list) {
+  try {
+    player.setDynamicProperty(LIST_KEY, JSON.stringify(list));
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function sameLocation(a, b) {
+  return !!a && !!b && a.x === b.x && a.y === b.y && a.z === b.z;
+}
+
+export function matchEntry(list, dimensionId, location) {
+  return list.findIndex(
+    (entry) =>
+      entry.dimensionId === dimensionId &&
+      (sameLocation(entry.location, location) || sameLocation(entry.partner, location))
+  );
+}
+
+function resolveContainer(entry) {
+  try {
+    const dimension = world.getDimension(entry.dimensionId);
+    const block = dimension.getBlock(entry.location);
+    if (!block) return { state: "unloaded" };
+    if (!CONTAINER_TYPES.has(block.typeId)) return { state: "gone" };
+    const component = block.getComponent(BlockInventoryComponent.componentId);
+    if (!component || !component.container) return { state: "gone" };
+    return { state: "loaded", container: component.container, block };
+  } catch {
+    return { state: "unloaded" };
+  }
+}
+
+function serializeItem(item) {
+  const record = { typeId: item.typeId, amount: item.amount };
+  if (item.nameTag) record.nameTag = item.nameTag;
+  const lore = item.getLore();
+  if (lore.length > 0) record.lore = lore;
+  const enchantable = item.getComponent("minecraft:enchantable");
+  if (enchantable) {
+    const list = enchantable.getEnchantments();
+    if (list.length > 0) {
+      record.enchantments = list.map((e) => ({ id: e.type.id, level: e.level }));
+    }
+  }
+  return record;
+}
+
+function buildStack(record, amount) {
+  const item = new ItemStack(record.typeId, amount);
+  if (record.nameTag) item.nameTag = record.nameTag;
+  if (record.lore && record.lore.length > 0) item.setLore(record.lore);
+  if (record.enchantments && record.enchantments.length > 0) {
+    const enchantable = item.getComponent("minecraft:enchantable");
+    if (enchantable) {
+      for (const e of record.enchantments) {
+        try {
+          enchantable.addEnchantment({ type: new EnchantmentType(e.id), level: e.level });
+        } catch {}
+      }
+    }
+  }
+  return item;
+}
+
+function recordKey(record) {
+  return JSON.stringify([
+    record.typeId,
+    record.nameTag ?? "",
+    record.lore ?? [],
+    record.enchantments ?? [],
+  ]);
+}
+
+function enqueue(entry, item) {
+  if (!Array.isArray(entry.pendingQueue)) entry.pendingQueue = [];
+  const record = serializeItem(item);
+  const key = recordKey(record);
+  const hit = entry.pendingQueue.find((r) => recordKey(r) === key);
+  if (hit) hit.amount += record.amount;
+  else entry.pendingQueue.push(record);
+}
+
+function rememberType(entry, typeId) {
+  if (!Array.isArray(entry.known)) entry.known = [];
+  if (entry.known.includes(typeId)) return;
+  entry.known.push(typeId);
+  if (entry.known.length > MAX_KNOWN) entry.known.shift();
+}
+
+function pendingTypes(entry) {
+  return (entry.pendingQueue ?? []).map((r) => r.typeId);
+}
+
+export function refreshKnown(entry) {
+  const resolved = resolveContainer(entry);
+  if (resolved.state !== "loaded") return;
+  const types = new Set(pendingTypes(entry));
+  const container = resolved.container;
+  for (let i = 0; i < container.size; i++) {
+    const item = container.getItem(i);
+    if (item) types.add(item.typeId);
+  }
+  entry.known = Array.from(types).slice(0, MAX_KNOWN);
+}
+
+function entryTypeSet(entry) {
+  const resolved = resolveContainer(entry);
+  if (resolved.state === "loaded") {
+    refreshKnown(entry);
+    return new Set(entry.known);
+  }
+  return new Set([...(entry.known ?? []), ...pendingTypes(entry)]);
+}
+
+export function sortContainer(container) {
+  try {
+    const stacks = [];
+    for (let i = 0; i < container.size; i++) {
+      const item = container.getItem(i);
+      if (item) stacks.push(item);
+    }
+    const merged = [];
+    for (const item of stacks) {
+      let remaining = item.amount;
+      for (const target of merged) {
+        if (remaining <= 0) break;
+        if (target.amount < target.maxAmount && target.isStackableWith(item)) {
+          const move = Math.min(target.maxAmount - target.amount, remaining);
+          target.amount += move;
+          remaining -= move;
+        }
+      }
+      if (remaining > 0) {
+        const copy = item.clone();
+        copy.amount = remaining;
+        merged.push(copy);
+      }
+    }
+    merged.sort((a, b) => a.typeId.localeCompare(b.typeId) || b.amount - a.amount);
+    if (merged.length > container.size) return;
+    for (let i = 0; i < container.size; i++) {
+      container.setItem(i, i < merged.length ? merged[i] : undefined);
+    }
+  } catch {}
+}
+
+function sortEntry(entry) {
+  const resolved = resolveContainer(entry);
+  if (resolved.state === "loaded") sortContainer(resolved.container);
+}
+
+function depositItem(entry, part) {
+  const amount = part.amount;
+  const resolved = resolveContainer(entry);
+  if (resolved.state === "loaded") {
+    let rest;
+    try {
+      rest = resolved.container.addItem(part);
+    } catch {
+      return { stored: 0, queued: false };
+    }
+    rememberType(entry, part.typeId);
+    return { stored: amount - (rest ? rest.amount : 0), queued: false };
+  }
+  if (resolved.state === "unloaded") {
+    enqueue(entry, part);
+    rememberType(entry, part.typeId);
+    return { stored: amount, queued: true };
+  }
+  return { stored: 0, queued: false };
+}
+
+export function runDeposit(player, list, plan) {
+  const inventory = getInventory(player);
+  if (!inventory) return { total: 0, chests: 0 };
+  const snapshot = list.map((entry) => JSON.stringify(entry.pendingQueue ?? []));
+  const results = [];
+  const loadedHits = new Set();
+  const queuedHits = new Set();
+
+  for (const step of plan) {
+    const held = inventory.getItem(step.slot);
+    if (!held || held.typeId !== step.typeId) continue;
+    let left = Math.min(step.amount, held.amount);
+    let stored = 0;
+    let queued = 0;
+    for (const index of step.targets) {
+      if (left <= 0) break;
+      const part = held.clone();
+      part.amount = left;
+      const out = depositItem(list[index], part);
+      if (out.stored > 0) {
+        stored += out.stored;
+        left -= out.stored;
+        if (out.queued) {
+          queued += out.stored;
+          queuedHits.add(index);
+        } else {
+          loadedHits.add(index);
+        }
+      }
+    }
+    results.push({ slot: step.slot, held, stored, queued });
+  }
+
+  const queuedTotal = results.reduce((sum, r) => sum + r.queued, 0);
+  let saved = saveList(player, list);
+  if (!saved && queuedTotal > 0) {
+    list.forEach((entry, i) => {
+      entry.pendingQueue = JSON.parse(snapshot[i]);
+    });
+    for (const r of results) {
+      r.stored -= r.queued;
+      r.queued = 0;
+    }
+    queuedHits.clear();
+    saveList(player, list);
+    player.onScreenDisplay.setActionBar("§c[ChestLog] §fCould not buffer items for unloaded chests.");
+  }
+
+  let total = 0;
+  for (const r of results) {
+    if (r.stored <= 0) continue;
+    total += r.stored;
+    const remain = r.held.amount - r.stored;
+    if (remain <= 0) {
+      inventory.setItem(r.slot, undefined);
+    } else {
+      const keep = r.held.clone();
+      keep.amount = remain;
+      inventory.setItem(r.slot, keep);
+    }
+  }
+
+  for (const index of loadedHits) sortEntry(list[index]);
+  return { total, chests: new Set([...loadedHits, ...queuedHits]).size };
+}
+
+export function depositAll(player) {
+  const list = loadList(player);
+  if (list.length === 0) {
+    player.onScreenDisplay.setActionBar("§e[ChestLog] §fNo chests registered yet.");
+    return;
+  }
+  const inventory = getInventory(player);
+  if (!inventory) return;
+  const sets = list.map(entryTypeSet);
+  const plan = [];
+  for (let slot = 0; slot < 36; slot++) {
+    const item = inventory.getItem(slot);
+    if (!item || item.typeId === ITEM_ID) continue;
+    const targets = [];
+    sets.forEach((set, index) => {
+      if (set.has(item.typeId)) targets.push(index);
+    });
+    if (targets.length > 0) plan.push({ slot, typeId: item.typeId, amount: item.amount, targets });
+  }
+  const result = runDeposit(player, list, plan);
+  player.onScreenDisplay.setActionBar(
+    `§a[ChestLog] §fSorted & deposited §e${result.total} §fitems across §b${result.chests} §fchests!`
+  );
+}
+
+function alertFull(player, entry) {
+  const last = alertTicks.get(entry.id);
+  if (last !== undefined && system.currentTick - last < ALERT_COOLDOWN) return;
+  alertTicks.set(entry.id, system.currentTick);
+  const waiting = entry.pendingQueue.reduce((sum, r) => sum + r.amount, 0);
+  player.onScreenDisplay.setActionBar(
+    `§c[ChestLog] ${coloredName(entry)} §fis full. §e${waiting} §fitems are waiting.`
+  );
+}
+
+function flushEntry(player, entry) {
+  if (!Array.isArray(entry.pendingQueue) || entry.pendingQueue.length === 0) return false;
+  const resolved = resolveContainer(entry);
+  if (resolved.state !== "loaded") return false;
+  let changed = false;
+  let blocked = false;
+  const remainingQueue = [];
+  for (const record of entry.pendingQueue) {
+    let remaining = record.amount;
+    if (!blocked) {
+      let max;
+      try {
+        max = new ItemStack(record.typeId, 1).maxAmount;
+      } catch {
+        remainingQueue.push(record);
+        continue;
+      }
+      while (remaining > 0) {
+        const amount = Math.min(remaining, max);
+        let rest;
+        try {
+          rest = resolved.container.addItem(buildStack(record, amount));
+        } catch {
+          blocked = true;
+          break;
+        }
+        const moved = amount - (rest ? rest.amount : 0);
+        remaining -= moved;
+        if (moved > 0) changed = true;
+        if (rest) {
+          blocked = true;
+          break;
+        }
+      }
+    }
+    if (remaining > 0) remainingQueue.push({ ...record, amount: remaining });
+  }
+  entry.pendingQueue = remainingQueue;
+  if (blocked && remainingQueue.length > 0) alertFull(player, entry);
+  return changed;
+}
+
+function flushPlayer(player) {
+  const list = loadList(player);
+  let dirty = false;
+  for (const entry of list) {
+    if (!entry.pendingQueue || entry.pendingQueue.length === 0) continue;
+    const before = JSON.stringify(entry.pendingQueue);
+    const changed = flushEntry(player, entry);
+    if (changed) {
+      refreshKnown(entry);
+      sortEntry(entry);
+    }
+    if (JSON.stringify(entry.pendingQueue) !== before) dirty = true;
+  }
+  if (dirty) saveList(player, list);
+}
+
+function flushAtLocation(player, dimensionId, location) {
+  const list = loadList(player);
+  const index = matchEntry(list, dimensionId, location);
+  if (index < 0) return;
+  const entry = list[index];
+  const changed = flushEntry(player, entry);
+  refreshKnown(entry);
+  if (changed) sortEntry(entry);
+  saveList(player, list);
+}
+
+export function initSync() {
+  system.runInterval(() => {
+    for (const player of world.getAllPlayers()) {
+      try {
+        flushPlayer(player);
+      } catch {}
+    }
+  }, 20);
+
+  world.beforeEvents.playerInteractWithBlock.subscribe((event) => {
+    const { player, block, itemStack, isFirstEvent } = event;
+    if (!isFirstEvent || !CONTAINER_TYPES.has(block.typeId)) return;
+    if (itemStack && itemStack.typeId === ITEM_ID && player.isSneaking) return;
+    const dimensionId = block.dimension.id;
+    const location = { x: block.x, y: block.y, z: block.z };
+    system.run(() => {
+      try {
+        flushAtLocation(player, dimensionId, location);
+      } catch {}
+    });
+  });
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/chest_ui.js (149 lines, 5042 bytes)
+
+```
+import { world, system } from "@minecraft/server";
+import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
+import {
+  ITEM_ID,
+  loadList,
+  coloredName,
+  itemDisplayName,
+  getInventory,
+  runDeposit,
+  depositAll,
+  isSuppressed,
+} from "./chest_sync.js";
+
+const ICON_CHEST = "textures/items/chest_minecart";
+const ICON_ABOUT = "textures/items/book_normal";
+const ICON_EXIT = "textures/ui/cancel";
+const LORE = ["§7Sneak + Use on a Chest to register", "§7Use in air to open Remote Deposit"];
+
+async function showMain(player) {
+  const list = loadList(player);
+  const response = await new ActionFormData()
+    .title("§6§lALN:ChestLog")
+    .body(`§7Registered Chests: §e${list.length}\n§a■ Overworld  §c■ Nether  §d■ The End`)
+    .button("§eChest", ICON_CHEST)
+    .button("§bAbout", ICON_ABOUT)
+    .button("§cExit", ICON_EXIT)
+    .show(player);
+  if (response.canceled) return;
+  if (response.selection === 0) await showChestList(player);
+  else if (response.selection === 1) await showAbout(player);
+}
+
+async function showChestList(player) {
+  const list = loadList(player);
+  const form = new ActionFormData()
+    .title("§6§lChests")
+    .body("§7Pick a chest to deposit into, or sort everything at once.")
+    .button("§a§lDeposit All (Sort)");
+  for (const entry of list) form.button(coloredName(entry));
+  form.button("§7Back");
+  const response = await form.show(player);
+  if (response.canceled) return;
+  const selection = response.selection;
+  if (selection === 0) {
+    depositAll(player);
+    return;
+  }
+  if (selection === list.length + 1) {
+    await showMain(player);
+    return;
+  }
+  const entry = list[selection - 1];
+  if (entry) await showDepositForm(player, entry.id);
+}
+
+async function showDepositForm(player, entryId) {
+  const list = loadList(player);
+  const index = list.findIndex((entry) => entry.id === entryId);
+  if (index < 0) return;
+  const entry = list[index];
+  const inventory = getInventory(player);
+  if (!inventory) return;
+
+  const rows = [];
+  for (let slot = 0; slot < 36; slot++) {
+    const item = inventory.getItem(slot);
+    if (!item || item.typeId === ITEM_ID) continue;
+    rows.push({ slot, typeId: item.typeId, amount: item.amount, label: itemDisplayName(item) });
+  }
+  if (rows.length === 0) {
+    player.onScreenDisplay.setActionBar("§e[ChestLog] §fYou have nothing to deposit.");
+    return;
+  }
+
+  const form = new ModalFormData().title(coloredName(entry));
+  for (const row of rows) {
+    form.slider(`§f${row.label} §7(Held: ${row.amount})`, 0, row.amount, {
+      valueStep: 1,
+      defaultValue: 0,
+    });
+  }
+  form.dropdown("Action", ["Deposit Selected Items", "Exit Without Depositing"]);
+  form.submitButton("Confirm");
+
+  const response = await form.show(player);
+  if (response.canceled || !response.formValues) return;
+  const values = response.formValues;
+  if (values[rows.length] !== 0) return;
+
+  const plan = [];
+  rows.forEach((row, i) => {
+    const amount = Number(values[i]);
+    if (amount > 0) plan.push({ slot: row.slot, typeId: row.typeId, amount, targets: [0] });
+  });
+  if (plan.length === 0) return;
+
+  const fresh = loadList(player);
+  const freshIndex = fresh.findIndex((e) => e.id === entryId);
+  if (freshIndex < 0) return;
+  for (const step of plan) step.targets = [freshIndex];
+
+  const result = runDeposit(player, fresh, plan);
+  player.onScreenDisplay.setActionBar(
+    `§a[ChestLog] §fDeposited §e${result.total} §fitems into ${coloredName(fresh[freshIndex])}§f!`
+  );
+}
+
+async function showAbout(player) {
+  const response = await new ActionFormData()
+    .title("§6§lAbout ChestLog")
+    .body(
+      [
+        "§eRegister§f: Sneak + Use the ChestLog on a Chest, Trapped Chest or Barrel and name it. A sign above it reads \"<Name> - Registered\".",
+        "§eColors§f: §aOverworld §cNether §dThe End §fchests are colored by dimension. No coordinates are ever shown.",
+        "§eUnloaded chunks§f: items for a chest in an unloaded chunk are held safely and moved in as soon as it loads.",
+        "§eDeposit All (Sort)§f: sends matching items to your registered chests and sorts them.",
+        "§7by ALNStudios",
+      ].join("\n\n")
+    )
+    .button("§7Back")
+    .show(player);
+  if (!response.canceled) await showMain(player);
+}
+
+function applyLore() {
+  for (const player of world.getAllPlayers()) {
+    try {
+      const inventory = getInventory(player);
+      if (!inventory) continue;
+      for (let slot = 0; slot < 36; slot++) {
+        const item = inventory.getItem(slot);
+        if (!item || item.typeId !== ITEM_ID || item.getLore().length > 0) continue;
+        item.setLore(LORE);
+        inventory.setItem(slot, item);
+      }
+    } catch {}
+  }
+}
+
+export function initUI() {
+  world.afterEvents.itemUse.subscribe((event) => {
+    const player = event.source;
+    if (!event.itemStack || event.itemStack.typeId !== ITEM_ID) return;
+    if (isSuppressed(player)) return;
+    showMain(player).catch(() => {});
+  });
+  system.runInterval(applyLore, 40);
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/main.js (11 lines, 274 bytes)
+
+```
+import { world } from "@minecraft/server";
+import { initSync } from "./chest_sync.js";
+import { initRegister } from "./chest_register.js";
+import { initUI } from "./chest_ui.js";
+
+world.afterEvents.worldLoad.subscribe(() => {
+  initSync();
+  initRegister();
+  initUI();
+});
+```
+
+## FILE: MCPEDL/Addons/ALN-ChestLog/CHANGELOG.md (12 lines, 475 bytes)
+
+```
+# Changelog — ALN ChestLog
+
+---
+
+## [1.0.0] - 2026-11-20 - First Release
+
+### Added
+- **ChestLog item**: Craft it from a Book, an Ender Pearl and Redstone.
+- **Chest registration**: Sneak and use the item on a chest, trapped chest or barrel to name and register it.
+- **Remote menu**: Deposit everything with one button or choose exact amounts per item for a single chest.
+- **Unloaded chunk buffer**: Items for unloaded chests are held and delivered when the chunk loads.
+```
+
+## FILE: MCPEDL/Addons/ALN-ChestLog/DESCRIPTION.md (82 lines, 4407 bytes)
+
+```
+# ALN ChestLog — Wireless remote chest deposit with an unloaded-chunk buffer
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**Craft one ChestLog from a Book, an Ender Pearl and Redstone, then deposit into any registered chest from anywhere.**
+
+> ALN ChestLog adds a craftable ChestLog item that links your chests into one wireless network, so you can deposit and sort items without walking back to base.
+
+## Overview
+
+Register any chest, trapped chest or barrel by sneaking and using the ChestLog on it. Later, open the remote menu from anywhere to deposit everything that belongs in your chests, or pick one chest and choose exact amounts. Chests in unloaded chunks and other dimensions still accept items.
+
+## Key Features
+
+### Registration
+- **What Happens**: Sneak and use the ChestLog on a chest, trapped chest or barrel, then type a name. The chest joins your wireless network and a sign above it reads the name followed by "- Registered".
+
+### Double Chest Support
+- **What Happens**: Both halves of a double chest share one entry, so registering either half registers the whole chest.
+
+### Remote Menu
+- **What Happens**: Use the ChestLog in the air to open a menu with Chest, About and Exit. The Chest screen lists your chests colored by dimension and never shows coordinates.
+
+### Deposit All (Sort)
+- **What Happens**: Sends matching items from your inventory to your registered chests, sorts those chests, and reports the totals on the action bar.
+
+### Per-Item Deposit
+- **What Happens**: Pick one chest and use a slider for each item stack in your inventory to choose exactly how many to deposit.
+
+### Unloaded Chunk Buffer
+- **What Happens**: Items sent to a chest in an unloaded chunk are held safely and moved in as soon as the chunk loads. If the chest is full, the overflow waits and you get an alert.
+
+### Smart Sorting
+- **What Happens**: Identical items merge up to full stacks and chests are ordered alphabetically after every deposit.
+
+### Survival Recipe
+- **What Happens**: Craft the ChestLog from a Book, an Ender Pearl and Redstone.
+
+## How to Use
+
+1. Craft the ChestLog from a Book, an Ender Pearl and Redstone.
+2. Sneak and use the ChestLog on a chest, trapped chest or barrel, then type a name.
+3. Use the ChestLog in the air to open the menu and choose Chest.
+4. Pick Deposit All (Sort) for a quick sweep, or select one chest and set quantities with the sliders.
+5. Chest names are colored green in the Overworld, red in the Nether and purple in The End.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.26.50 or newer.
+- Experimental features: Not verified.
+- Achievements: Likely achievement-friendly.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, ALN ChestLog Bedrock mod, wireless chest storage, remote chest deposit, auto sort chests, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+```
+
+## FILE: MCPEDL/Addons/ALN-ChestLog/project.json (2 lines, 42 bytes)
+
+```
+{"type": "addon", "name": "ALN ChestLog"}
+```
+
+## FILE: MCPEDL/Addons/ALN-ChestLog/README.md (19 lines, 780 bytes)
+
+```
+# ALN ChestLog
+
+Download the current release of **ALN ChestLog** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download ALN ChestLog (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-ChestLog/ALNChestLog%20V1.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALN-ChestLog/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Addons/ALN-ChestLog/resource_pack/manifest.json (36 lines, 596 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN:ChestLog Resources (v1)",
+    "description": "Icon for the ChestLog item. by ALNStudios. Not tested in game.",
+    "uuid": "a1e6b4d9-74db-40e9-bd2e-0531e0c02b3e",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      50
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "da1580c2-a85f-49b3-856c-3a96252ed9a3",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "version": "1.0.0",
+    "authors": [
+      "ALNStudios"
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-ChestLog/resource_pack/textures/item_texture.json (7 lines, 105 bytes)
+
+```
+{
+  "texture_data": {
+    "aln_chest_log": {
+      "textures": "textures/items/aln_chest_log"
+    }
+  }
+}
+```
+
+## FILE: Package/ALN-ChestLog.listing.md (66 lines, 13461 bytes)
+
+````
+# Listing Kit: ALN ChestLog
+
+Tap the Copy button on a block, then paste it into the CurseForge listing. Generated from DESCRIPTION.md: edit that, not this file.
+
+## Package Name
+
+```text
+ALN ChestLog
+```
+
+## Summary (114/256)
+
+```text
+Craft one ChestLog from a Book, an Ender Pearl and Redstone, then deposit into any registered chest from anywhere.
+```
+
+## Description (HTML)
+
+Paste into the CurseForge description editor in source (HTML) mode.
+
+```html
+<div><div style="border:2px solid #15803d;border-radius:18px;line-height:1.5"><br><h1 style="font-size:34px;text-align:center">ALN ChestLog</h1><p style="color:#8a94a3;font-size:14px;text-align:center">by ALNStudios</p><p style="text-align:center"><span style="background-color:#15803d;color:#ffffff;border-radius:20px;font-size:16px">&nbsp;&nbsp;<strong>Craft one ChestLog from a Book, an Ender Pearl and Redstone, then deposit into any registered chest from anywhere.</strong>&nbsp;&nbsp;</span></p><p style="text-align:center;margin-left:16px;margin-right:16px">ALN ChestLog adds a craftable ChestLog item that links your chests into one wireless network, so you can deposit and sort items without walking back to base.</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px"><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Bedrock</strong>: 1.26+&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Experimental</strong>: No&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Achievements</strong>: Likely achievement-friendly&nbsp;&nbsp;</div></div><br></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;About&nbsp;&nbsp;</span></h2>
+<p>Register any chest, trapped chest or barrel by sneaking and using the ChestLog on it. Later, open the remote menu from anywhere to deposit everything that belongs in your chests, or pick one chest and choose exact amounts. Chests in unloaded chunks and other dimensions still accept items.</p>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;What You Get&nbsp;&nbsp;</span></h2>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Registration</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Sneak and use the ChestLog on a chest, trapped chest or barrel, then type a name. The chest joins your wireless network and a sign above it reads the name followed by "- Registered".</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Double Chest Support</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Both halves of a double chest share one entry, so registering either half registers the whole chest.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Remote Menu</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Use the ChestLog in the air to open a menu with Chest, About and Exit. The Chest screen lists your chests colored by dimension and never shows coordinates.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Deposit All (Sort)</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Sends matching items from your inventory to your registered chests, sorts those chests, and reports the totals on the action bar.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Per-Item Deposit</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Pick one chest and use a slider for each item stack in your inventory to choose exactly how many to deposit.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Unloaded Chunk Buffer</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Items sent to a chest in an unloaded chunk are held safely and moved in as soon as the chunk loads. If the chest is full, the overflow waits and you get an alert.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Smart Sorting</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Identical items merge up to full stacks and chests are ordered alphabetically after every deposit.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Survival Recipe</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Craft the ChestLog from a Book, an Ender Pearl and Redstone.</span></p></div></div></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Get Started&nbsp;&nbsp;</span></h2>
+<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Craft the ChestLog from a Book, an Ender Pearl and Redstone.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Sneak and use the ChestLog on a chest, trapped chest or barrel, then type a name.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Use the ChestLog in the air to open the menu and choose Chest.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">4</div></td><td style="text-align:left;">Pick Deposit All (Sort) for a quick sweep, or select one chest and set quantities with the sliders.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">5</div></td><td style="text-align:left;">Chest names are colored green in the Overworld, red in the Nether and purple in The End.</td></tr></tbody></table>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Install&nbsp;&nbsp;</span></h2>
+<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Download the file from this page and open it with Minecraft.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Create or edit a world and turn on the new pack(s) in its settings.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Play. No Experimental toggles needed.</td></tr></tbody></table>
+<div style="border:1px solid #8a94a3;border-radius:16px;text-align:center"><br><div style="background-color:#15803d;color:#ffffff;border-radius:20px;font-size:15px;line-height:2;display:inline-block">&nbsp;&nbsp;<strong>Found a Bug or Have a Suggestion?</strong>&nbsp;&nbsp;</div><p style="font-size:14px;">Please leave a comment on this project page! All bug reports, gameplay feedback, and pack suggestions are welcome and appreciated.</p></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Support&nbsp;&nbsp;</span></h2><div style="border:1px solid #8a94a3;border-radius:16px;text-align:center"><br><a href="https://ko-fi.com/alnstudios"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/ko-fi.png" alt="Support ALNStudios on Ko-fi" width="250"></a><br><br></div><p style="text-align:center"><a href="https://www.curseforge.com/members/allenscreations/projects"><strong>CurseForge</strong></a> &nbsp;|&nbsp; <a href="https://mcpedl.com/user/alnstudios/"><strong>MCPEDL</strong></a> &nbsp;|&nbsp; <a href="https://ko-fi.com/alnstudios"><strong>Ko-fi</strong></a></p>
+<hr>
+<p style="text-align:center;color:#8a94a3;font-size:13px"><strong>By ALNStudios</strong></p>
+<div class="spoiler"><p style="font-size:13px"><strong>Permissions and credits</strong></p><ul style="font-size:13px"><li>Rights: All rights reserved for ALNStudios.</li><li>Content creators: You may feature this creation in videos and streams with credit to ALNStudios.</li><li>Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link to this page.</li><li>Unofficial community creation. Not an official Minecraft product and not approved by or associated with Mojang or Microsoft.</li></ul></div>
+<p style="text-align:center;color:#8a94a3;font-size:12px">Minecraft Bedrock add-on, ALN ChestLog Bedrock mod, wireless chest storage, remote chest deposit, auto sort chests, MCPEDL add-on, CurseForge Bedrock, ALNStudios.</p></div>
+```
+
+## AI Image Prompts
+
+### Reference Images
+
+- **Logo reference**: attach your own logo. The generator uses it only for brand colors and mood. The result must be a new design, not a copy.
+- **Snapshot references**: attach 1 to 4 of your in-game snapshots of this pack. The generator copies their look, not their screen layout.
+
+### Logo Prompt
+
+```text
+Use the attached logo only as a brand reference for its color palette and overall mood. Do not copy it. Create a new, original logo with a different composition and a different main symbol. Do not just recolor, resize, crop, mirror or tweak the attached logo.
+Create a clean, square (1:1) logo image for the Minecraft Bedrock add-on "ALN ChestLog". Craft one ChestLog from a Book, an Ender Pearl and Redstone, then deposit into any registered chest from anywhere.
+Base the main symbol on the pack idea above. Match the blocky look of the attached in-game snapshots. Center the logo, use a simple background, and keep it readable at small sizes.
+Text: "ALN ChestLog" and, in small letters, "ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Do not add Minecraft, Mojang or Microsoft logos, watermarks, or characters from other games.
+```
+
+### Banner Prompt
+
+```text
+Create a wide (16:9) banner image for the Minecraft Bedrock add-on "ALN ChestLog". Craft one ChestLog from a Book, an Ender Pearl and Redstone, then deposit into any registered chest from anywhere.
+Use the attached in-game snapshots as scene and style references: copy their blocky look, lighting, colors and the kind of scenery they show. Make a new composition inspired by them. Do not copy the on-screen HUD, chat or hotbar.
+Use the attached logo only as a brand reference for its colors and mood. Do not copy it. Put a new, original logo design in the banner, large enough to read, on the left or center.
+Hint at these pack features visually: Registration, Double Chest Support, Remote Menu, Deposit All (Sort), Per-Item Deposit.
+Text: "ALN ChestLog" and, in small letters, "by ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no watermarks.
+```
+````
