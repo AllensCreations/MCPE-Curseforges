@@ -46,6 +46,7 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 - **Good To Know**: A hit made while you are already falling is left as vanilla, so the bonus never stacks.
 
 ### Bow Aimbot
+- **Mob Types**: Four On or Off choices under Bow Aimbot pick what it hits: hostile mobs, neutral mobs, passive mobs and players. Hostile mobs and players are on by default, and tamed pets are never targeted.
 - **What Happens**: Arrows you shoot from a bow or crossbow steer toward the hostile mob or player closest to your crosshair within 48 blocks and inside the aim circle on your screen.
 - **How It Works**: Aim roughly at a target and release. The arrow leads a moving target and allows for arrow drop.
 - **Good To Know**: If nothing is near your crosshair, the arrow flies as normal. A mob or player hidden behind blocks is never chosen.

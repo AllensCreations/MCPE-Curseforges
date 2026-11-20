@@ -1,3 +1,7 @@
+## [v19] - 2026-11-20 - ALN-Pointer Aimbot Mob Types
+
+- ALN-Pointer: Bow Aimbot mob type choices and Elder Guardian aim fix.
+
 ## [v18] - 2026-11-20 - ALN-Pointer Grouped Menu and Immortal
 
 - ALN-Pointer: Grouped Combat Settings, Quick Presets, Immortal replaces Never Die, FOV moved to Tuning.

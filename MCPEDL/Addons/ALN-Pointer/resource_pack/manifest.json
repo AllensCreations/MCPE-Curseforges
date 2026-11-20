@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Combat Helper (v18)",
+    "name": "Combat Helper (v19)",
     "description": "Combat Helper item texture. by ALNStudios",
     "uuid": "8232add1-8bcd-4f9b-92e8-59dfc483f35f",
     "version": [
-      18,
+      19,
       0,
       0
     ],
@@ -20,7 +20,7 @@
       "type": "resources",
       "uuid": "83f195c6-92d3-428a-b707-06188b6a5f8d",
       "version": [
-        18,
+        19,
         0,
         0
       ]
@@ -31,6 +31,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "18.0.0"
+    "version": "19.0.0"
   }
 }

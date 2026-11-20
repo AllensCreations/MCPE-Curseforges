@@ -14,6 +14,10 @@ export const TUNING = [
   { id: "auraTarget", name: "Aura hits", min: 0, max: 2, step: 1, def: 0, choices: ["Mobs and players", "Mobs only", "Players only"] },
   { id: "auraFace", name: "Aura turns you to face the target", min: 0, max: 1, step: 1, def: 0, choices: ["No", "Yes"] },
   { id: "aimCircle", name: "Target Highlight aim circle", min: 0, max: 1, step: 1, def: 1, choices: ["Off", "On"] },
+  { id: "aimHostile", name: "Aimbot hits hostile mobs", min: 0, max: 1, step: 1, def: 1, choices: ["Off", "On"] },
+  { id: "aimNeutral", name: "Aimbot hits neutral mobs", min: 0, max: 1, step: 1, def: 0, choices: ["Off", "On"] },
+  { id: "aimPassive", name: "Aimbot hits passive mobs", min: 0, max: 1, step: 1, def: 0, choices: ["Off", "On"] },
+  { id: "aimPlayers", name: "Aimbot hits players", min: 0, max: 1, step: 1, def: 1, choices: ["Off", "On"] },
 ];
 
 export function tune(player, id) {

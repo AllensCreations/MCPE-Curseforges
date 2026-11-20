@@ -12,17 +12,55 @@ const MIN_SPEED = 0.8;
 const minus = (a, b) => ({ x: a.x - b.x, y: a.y - b.y, z: a.z - b.z });
 const length = (v) => Math.hypot(v.x, v.y, v.z);
 
+// Edit these lists to change which mobs count as neutral or never get targeted.
+const NEUTRAL = new Set([
+  "minecraft:wolf",
+  "minecraft:enderman",
+  "minecraft:zombie_pigman",
+  "minecraft:piglin",
+  "minecraft:iron_golem",
+  "minecraft:bee",
+  "minecraft:llama",
+  "minecraft:trader_llama",
+  "minecraft:polar_bear",
+  "minecraft:dolphin",
+  "minecraft:panda",
+  "minecraft:goat",
+]);
+const IGNORED = new Set(["minecraft:armor_stand"]);
+
+function kindOf(entity) {
+  if (NEUTRAL.has(entity.typeId)) return "aimNeutral";
+  return entity.matches({ families: ["monster"] }) ? "aimHostile" : "aimPassive";
+}
+
 function candidates(owner) {
   const options = { location: owner.location, maxDistance: tune(owner, "aimRange") };
-  const mobs = owner.dimension.getEntities({ ...options, families: ["monster"] });
-  const players = owner.dimension.getPlayers({ ...options, excludeGameModes: [GameMode.Creative, GameMode.Spectator] });
-  return [...mobs, ...players].filter((e) => e.id !== owner.id && !isFriend(owner, e));
+  const found = [];
+  if (tune(owner, "aimPlayers") === 1) {
+    found.push(...owner.dimension.getPlayers({ ...options, excludeGameModes: [GameMode.Creative, GameMode.Spectator] }));
+  }
+  for (const entity of owner.dimension.getEntities(options)) {
+    if (entity.id === owner.id || entity.typeId === PLAYER_ID || IGNORED.has(entity.typeId)) continue;
+    if (!entity.getComponent(EntityComponentTypes.Health)) continue;
+    const kind = kindOf(entity);
+    if (tune(owner, kind) !== 1) continue;
+    if (kind !== "aimHostile" && entity.getComponent(EntityComponentTypes.IsTamed)) continue;
+    found.push(entity);
+  }
+  return found.filter((e) => e.id !== owner.id && !isFriend(owner, e));
+}
+
+// Middle of the body: halfway between the feet and the head, so tall or odd shaped mobs are hit.
+function bodyPoint(entity) {
+  const base = entity.location;
+  const head = entity.getHeadLocation();
+  return { x: base.x, y: (base.y + head.y) / 2, z: base.z };
 }
 
 function seen(owner, entity) {
   const eye = owner.getHeadLocation();
-  const base = entity.location;
-  const points = [entity.getHeadLocation(), { x: base.x, y: base.y + 0.6, z: base.z }];
+  const points = [entity.getHeadLocation(), bodyPoint(entity)];
   for (const point of points) {
     const offset = minus(point, eye);
     const distance = length(offset);
@@ -65,8 +103,7 @@ export function pickTarget(owner) {
   let best;
   let bestDist = radius;
   for (const entity of candidates(owner)) {
-    const base = entity.location;
-    const points = [entity.getHeadLocation(), { x: base.x, y: base.y + 0.6, z: base.z }];
+    const points = [entity.getHeadLocation(), bodyPoint(entity)];
     let dist = Infinity;
     for (const point of points) {
       const offset = minus(point, eye);
@@ -83,15 +120,20 @@ export function pickTarget(owner) {
 }
 
 function aimPoint(from, target, speed) {
-  const head = target.getHeadLocation();
+  const body = bodyPoint(target);
   const motion = target.getVelocity();
-  let point = head;
+  let wet = false;
+  try {
+    wet = target.isInWater;
+  } catch (e) {}
+  const drop = wet ? 0 : 0.5 * GRAVITY;
+  let point = body;
   for (let i = 0; i < 2; i++) {
     const t = length(minus(point, from)) / speed;
     point = {
-      x: head.x + motion.x * t,
-      y: head.y + motion.y * t + 0.5 * GRAVITY * t * t,
-      z: head.z + motion.z * t,
+      x: body.x + motion.x * t,
+      y: body.y + motion.y * t + drop * t * t,
+      z: body.z + motion.z * t,
     };
   }
   return point;

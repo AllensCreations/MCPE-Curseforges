@@ -2,6 +2,15 @@
 
 ---
 
+## [v19] - 2026-11-20 - Aimbot Mob Types
+
+### Added
+- **Aimbot Mob Types**: Bow Aimbot now has four On or Off choices under it: hostile mobs, neutral mobs, passive mobs and players. Hostile mobs and players stay on by default. Tamed pets are never targeted.
+
+### Fixed
+- **Elder Guardian**: Arrows now aim at the middle of the body instead of the head point, so big mobs such as the Elder Guardian are no longer overshot.
+- **Underwater Targets**: Arrows aimed at a target in water no longer add the extra lift for gravity, since arrows fly differently in water.
+
 ## [v18] - 2026-11-20 - Grouped Menu and Immortal
 
 ### Added
