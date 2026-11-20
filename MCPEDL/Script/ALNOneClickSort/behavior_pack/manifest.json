@@ -1,0 +1,47 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN:OneClickSort (v1)",
+    "description": "One-click backpack, chest and quick-stack sorter. by ALNStudios",
+    "uuid": "ff3a44de-a0eb-4371-9793-5cdeb9badd4f",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "script",
+      "language": "javascript",
+      "entry": "scripts/main.js",
+      "uuid": "7b755805-62d5-4728-a4f2-c71f48050a6f",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.3.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "version": "1.0.0"
+  }
+}

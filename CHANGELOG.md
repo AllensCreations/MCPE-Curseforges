@@ -27,6 +27,11 @@
 
 ---
 
+## 2026-11-20 - New Script ALNOneClickSort
+
+### Added
+- **ALNOneClickSort**: New script project created from a pack script.
+
 ## [v156] - 2026-11-20 - Chest Market UI
 
 ### Fixed
