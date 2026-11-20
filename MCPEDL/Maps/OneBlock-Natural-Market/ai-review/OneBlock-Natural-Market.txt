@@ -16,7 +16,7 @@
 
 - **Export request:** `MCPEDL/Maps/OneBlock-Natural-Market`
 - **Destination:** `MCPEDL/Maps/OneBlock-Natural-Market`
-- **CURRENT VERSION: v11 / NEXT UPDATE: v12**  (`MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md`)
+- **CURRENT VERSION: v12 / NEXT UPDATE: v13**  (`MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md`)
 - **Text files:** 17
 - **Skipped binary:** 8
 - **Paths not found:** 0
@@ -38,7 +38,7 @@
 - `MCPEDL/Maps/OneBlock-Natural-Market/README.md`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/manifest.json`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/item_texture.json`
-- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/ui/server_form.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/ui_chest_disabled/server_form.json`
 - `Package/OneBlock-Natural-Market.listing.md`
 
 ### Skipped (binary)
@@ -60,7 +60,7 @@ Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
 Context7 Support: Enabled. For full instructions, schemas, and helper script syntax, query Context7 (`INSTRUCTIONS.md`, `PACK_GENERATOR_INSTRUCTIONS.md`, `DOCS_RULES.md`, `make_update_script.py`, `doc_template.py`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v11 / NEXT UPDATE: v12).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v12 / NEXT UPDATE: v13).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -118,10 +118,11 @@ Output ONLY these three sections in order:
 
 ## File Contents
 
-## FILE: changelog_views/OneBlock-Natural-Market.curseforge.html (11 lines, 1326 bytes)
+## FILE: changelog_views/OneBlock-Natural-Market.curseforge.html (12 lines, 2159 bytes)
 
 ```
-<h2>v11 - 2026-11-20 - Chest Market Screen Restored</h2><h3>Fixed</h3><ul></ul><h3>Changed</h3><ul></ul>
+<h2>v12 - 2026-11-20 - Tutorial Platform Update</h2><h3>Added</h3><ul><li><strong>Tutorial platform</strong>: each of the first 8 core breaks adds a grass block beside the core, building a 3x3 platform around it. Players get a short message for each step.</li><li><strong>Anti-phase rescue</strong>: a player inside the central block or the 3x3 platform is teleported on top of the central block.</li></ul><h3>Changed</h3><ul><li><strong>No bedrock</strong>: the core no longer sits on a bedrock block. Existing worlds clear the old bedrock block automatically.</li><li><strong>Standard market screen</strong>: the market uses the game&#x27;s standard form screen again. The chest-style screen files were moved to `resource_pack/ui_chest_disabled/` and are not loaded.</li></ul>
+<h2>11.0.x (1 release)</h2><div class="spoiler"><h3>v11 - 2026-11-20 - Chest Market Screen Restored</h3><h4>Fixed</h4><ul></ul><h4>Changed</h4><ul></ul></div>
 <h2>10.0.x (1 release)</h2><div class="spoiler"><h3>v10 - 2026-11-20 - Standard Market Screen</h3><h4>Fixed</h4><ul></ul><h4>Changed</h4><ul></ul></div>
 <h2>9.0.x (1 release)</h2><div class="spoiler"><h3>v9 - 2026-11-20 - Standard Screen Option</h3><h4>Added</h4><ul></ul></div>
 <h2>8.0.x (1 release)</h2><div class="spoiler"><h3>v8 - 2026-11-20 - Market Screen Fix</h3><h4>Fixed</h4><ul></ul></div>
@@ -133,16 +134,31 @@ Output ONLY these three sections in order:
 <h2>2.0.x (1 release)</h2><div class="spoiler"><h3>v2 - 2026-11-11</h3><h4>Improved</h4><ul></ul><h4>Compatibility note</h4><ul></ul></div>
 ```
 
-## FILE: changelog_views/OneBlock-Natural-Market.github.md (99 lines, 1293 bytes)
+## FILE: changelog_views/OneBlock-Natural-Market.github.md (114 lines, 2035 bytes)
 
 ```
 # Changelog — OneBlock Natural Market
 
-## [v11] - 2026-11-20 - Chest Market Screen Restored
+## [v12] - 2026-11-20 - Tutorial Platform Update
 
-### Fixed
+### Added
+- **Tutorial platform**: each of the first 8 core breaks adds a grass block beside the core, building a 3x3 platform around it. Players get a short message for each step.
+- **Anti-phase rescue**: a player inside the central block or the 3x3 platform is teleported on top of the central block.
 
 ### Changed
+- **No bedrock**: the core no longer sits on a bedrock block. Existing worlds clear the old bedrock block automatically.
+- **Standard market screen**: the market uses the game's standard form screen again. The chest-style screen files were moved to `resource_pack/ui_chest_disabled/` and are not loaded.
+
+<details>
+<summary><b>11.0.x</b> (1 release)</summary>
+
+### [v11] - 2026-11-20 - Chest Market Screen Restored
+
+#### Fixed
+
+#### Changed
+
+</details>
 
 <details>
 <summary><b>10.0.x</b> (1 release)</summary>
@@ -236,18 +252,17 @@ Output ONLY these three sections in order:
 </details>
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/functions/oneblock_setup.mcfunction (2 lines, 56 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/functions/oneblock_setup.mcfunction (2 lines, 54 bytes)
 
 ```
-execute if block 0 -1 0 air run setblock 0 -1 0 bedrock
+# Unused. The core no longer sits on a bedrock block.
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/functions/oneblock_tick.mcfunction (4 lines, 219 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/functions/oneblock_tick.mcfunction (3 lines, 163 bytes)
 
 ```
 execute as @a[tag=void_cleaned,tag=!oneblock_ready] run scriptevent allenscreations:oneblock_ready
 tag @a[tag=void_cleaned,tag=!oneblock_ready] add oneblock_ready
-execute if block 0 -1 0 air run setblock 0 -1 0 bedrock
 ```
 
 ## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/functions/tick.json (7 lines, 62 bytes)
@@ -261,16 +276,16 @@ execute if block 0 -1 0 air run setblock 0 -1 0 bedrock
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/functions/void_cleaner.mcfunction (8 lines, 523 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/functions/void_cleaner.mcfunction (8 lines, 542 bytes)
 
 ```
 execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air
 execute as @a[tag=!void_cleaned] run tp @s 0 1 0
-execute as @a[tag=!void_cleaned] run setblock 0 -1 0 bedrock
+execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run setblock 0 -1 0 air
 execute as @a[tag=!void_cleaned] if block 0 0 0 air run setblock 0 0 0 minecraft:grass_block
 execute as @a[tag=!void_cleaned] run setworldspawn 0 1 0
 execute as @a[tag=!void_cleaned] run tellraw @s {"rawtext":[{"text":"§aOneBlock Natural Market is ready."}]}
-execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cleaned
+execute as @a[tag=!void_cleaned] unless block 0 0 0 air run tag @s add void_cleaned
 ```
 
 ## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/items/trader_ledger.json (28 lines, 602 bytes)
@@ -311,11 +326,11 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v11)",
+    "name": "OneBlock Natural Market (v12)",
     "description": "OneBlock survival with a progression market and regenerating core. by ALNStudios",
     "uuid": "77f07d1a-fa7a-437d-8fea-72068be05162",
     "version": [
-      11,
+      12,
       0,
       0
     ],
@@ -330,7 +345,7 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
       "type": "data",
       "uuid": "6382a3dd-3398-4ec5-851b-748d052c0e36",
       "version": [
-        11,
+        12,
         0,
         0
       ]
@@ -340,7 +355,7 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
       "language": "javascript",
       "uuid": "645e0490-52c0-4f43-b412-0f20375a92fc",
       "version": [
-        11,
+        12,
         0,
         0
       ],
@@ -351,7 +366,7 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
     {
       "uuid": "187333a6-4353-4003-b379-471f85ce9021",
       "version": [
-        11,
+        12,
         0,
         0
       ]
@@ -370,12 +385,12 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "11.0.0"
+    "version": "12.0.0"
   }
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (571 lines, 32671 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (611 lines, 34933 bytes)
 
 ```
 import { world, system, ItemStack, ItemTypes } from "@minecraft/server";
@@ -754,8 +769,8 @@ function ensureCore() {
   }
   try {
     const dimension = world.getDimension("overworld");
-    const bedrock = dimension.getBlock(BEDROCK);
-    if (bedrock && bedrock.typeId === "minecraft:air") bedrock.setType("minecraft:bedrock");
+    const below = dimension.getBlock(BEDROCK);
+    if (below && below.typeId === "minecraft:bedrock") below.setType("minecraft:air");
     const core = dimension.getBlock(CORE);
     if (!core) log("WARN", "Core location 0 0 0 is not loaded.", "core_unloaded");
     if (core && (core.typeId === "minecraft:air" || core.typeId === "minecraft:grass_block")) {
@@ -764,12 +779,9 @@ function ensureCore() {
     }
   } catch (e) { logError("ensureCore", e); }
 }
-function uiTitle(player, text) {
-  return player.hasTag("obm_vanilla_ui") ? text : "NMKT:" + text;
-}
 function marketMain(player) {
   const form = new ActionFormData()
-    .title(uiTitle(player, "NATURAL MARKET"))
+    .title("NATURAL MARKET")
     .body("§6Coins: §e" + balance(player) + "§r\nPersonal breaks: " + personalBreaks(player) +
       "\nShared breaks: " + totalBreaks() + "\nUnlocked tier: " + (unlockedTier(player) + 1) + " / 10\n\nChoose a market section.");
   form.button("Building Blocks", CATEGORIES[0].icon)
@@ -804,7 +816,7 @@ function showCategory(player, category, page = 0) {
   const pageCount = Math.max(1, Math.ceil(items.length / pageSize));
   const safePage = Math.max(0, Math.min(page, pageCount - 1));
   const visible = items.slice(safePage * pageSize, (safePage + 1) * pageSize);
-  const form = new ActionFormData().title(uiTitle(player, category.toUpperCase()))
+  const form = new ActionFormData().title(category.toUpperCase())
     .body("§6Coins: §e" + balance(player) + "§r  |  Page " + (safePage + 1) + "/" + pageCount +
       "\nTap a supply slot to buy the listed bundle." +
       (locked.length ? "\nMore supplies unlock as you mine the core." : ""));
@@ -876,12 +888,51 @@ function sellEligible(player) {
     showBalance(player);
   }).catch(e => { logError("sellEligible", e); tell(player, "The sell confirmation could not open."); });
 }
+const RING = [
+  { x: 1, z: 0 }, { x: 1, z: 1 }, { x: 0, z: 1 }, { x: -1, z: 1 },
+  { x: -1, z: 0 }, { x: -1, z: -1 }, { x: 0, z: -1 }, { x: 1, z: -1 }
+];
+const NOT_SOLID = new Set(["minecraft:air", "minecraft:water", "minecraft:flowing_water", "minecraft:lava", "minecraft:flowing_lava"]);
+function tutorialStep(player, total) {
+  if (total < 1 || total > RING.length) return;
+  const spot = RING[total - 1];
+  try {
+    const block = world.getDimension("overworld").getBlock({ x: CORE.x + spot.x, y: CORE.y, z: CORE.z + spot.z });
+    if (block && block.typeId === "minecraft:air") block.setType("minecraft:grass_block");
+    log("INFO", "Tutorial " + total + "/" + RING.length + ": block placed at " + (CORE.x + spot.x) + " " + CORE.y + " " + (CORE.z + spot.z) + ".");
+  } catch (e) { logError("tutorialStep", e); }
+  tell(player, total < RING.length
+    ? "§eTutorial " + total + "/" + RING.length + ": a block was added beside the core. Keep mining!"
+    : "§aTutorial complete: your 3x3 platform is ready.");
+}
+function rescuePhased() {
+  const dimension = world.getDimension("overworld");
+  for (const player of world.getAllPlayers()) {
+    try {
+      if (player.dimension.id !== "minecraft:overworld" || !player.hasTag("void_cleaned")) continue;
+      const p = player.location;
+      if (p.y >= CORE.y + 0.95 || p.y + 1.75 <= CORE.y + 0.05) continue;
+      let stuck = false;
+      for (let x = Math.floor(p.x - 0.25); x <= Math.floor(p.x + 0.25) && !stuck; x++) {
+        for (let z = Math.floor(p.z - 0.25); z <= Math.floor(p.z + 0.25) && !stuck; z++) {
+          if (Math.abs(x - CORE.x) > 1 || Math.abs(z - CORE.z) > 1) continue;
+          const block = dimension.getBlock({ x, y: CORE.y, z });
+          if (block && !NOT_SOLID.has(block.typeId)) stuck = true;
+        }
+      }
+      if (!stuck) continue;
+      player.teleport({ x: CORE.x + 0.5, y: CORE.y + 1, z: CORE.z + 0.5 }, { keepVelocity: false });
+      log("INFO", player.name + " was inside the core platform and was moved on top of the core.");
+    } catch (e) { logError("rescuePhased", e); }
+  }
+}
 let coreBreakPending = false;
 function onCoreBreak(player) {
   const personal = personalBreaks(player) + 1;
   const total = totalBreaks() + 1;
   writeScore(MINED, player, personal);
   writeScore(TOTAL, GLOBAL_KEY, total);
+  tutorialStep(player, total);
   const milestone = [...MILESTONES].reverse().find(m => total >= m.unlock) ?? MILESTONES[0];
   writeScore(COINS, player, balance(player) + milestone.reward);
   if (MILESTONES.some(m => m.unlock > 0 && m.unlock === total)) {
@@ -900,6 +951,9 @@ system.afterEvents.scriptEventReceive.subscribe(event => {
   }
   if (event.id !== READY_EVENT) return;
   log("INFO", "Ready event received from the tick function.");
+  try {
+    if (totalBreaks() < RING.length) event.sourceEntity?.sendMessage("§6[Tutorial] §rBreak the block you are standing on. Each of the first " + RING.length + " breaks adds a block beside it until a 3x3 platform surrounds the core.");
+  } catch {}
   system.run(() => ensureCore());
 });
 world.afterEvents.itemUse.subscribe(event => {
@@ -947,15 +1001,26 @@ system.runInterval(() => {
   try { ensureCore(); } catch (e) { logError("ensureCore interval", e); }
   log("INFO", statusReport(), "status");
 }, 40);
+system.runInterval(rescuePhased, 5);
 system.run(() => log("INFO", "Script started and handlers registered. Debug chat: /tag @s add obm_debug. Status: /scriptevent allenscreations:obm_status"));
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (84 lines, 4712 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (94 lines, 5383 bytes)
 
 ```
 # Changelog — OneBlock Natural Market
 
 ---
+
+## [v12] - 2026-11-20 - Tutorial Platform Update
+
+### Added
+- **Tutorial platform**: each of the first 8 core breaks adds a grass block beside the core, building a 3x3 platform around it. Players get a short message for each step.
+- **Anti-phase rescue**: a player inside the central block or the 3x3 platform is teleported on top of the central block.
+
+### Changed
+- **No bedrock**: the core no longer sits on a bedrock block. Existing worlds clear the old bedrock block automatically.
+- **Standard market screen**: the market uses the game's standard form screen again. The chest-style screen files were moved to `resource_pack/ui_chest_disabled/` and are not loaded.
 
 ## [v11] - 2026-11-20 - Chest Market Screen Restored
 
@@ -1038,7 +1103,7 @@ system.run(() => log("INFO", "Script started and handlers registered. Debug chat
 - No experimental gameplay toggle was added. Source structure is updated; Minecraft in-game rendering has not been verified.
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/DESCRIPTION.md (81 lines, 5000 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/DESCRIPTION.md (82 lines, 4915 bytes)
 
 ```
 # OneBlock Natural Market — A OneBlock economy and supply shop
@@ -1052,22 +1117,23 @@ system.run(() => log("INFO", "Script started and handlers registered. Debug chat
 
 ## Overview
 
-Start on a small void platform with the central block at (0, 0, 0). Breaking it earns Coins and advances shared progression. Use the Natural Market Ledger to buy supplies and expand the central block's eligible regeneration pool.
+Start in the void on the central block at (0, 0, 0), with no bedrock beneath it. A short tutorial builds your platform: each of the first 8 breaks adds a block beside the core until a 3x3 platform surrounds it. Breaking it earns Coins and advances shared progression. Use the Natural Market Ledger to buy supplies and expand the central block's eligible regeneration pool.
 
 ## Key Features
 
 ### Regenerating OneBlock
 - The central block returns after a successful break.
 - The central block is also restored automatically if something other than a player removes it.
+- If a player ends up inside the central block or the 3x3 platform, they are teleported on top of the central block.
 - The available natural block pool expands as shared mining milestones are reached.
 - The starting core is Dirt and is managed by the map script after one-time void setup.
 
 ### Natural Market Ledger
-- Opens a large **3-row by 9-column chest-inspired market panel** that sizes itself to your screen with a wood-toned frame, individual slot backgrounds, hover/pressed states, and Minecraft item icons. If the custom screen does not display on your device, run `/tag @s add obm_vanilla_ui` to use the game's standard form screen instead.
+- Opens the market in the game's standard form screen: a button list with item icons for each category and supply bundle.
 - Tap a supply slot to purchase its displayed bundle directly; no separate purchase-confirmation screen.
 - Large categories use pages that reserve two slots for navigation controls.
 - The catalogue contains more than 180 configured supplies across ten categories. Entries unavailable in the current game version are hidden.
-- This is a simulated layout for the standard server Action Form. It is **not a real vanilla chest container screen** and does not support draggable slots or native container transfers.
+- The market uses the standard server Action Form. It is **not a chest container screen** and does not support draggable slots or native container transfers.
 
 ### Coins and Selling
 - Successful central-block breaks award Coins.
@@ -1092,7 +1158,7 @@ Start on a small void platform with the central block at (0, 0, 0). Breaking it 
 - Minecraft Bedrock Edition: minimum engine version 1.26.50.
 - Stable Script API dependencies: `@minecraft/server` 2.10.0 and `@minecraft/server-ui` 2.2.0.
 - Experimental features: No experiment requirement detected in the inspected files.
-- UI compatibility: The market's chest-inspired appearance is a resource-pack JSON UI customization of the standard Action Form. Minecraft is deprecating JSON UI in favor of Ore UI, so future game updates may require UI maintenance or a fallback to ordinary forms.
+- UI compatibility: The market uses the game's standard forms, so it does not depend on a custom screen and works with other add-ons that customize form screens.
 - Achievements: Unknown / needs confirmation because the foundation world's settings have not been verified.
 - Verification: Source updated; no package build or in-game test has been run for this UI revision.
 
@@ -1160,11 +1226,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v11)",
+    "name": "OneBlock Natural Market (v12)",
     "description": "Trader Ledger icon for OneBlock Natural Market. by ALNStudios",
     "uuid": "187333a6-4353-4003-b379-471f85ce9021",
     "version": [
-      11,
+      12,
       0,
       0
     ],
@@ -1179,7 +1245,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "bdbf7c5c-5c34-4d6d-93c9-16a468f66b52",
       "version": [
-        11,
+        12,
         0,
         0
       ]
@@ -1190,7 +1256,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "11.0.0"
+    "version": "12.0.0"
   }
 }
 ```
@@ -1209,7 +1275,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/ui/server_form.json (302 lines, 6912 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/ui_chest_disabled/server_form.json (302 lines, 6912 bytes)
 
 ```
 {
@@ -1515,7 +1581,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: Package/OneBlock-Natural-Market.listing.md (66 lines, 10593 bytes)
+## FILE: Package/OneBlock-Natural-Market.listing.md (66 lines, 10736 bytes)
 
 ````
 # Listing Kit: OneBlock Natural Market
@@ -1541,7 +1607,7 @@ Paste into the CurseForge description editor in source (HTML) mode.
 ```html
 <div><div style="border:2px solid #15803d;border-radius:18px;line-height:1.5"><br><h1 style="font-size:34px;text-align:center">OneBlock Natural Market</h1><p style="color:#8a94a3;font-size:14px;text-align:center">by ALNStudios</p><p style="text-align:center"><span style="background-color:#15803d;color:#ffffff;border-radius:20px;font-size:16px">&nbsp;&nbsp;<strong>Use the Natural Market Ledger to buy supplies for a regenerating OneBlock survival challenge.</strong>&nbsp;&nbsp;</span></p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px"><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Bedrock</strong>: 1.26+&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Experimental</strong>: No&nbsp;&nbsp;</div></div><br></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;About&nbsp;&nbsp;</span></h2>
-<p>Start on a small void platform with the central block at (0, 0, 0). Breaking it earns Coins and advances shared progression. Use the Natural Market Ledger to buy supplies and expand the central block's eligible regeneration pool.</p>
+<p>Start in the void on the central block at (0, 0, 0), with no bedrock beneath it. A short tutorial builds your platform: each of the first 8 breaks adds a block beside the core until a 3x3 platform surrounds it. Breaking it earns Coins and advances shared progression. Use the Natural Market Ledger to buy supplies and expand the central block's eligible regeneration pool.</p>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;What You Get&nbsp;&nbsp;</span></h2>
 <div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Regenerating OneBlock</strong></div><div style="margin-left:12px;margin-right:12px"><p></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Natural Market Ledger</strong></div><div style="margin-left:12px;margin-right:12px"><p></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Coins and Selling</strong></div><div style="margin-left:12px;margin-right:12px"><p></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Progression and Supply Pool</strong></div><div style="margin-left:12px;margin-right:12px"><p></p></div></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Get Started&nbsp;&nbsp;</span></h2>
