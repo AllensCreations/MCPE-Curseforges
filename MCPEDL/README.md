@@ -2,7 +2,7 @@
 
 Generated file. Do not edit by hand: it is rebuilt with every build.
 
-34 Add-ons · 6 Maps · 10 Scripts · 6 Minigames
+34 Add-ons · 6 Maps · 11 Scripts · 6 Minigames
 
 ## AI Review Kits
 
@@ -71,6 +71,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | Pack | Version | Source | Package | AI review |
 | :-- | :-- | :-- | :-- | :-- |
 | **ALN:MobStacker** | 1.0.4 | [Source](Script/ALN-MobStacker) | [Package](../Package/ALN-MobStacker.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Script/ALN-MobStacker/ai-review/ALN-MobStacker.txt) |
+| **ALN:OneClickSort** | 1.0.0 | [Source](Script/ALNOneClickSort) | [Package](../Package/ALNOneClickSort.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Script/ALNOneClickSort/ai-review/ALNOneClickSort.txt) |
 | **ALN:SpawnControl** | - | [Source](Script/ALNSpawnControl) | [Package](../Package/ALNSpawnControl.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Script/ALNSpawnControl/ai-review/ALNSpawnControl.txt) |
 | **Always Critical** | - | [Source](Script/Always-Critical) | [Package](../Package/Always-Critical.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Script/Always-Critical/ai-review/Always-Critical.txt) |
 | **Chrono-Bed** | - | [Source](Script/Chrono-Bed) | [Package](../Package/Chrono-Bed.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Script/Chrono-Bed/ai-review/Chrono-Bed.txt) |

@@ -1,11 +1,11 @@
-# ALN:OneClickSort
+# ALNOneClickSort
 
-Download the current release of **ALN:OneClickSort** for Minecraft Bedrock Edition.
+Download the current release of **ALNOneClickSort** for Minecraft Bedrock Edition.
 
 ## Download
 
 - **Package format:** `.mcpack`
-- **Direct download:** [Download ALN:OneClickSort (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/README.md#available-scripts)
+- **Direct download:** [Download ALNOneClickSort (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNOneClickSort/ALNOneClickSort%20V1.mcpack)
 
 ## Installation
 
@@ -15,4 +15,4 @@ Download the current release of **ALN:OneClickSort** for Minecraft Bedrock Editi
 
 ## Pack Information
 
-For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/ALN-OneClickSort/DESCRIPTION.md).
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Script/ALNOneClickSort/DESCRIPTION.md).

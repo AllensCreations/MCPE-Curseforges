@@ -72,3 +72,4 @@ Rename a Feather to Auto-Sort and carry it in your hand. Right-click to sort you
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, ALN:OneClickSort Bedrock mod, inventory sorter, chest sorter, quick stack, Feather, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+
