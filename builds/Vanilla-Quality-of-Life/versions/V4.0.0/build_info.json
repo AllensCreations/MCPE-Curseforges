@@ -1,0 +1,8 @@
+{
+  "changelog_version": "4.0.0",
+  "manifest_version": "4.0.0",
+  "packages": {
+    "VanillaQoL V4.mcaddon": "53c54fb4d262c0a36c79449f71f32adedfcc85f77da3fcca5f7c7e5a44785155"
+  },
+  "source_sha256": "12956b51f697bbea5dde35058540a2b3339db997b7909953a02d114239a4ae26"
+}

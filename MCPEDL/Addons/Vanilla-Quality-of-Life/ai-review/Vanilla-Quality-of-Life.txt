@@ -10,101 +10,13 @@
 
 ---
 
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
 # Repo Export
 
 ## Index
 
 - **Export request:** `MCPEDL/Addons/Vanilla-Quality-of-Life`
 - **Destination:** `MCPEDL/Addons/Vanilla-Quality-of-Life`
-- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Addons/Vanilla-Quality-of-Life/CHANGELOG.md`)
+- **CURRENT VERSION: v4 / NEXT UPDATE: v5**  (`MCPEDL/Addons/Vanilla-Quality-of-Life/CHANGELOG.md`)
 - **Text files:** 447
 - **Skipped binary:** 5
 - **Paths not found:** 0
@@ -575,7 +487,7 @@ Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
 Context7 Support: Enabled. For full instructions, schemas, and helper script syntax, query Context7 (`INSTRUCTIONS.md`, `PACK_GENERATOR_INSTRUCTIONS.md`, `DOCS_RULES.md`, `make_update_script.py`, `doc_template.py`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v3 / NEXT UPDATE: v4).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v4 / NEXT UPDATE: v5).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -633,10 +545,11 @@ Output ONLY these three sections in order:
 
 ## File Contents
 
-## FILE: changelog_views/Vanilla-Quality-of-Life.curseforge.html (9 lines, 12702 bytes)
+## FILE: changelog_views/Vanilla-Quality-of-Life.curseforge.html (10 lines, 13391 bytes)
 
 ```
-<h2>v3 - 2026-11-14</h2><h3>Improved &amp; Balanced</h3><ul><li><strong>Clearer Description</strong>: The listing now follows the new layout with an overview, feature cards, step-by-step instructions, common questions, and a compatibility summary.</li></ul><h3>Fixed</h3><ul><li><strong>Leash Details</strong>: The description no longer says the Warden and Wither can be leashed, and no longer claims a fixed number of leashable mobs.</li><li><strong>Creator Links</strong>: The MCPEDL profile link and its image now appear once and point to the correct page.</li></ul>
+<h2>v4 - 2026-11-20 - Block Tool and Fortune Fixes</h2><h3>Fixed</h3><ul><li><strong>Auto-Switch Blocks</strong>: Auto-switch now picks a Pickaxe for Blocks of Coal, Quartz blocks, Bone Blocks, Respawn Anchors, Conduits, and Lightning Rods, and Packed Mud no longer switches you to a shovel.</li><li><strong>Fortune on Iron and Gold</strong>: Domino Ore Miner now applies Fortune to Iron Ore and Gold Ore, including their Deepslate versions, like it already did for other ores.</li><li><strong>Leaving the World</strong>: Chain mining pause and pending tool wear are now cleared when a player leaves, so nothing carries over.</li></ul>
+<h2>3.0.x (1 release)</h2><div class="spoiler"><h3>v3 - 2026-11-14</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Clearer Description</strong>: The listing now follows the new layout with an overview, feature cards, step-by-step instructions, common questions, and a compatibility summary.</li></ul><h4>Fixed</h4><ul><li><strong>Leash Details</strong>: The description no longer says the Warden and Wither can be leashed, and no longer claims a fixed number of leashable mobs.</li><li><strong>Creator Links</strong>: The MCPEDL profile link and its image now appear once and point to the correct page.</li></ul></div>
 <h2>2.1.x (2 releases)</h2><div class="spoiler"><h3>2.1.1 - 2026-11-14</h3><h4>Added</h4><ul><li><strong>Swap-Back After Mining</strong>: A moment after you stop mining or fighting, the item that was in Slot 1 returns to its original slot instead of staying swapped.</li><li><strong>Tree Size Message</strong>: An action-bar message now tells you when a tree was too large to fell completely.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Faster Auto-Switch</strong>: Auto-switch now waits only about a tenth of a second after a block breaks, so it keeps up with instant-break blocks.</li><li><strong>Hotbar-Only Tool Search</strong>: Auto-switch now only uses tools from your hotbar, so items in your backpack are never moved.</li><li><strong>Chain Mining Experience</strong>: Chain mining now spawns at most 10 experience orbs per chain and gives any extra experience straight to you, so far fewer orbs appear.</li><li><strong>Lighter Held Light Checks</strong>: The held-light update does less work while you carry no light item.</li></ul><h3>2.1.0 - 2026-11-07</h3><h4>Added</h4><ul><li><strong>More Held Lights</strong>: Glowstone, Sea Lanterns, Shroomlights, and Jack o&#x27;Lanterns now light up your surroundings at Light Level 15 while you hold them.</li><li><strong>Silk Touch Auto-Switch</strong>: Hitting glass or ice now switches to a Silk Touch tool if you carry one, and bookshelves prefer a Silk Touch Axe.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Mending Preference</strong>: When two tools are equally good for a job, auto-switch now uses the Mending tool that needs repair first.</li><li><strong>Grouped Chain Drops</strong>: Tree Capitator and Domino Ore Miner now merge their drops into full stacks within 5-block areas, so far fewer item entities appear.</li><li><strong>Direct Block Breaking</strong>: Tree Capitator and Domino Ore Miner now break blocks and place their drops directly instead of running game commands.</li></ul></div>
 <h2>2.0.x (1 release)</h2><div class="spoiler"><h3>2.0.0 - 2026-11-06</h3><h4>Removed</h4><ul><li><strong>Offhand Swap Command</strong>: The command that swapped your offhand item is removed. Use double-sneak or Sneak + Use in the air instead.</li><li><strong>Personal Toggles</strong>: The per-player toggles added in the previous update are removed. Choose how Tree Capitator and Domino Ore Miner behave for your world with the Behavior Pack&#x27;s subpack settings.</li></ul><h4>Added</h4><ul><li><strong>Personal Toggles</strong>: Each player can turn Auto-Switch, Tree Capitator, Domino Ore Miner, and Offhand Quick-Swap on or off for themselves with /scriptevent qol:toggle. Use status to see your settings and reset to turn everything back on.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Zero Durability Tools</strong>: A tool at 0 durability now breaks only the single block you hit and no longer starts Tree Capitator or Domino Ore Miner.</li><li><strong>Durability Floor</strong>: Tree Capitator and Domino Ore Miner now use your tool down to 0 durability without breaking it, and the next use of that tool breaks it.</li></ul></div>
 <h2>1.29.x (1 release)</h2><div class="spoiler"><h3>1.29.0 - 2026-11-02</h3><h4>Fixed</h4><ul><li><strong>Tool Durability</strong>: Tree Capitator and Domino Ore Miner now reliably wear down the tool you used, even if auto-switch changes your held item right afterward.</li><li><strong>Mangrove Trees</strong>: Mangrove trees with moss carpet around their roots are now felled, and breaking Muddy Mangrove Roots no longer switches you to a shovel.</li><li><strong>Auto-Switch After Chain Mining</strong>: Auto-switch now waits about two seconds after a tree or ore vein is chain mined before it can change your tool.</li></ul></div>
@@ -646,19 +559,31 @@ Output ONLY these three sections in order:
 <h2>1.0.x (1 release)</h2><div class="spoiler"><h3>1.0.0 - 2026-11-02</h3><h4>v1.3.x (v1.3.30)</h4><ul><li><strong>Smoother Held Light</strong>: The light from torches and lanterns in your hands now updates every tick, so it keeps up with you while moving and jumping.</li><li><strong>Auto-Switch Only While Mining</strong>: Auto-switch now acts only while you are hitting blocks and no longer changes your tool just because you are looking at something.</li><li><strong>Light Flicker While Pillar Jumping</strong>: Placing a block where your held light was no longer leaves you in the dark; the light moves back to you immediately.</li><li><strong>Durability After Auto-Switch</strong>: If auto-switch changes your tool at the same moment a tree or ore vein is chain mined, the tool you actually mined with is put back in your hand and takes the durability loss instead of the new tool.</li><li><strong>Switch Delay After Breaking</strong>: Auto-switch now waits a few ticks after any block breaks before changing your tool, so the tool you broke the block with keeps its durability loss.</li></ul></div>
 ```
 
-## FILE: changelog_views/Vanilla-Quality-of-Life.github.md (186 lines, 11164 bytes)
+## FILE: changelog_views/Vanilla-Quality-of-Life.github.md (198 lines, 11798 bytes)
 
 ```
 # Changelog — Vanilla Quality of Life
 
-## [v3] - 2026-11-14
-
-### Improved & Balanced
-- **Clearer Description**: The listing now follows the new layout with an overview, feature cards, step-by-step instructions, common questions, and a compatibility summary.
+## [v4] - 2026-11-20 - Block Tool and Fortune Fixes
 
 ### Fixed
+- **Auto-Switch Blocks**: Auto-switch now picks a Pickaxe for Blocks of Coal, Quartz blocks, Bone Blocks, Respawn Anchors, Conduits, and Lightning Rods, and Packed Mud no longer switches you to a shovel.
+- **Fortune on Iron and Gold**: Domino Ore Miner now applies Fortune to Iron Ore and Gold Ore, including their Deepslate versions, like it already did for other ores.
+- **Leaving the World**: Chain mining pause and pending tool wear are now cleared when a player leaves, so nothing carries over.
+
+<details>
+<summary><b>3.0.x</b> (1 release)</summary>
+
+### [v3] - 2026-11-14
+
+#### Improved & Balanced
+- **Clearer Description**: The listing now follows the new layout with an overview, feature cards, step-by-step instructions, common questions, and a compatibility summary.
+
+#### Fixed
 - **Leash Details**: The description no longer says the Warden and Wither can be leashed, and no longer claims a fixed number of leashable mobs.
 - **Creator Links**: The MCPEDL profile link and its image now appear once and point to the correct page.
+
+</details>
 
 <details>
 <summary><b>2.1.x</b> (2 releases)</summary>
@@ -62663,11 +62588,11 @@ Output ONLY these three sections in order:
 {
   "format_version": 2,
   "header": {
-    "name": "Vanilla Quality of Life (v3)",
+    "name": "Vanilla Quality of Life (v4)",
     "description": "Comprehensive survival Quality of Life suite with dynamic light, offhand quick-swap, passive auto-switch tools, tree capitator, and domino ore miner. by ALNStudios",
     "uuid": "5461534c-a7c4-4c5b-9269-8be52d2b761b",
     "version": [
-      3,
+      4,
       0,
       0
     ],
@@ -62683,7 +62608,7 @@ Output ONLY these three sections in order:
       "type": "data",
       "uuid": "81382d42-b64c-4759-8c05-0e4e3e8436e8",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -62694,7 +62619,7 @@ Output ONLY these three sections in order:
       "language": "javascript",
       "uuid": "880944f5-3d04-401d-a5d5-011d89c969b6",
       "version": [
-        3,
+        4,
         0,
         0
       ],
@@ -62709,7 +62634,7 @@ Output ONLY these three sections in order:
     {
       "uuid": "fd036566-d0b1-4f92-9b28-9dd45a376d44",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -62720,7 +62645,7 @@ Output ONLY these three sections in order:
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "3.0.0"
+    "version": "4.0.0"
   },
   "subpacks": [
     {
@@ -73171,7 +73096,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/main.js (1826 lines, 58183 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/main.js (1830 lines, 58436 bytes)
 
 ```
 import { world, system, EquipmentSlot, ItemStack, BlockPermutation } from "@minecraft/server";
@@ -73774,7 +73699,7 @@ function getRequiredToolCategory(typeId) {
   if (id === "web" || id.includes("cobweb")) return ToolCategory.WEB;
   if (id.includes("mangrove_roots")) return ToolCategory.AXE;
 
-  if (id.includes("sandstone") || id.includes("mud_brick")) return ToolCategory.PICKAXE;
+  if (id.includes("sandstone") || id.includes("mud_brick") || id === "packed_mud") return ToolCategory.PICKAXE;
 
   if (
     id.endsWith("concrete_powder") || id.includes("sand") || id.includes("gravel") ||
@@ -73848,7 +73773,9 @@ function getRequiredToolCategory(typeId) {
     id.includes("anvil") || id.includes("enchanting_table") || id.includes("brewing_stand") ||
     id.includes("grindstone") || id.includes("stonecutter") || id.includes("bell") ||
     id.includes("lantern") || id.includes("chain") || id.includes("spawner") ||
-    id.includes("vault") || id.includes("crafter")
+    id.includes("vault") || id.includes("crafter") || id.includes("quartz") ||
+    id === "coal_block" || id === "bone_block" || id === "respawn_anchor" ||
+    id === "conduit" || id === "lightning_rod"
   ) {
     return ToolCategory.PICKAXE;
   }
@@ -74427,7 +74354,7 @@ const NEIGHBOR_OFFSETS_26 = (() => {
 })();
 
 const FORTUNE_AFFECTED_ORE_CATEGORIES = new Set([
-  "coal", "copper", "lapis", "nether_gold", "diamond", "emerald", "quartz",
+  "coal", "iron", "copper", "gold", "lapis", "nether_gold", "diamond", "emerald", "quartz",
 ]);
 
 function calculateRedstoneDropCount(fortuneLevel, minBase = 4, maxBase = 5) {
@@ -74955,6 +74882,8 @@ world.afterEvents.playerLeave.subscribe((event) => {
   lastSwap.delete(id);
   swapBack.delete(id);
   lastBreakTick.delete(id);
+  chainPauseUntil.delete(id);
+  pendingToolDamage.delete(id);
 });
 
 if (world.afterEvents.playerDimensionChange) {
@@ -87076,12 +87005,20 @@ export const MINING_OPTIONS = Object.freeze({
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/CHANGELOG.md (357 lines, 15767 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/CHANGELOG.md (365 lines, 16332 bytes)
 
 ```
 # Changelog — Vanilla Quality of Life
 
 ---
+
+## [v4] - 2026-11-20 - Block Tool and Fortune Fixes
+
+### Fixed
+
+- **Auto-Switch Blocks**: Auto-switch now picks a Pickaxe for Blocks of Coal, Quartz blocks, Bone Blocks, Respawn Anchors, Conduits, and Lightning Rods, and Packed Mud no longer switches you to a shovel.
+- **Fortune on Iron and Gold**: Domino Ore Miner now applies Fortune to Iron Ore and Gold Ore, including their Deepslate versions, like it already did for other ores.
+- **Leaving the World**: Chain mining pause and pending tool wear are now cleared when a player leaves, so nothing carries over.
 
 ## [v3] - 2026-11-14
 
@@ -87505,7 +87442,7 @@ Download the current release of **Vanilla Quality of Life** for Minecraft Bedroc
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Vanilla Quality of Life (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/VanillaQoL%20V3.mcaddon)
+- **Direct download:** [Download Vanilla Quality of Life (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/VanillaQoL%20V4.mcaddon)
 
 ## Installation
 
@@ -87630,11 +87567,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "Vanilla Quality of Life (v3)",
+    "name": "Vanilla Quality of Life (v4)",
     "description": "Client entity locators and visual fixes for Vanilla Quality of Life. by ALNStudios",
     "uuid": "fd036566-d0b1-4f92-9b28-9dd45a376d44",
     "version": [
-      3,
+      4,
       0,
       0
     ],
@@ -87650,7 +87587,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "340a271e-9aa3-4c12-bc1a-0254e887ec38",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -87661,7 +87598,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "3.0.0"
+    "version": "4.0.0"
   }
 }
 ```

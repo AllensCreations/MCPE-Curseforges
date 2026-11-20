@@ -1,13 +1,25 @@
 # Changelog — Vanilla Quality of Life
 
-## [v3] - 2026-11-14
-
-### Improved & Balanced
-- **Clearer Description**: The listing now follows the new layout with an overview, feature cards, step-by-step instructions, common questions, and a compatibility summary.
+## [v4] - 2026-11-20 - Block Tool and Fortune Fixes
 
 ### Fixed
+- **Auto-Switch Blocks**: Auto-switch now picks a Pickaxe for Blocks of Coal, Quartz blocks, Bone Blocks, Respawn Anchors, Conduits, and Lightning Rods, and Packed Mud no longer switches you to a shovel.
+- **Fortune on Iron and Gold**: Domino Ore Miner now applies Fortune to Iron Ore and Gold Ore, including their Deepslate versions, like it already did for other ores.
+- **Leaving the World**: Chain mining pause and pending tool wear are now cleared when a player leaves, so nothing carries over.
+
+<details>
+<summary><b>3.0.x</b> (1 release)</summary>
+
+### [v3] - 2026-11-14
+
+#### Improved & Balanced
+- **Clearer Description**: The listing now follows the new layout with an overview, feature cards, step-by-step instructions, common questions, and a compatibility summary.
+
+#### Fixed
 - **Leash Details**: The description no longer says the Warden and Wither can be leashed, and no longer claims a fixed number of leashable mobs.
 - **Creator Links**: The MCPEDL profile link and its image now appear once and point to the correct page.
+
+</details>
 
 <details>
 <summary><b>2.1.x</b> (2 releases)</summary>
