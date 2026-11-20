@@ -161,6 +161,15 @@ function quickStack(player) {
   );
 }
 
+function countStackable(container, item) {
+  let total = 0;
+  for (let i = 0; i < container.size; i++) {
+    const it = container.getItem(i);
+    if (it && item.isStackableWith(it)) total += it.amount;
+  }
+  return total;
+}
+
 function restock(player) {
   const prefs = getPrefs(player);
   const backpack = getBackpack(player);
@@ -179,10 +188,12 @@ function restock(player) {
 
     for (let t = 0; t < targets.length && need > 0; t++) {
       const container = targets[t].container;
-      for (let s = 0; s < container.size && need > 0; s++) {
+      let allowed = prefs.keepOneInChest ? countStackable(container, held) - 1 : Infinity;
+      for (let s = 0; s < container.size && need > 0 && allowed > 0; s++) {
         const stored = container.getItem(s);
         if (!stored || !held.isStackableWith(stored)) continue;
-        const move = Math.min(need, stored.amount);
+        const move = Math.min(need, stored.amount, allowed);
+        allowed -= move;
         held.amount += move;
         need -= move;
         pulledItems += move;
@@ -220,8 +231,8 @@ export function registerTriggers() {
     const last = lastContainerSort.get(player.id);
     if (last !== undefined && system.currentTick - last < 5) return;
 
-    if (isRestockFeather(item)) restock(player);
-    else if (player.isSneaking) quickStack(player);
+    if (player.isSneaking) quickStack(player);
+    else if (isRestockFeather(item)) restock(player);
     else sortBackpack(player);
   });
 

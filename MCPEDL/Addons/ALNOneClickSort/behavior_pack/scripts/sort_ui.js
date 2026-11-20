@@ -7,7 +7,7 @@ const SORT_MODES = [
   "Alphabetical (A-Z)",
   "Stack Quantity (Highest First)",
 ];
-const DEFAULTS = { sortMode: 0, includeHotbar: false, soundFeedback: true };
+const DEFAULTS = { sortMode: 0, includeHotbar: false, soundFeedback: true, keepOneInChest: false };
 
 export function getPrefs(player) {
   try {
@@ -18,6 +18,7 @@ export function getPrefs(player) {
         sortMode: Number.isInteger(p.sortMode) && p.sortMode >= 0 && p.sortMode < 3 ? p.sortMode : 0,
         includeHotbar: p.includeHotbar === true,
         soundFeedback: p.soundFeedback !== false,
+        keepOneInChest: p.keepOneInChest === true,
       };
     }
   } catch {
@@ -42,7 +43,8 @@ export function openSettings(player, attempt = 0) {
     .title("§aOneClickSort §7Settings")
     .dropdown("Sort Order", SORT_MODES, { defaultValueIndex: prefs.sortMode })
     .toggle("Sort Hotbar Slots (0-8) When Sorting Backpack", { defaultValue: prefs.includeHotbar })
-    .toggle("Audio & Particle Feedback", { defaultValue: prefs.soundFeedback });
+    .toggle("Audio & Particle Feedback", { defaultValue: prefs.soundFeedback })
+    .toggle("Leave 1 Item in Chest When Restocking", { defaultValue: prefs.keepOneInChest });
 
   form
     .show(player)
@@ -53,11 +55,12 @@ export function openSettings(player, attempt = 0) {
         }
         return;
       }
-      const [mode, hotbar, sound] = res.formValues;
+      const [mode, hotbar, sound, keepOne] = res.formValues;
       savePrefs(player, {
         sortMode: Number(mode),
         includeHotbar: !!hotbar,
         soundFeedback: !!sound,
+        keepOneInChest: !!keepOne,
       });
       player.onScreenDisplay.setActionBar("§a[OneClickSort] §fSettings saved!");
     })
