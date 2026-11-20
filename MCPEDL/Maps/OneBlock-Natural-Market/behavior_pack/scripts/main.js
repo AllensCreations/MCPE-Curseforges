@@ -10,6 +10,12 @@ const TOTAL = "obm_total";
 const GLOBAL_KEY = "OneBlockNaturalMarket";
 const POOL_KEY = "obm_purchased_blocks";
 const READY_EVENT = "allenscreations:oneblock_ready";
+const UNSAFE_CORE = new Set([
+  "minecraft:water", "minecraft:flowing_water", "minecraft:lava", "minecraft:flowing_lava",
+  "minecraft:oak_door", "minecraft:torch", "minecraft:redstone_torch", "minecraft:soul_torch",
+  "minecraft:lever", "minecraft:ladder", "minecraft:oak_sapling", "minecraft:sugar_cane",
+  "minecraft:bamboo", "minecraft:repeater", "minecraft:comparator"
+]);
 const CATEGORIES = [
   { name: "Building Blocks", icon: "textures/blocks/stone" },
   { name: "Tools & Gear", icon: "textures/items/iron_pickaxe" },
@@ -297,23 +303,37 @@ function showForm(form, player, retries = 0) {
 }
 function currentPool() {
   const pool = new Set(MILESTONES.filter(m => totalBreaks() >= m.unlock).map(m => m.id));
-  try {
-    const stored = world.getDynamicProperty(POOL_KEY);
-    if (typeof stored === "string") {
-      for (const id of JSON.parse(stored)) if (typeof id === "string" && !["minecraft:water", "minecraft:flowing_water", "minecraft:lava", "minecraft:flowing_lava"].includes(id)) pool.add(id);
-    }
-  } catch {}
+  for (const id of storedPool()) pool.add(id);
   return [...pool];
 }
+function storedPool() {
+  try {
+    const raw = world.getDynamicProperty(POOL_KEY);
+    if (typeof raw !== "string") return [];
+    const list = JSON.parse(raw);
+    if (!Array.isArray(list)) return [];
+    return list
+      .filter(id => typeof id === "string")
+      .map(id => id.includes(":") ? id : "minecraft:" + id)
+      .filter(id => !UNSAFE_CORE.has(id));
+  } catch { return []; }
+}
 function addBlockToPool(item) {
-  if (!item.block || ["minecraft:water", "minecraft:flowing_water", "minecraft:lava", "minecraft:flowing_lava"].includes(item.id)) return;
-  const stored = currentPool();
-  if (!stored.includes(item.id)) stored.push(item.id);
-  try { world.setDynamicProperty(POOL_KEY, JSON.stringify(stored)); } catch {}
+  if (!item.block || UNSAFE_CORE.has(item.id)) return;
+  const stored = storedPool();
+  if (stored.includes(item.id)) return;
+  stored.push(item.id);
+  try { world.setDynamicProperty(POOL_KEY, JSON.stringify(stored.map(id => id.replace("minecraft:", "")))); } catch {}
 }
 function coreBlock() {
   const pool = currentPool();
   return pool[Math.floor(Math.random() * pool.length)] ?? "minecraft:dirt";
+}
+function placeCore(block) {
+  for (let i = 0; i < 5; i++) {
+    try { block.setType(coreBlock()); return; } catch {}
+  }
+  try { block.setType("minecraft:dirt"); } catch {}
 }
 function ensureCore() {
   const players = world.getAllPlayers();
@@ -323,7 +343,7 @@ function ensureCore() {
     const bedrock = dimension.getBlock(BEDROCK);
     if (bedrock && bedrock.typeId === "minecraft:air") bedrock.setType("minecraft:bedrock");
     const core = dimension.getBlock(CORE);
-    if (core && (core.typeId === "minecraft:air" || core.typeId === "minecraft:grass_block")) core.setType(coreBlock());
+    if (core && (core.typeId === "minecraft:air" || core.typeId === "minecraft:grass_block")) placeCore(core);
   } catch {}
 }
 function marketMain(player) {
@@ -350,7 +370,7 @@ function marketMain(player) {
     if (r.selection === CATEGORIES.length + 1) {
       const next = MILESTONES.find(m => m.unlock > personalBreaks(player));
       tell(player, "Balance: " + balance(player) + " Coins. Personal breaks: " + personalBreaks(player) +
-        ". Shared breaks: " + totalBreaks() + ". " + (next ? "Next core milestone: " + next.unlock + " shared breaks." : "All core milestones reached."));
+        ". Shared breaks: " + totalBreaks() + ". " + (next ? "Next market tier unlocks at " + next.unlock + " personal breaks." : "All core milestones reached."));
       showBalance(player);
     }
   }).catch(() => tell(player, "The market menu could not open. Try using the Ledger again."));
@@ -401,10 +421,7 @@ function purchase(player, item) {
   addBlockToPool(item);
   showBalance(player);
 }
-function sellEligible(player) {
-  const inv = inventoryOf(player);
-  if (!inv) return tell(player, "Your inventory is unavailable.");
-  const values = new Map(CATALOG.map(item => [item.id, Math.max(1, Math.floor(item.price / 2))]));
+function scanSellable(inv, values) {
   const slots = [];
   let payout = 0, count = 0;
   for (let i = 0; i < inv.size; i++) {
@@ -416,6 +433,13 @@ function sellEligible(player) {
     payout += unit * stack.amount;
     count += stack.amount;
   }
+  return { slots, payout, count };
+}
+function sellEligible(player) {
+  const inv = inventoryOf(player);
+  if (!inv) return tell(player, "Your inventory is unavailable.");
+  const values = new Map(CATALOG.map(item => [item.id, Math.max(1, Math.floor(item.price / 2))]));
+  const { payout, count } = scanSellable(inv, values);
   if (!count) return tell(player, "You have no eligible market items to sell.");
   const form = new MessageFormData().title("SELL ELIGIBLE ITEMS")
     .body("Sell " + count + " eligible item(s) for " + payout + " Coins? Items not listed in the market are kept.")
@@ -423,8 +447,10 @@ function sellEligible(player) {
     .button2("Cancel");
   showForm(form, player).then(r => {
     if (r.canceled || r.selection !== 0) return;
+    const again = scanSellable(inv, values);
+    if (again.payout !== payout || again.count !== count) return tell(player, "Your inventory changed. Open the sell option again.");
     if (!setBalance(player, balance(player) + payout)) return tell(player, "Balance update failed; your items were kept.");
-    for (const slot of slots) inv.setItem(slot, undefined);
+    for (const slot of again.slots) inv.setItem(slot, undefined);
     tell(player, "Sold " + count + " eligible item(s) for " + payout + " Coins.");
     showBalance(player);
   }).catch(() => tell(player, "The sell confirmation could not open."));
@@ -463,7 +489,7 @@ world.afterEvents.playerBreakBlock.subscribe(event => {
       if (player.hasTag("void_cleaned")) {
         onCoreBreak(player);
         const block = world.getDimension("overworld").getBlock(CORE);
-        if (block && block.typeId === "minecraft:air") block.setType(coreBlock());
+        if (block && block.typeId === "minecraft:air") placeCore(block);
       }
     } catch {}
     coreBreakPending = false;
@@ -483,3 +509,4 @@ system.run(() => {
   objective(MINED);
   objective(TOTAL);
 });
+system.runInterval(() => ensureCore(), 40);

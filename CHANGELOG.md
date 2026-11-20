@@ -27,6 +27,17 @@
 
 ---
 
+## [v151] - 2026-11-20 - Core Reliability Update
+
+### Fixed
+- The central block is now restored automatically if an explosion, piston or command removes it.
+- Selling items no longer risks deleting items that were moved while the confirmation was open.
+- Blocks that cannot stand on their own (torches, doors, saplings and similar) no longer enter the regeneration pool.
+- The next-tier message now correctly shows personal breaks.
+
+### Improved
+- Saved regeneration-pool data is more compact and no longer repeats unlocked milestone blocks.
+
 ## 2026-11-20 - New Addon ALN ChestLog
 
 ### Added

@@ -15,6 +15,7 @@ Start on a small void platform with the central block at (0, 0, 0). Breaking it 
 
 ### Regenerating OneBlock
 - The central block returns after a successful break.
+- The central block is also restored automatically if something other than a player removes it.
 - The available natural block pool expands as shared mining milestones are reached.
 - The starting core is Dirt and is managed by the map script after one-time void setup.
 
@@ -33,7 +34,7 @@ Start on a small void platform with the central block at (0, 0, 0). Breaking it 
 ### Progression and Supply Pool
 - Personal mining milestones unlock additional market supplies.
 - Purchased eligible blocks can be added to the central block's regeneration pool.
-- Liquids are excluded from the purchased regeneration pool.
+- Liquids and blocks that cannot stand on their own (such as torches, doors and saplings) are excluded from the purchased regeneration pool.
 
 ## How to Use
 
