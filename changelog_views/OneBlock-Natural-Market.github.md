@@ -1,10 +1,19 @@
 # Changelog — OneBlock Natural Market
 
-## [v7] - 2026-11-20 - Chest Market UI
+## [v8] - 2026-11-20 - Market Screen Fix
 
 ### Fixed
 
-### Improved
+<details>
+<summary><b>7.0.x</b> (1 release)</summary>
+
+### [v7] - 2026-11-20 - Chest Market UI
+
+#### Fixed
+
+#### Improved
+
+</details>
 
 <details>
 <summary><b>6.0.x</b> (1 release)</summary>
