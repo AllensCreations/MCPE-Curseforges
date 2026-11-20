@@ -2,6 +2,14 @@
 
 ---
 
+## [v11] - 2026-11-20 - Chest Market Screen Restored
+
+### Fixed
+- Fixed the blank chest-style market screen. The game's form container is 0 x 0 pixels, so the percentage sizes resolved to nothing. The container now fills the screen, and the market panel sizes itself from that.
+
+### Changed
+- The chest-style screen is active again. Run `/tag @s add obm_vanilla_ui` to use the game's standard form screen instead, and `/tag @s remove obm_vanilla_ui` to switch back.
+
 ## [v10] - 2026-11-20 - Standard Market Screen
 
 ### Fixed
