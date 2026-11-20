@@ -4,12 +4,13 @@ import { getPrefs, isSettingsBook, openSettings } from "./sort_ui.js";
 import { PARTICLES } from "./feedback_profile.js";
 
 const CONTAINER_IDS = new Set(["minecraft:chest", "minecraft:trapped_chest", "minecraft:barrel"]);
-const STACK_TARGETS = CONTAINER_IDS;
+
 const QUICK_STACK_RADIUS = 6;
 const lastContainerSort = new Map();
 
 function isSortableContainer(typeId) {
-  return CONTAINER_IDS.has(typeId) || typeId.endsWith("shulker_box");
+  if (typeId === "minecraft:ender_chest") return false;
+  return CONTAINER_IDS.has(typeId) || typeId.endsWith("chest") || typeId.endsWith("shulker_box");
 }
 
 function isAutoSortFeather(item) {
@@ -90,7 +91,7 @@ function findNearbyContainers(player) {
         } catch {
           continue;
         }
-        if (!block || !STACK_TARGETS.has(block.typeId)) continue;
+        if (!block || !isSortableContainer(block.typeId)) continue;
         const container = block.getComponent("minecraft:inventory")?.container;
         if (!container) continue;
 
@@ -114,51 +115,46 @@ function findNearbyContainers(player) {
   return found;
 }
 
-function quickStack(player) {
-  const prefs = getPrefs(player);
-  const backpack = getBackpack(player);
-  const targets = findNearbyContainers(player);
+function stockChest(player, block) {
+  try {
+    const container = block.getComponent("minecraft:inventory")?.container;
+    if (!container) return;
+    const prefs = getPrefs(player);
+    const backpack = getBackpack(player);
 
-  const typeSets = targets.map((t) => {
-    const set = new Set();
-    for (let i = 0; i < t.container.size; i++) {
-      const it = t.container.getItem(i);
-      if (it) set.add(it.typeId);
+    const types = new Set();
+    for (let i = 0; i < container.size; i++) {
+      const it = container.getItem(i);
+      if (it) types.add(it.typeId);
     }
-    return set;
-  });
 
-  let movedItems = 0;
-  const touched = new Set();
-
-  for (let slot = 9; slot <= 35; slot++) {
-    let item = backpack.getItem(slot);
-    if (!item || isAutoSortFeather(item) || isRestockFeather(item)) continue;
-
-    for (let t = 0; t < targets.length && item; t++) {
-      if (!typeSets[t].has(item.typeId)) continue;
+    let movedItems = 0;
+    for (let slot = 9; slot <= 35; slot++) {
+      let item = backpack.getItem(slot);
+      if (!item || isAutoSortFeather(item) || isRestockFeather(item)) continue;
+      if (!types.has(item.typeId)) continue;
       const before = item.amount;
-      const leftover = targets[t].container.addItem(item);
-      const after = leftover ? leftover.amount : 0;
-      if (after < before) {
-        movedItems += before - after;
-        touched.add(t);
+      let leftover;
+      try {
+        leftover = container.addItem(item);
+      } catch {
+        continue;
       }
-      item = leftover;
+      const after = leftover ? leftover.amount : 0;
+      if (after < before) movedItems += before - after;
+      backpack.setItem(slot, leftover);
     }
-    backpack.setItem(slot, item);
-  }
 
-  for (const t of touched) {
-    const c = targets[t].container;
-    sortContainer(c, 0, c.size - 1, prefs.sortMode);
+    if (movedItems > 0) sortContainer(container, 0, container.size - 1, prefs.sortMode);
+    feedback(
+      player,
+      prefs,
+      `§b[Stock] §fStocked §e${movedItems} §fitems into the chest!`,
+      { block }
+    );
+  } catch (e) {
+    console.warn(`[ALN:OneClickSort] Chest stock failed: ${e}`);
   }
-
-  feedback(
-    player,
-    prefs,
-    `§b[QuickStack] §fStacked §e${movedItems} §fitems into §a${touched.size} §fnearby chests!`
-  );
 }
 
 function countStackable(container, item) {
@@ -227,12 +223,12 @@ export function registerTriggers() {
       return;
     }
     if (!isAutoSortFeather(item) && !isRestockFeather(item)) return;
+    if (player.isSneaking) return;
 
     const last = lastContainerSort.get(player.id);
     if (last !== undefined && system.currentTick - last < 5) return;
 
-    if (player.isSneaking) quickStack(player);
-    else if (isRestockFeather(item)) restock(player);
+    if (isRestockFeather(item)) restock(player);
     else sortBackpack(player);
   });
 
@@ -241,11 +237,12 @@ export function registerTriggers() {
     if (event.isFirstEvent === false) return;
     if (!player.isSneaking) return;
     if (!isSortableContainer(block.typeId)) return;
-    if (!isAutoSortFeather(itemStack)) return;
+    const sortChest = isAutoSortFeather(itemStack);
+    if (!sortChest && !isRestockFeather(itemStack)) return;
 
     event.cancel = true;
     lastContainerSort.set(player.id, system.currentTick);
-    system.run(() => sortBlockContainer(player, block));
+    system.run(() => (sortChest ? sortBlockContainer(player, block) : stockChest(player, block)));
   });
 
   world.afterEvents.playerLeave.subscribe((e) => lastContainerSort.delete(e.playerId));

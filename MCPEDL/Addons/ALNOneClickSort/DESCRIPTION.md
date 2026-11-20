@@ -1,17 +1,17 @@
-# ALN:OneClickSort — One-Click Backpack, Chest and Quick-Stack Sorter
+# ALN:OneClickSort — One-Click Backpack, Chest and Restock Sorter
 
 **By ALNStudios**
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Sort your 27 backpack slots, any chest, barrel or shulker box, and quick-stack into nearby chests with three custom items.**
+**Sort your 27 backpack slots, sort any chest, barrel or shulker box, and stock chests from your backpack with three custom items.**
 
-> Hold the Auto-Sort Feather and one click sorts your backpack or stacks items into chests within 6 blocks. Good for survival, OneBlock and multiplayer worlds.
+> Hold the Auto-Sort Feather and one click sorts your backpack, or sneak and click a chest to sort it. Hold the Restock Feather to refill your stacks, or sneak and click a chest to stock it. Good for survival, OneBlock and multiplayer worlds.
 
 ## Overview
 
-Hold the Auto-Sort Feather in your hand. Right-click to sort your backpack, sneak and right-click a chest to sort it, or sneak and right-click in the air to quick-stack. The pack adds three items, no blocks or mobs, and never changes world generation, so it works in existing worlds.
+Hold the Auto-Sort Feather in your hand. Right-click to sort your backpack, or sneak and right-click a chest to sort it. Hold the Restock Feather to refill your stacks, or sneak and right-click a chest to stock it. The pack adds three items, no blocks or mobs, and never changes world generation, so it works in existing worlds.
 
 ## Key Features
 
@@ -21,19 +21,19 @@ Hold the Auto-Sort Feather in your hand. Right-click to sort your backpack, snea
 - **Good To Know**: Names, lore, enchantments and durability are kept, and only identical items merge.
 
 ### Chest Sorting
-- **What Happens**: Sneak and right-click a chest, trapped chest, barrel or any shulker box to sort it instantly without opening it. Double chests are sorted as one container.
+- **What Happens**: Sneak and right-click any chest (including copper chests), trapped chest, barrel or shulker box to sort it instantly without opening it. Double chests are sorted as one container.
 - **How It Works**: Sneak, then right-click the container with the Auto-Sort Feather in your hand.
 - **Good To Know**: A sound confirms the sort, and the Normal variant also shows a small particle effect above the container.
 
-### Quick Stack
-- **What Happens**: Sneak and right-click the Auto-Sort Feather in the air to send backpack items into every chest, trapped chest and barrel within 6 blocks that already holds the same item.
-- **How It Works**: Stand near your storage, sneak, right-click, and a message shows how many items went into how many chests.
-- **Good To Know**: The Auto-Sort Feather itself and the hotbar are never moved, and every chest that received items is sorted afterward.
+### Stock Chest
+- **What Happens**: Sneak and right-click any chest (including copper chests), trapped chest, barrel or shulker box with the Restock Feather to send backpack items into it that it already holds.
+- **How It Works**: Hold the Restock Feather, sneak, right-click the container, and a message shows how many items went in.
+- **Good To Know**: Only the 27 backpack slots are used, the feathers and hotbar are never moved, and the chest is sorted afterward. Sneaking and right-clicking in the air does nothing.
 
 ### Restock
-- **What Happens**: Right-click the Restock Feather to refill the partial stacks you already carry, hotbar included, from every chest, trapped chest and barrel within 6 blocks.
+- **What Happens**: Right-click the Restock Feather to refill the partial stacks you already carry, hotbar included, from every chest, copper chest, trapped chest, barrel and shulker box within 6 blocks.
 - **How It Works**: Run low on blocks, step next to your storage, right-click the Restock Feather, and a message shows how many items came from how many chests.
-- **Good To Know**: Restock only tops up stacks you already hold and never fills empty slots. Sneak and right-click the Restock Feather to quick-stack into nearby chests, the same as the Auto-Sort Feather. Turn on Leave 1 Item in Chest in Sort Settings to keep one item of each type in a chest when restocking, so Quick Stack still finds that chest.
+- **Good To Know**: Restock only tops up stacks you already hold and never fills empty slots. Sneak and right-click a chest with the Restock Feather to stock it from your backpack. Turn on Leave 1 Item in Chest in Sort Settings to keep one item of each type in a chest when restocking, so stocking that chest still works.
 
 ### Sort Settings
 - **What Happens**: Right-click the Sort Settings Book to open a menu with four options: Sort Order, Sort Hotbar Slots, Audio and Particle Feedback and Leave 1 Item in Chest.
@@ -55,7 +55,7 @@ Hold the Auto-Sort Feather in your hand. Right-click to sort your backpack, snea
 
 1. Craft the Auto-Sort Feather, Restock Feather and Sort Settings Book with the recipes below, or take them from the Creative inventory under Items.
 2. Right-click in the air to sort your backpack, or sneak and right-click a chest to sort it.
-3. Sneak and right-click in the air next to your chests to quick-stack, or use the Restock Feather to refill your stacks from them.
+3. Right-click the Restock Feather next to your chests to refill your stacks, or sneak and right-click a chest with it to stock that chest.
 4. Right-click the Sort Settings Book to change your options.
 
 ## Common Questions
@@ -96,5 +96,5 @@ Hold the Auto-Sort Feather in your hand. Right-click to sort your backpack, snea
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, ALN:OneClickSort Bedrock mod, inventory sorter, chest sorter, quick stack, Feather, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+Minecraft Bedrock add-on, ALN:OneClickSort Bedrock mod, inventory sorter, chest sorter, restock, Feather, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
 
