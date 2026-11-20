@@ -17,7 +17,7 @@
 - **Export request:** `MCPEDL/Addons/Vanilla-Quality-of-Life`
 - **Destination:** `MCPEDL/Addons/Vanilla-Quality-of-Life`
 - **CURRENT VERSION: v4 / NEXT UPDATE: v5**  (`MCPEDL/Addons/Vanilla-Quality-of-Life/CHANGELOG.md`)
-- **Text files:** 447
+- **Text files:** 463
 - **Skipped binary:** 5
 - **Paths not found:** 0
 
@@ -454,6 +454,22 @@
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/white_wool_stairs.json`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/yellow_concrete_stairs.json`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/yellow_wool_stairs.json`
+- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/autoswitch.js`
+- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/blocks.js`
+- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/chain-mining.js`
+- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/config.js`
+- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/durability.js`
+- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/lifecycle.js`
+- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/light.js`
+- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/offhand.js`
+- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/ore-miner.js`
+- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/player-loop.js`
+- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/slot-switch.js`
+- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/state.js`
+- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/tool-categories.js`
+- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/tool-scoring.js`
+- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/tree-capitator.js`
+- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/utils.js`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/main.js`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/mining-options.js`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/subpacks/default/scripts/mining-options.js`
@@ -545,10 +561,11 @@ Output ONLY these three sections in order:
 
 ## File Contents
 
-## FILE: changelog_views/Vanilla-Quality-of-Life.curseforge.html (10 lines, 13391 bytes)
+## FILE: changelog_views/Vanilla-Quality-of-Life.curseforge.html (11 lines, 14313 bytes)
 
 ```
-<h2>v4 - 2026-11-20 - Block Tool and Fortune Fixes</h2><h3>Fixed</h3><ul><li><strong>Auto-Switch Blocks</strong>: Auto-switch now picks a Pickaxe for Blocks of Coal, Quartz blocks, Bone Blocks, Respawn Anchors, Conduits, and Lightning Rods, and Packed Mud no longer switches you to a shovel.</li><li><strong>Fortune on Iron and Gold</strong>: Domino Ore Miner now applies Fortune to Iron Ore and Gold Ore, including their Deepslate versions, like it already did for other ores.</li><li><strong>Leaving the World</strong>: Chain mining pause and pending tool wear are now cleared when a player leaves, so nothing carries over.</li></ul>
+<h2>v4 - 2026-11-20 - Script Split and Tool Fixes</h2><h3>Improved &amp; Balanced</h3><ul><li><strong>Organized Scripts</strong>: The add-on&#x27;s code is now split into separate files in a lib folder, one for each feature, so it is easier to maintain. Nothing changes in game.</li></ul><h3>Fixed</h3><ul><li><strong>Auto-Switch Blocks</strong>: Auto-switch now picks a Pickaxe for Blocks of Coal, Quartz blocks, Bone Blocks, Respawn Anchors, Conduits, and Lightning Rods, and Packed Mud no longer switches you to a shovel.</li><li><strong>Fortune on Iron and Gold</strong>: Domino Ore Miner now applies Fortune to Iron Ore and Gold Ore, including their Deepslate versions, like it already did for other ores.</li><li><strong>Leaving the World</strong>: Chain mining pause and pending tool wear are now cleared when a player leaves, so nothing carries over.</li></ul>
+<h2>4.0.x (1 release)</h2><div class="spoiler"><h3>v4 - 2026-11-20 - Block Tool and Fortune Fixes</h3><h4>Fixed</h4><ul><li><strong>Auto-Switch Blocks</strong>: Auto-switch now picks a Pickaxe for Blocks of Coal, Quartz blocks, Bone Blocks, Respawn Anchors, Conduits, and Lightning Rods, and Packed Mud no longer switches you to a shovel.</li><li><strong>Fortune on Iron and Gold</strong>: Domino Ore Miner now applies Fortune to Iron Ore and Gold Ore, including their Deepslate versions, like it already did for other ores.</li><li><strong>Leaving the World</strong>: Chain mining pause and pending tool wear are now cleared when a player leaves, so nothing carries over.</li></ul></div>
 <h2>3.0.x (1 release)</h2><div class="spoiler"><h3>v3 - 2026-11-14</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Clearer Description</strong>: The listing now follows the new layout with an overview, feature cards, step-by-step instructions, common questions, and a compatibility summary.</li></ul><h4>Fixed</h4><ul><li><strong>Leash Details</strong>: The description no longer says the Warden and Wither can be leashed, and no longer claims a fixed number of leashable mobs.</li><li><strong>Creator Links</strong>: The MCPEDL profile link and its image now appear once and point to the correct page.</li></ul></div>
 <h2>2.1.x (2 releases)</h2><div class="spoiler"><h3>2.1.1 - 2026-11-14</h3><h4>Added</h4><ul><li><strong>Swap-Back After Mining</strong>: A moment after you stop mining or fighting, the item that was in Slot 1 returns to its original slot instead of staying swapped.</li><li><strong>Tree Size Message</strong>: An action-bar message now tells you when a tree was too large to fell completely.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Faster Auto-Switch</strong>: Auto-switch now waits only about a tenth of a second after a block breaks, so it keeps up with instant-break blocks.</li><li><strong>Hotbar-Only Tool Search</strong>: Auto-switch now only uses tools from your hotbar, so items in your backpack are never moved.</li><li><strong>Chain Mining Experience</strong>: Chain mining now spawns at most 10 experience orbs per chain and gives any extra experience straight to you, so far fewer orbs appear.</li><li><strong>Lighter Held Light Checks</strong>: The held-light update does less work while you carry no light item.</li></ul><h3>2.1.0 - 2026-11-07</h3><h4>Added</h4><ul><li><strong>More Held Lights</strong>: Glowstone, Sea Lanterns, Shroomlights, and Jack o&#x27;Lanterns now light up your surroundings at Light Level 15 while you hold them.</li><li><strong>Silk Touch Auto-Switch</strong>: Hitting glass or ice now switches to a Silk Touch tool if you carry one, and bookshelves prefer a Silk Touch Axe.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Mending Preference</strong>: When two tools are equally good for a job, auto-switch now uses the Mending tool that needs repair first.</li><li><strong>Grouped Chain Drops</strong>: Tree Capitator and Domino Ore Miner now merge their drops into full stacks within 5-block areas, so far fewer item entities appear.</li><li><strong>Direct Block Breaking</strong>: Tree Capitator and Domino Ore Miner now break blocks and place their drops directly instead of running game commands.</li></ul></div>
 <h2>2.0.x (1 release)</h2><div class="spoiler"><h3>2.0.0 - 2026-11-06</h3><h4>Removed</h4><ul><li><strong>Offhand Swap Command</strong>: The command that swapped your offhand item is removed. Use double-sneak or Sneak + Use in the air instead.</li><li><strong>Personal Toggles</strong>: The per-player toggles added in the previous update are removed. Choose how Tree Capitator and Domino Ore Miner behave for your world with the Behavior Pack&#x27;s subpack settings.</li></ul><h4>Added</h4><ul><li><strong>Personal Toggles</strong>: Each player can turn Auto-Switch, Tree Capitator, Domino Ore Miner, and Offhand Quick-Swap on or off for themselves with /scriptevent qol:toggle. Use status to see your settings and reset to turn everything back on.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Zero Durability Tools</strong>: A tool at 0 durability now breaks only the single block you hit and no longer starts Tree Capitator or Domino Ore Miner.</li><li><strong>Durability Floor</strong>: Tree Capitator and Domino Ore Miner now use your tool down to 0 durability without breaking it, and the next use of that tool breaks it.</li></ul></div>
@@ -559,17 +576,32 @@ Output ONLY these three sections in order:
 <h2>1.0.x (1 release)</h2><div class="spoiler"><h3>1.0.0 - 2026-11-02</h3><h4>v1.3.x (v1.3.30)</h4><ul><li><strong>Smoother Held Light</strong>: The light from torches and lanterns in your hands now updates every tick, so it keeps up with you while moving and jumping.</li><li><strong>Auto-Switch Only While Mining</strong>: Auto-switch now acts only while you are hitting blocks and no longer changes your tool just because you are looking at something.</li><li><strong>Light Flicker While Pillar Jumping</strong>: Placing a block where your held light was no longer leaves you in the dark; the light moves back to you immediately.</li><li><strong>Durability After Auto-Switch</strong>: If auto-switch changes your tool at the same moment a tree or ore vein is chain mined, the tool you actually mined with is put back in your hand and takes the durability loss instead of the new tool.</li><li><strong>Switch Delay After Breaking</strong>: Auto-switch now waits a few ticks after any block breaks before changing your tool, so the tool you broke the block with keeps its durability loss.</li></ul></div>
 ```
 
-## FILE: changelog_views/Vanilla-Quality-of-Life.github.md (198 lines, 11798 bytes)
+## FILE: changelog_views/Vanilla-Quality-of-Life.github.md (213 lines, 12624 bytes)
 
 ```
 # Changelog — Vanilla Quality of Life
 
-## [v4] - 2026-11-20 - Block Tool and Fortune Fixes
+## [v4] - 2026-11-20 - Script Split and Tool Fixes
+
+### Improved & Balanced
+- **Organized Scripts**: The add-on's code is now split into separate files in a lib folder, one for each feature, so it is easier to maintain. Nothing changes in game.
 
 ### Fixed
 - **Auto-Switch Blocks**: Auto-switch now picks a Pickaxe for Blocks of Coal, Quartz blocks, Bone Blocks, Respawn Anchors, Conduits, and Lightning Rods, and Packed Mud no longer switches you to a shovel.
 - **Fortune on Iron and Gold**: Domino Ore Miner now applies Fortune to Iron Ore and Gold Ore, including their Deepslate versions, like it already did for other ores.
 - **Leaving the World**: Chain mining pause and pending tool wear are now cleared when a player leaves, so nothing carries over.
+
+<details>
+<summary><b>4.0.x</b> (1 release)</summary>
+
+### [v4] - 2026-11-20 - Block Tool and Fortune Fixes
+
+#### Fixed
+- **Auto-Switch Blocks**: Auto-switch now picks a Pickaxe for Blocks of Coal, Quartz blocks, Bone Blocks, Respawn Anchors, Conduits, and Lightning Rods, and Packed Mud no longer switches you to a shovel.
+- **Fortune on Iron and Gold**: Domino Ore Miner now applies Fortune to Iron Ore and Gold Ore, including their Deepslate versions, like it already did for other ores.
+- **Leaving the World**: Chain mining pause and pending tool wear are now cleared when a player leaves, so nothing carries over.
+
+</details>
 
 <details>
 <summary><b>3.0.x</b> (1 release)</summary>
@@ -73096,15 +73128,362 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/main.js (1830 lines, 58436 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/autoswitch.js (188 lines, 6252 bytes)
 
 ```
-import { world, system, EquipmentSlot, ItemStack, BlockPermutation } from "@minecraft/server";
-import { MINING_OPTIONS } from "./mining-options.js";
+// Auto-switch event handlers and intervals.
+import { world, system } from "@minecraft/server";
+import { CONFIG } from "./config.js";
+import { clearPendingSwap, restoreSwappedItem, scheduleSwapRetry, switchPlayerSlot1Tool } from "./slot-switch.js";
+import { chainPauseUntil, lastAutoSwitchKey, lastBreakTick, lastSwap, miningActivity, recentCombat, swapBack, webInteraction } from "./state.js";
+import { ToolCategory, getRequiredToolCategory } from "./tool-categories.js";
+import { blockKey, getContainer, getTargetBlock, normalizeId } from "./utils.js";
 
-const LOG_PREFIX = "[Vanilla QoL]";
+export const NON_COMBAT_ENTITIES = new Set([
+  "item", "arrow", "spectral_arrow", "xp_orb", "experience_orb", "snowball", "egg",
+  "splash_potion", "lingering_potion", "ender_pearl", "eye_of_ender_signal",
+  "lightning_bolt", "armor_stand", "painting", "item_frame", "glow_item_frame",
+  "leash_knot", "boat", "chest_boat", "minecart", "chest_minecart", "hopper_minecart",
+  "tnt_minecart", "command_block_minecart", "tnt", "falling_block",
+]);
 
-const CONFIG = {
+export function isCombatTarget(entity) {
+  if (!entity?.typeId) return false;
+  const id = normalizeId(entity.typeId);
+  if (NON_COMBAT_ENTITIES.has(id)) return false;
+  try {
+    return id === "player" || !!entity.getComponent("minecraft:health");
+  } catch {
+    return false;
+  }
+}
+
+export function isWeb(block) {
+  if (!block?.typeId) return false;
+  const id = normalizeId(block.typeId);
+  return id === "web" || id.includes("cobweb");
+}
+
+world.afterEvents.entityHitBlock.subscribe((event) => {
+  try {
+    const player = event.damagingEntity;
+    if (!player || player.typeId !== "minecraft:player") return;
+    if (player.selectedSlotIndex !== CONFIG.AUTO_SWITCH_SLOT) return;
+
+    const block = event.hitBlock;
+    if (!block) return;
+
+    const category = getRequiredToolCategory(block.typeId);
+    if (!category) return;
+
+    const now = system.currentTick;
+    const lastCombat = recentCombat.get(player.id) ?? -Infinity;
+    if (now - lastCombat < CONFIG.COMBAT_COOLDOWN_TICKS) return;
+
+    webInteraction.set(player.id, {
+      key: blockKey(block),
+      lastInteractionTick: now,
+    });
+
+    if (!switchPlayerSlot1Tool(player, category, block.typeId)) {
+      scheduleSwapRetry(player, category, block.typeId);
+    }
+  } catch (e) {}
+});
+
+world.afterEvents.entityHitEntity.subscribe((event) => {
+  try {
+    const player = event.damagingEntity;
+    if (!player || player.typeId !== "minecraft:player") return;
+    if (player.selectedSlotIndex !== CONFIG.AUTO_SWITCH_SLOT) return;
+    if (!isCombatTarget(event.hitEntity)) return;
+
+    recentCombat.set(player.id, system.currentTick);
+    clearPendingSwap(player.id);
+    webInteraction.delete(player.id);
+
+    switchPlayerSlot1Tool(player, ToolCategory.WEAPON);
+  } catch (e) {}
+});
+
+system.runInterval(() => {
+  const now = system.currentTick;
+
+  for (const player of world.getAllPlayers()) {
+    try {
+      if (player.selectedSlotIndex !== CONFIG.AUTO_SWITCH_SLOT) {
+        webInteraction.delete(player.id);
+        continue;
+      }
+
+      const lastCombat = recentCombat.get(player.id) ?? -Infinity;
+      if (now - lastCombat < CONFIG.WEB_COMBAT_COOLDOWN) continue;
+
+      const block = getTargetBlock(player);
+      if (!isWeb(block)) {
+        webInteraction.delete(player.id);
+        continue;
+      }
+
+      const key = blockKey(block);
+      const state = webInteraction.get(player.id);
+
+      if (!state || state.key !== key) {
+        webInteraction.set(player.id, {
+          key,
+          lastInteractionTick: -Infinity,
+          initialTick: now,
+        });
+        continue;
+      }
+
+      const elapsed = now - state.initialTick;
+      if (elapsed < CONFIG.WEB_INTERACTION_WINDOW) continue;
+
+      if (now - state.lastInteractionTick > CONFIG.WEB_INTERACTION_WINDOW) {
+        webInteraction.delete(player.id);
+        continue;
+      }
+
+      const inventory = getContainer(player);
+      const held = inventory?.getItem(CONFIG.AUTO_SWITCH_SLOT);
+      if (held && normalizeId(held.typeId).includes("shears")) continue;
+
+      switchPlayerSlot1Tool(player, ToolCategory.WEB, block.typeId);
+      webInteraction.set(player.id, {
+        key,
+        initialTick: now,
+        lastInteractionTick: now,
+      });
+    } catch (e) {}
+  }
+}, CONFIG.WEB_CHECK_INTERVAL);
+
+export function markMining(player) {
+  if (!player || player.typeId !== "minecraft:player") return;
+  if (system.currentTick < (chainPauseUntil.get(player.id) ?? 0)) return;
+  miningActivity.set(player.id, system.currentTick);
+}
+
+world.afterEvents.entityHitBlock.subscribe((event) => {
+  try {
+    markMining(event.damagingEntity);
+  } catch (e) {}
+});
+
+world.afterEvents.playerBreakBlock.subscribe((event) => {
+  try {
+    lastBreakTick.set(event.player.id, system.currentTick);
+  } catch (e) {}
+});
+
+system.runInterval(() => {
+  const now = system.currentTick;
+  for (const player of world.getAllPlayers()) {
+    try {
+      const last = miningActivity.get(player.id);
+      if (last === undefined || now - last > CONFIG.MINING_ACTIVE_TICKS) {
+        lastAutoSwitchKey.delete(player.id);
+        if (swapBack.has(player.id)) {
+          const idleSince = Math.max(
+            last ?? -Infinity,
+            lastBreakTick.get(player.id) ?? -Infinity,
+            recentCombat.get(player.id) ?? -Infinity,
+            lastSwap.get(player.id)?.tick ?? -Infinity
+          );
+          if (now - idleSince > CONFIG.SWAP_BACK_TICKS && now >= (chainPauseUntil.get(player.id) ?? 0)) {
+            restoreSwappedItem(player);
+          }
+        }
+        continue;
+      }
+      if (player.selectedSlotIndex !== CONFIG.AUTO_SWITCH_SLOT) continue;
+
+      const lastCombat = recentCombat.get(player.id) ?? -Infinity;
+      if (now - lastCombat < CONFIG.COMBAT_COOLDOWN_TICKS) continue;
+
+      if (now - (lastBreakTick.get(player.id) ?? -Infinity) < CONFIG.BREAK_SWITCH_DELAY_TICKS) continue;
+
+      const target = getTargetBlock(player);
+      if (!target) continue;
+
+      const key = blockKey(target);
+      if (lastAutoSwitchKey.get(player.id) === key) continue;
+
+      const category = getRequiredToolCategory(target.typeId);
+      if (!category) continue;
+
+      lastAutoSwitchKey.set(player.id, key);
+      switchPlayerSlot1Tool(player, category, target.typeId);
+    } catch (e) {}
+  }
+}, 1);
+```
+
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/blocks.js (53 lines, 1537 bytes)
+
+```
+// Direct block removal and grouped item drops.
+import { ItemStack, BlockPermutation } from "@minecraft/server";
+import { CONFIG } from "./config.js";
+
+export function removeBlockAt(dimension, pos) {
+  const block = dimension.getBlock({ x: pos.x, y: pos.y, z: pos.z });
+  if (!block) return undefined;
+  const typeId = block.typeId;
+  let waterlogged = false;
+  try {
+    waterlogged = block.isWaterlogged === true;
+  } catch (e) {}
+  block.setPermutation(BlockPermutation.resolve("minecraft:air"));
+  if (waterlogged) {
+    try {
+      block.setWaterlogged(true);
+    } catch (e) {}
+  }
+  return typeId;
+}
+
+export function addGroupedDrop(drops, pos, typeId, count) {
+  const size = CONFIG.DROP_GROUP_SIZE;
+  const key = `${Math.floor(pos.x / size)},${Math.floor(pos.y / size)},${Math.floor(pos.z / size)}|${typeId}`;
+  const entry = drops.get(key);
+  if (entry) {
+    entry.count += count;
+  } else {
+    drops.set(key, { typeId, count, x: pos.x, y: pos.y, z: pos.z });
+  }
+}
+
+export function spawnGroupedDrops(dimension, drops) {
+  for (const entry of drops.values()) {
+    let maxStack = 64;
+    try {
+      maxStack = new ItemStack(entry.typeId, 1).maxAmount || 64;
+    } catch (e) {}
+    let remaining = entry.count;
+    while (remaining > 0) {
+      const amount = Math.min(remaining, maxStack);
+      try {
+        dimension.spawnItem(new ItemStack(entry.typeId, amount), {
+          x: entry.x + 0.5,
+          y: entry.y + 0.5,
+          z: entry.z + 0.5,
+        });
+      } catch (e) {}
+      remaining -= amount;
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/chain-mining.js (94 lines, 3336 bytes)
+
+```
+// Break-block handler that starts Tree Capitator and Domino Ore Miner.
+import { world, system } from "@minecraft/server";
+import { MINING_OPTIONS } from "../mining-options.js";
+import { CONFIG } from "./config.js";
+import { checkToolSafety, flushToolDamage, notifyToolProtection } from "./durability.js";
+import { executeDominoOreMiner, getOreInfo, isPickaxe } from "./ore-miner.js";
+import { activeMiningOperations, chainPauseUntil, lastAutoSwitchKey, lastSwap, miningActivity } from "./state.js";
+import { executeTreeCapitator, isAxe, isEligibleLog } from "./tree-capitator.js";
+import { getContainer, getMainhandTool } from "./utils.js";
+
+export function finishChain(player) {
+  activeMiningOperations.delete(player.id);
+  flushToolDamage(player);
+  miningActivity.delete(player.id);
+  lastAutoSwitchKey.delete(player.id);
+}
+
+world.afterEvents.playerBreakBlock.subscribe((event) => {
+  const { block, brokenBlockPermutation, player, dimension, itemStackBeforeBreak } = event;
+
+  if (!player || !player.isValid()) return;
+  if (MINING_OPTIONS.REQUIRE_SNEAK_FOR_CHAIN_MINING) {
+    if (!player.isSneaking) return;
+  } else if (player.selectedSlotIndex !== CONFIG.AUTO_SWITCH_SLOT) {
+    return;
+  }
+  if (activeMiningOperations.has(player.id)) return;
+
+  const startLoc = {
+    x: Math.floor(block.location.x),
+    y: Math.floor(block.location.y),
+    z: Math.floor(block.location.z),
+  };
+  const brokenTypeId = brokenBlockPermutation?.type?.id;
+  if (!brokenTypeId) return;
+
+  const tool = itemStackBeforeBreak || getMainhandTool(player);
+  if (!tool) return;
+
+  const heldNow = getMainhandTool(player);
+  if (!heldNow || heldNow.typeId !== tool.typeId) {
+    const swap = lastSwap.get(player.id);
+    const swapContainer = getContainer(player);
+    if (swap && swapContainer && system.currentTick - swap.tick <= CONFIG.SWAP_RESTORE_TICKS) {
+      try {
+        const moved = swapContainer.getItem(swap.slot);
+        if (moved && moved.typeId === tool.typeId) {
+          swapContainer.swapItems(swap.slot, CONFIG.AUTO_SWITCH_SLOT, swapContainer);
+        }
+      } catch (e) {}
+    }
+    const restored = getMainhandTool(player);
+    if (!restored || restored.typeId !== tool.typeId) return;
+  }
+
+  const toolTypeId = tool.typeId;
+
+  if (isAxe(toolTypeId) && isEligibleLog(brokenTypeId)) {
+    const treeSafety = checkToolSafety(player);
+    if (!treeSafety.safe) {
+      notifyToolProtection(player, Math.max(0, treeSafety.remaining));
+      return;
+    }
+    activeMiningOperations.add(player.id);
+    chainPauseUntil.set(player.id, system.currentTick + CONFIG.CHAIN_PAUSE_TICKS);
+    try {
+      executeTreeCapitator(player, dimension, startLoc, brokenTypeId, () => {
+        finishChain(player);
+      });
+    } catch (err) {
+      finishChain(player);
+    }
+    return;
+  }
+
+  if (isPickaxe(toolTypeId) && getOreInfo(brokenTypeId)) {
+    const oreSafety = checkToolSafety(player);
+    if (!oreSafety.safe) {
+      notifyToolProtection(player, Math.max(0, oreSafety.remaining));
+      return;
+    }
+    activeMiningOperations.add(player.id);
+    chainPauseUntil.set(player.id, system.currentTick + CONFIG.CHAIN_PAUSE_TICKS);
+    try {
+      executeDominoOreMiner(player, dimension, startLoc, brokenTypeId, () => {
+        finishChain(player);
+      });
+    } catch (err) {
+      finishChain(player);
+    }
+    return;
+  }
+});
+```
+
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/config.js (79 lines, 1911 bytes)
+
+```
+// Shared settings and item tables.
+import { MINING_OPTIONS } from "../mining-options.js";
+
+export const LOG_PREFIX = "[Vanilla QoL]";
+
+export const CONFIG = {
   SWAP_WINDOW_TICKS: 14,
   SWAP_COOLDOWN_TICKS: 8,
   LIGHT_UPDATE_TICKS: 1,
@@ -73155,7 +73534,7 @@ const CONFIG = {
   SLEEP_PERCENTAGE: 0,
 };
 
-const SUPPORTED_OFFHAND_ITEMS = new Set([
+export const SUPPORTED_OFFHAND_ITEMS = new Set([
   "minecraft:torch",
   "minecraft:soul_torch",
   "minecraft:redstone_torch",
@@ -73166,7 +73545,7 @@ const SUPPORTED_OFFHAND_ITEMS = new Set([
   "minecraft:recovery_compass",
 ]);
 
-const LIGHT_LEVELS = {
+export const LIGHT_LEVELS = {
   "minecraft:torch": 14,
   "minecraft:soul_torch": 10,
   "minecraft:redstone_torch": 7,
@@ -73177,208 +73556,205 @@ const LIGHT_LEVELS = {
   "minecraft:shroomlight": 15,
   "minecraft:lit_pumpkin": 15,
 };
+```
 
-const qolPlayerState = new Map();
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/durability.js (112 lines, 3605 bytes)
 
-function getQolState(id) {
-  let state = qolPlayerState.get(id);
-  if (!state) {
-    state = {
-      sneakHeld: false,
-      sneakCount: 0,
-      sneakTimer: 0,
-      lastSwapTick: -9999,
-      lightDim: undefined,
-      lightX: undefined,
-      lightY: undefined,
-      lightZ: undefined,
-      lightLevel: 0,
-    };
-    qolPlayerState.set(id, state);
-  }
-  return state;
-}
+```
+// Tool durability protection for chain mining.
+import { system } from "@minecraft/server";
+import { CONFIG } from "./config.js";
+import { pendingToolDamage } from "./state.js";
+import { getContainer, getMainhandTool, isGameMode } from "./utils.js";
 
-function isGameMode(player, mode) {
+export function checkToolSafety(player) {
+  if (isGameMode(player, "creative")) return { safe: true, remaining: 9999 };
+  const tool = getMainhandTool(player);
+  if (!tool) return { safe: false, remaining: 0 };
+
   try {
-    return world.getPlayers({ gameMode: mode, name: player.name }).length > 0;
-  } catch (e) {}
-  try {
-    return !!player.matches({ gameMode: mode });
-  } catch (e) {}
-  return false;
-}
+    const durComp = tool.getComponent("minecraft:durability") || tool.getComponent("durability");
+    if (!durComp) return { safe: true, remaining: 9999 };
 
-function shortId(typeId) {
-  return typeId && typeId.startsWith("minecraft:") ? typeId.slice("minecraft:".length) : typeId;
-}
-
-function describeItem(item) {
-  if (!item) return "Empty";
-  const name = item.nameTag ? `"${item.nameTag}"` : shortId(item.typeId);
-  return item.amount > 1 ? `${name} x${item.amount}` : name;
-}
-
-function getEquipment(player) {
-  try {
-    return player.getComponent("minecraft:equippable") || player.getComponent("equippable");
-  } catch (e) {
-    return undefined;
-  }
-}
-
-function getContainer(player) {
-  try {
-    const inv = player.getComponent("minecraft:inventory") || player.getComponent("inventory");
-    return inv ? inv.container : undefined;
-  } catch (e) {
-    return undefined;
-  }
-}
-
-function cloneStack(item) {
-  if (!item) return undefined;
-  try {
-    if (typeof item.clone === "function") return item.clone();
-  } catch (e) {}
-  try {
-    const copy = new ItemStack(item.typeId, item.amount);
-    if (item.nameTag) copy.nameTag = item.nameTag;
-    return copy;
-  } catch (e) {
-    return undefined;
-  }
-}
-
-function isPlainSupportedStack(item) {
-  if (!item || !SUPPORTED_OFFHAND_ITEMS.has(item.typeId)) return false;
-  try {
-    if (item.nameTag) return false;
-    if (item.getLore().length > 0) return false;
-  } catch (e) {
-    return false;
-  }
-  return true;
-}
-
-function offhandMatches(equipment, item) {
-  const readBack = equipment.getEquipment(EquipmentSlot.Offhand);
-  if (!item) return !readBack;
-  if (!readBack || readBack.typeId !== item.typeId || readBack.amount !== item.amount) return false;
-  if (SUPPORTED_OFFHAND_ITEMS.has(item.typeId)) {
-    return (readBack.nameTag || "") === (item.nameTag || "");
-  }
-  return true;
-}
-
-function forceOffhand(player, item) {
-  if (item && !isPlainSupportedStack(item)) return;
-  const id = item ? shortId(item.typeId) : "air";
-  const amount = item ? item.amount : 1;
-  const commands = item
-    ? [
-        `replaceitem entity @s slot.weapon.offhand 0 ${id} ${amount}`,
-        `replaceitem entity @s slot.weapon.offhand 0 ${item.typeId} ${amount}`,
-        `item replace entity @s slot.weapon.offhand with ${id} ${amount}`,
-      ]
-    : [
-        "replaceitem entity @s slot.weapon.offhand 0 air",
-        "item replace entity @s slot.weapon.offhand with air",
-      ];
-  for (const cmd of commands) {
-    try {
-      player.runCommand(cmd);
-    } catch (e) {}
-  }
-}
-
-function writeOffhand(player, equipment, item) {
-  if (item) {
-    try {
-      const copy = cloneStack(item);
-      equipment.setEquipment(EquipmentSlot.Offhand, copy);
-      if (offhandMatches(equipment, item)) return true;
-    } catch (e) {}
-  } else {
-    try {
-      equipment.setEquipment(EquipmentSlot.Offhand, undefined);
-      if (offhandMatches(equipment, undefined)) return true;
-    } catch (e) {}
-  }
-  forceOffhand(player, item);
-  return offhandMatches(equipment, item);
-}
-
-function writeMainhand(player, equipment, item) {
-  try {
-    const accepted = equipment.setEquipment(EquipmentSlot.Mainhand, item ? cloneStack(item) : undefined);
-    if (accepted !== false) return true;
-  } catch (e) {}
-  try {
-    const container = getContainer(player);
-    if (container) {
-      container.setItem(player.selectedSlotIndex, item ? cloneStack(item) : undefined);
-      return true;
+    const remaining = durComp.maxDurability - durComp.damage - getPendingToolDamage(player);
+    if (remaining <= CONFIG.DURABILITY_SAFETY_THRESHOLD) {
+      return { safe: false, remaining };
     }
-  } catch (e) {}
-  return false;
+    return { safe: true, remaining };
+  } catch (e) {
+    return { safe: true, remaining: 9999 };
+  }
 }
 
-function swapHands(player) {
-  const state = getQolState(player.id);
-  if (system.currentTick - state.lastSwapTick < CONFIG.SWAP_COOLDOWN_TICKS) return false;
+export function getPendingToolDamage(player) {
+  const entry = pendingToolDamage.get(player.id);
+  return entry ? entry.damage : 0;
+}
 
-  const equipment = getEquipment(player);
-  if (!equipment) return false;
+export function applyToolDurabilityDamage(player) {
+  if (isGameMode(player, "creative")) return;
+  const container = getContainer(player);
+  if (!container) return;
 
-  let main;
-  let off;
-  try {
-    main = equipment.getEquipment(EquipmentSlot.Mainhand);
-    off = equipment.getEquipment(EquipmentSlot.Offhand);
-  } catch (e) {
-    return false;
-  }
-
-  const mainAllowed = main && SUPPORTED_OFFHAND_ITEMS.has(main.typeId);
-  const offAllowed = off && SUPPORTED_OFFHAND_ITEMS.has(off.typeId);
-
-  if (!mainAllowed && !offAllowed) {
-    return false;
-  }
-
-  const mainCopy = cloneStack(main);
-  const offCopy = cloneStack(off);
-
-  if (!writeOffhand(player, equipment, mainCopy)) {
-    writeOffhand(player, equipment, offCopy);
-    writeMainhand(player, equipment, mainCopy);
-    return false;
-  }
-
-  if (!writeMainhand(player, equipment, offCopy)) {
-    writeOffhand(player, equipment, offCopy);
-    writeMainhand(player, equipment, mainCopy);
-    return false;
-  }
-
-  state.lastSwapTick = system.currentTick;
+  const slot = player.selectedSlotIndex;
+  const tool = container.getItem(slot);
+  if (!tool) return;
 
   try {
-    player.playSound("armor.equip_generic", { pitch: 1.15, volume: 0.85 });
+    const durComp = tool.getComponent("minecraft:durability") || tool.getComponent("durability");
+    if (!durComp) return;
+
+    let unbreakingLevel = 0;
+    try {
+      const enchComp = tool.getComponent("minecraft:enchantable") || tool.getComponent("enchantable");
+      if (enchComp) {
+        for (const ench of enchComp.getEnchantments()) {
+          const enchId = (ench.type?.id || ench.id || "").toLowerCase();
+          if (enchId.includes("unbreaking")) {
+            unbreakingLevel = ench.level;
+            break;
+          }
+        }
+      }
+    } catch (e) {}
+
+    const shouldDamage = unbreakingLevel > 0
+      ? Math.random() < 1 / (unbreakingLevel + 1)
+      : true;
+    if (!shouldDamage) return;
+
+    let entry = pendingToolDamage.get(player.id);
+    if (!entry || entry.slot !== slot || entry.typeId !== tool.typeId) {
+      entry = { slot, typeId: tool.typeId, damage: 0 };
+      pendingToolDamage.set(player.id, entry);
+    }
+    entry.damage += 1;
+  } catch (e) {}
+}
+
+export function flushToolDamage(player) {
+  const entry = pendingToolDamage.get(player.id);
+  pendingToolDamage.delete(player.id);
+  if (!entry || entry.damage <= 0) return;
+
+  system.run(() => {
+    try {
+      if (!player.isValid()) return;
+      const container = getContainer(player);
+      if (!container) return;
+
+      const tool = container.getItem(entry.slot);
+      if (!tool || tool.typeId !== entry.typeId) return;
+
+      const durComp = tool.getComponent("minecraft:durability") || tool.getComponent("durability");
+      if (!durComp) return;
+
+      durComp.damage = Math.min(durComp.damage + entry.damage, durComp.maxDurability);
+      container.setItem(entry.slot, tool);
+    } catch (e) {}
+  });
+}
+
+export function notifyToolProtection(player, remainingDurability) {
+  try {
+    player.playSound(CONFIG.ALERT_SOUND, {
+      pitch: CONFIG.ALERT_PITCH,
+      volume: CONFIG.ALERT_VOLUME,
+    });
     player.onScreenDisplay.setActionBar(
-      `§6Offhand: §f${describeItem(mainCopy)} §8| §eMain: §f${describeItem(offCopy)}`
+      `§e[Tool Protection] §cStopped mining to save tool! §6(${remainingDurability} durability left)`
     );
   } catch (e) {}
-
-  return true;
 }
 
-function isLightBlock(typeId) {
+export function notifyTreeTooLarge(player) {
+  try {
+    player.onScreenDisplay.setActionBar("§e[Tree Capitator] §6Tree too large, some logs were left standing");
+  } catch (e) {}
+}
+```
+
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/lifecycle.js (63 lines, 2487 bytes)
+
+```
+// Player leave cleanup, startup tasks and the startup log.
+import { world, system, BlockPermutation } from "@minecraft/server";
+import { CONFIG, LOG_PREFIX } from "./config.js";
+import { clearPlacedLight, isLightBlock, markLightsCleaned, persistLights } from "./light.js";
+import { clearPendingSwap } from "./slot-switch.js";
+import { activeMiningOperations, chainPauseUntil, lastAutoSwitchKey, lastBreakTick, lastSwap, miningActivity, pendingToolDamage, qolPlayerState, recentCombat, swapBack, webInteraction } from "./state.js";
+
+world.afterEvents.playerLeave.subscribe((event) => {
+  miningActivity.delete(event.playerId);
+  lastAutoSwitchKey.delete(event.playerId);
+});
+
+world.afterEvents.playerLeave.subscribe((event) => {
+  const id = event.playerId;
+  if (!id) return;
+  const state = qolPlayerState.get(id);
+  if (state) clearPlacedLight(state);
+  qolPlayerState.delete(id);
+  recentCombat.delete(id);
+  webInteraction.delete(id);
+  clearPendingSwap(id);
+  activeMiningOperations.delete(id);
+  lastSwap.delete(id);
+  swapBack.delete(id);
+  lastBreakTick.delete(id);
+  chainPauseUntil.delete(id);
+  pendingToolDamage.delete(id);
+});
+
+system.runTimeout(() => {
+  try {
+    const raw = world.getDynamicProperty("qol:lights");
+    if (typeof raw === "string") {
+      const active = new Set();
+      for (const st of qolPlayerState.values()) {
+        if (st.lightDim !== undefined && st.lightX !== undefined) {
+          active.add(`${st.lightDim.id},${st.lightX},${st.lightY},${st.lightZ}`);
+        }
+      }
+      for (const [dimId, x, y, z] of JSON.parse(raw)) {
+        if (active.has(`${dimId},${x},${y},${z}`)) continue;
+        try {
+          const b = world.getDimension(dimId).getBlock({ x, y, z });
+          if (b && isLightBlock(b.typeId)) b.setPermutation(BlockPermutation.resolve("minecraft:air"));
+        } catch (e) {}
+      }
+    }
+  } catch (e) {}
+  markLightsCleaned();
+  persistLights();
+
+  try {
+    if (!world.getDynamicProperty("qol:gamerules_set")) {
+      const dim = world.getDimension("overworld");
+      dim.runCommand(`gamerule playersSleepingPercentage ${CONFIG.SLEEP_PERCENTAGE}`);
+      dim.runCommand(`gamerule randomTickSpeed ${CONFIG.RANDOM_TICK_SPEED}`);
+      world.setDynamicProperty("qol:gamerules_set", true);
+    }
+  } catch (e) {}
+}, CONFIG.STARTUP_DELAY_TICKS);
+
+console.warn(`${LOG_PREFIX} Initialized. Tree Capitator: ${CONFIG.TREE_CAPITATOR_ENABLED ? "ON" : "OFF"}; Vein Miner: ${CONFIG.DOMINO_ORE_MINER_ENABLED ? "ON" : "OFF"}.`);
+```
+
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/light.js (170 lines, 4542 bytes)
+
+```
+// Moving held light.
+import { world, EquipmentSlot, BlockPermutation } from "@minecraft/server";
+import { LIGHT_LEVELS } from "./config.js";
+import { getQolState, qolPlayerState } from "./state.js";
+import { getEquipment } from "./utils.js";
+
+export function isLightBlock(typeId) {
   return typeId === "minecraft:light_block" || (typeId && typeId.startsWith("minecraft:light_block"));
 }
 
-function canHoldLight(block) {
+export function canHoldLight(block) {
   if (!block) return false;
   try {
     if (block.isAir) return true;
@@ -73390,7 +73766,7 @@ function canHoldLight(block) {
 
 let lightsCleaned = false;
 
-function persistLights() {
+export function persistLights() {
   if (!lightsCleaned) return;
   try {
     const list = [];
@@ -73403,7 +73779,7 @@ function persistLights() {
   } catch (e) {}
 }
 
-function clearPlacedLight(state) {
+export function clearPlacedLight(state) {
   if (!state || state.lightDim === undefined || state.lightX === undefined) return;
   try {
     const block = state.lightDim.getBlock({ x: state.lightX, y: state.lightY, z: state.lightZ });
@@ -73419,7 +73795,7 @@ function clearPlacedLight(state) {
   persistLights();
 }
 
-function placeLightBlock(dim, x, y, z, level) {
+export function placeLightBlock(dim, x, y, z, level) {
   try {
     const block = dim.getBlock({ x, y, z });
     if (!canHoldLight(block)) return false;
@@ -73439,13 +73815,13 @@ function placeLightBlock(dim, x, y, z, level) {
   }
 }
 
-function getHeldLightLevel(main, off) {
+export function getHeldLightLevel(main, off) {
   const offLevel = off ? LIGHT_LEVELS[off.typeId] || 0 : 0;
   const mainLevel = main ? LIGHT_LEVELS[main.typeId] || 0 : 0;
   return Math.max(offLevel, mainLevel);
 }
 
-function updatePlayerLight(player, state) {
+export function updatePlayerLight(player, state) {
   const equipment = getEquipment(player);
   if (!equipment) {
     clearPlacedLight(state);
@@ -73510,789 +73886,192 @@ function updatePlayerLight(player, state) {
   persistLights();
 }
 
-const ToolCategory = {
-  PICKAXE: "pickaxe",
-  AXE: "axe",
-  SHOVEL: "shovel",
-  LEAVES: "leaves",
-  WEB: "web",
-  SHEARS_OR_SWORD: "shears_or_sword",
-  HOE: "hoe",
-  WEAPON: "weapon",
-  SILK: "silk",
-};
-
-const TIER_SCORES = {
-  netherite: 50,
-  diamond: 40,
-  iron: 30,
-  stone: 20,
-  golden: 15,
-  gold: 15,
-  wooden: 10,
-  wood: 10,
-};
-
-const IGNORED_BLOCKS = new Set([
-  "air", "cave_air", "void_air", "water", "flowing_water", "lava", "flowing_lava",
-  "bedrock", "barrier", "structure_void", "light_block", "portal", "end_portal",
-  "end_portal_frame", "end_gateway",
-  "redstone_torch", "unlit_redstone_torch", "redstone_wire",
-]);
-
-const NON_COMBAT_ENTITIES = new Set([
-  "item", "arrow", "spectral_arrow", "xp_orb", "experience_orb", "snowball", "egg",
-  "splash_potion", "lingering_potion", "ender_pearl", "eye_of_ender_signal",
-  "lightning_bolt", "armor_stand", "painting", "item_frame", "glow_item_frame",
-  "leash_knot", "boat", "chest_boat", "minecart", "chest_minecart", "hopper_minecart",
-  "tnt_minecart", "command_block_minecart", "tnt", "falling_block",
-]);
-
-const recentCombat = new Map();
-const pendingSwaps = new Map();
-const webInteraction = new Map();
-
-function normalizeId(id) {
-  return (id ?? "").replace(/^minecraft:/, "").toLowerCase();
-}
-
-function getMaterialTier(id) {
-  for (const [tier, score] of Object.entries(TIER_SCORES)) {
-    if (id.includes(tier)) return score;
-  }
-  return 0;
-}
-
-function readDurability(item) {
+world.afterEvents.playerPlaceBlock.subscribe((event) => {
   try {
-    const dur = item?.getComponent("minecraft:durability") || item?.getComponent("durability");
-    if (!dur) return null;
-    const max = dur.maxDurability;
-    const damage = dur.damage;
-    return {
-      remaining: Math.max(0, max - damage),
-      fraction: max > 0 ? (max - damage) / max : 1,
-    };
-  } catch {
-    return null;
-  }
-}
-
-function readEnchantments(item) {
-  const result = { efficiency: 0, fortune: 0, silk: 0, sharpness: 0, mending: 0 };
-  try {
-    const enchants = item?.getComponent("minecraft:enchantable") || item?.getComponent("enchantable");
-    if (!enchants) return result;
-    for (const ench of enchants.getEnchantments()) {
-      const type = (ench.type?.id || ench.id || "").toLowerCase();
-      if (type.includes("efficiency")) result.efficiency = ench.level;
-      if (type.includes("fortune")) result.fortune = ench.level;
-      if (type.includes("silk_touch")) result.silk = ench.level;
-      if (type.includes("sharpness")) result.sharpness = ench.level;
-      if (type.includes("mending")) result.mending = ench.level;
-    }
-  } catch {}
-  return result;
-}
-
-function needsRepair(item) {
-  if (!item) return false;
-  const durability = readDurability(item);
-  if (!durability || durability.fraction >= 1) return false;
-  return readEnchantments(item).mending > 0;
-}
-
-function scoreItem(item, category, slot, blockId) {
-  if (!item?.typeId) return -Infinity;
-  const id = normalizeId(item.typeId);
-  let score = 0;
-
-  switch (category) {
-    case ToolCategory.PICKAXE:
-      if (!id.endsWith("_pickaxe")) return -Infinity;
-      score = getMaterialTier(id);
-      break;
-    case ToolCategory.AXE:
-      if (!id.endsWith("_axe")) return -Infinity;
-      score = getMaterialTier(id);
-      break;
-    case ToolCategory.SHOVEL:
-      if (!id.endsWith("_shovel")) return -Infinity;
-      score = getMaterialTier(id);
-      break;
-    case ToolCategory.HOE:
-      if (!id.endsWith("_hoe")) return -Infinity;
-      score = getMaterialTier(id);
-      break;
-    case ToolCategory.LEAVES:
-      if (id.includes("shears")) score = 100;
-      else if (id.endsWith("_hoe")) score = 50 + getMaterialTier(id);
-      else if (id.endsWith("_sword")) score = 20 + getMaterialTier(id);
-      else return -Infinity;
-      break;
-    case ToolCategory.WEB:
-      if (id.includes("shears")) score = 100;
-      else if (id.endsWith("_sword")) score = 50 + getMaterialTier(id);
-      else return -Infinity;
-      break;
-    case ToolCategory.SHEARS_OR_SWORD:
-      if (id.includes("shears")) score = 100;
-      else if (id.endsWith("_sword")) score = 50 + getMaterialTier(id);
-      else return -Infinity;
-      break;
-    case ToolCategory.SILK:
-      if (!/_(pickaxe|axe|shovel|hoe)$/.test(id)) return -Infinity;
-      if (readEnchantments(item).silk <= 0) return -Infinity;
-      score = getMaterialTier(id);
-      break;
-    case ToolCategory.WEAPON:
-      if (id.endsWith("_sword")) score = 100 + getMaterialTier(id);
-      else if (id.endsWith("_axe")) score = 80 + getMaterialTier(id);
-      else if (id.endsWith("_mace")) score = 90;
-      else return -Infinity;
-      break;
-    default:
-      return -Infinity;
-  }
-
-  const enchants = readEnchantments(item);
-  score += enchants.efficiency * 2;
-  score += enchants.sharpness * 3;
-
-  if (category === ToolCategory.PICKAXE && blockId) {
-    if (blockId.endsWith("_ore")) {
-      score += enchants.fortune * 1.5;
-      if (enchants.silk > 0) score -= 8;
-    }
-  }
-
-  if (category === ToolCategory.AXE && blockId === "bookshelf" && enchants.silk > 0) {
-    score += CONFIG.SILK_BLOCK_BONUS;
-  }
-
-  const durability = readDurability(item);
-  if (durability) {
-    if (durability.remaining <= CONFIG.LOW_DURABILITY_USES) {
-      score -= CONFIG.LOW_DURABILITY_PENALTY;
-    } else {
-      score += durability.fraction;
-    }
-  }
-
-  return score;
-}
-
-function getRequiredToolCategory(typeId) {
-  if (!typeId) return null;
-  const id = normalizeId(typeId);
-  if (IGNORED_BLOCKS.has(id)) return null;
-
-  if (
-    id === "glass" || id === "glass_pane" || id === "tinted_glass" ||
-    id === "stained_glass" || id === "stained_glass_pane" ||
-    id.endsWith("_stained_glass") || id.endsWith("_stained_glass_pane") ||
-    id === "ice" || id === "packed_ice" || id === "blue_ice"
-  ) {
-    return ToolCategory.SILK;
-  }
-
-  if (id === "web" || id.includes("cobweb")) return ToolCategory.WEB;
-  if (id.includes("mangrove_roots")) return ToolCategory.AXE;
-
-  if (id.includes("sandstone") || id.includes("mud_brick") || id === "packed_mud") return ToolCategory.PICKAXE;
-
-  if (
-    id.endsWith("concrete_powder") || id.includes("sand") || id.includes("gravel") ||
-    id.includes("clay") || id.includes("dirt") || id === "grass_block" ||
-    id.includes("podzol") || id.includes("mycelium") || id.includes("farmland") ||
-    id.includes("mud") || id.includes("soul_soil") || id.includes("snow")
-  ) {
-    return ToolCategory.SHOVEL;
-  }
-
-  if (id === "ender_chest") return ToolCategory.PICKAXE;
-  if (id.includes("leaves")) return ToolCategory.LEAVES;
-
-  if (
-    id.includes("wool") || id.includes("vine") || id.includes("fern") ||
-    id === "tallgrass" || id === "seagrass" || id === "hanging_roots" ||
-    id === "deadbush" || id === "tripwire"
-  ) {
-    return ToolCategory.SHEARS_OR_SWORD;
-  }
-
-  if (
-    id === "hay_block" || id === "target" || id === "sponge" || id === "wet_sponge" ||
-    id.includes("sculk") || id.includes("moss_block") || id.includes("moss_carpet") ||
-    id.includes("wart_block") || id === "shroomlight"
-  ) {
-    return ToolCategory.HOE;
-  }
-
-  if (
-    id.endsWith("_log") || id.endsWith("_wood") || id.endsWith("_stem") || id.endsWith("_hyphae") ||
-    id.startsWith("stripped_") || id.includes("planks") || id.includes("crafting_table") ||
-    id.includes("cartography_table") || id.includes("fletching_table") || id.includes("smithing_table") ||
-    id.includes("loom") || id.includes("composter") || id === "chest" || id === "trapped_chest" ||
-    id === "barrel" || id.includes("bookshelf") || id === "lectern" || id.includes("pumpkin") ||
-    id.includes("melon") || id === "cocoa" || id.includes("beehive") || id === "bee_nest" ||
-    id.includes("ladder") || id.includes("sign") || id.includes("mushroom_stem") ||
-    id.includes("mushroom_block") || id === "jukebox" || id === "daylight_detector" ||
-    id === "note_block" || id.includes("bamboo_block") || id.includes("bamboo_mosaic") ||
-    (id.endsWith("_fence") && !id.includes("nether_brick")) || id.endsWith("_fence_gate")
-  ) {
-    return ToolCategory.AXE;
-  }
-
-  const woodMaterials = [
-    "oak", "spruce", "birch", "jungle", "acacia", "dark_oak",
-    "mangrove", "cherry", "bamboo", "crimson", "warped", "pale_oak",
-  ];
-  if (
-    woodMaterials.some((mat) => id.includes(mat)) && !id.includes("petrified") &&
-    (id.endsWith("_door") || id.endsWith("_trapdoor") || id.endsWith("_button") ||
-     id.endsWith("_pressure_plate") || id.endsWith("_stairs") || id.endsWith("_slab"))
-  ) {
-    return ToolCategory.AXE;
-  }
-
-  if (
-    id.includes("stone") || id.includes("cobble") || id.includes("deepslate") ||
-    id.includes("ore") || id.includes("granite") || id.includes("diorite") ||
-    id.includes("andesite") || id.includes("tuff") || id.includes("calcite") ||
-    id.includes("basalt") || id.includes("blackstone") || id.includes("obsidian") ||
-    id.includes("ancient_debris") || id.includes("brick") || id.includes("terracotta") ||
-    (id.includes("concrete") && !id.endsWith("concrete_powder")) || id.includes("sandstone") ||
-    id.includes("prismarine") || id.includes("netherrack") || id.includes("end_stone") ||
-    id.includes("purpur") || id.includes("magma") || id.includes("copper") ||
-    id.includes("iron") || id.includes("gold") || id.includes("diamond") ||
-    id.includes("emerald") || id.includes("lapis") || id.includes("redstone") ||
-    id.includes("netherite") || id.includes("amethyst") || id.includes("dripstone") ||
-    id.includes("furnace") || id.includes("smoker") || id.includes("hopper") ||
-    id.includes("dispenser") || id.includes("dropper") || id.includes("cauldron") ||
-    id.includes("anvil") || id.includes("enchanting_table") || id.includes("brewing_stand") ||
-    id.includes("grindstone") || id.includes("stonecutter") || id.includes("bell") ||
-    id.includes("lantern") || id.includes("chain") || id.includes("spawner") ||
-    id.includes("vault") || id.includes("crafter") || id.includes("quartz") ||
-    id === "coal_block" || id === "bone_block" || id === "respawn_anchor" ||
-    id === "conduit" || id === "lightning_rod"
-  ) {
-    return ToolCategory.PICKAXE;
-  }
-
-  return null;
-}
-
-function switchPlayerSlot1Tool(player, category, blockTypeId) {
-  if (!player || player.selectedSlotIndex !== CONFIG.AUTO_SWITCH_SLOT) {
-    return false;
-  }
-  if (system.currentTick < (chainPauseUntil.get(player.id) ?? 0)) return false;
-
-  const container = getContainer(player);
-  if (!container) return false;
-
-  const blockId = normalizeId(blockTypeId);
-  const currentScore = scoreItem(container.getItem(CONFIG.AUTO_SWITCH_SLOT), category, CONFIG.AUTO_SWITCH_SLOT, blockId);
-
-  let bestSlot = -1;
-  let bestScore = -Infinity;
-  let bestItem;
-
-  const lastSearchSlot = Math.min(container.size - 1, CONFIG.TOOL_SEARCH_LAST_SLOT);
-  for (let slot = 1; slot <= lastSearchSlot; slot++) {
-    if (CONFIG.PROTECTED_SLOTS.includes(slot)) continue;
-    const item = container.getItem(slot);
-    if (!item) continue;
-    const score = scoreItem(item, category, slot, blockId);
-    const tiedRepair =
-      bestItem !== undefined &&
-      Math.abs(score - bestScore) <= CONFIG.TOOL_TIE_TOLERANCE &&
-      needsRepair(item) &&
-      !needsRepair(bestItem);
-    if (score > bestScore || tiedRepair) {
-      bestScore = score;
-      bestSlot = slot;
-      bestItem = item;
-    }
-  }
-
-  if (bestSlot === -1 || bestScore === -Infinity) return false;
-
-  const currentItem = container.getItem(CONFIG.AUTO_SWITCH_SLOT);
-  const repairSwap =
-    currentScore !== -Infinity &&
-    needsRepair(bestItem) &&
-    !needsRepair(currentItem) &&
-    Math.abs(bestScore - currentScore) <= CONFIG.TOOL_TIE_TOLERANCE;
-  if (currentScore !== -Infinity && bestScore < currentScore + CONFIG.SWITCH_MARGIN && !repairSwap) return false;
-
-  try {
-    const record = swapBack.get(player.id);
-    if (record) {
-      swapBack.delete(player.id);
-      if (isSwapBackValid(container, record)) {
-        container.swapItems(record.slot, CONFIG.AUTO_SWITCH_SLOT, container);
-        if (bestSlot === record.slot) {
-          lastSwap.set(player.id, { tick: system.currentTick, slot: record.slot });
-          return true;
-        }
-      }
-    }
-    const originalItem = container.getItem(CONFIG.AUTO_SWITCH_SLOT);
-    container.swapItems(bestSlot, CONFIG.AUTO_SWITCH_SLOT, container);
-    swapBack.set(player.id, {
-      slot: bestSlot,
-      toolTypeId: container.getItem(CONFIG.AUTO_SWITCH_SLOT)?.typeId,
-      originalTypeId: originalItem?.typeId,
-    });
-    lastSwap.set(player.id, { tick: system.currentTick, slot: bestSlot });
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-function isSwapBackValid(container, record) {
-  return (
-    container.getItem(CONFIG.AUTO_SWITCH_SLOT)?.typeId === record.toolTypeId &&
-    container.getItem(record.slot)?.typeId === record.originalTypeId
-  );
-}
-
-function restoreSwappedItem(player) {
-  const record = swapBack.get(player.id);
-  if (!record) return;
-  swapBack.delete(player.id);
-  if (player.selectedSlotIndex === record.slot) return;
-  const container = getContainer(player);
-  if (!container || !isSwapBackValid(container, record)) return;
-  try {
-    container.swapItems(record.slot, CONFIG.AUTO_SWITCH_SLOT, container);
+    const player = event.player;
+    const state = qolPlayerState.get(player.id);
+    if (!state || state.lightX === undefined) return;
+    const placed = event.block;
+    if (placed.x !== state.lightX || placed.y !== state.lightY || placed.z !== state.lightZ) return;
+    state.lightX = undefined;
+    state.lightY = undefined;
+    state.lightZ = undefined;
+    state.lightLevel = 0;
+    updatePlayerLight(player, state);
   } catch (e) {}
-}
+});
 
-function isCombatTarget(entity) {
-  if (!entity?.typeId) return false;
-  const id = normalizeId(entity.typeId);
-  if (NON_COMBAT_ENTITIES.has(id)) return false;
-  try {
-    return id === "player" || !!entity.getComponent("minecraft:health");
-  } catch {
-    return false;
-  }
-}
-
-function isWeb(block) {
-  if (!block?.typeId) return false;
-  const id = normalizeId(block.typeId);
-  return id === "web" || id.includes("cobweb");
-}
-
-function blockKey(block) {
-  if (!block) return "";
-  const { x, y, z } = block.location;
-  return `${block.typeId}@${x},${y},${z}`;
-}
-
-function clearPendingSwap(playerId) {
-  const runId = pendingSwaps.get(playerId);
-  if (runId !== undefined) {
-    system.clearRun(runId);
-    pendingSwaps.delete(playerId);
-  }
-}
-
-function scheduleSwapRetry(player, category, blockTypeId) {
-  clearPendingSwap(player.id);
-  const runId = system.runTimeout(() => {
-    pendingSwaps.delete(player.id);
+if (world.afterEvents.playerDimensionChange) {
+  world.afterEvents.playerDimensionChange.subscribe((event) => {
     try {
-      if (player.selectedSlotIndex !== CONFIG.AUTO_SWITCH_SLOT) return;
-      switchPlayerSlot1Tool(player, category, blockTypeId);
-    } catch {}
-  }, CONFIG.RETRY_TICKS);
-  pendingSwaps.set(player.id, runId);
-}
-
-function getTargetBlock(player) {
-  try {
-    return player.getBlockFromViewDirection({
-      maxDistance: CONFIG.RAYCAST_DISTANCE,
-      includeLiquidBlocks: false,
-      includePassableBlocks: true,
-    })?.block;
-  } catch {
-    return undefined;
-  }
-}
-
-function getMainhandTool(player) {
-  try {
-    const eq = getEquipment(player);
-    return eq ? eq.getEquipment(EquipmentSlot.Mainhand) : undefined;
-  } catch (e) {
-    return undefined;
-  }
-}
-
-function checkToolSafety(player) {
-  if (isGameMode(player, "creative")) return { safe: true, remaining: 9999 };
-  const tool = getMainhandTool(player);
-  if (!tool) return { safe: false, remaining: 0 };
-
-  try {
-    const durComp = tool.getComponent("minecraft:durability") || tool.getComponent("durability");
-    if (!durComp) return { safe: true, remaining: 9999 };
-
-    const remaining = durComp.maxDurability - durComp.damage - getPendingToolDamage(player);
-    if (remaining <= CONFIG.DURABILITY_SAFETY_THRESHOLD) {
-      return { safe: false, remaining };
-    }
-    return { safe: true, remaining };
-  } catch (e) {
-    return { safe: true, remaining: 9999 };
-  }
-}
-
-const pendingToolDamage = new Map();
-
-function getPendingToolDamage(player) {
-  const entry = pendingToolDamage.get(player.id);
-  return entry ? entry.damage : 0;
-}
-
-function applyToolDurabilityDamage(player) {
-  if (isGameMode(player, "creative")) return;
-  const container = getContainer(player);
-  if (!container) return;
-
-  const slot = player.selectedSlotIndex;
-  const tool = container.getItem(slot);
-  if (!tool) return;
-
-  try {
-    const durComp = tool.getComponent("minecraft:durability") || tool.getComponent("durability");
-    if (!durComp) return;
-
-    let unbreakingLevel = 0;
-    try {
-      const enchComp = tool.getComponent("minecraft:enchantable") || tool.getComponent("enchantable");
-      if (enchComp) {
-        for (const ench of enchComp.getEnchantments()) {
-          const enchId = (ench.type?.id || ench.id || "").toLowerCase();
-          if (enchId.includes("unbreaking")) {
-            unbreakingLevel = ench.level;
-            break;
-          }
-        }
-      }
-    } catch (e) {}
-
-    const shouldDamage = unbreakingLevel > 0
-      ? Math.random() < 1 / (unbreakingLevel + 1)
-      : true;
-    if (!shouldDamage) return;
-
-    let entry = pendingToolDamage.get(player.id);
-    if (!entry || entry.slot !== slot || entry.typeId !== tool.typeId) {
-      entry = { slot, typeId: tool.typeId, damage: 0 };
-      pendingToolDamage.set(player.id, entry);
-    }
-    entry.damage += 1;
-  } catch (e) {}
-}
-
-function flushToolDamage(player) {
-  const entry = pendingToolDamage.get(player.id);
-  pendingToolDamage.delete(player.id);
-  if (!entry || entry.damage <= 0) return;
-
-  system.run(() => {
-    try {
-      if (!player.isValid()) return;
-      const container = getContainer(player);
-      if (!container) return;
-
-      const tool = container.getItem(entry.slot);
-      if (!tool || tool.typeId !== entry.typeId) return;
-
-      const durComp = tool.getComponent("minecraft:durability") || tool.getComponent("durability");
-      if (!durComp) return;
-
-      durComp.damage = Math.min(durComp.damage + entry.damage, durComp.maxDurability);
-      container.setItem(entry.slot, tool);
+      const state = getQolState(event.player.id);
+      clearPlacedLight(state);
     } catch (e) {}
   });
 }
 
-function notifyToolProtection(player, remainingDurability) {
+export function markLightsCleaned() {
+  lightsCleaned = true;
+}
+```
+
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/offhand.js (143 lines, 4260 bytes)
+
+```
+// Offhand quick-swap (sneak + use in the air).
+import { world, system, EquipmentSlot } from "@minecraft/server";
+import { CONFIG, SUPPORTED_OFFHAND_ITEMS } from "./config.js";
+import { getQolState } from "./state.js";
+import { cloneStack, describeItem, getContainer, getEquipment, shortId } from "./utils.js";
+
+export function isPlainSupportedStack(item) {
+  if (!item || !SUPPORTED_OFFHAND_ITEMS.has(item.typeId)) return false;
   try {
-    player.playSound(CONFIG.ALERT_SOUND, {
-      pitch: CONFIG.ALERT_PITCH,
-      volume: CONFIG.ALERT_VOLUME,
-    });
+    if (item.nameTag) return false;
+    if (item.getLore().length > 0) return false;
+  } catch (e) {
+    return false;
+  }
+  return true;
+}
+
+export function offhandMatches(equipment, item) {
+  const readBack = equipment.getEquipment(EquipmentSlot.Offhand);
+  if (!item) return !readBack;
+  if (!readBack || readBack.typeId !== item.typeId || readBack.amount !== item.amount) return false;
+  if (SUPPORTED_OFFHAND_ITEMS.has(item.typeId)) {
+    return (readBack.nameTag || "") === (item.nameTag || "");
+  }
+  return true;
+}
+
+export function forceOffhand(player, item) {
+  if (item && !isPlainSupportedStack(item)) return;
+  const id = item ? shortId(item.typeId) : "air";
+  const amount = item ? item.amount : 1;
+  const commands = item
+    ? [
+        `replaceitem entity @s slot.weapon.offhand 0 ${id} ${amount}`,
+        `replaceitem entity @s slot.weapon.offhand 0 ${item.typeId} ${amount}`,
+        `item replace entity @s slot.weapon.offhand with ${id} ${amount}`,
+      ]
+    : [
+        "replaceitem entity @s slot.weapon.offhand 0 air",
+        "item replace entity @s slot.weapon.offhand with air",
+      ];
+  for (const cmd of commands) {
+    try {
+      player.runCommand(cmd);
+    } catch (e) {}
+  }
+}
+
+export function writeOffhand(player, equipment, item) {
+  if (item) {
+    try {
+      const copy = cloneStack(item);
+      equipment.setEquipment(EquipmentSlot.Offhand, copy);
+      if (offhandMatches(equipment, item)) return true;
+    } catch (e) {}
+  } else {
+    try {
+      equipment.setEquipment(EquipmentSlot.Offhand, undefined);
+      if (offhandMatches(equipment, undefined)) return true;
+    } catch (e) {}
+  }
+  forceOffhand(player, item);
+  return offhandMatches(equipment, item);
+}
+
+export function writeMainhand(player, equipment, item) {
+  try {
+    const accepted = equipment.setEquipment(EquipmentSlot.Mainhand, item ? cloneStack(item) : undefined);
+    if (accepted !== false) return true;
+  } catch (e) {}
+  try {
+    const container = getContainer(player);
+    if (container) {
+      container.setItem(player.selectedSlotIndex, item ? cloneStack(item) : undefined);
+      return true;
+    }
+  } catch (e) {}
+  return false;
+}
+
+export function swapHands(player) {
+  const state = getQolState(player.id);
+  if (system.currentTick - state.lastSwapTick < CONFIG.SWAP_COOLDOWN_TICKS) return false;
+
+  const equipment = getEquipment(player);
+  if (!equipment) return false;
+
+  let main;
+  let off;
+  try {
+    main = equipment.getEquipment(EquipmentSlot.Mainhand);
+    off = equipment.getEquipment(EquipmentSlot.Offhand);
+  } catch (e) {
+    return false;
+  }
+
+  const mainAllowed = main && SUPPORTED_OFFHAND_ITEMS.has(main.typeId);
+  const offAllowed = off && SUPPORTED_OFFHAND_ITEMS.has(off.typeId);
+
+  if (!mainAllowed && !offAllowed) {
+    return false;
+  }
+
+  const mainCopy = cloneStack(main);
+  const offCopy = cloneStack(off);
+
+  if (!writeOffhand(player, equipment, mainCopy)) {
+    writeOffhand(player, equipment, offCopy);
+    writeMainhand(player, equipment, mainCopy);
+    return false;
+  }
+
+  if (!writeMainhand(player, equipment, offCopy)) {
+    writeOffhand(player, equipment, offCopy);
+    writeMainhand(player, equipment, mainCopy);
+    return false;
+  }
+
+  state.lastSwapTick = system.currentTick;
+
+  try {
+    player.playSound("armor.equip_generic", { pitch: 1.15, volume: 0.85 });
     player.onScreenDisplay.setActionBar(
-      `§e[Tool Protection] §cStopped mining to save tool! §6(${remainingDurability} durability left)`
+      `§6Offhand: §f${describeItem(mainCopy)} §8| §eMain: §f${describeItem(offCopy)}`
     );
   } catch (e) {}
+
+  return true;
 }
 
-function notifyTreeTooLarge(player) {
-  try {
-    player.onScreenDisplay.setActionBar("§e[Tree Capitator] §6Tree too large, some logs were left standing");
-  } catch (e) {}
-}
+world.beforeEvents.itemUse.subscribe((event) => {
+  const player = event.source;
+  const itemStack = event.itemStack;
 
-const AXE_IDENTIFIERS = new Set([
-  "minecraft:wooden_axe", "minecraft:stone_axe", "minecraft:iron_axe",
-  "minecraft:golden_axe", "minecraft:diamond_axe", "minecraft:netherite_axe",
-]);
+  if (!player || !player.isSneaking) return;
+  if (!itemStack || !SUPPORTED_OFFHAND_ITEMS.has(itemStack.typeId)) return;
 
-function isAxe(typeId) {
-  if (!typeId) return false;
-  return AXE_IDENTIFIERS.has(typeId) || typeId.endsWith("_axe");
-}
+  event.cancel = true;
+  system.run(() => {
+    swapHands(player);
+  });
+});
+```
 
-const ELIGIBLE_LOGS = new Set([
-  "minecraft:oak_log", "minecraft:stripped_oak_log", "minecraft:oak_wood", "minecraft:stripped_oak_wood",
-  "minecraft:spruce_log", "minecraft:stripped_spruce_log", "minecraft:spruce_wood", "minecraft:stripped_spruce_wood",
-  "minecraft:birch_log", "minecraft:stripped_birch_log", "minecraft:birch_wood", "minecraft:stripped_birch_wood",
-  "minecraft:jungle_log", "minecraft:stripped_jungle_log", "minecraft:jungle_wood", "minecraft:stripped_jungle_wood",
-  "minecraft:acacia_log", "minecraft:stripped_acacia_log", "minecraft:acacia_wood", "minecraft:stripped_acacia_wood",
-  "minecraft:dark_oak_log", "minecraft:stripped_dark_oak_log", "minecraft:dark_oak_wood", "minecraft:stripped_dark_oak_wood",
-  "minecraft:mangrove_log", "minecraft:stripped_mangrove_log", "minecraft:mangrove_wood", "minecraft:stripped_mangrove_wood",
-  "minecraft:mangrove_roots", "minecraft:muddy_mangrove_roots",
-  "minecraft:cherry_log", "minecraft:stripped_cherry_log", "minecraft:cherry_wood", "minecraft:stripped_cherry_wood",
-  "minecraft:pale_oak_log", "minecraft:stripped_pale_oak_log", "minecraft:pale_oak_wood", "minecraft:stripped_pale_oak_wood",
-  "minecraft:crimson_stem", "minecraft:stripped_crimson_stem", "minecraft:crimson_hyphae", "minecraft:stripped_crimson_hyphae",
-  "minecraft:warped_stem", "minecraft:stripped_warped_stem", "minecraft:warped_hyphae", "minecraft:stripped_warped_hyphae",
-]);
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/ore-miner.js (248 lines, 9267 bytes)
 
-function isEligibleLog(blockId) {
-  if (!blockId) return false;
-  if (ELIGIBLE_LOGS.has(blockId)) return true;
-  return /(_log|_wood|_hyphae|mangrove_roots|(crimson|warped)_stem)$/i.test(blockId);
-}
+```
+// Domino Ore Miner.
+import { addGroupedDrop, removeBlockAt, spawnGroupedDrops } from "./blocks.js";
+import { CONFIG } from "./config.js";
+import { applyToolDurabilityDamage, checkToolSafety, notifyToolProtection } from "./durability.js";
+import { getMainhandTool, isGameMode } from "./utils.js";
 
-function getWoodSpecies(typeId) {
-  if (!typeId) return null;
-  const match = typeId.match(/(dark_oak|pale_oak|oak|spruce|birch|jungle|acacia|mangrove|cherry|crimson|warped)/i);
-  return match ? match[1].toLowerCase() : null;
-}
-
-function isMatchingLog(blockId, targetSpecies) {
-  if (!isEligibleLog(blockId)) return false;
-  if (!CONFIG.MATCH_TREE_SPECIES || !targetSpecies) return true;
-  const species = getWoodSpecies(blockId);
-  return !species || species === targetSpecies;
-}
-
-function isTreeCanopy(dimension, blocks, targetSpecies) {
-  if (!blocks || blocks.length === 0) return false;
-  const candidates = [...blocks].sort((a, b) => b.y - a.y).slice(0, 8);
-  for (const pos of candidates) {
-    for (let dx = -2; dx <= 2; dx++) {
-      for (let dz = -2; dz <= 2; dz++) {
-        for (let dy = 0; dy <= 2; dy++) {
-          try {
-            const b = dimension.getBlock({ x: pos.x + dx, y: pos.y + dy, z: pos.z + dz });
-            if (!b) continue;
-
-            if ((targetSpecies === "crimson" || targetSpecies === "warped") &&
-                (b.typeId.includes("wart_block") || b.typeId.includes("shroomlight"))) {
-              return true;
-            }
-
-            if (b.typeId.includes("leaves")) {
-              const permutation = b.permutation;
-              const isPersistent = permutation?.getState("persistent_bit");
-              if (isPersistent === true) {
-                continue;
-              }
-              return true;
-            }
-          } catch (e) {}
-        }
-      }
-    }
-  }
-  return false;
-}
-
-const PLAYER_BUILD_PATTERN = /(planks|stairs|slab|door|trapdoor|glass|brick|fence|(^|_)bed$|crafting_table|chest|barrel|furnace|concrete|wool|carpet|bookshelf)/;
-
-function isNearPlayerBuild(dimension, blocks, startLoc) {
-  const checked = new Set();
-  const positions = [startLoc, ...blocks];
-  for (const pos of positions) {
-    for (let dx = -1; dx <= 1; dx++) {
-      for (let dy = -1; dy <= 1; dy++) {
-        for (let dz = -1; dz <= 1; dz++) {
-          const x = pos.x + dx;
-          const y = pos.y + dy;
-          const z = pos.z + dz;
-          const key = `${x},${y},${z}`;
-          if (checked.has(key)) continue;
-          checked.add(key);
-          try {
-            const b = dimension.getBlock({ x, y, z });
-            if (!b) continue;
-            const builtId = normalizeId(b.typeId);
-            if (builtId !== "moss_carpet" && PLAYER_BUILD_PATTERN.test(builtId)) return true;
-          } catch (e) {}
-        }
-      }
-    }
-  }
-  return false;
-}
-
-function removeBlockAt(dimension, pos) {
-  const block = dimension.getBlock({ x: pos.x, y: pos.y, z: pos.z });
-  if (!block) return undefined;
-  const typeId = block.typeId;
-  let waterlogged = false;
-  try {
-    waterlogged = block.isWaterlogged === true;
-  } catch (e) {}
-  block.setPermutation(BlockPermutation.resolve("minecraft:air"));
-  if (waterlogged) {
-    try {
-      block.setWaterlogged(true);
-    } catch (e) {}
-  }
-  return typeId;
-}
-
-function addGroupedDrop(drops, pos, typeId, count) {
-  const size = CONFIG.DROP_GROUP_SIZE;
-  const key = `${Math.floor(pos.x / size)},${Math.floor(pos.y / size)},${Math.floor(pos.z / size)}|${typeId}`;
-  const entry = drops.get(key);
-  if (entry) {
-    entry.count += count;
-  } else {
-    drops.set(key, { typeId, count, x: pos.x, y: pos.y, z: pos.z });
-  }
-}
-
-function spawnGroupedDrops(dimension, drops) {
-  for (const entry of drops.values()) {
-    let maxStack = 64;
-    try {
-      maxStack = new ItemStack(entry.typeId, 1).maxAmount || 64;
-    } catch (e) {}
-    let remaining = entry.count;
-    while (remaining > 0) {
-      const amount = Math.min(remaining, maxStack);
-      try {
-        dimension.spawnItem(new ItemStack(entry.typeId, amount), {
-          x: entry.x + 0.5,
-          y: entry.y + 0.5,
-          z: entry.z + 0.5,
-        });
-      } catch (e) {}
-      remaining -= amount;
-    }
-  }
-}
-
-function executeTreeCapitator(player, dimension, startLoc, startBlockId, onComplete) {
-  if (typeof startBlockId === "function") {
-    onComplete = startBlockId;
-    startBlockId = null;
-  }
-  if (!CONFIG.TREE_CAPITATOR_ENABLED) {
-    if (onComplete) onComplete();
-    return;
-  }
-
-  const targetSpecies = startBlockId ? getWoodSpecies(startBlockId) : null;
-  const visited = new Set();
-  visited.add(`${startLoc.x},${startLoc.y},${startLoc.z}`);
-
-  const blocksToBreak = [];
-  const queue = [{ x: startLoc.x, y: startLoc.y, z: startLoc.z }];
-
-  while (queue.length > 0 && blocksToBreak.length < CONFIG.MAX_TREE_BLOCKS) {
-    const cur = queue.shift();
-
-    for (let dy = 0; dy <= 1; dy++) {
-      for (let dx = -1; dx <= 1; dx++) {
-        for (let dz = -1; dz <= 1; dz++) {
-          if (dx === 0 && dy === 0 && dz === 0) continue;
-
-          const nx = cur.x + dx;
-          const ny = cur.y + dy;
-          const nz = cur.z + dz;
-
-          if (ny < startLoc.y) continue;
-          if (ny > startLoc.y + CONFIG.MAX_TREE_HEIGHT) continue;
-          if (
-            Math.abs(nx - startLoc.x) > CONFIG.TREE_MAX_HORIZONTAL_SPREAD ||
-            Math.abs(nz - startLoc.z) > CONFIG.TREE_MAX_HORIZONTAL_SPREAD
-          ) continue;
-
-          const key = `${nx},${ny},${nz}`;
-          if (visited.has(key)) continue;
-          visited.add(key);
-
-          try {
-            const block = dimension.getBlock({ x: nx, y: ny, z: nz });
-            if (block && isMatchingLog(block.typeId, targetSpecies)) {
-              const logPos = { x: nx, y: ny, z: nz };
-              blocksToBreak.push(logPos);
-              queue.push(logPos);
-              if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
-            }
-          } catch (e) {}
-        }
-        if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
-      }
-      if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
-    }
-  }
-
-  if (blocksToBreak.length === 0) {
-    if (onComplete) onComplete();
-    return;
-  }
-
-  if (!isTreeCanopy(dimension, blocksToBreak, targetSpecies)) {
-    if (onComplete) onComplete();
-    return;
-  }
-
-  if (isNearPlayerBuild(dimension, blocksToBreak, startLoc)) {
-    if (onComplete) onComplete();
-    return;
-  }
-
-  const capped = blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS;
-  const creative = isGameMode(player, "creative");
-  const drops = new Map();
-  for (const pos of blocksToBreak) {
-    if (!player || !player.isValid()) break;
-
-    const safety = checkToolSafety(player);
-    if (!safety.safe) {
-      notifyToolProtection(player, safety.remaining);
-      break;
-    }
-
-    try {
-      const brokenId = removeBlockAt(dimension, pos);
-      if (brokenId && !creative) addGroupedDrop(drops, pos, brokenId, 1);
-      applyToolDurabilityDamage(player);
-    } catch (err) {}
-  }
-  spawnGroupedDrops(dimension, drops);
-  if (capped) notifyTreeTooLarge(player);
-
-  if (onComplete) onComplete();
-}
-
-const PICKAXE_TIERS = {
+export const PICKAXE_TIERS = {
   "minecraft:wooden_pickaxe": 1,
   "minecraft:golden_pickaxe": 1,
   "minecraft:stone_pickaxe": 2,
@@ -74301,16 +74080,16 @@ const PICKAXE_TIERS = {
   "minecraft:netherite_pickaxe": 5,
 };
 
-function isPickaxe(typeId) {
+export function isPickaxe(typeId) {
   if (!typeId) return false;
   return Boolean(PICKAXE_TIERS[typeId]) || typeId.endsWith("_pickaxe");
 }
 
-function getPickaxeTier(typeId) {
+export function getPickaxeTier(typeId) {
   return PICKAXE_TIERS[typeId] || (typeId?.endsWith("_pickaxe") ? 3 : 0);
 }
 
-const ORE_DEFINITIONS = {
+export const ORE_DEFINITIONS = {
   "minecraft:coal_ore": { category: "coal", minTier: 1, dropItem: "minecraft:coal" },
   "minecraft:deepslate_coal_ore": { category: "coal", minTier: 1, dropItem: "minecraft:coal" },
   "minecraft:iron_ore": { category: "iron", minTier: 2, dropItem: "minecraft:raw_iron" },
@@ -74335,12 +74114,12 @@ const ORE_DEFINITIONS = {
   "minecraft:ancient_debris": { category: "ancient_debris", minTier: 4, dropItem: "minecraft:ancient_debris" },
 };
 
-function getOreInfo(blockId) {
+export function getOreInfo(blockId) {
   if (!blockId) return null;
   return ORE_DEFINITIONS[blockId] || null;
 }
 
-const NEIGHBOR_OFFSETS_26 = (() => {
+export const NEIGHBOR_OFFSETS_26 = (() => {
   const offsets = [];
   for (let dx = -1; dx <= 1; dx++) {
     for (let dy = -1; dy <= 1; dy++) {
@@ -74353,16 +74132,16 @@ const NEIGHBOR_OFFSETS_26 = (() => {
   return offsets;
 })();
 
-const FORTUNE_AFFECTED_ORE_CATEGORIES = new Set([
+export const FORTUNE_AFFECTED_ORE_CATEGORIES = new Set([
   "coal", "iron", "copper", "gold", "lapis", "nether_gold", "diamond", "emerald", "quartz",
 ]);
 
-function calculateRedstoneDropCount(fortuneLevel, minBase = 4, maxBase = 5) {
+export function calculateRedstoneDropCount(fortuneLevel, minBase = 4, maxBase = 5) {
   const base = Math.floor(Math.random() * (maxBase - minBase + 1)) + minBase;
   return base + (fortuneLevel > 0 ? Math.floor(Math.random() * (fortuneLevel + 1)) : 0);
 }
 
-const ORE_XP = {
+export const ORE_XP = {
   coal: [0, 2],
   lapis: [2, 5],
   redstone: [1, 5],
@@ -74372,13 +74151,13 @@ const ORE_XP = {
   nether_gold: [0, 1],
 };
 
-function rollOreExperience(category) {
+export function rollOreExperience(category) {
   const range = ORE_XP[category];
   if (!range) return 0;
   return Math.floor(Math.random() * (range[1] - range[0] + 1)) + range[0];
 }
 
-function awardChainExperience(player, dimension, loc, total) {
+export function awardChainExperience(player, dimension, loc, total) {
   if (!loc || total <= 0) return;
   const orbs = Math.min(total, CONFIG.XP_ORB_LIMIT);
   for (let i = 0; i < orbs; i++) {
@@ -74394,7 +74173,7 @@ function awardChainExperience(player, dimension, loc, total) {
   }
 }
 
-function calculateFortuneDropCount(fortuneLevel, minBase = 1, maxBase = 1, fortuneApplies = true) {
+export function calculateFortuneDropCount(fortuneLevel, minBase = 1, maxBase = 1, fortuneApplies = true) {
   const baseCount = minBase === maxBase
     ? minBase
     : Math.floor(Math.random() * (maxBase - minBase + 1)) + minBase;
@@ -74403,7 +74182,7 @@ function calculateFortuneDropCount(fortuneLevel, minBase = 1, maxBase = 1, fortu
   return Math.min(baseCount * multiplier, 64);
 }
 
-function executeDominoOreMiner(player, dimension, startLoc, startBlockId, onComplete) {
+export function executeDominoOreMiner(player, dimension, startLoc, startBlockId, onComplete) {
   if (!CONFIG.DOMINO_ORE_MINER_ENABLED) {
     if (onComplete) onComplete();
     return;
@@ -74533,150 +74312,17 @@ function executeDominoOreMiner(player, dimension, startLoc, startBlockId, onComp
 
   if (onComplete) onComplete();
 }
+```
 
-const activeMiningOperations = new Set();
-const chainPauseUntil = new Map();
-const lastSwap = new Map();
-const swapBack = new Map();
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/player-loop.js (60 lines, 1600 bytes)
 
-world.beforeEvents.itemUse.subscribe((event) => {
-  const player = event.source;
-  const itemStack = event.itemStack;
-
-  if (!player || !player.isSneaking) return;
-  if (!itemStack || !SUPPORTED_OFFHAND_ITEMS.has(itemStack.typeId)) return;
-
-  event.cancel = true;
-  system.run(() => {
-    swapHands(player);
-  });
-});
-
-world.afterEvents.entityHitBlock.subscribe((event) => {
-  try {
-    const player = event.damagingEntity;
-    if (!player || player.typeId !== "minecraft:player") return;
-    if (player.selectedSlotIndex !== CONFIG.AUTO_SWITCH_SLOT) return;
-
-    const block = event.hitBlock;
-    if (!block) return;
-
-    const category = getRequiredToolCategory(block.typeId);
-    if (!category) return;
-
-    const now = system.currentTick;
-    const lastCombat = recentCombat.get(player.id) ?? -Infinity;
-    if (now - lastCombat < CONFIG.COMBAT_COOLDOWN_TICKS) return;
-
-    webInteraction.set(player.id, {
-      key: blockKey(block),
-      lastInteractionTick: now,
-    });
-
-    if (!switchPlayerSlot1Tool(player, category, block.typeId)) {
-      scheduleSwapRetry(player, category, block.typeId);
-    }
-  } catch (e) {}
-});
-
-world.afterEvents.entityHitEntity.subscribe((event) => {
-  try {
-    const player = event.damagingEntity;
-    if (!player || player.typeId !== "minecraft:player") return;
-    if (player.selectedSlotIndex !== CONFIG.AUTO_SWITCH_SLOT) return;
-    if (!isCombatTarget(event.hitEntity)) return;
-
-    recentCombat.set(player.id, system.currentTick);
-    clearPendingSwap(player.id);
-    webInteraction.delete(player.id);
-
-    switchPlayerSlot1Tool(player, ToolCategory.WEAPON);
-  } catch (e) {}
-});
-
-function finishChain(player) {
-  activeMiningOperations.delete(player.id);
-  flushToolDamage(player);
-  miningActivity.delete(player.id);
-  lastAutoSwitchKey.delete(player.id);
-}
-
-world.afterEvents.playerBreakBlock.subscribe((event) => {
-  const { block, brokenBlockPermutation, player, dimension, itemStackBeforeBreak } = event;
-
-  if (!player || !player.isValid()) return;
-  if (MINING_OPTIONS.REQUIRE_SNEAK_FOR_CHAIN_MINING) {
-    if (!player.isSneaking) return;
-  } else if (player.selectedSlotIndex !== CONFIG.AUTO_SWITCH_SLOT) {
-    return;
-  }
-  if (activeMiningOperations.has(player.id)) return;
-
-  const startLoc = {
-    x: Math.floor(block.location.x),
-    y: Math.floor(block.location.y),
-    z: Math.floor(block.location.z),
-  };
-  const brokenTypeId = brokenBlockPermutation?.type?.id;
-  if (!brokenTypeId) return;
-
-  const tool = itemStackBeforeBreak || getMainhandTool(player);
-  if (!tool) return;
-
-  const heldNow = getMainhandTool(player);
-  if (!heldNow || heldNow.typeId !== tool.typeId) {
-    const swap = lastSwap.get(player.id);
-    const swapContainer = getContainer(player);
-    if (swap && swapContainer && system.currentTick - swap.tick <= CONFIG.SWAP_RESTORE_TICKS) {
-      try {
-        const moved = swapContainer.getItem(swap.slot);
-        if (moved && moved.typeId === tool.typeId) {
-          swapContainer.swapItems(swap.slot, CONFIG.AUTO_SWITCH_SLOT, swapContainer);
-        }
-      } catch (e) {}
-    }
-    const restored = getMainhandTool(player);
-    if (!restored || restored.typeId !== tool.typeId) return;
-  }
-
-  const toolTypeId = tool.typeId;
-
-  if (isAxe(toolTypeId) && isEligibleLog(brokenTypeId)) {
-    const treeSafety = checkToolSafety(player);
-    if (!treeSafety.safe) {
-      notifyToolProtection(player, Math.max(0, treeSafety.remaining));
-      return;
-    }
-    activeMiningOperations.add(player.id);
-    chainPauseUntil.set(player.id, system.currentTick + CONFIG.CHAIN_PAUSE_TICKS);
-    try {
-      executeTreeCapitator(player, dimension, startLoc, brokenTypeId, () => {
-        finishChain(player);
-      });
-    } catch (err) {
-      finishChain(player);
-    }
-    return;
-  }
-
-  if (isPickaxe(toolTypeId) && getOreInfo(brokenTypeId)) {
-    const oreSafety = checkToolSafety(player);
-    if (!oreSafety.safe) {
-      notifyToolProtection(player, Math.max(0, oreSafety.remaining));
-      return;
-    }
-    activeMiningOperations.add(player.id);
-    chainPauseUntil.set(player.id, system.currentTick + CONFIG.CHAIN_PAUSE_TICKS);
-    try {
-      executeDominoOreMiner(player, dimension, startLoc, brokenTypeId, () => {
-        finishChain(player);
-      });
-    } catch (err) {
-      finishChain(player);
-    }
-    return;
-  }
-});
+```
+// Per-tick loop for double-sneak swap and held light.
+import { world, system } from "@minecraft/server";
+import { CONFIG } from "./config.js";
+import { updatePlayerLight } from "./light.js";
+import { swapHands } from "./offhand.js";
+import { getQolState } from "./state.js";
 
 system.runInterval(() => {
   let players;
@@ -74730,204 +74376,759 @@ system.runInterval(() => {
     } catch (e) {}
   }
 }, 1);
+```
 
-system.runInterval(() => {
-  const now = system.currentTick;
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/slot-switch.js (116 lines, 4010 bytes)
 
-  for (const player of world.getAllPlayers()) {
-    try {
-      if (player.selectedSlotIndex !== CONFIG.AUTO_SWITCH_SLOT) {
-        webInteraction.delete(player.id);
-        continue;
-      }
+```
+// Auto-switch: moving the best tool into Slot 1 and back.
+import { system } from "@minecraft/server";
+import { CONFIG } from "./config.js";
+import { chainPauseUntil, lastSwap, pendingSwaps, swapBack } from "./state.js";
+import { needsRepair, scoreItem } from "./tool-scoring.js";
+import { getContainer, normalizeId } from "./utils.js";
 
-      const lastCombat = recentCombat.get(player.id) ?? -Infinity;
-      if (now - lastCombat < CONFIG.WEB_COMBAT_COOLDOWN) continue;
-
-      const block = getTargetBlock(player);
-      if (!isWeb(block)) {
-        webInteraction.delete(player.id);
-        continue;
-      }
-
-      const key = blockKey(block);
-      const state = webInteraction.get(player.id);
-
-      if (!state || state.key !== key) {
-        webInteraction.set(player.id, {
-          key,
-          lastInteractionTick: -Infinity,
-          initialTick: now,
-        });
-        continue;
-      }
-
-      const elapsed = now - state.initialTick;
-      if (elapsed < CONFIG.WEB_INTERACTION_WINDOW) continue;
-
-      if (now - state.lastInteractionTick > CONFIG.WEB_INTERACTION_WINDOW) {
-        webInteraction.delete(player.id);
-        continue;
-      }
-
-      const inventory = getContainer(player);
-      const held = inventory?.getItem(CONFIG.AUTO_SWITCH_SLOT);
-      if (held && normalizeId(held.typeId).includes("shears")) continue;
-
-      switchPlayerSlot1Tool(player, ToolCategory.WEB, block.typeId);
-      webInteraction.set(player.id, {
-        key,
-        initialTick: now,
-        lastInteractionTick: now,
-      });
-    } catch (e) {}
+export function switchPlayerSlot1Tool(player, category, blockTypeId) {
+  if (!player || player.selectedSlotIndex !== CONFIG.AUTO_SWITCH_SLOT) {
+    return false;
   }
-}, CONFIG.WEB_CHECK_INTERVAL);
+  if (system.currentTick < (chainPauseUntil.get(player.id) ?? 0)) return false;
 
-const MINING_ACTIVE_TICKS = 10;
-const miningActivity = new Map();
-const lastAutoSwitchKey = new Map();
-const lastBreakTick = new Map();
+  const container = getContainer(player);
+  if (!container) return false;
 
-function markMining(player) {
-  if (!player || player.typeId !== "minecraft:player") return;
-  if (system.currentTick < (chainPauseUntil.get(player.id) ?? 0)) return;
-  miningActivity.set(player.id, system.currentTick);
-}
+  const blockId = normalizeId(blockTypeId);
+  const currentScore = scoreItem(container.getItem(CONFIG.AUTO_SWITCH_SLOT), category, CONFIG.AUTO_SWITCH_SLOT, blockId);
 
-world.afterEvents.entityHitBlock.subscribe((event) => {
-  try {
-    markMining(event.damagingEntity);
-  } catch (e) {}
-});
+  let bestSlot = -1;
+  let bestScore = -Infinity;
+  let bestItem;
 
-world.afterEvents.playerBreakBlock.subscribe((event) => {
-  try {
-    lastBreakTick.set(event.player.id, system.currentTick);
-  } catch (e) {}
-});
-
-system.runInterval(() => {
-  const now = system.currentTick;
-  for (const player of world.getAllPlayers()) {
-    try {
-      const last = miningActivity.get(player.id);
-      if (last === undefined || now - last > CONFIG.MINING_ACTIVE_TICKS) {
-        lastAutoSwitchKey.delete(player.id);
-        if (swapBack.has(player.id)) {
-          const idleSince = Math.max(
-            last ?? -Infinity,
-            lastBreakTick.get(player.id) ?? -Infinity,
-            recentCombat.get(player.id) ?? -Infinity,
-            lastSwap.get(player.id)?.tick ?? -Infinity
-          );
-          if (now - idleSince > CONFIG.SWAP_BACK_TICKS && now >= (chainPauseUntil.get(player.id) ?? 0)) {
-            restoreSwappedItem(player);
-          }
-        }
-        continue;
-      }
-      if (player.selectedSlotIndex !== CONFIG.AUTO_SWITCH_SLOT) continue;
-
-      const lastCombat = recentCombat.get(player.id) ?? -Infinity;
-      if (now - lastCombat < CONFIG.COMBAT_COOLDOWN_TICKS) continue;
-
-      if (now - (lastBreakTick.get(player.id) ?? -Infinity) < CONFIG.BREAK_SWITCH_DELAY_TICKS) continue;
-
-      const target = getTargetBlock(player);
-      if (!target) continue;
-
-      const key = blockKey(target);
-      if (lastAutoSwitchKey.get(player.id) === key) continue;
-
-      const category = getRequiredToolCategory(target.typeId);
-      if (!category) continue;
-
-      lastAutoSwitchKey.set(player.id, key);
-      switchPlayerSlot1Tool(player, category, target.typeId);
-    } catch (e) {}
+  const lastSearchSlot = Math.min(container.size - 1, CONFIG.TOOL_SEARCH_LAST_SLOT);
+  for (let slot = 1; slot <= lastSearchSlot; slot++) {
+    if (CONFIG.PROTECTED_SLOTS.includes(slot)) continue;
+    const item = container.getItem(slot);
+    if (!item) continue;
+    const score = scoreItem(item, category, slot, blockId);
+    const tiedRepair =
+      bestItem !== undefined &&
+      Math.abs(score - bestScore) <= CONFIG.TOOL_TIE_TOLERANCE &&
+      needsRepair(item) &&
+      !needsRepair(bestItem);
+    if (score > bestScore || tiedRepair) {
+      bestScore = score;
+      bestSlot = slot;
+      bestItem = item;
+    }
   }
-}, 1);
 
-world.afterEvents.playerLeave.subscribe((event) => {
-  miningActivity.delete(event.playerId);
-  lastAutoSwitchKey.delete(event.playerId);
-});
+  if (bestSlot === -1 || bestScore === -Infinity) return false;
 
-world.afterEvents.playerPlaceBlock.subscribe((event) => {
+  const currentItem = container.getItem(CONFIG.AUTO_SWITCH_SLOT);
+  const repairSwap =
+    currentScore !== -Infinity &&
+    needsRepair(bestItem) &&
+    !needsRepair(currentItem) &&
+    Math.abs(bestScore - currentScore) <= CONFIG.TOOL_TIE_TOLERANCE;
+  if (currentScore !== -Infinity && bestScore < currentScore + CONFIG.SWITCH_MARGIN && !repairSwap) return false;
+
   try {
-    const player = event.player;
-    const state = qolPlayerState.get(player.id);
-    if (!state || state.lightX === undefined) return;
-    const placed = event.block;
-    if (placed.x !== state.lightX || placed.y !== state.lightY || placed.z !== state.lightZ) return;
-    state.lightX = undefined;
-    state.lightY = undefined;
-    state.lightZ = undefined;
-    state.lightLevel = 0;
-    updatePlayerLight(player, state);
-  } catch (e) {}
-});
-
-world.afterEvents.playerLeave.subscribe((event) => {
-  const id = event.playerId;
-  if (!id) return;
-  const state = qolPlayerState.get(id);
-  if (state) clearPlacedLight(state);
-  qolPlayerState.delete(id);
-  recentCombat.delete(id);
-  webInteraction.delete(id);
-  clearPendingSwap(id);
-  activeMiningOperations.delete(id);
-  lastSwap.delete(id);
-  swapBack.delete(id);
-  lastBreakTick.delete(id);
-  chainPauseUntil.delete(id);
-  pendingToolDamage.delete(id);
-});
-
-if (world.afterEvents.playerDimensionChange) {
-  world.afterEvents.playerDimensionChange.subscribe((event) => {
-    try {
-      const state = getQolState(event.player.id);
-      clearPlacedLight(state);
-    } catch (e) {}
-  });
-}
-
-system.runTimeout(() => {
-  try {
-    const raw = world.getDynamicProperty("qol:lights");
-    if (typeof raw === "string") {
-      const active = new Set();
-      for (const st of qolPlayerState.values()) {
-        if (st.lightDim !== undefined && st.lightX !== undefined) {
-          active.add(`${st.lightDim.id},${st.lightX},${st.lightY},${st.lightZ}`);
+    const record = swapBack.get(player.id);
+    if (record) {
+      swapBack.delete(player.id);
+      if (isSwapBackValid(container, record)) {
+        container.swapItems(record.slot, CONFIG.AUTO_SWITCH_SLOT, container);
+        if (bestSlot === record.slot) {
+          lastSwap.set(player.id, { tick: system.currentTick, slot: record.slot });
+          return true;
         }
       }
-      for (const [dimId, x, y, z] of JSON.parse(raw)) {
-        if (active.has(`${dimId},${x},${y},${z}`)) continue;
-        try {
-          const b = world.getDimension(dimId).getBlock({ x, y, z });
-          if (b && isLightBlock(b.typeId)) b.setPermutation(BlockPermutation.resolve("minecraft:air"));
-        } catch (e) {}
+    }
+    const originalItem = container.getItem(CONFIG.AUTO_SWITCH_SLOT);
+    container.swapItems(bestSlot, CONFIG.AUTO_SWITCH_SLOT, container);
+    swapBack.set(player.id, {
+      slot: bestSlot,
+      toolTypeId: container.getItem(CONFIG.AUTO_SWITCH_SLOT)?.typeId,
+      originalTypeId: originalItem?.typeId,
+    });
+    lastSwap.set(player.id, { tick: system.currentTick, slot: bestSlot });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export function isSwapBackValid(container, record) {
+  return (
+    container.getItem(CONFIG.AUTO_SWITCH_SLOT)?.typeId === record.toolTypeId &&
+    container.getItem(record.slot)?.typeId === record.originalTypeId
+  );
+}
+
+export function restoreSwappedItem(player) {
+  const record = swapBack.get(player.id);
+  if (!record) return;
+  swapBack.delete(player.id);
+  if (player.selectedSlotIndex === record.slot) return;
+  const container = getContainer(player);
+  if (!container || !isSwapBackValid(container, record)) return;
+  try {
+    container.swapItems(record.slot, CONFIG.AUTO_SWITCH_SLOT, container);
+  } catch (e) {}
+}
+
+export function clearPendingSwap(playerId) {
+  const runId = pendingSwaps.get(playerId);
+  if (runId !== undefined) {
+    system.clearRun(runId);
+    pendingSwaps.delete(playerId);
+  }
+}
+
+export function scheduleSwapRetry(player, category, blockTypeId) {
+  clearPendingSwap(player.id);
+  const runId = system.runTimeout(() => {
+    pendingSwaps.delete(player.id);
+    try {
+      if (player.selectedSlotIndex !== CONFIG.AUTO_SWITCH_SLOT) return;
+      switchPlayerSlot1Tool(player, category, blockTypeId);
+    } catch {}
+  }, CONFIG.RETRY_TICKS);
+  pendingSwaps.set(player.id, runId);
+}
+```
+
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/state.js (46 lines, 938 bytes)
+
+```
+// Per-player runtime state shared between modules.
+
+export const qolPlayerState = new Map();
+
+export function getQolState(id) {
+  let state = qolPlayerState.get(id);
+  if (!state) {
+    state = {
+      sneakHeld: false,
+      sneakCount: 0,
+      sneakTimer: 0,
+      lastSwapTick: -9999,
+      lightDim: undefined,
+      lightX: undefined,
+      lightY: undefined,
+      lightZ: undefined,
+      lightLevel: 0,
+    };
+    qolPlayerState.set(id, state);
+  }
+  return state;
+}
+
+export const recentCombat = new Map();
+
+export const pendingSwaps = new Map();
+
+export const webInteraction = new Map();
+
+export const pendingToolDamage = new Map();
+
+export const activeMiningOperations = new Set();
+
+export const chainPauseUntil = new Map();
+
+export const lastSwap = new Map();
+
+export const swapBack = new Map();
+
+export const miningActivity = new Map();
+
+export const lastAutoSwitchKey = new Map();
+
+export const lastBreakTick = new Map();
+```
+
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/tool-categories.js (123 lines, 5388 bytes)
+
+```
+// Which tool type each block needs.
+import { normalizeId } from "./utils.js";
+
+export const ToolCategory = {
+  PICKAXE: "pickaxe",
+  AXE: "axe",
+  SHOVEL: "shovel",
+  LEAVES: "leaves",
+  WEB: "web",
+  SHEARS_OR_SWORD: "shears_or_sword",
+  HOE: "hoe",
+  WEAPON: "weapon",
+  SILK: "silk",
+};
+
+export const IGNORED_BLOCKS = new Set([
+  "air", "cave_air", "void_air", "water", "flowing_water", "lava", "flowing_lava",
+  "bedrock", "barrier", "structure_void", "light_block", "portal", "end_portal",
+  "end_portal_frame", "end_gateway",
+  "redstone_torch", "unlit_redstone_torch", "redstone_wire",
+]);
+
+export function getRequiredToolCategory(typeId) {
+  if (!typeId) return null;
+  const id = normalizeId(typeId);
+  if (IGNORED_BLOCKS.has(id)) return null;
+
+  if (
+    id === "glass" || id === "glass_pane" || id === "tinted_glass" ||
+    id === "stained_glass" || id === "stained_glass_pane" ||
+    id.endsWith("_stained_glass") || id.endsWith("_stained_glass_pane") ||
+    id === "ice" || id === "packed_ice" || id === "blue_ice"
+  ) {
+    return ToolCategory.SILK;
+  }
+
+  if (id === "web" || id.includes("cobweb")) return ToolCategory.WEB;
+  if (id.includes("mangrove_roots")) return ToolCategory.AXE;
+
+  if (id.includes("sandstone") || id.includes("mud_brick") || id === "packed_mud") return ToolCategory.PICKAXE;
+
+  if (
+    id.endsWith("concrete_powder") || id.includes("sand") || id.includes("gravel") ||
+    id.includes("clay") || id.includes("dirt") || id === "grass_block" ||
+    id.includes("podzol") || id.includes("mycelium") || id.includes("farmland") ||
+    id.includes("mud") || id.includes("soul_soil") || id.includes("snow")
+  ) {
+    return ToolCategory.SHOVEL;
+  }
+
+  if (id === "ender_chest") return ToolCategory.PICKAXE;
+  if (id.includes("leaves")) return ToolCategory.LEAVES;
+
+  if (
+    id.includes("wool") || id.includes("vine") || id.includes("fern") ||
+    id === "tallgrass" || id === "seagrass" || id === "hanging_roots" ||
+    id === "deadbush" || id === "tripwire"
+  ) {
+    return ToolCategory.SHEARS_OR_SWORD;
+  }
+
+  if (
+    id === "hay_block" || id === "target" || id === "sponge" || id === "wet_sponge" ||
+    id.includes("sculk") || id.includes("moss_block") || id.includes("moss_carpet") ||
+    id.includes("wart_block") || id === "shroomlight"
+  ) {
+    return ToolCategory.HOE;
+  }
+
+  if (
+    id.endsWith("_log") || id.endsWith("_wood") || id.endsWith("_stem") || id.endsWith("_hyphae") ||
+    id.startsWith("stripped_") || id.includes("planks") || id.includes("crafting_table") ||
+    id.includes("cartography_table") || id.includes("fletching_table") || id.includes("smithing_table") ||
+    id.includes("loom") || id.includes("composter") || id === "chest" || id === "trapped_chest" ||
+    id === "barrel" || id.includes("bookshelf") || id === "lectern" || id.includes("pumpkin") ||
+    id.includes("melon") || id === "cocoa" || id.includes("beehive") || id === "bee_nest" ||
+    id.includes("ladder") || id.includes("sign") || id.includes("mushroom_stem") ||
+    id.includes("mushroom_block") || id === "jukebox" || id === "daylight_detector" ||
+    id === "note_block" || id.includes("bamboo_block") || id.includes("bamboo_mosaic") ||
+    (id.endsWith("_fence") && !id.includes("nether_brick")) || id.endsWith("_fence_gate")
+  ) {
+    return ToolCategory.AXE;
+  }
+
+  const woodMaterials = [
+    "oak", "spruce", "birch", "jungle", "acacia", "dark_oak",
+    "mangrove", "cherry", "bamboo", "crimson", "warped", "pale_oak",
+  ];
+  if (
+    woodMaterials.some((mat) => id.includes(mat)) && !id.includes("petrified") &&
+    (id.endsWith("_door") || id.endsWith("_trapdoor") || id.endsWith("_button") ||
+     id.endsWith("_pressure_plate") || id.endsWith("_stairs") || id.endsWith("_slab"))
+  ) {
+    return ToolCategory.AXE;
+  }
+
+  if (
+    id.includes("stone") || id.includes("cobble") || id.includes("deepslate") ||
+    id.includes("ore") || id.includes("granite") || id.includes("diorite") ||
+    id.includes("andesite") || id.includes("tuff") || id.includes("calcite") ||
+    id.includes("basalt") || id.includes("blackstone") || id.includes("obsidian") ||
+    id.includes("ancient_debris") || id.includes("brick") || id.includes("terracotta") ||
+    (id.includes("concrete") && !id.endsWith("concrete_powder")) || id.includes("sandstone") ||
+    id.includes("prismarine") || id.includes("netherrack") || id.includes("end_stone") ||
+    id.includes("purpur") || id.includes("magma") || id.includes("copper") ||
+    id.includes("iron") || id.includes("gold") || id.includes("diamond") ||
+    id.includes("emerald") || id.includes("lapis") || id.includes("redstone") ||
+    id.includes("netherite") || id.includes("amethyst") || id.includes("dripstone") ||
+    id.includes("furnace") || id.includes("smoker") || id.includes("hopper") ||
+    id.includes("dispenser") || id.includes("dropper") || id.includes("cauldron") ||
+    id.includes("anvil") || id.includes("enchanting_table") || id.includes("brewing_stand") ||
+    id.includes("grindstone") || id.includes("stonecutter") || id.includes("bell") ||
+    id.includes("lantern") || id.includes("chain") || id.includes("spawner") ||
+    id.includes("vault") || id.includes("crafter") || id.includes("quartz") ||
+    id === "coal_block" || id === "bone_block" || id === "respawn_anchor" ||
+    id === "conduit" || id === "lightning_rod"
+  ) {
+    return ToolCategory.PICKAXE;
+  }
+
+  return null;
+}
+```
+
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/tool-scoring.js (142 lines, 4378 bytes)
+
+```
+// Scoring of tools by tier, enchantments and durability.
+import { CONFIG } from "./config.js";
+import { ToolCategory } from "./tool-categories.js";
+import { normalizeId } from "./utils.js";
+
+export const TIER_SCORES = {
+  netherite: 50,
+  diamond: 40,
+  iron: 30,
+  stone: 20,
+  golden: 15,
+  gold: 15,
+  wooden: 10,
+  wood: 10,
+};
+
+export function getMaterialTier(id) {
+  for (const [tier, score] of Object.entries(TIER_SCORES)) {
+    if (id.includes(tier)) return score;
+  }
+  return 0;
+}
+
+export function readDurability(item) {
+  try {
+    const dur = item?.getComponent("minecraft:durability") || item?.getComponent("durability");
+    if (!dur) return null;
+    const max = dur.maxDurability;
+    const damage = dur.damage;
+    return {
+      remaining: Math.max(0, max - damage),
+      fraction: max > 0 ? (max - damage) / max : 1,
+    };
+  } catch {
+    return null;
+  }
+}
+
+export function readEnchantments(item) {
+  const result = { efficiency: 0, fortune: 0, silk: 0, sharpness: 0, mending: 0 };
+  try {
+    const enchants = item?.getComponent("minecraft:enchantable") || item?.getComponent("enchantable");
+    if (!enchants) return result;
+    for (const ench of enchants.getEnchantments()) {
+      const type = (ench.type?.id || ench.id || "").toLowerCase();
+      if (type.includes("efficiency")) result.efficiency = ench.level;
+      if (type.includes("fortune")) result.fortune = ench.level;
+      if (type.includes("silk_touch")) result.silk = ench.level;
+      if (type.includes("sharpness")) result.sharpness = ench.level;
+      if (type.includes("mending")) result.mending = ench.level;
+    }
+  } catch {}
+  return result;
+}
+
+export function needsRepair(item) {
+  if (!item) return false;
+  const durability = readDurability(item);
+  if (!durability || durability.fraction >= 1) return false;
+  return readEnchantments(item).mending > 0;
+}
+
+export function scoreItem(item, category, slot, blockId) {
+  if (!item?.typeId) return -Infinity;
+  const id = normalizeId(item.typeId);
+  let score = 0;
+
+  switch (category) {
+    case ToolCategory.PICKAXE:
+      if (!id.endsWith("_pickaxe")) return -Infinity;
+      score = getMaterialTier(id);
+      break;
+    case ToolCategory.AXE:
+      if (!id.endsWith("_axe")) return -Infinity;
+      score = getMaterialTier(id);
+      break;
+    case ToolCategory.SHOVEL:
+      if (!id.endsWith("_shovel")) return -Infinity;
+      score = getMaterialTier(id);
+      break;
+    case ToolCategory.HOE:
+      if (!id.endsWith("_hoe")) return -Infinity;
+      score = getMaterialTier(id);
+      break;
+    case ToolCategory.LEAVES:
+      if (id.includes("shears")) score = 100;
+      else if (id.endsWith("_hoe")) score = 50 + getMaterialTier(id);
+      else if (id.endsWith("_sword")) score = 20 + getMaterialTier(id);
+      else return -Infinity;
+      break;
+    case ToolCategory.WEB:
+      if (id.includes("shears")) score = 100;
+      else if (id.endsWith("_sword")) score = 50 + getMaterialTier(id);
+      else return -Infinity;
+      break;
+    case ToolCategory.SHEARS_OR_SWORD:
+      if (id.includes("shears")) score = 100;
+      else if (id.endsWith("_sword")) score = 50 + getMaterialTier(id);
+      else return -Infinity;
+      break;
+    case ToolCategory.SILK:
+      if (!/_(pickaxe|axe|shovel|hoe)$/.test(id)) return -Infinity;
+      if (readEnchantments(item).silk <= 0) return -Infinity;
+      score = getMaterialTier(id);
+      break;
+    case ToolCategory.WEAPON:
+      if (id.endsWith("_sword")) score = 100 + getMaterialTier(id);
+      else if (id.endsWith("_axe")) score = 80 + getMaterialTier(id);
+      else if (id.endsWith("_mace")) score = 90;
+      else return -Infinity;
+      break;
+    default:
+      return -Infinity;
+  }
+
+  const enchants = readEnchantments(item);
+  score += enchants.efficiency * 2;
+  score += enchants.sharpness * 3;
+
+  if (category === ToolCategory.PICKAXE && blockId) {
+    if (blockId.endsWith("_ore")) {
+      score += enchants.fortune * 1.5;
+      if (enchants.silk > 0) score -= 8;
+    }
+  }
+
+  if (category === ToolCategory.AXE && blockId === "bookshelf" && enchants.silk > 0) {
+    score += CONFIG.SILK_BLOCK_BONUS;
+  }
+
+  const durability = readDurability(item);
+  if (durability) {
+    if (durability.remaining <= CONFIG.LOW_DURABILITY_USES) {
+      score -= CONFIG.LOW_DURABILITY_PENALTY;
+    } else {
+      score += durability.fraction;
+    }
+  }
+
+  return score;
+}
+```
+
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/tree-capitator.js (205 lines, 7736 bytes)
+
+```
+// Tree Capitator.
+import { addGroupedDrop, removeBlockAt, spawnGroupedDrops } from "./blocks.js";
+import { CONFIG } from "./config.js";
+import { applyToolDurabilityDamage, checkToolSafety, notifyToolProtection, notifyTreeTooLarge } from "./durability.js";
+import { isGameMode, normalizeId } from "./utils.js";
+
+export const AXE_IDENTIFIERS = new Set([
+  "minecraft:wooden_axe", "minecraft:stone_axe", "minecraft:iron_axe",
+  "minecraft:golden_axe", "minecraft:diamond_axe", "minecraft:netherite_axe",
+]);
+
+export function isAxe(typeId) {
+  if (!typeId) return false;
+  return AXE_IDENTIFIERS.has(typeId) || typeId.endsWith("_axe");
+}
+
+export const ELIGIBLE_LOGS = new Set([
+  "minecraft:oak_log", "minecraft:stripped_oak_log", "minecraft:oak_wood", "minecraft:stripped_oak_wood",
+  "minecraft:spruce_log", "minecraft:stripped_spruce_log", "minecraft:spruce_wood", "minecraft:stripped_spruce_wood",
+  "minecraft:birch_log", "minecraft:stripped_birch_log", "minecraft:birch_wood", "minecraft:stripped_birch_wood",
+  "minecraft:jungle_log", "minecraft:stripped_jungle_log", "minecraft:jungle_wood", "minecraft:stripped_jungle_wood",
+  "minecraft:acacia_log", "minecraft:stripped_acacia_log", "minecraft:acacia_wood", "minecraft:stripped_acacia_wood",
+  "minecraft:dark_oak_log", "minecraft:stripped_dark_oak_log", "minecraft:dark_oak_wood", "minecraft:stripped_dark_oak_wood",
+  "minecraft:mangrove_log", "minecraft:stripped_mangrove_log", "minecraft:mangrove_wood", "minecraft:stripped_mangrove_wood",
+  "minecraft:mangrove_roots", "minecraft:muddy_mangrove_roots",
+  "minecraft:cherry_log", "minecraft:stripped_cherry_log", "minecraft:cherry_wood", "minecraft:stripped_cherry_wood",
+  "minecraft:pale_oak_log", "minecraft:stripped_pale_oak_log", "minecraft:pale_oak_wood", "minecraft:stripped_pale_oak_wood",
+  "minecraft:crimson_stem", "minecraft:stripped_crimson_stem", "minecraft:crimson_hyphae", "minecraft:stripped_crimson_hyphae",
+  "minecraft:warped_stem", "minecraft:stripped_warped_stem", "minecraft:warped_hyphae", "minecraft:stripped_warped_hyphae",
+]);
+
+export function isEligibleLog(blockId) {
+  if (!blockId) return false;
+  if (ELIGIBLE_LOGS.has(blockId)) return true;
+  return /(_log|_wood|_hyphae|mangrove_roots|(crimson|warped)_stem)$/i.test(blockId);
+}
+
+export function getWoodSpecies(typeId) {
+  if (!typeId) return null;
+  const match = typeId.match(/(dark_oak|pale_oak|oak|spruce|birch|jungle|acacia|mangrove|cherry|crimson|warped)/i);
+  return match ? match[1].toLowerCase() : null;
+}
+
+export function isMatchingLog(blockId, targetSpecies) {
+  if (!isEligibleLog(blockId)) return false;
+  if (!CONFIG.MATCH_TREE_SPECIES || !targetSpecies) return true;
+  const species = getWoodSpecies(blockId);
+  return !species || species === targetSpecies;
+}
+
+export function isTreeCanopy(dimension, blocks, targetSpecies) {
+  if (!blocks || blocks.length === 0) return false;
+  const candidates = [...blocks].sort((a, b) => b.y - a.y).slice(0, 8);
+  for (const pos of candidates) {
+    for (let dx = -2; dx <= 2; dx++) {
+      for (let dz = -2; dz <= 2; dz++) {
+        for (let dy = 0; dy <= 2; dy++) {
+          try {
+            const b = dimension.getBlock({ x: pos.x + dx, y: pos.y + dy, z: pos.z + dz });
+            if (!b) continue;
+
+            if ((targetSpecies === "crimson" || targetSpecies === "warped") &&
+                (b.typeId.includes("wart_block") || b.typeId.includes("shroomlight"))) {
+              return true;
+            }
+
+            if (b.typeId.includes("leaves")) {
+              const permutation = b.permutation;
+              const isPersistent = permutation?.getState("persistent_bit");
+              if (isPersistent === true) {
+                continue;
+              }
+              return true;
+            }
+          } catch (e) {}
+        }
       }
     }
-  } catch (e) {}
-  lightsCleaned = true;
-  persistLights();
+  }
+  return false;
+}
 
-  try {
-    if (!world.getDynamicProperty("qol:gamerules_set")) {
-      const dim = world.getDimension("overworld");
-      dim.runCommand(`gamerule playersSleepingPercentage ${CONFIG.SLEEP_PERCENTAGE}`);
-      dim.runCommand(`gamerule randomTickSpeed ${CONFIG.RANDOM_TICK_SPEED}`);
-      world.setDynamicProperty("qol:gamerules_set", true);
+export const PLAYER_BUILD_PATTERN = /(planks|stairs|slab|door|trapdoor|glass|brick|fence|(^|_)bed$|crafting_table|chest|barrel|furnace|concrete|wool|carpet|bookshelf)/;
+
+export function isNearPlayerBuild(dimension, blocks, startLoc) {
+  const checked = new Set();
+  const positions = [startLoc, ...blocks];
+  for (const pos of positions) {
+    for (let dx = -1; dx <= 1; dx++) {
+      for (let dy = -1; dy <= 1; dy++) {
+        for (let dz = -1; dz <= 1; dz++) {
+          const x = pos.x + dx;
+          const y = pos.y + dy;
+          const z = pos.z + dz;
+          const key = `${x},${y},${z}`;
+          if (checked.has(key)) continue;
+          checked.add(key);
+          try {
+            const b = dimension.getBlock({ x, y, z });
+            if (!b) continue;
+            const builtId = normalizeId(b.typeId);
+            if (builtId !== "moss_carpet" && PLAYER_BUILD_PATTERN.test(builtId)) return true;
+          } catch (e) {}
+        }
+      }
     }
-  } catch (e) {}
-}, CONFIG.STARTUP_DELAY_TICKS);
+  }
+  return false;
+}
 
-console.warn(`${LOG_PREFIX} Initialized. Tree Capitator: ${CONFIG.TREE_CAPITATOR_ENABLED ? "ON" : "OFF"}; Vein Miner: ${CONFIG.DOMINO_ORE_MINER_ENABLED ? "ON" : "OFF"}.`);
+export function executeTreeCapitator(player, dimension, startLoc, startBlockId, onComplete) {
+  if (typeof startBlockId === "function") {
+    onComplete = startBlockId;
+    startBlockId = null;
+  }
+  if (!CONFIG.TREE_CAPITATOR_ENABLED) {
+    if (onComplete) onComplete();
+    return;
+  }
+
+  const targetSpecies = startBlockId ? getWoodSpecies(startBlockId) : null;
+  const visited = new Set();
+  visited.add(`${startLoc.x},${startLoc.y},${startLoc.z}`);
+
+  const blocksToBreak = [];
+  const queue = [{ x: startLoc.x, y: startLoc.y, z: startLoc.z }];
+
+  while (queue.length > 0 && blocksToBreak.length < CONFIG.MAX_TREE_BLOCKS) {
+    const cur = queue.shift();
+
+    for (let dy = 0; dy <= 1; dy++) {
+      for (let dx = -1; dx <= 1; dx++) {
+        for (let dz = -1; dz <= 1; dz++) {
+          if (dx === 0 && dy === 0 && dz === 0) continue;
+
+          const nx = cur.x + dx;
+          const ny = cur.y + dy;
+          const nz = cur.z + dz;
+
+          if (ny < startLoc.y) continue;
+          if (ny > startLoc.y + CONFIG.MAX_TREE_HEIGHT) continue;
+          if (
+            Math.abs(nx - startLoc.x) > CONFIG.TREE_MAX_HORIZONTAL_SPREAD ||
+            Math.abs(nz - startLoc.z) > CONFIG.TREE_MAX_HORIZONTAL_SPREAD
+          ) continue;
+
+          const key = `${nx},${ny},${nz}`;
+          if (visited.has(key)) continue;
+          visited.add(key);
+
+          try {
+            const block = dimension.getBlock({ x: nx, y: ny, z: nz });
+            if (block && isMatchingLog(block.typeId, targetSpecies)) {
+              const logPos = { x: nx, y: ny, z: nz };
+              blocksToBreak.push(logPos);
+              queue.push(logPos);
+              if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
+            }
+          } catch (e) {}
+        }
+        if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
+      }
+      if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
+    }
+  }
+
+  if (blocksToBreak.length === 0) {
+    if (onComplete) onComplete();
+    return;
+  }
+
+  if (!isTreeCanopy(dimension, blocksToBreak, targetSpecies)) {
+    if (onComplete) onComplete();
+    return;
+  }
+
+  if (isNearPlayerBuild(dimension, blocksToBreak, startLoc)) {
+    if (onComplete) onComplete();
+    return;
+  }
+
+  const capped = blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS;
+  const creative = isGameMode(player, "creative");
+  const drops = new Map();
+  for (const pos of blocksToBreak) {
+    if (!player || !player.isValid()) break;
+
+    const safety = checkToolSafety(player);
+    if (!safety.safe) {
+      notifyToolProtection(player, safety.remaining);
+      break;
+    }
+
+    try {
+      const brokenId = removeBlockAt(dimension, pos);
+      if (brokenId && !creative) addGroupedDrop(drops, pos, brokenId, 1);
+      applyToolDurabilityDamage(player);
+    } catch (err) {}
+  }
+  spawnGroupedDrops(dimension, drops);
+  if (capped) notifyTreeTooLarge(player);
+
+  if (onComplete) onComplete();
+}
+```
+
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/utils.js (86 lines, 2194 bytes)
+
+```
+// Small helpers for items, containers and targets.
+import { world, EquipmentSlot, ItemStack } from "@minecraft/server";
+import { CONFIG } from "./config.js";
+
+export function isGameMode(player, mode) {
+  try {
+    return world.getPlayers({ gameMode: mode, name: player.name }).length > 0;
+  } catch (e) {}
+  try {
+    return !!player.matches({ gameMode: mode });
+  } catch (e) {}
+  return false;
+}
+
+export function shortId(typeId) {
+  return typeId && typeId.startsWith("minecraft:") ? typeId.slice("minecraft:".length) : typeId;
+}
+
+export function describeItem(item) {
+  if (!item) return "Empty";
+  const name = item.nameTag ? `"${item.nameTag}"` : shortId(item.typeId);
+  return item.amount > 1 ? `${name} x${item.amount}` : name;
+}
+
+export function getEquipment(player) {
+  try {
+    return player.getComponent("minecraft:equippable") || player.getComponent("equippable");
+  } catch (e) {
+    return undefined;
+  }
+}
+
+export function getContainer(player) {
+  try {
+    const inv = player.getComponent("minecraft:inventory") || player.getComponent("inventory");
+    return inv ? inv.container : undefined;
+  } catch (e) {
+    return undefined;
+  }
+}
+
+export function cloneStack(item) {
+  if (!item) return undefined;
+  try {
+    if (typeof item.clone === "function") return item.clone();
+  } catch (e) {}
+  try {
+    const copy = new ItemStack(item.typeId, item.amount);
+    if (item.nameTag) copy.nameTag = item.nameTag;
+    return copy;
+  } catch (e) {
+    return undefined;
+  }
+}
+
+export function normalizeId(id) {
+  return (id ?? "").replace(/^minecraft:/, "").toLowerCase();
+}
+
+export function blockKey(block) {
+  if (!block) return "";
+  const { x, y, z } = block.location;
+  return `${block.typeId}@${x},${y},${z}`;
+}
+
+export function getTargetBlock(player) {
+  try {
+    return player.getBlockFromViewDirection({
+      maxDistance: CONFIG.RAYCAST_DISTANCE,
+      includeLiquidBlocks: false,
+      includePassableBlocks: true,
+    })?.block;
+  } catch {
+    return undefined;
+  }
+}
+
+export function getMainhandTool(player) {
+  try {
+    const eq = getEquipment(player);
+    return eq ? eq.getEquipment(EquipmentSlot.Mainhand) : undefined;
+  } catch (e) {
+    return undefined;
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/main.js (8 lines, 244 bytes)
+
+```
+// Vanilla Quality of Life: entry point. Each feature lives in ./lib.
+import "./lib/offhand.js";
+import "./lib/light.js";
+import "./lib/autoswitch.js";
+import "./lib/chain-mining.js";
+import "./lib/player-loop.js";
+import "./lib/lifecycle.js";
 ```
 
 ## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/mining-options.js (6 lines, 156 bytes)
@@ -87005,12 +87206,24 @@ export const MINING_OPTIONS = Object.freeze({
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/CHANGELOG.md (365 lines, 16332 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/CHANGELOG.md (377 lines, 17091 bytes)
 
 ```
 # Changelog — Vanilla Quality of Life
 
 ---
+
+## [v4] - 2026-11-20 - Script Split and Tool Fixes
+
+### Improved & Balanced
+
+- **Organized Scripts**: The add-on's code is now split into separate files in a lib folder, one for each feature, so it is easier to maintain. Nothing changes in game.
+
+### Fixed
+
+- **Auto-Switch Blocks**: Auto-switch now picks a Pickaxe for Blocks of Coal, Quartz blocks, Bone Blocks, Respawn Anchors, Conduits, and Lightning Rods, and Packed Mud no longer switches you to a shovel.
+- **Fortune on Iron and Gold**: Domino Ore Miner now applies Fortune to Iron Ore and Gold Ore, including their Deepslate versions, like it already did for other ores.
+- **Leaving the World**: Chain mining pause and pending tool wear are now cleared when a player leaves, so nothing carries over.
 
 ## [v4] - 2026-11-20 - Block Tool and Fortune Fixes
 
