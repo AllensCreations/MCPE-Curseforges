@@ -1,8 +1,17 @@
 # Changelog — OneBlock Natural Market
 
-## [v8] - 2026-11-20 - Market Screen Fix
+## [v9] - 2026-11-20 - Standard Screen Option
 
-### Fixed
+### Added
+
+<details>
+<summary><b>8.0.x</b> (1 release)</summary>
+
+### [v8] - 2026-11-20 - Market Screen Fix
+
+#### Fixed
+
+</details>
 
 <details>
 <summary><b>7.0.x</b> (1 release)</summary>

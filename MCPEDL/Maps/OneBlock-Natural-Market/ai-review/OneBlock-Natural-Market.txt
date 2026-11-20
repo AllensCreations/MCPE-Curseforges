@@ -16,7 +16,7 @@
 
 - **Export request:** `MCPEDL/Maps/OneBlock-Natural-Market`
 - **Destination:** `MCPEDL/Maps/OneBlock-Natural-Market`
-- **CURRENT VERSION: v8 / NEXT UPDATE: v9**  (`MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md`)
+- **CURRENT VERSION: v9 / NEXT UPDATE: v10**  (`MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md`)
 - **Text files:** 17
 - **Skipped binary:** 8
 - **Paths not found:** 0
@@ -60,7 +60,7 @@ Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
 Context7 Support: Enabled. For full instructions, schemas, and helper script syntax, query Context7 (`INSTRUCTIONS.md`, `PACK_GENERATOR_INSTRUCTIONS.md`, `DOCS_RULES.md`, `make_update_script.py`, `doc_template.py`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v8 / NEXT UPDATE: v9).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v9 / NEXT UPDATE: v10).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -118,10 +118,11 @@ Output ONLY these three sections in order:
 
 ## File Contents
 
-## FILE: changelog_views/OneBlock-Natural-Market.curseforge.html (8 lines, 889 bytes)
+## FILE: changelog_views/OneBlock-Natural-Market.curseforge.html (9 lines, 1015 bytes)
 
 ```
-<h2>v8 - 2026-11-20 - Market Screen Fix</h2><h3>Fixed</h3><ul></ul>
+<h2>v9 - 2026-11-20 - Standard Screen Option</h2><h3>Added</h3><ul></ul>
+<h2>8.0.x (1 release)</h2><div class="spoiler"><h3>v8 - 2026-11-20 - Market Screen Fix</h3><h4>Fixed</h4><ul></ul></div>
 <h2>7.0.x (1 release)</h2><div class="spoiler"><h3>v7 - 2026-11-20 - Chest Market UI</h3><h4>Fixed</h4><ul></ul><h4>Improved</h4><ul></ul></div>
 <h2>6.0.x (1 release)</h2><div class="spoiler"><h3>v6 - 2026-11-20 - Responsive Market UI</h3><h4>Fixed</h4><ul></ul><h4>Improved</h4><ul></ul></div>
 <h2>5.0.x (1 release)</h2><div class="spoiler"><h3>v5 - 2026-11-20 - Diagnostic Log</h3><h4>Added</h4><ul></ul></div>
@@ -130,14 +131,23 @@ Output ONLY these three sections in order:
 <h2>2.0.x (1 release)</h2><div class="spoiler"><h3>v2 - 2026-11-11</h3><h4>Improved</h4><ul></ul><h4>Compatibility note</h4><ul></ul></div>
 ```
 
-## FILE: changelog_views/OneBlock-Natural-Market.github.md (68 lines, 876 bytes)
+## FILE: changelog_views/OneBlock-Natural-Market.github.md (77 lines, 1003 bytes)
 
 ```
 # Changelog — OneBlock Natural Market
 
-## [v8] - 2026-11-20 - Market Screen Fix
+## [v9] - 2026-11-20 - Standard Screen Option
 
-### Fixed
+### Added
+
+<details>
+<summary><b>8.0.x</b> (1 release)</summary>
+
+### [v8] - 2026-11-20 - Market Screen Fix
+
+#### Fixed
+
+</details>
 
 <details>
 <summary><b>7.0.x</b> (1 release)</summary>
@@ -277,11 +287,11 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v8)",
+    "name": "OneBlock Natural Market (v9)",
     "description": "OneBlock survival with a progression market and regenerating core. by ALNStudios",
     "uuid": "77f07d1a-fa7a-437d-8fea-72068be05162",
     "version": [
-      8,
+      9,
       0,
       0
     ],
@@ -296,7 +306,7 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
       "type": "data",
       "uuid": "6382a3dd-3398-4ec5-851b-748d052c0e36",
       "version": [
-        8,
+        9,
         0,
         0
       ]
@@ -306,7 +316,7 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
       "language": "javascript",
       "uuid": "645e0490-52c0-4f43-b412-0f20375a92fc",
       "version": [
-        8,
+        9,
         0,
         0
       ],
@@ -317,7 +327,7 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
     {
       "uuid": "187333a6-4353-4003-b379-471f85ce9021",
       "version": [
-        8,
+        9,
         0,
         0
       ]
@@ -336,12 +346,12 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "8.0.0"
+    "version": "9.0.0"
   }
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (568 lines, 32551 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (571 lines, 32671 bytes)
 
 ```
 import { world, system, ItemStack, ItemTypes } from "@minecraft/server";
@@ -730,9 +740,12 @@ function ensureCore() {
     }
   } catch (e) { logError("ensureCore", e); }
 }
+function uiTitle(player, text) {
+  return player.hasTag("obm_vanilla_ui") ? text : "NMKT:" + text;
+}
 function marketMain(player) {
   const form = new ActionFormData()
-    .title("NMKT:NATURAL MARKET")
+    .title(uiTitle(player, "NATURAL MARKET"))
     .body("§6Coins: §e" + balance(player) + "§r\nPersonal breaks: " + personalBreaks(player) +
       "\nShared breaks: " + totalBreaks() + "\nUnlocked tier: " + (unlockedTier(player) + 1) + " / 10\n\nChoose a market section.");
   form.button("Building Blocks", CATEGORIES[0].icon)
@@ -767,7 +780,7 @@ function showCategory(player, category, page = 0) {
   const pageCount = Math.max(1, Math.ceil(items.length / pageSize));
   const safePage = Math.max(0, Math.min(page, pageCount - 1));
   const visible = items.slice(safePage * pageSize, (safePage + 1) * pageSize);
-  const form = new ActionFormData().title("NMKT:" + category.toUpperCase())
+  const form = new ActionFormData().title(uiTitle(player, category.toUpperCase()))
     .body("§6Coins: §e" + balance(player) + "§r  |  Page " + (safePage + 1) + "/" + pageCount +
       "\nTap a supply slot to buy the listed bundle." +
       (locked.length ? "\nMore supplies unlock as you mine the core." : ""));
@@ -913,12 +926,17 @@ system.runInterval(() => {
 system.run(() => log("INFO", "Script started and handlers registered. Debug chat: /tag @s add obm_debug. Status: /scriptevent allenscreations:obm_status"));
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (62 lines, 3388 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (67 lines, 3709 bytes)
 
 ```
 # Changelog — OneBlock Natural Market
 
 ---
+
+## [v9] - 2026-11-20 - Standard Screen Option
+
+### Added
+- Added an option to use the game's standard form screen for the market. Run `/tag @s add obm_vanilla_ui` to switch to it, and `/tag @s remove obm_vanilla_ui` to switch back to the chest-style screen. The market menus and purchases work the same on both screens.
 
 ## [v8] - 2026-11-20 - Market Screen Fix
 
@@ -1101,11 +1119,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v8)",
+    "name": "OneBlock Natural Market (v9)",
     "description": "Trader Ledger icon for OneBlock Natural Market. by ALNStudios",
     "uuid": "187333a6-4353-4003-b379-471f85ce9021",
     "version": [
-      8,
+      9,
       0,
       0
     ],
@@ -1120,7 +1138,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "bdbf7c5c-5c34-4d6d-93c9-16a468f66b52",
       "version": [
-        8,
+        9,
         0,
         0
       ]
@@ -1131,7 +1149,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "8.0.0"
+    "version": "9.0.0"
   }
 }
 ```
