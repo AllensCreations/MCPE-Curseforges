@@ -1,10 +1,21 @@
 # Changelog — OneBlock Natural Market
 
-## [v6] - 2026-11-20 - Responsive Market UI
+## [v7] - 2026-11-20 - Chest Market UI
 
 ### Fixed
 
 ### Improved
+
+<details>
+<summary><b>6.0.x</b> (1 release)</summary>
+
+### [v6] - 2026-11-20 - Responsive Market UI
+
+#### Fixed
+
+#### Improved
+
+</details>
 
 <details>
 <summary><b>5.0.x</b> (1 release)</summary>

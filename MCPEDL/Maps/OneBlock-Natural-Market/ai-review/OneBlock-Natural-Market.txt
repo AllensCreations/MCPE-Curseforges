@@ -16,7 +16,7 @@
 
 - **Export request:** `MCPEDL/Maps/OneBlock-Natural-Market`
 - **Destination:** `MCPEDL/Maps/OneBlock-Natural-Market`
-- **CURRENT VERSION: v6 / NEXT UPDATE: v7**  (`MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md`)
+- **CURRENT VERSION: v7 / NEXT UPDATE: v8**  (`MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md`)
 - **Text files:** 17
 - **Skipped binary:** 8
 - **Paths not found:** 0
@@ -60,7 +60,7 @@ Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
 Context7 Support: Enabled. For full instructions, schemas, and helper script syntax, query Context7 (`INSTRUCTIONS.md`, `PACK_GENERATOR_INSTRUCTIONS.md`, `DOCS_RULES.md`, `make_update_script.py`, `doc_template.py`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v6 / NEXT UPDATE: v7).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v7 / NEXT UPDATE: v8).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -118,26 +118,38 @@ Output ONLY these three sections in order:
 
 ## File Contents
 
-## FILE: changelog_views/OneBlock-Natural-Market.curseforge.html (6 lines, 623 bytes)
+## FILE: changelog_views/OneBlock-Natural-Market.curseforge.html (7 lines, 768 bytes)
 
 ```
-<h2>v6 - 2026-11-20 - Responsive Market UI</h2><h3>Fixed</h3><ul></ul><h3>Improved</h3><ul></ul>
+<h2>v7 - 2026-11-20 - Chest Market UI</h2><h3>Fixed</h3><ul></ul><h3>Improved</h3><ul></ul>
+<h2>6.0.x (1 release)</h2><div class="spoiler"><h3>v6 - 2026-11-20 - Responsive Market UI</h3><h4>Fixed</h4><ul></ul><h4>Improved</h4><ul></ul></div>
 <h2>5.0.x (1 release)</h2><div class="spoiler"><h3>v5 - 2026-11-20 - Diagnostic Log</h3><h4>Added</h4><ul></ul></div>
 <h2>4.0.x (1 release)</h2><div class="spoiler"><h3>v4 - 2026-11-20 - Startup Fix</h3><h4>Fixed</h4><ul></ul></div>
 <h2>3.0.x (1 release)</h2><div class="spoiler"><h3>v3 - 2026-11-20 - Core Reliability Update</h3><h4>Fixed</h4><ul></ul><h4>Improved</h4><ul></ul></div>
 <h2>2.0.x (1 release)</h2><div class="spoiler"><h3>v2 - 2026-11-11</h3><h4>Improved</h4><ul></ul><h4>Compatibility note</h4><ul></ul></div>
 ```
 
-## FILE: changelog_views/OneBlock-Natural-Market.github.md (48 lines, 618 bytes)
+## FILE: changelog_views/OneBlock-Natural-Market.github.md (59 lines, 753 bytes)
 
 ```
 # Changelog — OneBlock Natural Market
 
-## [v6] - 2026-11-20 - Responsive Market UI
+## [v7] - 2026-11-20 - Chest Market UI
 
 ### Fixed
 
 ### Improved
+
+<details>
+<summary><b>6.0.x</b> (1 release)</summary>
+
+### [v6] - 2026-11-20 - Responsive Market UI
+
+#### Fixed
+
+#### Improved
+
+</details>
 
 <details>
 <summary><b>5.0.x</b> (1 release)</summary>
@@ -255,11 +267,11 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v6)",
+    "name": "OneBlock Natural Market (v7)",
     "description": "OneBlock survival with a progression market and regenerating core. by ALNStudios",
     "uuid": "77f07d1a-fa7a-437d-8fea-72068be05162",
     "version": [
-      6,
+      7,
       0,
       0
     ],
@@ -274,7 +286,7 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
       "type": "data",
       "uuid": "6382a3dd-3398-4ec5-851b-748d052c0e36",
       "version": [
-        6,
+        7,
         0,
         0
       ]
@@ -284,7 +296,7 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
       "language": "javascript",
       "uuid": "645e0490-52c0-4f43-b412-0f20375a92fc",
       "version": [
-        6,
+        7,
         0,
         0
       ],
@@ -295,7 +307,7 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
     {
       "uuid": "187333a6-4353-4003-b379-471f85ce9021",
       "version": [
-        6,
+        7,
         0,
         0
       ]
@@ -314,12 +326,12 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "6.0.0"
+    "version": "7.0.0"
   }
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (568 lines, 32536 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (568 lines, 32551 bytes)
 
 ```
 import { world, system, ItemStack, ItemTypes } from "@minecraft/server";
@@ -710,7 +722,7 @@ function ensureCore() {
 }
 function marketMain(player) {
   const form = new ActionFormData()
-    .title("NATURAL MARKET")
+    .title("NMKT:NATURAL MARKET")
     .body("§6Coins: §e" + balance(player) + "§r\nPersonal breaks: " + personalBreaks(player) +
       "\nShared breaks: " + totalBreaks() + "\nUnlocked tier: " + (unlockedTier(player) + 1) + " / 10\n\nChoose a market section.");
   form.button("Building Blocks", CATEGORIES[0].icon)
@@ -745,7 +757,7 @@ function showCategory(player, category, page = 0) {
   const pageCount = Math.max(1, Math.ceil(items.length / pageSize));
   const safePage = Math.max(0, Math.min(page, pageCount - 1));
   const visible = items.slice(safePage * pageSize, (safePage + 1) * pageSize);
-  const form = new ActionFormData().title(category.toUpperCase())
+  const form = new ActionFormData().title("NMKT:" + category.toUpperCase())
     .body("§6Coins: §e" + balance(player) + "§r  |  Page " + (safePage + 1) + "/" + pageCount +
       "\nTap a supply slot to buy the listed bundle." +
       (locked.length ? "\nMore supplies unlock as you mine the core." : ""));
@@ -891,12 +903,21 @@ system.runInterval(() => {
 system.run(() => log("INFO", "Script started and handlers registered. Debug chat: /tag @s add obm_debug. Status: /scriptevent allenscreations:obm_status"));
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (48 lines, 2569 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (57 lines, 3179 bytes)
 
 ```
 # Changelog — OneBlock Natural Market
 
 ---
+
+## [v7] - 2026-11-20 - Chest Market UI
+
+### Fixed
+- Fixed the UI errors `Unknown property [orientation]` for `dynamic_button`, `long_form_dynamic_buttons_panel` and `inside_header_panel`. The market screen no longer redefines the game's own form controls; it uses its own uniquely named controls instead.
+- Other forms in your world (from other add-ons) use the normal game screen again. The market screen now appears only for Natural Market forms.
+
+### Improved
+- The market is now a large chest-style panel, 88% of the screen height, with 9 square slots per row. It scales with any screen size or UI scale.
 
 ## [v6] - 2026-11-20 - Responsive Market UI
 
@@ -943,7 +964,7 @@ system.run(() => log("INFO", "Script started and handlers registered. Debug chat
 - No experimental gameplay toggle was added. Source structure is updated; Minecraft in-game rendering has not been verified.
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/DESCRIPTION.md (81 lines, 4826 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/DESCRIPTION.md (81 lines, 4865 bytes)
 
 ```
 # OneBlock Natural Market — A OneBlock economy and supply shop
@@ -968,7 +989,7 @@ Start on a small void platform with the central block at (0, 0, 0). Breaking it 
 - The starting core is Dirt and is managed by the map script after one-time void setup.
 
 ### Natural Market Ledger
-- Opens a **3-row by 9-column chest-inspired market panel** with a wood-toned frame, individual slot backgrounds, hover/pressed states, and Minecraft item icons.
+- Opens a large **3-row by 9-column chest-inspired market panel** that sizes itself to your screen with a wood-toned frame, individual slot backgrounds, hover/pressed states, and Minecraft item icons.
 - Tap a supply slot to purchase its displayed bundle directly; no separate purchase-confirmation screen.
 - Large categories use pages that reserve two slots for navigation controls.
 - The catalogue contains more than 180 configured supplies across ten categories. Entries unavailable in the current game version are hidden.
@@ -1065,11 +1086,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v6)",
+    "name": "OneBlock Natural Market (v7)",
     "description": "Trader Ledger icon for OneBlock Natural Market. by ALNStudios",
     "uuid": "187333a6-4353-4003-b379-471f85ce9021",
     "version": [
-      6,
+      7,
       0,
       0
     ],
@@ -1084,7 +1105,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "bdbf7c5c-5c34-4d6d-93c9-16a468f66b52",
       "version": [
-        6,
+        7,
         0,
         0
       ]
@@ -1095,7 +1116,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "6.0.0"
+    "version": "7.0.0"
   }
 }
 ```
@@ -1114,38 +1135,70 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/ui/server_form.json (288 lines, 8444 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/ui/server_form.json (293 lines, 6648 bytes)
 
 ```
 {
   "namespace": "server_form",
-  "long_form@common_dialogs.main_panel_no_buttons": {
-    "$title_panel": "common_dialogs.standard_title_label",
-    "$title_size": [
-      "100% - 15px",
-      10
-    ],
-    "$title_max_size": [
-      "100% - 15px",
-      10
-    ],
-    "size": ["85%", "85%"],
-    "$text_name": "#title_text",
-    "$title_text_binding_type": "none",
-    "$child_control": "server_form.long_form_panel",
-    "layer": 2
+  "long_form": {
+    "modifications": [
+      {
+        "array_name": "bindings",
+        "operation": "insert_back",
+        "value": [
+          {
+            "binding_name": "#title_text"
+          },
+          {
+            "binding_type": "view",
+            "source_property_name": "((#title_text - 'NMKT:') = #title_text)",
+            "target_property_name": "#visible"
+          }
+        ]
+      }
+    ]
   },
-  "long_form_panel": {
+  "main_screen_content": {
+    "modifications": [
+      {
+        "array_name": "controls",
+        "operation": "insert_back",
+        "value": [
+          {
+            "nm_form@server_form.nm_form": {}
+          }
+        ]
+      }
+    ]
+  },
+  "nm_form": {
     "type": "panel",
+    "layer": 2,
     "size": [
-      "100%",
+      "133.33%y",
+      "88%"
+    ],
+    "max_size": [
+      "98%",
       "100%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "bindings": [
+      {
+        "binding_name": "#title_text"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not ((#title_text - 'NMKT:') = #title_text))",
+        "target_property_name": "#visible"
+      }
     ],
     "controls": [
       {
-        "chest_backdrop": {
+        "nm_frame": {
           "type": "image",
-          "layer": -2,
+          "layer": 0,
           "size": [
             "100%",
             "100%"
@@ -1155,122 +1208,82 @@ For gameplay features, usage details, compatibility notes, and other project inf
         }
       },
       {
-        "market_scroller": {
-          "type": "panel",
-          "size": [
-            "100%",
-            "100%"
+        "nm_title": {
+          "type": "label",
+          "layer": 3,
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "offset": [
+            0,
+            "7%"
           ],
-          "controls": [
+          "size": [
+            "88%",
+            "default"
+          ],
+          "text_alignment": "center",
+          "color": [
+            1,
+            0.9,
+            0.55
+          ],
+          "text": "#text",
+          "bindings": [
             {
-              "scrolling_panel": {
-                "type": "panel",
-                "size": [
-                  "100% - 12px",
-                  "100% - 10px"
-                ],
-                "anchor_from": "top_left",
-                "anchor_to": "top_left",
-                "offset": [
-                  6,
-                  5
-                ],
-                "controls": [
-                  {
-                    "scrolling_content": {
-                      "type": "panel",
-                      "size": [
-                        "100%",
-                        "100%c"
-                      ],
-                      "controls": [
-                        {
-                          "scrolling_panel_ref": {
-                            "type": "panel",
-                            "size": [
-                              "100%",
-                              "100%c"
-                            ],
-                            "controls": [
-                              {
-                                "scrolling_panel_content": {
-                                  "type": "panel",
-                                  "size": [
-                                    "100%",
-                                    "100%c"
-                                  ],
-                                  "controls": [
-                                    {
-                                      "main_label": {
-                                        "type": "label",
-                                        "offset": [
-                                          7,
-                                          5
-                                        ],
-                                        "color": "$main_header_text_color",
-                                        "size": [
-                                          "100%",
-                                          "default"
-                                        ],
-                                        "anchor_from": "top_left",
-                                        "anchor_to": "top_left",
-                                        "text": "#form_text"
-                                      }
-                                    },
-                                    {
-                                      "top_gap": {
-                                        "type": "panel",
-                                        "size": [
-                                          "100%",
-                                          8
-                                        ]
-                                      }
-                                    },
-                                    {
-                                      "button_grid": {
-                                        "type": "panel",
-                                        "size": [
-                                          "100%",
-                                          "100%c"
-                                        ],
-                                        "controls": [
-                                          {
-                                            "long_form_dynamic_buttons_panel@server_form.long_form_dynamic_buttons_panel": {}
-                                          }
-                                        ]
-                                      }
-                                    }
-                                  ]
-                                }
-                              }
-                            ]
-                          }
-                        }
-                      ]
-                    }
-                  }
-                ]
-              }
+              "binding_name": "#title_text"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "(#title_text - 'NMKT:')",
+              "target_property_name": "#text"
             }
           ]
         }
+      },
+      {
+        "nm_body": {
+          "type": "label",
+          "layer": 3,
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "offset": [
+            0,
+            "15%"
+          ],
+          "size": [
+            "88%",
+            "default"
+          ],
+          "text_alignment": "center",
+          "font_size": "small",
+          "color": [
+            0.92,
+            0.92,
+            0.92
+          ],
+          "text": "#form_text"
+        }
+      },
+      {
+        "nm_grid@server_form.nm_grid": {}
       }
     ]
   },
-  "long_form_dynamic_buttons_panel": {
+  "nm_grid": {
     "type": "grid",
+    "layer": 3,
     "size": [
-      "100% - 8px",
+      "88%",
       "100%c"
     ],
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
     "offset": [
-      4,
-      0
+      0,
+      "-7%"
     ],
-    "grid_dimensions": [9, 3],
-    "grid_fill_direction": "horizontal",
     "grid_rescaling_type": "horizontal",
-    "grid_item_template": "server_form.dynamic_button",
+    "grid_item_template": "server_form.nm_slot",
     "collection_name": "form_buttons",
     "bindings": [
       {
@@ -1283,9 +1296,12 @@ For gameplay features, usage details, compatibility notes, and other project inf
       }
     ]
   },
-  "dynamic_button": {
+  "nm_slot": {
     "type": "button",
-    "size": ["11%", "100%x"],
+    "size": [
+      "11%",
+      "100%x"
+    ],
     "sound_name": "random.click",
     "default_control": "default",
     "hover_control": "hover",
@@ -1343,12 +1359,15 @@ For gameplay features, usage details, compatibility notes, and other project inf
         "slot_icon": {
           "type": "image",
           "layer": 2,
-          "size": ["50%", "50%x"],
+          "size": [
+            "50%",
+            "50%x"
+          ],
           "anchor_from": "top_middle",
           "anchor_to": "top_middle",
           "offset": [
             0,
-            2
+            "6%"
           ],
           "bindings": [
             {
@@ -1370,7 +1389,10 @@ For gameplay features, usage details, compatibility notes, and other project inf
         "slot_label": {
           "type": "label",
           "layer": 3,
-          "size": ["100% - 2px", "40%"],
+          "size": [
+            "100% - 2px",
+            "40%"
+          ],
           "anchor_from": "bottom_middle",
           "anchor_to": "bottom_middle",
           "offset": [
@@ -1379,7 +1401,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
           ],
           "text_alignment": "center",
           "font_size": "extra_small",
-          "color": "$title_text_color",
+          "color": [
+            1,
+            1,
+            1
+          ],
           "text": "#form_button_text",
           "bindings": [
             {
