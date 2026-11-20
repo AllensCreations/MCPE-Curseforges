@@ -2,6 +2,11 @@
 
 ---
 
+## [v9] - 2026-11-20 - Standard Screen Option
+
+### Added
+- Added an option to use the game's standard form screen for the market. Run `/tag @s add obm_vanilla_ui` to switch to it, and `/tag @s remove obm_vanilla_ui` to switch back to the chest-style screen. The market menus and purchases work the same on both screens.
+
 ## [v8] - 2026-11-20 - Market Screen Fix
 
 ### Fixed
