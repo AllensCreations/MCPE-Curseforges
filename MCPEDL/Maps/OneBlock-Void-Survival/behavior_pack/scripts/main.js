@@ -428,12 +428,12 @@ function handleIslandOneBlockBreak(dimension, loc, player) {
       dimension.playSound("random.orb", loc, { pitch: 1.0, volume: 0.6 });
     } else if (progress < 0.85) {
       // Mid Stage (50-85%): Golden sparks
-      dimension.spawnParticle("minecraft:wax_particle", { x: loc.x + 0.5, y: loc.y + 1.2, z: loc.z + 0.5 });
+      dimension.spawnParticle("minecraft:villager_happy", { x: loc.x + 0.5, y: loc.y + 1.2, z: loc.z + 0.5 });
       dimension.playSound("random.orb", loc, { pitch: 1.3, volume: 0.7 });
     } else {
       // Final Stage (>85%): Mystical Purple Amethyst & Void sparkles
       dimension.spawnParticle("minecraft:portal_particle", { x: loc.x + 0.5, y: loc.y + 1.2, z: loc.z + 0.5 });
-      dimension.spawnParticle("minecraft:dragon_breath_fire", { x: loc.x + 0.5, y: loc.y + 1.2, z: loc.z + 0.5 });
+      dimension.spawnParticle("minecraft:endrod", { x: loc.x + 0.5, y: loc.y + 1.2, z: loc.z + 0.5 });
       dimension.playSound("block.amethyst_block.chime", loc, { pitch: 1.4, volume: 0.9 });
     }
 
@@ -613,7 +613,7 @@ function triggerVoidSurge(dimKey, dimension) {
     surgeTimer -= 2;
 
     try {
-      dimension.spawnParticle("minecraft:portal_reverse_particle", { x: 0.5, y: 65.5, z: 0.5 });
+      dimension.spawnParticle("minecraft:portal_particle", { x: 0.5, y: 65.5, z: 0.5 });
       dimension.playSound("ambient.weather.lightning.impact", { x: 0.5, y: 65.0, z: 0.5 }, { volume: 0.8, pitch: 1.0 });
 
       // Spawn surge hostile mob
@@ -1347,7 +1347,7 @@ system.runInterval(() => {
 
       // Audio & Particle feedback
       try {
-        dimension.spawnParticle("minecraft:wax_particle", { x: ONEBLOCK_POS.x + 0.5, y: ONEBLOCK_POS.y + 1.2, z: ONEBLOCK_POS.z + 0.5 });
+        dimension.spawnParticle("minecraft:villager_happy", { x: ONEBLOCK_POS.x + 0.5, y: ONEBLOCK_POS.y + 1.2, z: ONEBLOCK_POS.z + 0.5 });
       } catch (pe) {}
 
       // Live HUD Actionbar status

@@ -27,6 +27,17 @@
 
 ---
 
+## [v150] - 2026-11-20 - Island Trees And Effects Fix
+
+### Fixed
+
+- **Island Trees On Real Ground**: Trees now grow only on solid island ground. They no longer float at island edges or stand in empty space.
+- **Right Soil For Every Tree**: Trees now stand on soil that suits them: grass, podzol, mud, moss, mycelium or nylium. A small soil patch is laid under a tree when the island floor is something else, but never over buildings.
+- **No Stray Trees**: The Elytra Hangar no longer grows an oak tree on End stone, and second trees keep their distance from the first.
+- **Effects Log Errors**: A few special effects no longer cause particle errors in the game log.
+- **World Pack Reference**: The world's pack reference now matches the pack version, and map builds keep it in sync automatically.
+- **Void End Dimension**: The End is now a void in every build of the map, matching the Overworld and Nether.
+
 ## [v149] - 2026-11-20 - World Loading Fix
 
 ### Fixed
