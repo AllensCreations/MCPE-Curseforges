@@ -8,7 +8,7 @@ This folder contains compiled release packages for **ALNOneClickSort** by ALNStu
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`ALNOneClickSort V7.mcaddon`** | `.mcaddon` | ~12 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNOneClickSort/ALNOneClickSort%20V7.mcaddon) |
+| **`ALNOneClickSort V8.mcaddon`** | `.mcaddon` | ~12 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNOneClickSort/ALNOneClickSort%20V8.mcaddon) |
 
 ---
 

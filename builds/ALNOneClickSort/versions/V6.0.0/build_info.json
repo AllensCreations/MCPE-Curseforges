@@ -1,8 +1,0 @@
-{
-  "changelog_version": "6.0.0",
-  "manifest_version": "6.0.0",
-  "packages": {
-    "ALNOneClickSort V6.mcaddon": "c9a1fc61300108abdbd0e3b32ec1c8b4f33929b6ab10ffa9b52eec5d4dc94c64"
-  },
-  "source_sha256": "fcde0053e243cc7d44238480007df109cf3a9e6e0b64882515aa4030f1b3ff10"
-}
