@@ -1,0 +1,36 @@
+{
+  "format_version": "1.21.40",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:xray_visor_recipe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "GPG",
+      "GCG",
+      " H "
+    ],
+    "key": {
+      "G": {
+        "item": "minecraft:glass_pane"
+      },
+      "P": {
+        "item": "minecraft:gold_ingot"
+      },
+      "C": {
+        "item": "minecraft:comparator"
+      },
+      "H": {
+        "item": "minecraft:iron_helmet"
+      }
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
+    "result": {
+      "item": "aln:xray_visor"
+    }
+  }
+}
