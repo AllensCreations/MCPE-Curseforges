@@ -1,11 +1,26 @@
 # Changelog — ALN Pointer
 
-## [v17] - 2026-11-20 - Circle Zoom
+## [v18] - 2026-11-20 - Grouped Menu and Immortal
+
+### Added
+- **Quick Presets**: A new button in the Combat Menu turns on a whole set of toggles at once: PVP, Safe or All off. Your slider values stay the same.
 
 ### Changed
+- **Combat Settings**: Toggles and sliders now live in one form grouped by line. Aura has its range, damage, targets and options under it, Bow Aimbot has range, zoom and the aim circle under it, and Auto Totem and Infinite Totem sit together.
+- **Immortal**: Never Die is now Immortal. It keeps you at 1 heart instead of half a heart, shows no totem effect, and also blocks one-hit kills, the void and the kill command where the game lets the add-on cancel them. If you fall into the void you are moved back to the last ground you stood on.
+- **Tuning**: Tuning now holds Your game FOV setting as an exact list of values from 30 to 110. Nothing saves unless Confirm changes is on, so a stray touch cannot change it.
+
+<details>
+<summary><b>17.0.x</b> (1 release)</summary>
+
+### [v17] - 2026-11-20 - Circle Zoom
+
+#### Changed
 - **Aim Circle**: The circle is now sized by a zoom setting instead of degrees. It is centered on your crosshair and its size no longer depends on your screen size or GUI scale.
 - **Bow Aimbot**: It now only locks onto a mob or player that is inside the circle, and picks the one closest to the center. The Locked on marker uses the same circle.
 - **Tuning**: The Bow Aimbot angle slider is replaced by Aim circle zoom (50 to 300 percent) and a new Your game FOV setting slider (30 to 110) that matches the circle to your in-game field of view.
+
+</details>
 
 <details>
 <summary><b>16.0.x</b> (1 release)</summary>
