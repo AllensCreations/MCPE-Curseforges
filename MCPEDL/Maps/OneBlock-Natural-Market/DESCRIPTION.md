@@ -20,7 +20,7 @@ Start on a small void platform with the central block at (0, 0, 0). Breaking it 
 - The starting core is Dirt and is managed by the map script after one-time void setup.
 
 ### Natural Market Ledger
-- Opens a **3-row by 9-column chest-inspired market panel** with a wood-toned frame, individual slot backgrounds, hover/pressed states, and Minecraft item icons.
+- Opens a large **3-row by 9-column chest-inspired market panel** that sizes itself to your screen with a wood-toned frame, individual slot backgrounds, hover/pressed states, and Minecraft item icons.
 - Tap a supply slot to purchase its displayed bundle directly; no separate purchase-confirmation screen.
 - Large categories use pages that reserve two slots for navigation controls.
 - The catalogue contains more than 180 configured supplies across ten categories. Entries unavailable in the current game version are hidden.

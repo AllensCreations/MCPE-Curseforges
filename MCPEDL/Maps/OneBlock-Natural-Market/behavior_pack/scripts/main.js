@@ -386,7 +386,7 @@ function ensureCore() {
 }
 function marketMain(player) {
   const form = new ActionFormData()
-    .title("NATURAL MARKET")
+    .title("NMKT:NATURAL MARKET")
     .body("§6Coins: §e" + balance(player) + "§r\nPersonal breaks: " + personalBreaks(player) +
       "\nShared breaks: " + totalBreaks() + "\nUnlocked tier: " + (unlockedTier(player) + 1) + " / 10\n\nChoose a market section.");
   form.button("Building Blocks", CATEGORIES[0].icon)
@@ -421,7 +421,7 @@ function showCategory(player, category, page = 0) {
   const pageCount = Math.max(1, Math.ceil(items.length / pageSize));
   const safePage = Math.max(0, Math.min(page, pageCount - 1));
   const visible = items.slice(safePage * pageSize, (safePage + 1) * pageSize);
-  const form = new ActionFormData().title(category.toUpperCase())
+  const form = new ActionFormData().title("NMKT:" + category.toUpperCase())
     .body("§6Coins: §e" + balance(player) + "§r  |  Page " + (safePage + 1) + "/" + pageCount +
       "\nTap a supply slot to buy the listed bundle." +
       (locked.length ? "\nMore supplies unlock as you mine the core." : ""));

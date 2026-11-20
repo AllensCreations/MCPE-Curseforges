@@ -27,6 +27,15 @@
 
 ---
 
+## [v156] - 2026-11-20 - Chest Market UI
+
+### Fixed
+- Fixed the UI errors `Unknown property [orientation]` for `dynamic_button`, `long_form_dynamic_buttons_panel` and `inside_header_panel`. The market screen no longer redefines the game's own form controls; it uses its own uniquely named controls instead.
+- Other forms in your world (from other add-ons) use the normal game screen again. The market screen now appears only for Natural Market forms.
+
+### Improved
+- The market is now a large chest-style panel, 88% of the screen height, with 9 square slots per row. It scales with any screen size or UI scale.
+
 ## [v155] - 2026-11-20 - Responsive Market UI
 
 ### Fixed
