@@ -6,7 +6,7 @@
 - **Destination:** `MCPEDL/Script/ALNOneClickSort`
 - **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Script/ALNOneClickSort/CHANGELOG.md`)
 - **Text files:** 21
-- **Skipped binary:** 0
+- **Skipped binary:** 3
 - **Paths not found:** 0
 
 ### Files in this export
@@ -32,6 +32,12 @@
 - `MCPEDL/Script/ALNOneClickSort/resource_pack/textures/item_texture.json`
 - `MCPEDL/Script/ALNOneClickSort/resource_pack/textures/items/.giitkeep`
 - `Package/ALNOneClickSort.listing.md`
+
+### Skipped (binary)
+
+- `MCPEDL/Script/ALNOneClickSort/resource_pack/textures/items/auto_sort_feather.png`
+- `MCPEDL/Script/ALNOneClickSort/resource_pack/textures/items/restock_feather.png`
+- `MCPEDL/Script/ALNOneClickSort/resource_pack/textures/items/sort_settings_book.png`
 
 ---
 
