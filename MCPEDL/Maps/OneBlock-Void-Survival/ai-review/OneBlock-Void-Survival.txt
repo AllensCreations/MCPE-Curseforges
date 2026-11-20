@@ -10,52 +10,14 @@
 
 ---
 
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
 # Repo Export
 
 ## Index
 
 - **Export request:** `MCPEDL/Maps/OneBlock-Void-Survival`
 - **Destination:** `MCPEDL/Maps/OneBlock-Void-Survival`
-- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Maps/OneBlock-Void-Survival/CHANGELOG.md`)
-- **Text files:** 59
+- **CURRENT VERSION: v4 / NEXT UPDATE: v5**  (`MCPEDL/Maps/OneBlock-Void-Survival/CHANGELOG.md`)
+- **Text files:** 60
 - **Skipped binary:** 7
 - **Paths not found:** 0
 
@@ -63,6 +25,7 @@
 
 - `MCPEDL/Maps/OneBlock-Void-Survival/behavior_pack/dimensions/nether.json`
 - `MCPEDL/Maps/OneBlock-Void-Survival/behavior_pack/dimensions/overworld.json`
+- `MCPEDL/Maps/OneBlock-Void-Survival/behavior_pack/dimensions/the_end.json`
 - `MCPEDL/Maps/OneBlock-Void-Survival/behavior_pack/manifest.json`
 - `MCPEDL/Maps/OneBlock-Void-Survival/behavior_pack/recipes/beetroot_seed_dirt_to_grass.json`
 - `MCPEDL/Maps/OneBlock-Void-Survival/behavior_pack/recipes/bell.json`
@@ -123,7 +86,7 @@
 
 ### Skipped (binary)
 
-- `MCPEDL/Maps/OneBlock-Void-Survival/VoidSurvival V3.mcworld`
+- `MCPEDL/Maps/OneBlock-Void-Survival/VoidSurvival V4.mcworld`
 - `MCPEDL/Maps/OneBlock-Void-Survival/behavior_pack/pack_icon.png`
 - `MCPEDL/Maps/OneBlock-Void-Survival/mcpedl.png`
 - `MCPEDL/Maps/OneBlock-Void-Survival/world/behavior_packs/OneBlockVoid/pack_icon.png`
@@ -139,7 +102,7 @@ Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
 Context7 Support: Enabled. For full instructions, schemas, and helper script syntax, query Context7 (`INSTRUCTIONS.md`, `PACK_GENERATOR_INSTRUCTIONS.md`, `DOCS_RULES.md`, `make_update_script.py`, `doc_template.py`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v3 / NEXT UPDATE: v4).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v4 / NEXT UPDATE: v5).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -237,6 +200,24 @@ Output ONLY these three sections in order:
 }
 ```
 
+## FILE: MCPEDL/Maps/OneBlock-Void-Survival/behavior_pack/dimensions/the_end.json (14 lines, 280 bytes)
+
+```
+{
+    "format_version": "1.19.0",
+    "minecraft:dimension": {
+        "description": {
+            "identifier": "minecraft:the_end"
+        },
+        "components": {
+            "minecraft:generation": {
+                "generator_type": "void"
+            }
+        }
+    }
+}
+```
+
 ## FILE: MCPEDL/Maps/OneBlock-Void-Survival/behavior_pack/manifest.json (60 lines, 1208 bytes)
 
 ```
@@ -244,10 +225,10 @@ Output ONLY these three sections in order:
   "format_version": 2,
   "header": {
     "description": "Void survival map featuring progressive block mining, 43 procedural theme islands, and vanilla survival compatibility. by ALNStudios",
-    "name": "OneBlock Void Survival (v3)",
+    "name": "OneBlock Void Survival (v4)",
     "uuid": "6f42a0f9-6c11-4974-9bb5-075b3447d2d9",
     "version": [
-      3,
+      4,
       0,
       0
     ],
@@ -263,7 +244,7 @@ Output ONLY these three sections in order:
       "type": "data",
       "uuid": "2c9d7c28-b4b1-4719-9983-13324e2aaad2",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -274,7 +255,7 @@ Output ONLY these three sections in order:
       "language": "javascript",
       "uuid": "f1351b45-2285-40d1-8e52-14ee221313d3",
       "version": [
-        3,
+        4,
         0,
         0
       ],
@@ -296,7 +277,7 @@ Output ONLY these three sections in order:
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "3.0.0"
+    "version": "4.0.0"
   }
 }
 ```
@@ -8913,7 +8894,7 @@ export const DIMENSION_TRADE_POOLS = {
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Void-Survival/build_worlds.py (44 lines, 1794 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Void-Survival/build_worlds.py (48 lines, 2035 bytes)
 
 ```
 import json
@@ -8930,7 +8911,8 @@ def main():
     out = sys.argv[1] if len(sys.argv) > 1 else HERE
     os.makedirs(out, exist_ok=True)
     with open(os.path.join(HERE, "behavior_pack", "manifest.json"), encoding="utf-8") as f:
-        version = json.load(f)["header"]["version"]
+        header = json.load(f)["header"]
+    version = header["version"]
     full = ".".join(str(n) for n in version)
     short = ".".join(str(n) for n in version[:2])
     for mode, label in MODES:
@@ -8943,6 +8925,9 @@ def main():
             shutil.copytree(os.path.join(HERE, "behavior_pack"), pack)
             with open(os.path.join(pack, "scripts", "mode.js"), "w", encoding="utf-8") as f:
                 f.write('export const WORLD_MODE = "%s";\n' % mode)
+            with open(os.path.join(world, "world_behavior_packs.json"), "w", encoding="utf-8") as f:
+                json.dump([{"pack_id": header["uuid"], "version": version}], f, indent=2)
+                f.write("\n")
             with open(os.path.join(world, "levelname.txt"), "w", encoding="utf-8") as f:
                 f.write("OneBlock Void Survival %s v%s [ALNStudios]\n" % (label, short))
             name = "OneBlock Void Survival %s by ALNStudios (V%s).mcworld" % (label, full)
@@ -8959,12 +8944,19 @@ def main():
 main()
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Void-Survival/CHANGELOG.md (153 lines, 8527 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Void-Survival/CHANGELOG.md (160 lines, 8822 bytes)
 
 ```
 # Changelog
 
 ---
+
+## [v4] - 2026-11-20 - World Loading Fix
+
+### Fixed
+
+- **World Pack Reference**: The world's pack reference now matches the pack version, and map builds keep it in sync automatically.
+- **Void End Dimension**: The End is now a void in every build of the map, matching the Overworld and Nether.
 
 ## [v3] - 2026-11-14
 
@@ -9240,7 +9232,7 @@ Download the current release of **OneBlock Void Survival** for Minecraft Bedrock
 ## Download
 
 - **Package format:** `.mcworld`
-- **Direct download:** [Download OneBlock Void Survival (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/VoidSurvival%20V3.mcworld)
+- **Direct download:** [Download OneBlock Void Survival (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/VoidSurvival%20V4.mcworld)
 
 ## Installation
 
@@ -9293,7 +9285,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Void-Survival/world/behavior_packs/OneBlockVoid/dimensions/the_end.json (13 lines, 279 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Void-Survival/world/behavior_packs/OneBlockVoid/dimensions/the_end.json (14 lines, 280 bytes)
 
 ```
 {
@@ -9318,10 +9310,10 @@ For gameplay features, usage details, compatibility notes, and other project inf
   "format_version": 2,
   "header": {
     "description": "Void survival map featuring progressive block mining, 43 procedural theme islands, and vanilla survival compatibility. by ALNStudios",
-    "name": "OneBlock Void Survival (v3)",
+    "name": "OneBlock Void Survival (v4)",
     "uuid": "6f42a0f9-6c11-4974-9bb5-075b3447d2d9",
     "version": [
-      3,
+      4,
       0,
       0
     ],
@@ -9337,7 +9329,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "data",
       "uuid": "2c9d7c28-b4b1-4719-9983-13324e2aaad2",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -9348,7 +9340,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "language": "javascript",
       "uuid": "f1351b45-2285-40d1-8e52-14ee221313d3",
       "version": [
-        3,
+        4,
         0,
         0
       ],
@@ -9370,7 +9362,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "3.0.0"
+    "version": "4.0.0"
   }
 }
 ```
@@ -17993,16 +17985,16 @@ export const DIMENSION_TRADE_POOLS = {
 OneBlock Void Survival v1.2 [ALNStudios]
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Void-Survival/world/world_behavior_packs.json (11 lines, 117 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Void-Survival/world/world_behavior_packs.json (11 lines, 116 bytes)
 
 ```
 [
   {
     "pack_id": "6f42a0f9-6c11-4974-9bb5-075b3447d2d9",
     "version": [
-      1,
-      2,
-      18
+      4,
+      0,
+      0
     ]
   }
 ]
