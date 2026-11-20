@@ -1,14 +1,28 @@
 # Changelog — ALN Pointer
 
-## [v18] - 2026-11-20 - Grouped Menu and Immortal
+## [v19] - 2026-11-20 - Aimbot Mob Types
 
 ### Added
+- **Aimbot Mob Types**: Bow Aimbot now has four On or Off choices under it: hostile mobs, neutral mobs, passive mobs and players. Hostile mobs and players stay on by default. Tamed pets are never targeted.
+
+### Fixed
+- **Elder Guardian**: Arrows now aim at the middle of the body instead of the head point, so big mobs such as the Elder Guardian are no longer overshot.
+- **Underwater Targets**: Arrows aimed at a target in water no longer add the extra lift for gravity, since arrows fly differently in water.
+
+<details>
+<summary><b>18.0.x</b> (1 release)</summary>
+
+### [v18] - 2026-11-20 - Grouped Menu and Immortal
+
+#### Added
 - **Quick Presets**: A new button in the Combat Menu turns on a whole set of toggles at once: PVP, Safe or All off. Your slider values stay the same.
 
-### Changed
+#### Changed
 - **Combat Settings**: Toggles and sliders now live in one form grouped by line. Aura has its range, damage, targets and options under it, Bow Aimbot has range, zoom and the aim circle under it, and Auto Totem and Infinite Totem sit together.
 - **Immortal**: Never Die is now Immortal. It keeps you at 1 heart instead of half a heart, shows no totem effect, and also blocks one-hit kills, the void and the kill command where the game lets the add-on cancel them. If you fall into the void you are moved back to the last ground you stood on.
 - **Tuning**: Tuning now holds Your game FOV setting as an exact list of values from 30 to 110. Nothing saves unless Confirm changes is on, so a stray touch cannot change it.
+
+</details>
 
 <details>
 <summary><b>17.0.x</b> (1 release)</summary>

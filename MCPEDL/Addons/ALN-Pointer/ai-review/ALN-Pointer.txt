@@ -16,7 +16,7 @@
 
 - **Export request:** `MCPEDL/Addons/ALN-Pointer`
 - **Destination:** `MCPEDL/Addons/ALN-Pointer`
-- **CURRENT VERSION: v18 / NEXT UPDATE: v19**  (`MCPEDL/Addons/ALN-Pointer/CHANGELOG.md`)
+- **CURRENT VERSION: v19 / NEXT UPDATE: v20**  (`MCPEDL/Addons/ALN-Pointer/CHANGELOG.md`)
 - **Text files:** 39
 - **Skipped binary:** 15
 - **Paths not found:** 0
@@ -89,7 +89,7 @@ Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
 Context7 Support: Enabled. For full instructions, schemas, and helper script syntax, query Context7 (`INSTRUCTIONS.md`, `PACK_GENERATOR_INSTRUCTIONS.md`, `DOCS_RULES.md`, `make_update_script.py`, `doc_template.py`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v18 / NEXT UPDATE: v19).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v19 / NEXT UPDATE: v20).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -147,10 +147,11 @@ Output ONLY these three sections in order:
 
 ## File Contents
 
-## FILE: changelog_views/ALN-Pointer.curseforge.html (18 lines, 11953 bytes)
+## FILE: changelog_views/ALN-Pointer.curseforge.html (19 lines, 12655 bytes)
 
 ```
-<h2>v18 - 2026-11-20 - Grouped Menu and Immortal</h2><h3>Added</h3><ul><li><strong>Quick Presets</strong>: A new button in the Combat Menu turns on a whole set of toggles at once: PVP, Safe or All off. Your slider values stay the same.</li></ul><h3>Changed</h3><ul><li><strong>Combat Settings</strong>: Toggles and sliders now live in one form grouped by line. Aura has its range, damage, targets and options under it, Bow Aimbot has range, zoom and the aim circle under it, and Auto Totem and Infinite Totem sit together.</li><li><strong>Immortal</strong>: Never Die is now Immortal. It keeps you at 1 heart instead of half a heart, shows no totem effect, and also blocks one-hit kills, the void and the kill command where the game lets the add-on cancel them. If you fall into the void you are moved back to the last ground you stood on.</li><li><strong>Tuning</strong>: Tuning now holds Your game FOV setting as an exact list of values from 30 to 110. Nothing saves unless Confirm changes is on, so a stray touch cannot change it.</li></ul>
+<h2>v19 - 2026-11-20 - Aimbot Mob Types</h2><h3>Added</h3><ul><li><strong>Aimbot Mob Types</strong>: Bow Aimbot now has four On or Off choices under it: hostile mobs, neutral mobs, passive mobs and players. Hostile mobs and players stay on by default. Tamed pets are never targeted.</li></ul><h3>Fixed</h3><ul><li><strong>Elder Guardian</strong>: Arrows now aim at the middle of the body instead of the head point, so big mobs such as the Elder Guardian are no longer overshot.</li><li><strong>Underwater Targets</strong>: Arrows aimed at a target in water no longer add the extra lift for gravity, since arrows fly differently in water.</li></ul>
+<h2>18.0.x (1 release)</h2><div class="spoiler"><h3>v18 - 2026-11-20 - Grouped Menu and Immortal</h3><h4>Added</h4><ul><li><strong>Quick Presets</strong>: A new button in the Combat Menu turns on a whole set of toggles at once: PVP, Safe or All off. Your slider values stay the same.</li></ul><h4>Changed</h4><ul><li><strong>Combat Settings</strong>: Toggles and sliders now live in one form grouped by line. Aura has its range, damage, targets and options under it, Bow Aimbot has range, zoom and the aim circle under it, and Auto Totem and Infinite Totem sit together.</li><li><strong>Immortal</strong>: Never Die is now Immortal. It keeps you at 1 heart instead of half a heart, shows no totem effect, and also blocks one-hit kills, the void and the kill command where the game lets the add-on cancel them. If you fall into the void you are moved back to the last ground you stood on.</li><li><strong>Tuning</strong>: Tuning now holds Your game FOV setting as an exact list of values from 30 to 110. Nothing saves unless Confirm changes is on, so a stray touch cannot change it.</li></ul></div>
 <h2>17.0.x (1 release)</h2><div class="spoiler"><h3>v17 - 2026-11-20 - Circle Zoom</h3><h4>Changed</h4><ul><li><strong>Aim Circle</strong>: The circle is now sized by a zoom setting instead of degrees. It is centered on your crosshair and its size no longer depends on your screen size or GUI scale.</li><li><strong>Bow Aimbot</strong>: It now only locks onto a mob or player that is inside the circle, and picks the one closest to the center. The Locked on marker uses the same circle.</li><li><strong>Tuning</strong>: The Bow Aimbot angle slider is replaced by Aim circle zoom (50 to 300 percent) and a new Your game FOV setting slider (30 to 110) that matches the circle to your in-game field of view.</li></ul></div>
 <h2>16.0.x (1 release)</h2><div class="spoiler"><h3>v16 - 2026-11-19 - Circle Size Matches Degrees</h3><h4>Changed</h4><ul><li><strong>Aim Circle</strong>: The on-screen circle size is now exactly proportional to the Bow Aimbot angle. Each degree adds 1.6 pixels, so 25 degrees is the 40 by 40 size, 5 degrees is 8, 50 degrees is 80, and doubling the angle doubles the circle.</li></ul></div>
 <h2>15.0.x (1 release)</h2><div class="spoiler"><h3>v15 - 2026-11-19 - Circle Size By Degrees</h3><h4>Changed</h4><ul><li><strong>Aim Circle</strong>: The on-screen circle is now sized by the Bow Aimbot angle. At the default 25 degrees it is shown at the 40 by 40 picture&#x27;s own size, and other angles are scaled from that in proportion to the angle, from 8 pixels at 5 degrees up to 102 pixels at 50 degrees.</li></ul></div>
@@ -169,20 +170,34 @@ Output ONLY these three sections in order:
 <h2>2.0.x (1 release)</h2><div class="spoiler"><h3>v2 - 2026-11-16 - First Release</h3><h4>Added</h4><ul><li><strong>ALN Pointer</strong>: A cursor-shaped item that opens the ALNStudios menu. You get one the first time you join a world, and it is in the Equipment tab of the Creative inventory.</li><li><strong>Combat Toggles Menu</strong>: A screen with 7 switches and a short explanation under each. Apply saves them for you and closes the menu, and each player keeps their own settings.</li><li><strong>Auto Totem</strong>: Moves a Totem of Undying from your inventory into your off hand before a hit that would kill you.</li><li><strong>Infinite Totem</strong>: Puts a new Totem of Undying in your off hand before a deadly hit when you have none left.</li><li><strong>Aura Mode</strong>: Hits up to 3 nearby hostile mobs and players within 4 blocks for 5 damage every half second.</li><li><strong>Always Critical</strong>: Every melee hit deals 1.5 times damage and shows the critical hit sparks.</li><li><strong>Bow Aimbot</strong>: Arrows from a bow or crossbow steer toward the target nearest your crosshair within 48 blocks.</li><li><strong>Always Water Clutch</strong>: Places water where you land after a fall of 3 blocks or more, then removes it after about 2 seconds.</li><li><strong>Shield Always Active</strong>: Blocks melee hits and arrows from the front whenever you carry a shield.</li></ul></div>
 ```
 
-## FILE: changelog_views/ALN-Pointer.github.md (213 lines, 10921 bytes)
+## FILE: changelog_views/ALN-Pointer.github.md (227 lines, 11556 bytes)
 
 ```
 # Changelog — ALN Pointer
 
-## [v18] - 2026-11-20 - Grouped Menu and Immortal
+## [v19] - 2026-11-20 - Aimbot Mob Types
 
 ### Added
+- **Aimbot Mob Types**: Bow Aimbot now has four On or Off choices under it: hostile mobs, neutral mobs, passive mobs and players. Hostile mobs and players stay on by default. Tamed pets are never targeted.
+
+### Fixed
+- **Elder Guardian**: Arrows now aim at the middle of the body instead of the head point, so big mobs such as the Elder Guardian are no longer overshot.
+- **Underwater Targets**: Arrows aimed at a target in water no longer add the extra lift for gravity, since arrows fly differently in water.
+
+<details>
+<summary><b>18.0.x</b> (1 release)</summary>
+
+### [v18] - 2026-11-20 - Grouped Menu and Immortal
+
+#### Added
 - **Quick Presets**: A new button in the Combat Menu turns on a whole set of toggles at once: PVP, Safe or All off. Your slider values stay the same.
 
-### Changed
+#### Changed
 - **Combat Settings**: Toggles and sliders now live in one form grouped by line. Aura has its range, damage, targets and options under it, Bow Aimbot has range, zoom and the aim circle under it, and Auto Totem and Infinite Totem sit together.
 - **Immortal**: Never Die is now Immortal. It keeps you at 1 heart instead of half a heart, shows no totem effect, and also blocks one-hit kills, the void and the kill command where the game lets the add-on cancel them. If you fall into the void you are moved back to the last ground you stood on.
 - **Tuning**: Tuning now holds Your game FOV setting as an exact list of values from 30 to 110. Nothing saves unless Confirm changes is on, so a stray touch cannot change it.
+
+</details>
 
 <details>
 <summary><b>17.0.x</b> (1 release)</summary>
@@ -419,11 +434,11 @@ Output ONLY these three sections in order:
 {
   "format_version": 2,
   "header": {
-    "name": "Combat Helper (v18)",
+    "name": "Combat Helper (v19)",
     "description": "A cursor-shaped item that opens a menu of PVP toggles. by ALNStudios",
     "uuid": "eec0404f-e785-480e-839e-0da27c699c31",
     "version": [
-      18,
+      19,
       0,
       0
     ],
@@ -438,7 +453,7 @@ Output ONLY these three sections in order:
       "type": "data",
       "uuid": "13407ddf-e15f-4d9c-90ec-eaa908a586a1",
       "version": [
-        18,
+        19,
         0,
         0
       ]
@@ -449,7 +464,7 @@ Output ONLY these three sections in order:
       "uuid": "63e54d22-75a9-41f8-9e7e-67b0553aace3",
       "entry": "scripts/main.js",
       "version": [
-        18,
+        19,
         0,
         0
       ]
@@ -471,7 +486,7 @@ Output ONLY these three sections in order:
     {
       "uuid": "8232add1-8bcd-4f9b-92e8-59dfc483f35f",
       "version": [
-        18,
+        19,
         0,
         0
       ]
@@ -490,7 +505,7 @@ Output ONLY these three sections in order:
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "18.0.0"
+    "version": "19.0.0"
   }
 }
 ```
@@ -528,7 +543,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/bowaim.js (124 lines, 4429 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/bowaim.js (166 lines, 5684 bytes)
 
 ```
 import { world, system, EntityComponentTypes, GameMode } from "@minecraft/server";
@@ -545,17 +560,55 @@ const MIN_SPEED = 0.8;
 const minus = (a, b) => ({ x: a.x - b.x, y: a.y - b.y, z: a.z - b.z });
 const length = (v) => Math.hypot(v.x, v.y, v.z);
 
+// Edit these lists to change which mobs count as neutral or never get targeted.
+const NEUTRAL = new Set([
+  "minecraft:wolf",
+  "minecraft:enderman",
+  "minecraft:zombie_pigman",
+  "minecraft:piglin",
+  "minecraft:iron_golem",
+  "minecraft:bee",
+  "minecraft:llama",
+  "minecraft:trader_llama",
+  "minecraft:polar_bear",
+  "minecraft:dolphin",
+  "minecraft:panda",
+  "minecraft:goat",
+]);
+const IGNORED = new Set(["minecraft:armor_stand"]);
+
+function kindOf(entity) {
+  if (NEUTRAL.has(entity.typeId)) return "aimNeutral";
+  return entity.matches({ families: ["monster"] }) ? "aimHostile" : "aimPassive";
+}
+
 function candidates(owner) {
   const options = { location: owner.location, maxDistance: tune(owner, "aimRange") };
-  const mobs = owner.dimension.getEntities({ ...options, families: ["monster"] });
-  const players = owner.dimension.getPlayers({ ...options, excludeGameModes: [GameMode.Creative, GameMode.Spectator] });
-  return [...mobs, ...players].filter((e) => e.id !== owner.id && !isFriend(owner, e));
+  const found = [];
+  if (tune(owner, "aimPlayers") === 1) {
+    found.push(...owner.dimension.getPlayers({ ...options, excludeGameModes: [GameMode.Creative, GameMode.Spectator] }));
+  }
+  for (const entity of owner.dimension.getEntities(options)) {
+    if (entity.id === owner.id || entity.typeId === PLAYER_ID || IGNORED.has(entity.typeId)) continue;
+    if (!entity.getComponent(EntityComponentTypes.Health)) continue;
+    const kind = kindOf(entity);
+    if (tune(owner, kind) !== 1) continue;
+    if (kind !== "aimHostile" && entity.getComponent(EntityComponentTypes.IsTamed)) continue;
+    found.push(entity);
+  }
+  return found.filter((e) => e.id !== owner.id && !isFriend(owner, e));
+}
+
+// Middle of the body: halfway between the feet and the head, so tall or odd shaped mobs are hit.
+function bodyPoint(entity) {
+  const base = entity.location;
+  const head = entity.getHeadLocation();
+  return { x: base.x, y: (base.y + head.y) / 2, z: base.z };
 }
 
 function seen(owner, entity) {
   const eye = owner.getHeadLocation();
-  const base = entity.location;
-  const points = [entity.getHeadLocation(), { x: base.x, y: base.y + 0.6, z: base.z }];
+  const points = [entity.getHeadLocation(), bodyPoint(entity)];
   for (const point of points) {
     const offset = minus(point, eye);
     const distance = length(offset);
@@ -598,8 +651,7 @@ export function pickTarget(owner) {
   let best;
   let bestDist = radius;
   for (const entity of candidates(owner)) {
-    const base = entity.location;
-    const points = [entity.getHeadLocation(), { x: base.x, y: base.y + 0.6, z: base.z }];
+    const points = [entity.getHeadLocation(), bodyPoint(entity)];
     let dist = Infinity;
     for (const point of points) {
       const offset = minus(point, eye);
@@ -616,15 +668,20 @@ export function pickTarget(owner) {
 }
 
 function aimPoint(from, target, speed) {
-  const head = target.getHeadLocation();
+  const body = bodyPoint(target);
   const motion = target.getVelocity();
-  let point = head;
+  let wet = false;
+  try {
+    wet = target.isInWater;
+  } catch (e) {}
+  const drop = wet ? 0 : 0.5 * GRAVITY;
+  let point = body;
   for (let i = 0; i < 2; i++) {
     const t = length(minus(point, from)) / speed;
     point = {
-      x: head.x + motion.x * t,
-      y: head.y + motion.y * t + 0.5 * GRAVITY * t * t,
-      z: head.z + motion.z * t,
+      x: body.x + motion.x * t,
+      y: body.y + motion.y * t + drop * t * t,
+      z: body.z + motion.z * t,
     };
   }
   return point;
@@ -1170,7 +1227,7 @@ export function initLoops() {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/menu.js (236 lines, 9655 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/menu.js (236 lines, 9739 bytes)
 
 ```
 import { system } from "@minecraft/server";
@@ -1230,7 +1287,7 @@ async function openAbout(player) {
 
 const LAYOUT = [
   { title: "Aura", items: [["f", "aura"], ["t", "auraRange"], ["t", "auraDamage"], ["t", "auraTargets"], ["t", "auraTarget"], ["t", "auraFace"]] },
-  { title: "Bow Aimbot", items: [["f", "bowAimbot"], ["t", "aimRange"], ["t", "aimZoom"], ["f", "targetHighlight"], ["t", "aimCircle"]] },
+  { title: "Bow Aimbot", items: [["f", "bowAimbot"], ["t", "aimRange"], ["t", "aimZoom"], ["f", "targetHighlight"], ["t", "aimCircle"], ["t", "aimHostile"], ["t", "aimNeutral"], ["t", "aimPassive"], ["t", "aimPlayers"]] },
   { title: "Offense", items: [["f", "alwaysCritical"], ["t", "critPercent"], ["t", "knockback"], ["f", "damageDisplay"]] },
   { title: "Totems", items: [["f", "autoTotem"], ["f", "infiniteTotem"]] },
   { title: "Defense", items: [["f", "immortal"], ["f", "shield"], ["f", "noKnockback"], ["f", "autoGapple"], ["f", "waterClutch"], ["f", "keepGear"]] },
@@ -1527,7 +1584,7 @@ world.afterEvents.playerLeave.subscribe(({ playerId }) => {
 });
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/tuning.js (33 lines, 1707 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/tuning.js (37 lines, 2162 bytes)
 
 ```
 import { readSaved, writeSaved } from "./saved.js";
@@ -1546,6 +1603,10 @@ export const TUNING = [
   { id: "auraTarget", name: "Aura hits", min: 0, max: 2, step: 1, def: 0, choices: ["Mobs and players", "Mobs only", "Players only"] },
   { id: "auraFace", name: "Aura turns you to face the target", min: 0, max: 1, step: 1, def: 0, choices: ["No", "Yes"] },
   { id: "aimCircle", name: "Target Highlight aim circle", min: 0, max: 1, step: 1, def: 1, choices: ["Off", "On"] },
+  { id: "aimHostile", name: "Aimbot hits hostile mobs", min: 0, max: 1, step: 1, def: 1, choices: ["Off", "On"] },
+  { id: "aimNeutral", name: "Aimbot hits neutral mobs", min: 0, max: 1, step: 1, def: 0, choices: ["Off", "On"] },
+  { id: "aimPassive", name: "Aimbot hits passive mobs", min: 0, max: 1, step: 1, def: 0, choices: ["Off", "On"] },
+  { id: "aimPlayers", name: "Aimbot hits players", min: 0, max: 1, step: 1, def: 1, choices: ["Off", "On"] },
 ];
 
 export function tune(player, id) {
@@ -1639,12 +1700,21 @@ initGear();
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/CHANGELOG.md (135 lines, 9809 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/CHANGELOG.md (144 lines, 10373 bytes)
 
 ```
 # Changelog — ALN Pointer
 
 ---
+
+## [v19] - 2026-11-20 - Aimbot Mob Types
+
+### Added
+- **Aimbot Mob Types**: Bow Aimbot now has four On or Off choices under it: hostile mobs, neutral mobs, passive mobs and players. Hostile mobs and players stay on by default. Tamed pets are never targeted.
+
+### Fixed
+- **Elder Guardian**: Arrows now aim at the middle of the body instead of the head point, so big mobs such as the Elder Guardian are no longer overshot.
+- **Underwater Targets**: Arrows aimed at a target in water no longer add the extra lift for gravity, since arrows fly differently in water.
 
 ## [v18] - 2026-11-20 - Grouped Menu and Immortal
 
@@ -1778,7 +1848,7 @@ initGear();
 - **Shield Always Active**: Blocks melee hits and arrows from the front whenever you carry a shield.
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/DESCRIPTION.md (163 lines, 13471 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/DESCRIPTION.md (164 lines, 13680 bytes)
 
 ```
 # Combat Helper — A cursor-shaped item that opens a menu of 13 PVP toggles
@@ -1829,6 +1899,7 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 - **Good To Know**: A hit made while you are already falling is left as vanilla, so the bonus never stacks.
 
 ### Bow Aimbot
+- **Mob Types**: Four On or Off choices under Bow Aimbot pick what it hits: hostile mobs, neutral mobs, passive mobs and players. Hostile mobs and players are on by default, and tamed pets are never targeted.
 - **What Happens**: Arrows you shoot from a bow or crossbow steer toward the hostile mob or player closest to your crosshair within 48 blocks and inside the aim circle on your screen.
 - **How It Works**: Aim roughly at a target and release. The arrow leads a moving target and allows for arrow drop.
 - **Good To Know**: If nothing is near your crosshair, the arrow flies as normal. A mob or player hidden behind blocks is never chosen.
@@ -1963,7 +2034,7 @@ Download the current release of **Combat Helper** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Combat Helper (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V18.mcaddon)
+- **Direct download:** [Download Combat Helper (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V19.mcaddon)
 
 ## Installation
 
@@ -1982,11 +2053,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "Combat Helper (v18)",
+    "name": "Combat Helper (v19)",
     "description": "Combat Helper item texture. by ALNStudios",
     "uuid": "8232add1-8bcd-4f9b-92e8-59dfc483f35f",
     "version": [
-      18,
+      19,
       0,
       0
     ],
@@ -2001,7 +2072,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "83f195c6-92d3-428a-b707-06188b6a5f8d",
       "version": [
-        18,
+        19,
         0,
         0
       ]
@@ -2012,7 +2083,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "18.0.0"
+    "version": "19.0.0"
   }
 }
 ```
@@ -3559,7 +3630,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 ]
 ```
 
-## FILE: Package/ALN-Pointer.listing.md (72 lines, 33940 bytes)
+## FILE: Package/ALN-Pointer.listing.md (72 lines, 34213 bytes)
 
 ````
 # Listing Kit: Combat Helper
@@ -3589,7 +3660,7 @@ Paste into the CurseForge description editor in source (HTML) mode.
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Screenshots&nbsp;&nbsp;</span></h2>
 <div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/snapshots/HOW%20TO%20CRAFT.jpg"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/snapshots/HOW%20TO%20CRAFT.jpg" alt="HOW TO CRAFT" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">HOW TO CRAFT</p></div><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/snapshots/INSIDE%20THE%20AIMBOT.jpg"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/snapshots/INSIDE%20THE%20AIMBOT.jpg" alt="INSIDE THE AIMBOT" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">INSIDE THE AIMBOT</p></div><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/snapshots/MENU.jpg"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/snapshots/MENU.jpg" alt="MENU" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">MENU</p></div><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/snapshots/OUTSIDE%20THE%20AIMBOT.jpg"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/snapshots/OUTSIDE%20THE%20AIMBOT.jpg" alt="OUTSIDE THE AIMBOT" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">OUTSIDE THE AIMBOT</p></div><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/snapshots/SNAPSHOT.jpg"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/snapshots/SNAPSHOT.jpg" alt="SNAPSHOT" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">SNAPSHOT</p></div><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/snapshots/TARGET%20LOCK%202.jpg"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/snapshots/TARGET%20LOCK%202.jpg" alt="TARGET LOCK 2" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">TARGET LOCK 2</p></div><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/snapshots/TARGET%20LOCK.jpg"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/snapshots/TARGET%20LOCK.jpg" alt="TARGET LOCK" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">TARGET LOCK</p></div><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/snapshots/TOTEM.jpg"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/snapshots/TOTEM.jpg" alt="TOTEM" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">TOTEM</p></div><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/snapshots/TUNING.jpg"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/snapshots/TUNING.jpg" alt="TUNING" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">TUNING</p></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;What You Get&nbsp;&nbsp;</span></h2>
-<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Combat Helper Item</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>A cursor-shaped item that opens the toggle menu when you use it. You craft one from wool, take one from the Equipment tab of the Creative inventory, or turn on the Give Starter Item pack setting to receive one the first time you join a world.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Hold the Combat Helper and use it, like right-clicking on PC or tapping on mobile. Sneak while you use it to switch all your toggles off or back on. To craft one, fill the top row of a crafting table with wool, then the left and middle squares of the middle row, then the left and right squares of the bottom row. This takes 7 wool of any color and the shape looks like a cursor.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> With Give Starter Item on, a full inventory on first join means the Combat Helper is offered again on your next join.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Combat Toggles Menu</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>The main menu has three buttons: Combat Menu, About and Exit. Combat Menu opens a screen with Combat Toggles, Friends, Tuning and Practice Dummy. Combat Toggles lists 13 switches with a one-line explanation under each, and Apply saves them and closes the menu.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Flip the switches you want, then tap Apply. Closing the screen without Apply brings you back one screen.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Toggles are saved per player, so each person in a world picks their own.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Auto Totem</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>When a hit would kill you and you hold no Totem of Undying, one from your inventory moves into your off hand first, so the totem saves you.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Keep a Totem of Undying anywhere in your inventory and switch Auto Totem on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It does nothing without a totem in your inventory, and it cannot help against the void or the kill command.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Infinite Totem</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Works like Auto Totem, and when you have no totem at all it puts a new Totem of Undying in your off hand before a deadly hit.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch it on and keep fighting. Each totem that pops is replaced before the next deadly hit.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> An item that was in your off hand moves to your inventory, or drops at your feet if the inventory is full.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Aura Mode</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Every half second, you hit up to 3 of the nearest hostile mobs and other players within 4 blocks for 5 damage (2.5 hearts), without clicking.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Stand near enemies with Aura Mode on and they take damage automatically.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Players in Creative or Spectator mode are never hit, and passive mobs are left alone.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Always Critical</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Every melee hit you land deals 1.5 times damage and shows the critical hit sparks, the same bonus as a vanilla critical hit, without jumping first.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Hit a mob or player with a sword or axe while Always Critical is on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> A hit made while you are already falling is left as vanilla, so the bonus never stacks.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Bow Aimbot</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Arrows you shoot from a bow or crossbow steer toward the hostile mob or player closest to your crosshair within 48 blocks and inside the aim circle on your screen.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Aim roughly at a target and release. The arrow leads a moving target and allows for arrow drop.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> If nothing is near your crosshair, the arrow flies as normal. A mob or player hidden behind blocks is never chosen.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Always Water Clutch</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>When you fall 3 blocks or more and the ground is close, a water block appears in the space you land in, so the fall does no damage, and it is removed as soon as you stop falling, together with any water that spread from it.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch it on and jump. No water bucket is needed.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It does not trigger in Creative or Spectator mode, while gliding or flying, or over water.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Shield Always Active</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>While you carry a shield in either hand, every melee hit and arrow from the front half of your view is fully blocked, even if you are not holding the block button.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Keep a shield in your hand or off hand and switch Shield Always Active on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Hits from behind and other damage, such as fire or explosions, are not blocked. Each block plays the shield sound, shows sparks in front of you, and pushes a melee attacker back.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Auto Golden Apple</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>When your health drops to 4 hearts or less, one golden apple from your inventory is eaten for you, giving Regeneration II for 5 seconds and Absorption for 2 minutes.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Keep a golden apple anywhere in your inventory and switch Auto Golden Apple on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It waits 20 seconds between apples, it does not restore hunger, and it does nothing in Creative or Spectator mode.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Damage Display</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Each time you hurt a mob or player, the action bar shows how much damage the hit did, in points and in hearts.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch it on and hit something.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It also counts the hits made by Aura Mode.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Immortal</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>You never drop below 1 heart. Any hit that would take you lower is cut down or cancelled, even a one-hit explosion.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch Immortal on under Defense in Combat Settings. There is no totem sound or particle.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It also tries to block the void and the kill command, and if you fall into the void it moves you back to the last ground you stood on. It is used before the totem toggles, so no totem is spent while Immortal is on.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Keep Gear On Death</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>When you die, your items and armor are set aside and given back when you respawn, so nothing drops, and only you keep your gear.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch Keep Gear On Death on. After you respawn, your inventory, armor and off hand are back as they were.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> The items are held in memory, so they are lost if the world closes before you respawn. A totem that saves you does not trigger it.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;No Knockback</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Melee hits no longer push you back, or push you much less.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch it on and take a hit. The script pushes you the other way by the amount a hit normally pushes you.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It cancels the push by about the usual amount, so a strong knockback enchantment can still move you a little.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Target Highlight</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>While you hold a bow or crossbow, a small target picture floats above the mob or player Bow Aimbot will pick, the action bar names it, and a circle picture sits on your crosshair on the screen to show the aim range, so it never lags behind when you turn. Only you see them.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch on both Bow Aimbot and Target Highlight, hold a bow and aim near an enemy.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It does nothing when Bow Aimbot is off, and the target picture only shows when a target is inside the circle. The circle can be switched off in Tuning, and its size follows the Bow Aimbot angle.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Practice Dummy</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>A zombie called Practice Dummy appears 3 blocks in front of you. It cannot move or hurt you and it heals fast, so you can test Aura Mode, Always Critical and Damage Display.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Open the Combat Menu and tap Practice Dummy.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It disappears after 2 minutes, and spawning a new one removes your old one.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Friends</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>You pick online players as friends, and Aura Mode and Bow Aimbot skip them.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Open the Combat Menu, tap Friends, tick the players you want and tap Apply.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Friends stay on your list when they go offline. The list is yours alone, so a friend is only safe from your toggles, not the other way round.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Tuning</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Seven sliders and three choices change how the toggles behave: Aura range (2 to 6 blocks), Aura damage (1 to 10), Aura targets (1 to 5), Bow Aimbot range (16 to 96 blocks), Aim circle zoom (50 to 300 percent), Your game FOV setting (30 to 110), Always Critical damage (110 to 300 percent), Knockback you deal (0 to 200 percent), Aura hits (mobs and players, mobs only or players only) whether Aura turns you to face the target, and whether Target Highlight draws the aim circle.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Open the Combat Menu, tap Tuning, drag the sliders and tap Apply. A reset switch at the bottom puts everything back to the defaults.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> The starting values match the old fixed numbers, so nothing changes until you move a slider.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Quick Toggle</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Sneaking while you use the Combat Helper switches every toggle off at once, and doing it again brings the same toggles back.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Crouch and use the item instead of opening the menu.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Your friends and tuning stay as they are.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Starter Item Pack Setting</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>The behavior pack has a choice between No Starter Item, which is the default, and Give Starter Item, which gives each player a Combat Helper the first time they join the world.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Open the world settings, go to Behavior Packs, tap Combat Helper and use the subpack slider to pick Give Starter Item.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Each player gets one the first time they join with the setting on, and a player who already has one saved from before is not given another.</span></p></div></div></div>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Combat Helper Item</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>A cursor-shaped item that opens the toggle menu when you use it. You craft one from wool, take one from the Equipment tab of the Creative inventory, or turn on the Give Starter Item pack setting to receive one the first time you join a world.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Hold the Combat Helper and use it, like right-clicking on PC or tapping on mobile. Sneak while you use it to switch all your toggles off or back on. To craft one, fill the top row of a crafting table with wool, then the left and middle squares of the middle row, then the left and right squares of the bottom row. This takes 7 wool of any color and the shape looks like a cursor.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> With Give Starter Item on, a full inventory on first join means the Combat Helper is offered again on your next join.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Combat Toggles Menu</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>The main menu has three buttons: Combat Menu, About and Exit. Combat Menu opens a screen with Combat Toggles, Friends, Tuning and Practice Dummy. Combat Toggles lists 13 switches with a one-line explanation under each, and Apply saves them and closes the menu.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Flip the switches you want, then tap Apply. Closing the screen without Apply brings you back one screen.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Toggles are saved per player, so each person in a world picks their own.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Auto Totem</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>When a hit would kill you and you hold no Totem of Undying, one from your inventory moves into your off hand first, so the totem saves you.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Keep a Totem of Undying anywhere in your inventory and switch Auto Totem on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It does nothing without a totem in your inventory, and it cannot help against the void or the kill command.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Infinite Totem</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Works like Auto Totem, and when you have no totem at all it puts a new Totem of Undying in your off hand before a deadly hit.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch it on and keep fighting. Each totem that pops is replaced before the next deadly hit.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> An item that was in your off hand moves to your inventory, or drops at your feet if the inventory is full.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Aura Mode</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Every half second, you hit up to 3 of the nearest hostile mobs and other players within 4 blocks for 5 damage (2.5 hearts), without clicking.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Stand near enemies with Aura Mode on and they take damage automatically.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Players in Creative or Spectator mode are never hit, and passive mobs are left alone.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Always Critical</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Every melee hit you land deals 1.5 times damage and shows the critical hit sparks, the same bonus as a vanilla critical hit, without jumping first.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Hit a mob or player with a sword or axe while Always Critical is on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> A hit made while you are already falling is left as vanilla, so the bonus never stacks.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Bow Aimbot</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Arrows you shoot from a bow or crossbow steer toward the hostile mob or player closest to your crosshair within 48 blocks and inside the aim circle on your screen.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Mob Types:</strong> Four On or Off choices under Bow Aimbot pick what it hits: hostile mobs, neutral mobs, passive mobs and players. Hostile mobs and players are on by default, and tamed pets are never targeted.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Aim roughly at a target and release. The arrow leads a moving target and allows for arrow drop.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> If nothing is near your crosshair, the arrow flies as normal. A mob or player hidden behind blocks is never chosen.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Always Water Clutch</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>When you fall 3 blocks or more and the ground is close, a water block appears in the space you land in, so the fall does no damage, and it is removed as soon as you stop falling, together with any water that spread from it.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch it on and jump. No water bucket is needed.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It does not trigger in Creative or Spectator mode, while gliding or flying, or over water.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Shield Always Active</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>While you carry a shield in either hand, every melee hit and arrow from the front half of your view is fully blocked, even if you are not holding the block button.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Keep a shield in your hand or off hand and switch Shield Always Active on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Hits from behind and other damage, such as fire or explosions, are not blocked. Each block plays the shield sound, shows sparks in front of you, and pushes a melee attacker back.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Auto Golden Apple</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>When your health drops to 4 hearts or less, one golden apple from your inventory is eaten for you, giving Regeneration II for 5 seconds and Absorption for 2 minutes.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Keep a golden apple anywhere in your inventory and switch Auto Golden Apple on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It waits 20 seconds between apples, it does not restore hunger, and it does nothing in Creative or Spectator mode.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Damage Display</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Each time you hurt a mob or player, the action bar shows how much damage the hit did, in points and in hearts.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch it on and hit something.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It also counts the hits made by Aura Mode.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Immortal</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>You never drop below 1 heart. Any hit that would take you lower is cut down or cancelled, even a one-hit explosion.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch Immortal on under Defense in Combat Settings. There is no totem sound or particle.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It also tries to block the void and the kill command, and if you fall into the void it moves you back to the last ground you stood on. It is used before the totem toggles, so no totem is spent while Immortal is on.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Keep Gear On Death</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>When you die, your items and armor are set aside and given back when you respawn, so nothing drops, and only you keep your gear.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch Keep Gear On Death on. After you respawn, your inventory, armor and off hand are back as they were.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> The items are held in memory, so they are lost if the world closes before you respawn. A totem that saves you does not trigger it.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;No Knockback</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Melee hits no longer push you back, or push you much less.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch it on and take a hit. The script pushes you the other way by the amount a hit normally pushes you.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It cancels the push by about the usual amount, so a strong knockback enchantment can still move you a little.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Target Highlight</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>While you hold a bow or crossbow, a small target picture floats above the mob or player Bow Aimbot will pick, the action bar names it, and a circle picture sits on your crosshair on the screen to show the aim range, so it never lags behind when you turn. Only you see them.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch on both Bow Aimbot and Target Highlight, hold a bow and aim near an enemy.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It does nothing when Bow Aimbot is off, and the target picture only shows when a target is inside the circle. The circle can be switched off in Tuning, and its size follows the Bow Aimbot angle.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Practice Dummy</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>A zombie called Practice Dummy appears 3 blocks in front of you. It cannot move or hurt you and it heals fast, so you can test Aura Mode, Always Critical and Damage Display.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Open the Combat Menu and tap Practice Dummy.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It disappears after 2 minutes, and spawning a new one removes your old one.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Friends</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>You pick online players as friends, and Aura Mode and Bow Aimbot skip them.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Open the Combat Menu, tap Friends, tick the players you want and tap Apply.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Friends stay on your list when they go offline. The list is yours alone, so a friend is only safe from your toggles, not the other way round.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Tuning</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Seven sliders and three choices change how the toggles behave: Aura range (2 to 6 blocks), Aura damage (1 to 10), Aura targets (1 to 5), Bow Aimbot range (16 to 96 blocks), Aim circle zoom (50 to 300 percent), Your game FOV setting (30 to 110), Always Critical damage (110 to 300 percent), Knockback you deal (0 to 200 percent), Aura hits (mobs and players, mobs only or players only) whether Aura turns you to face the target, and whether Target Highlight draws the aim circle.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Open the Combat Menu, tap Tuning, drag the sliders and tap Apply. A reset switch at the bottom puts everything back to the defaults.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> The starting values match the old fixed numbers, so nothing changes until you move a slider.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Quick Toggle</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Sneaking while you use the Combat Helper switches every toggle off at once, and doing it again brings the same toggles back.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Crouch and use the item instead of opening the menu.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Your friends and tuning stay as they are.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Starter Item Pack Setting</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>The behavior pack has a choice between No Starter Item, which is the default, and Give Starter Item, which gives each player a Combat Helper the first time they join the world.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Open the world settings, go to Behavior Packs, tap Combat Helper and use the subpack slider to pick Give Starter Item.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Each player gets one the first time they join with the setting on, and a player who already has one saved from before is not given another.</span></p></div></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Custom Items&nbsp;&nbsp;</span></h2>
 <div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:0 1 120px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/items/aln_pointer.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/items/aln_pointer.png" alt="aln pointer" style="width:64px"></a></p><p style="color:#8a94a3;font-size:13px">aln pointer</p></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Get Started&nbsp;&nbsp;</span></h2>

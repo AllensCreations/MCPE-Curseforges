@@ -1,8 +1,8 @@
 {
-  "changelog_version": "18.0.0",
-  "manifest_version": "18.0.0",
+  "changelog_version": "19.0.0",
+  "manifest_version": "19.0.0",
   "packages": {
-    "ALNPointer V18.mcaddon": "8e0a7e6079952b4ce77fe990aa42f288c0aaa28ffb1573ef91b226e707e2cfa2"
+    "ALNPointer V19.mcaddon": "c3e4dd1f0881a65711e915142162c83e9641556817a12774112934df79952991"
   },
-  "source_sha256": "c045cbdbeed3cdd0a2652ea729d7744bf8f7e4a76f1ec6f2113e32bcafb8d077"
+  "source_sha256": "c924533ad4e2dd21cbcca424ffc4e81a8cfc0760e9acd1487dfcc0238f546d52"
 }
