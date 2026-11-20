@@ -1,9 +1,20 @@
 # Changelog — ALN:OneClickSort
 
-## [v6] - 2026-11-20 - Add-on Package
+## [v7] - 2026-11-20 - Restock Stocking
 
-### Improved & Balanced
+### Added
+- **Restock Stocking**: Sneak and right-click the Restock Feather to quick-stack your items into nearby chests, the same as the Auto-Sort Feather.
+- **Leave 1 Item in Chest**: A new toggle in the Sort Settings Book keeps one item of each type in a chest when restocking, so Quick Stack still finds that chest.
+
+<details>
+<summary><b>6.0.x</b> (1 release)</summary>
+
+### [v6] - 2026-11-20 - Add-on Package
+
+#### Improved & Balanced
 - **Add-on Package**: The project is now built as a complete add-on with both packs, so it imports as one add-on file.
+
+</details>
 
 <details>
 <summary><b>5.0.x</b> (1 release)</summary>

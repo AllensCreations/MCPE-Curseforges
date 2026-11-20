@@ -1,8 +1,0 @@
-{
-  "changelog_version": "2.0.0",
-  "manifest_version": "2.0.0",
-  "packages": {
-    "ALNOneClickSort V2.mcpack": "fb17e5b47e0b2f72e6d12b82438ed25defa9c0e127a87c2240c20e187c029b1b"
-  },
-  "source_sha256": "5ed6901a01151e752d245bdc778c796716e32498af929c1b1c586a10692b1234"
-}
