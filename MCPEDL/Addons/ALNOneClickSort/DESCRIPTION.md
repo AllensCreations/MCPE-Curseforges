@@ -22,7 +22,7 @@ Hold the Auto-Sort Feather in your hand. Right-click to sort your backpack, snea
 
 ### Chest Sorting
 - **What Happens**: Sneak and right-click a chest, trapped chest, barrel or any shulker box to sort it instantly without opening it. Double chests are sorted as one container.
-- **How It Works**: Sneak, then right-click the container with an empty hand or the Auto-Sort Feather.
+- **How It Works**: Sneak, then right-click the container with the Auto-Sort Feather in your hand.
 - **Good To Know**: A sound confirms the sort, and the Normal variant also shows a small particle effect above the container.
 
 ### Quick Stack

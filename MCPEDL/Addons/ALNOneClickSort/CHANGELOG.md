@@ -2,6 +2,11 @@
 
 ---
 
+## [v8] - 2026-11-20 - Feather Only Chest Sorting
+
+### Improved & Balanced
+- **Chest Sorting**: Sneak and right-click now sorts a chest only while you hold the Auto-Sort Feather, so an empty hand no longer sorts it.
+
 ## [v7] - 2026-11-20 - Restock Stocking
 
 ### Added

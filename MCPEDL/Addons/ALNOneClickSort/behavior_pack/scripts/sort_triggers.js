@@ -241,7 +241,7 @@ export function registerTriggers() {
     if (event.isFirstEvent === false) return;
     if (!player.isSneaking) return;
     if (!isSortableContainer(block.typeId)) return;
-    if (itemStack && !isAutoSortFeather(itemStack)) return;
+    if (!isAutoSortFeather(itemStack)) return;
 
     event.cancel = true;
     lastContainerSort.set(player.id, system.currentTick);
