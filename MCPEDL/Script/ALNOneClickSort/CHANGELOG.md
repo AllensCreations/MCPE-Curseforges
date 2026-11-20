@@ -2,6 +2,11 @@
 
 ---
 
+## [v4] - 2026-11-20 - Crafting Recipes
+
+### Added
+- **Crafting Recipes**: Craft the Auto-Sort Feather from an Emerald, Feather and Hopper, the Restock Feather from a Gold Ingot, Feather and Chest, and the Sort Settings Book from a Book, Lapis Lazuli and Redstone Dust. All recipes are unlocked from the start.
+
 ## [v3] - 2026-11-20 - Custom Items
 
 ### Added

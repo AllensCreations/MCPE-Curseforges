@@ -40,6 +40,12 @@ Hold the Auto-Sort Feather in your hand. Right-click to sort your backpack, snea
 - **How It Works**: Choose Smart Category, Alphabetical (A-Z) or Stack Quantity (Highest First), then confirm.
 - **Good To Know**: Each player keeps their own settings, which stay saved between sessions.
 
+### Crafting Recipes
+- **What Happens**: All three items can be crafted at a Crafting Table, and every recipe is unlocked from the start.
+- **How It Works**: Auto-Sort Feather: Emerald, Feather and Hopper placed diagonally. Restock Feather: Gold Ingot, Feather and Chest placed diagonally. Sort Settings Book: Book in the center with Lapis Lazuli left and right and Redstone Dust above and below.
+- **Good To Know**: The diagonal layout matches the feather on the icons, and the same items are also in the Creative inventory under Items.
+
+### Pack Variants
 ### Pack Variants
 - **What Happens**: Two variants are included: Simple, the default, shows an action bar message and sound only, and Normal (with particles) also shows happy-villager particles above a sorted chest.
 - **How It Works**: Open the pack's settings in your world and move the slider to switch variant.
@@ -47,7 +53,7 @@ Hold the Auto-Sort Feather in your hand. Right-click to sort your backpack, snea
 
 ## How to Use
 
-1. Take the Auto-Sort Feather, Restock Feather and Sort Settings Book from the Creative inventory under Items.
+1. Craft the Auto-Sort Feather, Restock Feather and Sort Settings Book with the recipes below, or take them from the Creative inventory under Items.
 2. Right-click in the air to sort your backpack, or sneak and right-click a chest to sort it.
 3. Sneak and right-click in the air next to your chests to quick-stack, or use the Restock Feather to refill your stacks from them.
 4. Right-click the Sort Settings Book to change your options.

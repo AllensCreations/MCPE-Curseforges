@@ -1,0 +1,33 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "allenscreations:craft_auto_sort_feather"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "  E",
+      " F ",
+      "H  "
+    ],
+    "key": {
+      "E": {
+        "item": "minecraft:emerald"
+      },
+      "F": {
+        "item": "minecraft:feather"
+      },
+      "H": {
+        "item": "minecraft:hopper"
+      }
+    },
+    "result": {
+      "item": "allenscreations:auto_sort_feather"
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
