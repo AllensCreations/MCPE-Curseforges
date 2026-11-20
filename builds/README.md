@@ -82,7 +82,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **ALNSpawnControl** | Script Pack (.mcpack) | [Download (.mcpack)](ALNSpawnControl/ALNSpawnControl%20V3.0.3.mcpack) | [`ALNSpawnControl/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNSpawnControl/) |
 | **Command Vault** | Script Pack (.mcpack) | [Download (.mcpack)](Command-Vault/CommandVault%20V3.mcpack) | [`Command-Vault/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Command-Vault/) |
 | **Loot and XP Stick** | Script Pack (.mcpack) | [Download (.mcpack)](Loot-and-XP-Stick/LootXPStick%20V1.mcpack) | [`Loot-and-XP-Stick/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Loot-and-XP-Stick/) |
-| **ALNOneClickSort** | Script Pack (`.mcpack`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNOneClickSort/ALNOneClickSort%20V1.mcpack) | [`ALNOneClickSort/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNOneClickSort/) |
+| **ALNOneClickSort** | Script Pack (.mcpack) | [Download (.mcpack)](ALNOneClickSort/ALNOneClickSort%20V2.mcpack) | [`ALNOneClickSort/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNOneClickSort/) |
 
 ---
 
