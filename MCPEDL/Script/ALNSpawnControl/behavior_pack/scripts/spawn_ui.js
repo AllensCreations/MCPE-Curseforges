@@ -78,20 +78,20 @@ function openMainMenu(player) {
   form.body(
     `§7Manage world mob spawns with precision.\n\n` +
     `§fActive Status:\n` +
-    `§a✔ Allowed: §f${allowedCount} mobs\n` +
-    `§c✖ Blocked: §f${blockedCount} mobs\n` +
-    `§e⚡ Blocked Spawns This Session: §f${getBlockedCount()}\n` +
-    `§b⚙ Filter Mode: §f${config.blockSpawnEggs ? "All Sources (Inc. Eggs)" : "Natural Only"}\n` +
-    `§d🔒 Admin Tag Lock: §f${config.adminOnly ? "Enabled" : "Disabled"}`
+    `§aAllowed: §f${allowedCount} mobs\n` +
+    `§cBlocked: §f${blockedCount} mobs\n` +
+    `§eBlocked Spawns This Session: §f${getBlockedCount()}\n` +
+    `§bFilter Mode: §f${config.blockSpawnEggs ? "All Sources (Inc. Eggs)" : "Natural Only"}\n` +
+    `§dAdmin Tag Lock: §f${config.adminOnly ? "Enabled" : "Disabled"}`
   );
 
   form.button("§1Overworld Hostiles\n§8Zombie, Creeper, Breeze...");
   form.button("§2Passive & Neutral Mobs\n§8Cow, Sheep, Villager...");
   form.button("§4Nether & End Mobs\n§8Blaze, Ghast, Piglin...");
   form.button("§5Bosses & Rare Mobs\n§8Warden, Wither, Dragon...");
-  form.button("§6⚡ Quick Presets\n§8Enable/Disable Groups");
-  form.button("§3⚙ Global Filter Settings\n§8Mode & Admin Lock");
-  form.button("§c🗑 Purge Disabled Mobs\n§8Choose what gets removed");
+  form.button("§6Quick Presets\n§8Enable/Disable Groups");
+  form.button("§3Global Filter Settings\n§8Mode & Admin Lock");
+  form.button("§cPurge Disabled Mobs\n§8Choose what gets removed");
 
   form.show(player).then((response) => {
     if (response.canceled) {
@@ -134,8 +134,6 @@ function openCategoryMenu(player, categoryKey) {
   const form = new ModalFormData();
   form.title(`§2${category.name}`);
 
-  form.toggle("§e« Back to Main Menu §7(Turn ON to return)", { defaultValue: false });
-
   for (const mob of category.mobs) {
     const isAllowed = rules[mob.id] !== false;
     form.toggle(`${mob.name}`, { defaultValue: isAllowed });
@@ -146,15 +144,9 @@ function openCategoryMenu(player, categoryKey) {
       return;
     }
 
-    const backSelected = Boolean(response.formValues[0]);
-    if (backSelected) {
-      system.run(() => openMainMenu(player));
-      return;
-    }
-
     const currentRules = getSpawnRules(world);
     category.mobs.forEach((mob, index) => {
-      const val = response.formValues[index + 1];
+      const val = response.formValues[index];
       currentRules[mob.id] = Boolean(val);
     });
 
@@ -165,22 +157,16 @@ function openCategoryMenu(player, categoryKey) {
 
 function openPresetsMenu(player) {
   const form = new ActionFormData();
-  form.title("§6⚡ Quick Presets");
+  form.title("§6Quick Presets");
   form.body("§7Choose a preset to apply instant spawn rule sets across categories:");
 
   form.button("§aEnable All Mobs\n§8Allow all mobs to spawn");
   form.button("§cDisable All Hostiles\n§8Block all hostile & Nether threats");
   form.button("§eDisable All Passive Mobs\n§8Block all farm animals & pets");
   form.button("§4Disable Everything\n§8Completely empty mob world");
-  form.button("§7« Back to Dashboard\n§8Return to main menu");
 
   form.show(player).then((response) => {
     if (response.canceled) {
-      return;
-    }
-
-    if (response.selection === 4) {
-      system.run(() => openMainMenu(player));
       return;
     }
 
@@ -225,9 +211,8 @@ function openPresetsMenu(player) {
 function openGlobalSettingsMenu(player) {
   const config = getSpawnConfig(world);
   const form = new ModalFormData();
-  form.title("§3⚙ Global Filter Settings");
+  form.title("§3Global Filter Settings");
 
-  form.toggle("§e« Back to Main Menu §7(Turn ON to return)", { defaultValue: false });
   form.toggle("Include Spawn Eggs & Summon Commands", { defaultValue: config.blockSpawnEggs });
   form.toggle("Admin Tag Lock (player tag: aln_admin)", { defaultValue: config.adminOnly });
   form.toggle("Purge Loaded Disabled Mobs Now", { defaultValue: false });
@@ -237,14 +222,8 @@ function openGlobalSettingsMenu(player) {
       return;
     }
 
-    const backSelected = Boolean(response.formValues[0]);
-    if (backSelected) {
-      system.run(() => openMainMenu(player));
-      return;
-    }
-
-    const blockSpawnEggs = Boolean(response.formValues[1]);
-    const adminOnly = Boolean(response.formValues[2]);
+    const blockSpawnEggs = Boolean(response.formValues[0]);
+    const adminOnly = Boolean(response.formValues[1]);
 
     saveSpawnConfig(world, { blockSpawnEggs, adminOnly });
     player.onScreenDisplay.setActionBar("§a[SpawnControl] §fSaved global filter settings!");
@@ -279,9 +258,7 @@ function isNameTaggedEntity(entity) {
 function openPurgeMenu(player) {
   const categoryKeys = Object.keys(MOB_CATEGORIES);
   const form = new ModalFormData();
-  form.title("§c🗑 Purge Disabled Mobs");
-
-  form.toggle("§e« Back to Main Menu §7(Turn ON to return)", { defaultValue: false });
+  form.title("§cPurge Disabled Mobs");
 
   for (const key of categoryKeys) {
     form.toggle(`Purge ${MOB_CATEGORIES[key].name}`, { defaultValue: true });
@@ -295,22 +272,17 @@ function openPurgeMenu(player) {
       return;
     }
 
-    if (Boolean(response.formValues[0])) {
-      system.run(() => openMainMenu(player));
-      return;
-    }
-
     const selectedIds = new Set();
     categoryKeys.forEach((key, index) => {
-      if (Boolean(response.formValues[index + 1])) {
+      if (Boolean(response.formValues[index])) {
         for (const mob of MOB_CATEGORIES[key].mobs) {
           selectedIds.add(mob.id);
         }
       }
     });
 
-    const includeTamed = Boolean(response.formValues[categoryKeys.length + 1]);
-    const includeNamed = Boolean(response.formValues[categoryKeys.length + 2]);
+    const includeTamed = Boolean(response.formValues[categoryKeys.length]);
+    const includeNamed = Boolean(response.formValues[categoryKeys.length + 1]);
 
     purgeDisabledEntities(player, selectedIds, includeTamed, includeNamed);
   });

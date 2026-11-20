@@ -17,7 +17,7 @@ Rename a vanilla Book to "Spawn Control" on an Anvil and use it to open the cont
 
 ### Categorized Mob Rosters
 - **What Happens**: Individual toggle switches govern 58 standard mobs organized across 4 distinct groups: Overworld Hostiles, Passive & Neutral Mobs, Nether & End Mobs, and Bosses & Rare Mobs.
-- **How It Works**: Open any category to adjust individual toggles, such as turning off Creeper or Phantom while keeping Zombie and Skeleton active. Each category includes a dedicated back switch to return to the dashboard.
+- **How It Works**: Open any category to adjust individual toggles, such as turning off Creeper or Phantom while keeping Zombie and Skeleton active. Close a menu to leave it and use the book again to reopen the dashboard.
 - **Good To Know**: All mobs are enabled by default. Mobs that are toggled off are removed immediately when spawning occurs.
 
 ### Custom Mob Spawner & Farm Control

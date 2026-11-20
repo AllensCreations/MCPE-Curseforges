@@ -2,6 +2,12 @@
 
 ---
 
+## [v3.0.2] - 2026-11-20 - Cleaner Menus
+
+### Improved & Balanced
+- **Back Buttons Removed**: The back switch and back button were removed from every menu. Close a menu to leave it and use the book again to reopen the dashboard.
+- **Plain Menu Text**: Emojis and symbols were removed from menu titles, buttons and the status panel so the text renders thicker and easier to read.
+
 ## [v3.0.1] - 2026-11-20 - Separate Purge Menu
 
 ### Added
