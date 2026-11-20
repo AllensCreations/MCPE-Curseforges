@@ -309,17 +309,42 @@ function getNearbyIslandPlayers(dimension, loc, maxDistance = 48, breakerPlayer 
 
 // Finalizes a fully mined island core (removes the bedrock -> natural floor + reward chest).
 // Safe to call repeatedly: retried by ensureIslandOneBlocks if the chunk was unloaded or the world was closed.
-function finalizeIslandCore(dimension, theme, loc, player) {
+const islandRepairCheck = new Map();
+
+// True when a completed island still has bedrock at its core, directly under it, or in its collar.
+function islandNeedsRepair(dimension, x, y, z) {
   try {
-    if (world.getDynamicProperty(`island_ob_final_${theme.id}`)) return;
+    const core = dimension.getBlock({ x, y, z });
+    if (!core) return false; // chunk not loaded: check again later
+    if (core.typeId === "minecraft:bedrock") return true;
+    const under = dimension.getBlock({ x, y: y - 1, z });
+    if (under && under.typeId === "minecraft:bedrock") return true;
+    for (const off of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+      const side = dimension.getBlock({ x: x + off[0], y, z: z + off[1] });
+      if (side && side.typeId === "minecraft:bedrock") return true;
+    }
+  } catch (e) {}
+  return false;
+}
+
+// Finalizes a fully mined island core (removes the bedrock -> natural floor + reward chest).
+// repair = true re-runs the cleanup on an island that was marked finished but still has bedrock (no second fireworks/loot).
+function finalizeIslandCore(dimension, theme, loc, player, repair = false) {
+  try {
+    if (!repair && world.getDynamicProperty(`island_ob_final_${theme.id}`)) return;
     const targetBlock = dimension.getBlock(loc);
     if (!targetBlock) return; // chunk unloaded, retry later
-    world.setDynamicProperty(`island_ob_final_${theme.id}`, true);
-    if (targetBlock.typeId !== "minecraft:bedrock" && !targetBlock.isAir) return;
+    const coreFree = targetBlock.typeId === "minecraft:bedrock" || targetBlock.isAir || targetBlock.typeId === "minecraft:air";
+    if (!repair) {
+      world.setDynamicProperty(`island_ob_final_${theme.id}`, true);
+      if (!coreFree) return;
+    }
 
-    try { targetBlock.setType(theme.floor); } catch (e) { try { targetBlock.setType("minecraft:dirt"); } catch (e2) {} }
+    if (coreFree) {
+      try { targetBlock.setType(theme.floor); } catch (e) { try { targetBlock.setType("minecraft:dirt"); } catch (e2) {} }
+    }
     const underBlock = dimension.getBlock({ x: loc.x, y: loc.y - 1, z: loc.z });
-    if (underBlock) {
+    if (underBlock && (!repair || underBlock.typeId === "minecraft:bedrock")) {
       try { underBlock.setType(theme.subfloor || theme.floor); } catch (e) { try { underBlock.setType(theme.floor); } catch (e2) {} }
     }
     const besideOffsets = [{ x: 1, z: 0 }, { x: -1, z: 0 }, { x: 0, z: 1 }, { x: 0, z: -1 }];
@@ -329,6 +354,7 @@ function finalizeIslandCore(dimension, theme, loc, player) {
         try { bBlock.setType(theme.floor); } catch (e) { try { bBlock.setType("minecraft:dirt"); } catch (e2) {} }
       }
     }
+    if (repair) world.setDynamicProperty(`island_ob_final_${theme.id}`, true);
 
     const chestPos = { x: loc.x, y: loc.y + 1, z: loc.z };
     try {
@@ -343,8 +369,11 @@ function finalizeIslandCore(dimension, theme, loc, player) {
     const chestBlock = dimension.getBlock(chestPos);
     const REPLACEABLE_ABOVE_CORE = /(short_grass|tall_grass|^minecraft:grass$|fern|flower|tulip|orchid|allium|azure_bluet|oxeye|cornflower|lily_of_the_valley|poppy|dandelion|sapling|petals|crimson_roots|warped_roots|hanging_roots|snow_layer|torchflower|pitcher|dead_bush|deadbush|berries|red_mushroom$|brown_mushroom$|fungus|sprouts|carpet)/;
     if (chestBlock) {
-      if (chestBlock.isAir || chestBlock.typeId === "minecraft:chest" || REPLACEABLE_ABOVE_CORE.test(chestBlock.typeId)) {
-        if (chestBlock.typeId !== "minecraft:chest") chestBlock.setType("minecraft:chest");
+      const isChest = chestBlock.typeId === "minecraft:chest";
+      if (repair && isChest) {
+        // the reward chest is already there: nothing more to give
+      } else if (chestBlock.isAir || isChest || REPLACEABLE_ABOVE_CORE.test(chestBlock.typeId)) {
+        if (!isChest) chestBlock.setType("minecraft:chest");
         system.runTimeout(() => {
           try {
             const cb = dimension.getBlock(chestPos);
@@ -356,13 +385,15 @@ function finalizeIslandCore(dimension, theme, loc, player) {
             }
           } catch (ie) {}
         }, 1);
-      } else {
+      } else if (!repair) {
         // Never destroy a player-built block: drop the reward instead
         for (const entry of theme.chest || []) {
           try { dimension.spawnItem(new ItemStack(entry.id, entry.count || 1), { x: chestPos.x + 0.5, y: chestPos.y + 0.5, z: chestPos.z + 0.5 }); } catch (de) {}
         }
       }
     }
+
+    if (repair) return;
 
     try {
       dimension.spawnEntity("minecraft:fireworks_rocket", { x: loc.x + 0.5, y: loc.y + 2.0, z: loc.z + 0.5 });
@@ -421,6 +452,7 @@ function handleIslandOneBlockBreak(dimension, loc, player) {
       });
     }
 
+    try {
     // Visual feedback ONLY via particle progression (no action bar counter text)
     if (progress < 0.5) {
       // Early Stage (<50%): Happy villager green sparkles
@@ -436,6 +468,8 @@ function handleIslandOneBlockBreak(dimension, loc, player) {
       dimension.spawnParticle("minecraft:endrod", { x: loc.x + 0.5, y: loc.y + 1.2, z: loc.z + 0.5 });
       dimension.playSound("block.amethyst_block.chime", loc, { pitch: 1.4, volume: 0.9 });
     }
+
+    } catch (fxErr) {}
 
     if (currentMined < maxBlocks) {
       // Respawn next thematic block from the island's unique pool
@@ -2528,16 +2562,33 @@ function ensureIslandOneBlocks(dimension) {
   for (const theme of ISLAND_THEMES) {
     if ((theme.dimension || "overworld") !== targetDim) continue;
     try {
-      const completed = world.getDynamicProperty(`island_ob_completed_${theme.id}`);
+      let completed = world.getDynamicProperty(`island_ob_completed_${theme.id}`);
+      if (!completed) {
+        // Self-heal: every block was mined but the completion step never ran
+        const minedAll = world.getDynamicProperty(`island_ob_mined_${theme.id}`);
+        const maxAll = world.getDynamicProperty(`island_ob_max_${theme.id}`);
+        if (minedAll !== undefined && maxAll !== undefined && minedAll >= maxAll) {
+          world.setDynamicProperty(`island_ob_completed_${theme.id}`, true);
+          world.setDynamicProperty(`island_ob_done_tick_${theme.id}`, system.currentTick - 200);
+          completed = true;
+        }
+      }
       if (completed) {
-        if (!world.getDynamicProperty(`island_ob_final_${theme.id}`)) {
-          const fx = world.getDynamicProperty(`island_ob_x_${theme.id}`);
-          const fy = world.getDynamicProperty(`island_ob_y_${theme.id}`);
-          const fz = world.getDynamicProperty(`island_ob_z_${theme.id}`);
-          const dt = world.getDynamicProperty(`island_ob_done_tick_${theme.id}`);
-          if (fx !== undefined && fy !== undefined && fz !== undefined) {
+        const fx = world.getDynamicProperty(`island_ob_x_${theme.id}`);
+        const fy = world.getDynamicProperty(`island_ob_y_${theme.id}`);
+        const fz = world.getDynamicProperty(`island_ob_z_${theme.id}`);
+        if (fx !== undefined && fy !== undefined && fz !== undefined) {
+          if (!world.getDynamicProperty(`island_ob_final_${theme.id}`)) {
+            const dt = world.getDynamicProperty(`island_ob_done_tick_${theme.id}`);
             const stale = dt === undefined || system.currentTick < dt || system.currentTick - dt > 100;
             if (stale) finalizeIslandCore(dimension, theme, { x: fx, y: fy, z: fz }, null);
+          } else {
+            // Self-heal: finished islands must not keep bedrock (checked every 5 seconds while loaded)
+            const lastCheck = islandRepairCheck.get(theme.id) ?? -999;
+            if (system.currentTick < lastCheck || system.currentTick - lastCheck >= 100) {
+              islandRepairCheck.set(theme.id, system.currentTick);
+              if (islandNeedsRepair(dimension, fx, fy, fz)) finalizeIslandCore(dimension, theme, { x: fx, y: fy, z: fz }, null, true);
+            }
           }
         }
         continue;
