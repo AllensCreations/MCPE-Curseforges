@@ -10,10 +10,7 @@
       "100% - 15px",
       10
     ],
-    "size": [
-      460,
-      350
-    ],
+    "size": ["85%", "85%"],
     "$text_name": "#title_text",
     "$title_text_binding_type": "none",
     "$child_control": "server_form.long_form_panel",
@@ -151,10 +148,7 @@
       4,
       0
     ],
-    "grid_dimensions": [
-      3,
-      9
-    ],
+    "grid_dimensions": [9, 3],
     "grid_fill_direction": "horizontal",
     "grid_rescaling_type": "horizontal",
     "grid_item_template": "server_form.dynamic_button",
@@ -172,10 +166,7 @@
   },
   "dynamic_button": {
     "type": "button",
-    "size": [
-      "100%",
-      54
-    ],
+    "size": ["11%", "100%x"],
     "sound_name": "random.click",
     "default_control": "default",
     "hover_control": "hover",
@@ -233,10 +224,7 @@
         "slot_icon": {
           "type": "image",
           "layer": 2,
-          "size": [
-            24,
-            24
-          ],
+          "size": ["50%", "50%x"],
           "anchor_from": "top_middle",
           "anchor_to": "top_middle",
           "offset": [
@@ -263,10 +251,7 @@
         "slot_label": {
           "type": "label",
           "layer": 3,
-          "size": [
-            "100% - 2px",
-            25
-          ],
+          "size": ["100% - 2px", "40%"],
           "anchor_from": "bottom_middle",
           "anchor_to": "bottom_middle",
           "offset": [

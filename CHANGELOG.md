@@ -27,6 +27,15 @@
 
 ---
 
+## [v155] - 2026-11-20 - Responsive Market UI
+
+### Fixed
+- The market screen now sizes itself as a percentage of the screen, so it adjusts to any screen size or UI scale instead of using a fixed 460 x 350 panel.
+- The slot grid is now 9 columns by 3 rows as described, instead of 3 columns by 9 rows, which ran past the bottom of the panel.
+
+### Improved
+- Slots, item icons and labels scale with the panel and keep square slots.
+
 ## [v154] - 2026-11-20 - README Sync Fix
 
 ### Fixed
