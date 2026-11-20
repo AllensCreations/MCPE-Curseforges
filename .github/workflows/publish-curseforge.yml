@@ -33,6 +33,7 @@ on:
           - "ALL"
           - "MCPEDL/Addons/2-in-1-Loot--XP-Booster"
           - "MCPEDL/Addons/ALN-Pointer"
+          - "MCPEDL/Addons/ALNOneClickSort"
           - "MCPEDL/Addons/Cheat-Stick"
           - "MCPEDL/Addons/Enchanter"
           - "MCPEDL/Addons/Ghast-Mob-Head-Transformers"
@@ -53,7 +54,6 @@ on:
           - "MCPEDL/Script/ALNSpawnControl"
           - "MCPEDL/Script/Command-Vault"
           - "MCPEDL/Script/Living-SMP-Chat"
-          - "MCPEDL/Script/Target-HUD-Entity-Inspector"
           # END registered
       publish_map_variant:
         description: "Maps only (default = auto, all = Creative + Survival + Hardcore)"
