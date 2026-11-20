@@ -1,9 +1,22 @@
 # Changelog — ALN:OneClickSort
 
-## [v8] - 2026-11-20 - Feather Only Chest Sorting
+## [v9] - 2026-11-20 - Sneak Click Chest Controls
 
 ### Improved & Balanced
+- **Chest Sorting**: Sneak and right-click a chest with the Auto-Sort Feather to sort it. Sorting your backpack stays a plain right-click.
+- **Stock Chest**: Sneak and right-click a chest with the Restock Feather to stock it with the items your backpack shares with it. Restock stays a plain right-click.
+- **Sneak Use**: Sneaking and right-clicking a feather in the air no longer does anything, so Quick Stack is gone.
+- **Container Support**: Sorting, stocking and Restock now work with copper chests and every other chest type, as well as barrels and shulker boxes.
+
+<details>
+<summary><b>8.0.x</b> (1 release)</summary>
+
+### [v8] - 2026-11-20 - Feather Only Chest Sorting
+
+#### Improved & Balanced
 - **Chest Sorting**: Sneak and right-click now sorts a chest only while you hold the Auto-Sort Feather, so an empty hand no longer sorts it.
+
+</details>
 
 <details>
 <summary><b>7.0.x</b> (1 release)</summary>

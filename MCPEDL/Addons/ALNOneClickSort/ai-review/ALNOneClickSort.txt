@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Addons/ALNOneClickSort`
 - **Destination:** `MCPEDL/Addons/ALNOneClickSort`
-- **CURRENT VERSION: v8 / NEXT UPDATE: v9**  (`MCPEDL/Addons/ALNOneClickSort/CHANGELOG.md`)
+- **CURRENT VERSION: v9 / NEXT UPDATE: v10**  (`MCPEDL/Addons/ALNOneClickSort/CHANGELOG.md`)
 - **Text files:** 27
 - **Skipped binary:** 3
 - **Paths not found:** 0
@@ -53,7 +53,7 @@ Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
 Context7 Support: Enabled. For full instructions, schemas, and helper script syntax, query Context7 (`INSTRUCTIONS.md`, `PACK_GENERATOR_INSTRUCTIONS.md`, `DOCS_RULES.md`, `make_update_script.py`, `doc_template.py`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v8 / NEXT UPDATE: v9).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v9 / NEXT UPDATE: v10).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -111,10 +111,11 @@ Output ONLY these three sections in order:
 
 ## File Contents
 
-## FILE: changelog_views/ALNOneClickSort.curseforge.html (9 lines, 3530 bytes)
+## FILE: changelog_views/ALNOneClickSort.curseforge.html (10 lines, 4323 bytes)
 
 ```
-<h2>v8 - 2026-11-20 - Feather Only Chest Sorting</h2><h3>Improved &amp; Balanced</h3><ul><li><strong>Chest Sorting</strong>: Sneak and right-click now sorts a chest only while you hold the Auto-Sort Feather, so an empty hand no longer sorts it.</li></ul>
+<h2>v9 - 2026-11-20 - Sneak Click Chest Controls</h2><h3>Improved &amp; Balanced</h3><ul><li><strong>Chest Sorting</strong>: Sneak and right-click a chest with the Auto-Sort Feather to sort it. Sorting your backpack stays a plain right-click.</li><li><strong>Stock Chest</strong>: Sneak and right-click a chest with the Restock Feather to stock it with the items your backpack shares with it. Restock stays a plain right-click.</li><li><strong>Sneak Use</strong>: Sneaking and right-clicking a feather in the air no longer does anything, so Quick Stack is gone.</li><li><strong>Container Support</strong>: Sorting, stocking and Restock now work with copper chests and every other chest type, as well as barrels and shulker boxes.</li></ul>
+<h2>8.0.x (1 release)</h2><div class="spoiler"><h3>v8 - 2026-11-20 - Feather Only Chest Sorting</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Chest Sorting</strong>: Sneak and right-click now sorts a chest only while you hold the Auto-Sort Feather, so an empty hand no longer sorts it.</li></ul></div>
 <h2>7.0.x (1 release)</h2><div class="spoiler"><h3>v7 - 2026-11-20 - Restock Stocking</h3><h4>Added</h4><ul><li><strong>Restock Stocking</strong>: Sneak and right-click the Restock Feather to quick-stack your items into nearby chests, the same as the Auto-Sort Feather.</li><li><strong>Leave 1 Item in Chest</strong>: A new toggle in the Sort Settings Book keeps one item of each type in a chest when restocking, so Quick Stack still finds that chest.</li></ul></div>
 <h2>6.0.x (1 release)</h2><div class="spoiler"><h3>v6 - 2026-11-20 - Add-on Package</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Add-on Package</strong>: The project is now built as a complete add-on with both packs, so it imports as one add-on file.</li></ul></div>
 <h2>5.0.x (1 release)</h2><div class="spoiler"><h3>v5 - 2026-11-20 - Item Group</h3><h4>Added</h4><ul><li><strong>Item Group</strong>: The Auto-Sort Feather, Restock Feather and Sort Settings Book are now grouped together as OneClickSort in the Creative inventory under Items.</li></ul></div>
@@ -124,15 +125,28 @@ Output ONLY these three sections in order:
 <h2>1.0.x (1 release)</h2><div class="spoiler"><h3>1.0.0 - 2026-11-20 - First Release</h3><h4>Added</h4><ul><li><strong>Backpack Sorting</strong>: Right-click a Feather renamed Auto-Sort to sort the 27 backpack slots while the hotbar stays untouched.</li><li><strong>Chest Sorting</strong>: Sneak and right-click a chest, trapped chest, barrel or shulker box to sort it without opening it.</li><li><strong>Quick Stack</strong>: Sneak and right-click the Auto-Sort Feather to move matching items into chests and barrels within 6 blocks.</li><li><strong>Sort Settings</strong>: Right-click a Book renamed Sort Settings to choose the sort order, hotbar sorting and feedback.</li></ul></div>
 ```
 
-## FILE: changelog_views/ALNOneClickSort.github.md (89 lines, 3217 bytes)
+## FILE: changelog_views/ALNOneClickSort.github.md (102 lines, 3931 bytes)
 
 ```
 # Changelog — ALN:OneClickSort
 
-## [v8] - 2026-11-20 - Feather Only Chest Sorting
+## [v9] - 2026-11-20 - Sneak Click Chest Controls
 
 ### Improved & Balanced
+- **Chest Sorting**: Sneak and right-click a chest with the Auto-Sort Feather to sort it. Sorting your backpack stays a plain right-click.
+- **Stock Chest**: Sneak and right-click a chest with the Restock Feather to stock it with the items your backpack shares with it. Restock stays a plain right-click.
+- **Sneak Use**: Sneaking and right-clicking a feather in the air no longer does anything, so Quick Stack is gone.
+- **Container Support**: Sorting, stocking and Restock now work with copper chests and every other chest type, as well as barrels and shulker boxes.
+
+<details>
+<summary><b>8.0.x</b> (1 release)</summary>
+
+### [v8] - 2026-11-20 - Feather Only Chest Sorting
+
+#### Improved & Balanced
 - **Chest Sorting**: Sneak and right-click now sorts a chest only while you hold the Auto-Sort Feather, so an empty hand no longer sorts it.
+
+</details>
 
 <details>
 <summary><b>7.0.x</b> (1 release)</summary>
@@ -341,17 +355,17 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNOneClickSort/behavior_pack/manifest.json (77 lines, 1397 bytes)
+## FILE: MCPEDL/Addons/ALNOneClickSort/behavior_pack/manifest.json (77 lines, 1384 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:OneClickSort (v8)",
-    "description": "One-click backpack, chest, quick-stack and restock sorter with Simple and Normal modes. by ALNStudios",
+    "name": "ALN:OneClickSort (v9)",
+    "description": "One-click backpack, chest and restock sorter with Simple and Normal modes. by ALNStudios",
     "uuid": "ff3a44de-a0eb-4371-9793-5cdeb9badd4f",
     "version": [
-      8,
+      9,
       0,
       0
     ],
@@ -366,7 +380,7 @@ Output ONLY these three sections in order:
       "type": "data",
       "uuid": "7770015e-c2a3-4282-836e-6ce599501f14",
       "version": [
-        8,
+        9,
         0,
         0
       ]
@@ -377,7 +391,7 @@ Output ONLY these three sections in order:
       "entry": "scripts/main.js",
       "uuid": "7b755805-62d5-4728-a4f2-c71f48050a6f",
       "version": [
-        8,
+        9,
         0,
         0
       ]
@@ -387,7 +401,7 @@ Output ONLY these three sections in order:
     {
       "uuid": "6b8237f8-7fb8-4611-b5d0-3da9864e4671",
       "version": [
-        8,
+        9,
         0,
         0
       ]
@@ -417,7 +431,7 @@ Output ONLY these three sections in order:
     "authors": [
       "ALNStudios"
     ],
-    "version": "8.0.0"
+    "version": "9.0.0"
   }
 }
 ```
@@ -643,7 +657,7 @@ export function sortContainer(container, startSlot, endSlot, sortMode = 0) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNOneClickSort/behavior_pack/scripts/sort_triggers.js (253 lines, 7685 bytes)
+## FILE: MCPEDL/Addons/ALNOneClickSort/behavior_pack/scripts/sort_triggers.js (250 lines, 7797 bytes)
 
 ```
 import { world, system } from "@minecraft/server";
@@ -652,12 +666,13 @@ import { getPrefs, isSettingsBook, openSettings } from "./sort_ui.js";
 import { PARTICLES } from "./feedback_profile.js";
 
 const CONTAINER_IDS = new Set(["minecraft:chest", "minecraft:trapped_chest", "minecraft:barrel"]);
-const STACK_TARGETS = CONTAINER_IDS;
+
 const QUICK_STACK_RADIUS = 6;
 const lastContainerSort = new Map();
 
 function isSortableContainer(typeId) {
-  return CONTAINER_IDS.has(typeId) || typeId.endsWith("shulker_box");
+  if (typeId === "minecraft:ender_chest") return false;
+  return CONTAINER_IDS.has(typeId) || typeId.endsWith("chest") || typeId.endsWith("shulker_box");
 }
 
 function isAutoSortFeather(item) {
@@ -738,7 +753,7 @@ function findNearbyContainers(player) {
         } catch {
           continue;
         }
-        if (!block || !STACK_TARGETS.has(block.typeId)) continue;
+        if (!block || !isSortableContainer(block.typeId)) continue;
         const container = block.getComponent("minecraft:inventory")?.container;
         if (!container) continue;
 
@@ -762,51 +777,46 @@ function findNearbyContainers(player) {
   return found;
 }
 
-function quickStack(player) {
-  const prefs = getPrefs(player);
-  const backpack = getBackpack(player);
-  const targets = findNearbyContainers(player);
+function stockChest(player, block) {
+  try {
+    const container = block.getComponent("minecraft:inventory")?.container;
+    if (!container) return;
+    const prefs = getPrefs(player);
+    const backpack = getBackpack(player);
 
-  const typeSets = targets.map((t) => {
-    const set = new Set();
-    for (let i = 0; i < t.container.size; i++) {
-      const it = t.container.getItem(i);
-      if (it) set.add(it.typeId);
+    const types = new Set();
+    for (let i = 0; i < container.size; i++) {
+      const it = container.getItem(i);
+      if (it) types.add(it.typeId);
     }
-    return set;
-  });
 
-  let movedItems = 0;
-  const touched = new Set();
-
-  for (let slot = 9; slot <= 35; slot++) {
-    let item = backpack.getItem(slot);
-    if (!item || isAutoSortFeather(item) || isRestockFeather(item)) continue;
-
-    for (let t = 0; t < targets.length && item; t++) {
-      if (!typeSets[t].has(item.typeId)) continue;
+    let movedItems = 0;
+    for (let slot = 9; slot <= 35; slot++) {
+      let item = backpack.getItem(slot);
+      if (!item || isAutoSortFeather(item) || isRestockFeather(item)) continue;
+      if (!types.has(item.typeId)) continue;
       const before = item.amount;
-      const leftover = targets[t].container.addItem(item);
-      const after = leftover ? leftover.amount : 0;
-      if (after < before) {
-        movedItems += before - after;
-        touched.add(t);
+      let leftover;
+      try {
+        leftover = container.addItem(item);
+      } catch {
+        continue;
       }
-      item = leftover;
+      const after = leftover ? leftover.amount : 0;
+      if (after < before) movedItems += before - after;
+      backpack.setItem(slot, leftover);
     }
-    backpack.setItem(slot, item);
-  }
 
-  for (const t of touched) {
-    const c = targets[t].container;
-    sortContainer(c, 0, c.size - 1, prefs.sortMode);
+    if (movedItems > 0) sortContainer(container, 0, container.size - 1, prefs.sortMode);
+    feedback(
+      player,
+      prefs,
+      `§b[Stock] §fStocked §e${movedItems} §fitems into the chest!`,
+      { block }
+    );
+  } catch (e) {
+    console.warn(`[ALN:OneClickSort] Chest stock failed: ${e}`);
   }
-
-  feedback(
-    player,
-    prefs,
-    `§b[QuickStack] §fStacked §e${movedItems} §fitems into §a${touched.size} §fnearby chests!`
-  );
 }
 
 function countStackable(container, item) {
@@ -875,12 +885,12 @@ export function registerTriggers() {
       return;
     }
     if (!isAutoSortFeather(item) && !isRestockFeather(item)) return;
+    if (player.isSneaking) return;
 
     const last = lastContainerSort.get(player.id);
     if (last !== undefined && system.currentTick - last < 5) return;
 
-    if (player.isSneaking) quickStack(player);
-    else if (isRestockFeather(item)) restock(player);
+    if (isRestockFeather(item)) restock(player);
     else sortBackpack(player);
   });
 
@@ -889,11 +899,12 @@ export function registerTriggers() {
     if (event.isFirstEvent === false) return;
     if (!player.isSneaking) return;
     if (!isSortableContainer(block.typeId)) return;
-    if (!isAutoSortFeather(itemStack)) return;
+    const sortChest = isAutoSortFeather(itemStack);
+    if (!sortChest && !isRestockFeather(itemStack)) return;
 
     event.cancel = true;
     lastContainerSort.set(player.id, system.currentTick);
-    system.run(() => sortBlockContainer(player, block));
+    system.run(() => (sortChest ? sortBlockContainer(player, block) : stockChest(player, block)));
   });
 
   world.afterEvents.playerLeave.subscribe((e) => lastContainerSort.delete(e.playerId));
@@ -985,12 +996,20 @@ export const PARTICLES = true;
 export const PARTICLES = false;
 ```
 
-## FILE: MCPEDL/Addons/ALNOneClickSort/CHANGELOG.md (56 lines, 2737 bytes)
+## FILE: MCPEDL/Addons/ALNOneClickSort/CHANGELOG.md (64 lines, 3382 bytes)
 
 ```
 # Changelog — ALN:OneClickSort
 
 ---
+
+## [v9] - 2026-11-20 - Sneak Click Chest Controls
+
+### Improved & Balanced
+- **Chest Sorting**: Sneak and right-click a chest with the Auto-Sort Feather to sort it. Sorting your backpack stays a plain right-click.
+- **Stock Chest**: Sneak and right-click a chest with the Restock Feather to stock it with the items your backpack shares with it. Restock stays a plain right-click.
+- **Sneak Use**: Sneaking and right-clicking a feather in the air no longer does anything, so Quick Stack is gone.
+- **Container Support**: Sorting, stocking and Restock now work with copper chests and every other chest type, as well as barrels and shulker boxes.
 
 ## [v8] - 2026-11-20 - Feather Only Chest Sorting
 
@@ -1045,23 +1064,23 @@ export const PARTICLES = false;
 - **Sort Settings**: Right-click a Book renamed Sort Settings to choose the sort order, hotbar sorting and feedback.
 ```
 
-## FILE: MCPEDL/Addons/ALNOneClickSort/DESCRIPTION.md (101 lines, 7421 bytes)
+## FILE: MCPEDL/Addons/ALNOneClickSort/DESCRIPTION.md (101 lines, 7627 bytes)
 
 ```
-# ALN:OneClickSort — One-Click Backpack, Chest and Quick-Stack Sorter
+# ALN:OneClickSort — One-Click Backpack, Chest and Restock Sorter
 
 **By ALNStudios**
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Sort your 27 backpack slots, any chest, barrel or shulker box, and quick-stack into nearby chests with three custom items.**
+**Sort your 27 backpack slots, sort any chest, barrel or shulker box, and stock chests from your backpack with three custom items.**
 
-> Hold the Auto-Sort Feather and one click sorts your backpack or stacks items into chests within 6 blocks. Good for survival, OneBlock and multiplayer worlds.
+> Hold the Auto-Sort Feather and one click sorts your backpack, or sneak and click a chest to sort it. Hold the Restock Feather to refill your stacks, or sneak and click a chest to stock it. Good for survival, OneBlock and multiplayer worlds.
 
 ## Overview
 
-Hold the Auto-Sort Feather in your hand. Right-click to sort your backpack, sneak and right-click a chest to sort it, or sneak and right-click in the air to quick-stack. The pack adds three items, no blocks or mobs, and never changes world generation, so it works in existing worlds.
+Hold the Auto-Sort Feather in your hand. Right-click to sort your backpack, or sneak and right-click a chest to sort it. Hold the Restock Feather to refill your stacks, or sneak and right-click a chest to stock it. The pack adds three items, no blocks or mobs, and never changes world generation, so it works in existing worlds.
 
 ## Key Features
 
@@ -1071,19 +1090,19 @@ Hold the Auto-Sort Feather in your hand. Right-click to sort your backpack, snea
 - **Good To Know**: Names, lore, enchantments and durability are kept, and only identical items merge.
 
 ### Chest Sorting
-- **What Happens**: Sneak and right-click a chest, trapped chest, barrel or any shulker box to sort it instantly without opening it. Double chests are sorted as one container.
+- **What Happens**: Sneak and right-click any chest (including copper chests), trapped chest, barrel or shulker box to sort it instantly without opening it. Double chests are sorted as one container.
 - **How It Works**: Sneak, then right-click the container with the Auto-Sort Feather in your hand.
 - **Good To Know**: A sound confirms the sort, and the Normal variant also shows a small particle effect above the container.
 
-### Quick Stack
-- **What Happens**: Sneak and right-click the Auto-Sort Feather in the air to send backpack items into every chest, trapped chest and barrel within 6 blocks that already holds the same item.
-- **How It Works**: Stand near your storage, sneak, right-click, and a message shows how many items went into how many chests.
-- **Good To Know**: The Auto-Sort Feather itself and the hotbar are never moved, and every chest that received items is sorted afterward.
+### Stock Chest
+- **What Happens**: Sneak and right-click any chest (including copper chests), trapped chest, barrel or shulker box with the Restock Feather to send backpack items into it that it already holds.
+- **How It Works**: Hold the Restock Feather, sneak, right-click the container, and a message shows how many items went in.
+- **Good To Know**: Only the 27 backpack slots are used, the feathers and hotbar are never moved, and the chest is sorted afterward. Sneaking and right-clicking in the air does nothing.
 
 ### Restock
-- **What Happens**: Right-click the Restock Feather to refill the partial stacks you already carry, hotbar included, from every chest, trapped chest and barrel within 6 blocks.
+- **What Happens**: Right-click the Restock Feather to refill the partial stacks you already carry, hotbar included, from every chest, copper chest, trapped chest, barrel and shulker box within 6 blocks.
 - **How It Works**: Run low on blocks, step next to your storage, right-click the Restock Feather, and a message shows how many items came from how many chests.
-- **Good To Know**: Restock only tops up stacks you already hold and never fills empty slots. Sneak and right-click the Restock Feather to quick-stack into nearby chests, the same as the Auto-Sort Feather. Turn on Leave 1 Item in Chest in Sort Settings to keep one item of each type in a chest when restocking, so Quick Stack still finds that chest.
+- **Good To Know**: Restock only tops up stacks you already hold and never fills empty slots. Sneak and right-click a chest with the Restock Feather to stock it from your backpack. Turn on Leave 1 Item in Chest in Sort Settings to keep one item of each type in a chest when restocking, so stocking that chest still works.
 
 ### Sort Settings
 - **What Happens**: Right-click the Sort Settings Book to open a menu with four options: Sort Order, Sort Hotbar Slots, Audio and Particle Feedback and Leave 1 Item in Chest.
@@ -1105,7 +1124,7 @@ Hold the Auto-Sort Feather in your hand. Right-click to sort your backpack, snea
 
 1. Craft the Auto-Sort Feather, Restock Feather and Sort Settings Book with the recipes below, or take them from the Creative inventory under Items.
 2. Right-click in the air to sort your backpack, or sneak and right-click a chest to sort it.
-3. Sneak and right-click in the air next to your chests to quick-stack, or use the Restock Feather to refill your stacks from them.
+3. Right-click the Restock Feather next to your chests to refill your stacks, or sneak and right-click a chest with it to stock that chest.
 4. Right-click the Sort Settings Book to change your options.
 
 ## Common Questions
@@ -1146,7 +1165,7 @@ Hold the Auto-Sort Feather in your hand. Right-click to sort your backpack, snea
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, ALN:OneClickSort Bedrock mod, inventory sorter, chest sorter, quick stack, Feather, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+Minecraft Bedrock add-on, ALN:OneClickSort Bedrock mod, inventory sorter, chest sorter, restock, Feather, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
 ```
 
 ## FILE: MCPEDL/Addons/ALNOneClickSort/project.json (2 lines, 46 bytes)
@@ -1165,7 +1184,7 @@ Download the current release of **ALNOneClickSort** for Minecraft Bedrock Editio
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNOneClickSort (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNOneClickSort/ALNOneClickSort%20V8.mcaddon)
+- **Direct download:** [Download ALNOneClickSort (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNOneClickSort/ALNOneClickSort%20V9.mcaddon)
 
 ## Installation
 
@@ -1184,11 +1203,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:OneClickSort (v8)",
+    "name": "ALN:OneClickSort (v9)",
     "description": "Item icons for ALN:OneClickSort. by ALNStudios",
     "uuid": "6b8237f8-7fb8-4611-b5d0-3da9864e4671",
     "version": [
-      8,
+      9,
       0,
       0
     ],
@@ -1203,7 +1222,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "fd5fdd68-b056-4700-b1d2-9dd9bb9d980c",
       "version": [
-        8,
+        9,
         0,
         0
       ]
@@ -1214,7 +1233,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "8.0.0"
+    "version": "9.0.0"
   }
 }
 ```
@@ -1259,7 +1278,7 @@ allenscreations:aln_oneclicksort=OneClickSort
 
 ```
 
-## FILE: Package/ALNOneClickSort.listing.md (68 lines, 17920 bytes)
+## FILE: Package/ALNOneClickSort.listing.md (68 lines, 18148 bytes)
 
 ````
 # Listing Kit: ALN:OneClickSort
@@ -1272,10 +1291,10 @@ Tap the Copy button on a block, then paste it into the CurseForge listing. Gener
 ALN:OneClickSort
 ```
 
-## Summary (122/256)
+## Summary (128/256)
 
 ```text
-Sort your 27 backpack slots, any chest, barrel or shulker box, and quick-stack into nearby chests with three custom items.
+Sort your 27 backpack slots, sort any chest, barrel or shulker box, and stock chests from your backpack with three custom items.
 ```
 
 ## Description (HTML)
@@ -1283,13 +1302,13 @@ Sort your 27 backpack slots, any chest, barrel or shulker box, and quick-stack i
 Paste into the CurseForge description editor in source (HTML) mode.
 
 ```html
-<div><div style="border:2px solid #15803d;border-radius:18px;line-height:1.5"><br><h1 style="font-size:34px;text-align:center">ALN:OneClickSort</h1><p style="color:#8a94a3;font-size:14px;text-align:center">by ALNStudios</p><p style="text-align:center"><span style="background-color:#15803d;color:#ffffff;border-radius:20px;font-size:16px">&nbsp;&nbsp;<strong>Sort your 27 backpack slots, any chest, barrel or shulker box, and quick-stack into nearby chests with three custom items.</strong>&nbsp;&nbsp;</span></p><p style="text-align:center;margin-left:16px;margin-right:16px">Hold the Auto-Sort Feather and one click sorts your backpack or stacks items into chests within 6 blocks. Good for survival, OneBlock and multiplayer worlds.</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px"><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Bedrock</strong>: 1.26+&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Experimental</strong>: No&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Achievements</strong>: Likely achievement-friendly&nbsp;&nbsp;</div></div><br></div>
+<div><div style="border:2px solid #15803d;border-radius:18px;line-height:1.5"><br><h1 style="font-size:34px;text-align:center">ALN:OneClickSort</h1><p style="color:#8a94a3;font-size:14px;text-align:center">by ALNStudios</p><p style="text-align:center"><span style="background-color:#15803d;color:#ffffff;border-radius:20px;font-size:16px">&nbsp;&nbsp;<strong>Sort your 27 backpack slots, sort any chest, barrel or shulker box, and stock chests from your backpack with three custom items.</strong>&nbsp;&nbsp;</span></p><p style="text-align:center;margin-left:16px;margin-right:16px">Hold the Auto-Sort Feather and one click sorts your backpack, or sneak and click a chest to sort it. Hold the Restock Feather to refill your stacks, or sneak and click a chest to stock it. Good for survival, OneBlock and multiplayer worlds.</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px"><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Bedrock</strong>: 1.26+&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Experimental</strong>: No&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Achievements</strong>: Likely achievement-friendly&nbsp;&nbsp;</div></div><br></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;About&nbsp;&nbsp;</span></h2>
-<p>Hold the Auto-Sort Feather in your hand. Right-click to sort your backpack, sneak and right-click a chest to sort it, or sneak and right-click in the air to quick-stack. The pack adds three items, no blocks or mobs, and never changes world generation, so it works in existing worlds.</p>
+<p>Hold the Auto-Sort Feather in your hand. Right-click to sort your backpack, or sneak and right-click a chest to sort it. Hold the Restock Feather to refill your stacks, or sneak and right-click a chest to stock it. The pack adds three items, no blocks or mobs, and never changes world generation, so it works in existing worlds.</p>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;What You Get&nbsp;&nbsp;</span></h2>
-<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Backpack Sorting</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Right-clicking the Auto-Sort Feather in the air merges partial stacks and sorts the 27 backpack slots. The hotbar stays untouched unless you turn on hotbar sorting in the settings.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Hold the Feather, right-click, and a message appears above your hotbar.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Names, lore, enchantments and durability are kept, and only identical items merge.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Chest Sorting</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Sneak and right-click a chest, trapped chest, barrel or any shulker box to sort it instantly without opening it. Double chests are sorted as one container.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Sneak, then right-click the container with the Auto-Sort Feather in your hand.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> A sound confirms the sort, and the Normal variant also shows a small particle effect above the container.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Quick Stack</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Sneak and right-click the Auto-Sort Feather in the air to send backpack items into every chest, trapped chest and barrel within 6 blocks that already holds the same item.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Stand near your storage, sneak, right-click, and a message shows how many items went into how many chests.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> The Auto-Sort Feather itself and the hotbar are never moved, and every chest that received items is sorted afterward.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Restock</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Right-click the Restock Feather to refill the partial stacks you already carry, hotbar included, from every chest, trapped chest and barrel within 6 blocks.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Run low on blocks, step next to your storage, right-click the Restock Feather, and a message shows how many items came from how many chests.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Restock only tops up stacks you already hold and never fills empty slots. Sneak and right-click the Restock Feather to quick-stack into nearby chests, the same as the Auto-Sort Feather. Turn on Leave 1 Item in Chest in Sort Settings to keep one item of each type in a chest when restocking, so Quick Stack still finds that chest.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Sort Settings</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Right-click the Sort Settings Book to open a menu with four options: Sort Order, Sort Hotbar Slots, Audio and Particle Feedback and Leave 1 Item in Chest.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Choose Smart Category, Alphabetical (A-Z) or Stack Quantity (Highest First), then confirm.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Each player keeps their own settings, which stay saved between sessions.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Crafting Recipes</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>All three items can be crafted at a Crafting Table, and every recipe is unlocked from the start.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Auto-Sort Feather: Emerald, Feather and Hopper placed diagonally. Restock Feather: Gold Ingot, Feather and Chest placed diagonally. Sort Settings Book: Book in the center with Lapis Lazuli left and right and Redstone Dust above and below.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> The diagonal layout matches the feather on the icons, and the same items sit together in one OneClickSort group in the Creative inventory under Items.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Pack Variants</strong></div><div style="margin-left:12px;margin-right:12px"><p></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Pack Variants</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Two variants are included: Simple, the default, shows an action bar message and sound only, and Normal (with particles) also shows happy-villager particles above a sorted chest.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Open the pack's settings in your world and move the slider to switch variant.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Both variants sort the same way, and the Audio and Particle Feedback option in Sort Settings still applies.</span></p></div></div></div>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Backpack Sorting</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Right-clicking the Auto-Sort Feather in the air merges partial stacks and sorts the 27 backpack slots. The hotbar stays untouched unless you turn on hotbar sorting in the settings.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Hold the Feather, right-click, and a message appears above your hotbar.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Names, lore, enchantments and durability are kept, and only identical items merge.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Chest Sorting</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Sneak and right-click any chest (including copper chests), trapped chest, barrel or shulker box to sort it instantly without opening it. Double chests are sorted as one container.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Sneak, then right-click the container with the Auto-Sort Feather in your hand.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> A sound confirms the sort, and the Normal variant also shows a small particle effect above the container.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Stock Chest</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Sneak and right-click any chest (including copper chests), trapped chest, barrel or shulker box with the Restock Feather to send backpack items into it that it already holds.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Hold the Restock Feather, sneak, right-click the container, and a message shows how many items went in.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Only the 27 backpack slots are used, the feathers and hotbar are never moved, and the chest is sorted afterward. Sneaking and right-clicking in the air does nothing.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Restock</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Right-click the Restock Feather to refill the partial stacks you already carry, hotbar included, from every chest, copper chest, trapped chest, barrel and shulker box within 6 blocks.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Run low on blocks, step next to your storage, right-click the Restock Feather, and a message shows how many items came from how many chests.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Restock only tops up stacks you already hold and never fills empty slots. Sneak and right-click a chest with the Restock Feather to stock it from your backpack. Turn on Leave 1 Item in Chest in Sort Settings to keep one item of each type in a chest when restocking, so stocking that chest still works.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Sort Settings</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Right-click the Sort Settings Book to open a menu with four options: Sort Order, Sort Hotbar Slots, Audio and Particle Feedback and Leave 1 Item in Chest.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Choose Smart Category, Alphabetical (A-Z) or Stack Quantity (Highest First), then confirm.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Each player keeps their own settings, which stay saved between sessions.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Crafting Recipes</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>All three items can be crafted at a Crafting Table, and every recipe is unlocked from the start.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Auto-Sort Feather: Emerald, Feather and Hopper placed diagonally. Restock Feather: Gold Ingot, Feather and Chest placed diagonally. Sort Settings Book: Book in the center with Lapis Lazuli left and right and Redstone Dust above and below.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> The diagonal layout matches the feather on the icons, and the same items sit together in one OneClickSort group in the Creative inventory under Items.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Pack Variants</strong></div><div style="margin-left:12px;margin-right:12px"><p></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Pack Variants</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Two variants are included: Simple, the default, shows an action bar message and sound only, and Normal (with particles) also shows happy-villager particles above a sorted chest.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Open the pack's settings in your world and move the slider to switch variant.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Both variants sort the same way, and the Audio and Particle Feedback option in Sort Settings still applies.</span></p></div></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Get Started&nbsp;&nbsp;</span></h2>
-<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Craft the Auto-Sort Feather, Restock Feather and Sort Settings Book with the recipes below, or take them from the Creative inventory under Items.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Right-click in the air to sort your backpack, or sneak and right-click a chest to sort it.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Sneak and right-click in the air next to your chests to quick-stack, or use the Restock Feather to refill your stacks from them.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">4</div></td><td style="text-align:left;">Right-click the Sort Settings Book to change your options.</td></tr></tbody></table>
+<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Craft the Auto-Sort Feather, Restock Feather and Sort Settings Book with the recipes below, or take them from the Creative inventory under Items.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Right-click in the air to sort your backpack, or sneak and right-click a chest to sort it.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Right-click the Restock Feather next to your chests to refill your stacks, or sneak and right-click a chest with it to stock that chest.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">4</div></td><td style="text-align:left;">Right-click the Sort Settings Book to change your options.</td></tr></tbody></table>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Common Questions&nbsp;&nbsp;</span></h2>
 <div class="spoiler" title="Tired of sorting your inventory by hand?" data-title="Tired of sorting your inventory by hand?"><p><strong>Tired of sorting your inventory by hand?</strong><br>Right-click the Auto-Sort Feather and your 27 backpack slots are merged and sorted in one click.</p></div><div class="spoiler" title="Running out of blocks while building?" data-title="Running out of blocks while building?"><p><strong>Running out of blocks while building?</strong><br>Right-click the Restock Feather next to your chests and your held stacks are topped up from them.</p></div><div class="spoiler" title="Will it mess with my hotbar?" data-title="Will it mess with my hotbar?"><p><strong>Will it mess with my hotbar?</strong><br>No, the hotbar stays untouched unless you turn on hotbar sorting in Sort Settings.</p></div><div class="spoiler" title="Will my enchanted gear and named items survive?" data-title="Will my enchanted gear and named items survive?"><p><strong>Will my enchanted gear and named items survive?</strong><br>Yes, names, lore, enchantments and durability are kept, and only identical items merge.</p></div><div class="spoiler" title="Does it fit OneBlock and multiplayer worlds?" data-title="Does it fit OneBlock and multiplayer worlds?"><p><strong>Does it fit OneBlock and multiplayer worlds?</strong><br>It adds three items, no blocks or mobs, and never changes world generation, and every player keeps their own settings.</p></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Install&nbsp;&nbsp;</span></h2>
@@ -1299,7 +1318,7 @@ Paste into the CurseForge description editor in source (HTML) mode.
 <hr>
 <p style="text-align:center;color:#8a94a3;font-size:13px"><strong>By ALNStudios</strong></p>
 <div class="spoiler"><p style="font-size:13px"><strong>Permissions and credits</strong></p><ul style="font-size:13px"><li>Rights: All rights reserved for ALNStudios.</li><li>Content creators: You may feature this creation in videos and streams with credit to ALNStudios.</li><li>Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link to this page.</li><li>Unofficial community creation. Not an official Minecraft product and not approved by or associated with Mojang or Microsoft.</li></ul></div>
-<p style="text-align:center;color:#8a94a3;font-size:12px">Minecraft Bedrock add-on, ALN:OneClickSort Bedrock mod, inventory sorter, chest sorter, quick stack, Feather, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.</p></div>
+<p style="text-align:center;color:#8a94a3;font-size:12px">Minecraft Bedrock add-on, ALN:OneClickSort Bedrock mod, inventory sorter, chest sorter, restock, Feather, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.</p></div>
 ```
 
 ## AI Image Prompts
@@ -1313,7 +1332,7 @@ Paste into the CurseForge description editor in source (HTML) mode.
 
 ```text
 Use the attached logo only as a brand reference for its color palette and overall mood. Do not copy it. Create a new, original logo with a different composition and a different main symbol. Do not just recolor, resize, crop, mirror or tweak the attached logo.
-Create a clean, square (1:1) logo image for the Minecraft Bedrock add-on "ALN:OneClickSort". Sort your 27 backpack slots, any chest, barrel or shulker box, and quick-stack into nearby chests with three custom items.
+Create a clean, square (1:1) logo image for the Minecraft Bedrock add-on "ALN:OneClickSort". Sort your 27 backpack slots, sort any chest, barrel or shulker box, and stock chests from your backpack with three custom items.
 Base the main symbol on the pack idea above. Match the blocky look of the attached in-game snapshots. Center the logo, use a simple background, and keep it readable at small sizes.
 Text: "ALN:OneClickSort" and, in small letters, "ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
 Do not add Minecraft, Mojang or Microsoft logos, watermarks, or characters from other games.
@@ -1322,10 +1341,10 @@ Do not add Minecraft, Mojang or Microsoft logos, watermarks, or characters from 
 ### Banner Prompt
 
 ```text
-Create a wide (16:9) banner image for the Minecraft Bedrock add-on "ALN:OneClickSort". Sort your 27 backpack slots, any chest, barrel or shulker box, and quick-stack into nearby chests with three custom items.
+Create a wide (16:9) banner image for the Minecraft Bedrock add-on "ALN:OneClickSort". Sort your 27 backpack slots, sort any chest, barrel or shulker box, and stock chests from your backpack with three custom items.
 Use the attached in-game snapshots as scene and style references: copy their blocky look, lighting, colors and the kind of scenery they show. Make a new composition inspired by them. Do not copy the on-screen HUD, chat or hotbar.
 Use the attached logo only as a brand reference for its colors and mood. Do not copy it. Put a new, original logo design in the banner, large enough to read, on the left or center.
-Hint at these pack features visually: Backpack Sorting, Chest Sorting, Quick Stack, Restock, Sort Settings.
+Hint at these pack features visually: Backpack Sorting, Chest Sorting, Stock Chest, Restock, Sort Settings.
 Text: "ALN:OneClickSort" and, in small letters, "by ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
 Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no watermarks.
 ```

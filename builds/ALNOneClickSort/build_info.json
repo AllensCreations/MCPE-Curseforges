@@ -1,8 +1,8 @@
 {
-  "changelog_version": "8.0.0",
-  "manifest_version": "8.0.0",
+  "changelog_version": "9.0.0",
+  "manifest_version": "9.0.0",
   "packages": {
-    "ALNOneClickSort V8.mcaddon": "5d53ef41c9f6605d9ba86b275c0094d76fb7243472181bf11e29889b7484f5b3"
+    "ALNOneClickSort V9.mcaddon": "44fdf517c15278cb003f2ebcce7e726f4c95ebdd465dfaef49d1b50fb1777738"
   },
-  "source_sha256": "b86841766ef3bef6e66e750faaa48657fad40911e20a30baaacde44b3a273d83"
+  "source_sha256": "232f7b251905d0e1bb1503b2e455bdf8ec66b0381f8fbf41fe6a14d3433c903d"
 }
