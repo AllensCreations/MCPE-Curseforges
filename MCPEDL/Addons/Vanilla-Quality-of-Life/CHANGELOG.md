@@ -2,6 +2,22 @@
 
 ---
 
+## [v5] - 2026-11-20 - Offhand Torch, Grass, and Recipe Fixes
+
+### Added
+
+- **Redstone Torch Offhand**: Redstone Torches can now be held in your offhand like other torches.
+
+### Improved & Balanced
+
+- **Sleeping**: The add-on no longer changes how many players must sleep to skip the night.
+- **Newer Game Support**: The Behavior Pack now targets the script version that ships with Minecraft 1.26.50.
+
+### Fixed
+
+- **Grass and Shears**: Auto-switch now also recognizes Short Grass and Tall Grass.
+- **Stairs Recipes**: Stairs crafting recipes with uneven layouts now use full-width layouts, and the Bamboo Mosaic Stairs recipe file name is corrected.
+
 ## [v4] - 2026-11-20 - Script Split and Tool Fixes
 
 ### Improved & Balanced

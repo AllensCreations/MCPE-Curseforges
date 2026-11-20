@@ -199,7 +199,7 @@ export function executeDominoOreMiner(player, dimension, startLoc, startBlockId,
   } catch (e) {}
 
   for (const blockData of blocksToBreak) {
-    if (!player || !player.isValid()) break;
+    if (!player || !player.isValid) break;
 
     const safety = checkToolSafety(player);
     if (!safety.safe) {

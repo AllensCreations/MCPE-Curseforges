@@ -51,7 +51,6 @@ export const CONFIG = {
 
   STARTUP_DELAY_TICKS: 40,
   RANDOM_TICK_SPEED: 4,
-  SLEEP_PERCENTAGE: 0,
 };
 
 export const SUPPORTED_OFFHAND_ITEMS = new Set([

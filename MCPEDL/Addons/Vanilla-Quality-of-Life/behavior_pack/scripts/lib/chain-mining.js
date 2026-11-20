@@ -18,7 +18,7 @@ export function finishChain(player) {
 world.afterEvents.playerBreakBlock.subscribe((event) => {
   const { block, brokenBlockPermutation, player, dimension, itemStackBeforeBreak } = event;
 
-  if (!player || !player.isValid()) return;
+  if (!player || !player.isValid) return;
   if (MINING_OPTIONS.REQUIRE_SNEAK_FOR_CHAIN_MINING) {
     if (!player.isSneaking) return;
   } else if (player.selectedSlotIndex !== CONFIG.AUTO_SWITCH_SLOT) {

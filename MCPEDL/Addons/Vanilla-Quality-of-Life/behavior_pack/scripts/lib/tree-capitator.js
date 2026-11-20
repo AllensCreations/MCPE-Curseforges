@@ -183,7 +183,7 @@ export function executeTreeCapitator(player, dimension, startLoc, startBlockId, 
   const creative = isGameMode(player, "creative");
   const drops = new Map();
   for (const pos of blocksToBreak) {
-    if (!player || !player.isValid()) break;
+    if (!player || !player.isValid) break;
 
     const safety = checkToolSafety(player);
     if (!safety.safe) {

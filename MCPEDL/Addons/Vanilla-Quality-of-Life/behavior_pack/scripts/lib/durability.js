@@ -76,7 +76,7 @@ export function flushToolDamage(player) {
 
   system.run(() => {
     try {
-      if (!player.isValid()) return;
+      if (!player.isValid) return;
       const container = getContainer(player);
       if (!container) return;
 

@@ -53,7 +53,7 @@ export function getRequiredToolCategory(typeId) {
 
   if (
     id.includes("wool") || id.includes("vine") || id.includes("fern") ||
-    id === "tallgrass" || id === "seagrass" || id === "hanging_roots" ||
+    id === "tallgrass" || id === "short_grass" || id === "tall_grass" || id === "seagrass" || id === "hanging_roots" ||
     id === "deadbush" || id === "tripwire"
   ) {
     return ToolCategory.SHEARS_OR_SWORD;

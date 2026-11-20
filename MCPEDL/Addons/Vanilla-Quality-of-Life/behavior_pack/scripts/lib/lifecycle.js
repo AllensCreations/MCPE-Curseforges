@@ -52,7 +52,6 @@ system.runTimeout(() => {
   try {
     if (!world.getDynamicProperty("qol:gamerules_set")) {
       const dim = world.getDimension("overworld");
-      dim.runCommand(`gamerule playersSleepingPercentage ${CONFIG.SLEEP_PERCENTAGE}`);
       dim.runCommand(`gamerule randomTickSpeed ${CONFIG.RANDOM_TICK_SPEED}`);
       world.setDynamicProperty("qol:gamerules_set", true);
     }
