@@ -7,8 +7,12 @@ For each package folder MCPEDL/<Category>/<Name> it builds the same export as th
 "Collect Files for AI Review" run (scripts/collect_ai_review.py) and saves ONE file inside the package:
   MCPEDL/<Category>/<Name>/ai-review/<Name>.txt
   MCPEDL/<Category>/<Name>/ai-review/.source-hash     (what the file was built from; a package whose hash matches is skipped)
-The helper scripts and instruction files are identical for every package, so they are saved once:
-  ai-review/tools.txt
+The kits are identical for every package, so they are saved once. Each is a directory map plus skills (no file
+contents) and, where the task has to run scripts, a zip with the complete scripts as real files:
+  ai-review/tools.txt          + tools_files.zip         (repo maintenance)
+  ai-review/New-Pack_tools.txt + New-Pack_files.zip      (new project)
+  ai-review/Update-Pack_tools.txt + Update-Pack_files.zip (update; also copied into every package zip)
+Generated views (changelog_views/, Package/*.listing.md) are not part of an export and do not trigger a rebuild.
 The root README.md list is refreshed only when it holds the two marker lines
   <!-- AI-REVIEW:START -->  and  <!-- AI-REVIEW:END -->
 (nothing in README.md is touched without them).
@@ -34,7 +38,9 @@ RAW = GITHUB + "/raw/main"
 OUT_DIR = "ai-review"
 START, END = "<!-- AI-REVIEW:START -->", "<!-- AI-REVIEW:END -->"
 SKIP = {".git", "node_modules", "__pycache__", OUT_DIR, "db", "exports"}
-TOOL_INPUTS = [".agents/skills/mcpe-new-pack/SKILL.md", "scripts/*.py", "assets/aln-ui-redesign"]
+TOOL_INPUTS = [".agents/skills/*/SKILL.md", "scripts/collect_ai_review.py", "scripts/make_pack_script.py", "scripts/build_payload.py",
+               "scripts/import_project_payload.py", "scripts/doc_template.py", "scripts/pixel_json_to_png.py", "scripts/make_update_script.py",
+               "scripts/apply_update.py", "scripts/check_instruction_files.py", "assets/aln-ui-redesign"]
 
 
 def digest(paths) -> str:
@@ -109,9 +115,7 @@ def main() -> int:
                 if txt.is_file():
                     entries.append((cat, name, top_version(pack), txt.relative_to(ROOT).as_posix()))
                 continue
-            extras = [ROOT / "changelog_views" / (name + ext) for ext in (".github.md", ".curseforge.html")]
-            extras.append(ROOT / "Package" / (name + ".listing.md"))
-            src_hash = digest(list(files_under(pack)) + [x for x in extras if x.is_file()])
+            src_hash = digest(list(files_under(pack)) + [ROOT / "scripts" / "collect_ai_review.py"])
             fresh = txt.is_file() and stamp.is_file() and stamp.read_text().strip() == src_hash
             if fresh and not args.all:
                 entries.append((cat, name, top_version(pack), txt.relative_to(ROOT).as_posix()))
@@ -157,26 +161,41 @@ def main() -> int:
                     if made:
                         tools_dir.mkdir(exist_ok=True)
                         shutil.copyfile(made[0], kit_path)
-                        kit_stamp.write_text(tools_hash + "\n", encoding="utf-8")
                         changed.append(kit_path.relative_to(ROOT).as_posix())
                         print(f"Built {kit_path.relative_to(ROOT)}")
+                        stem = kit_name[:-len("_tools.txt")] if kit_name.endswith("_tools.txt") else "tools"
+                        zip_path = tools_dir / f"{stem}_files.zip"
+                        made_zip = sorted(out.glob("*_files.zip"))
+                        if made_zip:
+                            shutil.copyfile(made_zip[0], zip_path)
+                            changed.append(zip_path.relative_to(ROOT).as_posix())
+                            print(f"Built {zip_path.relative_to(ROOT)}")
+                        elif zip_path.is_file():
+                            zip_path.unlink()
+                        kit_stamp.write_text(tools_hash + "\n", encoding="utf-8")
                 except subprocess.CalledProcessError:
                     print(f"::warning::{kit_name} could not be built; skipped.")
 
 
     # Package AI review zips (combining <PackName>.txt and <PackName>_tools.txt from Update-Pack kit)
     update_tools = tools_dir / "Update-Pack_tools.txt"
+    update_files = tools_dir / "Update-Pack_files.zip"
     for cat, pack in packages():
         name = pack.name
         txt = pack / OUT_DIR / f"{name}.txt"
         if not txt.is_file():
             continue
         zpath = pack / OUT_DIR / f"{name}.zip"
-        if not zpath.is_file() or txt.stat().st_mtime > zpath.stat().st_mtime or (update_tools.is_file() and update_tools.stat().st_mtime > zpath.stat().st_mtime):
+        newest = max([p.stat().st_mtime for p in (update_tools, update_files) if p.is_file()] or [0])
+        if not zpath.is_file() or txt.stat().st_mtime > zpath.stat().st_mtime or newest > zpath.stat().st_mtime:
             with zipfile.ZipFile(zpath, "w", compression=zipfile.ZIP_DEFLATED) as zf:
                 zf.write(txt, arcname=f"{name}.txt")
                 if update_tools.is_file():
                     zf.write(update_tools, arcname=f"{name}_tools.txt")
+                if update_files.is_file():
+                    with zipfile.ZipFile(update_files) as src:
+                        for member in src.namelist():
+                            zf.writestr(member, src.read(member))
             changed.append(zpath.relative_to(ROOT).as_posix())
             print(f"Bundled {zpath.relative_to(ROOT)}")
 
@@ -188,7 +207,7 @@ def main() -> int:
         if START in text and END in text:
             lines = [START, "", "Latest AI review files (one per package, refreshed after every package update):", ""]
             if (ROOT / OUT_DIR / "tools.txt").is_file():
-                lines.append(f"- [Tools and instructions]({link(OUT_DIR + '/tools.txt')})")
+                lines.append(f"- [Repo map and skills]({link(OUT_DIR + '/tools.txt')})")
             if (ROOT / "reference/bedrock-samples/bedrock-samples.min.json.gz").is_file():
                 lines.append(f"- [Vanilla Bedrock reference (JSON, gzip)]({link('reference/bedrock-samples/bedrock-samples.min.json.gz')})")
             for cat in CATEGORIES:

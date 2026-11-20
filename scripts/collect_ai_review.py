@@ -1,41 +1,165 @@
 #!/usr/bin/env python3
-"""Build the AI review export of the given paths (index, AI instructions, every text file).
+"""Build the AI review export of the given paths, or one of the three shared kits.
 
-Moved out of .github/workflows/collect-ai-review-files.yml so the same code serves the manual run and the
-automatic per-package run (scripts/auto_ai_review.py).
-  PATHS=<comma/newline separated paths>   (NEW = new-pack kit)
+The same code serves the manual run and the automatic per-package run (scripts/auto_ai_review.py).
+  PATHS=<comma/newline separated paths>   a pack export: index, AI instructions, every text file of the paths
+  PATHS=NEW | UPDATE | REPO               a kit (REPO also accepts MAINTENANCE or TOOLS)
   AI_OUT=<output folder>                  default ai_review_bundle
   EXPORT_MODE=update_pack|new_pack|repo_maintenance
-                                          update_pack (default): pack .txt only, NO tools.txt (fastest; ~60 KB)
-                                          new_pack: lean kit — SKILL.md + instruction markdowns only, NO Python scripts
-                                          repo_maintenance: full bundle with all scripts
-  AI_SKIP_TOOLS=1                         legacy override: do not write <label>_tools.txt (overrides EXPORT_MODE)
+                                          update_pack (default): pack .txt only, no kit
+                                          new_pack / repo_maintenance: also write that kit next to the pack .txt
+  AI_SKIP_TOOLS=1                         never write a kit (overrides EXPORT_MODE)
+
+A kit is two files:
+  <label>_tools.txt   directory map (directories only, with file counts) + the skills of that task. No file contents.
+  <label>_files.zip   the complete, unchanged scripts the task has to RUN, as real files under files/.
+                      They cost no context: the AI unzips and runs them.
+Generated views (changelog_views/, Package/*.listing.md) are never exported: they are rebuilt from CHANGELOG.md
+and DESCRIPTION.md and must not be hand-edited.
 """
-import os, re, pathlib
+import os, re, pathlib, zipfile
 
 EXPORT_MODE = os.environ.get("EXPORT_MODE", "update_pack").strip().lower()
-# Tool files for new_pack: UI assets and generator/validator scripts per SKILL.md.
-# High-volume documentation (INSTRUCTIONS.md, PACK_GENERATOR_INSTRUCTIONS.md, DOCS_RULES.md)
-# is indexed in Context7 and queried dynamically to optimize tokens.
-LEAN_TOOL_FILES = [
-    ".agents/skills/mcpe-new-pack/SKILL.md",
-    "scripts/make_pack_script.py",
-    "scripts/build_payload.py",
-    "scripts/import_project_payload.py",
-    "scripts/doc_template.py",
-    "scripts/pixel_json_to_png.py",
-    "scripts/crafting_template.py",
-    "scripts/CRAFTING_TABLE.svg",
-    "assets/aln-ui-redesign/README.txt",
-    "assets/aln-ui-redesign/design.json",
-    "assets/aln-ui-redesign/font/README.txt",
-    "assets/aln-ui-redesign/font/pixelify.js",
-]
+
+KIT_SKILLS = {
+    "NEW": [".agents/skills/mcpe-context7/SKILL.md", ".agents/skills/mcpe-new-pack/SKILL.md"],
+    "UPDATE": [".agents/skills/mcpe-context7/SKILL.md", ".agents/skills/mcpe-pack-update/SKILL.md"],
+    "REPO": [".agents/skills/mcpe-context7/SKILL.md", ".agents/skills/mcpe-pack-update/SKILL.md"],
+}
+KIT_FILES = {
+    "NEW": [
+        "scripts/make_pack_script.py", "scripts/build_payload.py", "scripts/import_project_payload.py",
+        "scripts/doc_template.py", "scripts/pixel_json_to_png.py",
+        "assets/aln-ui-redesign/README.txt", "assets/aln-ui-redesign/design.json",
+        "assets/aln-ui-redesign/font/README.txt", "assets/aln-ui-redesign/font/pixelify.js",
+    ],
+    "UPDATE": ["scripts/make_update_script.py", "scripts/apply_update.py"],
+    "REPO": ["scripts/make_update_script.py", "scripts/apply_update.py", "scripts/check_instruction_files.py"],
+}
+
+TREE_SKIP = {".git", "node_modules", "__pycache__", "db", "exports"}
+TREE_KEEP_HIDDEN = {".agents", ".github"}
+CATEGORIES = ("Addons", "Maps", "Script", "Minigame")
+OPAQUE = {"builds", "Package", "changelog_views", "graphify-out", "reference", "archive", "dashboard", "Mcpeworlds", "ai-review"}
+DIR_NOTES = {
+    ".agents/skills": "agent skills, one folder each",
+    ".github/workflows": "CI and dispatch workflows",
+    "scripts": "build, validate, package and update tooling (run it, do not retype it)",
+    "MCPEDL": "all projects: Addons, Maps, Script, Minigame",
+    "assets": "shared images and the ALN UI Redesign skin",
+    "assets/aln-ui-redesign": "shared UI skin (read for any pack with a menu)",
+    "builds": "GENERATED packages, never edit",
+    "Package": "GENERATED listing kits, never edit",
+    "changelog_views": "GENERATED changelog views, never edit",
+    "ai-review": "GENERATED AI review exports, never edit",
+    "reference": "vanilla Bedrock reference data",
+    "Mcpeworlds": "map templates and shared map assets",
+    "tests": "tests",
+    "dashboard": "web dashboard",
+    "archive": "old material",
+    "graphify-out": "GENERATED repo graph",
+}
+
+
+def _visible(n):
+    return not n.startswith(".") or n in TREE_KEEP_HIDDEN
+
+
+def _subdirs(d):
+    try:
+        with os.scandir(d) as it:
+            return sorted((e for e in it if e.is_dir(follow_symlinks=False) and e.name not in TREE_SKIP and _visible(e.name)),
+                          key=lambda e: e.name.lower())
+    except OSError:
+        return []
+
+
+def _count_files(d):
+    return sum(len(fs) for _, _, fs in os.walk(d))
+
+
+def directory_map(root):
+    """Directories only, one line each, built from the working tree so it can never go stale."""
+    lines = []
+
+    def line(rel, count, extra=""):
+        note = DIR_NOTES.get(rel)
+        lines.append(f"- `{rel}/` ({count} file{'' if count == 1 else 's'}{extra})" + (f": {note}" if note else ""))
+
+    def walk(d, rel, depth):
+        for e in _subdirs(d):
+            r = f"{rel}/{e.name}" if rel else e.name
+            if rel == "MCPEDL" and e.name in CATEGORIES:
+                projects = _subdirs(e.path)
+                lines.append(f"- `MCPEDL/{e.name}/` ({len(projects)} project{'' if len(projects) == 1 else 's'})")
+                continue
+            line(r, _count_files(e.path))
+            if r in OPAQUE or depth >= 2:
+                continue
+            walk(e.path, r, depth + 1)
+
+    walk(str(root), "", 0)
+    layout = {}
+    for cat in [c for c in _subdirs(root / "MCPEDL") if c.name in CATEGORIES] if (root / "MCPEDL").is_dir() else []:
+        for proj in _subdirs(cat.path):
+            for sub in _subdirs(proj.path):
+                layout[sub.name] = layout.get(sub.name, 0) + 1
+    if layout:
+        parts = ", ".join(f"`{k}/` ({v})" for k, v in sorted(layout.items(), key=lambda kv: (-kv[1], kv[0])))
+        lines.append("")
+        lines.append("Inside every `MCPEDL/<Category>/<Name>/` project (how many projects have it): " + parts + ".")
+    return "\n".join(lines)
+
+
+def _fence(data):
+    runs = re.findall(r"`+", data)
+    return "`" * max(3, max((len(r) for r in runs), default=0) + 1)
+
+
+def build_kit(root, kit, out, label):
+    """Write <label>_tools.txt (map + skills) and, when the kit has files, <label>_files.zip. Returns names written."""
+    skills, missing = [], []
+    for rel in KIT_SKILLS[kit]:
+        p = root / rel
+        if p.is_file():
+            skills.append((rel, p.read_text(encoding="utf-8", errors="replace")))
+        else:
+            missing.append(rel)
+    files = [(rel, root / rel) for rel in KIT_FILES[kit] if (root / rel).is_file()]
+    missing += [rel for rel in KIT_FILES[kit] if not (root / rel).is_file()]
+    zip_name = f"{label}_files.zip"
+    parts = ["# Repo Map (directories only)\n",
+             "No file contents are pasted here on purpose. Rules, docs and script source are read through Context7 `query-docs` "
+             "(see the `mcpe-context7` skill below). Do not ask for a full dump.\n"]
+    if files:
+        parts.append(f"The complete, unchanged scripts this task has to RUN are in `{zip_name}` under `files/`: unzip and run them, never retype them.\n")
+        parts += [f"- `files/{rel}`" for rel, _ in files] + [""]
+    parts += ["## Directories\n", directory_map(root), ""]
+    for rel, text in skills:
+        f = _fence(text)
+        parts += [f"## Skill: {rel}\n", f"{f}markdown", text.rstrip("\n"), f, ""]
+    if missing:
+        parts += ["## Not found", ""] + [f"- `{m}`" for m in missing] + [""]
+    out.mkdir(parents=True, exist_ok=True)
+    written = [f"{label}_tools.txt"]
+    (out / written[0]).write_text("\n".join(parts), encoding="utf-8")
+    if files:
+        with zipfile.ZipFile(out / zip_name, "w", zipfile.ZIP_DEFLATED) as z:
+            for rel, p in files:
+                info = zipfile.ZipInfo("files/" + rel, date_time=(2020, 1, 1, 0, 0, 0))
+                info.compress_type = zipfile.ZIP_DEFLATED
+                info.external_attr = 0o644 << 16
+                z.writestr(info, p.read_bytes(), compresslevel=9)
+        written.append(zip_name)
+    return written
+
 
 AI_PROMPT = r'''# AI Instructions & Review Notes
 
 Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
-Context7 Support: Enabled. For full instructions, schemas, and helper script syntax, query Context7 (`INSTRUCTIONS.md`, `PACK_GENERATOR_INSTRUCTIONS.md`, `DOCS_RULES.md`, `make_update_script.py`, `doc_template.py`).
+Rules, templates and script syntax are NOT repeated here. Read them through Context7 as the `mcpe-context7` skill says
+(`INSTRUCTIONS.md`, `DOCS_RULES.md`, `PACK_GENERATOR_INSTRUCTIONS.md`, `scripts/make_update_script.py`, `scripts/apply_update.py`).
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: __ACTION_NOTE_TYPE__
 __ACTION_NOTES__
@@ -49,34 +173,10 @@ __DEST__
 ## Rules
 1. NEVER invent features, versions, links, assets, test results.
 2. Output only what changed. Smallest edits. No unrelated rewrites.
-3. No notes/summaries/explanations unless asked.
-4. Any project type (add-on, map, script, workflow, website). Keep folder layout.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `ai-review/`, `MCPEDL/README.md`.
 
-## Update request = ONE Termux script
-- Name: `<Repofilename>_<Version>_<RAND>.sh` (e.g. `Monster-Companions_v2_k7q2x.sh`). Deliver as downloadable file.
-- Repofilename: project/folder/file changed. No extension, no spaces (hyphens ok).
-- Version: new vX format. Update = X+1 (e.g., v1 -> v2, or legacy 1.3.4 -> v2).
-- RAND: >=5 random lowercase letters/digits. Fresh every script. NEVER reuse.
-Script order:
-1. `#!/data/data/com.termux/files/usr/bin/bash` + `set -e`
-2. `cd "$HOME/MCPE-Curseforges"`; `git clone` repo URL first if folder missing
-3. `git pull --rebase`
-4. Apply ALL changes as exact search-and-replace edits via `python3 scripts/make_update_script.py spec.txt` (format queryable via Context7).
-5. Validate every changed .json with python3. Stop on error.
-5b. Verify top CHANGELOG.md heading == new vX == script filename version. If project has manifests: run `python3 scripts/manifest_tools.py --project "$DEST" --set X.0.0` (or `vX`).
-6. `git add` changed paths only; `git commit -m "<short message>"`; `git push`
-6b. Add an entry to the ROOT `CHANGELOG.md`: `## [vN] - YYYY-MM-DD - [Update Name]`
-7. Idempotent: skip anything already applied.
-8. Last line: `rm -f -- "$SELF"` (self-deleting script).
-
-## Documentation Standards
-- Query Context7 for exact `DOCS_RULES.md` formatting templates.
-- CHANGELOG.md: MANDATORY on every update (`## [vX] - YYYY-MM-DD - [Update Name]`).
-- Player-facing only: in-game item names ("Diamond"), NEVER code identifiers (`minecraft:diamond`), internal function names, or raw JSON keys.
-- README.md: download landing page only (11 non-empty lines).
-- DESCRIPTION.md: full details, standard badges, feature cards, guidelines block.
-
-## Reply Format (STRICT)
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
 ```
 [SYSTEM_CONFIG]
 Mode: Direct Execution
@@ -91,9 +191,9 @@ Output ONLY these three sections in order:
 
 raw_paths = [p.strip().strip("'\"") for p in re.split(r"[,\n]", os.environ["PATHS"]) if p.strip()]
 _kw = [p.upper() for p in raw_paths]
-new_pack      = _kw == ["NEW"]          # new-pack kit: tools txt only
+new_pack      = _kw == ["NEW"]          # new-pack kit
 update_kit    = _kw == ["UPDATE"]       # update-pack tools kit
-repo_kit      = _kw in (["REPO"], ["MAINTENANCE"], ["TOOLS"])  # repo-maintenance tools kit
+repo_kit      = _kw in (["REPO"], ["MAINTENANCE"], ["TOOLS"])  # repo-maintenance kit
 if new_pack or update_kit or repo_kit:
     raw_paths = []
 
@@ -176,16 +276,12 @@ for entry in raw_paths:
         else:
             add(m)
 
-# Always include the docs next to (or one level above) each destination,
-# so the AI can see the current CHANGELOG.md and version. add() ignores missing files.
+# Always include the docs next to each destination so the AI can see the current CHANGELOG.md and version.
+# The generated views (changelog_views/, Package/*.listing.md) are NOT exported: rebuilt by CI, never hand-edited.
 for d in list(dests):
     base = root / d
     for doc in ("CHANGELOG.md", "README.md", "DESCRIPTION.md"):
         add(base / doc)
-    view_name = pathlib.PurePosixPath(d).name
-    for ext in (".github.md", ".curseforge.html"):
-        add(root / "changelog_views" / (view_name + ext))
-    add(root / "Package" / (view_name + ".listing.md"))
 
 files = sorted(selected, key=str.lower)
 if missing:
@@ -227,6 +323,17 @@ for rel in files:
     blocks.append((rel, f"\n{head}\n\n{fence}\n{data.rstrip(chr(10))}\n{fence}\n"))
 
 out = pathlib.Path(os.environ.get("AI_OUT", "ai_review_bundle")); out.mkdir(parents=True, exist_ok=True)
+is_kit = new_pack or update_kit or repo_kit
+kit = ("NEW" if new_pack else "UPDATE" if update_kit else "REPO" if repo_kit else
+       "NEW" if EXPORT_MODE == "new_pack" else "REPO" if EXPORT_MODE == "repo_maintenance" else None)
+if os.environ.get("AI_SKIP_TOOLS") == "1":
+    kit = None
+kit_written = build_kit(root, kit, out, label) if kit else []
+if is_kit:
+    with open(os.environ.get("GITHUB_OUTPUT") or os.devnull, "a", encoding="utf-8") as fh:
+        fh.write(f"label={label}\nartifact_name={label}\n")
+    print(f"Kit {kit}: wrote {', '.join(kit_written) if kit_written else 'nothing (AI_SKIP_TOOLS=1)'} into {out}")
+    raise SystemExit(0)
 name = f"{label}.txt"
 index = ["- **Export request:** " + ", ".join(f"`{r}`" for r in raw_paths),
          "- **Destination:** " + ", ".join(f"`{d}`" for d in dests)]
@@ -273,42 +380,9 @@ content = ("# Repo Export\n\n## Index\n\n" + "\n".join(index) + "\n\n---\n\n"
            + "## File Contents\n" + "".join(b for _, b in blocks))
 (out / name).write_text(content, encoding="utf-8")
 
-# OTHER: instruction files + helper scripts in ONE txt (text only; binaries are named in the index)
-# Skip tools.txt entirely for update_pack mode (or when AI_SKIP_TOOLS=1) — pack .txt has everything needed
-skip_tools = os.environ.get("AI_SKIP_TOOLS") == "1" or (EXPORT_MODE == "update_pack" and not update_kit and not repo_kit and not new_pack)
-# new_pack / UPDATE keyword: lean kit (instructions + UI assets only, no Python scripts)
-# repo_maintenance / REPO keyword: full bundle with all scripts
-if EXPORT_MODE == "new_pack" or new_pack or update_kit:
-    tool_files = LEAN_TOOL_FILES
-else:
-    tool_files = [".agents/skills/mcpe-new-pack/SKILL.md"] + [
-        "scripts/" + t for t in (
-            "build_payload.py", "import_project_payload.py", "crafting_template.py",
-            "generate_recipe_images.py", "convert_crafting_recipe_svgs_to_png.py",
-            "ensure_recipe_unlocks.py", "make_pack_icon.py", "optimize_images.py",
-            "manifest_tools.py", "doc_template.py", "pixel_json_to_png.py", "make_pack_script.py", "make_update_script.py", "apply_update.py", "CRAFTING_TABLE.svg")] + [
-        "assets/aln-ui-redesign/README.txt", "assets/aln-ui-redesign/design.json",
-        "assets/aln-ui-redesign/font/README.txt", "assets/aln-ui-redesign/font/pixelify.js"]
-t_ok, t_missing, t_blocks = [], [], []
-for rel in tool_files:
-    p = root / rel
-    if not p.is_file() or not is_text(p):
-        t_missing.append(rel)
-        continue
-    data = p.read_bytes().decode("utf-8", errors="replace")
-    runs = re.findall(r"`+", data)
-    fence = "`" * max(3, max((len(r) for r in runs), default=0) + 1)
-    t_ok.append(rel)
-    t_blocks.append(f"\n## FILE: {rel} ({data.count(chr(10)) + 1} lines, {len(data.encode('utf-8'))} bytes)\n\n{fence}\n{data.rstrip(chr(10))}\n{fence}\n")
-t_index = [f"- `{r}`" for r in t_ok]
-if t_missing:
-    t_index += ["", "### Not found / not text", ""] + [f"- `{m}`" for m in t_missing]
-t_index += ["", "### Binary helpers (stay in the repo, not exported)", "",
-            "- `scripts/CRAFTING_TABLE.png`", "- `assets/Images/`", "- `assets/aln-ui-redesign/`", "- `Mcpeworlds/assets/`"]
-if not skip_tools: (out / f"{label}_tools.txt").write_text(
-    "# Pack Tools and Instructions\n\n## Index\n\n" + "\n".join(t_index)
-    + "\n\n---\n\n## File Contents\n" + "".join(t_blocks), encoding="utf-8")
 with open(os.environ.get("GITHUB_OUTPUT") or os.devnull, "a", encoding="utf-8") as fh:
     fh.write(f"label={label}\n")
     fh.write(f"artifact_name={'(' + top_versions[0] + ') ' + label if top_versions else label}\n")
-print(f"Exported {len(files)} files into {out}/{name}" + (f" and {len(t_ok)} tool files into {label}_tools.txt" if not skip_tools else f" (tools.txt skipped: mode={EXPORT_MODE})") + f"; skipped {len(skipped)} binary; {len(missing)} path(s) not found.")
+print(f"Exported {len(files)} files into {out}/{name}"
+      + (f" and kit {kit}: {', '.join(kit_written)}" if kit_written else "")
+      + f"; skipped {len(skipped)} binary; {len(missing)} path(s) not found.")

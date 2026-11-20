@@ -27,6 +27,23 @@
 
 ---
 
+## [v181] - 2026-11-20 - AI Review Kits: Directory Map and Skills
+
+### Added
+- **Context7 router skill** `.agents/skills/mcpe-context7/SKILL.md`: says which of the four Context7 libraries to query for what, and when a script must come from the kit zip.
+- **Kit zips** `New-Pack_files.zip`, `Update-Pack_files.zip`, `tools_files.zip`: the complete, unchanged scripts a task has to run, as real files under `files/`. They cost no context.
+- `scripts/test_ai_review_kits.py` (in CI).
+
+### Changed
+- **AI review kits are a directory map plus skills** (about 12 KB each, was 152 to 230 KB). The map lists directories only and is built from the working tree, so it cannot go stale.
+- Per-package exports no longer include `changelog_views/*` and `Package/*.listing.md` (generated, never hand-edited) and no longer trigger on them. The prompt points to the skills instead of repeating their rules.
+- Every package zip now carries the update scripts under `files/`.
+- `context7.json`: indexes `.agents/skills`, stale exclude entries removed. `enrich_ai_review.py` no longer injects a repo map into the kits.
+
+### Fixed
+- `Update-Pack_tools.txt` was a byte-identical copy of `New-Pack_tools.txt` and had no update skill or update scripts.
+- `mcpe-pack-update` pointed to the retired `collect-ai-review-files.yml`.
+
 ## [v180] - 2026-11-20 - AI Review Guard And Recipe Image Logger
 
 ### Added

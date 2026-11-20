@@ -73,6 +73,7 @@ jobs:
           python scripts/test_description_views.py
           python scripts/test_listing_kits.py
           python scripts/test_generate_recipe_images.py
+          python scripts/test_ai_review_kits.py
           python scripts/test_pixel_json_to_png.py
           python scripts/test_bedrock_reference.py
           python scripts/test_check_instruction_files.py

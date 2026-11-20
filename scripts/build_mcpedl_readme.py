@@ -34,9 +34,12 @@ def get_ai_kits(root: Path):
         bundle_label = "Complete Bedrock Reference Bundle (Samples, Schemas & Types Zip)"
 
     return (
-        ("New Pack Kit", "ai-review/New-Pack_tools.txt"),
-        ("Update Pack Kit", "ai-review/Update-Pack_tools.txt"),
-        ("Repo Maintenance Kit", "ai-review/tools.txt"),
+        ("New Pack Kit (map and skills)", "ai-review/New-Pack_tools.txt"),
+        ("New Pack Scripts (zip, unzip and run)", "ai-review/New-Pack_files.zip"),
+        ("Update Pack Kit (map and skills)", "ai-review/Update-Pack_tools.txt"),
+        ("Update Pack Scripts (zip, unzip and run)", "ai-review/Update-Pack_files.zip"),
+        ("Repo Maintenance Kit (map and skills)", "ai-review/tools.txt"),
+        ("Repo Maintenance Scripts (zip)", "ai-review/tools_files.zip"),
         ("Bedrock Samples (AI Review)", "ai-review/bedrock-samples.txt"),
         ("Vanilla Bedrock Reference (JSON.gz)", "reference/bedrock-samples/bedrock-samples.min.json.gz"),
         (bundle_label, bundle_path),

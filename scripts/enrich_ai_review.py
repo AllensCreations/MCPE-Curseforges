@@ -19,7 +19,8 @@ The script:
        - Cross-pack shared dependencies or patterns
        - Sibling packs in same category
      If the section already exists it is replaced, so re-running is safe.
-  3. Also updates ai-review/Update-Pack_tools.txt to append a mini repo map section.
+  The shared kits (ai-review/*_tools.txt) are NOT enriched: they carry a directory map built from the
+  working tree by scripts/collect_ai_review.py, which cannot go stale.
 """
 from __future__ import annotations
 import argparse
@@ -144,29 +145,6 @@ def pack_graph_section(pack_name: str, nodes_by_id: dict, links_for: dict) -> st
     return block
 
 
-def repo_map_section(nodes_by_id: dict, links_for: dict) -> str:
-    """Build a mini repo-map for tools.txt (all projects + versions)."""
-    projects = [n for n in nodes_by_id.values() if n.get("type") == "project"]
-    if not projects:
-        return ""
-    by_cat: dict[str, list[str]] = {}
-    for p in sorted(projects, key=lambda n: n.get("label", "")):
-        cat = p.get("category", "Other")
-        ver = p.get("version", "")
-        entry = f"`{p.get('label', p['id'])}`" + (f" ({ver})" if ver else "")
-        by_cat.setdefault(cat, []).append(entry)
-    lines = [f"\n{SECTION_START}", "## Repo Map (All Projects)\n"]
-    for cat, entries in sorted(by_cat.items()):
-        lines.append(f"### {cat}")
-        lines += [f"- {e}" for e in entries]
-    lines += [
-        "",
-        "> _Auto-generated from graphify-out/graph.json — do not edit manually._",
-        SECTION_END,
-    ]
-    return "\n".join(lines) + "\n"
-
-
 # ---------------------------------------------------------------------------
 # File injection
 # ---------------------------------------------------------------------------
@@ -254,16 +232,6 @@ def main():
             print(f"  ✔ enriched  {txt_path.relative_to(ROOT)}")
         else:
             skipped_count += 1
-
-    # Also enrich the root tools.txt with a repo map
-    tools_txt = ROOT / "ai-review" / "tools.txt"
-    if tools_txt.exists():
-        repo_map = repo_map_section(nodes_by_id, links_for)
-        if repo_map:
-            changed = inject_section(tools_txt, repo_map)
-            if changed:
-                changed_count += 1
-                print(f"  ✔ enriched  ai-review/tools.txt (repo map)")
 
     print(
         f"\nDone — enriched: {changed_count}, "

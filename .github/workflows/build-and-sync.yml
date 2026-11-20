@@ -217,7 +217,11 @@ jobs:
           name: ai-review-bundle
           path: |
             ai-review/tools.txt
+            ai-review/tools_files.zip
+            ai-review/New-Pack_tools.txt
+            ai-review/New-Pack_files.zip
             ai-review/Update-Pack_tools.txt
+            ai-review/Update-Pack_files.zip
             MCPEDL/**/ai-review/*.txt
           if-no-files-found: ignore
 
