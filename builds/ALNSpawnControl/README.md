@@ -8,7 +8,7 @@ This folder contains compiled release packages for **ALNSpawnControl** by ALNStu
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`ALNSpawnControl V3.0.1.mcpack`** | `.mcpack` | ~157 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpawnControl/ALNSpawnControl%20V3.0.1.mcpack) |
+| **`ALNSpawnControl V3.0.3.mcpack`** | `.mcpack` | ~157 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpawnControl/ALNSpawnControl%20V3.0.3.mcpack) |
 
 ---
 
