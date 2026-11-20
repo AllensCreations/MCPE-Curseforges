@@ -65,40 +65,6 @@
 
 ---
 
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
 # Pack Tools and Instructions
 
 ## Index
@@ -1716,7 +1682,7 @@ def compose_recipe_diagram(recipe_type: str, recipe_data: dict, ingredient_icon,
     return board
 ```
 
-## FILE: scripts/generate_recipe_images.py (492 lines, 25031 bytes)
+## FILE: scripts/generate_recipe_images.py (488 lines, 24589 bytes)
 
 ```
 #!/usr/bin/env python3
@@ -1744,7 +1710,6 @@ Usage
                                                              copy item sprites to <pack>/assets/items/ (128x128)
   python3 scripts/generate_recipe_images.py --all --items-from-recipes
                                                              also copy the sprite of every custom item that has a recipe
-  --include-dedicated   also process packs that still have their own generator script (skipped by default)
 """
 from __future__ import annotations
 
@@ -1759,7 +1724,6 @@ from PIL import Image, ImageChops, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[1]
 SAMPLES_ROOT = Path(os.environ.get("BEDROCK_SAMPLES_ROOT", "/tmp/bedrock-samples"))
-DEDICATED = {"Grand-Banquets", "Monster-Companions"}  # packs with their own generator script
 SUPPORTED = ("minecraft:recipe_shaped", "minecraft:recipe_shapeless")
 ITEM_SPRITE_SIZE = 128
 
@@ -2125,13 +2089,12 @@ def custom_result_ids(jobs: list) -> list[str]:
             out.append(rid)
     return out
 
-def find_packs(root: Path, project: str | None, include_dedicated: bool):
+def find_packs(root: Path, project: str | None):
     if project:
         p = Path(project)
         p = p if p.is_absolute() else root / p
         return [p] if p.is_dir() else []
-    packs = sorted({d.parent.parent for d in root.glob("MCPEDL/*/*/behavior_pack/recipes") if d.is_dir()})
-    return [p for p in packs if include_dedicated or p.name not in DEDICATED]
+    return sorted({d.parent.parent for d in root.glob("MCPEDL/*/*/behavior_pack/recipes") if d.is_dir()})
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -2141,7 +2104,6 @@ def main(argv=None):
     ap.add_argument("--sheet", action="store_true", help="also write assets/all_recipes_sheet.png")
     ap.add_argument("--item", action="append", default=[], metavar="ID", help="export this custom item's sprite (repeatable)")
     ap.add_argument("--items-from-recipes", action="store_true", help="also export the sprite of every custom item that has a recipe")
-    ap.add_argument("--include-dedicated", action="store_true", help="also process packs with their own generator")
     ap.add_argument("--root", default=str(ROOT), help="repo root")
     ap.add_argument("--samples", help="Bedrock Samples folder (default: env BEDROCK_SAMPLES_ROOT or /tmp/bedrock-samples)")
     a = ap.parse_args(argv)
@@ -2149,7 +2111,7 @@ def main(argv=None):
     samples = Path(a.samples) if a.samples else None
     if a.item and not a.project:
         ap.error("--item needs --project")
-    packs = find_packs(root, a.project, a.include_dedicated)
+    packs = find_packs(root, a.project)
     if not packs:
         print("No packs with recipes found.")
         return 0 if not a.project else 1
