@@ -1,10 +1,27 @@
 # Changelog — ALN:OneClickSort
 
-## [2.0.0] - 2026-11-20 - Pack Variants and Restock
+## [v3] - 2026-11-20 - Custom Items
 
 ### Added
+- **Custom Items**: The Auto-Sort Feather, Restock Feather and Sort Settings Book are now real items found in the Creative inventory under Items, so no Anvil renaming is needed.
+
+### Improved & Balanced
+- **Sort Settings**: Right-click the Sort Settings Book to open the menu.
+
+### Fixed
+- **Sorting**: Sorting a chest or backpack no longer fails when matching stacks merge completely into another stack.
+- **Sort Settings**: The settings menu opens again.
+
+<details>
+<summary><b>2.0.x</b> (1 release)</summary>
+
+### [2.0.0] - 2026-11-20 - Pack Variants and Restock
+
+#### Added
 - **Pack Variants**: Choose Simple (default) or Normal (with particles) in the pack settings; only Normal shows particles above sorted chests.
 - **Restock**: Right-click a Feather renamed Restock to refill partial stacks in your hotbar and backpack from chests, trapped chests and barrels within 6 blocks.
+
+</details>
 
 <details>
 <summary><b>1.0.x</b> (1 release)</summary>
