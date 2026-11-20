@@ -16,7 +16,7 @@ Register any chest, trapped chest or barrel by sneaking and using the ChestLog o
 ## Key Features
 
 ### Registration
-- **What Happens**: Sneak and use the ChestLog on a chest, trapped chest or barrel, then type a name. The chest joins your wireless network and a sign above it reads the name followed by "- Registered".
+- **What Happens**: Sneak and use the ChestLog on a chest, trapped chest or barrel, then type a name. The chest joins your wireless network and its name appears in your menu.
 
 ### Double Chest Support
 - **What Happens**: Both halves of a double chest share one entry, so registering either half registers the whole chest. Only the player who registered a chest can rename or unregister it.

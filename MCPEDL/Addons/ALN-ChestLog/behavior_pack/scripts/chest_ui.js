@@ -13,20 +13,18 @@ import {
   showForm,
 } from "./chest_sync.js";
 
-const ICON_CHEST = "textures/items/chest_minecart";
-const ICON_ABOUT = "textures/items/book_normal";
-const ICON_EXIT = "textures/ui/cancel";
-const LORE = ["§7Sneak + Use on a Chest to register", "§7Use in air to open Remote Deposit"];
+const ICON = "textures/items/aln_chest_log";
+const LORE = ["§eSneak + Use on a Chest to register", "§eUse in air to open Remote Deposit"];
 
 async function showMain(player) {
   const list = chestsOf(player);
   const response = await showForm(
     new ActionFormData()
       .title("§6§lALN:ChestLog")
-      .body(`§7Registered Chests: §e${list.length}\n§a■ Overworld  §c■ Nether  §d■ The End`)
-      .button("§eChest", ICON_CHEST)
-      .button("§bAbout", ICON_ABOUT)
-      .button("§cExit", ICON_EXIT),
+      .body(`§fRegistered Chests: §e${list.length}\n§a■ Overworld  §c■ Nether  §d■ The End`)
+      .button("§eChest", ICON)
+      .button("§bAbout")
+      .button("§cExit"),
     player
   );
   if (!response || response.canceled) return;
@@ -40,12 +38,12 @@ async function showChestList(player) {
     .title("§6§lChests")
     .body(
       list.length === 0
-        ? "§7No chests registered yet. Sneak + Use the ChestLog on a Chest, Trapped Chest or Barrel."
-        : "§7Pick a chest to deposit into, or sort everything at once."
+        ? "§fNo chests registered yet. Sneak + Use the ChestLog on a Chest, Trapped Chest or Barrel."
+        : "§fPick a chest to deposit into, or sort everything at once."
     )
-    .button("§a§lDeposit All (Sort)");
-  for (const entry of list) form.button(coloredName(entry));
-  form.button("§7Back");
+    .button("§a§lDeposit All (Sort)", ICON);
+  for (const entry of list) form.button(coloredName(entry), ICON);
+  form.button("§fBack");
   const response = await showForm(form, player);
   if (!response || response.canceled) return;
   const selection = response.selection;
@@ -80,7 +78,7 @@ async function showDepositForm(player, entryId) {
 
   const form = new ModalFormData().title(coloredName(entry));
   for (const row of rows) {
-    form.slider(`§f${row.label} §7(Held: ${row.amount})`, 0, row.amount, {
+    form.slider(`§f${row.label} §e(Held: ${row.amount})`, 0, row.amount, {
       valueStep: 1,
       defaultValue: 0,
     });
@@ -120,15 +118,15 @@ async function showAbout(player) {
     .title("§6§lAbout ChestLog")
     .body(
       [
-        "§eRegister§f: Sneak + Use the ChestLog on a Chest, Trapped Chest or Barrel and name it. A sign above it reads \"<Name> - Registered\".",
+        "§eRegister§f: Sneak + Use the ChestLog on a Chest, Trapped Chest or Barrel and name it. The name shows in your Chest list.",
         "§eColors§f: §aOverworld §cNether §dThe End §fchests are colored by dimension. No coordinates are ever shown.",
         "§eUnloaded chunks§f: items for a chest in an unloaded chunk are held safely and moved in as soon as it loads.",
         "§eDeposit All (Sort)§f: sends matching items to your registered chests and sorts them.",
         "§eUnregister§f: Sneak + Use the ChestLog on a registered chest and switch on Unregister. Waiting items are delivered or dropped.",
-        "§7by ALNStudios",
+        "§bby ALNStudios",
       ].join("\n\n")
     )
-    .button("§7Back"),
+    .button("§fBack"),
     player
   );
   if (response && !response.canceled) await showMain(player);

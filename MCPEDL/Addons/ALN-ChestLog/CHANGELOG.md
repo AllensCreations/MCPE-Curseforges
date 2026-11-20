@@ -2,6 +2,18 @@
 
 ---
 
+## [3.0.0] - 2026-11-20 - Menu Icons Fix
+
+### Added
+- **Menu icons**: The Chest button, Deposit All and every chest in your list now show the ChestLog icon.
+
+### Improved & Balanced
+- **Readable text**: All gray text in the menus and item description is now white, yellow or aqua so it stands out from the background.
+- **Simpler registration**: Chests are no longer labeled with a sign. The name you type shows in your Chest list.
+
+### Fixed
+- **Missing icons**: Menu buttons no longer show purple and black squares.
+
 ## [2.0.0] - 2026-11-20 - Wireless Storage Upgrade
 
 ### Added

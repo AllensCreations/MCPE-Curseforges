@@ -1,4 +1,4 @@
-import { world, system, BlockPermutation, BlockInventoryComponent } from "@minecraft/server";
+import { world, system, BlockInventoryComponent } from "@minecraft/server";
 import { ModalFormData } from "@minecraft/server-ui";
 import {
   ITEM_ID,
@@ -33,28 +33,6 @@ function findPartner(block) {
     }
   }
   return undefined;
-}
-
-function labelChest(dimension, location, name, wasLabeled) {
-  try {
-    const above = dimension.getBlock({ x: location.x, y: location.y + 1, z: location.z });
-    if (!above) return false;
-    if (above.typeId === "minecraft:standing_sign") {
-      if (!wasLabeled) return false;
-    } else {
-      if (wasLabeled || !above.isAir) return false;
-      above.setPermutation(
-        BlockPermutation.resolve("minecraft:standing_sign", { ground_sign_direction: 0 })
-      );
-    }
-    const sign = above.getComponent("minecraft:sign");
-    if (!sign) return false;
-    sign.setText(`${name} - Registered`);
-    sign.setWaxed(true);
-    return true;
-  } catch {
-    return false;
-  }
 }
 
 function tell(player, text) {
@@ -117,8 +95,6 @@ async function openRegisterForm(player, dimensionId, clicked) {
   if (!current && partner) entry.partner = partner;
   entry.name = name;
   refreshKnown(entry);
-  const wasLabeled = !!entry.labeled;
-  entry.labeled = labelChest(dimension, entry.location, name, wasLabeled) || wasLabeled;
 
   if (!saveEntry(entry)) {
     tell(player, "§c[ChestLog] §fCould not save the chest.");
@@ -135,7 +111,7 @@ async function openRegisterForm(player, dimensionId, clicked) {
       z: entry.location.z + 0.5,
     });
   } catch {}
-  tell(player, `§a[ChestLog] §e${name} - Registered`);
+  tell(player, `§a[ChestLog] §fRegistered §e${name}§f.`);
 }
 
 export function initRegister() {

@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:ChestLog (v2)",
+    "name": "ALN:ChestLog (v3)",
     "description": "Wireless remote chest deposit with an unloaded-chunk buffer. by ALNStudios. Not tested in game.",
     "uuid": "508375a5-6723-4177-a6f3-14cadb14c44d",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -20,7 +20,7 @@
       "type": "data",
       "uuid": "6d472727-d893-43be-826d-1234f7fc1ec3",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -30,7 +30,7 @@
       "language": "javascript",
       "uuid": "d3fc3875-f45e-4b37-8448-c512868ef912",
       "version": [
-        2,
+        3,
         0,
         0
       ],
@@ -49,14 +49,14 @@
     {
       "uuid": "a1e6b4d9-74db-40e9-bd2e-0531e0c02b3e",
       "version": [
-        2,
+        3,
         0,
         0
       ]
     }
   ],
   "metadata": {
-    "version": "2.0.0",
+    "version": "3.0.0",
     "authors": [
       "ALNStudios"
     ]
