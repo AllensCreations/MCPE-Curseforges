@@ -176,11 +176,40 @@ jobs:
             echo "::warning::Some recipe images could not be generated (see log). The rest of the build continues."
           fi
 
+      - name: Recipe image report (why a pack has no recipe images)
+        if: steps.recipes.outputs.needed == 'true'
+        run: python3 scripts/recipe_image_report.py --out recipe-image-report.md || echo "::warning::The recipe image report itself failed (see this step's log)."
+
+      - name: Upload recipe image report
+        if: steps.recipes.outputs.needed == 'true'
+        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
+        with:
+          name: recipe-image-report
+          path: recipe-image-report.md
+          if-no-files-found: ignore
+
       - name: Refresh Listing Kits (name, summary, description HTML, image prompts)
         run: python3 scripts/build_listing_kits.py --all || echo "::warning::Some listing kits could not be built (see log)."
 
       - name: Refresh per-package AI review files
         run: python3 scripts/auto_ai_review.py
+
+      - name: Keep AI review files of unchanged packs as they are
+        run: |
+          set -uo pipefail
+          base=HEAD
+          if [ "${{ github.event_name }}" = "push" ] && git cat-file -e "${{ github.event.before }}^{commit}" 2>/dev/null; then
+            base="${{ github.event.before }}"
+          fi
+          changed="$( { git diff --name-only "$base"; git ls-files --others --exclude-standard; } 2>/dev/null )"
+          for dir in MCPEDL/*/*; do
+            [ -d "$dir/ai-review" ] || continue
+            if printf '%s\n' "$changed" | grep -vF -- "$dir/ai-review/" | grep -qF -- "$dir/"; then
+              echo "Package changed, AI review updated: $dir"
+              continue
+            fi
+            git ls-files -z -- "$dir/ai-review" | xargs -0 -r git checkout HEAD --
+          done
 
       - name: Upload AI Review Bundle Artifact
         uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1

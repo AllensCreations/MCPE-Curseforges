@@ -27,6 +27,16 @@
 
 ---
 
+## [v180] - 2026-11-20 - AI Review Guard And Recipe Image Logger
+
+### Added
+
+- **Recipe image report**: Every build that generates recipe images now ends with a report that lists each pack, its recipes, the images in assets/recipes/ and the exact reason when a pack has no images. It shows in the run's Summary tab, as warnings in the log and as the recipe-image-report download.
+
+### Improved & Balanced
+
+- **AI review files**: The per-package AI review files in MCPEDL/*/*/ai-review/ are now rewritten only when that package changed, so unchanged packages no longer get a new commit on every build.
+
 ## [v179] - 2026-11-20 - Tutorial Platform Update
 
 ### Added
