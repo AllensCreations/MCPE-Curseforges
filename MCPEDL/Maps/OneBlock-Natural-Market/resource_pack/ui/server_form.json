@@ -25,7 +25,15 @@
         "operation": "insert_back",
         "value": [
           {
-            "nm_form@server_form.nm_form": {}
+            "nm_server_form_factory": {
+              "type": "panel",
+              "factory": {
+                "name": "server_form_factory",
+                "control_ids": {
+                  "long_form": "@server_form.nm_form"
+                }
+              }
+            }
           }
         ]
       }

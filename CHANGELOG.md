@@ -27,6 +27,11 @@
 
 ---
 
+## [v175] - 2026-11-20 - Market Screen Fix
+
+### Fixed
+- Fixed the market screen showing blank. The screen is now created through the game's form factory, so it receives the form's title, text and slot buttons.
+
 ## [v174] - 2026-11-20 - Menu Icons Fix
 
 ### Added
