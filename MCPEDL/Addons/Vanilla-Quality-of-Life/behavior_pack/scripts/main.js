@@ -598,7 +598,7 @@ function getRequiredToolCategory(typeId) {
   if (id === "web" || id.includes("cobweb")) return ToolCategory.WEB;
   if (id.includes("mangrove_roots")) return ToolCategory.AXE;
 
-  if (id.includes("sandstone") || id.includes("mud_brick")) return ToolCategory.PICKAXE;
+  if (id.includes("sandstone") || id.includes("mud_brick") || id === "packed_mud") return ToolCategory.PICKAXE;
 
   if (
     id.endsWith("concrete_powder") || id.includes("sand") || id.includes("gravel") ||
@@ -672,7 +672,9 @@ function getRequiredToolCategory(typeId) {
     id.includes("anvil") || id.includes("enchanting_table") || id.includes("brewing_stand") ||
     id.includes("grindstone") || id.includes("stonecutter") || id.includes("bell") ||
     id.includes("lantern") || id.includes("chain") || id.includes("spawner") ||
-    id.includes("vault") || id.includes("crafter")
+    id.includes("vault") || id.includes("crafter") || id.includes("quartz") ||
+    id === "coal_block" || id === "bone_block" || id === "respawn_anchor" ||
+    id === "conduit" || id === "lightning_rod"
   ) {
     return ToolCategory.PICKAXE;
   }
@@ -1251,7 +1253,7 @@ const NEIGHBOR_OFFSETS_26 = (() => {
 })();
 
 const FORTUNE_AFFECTED_ORE_CATEGORIES = new Set([
-  "coal", "copper", "lapis", "nether_gold", "diamond", "emerald", "quartz",
+  "coal", "iron", "copper", "gold", "lapis", "nether_gold", "diamond", "emerald", "quartz",
 ]);
 
 function calculateRedstoneDropCount(fortuneLevel, minBase = 4, maxBase = 5) {
@@ -1779,6 +1781,8 @@ world.afterEvents.playerLeave.subscribe((event) => {
   lastSwap.delete(id);
   swapBack.delete(id);
   lastBreakTick.delete(id);
+  chainPauseUntil.delete(id);
+  pendingToolDamage.delete(id);
 });
 
 if (world.afterEvents.playerDimensionChange) {

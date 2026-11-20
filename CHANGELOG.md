@@ -27,6 +27,14 @@
 
 ---
 
+## [v170] - 2026-11-20 - Block Tool and Fortune Fixes
+
+### Fixed
+
+- **Auto-Switch Blocks**: Auto-switch now picks a Pickaxe for Blocks of Coal, Quartz blocks, Bone Blocks, Respawn Anchors, Conduits, and Lightning Rods, and Packed Mud no longer switches you to a shovel.
+- **Fortune on Iron and Gold**: Domino Ore Miner now applies Fortune to Iron Ore and Gold Ore, including their Deepslate versions, like it already did for other ores.
+- **Leaving the World**: Chain mining pause and pending tool wear are now cleared when a player leaves, so nothing carries over.
+
 ## [v169] - 2026-11-20 - Restock Get Everything
 
 ### Added
