@@ -1,0 +1,23 @@
+{
+  "format_version": "1.26.60",
+  "minecraft:crafting_items_catalog": {
+    "categories": [
+      {
+        "category_name": "items",
+        "groups": [
+          {
+            "group_identifier": {
+              "icon": "allenscreations:auto_sort_feather",
+              "name": "allenscreations:aln_oneclicksort"
+            },
+            "items": [
+              "allenscreations:auto_sort_feather",
+              "allenscreations:restock_feather",
+              "allenscreations:sort_settings_book"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

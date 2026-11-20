@@ -27,6 +27,11 @@
 
 ---
 
+## [v160] - 2026-11-20 - Item Group
+
+### Added
+- **Item Group**: The Auto-Sort Feather, Restock Feather and Sort Settings Book are now grouped together as OneClickSort in the Creative inventory under Items.
+
 ## [v159] - 2026-11-20 - Crafting Recipes
 
 ### Added

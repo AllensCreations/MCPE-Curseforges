@@ -43,7 +43,7 @@ Hold the Auto-Sort Feather in your hand. Right-click to sort your backpack, snea
 ### Crafting Recipes
 - **What Happens**: All three items can be crafted at a Crafting Table, and every recipe is unlocked from the start.
 - **How It Works**: Auto-Sort Feather: Emerald, Feather and Hopper placed diagonally. Restock Feather: Gold Ingot, Feather and Chest placed diagonally. Sort Settings Book: Book in the center with Lapis Lazuli left and right and Redstone Dust above and below.
-- **Good To Know**: The diagonal layout matches the feather on the icons, and the same items are also in the Creative inventory under Items.
+- **Good To Know**: The diagonal layout matches the feather on the icons, and the same items sit together in one OneClickSort group in the Creative inventory under Items.
 
 ### Pack Variants
 ### Pack Variants
