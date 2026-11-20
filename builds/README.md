@@ -44,6 +44,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **ALN Pointer** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-Pointer/ALNPointer%20V19.mcaddon) | [`ALN-Pointer/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-Pointer/) |
 | **ALN-GlobalMarket** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-GlobalMarket/ALNGlobalMarket%20V1.mcaddon) | [`ALN-GlobalMarket/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-GlobalMarket/) |
 | **ALN ChestLog** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-ChestLog/ALNChestLog%20V3.mcaddon) | [`ALN-ChestLog/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-ChestLog/) |
+| **ALNXRayVisor (Tactical Ore-Scanner Headgear) by ALNStudios** | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios/ALNXRayVisorTacticalOreScannerHeadgearByALNStudios%20V1.mcaddon) | [`ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios/) |
 
 ### Worlds and Maps
 

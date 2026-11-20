@@ -2,7 +2,7 @@
 
 Generated file. Do not edit by hand: it is rebuilt with every build.
 
-35 Add-ons · 6 Maps · 10 Scripts · 6 Minigames
+36 Add-ons · 6 Maps · 10 Scripts · 6 Minigames
 
 ## AI Review Kits
 
@@ -27,6 +27,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | **ALN Wireless Headphones** | - | [Source](Addons/ALN-Wireless-Headphones) | [Package](../Package/ALN-Wireless-Headphones.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/ALN-Wireless-Headphones/ai-review/ALN-Wireless-Headphones.txt) |
 | **ALN-GlobalMarket** | 1.0.0 | [Source](Addons/ALN-GlobalMarket) | [Package](../Package/ALN-GlobalMarket.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/ALN-GlobalMarket/ai-review/ALN-GlobalMarket.txt) |
 | **ALN:OneClickSort** | 2.0.0 | [Source](Addons/ALNOneClickSort) | [Package](../Package/ALNOneClickSort.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/ALNOneClickSort/ai-review/ALNOneClickSort.txt) |
+| **ALN:XRayVisor (Tactical Ore-Scanner Headgear) by ALNStudios** | 1.0.0 | [Source](Addons/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios) | [Package](../Package/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios/ai-review/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios.txt) |
 | **Cheat Stick** | 2.0.0 | [Source](Addons/Cheat-Stick) | [Package](../Package/Cheat-Stick.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/Cheat-Stick/ai-review/Cheat-Stick.txt) |
 | **Combat Helper** | - | [Source](Addons/ALN-Pointer) | [Package](../Package/ALN-Pointer.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/ALN-Pointer/ai-review/ALN-Pointer.txt) |
 | **Copper-Carrier Logistics** | 1.0.0 | [Source](Addons/Copper-Carrier-Logistics) | [Package](../Package/Copper-Carrier-Logistics.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/Copper-Carrier-Logistics/ai-review/Copper-Carrier-Logistics.txt) |

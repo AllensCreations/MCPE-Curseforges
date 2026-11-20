@@ -1,11 +1,11 @@
-# ALN:XRayVisor (Tactical Ore-Scanner Headgear) by ALNStudios
+# ALNXRayVisor (Tactical Ore-Scanner Headgear) by ALNStudios
 
-Download the current release of **ALN:XRayVisor (Tactical Ore-Scanner Headgear) by ALNStudios** for Minecraft Bedrock Edition.
+Download the current release of **ALNXRayVisor (Tactical Ore-Scanner Headgear) by ALNStudios** for Minecraft Bedrock Edition.
 
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN:XRayVisor (Tactical Ore-Scanner Headgear) by ALNStudios (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/README.md#available-add-ons)
+- **Direct download:** [Download ALNXRayVisor (Tactical Ore-Scanner Headgear) by ALNStudios (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios/ALNXRayVisorTacticalOreScannerHeadgearByALNStudios%20V1.mcaddon)
 
 ## Installation
 
@@ -15,4 +15,4 @@ Download the current release of **ALN:XRayVisor (Tactical Ore-Scanner Headgear) 
 
 ## Pack Information
 
-For gameplay features, usage details, compatibility notes, and other project information, read the [full description](DESCRIPTION.md).
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios/DESCRIPTION.md).

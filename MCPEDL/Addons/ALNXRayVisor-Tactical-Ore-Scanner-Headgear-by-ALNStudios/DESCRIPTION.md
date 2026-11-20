@@ -67,3 +67,4 @@ Craft the X-Ray Visor, put it on and switch it on. While it is online, it scans 
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, ALN:XRayVisor Bedrock mod, ore scanner, X-ray helmet, ore finder, diamond finder, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+
