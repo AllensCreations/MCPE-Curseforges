@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:OneClickSort (v1)",
-    "description": "One-click backpack, chest and quick-stack sorter. by ALNStudios",
+    "name": "ALN:OneClickSort (v2)",
+    "description": "One-click backpack, chest, quick-stack and restock sorter with Simple and Normal modes. by ALNStudios",
     "uuid": "ff3a44de-a0eb-4371-9793-5cdeb9badd4f",
     "version": [
-      1,
+      2,
       0,
       0
     ],
@@ -22,7 +22,7 @@
       "entry": "scripts/main.js",
       "uuid": "7b755805-62d5-4728-a4f2-c71f48050a6f",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -38,10 +38,22 @@
       "version": "2.3.0"
     }
   ],
+  "subpacks": [
+    {
+      "folder_name": "simple",
+      "name": "Simple (Default, No Particles)",
+      "memory_tier": 2
+    },
+    {
+      "folder_name": "normal",
+      "name": "Normal (With Particles)",
+      "memory_tier": 1
+    }
+  ],
   "metadata": {
     "authors": [
       "ALNStudios"
     ],
-    "version": "1.0.0"
+    "version": "2.0.0"
   }
 }

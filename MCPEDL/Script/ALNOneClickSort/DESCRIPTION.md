@@ -7,11 +7,11 @@
 
 **Sort your 27 backpack slots, any chest, barrel or shulker box, and quick-stack into nearby chests with one renamed Feather.**
 
-> Rename a Feather to Auto-Sort on an Anvil and one click sorts your backpack or stacks items into chests within 6 blocks. It suits survival and OneBlock players who are tired of manual inventory cleanup.
+> Rename a Feather to Auto-Sort on an Anvil and one click sorts your backpack or stacks items into chests within 6 blocks. Good for survival, OneBlock and multiplayer worlds.
 
 ## Overview
 
-Rename a Feather to Auto-Sort and carry it in your hand. Right-click to sort your backpack, sneak and right-click a chest to sort it, or sneak and right-click in the air to quick-stack. Nothing is added to the world, so the pack works in existing worlds without new items or blocks.
+Rename a Feather to Auto-Sort and carry it in your hand. Right-click to sort your backpack, sneak and right-click a chest to sort it, or sneak and right-click in the air to quick-stack. The pack adds no custom items, blocks or mobs and never changes world generation, so it works in existing worlds.
 
 ## Key Features
 
@@ -23,23 +23,42 @@ Rename a Feather to Auto-Sort and carry it in your hand. Right-click to sort you
 ### Chest Sorting
 - **What Happens**: Sneak and right-click a chest, trapped chest, barrel or any shulker box to sort it instantly without opening it. Double chests are sorted as one container.
 - **How It Works**: Sneak, then right-click the container with an empty hand or the Auto-Sort Feather.
-- **Good To Know**: A small particle effect and sound confirm the sort.
+- **Good To Know**: A sound confirms the sort, and the Normal variant also shows a small particle effect above the container.
 
 ### Quick Stack
 - **What Happens**: Sneak and right-click the Auto-Sort Feather in the air to send backpack items into every chest, trapped chest and barrel within 6 blocks that already holds the same item.
 - **How It Works**: Stand near your storage, sneak, right-click, and a message shows how many items went into how many chests.
 - **Good To Know**: The Auto-Sort Feather itself and the hotbar are never moved, and every chest that received items is sorted afterward.
 
+### Restock
+- **What Happens**: Right-click a Feather renamed Restock to refill the partial stacks you already carry, hotbar included, from every chest, trapped chest and barrel within 6 blocks.
+- **How It Works**: Run low on blocks, step next to your storage, right-click the Restock Feather, and a message shows how many items came from how many chests.
+- **Good To Know**: Restock only tops up stacks you already hold and never fills empty slots, so it is the reverse of Quick Stack.
+
 ### Sort Settings
 - **What Happens**: Right-click a Book renamed Sort Settings to open a menu with three options: Sort Order, Sort Hotbar Slots and Audio and Particle Feedback.
 - **How It Works**: Choose Smart Category, Alphabetical (A-Z) or Stack Quantity (Highest First), then confirm.
 - **Good To Know**: Each player keeps their own settings, which stay saved between sessions.
 
+### Pack Variants
+- **What Happens**: Two variants are included: Simple, the default, shows an action bar message and sound only, and Normal (with particles) also shows happy-villager particles above a sorted chest.
+- **How It Works**: Open the pack's settings in your world and move the slider to switch variant.
+- **Good To Know**: Both variants sort the same way, and the Audio and Particle Feedback option in Sort Settings still applies.
+
 ## How to Use
 
 1. Rename a Feather to Auto-Sort on an Anvil.
 2. Right-click in the air to sort your backpack, or sneak and right-click a chest to sort it.
-3. Sneak and right-click in the air next to your chests to quick-stack, and rename a Book to Sort Settings to change your options.
+3. Sneak and right-click in the air next to your chests to quick-stack, or use a Feather renamed Restock to refill your stacks from them.
+4. Rename a Book to Sort Settings to change your options.
+
+## Common Questions
+
+- **Tired of sorting your inventory by hand?**: Right-click the Auto-Sort Feather and your 27 backpack slots are merged and sorted in one click.
+- **Running out of blocks while building?**: Right-click a Feather renamed Restock next to your chests and your held stacks are topped up from them.
+- **Will it mess with my hotbar?**: No, the hotbar stays untouched unless you turn on hotbar sorting in Sort Settings.
+- **Will my enchanted gear and named items survive?**: Yes, names, lore, enchantments and durability are kept, and only identical items merge.
+- **Does it fit OneBlock and multiplayer worlds?**: It adds no custom blocks, items or mobs and never changes world generation, and every player keeps their own settings.
 
 ## Compatibility
 

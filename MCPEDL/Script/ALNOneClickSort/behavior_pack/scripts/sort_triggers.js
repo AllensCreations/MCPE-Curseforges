@@ -1,6 +1,7 @@
 import { world, system } from "@minecraft/server";
 import { sortContainer } from "./sort_engine.js";
 import { getPrefs, isSettingsBook, openSettings } from "./sort_ui.js";
+import { PARTICLES } from "./feedback_profile.js";
 
 const CONTAINER_IDS = new Set(["minecraft:chest", "minecraft:trapped_chest", "minecraft:barrel"]);
 const STACK_TARGETS = CONTAINER_IDS;
@@ -20,6 +21,15 @@ function isAutoSortFeather(item) {
   );
 }
 
+function isRestockFeather(item) {
+  return (
+    !!item &&
+    item.typeId === "minecraft:feather" &&
+    typeof item.nameTag === "string" &&
+    item.nameTag.trim().toLowerCase() === "restock"
+  );
+}
+
 function getBackpack(player) {
   return player.getComponent("minecraft:inventory").container;
 }
@@ -29,7 +39,7 @@ function feedback(player, prefs, message, { sound = "random.orb", pitch = 1.3, b
   if (!prefs.soundFeedback) return;
   try {
     player.playSound(sound, { pitch });
-    if (block) {
+    if (block && PARTICLES) {
       player.playSound("block.barrel.close");
       block.dimension.spawnParticle("minecraft:villager_happy", {
         x: block.location.x + 0.5,
@@ -127,7 +137,7 @@ function quickStack(player) {
 
   for (let slot = 9; slot <= 35; slot++) {
     let item = backpack.getItem(slot);
-    if (!item || isAutoSortFeather(item)) continue;
+    if (!item || isAutoSortFeather(item) || isRestockFeather(item)) continue;
 
     for (let t = 0; t < targets.length && item; t++) {
       if (!typeSets[t].has(item.typeId)) continue;
@@ -155,6 +165,50 @@ function quickStack(player) {
   );
 }
 
+function restock(player) {
+  const prefs = getPrefs(player);
+  const backpack = getBackpack(player);
+  const targets = findNearbyContainers(player);
+  const slots = [];
+  for (let i = 0; i <= 35; i++) slots.push(i);
+
+  let pulledItems = 0;
+  const touched = new Set();
+
+  for (const slot of slots) {
+    const held = backpack.getItem(slot);
+    if (!held || isAutoSortFeather(held) || isRestockFeather(held)) continue;
+    let need = held.maxAmount - held.amount;
+    if (need <= 0) continue;
+
+    for (let t = 0; t < targets.length && need > 0; t++) {
+      const container = targets[t].container;
+      for (let s = 0; s < container.size && need > 0; s++) {
+        const stored = container.getItem(s);
+        if (!stored || !held.isStackableWith(stored)) continue;
+        const move = Math.min(need, stored.amount);
+        held.amount += move;
+        need -= move;
+        pulledItems += move;
+        touched.add(t);
+        if (stored.amount - move > 0) {
+          stored.amount -= move;
+          container.setItem(s, stored);
+        } else {
+          container.setItem(s, undefined);
+        }
+      }
+    }
+    backpack.setItem(slot, held);
+  }
+
+  feedback(
+    player,
+    prefs,
+    `§d[Restock] §fPulled §e${pulledItems} §fitems from §a${touched.size} §fnearby chests!`
+  );
+}
+
 export function registerTriggers() {
   world.afterEvents.itemUse.subscribe((event) => {
     const player = event.source;
@@ -165,12 +219,13 @@ export function registerTriggers() {
       openSettings(player);
       return;
     }
-    if (!isAutoSortFeather(item)) return;
+    if (!isAutoSortFeather(item) && !isRestockFeather(item)) return;
 
     const last = lastContainerSort.get(player.id);
     if (last !== undefined && system.currentTick - last < 5) return;
 
-    if (player.isSneaking) quickStack(player);
+    if (isRestockFeather(item)) restock(player);
+    else if (player.isSneaking) quickStack(player);
     else sortBackpack(player);
   });
 

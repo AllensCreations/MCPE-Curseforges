@@ -2,6 +2,12 @@
 
 ---
 
+## [2.0.0] - 2026-11-20 - Pack Variants and Restock
+
+### Added
+- **Pack Variants**: Choose Simple (default) or Normal (with particles) in the pack settings; only Normal shows particles above sorted chests.
+- **Restock**: Right-click a Feather renamed Restock to refill partial stacks in your hotbar and backpack from chests, trapped chests and barrels within 6 blocks.
+
 ## [1.0.0] - 2026-11-20 - First Release
 
 ### Added
