@@ -2,6 +2,12 @@
 
 ---
 
+## [v5] - 2026-11-20 - Diagnostic Log
+
+### Added
+- Added a diagnostic log for map creators and testers. It records startup, core regeneration, Ledger use, core breaks, player spawns and errors in the content log.
+- Added an optional in-game debug mode that shows the same messages in chat, and a status command that reports the current core state.
+
 ## [v4] - 2026-11-20 - Startup Fix
 
 ### Fixed

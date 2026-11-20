@@ -232,6 +232,37 @@ const CATALOG = [
   name: raw.split("_").map(s => s[0].toUpperCase() + s.slice(1)).join(" ")
 }));
 
+const DEBUG_TAG = "obm_debug";
+const STATUS_EVENT = "allenscreations:obm_status";
+const logLast = new Map();
+function log(level, message, key) {
+  if (key !== undefined) {
+    if (logLast.get(key) === message) return;
+    logLast.set(key, message);
+  }
+  const line = "[OBM][" + level + "] " + message;
+  console.warn(line);
+  try {
+    for (const p of world.getAllPlayers()) if (p.hasTag(DEBUG_TAG)) p.sendMessage("§8" + line);
+  } catch {}
+}
+function logError(context, error) {
+  const stack = error && error.stack ? " | " + String(error.stack).split("\n")[0] : "";
+  log("ERROR", context + ": " + error + stack, "err:" + context);
+}
+function statusReport() {
+  try {
+    const players = world.getAllPlayers();
+    let core = "unknown", bedrock = "unknown";
+    try {
+      const dimension = world.getDimension("overworld");
+      core = dimension.getBlock(CORE)?.typeId ?? "unloaded";
+      bedrock = dimension.getBlock(BEDROCK)?.typeId ?? "unloaded";
+    } catch (e) { core = "error: " + e; }
+    return "players=" + players.length + " void_cleaned=" + players.filter(p => p.hasTag("void_cleaned")).length +
+      " core=" + core + " bedrock=" + bedrock + " pool=" + currentPool().length + " shared_breaks=" + totalBreaks();
+  } catch (e) { return "status failed: " + e; }
+}
 const objectiveCache = new Map();
 function objective(name) {
   let obj = objectiveCache.get(name);
@@ -331,20 +362,27 @@ function coreBlock() {
 }
 function placeCore(block) {
   for (let i = 0; i < 5; i++) {
-    try { block.setType(coreBlock()); return; } catch {}
+    try { const id = coreBlock(); block.setType(id); log("INFO", "Core placed: " + id); return; } catch (e) { logError("placeCore", e); }
   }
-  try { block.setType("minecraft:dirt"); } catch {}
+  try { block.setType("minecraft:dirt"); log("WARN", "Core placed with the Dirt fallback."); } catch (e) { logError("placeCore fallback", e); }
 }
 function ensureCore() {
   const players = world.getAllPlayers();
-  if (!players.some(p => p.hasTag("void_cleaned"))) return;
+  if (!players.some(p => p.hasTag("void_cleaned"))) {
+    log("WARN", "Core check skipped: no online player has the void_cleaned tag yet (the void_cleaner / tick function may not be running).", "core_wait");
+    return;
+  }
   try {
     const dimension = world.getDimension("overworld");
     const bedrock = dimension.getBlock(BEDROCK);
     if (bedrock && bedrock.typeId === "minecraft:air") bedrock.setType("minecraft:bedrock");
     const core = dimension.getBlock(CORE);
-    if (core && (core.typeId === "minecraft:air" || core.typeId === "minecraft:grass_block")) placeCore(core);
-  } catch {}
+    if (!core) log("WARN", "Core location 0 0 0 is not loaded.", "core_unloaded");
+    if (core && (core.typeId === "minecraft:air" || core.typeId === "minecraft:grass_block")) {
+      log("INFO", "Core was " + core.typeId + "; placing a new core.");
+      placeCore(core);
+    }
+  } catch (e) { logError("ensureCore", e); }
 }
 function marketMain(player) {
   const form = new ActionFormData()
@@ -373,7 +411,7 @@ function marketMain(player) {
         ". Shared breaks: " + totalBreaks() + ". " + (next ? "Next market tier unlocks at " + next.unlock + " personal breaks." : "All core milestones reached."));
       showBalance(player);
     }
-  }).catch(() => tell(player, "The market menu could not open. Try using the Ledger again."));
+  }).catch(e => { logError("marketMain", e); tell(player, "The market menu could not open. Try using the Ledger again."); });
 }
 function showCategory(player, category, page = 0) {
   const tier = unlockedTier(player);
@@ -398,7 +436,7 @@ function showCategory(player, category, page = 0) {
     const nextIndex = visible.length;
     if (safePage + 1 < pageCount && r.selection === nextIndex) return showCategory(player, category, safePage + 1);
     return marketMain(player);
-  }).catch(() => tell(player, "This category could not open."));
+  }).catch(e => { logError("showCategory", e); tell(player, "This category could not open."); });
 }
 function purchase(player, item) {
   if (item.tier > unlockedTier(player)) return tell(player, "Mine more central blocks to unlock this supply.");
@@ -453,7 +491,7 @@ function sellEligible(player) {
     for (const slot of again.slots) inv.setItem(slot, undefined);
     tell(player, "Sold " + count + " eligible item(s) for " + payout + " Coins.");
     showBalance(player);
-  }).catch(() => tell(player, "The sell confirmation could not open."));
+  }).catch(e => { logError("sellEligible", e); tell(player, "The sell confirmation could not open."); });
 }
 let coreBreakPending = false;
 function onCoreBreak(player) {
@@ -466,23 +504,35 @@ function onCoreBreak(player) {
   if (MILESTONES.some(m => m.unlock > 0 && m.unlock === total)) {
     world.sendMessage("§6[Natural Market] §rA new core milestone has been reached. More block types can now appear.");
   }
+  log("INFO", player.name + " mined the core: personal=" + personal + " shared=" + total + " reward=" + milestone.reward + ".");
   tell(player, "Core mined: +" + milestone.reward + " Coins.");
   showBalance(player);
 }
 system.afterEvents.scriptEventReceive.subscribe(event => {
+  if (event.id === STATUS_EVENT) {
+    const msg = statusReport();
+    console.warn("[OBM][STATUS] " + msg);
+    try { event.sourceEntity?.sendMessage("§e[OBM] " + msg); } catch {}
+    return;
+  }
   if (event.id !== READY_EVENT) return;
+  log("INFO", "Ready event received from the tick function.");
   system.run(() => ensureCore());
 });
 world.afterEvents.itemUse.subscribe(event => {
   if (event.itemStack?.typeId !== LEDGER) return;
   const player = event.source;
-  if (player?.typeId === "minecraft:player") system.run(() => marketMain(player));
+  if (player?.typeId === "minecraft:player") {
+    log("INFO", "Ledger used by " + player.name + ".");
+    system.run(() => marketMain(player));
+  }
 });
 world.afterEvents.playerBreakBlock.subscribe(event => {
   const location = event.block.location;
   const player = event.player;
   if (!player || event.block.dimension.id !== "minecraft:overworld") return;
   if (location.x !== CORE.x || location.y !== CORE.y || location.z !== CORE.z || coreBreakPending) return;
+  log("INFO", "Core break detected by " + player.name + " (void_cleaned tag=" + player.hasTag("void_cleaned") + ").");
   coreBreakPending = true;
   system.runTimeout(() => {
     try {
@@ -491,12 +541,13 @@ world.afterEvents.playerBreakBlock.subscribe(event => {
         const block = world.getDimension("overworld").getBlock(CORE);
         if (block && block.typeId === "minecraft:air") placeCore(block);
       }
-    } catch {}
+    } catch (e) { logError("core break", e); }
     coreBreakPending = false;
   }, 1);
 });
 world.afterEvents.playerSpawn.subscribe(event => {
   system.runTimeout(() => {
+    log("INFO", "Player spawned: " + event.player.name + " (void_cleaned tag=" + event.player.hasTag("void_cleaned") + ").");
     initializePlayer(event.player);
     if (event.player.hasTag("void_cleaned")) ensureCore();
   }, 10);
@@ -509,4 +560,8 @@ system.run(() => {
   objective(MINED);
   objective(TOTAL);
 });
-system.runInterval(() => ensureCore(), 40);
+system.runInterval(() => {
+  try { ensureCore(); } catch (e) { logError("ensureCore interval", e); }
+  log("INFO", statusReport(), "status");
+}, 40);
+system.run(() => log("INFO", "Script started and handlers registered. Debug chat: /tag @s add obm_debug. Status: /scriptevent allenscreations:obm_status"));
