@@ -469,7 +469,7 @@ function onCoreBreak(player) {
   tell(player, "Core mined: +" + milestone.reward + " Coins.");
   showBalance(player);
 }
-world.afterEvents.scriptEventReceive.subscribe(event => {
+system.afterEvents.scriptEventReceive.subscribe(event => {
   if (event.id !== READY_EVENT) return;
   system.run(() => ensureCore());
 });

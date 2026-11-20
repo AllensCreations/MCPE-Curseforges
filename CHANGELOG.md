@@ -27,6 +27,12 @@
 
 ---
 
+## [v152] - 2026-11-20 - Startup Fix
+
+### Fixed
+- Fixed the map script stopping during startup. Because of this, the Natural Market Ledger, core regeneration, Coin rewards and the automatic core restore from v3 did not run.
+- The central block now regenerates after being broken, and is restored if something else removes it.
+
 ## [v151] - 2026-11-20 - Core Reliability Update
 
 ### Fixed
