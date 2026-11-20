@@ -70,7 +70,7 @@ Hold the Auto-Sort Feather in your hand. Right-click to sort your backpack, snea
 
 - Minecraft Bedrock Edition: 1.26.60 (current stable release when this pack was made, not tested on older versions)
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly. The pack needs no cheats and adds no commands.
+- Achievements: Likely achievement-friendly.
 - Verification: source created, package built, not tested in game
 
 ## Creator and Permissions

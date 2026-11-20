@@ -1,9 +1,19 @@
 # Changelog — ALN:OneClickSort
 
-## [v5] - 2026-11-20 - Item Group
+## [v6] - 2026-11-20 - Add-on Package
 
-### Added
+### Improved & Balanced
+- **Add-on Package**: The project is now built as a complete add-on with both packs, so it imports as one add-on file.
+
+<details>
+<summary><b>5.0.x</b> (1 release)</summary>
+
+### [v5] - 2026-11-20 - Item Group
+
+#### Added
 - **Item Group**: The Auto-Sort Feather, Restock Feather and Sort Settings Book are now grouped together as OneClickSort in the Creative inventory under Items.
+
+</details>
 
 <details>
 <summary><b>4.0.x</b> (1 release)</summary>

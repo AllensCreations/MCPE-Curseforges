@@ -2,7 +2,7 @@
 
 Generated file. Do not edit by hand: it is rebuilt with every build.
 
-34 Add-ons · 6 Maps · 11 Scripts · 6 Minigames
+35 Add-ons · 6 Maps · 10 Scripts · 6 Minigames
 
 ## AI Review Kits
 
@@ -26,6 +26,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | **ALN Quiver** | - | [Source](Addons/ALN-Quiver) | [Package](../Package/ALN-Quiver.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/ALN-Quiver/ai-review/ALN-Quiver.txt) |
 | **ALN Wireless Headphones** | - | [Source](Addons/ALN-Wireless-Headphones) | [Package](../Package/ALN-Wireless-Headphones.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/ALN-Wireless-Headphones/ai-review/ALN-Wireless-Headphones.txt) |
 | **ALN-GlobalMarket** | 1.0.0 | [Source](Addons/ALN-GlobalMarket) | [Package](../Package/ALN-GlobalMarket.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/ALN-GlobalMarket/ai-review/ALN-GlobalMarket.txt) |
+| **ALN:OneClickSort** | 2.0.0 | [Source](Addons/ALNOneClickSort) | [Package](../Package/ALNOneClickSort.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/ALNOneClickSort/ai-review/ALNOneClickSort.txt) |
 | **Cheat Stick** | 2.0.0 | [Source](Addons/Cheat-Stick) | [Package](../Package/Cheat-Stick.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/Cheat-Stick/ai-review/Cheat-Stick.txt) |
 | **Combat Helper** | - | [Source](Addons/ALN-Pointer) | [Package](../Package/ALN-Pointer.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/ALN-Pointer/ai-review/ALN-Pointer.txt) |
 | **Copper-Carrier Logistics** | 1.0.0 | [Source](Addons/Copper-Carrier-Logistics) | [Package](../Package/Copper-Carrier-Logistics.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/Copper-Carrier-Logistics/ai-review/Copper-Carrier-Logistics.txt) |
@@ -71,7 +72,6 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | Pack | Version | Source | Package | AI review |
 | :-- | :-- | :-- | :-- | :-- |
 | **ALN:MobStacker** | 1.0.4 | [Source](Script/ALN-MobStacker) | [Package](../Package/ALN-MobStacker.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Script/ALN-MobStacker/ai-review/ALN-MobStacker.txt) |
-| **ALN:OneClickSort** | 2.0.0 | [Source](Script/ALNOneClickSort) | [Package](../Package/ALNOneClickSort.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Script/ALNOneClickSort/ai-review/ALNOneClickSort.txt) |
 | **ALN:SpawnControl** | - | [Source](Script/ALNSpawnControl) | [Package](../Package/ALNSpawnControl.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Script/ALNSpawnControl/ai-review/ALNSpawnControl.txt) |
 | **Always Critical** | - | [Source](Script/Always-Critical) | [Package](../Package/Always-Critical.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Script/Always-Critical/ai-review/Always-Critical.txt) |
 | **Chrono-Bed** | - | [Source](Script/Chrono-Bed) | [Package](../Package/Chrono-Bed.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Script/Chrono-Bed/ai-review/Chrono-Bed.txt) |
