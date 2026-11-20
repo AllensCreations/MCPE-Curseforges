@@ -1,16 +1,26 @@
 # Changelog — ALN:OneClickSort
 
-## [v3] - 2026-11-20 - Custom Items
+## [v4] - 2026-11-20 - Crafting Recipes
 
 ### Added
+- **Crafting Recipes**: Craft the Auto-Sort Feather from an Emerald, Feather and Hopper, the Restock Feather from a Gold Ingot, Feather and Chest, and the Sort Settings Book from a Book, Lapis Lazuli and Redstone Dust. All recipes are unlocked from the start.
+
+<details>
+<summary><b>3.0.x</b> (1 release)</summary>
+
+### [v3] - 2026-11-20 - Custom Items
+
+#### Added
 - **Custom Items**: The Auto-Sort Feather, Restock Feather and Sort Settings Book are now real items found in the Creative inventory under Items, so no Anvil renaming is needed.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **Sort Settings**: Right-click the Sort Settings Book to open the menu.
 
-### Fixed
+#### Fixed
 - **Sorting**: Sorting a chest or backpack no longer fails when matching stacks merge completely into another stack.
 - **Sort Settings**: The settings menu opens again.
+
+</details>
 
 <details>
 <summary><b>2.0.x</b> (1 release)</summary>
