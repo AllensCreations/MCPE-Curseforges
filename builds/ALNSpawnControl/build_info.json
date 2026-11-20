@@ -1,8 +1,8 @@
 {
-  "changelog_version": "3.0.1",
+  "changelog_version": "3.0.2",
   "manifest_version": "3.0.1",
   "packages": {
-    "ALNSpawnControl V3.0.1.mcpack": "547db789ac6c68178308d7c9345d172429948da1334e8ce2fd1877cb02bbbbc0"
+    "ALNSpawnControl V3.0.1.mcpack": "354dd9614fe4a2e506f931dd745dec05f59ddc70f26fa2d36844372e081723fd"
   },
-  "source_sha256": "91b3b188b4fcb00671ed6a4249e5ef6520d02b60845548738b9f392b2cf0332a"
+  "source_sha256": "52fec16951350d8ec925773ba27952de6e9d94838e6a42aed0741aa53bd6281f"
 }
