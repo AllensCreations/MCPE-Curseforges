@@ -43,7 +43,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **ALN MoreDiscs** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-MoreDiscs/ALNMoreDiscs%20V3.mcaddon) | [`ALN-MoreDiscs/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-MoreDiscs/) |
 | **ALN Pointer** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-Pointer/ALNPointer%20V19.mcaddon) | [`ALN-Pointer/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-Pointer/) |
 | **ALN-GlobalMarket** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-GlobalMarket/ALNGlobalMarket%20V1.mcaddon) | [`ALN-GlobalMarket/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-GlobalMarket/) |
-| **ALN ChestLog** | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-ChestLog/ALNChestLog%20V1.mcaddon) | [`ALN-ChestLog/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-ChestLog/) |
+| **ALN ChestLog** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-ChestLog/ALNChestLog%20V1.mcaddon) | [`ALN-ChestLog/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-ChestLog/) |
 
 ### Worlds and Maps
 

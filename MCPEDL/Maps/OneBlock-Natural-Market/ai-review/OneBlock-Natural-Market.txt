@@ -10,57 +10,13 @@
 
 ---
 
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
 # Repo Export
 
 ## Index
 
 - **Export request:** `MCPEDL/Maps/OneBlock-Natural-Market`
 - **Destination:** `MCPEDL/Maps/OneBlock-Natural-Market`
-- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md`)
+- **CURRENT VERSION: v5 / NEXT UPDATE: v6**  (`MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md`)
 - **Text files:** 17
 - **Skipped binary:** 8
 - **Paths not found:** 0
@@ -104,7 +60,7 @@ Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
 Context7 Support: Enabled. For full instructions, schemas, and helper script syntax, query Context7 (`INSTRUCTIONS.md`, `PACK_GENERATOR_INSTRUCTIONS.md`, `DOCS_RULES.md`, `make_update_script.py`, `doc_template.py`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v5 / NEXT UPDATE: v6).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -162,22 +118,54 @@ Output ONLY these three sections in order:
 
 ## File Contents
 
-## FILE: changelog_views/OneBlock-Natural-Market.curseforge.html (2 lines, 87 bytes)
+## FILE: changelog_views/OneBlock-Natural-Market.curseforge.html (5 lines, 473 bytes)
 
 ```
-<h2>v2 - 2026-11-11</h2><h3>Improved</h3><ul></ul><h3>Compatibility note</h3><ul></ul>
+<h2>v5 - 2026-11-20 - Diagnostic Log</h2><h3>Added</h3><ul></ul>
+<h2>4.0.x (1 release)</h2><div class="spoiler"><h3>v4 - 2026-11-20 - Startup Fix</h3><h4>Fixed</h4><ul></ul></div>
+<h2>3.0.x (1 release)</h2><div class="spoiler"><h3>v3 - 2026-11-20 - Core Reliability Update</h3><h4>Fixed</h4><ul></ul><h4>Improved</h4><ul></ul></div>
+<h2>2.0.x (1 release)</h2><div class="spoiler"><h3>v2 - 2026-11-11</h3><h4>Improved</h4><ul></ul><h4>Compatibility note</h4><ul></ul></div>
 ```
 
-## FILE: changelog_views/OneBlock-Natural-Market.github.md (8 lines, 100 bytes)
+## FILE: changelog_views/OneBlock-Natural-Market.github.md (37 lines, 479 bytes)
 
 ```
 # Changelog — OneBlock Natural Market
 
-## [v2] - 2026-11-11
+## [v5] - 2026-11-20 - Diagnostic Log
 
-### Improved
+### Added
 
-### Compatibility note
+<details>
+<summary><b>4.0.x</b> (1 release)</summary>
+
+### [v4] - 2026-11-20 - Startup Fix
+
+#### Fixed
+
+</details>
+
+<details>
+<summary><b>3.0.x</b> (1 release)</summary>
+
+### [v3] - 2026-11-20 - Core Reliability Update
+
+#### Fixed
+
+#### Improved
+
+</details>
+
+<details>
+<summary><b>2.0.x</b> (1 release)</summary>
+
+### [v2] - 2026-11-11
+
+#### Improved
+
+#### Compatibility note
+
+</details>
 ```
 
 ## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/functions/oneblock_setup.mcfunction (2 lines, 56 bytes)
@@ -255,11 +243,11 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v2)",
+    "name": "OneBlock Natural Market (v5)",
     "description": "OneBlock survival with a progression market and regenerating core. by ALNStudios",
     "uuid": "77f07d1a-fa7a-437d-8fea-72068be05162",
     "version": [
-      2,
+      5,
       0,
       0
     ],
@@ -274,7 +262,7 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
       "type": "data",
       "uuid": "6382a3dd-3398-4ec5-851b-748d052c0e36",
       "version": [
-        2,
+        5,
         0,
         0
       ]
@@ -284,7 +272,7 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
       "language": "javascript",
       "uuid": "645e0490-52c0-4f43-b412-0f20375a92fc",
       "version": [
-        2,
+        5,
         0,
         0
       ],
@@ -295,7 +283,7 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
     {
       "uuid": "187333a6-4353-4003-b379-471f85ce9021",
       "version": [
-        2,
+        5,
         0,
         0
       ]
@@ -314,12 +302,12 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "5.0.0"
   }
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (486 lines, 28633 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (568 lines, 32536 bytes)
 
 ```
 import { world, system, ItemStack, ItemTypes } from "@minecraft/server";
@@ -334,6 +322,12 @@ const TOTAL = "obm_total";
 const GLOBAL_KEY = "OneBlockNaturalMarket";
 const POOL_KEY = "obm_purchased_blocks";
 const READY_EVENT = "allenscreations:oneblock_ready";
+const UNSAFE_CORE = new Set([
+  "minecraft:water", "minecraft:flowing_water", "minecraft:lava", "minecraft:flowing_lava",
+  "minecraft:oak_door", "minecraft:torch", "minecraft:redstone_torch", "minecraft:soul_torch",
+  "minecraft:lever", "minecraft:ladder", "minecraft:oak_sapling", "minecraft:sugar_cane",
+  "minecraft:bamboo", "minecraft:repeater", "minecraft:comparator"
+]);
 const CATEGORIES = [
   { name: "Building Blocks", icon: "textures/blocks/stone" },
   { name: "Tools & Gear", icon: "textures/items/iron_pickaxe" },
@@ -550,6 +544,37 @@ const CATALOG = [
   name: raw.split("_").map(s => s[0].toUpperCase() + s.slice(1)).join(" ")
 }));
 
+const DEBUG_TAG = "obm_debug";
+const STATUS_EVENT = "allenscreations:obm_status";
+const logLast = new Map();
+function log(level, message, key) {
+  if (key !== undefined) {
+    if (logLast.get(key) === message) return;
+    logLast.set(key, message);
+  }
+  const line = "[OBM][" + level + "] " + message;
+  console.warn(line);
+  try {
+    for (const p of world.getAllPlayers()) if (p.hasTag(DEBUG_TAG)) p.sendMessage("§8" + line);
+  } catch {}
+}
+function logError(context, error) {
+  const stack = error && error.stack ? " | " + String(error.stack).split("\n")[0] : "";
+  log("ERROR", context + ": " + error + stack, "err:" + context);
+}
+function statusReport() {
+  try {
+    const players = world.getAllPlayers();
+    let core = "unknown", bedrock = "unknown";
+    try {
+      const dimension = world.getDimension("overworld");
+      core = dimension.getBlock(CORE)?.typeId ?? "unloaded";
+      bedrock = dimension.getBlock(BEDROCK)?.typeId ?? "unloaded";
+    } catch (e) { core = "error: " + e; }
+    return "players=" + players.length + " void_cleaned=" + players.filter(p => p.hasTag("void_cleaned")).length +
+      " core=" + core + " bedrock=" + bedrock + " pool=" + currentPool().length + " shared_breaks=" + totalBreaks();
+  } catch (e) { return "status failed: " + e; }
+}
 const objectiveCache = new Map();
 function objective(name) {
   let obj = objectiveCache.get(name);
@@ -621,34 +646,55 @@ function showForm(form, player, retries = 0) {
 }
 function currentPool() {
   const pool = new Set(MILESTONES.filter(m => totalBreaks() >= m.unlock).map(m => m.id));
-  try {
-    const stored = world.getDynamicProperty(POOL_KEY);
-    if (typeof stored === "string") {
-      for (const id of JSON.parse(stored)) if (typeof id === "string" && !["minecraft:water", "minecraft:flowing_water", "minecraft:lava", "minecraft:flowing_lava"].includes(id)) pool.add(id);
-    }
-  } catch {}
+  for (const id of storedPool()) pool.add(id);
   return [...pool];
 }
+function storedPool() {
+  try {
+    const raw = world.getDynamicProperty(POOL_KEY);
+    if (typeof raw !== "string") return [];
+    const list = JSON.parse(raw);
+    if (!Array.isArray(list)) return [];
+    return list
+      .filter(id => typeof id === "string")
+      .map(id => id.includes(":") ? id : "minecraft:" + id)
+      .filter(id => !UNSAFE_CORE.has(id));
+  } catch { return []; }
+}
 function addBlockToPool(item) {
-  if (!item.block || ["minecraft:water", "minecraft:flowing_water", "minecraft:lava", "minecraft:flowing_lava"].includes(item.id)) return;
-  const stored = currentPool();
-  if (!stored.includes(item.id)) stored.push(item.id);
-  try { world.setDynamicProperty(POOL_KEY, JSON.stringify(stored)); } catch {}
+  if (!item.block || UNSAFE_CORE.has(item.id)) return;
+  const stored = storedPool();
+  if (stored.includes(item.id)) return;
+  stored.push(item.id);
+  try { world.setDynamicProperty(POOL_KEY, JSON.stringify(stored.map(id => id.replace("minecraft:", "")))); } catch {}
 }
 function coreBlock() {
   const pool = currentPool();
   return pool[Math.floor(Math.random() * pool.length)] ?? "minecraft:dirt";
 }
+function placeCore(block) {
+  for (let i = 0; i < 5; i++) {
+    try { const id = coreBlock(); block.setType(id); log("INFO", "Core placed: " + id); return; } catch (e) { logError("placeCore", e); }
+  }
+  try { block.setType("minecraft:dirt"); log("WARN", "Core placed with the Dirt fallback."); } catch (e) { logError("placeCore fallback", e); }
+}
 function ensureCore() {
   const players = world.getAllPlayers();
-  if (!players.some(p => p.hasTag("void_cleaned"))) return;
+  if (!players.some(p => p.hasTag("void_cleaned"))) {
+    log("WARN", "Core check skipped: no online player has the void_cleaned tag yet (the void_cleaner / tick function may not be running).", "core_wait");
+    return;
+  }
   try {
     const dimension = world.getDimension("overworld");
     const bedrock = dimension.getBlock(BEDROCK);
     if (bedrock && bedrock.typeId === "minecraft:air") bedrock.setType("minecraft:bedrock");
     const core = dimension.getBlock(CORE);
-    if (core && (core.typeId === "minecraft:air" || core.typeId === "minecraft:grass_block")) core.setType(coreBlock());
-  } catch {}
+    if (!core) log("WARN", "Core location 0 0 0 is not loaded.", "core_unloaded");
+    if (core && (core.typeId === "minecraft:air" || core.typeId === "minecraft:grass_block")) {
+      log("INFO", "Core was " + core.typeId + "; placing a new core.");
+      placeCore(core);
+    }
+  } catch (e) { logError("ensureCore", e); }
 }
 function marketMain(player) {
   const form = new ActionFormData()
@@ -674,10 +720,10 @@ function marketMain(player) {
     if (r.selection === CATEGORIES.length + 1) {
       const next = MILESTONES.find(m => m.unlock > personalBreaks(player));
       tell(player, "Balance: " + balance(player) + " Coins. Personal breaks: " + personalBreaks(player) +
-        ". Shared breaks: " + totalBreaks() + ". " + (next ? "Next core milestone: " + next.unlock + " shared breaks." : "All core milestones reached."));
+        ". Shared breaks: " + totalBreaks() + ". " + (next ? "Next market tier unlocks at " + next.unlock + " personal breaks." : "All core milestones reached."));
       showBalance(player);
     }
-  }).catch(() => tell(player, "The market menu could not open. Try using the Ledger again."));
+  }).catch(e => { logError("marketMain", e); tell(player, "The market menu could not open. Try using the Ledger again."); });
 }
 function showCategory(player, category, page = 0) {
   const tier = unlockedTier(player);
@@ -702,7 +748,7 @@ function showCategory(player, category, page = 0) {
     const nextIndex = visible.length;
     if (safePage + 1 < pageCount && r.selection === nextIndex) return showCategory(player, category, safePage + 1);
     return marketMain(player);
-  }).catch(() => tell(player, "This category could not open."));
+  }).catch(e => { logError("showCategory", e); tell(player, "This category could not open."); });
 }
 function purchase(player, item) {
   if (item.tier > unlockedTier(player)) return tell(player, "Mine more central blocks to unlock this supply.");
@@ -725,10 +771,7 @@ function purchase(player, item) {
   addBlockToPool(item);
   showBalance(player);
 }
-function sellEligible(player) {
-  const inv = inventoryOf(player);
-  if (!inv) return tell(player, "Your inventory is unavailable.");
-  const values = new Map(CATALOG.map(item => [item.id, Math.max(1, Math.floor(item.price / 2))]));
+function scanSellable(inv, values) {
   const slots = [];
   let payout = 0, count = 0;
   for (let i = 0; i < inv.size; i++) {
@@ -740,6 +783,13 @@ function sellEligible(player) {
     payout += unit * stack.amount;
     count += stack.amount;
   }
+  return { slots, payout, count };
+}
+function sellEligible(player) {
+  const inv = inventoryOf(player);
+  if (!inv) return tell(player, "Your inventory is unavailable.");
+  const values = new Map(CATALOG.map(item => [item.id, Math.max(1, Math.floor(item.price / 2))]));
+  const { payout, count } = scanSellable(inv, values);
   if (!count) return tell(player, "You have no eligible market items to sell.");
   const form = new MessageFormData().title("SELL ELIGIBLE ITEMS")
     .body("Sell " + count + " eligible item(s) for " + payout + " Coins? Items not listed in the market are kept.")
@@ -747,11 +797,13 @@ function sellEligible(player) {
     .button2("Cancel");
   showForm(form, player).then(r => {
     if (r.canceled || r.selection !== 0) return;
+    const again = scanSellable(inv, values);
+    if (again.payout !== payout || again.count !== count) return tell(player, "Your inventory changed. Open the sell option again.");
     if (!setBalance(player, balance(player) + payout)) return tell(player, "Balance update failed; your items were kept.");
-    for (const slot of slots) inv.setItem(slot, undefined);
+    for (const slot of again.slots) inv.setItem(slot, undefined);
     tell(player, "Sold " + count + " eligible item(s) for " + payout + " Coins.");
     showBalance(player);
-  }).catch(() => tell(player, "The sell confirmation could not open."));
+  }).catch(e => { logError("sellEligible", e); tell(player, "The sell confirmation could not open."); });
 }
 let coreBreakPending = false;
 function onCoreBreak(player) {
@@ -764,37 +816,50 @@ function onCoreBreak(player) {
   if (MILESTONES.some(m => m.unlock > 0 && m.unlock === total)) {
     world.sendMessage("§6[Natural Market] §rA new core milestone has been reached. More block types can now appear.");
   }
+  log("INFO", player.name + " mined the core: personal=" + personal + " shared=" + total + " reward=" + milestone.reward + ".");
   tell(player, "Core mined: +" + milestone.reward + " Coins.");
   showBalance(player);
 }
-world.afterEvents.scriptEventReceive.subscribe(event => {
+system.afterEvents.scriptEventReceive.subscribe(event => {
+  if (event.id === STATUS_EVENT) {
+    const msg = statusReport();
+    console.warn("[OBM][STATUS] " + msg);
+    try { event.sourceEntity?.sendMessage("§e[OBM] " + msg); } catch {}
+    return;
+  }
   if (event.id !== READY_EVENT) return;
+  log("INFO", "Ready event received from the tick function.");
   system.run(() => ensureCore());
 });
 world.afterEvents.itemUse.subscribe(event => {
   if (event.itemStack?.typeId !== LEDGER) return;
   const player = event.source;
-  if (player?.typeId === "minecraft:player") system.run(() => marketMain(player));
+  if (player?.typeId === "minecraft:player") {
+    log("INFO", "Ledger used by " + player.name + ".");
+    system.run(() => marketMain(player));
+  }
 });
 world.afterEvents.playerBreakBlock.subscribe(event => {
   const location = event.block.location;
   const player = event.player;
   if (!player || event.block.dimension.id !== "minecraft:overworld") return;
   if (location.x !== CORE.x || location.y !== CORE.y || location.z !== CORE.z || coreBreakPending) return;
+  log("INFO", "Core break detected by " + player.name + " (void_cleaned tag=" + player.hasTag("void_cleaned") + ").");
   coreBreakPending = true;
   system.runTimeout(() => {
     try {
       if (player.hasTag("void_cleaned")) {
         onCoreBreak(player);
         const block = world.getDimension("overworld").getBlock(CORE);
-        if (block && block.typeId === "minecraft:air") block.setType(coreBlock());
+        if (block && block.typeId === "minecraft:air") placeCore(block);
       }
-    } catch {}
+    } catch (e) { logError("core break", e); }
     coreBreakPending = false;
   }, 1);
 });
 world.afterEvents.playerSpawn.subscribe(event => {
   system.runTimeout(() => {
+    log("INFO", "Player spawned: " + event.player.name + " (void_cleaned tag=" + event.player.hasTag("void_cleaned") + ").");
     initializePlayer(event.player);
     if (event.player.hasTag("void_cleaned")) ensureCore();
   }, 10);
@@ -807,14 +872,42 @@ system.run(() => {
   objective(MINED);
   objective(TOTAL);
 });
+system.runInterval(() => {
+  try { ensureCore(); } catch (e) { logError("ensureCore interval", e); }
+  log("INFO", statusReport(), "status");
+}, 40);
+system.run(() => log("INFO", "Script started and handlers registered. Debug chat: /tag @s add obm_debug. Status: /scriptevent allenscreations:obm_status"));
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (16 lines, 925 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (39 lines, 2140 bytes)
 
 ```
 # Changelog — OneBlock Natural Market
 
 ---
+
+## [v5] - 2026-11-20 - Diagnostic Log
+
+### Added
+- Added a diagnostic log for map creators and testers. It records startup, core regeneration, Ledger use, core breaks, player spawns and errors in the content log.
+- Added an optional in-game debug mode that shows the same messages in chat, and a status command that reports the current core state.
+
+## [v4] - 2026-11-20 - Startup Fix
+
+### Fixed
+- Fixed the map script stopping during startup. Because of this, the Natural Market Ledger, core regeneration, Coin rewards and the automatic core restore from v3 did not run.
+- The central block now regenerates after being broken, and is restored if something else removes it.
+
+## [v3] - 2026-11-20 - Core Reliability Update
+
+### Fixed
+- The central block is now restored automatically if an explosion, piston or command removes it.
+- Selling items no longer risks deleting items that were moved while the confirmation was open.
+- Blocks that cannot stand on their own (torches, doors, saplings and similar) no longer enter the regeneration pool.
+- The next-tier message now correctly shows personal breaks.
+
+### Improved
+- Saved regeneration-pool data is more compact and no longer repeats unlocked milestone blocks.
 
 ## [v2] - 2026-11-11
 
@@ -829,7 +922,7 @@ system.run(() => {
 - No experimental gameplay toggle was added. Source structure is updated; Minecraft in-game rendering has not been verified.
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/DESCRIPTION.md (80 lines, 4650 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/DESCRIPTION.md (81 lines, 4826 bytes)
 
 ```
 # OneBlock Natural Market — A OneBlock economy and supply shop
@@ -849,6 +942,7 @@ Start on a small void platform with the central block at (0, 0, 0). Breaking it 
 
 ### Regenerating OneBlock
 - The central block returns after a successful break.
+- The central block is also restored automatically if something other than a player removes it.
 - The available natural block pool expands as shared mining milestones are reached.
 - The starting core is Dirt and is managed by the map script after one-time void setup.
 
@@ -867,7 +961,7 @@ Start on a small void platform with the central block at (0, 0, 0). Breaking it 
 ### Progression and Supply Pool
 - Personal mining milestones unlock additional market supplies.
 - Purchased eligible blocks can be added to the central block's regeneration pool.
-- Liquids are excluded from the purchased regeneration pool.
+- Liquids and blocks that cannot stand on their own (such as torches, doors and saplings) are excluded from the purchased regeneration pool.
 
 ## How to Use
 
@@ -950,11 +1044,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v2)",
+    "name": "OneBlock Natural Market (v5)",
     "description": "Trader Ledger icon for OneBlock Natural Market. by ALNStudios",
     "uuid": "187333a6-4353-4003-b379-471f85ce9021",
     "version": [
-      2,
+      5,
       0,
       0
     ],
@@ -969,7 +1063,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "bdbf7c5c-5c34-4d6d-93c9-16a468f66b52",
       "version": [
-        2,
+        5,
         0,
         0
       ]
@@ -980,7 +1074,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "5.0.0"
   }
 }
 ```
