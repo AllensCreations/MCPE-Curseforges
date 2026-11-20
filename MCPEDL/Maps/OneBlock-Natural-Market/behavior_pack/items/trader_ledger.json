@@ -21,7 +21,9 @@
       "minecraft:use_modifiers": {
         "use_duration": 0.1,
         "movement_modifier": 1
-      }
+      },
+      "minecraft:keep_on_death": {}
+
     }
   }
 }

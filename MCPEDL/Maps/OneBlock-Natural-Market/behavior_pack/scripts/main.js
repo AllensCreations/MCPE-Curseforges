@@ -214,18 +214,23 @@ const CATALOG = [
   ["prismarine_shard", 18, 4, "Mob Drops", 5, false, "textures/items/prismarine_shard"],
   ["prismarine_crystals", 20, 4, "Mob Drops", 5, false, "textures/items/prismarine_crystals"],
   ["rabbit_hide", 6, 8, "Mob Drops", 3, false, "textures/items/rabbit_hide"],
-  ["nautilus_shell", 45, 1, "Mob Drops", 6, false, "textures/items/nautilus"],
+  ["nautilus_shell", 45, 1, "Mob Drops", 6, false, "textures/items/nautilus_shell"],
+
   ["basalt", 10, 16, "Nether", 5, true, "textures/blocks/basalt_side"],
   ["blackstone", 10, 16, "Nether", 5, true, "textures/blocks/blackstone"],
   ["polished_blackstone", 12, 16, "Nether", 6, true, "textures/blocks/polished_blackstone"],
-  ["crimson_stem", 8, 8, "Nether", 5, true, "textures/blocks/huge_fungus/crimson_stem"],
-  ["warped_stem", 8, 8, "Nether", 5, true, "textures/blocks/huge_fungus/warped_stem"],
+  ["crimson_stem", 8, 8, "Nether", 5, true, "textures/blocks/crimson_stem_top"],
+  ["warped_stem", 8, 8, "Nether", 5, true, "textures/blocks/warped_stem_top"],
+
   ["glowstone_dust", 15, 8, "Nether", 5, false, "textures/items/glowstone_dust"],
-  ["soul_torch", 5, 8, "Nether", 5, true, "textures/blocks/soul_torch"],
-  ["ender_chest", 120, 1, "Endgame", 6, true, "textures/blocks/ender_chest_front"],
+  ["soul_torch", 5, 8, "Nether", 5, true, "textures/blocks/soul_torch_fire"],
+
+  ["ender_chest", 120, 1, "Endgame", 6, true, "textures/blocks/ender_chest"],
+
   ["end_crystal", 120, 1, "Endgame", 8, false, "textures/items/end_crystal"],
   ["dragon_breath", 90, 1, "Endgame", 8, false, "textures/items/dragon_breath"],
-  ["conduit", 350, 1, "Endgame", 8, true, "textures/blocks/conduit"],
+  ["conduit", 350, 1, "Endgame", 8, true, "textures/items/lodestone_compass_item"],
+
   ["heart_of_the_sea", 160, 1, "Endgame", 7, false, "textures/items/heartofthesea"]
 ].map(([raw, price, amount, category, tier, block, icon]) => ({
   id: "minecraft:" + raw, raw, price, amount, category, tier, block, icon,
@@ -286,7 +291,8 @@ function inventoryOf(player) { return player.getComponent("minecraft:inventory")
 function itemAvailable(item) {
   try { return !!ItemTypes.get(item.id); } catch { return false; }
 }
-function tell(player, message) { try { player.sendMessage("§6[Natural Market] §r" + message); } catch {} }
+function tell(player, message) { try { player.onScreenDisplay.setActionBar("§6[Market] §r" + message); } catch {} }
+
 function showBalance(player) {
   try { player.onScreenDisplay.setActionBar("§6Coins: §e" + balance(player) + " §8| §7Blocks: §f" + personalBreaks(player)); } catch {}
 }
@@ -384,6 +390,22 @@ function ensureCore() {
     }
   } catch (e) { logError("ensureCore", e); }
 }
+function showAbout(player) {
+  const form = new MessageFormData()
+    .title("ABOUT — NATURAL MARKET")
+    .body(
+      "§l§aOneBlock Natural Market§r\n" +
+      "§7by ALNStudios§r\n\n" +
+      "Start in the void on a single regenerating block.\n" +
+      "Break the core to earn §eCoins§r and grow your block pool.\n" +
+      "Use the §bNatural Market Ledger§r to buy supplies.\n\n" +
+      "§7The Ledger cannot be dropped — it always returns to you.§r\n\n" +
+      "§8Version: v13 | ALNStudios | CurseForge / MCPEDL§r"
+    )
+    .button1("Close")
+    .button2("Close");
+  showForm(form, player).catch(e => { logError("showAbout", e); });
+}
 function marketMain(player) {
   const form = new ActionFormData()
     .title("NATURAL MARKET")
@@ -400,19 +422,22 @@ function marketMain(player) {
     .button("Nether", CATEGORIES[8].icon)
     .button("Endgame", CATEGORIES[9].icon)
     .button("Sell Eligible Items", "textures/items/gold_ingot")
-    .button("Balance & Progress", "textures/items/emerald");
+    .button("Balance & Progress", "textures/items/emerald")
+    .button("ℹ About", "textures/ui/icon_recipe_nature");
   showForm(form, player).then(r => {
     if (r.canceled) return;
     if (r.selection < CATEGORIES.length) return showCategory(player, CATEGORIES[r.selection].name);
     if (r.selection === CATEGORIES.length) return sellEligible(player);
     if (r.selection === CATEGORIES.length + 1) {
       const next = MILESTONES.find(m => m.unlock > personalBreaks(player));
-      tell(player, "Balance: " + balance(player) + " Coins. Personal breaks: " + personalBreaks(player) +
-        ". Shared breaks: " + totalBreaks() + ". " + (next ? "Next market tier unlocks at " + next.unlock + " personal breaks." : "All core milestones reached."));
+      player.onScreenDisplay.setActionBar("§6Coins: §e" + balance(player) + " §8| §7Breaks: §f" + personalBreaks(player) +
+        (next ? " §8| §7Next tier: §f" + next.unlock : " §8| §aAll tiers unlocked"));
       showBalance(player);
     }
+    if (r.selection === CATEGORIES.length + 2) return showAbout(player);
   }).catch(e => { logError("marketMain", e); tell(player, "The market menu could not open. Try using the Ledger again."); });
 }
+
 function showCategory(player, category, page = 0) {
   const tier = unlockedTier(player);
   const items = CATALOG.filter(item => item.category === category && item.tier <= tier && itemAvailable(item));
@@ -569,6 +594,38 @@ world.afterEvents.itemUse.subscribe(event => {
     system.run(() => marketMain(player));
   }
 });
+world.afterEvents.itemThrow.subscribe(event => {
+  if (event.itemStack?.typeId !== LEDGER) return;
+  const player = event.source;
+  if (!player || player.typeId !== "minecraft:player") return;
+  system.runTimeout(() => {
+    try {
+      const dimension = player.dimension;
+      const nearbyEntities = dimension.getEntities({
+        location: player.location,
+        maxDistance: 20,
+        type: "minecraft:item"
+      });
+      for (const entity of nearbyEntities) {
+        try {
+          const itemComp = entity.getComponent("minecraft:item");
+          if (itemComp?.itemStack?.typeId === LEDGER) {
+            entity.kill();
+            break;
+          }
+        } catch {}
+      }
+      if (!hasLedger(player)) {
+        const inv = inventoryOf(player);
+        if (inv) {
+          inv.addItem(new ItemStack(LEDGER, 1));
+          tell(player, "The Ledger returned to your inventory.");
+        }
+      }
+    } catch (e) { logError("itemThrow ledger return", e); }
+  }, 5);
+});
+
 world.afterEvents.playerBreakBlock.subscribe(event => {
   const location = event.block.location;
   const player = event.player;

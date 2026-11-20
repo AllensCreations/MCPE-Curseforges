@@ -2,6 +2,13 @@
 
 ---
 
+## [13.0.0] - 2026-11-21 - Ledger Keep, Icon Fixes, Action Bar, About Button
+
+- **Ledger keep**: the Natural Market Ledger now has `keep_on_death` and returns to your inventory automatically when thrown.
+- **Icon fixes**: corrected texture paths for Nautilus Shell, Crimson Stem, Warped Stem, Soul Torch, Ender Chest, and Conduit so their market slots show the correct icons.
+- **Action bar feedback**: all market messages (purchases, balance, errors) now display on the action bar instead of in chat.
+- **About button**: a new ℹ About button at the bottom of the main market menu shows pack info.
+
 ## [v12] - 2026-11-20 - Tutorial Platform Update
 
 ### Added

@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v12)",
+    "name": "OneBlock Natural Market (v13)",
     "description": "OneBlock survival with a progression market and regenerating core. by ALNStudios",
     "uuid": "77f07d1a-fa7a-437d-8fea-72068be05162",
     "version": [
-      12,
+      13,
       0,
       0
     ],
@@ -20,7 +20,7 @@
       "type": "data",
       "uuid": "6382a3dd-3398-4ec5-851b-748d052c0e36",
       "version": [
-        12,
+        13,
         0,
         0
       ]
@@ -30,7 +30,7 @@
       "language": "javascript",
       "uuid": "645e0490-52c0-4f43-b412-0f20375a92fc",
       "version": [
-        12,
+        13,
         0,
         0
       ],
@@ -41,7 +41,7 @@
     {
       "uuid": "187333a6-4353-4003-b379-471f85ce9021",
       "version": [
-        12,
+        13,
         0,
         0
       ]
@@ -60,6 +60,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "12.0.0"
+    "version": "13.0.0"
   }
 }
