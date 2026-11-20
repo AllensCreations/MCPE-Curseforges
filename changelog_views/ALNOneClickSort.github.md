@@ -1,9 +1,19 @@
 # Changelog — ALN:OneClickSort
 
-## [v4] - 2026-11-20 - Crafting Recipes
+## [v5] - 2026-11-20 - Item Group
 
 ### Added
+- **Item Group**: The Auto-Sort Feather, Restock Feather and Sort Settings Book are now grouped together as OneClickSort in the Creative inventory under Items.
+
+<details>
+<summary><b>4.0.x</b> (1 release)</summary>
+
+### [v4] - 2026-11-20 - Crafting Recipes
+
+#### Added
 - **Crafting Recipes**: Craft the Auto-Sort Feather from an Emerald, Feather and Hopper, the Restock Feather from a Gold Ingot, Feather and Chest, and the Sort Settings Book from a Book, Lapis Lazuli and Redstone Dust. All recipes are unlocked from the start.
+
+</details>
 
 <details>
 <summary><b>3.0.x</b> (1 release)</summary>
