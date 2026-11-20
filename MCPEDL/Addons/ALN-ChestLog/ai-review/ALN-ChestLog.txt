@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Addons/ALN-ChestLog`
 - **Destination:** `MCPEDL/Addons/ALN-ChestLog`
-- **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALN-ChestLog/CHANGELOG.md`)
+- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/ALN-ChestLog/CHANGELOG.md`)
 - **Text files:** 16
 - **Skipped binary:** 3
 - **Paths not found:** 0
@@ -42,7 +42,7 @@ Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
 Context7 Support: Enabled. For full instructions, schemas, and helper script syntax, query Context7 (`INSTRUCTIONS.md`, `PACK_GENERATOR_INSTRUCTIONS.md`, `DOCS_RULES.md`, `make_update_script.py`, `doc_template.py`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v1 / NEXT UPDATE: v2).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -100,24 +100,50 @@ Output ONLY these three sections in order:
 
 ## File Contents
 
-## FILE: changelog_views/ALN-ChestLog.curseforge.html (2 lines, 532 bytes)
+## FILE: changelog_views/ALN-ChestLog.curseforge.html (3 lines, 2234 bytes)
 
 ```
-<h2>1.0.0 - 2026-11-20 - First Release</h2><h3>Added</h3><ul><li><strong>ChestLog item</strong>: Craft it from a Book, an Ender Pearl and Redstone.</li><li><strong>Chest registration</strong>: Sneak and use the item on a chest, trapped chest or barrel to name and register it.</li><li><strong>Remote menu</strong>: Deposit everything with one button or choose exact amounts per item for a single chest.</li><li><strong>Unloaded chunk buffer</strong>: Items for unloaded chests are held and delivered when the chunk loads.</li></ul>
+<h2>2.0.0 - 2026-11-20 - Wireless Storage Upgrade</h2><h3>Added</h3><ul><li><strong>Unregister option</strong>: Sneak and use the ChestLog on a registered chest and switch on Unregister to remove it. Waiting items are delivered or dropped.</li><li><strong>Category sorting</strong>: Chests now sort tools, armor, food, then everything else, alphabetically within each group.</li><li><strong>Durability kept</strong>: Items sent to an unloaded chest keep their durability as well as names, lore and enchantments.</li></ul><h3>Improved &amp; Balanced</h3><ul><li><strong>Shared buffer</strong>: Waiting items are stored per chest for the whole world and delivered as soon as the chunk loads, even while the owner is offline.</li><li><strong>Busy screen retry</strong>: The menu waits and reopens if another screen was open when you used the item.</li><li><strong>Clearer messages</strong>: Deposit All now says when nothing matched or when a chest could not buffer items.</li><li><strong>Minimum version</strong>: Requires Minecraft Bedrock 1.26.60 or newer.</li></ul><h3>Fixed</h3><ul><li><strong>Broken chests</strong>: A registered chest that is broken is unregistered and its waiting items drop where it stood.</li><li><strong>Double chests</strong>: Breaking one half of a registered double chest keeps the other half registered.</li><li><strong>Menu overlap</strong>: The menu no longer opens on top of a chest screen.</li><li><strong>Failed saves</strong>: If a save fails, items stay in your inventory instead of being lost.</li><li><strong>Shared chests</strong>: Only the player who registered a chest can rename or unregister it.</li></ul>
+<h2>1.0.x (1 release)</h2><div class="spoiler"><h3>1.0.0 - 2026-11-20 - First Release</h3><h4>Added</h4><ul><li><strong>ChestLog item</strong>: Craft it from a Book, an Ender Pearl and Redstone.</li><li><strong>Chest registration</strong>: Sneak and use the item on a chest, trapped chest or barrel to name and register it.</li><li><strong>Remote menu</strong>: Deposit everything with one button or choose exact amounts per item for a single chest.</li><li><strong>Unloaded chunk buffer</strong>: Items for unloaded chests are held and delivered when the chunk loads.</li></ul></div>
 ```
 
-## FILE: changelog_views/ALN-ChestLog.github.md (10 lines, 470 bytes)
+## FILE: changelog_views/ALN-ChestLog.github.md (35 lines, 1917 bytes)
 
 ```
 # Changelog — ALN ChestLog
 
-## [1.0.0] - 2026-11-20 - First Release
+## [2.0.0] - 2026-11-20 - Wireless Storage Upgrade
 
 ### Added
+- **Unregister option**: Sneak and use the ChestLog on a registered chest and switch on Unregister to remove it. Waiting items are delivered or dropped.
+- **Category sorting**: Chests now sort tools, armor, food, then everything else, alphabetically within each group.
+- **Durability kept**: Items sent to an unloaded chest keep their durability as well as names, lore and enchantments.
+
+### Improved & Balanced
+- **Shared buffer**: Waiting items are stored per chest for the whole world and delivered as soon as the chunk loads, even while the owner is offline.
+- **Busy screen retry**: The menu waits and reopens if another screen was open when you used the item.
+- **Clearer messages**: Deposit All now says when nothing matched or when a chest could not buffer items.
+- **Minimum version**: Requires Minecraft Bedrock 1.26.60 or newer.
+
+### Fixed
+- **Broken chests**: A registered chest that is broken is unregistered and its waiting items drop where it stood.
+- **Double chests**: Breaking one half of a registered double chest keeps the other half registered.
+- **Menu overlap**: The menu no longer opens on top of a chest screen.
+- **Failed saves**: If a save fails, items stay in your inventory instead of being lost.
+- **Shared chests**: Only the player who registered a chest can rename or unregister it.
+
+<details>
+<summary><b>1.0.x</b> (1 release)</summary>
+
+### [1.0.0] - 2026-11-20 - First Release
+
+#### Added
 - **ChestLog item**: Craft it from a Book, an Ender Pearl and Redstone.
 - **Chest registration**: Sneak and use the item on a chest, trapped chest or barrel to name and register it.
 - **Remote menu**: Deposit everything with one button or choose exact amounts per item for a single chest.
 - **Unloaded chunk buffer**: Items for unloaded chests are held and delivered when the chunk loads.
+
+</details>
 ```
 
 ## FILE: MCPEDL/Addons/ALN-ChestLog/behavior_pack/items/chest_log.json (22 lines, 427 bytes)
@@ -153,18 +179,18 @@ Output ONLY these three sections in order:
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:ChestLog (v1)",
+    "name": "ALN:ChestLog (v2)",
     "description": "Wireless remote chest deposit with an unloaded-chunk buffer. by ALNStudios. Not tested in game.",
     "uuid": "508375a5-6723-4177-a6f3-14cadb14c44d",
     "version": [
-      1,
+      2,
       0,
       0
     ],
     "min_engine_version": [
       1,
       26,
-      50
+      60
     ]
   },
   "modules": [
@@ -172,7 +198,7 @@ Output ONLY these three sections in order:
       "type": "data",
       "uuid": "6d472727-d893-43be-826d-1234f7fc1ec3",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -182,7 +208,7 @@ Output ONLY these three sections in order:
       "language": "javascript",
       "uuid": "d3fc3875-f45e-4b37-8448-c512868ef912",
       "version": [
-        1,
+        2,
         0,
         0
       ],
@@ -201,14 +227,14 @@ Output ONLY these three sections in order:
     {
       "uuid": "a1e6b4d9-74db-40e9-bd2e-0531e0c02b3e",
       "version": [
-        1,
+        2,
         0,
         0
       ]
     }
   ],
   "metadata": {
-    "version": "1.0.0",
+    "version": "2.0.0",
     "authors": [
       "ALNStudios"
     ]
@@ -252,7 +278,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/chest_register.js (146 lines, 4449 bytes)
+## FILE: MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/chest_register.js (157 lines, 4742 bytes)
 
 ```
 import { world, system, BlockPermutation, BlockInventoryComponent } from "@minecraft/server";
@@ -260,11 +286,15 @@ import { ModalFormData } from "@minecraft/server-ui";
 import {
   ITEM_ID,
   CONTAINER_TYPES,
-  loadList,
-  saveList,
-  matchEntry,
+  findEntry,
+  saveEntry,
+  deleteEntry,
+  newId,
   refreshKnown,
   markSuppressed,
+  showForm,
+  flushEntry,
+  releasePending,
 } from "./chest_sync.js";
 
 const DEFAULT_NAME = "Storage Chest";
@@ -310,10 +340,20 @@ function labelChest(dimension, location, name, wasLabeled) {
   }
 }
 
+function tell(player, text) {
+  player.onScreenDisplay.setActionBar(text);
+}
+
 async function openRegisterForm(player, dimensionId, clicked) {
   const dimension = world.getDimension(dimensionId);
   const block = dimension.getBlock(clicked);
   if (!block) return;
+
+  const existing = findEntry(dimensionId, clicked);
+  if (existing && existing.owner !== player.id) {
+    tell(player, "§c[ChestLog] §fThis chest is registered by another player.");
+    return;
+  }
 
   let location = { x: clicked.x, y: clicked.y, z: clicked.z };
   let partner = findPartner(block);
@@ -323,51 +363,48 @@ async function openRegisterForm(player, dimensionId, clicked) {
     partner = swap;
   }
 
-  const existingList = loadList(player);
-  const existingIndex = matchEntry(existingList, dimensionId, clicked);
-  const defaultName = existingIndex >= 0 ? existingList[existingIndex].name : DEFAULT_NAME;
+  const form = new ModalFormData()
+    .title("§6§lRegister Chest")
+    .textField("Enter Chest Name", "e.g., Ores, Building Blocks, Mob Drops", {
+      defaultValue: existing ? existing.name : DEFAULT_NAME,
+    });
+  if (existing) form.toggle("Unregister this chest");
+  form.submitButton(existing ? "Save" : "Register");
+  const response = await showForm(form, player);
+  if (!response || response.canceled || !response.formValues) return;
 
-  let response;
-  try {
-    response = await new ModalFormData()
-      .title("§6§lRegister Chest")
-      .textField("Enter Chest Name", "e.g., Ores, Building Blocks, Mob Drops", {
-        defaultValue: defaultName,
-      })
-      .submitButton("Register")
-      .show(player);
-  } catch {
+  const current = findEntry(dimensionId, clicked);
+  if (current && current.owner !== player.id) return;
+
+  if (current && response.formValues[1] === true) {
+    flushEntry(current);
+    releasePending(current);
+    deleteEntry(current);
+    tell(player, `§e[ChestLog] §f${current.name} was unregistered.`);
     return;
   }
-  if (response.canceled || !response.formValues) return;
 
   const typed = String(response.formValues[0] ?? "");
   const name = typed.replace(/§./g, "").trim().slice(0, 32) || DEFAULT_NAME;
 
-  const list = loadList(player);
-  const index = matchEntry(list, dimensionId, clicked);
-  let entry;
-  if (index >= 0) {
-    entry = list[index];
-    entry.name = name;
-  } else {
-    entry = {
-      id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
-      name,
-      dimensionId,
-      location,
-      pendingQueue: [],
-      known: [],
-    };
-    if (partner) entry.partner = partner;
-    list.push(entry);
-  }
+  const entry = current ?? {
+    id: newId(),
+    owner: player.id,
+    created: Date.now(),
+    name,
+    dimensionId,
+    location,
+    pendingQueue: [],
+    known: [],
+  };
+  if (!current && partner) entry.partner = partner;
+  entry.name = name;
   refreshKnown(entry);
   const wasLabeled = !!entry.labeled;
   entry.labeled = labelChest(dimension, entry.location, name, wasLabeled) || wasLabeled;
 
-  if (!saveList(player, list)) {
-    player.onScreenDisplay.setActionBar("§c[ChestLog] §fCould not save the chest list.");
+  if (!saveEntry(entry)) {
+    tell(player, "§c[ChestLog] §fCould not save the chest.");
     return;
   }
 
@@ -381,7 +418,7 @@ async function openRegisterForm(player, dimensionId, clicked) {
       z: entry.location.z + 0.5,
     });
   } catch {}
-  player.onScreenDisplay.setActionBar(`§a[ChestLog] §e${name} - Registered`);
+  tell(player, `§a[ChestLog] §e${name} - Registered`);
 }
 
 export function initRegister() {
@@ -402,7 +439,7 @@ export function initRegister() {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/chest_sync.js (434 lines, 12963 bytes)
+## FILE: MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/chest_sync.js (593 lines, 17664 bytes)
 
 ```
 import {
@@ -413,19 +450,128 @@ import {
   BlockInventoryComponent,
   EntityInventoryComponent,
 } from "@minecraft/server";
+import { FormCancelationReason } from "@minecraft/server-ui";
 
 export const ITEM_ID = "aln:chest_log";
-export const LIST_KEY = "aln_chestlog_list";
 export const CONTAINER_TYPES = new Set([
   "minecraft:chest",
   "minecraft:trapped_chest",
   "minecraft:barrel",
 ]);
 
+const PREFIX = "aln_chestlog:chest:";
+const LEGACY_KEY = "aln_chestlog_list";
 const MAX_KNOWN = 150;
 const ALERT_COOLDOWN = 600;
+const TOOL_TAGS = new Set([
+  "minecraft:is_tool",
+  "minecraft:is_sword",
+  "minecraft:is_axe",
+  "minecraft:is_pickaxe",
+  "minecraft:is_shovel",
+  "minecraft:is_hoe",
+  "minecraft:is_trident",
+  "minecraft:is_shears",
+  "minecraft:digger",
+]);
+
+const chests = new Map();
 const alertTicks = new Map();
 const suppressed = new Map();
+
+function loadAll() {
+  chests.clear();
+  for (const key of world.getDynamicPropertyIds()) {
+    if (!key.startsWith(PREFIX)) continue;
+    const raw = world.getDynamicProperty(key);
+    if (typeof raw !== "string") continue;
+    try {
+      const entry = JSON.parse(raw);
+      if (entry && typeof entry.id === "string") chests.set(entry.id, entry);
+    } catch {}
+  }
+}
+
+export function saveEntry(entry) {
+  try {
+    world.setDynamicProperty(PREFIX + entry.id, JSON.stringify(entry));
+    chests.set(entry.id, entry);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export function deleteEntry(entry) {
+  try {
+    world.setDynamicProperty(PREFIX + entry.id, undefined);
+  } catch {}
+  chests.delete(entry.id);
+}
+
+export function getEntry(id) {
+  return chests.get(id);
+}
+
+export function newId() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+}
+
+export function chestsOf(player) {
+  return Array.from(chests.values())
+    .filter((entry) => entry.owner === player.id)
+    .sort((a, b) => (a.created ?? 0) - (b.created ?? 0));
+}
+
+function sameLocation(a, b) {
+  return !!a && !!b && a.x === b.x && a.y === b.y && a.z === b.z;
+}
+
+export function findEntry(dimensionId, location) {
+  for (const entry of chests.values()) {
+    if (
+      entry.dimensionId === dimensionId &&
+      (sameLocation(entry.location, location) || sameLocation(entry.partner, location))
+    ) {
+      return entry;
+    }
+  }
+  return undefined;
+}
+
+function migratePlayer(player) {
+  const raw = player.getDynamicProperty(LEGACY_KEY);
+  if (typeof raw !== "string") return;
+  try {
+    const legacy = JSON.parse(raw);
+    if (Array.isArray(legacy)) {
+      for (const entry of legacy) {
+        if (!entry || typeof entry.id !== "string" || chests.has(entry.id)) continue;
+        entry.owner = player.id;
+        entry.created = entry.created ?? Date.now();
+        saveEntry(entry);
+      }
+    }
+    player.setDynamicProperty(LEGACY_KEY, undefined);
+  } catch {}
+}
+
+export async function showForm(form, player) {
+  for (let attempt = 0; attempt < 6; attempt++) {
+    let response;
+    try {
+      response = await form.show(player);
+    } catch {
+      return undefined;
+    }
+    if (response.canceled && response.cancelationReason === FormCancelationReason.UserBusy) {
+      await new Promise((resolve) => system.runTimeout(resolve, 10));
+      continue;
+    }
+    return response;
+  }
+  return undefined;
+}
 
 export function markSuppressed(player) {
   suppressed.set(player.id, system.currentTick);
@@ -460,47 +606,31 @@ export function getInventory(player) {
   return component ? component.container : undefined;
 }
 
-export function loadList(player) {
-  const raw = player.getDynamicProperty(LIST_KEY);
-  if (typeof raw !== "string") return [];
-  try {
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [];
-  } catch {
-    return [];
-  }
+function notifyOwner(entry, text) {
+  const owner = world.getAllPlayers().find((player) => player.id === entry.owner);
+  if (owner) owner.onScreenDisplay.setActionBar(text);
 }
 
-export function saveList(player, list) {
-  try {
-    player.setDynamicProperty(LIST_KEY, JSON.stringify(list));
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-function sameLocation(a, b) {
-  return !!a && !!b && a.x === b.x && a.y === b.y && a.z === b.z;
-}
-
-export function matchEntry(list, dimensionId, location) {
-  return list.findIndex(
-    (entry) =>
-      entry.dimensionId === dimensionId &&
-      (sameLocation(entry.location, location) || sameLocation(entry.partner, location))
-  );
+function containerAt(dimension, location) {
+  const block = dimension.getBlock(location);
+  if (!block) return { state: "unloaded" };
+  if (!CONTAINER_TYPES.has(block.typeId)) return { state: "gone" };
+  const component = block.getComponent(BlockInventoryComponent.componentId);
+  if (!component || !component.container) return { state: "gone" };
+  return { state: "loaded", container: component.container, block };
 }
 
 function resolveContainer(entry) {
   try {
     const dimension = world.getDimension(entry.dimensionId);
-    const block = dimension.getBlock(entry.location);
-    if (!block) return { state: "unloaded" };
-    if (!CONTAINER_TYPES.has(block.typeId)) return { state: "gone" };
-    const component = block.getComponent(BlockInventoryComponent.componentId);
-    if (!component || !component.container) return { state: "gone" };
-    return { state: "loaded", container: component.container, block };
+    const primary = containerAt(dimension, entry.location);
+    if (primary.state !== "gone" || !entry.partner) return primary;
+    const secondary = containerAt(dimension, entry.partner);
+    if (secondary.state === "unloaded") return secondary;
+    if (secondary.state !== "loaded") return primary;
+    entry.location = entry.partner;
+    delete entry.partner;
+    return secondary;
   } catch {
     return { state: "unloaded" };
   }
@@ -511,6 +641,8 @@ function serializeItem(item) {
   if (item.nameTag) record.nameTag = item.nameTag;
   const lore = item.getLore();
   if (lore.length > 0) record.lore = lore;
+  const durability = item.getComponent("minecraft:durability");
+  if (durability && durability.damage > 0) record.damage = durability.damage;
   const enchantable = item.getComponent("minecraft:enchantable");
   if (enchantable) {
     const list = enchantable.getEnchantments();
@@ -525,6 +657,10 @@ function buildStack(record, amount) {
   const item = new ItemStack(record.typeId, amount);
   if (record.nameTag) item.nameTag = record.nameTag;
   if (record.lore && record.lore.length > 0) item.setLore(record.lore);
+  if (record.damage) {
+    const durability = item.getComponent("minecraft:durability");
+    if (durability) durability.damage = record.damage;
+  }
   if (record.enchantments && record.enchantments.length > 0) {
     const enchantable = item.getComponent("minecraft:enchantable");
     if (enchantable) {
@@ -543,6 +679,7 @@ function recordKey(record) {
     record.typeId,
     record.nameTag ?? "",
     record.lore ?? [],
+    record.damage ?? 0,
     record.enchantments ?? [],
   ]);
 }
@@ -588,6 +725,19 @@ function entryTypeSet(entry) {
   return new Set([...(entry.known ?? []), ...pendingTypes(entry)]);
 }
 
+function categoryOf(item) {
+  let tags;
+  try {
+    tags = item.getTags();
+  } catch {
+    return 3;
+  }
+  if (tags.some((tag) => TOOL_TAGS.has(tag))) return 0;
+  if (tags.includes("minecraft:is_armor")) return 1;
+  if (tags.includes("minecraft:is_food")) return 2;
+  return 3;
+}
+
 export function sortContainer(container) {
   try {
     const stacks = [];
@@ -612,10 +762,16 @@ export function sortContainer(container) {
         merged.push(copy);
       }
     }
-    merged.sort((a, b) => a.typeId.localeCompare(b.typeId) || b.amount - a.amount);
-    if (merged.length > container.size) return;
+    const ranked = merged.map((item) => ({ item, category: categoryOf(item) }));
+    ranked.sort(
+      (a, b) =>
+        a.category - b.category ||
+        a.item.typeId.localeCompare(b.item.typeId) ||
+        b.item.amount - a.item.amount
+    );
+    if (ranked.length > container.size) return;
     for (let i = 0; i < container.size; i++) {
-      container.setItem(i, i < merged.length ? merged[i] : undefined);
+      container.setItem(i, i < ranked.length ? ranked[i].item : undefined);
     }
   } catch {}
 }
@@ -646,10 +802,10 @@ function depositItem(entry, part) {
   return { stored: 0, queued: false };
 }
 
-export function runDeposit(player, list, plan) {
+export function runDeposit(player, plan) {
   const inventory = getInventory(player);
   if (!inventory) return { total: 0, chests: 0 };
-  const snapshot = list.map((entry) => JSON.stringify(entry.pendingQueue ?? []));
+  const snapshots = new Map();
   const results = [];
   const loadedHits = new Set();
   const queuedHits = new Set();
@@ -658,96 +814,96 @@ export function runDeposit(player, list, plan) {
     const held = inventory.getItem(step.slot);
     if (!held || held.typeId !== step.typeId) continue;
     let left = Math.min(step.amount, held.amount);
-    let stored = 0;
-    let queued = 0;
-    for (const index of step.targets) {
+    const result = { slot: step.slot, held, stored: 0, queuedBy: new Map() };
+    for (const entry of step.targets) {
       if (left <= 0) break;
+      if (!snapshots.has(entry.id)) snapshots.set(entry.id, JSON.stringify(entry.pendingQueue ?? []));
       const part = held.clone();
       part.amount = left;
-      const out = depositItem(list[index], part);
-      if (out.stored > 0) {
-        stored += out.stored;
-        left -= out.stored;
-        if (out.queued) {
-          queued += out.stored;
-          queuedHits.add(index);
-        } else {
-          loadedHits.add(index);
-        }
+      const out = depositItem(entry, part);
+      if (out.stored <= 0) continue;
+      result.stored += out.stored;
+      left -= out.stored;
+      if (out.queued) {
+        queuedHits.add(entry);
+        result.queuedBy.set(entry.id, (result.queuedBy.get(entry.id) ?? 0) + out.stored);
+      } else {
+        loadedHits.add(entry);
       }
     }
-    results.push({ slot: step.slot, held, stored, queued });
+    results.push(result);
   }
 
-  const queuedTotal = results.reduce((sum, r) => sum + r.queued, 0);
-  let saved = saveList(player, list);
-  if (!saved && queuedTotal > 0) {
-    list.forEach((entry, i) => {
-      entry.pendingQueue = JSON.parse(snapshot[i]);
-    });
-    for (const r of results) {
-      r.stored -= r.queued;
-      r.queued = 0;
+  let failed = false;
+  for (const entry of new Set([...queuedHits, ...loadedHits])) {
+    if (saveEntry(entry)) continue;
+    if (!queuedHits.has(entry)) continue;
+    failed = true;
+    entry.pendingQueue = JSON.parse(snapshots.get(entry.id));
+    queuedHits.delete(entry);
+    for (const result of results) {
+      result.stored -= result.queuedBy.get(entry.id) ?? 0;
+      result.queuedBy.delete(entry.id);
     }
-    queuedHits.clear();
-    saveList(player, list);
-    player.onScreenDisplay.setActionBar("§c[ChestLog] §fCould not buffer items for unloaded chests.");
   }
 
   let total = 0;
-  for (const r of results) {
-    if (r.stored <= 0) continue;
-    total += r.stored;
-    const remain = r.held.amount - r.stored;
+  for (const result of results) {
+    if (result.stored <= 0) continue;
+    total += result.stored;
+    const remain = result.held.amount - result.stored;
     if (remain <= 0) {
-      inventory.setItem(r.slot, undefined);
+      inventory.setItem(result.slot, undefined);
     } else {
-      const keep = r.held.clone();
+      const keep = result.held.clone();
       keep.amount = remain;
-      inventory.setItem(r.slot, keep);
+      inventory.setItem(result.slot, keep);
     }
   }
 
-  for (const index of loadedHits) sortEntry(list[index]);
-  return { total, chests: new Set([...loadedHits, ...queuedHits]).size };
+  for (const entry of loadedHits) sortEntry(entry);
+  return { total, chests: new Set([...loadedHits, ...queuedHits]).size, failed };
 }
 
 export function depositAll(player) {
-  const list = loadList(player);
-  if (list.length === 0) {
+  const entries = chestsOf(player);
+  if (entries.length === 0) {
     player.onScreenDisplay.setActionBar("§e[ChestLog] §fNo chests registered yet.");
     return;
   }
   const inventory = getInventory(player);
   if (!inventory) return;
-  const sets = list.map(entryTypeSet);
+  const sets = entries.map(entryTypeSet);
   const plan = [];
   for (let slot = 0; slot < 36; slot++) {
     const item = inventory.getItem(slot);
     if (!item || item.typeId === ITEM_ID) continue;
-    const targets = [];
-    sets.forEach((set, index) => {
-      if (set.has(item.typeId)) targets.push(index);
-    });
+    const targets = entries.filter((entry, index) => sets[index].has(item.typeId));
     if (targets.length > 0) plan.push({ slot, typeId: item.typeId, amount: item.amount, targets });
   }
-  const result = runDeposit(player, list, plan);
+  const result = runDeposit(player, plan);
+  if (result.failed) {
+    player.onScreenDisplay.setActionBar("§c[ChestLog] §fCould not buffer items for an unloaded chest.");
+    return;
+  }
+  if (result.total === 0) {
+    player.onScreenDisplay.setActionBar("§e[ChestLog] §fNo matching items to deposit.");
+    return;
+  }
   player.onScreenDisplay.setActionBar(
     `§a[ChestLog] §fSorted & deposited §e${result.total} §fitems across §b${result.chests} §fchests!`
   );
 }
 
-function alertFull(player, entry) {
+function alertFull(entry) {
   const last = alertTicks.get(entry.id);
   if (last !== undefined && system.currentTick - last < ALERT_COOLDOWN) return;
   alertTicks.set(entry.id, system.currentTick);
   const waiting = entry.pendingQueue.reduce((sum, r) => sum + r.amount, 0);
-  player.onScreenDisplay.setActionBar(
-    `§c[ChestLog] ${coloredName(entry)} §fis full. §e${waiting} §fitems are waiting.`
-  );
+  notifyOwner(entry, `§c[ChestLog] ${coloredName(entry)} §fis full. §e${waiting} §fitems are waiting.`);
 }
 
-function flushEntry(player, entry) {
+export function flushEntry(entry) {
   if (!Array.isArray(entry.pendingQueue) || entry.pendingQueue.length === 0) return false;
   const resolved = resolveContainer(entry);
   if (resolved.state !== "loaded") return false;
@@ -785,45 +941,85 @@ function flushEntry(player, entry) {
     if (remaining > 0) remainingQueue.push({ ...record, amount: remaining });
   }
   entry.pendingQueue = remainingQueue;
-  if (blocked && remainingQueue.length > 0) alertFull(player, entry);
+  if (blocked && remainingQueue.length > 0) alertFull(entry);
   return changed;
 }
 
-function flushPlayer(player) {
-  const list = loadList(player);
-  let dirty = false;
-  for (const entry of list) {
+export function releasePending(entry) {
+  const queue = entry.pendingQueue ?? [];
+  entry.pendingQueue = [];
+  try {
+    const dimension = world.getDimension(entry.dimensionId);
+    const at = { x: entry.location.x + 0.5, y: entry.location.y + 1, z: entry.location.z + 0.5 };
+    for (const record of queue) {
+      let max;
+      try {
+        max = new ItemStack(record.typeId, 1).maxAmount;
+      } catch {
+        continue;
+      }
+      let remaining = record.amount;
+      while (remaining > 0) {
+        const amount = Math.min(remaining, max);
+        dimension.spawnItem(buildStack(record, amount), at);
+        remaining -= amount;
+      }
+    }
+  } catch {}
+}
+
+function flushSweep() {
+  for (const entry of Array.from(chests.values())) {
     if (!entry.pendingQueue || entry.pendingQueue.length === 0) continue;
-    const before = JSON.stringify(entry.pendingQueue);
-    const changed = flushEntry(player, entry);
-    if (changed) {
+    const before = JSON.stringify(entry);
+    if (flushEntry(entry)) {
       refreshKnown(entry);
       sortEntry(entry);
     }
-    if (JSON.stringify(entry.pendingQueue) !== before) dirty = true;
+    if (JSON.stringify(entry) !== before) saveEntry(entry);
   }
-  if (dirty) saveList(player, list);
 }
 
-function flushAtLocation(player, dimensionId, location) {
-  const list = loadList(player);
-  const index = matchEntry(list, dimensionId, location);
-  if (index < 0) return;
-  const entry = list[index];
-  const changed = flushEntry(player, entry);
+function goneSweep() {
+  for (const player of world.getAllPlayers()) {
+    try {
+      migratePlayer(player);
+    } catch {}
+  }
+  for (const entry of Array.from(chests.values())) {
+    const before = JSON.stringify(entry);
+    const resolved = resolveContainer(entry);
+    if (resolved.state === "gone") {
+      releasePending(entry);
+      notifyOwner(entry, `§e[ChestLog] §fThe chest ${coloredName(entry)} §fwas removed and unregistered.`);
+      deleteEntry(entry);
+    } else if (JSON.stringify(entry) !== before) {
+      saveEntry(entry);
+    }
+  }
+}
+
+function flushAtLocation(dimensionId, location) {
+  const entry = findEntry(dimensionId, location);
+  if (!entry) return;
+  const changed = flushEntry(entry);
   refreshKnown(entry);
   if (changed) sortEntry(entry);
-  saveList(player, list);
+  saveEntry(entry);
 }
 
 export function initSync() {
+  loadAll();
   system.runInterval(() => {
-    for (const player of world.getAllPlayers()) {
-      try {
-        flushPlayer(player);
-      } catch {}
-    }
+    try {
+      flushSweep();
+    } catch {}
   }, 20);
+  system.runInterval(() => {
+    try {
+      goneSweep();
+    } catch {}
+  }, 100);
 
   world.beforeEvents.playerInteractWithBlock.subscribe((event) => {
     const { player, block, itemStack, isFirstEvent } = event;
@@ -833,27 +1029,29 @@ export function initSync() {
     const location = { x: block.x, y: block.y, z: block.z };
     system.run(() => {
       try {
-        flushAtLocation(player, dimensionId, location);
+        flushAtLocation(dimensionId, location);
       } catch {}
     });
   });
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/chest_ui.js (149 lines, 5042 bytes)
+## FILE: MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/chest_ui.js (164 lines, 5518 bytes)
 
 ```
 import { world, system } from "@minecraft/server";
 import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
 import {
   ITEM_ID,
-  loadList,
+  chestsOf,
+  getEntry,
   coloredName,
   itemDisplayName,
   getInventory,
   runDeposit,
   depositAll,
   isSuppressed,
+  showForm,
 } from "./chest_sync.js";
 
 const ICON_CHEST = "textures/items/chest_minecart";
@@ -862,29 +1060,35 @@ const ICON_EXIT = "textures/ui/cancel";
 const LORE = ["§7Sneak + Use on a Chest to register", "§7Use in air to open Remote Deposit"];
 
 async function showMain(player) {
-  const list = loadList(player);
-  const response = await new ActionFormData()
-    .title("§6§lALN:ChestLog")
-    .body(`§7Registered Chests: §e${list.length}\n§a■ Overworld  §c■ Nether  §d■ The End`)
-    .button("§eChest", ICON_CHEST)
-    .button("§bAbout", ICON_ABOUT)
-    .button("§cExit", ICON_EXIT)
-    .show(player);
-  if (response.canceled) return;
+  const list = chestsOf(player);
+  const response = await showForm(
+    new ActionFormData()
+      .title("§6§lALN:ChestLog")
+      .body(`§7Registered Chests: §e${list.length}\n§a■ Overworld  §c■ Nether  §d■ The End`)
+      .button("§eChest", ICON_CHEST)
+      .button("§bAbout", ICON_ABOUT)
+      .button("§cExit", ICON_EXIT),
+    player
+  );
+  if (!response || response.canceled) return;
   if (response.selection === 0) await showChestList(player);
   else if (response.selection === 1) await showAbout(player);
 }
 
 async function showChestList(player) {
-  const list = loadList(player);
+  const list = chestsOf(player);
   const form = new ActionFormData()
     .title("§6§lChests")
-    .body("§7Pick a chest to deposit into, or sort everything at once.")
+    .body(
+      list.length === 0
+        ? "§7No chests registered yet. Sneak + Use the ChestLog on a Chest, Trapped Chest or Barrel."
+        : "§7Pick a chest to deposit into, or sort everything at once."
+    )
     .button("§a§lDeposit All (Sort)");
   for (const entry of list) form.button(coloredName(entry));
   form.button("§7Back");
-  const response = await form.show(player);
-  if (response.canceled) return;
+  const response = await showForm(form, player);
+  if (!response || response.canceled) return;
   const selection = response.selection;
   if (selection === 0) {
     depositAll(player);
@@ -899,10 +1103,8 @@ async function showChestList(player) {
 }
 
 async function showDepositForm(player, entryId) {
-  const list = loadList(player);
-  const index = list.findIndex((entry) => entry.id === entryId);
-  if (index < 0) return;
-  const entry = list[index];
+  const entry = getEntry(entryId);
+  if (!entry || entry.owner !== player.id) return;
   const inventory = getInventory(player);
   if (!inventory) return;
 
@@ -927,31 +1129,35 @@ async function showDepositForm(player, entryId) {
   form.dropdown("Action", ["Deposit Selected Items", "Exit Without Depositing"]);
   form.submitButton("Confirm");
 
-  const response = await form.show(player);
-  if (response.canceled || !response.formValues) return;
+  const response = await showForm(form, player);
+  if (!response || response.canceled || !response.formValues) return;
   const values = response.formValues;
   if (values[rows.length] !== 0) return;
 
   const plan = [];
   rows.forEach((row, i) => {
     const amount = Number(values[i]);
-    if (amount > 0) plan.push({ slot: row.slot, typeId: row.typeId, amount, targets: [0] });
+    if (amount > 0) plan.push({ slot: row.slot, typeId: row.typeId, amount, targets: [] });
   });
   if (plan.length === 0) return;
 
-  const fresh = loadList(player);
-  const freshIndex = fresh.findIndex((e) => e.id === entryId);
-  if (freshIndex < 0) return;
-  for (const step of plan) step.targets = [freshIndex];
+  const target = getEntry(entryId);
+  if (!target) return;
+  for (const step of plan) step.targets = [target];
 
-  const result = runDeposit(player, fresh, plan);
+  const result = runDeposit(player, plan);
+  if (result.failed) {
+    player.onScreenDisplay.setActionBar("§c[ChestLog] §fCould not buffer items for an unloaded chest.");
+    return;
+  }
   player.onScreenDisplay.setActionBar(
-    `§a[ChestLog] §fDeposited §e${result.total} §fitems into ${coloredName(fresh[freshIndex])}§f!`
+    `§a[ChestLog] §fDeposited §e${result.total} §fitems into ${coloredName(target)}§f!`
   );
 }
 
 async function showAbout(player) {
-  const response = await new ActionFormData()
+  const response = await showForm(
+    new ActionFormData()
     .title("§6§lAbout ChestLog")
     .body(
       [
@@ -959,12 +1165,14 @@ async function showAbout(player) {
         "§eColors§f: §aOverworld §cNether §dThe End §fchests are colored by dimension. No coordinates are ever shown.",
         "§eUnloaded chunks§f: items for a chest in an unloaded chunk are held safely and moved in as soon as it loads.",
         "§eDeposit All (Sort)§f: sends matching items to your registered chests and sorts them.",
+        "§eUnregister§f: Sneak + Use the ChestLog on a registered chest and switch on Unregister. Waiting items are delivered or dropped.",
         "§7by ALNStudios",
       ].join("\n\n")
     )
-    .button("§7Back")
-    .show(player);
-  if (!response.canceled) await showMain(player);
+    .button("§7Back"),
+    player
+  );
+  if (response && !response.canceled) await showMain(player);
 }
 
 function applyLore() {
@@ -987,7 +1195,10 @@ export function initUI() {
     const player = event.source;
     if (!event.itemStack || event.itemStack.typeId !== ITEM_ID) return;
     if (isSuppressed(player)) return;
-    showMain(player).catch(() => {});
+    system.runTimeout(() => {
+      if (isSuppressed(player)) return;
+      showMain(player).catch(() => {});
+    }, 2);
   });
   system.runInterval(applyLore, 40);
 }
@@ -1008,12 +1219,32 @@ world.afterEvents.worldLoad.subscribe(() => {
 });
 ```
 
-## FILE: MCPEDL/Addons/ALN-ChestLog/CHANGELOG.md (12 lines, 475 bytes)
+## FILE: MCPEDL/Addons/ALN-ChestLog/CHANGELOG.md (32 lines, 1853 bytes)
 
 ```
 # Changelog — ALN ChestLog
 
 ---
+
+## [2.0.0] - 2026-11-20 - Wireless Storage Upgrade
+
+### Added
+- **Unregister option**: Sneak and use the ChestLog on a registered chest and switch on Unregister to remove it. Waiting items are delivered or dropped.
+- **Category sorting**: Chests now sort tools, armor, food, then everything else, alphabetically within each group.
+- **Durability kept**: Items sent to an unloaded chest keep their durability as well as names, lore and enchantments.
+
+### Improved & Balanced
+- **Shared buffer**: Waiting items are stored per chest for the whole world and delivered as soon as the chunk loads, even while the owner is offline.
+- **Busy screen retry**: The menu waits and reopens if another screen was open when you used the item.
+- **Clearer messages**: Deposit All now says when nothing matched or when a chest could not buffer items.
+- **Minimum version**: Requires Minecraft Bedrock 1.26.60 or newer.
+
+### Fixed
+- **Broken chests**: A registered chest that is broken is unregistered and its waiting items drop where it stood.
+- **Double chests**: Breaking one half of a registered double chest keeps the other half registered.
+- **Menu overlap**: The menu no longer opens on top of a chest screen.
+- **Failed saves**: If a save fails, items stay in your inventory instead of being lost.
+- **Shared chests**: Only the player who registered a chest can rename or unregister it.
 
 ## [1.0.0] - 2026-11-20 - First Release
 
@@ -1024,7 +1255,7 @@ world.afterEvents.worldLoad.subscribe(() => {
 - **Unloaded chunk buffer**: Items for unloaded chests are held and delivered when the chunk loads.
 ```
 
-## FILE: MCPEDL/Addons/ALN-ChestLog/DESCRIPTION.md (82 lines, 4407 bytes)
+## FILE: MCPEDL/Addons/ALN-ChestLog/DESCRIPTION.md (86 lines, 5001 bytes)
 
 ```
 # ALN ChestLog — Wireless remote chest deposit with an unloaded-chunk buffer
@@ -1048,7 +1279,7 @@ Register any chest, trapped chest or barrel by sneaking and using the ChestLog o
 - **What Happens**: Sneak and use the ChestLog on a chest, trapped chest or barrel, then type a name. The chest joins your wireless network and a sign above it reads the name followed by "- Registered".
 
 ### Double Chest Support
-- **What Happens**: Both halves of a double chest share one entry, so registering either half registers the whole chest.
+- **What Happens**: Both halves of a double chest share one entry, so registering either half registers the whole chest. Only the player who registered a chest can rename or unregister it.
 
 ### Remote Menu
 - **What Happens**: Use the ChestLog in the air to open a menu with Chest, About and Exit. The Chest screen lists your chests colored by dimension and never shows coordinates.
@@ -1060,10 +1291,13 @@ Register any chest, trapped chest or barrel by sneaking and using the ChestLog o
 - **What Happens**: Pick one chest and use a slider for each item stack in your inventory to choose exactly how many to deposit.
 
 ### Unloaded Chunk Buffer
-- **What Happens**: Items sent to a chest in an unloaded chunk are held safely and moved in as soon as the chunk loads. If the chest is full, the overflow waits and you get an alert.
+- **What Happens**: Items sent to a chest in an unloaded chunk are held safely, with their names, enchantments and durability, and moved in as soon as the chunk loads, even while you are offline. If the chest is full, the overflow waits and you get an alert.
 
 ### Smart Sorting
-- **What Happens**: Identical items merge up to full stacks and chests are ordered alphabetically after every deposit.
+- **What Happens**: Identical items merge up to full stacks after every deposit. Chests are ordered as tools, armor, food, then everything else, alphabetically within each group.
+
+### Unregister and Cleanup
+- **What Happens**: Switch on Unregister when you sneak and use the ChestLog on a registered chest, and any waiting items are delivered or dropped. If a registered chest is broken, it is unregistered automatically and its waiting items drop where it stood.
 
 ### Survival Recipe
 - **What Happens**: Craft the ChestLog from a Book, an Ender Pearl and Redstone.
@@ -1074,11 +1308,12 @@ Register any chest, trapped chest or barrel by sneaking and using the ChestLog o
 2. Sneak and use the ChestLog on a chest, trapped chest or barrel, then type a name.
 3. Use the ChestLog in the air to open the menu and choose Chest.
 4. Pick Deposit All (Sort) for a quick sweep, or select one chest and set quantities with the sliders.
-5. Chest names are colored green in the Overworld, red in the Nether and purple in The End.
+5. To remove a chest from your network, sneak and use the ChestLog on it again and switch on Unregister.
+6. Chest names are colored green in the Overworld, red in the Nether and purple in The End.
 
 ## Compatibility
 
-- Minecraft Bedrock Edition: 1.26.50 or newer.
+- Minecraft Bedrock Edition: 1.26.60 or newer.
 - Experimental features: Not verified.
 - Achievements: Likely achievement-friendly.
 - Verification: Source created, not tested in game.
@@ -1125,7 +1360,7 @@ Download the current release of **ALN ChestLog** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN ChestLog (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-ChestLog/ALNChestLog%20V1.mcaddon)
+- **Direct download:** [Download ALN ChestLog (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-ChestLog/ALNChestLog%20V2.mcaddon)
 
 ## Installation
 
@@ -1144,18 +1379,18 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:ChestLog Resources (v1)",
+    "name": "ALN:ChestLog Resources (v2)",
     "description": "Icon for the ChestLog item. by ALNStudios. Not tested in game.",
     "uuid": "a1e6b4d9-74db-40e9-bd2e-0531e0c02b3e",
     "version": [
-      1,
+      2,
       0,
       0
     ],
     "min_engine_version": [
       1,
       26,
-      50
+      60
     ]
   },
   "modules": [
@@ -1163,14 +1398,14 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "da1580c2-a85f-49b3-856c-3a96252ed9a3",
       "version": [
-        1,
+        2,
         0,
         0
       ]
     }
   ],
   "metadata": {
-    "version": "1.0.0",
+    "version": "2.0.0",
     "authors": [
       "ALNStudios"
     ]
@@ -1190,7 +1425,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: Package/ALN-ChestLog.listing.md (66 lines, 13461 bytes)
+## FILE: Package/ALN-ChestLog.listing.md (66 lines, 14583 bytes)
 
 ````
 # Listing Kit: ALN ChestLog
@@ -1218,9 +1453,9 @@ Paste into the CurseForge description editor in source (HTML) mode.
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;About&nbsp;&nbsp;</span></h2>
 <p>Register any chest, trapped chest or barrel by sneaking and using the ChestLog on it. Later, open the remote menu from anywhere to deposit everything that belongs in your chests, or pick one chest and choose exact amounts. Chests in unloaded chunks and other dimensions still accept items.</p>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;What You Get&nbsp;&nbsp;</span></h2>
-<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Registration</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Sneak and use the ChestLog on a chest, trapped chest or barrel, then type a name. The chest joins your wireless network and a sign above it reads the name followed by "- Registered".</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Double Chest Support</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Both halves of a double chest share one entry, so registering either half registers the whole chest.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Remote Menu</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Use the ChestLog in the air to open a menu with Chest, About and Exit. The Chest screen lists your chests colored by dimension and never shows coordinates.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Deposit All (Sort)</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Sends matching items from your inventory to your registered chests, sorts those chests, and reports the totals on the action bar.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Per-Item Deposit</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Pick one chest and use a slider for each item stack in your inventory to choose exactly how many to deposit.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Unloaded Chunk Buffer</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Items sent to a chest in an unloaded chunk are held safely and moved in as soon as the chunk loads. If the chest is full, the overflow waits and you get an alert.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Smart Sorting</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Identical items merge up to full stacks and chests are ordered alphabetically after every deposit.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Survival Recipe</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Craft the ChestLog from a Book, an Ender Pearl and Redstone.</span></p></div></div></div>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Registration</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Sneak and use the ChestLog on a chest, trapped chest or barrel, then type a name. The chest joins your wireless network and a sign above it reads the name followed by "- Registered".</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Double Chest Support</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Both halves of a double chest share one entry, so registering either half registers the whole chest. Only the player who registered a chest can rename or unregister it.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Remote Menu</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Use the ChestLog in the air to open a menu with Chest, About and Exit. The Chest screen lists your chests colored by dimension and never shows coordinates.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Deposit All (Sort)</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Sends matching items from your inventory to your registered chests, sorts those chests, and reports the totals on the action bar.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Per-Item Deposit</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Pick one chest and use a slider for each item stack in your inventory to choose exactly how many to deposit.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Unloaded Chunk Buffer</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Items sent to a chest in an unloaded chunk are held safely, with their names, enchantments and durability, and moved in as soon as the chunk loads, even while you are offline. If the chest is full, the overflow waits and you get an alert.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Smart Sorting</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Identical items merge up to full stacks after every deposit. Chests are ordered as tools, armor, food, then everything else, alphabetically within each group.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Unregister and Cleanup</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Switch on Unregister when you sneak and use the ChestLog on a registered chest, and any waiting items are delivered or dropped. If a registered chest is broken, it is unregistered automatically and its waiting items drop where it stood.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Survival Recipe</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Craft the ChestLog from a Book, an Ender Pearl and Redstone.</span></p></div></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Get Started&nbsp;&nbsp;</span></h2>
-<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Craft the ChestLog from a Book, an Ender Pearl and Redstone.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Sneak and use the ChestLog on a chest, trapped chest or barrel, then type a name.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Use the ChestLog in the air to open the menu and choose Chest.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">4</div></td><td style="text-align:left;">Pick Deposit All (Sort) for a quick sweep, or select one chest and set quantities with the sliders.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">5</div></td><td style="text-align:left;">Chest names are colored green in the Overworld, red in the Nether and purple in The End.</td></tr></tbody></table>
+<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Craft the ChestLog from a Book, an Ender Pearl and Redstone.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Sneak and use the ChestLog on a chest, trapped chest or barrel, then type a name.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Use the ChestLog in the air to open the menu and choose Chest.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">4</div></td><td style="text-align:left;">Pick Deposit All (Sort) for a quick sweep, or select one chest and set quantities with the sliders.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">5</div></td><td style="text-align:left;">To remove a chest from your network, sneak and use the ChestLog on it again and switch on Unregister.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">6</div></td><td style="text-align:left;">Chest names are colored green in the Overworld, red in the Nether and purple in The End.</td></tr></tbody></table>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Install&nbsp;&nbsp;</span></h2>
 <table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Download the file from this page and open it with Minecraft.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Create or edit a world and turn on the new pack(s) in its settings.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Play. No Experimental toggles needed.</td></tr></tbody></table>
 <div style="border:1px solid #8a94a3;border-radius:16px;text-align:center"><br><div style="background-color:#15803d;color:#ffffff;border-radius:20px;font-size:15px;line-height:2;display:inline-block">&nbsp;&nbsp;<strong>Found a Bug or Have a Suggestion?</strong>&nbsp;&nbsp;</div><p style="font-size:14px;">Please leave a comment on this project page! All bug reports, gameplay feedback, and pack suggestions are welcome and appreciated.</p></div>

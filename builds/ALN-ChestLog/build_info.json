@@ -1,8 +1,8 @@
 {
-  "changelog_version": "1.0.0",
-  "manifest_version": "1.0.0",
+  "changelog_version": "2.0.0",
+  "manifest_version": "2.0.0",
   "packages": {
-    "ALNChestLog V1.mcaddon": "2d79340d2fc47c589f039a5ffc480dff7eb378f1f2921ff53faaba9afd2462d3"
+    "ALNChestLog V2.mcaddon": "a5b5ea1955bf7020e129b98273f74bb12df6a5fed06519bd3e81de3469d87962"
   },
-  "source_sha256": "6cc8a43cab2ec6746b31883d7bc9c49f78769865db60812569ee07fd314cb337"
+  "source_sha256": "e29bff4037402456cd9be197a4cf4cfcc8b98f5db156b1146143490abaa1b73b"
 }

@@ -8,7 +8,7 @@ This folder contains compiled release packages for **ALN ChestLog** by ALNStudio
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`ALNChestLog V1.mcaddon`** | `.mcaddon` | ~11 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-ChestLog/ALNChestLog%20V1.mcaddon) |
+| **`ALNChestLog V2.mcaddon`** | `.mcaddon` | ~12 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-ChestLog/ALNChestLog%20V2.mcaddon) |
 
 ---
 
