@@ -78,7 +78,8 @@ def build_readme(project: Path) -> str:
             label = f"Download {map_name} (.mcworld)" if not world_links else f"Download {mode} World"
             world_links.append(f"[{label}]({url})")
     if not world_links:
-        raise ValueError(f"No current world archive is available for {project.relative_to(ROOT)}")
+        print(f"::warning::No current world archive for {project.relative_to(ROOT)}; README left unchanged.")
+        return ""
 
     links = " · ".join(world_links)
     lines = [
@@ -122,6 +123,8 @@ def main() -> int:
             continue
         readme_path = project / "README.md"
         updated = build_readme(project)
+        if not updated:
+            continue
         existing = readme_path.read_text(encoding="utf-8") if readme_path.is_file() else ""
         if updated != existing:
             readme_path.write_text(updated, encoding="utf-8")

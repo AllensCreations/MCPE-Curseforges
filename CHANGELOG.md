@@ -27,6 +27,11 @@
 
 ---
 
+## [v154] - 2026-11-20 - README Sync Fix
+
+### Fixed
+- **OneBlock README sync**: a map with no current world archive no longer stops the whole build. The sync prints a warning and leaves that map's README unchanged, so the later build steps still run.
+
 ## [v153] - 2026-11-20 - Diagnostic Log
 
 ### Added
