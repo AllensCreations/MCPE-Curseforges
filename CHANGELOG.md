@@ -27,6 +27,12 @@
 
 ---
 
+## [v166] - 2026-11-20 - Recipe Images For All Packs
+
+### Improved & Balanced
+
+- **Recipe images**: One generator now builds the crafting recipe images and item sprites for every pack, including Grand Banquets and Monster Companions. The two pack-specific generators and the --include-dedicated option are removed.
+
 ## [v165] - 2026-11-20 - Missing Recipe Images
 
 ### Improved & Balanced

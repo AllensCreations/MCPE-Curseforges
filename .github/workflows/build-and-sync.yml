@@ -146,7 +146,6 @@ jobs:
             for rdir in MCPEDL/*/*/behavior_pack/recipes; do
               [ -d "$rdir" ] || continue
               pack="${rdir%/behavior_pack/recipes}"
-              case "${pack##*/}" in Grand-Banquets|Monster-Companions) continue ;; esac
               if grep -rlE '"minecraft:recipe_(shaped|shapeless)"' "$rdir" > /dev/null 2>&1 && ! compgen -G "$pack/assets/recipes/*_recipe.png" > /dev/null; then
                 echo "Recipes without images: $pack"
                 need=true
@@ -172,9 +171,7 @@ jobs:
         run: |
           set -uo pipefail
           status=0
-          python3 scripts/generate_monster_companions_recipe_image.py || status=1
           python3 scripts/generate_recipe_images.py --all --items-from-recipes || status=1
-          python3 scripts/generate_grand_banquets_recipe_images.py || status=1
           if [ "$status" != "0" ]; then
             echo "::warning::Some recipe images could not be generated (see log). The rest of the build continues."
           fi
