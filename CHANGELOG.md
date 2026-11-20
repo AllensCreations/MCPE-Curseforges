@@ -27,6 +27,11 @@
 
 ---
 
+## [v161] - 2026-11-20 - Add-on Package
+
+### Improved & Balanced
+- **Add-on Package**: The project is now built as a complete add-on with both packs, so it imports as one add-on file.
+
 ## [v160] - 2026-11-20 - Item Group
 
 ### Added

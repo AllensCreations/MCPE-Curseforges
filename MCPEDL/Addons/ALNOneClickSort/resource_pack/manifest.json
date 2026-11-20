@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:OneClickSort (v5)",
+    "name": "ALN:OneClickSort (v6)",
     "description": "Item icons for ALN:OneClickSort. by ALNStudios",
     "uuid": "6b8237f8-7fb8-4611-b5d0-3da9864e4671",
     "version": [
-      5,
+      6,
       0,
       0
     ],
@@ -20,7 +20,7 @@
       "type": "resources",
       "uuid": "fd5fdd68-b056-4700-b1d2-9dd9bb9d980c",
       "version": [
-        5,
+        6,
         0,
         0
       ]
@@ -31,6 +31,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "5.0.0"
+    "version": "6.0.0"
   }
 }
