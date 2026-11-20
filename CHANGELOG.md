@@ -27,6 +27,11 @@
 
 ---
 
+## [v169] - 2026-11-20 - Restock Get Everything
+
+### Added
+- **Get Everything**: A new toggle in the Sort Settings Book makes the Restock Feather pull every matching item from nearby chests, not just one full stack, until your inventory is full. It is off by default.
+
 ## [v168] - 2026-11-20 - Sneak Click Chest Controls
 
 ### Improved & Balanced

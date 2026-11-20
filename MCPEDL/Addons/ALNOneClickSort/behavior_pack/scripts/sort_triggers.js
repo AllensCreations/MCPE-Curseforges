@@ -166,6 +166,51 @@ function countStackable(container, item) {
   return total;
 }
 
+function pullEverything(backpack, targets, prefs, touched) {
+  const templates = [];
+  for (let i = 0; i <= 35; i++) {
+    const it = backpack.getItem(i);
+    if (!it || isAutoSortFeather(it) || isRestockFeather(it) || it.maxAmount <= 1) continue;
+    if (!templates.some((tpl) => tpl.isStackableWith(it))) templates.push(it);
+  }
+
+  let pulled = 0;
+  for (const tpl of templates) {
+    let full = false;
+    for (let t = 0; t < targets.length && !full; t++) {
+      const container = targets[t].container;
+      let allowed = prefs.keepOneInChest ? countStackable(container, tpl) - 1 : Infinity;
+      for (let s = 0; s < container.size && allowed > 0 && !full; s++) {
+        const stored = container.getItem(s);
+        if (!stored || !tpl.isStackableWith(stored)) continue;
+        const move = Math.min(stored.amount, allowed);
+        const piece = stored.clone();
+        piece.amount = move;
+        let left;
+        try {
+          left = backpack.addItem(piece);
+        } catch {
+          full = true;
+          continue;
+        }
+        const added = move - (left ? left.amount : 0);
+        if (left) full = true;
+        if (added <= 0) continue;
+        allowed -= added;
+        pulled += added;
+        touched.add(t);
+        if (stored.amount - added > 0) {
+          stored.amount -= added;
+          container.setItem(s, stored);
+        } else {
+          container.setItem(s, undefined);
+        }
+      }
+    }
+  }
+  return pulled;
+}
+
 function restock(player) {
   const prefs = getPrefs(player);
   const backpack = getBackpack(player);
@@ -204,6 +249,8 @@ function restock(player) {
     }
     backpack.setItem(slot, held);
   }
+
+  if (prefs.getEverything) pulledItems += pullEverything(backpack, targets, prefs, touched);
 
   feedback(
     player,

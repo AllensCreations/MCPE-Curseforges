@@ -33,10 +33,10 @@ Hold the Auto-Sort Feather in your hand. Right-click to sort your backpack, or s
 ### Restock
 - **What Happens**: Right-click the Restock Feather to refill the partial stacks you already carry, hotbar included, from every chest, copper chest, trapped chest, barrel and shulker box within 6 blocks.
 - **How It Works**: Run low on blocks, step next to your storage, right-click the Restock Feather, and a message shows how many items came from how many chests.
-- **Good To Know**: Restock only tops up stacks you already hold and never fills empty slots. Sneak and right-click a chest with the Restock Feather to stock it from your backpack. Turn on Leave 1 Item in Chest in Sort Settings to keep one item of each type in a chest when restocking, so stocking that chest still works.
+- **Good To Know**: Restock only tops up stacks you already hold and never fills empty slots, unless you turn on Get Everything in Sort Settings, which pulls every matching item the chests hold until your inventory is full. Sneak and right-click a chest with the Restock Feather to stock it from your backpack. Turn on Leave 1 Item in Chest in Sort Settings to keep one item of each type in a chest when restocking, so stocking that chest still works.
 
 ### Sort Settings
-- **What Happens**: Right-click the Sort Settings Book to open a menu with four options: Sort Order, Sort Hotbar Slots, Audio and Particle Feedback and Leave 1 Item in Chest.
+- **What Happens**: Right-click the Sort Settings Book to open a menu with five options: Sort Order, Sort Hotbar Slots, Audio and Particle Feedback, Leave 1 Item in Chest and Get Everything.
 - **How It Works**: Choose Smart Category, Alphabetical (A-Z) or Stack Quantity (Highest First), then confirm.
 - **Good To Know**: Each player keeps their own settings, which stay saved between sessions.
 
