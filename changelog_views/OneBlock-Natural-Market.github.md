@@ -1,10 +1,21 @@
 # Changelog — OneBlock Natural Market
 
-## [v10] - 2026-11-20 - Standard Market Screen
+## [v11] - 2026-11-20 - Chest Market Screen Restored
 
 ### Fixed
 
 ### Changed
+
+<details>
+<summary><b>10.0.x</b> (1 release)</summary>
+
+### [v10] - 2026-11-20 - Standard Market Screen
+
+#### Fixed
+
+#### Changed
+
+</details>
 
 <details>
 <summary><b>9.0.x</b> (1 release)</summary>
