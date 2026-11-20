@@ -40,7 +40,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | ALN Pointer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Pointer/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V19.mcaddon) |
 | ALN-GlobalMarket | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-GlobalMarket/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-GlobalMarket/ALNGlobalMarket%20V1.mcaddon) |
 | ALN ChestLog | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-ChestLog/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-ChestLog/ALNChestLog%20V1.mcaddon) |
-| ALNOneClickSort | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALNOneClickSort/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNOneClickSort/ALNOneClickSort%20V9.mcaddon) |
+| ALNOneClickSort | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALNOneClickSort/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNOneClickSort/ALNOneClickSort%20V10.mcaddon) |
 
 Download links point to the currently published package files.
 
