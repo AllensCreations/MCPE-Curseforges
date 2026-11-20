@@ -5,7 +5,7 @@
 - **Export request:** `MCPEDL/Script/ALNOneClickSort`
 - **Destination:** `MCPEDL/Script/ALNOneClickSort`
 - **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Script/ALNOneClickSort/CHANGELOG.md`)
-- **Text files:** 20
+- **Text files:** 21
 - **Skipped binary:** 0
 - **Paths not found:** 0
 
@@ -30,6 +30,7 @@
 - `MCPEDL/Script/ALNOneClickSort/README.md`
 - `MCPEDL/Script/ALNOneClickSort/resource_pack/manifest.json`
 - `MCPEDL/Script/ALNOneClickSort/resource_pack/textures/item_texture.json`
+- `MCPEDL/Script/ALNOneClickSort/resource_pack/textures/items/.giitkeep`
 - `Package/ALNOneClickSort.listing.md`
 
 ---
@@ -980,6 +981,12 @@ For gameplay features, usage details, compatibility notes, and other project inf
     }
   }
 }
+```
+
+## FILE: MCPEDL/Script/ALNOneClickSort/resource_pack/textures/items/.giitkeep (2 lines, 1 bytes)
+
+```
+
 ```
 
 ## FILE: Package/ALNOneClickSort.listing.md (68 lines, 16428 bytes)
