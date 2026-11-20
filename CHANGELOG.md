@@ -27,6 +27,11 @@
 
 ---
 
+## 2026-11-20 - New Addon ALN ChestLog
+
+### Added
+- **ALN ChestLog**: New addon project created from a pack script.
+
 ## [v150] - 2026-11-20 - Island Trees And Effects Fix
 
 ### Fixed
