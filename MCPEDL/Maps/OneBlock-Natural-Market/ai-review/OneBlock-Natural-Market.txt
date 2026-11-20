@@ -16,7 +16,7 @@
 
 - **Export request:** `MCPEDL/Maps/OneBlock-Natural-Market`
 - **Destination:** `MCPEDL/Maps/OneBlock-Natural-Market`
-- **CURRENT VERSION: v5 / NEXT UPDATE: v6**  (`MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md`)
+- **CURRENT VERSION: v6 / NEXT UPDATE: v7**  (`MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md`)
 - **Text files:** 17
 - **Skipped binary:** 8
 - **Paths not found:** 0
@@ -60,7 +60,7 @@ Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
 Context7 Support: Enabled. For full instructions, schemas, and helper script syntax, query Context7 (`INSTRUCTIONS.md`, `PACK_GENERATOR_INSTRUCTIONS.md`, `DOCS_RULES.md`, `make_update_script.py`, `doc_template.py`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v5 / NEXT UPDATE: v6).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v6 / NEXT UPDATE: v7).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -118,23 +118,35 @@ Output ONLY these three sections in order:
 
 ## File Contents
 
-## FILE: changelog_views/OneBlock-Natural-Market.curseforge.html (5 lines, 473 bytes)
+## FILE: changelog_views/OneBlock-Natural-Market.curseforge.html (6 lines, 623 bytes)
 
 ```
-<h2>v5 - 2026-11-20 - Diagnostic Log</h2><h3>Added</h3><ul></ul>
+<h2>v6 - 2026-11-20 - Responsive Market UI</h2><h3>Fixed</h3><ul></ul><h3>Improved</h3><ul></ul>
+<h2>5.0.x (1 release)</h2><div class="spoiler"><h3>v5 - 2026-11-20 - Diagnostic Log</h3><h4>Added</h4><ul></ul></div>
 <h2>4.0.x (1 release)</h2><div class="spoiler"><h3>v4 - 2026-11-20 - Startup Fix</h3><h4>Fixed</h4><ul></ul></div>
 <h2>3.0.x (1 release)</h2><div class="spoiler"><h3>v3 - 2026-11-20 - Core Reliability Update</h3><h4>Fixed</h4><ul></ul><h4>Improved</h4><ul></ul></div>
 <h2>2.0.x (1 release)</h2><div class="spoiler"><h3>v2 - 2026-11-11</h3><h4>Improved</h4><ul></ul><h4>Compatibility note</h4><ul></ul></div>
 ```
 
-## FILE: changelog_views/OneBlock-Natural-Market.github.md (37 lines, 479 bytes)
+## FILE: changelog_views/OneBlock-Natural-Market.github.md (48 lines, 618 bytes)
 
 ```
 # Changelog — OneBlock Natural Market
 
-## [v5] - 2026-11-20 - Diagnostic Log
+## [v6] - 2026-11-20 - Responsive Market UI
 
-### Added
+### Fixed
+
+### Improved
+
+<details>
+<summary><b>5.0.x</b> (1 release)</summary>
+
+### [v5] - 2026-11-20 - Diagnostic Log
+
+#### Added
+
+</details>
 
 <details>
 <summary><b>4.0.x</b> (1 release)</summary>
@@ -243,11 +255,11 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v5)",
+    "name": "OneBlock Natural Market (v6)",
     "description": "OneBlock survival with a progression market and regenerating core. by ALNStudios",
     "uuid": "77f07d1a-fa7a-437d-8fea-72068be05162",
     "version": [
-      5,
+      6,
       0,
       0
     ],
@@ -262,7 +274,7 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
       "type": "data",
       "uuid": "6382a3dd-3398-4ec5-851b-748d052c0e36",
       "version": [
-        5,
+        6,
         0,
         0
       ]
@@ -272,7 +284,7 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
       "language": "javascript",
       "uuid": "645e0490-52c0-4f43-b412-0f20375a92fc",
       "version": [
-        5,
+        6,
         0,
         0
       ],
@@ -283,7 +295,7 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
     {
       "uuid": "187333a6-4353-4003-b379-471f85ce9021",
       "version": [
-        5,
+        6,
         0,
         0
       ]
@@ -302,7 +314,7 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "5.0.0"
+    "version": "6.0.0"
   }
 }
 ```
@@ -879,12 +891,21 @@ system.runInterval(() => {
 system.run(() => log("INFO", "Script started and handlers registered. Debug chat: /tag @s add obm_debug. Status: /scriptevent allenscreations:obm_status"));
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (39 lines, 2140 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (48 lines, 2569 bytes)
 
 ```
 # Changelog — OneBlock Natural Market
 
 ---
+
+## [v6] - 2026-11-20 - Responsive Market UI
+
+### Fixed
+- The market screen now sizes itself as a percentage of the screen, so it adjusts to any screen size or UI scale instead of using a fixed 460 x 350 panel.
+- The slot grid is now 9 columns by 3 rows as described, instead of 3 columns by 9 rows, which ran past the bottom of the panel.
+
+### Improved
+- Slots, item icons and labels scale with the panel and keep square slots.
 
 ## [v5] - 2026-11-20 - Diagnostic Log
 
@@ -1044,11 +1065,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v5)",
+    "name": "OneBlock Natural Market (v6)",
     "description": "Trader Ledger icon for OneBlock Natural Market. by ALNStudios",
     "uuid": "187333a6-4353-4003-b379-471f85ce9021",
     "version": [
-      5,
+      6,
       0,
       0
     ],
@@ -1063,7 +1084,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "bdbf7c5c-5c34-4d6d-93c9-16a468f66b52",
       "version": [
-        5,
+        6,
         0,
         0
       ]
@@ -1074,7 +1095,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "5.0.0"
+    "version": "6.0.0"
   }
 }
 ```
@@ -1093,7 +1114,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/ui/server_form.json (303 lines, 8552 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/ui/server_form.json (288 lines, 8444 bytes)
 
 ```
 {
@@ -1108,10 +1129,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "100% - 15px",
       10
     ],
-    "size": [
-      460,
-      350
-    ],
+    "size": ["85%", "85%"],
     "$text_name": "#title_text",
     "$title_text_binding_type": "none",
     "$child_control": "server_form.long_form_panel",
@@ -1249,10 +1267,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       4,
       0
     ],
-    "grid_dimensions": [
-      3,
-      9
-    ],
+    "grid_dimensions": [9, 3],
     "grid_fill_direction": "horizontal",
     "grid_rescaling_type": "horizontal",
     "grid_item_template": "server_form.dynamic_button",
@@ -1270,10 +1285,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
   },
   "dynamic_button": {
     "type": "button",
-    "size": [
-      "100%",
-      54
-    ],
+    "size": ["11%", "100%x"],
     "sound_name": "random.click",
     "default_control": "default",
     "hover_control": "hover",
@@ -1331,10 +1343,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
         "slot_icon": {
           "type": "image",
           "layer": 2,
-          "size": [
-            24,
-            24
-          ],
+          "size": ["50%", "50%x"],
           "anchor_from": "top_middle",
           "anchor_to": "top_middle",
           "offset": [
@@ -1361,10 +1370,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
         "slot_label": {
           "type": "label",
           "layer": 3,
-          "size": [
-            "100% - 2px",
-            25
-          ],
+          "size": ["100% - 2px", "40%"],
           "anchor_from": "bottom_middle",
           "anchor_to": "bottom_middle",
           "offset": [
