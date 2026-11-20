@@ -27,6 +27,12 @@
 
 ---
 
+## [v165] - 2026-11-20 - Missing Recipe Images
+
+### Improved & Balanced
+
+- **Recipe images**: Build Changed Packs & Sync Catalogs now also generates crafting recipe images on a push when a pack has crafting recipes but no images in assets/recipes/.
+
 ## [v164] - 2026-11-20 - Recipe Image Trigger
 
 ### Improved & Balanced

@@ -142,6 +142,17 @@ jobs:
           else
             need=true
           fi
+          if [ "$need" != "true" ]; then
+            for rdir in MCPEDL/*/*/behavior_pack/recipes; do
+              [ -d "$rdir" ] || continue
+              pack="${rdir%/behavior_pack/recipes}"
+              case "${pack##*/}" in Grand-Banquets|Monster-Companions) continue ;; esac
+              if grep -rlE '"minecraft:recipe_(shaped|shapeless)"' "$rdir" > /dev/null 2>&1 && ! compgen -G "$pack/assets/recipes/*_recipe.png" > /dev/null; then
+                echo "Recipes without images: $pack"
+                need=true
+              fi
+            done
+          fi
           echo "needed=$need" >> "$GITHUB_OUTPUT"
           echo "Recipe images need a refresh: $need"
 
