@@ -2,6 +2,13 @@
 
 ---
 
+## [v4] - 2026-11-20 - World Loading Fix
+
+### Fixed
+
+- **World Pack Reference**: The world's pack reference now matches the pack version, and map builds keep it in sync automatically.
+- **Void End Dimension**: The End is now a void in every build of the map, matching the Overworld and Nether.
+
 ## [v3] - 2026-11-14
 
 **What's new in v2.0.1:** Packed with the v2.0.1 update. Includes: Island Build And Shifter Safety Fixes.

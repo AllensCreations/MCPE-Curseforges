@@ -13,7 +13,8 @@ def main():
     out = sys.argv[1] if len(sys.argv) > 1 else HERE
     os.makedirs(out, exist_ok=True)
     with open(os.path.join(HERE, "behavior_pack", "manifest.json"), encoding="utf-8") as f:
-        version = json.load(f)["header"]["version"]
+        header = json.load(f)["header"]
+    version = header["version"]
     full = ".".join(str(n) for n in version)
     short = ".".join(str(n) for n in version[:2])
     for mode, label in MODES:
@@ -26,6 +27,9 @@ def main():
             shutil.copytree(os.path.join(HERE, "behavior_pack"), pack)
             with open(os.path.join(pack, "scripts", "mode.js"), "w", encoding="utf-8") as f:
                 f.write('export const WORLD_MODE = "%s";\n' % mode)
+            with open(os.path.join(world, "world_behavior_packs.json"), "w", encoding="utf-8") as f:
+                json.dump([{"pack_id": header["uuid"], "version": version}], f, indent=2)
+                f.write("\n")
             with open(os.path.join(world, "levelname.txt"), "w", encoding="utf-8") as f:
                 f.write("OneBlock Void Survival %s v%s [ALNStudios]\n" % (label, short))
             name = "OneBlock Void Survival %s by ALNStudios (V%s).mcworld" % (label, full)

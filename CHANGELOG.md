@@ -27,6 +27,13 @@
 
 ---
 
+## [v149] - 2026-11-20 - World Loading Fix
+
+### Fixed
+
+- **World Pack Reference**: The world's pack reference now matches the pack version, and map builds keep it in sync automatically.
+- **Void End Dimension**: The End is now a void in every build of the map, matching the Overworld and Nether.
+
 ## [v148] - 2026-11-20 - Leash Limit
 
 ### Improved & Balanced
