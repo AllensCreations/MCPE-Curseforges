@@ -6,19 +6,128 @@ import {
   BlockInventoryComponent,
   EntityInventoryComponent,
 } from "@minecraft/server";
+import { FormCancelationReason } from "@minecraft/server-ui";
 
 export const ITEM_ID = "aln:chest_log";
-export const LIST_KEY = "aln_chestlog_list";
 export const CONTAINER_TYPES = new Set([
   "minecraft:chest",
   "minecraft:trapped_chest",
   "minecraft:barrel",
 ]);
 
+const PREFIX = "aln_chestlog:chest:";
+const LEGACY_KEY = "aln_chestlog_list";
 const MAX_KNOWN = 150;
 const ALERT_COOLDOWN = 600;
+const TOOL_TAGS = new Set([
+  "minecraft:is_tool",
+  "minecraft:is_sword",
+  "minecraft:is_axe",
+  "minecraft:is_pickaxe",
+  "minecraft:is_shovel",
+  "minecraft:is_hoe",
+  "minecraft:is_trident",
+  "minecraft:is_shears",
+  "minecraft:digger",
+]);
+
+const chests = new Map();
 const alertTicks = new Map();
 const suppressed = new Map();
+
+function loadAll() {
+  chests.clear();
+  for (const key of world.getDynamicPropertyIds()) {
+    if (!key.startsWith(PREFIX)) continue;
+    const raw = world.getDynamicProperty(key);
+    if (typeof raw !== "string") continue;
+    try {
+      const entry = JSON.parse(raw);
+      if (entry && typeof entry.id === "string") chests.set(entry.id, entry);
+    } catch {}
+  }
+}
+
+export function saveEntry(entry) {
+  try {
+    world.setDynamicProperty(PREFIX + entry.id, JSON.stringify(entry));
+    chests.set(entry.id, entry);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export function deleteEntry(entry) {
+  try {
+    world.setDynamicProperty(PREFIX + entry.id, undefined);
+  } catch {}
+  chests.delete(entry.id);
+}
+
+export function getEntry(id) {
+  return chests.get(id);
+}
+
+export function newId() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+}
+
+export function chestsOf(player) {
+  return Array.from(chests.values())
+    .filter((entry) => entry.owner === player.id)
+    .sort((a, b) => (a.created ?? 0) - (b.created ?? 0));
+}
+
+function sameLocation(a, b) {
+  return !!a && !!b && a.x === b.x && a.y === b.y && a.z === b.z;
+}
+
+export function findEntry(dimensionId, location) {
+  for (const entry of chests.values()) {
+    if (
+      entry.dimensionId === dimensionId &&
+      (sameLocation(entry.location, location) || sameLocation(entry.partner, location))
+    ) {
+      return entry;
+    }
+  }
+  return undefined;
+}
+
+function migratePlayer(player) {
+  const raw = player.getDynamicProperty(LEGACY_KEY);
+  if (typeof raw !== "string") return;
+  try {
+    const legacy = JSON.parse(raw);
+    if (Array.isArray(legacy)) {
+      for (const entry of legacy) {
+        if (!entry || typeof entry.id !== "string" || chests.has(entry.id)) continue;
+        entry.owner = player.id;
+        entry.created = entry.created ?? Date.now();
+        saveEntry(entry);
+      }
+    }
+    player.setDynamicProperty(LEGACY_KEY, undefined);
+  } catch {}
+}
+
+export async function showForm(form, player) {
+  for (let attempt = 0; attempt < 6; attempt++) {
+    let response;
+    try {
+      response = await form.show(player);
+    } catch {
+      return undefined;
+    }
+    if (response.canceled && response.cancelationReason === FormCancelationReason.UserBusy) {
+      await new Promise((resolve) => system.runTimeout(resolve, 10));
+      continue;
+    }
+    return response;
+  }
+  return undefined;
+}
 
 export function markSuppressed(player) {
   suppressed.set(player.id, system.currentTick);
@@ -53,47 +162,31 @@ export function getInventory(player) {
   return component ? component.container : undefined;
 }
 
-export function loadList(player) {
-  const raw = player.getDynamicProperty(LIST_KEY);
-  if (typeof raw !== "string") return [];
-  try {
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [];
-  } catch {
-    return [];
-  }
+function notifyOwner(entry, text) {
+  const owner = world.getAllPlayers().find((player) => player.id === entry.owner);
+  if (owner) owner.onScreenDisplay.setActionBar(text);
 }
 
-export function saveList(player, list) {
-  try {
-    player.setDynamicProperty(LIST_KEY, JSON.stringify(list));
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-function sameLocation(a, b) {
-  return !!a && !!b && a.x === b.x && a.y === b.y && a.z === b.z;
-}
-
-export function matchEntry(list, dimensionId, location) {
-  return list.findIndex(
-    (entry) =>
-      entry.dimensionId === dimensionId &&
-      (sameLocation(entry.location, location) || sameLocation(entry.partner, location))
-  );
+function containerAt(dimension, location) {
+  const block = dimension.getBlock(location);
+  if (!block) return { state: "unloaded" };
+  if (!CONTAINER_TYPES.has(block.typeId)) return { state: "gone" };
+  const component = block.getComponent(BlockInventoryComponent.componentId);
+  if (!component || !component.container) return { state: "gone" };
+  return { state: "loaded", container: component.container, block };
 }
 
 function resolveContainer(entry) {
   try {
     const dimension = world.getDimension(entry.dimensionId);
-    const block = dimension.getBlock(entry.location);
-    if (!block) return { state: "unloaded" };
-    if (!CONTAINER_TYPES.has(block.typeId)) return { state: "gone" };
-    const component = block.getComponent(BlockInventoryComponent.componentId);
-    if (!component || !component.container) return { state: "gone" };
-    return { state: "loaded", container: component.container, block };
+    const primary = containerAt(dimension, entry.location);
+    if (primary.state !== "gone" || !entry.partner) return primary;
+    const secondary = containerAt(dimension, entry.partner);
+    if (secondary.state === "unloaded") return secondary;
+    if (secondary.state !== "loaded") return primary;
+    entry.location = entry.partner;
+    delete entry.partner;
+    return secondary;
   } catch {
     return { state: "unloaded" };
   }
@@ -104,6 +197,8 @@ function serializeItem(item) {
   if (item.nameTag) record.nameTag = item.nameTag;
   const lore = item.getLore();
   if (lore.length > 0) record.lore = lore;
+  const durability = item.getComponent("minecraft:durability");
+  if (durability && durability.damage > 0) record.damage = durability.damage;
   const enchantable = item.getComponent("minecraft:enchantable");
   if (enchantable) {
     const list = enchantable.getEnchantments();
@@ -118,6 +213,10 @@ function buildStack(record, amount) {
   const item = new ItemStack(record.typeId, amount);
   if (record.nameTag) item.nameTag = record.nameTag;
   if (record.lore && record.lore.length > 0) item.setLore(record.lore);
+  if (record.damage) {
+    const durability = item.getComponent("minecraft:durability");
+    if (durability) durability.damage = record.damage;
+  }
   if (record.enchantments && record.enchantments.length > 0) {
     const enchantable = item.getComponent("minecraft:enchantable");
     if (enchantable) {
@@ -136,6 +235,7 @@ function recordKey(record) {
     record.typeId,
     record.nameTag ?? "",
     record.lore ?? [],
+    record.damage ?? 0,
     record.enchantments ?? [],
   ]);
 }
@@ -181,6 +281,19 @@ function entryTypeSet(entry) {
   return new Set([...(entry.known ?? []), ...pendingTypes(entry)]);
 }
 
+function categoryOf(item) {
+  let tags;
+  try {
+    tags = item.getTags();
+  } catch {
+    return 3;
+  }
+  if (tags.some((tag) => TOOL_TAGS.has(tag))) return 0;
+  if (tags.includes("minecraft:is_armor")) return 1;
+  if (tags.includes("minecraft:is_food")) return 2;
+  return 3;
+}
+
 export function sortContainer(container) {
   try {
     const stacks = [];
@@ -205,10 +318,16 @@ export function sortContainer(container) {
         merged.push(copy);
       }
     }
-    merged.sort((a, b) => a.typeId.localeCompare(b.typeId) || b.amount - a.amount);
-    if (merged.length > container.size) return;
+    const ranked = merged.map((item) => ({ item, category: categoryOf(item) }));
+    ranked.sort(
+      (a, b) =>
+        a.category - b.category ||
+        a.item.typeId.localeCompare(b.item.typeId) ||
+        b.item.amount - a.item.amount
+    );
+    if (ranked.length > container.size) return;
     for (let i = 0; i < container.size; i++) {
-      container.setItem(i, i < merged.length ? merged[i] : undefined);
+      container.setItem(i, i < ranked.length ? ranked[i].item : undefined);
     }
   } catch {}
 }
@@ -239,10 +358,10 @@ function depositItem(entry, part) {
   return { stored: 0, queued: false };
 }
 
-export function runDeposit(player, list, plan) {
+export function runDeposit(player, plan) {
   const inventory = getInventory(player);
   if (!inventory) return { total: 0, chests: 0 };
-  const snapshot = list.map((entry) => JSON.stringify(entry.pendingQueue ?? []));
+  const snapshots = new Map();
   const results = [];
   const loadedHits = new Set();
   const queuedHits = new Set();
@@ -251,96 +370,96 @@ export function runDeposit(player, list, plan) {
     const held = inventory.getItem(step.slot);
     if (!held || held.typeId !== step.typeId) continue;
     let left = Math.min(step.amount, held.amount);
-    let stored = 0;
-    let queued = 0;
-    for (const index of step.targets) {
+    const result = { slot: step.slot, held, stored: 0, queuedBy: new Map() };
+    for (const entry of step.targets) {
       if (left <= 0) break;
+      if (!snapshots.has(entry.id)) snapshots.set(entry.id, JSON.stringify(entry.pendingQueue ?? []));
       const part = held.clone();
       part.amount = left;
-      const out = depositItem(list[index], part);
-      if (out.stored > 0) {
-        stored += out.stored;
-        left -= out.stored;
-        if (out.queued) {
-          queued += out.stored;
-          queuedHits.add(index);
-        } else {
-          loadedHits.add(index);
-        }
+      const out = depositItem(entry, part);
+      if (out.stored <= 0) continue;
+      result.stored += out.stored;
+      left -= out.stored;
+      if (out.queued) {
+        queuedHits.add(entry);
+        result.queuedBy.set(entry.id, (result.queuedBy.get(entry.id) ?? 0) + out.stored);
+      } else {
+        loadedHits.add(entry);
       }
     }
-    results.push({ slot: step.slot, held, stored, queued });
+    results.push(result);
   }
 
-  const queuedTotal = results.reduce((sum, r) => sum + r.queued, 0);
-  let saved = saveList(player, list);
-  if (!saved && queuedTotal > 0) {
-    list.forEach((entry, i) => {
-      entry.pendingQueue = JSON.parse(snapshot[i]);
-    });
-    for (const r of results) {
-      r.stored -= r.queued;
-      r.queued = 0;
+  let failed = false;
+  for (const entry of new Set([...queuedHits, ...loadedHits])) {
+    if (saveEntry(entry)) continue;
+    if (!queuedHits.has(entry)) continue;
+    failed = true;
+    entry.pendingQueue = JSON.parse(snapshots.get(entry.id));
+    queuedHits.delete(entry);
+    for (const result of results) {
+      result.stored -= result.queuedBy.get(entry.id) ?? 0;
+      result.queuedBy.delete(entry.id);
     }
-    queuedHits.clear();
-    saveList(player, list);
-    player.onScreenDisplay.setActionBar("§c[ChestLog] §fCould not buffer items for unloaded chests.");
   }
 
   let total = 0;
-  for (const r of results) {
-    if (r.stored <= 0) continue;
-    total += r.stored;
-    const remain = r.held.amount - r.stored;
+  for (const result of results) {
+    if (result.stored <= 0) continue;
+    total += result.stored;
+    const remain = result.held.amount - result.stored;
     if (remain <= 0) {
-      inventory.setItem(r.slot, undefined);
+      inventory.setItem(result.slot, undefined);
     } else {
-      const keep = r.held.clone();
+      const keep = result.held.clone();
       keep.amount = remain;
-      inventory.setItem(r.slot, keep);
+      inventory.setItem(result.slot, keep);
     }
   }
 
-  for (const index of loadedHits) sortEntry(list[index]);
-  return { total, chests: new Set([...loadedHits, ...queuedHits]).size };
+  for (const entry of loadedHits) sortEntry(entry);
+  return { total, chests: new Set([...loadedHits, ...queuedHits]).size, failed };
 }
 
 export function depositAll(player) {
-  const list = loadList(player);
-  if (list.length === 0) {
+  const entries = chestsOf(player);
+  if (entries.length === 0) {
     player.onScreenDisplay.setActionBar("§e[ChestLog] §fNo chests registered yet.");
     return;
   }
   const inventory = getInventory(player);
   if (!inventory) return;
-  const sets = list.map(entryTypeSet);
+  const sets = entries.map(entryTypeSet);
   const plan = [];
   for (let slot = 0; slot < 36; slot++) {
     const item = inventory.getItem(slot);
     if (!item || item.typeId === ITEM_ID) continue;
-    const targets = [];
-    sets.forEach((set, index) => {
-      if (set.has(item.typeId)) targets.push(index);
-    });
+    const targets = entries.filter((entry, index) => sets[index].has(item.typeId));
     if (targets.length > 0) plan.push({ slot, typeId: item.typeId, amount: item.amount, targets });
   }
-  const result = runDeposit(player, list, plan);
+  const result = runDeposit(player, plan);
+  if (result.failed) {
+    player.onScreenDisplay.setActionBar("§c[ChestLog] §fCould not buffer items for an unloaded chest.");
+    return;
+  }
+  if (result.total === 0) {
+    player.onScreenDisplay.setActionBar("§e[ChestLog] §fNo matching items to deposit.");
+    return;
+  }
   player.onScreenDisplay.setActionBar(
     `§a[ChestLog] §fSorted & deposited §e${result.total} §fitems across §b${result.chests} §fchests!`
   );
 }
 
-function alertFull(player, entry) {
+function alertFull(entry) {
   const last = alertTicks.get(entry.id);
   if (last !== undefined && system.currentTick - last < ALERT_COOLDOWN) return;
   alertTicks.set(entry.id, system.currentTick);
   const waiting = entry.pendingQueue.reduce((sum, r) => sum + r.amount, 0);
-  player.onScreenDisplay.setActionBar(
-    `§c[ChestLog] ${coloredName(entry)} §fis full. §e${waiting} §fitems are waiting.`
-  );
+  notifyOwner(entry, `§c[ChestLog] ${coloredName(entry)} §fis full. §e${waiting} §fitems are waiting.`);
 }
 
-function flushEntry(player, entry) {
+export function flushEntry(entry) {
   if (!Array.isArray(entry.pendingQueue) || entry.pendingQueue.length === 0) return false;
   const resolved = resolveContainer(entry);
   if (resolved.state !== "loaded") return false;
@@ -378,45 +497,85 @@ function flushEntry(player, entry) {
     if (remaining > 0) remainingQueue.push({ ...record, amount: remaining });
   }
   entry.pendingQueue = remainingQueue;
-  if (blocked && remainingQueue.length > 0) alertFull(player, entry);
+  if (blocked && remainingQueue.length > 0) alertFull(entry);
   return changed;
 }
 
-function flushPlayer(player) {
-  const list = loadList(player);
-  let dirty = false;
-  for (const entry of list) {
+export function releasePending(entry) {
+  const queue = entry.pendingQueue ?? [];
+  entry.pendingQueue = [];
+  try {
+    const dimension = world.getDimension(entry.dimensionId);
+    const at = { x: entry.location.x + 0.5, y: entry.location.y + 1, z: entry.location.z + 0.5 };
+    for (const record of queue) {
+      let max;
+      try {
+        max = new ItemStack(record.typeId, 1).maxAmount;
+      } catch {
+        continue;
+      }
+      let remaining = record.amount;
+      while (remaining > 0) {
+        const amount = Math.min(remaining, max);
+        dimension.spawnItem(buildStack(record, amount), at);
+        remaining -= amount;
+      }
+    }
+  } catch {}
+}
+
+function flushSweep() {
+  for (const entry of Array.from(chests.values())) {
     if (!entry.pendingQueue || entry.pendingQueue.length === 0) continue;
-    const before = JSON.stringify(entry.pendingQueue);
-    const changed = flushEntry(player, entry);
-    if (changed) {
+    const before = JSON.stringify(entry);
+    if (flushEntry(entry)) {
       refreshKnown(entry);
       sortEntry(entry);
     }
-    if (JSON.stringify(entry.pendingQueue) !== before) dirty = true;
+    if (JSON.stringify(entry) !== before) saveEntry(entry);
   }
-  if (dirty) saveList(player, list);
 }
 
-function flushAtLocation(player, dimensionId, location) {
-  const list = loadList(player);
-  const index = matchEntry(list, dimensionId, location);
-  if (index < 0) return;
-  const entry = list[index];
-  const changed = flushEntry(player, entry);
+function goneSweep() {
+  for (const player of world.getAllPlayers()) {
+    try {
+      migratePlayer(player);
+    } catch {}
+  }
+  for (const entry of Array.from(chests.values())) {
+    const before = JSON.stringify(entry);
+    const resolved = resolveContainer(entry);
+    if (resolved.state === "gone") {
+      releasePending(entry);
+      notifyOwner(entry, `§e[ChestLog] §fThe chest ${coloredName(entry)} §fwas removed and unregistered.`);
+      deleteEntry(entry);
+    } else if (JSON.stringify(entry) !== before) {
+      saveEntry(entry);
+    }
+  }
+}
+
+function flushAtLocation(dimensionId, location) {
+  const entry = findEntry(dimensionId, location);
+  if (!entry) return;
+  const changed = flushEntry(entry);
   refreshKnown(entry);
   if (changed) sortEntry(entry);
-  saveList(player, list);
+  saveEntry(entry);
 }
 
 export function initSync() {
+  loadAll();
   system.runInterval(() => {
-    for (const player of world.getAllPlayers()) {
-      try {
-        flushPlayer(player);
-      } catch {}
-    }
+    try {
+      flushSweep();
+    } catch {}
   }, 20);
+  system.runInterval(() => {
+    try {
+      goneSweep();
+    } catch {}
+  }, 100);
 
   world.beforeEvents.playerInteractWithBlock.subscribe((event) => {
     const { player, block, itemStack, isFirstEvent } = event;
@@ -426,7 +585,7 @@ export function initSync() {
     const location = { x: block.x, y: block.y, z: block.z };
     system.run(() => {
       try {
-        flushAtLocation(player, dimensionId, location);
+        flushAtLocation(dimensionId, location);
       } catch {}
     });
   });

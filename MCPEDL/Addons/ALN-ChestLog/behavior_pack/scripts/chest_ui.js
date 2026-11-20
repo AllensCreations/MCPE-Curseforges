@@ -2,13 +2,15 @@ import { world, system } from "@minecraft/server";
 import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
 import {
   ITEM_ID,
-  loadList,
+  chestsOf,
+  getEntry,
   coloredName,
   itemDisplayName,
   getInventory,
   runDeposit,
   depositAll,
   isSuppressed,
+  showForm,
 } from "./chest_sync.js";
 
 const ICON_CHEST = "textures/items/chest_minecart";
@@ -17,29 +19,35 @@ const ICON_EXIT = "textures/ui/cancel";
 const LORE = ["§7Sneak + Use on a Chest to register", "§7Use in air to open Remote Deposit"];
 
 async function showMain(player) {
-  const list = loadList(player);
-  const response = await new ActionFormData()
-    .title("§6§lALN:ChestLog")
-    .body(`§7Registered Chests: §e${list.length}\n§a■ Overworld  §c■ Nether  §d■ The End`)
-    .button("§eChest", ICON_CHEST)
-    .button("§bAbout", ICON_ABOUT)
-    .button("§cExit", ICON_EXIT)
-    .show(player);
-  if (response.canceled) return;
+  const list = chestsOf(player);
+  const response = await showForm(
+    new ActionFormData()
+      .title("§6§lALN:ChestLog")
+      .body(`§7Registered Chests: §e${list.length}\n§a■ Overworld  §c■ Nether  §d■ The End`)
+      .button("§eChest", ICON_CHEST)
+      .button("§bAbout", ICON_ABOUT)
+      .button("§cExit", ICON_EXIT),
+    player
+  );
+  if (!response || response.canceled) return;
   if (response.selection === 0) await showChestList(player);
   else if (response.selection === 1) await showAbout(player);
 }
 
 async function showChestList(player) {
-  const list = loadList(player);
+  const list = chestsOf(player);
   const form = new ActionFormData()
     .title("§6§lChests")
-    .body("§7Pick a chest to deposit into, or sort everything at once.")
+    .body(
+      list.length === 0
+        ? "§7No chests registered yet. Sneak + Use the ChestLog on a Chest, Trapped Chest or Barrel."
+        : "§7Pick a chest to deposit into, or sort everything at once."
+    )
     .button("§a§lDeposit All (Sort)");
   for (const entry of list) form.button(coloredName(entry));
   form.button("§7Back");
-  const response = await form.show(player);
-  if (response.canceled) return;
+  const response = await showForm(form, player);
+  if (!response || response.canceled) return;
   const selection = response.selection;
   if (selection === 0) {
     depositAll(player);
@@ -54,10 +62,8 @@ async function showChestList(player) {
 }
 
 async function showDepositForm(player, entryId) {
-  const list = loadList(player);
-  const index = list.findIndex((entry) => entry.id === entryId);
-  if (index < 0) return;
-  const entry = list[index];
+  const entry = getEntry(entryId);
+  if (!entry || entry.owner !== player.id) return;
   const inventory = getInventory(player);
   if (!inventory) return;
 
@@ -82,31 +88,35 @@ async function showDepositForm(player, entryId) {
   form.dropdown("Action", ["Deposit Selected Items", "Exit Without Depositing"]);
   form.submitButton("Confirm");
 
-  const response = await form.show(player);
-  if (response.canceled || !response.formValues) return;
+  const response = await showForm(form, player);
+  if (!response || response.canceled || !response.formValues) return;
   const values = response.formValues;
   if (values[rows.length] !== 0) return;
 
   const plan = [];
   rows.forEach((row, i) => {
     const amount = Number(values[i]);
-    if (amount > 0) plan.push({ slot: row.slot, typeId: row.typeId, amount, targets: [0] });
+    if (amount > 0) plan.push({ slot: row.slot, typeId: row.typeId, amount, targets: [] });
   });
   if (plan.length === 0) return;
 
-  const fresh = loadList(player);
-  const freshIndex = fresh.findIndex((e) => e.id === entryId);
-  if (freshIndex < 0) return;
-  for (const step of plan) step.targets = [freshIndex];
+  const target = getEntry(entryId);
+  if (!target) return;
+  for (const step of plan) step.targets = [target];
 
-  const result = runDeposit(player, fresh, plan);
+  const result = runDeposit(player, plan);
+  if (result.failed) {
+    player.onScreenDisplay.setActionBar("§c[ChestLog] §fCould not buffer items for an unloaded chest.");
+    return;
+  }
   player.onScreenDisplay.setActionBar(
-    `§a[ChestLog] §fDeposited §e${result.total} §fitems into ${coloredName(fresh[freshIndex])}§f!`
+    `§a[ChestLog] §fDeposited §e${result.total} §fitems into ${coloredName(target)}§f!`
   );
 }
 
 async function showAbout(player) {
-  const response = await new ActionFormData()
+  const response = await showForm(
+    new ActionFormData()
     .title("§6§lAbout ChestLog")
     .body(
       [
@@ -114,12 +124,14 @@ async function showAbout(player) {
         "§eColors§f: §aOverworld §cNether §dThe End §fchests are colored by dimension. No coordinates are ever shown.",
         "§eUnloaded chunks§f: items for a chest in an unloaded chunk are held safely and moved in as soon as it loads.",
         "§eDeposit All (Sort)§f: sends matching items to your registered chests and sorts them.",
+        "§eUnregister§f: Sneak + Use the ChestLog on a registered chest and switch on Unregister. Waiting items are delivered or dropped.",
         "§7by ALNStudios",
       ].join("\n\n")
     )
-    .button("§7Back")
-    .show(player);
-  if (!response.canceled) await showMain(player);
+    .button("§7Back"),
+    player
+  );
+  if (response && !response.canceled) await showMain(player);
 }
 
 function applyLore() {
@@ -142,7 +154,10 @@ export function initUI() {
     const player = event.source;
     if (!event.itemStack || event.itemStack.typeId !== ITEM_ID) return;
     if (isSuppressed(player)) return;
-    showMain(player).catch(() => {});
+    system.runTimeout(() => {
+      if (isSuppressed(player)) return;
+      showMain(player).catch(() => {});
+    }, 2);
   });
   system.runInterval(applyLore, 40);
 }

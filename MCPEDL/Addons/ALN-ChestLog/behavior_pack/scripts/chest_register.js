@@ -3,11 +3,15 @@ import { ModalFormData } from "@minecraft/server-ui";
 import {
   ITEM_ID,
   CONTAINER_TYPES,
-  loadList,
-  saveList,
-  matchEntry,
+  findEntry,
+  saveEntry,
+  deleteEntry,
+  newId,
   refreshKnown,
   markSuppressed,
+  showForm,
+  flushEntry,
+  releasePending,
 } from "./chest_sync.js";
 
 const DEFAULT_NAME = "Storage Chest";
@@ -53,10 +57,20 @@ function labelChest(dimension, location, name, wasLabeled) {
   }
 }
 
+function tell(player, text) {
+  player.onScreenDisplay.setActionBar(text);
+}
+
 async function openRegisterForm(player, dimensionId, clicked) {
   const dimension = world.getDimension(dimensionId);
   const block = dimension.getBlock(clicked);
   if (!block) return;
+
+  const existing = findEntry(dimensionId, clicked);
+  if (existing && existing.owner !== player.id) {
+    tell(player, "§c[ChestLog] §fThis chest is registered by another player.");
+    return;
+  }
 
   let location = { x: clicked.x, y: clicked.y, z: clicked.z };
   let partner = findPartner(block);
@@ -66,51 +80,48 @@ async function openRegisterForm(player, dimensionId, clicked) {
     partner = swap;
   }
 
-  const existingList = loadList(player);
-  const existingIndex = matchEntry(existingList, dimensionId, clicked);
-  const defaultName = existingIndex >= 0 ? existingList[existingIndex].name : DEFAULT_NAME;
+  const form = new ModalFormData()
+    .title("§6§lRegister Chest")
+    .textField("Enter Chest Name", "e.g., Ores, Building Blocks, Mob Drops", {
+      defaultValue: existing ? existing.name : DEFAULT_NAME,
+    });
+  if (existing) form.toggle("Unregister this chest");
+  form.submitButton(existing ? "Save" : "Register");
+  const response = await showForm(form, player);
+  if (!response || response.canceled || !response.formValues) return;
 
-  let response;
-  try {
-    response = await new ModalFormData()
-      .title("§6§lRegister Chest")
-      .textField("Enter Chest Name", "e.g., Ores, Building Blocks, Mob Drops", {
-        defaultValue: defaultName,
-      })
-      .submitButton("Register")
-      .show(player);
-  } catch {
+  const current = findEntry(dimensionId, clicked);
+  if (current && current.owner !== player.id) return;
+
+  if (current && response.formValues[1] === true) {
+    flushEntry(current);
+    releasePending(current);
+    deleteEntry(current);
+    tell(player, `§e[ChestLog] §f${current.name} was unregistered.`);
     return;
   }
-  if (response.canceled || !response.formValues) return;
 
   const typed = String(response.formValues[0] ?? "");
   const name = typed.replace(/§./g, "").trim().slice(0, 32) || DEFAULT_NAME;
 
-  const list = loadList(player);
-  const index = matchEntry(list, dimensionId, clicked);
-  let entry;
-  if (index >= 0) {
-    entry = list[index];
-    entry.name = name;
-  } else {
-    entry = {
-      id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
-      name,
-      dimensionId,
-      location,
-      pendingQueue: [],
-      known: [],
-    };
-    if (partner) entry.partner = partner;
-    list.push(entry);
-  }
+  const entry = current ?? {
+    id: newId(),
+    owner: player.id,
+    created: Date.now(),
+    name,
+    dimensionId,
+    location,
+    pendingQueue: [],
+    known: [],
+  };
+  if (!current && partner) entry.partner = partner;
+  entry.name = name;
   refreshKnown(entry);
   const wasLabeled = !!entry.labeled;
   entry.labeled = labelChest(dimension, entry.location, name, wasLabeled) || wasLabeled;
 
-  if (!saveList(player, list)) {
-    player.onScreenDisplay.setActionBar("§c[ChestLog] §fCould not save the chest list.");
+  if (!saveEntry(entry)) {
+    tell(player, "§c[ChestLog] §fCould not save the chest.");
     return;
   }
 
@@ -124,7 +135,7 @@ async function openRegisterForm(player, dimensionId, clicked) {
       z: entry.location.z + 0.5,
     });
   } catch {}
-  player.onScreenDisplay.setActionBar(`§a[ChestLog] §e${name} - Registered`);
+  tell(player, `§a[ChestLog] §e${name} - Registered`);
 }
 
 export function initRegister() {

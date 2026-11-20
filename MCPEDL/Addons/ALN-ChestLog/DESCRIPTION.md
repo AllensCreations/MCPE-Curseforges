@@ -19,7 +19,7 @@ Register any chest, trapped chest or barrel by sneaking and using the ChestLog o
 - **What Happens**: Sneak and use the ChestLog on a chest, trapped chest or barrel, then type a name. The chest joins your wireless network and a sign above it reads the name followed by "- Registered".
 
 ### Double Chest Support
-- **What Happens**: Both halves of a double chest share one entry, so registering either half registers the whole chest.
+- **What Happens**: Both halves of a double chest share one entry, so registering either half registers the whole chest. Only the player who registered a chest can rename or unregister it.
 
 ### Remote Menu
 - **What Happens**: Use the ChestLog in the air to open a menu with Chest, About and Exit. The Chest screen lists your chests colored by dimension and never shows coordinates.
@@ -31,10 +31,13 @@ Register any chest, trapped chest or barrel by sneaking and using the ChestLog o
 - **What Happens**: Pick one chest and use a slider for each item stack in your inventory to choose exactly how many to deposit.
 
 ### Unloaded Chunk Buffer
-- **What Happens**: Items sent to a chest in an unloaded chunk are held safely and moved in as soon as the chunk loads. If the chest is full, the overflow waits and you get an alert.
+- **What Happens**: Items sent to a chest in an unloaded chunk are held safely, with their names, enchantments and durability, and moved in as soon as the chunk loads, even while you are offline. If the chest is full, the overflow waits and you get an alert.
 
 ### Smart Sorting
-- **What Happens**: Identical items merge up to full stacks and chests are ordered alphabetically after every deposit.
+- **What Happens**: Identical items merge up to full stacks after every deposit. Chests are ordered as tools, armor, food, then everything else, alphabetically within each group.
+
+### Unregister and Cleanup
+- **What Happens**: Switch on Unregister when you sneak and use the ChestLog on a registered chest, and any waiting items are delivered or dropped. If a registered chest is broken, it is unregistered automatically and its waiting items drop where it stood.
 
 ### Survival Recipe
 - **What Happens**: Craft the ChestLog from a Book, an Ender Pearl and Redstone.
@@ -45,11 +48,12 @@ Register any chest, trapped chest or barrel by sneaking and using the ChestLog o
 2. Sneak and use the ChestLog on a chest, trapped chest or barrel, then type a name.
 3. Use the ChestLog in the air to open the menu and choose Chest.
 4. Pick Deposit All (Sort) for a quick sweep, or select one chest and set quantities with the sliders.
-5. Chest names are colored green in the Overworld, red in the Nether and purple in The End.
+5. To remove a chest from your network, sneak and use the ChestLog on it again and switch on Unregister.
+6. Chest names are colored green in the Overworld, red in the Nether and purple in The End.
 
 ## Compatibility
 
-- Minecraft Bedrock Edition: 1.26.50 or newer.
+- Minecraft Bedrock Edition: 1.26.60 or newer.
 - Experimental features: Not verified.
 - Achievements: Likely achievement-friendly.
 - Verification: Source created, not tested in game.
@@ -78,4 +82,3 @@ Register any chest, trapped chest or barrel by sneaking and using the ChestLog o
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, ALN ChestLog Bedrock mod, wireless chest storage, remote chest deposit, auto sort chests, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
-

@@ -1,18 +1,18 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:ChestLog Resources (v1)",
+    "name": "ALN:ChestLog Resources (v2)",
     "description": "Icon for the ChestLog item. by ALNStudios. Not tested in game.",
     "uuid": "a1e6b4d9-74db-40e9-bd2e-0531e0c02b3e",
     "version": [
-      1,
+      2,
       0,
       0
     ],
     "min_engine_version": [
       1,
       26,
-      50
+      60
     ]
   },
   "modules": [
@@ -20,14 +20,14 @@
       "type": "resources",
       "uuid": "da1580c2-a85f-49b3-856c-3a96252ed9a3",
       "version": [
-        1,
+        2,
         0,
         0
       ]
     }
   ],
   "metadata": {
-    "version": "1.0.0",
+    "version": "2.0.0",
     "authors": [
       "ALNStudios"
     ]
