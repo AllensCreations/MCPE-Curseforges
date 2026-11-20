@@ -15,18 +15,14 @@ function isSortableContainer(typeId) {
 function isAutoSortFeather(item) {
   return (
     !!item &&
-    item.typeId === "minecraft:feather" &&
-    typeof item.nameTag === "string" &&
-    item.nameTag.trim().toLowerCase() === "auto-sort"
+    item.typeId === "allenscreations:auto_sort_feather"
   );
 }
 
 function isRestockFeather(item) {
   return (
     !!item &&
-    item.typeId === "minecraft:feather" &&
-    typeof item.nameTag === "string" &&
-    item.nameTag.trim().toLowerCase() === "restock"
+    item.typeId === "allenscreations:restock_feather"
   );
 }
 

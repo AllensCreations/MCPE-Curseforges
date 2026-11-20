@@ -32,9 +32,7 @@ function savePrefs(player, prefs) {
 export function isSettingsBook(item) {
   return (
     !!item &&
-    item.typeId === "minecraft:book" &&
-    typeof item.nameTag === "string" &&
-    item.nameTag.trim().toLowerCase() === "sort settings"
+    item.typeId === "allenscreations:sort_settings_book"
   );
 }
 
@@ -43,8 +41,8 @@ export function openSettings(player, attempt = 0) {
   const form = new ModalFormData()
     .title("§aOneClickSort §7Settings")
     .dropdown("Sort Order", SORT_MODES, { defaultValueIndex: prefs.sortMode })
-    .toggle("Sort Hotbar Slots (0-8) When Sorting Backpack", prefs.includeHotbar)
-    .toggle("Audio & Particle Feedback", prefs.soundFeedback);
+    .toggle("Sort Hotbar Slots (0-8) When Sorting Backpack", { defaultValue: prefs.includeHotbar })
+    .toggle("Audio & Particle Feedback", { defaultValue: prefs.soundFeedback });
 
   form
     .show(player)

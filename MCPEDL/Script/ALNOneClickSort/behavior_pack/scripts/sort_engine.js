@@ -48,15 +48,19 @@ function consolidate(items) {
   const merged = [];
   for (const source of items) {
     const item = source.clone();
+    let left = item.amount;
     for (const target of merged) {
-      if (item.amount <= 0) break;
+      if (left <= 0) break;
       if (target.amount >= target.maxAmount) continue;
       if (!target.isStackableWith(item)) continue;
-      const move = Math.min(target.maxAmount - target.amount, item.amount);
+      const move = Math.min(target.maxAmount - target.amount, left);
       target.amount += move;
-      item.amount -= move;
+      left -= move;
     }
-    if (item.amount > 0) merged.push(item);
+    if (left > 0) {
+      item.amount = left;
+      merged.push(item);
+    }
   }
   return merged;
 }

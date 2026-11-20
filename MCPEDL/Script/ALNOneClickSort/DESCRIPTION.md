@@ -5,13 +5,13 @@
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Sort your 27 backpack slots, any chest, barrel or shulker box, and quick-stack into nearby chests with one renamed Feather.**
+**Sort your 27 backpack slots, any chest, barrel or shulker box, and quick-stack into nearby chests with three custom items.**
 
-> Rename a Feather to Auto-Sort on an Anvil and one click sorts your backpack or stacks items into chests within 6 blocks. Good for survival, OneBlock and multiplayer worlds.
+> Hold the Auto-Sort Feather and one click sorts your backpack or stacks items into chests within 6 blocks. Good for survival, OneBlock and multiplayer worlds.
 
 ## Overview
 
-Rename a Feather to Auto-Sort and carry it in your hand. Right-click to sort your backpack, sneak and right-click a chest to sort it, or sneak and right-click in the air to quick-stack. The pack adds no custom items, blocks or mobs and never changes world generation, so it works in existing worlds.
+Hold the Auto-Sort Feather in your hand. Right-click to sort your backpack, sneak and right-click a chest to sort it, or sneak and right-click in the air to quick-stack. The pack adds three items, no blocks or mobs, and never changes world generation, so it works in existing worlds.
 
 ## Key Features
 
@@ -31,12 +31,12 @@ Rename a Feather to Auto-Sort and carry it in your hand. Right-click to sort you
 - **Good To Know**: The Auto-Sort Feather itself and the hotbar are never moved, and every chest that received items is sorted afterward.
 
 ### Restock
-- **What Happens**: Right-click a Feather renamed Restock to refill the partial stacks you already carry, hotbar included, from every chest, trapped chest and barrel within 6 blocks.
+- **What Happens**: Right-click the Restock Feather to refill the partial stacks you already carry, hotbar included, from every chest, trapped chest and barrel within 6 blocks.
 - **How It Works**: Run low on blocks, step next to your storage, right-click the Restock Feather, and a message shows how many items came from how many chests.
 - **Good To Know**: Restock only tops up stacks you already hold and never fills empty slots, so it is the reverse of Quick Stack.
 
 ### Sort Settings
-- **What Happens**: Right-click a Book renamed Sort Settings to open a menu with three options: Sort Order, Sort Hotbar Slots and Audio and Particle Feedback.
+- **What Happens**: Right-click the Sort Settings Book to open a menu with three options: Sort Order, Sort Hotbar Slots and Audio and Particle Feedback.
 - **How It Works**: Choose Smart Category, Alphabetical (A-Z) or Stack Quantity (Highest First), then confirm.
 - **Good To Know**: Each player keeps their own settings, which stay saved between sessions.
 
@@ -47,18 +47,18 @@ Rename a Feather to Auto-Sort and carry it in your hand. Right-click to sort you
 
 ## How to Use
 
-1. Rename a Feather to Auto-Sort on an Anvil.
+1. Take the Auto-Sort Feather, Restock Feather and Sort Settings Book from the Creative inventory under Items.
 2. Right-click in the air to sort your backpack, or sneak and right-click a chest to sort it.
-3. Sneak and right-click in the air next to your chests to quick-stack, or use a Feather renamed Restock to refill your stacks from them.
-4. Rename a Book to Sort Settings to change your options.
+3. Sneak and right-click in the air next to your chests to quick-stack, or use the Restock Feather to refill your stacks from them.
+4. Right-click the Sort Settings Book to change your options.
 
 ## Common Questions
 
 - **Tired of sorting your inventory by hand?**: Right-click the Auto-Sort Feather and your 27 backpack slots are merged and sorted in one click.
-- **Running out of blocks while building?**: Right-click a Feather renamed Restock next to your chests and your held stacks are topped up from them.
+- **Running out of blocks while building?**: Right-click the Restock Feather next to your chests and your held stacks are topped up from them.
 - **Will it mess with my hotbar?**: No, the hotbar stays untouched unless you turn on hotbar sorting in Sort Settings.
 - **Will my enchanted gear and named items survive?**: Yes, names, lore, enchantments and durability are kept, and only identical items merge.
-- **Does it fit OneBlock and multiplayer worlds?**: It adds no custom blocks, items or mobs and never changes world generation, and every player keeps their own settings.
+- **Does it fit OneBlock and multiplayer worlds?**: It adds three items, no blocks or mobs, and never changes world generation, and every player keeps their own settings.
 
 ## Compatibility
 

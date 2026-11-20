@@ -1,0 +1,15 @@
+{
+  "resource_pack_name": "aln_oneclicksort",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "auto_sort_feather": {
+      "textures": "textures/items/auto_sort_feather"
+    },
+    "restock_feather": {
+      "textures": "textures/items/restock_feather"
+    },
+    "sort_settings_book": {
+      "textures": "textures/items/sort_settings_book"
+    }
+  }
+}

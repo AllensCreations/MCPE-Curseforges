@@ -2,6 +2,18 @@
 
 ---
 
+## [v3] - 2026-11-20 - Custom Items
+
+### Added
+- **Custom Items**: The Auto-Sort Feather, Restock Feather and Sort Settings Book are now real items found in the Creative inventory under Items, so no Anvil renaming is needed.
+
+### Improved & Balanced
+- **Sort Settings**: Right-click the Sort Settings Book to open the menu.
+
+### Fixed
+- **Sorting**: Sorting a chest or backpack no longer fails when matching stacks merge completely into another stack.
+- **Sort Settings**: The settings menu opens again.
+
 ## [2.0.0] - 2026-11-20 - Pack Variants and Restock
 
 ### Added
