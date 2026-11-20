@@ -9,22 +9,23 @@
 
 ## Overview
 
-Start on a small void platform with the central block at (0, 0, 0). Breaking it earns Coins and advances shared progression. Use the Natural Market Ledger to buy supplies and expand the central block's eligible regeneration pool.
+Start in the void on the central block at (0, 0, 0), with no bedrock beneath it. A short tutorial builds your platform: each of the first 8 breaks adds a block beside the core until a 3x3 platform surrounds it. Breaking it earns Coins and advances shared progression. Use the Natural Market Ledger to buy supplies and expand the central block's eligible regeneration pool.
 
 ## Key Features
 
 ### Regenerating OneBlock
 - The central block returns after a successful break.
 - The central block is also restored automatically if something other than a player removes it.
+- If a player ends up inside the central block or the 3x3 platform, they are teleported on top of the central block.
 - The available natural block pool expands as shared mining milestones are reached.
 - The starting core is Dirt and is managed by the map script after one-time void setup.
 
 ### Natural Market Ledger
-- Opens a large **3-row by 9-column chest-inspired market panel** that sizes itself to your screen with a wood-toned frame, individual slot backgrounds, hover/pressed states, and Minecraft item icons. If the custom screen does not display on your device, run `/tag @s add obm_vanilla_ui` to use the game's standard form screen instead.
+- Opens the market in the game's standard form screen: a button list with item icons for each category and supply bundle.
 - Tap a supply slot to purchase its displayed bundle directly; no separate purchase-confirmation screen.
 - Large categories use pages that reserve two slots for navigation controls.
 - The catalogue contains more than 180 configured supplies across ten categories. Entries unavailable in the current game version are hidden.
-- This is a simulated layout for the standard server Action Form. It is **not a real vanilla chest container screen** and does not support draggable slots or native container transfers.
+- The market uses the standard server Action Form. It is **not a chest container screen** and does not support draggable slots or native container transfers.
 
 ### Coins and Selling
 - Successful central-block breaks award Coins.
@@ -49,7 +50,7 @@ Start on a small void platform with the central block at (0, 0, 0). Breaking it 
 - Minecraft Bedrock Edition: minimum engine version 1.26.50.
 - Stable Script API dependencies: `@minecraft/server` 2.10.0 and `@minecraft/server-ui` 2.2.0.
 - Experimental features: No experiment requirement detected in the inspected files.
-- UI compatibility: The market's chest-inspired appearance is a resource-pack JSON UI customization of the standard Action Form. Minecraft is deprecating JSON UI in favor of Ore UI, so future game updates may require UI maintenance or a fallback to ordinary forms.
+- UI compatibility: The market uses the game's standard forms, so it does not depend on a custom screen and works with other add-ons that customize form screens.
 - Achievements: Unknown / needs confirmation because the foundation world's settings have not been verified.
 - Verification: Source updated; no package build or in-game test has been run for this UI revision.
 

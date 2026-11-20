@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v11)",
+    "name": "OneBlock Natural Market (v12)",
     "description": "Trader Ledger icon for OneBlock Natural Market. by ALNStudios",
     "uuid": "187333a6-4353-4003-b379-471f85ce9021",
     "version": [
-      11,
+      12,
       0,
       0
     ],
@@ -20,7 +20,7 @@
       "type": "resources",
       "uuid": "bdbf7c5c-5c34-4d6d-93c9-16a468f66b52",
       "version": [
-        11,
+        12,
         0,
         0
       ]
@@ -31,6 +31,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "11.0.0"
+    "version": "12.0.0"
   }
 }

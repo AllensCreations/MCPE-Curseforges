@@ -374,8 +374,8 @@ function ensureCore() {
   }
   try {
     const dimension = world.getDimension("overworld");
-    const bedrock = dimension.getBlock(BEDROCK);
-    if (bedrock && bedrock.typeId === "minecraft:air") bedrock.setType("minecraft:bedrock");
+    const below = dimension.getBlock(BEDROCK);
+    if (below && below.typeId === "minecraft:bedrock") below.setType("minecraft:air");
     const core = dimension.getBlock(CORE);
     if (!core) log("WARN", "Core location 0 0 0 is not loaded.", "core_unloaded");
     if (core && (core.typeId === "minecraft:air" || core.typeId === "minecraft:grass_block")) {
@@ -384,12 +384,9 @@ function ensureCore() {
     }
   } catch (e) { logError("ensureCore", e); }
 }
-function uiTitle(player, text) {
-  return player.hasTag("obm_vanilla_ui") ? text : "NMKT:" + text;
-}
 function marketMain(player) {
   const form = new ActionFormData()
-    .title(uiTitle(player, "NATURAL MARKET"))
+    .title("NATURAL MARKET")
     .body("§6Coins: §e" + balance(player) + "§r\nPersonal breaks: " + personalBreaks(player) +
       "\nShared breaks: " + totalBreaks() + "\nUnlocked tier: " + (unlockedTier(player) + 1) + " / 10\n\nChoose a market section.");
   form.button("Building Blocks", CATEGORIES[0].icon)
@@ -424,7 +421,7 @@ function showCategory(player, category, page = 0) {
   const pageCount = Math.max(1, Math.ceil(items.length / pageSize));
   const safePage = Math.max(0, Math.min(page, pageCount - 1));
   const visible = items.slice(safePage * pageSize, (safePage + 1) * pageSize);
-  const form = new ActionFormData().title(uiTitle(player, category.toUpperCase()))
+  const form = new ActionFormData().title(category.toUpperCase())
     .body("§6Coins: §e" + balance(player) + "§r  |  Page " + (safePage + 1) + "/" + pageCount +
       "\nTap a supply slot to buy the listed bundle." +
       (locked.length ? "\nMore supplies unlock as you mine the core." : ""));
@@ -496,12 +493,51 @@ function sellEligible(player) {
     showBalance(player);
   }).catch(e => { logError("sellEligible", e); tell(player, "The sell confirmation could not open."); });
 }
+const RING = [
+  { x: 1, z: 0 }, { x: 1, z: 1 }, { x: 0, z: 1 }, { x: -1, z: 1 },
+  { x: -1, z: 0 }, { x: -1, z: -1 }, { x: 0, z: -1 }, { x: 1, z: -1 }
+];
+const NOT_SOLID = new Set(["minecraft:air", "minecraft:water", "minecraft:flowing_water", "minecraft:lava", "minecraft:flowing_lava"]);
+function tutorialStep(player, total) {
+  if (total < 1 || total > RING.length) return;
+  const spot = RING[total - 1];
+  try {
+    const block = world.getDimension("overworld").getBlock({ x: CORE.x + spot.x, y: CORE.y, z: CORE.z + spot.z });
+    if (block && block.typeId === "minecraft:air") block.setType("minecraft:grass_block");
+    log("INFO", "Tutorial " + total + "/" + RING.length + ": block placed at " + (CORE.x + spot.x) + " " + CORE.y + " " + (CORE.z + spot.z) + ".");
+  } catch (e) { logError("tutorialStep", e); }
+  tell(player, total < RING.length
+    ? "§eTutorial " + total + "/" + RING.length + ": a block was added beside the core. Keep mining!"
+    : "§aTutorial complete: your 3x3 platform is ready.");
+}
+function rescuePhased() {
+  const dimension = world.getDimension("overworld");
+  for (const player of world.getAllPlayers()) {
+    try {
+      if (player.dimension.id !== "minecraft:overworld" || !player.hasTag("void_cleaned")) continue;
+      const p = player.location;
+      if (p.y >= CORE.y + 0.95 || p.y + 1.75 <= CORE.y + 0.05) continue;
+      let stuck = false;
+      for (let x = Math.floor(p.x - 0.25); x <= Math.floor(p.x + 0.25) && !stuck; x++) {
+        for (let z = Math.floor(p.z - 0.25); z <= Math.floor(p.z + 0.25) && !stuck; z++) {
+          if (Math.abs(x - CORE.x) > 1 || Math.abs(z - CORE.z) > 1) continue;
+          const block = dimension.getBlock({ x, y: CORE.y, z });
+          if (block && !NOT_SOLID.has(block.typeId)) stuck = true;
+        }
+      }
+      if (!stuck) continue;
+      player.teleport({ x: CORE.x + 0.5, y: CORE.y + 1, z: CORE.z + 0.5 }, { keepVelocity: false });
+      log("INFO", player.name + " was inside the core platform and was moved on top of the core.");
+    } catch (e) { logError("rescuePhased", e); }
+  }
+}
 let coreBreakPending = false;
 function onCoreBreak(player) {
   const personal = personalBreaks(player) + 1;
   const total = totalBreaks() + 1;
   writeScore(MINED, player, personal);
   writeScore(TOTAL, GLOBAL_KEY, total);
+  tutorialStep(player, total);
   const milestone = [...MILESTONES].reverse().find(m => total >= m.unlock) ?? MILESTONES[0];
   writeScore(COINS, player, balance(player) + milestone.reward);
   if (MILESTONES.some(m => m.unlock > 0 && m.unlock === total)) {
@@ -520,6 +556,9 @@ system.afterEvents.scriptEventReceive.subscribe(event => {
   }
   if (event.id !== READY_EVENT) return;
   log("INFO", "Ready event received from the tick function.");
+  try {
+    if (totalBreaks() < RING.length) event.sourceEntity?.sendMessage("§6[Tutorial] §rBreak the block you are standing on. Each of the first " + RING.length + " breaks adds a block beside it until a 3x3 platform surrounds the core.");
+  } catch {}
   system.run(() => ensureCore());
 });
 world.afterEvents.itemUse.subscribe(event => {
@@ -567,4 +606,5 @@ system.runInterval(() => {
   try { ensureCore(); } catch (e) { logError("ensureCore interval", e); }
   log("INFO", statusReport(), "status");
 }, 40);
+system.runInterval(rescuePhased, 5);
 system.run(() => log("INFO", "Script started and handlers registered. Debug chat: /tag @s add obm_debug. Status: /scriptevent allenscreations:obm_status"));
