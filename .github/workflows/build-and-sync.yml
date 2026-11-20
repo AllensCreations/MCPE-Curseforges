@@ -10,7 +10,7 @@ name: Build Changed Packs & Sync Catalogs
 #   - Catalogs, READMEs, download links, changelog views, CurseForge description views and image prompts are re-synced.
 #     Description views and image prompts are rebuilt only for packs whose inputs changed.
 #   - Pixel textures are re-rendered from each pack's texture_sources, and crafting recipe images are regenerated
-#     (only when recipes, textures or generators changed) BEFORE the Listing Kits are rebuilt, so one run and one
+#     (only when recipes, items, textures or generators changed) BEFORE the Listing Kits are rebuilt, so one run and one
 #     commit keep recipes, images and descriptions in step. Generator problems are warnings and never block the build.
 #
 # Publishing to CurseForge lives in its own workflow (publish-curseforge.yml). When a publish
@@ -136,7 +136,7 @@ jobs:
           if [ "${{ github.event_name }}" != "push" ]; then
             need=true
           elif changed="$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" 2>/dev/null)"; then
-            if echo "$changed" | grep -Eq '(behavior_pack/recipes/|resource_pack/textures/|texture_sources/|scripts/(crafting_template|generate_[a-z_]*recipe[a-z_]*|convert_crafting_recipe_svgs_to_png|pixel_json_to_png)\.py|CRAFTING_)'; then
+            if echo "$changed" | grep -Eq '(behavior_pack/(recipes|items)/|resource_pack/textures/|texture_sources/|scripts/(crafting_template|generate_[a-z_]*recipe[a-z_]*|convert_crafting_recipe_svgs_to_png|pixel_json_to_png)\.py|CRAFTING_)'; then
               need=true
             fi
           else

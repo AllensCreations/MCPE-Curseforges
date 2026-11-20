@@ -27,6 +27,12 @@
 
 ---
 
+## [v164] - 2026-11-20 - Recipe Image Trigger
+
+### Improved & Balanced
+
+- **Recipe images**: Build Changed Packs & Sync Catalogs now also regenerates crafting recipe images when a file in behavior_pack/items/ changes.
+
 ## [v163] - 2026-11-20 - Feather Only Chest Sorting
 
 ### Improved & Balanced
