@@ -21,7 +21,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | Pack | Version | Source | Package | AI review |
 | :-- | :-- | :-- | :-- | :-- |
 | **2-in-1 Loot & XP Booster** | 1.0.13 | [Source](Addons/2-in-1-Loot--XP-Booster) | [Package](../Package/2-in-1-Loot--XP-Booster.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/ai-review/2-in-1-Loot--XP-Booster.txt) |
-| **ALN ChestLog** | 2.0.0 | [Source](Addons/ALN-ChestLog) | [Package](../Package/ALN-ChestLog.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/ALN-ChestLog/ai-review/ALN-ChestLog.txt) |
+| **ALN ChestLog** | 3.0.0 | [Source](Addons/ALN-ChestLog) | [Package](../Package/ALN-ChestLog.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/ALN-ChestLog/ai-review/ALN-ChestLog.txt) |
 | **ALN MoreDiscs** | 1.1.0 | [Source](Addons/ALN-MoreDiscs) | [Package](../Package/ALN-MoreDiscs.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/ALN-MoreDiscs/ai-review/ALN-MoreDiscs.txt) |
 | **ALN Quiver** | - | [Source](Addons/ALN-Quiver) | [Package](../Package/ALN-Quiver.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/ALN-Quiver/ai-review/ALN-Quiver.txt) |
 | **ALN Wireless Headphones** | - | [Source](Addons/ALN-Wireless-Headphones) | [Package](../Package/ALN-Wireless-Headphones.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/ALN-Wireless-Headphones/ai-review/ALN-Wireless-Headphones.txt) |
