@@ -27,6 +27,15 @@
 
 ---
 
+## [v177] - 2026-11-20 - Standard Market Screen
+
+### Fixed
+- The market now opens in the game's standard form screen. The custom chest-style screen showed a blank menu in testing, and it also produced `Unknown property [orientation]` UI errors, so it has been taken out of the loaded resource pack.
+- The market menus, purchases and selling work as before.
+
+### Changed
+- The chest-style screen files were moved to `resource_pack/ui_chest_disabled/` and are not loaded by the game. The `obm_vanilla_ui` tag from v9 is no longer needed.
+
 ## [v176] - 2026-11-20 - Standard Screen Option
 
 ### Added
