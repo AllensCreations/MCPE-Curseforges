@@ -1,5 +1,5 @@
 import { world, system } from "@minecraft/server";
-import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
+import { ActionFormData, ModalFormData, MessageFormData } from "@minecraft/server-ui";
 import {
   MOB_CATEGORIES,
   getSpawnRules,
@@ -82,7 +82,8 @@ function openMainMenu(player) {
     `§cBlocked: §f${blockedCount} mobs\n` +
     `§eBlocked Spawns This Session: §f${getBlockedCount()}\n` +
     `§bFilter Mode: §f${config.blockSpawnEggs ? "All Sources (Inc. Eggs)" : "Natural Only"}\n` +
-    `§dAdmin Tag Lock: §f${config.adminOnly ? "Enabled" : "Disabled"}`
+    `§dAdmin Tag Lock: §f${config.adminOnly ? "Enabled" : "Disabled"}\n` +
+    `§cDisabled Mobs Loaded Now: §f${countDisabledLoaded()}`
   );
 
   form.button("§1Overworld Hostiles\n§8Zombie, Creeper, Breeze...");
@@ -134,6 +135,8 @@ function openCategoryMenu(player, categoryKey) {
   const form = new ModalFormData();
   form.title(`§2${category.name}`);
 
+  form.dropdown("Group Action", ["No Change", "Enable All In Group", "Disable All In Group"], { defaultValueIndex: 0 });
+
   for (const mob of category.mobs) {
     const isAllowed = rules[mob.id] !== false;
     form.toggle(`${mob.name}`, { defaultValue: isAllowed });
@@ -145,9 +148,15 @@ function openCategoryMenu(player, categoryKey) {
     }
 
     const currentRules = getSpawnRules(world);
+    const groupAction = Number(response.formValues[0]);
     category.mobs.forEach((mob, index) => {
-      const val = response.formValues[index];
-      currentRules[mob.id] = Boolean(val);
+      if (groupAction === 1) {
+        currentRules[mob.id] = true;
+      } else if (groupAction === 2) {
+        currentRules[mob.id] = false;
+      } else {
+        currentRules[mob.id] = Boolean(response.formValues[index + 1]);
+      }
     });
 
     saveSpawnRules(world, currentRules);
@@ -230,6 +239,15 @@ function openGlobalSettingsMenu(player) {
   });
 }
 
+const PURGE_OPTIONS_KEY = "aln_purge_options";
+
+const PURGE_DIMENSIONS = [
+  { name: "All Dimensions", ids: ["overworld", "nether", "the_end"] },
+  { name: "Overworld", ids: ["overworld"] },
+  { name: "Nether", ids: ["nether"] },
+  { name: "The End", ids: ["the_end"] }
+];
+
 function isTamedEntity(entity) {
   try {
     if (entity.getComponent("minecraft:is_tamed")) {
@@ -255,17 +273,226 @@ function isNameTaggedEntity(entity) {
   }
 }
 
-function openPurgeMenu(player) {
-  const categoryKeys = Object.keys(MOB_CATEGORIES);
-  const form = new ModalFormData();
-  form.title("§cPurge Disabled Mobs");
+function isLeashedEntity(entity) {
+  try {
+    const leashable = entity.getComponent("minecraft:leashable");
+    return Boolean(leashable && leashable.isLeashed === true);
+  } catch (e) {
+    return false;
+  }
+}
 
-  for (const key of categoryKeys) {
-    form.toggle(`Purge ${MOB_CATEGORIES[key].name}`, { defaultValue: true });
+function isRiddenEntity(entity) {
+  try {
+    const rideable = entity.getComponent("minecraft:rideable");
+    return Boolean(rideable && rideable.getRiders().length > 0);
+  } catch (e) {
+    return false;
+  }
+}
+
+function isChestedEntity(entity) {
+  try {
+    return Boolean(entity.getComponent("minecraft:is_chested"));
+  } catch (e) {
+    return false;
+  }
+}
+
+const PURGE_PROTECTIONS = [
+  { key: "tamed", label: "Include Tamed Mobs", kept: "tamed", test: isTamedEntity },
+  { key: "named", label: "Include Name-Tagged Mobs", kept: "name-tagged", test: isNameTaggedEntity },
+  { key: "leashed", label: "Include Leashed Mobs", kept: "leashed", test: isLeashedEntity },
+  { key: "ridden", label: "Include Mobs With Riders", kept: "with riders", test: isRiddenEntity },
+  { key: "chested", label: "Include Mobs Carrying Chests", kept: "carrying chests", test: isChestedEntity }
+];
+
+function getMobNameMap() {
+  const map = {};
+  for (const key of Object.keys(MOB_CATEGORIES)) {
+    for (const mob of MOB_CATEGORIES[key].mobs) {
+      map[mob.id] = mob.name;
+    }
+  }
+  return map;
+}
+
+function getGroupMobIds(groupIndex) {
+  const keys = Object.keys(MOB_CATEGORIES);
+  if (groupIndex <= 0 || groupIndex > keys.length) {
+    return getAllMobIds();
+  }
+  return MOB_CATEGORIES[keys[groupIndex - 1]].mobs.map((mob) => mob.id);
+}
+
+function loadPurgeOptions() {
+  const options = {
+    dimension: 0,
+    group: 0,
+    tamed: false,
+    named: false,
+    leashed: false,
+    ridden: false,
+    chested: false
+  };
+  try {
+    const raw = world.getDynamicProperty(PURGE_OPTIONS_KEY);
+    if (typeof raw === "string") {
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed === "object") {
+        const dim = Number(parsed.dimension);
+        const grp = Number(parsed.group);
+        if (Number.isInteger(dim) && dim >= 0 && dim < PURGE_DIMENSIONS.length) {
+          options.dimension = dim;
+        }
+        if (Number.isInteger(grp) && grp >= 0 && grp <= Object.keys(MOB_CATEGORIES).length) {
+          options.group = grp;
+        }
+        for (const p of PURGE_PROTECTIONS) {
+          options[p.key] = Boolean(parsed[p.key]);
+        }
+      }
+    }
+  } catch (e) {
+  }
+  return options;
+}
+
+function savePurgeOptions(options) {
+  try {
+    world.setDynamicProperty(PURGE_OPTIONS_KEY, JSON.stringify(options));
+  } catch (e) {
+  }
+}
+
+function scanPurge(options, selectedIds) {
+  const rules = getSpawnRules(world);
+  const groupIds = new Set(getGroupMobIds(options.group));
+  const dimension = PURGE_DIMENSIONS[options.dimension] || PURGE_DIMENSIONS[0];
+  const types = {};
+  const kept = {};
+  for (const p of PURGE_PROTECTIONS) {
+    kept[p.key] = 0;
   }
 
-  form.toggle("Include Tamed Mobs", { defaultValue: false });
-  form.toggle("Include Name-Tagged Mobs", { defaultValue: false });
+  for (const dimId of dimension.ids) {
+    try {
+      const dim = world.getDimension(dimId);
+      if (!dim) {
+        continue;
+      }
+      for (const entity of dim.getEntities()) {
+        if (!entity || !entity.isValid) {
+          continue;
+        }
+        const id = entity.typeId;
+        if (rules[id] !== false || !groupIds.has(id)) {
+          continue;
+        }
+        if (selectedIds && !selectedIds.has(id)) {
+          continue;
+        }
+        let protectedBy = null;
+        for (const p of PURGE_PROTECTIONS) {
+          if (!options[p.key] && p.test(entity)) {
+            protectedBy = p.key;
+            break;
+          }
+        }
+        if (protectedBy) {
+          kept[protectedBy]++;
+          continue;
+        }
+        if (!types[id]) {
+          types[id] = [];
+        }
+        types[id].push(entity);
+      }
+    } catch (e) {
+    }
+  }
+
+  return { types, kept };
+}
+
+function describeKept(kept) {
+  const parts = [];
+  for (const p of PURGE_PROTECTIONS) {
+    if (kept[p.key] > 0) {
+      parts.push(`${kept[p.key]} ${p.kept}`);
+    }
+  }
+  return parts.length > 0 ? parts.join(", ") : "none";
+}
+
+function countDisabledLoaded() {
+  const rules = getSpawnRules(world);
+  let count = 0;
+  for (const dimId of PURGE_DIMENSIONS[0].ids) {
+    try {
+      const dim = world.getDimension(dimId);
+      if (!dim) {
+        continue;
+      }
+      for (const entity of dim.getEntities()) {
+        if (entity && entity.isValid && rules[entity.typeId] === false) {
+          count++;
+        }
+      }
+    } catch (e) {
+    }
+  }
+  return count;
+}
+
+function openPurgeMenu(player) {
+  const options = loadPurgeOptions();
+  const groupNames = ["All Groups"];
+  for (const key of Object.keys(MOB_CATEGORIES)) {
+    groupNames.push(MOB_CATEGORIES[key].name);
+  }
+
+  const form = new ModalFormData();
+  form.title("§cPurge Disabled Mobs");
+  form.dropdown("Dimension", PURGE_DIMENSIONS.map((d) => d.name), { defaultValueIndex: options.dimension });
+  form.dropdown("Mob Group", groupNames, { defaultValueIndex: options.group });
+  for (const p of PURGE_PROTECTIONS) {
+    form.toggle(p.label, { defaultValue: options[p.key] });
+  }
+
+  form.show(player).then((response) => {
+    if (response.canceled || !response.formValues) {
+      return;
+    }
+
+    const chosen = {
+      dimension: Number(response.formValues[0]),
+      group: Number(response.formValues[1])
+    };
+    PURGE_PROTECTIONS.forEach((p, index) => {
+      chosen[p.key] = Boolean(response.formValues[index + 2]);
+    });
+    savePurgeOptions(chosen);
+
+    system.run(() => openPurgeMobPicker(player, chosen));
+  });
+}
+
+function openPurgeMobPicker(player, options) {
+  const scan = scanPurge(options, null);
+  const ids = Object.keys(scan.types);
+
+  if (ids.length === 0) {
+    showPurgeResult(player, 0, scan.kept, [], "No disabled mobs matched your choices.");
+    return;
+  }
+
+  const names = getMobNameMap();
+  const form = new ModalFormData();
+  form.title("§cChoose Mobs To Purge");
+  for (const id of ids) {
+    form.toggle(`${names[id] || id} (${scan.types[id].length})`, { defaultValue: true });
+  }
 
   form.show(player).then((response) => {
     if (response.canceled || !response.formValues) {
@@ -273,61 +500,95 @@ function openPurgeMenu(player) {
     }
 
     const selectedIds = new Set();
-    categoryKeys.forEach((key, index) => {
+    ids.forEach((id, index) => {
       if (Boolean(response.formValues[index])) {
-        for (const mob of MOB_CATEGORIES[key].mobs) {
-          selectedIds.add(mob.id);
-        }
+        selectedIds.add(id);
       }
     });
 
-    const includeTamed = Boolean(response.formValues[categoryKeys.length]);
-    const includeNamed = Boolean(response.formValues[categoryKeys.length + 1]);
+    if (selectedIds.size === 0) {
+      player.onScreenDisplay.setActionBar("§c[SpawnControl] §fNo mobs were selected.");
+      return;
+    }
 
-    purgeDisabledEntities(player, selectedIds, includeTamed, includeNamed);
+    system.run(() => openPurgeConfirm(player, options, selectedIds));
   });
 }
 
-function purgeDisabledEntities(player, selectedIds, includeTamed, includeNamed) {
-  const rules = getSpawnRules(world);
-  let purgedCount = 0;
-  let skippedTamed = 0;
-  let skippedNamed = 0;
+function openPurgeConfirm(player, options, selectedIds) {
+  const scan = scanPurge(options, selectedIds);
+  const names = getMobNameMap();
+  const ids = Object.keys(scan.types);
+  let total = 0;
+  const lines = [];
+  for (const id of ids) {
+    total += scan.types[id].length;
+    lines.push(`§f${names[id] || id}: §c${scan.types[id].length}`);
+  }
 
-  const dimensions = ["overworld", "nether", "the_end"];
-  for (const dimId of dimensions) {
-    try {
-      const dim = world.getDimension(dimId);
-      if (!dim) {
-        continue;
-      }
-      const entities = dim.getEntities();
-      for (const entity of entities) {
-        if (!entity || !entity.isValid) {
-          continue;
-        }
-        if (rules[entity.typeId] !== false || !selectedIds.has(entity.typeId)) {
-          continue;
-        }
-        if (!includeTamed && isTamedEntity(entity)) {
-          skippedTamed++;
-          continue;
-        }
-        if (!includeNamed && isNameTaggedEntity(entity)) {
-          skippedNamed++;
-          continue;
-        }
-        try {
+  if (total === 0) {
+    showPurgeResult(player, 0, scan.kept, [], "No disabled mobs matched your choices.");
+    return;
+  }
+
+  const form = new MessageFormData();
+  form.title("§cConfirm Purge");
+  form.body(
+    `§fMobs to remove: §c${total}\n` +
+    `${lines.join("\n")}\n\n` +
+    `§7Kept safe: §f${describeKept(scan.kept)}\n\n` +
+    `§cThis cannot be undone.`
+  );
+  form.button1("Cancel");
+  form.button2("Purge Now");
+
+  form.show(player).then((response) => {
+    if (response.canceled || response.selection !== 1) {
+      player.onScreenDisplay.setActionBar("§e[SpawnControl] §fPurge cancelled.");
+      return;
+    }
+    system.run(() => runPurge(player, options, selectedIds));
+  });
+}
+
+function runPurge(player, options, selectedIds) {
+  const scan = scanPurge(options, selectedIds);
+  const names = getMobNameMap();
+  const removed = [];
+  let purged = 0;
+
+  for (const id of Object.keys(scan.types)) {
+    let typeCount = 0;
+    for (const entity of scan.types[id]) {
+      try {
+        if (entity.isValid) {
           entity.remove();
-          purgedCount++;
-        } catch (e) {
+          typeCount++;
+          purged++;
         }
+      } catch (e) {
       }
-    } catch (e) {
+    }
+    if (typeCount > 0) {
+      removed.push(`${names[id] || id}: ${typeCount}`);
     }
   }
 
-  player.onScreenDisplay.setActionBar(
-    `§a[SpawnControl] §fPurged ${purgedCount} mobs. §7Kept: ${skippedTamed} tamed, ${skippedNamed} named.`
-  );
+  showPurgeResult(player, purged, scan.kept, removed, null);
+}
+
+function showPurgeResult(player, purged, kept, removed, note) {
+  const form = new ActionFormData();
+  form.title("§aPurge Summary");
+  let body = `§fMobs purged: §a${purged}\n§7Kept safe: §f${describeKept(kept)}`;
+  if (removed.length > 0) {
+    body += `\n\n§fRemoved:\n§7${removed.join("\n")}`;
+  }
+  if (note) {
+    body += `\n\n§e${note}`;
+  }
+  form.body(body);
+  form.button("Close");
+  form.show(player).then(() => {
+  });
 }

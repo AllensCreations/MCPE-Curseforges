@@ -2,6 +2,20 @@
 
 ---
 
+## [v3.0.3] - 2026-11-20 - Safer and Smarter Purge
+
+### Added
+- **Purge Confirmation**: A confirmation screen shows how many mobs will be removed and how many are kept before anything is purged.
+- **Purge Summary**: After a purge, a summary screen lists how many of each mob were removed and how many were kept safe.
+- **Per-Mob Purge**: After choosing a mob group, a second screen lists each disabled mob type that is loaded with its count so you can purge only the types you pick.
+- **Purge by Dimension**: Purge the Overworld, the Nether, the End, or all dimensions.
+- **Group Action**: Each mob group menu has a choice to enable or disable every mob in that group at once.
+- **Loaded Count**: The dashboard shows how many disabled mobs are loaded right now.
+
+### Improved & Balanced
+- **More Protected Mobs**: Leashed mobs, mobs with riders and mobs carrying chests are kept safe by default, alongside tamed and name-tagged mobs.
+- **Remembered Purge Choices**: The purge menu remembers your last dimension, group and protection choices.
+
 ## [v3.0.2] - 2026-11-20 - Cleaner Menus
 
 ### Improved & Balanced

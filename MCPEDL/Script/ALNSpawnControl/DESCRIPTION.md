@@ -11,14 +11,14 @@
 
 ## Overview
 
-Rename a vanilla Book to "Spawn Control" on an Anvil and use it to open the control panel. From the dashboard, players can inspect active mob counts, configure 4 categorized mob rosters with individual toggles, apply one-tap presets, configure global filter modes, or open the separate purge menu to remove existing disabled mobs. All preferences are saved persistently to world storage.
+Rename a vanilla Book to "Spawn Control" on an Anvil and use it to open the control panel. From the dashboard, players can inspect active mob counts, configure 4 categorized mob rosters with individual toggles, apply one-tap presets, see how many disabled mobs are currently loaded, configure global filter modes, or open the separate purge menu to remove existing disabled mobs. All preferences are saved persistently to world storage.
 
 ## Key Features
 
 ### Categorized Mob Rosters
 - **What Happens**: Individual toggle switches govern 58 standard mobs organized across 4 distinct groups: Overworld Hostiles, Passive & Neutral Mobs, Nether & End Mobs, and Bosses & Rare Mobs.
 - **How It Works**: Open any category to adjust individual toggles, such as turning off Creeper or Phantom while keeping Zombie and Skeleton active. Close a menu to leave it and use the book again to reopen the dashboard.
-- **Good To Know**: All mobs are enabled by default. Mobs that are toggled off are removed immediately when spawning occurs.
+- **Good To Know**: All mobs are enabled by default. Mobs that are toggled off are removed immediately when spawning occurs. Each group menu also has a Group Action choice to enable or disable every mob in that group at once.
 
 ### Custom Mob Spawner & Farm Control
 - **What Happens**: Fine-tune mob farms and monster spawners by permitting only chosen mob types to spawn while blocking all unwanted background spawns.
@@ -34,9 +34,10 @@ Rename a vanilla Book to "Spawn Control" on an Anvil and use it to open the cont
 - **How It Works**: Leaving natural spawn mode active allows administrators to test mobs using Spawn Eggs while preventing wild spawns.
 
 ### Entity Purge
-- **What Happens**: A dedicated Purge Disabled Mobs menu scans loaded chunks in all three dimensions and removes mobs whose toggles are currently disabled.
-- **How It Works**: Choose which of the 4 groups are purged, and decide whether tamed mobs and name-tagged mobs are included. Submitting the menu runs a single-pass removal and reports how many mobs were purged and how many tamed or named mobs were kept.
-- **Good To Know**: Tamed mobs and name-tagged mobs are kept by default.
+- **What Happens**: A dedicated Purge Disabled Mobs menu scans loaded chunks and removes mobs whose toggles are currently disabled.
+- **How It Works**: Pick a dimension and a mob group, then choose whether tamed mobs, name-tagged mobs, leashed mobs, mobs with riders, and mobs carrying chests are included. A second screen lists each disabled mob type that is loaded with its count so you can purge only the types you pick.
+- **Confirmation and Summary**: Before anything is removed, a confirmation screen shows how many mobs will be removed and how many are kept safe. After the purge, a summary screen lists what was removed.
+- **Good To Know**: Tamed, name-tagged, leashed, ridden and chested mobs are kept by default, and your last purge choices are remembered.
 
 ### Admin Tag Lock
 - **What Happens**: An optional permission lock restricts opening the control panel to players carrying the administrator tag.
