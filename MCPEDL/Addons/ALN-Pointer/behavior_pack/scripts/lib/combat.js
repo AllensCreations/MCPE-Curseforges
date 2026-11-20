@@ -7,12 +7,10 @@ import { saveGear, restoreGear, hasStash } from "./gear.js";
 const TOTEM = "minecraft:totem_of_undying";
 const SHIELD = "minecraft:shield";
 const SPARKS = "minecraft:critical_hit_emitter";
-const POP = "minecraft:totem_particle";
-const popped = new Map();
+const IMMORTAL_FLOOR = 2;
 
 const NO_TOTEM = new Set([EntityDamageCause.void, EntityDamageCause.selfDestruct, EntityDamageCause.override]);
 const BLOCKED = new Set([EntityDamageCause.entityAttack, EntityDamageCause.projectile]);
-
 
 const slot = (p, which) => p.getComponent(EntityComponentTypes.Equippable)?.getEquipmentSlot(which);
 const bag = (p) => p.getComponent(EntityComponentTypes.Inventory)?.container;
@@ -77,16 +75,6 @@ function parry(victim, src) {
   });
 }
 
-function pop(p) {
-  if (system.currentTick - (popped.get(p.id) ?? -40) < 40) return;
-  popped.set(p.id, system.currentTick);
-  system.run(() => {
-    if (!p.isValid) return;
-    p.dimension.spawnParticle(POP, p.getHeadLocation());
-    p.playSound("random.totem");
-  });
-}
-
 function onHurt(event) {
   const victim = event.hurtEntity;
   const src = event.damageSource;
@@ -101,11 +89,12 @@ function onHurt(event) {
     parry(victim, src);
     return;
   }
-  if (isOn(victim, "neverDie") && !NO_TOTEM.has(src.cause)) {
+  if (isOn(victim, "immortal")) {
     const left = victim.getComponent(EntityComponentTypes.Health)?.currentValue ?? 0;
-    if (left > 0 && event.damage >= left - 1) {
-      if (event.damage >= left) pop(victim);
-      event.damage = Math.max(0, left - 1);
+    if (left > 0 && event.damage > left - IMMORTAL_FLOOR) {
+      const safe = Math.max(0, left - IMMORTAL_FLOOR);
+      if (safe > 0) event.damage = safe;
+      else event.cancel = true;
       return;
     }
   }

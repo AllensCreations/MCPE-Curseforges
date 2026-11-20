@@ -70,10 +70,10 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 - **How It Works**: Switch it on and hit something.
 - **Good To Know**: It also counts the hits made by Aura Mode.
 
-### Never Die
-- **What Happens**: Any hit that would kill you leaves you at half a heart instead, and while you are at half a heart further damage is blocked, so you never die.
-- **How It Works**: Switch Never Die on. It works against explosions such as creepers, mobs, arrows, fire and falls.
-- **Good To Know**: It cannot stop the void or the kill command. It is used before the totem toggles, so no totem is spent while Never Die is on. When it saves you from a deadly hit you see the totem particles and hear the totem sound.
+### Immortal
+- **What Happens**: You never drop below 1 heart. Any hit that would take you lower is cut down or cancelled, even a one-hit explosion.
+- **How It Works**: Switch Immortal on under Defense in Combat Settings. There is no totem sound or particle.
+- **Good To Know**: It also tries to block the void and the kill command, and if you fall into the void it moves you back to the last ground you stood on. It is used before the totem toggles, so no totem is spent while Immortal is on.
 
 ### Keep Gear On Death
 - **What Happens**: When you die, your items and armor are set aside and given back when you respawn, so nothing drops, and only you keep your gear.
@@ -158,5 +158,5 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, Combat Helper Bedrock mod, Minecraft PE PVP toggles, Auto Totem, Infinite Totem, Aura Mode, Always Critical, Bow Aimbot, Water Clutch, Never Die, Keep Gear, Practice Dummy, Auto Golden Apple, Damage Display, friends list, Minecraft PE mouse pointer item, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+Minecraft Bedrock add-on, Combat Helper Bedrock mod, Minecraft PE PVP toggles, Auto Totem, Infinite Totem, Aura Mode, Always Critical, Bow Aimbot, Water Clutch, Immortal, Keep Gear, Practice Dummy, Auto Golden Apple, Damage Display, friends list, Minecraft PE mouse pointer item, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
 

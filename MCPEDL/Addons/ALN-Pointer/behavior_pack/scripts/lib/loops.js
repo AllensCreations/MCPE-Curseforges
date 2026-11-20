@@ -6,6 +6,7 @@ import { isFriend } from "./friends.js";
 const MIN_FALL = 3;
 const WATER_LIFETIME = 40;
 const falls = new Map();
+const safeSpot = new Map();
 
 const dist = (a, e) => Math.hypot(e.location.x - a.x, e.location.y - a.y, e.location.z - a.z);
 const skip = (p) => p.getGameMode() === GameMode.Creative || p.getGameMode() === GameMode.Spectator;
@@ -89,6 +90,18 @@ function clutch(p) {
   drop(p, spot);
 }
 
+function immortal(p) {
+  const dim = p.dimension;
+  const at = p.location;
+  const bottom = dim.heightRange.min;
+  if (p.isOnGround && at.y > bottom + 4) {
+    safeSpot.set(p.id, { x: at.x, y: at.y, z: at.z, dim });
+    return;
+  }
+  const last = safeSpot.get(p.id);
+  if (at.y < bottom - 4 && last && last.dim.id === dim.id) p.teleport({ x: last.x, y: last.y, z: last.z }, { dimension: dim });
+}
+
 function each(id, fn) {
   if (!anyOn(id)) return;
   for (const p of world.getAllPlayers()) {
@@ -102,5 +115,9 @@ function each(id, fn) {
 export function initLoops() {
   system.runInterval(() => each("aura", (p) => p.getGameMode() !== GameMode.Spectator && aura(p)), 10);
   system.runInterval(() => each("waterClutch", clutch), 2);
-  world.afterEvents.playerLeave.subscribe(({ playerId }) => falls.delete(playerId));
+  system.runInterval(() => each("immortal", immortal), 4);
+  world.afterEvents.playerLeave.subscribe(({ playerId }) => {
+    falls.delete(playerId);
+    safeSpot.delete(playerId);
+  });
 }

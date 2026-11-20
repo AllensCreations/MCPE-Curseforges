@@ -1,3 +1,7 @@
+## [v18] - 2026-11-20 - ALN-Pointer Grouped Menu and Immortal
+
+- ALN-Pointer: Grouped Combat Settings, Quick Presets, Immortal replaces Never Die, FOV moved to Tuning.
+
 ## [v7] - 2026-11-20 - [No Booster Limit]
 
 - 2-in-1 Loot & XP Booster: Removed the drop and XP orb limits and all Action Bar messages.
