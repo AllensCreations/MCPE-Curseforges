@@ -1,8 +1,0 @@
-{
-  "changelog_version": "3.0.0",
-  "manifest_version": "3.0.0",
-  "packages": {
-    "VanillaQoL V3.mcaddon": "bc32f1ee10d37862acc31d59bf9fe9a231296ea383f6c7291c935cbfead0a287"
-  },
-  "source_sha256": "534bd3f57a6bf8cb52795f2cd2cb6488c5856940336d1dddbc110914def8ed04"
-}

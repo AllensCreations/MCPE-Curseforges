@@ -1,17 +1,30 @@
 # Changelog — Vanilla Quality of Life
 
-## [v4] - 2026-11-20 - Script Split and Tool Fixes
+## [v5] - 2026-11-20 - Offhand Torch, Grass, and Recipe Fixes
+
+### Added
+- **Redstone Torch Offhand**: Redstone Torches can now be held in your offhand like other torches.
 
 ### Improved & Balanced
-- **Organized Scripts**: The add-on's code is now split into separate files in a lib folder, one for each feature, so it is easier to maintain. Nothing changes in game.
+- **Sleeping**: The add-on no longer changes how many players must sleep to skip the night.
+- **Newer Game Support**: The Behavior Pack now targets the script version that ships with Minecraft 1.26.50.
 
 ### Fixed
+- **Grass and Shears**: Auto-switch now also recognizes Short Grass and Tall Grass.
+- **Stairs Recipes**: Stairs crafting recipes with uneven layouts now use full-width layouts, and the Bamboo Mosaic Stairs recipe file name is corrected.
+
+<details>
+<summary><b>4.0.x</b> (2 releases)</summary>
+
+### [v4] - 2026-11-20 - Script Split and Tool Fixes
+
+#### Improved & Balanced
+- **Organized Scripts**: The add-on's code is now split into separate files in a lib folder, one for each feature, so it is easier to maintain. Nothing changes in game.
+
+#### Fixed
 - **Auto-Switch Blocks**: Auto-switch now picks a Pickaxe for Blocks of Coal, Quartz blocks, Bone Blocks, Respawn Anchors, Conduits, and Lightning Rods, and Packed Mud no longer switches you to a shovel.
 - **Fortune on Iron and Gold**: Domino Ore Miner now applies Fortune to Iron Ore and Gold Ore, including their Deepslate versions, like it already did for other ores.
 - **Leaving the World**: Chain mining pause and pending tool wear are now cleared when a player leaves, so nothing carries over.
-
-<details>
-<summary><b>4.0.x</b> (1 release)</summary>
 
 ### [v4] - 2026-11-20 - Block Tool and Fortune Fixes
 

@@ -16,8 +16,8 @@
 
 - **Export request:** `MCPEDL/Addons/Vanilla-Quality-of-Life`
 - **Destination:** `MCPEDL/Addons/Vanilla-Quality-of-Life`
-- **CURRENT VERSION: v4 / NEXT UPDATE: v5**  (`MCPEDL/Addons/Vanilla-Quality-of-Life/CHANGELOG.md`)
-- **Text files:** 463
+- **CURRENT VERSION: v5 / NEXT UPDATE: v6**  (`MCPEDL/Addons/Vanilla-Quality-of-Life/CHANGELOG.md`)
+- **Text files:** 464
 - **Skipped binary:** 5
 - **Paths not found:** 0
 
@@ -134,6 +134,7 @@
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/milk_bucket.json`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/potion.json`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/recovery_compass.json`
+- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/redstone_torch.json`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/soul_lantern.json`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/soul_torch.json`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/splash_potion.json`
@@ -150,7 +151,7 @@
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/manifest.json`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/acacia_stairs.json`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/andesite_stairs.json`
-- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/bamboo_mosiac_stairs.json`
+- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/bamboo_mosaic_stairs.json`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/bamboo_stairs.json`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/birch_stairs.json`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/black_concrete_stairs.json`
@@ -503,7 +504,7 @@ Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
 Context7 Support: Enabled. For full instructions, schemas, and helper script syntax, query Context7 (`INSTRUCTIONS.md`, `PACK_GENERATOR_INSTRUCTIONS.md`, `DOCS_RULES.md`, `make_update_script.py`, `doc_template.py`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v4 / NEXT UPDATE: v5).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v5 / NEXT UPDATE: v6).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -561,11 +562,11 @@ Output ONLY these three sections in order:
 
 ## File Contents
 
-## FILE: changelog_views/Vanilla-Quality-of-Life.curseforge.html (11 lines, 14313 bytes)
+## FILE: changelog_views/Vanilla-Quality-of-Life.curseforge.html (11 lines, 15100 bytes)
 
 ```
-<h2>v4 - 2026-11-20 - Script Split and Tool Fixes</h2><h3>Improved &amp; Balanced</h3><ul><li><strong>Organized Scripts</strong>: The add-on&#x27;s code is now split into separate files in a lib folder, one for each feature, so it is easier to maintain. Nothing changes in game.</li></ul><h3>Fixed</h3><ul><li><strong>Auto-Switch Blocks</strong>: Auto-switch now picks a Pickaxe for Blocks of Coal, Quartz blocks, Bone Blocks, Respawn Anchors, Conduits, and Lightning Rods, and Packed Mud no longer switches you to a shovel.</li><li><strong>Fortune on Iron and Gold</strong>: Domino Ore Miner now applies Fortune to Iron Ore and Gold Ore, including their Deepslate versions, like it already did for other ores.</li><li><strong>Leaving the World</strong>: Chain mining pause and pending tool wear are now cleared when a player leaves, so nothing carries over.</li></ul>
-<h2>4.0.x (1 release)</h2><div class="spoiler"><h3>v4 - 2026-11-20 - Block Tool and Fortune Fixes</h3><h4>Fixed</h4><ul><li><strong>Auto-Switch Blocks</strong>: Auto-switch now picks a Pickaxe for Blocks of Coal, Quartz blocks, Bone Blocks, Respawn Anchors, Conduits, and Lightning Rods, and Packed Mud no longer switches you to a shovel.</li><li><strong>Fortune on Iron and Gold</strong>: Domino Ore Miner now applies Fortune to Iron Ore and Gold Ore, including their Deepslate versions, like it already did for other ores.</li><li><strong>Leaving the World</strong>: Chain mining pause and pending tool wear are now cleared when a player leaves, so nothing carries over.</li></ul></div>
+<h2>v5 - 2026-11-20 - Offhand Torch, Grass, and Recipe Fixes</h2><h3>Added</h3><ul><li><strong>Redstone Torch Offhand</strong>: Redstone Torches can now be held in your offhand like other torches.</li></ul><h3>Improved &amp; Balanced</h3><ul><li><strong>Sleeping</strong>: The add-on no longer changes how many players must sleep to skip the night.</li><li><strong>Newer Game Support</strong>: The Behavior Pack now targets the script version that ships with Minecraft 1.26.50.</li></ul><h3>Fixed</h3><ul><li><strong>Grass and Shears</strong>: Auto-switch now also recognizes Short Grass and Tall Grass.</li><li><strong>Stairs Recipes</strong>: Stairs crafting recipes with uneven layouts now use full-width layouts, and the Bamboo Mosaic Stairs recipe file name is corrected.</li></ul>
+<h2>4.0.x (2 releases)</h2><div class="spoiler"><h3>v4 - 2026-11-20 - Script Split and Tool Fixes</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Organized Scripts</strong>: The add-on&#x27;s code is now split into separate files in a lib folder, one for each feature, so it is easier to maintain. Nothing changes in game.</li></ul><h4>Fixed</h4><ul><li><strong>Auto-Switch Blocks</strong>: Auto-switch now picks a Pickaxe for Blocks of Coal, Quartz blocks, Bone Blocks, Respawn Anchors, Conduits, and Lightning Rods, and Packed Mud no longer switches you to a shovel.</li><li><strong>Fortune on Iron and Gold</strong>: Domino Ore Miner now applies Fortune to Iron Ore and Gold Ore, including their Deepslate versions, like it already did for other ores.</li><li><strong>Leaving the World</strong>: Chain mining pause and pending tool wear are now cleared when a player leaves, so nothing carries over.</li></ul><h3>v4 - 2026-11-20 - Block Tool and Fortune Fixes</h3><h4>Fixed</h4><ul><li><strong>Auto-Switch Blocks</strong>: Auto-switch now picks a Pickaxe for Blocks of Coal, Quartz blocks, Bone Blocks, Respawn Anchors, Conduits, and Lightning Rods, and Packed Mud no longer switches you to a shovel.</li><li><strong>Fortune on Iron and Gold</strong>: Domino Ore Miner now applies Fortune to Iron Ore and Gold Ore, including their Deepslate versions, like it already did for other ores.</li><li><strong>Leaving the World</strong>: Chain mining pause and pending tool wear are now cleared when a player leaves, so nothing carries over.</li></ul></div>
 <h2>3.0.x (1 release)</h2><div class="spoiler"><h3>v3 - 2026-11-14</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Clearer Description</strong>: The listing now follows the new layout with an overview, feature cards, step-by-step instructions, common questions, and a compatibility summary.</li></ul><h4>Fixed</h4><ul><li><strong>Leash Details</strong>: The description no longer says the Warden and Wither can be leashed, and no longer claims a fixed number of leashable mobs.</li><li><strong>Creator Links</strong>: The MCPEDL profile link and its image now appear once and point to the correct page.</li></ul></div>
 <h2>2.1.x (2 releases)</h2><div class="spoiler"><h3>2.1.1 - 2026-11-14</h3><h4>Added</h4><ul><li><strong>Swap-Back After Mining</strong>: A moment after you stop mining or fighting, the item that was in Slot 1 returns to its original slot instead of staying swapped.</li><li><strong>Tree Size Message</strong>: An action-bar message now tells you when a tree was too large to fell completely.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Faster Auto-Switch</strong>: Auto-switch now waits only about a tenth of a second after a block breaks, so it keeps up with instant-break blocks.</li><li><strong>Hotbar-Only Tool Search</strong>: Auto-switch now only uses tools from your hotbar, so items in your backpack are never moved.</li><li><strong>Chain Mining Experience</strong>: Chain mining now spawns at most 10 experience orbs per chain and gives any extra experience straight to you, so far fewer orbs appear.</li><li><strong>Lighter Held Light Checks</strong>: The held-light update does less work while you carry no light item.</li></ul><h3>2.1.0 - 2026-11-07</h3><h4>Added</h4><ul><li><strong>More Held Lights</strong>: Glowstone, Sea Lanterns, Shroomlights, and Jack o&#x27;Lanterns now light up your surroundings at Light Level 15 while you hold them.</li><li><strong>Silk Touch Auto-Switch</strong>: Hitting glass or ice now switches to a Silk Touch tool if you carry one, and bookshelves prefer a Silk Touch Axe.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Mending Preference</strong>: When two tools are equally good for a job, auto-switch now uses the Mending tool that needs repair first.</li><li><strong>Grouped Chain Drops</strong>: Tree Capitator and Domino Ore Miner now merge their drops into full stacks within 5-block areas, so far fewer item entities appear.</li><li><strong>Direct Block Breaking</strong>: Tree Capitator and Domino Ore Miner now break blocks and place their drops directly instead of running game commands.</li></ul></div>
 <h2>2.0.x (1 release)</h2><div class="spoiler"><h3>2.0.0 - 2026-11-06</h3><h4>Removed</h4><ul><li><strong>Offhand Swap Command</strong>: The command that swapped your offhand item is removed. Use double-sneak or Sneak + Use in the air instead.</li><li><strong>Personal Toggles</strong>: The per-player toggles added in the previous update are removed. Choose how Tree Capitator and Domino Ore Miner behave for your world with the Behavior Pack&#x27;s subpack settings.</li></ul><h4>Added</h4><ul><li><strong>Personal Toggles</strong>: Each player can turn Auto-Switch, Tree Capitator, Domino Ore Miner, and Offhand Quick-Swap on or off for themselves with /scriptevent qol:toggle. Use status to see your settings and reset to turn everything back on.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Zero Durability Tools</strong>: A tool at 0 durability now breaks only the single block you hit and no longer starts Tree Capitator or Domino Ore Miner.</li><li><strong>Durability Floor</strong>: Tree Capitator and Domino Ore Miner now use your tool down to 0 durability without breaking it, and the next use of that tool breaks it.</li></ul></div>
@@ -576,23 +577,36 @@ Output ONLY these three sections in order:
 <h2>1.0.x (1 release)</h2><div class="spoiler"><h3>1.0.0 - 2026-11-02</h3><h4>v1.3.x (v1.3.30)</h4><ul><li><strong>Smoother Held Light</strong>: The light from torches and lanterns in your hands now updates every tick, so it keeps up with you while moving and jumping.</li><li><strong>Auto-Switch Only While Mining</strong>: Auto-switch now acts only while you are hitting blocks and no longer changes your tool just because you are looking at something.</li><li><strong>Light Flicker While Pillar Jumping</strong>: Placing a block where your held light was no longer leaves you in the dark; the light moves back to you immediately.</li><li><strong>Durability After Auto-Switch</strong>: If auto-switch changes your tool at the same moment a tree or ore vein is chain mined, the tool you actually mined with is put back in your hand and takes the durability loss instead of the new tool.</li><li><strong>Switch Delay After Breaking</strong>: Auto-switch now waits a few ticks after any block breaks before changing your tool, so the tool you broke the block with keeps its durability loss.</li></ul></div>
 ```
 
-## FILE: changelog_views/Vanilla-Quality-of-Life.github.md (213 lines, 12624 bytes)
+## FILE: changelog_views/Vanilla-Quality-of-Life.github.md (226 lines, 13277 bytes)
 
 ```
 # Changelog — Vanilla Quality of Life
 
-## [v4] - 2026-11-20 - Script Split and Tool Fixes
+## [v5] - 2026-11-20 - Offhand Torch, Grass, and Recipe Fixes
+
+### Added
+- **Redstone Torch Offhand**: Redstone Torches can now be held in your offhand like other torches.
 
 ### Improved & Balanced
-- **Organized Scripts**: The add-on's code is now split into separate files in a lib folder, one for each feature, so it is easier to maintain. Nothing changes in game.
+- **Sleeping**: The add-on no longer changes how many players must sleep to skip the night.
+- **Newer Game Support**: The Behavior Pack now targets the script version that ships with Minecraft 1.26.50.
 
 ### Fixed
+- **Grass and Shears**: Auto-switch now also recognizes Short Grass and Tall Grass.
+- **Stairs Recipes**: Stairs crafting recipes with uneven layouts now use full-width layouts, and the Bamboo Mosaic Stairs recipe file name is corrected.
+
+<details>
+<summary><b>4.0.x</b> (2 releases)</summary>
+
+### [v4] - 2026-11-20 - Script Split and Tool Fixes
+
+#### Improved & Balanced
+- **Organized Scripts**: The add-on's code is now split into separate files in a lib folder, one for each feature, so it is easier to maintain. Nothing changes in game.
+
+#### Fixed
 - **Auto-Switch Blocks**: Auto-switch now picks a Pickaxe for Blocks of Coal, Quartz blocks, Bone Blocks, Respawn Anchors, Conduits, and Lightning Rods, and Packed Mud no longer switches you to a shovel.
 - **Fortune on Iron and Gold**: Domino Ore Miner now applies Fortune to Iron Ore and Gold Ore, including their Deepslate versions, like it already did for other ores.
 - **Leaving the World**: Chain mining pause and pending tool wear are now cleared when a player leaves, so nothing carries over.
-
-<details>
-<summary><b>4.0.x</b> (1 release)</summary>
 
 ### [v4] - 2026-11-20 - Block Tool and Fortune Fixes
 
@@ -61681,6 +61695,25 @@ Output ONLY these three sections in order:
 }
 ```
 
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/redstone_torch.json (15 lines, 263 bytes)
+
+```
+{
+  "format_version": "1.20.30",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:redstone_torch",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:allow_off_hand": true
+    }
+  }
+}
+```
+
 ## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/soul_lantern.json (14 lines, 260 bytes)
 
 ```
@@ -62620,11 +62653,11 @@ Output ONLY these three sections in order:
 {
   "format_version": 2,
   "header": {
-    "name": "Vanilla Quality of Life (v4)",
+    "name": "Vanilla Quality of Life (v5)",
     "description": "Comprehensive survival Quality of Life suite with dynamic light, offhand quick-swap, passive auto-switch tools, tree capitator, and domino ore miner. by ALNStudios",
     "uuid": "5461534c-a7c4-4c5b-9269-8be52d2b761b",
     "version": [
-      4,
+      5,
       0,
       0
     ],
@@ -62640,7 +62673,7 @@ Output ONLY these three sections in order:
       "type": "data",
       "uuid": "81382d42-b64c-4759-8c05-0e4e3e8436e8",
       "version": [
-        4,
+        5,
         0,
         0
       ]
@@ -62651,7 +62684,7 @@ Output ONLY these three sections in order:
       "language": "javascript",
       "uuid": "880944f5-3d04-401d-a5d5-011d89c969b6",
       "version": [
-        4,
+        5,
         0,
         0
       ],
@@ -62661,12 +62694,12 @@ Output ONLY these three sections in order:
   "dependencies": [
     {
       "module_name": "@minecraft/server",
-      "version": "1.13.0"
+      "version": "2.10.0"
     },
     {
       "uuid": "fd036566-d0b1-4f92-9b28-9dd45a376d44",
       "version": [
-        4,
+        5,
         0,
         0
       ]
@@ -62677,7 +62710,7 @@ Output ONLY these three sections in order:
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "4.0.0"
+    "version": "5.0.0"
   },
   "subpacks": [
     {
@@ -62766,7 +62799,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/bamboo_mosiac_stairs.json (30 lines, 514 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/bamboo_mosaic_stairs.json (30 lines, 514 bytes)
 
 ```
 {
@@ -62868,7 +62901,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/black_concrete_stairs.json (29 lines, 484 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/black_concrete_stairs.json (29 lines, 487 bytes)
 
 ```
 {
@@ -62881,8 +62914,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -62901,7 +62934,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/black_wool_stairs.json (29 lines, 472 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/black_wool_stairs.json (29 lines, 475 bytes)
 
 ```
 {
@@ -62914,8 +62947,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -62967,7 +63000,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/blue_concrete_stairs.json (29 lines, 481 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/blue_concrete_stairs.json (29 lines, 484 bytes)
 
 ```
 {
@@ -62980,8 +63013,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -63030,7 +63063,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/blue_wool_stairs.json (29 lines, 469 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/blue_wool_stairs.json (29 lines, 472 bytes)
 
 ```
 {
@@ -63043,8 +63076,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -63096,7 +63129,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/brown_concrete_stairs.json (29 lines, 484 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/brown_concrete_stairs.json (29 lines, 487 bytes)
 
 ```
 {
@@ -63109,8 +63142,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -63129,7 +63162,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/brown_wool_stairs.json (29 lines, 472 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/brown_wool_stairs.json (29 lines, 475 bytes)
 
 ```
 {
@@ -63142,8 +63175,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -63232,7 +63265,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/cinnabar_brick_stairs.json (29 lines, 484 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/cinnabar_brick_stairs.json (29 lines, 487 bytes)
 
 ```
 {
@@ -63245,8 +63278,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -63265,7 +63298,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/cinnabar_stairs.json (29 lines, 465 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/cinnabar_stairs.json (29 lines, 468 bytes)
 
 ```
 {
@@ -63278,8 +63311,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -63889,7 +63922,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/crafting_table_cut_copper_stairs.json (30 lines, 506 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/crafting_table_cut_copper_stairs.json (30 lines, 509 bytes)
 
 ```
 {
@@ -63902,8 +63935,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "A",
-      "AA",
+      "A  ",
+      "AA ",
       "AAA"
     ],
     "key": {
@@ -63923,7 +63956,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/crafting_table_exposed_cut_copper_stairs.json (30 lines, 530 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/crafting_table_exposed_cut_copper_stairs.json (30 lines, 533 bytes)
 
 ```
 {
@@ -63936,8 +63969,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "A",
-      "AA",
+      "A  ",
+      "AA ",
       "AAA"
     ],
     "key": {
@@ -63957,7 +63990,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/crafting_table_oxidized_cut_copper_stairs.json (30 lines, 533 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/crafting_table_oxidized_cut_copper_stairs.json (30 lines, 536 bytes)
 
 ```
 {
@@ -63970,8 +64003,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "A",
-      "AA",
+      "A  ",
+      "AA ",
       "AAA"
     ],
     "key": {
@@ -63991,7 +64024,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/crafting_table_waxed_cut_copper_stairs.json (30 lines, 524 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/crafting_table_waxed_cut_copper_stairs.json (30 lines, 527 bytes)
 
 ```
 {
@@ -64004,8 +64037,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "A",
-      "AA",
+      "A  ",
+      "AA ",
       "AAA"
     ],
     "key": {
@@ -64025,7 +64058,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/crafting_table_waxed_exposed_cut_copper_stairs.json (30 lines, 548 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/crafting_table_waxed_exposed_cut_copper_stairs.json (30 lines, 551 bytes)
 
 ```
 {
@@ -64038,8 +64071,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "A",
-      "AA",
+      "A  ",
+      "AA ",
       "AAA"
     ],
     "key": {
@@ -64059,7 +64092,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/crafting_table_waxed_oxidized_cut_copper_stairs.json (30 lines, 551 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/crafting_table_waxed_oxidized_cut_copper_stairs.json (30 lines, 554 bytes)
 
 ```
 {
@@ -64072,8 +64105,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "A",
-      "AA",
+      "A  ",
+      "AA ",
       "AAA"
     ],
     "key": {
@@ -64093,7 +64126,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/crafting_table_waxed_weathered_cut_copper_stairs.json (30 lines, 554 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/crafting_table_waxed_weathered_cut_copper_stairs.json (30 lines, 557 bytes)
 
 ```
 {
@@ -64106,8 +64139,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "A",
-      "AA",
+      "A  ",
+      "AA ",
       "AAA"
     ],
     "key": {
@@ -64127,7 +64160,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/crafting_table_weathered_cut_copper_stairs.json (30 lines, 536 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/crafting_table_weathered_cut_copper_stairs.json (30 lines, 539 bytes)
 
 ```
 {
@@ -64140,8 +64173,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "A",
-      "AA",
+      "A  ",
+      "AA ",
       "AAA"
     ],
     "key": {
@@ -64195,7 +64228,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/cyan_concrete_stairs.json (29 lines, 481 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/cyan_concrete_stairs.json (29 lines, 484 bytes)
 
 ```
 {
@@ -64208,8 +64241,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -64228,7 +64261,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/cyan_wool_stairs.json (29 lines, 469 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/cyan_wool_stairs.json (29 lines, 472 bytes)
 
 ```
 {
@@ -64241,8 +64274,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -64798,7 +64831,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/gray_concrete_stairs.json (29 lines, 481 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/gray_concrete_stairs.json (29 lines, 484 bytes)
 
 ```
 {
@@ -64811,8 +64844,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -64831,7 +64864,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/gray_wool_stairs.json (29 lines, 469 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/gray_wool_stairs.json (29 lines, 472 bytes)
 
 ```
 {
@@ -64844,8 +64877,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -64864,7 +64897,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/green_concrete_stairs.json (29 lines, 484 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/green_concrete_stairs.json (29 lines, 487 bytes)
 
 ```
 {
@@ -64877,8 +64910,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -64897,7 +64930,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/green_wool_stairs.json (29 lines, 472 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/green_wool_stairs.json (29 lines, 475 bytes)
 
 ```
 {
@@ -64910,8 +64943,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -65828,7 +65861,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/light_blue_concrete_stairs.json (29 lines, 499 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/light_blue_concrete_stairs.json (29 lines, 502 bytes)
 
 ```
 {
@@ -65841,8 +65874,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -65861,7 +65894,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/light_blue_wool_stairs.json (29 lines, 487 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/light_blue_wool_stairs.json (29 lines, 490 bytes)
 
 ```
 {
@@ -65874,8 +65907,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -65894,7 +65927,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/light_gray_concrete_stairs.json (29 lines, 499 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/light_gray_concrete_stairs.json (29 lines, 502 bytes)
 
 ```
 {
@@ -65907,8 +65940,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -65927,7 +65960,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/light_gray_wool_stairs.json (29 lines, 487 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/light_gray_wool_stairs.json (29 lines, 490 bytes)
 
 ```
 {
@@ -65940,8 +65973,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -65960,7 +65993,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/lime_concrete_stairs.json (29 lines, 481 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/lime_concrete_stairs.json (29 lines, 484 bytes)
 
 ```
 {
@@ -65973,8 +66006,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -65993,7 +66026,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/lime_wool_stairs.json (29 lines, 469 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/lime_wool_stairs.json (29 lines, 472 bytes)
 
 ```
 {
@@ -66006,8 +66039,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -66026,7 +66059,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/magenta_concrete_stairs.json (29 lines, 490 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/magenta_concrete_stairs.json (29 lines, 493 bytes)
 
 ```
 {
@@ -66039,8 +66072,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -66059,7 +66092,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/magenta_wool_stairs.json (29 lines, 478 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/magenta_wool_stairs.json (29 lines, 481 bytes)
 
 ```
 {
@@ -66072,8 +66105,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -66454,7 +66487,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/orange_concrete_stairs.json (29 lines, 487 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/orange_concrete_stairs.json (29 lines, 490 bytes)
 
 ```
 {
@@ -66467,8 +66500,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -66487,7 +66520,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/orange_wool_stairs.json (29 lines, 475 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/orange_wool_stairs.json (29 lines, 478 bytes)
 
 ```
 {
@@ -66500,8 +66533,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -66620,7 +66653,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/pink_concrete_stairs.json (29 lines, 481 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/pink_concrete_stairs.json (29 lines, 484 bytes)
 
 ```
 {
@@ -66633,8 +66666,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -66653,7 +66686,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/pink_wool_stairs.json (29 lines, 469 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/pink_wool_stairs.json (29 lines, 472 bytes)
 
 ```
 {
@@ -66666,8 +66699,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -66785,7 +66818,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/polished_cinnabar_stairs.json (29 lines, 492 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/polished_cinnabar_stairs.json (29 lines, 495 bytes)
 
 ```
 {
@@ -66798,8 +66831,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -66918,7 +66951,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/polished_sulfur_stairs.json (29 lines, 486 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/polished_sulfur_stairs.json (29 lines, 489 bytes)
 
 ```
 {
@@ -66931,8 +66964,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -66951,7 +66984,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/polished_tuff_stairs.json (30 lines, 500 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/polished_tuff_stairs.json (30 lines, 503 bytes)
 
 ```
 {
@@ -66964,8 +66997,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "A",
-      "AA",
+      "A  ",
+      "AA ",
       "AAA"
     ],
     "key": {
@@ -67092,7 +67125,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/purple_concrete_stairs.json (29 lines, 487 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/purple_concrete_stairs.json (29 lines, 490 bytes)
 
 ```
 {
@@ -67105,8 +67138,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -67125,7 +67158,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/purple_wool_stairs.json (29 lines, 475 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/purple_wool_stairs.json (29 lines, 478 bytes)
 
 ```
 {
@@ -67138,8 +67171,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -69269,7 +69302,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/red_concrete_stairs.json (29 lines, 478 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/red_concrete_stairs.json (29 lines, 481 bytes)
 
 ```
 {
@@ -69282,8 +69315,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -69399,7 +69432,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/red_wool_stairs.json (29 lines, 466 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/red_wool_stairs.json (29 lines, 469 bytes)
 
 ```
 {
@@ -69412,8 +69445,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -69579,7 +69612,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/resin_brick_stairs.json (29 lines, 476 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/resin_brick_stairs.json (29 lines, 479 bytes)
 
 ```
 {
@@ -69592,8 +69625,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -72108,7 +72141,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/sulfur_brick_stairs.json (29 lines, 478 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/sulfur_brick_stairs.json (29 lines, 481 bytes)
 
 ```
 {
@@ -72121,8 +72154,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -72141,7 +72174,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/sulfur_stairs.json (29 lines, 459 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/sulfur_stairs.json (29 lines, 462 bytes)
 
 ```
 {
@@ -72154,8 +72187,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -72174,7 +72207,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/tuff_brick_stairs.json (30 lines, 492 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/tuff_brick_stairs.json (30 lines, 495 bytes)
 
 ```
 {
@@ -72187,8 +72220,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "A",
-      "AA",
+      "A  ",
+      "AA ",
       "AAA"
     ],
     "key": {
@@ -72208,7 +72241,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/tuff_stairs.json (30 lines, 473 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/tuff_stairs.json (30 lines, 476 bytes)
 
 ```
 {
@@ -72221,8 +72254,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "A",
-      "AA",
+      "A  ",
+      "AA ",
       "AAA"
     ],
     "key": {
@@ -72996,7 +73029,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/white_concrete_stairs.json (29 lines, 484 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/white_concrete_stairs.json (29 lines, 487 bytes)
 
 ```
 {
@@ -73009,8 +73042,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -73029,7 +73062,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/white_wool_stairs.json (29 lines, 472 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/white_wool_stairs.json (29 lines, 475 bytes)
 
 ```
 {
@@ -73042,8 +73075,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -73062,7 +73095,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/yellow_concrete_stairs.json (29 lines, 487 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/yellow_concrete_stairs.json (29 lines, 490 bytes)
 
 ```
 {
@@ -73075,8 +73108,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -73095,7 +73128,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/yellow_wool_stairs.json (29 lines, 475 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/yellow_wool_stairs.json (29 lines, 478 bytes)
 
 ```
 {
@@ -73108,8 +73141,8 @@ Output ONLY these three sections in order:
       "crafting_table"
     ],
     "pattern": [
-      "#",
-      "##",
+      "#  ",
+      "## ",
       "###"
     ],
     "key": {
@@ -73377,7 +73410,7 @@ export function spawnGroupedDrops(dimension, drops) {
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/chain-mining.js (94 lines, 3336 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/chain-mining.js (94 lines, 3334 bytes)
 
 ```
 // Break-block handler that starts Tree Capitator and Domino Ore Miner.
@@ -73400,7 +73433,7 @@ export function finishChain(player) {
 world.afterEvents.playerBreakBlock.subscribe((event) => {
   const { block, brokenBlockPermutation, player, dimension, itemStackBeforeBreak } = event;
 
-  if (!player || !player.isValid()) return;
+  if (!player || !player.isValid) return;
   if (MINING_OPTIONS.REQUIRE_SNEAK_FOR_CHAIN_MINING) {
     if (!player.isSneaking) return;
   } else if (player.selectedSlotIndex !== CONFIG.AUTO_SWITCH_SLOT) {
@@ -73475,7 +73508,7 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
 });
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/config.js (79 lines, 1911 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/config.js (78 lines, 1888 bytes)
 
 ```
 // Shared settings and item tables.
@@ -73531,7 +73564,6 @@ export const CONFIG = {
 
   STARTUP_DELAY_TICKS: 40,
   RANDOM_TICK_SPEED: 4,
-  SLEEP_PERCENTAGE: 0,
 };
 
 export const SUPPORTED_OFFHAND_ITEMS = new Set([
@@ -73558,7 +73590,7 @@ export const LIGHT_LEVELS = {
 };
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/durability.js (112 lines, 3605 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/durability.js (112 lines, 3603 bytes)
 
 ```
 // Tool durability protection for chain mining.
@@ -73639,7 +73671,7 @@ export function flushToolDamage(player) {
 
   system.run(() => {
     try {
-      if (!player.isValid()) return;
+      if (!player.isValid) return;
       const container = getContainer(player);
       if (!container) return;
 
@@ -73674,7 +73706,7 @@ export function notifyTreeTooLarge(player) {
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/lifecycle.js (63 lines, 2487 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/lifecycle.js (62 lines, 2400 bytes)
 
 ```
 // Player leave cleanup, startup tasks and the startup log.
@@ -73731,7 +73763,6 @@ system.runTimeout(() => {
   try {
     if (!world.getDynamicProperty("qol:gamerules_set")) {
       const dim = world.getDimension("overworld");
-      dim.runCommand(`gamerule playersSleepingPercentage ${CONFIG.SLEEP_PERCENTAGE}`);
       dim.runCommand(`gamerule randomTickSpeed ${CONFIG.RANDOM_TICK_SPEED}`);
       world.setDynamicProperty("qol:gamerules_set", true);
     }
@@ -74062,7 +74093,7 @@ world.beforeEvents.itemUse.subscribe((event) => {
 });
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/ore-miner.js (248 lines, 9267 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/ore-miner.js (248 lines, 9265 bytes)
 
 ```
 // Domino Ore Miner.
@@ -74266,7 +74297,7 @@ export function executeDominoOreMiner(player, dimension, startLoc, startBlockId,
   } catch (e) {}
 
   for (const blockData of blocksToBreak) {
-    if (!player || !player.isValid()) break;
+    if (!player || !player.isValid) break;
 
     const safety = checkToolSafety(player);
     if (!safety.safe) {
@@ -74547,7 +74578,7 @@ export const lastAutoSwitchKey = new Map();
 export const lastBreakTick = new Map();
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/tool-categories.js (123 lines, 5388 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/tool-categories.js (123 lines, 5435 bytes)
 
 ```
 // Which tool type each block needs.
@@ -74605,7 +74636,7 @@ export function getRequiredToolCategory(typeId) {
 
   if (
     id.includes("wool") || id.includes("vine") || id.includes("fern") ||
-    id === "tallgrass" || id === "seagrass" || id === "hanging_roots" ||
+    id === "tallgrass" || id === "short_grass" || id === "tall_grass" || id === "seagrass" || id === "hanging_roots" ||
     id === "deadbush" || id === "tripwire"
   ) {
     return ToolCategory.SHEARS_OR_SWORD;
@@ -74820,7 +74851,7 @@ export function scoreItem(item, category, slot, blockId) {
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/tree-capitator.js (205 lines, 7736 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/tree-capitator.js (205 lines, 7734 bytes)
 
 ```
 // Tree Capitator.
@@ -75008,7 +75039,7 @@ export function executeTreeCapitator(player, dimension, startLoc, startBlockId, 
   const creative = isGameMode(player, "creative");
   const drops = new Map();
   for (const pos of blocksToBreak) {
-    if (!player || !player.isValid()) break;
+    if (!player || !player.isValid) break;
 
     const safety = checkToolSafety(player);
     if (!safety.safe) {
@@ -87206,12 +87237,28 @@ export const MINING_OPTIONS = Object.freeze({
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/CHANGELOG.md (377 lines, 17091 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/CHANGELOG.md (393 lines, 17743 bytes)
 
 ```
 # Changelog — Vanilla Quality of Life
 
 ---
+
+## [v5] - 2026-11-20 - Offhand Torch, Grass, and Recipe Fixes
+
+### Added
+
+- **Redstone Torch Offhand**: Redstone Torches can now be held in your offhand like other torches.
+
+### Improved & Balanced
+
+- **Sleeping**: The add-on no longer changes how many players must sleep to skip the night.
+- **Newer Game Support**: The Behavior Pack now targets the script version that ships with Minecraft 1.26.50.
+
+### Fixed
+
+- **Grass and Shears**: Auto-switch now also recognizes Short Grass and Tall Grass.
+- **Stairs Recipes**: Stairs crafting recipes with uneven layouts now use full-width layouts, and the Bamboo Mosaic Stairs recipe file name is corrected.
 
 ## [v4] - 2026-11-20 - Script Split and Tool Fixes
 
@@ -87655,7 +87702,7 @@ Download the current release of **Vanilla Quality of Life** for Minecraft Bedroc
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Vanilla Quality of Life (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/VanillaQoL%20V4.mcaddon)
+- **Direct download:** [Download Vanilla Quality of Life (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/VanillaQoL%20V5.mcaddon)
 
 ## Installation
 
@@ -87780,11 +87827,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "Vanilla Quality of Life (v4)",
+    "name": "Vanilla Quality of Life (v5)",
     "description": "Client entity locators and visual fixes for Vanilla Quality of Life. by ALNStudios",
     "uuid": "fd036566-d0b1-4f92-9b28-9dd45a376d44",
     "version": [
-      4,
+      5,
       0,
       0
     ],
@@ -87800,7 +87847,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "340a271e-9aa3-4c12-bc1a-0254e887ec38",
       "version": [
-        4,
+        5,
         0,
         0
       ]
@@ -87811,7 +87858,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "4.0.0"
+    "version": "5.0.0"
   }
 }
 ```
