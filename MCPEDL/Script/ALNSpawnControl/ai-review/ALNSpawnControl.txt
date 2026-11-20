@@ -111,27 +111,41 @@ Output ONLY these three sections in order:
 
 ## File Contents
 
-## FILE: changelog_views/ALNSpawnControl.curseforge.html (4 lines, 2369 bytes)
+## FILE: changelog_views/ALNSpawnControl.curseforge.html (4 lines, 3593 bytes)
 
 ```
-<h2>3.0.2 - 2026-11-20 - Cleaner Menus</h2><h3>Improved &amp; Balanced</h3><ul><li><strong>Back Buttons Removed</strong>: The back switch and back button were removed from every menu. Close a menu to leave it and use the book again to reopen the dashboard.</li><li><strong>Plain Menu Text</strong>: Emojis and symbols were removed from menu titles, buttons and the status panel so the text renders thicker and easier to read.</li></ul>
-<h2>3.0.x (2 releases)</h2><div class="spoiler"><h3>3.0.1 - 2026-11-20 - Separate Purge Menu</h3><h4>Added</h4><ul><li><strong>Purge Disabled Mobs Menu</strong>: A new main menu button opens a purge screen of its own, separate from Global Filter Settings.</li><li><strong>Choose What Gets Purged</strong>: Pick which of the 4 mob groups are purged, and choose whether tamed mobs and name-tagged mobs are included.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Pets and Named Mobs Stay Safe</strong>: A purge no longer removes tamed or name-tagged mobs unless you turn them on.</li><li><strong>Cleaner Global Filter Settings</strong>: The purge switch moved out of Global Filter Settings into the new menu.</li></ul><h3>v3 - 2026-11-19 - Book Renamed to Spawn Control</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Book Trigger Rename</strong>: The book must now be renamed to &quot;Spawn Control&quot; instead of &quot;Spawn Manager&quot; to open the control panel.</li><li><strong>Book Only</strong>: Only a regular Book opens the control panel; a Book and Quill no longer works.</li></ul></div>
+<h2>3.0.3 - 2026-11-20 - Safer and Smarter Purge</h2><h3>Added</h3><ul><li><strong>Purge Confirmation</strong>: A confirmation screen shows how many mobs will be removed and how many are kept before anything is purged.</li><li><strong>Purge Summary</strong>: After a purge, a summary screen lists how many of each mob were removed and how many were kept safe.</li><li><strong>Per-Mob Purge</strong>: After choosing a mob group, a second screen lists each disabled mob type that is loaded with its count so you can purge only the types you pick.</li><li><strong>Purge by Dimension</strong>: Purge the Overworld, the Nether, the End, or all dimensions.</li><li><strong>Group Action</strong>: Each mob group menu has a choice to enable or disable every mob in that group at once.</li><li><strong>Loaded Count</strong>: The dashboard shows how many disabled mobs are loaded right now.</li></ul><h3>Improved &amp; Balanced</h3><ul><li><strong>More Protected Mobs</strong>: Leashed mobs, mobs with riders and mobs carrying chests are kept safe by default, alongside tamed and name-tagged mobs.</li><li><strong>Remembered Purge Choices</strong>: The purge menu remembers your last dimension, group and protection choices.</li></ul>
+<h2>3.0.x (3 releases)</h2><div class="spoiler"><h3>3.0.2 - 2026-11-20 - Cleaner Menus</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Back Buttons Removed</strong>: The back switch and back button were removed from every menu. Close a menu to leave it and use the book again to reopen the dashboard.</li><li><strong>Plain Menu Text</strong>: Emojis and symbols were removed from menu titles, buttons and the status panel so the text renders thicker and easier to read.</li></ul><h3>3.0.1 - 2026-11-20 - Separate Purge Menu</h3><h4>Added</h4><ul><li><strong>Purge Disabled Mobs Menu</strong>: A new main menu button opens a purge screen of its own, separate from Global Filter Settings.</li><li><strong>Choose What Gets Purged</strong>: Pick which of the 4 mob groups are purged, and choose whether tamed mobs and name-tagged mobs are included.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Pets and Named Mobs Stay Safe</strong>: A purge no longer removes tamed or name-tagged mobs unless you turn them on.</li><li><strong>Cleaner Global Filter Settings</strong>: The purge switch moved out of Global Filter Settings into the new menu.</li></ul><h3>v3 - 2026-11-19 - Book Renamed to Spawn Control</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Book Trigger Rename</strong>: The book must now be renamed to &quot;Spawn Control&quot; instead of &quot;Spawn Manager&quot; to open the control panel.</li><li><strong>Book Only</strong>: Only a regular Book opens the control panel; a Book and Quill no longer works.</li></ul></div>
 <h2>2.0.x (1 release)</h2><div class="spoiler"><h3>v2 - 2026-11-17</h3><h4>Added</h4><ul><li><strong>Spawn Manager Book</strong>: Right-click a Book or Writable Book renamed to &quot;Spawn Manager&quot; to open the interactive control panel.</li><li><strong>Categorized Mob Switches</strong>: Toggle individual spawn rules across 58 mobs in 4 groups: Overworld Hostiles, Passive &amp; Neutral Mobs, Nether &amp; End Mobs, and Bosses &amp; Rare Mobs.</li><li><strong>Quick Presets</strong>: Apply one-tap presets to enable all mobs, disable all hostiles, disable all passives, or disable all mobs.</li><li><strong>Global Filter Settings</strong>: Configure whether rules affect natural spawns only or all spawn causes including Spawn Eggs, enable an Admin Tag Lock, and trigger an immediate entity purge.</li></ul></div>
 ```
 
-## FILE: changelog_views/ALNSpawnControl.github.md (42 lines, 2084 bytes)
+## FILE: changelog_views/ALNSpawnControl.github.md (56 lines, 3128 bytes)
 
 ```
 # Changelog — ALN:SpawnControl
 
-## [3.0.2] - 2026-11-20 - Cleaner Menus
+## [3.0.3] - 2026-11-20 - Safer and Smarter Purge
+
+### Added
+- **Purge Confirmation**: A confirmation screen shows how many mobs will be removed and how many are kept before anything is purged.
+- **Purge Summary**: After a purge, a summary screen lists how many of each mob were removed and how many were kept safe.
+- **Per-Mob Purge**: After choosing a mob group, a second screen lists each disabled mob type that is loaded with its count so you can purge only the types you pick.
+- **Purge by Dimension**: Purge the Overworld, the Nether, the End, or all dimensions.
+- **Group Action**: Each mob group menu has a choice to enable or disable every mob in that group at once.
+- **Loaded Count**: The dashboard shows how many disabled mobs are loaded right now.
 
 ### Improved & Balanced
-- **Back Buttons Removed**: The back switch and back button were removed from every menu. Close a menu to leave it and use the book again to reopen the dashboard.
-- **Plain Menu Text**: Emojis and symbols were removed from menu titles, buttons and the status panel so the text renders thicker and easier to read.
+- **More Protected Mobs**: Leashed mobs, mobs with riders and mobs carrying chests are kept safe by default, alongside tamed and name-tagged mobs.
+- **Remembered Purge Choices**: The purge menu remembers your last dimension, group and protection choices.
 
 <details>
-<summary><b>3.0.x</b> (2 releases)</summary>
+<summary><b>3.0.x</b> (3 releases)</summary>
+
+### [3.0.2] - 2026-11-20 - Cleaner Menus
+
+#### Improved & Balanced
+- **Back Buttons Removed**: The back switch and back button were removed from every menu. Close a menu to leave it and use the book again to reopen the dashboard.
+- **Plain Menu Text**: Emojis and symbols were removed from menu titles, buttons and the status panel so the text renders thicker and easier to read.
 
 ### [3.0.1] - 2026-11-20 - Separate Purge Menu
 
@@ -462,11 +476,11 @@ export function getAllMobIds() {
 }
 ```
 
-## FILE: MCPEDL/Script/ALNSpawnControl/behavior_pack/scripts/spawn_ui.js (334 lines, 9673 bytes)
+## FILE: MCPEDL/Script/ALNSpawnControl/behavior_pack/scripts/spawn_ui.js (595 lines, 16772 bytes)
 
 ```
 import { world, system } from "@minecraft/server";
-import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
+import { ActionFormData, ModalFormData, MessageFormData } from "@minecraft/server-ui";
 import {
   MOB_CATEGORIES,
   getSpawnRules,
@@ -549,7 +563,8 @@ function openMainMenu(player) {
     `§cBlocked: §f${blockedCount} mobs\n` +
     `§eBlocked Spawns This Session: §f${getBlockedCount()}\n` +
     `§bFilter Mode: §f${config.blockSpawnEggs ? "All Sources (Inc. Eggs)" : "Natural Only"}\n` +
-    `§dAdmin Tag Lock: §f${config.adminOnly ? "Enabled" : "Disabled"}`
+    `§dAdmin Tag Lock: §f${config.adminOnly ? "Enabled" : "Disabled"}\n` +
+    `§cDisabled Mobs Loaded Now: §f${countDisabledLoaded()}`
   );
 
   form.button("§1Overworld Hostiles\n§8Zombie, Creeper, Breeze...");
@@ -601,6 +616,8 @@ function openCategoryMenu(player, categoryKey) {
   const form = new ModalFormData();
   form.title(`§2${category.name}`);
 
+  form.dropdown("Group Action", ["No Change", "Enable All In Group", "Disable All In Group"], { defaultValueIndex: 0 });
+
   for (const mob of category.mobs) {
     const isAllowed = rules[mob.id] !== false;
     form.toggle(`${mob.name}`, { defaultValue: isAllowed });
@@ -612,9 +629,15 @@ function openCategoryMenu(player, categoryKey) {
     }
 
     const currentRules = getSpawnRules(world);
+    const groupAction = Number(response.formValues[0]);
     category.mobs.forEach((mob, index) => {
-      const val = response.formValues[index];
-      currentRules[mob.id] = Boolean(val);
+      if (groupAction === 1) {
+        currentRules[mob.id] = true;
+      } else if (groupAction === 2) {
+        currentRules[mob.id] = false;
+      } else {
+        currentRules[mob.id] = Boolean(response.formValues[index + 1]);
+      }
     });
 
     saveSpawnRules(world, currentRules);
@@ -697,6 +720,15 @@ function openGlobalSettingsMenu(player) {
   });
 }
 
+const PURGE_OPTIONS_KEY = "aln_purge_options";
+
+const PURGE_DIMENSIONS = [
+  { name: "All Dimensions", ids: ["overworld", "nether", "the_end"] },
+  { name: "Overworld", ids: ["overworld"] },
+  { name: "Nether", ids: ["nether"] },
+  { name: "The End", ids: ["the_end"] }
+];
+
 function isTamedEntity(entity) {
   try {
     if (entity.getComponent("minecraft:is_tamed")) {
@@ -722,17 +754,226 @@ function isNameTaggedEntity(entity) {
   }
 }
 
-function openPurgeMenu(player) {
-  const categoryKeys = Object.keys(MOB_CATEGORIES);
-  const form = new ModalFormData();
-  form.title("§cPurge Disabled Mobs");
+function isLeashedEntity(entity) {
+  try {
+    const leashable = entity.getComponent("minecraft:leashable");
+    return Boolean(leashable && leashable.isLeashed === true);
+  } catch (e) {
+    return false;
+  }
+}
 
-  for (const key of categoryKeys) {
-    form.toggle(`Purge ${MOB_CATEGORIES[key].name}`, { defaultValue: true });
+function isRiddenEntity(entity) {
+  try {
+    const rideable = entity.getComponent("minecraft:rideable");
+    return Boolean(rideable && rideable.getRiders().length > 0);
+  } catch (e) {
+    return false;
+  }
+}
+
+function isChestedEntity(entity) {
+  try {
+    return Boolean(entity.getComponent("minecraft:is_chested"));
+  } catch (e) {
+    return false;
+  }
+}
+
+const PURGE_PROTECTIONS = [
+  { key: "tamed", label: "Include Tamed Mobs", kept: "tamed", test: isTamedEntity },
+  { key: "named", label: "Include Name-Tagged Mobs", kept: "name-tagged", test: isNameTaggedEntity },
+  { key: "leashed", label: "Include Leashed Mobs", kept: "leashed", test: isLeashedEntity },
+  { key: "ridden", label: "Include Mobs With Riders", kept: "with riders", test: isRiddenEntity },
+  { key: "chested", label: "Include Mobs Carrying Chests", kept: "carrying chests", test: isChestedEntity }
+];
+
+function getMobNameMap() {
+  const map = {};
+  for (const key of Object.keys(MOB_CATEGORIES)) {
+    for (const mob of MOB_CATEGORIES[key].mobs) {
+      map[mob.id] = mob.name;
+    }
+  }
+  return map;
+}
+
+function getGroupMobIds(groupIndex) {
+  const keys = Object.keys(MOB_CATEGORIES);
+  if (groupIndex <= 0 || groupIndex > keys.length) {
+    return getAllMobIds();
+  }
+  return MOB_CATEGORIES[keys[groupIndex - 1]].mobs.map((mob) => mob.id);
+}
+
+function loadPurgeOptions() {
+  const options = {
+    dimension: 0,
+    group: 0,
+    tamed: false,
+    named: false,
+    leashed: false,
+    ridden: false,
+    chested: false
+  };
+  try {
+    const raw = world.getDynamicProperty(PURGE_OPTIONS_KEY);
+    if (typeof raw === "string") {
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed === "object") {
+        const dim = Number(parsed.dimension);
+        const grp = Number(parsed.group);
+        if (Number.isInteger(dim) && dim >= 0 && dim < PURGE_DIMENSIONS.length) {
+          options.dimension = dim;
+        }
+        if (Number.isInteger(grp) && grp >= 0 && grp <= Object.keys(MOB_CATEGORIES).length) {
+          options.group = grp;
+        }
+        for (const p of PURGE_PROTECTIONS) {
+          options[p.key] = Boolean(parsed[p.key]);
+        }
+      }
+    }
+  } catch (e) {
+  }
+  return options;
+}
+
+function savePurgeOptions(options) {
+  try {
+    world.setDynamicProperty(PURGE_OPTIONS_KEY, JSON.stringify(options));
+  } catch (e) {
+  }
+}
+
+function scanPurge(options, selectedIds) {
+  const rules = getSpawnRules(world);
+  const groupIds = new Set(getGroupMobIds(options.group));
+  const dimension = PURGE_DIMENSIONS[options.dimension] || PURGE_DIMENSIONS[0];
+  const types = {};
+  const kept = {};
+  for (const p of PURGE_PROTECTIONS) {
+    kept[p.key] = 0;
   }
 
-  form.toggle("Include Tamed Mobs", { defaultValue: false });
-  form.toggle("Include Name-Tagged Mobs", { defaultValue: false });
+  for (const dimId of dimension.ids) {
+    try {
+      const dim = world.getDimension(dimId);
+      if (!dim) {
+        continue;
+      }
+      for (const entity of dim.getEntities()) {
+        if (!entity || !entity.isValid) {
+          continue;
+        }
+        const id = entity.typeId;
+        if (rules[id] !== false || !groupIds.has(id)) {
+          continue;
+        }
+        if (selectedIds && !selectedIds.has(id)) {
+          continue;
+        }
+        let protectedBy = null;
+        for (const p of PURGE_PROTECTIONS) {
+          if (!options[p.key] && p.test(entity)) {
+            protectedBy = p.key;
+            break;
+          }
+        }
+        if (protectedBy) {
+          kept[protectedBy]++;
+          continue;
+        }
+        if (!types[id]) {
+          types[id] = [];
+        }
+        types[id].push(entity);
+      }
+    } catch (e) {
+    }
+  }
+
+  return { types, kept };
+}
+
+function describeKept(kept) {
+  const parts = [];
+  for (const p of PURGE_PROTECTIONS) {
+    if (kept[p.key] > 0) {
+      parts.push(`${kept[p.key]} ${p.kept}`);
+    }
+  }
+  return parts.length > 0 ? parts.join(", ") : "none";
+}
+
+function countDisabledLoaded() {
+  const rules = getSpawnRules(world);
+  let count = 0;
+  for (const dimId of PURGE_DIMENSIONS[0].ids) {
+    try {
+      const dim = world.getDimension(dimId);
+      if (!dim) {
+        continue;
+      }
+      for (const entity of dim.getEntities()) {
+        if (entity && entity.isValid && rules[entity.typeId] === false) {
+          count++;
+        }
+      }
+    } catch (e) {
+    }
+  }
+  return count;
+}
+
+function openPurgeMenu(player) {
+  const options = loadPurgeOptions();
+  const groupNames = ["All Groups"];
+  for (const key of Object.keys(MOB_CATEGORIES)) {
+    groupNames.push(MOB_CATEGORIES[key].name);
+  }
+
+  const form = new ModalFormData();
+  form.title("§cPurge Disabled Mobs");
+  form.dropdown("Dimension", PURGE_DIMENSIONS.map((d) => d.name), { defaultValueIndex: options.dimension });
+  form.dropdown("Mob Group", groupNames, { defaultValueIndex: options.group });
+  for (const p of PURGE_PROTECTIONS) {
+    form.toggle(p.label, { defaultValue: options[p.key] });
+  }
+
+  form.show(player).then((response) => {
+    if (response.canceled || !response.formValues) {
+      return;
+    }
+
+    const chosen = {
+      dimension: Number(response.formValues[0]),
+      group: Number(response.formValues[1])
+    };
+    PURGE_PROTECTIONS.forEach((p, index) => {
+      chosen[p.key] = Boolean(response.formValues[index + 2]);
+    });
+    savePurgeOptions(chosen);
+
+    system.run(() => openPurgeMobPicker(player, chosen));
+  });
+}
+
+function openPurgeMobPicker(player, options) {
+  const scan = scanPurge(options, null);
+  const ids = Object.keys(scan.types);
+
+  if (ids.length === 0) {
+    showPurgeResult(player, 0, scan.kept, [], "No disabled mobs matched your choices.");
+    return;
+  }
+
+  const names = getMobNameMap();
+  const form = new ModalFormData();
+  form.title("§cChoose Mobs To Purge");
+  for (const id of ids) {
+    form.toggle(`${names[id] || id} (${scan.types[id].length})`, { defaultValue: true });
+  }
 
   form.show(player).then((response) => {
     if (response.canceled || !response.formValues) {
@@ -740,72 +981,120 @@ function openPurgeMenu(player) {
     }
 
     const selectedIds = new Set();
-    categoryKeys.forEach((key, index) => {
+    ids.forEach((id, index) => {
       if (Boolean(response.formValues[index])) {
-        for (const mob of MOB_CATEGORIES[key].mobs) {
-          selectedIds.add(mob.id);
-        }
+        selectedIds.add(id);
       }
     });
 
-    const includeTamed = Boolean(response.formValues[categoryKeys.length]);
-    const includeNamed = Boolean(response.formValues[categoryKeys.length + 1]);
+    if (selectedIds.size === 0) {
+      player.onScreenDisplay.setActionBar("§c[SpawnControl] §fNo mobs were selected.");
+      return;
+    }
 
-    purgeDisabledEntities(player, selectedIds, includeTamed, includeNamed);
+    system.run(() => openPurgeConfirm(player, options, selectedIds));
   });
 }
 
-function purgeDisabledEntities(player, selectedIds, includeTamed, includeNamed) {
-  const rules = getSpawnRules(world);
-  let purgedCount = 0;
-  let skippedTamed = 0;
-  let skippedNamed = 0;
+function openPurgeConfirm(player, options, selectedIds) {
+  const scan = scanPurge(options, selectedIds);
+  const names = getMobNameMap();
+  const ids = Object.keys(scan.types);
+  let total = 0;
+  const lines = [];
+  for (const id of ids) {
+    total += scan.types[id].length;
+    lines.push(`§f${names[id] || id}: §c${scan.types[id].length}`);
+  }
 
-  const dimensions = ["overworld", "nether", "the_end"];
-  for (const dimId of dimensions) {
-    try {
-      const dim = world.getDimension(dimId);
-      if (!dim) {
-        continue;
-      }
-      const entities = dim.getEntities();
-      for (const entity of entities) {
-        if (!entity || !entity.isValid) {
-          continue;
-        }
-        if (rules[entity.typeId] !== false || !selectedIds.has(entity.typeId)) {
-          continue;
-        }
-        if (!includeTamed && isTamedEntity(entity)) {
-          skippedTamed++;
-          continue;
-        }
-        if (!includeNamed && isNameTaggedEntity(entity)) {
-          skippedNamed++;
-          continue;
-        }
-        try {
+  if (total === 0) {
+    showPurgeResult(player, 0, scan.kept, [], "No disabled mobs matched your choices.");
+    return;
+  }
+
+  const form = new MessageFormData();
+  form.title("§cConfirm Purge");
+  form.body(
+    `§fMobs to remove: §c${total}\n` +
+    `${lines.join("\n")}\n\n` +
+    `§7Kept safe: §f${describeKept(scan.kept)}\n\n` +
+    `§cThis cannot be undone.`
+  );
+  form.button1("Cancel");
+  form.button2("Purge Now");
+
+  form.show(player).then((response) => {
+    if (response.canceled || response.selection !== 1) {
+      player.onScreenDisplay.setActionBar("§e[SpawnControl] §fPurge cancelled.");
+      return;
+    }
+    system.run(() => runPurge(player, options, selectedIds));
+  });
+}
+
+function runPurge(player, options, selectedIds) {
+  const scan = scanPurge(options, selectedIds);
+  const names = getMobNameMap();
+  const removed = [];
+  let purged = 0;
+
+  for (const id of Object.keys(scan.types)) {
+    let typeCount = 0;
+    for (const entity of scan.types[id]) {
+      try {
+        if (entity.isValid) {
           entity.remove();
-          purgedCount++;
-        } catch (e) {
+          typeCount++;
+          purged++;
         }
+      } catch (e) {
       }
-    } catch (e) {
+    }
+    if (typeCount > 0) {
+      removed.push(`${names[id] || id}: ${typeCount}`);
     }
   }
 
-  player.onScreenDisplay.setActionBar(
-    `§a[SpawnControl] §fPurged ${purgedCount} mobs. §7Kept: ${skippedTamed} tamed, ${skippedNamed} named.`
-  );
+  showPurgeResult(player, purged, scan.kept, removed, null);
+}
+
+function showPurgeResult(player, purged, kept, removed, note) {
+  const form = new ActionFormData();
+  form.title("§aPurge Summary");
+  let body = `§fMobs purged: §a${purged}\n§7Kept safe: §f${describeKept(kept)}`;
+  if (removed.length > 0) {
+    body += `\n\n§fRemoved:\n§7${removed.join("\n")}`;
+  }
+  if (note) {
+    body += `\n\n§e${note}`;
+  }
+  form.body(body);
+  form.button("Close");
+  form.show(player).then(() => {
+  });
 }
 ```
 
-## FILE: MCPEDL/Script/ALNSpawnControl/CHANGELOG.md (38 lines, 2034 bytes)
+## FILE: MCPEDL/Script/ALNSpawnControl/CHANGELOG.md (52 lines, 3077 bytes)
 
 ```
 # Changelog — ALN:SpawnControl
 
 ---
+
+## [v3.0.3] - 2026-11-20 - Safer and Smarter Purge
+
+### Added
+- **Purge Confirmation**: A confirmation screen shows how many mobs will be removed and how many are kept before anything is purged.
+- **Purge Summary**: After a purge, a summary screen lists how many of each mob were removed and how many were kept safe.
+- **Per-Mob Purge**: After choosing a mob group, a second screen lists each disabled mob type that is loaded with its count so you can purge only the types you pick.
+- **Purge by Dimension**: Purge the Overworld, the Nether, the End, or all dimensions.
+- **Group Action**: Each mob group menu has a choice to enable or disable every mob in that group at once.
+- **Loaded Count**: The dashboard shows how many disabled mobs are loaded right now.
+
+### Improved & Balanced
+- **More Protected Mobs**: Leashed mobs, mobs with riders and mobs carrying chests are kept safe by default, alongside tamed and name-tagged mobs.
+- **Remembered Purge Choices**: The purge menu remembers your last dimension, group and protection choices.
 
 ## [v3.0.2] - 2026-11-20 - Cleaner Menus
 
@@ -841,7 +1130,7 @@ function purgeDisabledEntities(player, selectedIds, includeTamed, includeNamed) 
 - **Global Filter Settings**: Configure whether rules affect natural spawns only or all spawn causes including Spawn Eggs, enable an Admin Tag Lock, and trigger an immediate entity purge.
 ```
 
-## FILE: MCPEDL/Script/ALNSpawnControl/DESCRIPTION.md (89 lines, 6399 bytes)
+## FILE: MCPEDL/Script/ALNSpawnControl/DESCRIPTION.md (90 lines, 6831 bytes)
 
 ```
 # ALN:SpawnControl — Custom Mob Spawn Whitelist & Toggle UI
@@ -857,14 +1146,14 @@ function purgeDisabledEntities(player, selectedIds, includeTamed, includeNamed) 
 
 ## Overview
 
-Rename a vanilla Book to "Spawn Control" on an Anvil and use it to open the control panel. From the dashboard, players can inspect active mob counts, configure 4 categorized mob rosters with individual toggles, apply one-tap presets, configure global filter modes, or open the separate purge menu to remove existing disabled mobs. All preferences are saved persistently to world storage.
+Rename a vanilla Book to "Spawn Control" on an Anvil and use it to open the control panel. From the dashboard, players can inspect active mob counts, configure 4 categorized mob rosters with individual toggles, apply one-tap presets, see how many disabled mobs are currently loaded, configure global filter modes, or open the separate purge menu to remove existing disabled mobs. All preferences are saved persistently to world storage.
 
 ## Key Features
 
 ### Categorized Mob Rosters
 - **What Happens**: Individual toggle switches govern 58 standard mobs organized across 4 distinct groups: Overworld Hostiles, Passive & Neutral Mobs, Nether & End Mobs, and Bosses & Rare Mobs.
 - **How It Works**: Open any category to adjust individual toggles, such as turning off Creeper or Phantom while keeping Zombie and Skeleton active. Close a menu to leave it and use the book again to reopen the dashboard.
-- **Good To Know**: All mobs are enabled by default. Mobs that are toggled off are removed immediately when spawning occurs.
+- **Good To Know**: All mobs are enabled by default. Mobs that are toggled off are removed immediately when spawning occurs. Each group menu also has a Group Action choice to enable or disable every mob in that group at once.
 
 ### Custom Mob Spawner & Farm Control
 - **What Happens**: Fine-tune mob farms and monster spawners by permitting only chosen mob types to spawn while blocking all unwanted background spawns.
@@ -880,9 +1169,10 @@ Rename a vanilla Book to "Spawn Control" on an Anvil and use it to open the cont
 - **How It Works**: Leaving natural spawn mode active allows administrators to test mobs using Spawn Eggs while preventing wild spawns.
 
 ### Entity Purge
-- **What Happens**: A dedicated Purge Disabled Mobs menu scans loaded chunks in all three dimensions and removes mobs whose toggles are currently disabled.
-- **How It Works**: Choose which of the 4 groups are purged, and decide whether tamed mobs and name-tagged mobs are included. Submitting the menu runs a single-pass removal and reports how many mobs were purged and how many tamed or named mobs were kept.
-- **Good To Know**: Tamed mobs and name-tagged mobs are kept by default.
+- **What Happens**: A dedicated Purge Disabled Mobs menu scans loaded chunks and removes mobs whose toggles are currently disabled.
+- **How It Works**: Pick a dimension and a mob group, then choose whether tamed mobs, name-tagged mobs, leashed mobs, mobs with riders, and mobs carrying chests are included. A second screen lists each disabled mob type that is loaded with its count so you can purge only the types you pick.
+- **Confirmation and Summary**: Before anything is removed, a confirmation screen shows how many mobs will be removed and how many are kept safe. After the purge, a summary screen lists what was removed.
+- **Good To Know**: Tamed, name-tagged, leashed, ridden and chested mobs are kept by default, and your last purge choices are remembered.
 
 ### Admin Tag Lock
 - **What Happens**: An optional permission lock restricts opening the control panel to players carrying the administrator tag.
@@ -966,7 +1256,7 @@ Download the current release of **ALNSpawnControl** for Minecraft Bedrock Editio
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Script/ALNSpawnControl/DESCRIPTION.md).
 ```
 
-## FILE: Package/ALNSpawnControl.listing.md (70 lines, 18021 bytes)
+## FILE: Package/ALNSpawnControl.listing.md (70 lines, 18517 bytes)
 
 ````
 # Listing Kit: ALN:SpawnControl
@@ -992,11 +1282,11 @@ Paste into the CurseForge description editor in source (HTML) mode.
 ```html
 <div><div style="border:2px solid #15803d;border-radius:18px;line-height:1.5"><br><h1 style="font-size:34px;text-align:center">ALN:SpawnControl</h1><p style="color:#8a94a3;font-size:14px;text-align:center">by ALNStudios</p><p style="text-align:center"><span style="background-color:#15803d;color:#ffffff;border-radius:20px;font-size:16px">&nbsp;&nbsp;<strong>Control world mob spawns with individual switches for 58 creatures, presets, and filter rules opened from a Spawn Control book.</strong>&nbsp;&nbsp;</span></p><p style="text-align:center;margin-left:16px;margin-right:16px">ALN:SpawnControl adds an interactive in-game control panel to configure individual mob spawning rules across 4 categorized rosters. It suits world builders, realm administrators, and survival players wanting a fine-tuned environment without custom entities.</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px"><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Bedrock</strong>: 1.26+&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Experimental</strong>: No&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Achievements</strong>: Unknown / needs confirmation&nbsp;&nbsp;</div></div><br></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;About&nbsp;&nbsp;</span></h2>
-<p>Rename a vanilla Book to "Spawn Control" on an Anvil and use it to open the control panel. From the dashboard, players can inspect active mob counts, configure 4 categorized mob rosters with individual toggles, apply one-tap presets, configure global filter modes, or open the separate purge menu to remove existing disabled mobs. All preferences are saved persistently to world storage.</p>
+<p>Rename a vanilla Book to "Spawn Control" on an Anvil and use it to open the control panel. From the dashboard, players can inspect active mob counts, configure 4 categorized mob rosters with individual toggles, apply one-tap presets, see how many disabled mobs are currently loaded, configure global filter modes, or open the separate purge menu to remove existing disabled mobs. All preferences are saved persistently to world storage.</p>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Screenshots&nbsp;&nbsp;</span></h2>
 <div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Script/ALNSpawnControl/assets/snapshots/BOSSES%20%26%20RARE%20MOBS.jpg"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Script/ALNSpawnControl/assets/snapshots/BOSSES%20%26%20RARE%20MOBS.jpg" alt="BOSSES &amp; RARE MOBS" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">BOSSES &amp; RARE MOBS</p></div><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Script/ALNSpawnControl/assets/snapshots/HOW%20TO%20GET%20THE%20BOOK.jpg"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Script/ALNSpawnControl/assets/snapshots/HOW%20TO%20GET%20THE%20BOOK.jpg" alt="HOW TO GET THE BOOK" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">HOW TO GET THE BOOK</p></div><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Script/ALNSpawnControl/assets/snapshots/OVER%20WORLD%20HOSTILE%20MENU.jpg"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Script/ALNSpawnControl/assets/snapshots/OVER%20WORLD%20HOSTILE%20MENU.jpg" alt="OVER WORLD HOSTILE MENU" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">OVER WORLD HOSTILE MENU</p></div><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Script/ALNSpawnControl/assets/snapshots/PASSIVE%20AND%20NEUTRAL%20MOBS.jpg"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Script/ALNSpawnControl/assets/snapshots/PASSIVE%20AND%20NEUTRAL%20MOBS.jpg" alt="PASSIVE AND NEUTRAL MOBS" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">PASSIVE AND NEUTRAL MOBS</p></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;What You Get&nbsp;&nbsp;</span></h2>
-<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Categorized Mob Rosters</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Individual toggle switches govern 58 standard mobs organized across 4 distinct groups: Overworld Hostiles, Passive &amp; Neutral Mobs, Nether &amp; End Mobs, and Bosses &amp; Rare Mobs.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Open any category to adjust individual toggles, such as turning off Creeper or Phantom while keeping Zombie and Skeleton active. Close a menu to leave it and use the book again to reopen the dashboard.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> All mobs are enabled by default. Mobs that are toggled off are removed immediately when spawning occurs.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Custom Mob Spawner &amp; Farm Control</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Fine-tune mob farms and monster spawners by permitting only chosen mob types to spawn while blocking all unwanted background spawns.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good for Chosen Mob Spawner:</strong> Perfect for mob spawner chambers and specialized drop farms (such as Skeleton, Blaze, Witch, or Creeper farms). Disabling other competing mob spawns maximizes spawner efficiency, frees up mob caps, and prevents unwanted entities from crowding your spawn areas.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Disable unneeded hostiles to maximize spawn rates for chosen creatures, or block specific mob types around complex farms without breaking the target mob grinder.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Quick Presets</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>One-tap buttons allow bulk configuration: Enable All Mobs, Disable All Hostiles, Disable All Passive Mobs, or Disable Everything for an empty mob world.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Selecting "Disable All Hostiles" immediately switches off all Overworld monsters, Nether threats, and bosses simultaneously.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Global Filter Rules</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Global settings let you choose whether spawn restrictions apply only to natural world-gen spawns or also block Spawn Eggs and summon commands.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Leaving natural spawn mode active allows administrators to test mobs using Spawn Eggs while preventing wild spawns.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Entity Purge</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>A dedicated Purge Disabled Mobs menu scans loaded chunks in all three dimensions and removes mobs whose toggles are currently disabled.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Choose which of the 4 groups are purged, and decide whether tamed mobs and name-tagged mobs are included. Submitting the menu runs a single-pass removal and reports how many mobs were purged and how many tamed or named mobs were kept.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Tamed mobs and name-tagged mobs are kept by default.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Admin Tag Lock</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>An optional permission lock restricts opening the control panel to players carrying the administrator tag.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> When Admin Tag Lock is turned on, a player must carry the tag to open the book; the first player to open the book automatically receives the tag if none exists.</span></p></div></div></div>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Categorized Mob Rosters</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Individual toggle switches govern 58 standard mobs organized across 4 distinct groups: Overworld Hostiles, Passive &amp; Neutral Mobs, Nether &amp; End Mobs, and Bosses &amp; Rare Mobs.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Open any category to adjust individual toggles, such as turning off Creeper or Phantom while keeping Zombie and Skeleton active. Close a menu to leave it and use the book again to reopen the dashboard.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> All mobs are enabled by default. Mobs that are toggled off are removed immediately when spawning occurs. Each group menu also has a Group Action choice to enable or disable every mob in that group at once.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Custom Mob Spawner &amp; Farm Control</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Fine-tune mob farms and monster spawners by permitting only chosen mob types to spawn while blocking all unwanted background spawns.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good for Chosen Mob Spawner:</strong> Perfect for mob spawner chambers and specialized drop farms (such as Skeleton, Blaze, Witch, or Creeper farms). Disabling other competing mob spawns maximizes spawner efficiency, frees up mob caps, and prevents unwanted entities from crowding your spawn areas.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Disable unneeded hostiles to maximize spawn rates for chosen creatures, or block specific mob types around complex farms without breaking the target mob grinder.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Quick Presets</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>One-tap buttons allow bulk configuration: Enable All Mobs, Disable All Hostiles, Disable All Passive Mobs, or Disable Everything for an empty mob world.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Selecting "Disable All Hostiles" immediately switches off all Overworld monsters, Nether threats, and bosses simultaneously.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Global Filter Rules</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Global settings let you choose whether spawn restrictions apply only to natural world-gen spawns or also block Spawn Eggs and summon commands.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Leaving natural spawn mode active allows administrators to test mobs using Spawn Eggs while preventing wild spawns.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Entity Purge</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>A dedicated Purge Disabled Mobs menu scans loaded chunks and removes mobs whose toggles are currently disabled.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Pick a dimension and a mob group, then choose whether tamed mobs, name-tagged mobs, leashed mobs, mobs with riders, and mobs carrying chests are included. A second screen lists each disabled mob type that is loaded with its count so you can purge only the types you pick.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Confirmation and Summary:</strong> Before anything is removed, a confirmation screen shows how many mobs will be removed and how many are kept safe. After the purge, a summary screen lists what was removed.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Tamed, name-tagged, leashed, ridden and chested mobs are kept by default, and your last purge choices are remembered.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Admin Tag Lock</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>An optional permission lock restricts opening the control panel to players carrying the administrator tag.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> When Admin Tag Lock is turned on, a player must carry the tag to open the book; the first player to open the book automatically receives the tag if none exists.</span></p></div></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Get Started&nbsp;&nbsp;</span></h2>
 <table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Import the .mcpack file and activate ALN:SpawnControl in your world's Behavior Packs.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Place a Book (not a Book and Quill) in an Anvil and rename it to "Spawn Control".</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Hold the renamed book and use it to open the ALN:SpawnControl control panel.</td></tr></tbody></table>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Common Questions&nbsp;&nbsp;</span></h2>
