@@ -9,7 +9,7 @@ OneBlock Dirtbound Kingdom Beta is a database-free void-survival challenge built
 
 ## Overview
 
-The central block is at **(0, 0, 0)**, with Bedrock directly below and player spawn above it. First-time setup clears the starting area and prepares the platform before progression begins.
+The central block is at **(0, 64, 0)**, with Bedrock directly below and player spawn above it. First-time setup clears the starting area and prepares the platform before progression begins.
 
 ## Ten Core Stages
 

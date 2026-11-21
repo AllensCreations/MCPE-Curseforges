@@ -4,8 +4,8 @@ import { ActionFormData, MessageFormData } from "@minecraft/server-ui";
 // ---------------------------------------------------------------------------
 // Config
 // ---------------------------------------------------------------------------
-const ORIGIN = { x: 0, y: 0, z: 0 };
-const BONUS_POS = { x: 1, y: 1, z: 0 };
+const ORIGIN = { x: 0, y: 64, z: 0 };
+const BONUS_POS = { x: 1, y: 65, z: 0 };
 const OVERWORLD = "minecraft:overworld";
 // Core only initializes once some player has the "void_cleaned" tag (set by your own function/pack).
 // Set to false if you don't use a void-cleanup step.

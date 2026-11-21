@@ -31,6 +31,11 @@
 
 ---
 
+## [v198] - 2026-11-21 - Core Height Fix
+
+### Fixed
+- **Correct starting height:** The central block now sits at 0 64 0, with Bedrock at 0 63 0 and the world spawn at 0 65 0. The bonus Emerald Block appears at 1 65 0.
+
 ## [v197] - 2026-11-21 - Void Cleaner Guard
 
 ### Fixed

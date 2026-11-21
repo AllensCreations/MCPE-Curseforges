@@ -35,6 +35,7 @@ Extracted from the script files; nothing here was run in game.
 
 ## Notes (AI review)
 
+- Core (0,64,0), Bedrock (0,63,0), world spawn (0,65,0), bonus block (1,65,0).
 - Shop lists 173 items (counted from `RAW` in `main.js`); ids rejected at runtime are skipped and logged.
-- `void_cleaner` adds `void_cleaned` only once Bedrock exists at (0,-1,0), so setup retries until the chunk is loaded.
+- `void_cleaner` adds `void_cleaned` only once Bedrock exists at (0,63,0), so setup retries until the chunk is loaded.
 - Not tested in game.
