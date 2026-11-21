@@ -6,5 +6,5 @@ execute as @a[tag=!void_cleaned] run tp @s 0 1 0
 execute as @a[tag=!void_cleaned] run setblock 0 -1 0 bedrock
 execute as @a[tag=!void_cleaned] run setblock 0 0 0 minecraft:grass_block
 execute as @a[tag=!void_cleaned] run setworldspawn 0 1 0
-execute as @a[tag=!void_cleaned] run tellraw @a {"rawtext":[{"text":"§aDone cleaning"}]}
-tag @a[tag=!void_cleaned] add void_cleaned
+execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tellraw @s {"rawtext":[{"text":"§aDone cleaning"}]}
+execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cleaned

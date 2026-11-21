@@ -32,7 +32,7 @@ Use appropriate pickaxes as the core becomes harder. World-wide core progression
 
 - Use the custom **OneBlock Trader Ledger** item to open the shop. It is the only shop access method; there is no physical Trader Post block.
 - Starting balance: 50 OneCoins. Selling Dirt grants 1 OneCoin per block.
-- The shop contains 180 purchase options across ten tiers, with prices increasing as equipment improves.
+- The shop contains 173 purchase options across ten tiers, with prices increasing as equipment improves.
 - Unlocking a shop tier grants a one-time coin bonus. Every 250 personal core breaks grants another 20 OneCoins.
 - Every 500 world-wide core breaks triggers a Core Surge, awarding 50 OneCoins and spawning three hostile mobs near the player who reaches the milestone.
 - A bonus Emerald Block can appear above the platform. Breaking it grants 30 OneCoins and has a 20% chance to trigger a hostile mob wave.

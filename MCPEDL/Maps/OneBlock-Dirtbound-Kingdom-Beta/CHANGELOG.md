@@ -2,6 +2,14 @@
 
 ---
 
+## [v2] - 2026-11-21 - Void Cleaner Guard
+
+### Fixed
+- **Reliable first-join setup:** Players are marked as set up only after the Bedrock footing exists, so setup retries if the starting chunk was not loaded yet.
+- **No repeated notice:** The cleaning message is sent once, only to the player being set up.
+- **Trader menu error text:** Removed the outdated Trader Post reference.
+- **Shop item count:** Corrected the listed number of purchasable supplies to 173.
+
 ## [v1] - 2026-10-29
 
 ### Improved & Balanced

@@ -183,7 +183,7 @@ function showMain(p) {
       tell(p, "Balance: " + balance(p) + " OneCoins. Your blocks mined: " + mined(p) + ". Shared core stage: " + STAGES[stageFor(globalScore("#breaks"))].name +
         " (" + globalScore("#breaks") + " total breaks). " + (next ? "Next shop tier: " + next.name + " at " + next.unlock + " of your own breaks." : "All shop tiers unlocked."));
     } else if (r.selection === 4) showPrestige(p);
-  }).catch(() => tell(p, "Trader UI failed to open. Interact with the Trader Post or Ledger again."));
+  }).catch(() => tell(p, "Trader UI failed to open. Use the Trader Ledger again."));
 }
 
 function showShop(p) {

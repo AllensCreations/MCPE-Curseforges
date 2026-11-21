@@ -35,4 +35,6 @@ Extracted from the script files; nothing here was run in game.
 
 ## Notes (AI review)
 
-Known limits, design decisions and things to check on the next update go here. Not filled in yet.
+- Shop lists 173 items (counted from `RAW` in `main.js`); ids rejected at runtime are skipped and logged.
+- `void_cleaner` adds `void_cleaned` only once Bedrock exists at (0,-1,0), so setup retries until the chunk is loaded.
+- Not tested in game.
