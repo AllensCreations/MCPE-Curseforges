@@ -2,6 +2,13 @@
 
 ---
 
+## [15.0.0] - 2026-11-21 - Core Pool And Ledger Return Fix
+
+### Fixed
+- Building Blocks bought in the market no longer join the OneBlock regeneration pool. Building Blocks added by earlier purchases are removed from the pool. Milestone blocks are unchanged.
+- The Ledger now comes back when you free an inventory slot. Before, a dropped Ledger could be deleted while your inventory was full, and a Ledger that could not be given at join was only retried when you rejoined.
+- Fixed missing market icons for Magma Block and Conduit.
+
 ## [14.0.1] - 2026-11-21 - Startup Crash Fix
 
 ### Fixed

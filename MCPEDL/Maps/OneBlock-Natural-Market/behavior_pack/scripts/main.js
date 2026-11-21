@@ -125,7 +125,7 @@ const CATALOG = [
   ["netherrack", 12, 16, "Nether", 5, true, "textures/blocks/netherrack"],
   ["soul_sand", 15, 8, "Nether", 5, true, "textures/blocks/soul_sand"],
   ["nether_brick", 18, 8, "Nether", 5, true, "textures/blocks/nether_brick"],
-  ["magma_block", 20, 8, "Nether", 5, true, ""],
+  ["magma_block", 20, 8, "Nether", 5, true, "textures/blocks/magma"],
   ["obsidian", 30, 4, "Nether", 6, true, "textures/blocks/obsidian"],
   ["crying_obsidian", 45, 4, "Nether", 6, true, "textures/blocks/crying_obsidian"],
   ["ghast_tear", 55, 1, "Mob Drops", 6, false, "textures/items/ghast_tear"],
@@ -229,7 +229,7 @@ const CATALOG = [
 
   ["end_crystal", 120, 1, "Endgame", 8, false, "textures/items/end_crystal"],
   ["dragon_breath", 90, 1, "Endgame", 8, false, "textures/items/dragons_breath"],
-  ["conduit", 350, 1, "Endgame", 8, true, "textures/blocks/conduit_closed"],
+  ["conduit", 350, 1, "Endgame", 8, true, "textures/blocks/conduit_base"],
 
   ["heart_of_the_sea", 160, 1, "Endgame", 7, false, "textures/items/heartofthesea_closed"]
 ].map(([raw, price, amount, category, tier, block, icon]) => ({
@@ -237,6 +237,8 @@ const CATALOG = [
   name: raw.split("_").map(s => s[0].toUpperCase() + s.slice(1)).join(" ")
 }));
 
+const BUILDING_IDS = new Set(CATALOG.filter(i => i.category === "Building Blocks").map(i => i.id));
+const LEDGER_PENDING = "obm_ledger_pending";
 const DEBUG_TAG = "obm_debug";
 const STATUS_EVENT = "allenscreations:obm_status";
 const logLast = new Map();
@@ -306,7 +308,8 @@ function grantLedger(player) {
   if (hasLedger(player)) return true;
   const inv = inventoryOf(player);
   if (!inv || inv.emptySlotsCount < 1) {
-    tell(player, "Free one inventory slot and rejoin to receive your Natural Market Ledger.");
+    try { player.addTag(LEDGER_PENDING); } catch {}
+    tell(player, "Free one inventory slot to receive your Natural Market Ledger.");
     return false;
   }
   try {
@@ -314,6 +317,21 @@ function grantLedger(player) {
     tell(player, "Your Natural Market Ledger is ready. Use it to open the market.");
     return true;
   } catch { return false; }
+}
+function restoreLedger(player) {
+  if (hasLedger(player)) { try { player.removeTag(LEDGER_PENDING); } catch {} return; }
+  const inv = inventoryOf(player);
+  if (!inv || inv.emptySlotsCount < 1) { try { player.addTag(LEDGER_PENDING); } catch {} return; }
+  try {
+    for (const e of player.dimension.getEntities({ type: "minecraft:item", location: player.location, maxDistance: 24 })) {
+      try { if (e.getComponent("minecraft:item")?.itemStack?.typeId === LEDGER) e.kill(); } catch {}
+    }
+  } catch {}
+  try {
+    inv.addItem(new ItemStack(LEDGER, 1));
+    player.removeTag(LEDGER_PENDING);
+    tell(player, "The Ledger returned to your inventory.");
+  } catch (e) { logError("restoreLedger", e); }
 }
 function hasScore(name, player) {
   try { return objective(name).getScore(player) !== undefined; } catch { return false; }
@@ -352,11 +370,11 @@ function storedPool() {
     return list
       .filter(id => typeof id === "string")
       .map(id => id.includes(":") ? id : "minecraft:" + id)
-      .filter(id => !UNSAFE_CORE.has(id));
+      .filter(id => !UNSAFE_CORE.has(id) && !BUILDING_IDS.has(id));
   } catch { return []; }
 }
 function addBlockToPool(item) {
-  if (!item.block || UNSAFE_CORE.has(item.id)) return;
+  if (!item.block || item.category === "Building Blocks" || UNSAFE_CORE.has(item.id)) return;
   const stored = storedPool();
   if (stored.includes(item.id)) return;
   stored.push(item.id);
@@ -668,16 +686,13 @@ system.runInterval(rescuePhased, 5);
 system.run(() => log("INFO", "Script started and handlers registered. Debug chat: /tag @s add obm_debug. Status: /scriptevent allenscreations:obm_status"));
 system.runInterval(() => {
   try {
+    const players = world.getAllPlayers();
+    for (const p of players) if (p.hasTag(LEDGER_PENDING)) restoreLedger(p);
     for (const entity of world.getDimension("overworld").getEntities({ type: "minecraft:item" })) {
       try {
         if (entity.getComponent("minecraft:item")?.itemStack?.typeId !== LEDGER) continue;
-        const owner = world.getAllPlayers().find(p => p.dimension.id === "minecraft:overworld" && !hasLedger(p) && Math.hypot(p.location.x - entity.location.x, p.location.y - entity.location.y, p.location.z - entity.location.z) < 24);
-        if (!owner) continue;
-        const inv = inventoryOf(owner);
-        if (!inv) continue;
-        entity.kill();
-        inv.addItem(new ItemStack(LEDGER, 1));
-        tell(owner, "The Ledger returned to your inventory.");
+        const owner = players.find(p => p.dimension.id === "minecraft:overworld" && !hasLedger(p) && Math.hypot(p.location.x - entity.location.x, p.location.y - entity.location.y, p.location.z - entity.location.z) < 24);
+        if (owner) restoreLedger(owner);
       } catch {}
     }
   } catch (e) { logError("ledger return scan", e); }
