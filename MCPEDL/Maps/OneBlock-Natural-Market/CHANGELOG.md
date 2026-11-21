@@ -2,6 +2,11 @@
 
 ---
 
+## [14.0.1] - 2026-11-21 - Startup Crash Fix
+
+### Fixed
+- Fixed the map script stopping at startup with "cannot read property 'subscribe' of undefined". The Ledger throw event is not available in the game's script version, so it was replaced with a scan that returns a dropped Ledger to its owner. The market, core regeneration and rewards run again.
+
 ## [14.0.0] - 2026-11-21 - Inventory Icons And Core Height
 
 ### Fixed

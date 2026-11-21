@@ -594,7 +594,8 @@ world.afterEvents.itemUse.subscribe(event => {
     system.run(() => marketMain(player));
   }
 });
-world.afterEvents.itemThrow.subscribe(event => {
+if (!world.afterEvents.itemThrow) log("WARN", "itemThrow event is not available in this API version; using the dropped-item scan for the Ledger instead.");
+world.afterEvents.itemThrow?.subscribe(event => {
   if (event.itemStack?.typeId !== LEDGER) return;
   const player = event.source;
   if (!player || player.typeId !== "minecraft:player") return;
@@ -665,3 +666,19 @@ system.runInterval(() => {
 }, 40);
 system.runInterval(rescuePhased, 5);
 system.run(() => log("INFO", "Script started and handlers registered. Debug chat: /tag @s add obm_debug. Status: /scriptevent allenscreations:obm_status"));
+system.runInterval(() => {
+  try {
+    for (const entity of world.getDimension("overworld").getEntities({ type: "minecraft:item" })) {
+      try {
+        if (entity.getComponent("minecraft:item")?.itemStack?.typeId !== LEDGER) continue;
+        const owner = world.getAllPlayers().find(p => p.dimension.id === "minecraft:overworld" && !hasLedger(p) && Math.hypot(p.location.x - entity.location.x, p.location.y - entity.location.y, p.location.z - entity.location.z) < 24);
+        if (!owner) continue;
+        const inv = inventoryOf(owner);
+        if (!inv) continue;
+        entity.kill();
+        inv.addItem(new ItemStack(LEDGER, 1));
+        tell(owner, "The Ledger returned to your inventory.");
+      } catch {}
+    }
+  } catch (e) { logError("ledger return scan", e); }
+}, 20);
