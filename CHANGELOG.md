@@ -27,6 +27,11 @@
 
 ---
 
+## [v185] - 2026-11-21 - Lucky Block Textures
+
+### Added
+- **Lucky block look**: The lucky block now has its own gold texture, with a question mark on the sides, a four-leaf clover on top and a plain gold bottom.
+
 ## [v184] - 2026-11-21 - Script Lib Folders
 
 - Import-only Python modules moved to `scripts/lib/`; optional `behavior_pack/scripts/lib/` rule for pack scripts.

@@ -8,7 +8,9 @@
     "components": {
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
-        "*": { "texture": "allenscreations_lucky_block", "render_method": "opaque" }
+        "*": { "texture": "allenscreations_lucky_block_side", "render_method": "opaque" },
+        "up": { "texture": "allenscreations_lucky_block_top", "render_method": "opaque" },
+        "down": { "texture": "allenscreations_lucky_block_bottom", "render_method": "opaque" }
       },
       "minecraft:destructible_by_mining": { "seconds_to_destroy": 1 },
       "minecraft:destructible_by_explosion": false,

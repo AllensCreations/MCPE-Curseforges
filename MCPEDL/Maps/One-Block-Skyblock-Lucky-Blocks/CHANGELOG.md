@@ -2,6 +2,11 @@
 
 ---
 
+## [v3] - 2026-11-21 - Lucky Block Textures
+
+### Added
+- **Lucky block look**: The lucky block now has its own gold texture, with a question mark on the sides, a four-leaf clover on top and a plain gold bottom.
+
 ## [v2] - 2026-11-10
 
 ### Added
