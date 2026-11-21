@@ -74,3 +74,4 @@ ALN PortalDoors adds a craftable Portal Door that stands two blocks tall. When y
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, ALN PortalDoors Bedrock mod, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+

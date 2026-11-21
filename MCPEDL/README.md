@@ -2,7 +2,7 @@
 
 Generated file. Do not edit by hand: it is rebuilt with every build.
 
-36 Add-ons · 6 Maps · 10 Scripts · 6 Minigames
+37 Add-ons · 6 Maps · 10 Scripts · 6 Minigames
 
 ## AI Review Kits
 
@@ -23,6 +23,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | **2-in-1 Loot & XP Booster** | v8 | [Source](Addons/2-in-1-Loot--XP-Booster) | [Package](../Package/2-in-1-Loot--XP-Booster.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/2-in-1-Loot--XP-Booster.txt) |
 | **ALN ChestLog** | 3.0.0 | [Source](Addons/ALN-ChestLog) | [Package](../Package/ALN-ChestLog.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-ChestLog.txt) |
 | **ALN MoreDiscs** | v3 | [Source](Addons/ALN-MoreDiscs) | [Package](../Package/ALN-MoreDiscs.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-MoreDiscs.txt) |
+| **ALN PortalDoors** | 1.0.0 | [Source](Addons/ALN-PortalDoors) | [Package](../Package/ALN-PortalDoors.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-PortalDoors.txt) |
 | **ALN Quiver** | v2 | [Source](Addons/ALN-Quiver) | [Package](../Package/ALN-Quiver.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-Quiver.txt) |
 | **ALN Wireless Headphones** | v11 | [Source](Addons/ALN-Wireless-Headphones) | [Package](../Package/ALN-Wireless-Headphones.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-Wireless-Headphones.txt) |
 | **ALN-GlobalMarket** | 1.0.2 | [Source](Addons/ALN-GlobalMarket) | [Package](../Package/ALN-GlobalMarket.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-GlobalMarket.txt) |

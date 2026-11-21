@@ -1,0 +1,1502 @@
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Addons/ALN-PortalDoors`
+- **Destination:** `MCPEDL/Addons/ALN-PortalDoors`
+- **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALN-PortalDoors/CHANGELOG.md`)
+- **Text files:** 15
+- **Skipped binary:** 2
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Addons/ALN-PortalDoors/behavior_pack/blocks/portal_door.json`
+- `MCPEDL/Addons/ALN-PortalDoors/behavior_pack/blocks/portal_door_top.json`
+- `MCPEDL/Addons/ALN-PortalDoors/behavior_pack/manifest.json`
+- `MCPEDL/Addons/ALN-PortalDoors/behavior_pack/recipes/portal_door_amethyst.json`
+- `MCPEDL/Addons/ALN-PortalDoors/behavior_pack/recipes/portal_door_book.json`
+- `MCPEDL/Addons/ALN-PortalDoors/behavior_pack/scripts/lib/README.md`
+- `MCPEDL/Addons/ALN-PortalDoors/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/ALN-PortalDoors/CHANGELOG.md`
+- `MCPEDL/Addons/ALN-PortalDoors/DESCRIPTION.md`
+- `MCPEDL/Addons/ALN-PortalDoors/project.json`
+- `MCPEDL/Addons/ALN-PortalDoors/README.md`
+- `MCPEDL/Addons/ALN-PortalDoors/resource_pack/manifest.json`
+- `MCPEDL/Addons/ALN-PortalDoors/resource_pack/texts/en_US.lang`
+- `MCPEDL/Addons/ALN-PortalDoors/resource_pack/textures/terrain_texture.json`
+- `MCPEDL/Addons/ALN-PortalDoors/texture_sources/portal_door_textures.json`
+
+### Skipped (binary)
+
+- `MCPEDL/Addons/ALN-PortalDoors/resource_pack/textures/blocks/aln_portal_door.png`
+- `MCPEDL/Addons/ALN-PortalDoors/resource_pack/textures/blocks/aln_portal_door_top.png`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v1 / NEXT UPDATE: v2).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Addons/ALN-PortalDoors
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`.
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Addons/ALN-PortalDoors/behavior_pack/blocks/portal_door.json (33 lines, 741 bytes)
+
+```
+{
+  "format_version": "1.26.60",
+  "minecraft:block": {
+    "description": {
+      "identifier": "aln:portal_door",
+      "menu_category": {
+        "category": "construction"
+      },
+      "traits": {
+        "minecraft:placement_direction": {
+          "enabled_states": [
+            "minecraft:cardinal_direction"
+          ],
+          "y_rotation_offset": 180
+        }
+      }
+    },
+    "components": {
+      "minecraft:geometry": {
+        "identifier": "minecraft:geometry.full_block"
+      },
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "aln_portal_door",
+          "render_method": "opaque"
+        }
+      },
+      "minecraft:light_emission": 12,
+      "minecraft:destroy_time": 3.0
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-PortalDoors/behavior_pack/blocks/portal_door_top.json (22 lines, 479 bytes)
+
+```
+{
+  "format_version": "1.26.60",
+  "minecraft:block": {
+    "description": {
+      "identifier": "aln:portal_door_top"
+    },
+    "components": {
+      "minecraft:geometry": {
+        "identifier": "minecraft:geometry.full_block"
+      },
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "aln_portal_door_top",
+          "render_method": "opaque"
+        }
+      },
+      "minecraft:light_emission": 12,
+      "minecraft:destroy_time": 3.0
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-PortalDoors/behavior_pack/manifest.json (66 lines, 1161 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN PortalDoors (v1)",
+    "description": "Placeable 1x2 arcane portal doorways with a named destination hub. by ALNStudios",
+    "uuid": "63076b05-cf16-4e2d-9587-730369b22de0",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "24570f0a-596e-4f9c-bce3-002e4d3d7676",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "entry": "scripts/main.js",
+      "uuid": "6a11ae2f-5cb4-4138-956c-0815d8987234",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "58752688-02a7-4b27-a8ae-2cc347120d7b",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.10.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.2.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-PortalDoors/behavior_pack/recipes/portal_door_amethyst.json (34 lines, 564 bytes)
+
+```
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:portal_door_amethyst"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "OEO",
+      "OXO",
+      "OEO"
+    ],
+    "key": {
+      "O": {
+        "item": "minecraft:obsidian"
+      },
+      "E": {
+        "item": "minecraft:ender_pearl"
+      },
+      "X": {
+        "item": "minecraft:amethyst_shard"
+      }
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
+    "result": {
+      "item": "aln:portal_door"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-PortalDoors/behavior_pack/recipes/portal_door_book.json (34 lines, 560 bytes)
+
+```
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:portal_door_book"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "OEO",
+      "OXO",
+      "OEO"
+    ],
+    "key": {
+      "O": {
+        "item": "minecraft:obsidian"
+      },
+      "E": {
+        "item": "minecraft:ender_pearl"
+      },
+      "X": {
+        "item": "minecraft:enchanted_book"
+      }
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
+    "result": {
+      "item": "aln:portal_door"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-PortalDoors/behavior_pack/scripts/lib/README.md (25 lines, 1500 bytes)
+
+```
+# ALN PortalDoors script notes
+
+- `scripts/main.js`: the whole add-on logic in one file. Depends on `@minecraft/server` and `@minecraft/server-ui`.
+- `scripts/lib/`: holds no `.js` files yet; this README is the only file here.
+
+## What main.js does
+
+- Registry: one dynamic property per door plus one index property. A door stores name, owner id, dimension, base position, facing and exit spot.
+- `playerPlaceBlock` (after): registers a placed `aln:portal_door`, builds the upper half `aln:portal_door_top`, opens the naming form.
+- `playerInteractWithBlock` (before): cancels the interaction and opens the destination menu one tick later.
+- `playerBreakBlock` (before): cancels the break and runs owner-only pickup, which returns the item and removes the door from the registry.
+- `runInterval`: every 4 ticks spawns converging glyph particles around doors within 24 blocks of a player; every 200 ticks drops registry entries whose base block is gone.
+- Warp: teleports to the stored exit spot facing outward, plays sounds and particles, adds 2.5 seconds of Nausea level 1, sets a 2 second cooldown.
+
+## Ids used
+
+- Blocks: `aln:portal_door`, `aln:portal_door_top`.
+- Recipes: `aln:portal_door_amethyst`, `aln:portal_door_book`.
+
+## Known limits
+
+- Both door halves use the vanilla full-block shape, so all four sides look the same.
+- Items and blocks cannot be placed against a door unless the player holds the Portal Door item.
+- Breaking is always intercepted; only the owner can pick a door up.
+```
+
+## FILE: MCPEDL/Addons/ALN-PortalDoors/behavior_pack/scripts/main.js (371 lines, 12731 bytes)
+
+```
+import { world, system, BlockPermutation, ItemStack } from "@minecraft/server";
+import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
+
+const BASE = "aln:portal_door";
+const TOP = "aln:portal_door_top";
+const AIR = "minecraft:air";
+const INDEX_KEY = "aln_pd_index";
+const DOOR_PREFIX = "aln_pd_door_";
+const MAX_NAME = 24;
+const COOLDOWN_TICKS = 40;
+const NAUSEA_TICKS = 50;
+const RANGE = 24;
+const STAGES = 6;
+const PULSE_TICKS = 4;
+const VERIFY_TICKS = 200;
+const GLYPH = "minecraft:enchanting_table_particle";
+const SPARK = "minecraft:basic_portal_particle";
+const SOUND_DEPART = "mob.endermen.portal";
+const SOUND_ARRIVE = "note.chime";
+const FACING = {
+    north: { x: 0, z: -1 },
+    south: { x: 0, z: 1 },
+    east: { x: 1, z: 0 },
+    west: { x: -1, z: 0 }
+};
+const DIM_COLOR = { overworld: "§a", nether: "§c", the_end: "§d" };
+
+let registry = null;
+let clock = 0;
+const cooldowns = new Map();
+
+function keyOf(dim, x, y, z) {
+    return `${dim}_${x}_${y}_${z}`.replace(/-/g, "n");
+}
+
+function dimName(dimension) {
+    return dimension.id.replace("minecraft:", "");
+}
+
+function loadRegistry() {
+    if (registry) return registry;
+    registry = new Map();
+    let keys = [];
+    try {
+        const raw = world.getDynamicProperty(INDEX_KEY);
+        keys = typeof raw === "string" ? JSON.parse(raw) : [];
+    } catch (error) {
+        keys = [];
+    }
+    for (const key of keys) {
+        try {
+            const raw = world.getDynamicProperty(DOOR_PREFIX + key);
+            if (typeof raw === "string") registry.set(key, JSON.parse(raw));
+        } catch (error) {
+            continue;
+        }
+    }
+    return registry;
+}
+
+function saveIndex() {
+    world.setDynamicProperty(INDEX_KEY, JSON.stringify([...loadRegistry().keys()]));
+}
+
+function saveDoor(door) {
+    loadRegistry().set(door.key, door);
+    world.setDynamicProperty(DOOR_PREFIX + door.key, JSON.stringify(door));
+    saveIndex();
+}
+
+function deleteDoor(door) {
+    loadRegistry().delete(door.key);
+    world.setDynamicProperty(DOOR_PREFIX + door.key, undefined);
+    saveIndex();
+}
+
+function cleanName(text) {
+    if (typeof text !== "string") return "";
+    return text.replace(/§./g, "").replace(/[\r\n\t]/g, " ").trim().slice(0, MAX_NAME);
+}
+
+function colorOf(dim) {
+    return DIM_COLOR[dim] ?? "§a";
+}
+
+function spotOf(block) {
+    const isTop = block.typeId === TOP;
+    const location = block.location;
+    return {
+        dim: dimName(block.dimension),
+        x: location.x,
+        y: isTop ? location.y - 1 : location.y,
+        z: location.z
+    };
+}
+
+function doorAt(spot) {
+    return loadRegistry().get(keyOf(spot.dim, spot.x, spot.y, spot.z));
+}
+
+function isDoorBlock(block) {
+    return block.typeId === BASE || block.typeId === TOP;
+}
+
+function giveDoor(player) {
+    const inventory = player.getComponent("minecraft:inventory");
+    if (!inventory || !inventory.container) return false;
+    const leftover = inventory.container.addItem(new ItemStack(BASE, 1));
+    return !leftover;
+}
+
+function burst(dimension, center, count) {
+    for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const radius = 0.3 + Math.random() * 1.1;
+        const point = {
+            x: center.x + Math.cos(angle) * radius,
+            y: center.y + (Math.random() - 0.3) * 1.6,
+            z: center.z + Math.sin(angle) * radius
+        };
+        try {
+            dimension.spawnParticle(GLYPH, point);
+            if (i % 2 === 0) dimension.spawnParticle(SPARK, point);
+        } catch (error) {
+            continue;
+        }
+    }
+}
+
+function showNameForm(player, key, title, attempt) {
+    const door = loadRegistry().get(key);
+    if (!door) return;
+    const form = new ModalFormData()
+        .title(title)
+        .textField("Door name (current: " + door.name + ")", "Home Base");
+    form.show(player).then(response => {
+        if (response.canceled) {
+            if (response.cancelationReason === FormCancelationReason.UserBusy && attempt < 20) {
+                system.runTimeout(() => showNameForm(player, key, title, attempt + 1), 10);
+            }
+            return;
+        }
+        const value = cleanName(response.formValues[0]);
+        const current = loadRegistry().get(key);
+        if (!current || !value) return;
+        current.name = value;
+        saveDoor(current);
+        player.sendMessage("§dPortal Door named §r" + value);
+    }).catch(() => {});
+}
+
+function removeDoor(player, door) {
+    if (!giveDoor(player)) {
+        player.sendMessage("§cYour inventory is full. Free a slot to pick up this Portal Door.");
+        return;
+    }
+    const dimension = world.getDimension(door.dim);
+    const air = BlockPermutation.resolve(AIR);
+    const bottom = dimension.getBlock({ x: door.x, y: door.y, z: door.z });
+    const upper = dimension.getBlock({ x: door.x, y: door.y + 1, z: door.z });
+    if (bottom) bottom.setPermutation(air);
+    if (upper) upper.setPermutation(air);
+    deleteDoor(door);
+    burst(dimension, { x: door.x + 0.5, y: door.y + 1, z: door.z + 0.5 }, 24);
+    dimension.playSound(SOUND_DEPART, { x: door.x + 0.5, y: door.y + 1, z: door.z + 0.5 });
+    player.sendMessage("§dPortal Door removed from the network and returned to your inventory.");
+}
+
+function openManage(player, door) {
+    const owner = door.owner === player.id;
+    const form = new ActionFormData().title("Manage Door");
+    if (owner) {
+        form.body("Door: " + colorOf(door.dim) + door.name)
+            .button("Rename Door")
+            .button("Pick Up Door")
+            .button("Back");
+    } else {
+        form.body("Only the owner of " + colorOf(door.dim) + door.name + "§r can manage this door.")
+            .button("Back");
+    }
+    form.show(player).then(response => {
+        if (response.canceled) return;
+        if (!owner) {
+            openMenu(player, door);
+            return;
+        }
+        if (response.selection === 0) showNameForm(player, door.key, "Rename Portal Door", 0);
+        else if (response.selection === 1) removeDoor(player, door);
+        else openMenu(player, door);
+    }).catch(() => {});
+}
+
+function travel(player, from, to) {
+    const ready = cooldowns.get(player.id) ?? 0;
+    if (clock < ready) return;
+    if (!loadRegistry().has(to.key)) {
+        player.sendMessage("§cThat Portal Door no longer exists.");
+        return;
+    }
+    cooldowns.set(player.id, clock + COOLDOWN_TICKS);
+    const fromDimension = player.dimension;
+    const origin = player.location;
+    burst(fromDimension, { x: origin.x, y: origin.y + 1, z: origin.z }, 30);
+    fromDimension.playSound(SOUND_DEPART, origin);
+    const toDimension = world.getDimension(to.dim);
+    const face = FACING[to.facing] ?? FACING.south;
+    const arrival = { x: to.ex, y: to.ey, z: to.ez };
+    player.teleport(arrival, {
+        dimension: toDimension,
+        facingLocation: { x: to.ex + face.x * 4, y: to.ey + 1.6, z: to.ez + face.z * 4 },
+        checkForBlocks: true
+    });
+    system.runTimeout(() => {
+        try {
+            player.addEffect("nausea", NAUSEA_TICKS, { amplifier: 0, showParticles: false });
+            const landed = player.location;
+            burst(player.dimension, { x: landed.x, y: landed.y + 1, z: landed.z }, 20);
+            player.dimension.playSound(SOUND_ARRIVE, landed);
+        } catch (error) {
+            return;
+        }
+    }, 5);
+}
+
+function openMenu(player, here) {
+    const ready = cooldowns.get(player.id) ?? 0;
+    if (clock < ready) return;
+    const list = [...loadRegistry().values()]
+        .filter(door => door.key !== here.key)
+        .sort((a, b) => a.name.localeCompare(b.name));
+    const form = new ActionFormData()
+        .title("Portal Doors")
+        .body(list.length > 0
+            ? "You are at " + colorOf(here.dim) + here.name + "§r. Choose a destination."
+            : "You are at " + colorOf(here.dim) + here.name + "§r. No other Portal Doors exist yet.");
+    for (const door of list) form.button(colorOf(door.dim) + door.name);
+    form.button("[ Manage Door ]");
+    form.show(player).then(response => {
+        if (response.canceled) return;
+        if (response.selection === list.length) openManage(player, here);
+        else travel(player, here, list[response.selection]);
+    }).catch(() => {});
+}
+
+world.afterEvents.playerPlaceBlock.subscribe(event => {
+    const block = event.block;
+    const player = event.player;
+    if (block.typeId !== BASE) return;
+    const dimension = block.dimension;
+    const location = block.location;
+    const upper = dimension.getBlock({ x: location.x, y: location.y + 1, z: location.z });
+    if (!upper || upper.typeId !== AIR) {
+        block.setPermutation(BlockPermutation.resolve(AIR));
+        giveDoor(player);
+        player.sendMessage("§cA Portal Door needs two free blocks of height.");
+        return;
+    }
+    upper.setPermutation(BlockPermutation.resolve(TOP));
+    const state = block.permutation.getState("minecraft:cardinal_direction");
+    const facing = FACING[state] ? state : "south";
+    const face = FACING[facing];
+    const dim = dimName(dimension);
+    const door = {
+        key: keyOf(dim, location.x, location.y, location.z),
+        name: "Portal Door " + (loadRegistry().size + 1),
+        owner: player.id,
+        dim: dim,
+        x: location.x,
+        y: location.y,
+        z: location.z,
+        facing: facing,
+        ex: location.x + 0.5 + face.x,
+        ey: location.y,
+        ez: location.z + 0.5 + face.z
+    };
+    saveDoor(door);
+    dimension.playSound(SOUND_ARRIVE, { x: location.x + 0.5, y: location.y + 1, z: location.z + 0.5 });
+    system.runTimeout(() => showNameForm(player, door.key, "Name This Portal Door", 0), 5);
+});
+
+world.beforeEvents.playerInteractWithBlock.subscribe(event => {
+    const block = event.block;
+    if (!isDoorBlock(block)) return;
+    if (event.itemStack && event.itemStack.typeId === BASE) return;
+    event.cancel = true;
+    if (!event.isFirstEvent) return;
+    const player = event.player;
+    const spot = spotOf(block);
+    system.runTimeout(() => {
+        const door = doorAt(spot);
+        if (!door) {
+            player.sendMessage("§cThis Portal Door is not registered.");
+            return;
+        }
+        openMenu(player, door);
+    }, 1);
+});
+
+world.beforeEvents.playerBreakBlock.subscribe(event => {
+    const block = event.block;
+    if (!isDoorBlock(block)) return;
+    event.cancel = true;
+    const player = event.player;
+    const spot = spotOf(block);
+    system.runTimeout(() => {
+        const door = doorAt(spot);
+        if (!door) return;
+        if (door.owner !== player.id) {
+            player.sendMessage("§cOnly the owner can remove this Portal Door.");
+            return;
+        }
+        removeDoor(player, door);
+    }, 1);
+});
+
+function pulse(dimension, door, stage, cycle) {
+    const center = { x: door.x + 0.5, y: door.y + 1, z: door.z + 0.5 };
+    const radius = 2 - stage * (1.8 / (STAGES - 1));
+    for (let i = 0; i < 6; i++) {
+        const angle = (i / 6) * Math.PI * 2 + cycle * 0.7;
+        const lift = Math.sin(i * 1.7 + cycle) * 0.9;
+        const point = {
+            x: center.x + Math.cos(angle) * radius,
+            y: center.y + lift * (radius / 2),
+            z: center.z + Math.sin(angle) * radius
+        };
+        try {
+            dimension.spawnParticle(GLYPH, point);
+            if ((i + stage) % 3 === 0) dimension.spawnParticle(SPARK, point);
+        } catch (error) {
+            continue;
+        }
+    }
+}
+
+function verifyDoors() {
+    for (const door of [...loadRegistry().values()]) {
+        try {
+            const dimension = world.getDimension(door.dim);
+            const bottom = dimension.getBlock({ x: door.x, y: door.y, z: door.z });
+            if (!bottom || bottom.typeId === BASE) continue;
+            deleteDoor(door);
+        } catch (error) {
+            continue;
+        }
+    }
+}
+
+system.runInterval(() => {
+    clock++;
+    if (clock % VERIFY_TICKS === 0) verifyDoors();
+    if (clock % PULSE_TICKS !== 0) return;
+    const step = clock / PULSE_TICKS;
+    const stage = step % STAGES;
+    const cycle = Math.floor(step / STAGES);
+    const done = new Set();
+    for (const player of world.getPlayers()) {
+        const dim = dimName(player.dimension);
+        const at = player.location;
+        for (const door of loadRegistry().values()) {
+            if (door.dim !== dim || done.has(door.key)) continue;
+            const dx = door.x - at.x;
+            const dy = door.y - at.y;
+            const dz = door.z - at.z;
+            if (dx * dx + dy * dy + dz * dz > RANGE * RANGE) continue;
+            done.add(door.key);
+            pulse(player.dimension, door, stage, cycle);
+        }
+    }
+}, 1);
+```
+
+## FILE: MCPEDL/Addons/ALN-PortalDoors/CHANGELOG.md (14 lines, 625 bytes)
+
+```
+# Changelog — ALN PortalDoors
+
+---
+
+## [1.0.0] - 2026-11-21 - First Release
+
+### Added
+- **Portal Door**: Craft a two-block-tall glowing doorway from obsidian, ender pearls and an amethyst shard or enchanted book.
+- **Door naming**: Name each door when you place it, and rename it later.
+- **Destination menu**: Pick any other door from a list colored by dimension, with no coordinates.
+- **Warp effect**: Departure and arrival sounds, particle bursts and a 2.5 second Nausea effect.
+- **Particle pull**: Glyph particles drift inward toward every nearby door.
+- **Pickup**: Owners can pick a door up and get the item back.
+```
+
+## FILE: MCPEDL/Addons/ALN-PortalDoors/DESCRIPTION.md (78 lines, 4290 bytes)
+
+```
+# ALN PortalDoors — Placeable 1x2 Portal Doorways with a Named Destination Menu
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**Craft a glowing 1x2 portal doorway, name it, and step between every door in your world.**
+
+> Place doorways in the Overworld, the Nether or the End, give each a name such as Home Base or End Stronghold, and pick any destination from one menu.
+
+## Overview
+
+ALN PortalDoors adds a craftable Portal Door that stands two blocks tall. When you place one, a naming prompt opens. Every door joins a shared network that is saved with your world, so the list is still there after you reload.
+
+## Key Features
+
+### Craftable Portal Door
+- **What Happens**: Combine six obsidian, two ender pearls and one amethyst shard or one enchanted book in a crafting table to get a Portal Door.
+
+### Naming Prompt
+- **What Happens**: A prompt titled Name This Portal Door opens the moment you place a door. If you close it, the door keeps a numbered default name and you can rename it later.
+
+### Color-Coded Destination Menu
+- **What Happens**: Interacting with any door lists every other door. Overworld doors are green, Nether doors are red and End doors are purple. No coordinates are ever shown.
+
+### Warp Transition
+- **What Happens**: Choosing a destination plays a departure sound and an enchanting particle burst, moves you in front of the target door facing away from it, applies 2.5 seconds of Nausea and plays an arrival chime.
+
+### Re-Trigger Cooldown
+- **What Happens**: After a warp you cannot open the menu again for 2 seconds, so you do not bounce back by accident.
+
+### Glyph Particle Pull
+- **What Happens**: Enchanting glyph particles and portal sparks appear about two blocks from each nearby door and drift inward toward its center, like books feeding an enchanting table.
+
+### Manage Door
+- **What Happens**: The last menu button lets the door owner rename the door or pick it up. Picking it up returns the Portal Door item and removes the door from the list.
+
+## How to Use
+
+1. Craft a Portal Door and place it on the ground. It builds a doorway two blocks tall and needs two free blocks of height.
+2. Type a name in the prompt that opens.
+3. Interact with any Portal Door to open the destination menu and choose where to go.
+4. Choose Manage Door at the bottom of the menu to rename or pick up the door you are standing at. Only the owner can do this.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.26.60 or newer.
+- Experimental features: Not verified. No experimental toggle is intentionally used.
+- Achievements: Likely achievement-friendly.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, ALN PortalDoors Bedrock mod, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+```
+
+## FILE: MCPEDL/Addons/ALN-PortalDoors/project.json (5 lines, 51 bytes)
+
+```
+{
+  "type": "addon",
+  "name": "ALN PortalDoors"
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-PortalDoors/README.md (19 lines, 798 bytes)
+
+```
+# ALN PortalDoors
+
+Download the current release of **ALN PortalDoors** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download ALN PortalDoors (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-PortalDoors/ALNPortalDoors%20V1.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALN-PortalDoors/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Addons/ALN-PortalDoors/resource_pack/manifest.json (37 lines, 624 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN PortalDoors (v1)",
+    "description": "Portal doorway textures and names for ALN PortalDoors. by ALNStudios",
+    "uuid": "58752688-02a7-4b27-a8ae-2cc347120d7b",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "6e520b9d-6d11-4dd9-b8ce-32cae4cc5244",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-PortalDoors/resource_pack/texts/en_US.lang (3 lines, 84 bytes)
+
+```
+tile.aln:portal_door.name=Portal Door
+tile.aln:portal_door_top.name=Portal Door Top
+```
+
+## FILE: MCPEDL/Addons/ALN-PortalDoors/resource_pack/textures/terrain_texture.json (11 lines, 203 bytes)
+
+```
+{
+  "texture_data": {
+    "aln_portal_door": {
+      "textures": "textures/blocks/aln_portal_door"
+    },
+    "aln_portal_door_top": {
+      "textures": "textures/blocks/aln_portal_door_top"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-PortalDoors/texture_sources/portal_door_textures.json (615 lines, 7991 bytes)
+
+```
+{
+  "textures": [
+    {
+      "name": "aln_portal_door",
+      "size": 16,
+      "folder": "blocks",
+      "palette": {
+        "1": "#120a1c",
+        "2": "#241040",
+        "3": "#3a1c63",
+        "4": "#5a2aa0",
+        "5": "#7d45d6",
+        "6": "#a56cff",
+        "7": "#d8bcff",
+        "8": "#f3e6ff"
+      },
+      "pixels": [
+        [
+          1,
+          2,
+          3,
+          4,
+          4,
+          5,
+          6,
+          7,
+          6,
+          6,
+          6,
+          6,
+          6,
+          3,
+          2,
+          1
+        ],
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          6,
+          6,
+          8,
+          6,
+          6,
+          6,
+          6,
+          3,
+          2,
+          1
+        ],
+        [
+          1,
+          2,
+          3,
+          5,
+          6,
+          6,
+          5,
+          5,
+          5,
+          5,
+          5,
+          6,
+          7,
+          3,
+          2,
+          1
+        ],
+        [
+          1,
+          2,
+          3,
+          6,
+          6,
+          6,
+          5,
+          5,
+          5,
+          4,
+          4,
+          6,
+          7,
+          3,
+          2,
+          1
+        ],
+        [
+          1,
+          2,
+          3,
+          7,
+          6,
+          6,
+          6,
+          5,
+          4,
+          8,
+          4,
+          6,
+          7,
+          3,
+          2,
+          1
+        ],
+        [
+          1,
+          2,
+          3,
+          6,
+          7,
+          7,
+          6,
+          5,
+          4,
+          4,
+          5,
+          6,
+          6,
+          3,
+          2,
+          1
+        ],
+        [
+          1,
+          2,
+          3,
+          6,
+          7,
+          7,
+          6,
+          5,
+          5,
+          5,
+          6,
+          5,
+          5,
+          3,
+          2,
+          1
+        ],
+        [
+          1,
+          2,
+          3,
+          6,
+          7,
+          6,
+          5,
+          5,
+          6,
+          6,
+          8,
+          5,
+          5,
+          3,
+          2,
+          1
+        ],
+        [
+          1,
+          2,
+          3,
+          6,
+          5,
+          5,
+          5,
+          6,
+          7,
+          7,
+          6,
+          6,
+          5,
+          3,
+          2,
+          1
+        ],
+        [
+          1,
+          2,
+          3,
+          8,
+          4,
+          4,
+          5,
+          6,
+          6,
+          7,
+          7,
+          7,
+          6,
+          3,
+          2,
+          1
+        ],
+        [
+          1,
+          2,
+          3,
+          5,
+          4,
+          4,
+          5,
+          5,
+          6,
+          7,
+          7,
+          8,
+          5,
+          3,
+          2,
+          1
+        ],
+        [
+          1,
+          2,
+          3,
+          5,
+          5,
+          4,
+          4,
+          5,
+          6,
+          6,
+          6,
+          6,
+          5,
+          3,
+          2,
+          1
+        ],
+        [
+          1,
+          2,
+          3,
+          6,
+          8,
+          5,
+          5,
+          5,
+          6,
+          6,
+          5,
+          5,
+          5,
+          3,
+          2,
+          1
+        ],
+        [
+          1,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          1
+        ],
+        [
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          1
+        ],
+        [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "name": "aln_portal_door_top",
+      "size": 16,
+      "folder": "blocks",
+      "palette": {
+        "1": "#120a1c",
+        "2": "#241040",
+        "3": "#3a1c63",
+        "4": "#5a2aa0",
+        "5": "#7d45d6",
+        "6": "#a56cff",
+        "7": "#d8bcff",
+        "8": "#f3e6ff"
+      },
+      "pixels": [
+        [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          1
+        ],
+        [
+          1,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          1
+        ],
+        [
+          1,
+          2,
+          3,
+          6,
+          5,
+          4,
+          5,
+          6,
+          6,
+          5,
+          5,
+          5,
+          6,
+          3,
+          2,
+          1
+        ],
+        [
+          1,
+          2,
+          3,
+          6,
+          5,
+          5,
+          6,
+          6,
+          5,
+          8,
+          4,
+          5,
+          5,
+          3,
+          2,
+          1
+        ],
+        [
+          1,
+          2,
+          3,
+          5,
+          6,
+          7,
+          7,
+          6,
+          5,
+          4,
+          4,
+          4,
+          5,
+          3,
+          2,
+          1
+        ],
+        [
+          1,
+          2,
+          3,
+          5,
+          6,
+          7,
+          7,
+          6,
+          5,
+          5,
+          5,
+          4,
+          5,
+          3,
+          2,
+          1
+        ],
+        [
+          1,
+          2,
+          3,
+          5,
+          6,
+          7,
+          7,
+          6,
+          6,
+          5,
+          8,
+          5,
+          5,
+          3,
+          2,
+          1
+        ],
+        [
+          1,
+          2,
+          3,
+          5,
+          6,
+          6,
+          6,
+          6,
+          6,
+          5,
+          5,
+          6,
+          6,
+          3,
+          2,
+          1
+        ],
+        [
+          1,
+          2,
+          3,
+          8,
+          5,
+          5,
+          6,
+          6,
+          5,
+          5,
+          6,
+          7,
+          7,
+          3,
+          2,
+          1
+        ],
+        [
+          1,
+          2,
+          3,
+          5,
+          5,
+          5,
+          5,
+          4,
+          4,
+          5,
+          7,
+          8,
+          7,
+          3,
+          2,
+          1
+        ],
+        [
+          1,
+          2,
+          3,
+          6,
+          6,
+          5,
+          4,
+          4,
+          4,
+          6,
+          7,
+          7,
+          6,
+          3,
+          2,
+          1
+        ],
+        [
+          1,
+          2,
+          3,
+          7,
+          8,
+          5,
+          4,
+          4,
+          5,
+          6,
+          6,
+          6,
+          6,
+          3,
+          2,
+          1
+        ],
+        [
+          1,
+          2,
+          3,
+          7,
+          6,
+          5,
+          4,
+          5,
+          5,
+          5,
+          5,
+          5,
+          8,
+          3,
+          2,
+          1
+        ],
+        [
+          1,
+          2,
+          3,
+          7,
+          6,
+          5,
+          5,
+          6,
+          5,
+          5,
+          5,
+          5,
+          5,
+          3,
+          2,
+          1
+        ],
+        [
+          1,
+          2,
+          3,
+          6,
+          5,
+          8,
+          6,
+          6,
+          6,
+          6,
+          6,
+          5,
+          4,
+          3,
+          2,
+          1
+        ]
+      ]
+    }
+  ]
+}
+```
