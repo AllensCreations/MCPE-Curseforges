@@ -18,7 +18,7 @@
 - **Destination:** `MCPEDL/Maps/OneBlock-Natural-Market`
 - **CURRENT VERSION: v13 / NEXT UPDATE: v14**  (`MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md`)
 - **Text files:** 14
-- **Skipped binary:** 8
+- **Skipped binary:** 10
 - **Paths not found:** 0
 
 ### Files in this export
@@ -43,6 +43,8 @@
 - `MCPEDL/Maps/OneBlock-Natural-Market/OneBlock Natural Market - Creative.mcworld`
 - `MCPEDL/Maps/OneBlock-Natural-Market/OneBlock Natural Market - Hardcore.mcworld`
 - `MCPEDL/Maps/OneBlock-Natural-Market/OneBlock Natural Market - Survival.mcworld`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/pack_icon.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/pack_icon.png`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/items/trader_ledger.png`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/chest_panel.png`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/slot.png`
@@ -54,8 +56,7 @@
 # AI Instructions & Review Notes
 
 Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
-Rules, templates and script syntax are NOT repeated here. Read them through Context7 as the `mcpe-context7` skill says
-(`INSTRUCTIONS.md`, `DOCS_RULES.md`, `PACK_GENERATOR_INSTRUCTIONS.md`, `scripts/make_update_script.py`, `scripts/apply_update.py`).
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
