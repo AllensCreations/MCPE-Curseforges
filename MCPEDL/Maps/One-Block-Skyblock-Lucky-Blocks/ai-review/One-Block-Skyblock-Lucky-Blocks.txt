@@ -10,133 +10,19 @@
 
 ---
 
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
 # Repo Export
 
 ## Index
 
 - **Export request:** `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks`
 - **Destination:** `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks`
-- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/CHANGELOG.md`)
-- **Text files:** 22
-- **Skipped binary:** 4
+- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/CHANGELOG.md`)
+- **Text files:** 20
+- **Skipped binary:** 7
 - **Paths not found:** 0
 
 ### Files in this export
 
-- `changelog_views/One-Block-Skyblock-Lucky-Blocks.curseforge.html`
-- `changelog_views/One-Block-Skyblock-Lucky-Blocks.github.md`
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/blocks/lucky_block.json`
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/functions/oneblock_setup.mcfunction`
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/functions/oneblock_tick.mcfunction`
@@ -156,13 +42,16 @@
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/resource_pack/texts/languages.json`
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/resource_pack/textures/item_texture.json`
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/resource_pack/textures/terrain_texture.json`
-- `Package/One-Block-Skyblock-Lucky-Blocks.listing.md`
+- `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/texture_sources/lucky_block.json`
 
 ### Skipped (binary)
 
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/One Block Skyblock Lucky Blocks - Creative.mcworld`
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/One Block Skyblock Lucky Blocks - Hardcore.mcworld`
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/One Block Skyblock Lucky Blocks - Survival.mcworld`
+- `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/resource_pack/textures/blocks/lucky_block_bottom.png`
+- `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/resource_pack/textures/blocks/lucky_block_side.png`
+- `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/resource_pack/textures/blocks/lucky_block_top.png`
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/resource_pack/textures/items/trader_ledger.png`
 
 ---
@@ -170,10 +59,11 @@
 # AI Instructions & Review Notes
 
 Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
-Context7 Support: Enabled. For full instructions, schemas, and helper script syntax, query Context7 (`INSTRUCTIONS.md`, `PACK_GENERATOR_INSTRUCTIONS.md`, `DOCS_RULES.md`, `make_update_script.py`, `doc_template.py`).
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v3 / NEXT UPDATE: v4).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -188,34 +78,10 @@ Repo-root-relative folders for this work:
 ## Rules
 1. NEVER invent features, versions, links, assets, test results.
 2. Output only what changed. Smallest edits. No unrelated rewrites.
-3. No notes/summaries/explanations unless asked.
-4. Any project type (add-on, map, script, workflow, website). Keep folder layout.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `ai-review/`, `MCPEDL/README.md`.
 
-## Update request = ONE Termux script
-- Name: `<Repofilename>_<Version>_<RAND>.sh` (e.g. `Monster-Companions_v2_k7q2x.sh`). Deliver as downloadable file.
-- Repofilename: project/folder/file changed. No extension, no spaces (hyphens ok).
-- Version: new vX format. Update = X+1 (e.g., v1 -> v2, or legacy 1.3.4 -> v2).
-- RAND: >=5 random lowercase letters/digits. Fresh every script. NEVER reuse.
-Script order:
-1. `#!/data/data/com.termux/files/usr/bin/bash` + `set -e`
-2. `cd "$HOME/MCPE-Curseforges"`; `git clone` repo URL first if folder missing
-3. `git pull --rebase`
-4. Apply ALL changes as exact search-and-replace edits via `python3 scripts/make_update_script.py spec.txt` (format queryable via Context7).
-5. Validate every changed .json with python3. Stop on error.
-5b. Verify top CHANGELOG.md heading == new vX == script filename version. If project has manifests: run `python3 scripts/manifest_tools.py --project "$DEST" --set X.0.0` (or `vX`).
-6. `git add` changed paths only; `git commit -m "<short message>"`; `git push`
-6b. Add an entry to the ROOT `CHANGELOG.md`: `## [vN] - YYYY-MM-DD - [Update Name]`
-7. Idempotent: skip anything already applied.
-8. Last line: `rm -f -- "$SELF"` (self-deleting script).
-
-## Documentation Standards
-- Query Context7 for exact `DOCS_RULES.md` formatting templates.
-- CHANGELOG.md: MANDATORY on every update (`## [vX] - YYYY-MM-DD - [Update Name]`).
-- Player-facing only: in-game item names ("Diamond"), NEVER code identifiers (`minecraft:diamond`), internal function names, or raw JSON keys.
-- README.md: download landing page only (11 non-empty lines).
-- DESCRIPTION.md: full details, standard badges, feature cards, guidelines block.
-
-## Reply Format (STRICT)
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
 ```
 [SYSTEM_CONFIG]
 Mode: Direct Execution
@@ -231,56 +97,7 @@ Output ONLY these three sections in order:
 
 ## File Contents
 
-## FILE: changelog_views/One-Block-Skyblock-Lucky-Blocks.curseforge.html (3 lines, 2556 bytes)
-
-```
-<h2>v2 - 2026-11-10</h2><h3>Added</h3><ul><li><strong>Starter chest</strong>: A chest on the island corner holds 3 Oak Saplings, 4 Bone Meal, 4 Bread, a Bucket and a Luck Ledger.</li><li><strong>Luck Ledger</strong>: Use it to see your break count and how many Four-Leaf Fortune or Jinx breaks are left.</li><li><strong>First-join tip</strong>: A short chat message tells new players to break the lucky block and open the chest.</li></ul><h3>Improved &amp; Balanced</h3><ul><li><strong>Building materials first</strong>: Early Common and Uncommon results now lean toward saplings, logs, planks, dirt, seeds and stone, with 8 more good results in total.</li></ul><h3>Added</h3><ul><li><strong>Silent progression</strong>: Results now follow a natural playthrough from Plains to the End and beyond, moving up one step every 30 breaks without any announcement.</li><li><strong>20 tiers per side</strong>: Twenty good tiers and twenty bad tiers, with 112 good results and 81 bad results, each tier with its own results.</li></ul><h3>Improved &amp; Balanced</h3><ul><li><strong>70/30 luck</strong>: Every break now has a 70% chance of good luck and a 30% chance of bad luck.</li><li><strong>Tier odds</strong>: The current tier comes up 50% of the time, with the next tiers up at 25%, 12.5%, 6.25% and 6.25%.</li><li><strong>Luck changes</strong>: Rabbit&#x27;s Foot, Four-Leaf Fortune, Golden Horseshoe and Jinx now work on the 70/30 odds.</li><li><strong>No guaranteed streak</strong>: The first 30 breaks are no longer always good luck.</li></ul><h3>Added</h3><ul><li><strong>Lucky block island</strong>: A 3x3 grass island in the void with one central lucky block that returns after every break.</li><li><strong>30 guaranteed good breaks</strong>: The first 30 breaks always give good luck, followed by an even split between good and bad luck.</li><li><strong>Luck tiers and 76 results</strong>: Common, Rare and Epic good luck, and Mischief, Bad Luck and Cursed bad luck, each shown with a message, sound and particles.</li><li><strong>Luck influence</strong>: A Rabbit&#x27;s Foot in the off hand and the Four-Leaf Fortune, Golden Horseshoe and Jinx results change the odds of the next breaks.</li></ul>
-<h2>1.1.x (1 release)</h2><div class="spoiler"><h3>1.1.0 - 2026-11-10</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Luck changes</strong>: The Rabbit&#x27;s Foot off-hand bonus is removed. Luck now changes only through the Four-Leaf Fortune, Golden Horseshoe and Jinx results, and the good luck chance stays between 50% and 90%.</li></ul></div>
-```
-
-## FILE: changelog_views/One-Block-Skyblock-Lucky-Blocks.github.md (38 lines, 2230 bytes)
-
-```
-# Changelog — One Block Skyblock Lucky Blocks
-
-## [v2] - 2026-11-10
-
-### Added
-- **Starter chest**: A chest on the island corner holds 3 Oak Saplings, 4 Bone Meal, 4 Bread, a Bucket and a Luck Ledger.
-- **Luck Ledger**: Use it to see your break count and how many Four-Leaf Fortune or Jinx breaks are left.
-- **First-join tip**: A short chat message tells new players to break the lucky block and open the chest.
-
-### Improved & Balanced
-- **Building materials first**: Early Common and Uncommon results now lean toward saplings, logs, planks, dirt, seeds and stone, with 8 more good results in total.
-
-### Added
-- **Silent progression**: Results now follow a natural playthrough from Plains to the End and beyond, moving up one step every 30 breaks without any announcement.
-- **20 tiers per side**: Twenty good tiers and twenty bad tiers, with 112 good results and 81 bad results, each tier with its own results.
-
-### Improved & Balanced
-- **70/30 luck**: Every break now has a 70% chance of good luck and a 30% chance of bad luck.
-- **Tier odds**: The current tier comes up 50% of the time, with the next tiers up at 25%, 12.5%, 6.25% and 6.25%.
-- **Luck changes**: Rabbit's Foot, Four-Leaf Fortune, Golden Horseshoe and Jinx now work on the 70/30 odds.
-- **No guaranteed streak**: The first 30 breaks are no longer always good luck.
-
-### Added
-- **Lucky block island**: A 3x3 grass island in the void with one central lucky block that returns after every break.
-- **30 guaranteed good breaks**: The first 30 breaks always give good luck, followed by an even split between good and bad luck.
-- **Luck tiers and 76 results**: Common, Rare and Epic good luck, and Mischief, Bad Luck and Cursed bad luck, each shown with a message, sound and particles.
-- **Luck influence**: A Rabbit's Foot in the off hand and the Four-Leaf Fortune, Golden Horseshoe and Jinx results change the odds of the next breaks.
-
-<details>
-<summary><b>1.1.x</b> (1 release)</summary>
-
-### [1.1.0] - 2026-11-10
-
-#### Improved & Balanced
-- **Luck changes**: The Rabbit's Foot off-hand bonus is removed. Luck now changes only through the Four-Leaf Fortune, Golden Horseshoe and Jinx results, and the good luck chance stays between 50% and 90%.
-
-</details>
-```
-
-## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/blocks/lucky_block.json (20 lines, 628 bytes)
+## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/blocks/lucky_block.json (22 lines, 820 bytes)
 
 ```
 {
@@ -293,7 +110,9 @@ Output ONLY these three sections in order:
     "components": {
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
-        "*": { "texture": "allenscreations_lucky_block", "render_method": "opaque" }
+        "*": { "texture": "allenscreations_lucky_block_side", "render_method": "opaque" },
+        "up": { "texture": "allenscreations_lucky_block_top", "render_method": "opaque" },
+        "down": { "texture": "allenscreations_lucky_block_bottom", "render_method": "opaque" }
       },
       "minecraft:destructible_by_mining": { "seconds_to_destroy": 1 },
       "minecraft:destructible_by_explosion": false,
@@ -380,11 +199,11 @@ execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cle
 {
   "format_version": 2,
   "header": {
-    "name": "One Block Skyblock Lucky Blocks (v2)",
+    "name": "One Block Skyblock Lucky Blocks (v3)",
     "description": "One lucky block on a 3x3 void island. by ALNStudios",
     "uuid": "f8fcd28a-a8f9-479e-9326-94fd587c589f",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -399,7 +218,7 @@ execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cle
       "type": "data",
       "uuid": "ec84754f-7614-472d-ad98-89d8fd1e24b7",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -410,7 +229,7 @@ execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cle
       "uuid": "1d0ec910-add9-46ec-a03f-4f23f6b8907c",
       "entry": "scripts/main.js",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -420,7 +239,7 @@ execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cle
     {
       "uuid": "8e8d2f07-56e1-4271-bb5f-e8ae848db662",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -434,7 +253,7 @@ execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cle
     "authors": [
       "ALNStudios"
     ],
-    "version": "2.0.0"
+    "version": "3.0.0"
   }
 }
 ```
@@ -989,12 +808,17 @@ world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
 });
 ```
 
-## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/CHANGELOG.md (39 lines, 2170 bytes)
+## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/CHANGELOG.md (44 lines, 2382 bytes)
 
 ```
 # Changelog — One Block Skyblock Lucky Blocks
 
 ---
+
+## [v3] - 2026-11-21 - Lucky Block Textures
+
+### Added
+- **Lucky block look**: The lucky block now has its own gold texture, with a question mark on the sides, a four-leaf clover on top and a plain gold bottom.
 
 ## [v2] - 2026-11-10
 
@@ -1172,11 +996,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "One Block Skyblock Lucky Blocks (v2)",
+    "name": "One Block Skyblock Lucky Blocks (v3)",
     "description": "Lucky block texture. by ALNStudios",
     "uuid": "8e8d2f07-56e1-4271-bb5f-e8ae848db662",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -1191,7 +1015,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "2871df63-c3f5-4516-87ee-35bb02dc838f",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -1201,7 +1025,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
     "authors": [
       "ALNStudios"
     ],
-    "version": "2.0.0"
+    "version": "3.0.0"
   }
 }
 ```
@@ -1232,7 +1056,7 @@ tile.allenscreations:lucky_block.name=Lucky Block
 }
 ```
 
-## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/resource_pack/textures/terrain_texture.json (10 lines, 241 bytes)
+## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/resource_pack/textures/terrain_texture.json (12 lines, 438 bytes)
 
 ```
 {
@@ -1241,79 +1065,88 @@ tile.allenscreations:lucky_block.name=Lucky Block
   "padding": 8,
   "num_mip_levels": 4,
   "texture_data": {
-    "allenscreations_lucky_block": { "textures": "textures/blocks/gold_block" }
+    "allenscreations_lucky_block_side": { "textures": "textures/blocks/lucky_block_side" },
+    "allenscreations_lucky_block_top": { "textures": "textures/blocks/lucky_block_top" },
+    "allenscreations_lucky_block_bottom": { "textures": "textures/blocks/lucky_block_bottom" }
   }
 }
 ```
 
-## FILE: Package/One-Block-Skyblock-Lucky-Blocks.listing.md (68 lines, 15662 bytes)
+## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/texture_sources/lucky_block.json (75 lines, 3344 bytes)
 
-````
-# Listing Kit: One Block Skyblock Lucky Blocks
-
-Tap the Copy button on a block, then paste it into the CurseForge listing. Generated from DESCRIPTION.md: edit that, not this file.
-
-## Package Name
-
-```text
-One Block Skyblock Lucky Blocks
 ```
-
-## Summary (111/256)
-
-```text
-Break the one lucky block on a 3x3 void island and climb 20 luck tiers, from Plains wood to Mythical netherite.
+[
+  {
+   "name": "lucky_block_side",
+   "size": 16,
+   "folder": "blocks",
+   "palette": {"0": "#00000000", "1": "#4a2c06", "2": "#a8650f", "3": "#d9960f", "4": "#f2c230", "5": "#ffe066", "6": "#fffbe8", "7": "#8a5208"},
+   "pixels": [
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 3, 1],
+    [1, 5, 4, 4, 4, 5, 4, 4, 4, 4, 4, 5, 4, 4, 2, 1],
+    [1, 5, 4, 4, 4, 6, 6, 6, 6, 4, 4, 4, 4, 3, 2, 1],
+    [1, 5, 5, 4, 6, 6, 7, 7, 6, 6, 4, 4, 4, 4, 2, 1],
+    [1, 5, 4, 4, 4, 7, 7, 4, 6, 6, 7, 4, 3, 4, 2, 1],
+    [1, 5, 4, 4, 4, 4, 4, 6, 6, 7, 7, 4, 4, 4, 2, 1],
+    [1, 5, 4, 4, 4, 4, 6, 6, 7, 7, 4, 4, 4, 4, 2, 1],
+    [1, 5, 4, 4, 4, 4, 6, 6, 7, 4, 4, 4, 4, 3, 2, 1],
+    [1, 5, 5, 4, 4, 4, 4, 7, 7, 4, 4, 4, 4, 4, 2, 1],
+    [1, 5, 4, 4, 4, 4, 6, 6, 4, 4, 4, 4, 4, 4, 2, 1],
+    [1, 5, 4, 4, 4, 4, 6, 6, 7, 4, 4, 4, 4, 4, 2, 1],
+    [1, 5, 4, 3, 4, 4, 4, 7, 7, 4, 4, 4, 3, 4, 2, 1],
+    [1, 5, 4, 4, 4, 5, 4, 4, 4, 4, 4, 4, 4, 4, 2, 1],
+    [1, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+   ]
+  },
+  {
+   "name": "lucky_block_top",
+   "size": 16,
+   "folder": "blocks",
+   "palette": {"0": "#00000000", "1": "#4a2c06", "2": "#a8650f", "3": "#d9960f", "4": "#f2c230", "5": "#ffe066", "8": "#8be07a", "9": "#3fb54a", "10": "#1f7a2e", "11": "#0f3d17"},
+   "pixels": [
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 3, 1],
+    [1, 5, 4, 4, 4, 5, 4, 4, 4, 4, 4, 5, 4, 4, 2, 1],
+    [1, 5, 4, 4, 4, 11, 11, 4, 11, 11, 4, 4, 4, 3, 2, 1],
+    [1, 5, 5, 4, 11, 8, 9, 11, 8, 8, 11, 4, 4, 4, 2, 1],
+    [1, 5, 4, 11, 8, 9, 9, 10, 8, 9, 9, 11, 3, 4, 2, 1],
+    [1, 5, 4, 11, 9, 9, 9, 10, 9, 9, 9, 11, 4, 4, 2, 1],
+    [1, 5, 4, 4, 11, 10, 10, 10, 10, 10, 11, 4, 4, 4, 2, 1],
+    [1, 5, 4, 11, 8, 8, 9, 10, 8, 8, 9, 11, 4, 3, 2, 1],
+    [1, 5, 5, 11, 8, 9, 9, 10, 8, 9, 9, 11, 4, 4, 2, 1],
+    [1, 5, 4, 4, 11, 9, 9, 11, 9, 9, 11, 4, 4, 4, 2, 1],
+    [1, 5, 4, 4, 4, 11, 11, 4, 11, 11, 4, 4, 4, 4, 2, 1],
+    [1, 5, 4, 3, 4, 4, 4, 4, 4, 4, 4, 4, 3, 4, 2, 1],
+    [1, 5, 4, 4, 4, 5, 4, 4, 4, 4, 4, 4, 4, 4, 2, 1],
+    [1, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+   ]
+  },
+  {
+   "name": "lucky_block_bottom",
+   "size": 16,
+   "folder": "blocks",
+   "palette": {"0": "#00000000", "1": "#4a2c06", "2": "#a8650f", "3": "#d9960f", "4": "#f2c230"},
+   "pixels": [
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 1],
+    [1, 4, 3, 3, 3, 4, 3, 3, 3, 3, 3, 4, 3, 3, 2, 1],
+    [1, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 1],
+    [1, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 1],
+    [1, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 3, 2, 1],
+    [1, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 1],
+    [1, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 1],
+    [1, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 1],
+    [1, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 1],
+    [1, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 1],
+    [1, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 1],
+    [1, 4, 3, 2, 3, 3, 3, 3, 3, 3, 3, 3, 2, 3, 2, 1],
+    [1, 4, 3, 3, 3, 4, 3, 3, 3, 3, 3, 3, 3, 3, 2, 1],
+    [1, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+   ]
+  }
+]
 ```
-
-## Description (HTML)
-
-Paste into the CurseForge description editor in source (HTML) mode.
-
-```html
-<div><div style="border:2px solid #15803d;border-radius:18px;line-height:1.5"><br><h1 style="font-size:34px;text-align:center">One Block Skyblock Lucky Blocks</h1><p style="color:#8a94a3;font-size:14px;text-align:center">by ALNStudios</p><p style="text-align:center"><span style="background-color:#15803d;color:#ffffff;border-radius:20px;font-size:16px">&nbsp;&nbsp;<strong>Break the one lucky block on a 3x3 void island and climb 20 luck tiers, from Plains wood to Mythical netherite.</strong>&nbsp;&nbsp;</span></p><p style="text-align:center;margin-left:16px;margin-right:16px">Your rewards follow a natural Minecraft playthrough, moving quietly from wood and dirt to caves, the Nether, the End and beyond as you keep breaking.</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px"><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Bedrock</strong>: 1.26+&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Experimental</strong>: No&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Achievements</strong>: Unknown / needs confirmation. World settings of the included worlds were not inspected, and using cheats disables achievements&nbsp;&nbsp;</div></div><br></div>
-<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;About&nbsp;&nbsp;</span></h2>
-<p>You start on a 3x3 grass island floating in an empty void, next to a single lucky block in the center. Mine it, and it returns in the same spot with a new result: items, food, tools, friendly animals, potion effects, hostile mobs or short bursts of danger.</p>
-<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;What You Get&nbsp;&nbsp;</span></h2>
-<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;One Central Lucky Block</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>The lucky block sits at the center of the island and is replaced the moment you break it.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> If the center spot ever becomes empty, the lucky block is placed there again within about 5 seconds.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;70/30 Luck</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Every break has a 70% chance of good luck and a 30% chance of bad luck from the very first block, with no guaranteed good streak.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> The good luck chance stays between 50% and 90%, even with every luck change active.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Silent Progression</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>The results follow a playthrough: Plains, Forest, Stone Age, Farm and Village, Shallow Caves, Iron Age, Deep Caves, Diamond Age, Enchanting, Nether Gate, Nether Wastes, Fortress and Blaze, Ender Prep, Stronghold, Deep Dark, Ancient Wonders, Ocean Depths, End City, Beacon Rise and Mythical.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> No message announces a step.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;20 Tiers of Good Luck and 20 of Bad Luck</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Good tiers run Common, Uncommon, Good, Nice, Great, Rare, Superb, Excellent, Fantastic, Epic, Heroic, Majestic, Glorious, Radiant, Exalted, Legendary, Ancient, Celestial, Divine and Mythical.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Every tier has its own results, and late bad tiers are severe and can end a run.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;120 Good Results and 81 Bad Results</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Early good results are mostly building materials such as Sapling Pack, Dirt Delivery, Oak Logs, Plank Bundle and Stone Delivery.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Explosions from the lucky block do not break the island, but a hit or a blast can still knock you into the void.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Starter Chest</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>A chest waits on a corner of the island with 3 Oak Saplings, 4 Bone Meal, 4 Bread, a Bucket and a Luck Ledger.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> The first time you join, a short chat tip tells you to break the lucky block and open the chest.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Luck Ledger</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Use the Luck Ledger to see how many blocks you have broken and how many Four-Leaf Fortune or Jinx breaks are left.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It does not show which progression step you are on.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Influence Your Luck</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>The Four-Leaf Fortune and Golden Horseshoe results raise the good luck chance by 20 points for the next 5 and 10 breaks.</span></p></div></div></div>
-<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Get Started&nbsp;&nbsp;</span></h2>
-<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Open the world and wait a moment while the island appears; you spawn on the corner of the 3x3 island.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Break the lucky block in the center with any tool or your hand.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Read the tier and result on the action bar, then pick up what dropped or deal with what appeared.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">4</div></td><td style="text-align:left;">Open the chest on the corner for your first saplings and tools.</td></tr></tbody></table>
-<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Common Questions&nbsp;&nbsp;</span></h2>
-<div class="spoiler" title="Does the lucky block run out?" data-title="Does the lucky block run out?"><p><strong>Does the lucky block run out?</strong><br>No. It is placed again each time it is broken, so you can keep going without limit.</p></div><div class="spoiler" title="Can I see which step I am on?" data-title="Can I see which step I am on?"><p><strong>Can I see which step I am on?</strong><br>No. Only the tier name and result of each break are shown.</p></div><div class="spoiler" title="What happens after the last step?" data-title="What happens after the last step?"><p><strong>What happens after the last step?</strong><br>The odds stay there, with tiers from Legendary to Mythical.</p></div>
-<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Install&nbsp;&nbsp;</span></h2>
-<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Download the file from this page and open it with Minecraft.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Create or edit a world and turn on the new pack(s) in its settings.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Play. No Experimental toggles needed.</td></tr></tbody></table>
-<div style="border:1px solid #8a94a3;border-radius:16px;text-align:center"><br><div style="background-color:#15803d;color:#ffffff;border-radius:20px;font-size:15px;line-height:2;display:inline-block">&nbsp;&nbsp;<strong>Found a Bug or Have a Suggestion?</strong>&nbsp;&nbsp;</div><p style="font-size:14px;">Please leave a comment on this project page! All bug reports, gameplay feedback, and pack suggestions are welcome and appreciated.</p></div>
-<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Support&nbsp;&nbsp;</span></h2><div style="border:1px solid #8a94a3;border-radius:16px;text-align:center"><br><a href="https://ko-fi.com/alnstudios"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/ko-fi.png" alt="Support ALNStudios on Ko-fi" width="250"></a><br><br></div><p style="text-align:center"><a href="https://www.curseforge.com/members/allenscreations/projects"><strong>CurseForge</strong></a> &nbsp;|&nbsp; <a href="https://mcpedl.com/user/alnstudios/"><strong>MCPEDL</strong></a> &nbsp;|&nbsp; <a href="https://ko-fi.com/alnstudios"><strong>Ko-fi</strong></a></p>
-<hr>
-<p style="text-align:center;color:#8a94a3;font-size:13px"><strong>By ALNStudios</strong></p>
-<div class="spoiler"><p style="font-size:13px"><strong>Permissions and credits</strong></p><ul style="font-size:13px"><li>Rights: All rights reserved for ALNStudios.</li><li>Content creators: You may feature this creation in videos and streams with credit to ALNStudios.</li><li>Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link to this page.</li><li>Unofficial community creation. Not an official Minecraft product and not approved by or associated with Mojang or Microsoft.</li></ul></div>
-<p style="text-align:center;color:#8a94a3;font-size:12px">Minecraft Bedrock add-on, One Block Skyblock Lucky Blocks Bedrock map, one block skyblock, lucky block map, progressive one block, void island survival, Minecraft PE skyblock, MCPEDL add-on, CurseForge Bedrock, ALNStudios.</p></div>
-```
-
-## AI Image Prompts
-
-### Reference Images
-
-- **Logo reference**: attach your own logo. The generator uses it only for brand colors and mood. The result must be a new design, not a copy.
-- **Snapshot references**: attach 1 to 4 of your in-game snapshots of this pack. The generator copies their look, not their screen layout.
-
-### Logo Prompt
-
-```text
-Use the attached logo only as a brand reference for its color palette and overall mood. Do not copy it. Create a new, original logo with a different composition and a different main symbol. Do not just recolor, resize, crop, mirror or tweak the attached logo.
-Create a clean, square (1:1) logo image for the Minecraft Bedrock add-on "One Block Skyblock Lucky Blocks". Break the one lucky block on a 3x3 void island and climb 20 luck tiers, from Plains wood to Mythical netherite.
-Base the main symbol on the pack idea above. Match the blocky look of the attached in-game snapshots. Center the logo, use a simple background, and keep it readable at small sizes.
-Text: "One Block Skyblock Lucky Blocks" and, in small letters, "ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
-Do not add Minecraft, Mojang or Microsoft logos, watermarks, or characters from other games.
-```
-
-### Banner Prompt
-
-```text
-Create a wide (16:9) banner image for the Minecraft Bedrock add-on "One Block Skyblock Lucky Blocks". Break the one lucky block on a 3x3 void island and climb 20 luck tiers, from Plains wood to Mythical netherite.
-Use the attached in-game snapshots as scene and style references: copy their blocky look, lighting, colors and the kind of scenery they show. Make a new composition inspired by them. Do not copy the on-screen HUD, chat or hotbar.
-Use the attached logo only as a brand reference for its colors and mood. Do not copy it. Put a new, original logo design in the banner, large enough to read, on the left or center.
-Hint at these pack features visually: One Central Lucky Block, 70/30 Luck, Silent Progression, 20 Tiers of Good Luck and 20 of Bad Luck, 120 Good Results and 81 Bad Results.
-Text: "One Block Skyblock Lucky Blocks" and, in small letters, "by ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
-Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no watermarks.
-```
-````
