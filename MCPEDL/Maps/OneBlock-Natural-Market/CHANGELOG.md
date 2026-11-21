@@ -14,6 +14,11 @@
 - Removed special characters from menu text and replaced gray text colors with white.
 - The About screen now has a single Close button.
 
+### Changed
+- Market prices now scale with tier. Tier 4 and above cost more, up to 6x at the last tier. Tiers 1 to 3 and all sell values are unchanged, except the three drops below.
+- Netherite Block, Hay Block, Redstone Block and Iron Block cost more, so crafting them into ingots or dust and selling no longer earns a profit.
+- Netherite Block, Ancient Debris and Obsidian sell for less, so rare core drops no longer outweigh the Coin reward.
+
 ## [14.0.1] - 2026-11-21 - Startup Crash Fix
 
 ### Fixed

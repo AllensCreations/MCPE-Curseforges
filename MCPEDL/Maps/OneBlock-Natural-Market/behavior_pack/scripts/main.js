@@ -237,6 +237,14 @@ const CATALOG = [
   name: raw.split("_").map(s => s[0].toUpperCase() + s.slice(1)).join(" ")
 }));
 
+const TIER_PRICE_MULT = [1, 1, 1, 1.5, 2, 2.5, 3, 4, 5, 6];
+const BASE_PRICE_FIX = { iron_block: 100, hay_block: 20, redstone_block: 70, netherite_block: 4500 };
+const SELL_FIX = { netherite_block: 100, ancient_debris: 40, obsidian: 10 };
+for (const item of CATALOG) {
+  const base = BASE_PRICE_FIX[item.raw] ?? item.price;
+  item.sell = SELL_FIX[item.raw] ?? Math.max(1, Math.floor(base / 2));
+  item.price = Math.max(1, Math.round(base * (TIER_PRICE_MULT[item.tier] ?? 1)));
+}
 const BUILDING_IDS = new Set(CATALOG.filter(i => i.category === "Building Blocks").map(i => i.id));
 const LEDGER_PENDING = "obm_ledger_pending";
 const DEBUG_TAG = "obm_debug";
@@ -511,7 +519,7 @@ function scanSellable(inv, values) {
 function sellEligible(player) {
   const inv = inventoryOf(player);
   if (!inv) return tell(player, "Your inventory is unavailable.");
-  const values = new Map(CATALOG.map(item => [item.id, Math.max(1, Math.floor(item.price / 2))]));
+  const values = new Map(CATALOG.map(item => [item.id, item.sell]));
   const { payout, count } = scanSellable(inv, values);
   if (!count) return tell(player, "You have no eligible market items to sell.");
   const form = new MessageFormData().title("SELL ELIGIBLE ITEMS")
