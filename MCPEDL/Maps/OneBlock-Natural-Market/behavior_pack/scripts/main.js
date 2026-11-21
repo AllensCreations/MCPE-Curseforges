@@ -14,7 +14,7 @@ const UNSAFE_CORE = new Set([
   "minecraft:water", "minecraft:flowing_water", "minecraft:lava", "minecraft:flowing_lava",
   "minecraft:oak_door", "minecraft:torch", "minecraft:redstone_torch", "minecraft:soul_torch",
   "minecraft:lever", "minecraft:ladder", "minecraft:oak_sapling", "minecraft:sugar_cane",
-  "minecraft:bamboo", "minecraft:repeater", "minecraft:comparator"
+  "minecraft:bamboo", "minecraft:repeater", "minecraft:comparator", "minecraft:anvil"
 ]);
 const CATEGORIES = [
   { name: "Building Blocks", icon: "textures/blocks/stone" },
@@ -25,21 +25,23 @@ const CATEGORIES = [
   { name: "Ores & Minerals", icon: "textures/items/diamond" },
   { name: "Redstone", icon: "textures/items/redstone_dust" },
   { name: "Mob Drops", icon: "textures/items/bone" },
+  { name: "Spawn Eggs", icon: "textures/items/spawn_eggs/spawn_egg_cow" },
   { name: "Nether", icon: "textures/blocks/netherrack" },
   { name: "Endgame", icon: "textures/items/ender_pearl" }
 ];
-const MILESTONES = [
-  { unlock: 0, id: "minecraft:dirt", reward: 1 },
-  { unlock: 50, id: "minecraft:oak_log", reward: 1 },
-  { unlock: 150, id: "minecraft:cobblestone", reward: 2 },
-  { unlock: 350, id: "minecraft:coal_ore", reward: 2 },
-  { unlock: 700, id: "minecraft:iron_ore", reward: 3 },
-  { unlock: 1200, id: "minecraft:gold_ore", reward: 3 },
-  { unlock: 2000, id: "minecraft:diamond_ore", reward: 4 },
-  { unlock: 3000, id: "minecraft:obsidian", reward: 5 },
-  { unlock: 4500, id: "minecraft:ancient_debris", reward: 6 },
-  { unlock: 6000, id: "minecraft:netherite_block", reward: 8 }
+const TIER_BLOCKS = [
+  ["dirt"], ["oak_log"], ["cobblestone"], ["coal_ore", "copper_ore"], ["iron_ore"],
+  ["gold_ore"], ["spruce_log"], ["stone"], ["lapis_ore"], ["redstone_ore"],
+  ["birch_log"], ["mossy_cobblestone"], ["sandstone"], ["deepslate"], ["deepslate_iron_ore"],
+  ["deepslate_gold_ore"], ["diamond_ore"], ["emerald_ore"], ["netherrack"], ["soul_sand"],
+  ["nether_gold_ore"], ["quartz_ore"], ["blackstone"], ["basalt"], ["end_stone"],
+  ["purpur_block"], ["ancient_debris"], ["netherite_block"], ["crying_obsidian"], ["obsidian"]
 ];
+const MILESTONES = TIER_BLOCKS.map((ids, i) => ({
+  unlock: i === 0 ? 0 : Math.round(10000 * Math.pow(i / (TIER_BLOCKS.length - 1), 1.6) / 10) * 10,
+  ids: ids.map(id => "minecraft:" + id),
+  reward: Math.round(1 + i * 11 / (TIER_BLOCKS.length - 1))
+}));
 const CATALOG = [
   ["dirt", 2, 16, "Building Blocks", 0, true, "textures/blocks/dirt"],
   ["coarse_dirt", 2, 16, "Building Blocks", 0, true, "textures/blocks/coarse_dirt"],
@@ -237,13 +239,49 @@ const CATALOG = [
   name: raw.split("_").map(s => s[0].toUpperCase() + s.slice(1)).join(" ")
 }));
 
-const TIER_PRICE_MULT = [1, 1, 1, 1.5, 2, 2.5, 3, 4, 5, 6];
+const OLD_TIER_TO_NEW = [0, 2, 4, 7, 12, 18, 21, 24, 26, 28];
+const TIER_FIX = {
+  oak_log: 1, oak_planks: 1, spruce_log: 1, birch_log: 1, jungle_log: 1, acacia_log: 1, dark_oak_log: 1,
+  spruce_planks: 1, birch_planks: 1, stick: 1, crafting_table: 1, chest: 1,
+  wooden_pickaxe: 1, wooden_axe: 1, wooden_shovel: 1, wooden_sword: 1,
+  furnace: 2, torch: 3, coal: 3, coal_ore: 3,
+  gold_ore: 5, gold_ingot: 5, golden_pickaxe: 5, golden_axe: 5, golden_sword: 5,
+  lapis_lazuli: 8, crying_obsidian: 28, obsidian: 29
+};
+for (const item of CATALOG) {
+  let t = OLD_TIER_TO_NEW[item.tier] ?? 0;
+  if (item.category === "Redstone" && item.tier === 3) t = 9;
+  item.tier = TIER_FIX[item.raw] ?? t;
+}
+function makeEntry(raw, price, amount, category, tier, block, icon) {
+  return {
+    id: "minecraft:" + raw, raw, price, amount, category, tier, block, icon,
+    name: raw.split("_").map(w => w[0].toUpperCase() + w.slice(1)).join(" ")
+  };
+}
+CATALOG.push(
+  makeEntry("copper_ore", 14, 4, "Ores & Minerals", 3, true, "textures/blocks/copper_ore"),
+  makeEntry("copper_ingot", 12, 4, "Ores & Minerals", 3, false, "textures/items/copper_ingot")
+);
+const SPAWN_EGGS = [
+  ["chicken", 50, 9], ["pig", 60, 9], ["cow", 60, 10], ["sheep", 60, 10], ["rabbit", 70, 10],
+  ["cat", 90, 11], ["wolf", 110, 11], ["horse", 130, 12], ["donkey", 130, 12], ["llama", 140, 12],
+  ["fox", 120, 13], ["bee", 100, 13], ["zombie", 120, 13], ["skeleton", 150, 13],
+  ["mooshroom", 160, 14], ["goat", 130, 14], ["frog", 120, 14], ["spider", 130, 14],
+  ["turtle", 150, 15], ["axolotl", 150, 15], ["creeper", 200, 15],
+  ["slime", 180, 16], ["panda", 220, 16], ["witch", 260, 17], ["camel", 240, 17],
+  ["enderman", 320, 19], ["blaze", 350, 20], ["magma_cube", 260, 20]
+];
+for (const [mob, price, tier] of SPAWN_EGGS) {
+  CATALOG.push(makeEntry(mob + "_spawn_egg", price, 1, "Spawn Eggs", tier, false, "textures/items/spawn_eggs/spawn_egg_" + mob));
+}
 const BASE_PRICE_FIX = { iron_block: 100, hay_block: 20, redstone_block: 70, netherite_block: 4500 };
 const SELL_FIX = { netherite_block: 100, ancient_debris: 40, obsidian: 10 };
+const priceMult = tier => (tier <= 5 ? 1 : 1 + (tier - 5) * 0.2);
 for (const item of CATALOG) {
   const base = BASE_PRICE_FIX[item.raw] ?? item.price;
-  item.sell = SELL_FIX[item.raw] ?? Math.max(1, Math.floor(base / 2));
-  item.price = Math.max(1, Math.round(base * (TIER_PRICE_MULT[item.tier] ?? 1)));
+  item.sell = item.category === "Spawn Eggs" ? 0 : (SELL_FIX[item.raw] ?? Math.max(1, Math.floor(base / 2)));
+  item.price = Math.max(1, Math.round(base * priceMult(item.tier)));
 }
 const BUILDING_IDS = new Set(CATALOG.filter(i => i.category === "Building Blocks").map(i => i.id));
 const LEDGER_PENDING = "obm_ledger_pending";
@@ -365,7 +403,7 @@ function showForm(form, player, retries = 0) {
   });
 }
 function currentPool() {
-  const pool = new Set(MILESTONES.filter(m => totalBreaks() >= m.unlock).map(m => m.id));
+  const pool = new Set(MILESTONES.filter(m => totalBreaks() >= m.unlock).flatMap(m => m.ids));
   for (const id of storedPool()) pool.add(id);
   return [...pool];
 }
@@ -426,7 +464,7 @@ function showAbout(player) {
       "Break the core to earn §eCoins§r and grow your block pool.\n" +
       "Use the §bNatural Market Ledger§r to buy supplies.\n\n" +
       "The Ledger cannot be dropped. It always returns to you.\n\n" +
-      "Version: v15 | ALNStudios | CurseForge / MCPEDL"
+      "Version: v16 | ALNStudios | CurseForge / MCPEDL"
     )
     .button("Close");
   showForm(form, player).catch(e => { logError("showAbout", e); });
@@ -435,17 +473,9 @@ function marketMain(player) {
   const form = new ActionFormData()
     .title("NATURAL MARKET")
     .body("§6Coins: §e" + balance(player) + "§r\nPersonal breaks: " + personalBreaks(player) +
-      "\nShared breaks: " + totalBreaks() + "\nUnlocked tier: " + (unlockedTier(player) + 1) + " / 10\n\nChoose a market section.");
-  form.button("Building Blocks", CATEGORIES[0].icon)
-    .button("Tools & Gear", CATEGORIES[1].icon)
-    .button("Farming", CATEGORIES[2].icon)
-    .button("Food", CATEGORIES[3].icon)
-    .button("Combat", CATEGORIES[4].icon)
-    .button("Ores & Minerals", CATEGORIES[5].icon)
-    .button("Redstone", CATEGORIES[6].icon)
-    .button("Mob Drops", CATEGORIES[7].icon)
-    .button("Nether", CATEGORIES[8].icon)
-    .button("Endgame", CATEGORIES[9].icon)
+      "\nShared breaks: " + totalBreaks() + "\nUnlocked tier: " + (unlockedTier(player) + 1) + " / " + MILESTONES.length + "\n\nChoose a market section.");
+  for (const c of CATEGORIES) form.button(c.name, c.icon);
+  form
     .button("Sell Eligible Items", "textures/items/gold_ingot")
     .button("About", "textures/ui/icon_recipe_nature");
   showForm(form, player).then(r => {

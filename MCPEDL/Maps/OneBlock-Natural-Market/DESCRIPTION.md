@@ -24,7 +24,7 @@ Start in the void on the central block at (0, 0, 0), with no bedrock beneath it.
 - Opens the market in the game's standard form screen: a button list with item icons for each category and supply bundle.
 - Tap a supply slot to purchase its displayed bundle directly; no separate purchase-confirmation screen.
 - Large categories use pages that reserve two slots for navigation controls.
-- The catalogue contains more than 180 configured supplies across ten categories. Entries unavailable in the current game version are hidden.
+- The catalogue contains more than 180 configured supplies across eleven categories, including mid-game Spawn Eggs. Entries unavailable in the current game version are hidden.
 - The market uses the standard server Action Form. It is **not a chest container screen** and does not support draggable slots or native container transfers.
 
 ### Coins and Selling
@@ -33,7 +33,7 @@ Start in the void on the central block at (0, 0, 0), with no bedrock beneath it.
 - The balance appears in menu text and action-bar messages, not a sidebar scoreboard.
 
 ### Progression and Supply Pool
-- Personal mining milestones unlock additional market supplies.
+- Personal mining milestones unlock additional market supplies across 30 tiers, ending with Obsidian.
 - Purchased eligible blocks can be added to the central block's regeneration pool.
 - Liquids and blocks that cannot stand on their own (such as torches, doors and saplings) are excluded from the purchased regeneration pool.
 

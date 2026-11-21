@@ -2,6 +2,23 @@
 
 ---
 
+## [16.0.0] - 2026-11-21 - 30 Tiers And Spawn Eggs
+
+### Added
+- 30 progression tiers. The core block pool and market supplies unlock across 30 tiers (10,000 breaks), ending with Obsidian at tier 30.
+- Spawn Eggs category with 28 mob eggs, unlocking at tiers 10 to 21. Eggs cannot be sold back.
+- Copper Ore and Copper Ingot in the market.
+
+### Changed
+- Coin reward per core break rises from 1 to 12 across the tiers.
+- Market prices scale with tier from tier 6 up.
+- Wood supplies unlock at tier 2, and gold, redstone, diamond, Nether and End supplies unlock at their own tiers.
+- Ancient Debris and Netherite Block now appear in the core at tiers 27 and 28, and Obsidian is last.
+- Your tier is recalculated from your mined blocks, so it can differ from before.
+
+### Fixed
+- Anvils bought in the market no longer enter the core pool, because they fall into the void.
+
 ## [15.0.0] - 2026-11-21 - Core Pool And Ledger Return Fix
 
 ### Fixed
