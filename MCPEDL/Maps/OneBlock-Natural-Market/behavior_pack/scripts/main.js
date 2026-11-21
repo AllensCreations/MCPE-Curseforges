@@ -23,7 +23,7 @@ const CATEGORIES = [
   { name: "Food", icon: "textures/items/bread" },
   { name: "Combat", icon: "textures/items/iron_sword" },
   { name: "Ores & Minerals", icon: "textures/items/diamond" },
-  { name: "Redstone", icon: "textures/items/redstone" },
+  { name: "Redstone", icon: "textures/items/redstone_dust" },
   { name: "Mob Drops", icon: "textures/items/bone" },
   { name: "Nether", icon: "textures/blocks/netherrack" },
   { name: "Endgame", icon: "textures/items/ender_pearl" }
