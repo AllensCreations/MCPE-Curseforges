@@ -16,7 +16,7 @@
 
 - **Export request:** `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta`
 - **Destination:** `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta`
-- **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/CHANGELOG.md`)
+- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/CHANGELOG.md`)
 - **Text files:** 18
 - **Skipped binary:** 4
 - **Paths not found:** 0
@@ -58,7 +58,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v1 / NEXT UPDATE: v2).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -144,7 +144,7 @@ execute as @a[tag=void_cleaned] run function balance_display
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/functions/void_cleaner.mcfunction (11 lines, 767 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/functions/void_cleaner.mcfunction (11 lines, 833 bytes)
 
 ```
 # One-time per-player void cleanup and spawn setup for Dirtbound.
@@ -155,8 +155,8 @@ execute as @a[tag=!void_cleaned] run tp @s 0 1 0
 execute as @a[tag=!void_cleaned] run setblock 0 -1 0 bedrock
 execute as @a[tag=!void_cleaned] run setblock 0 0 0 minecraft:grass_block
 execute as @a[tag=!void_cleaned] run setworldspawn 0 1 0
-execute as @a[tag=!void_cleaned] run tellraw @a {"rawtext":[{"text":"§aDone cleaning"}]}
-tag @a[tag=!void_cleaned] add void_cleaned
+execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tellraw @s {"rawtext":[{"text":"§aDone cleaning"}]}
+execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cleaned
 ```
 
 ## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/items/trader_ledger.json (28 lines, 596 bytes)
@@ -197,11 +197,11 @@ tag @a[tag=!void_cleaned] add void_cleaned
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Dirtbound Kingdom Beta (v1)",
-    "description": "OneBlock survival economy with an interactive Trader item and 180 purchasable supplies. by ALNStudios",
+    "name": "OneBlock Dirtbound Kingdom Beta (v2)",
+    "description": "OneBlock survival economy with an interactive Trader item and 173 purchasable supplies. by ALNStudios",
     "uuid": "8d4d93bf-c8b2-4df4-9f28-52f4f8f08b10",
     "version": [
-      1,
+      2,
       0,
       0
     ],
@@ -216,7 +216,7 @@ tag @a[tag=!void_cleaned] add void_cleaned
       "type": "data",
       "uuid": "6cf34061-8f23-43aa-8a11-8320c8f9a5d4",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -226,7 +226,7 @@ tag @a[tag=!void_cleaned] add void_cleaned
       "language": "javascript",
       "uuid": "a2dcb37f-22c9-47b4-8b17-1bd3c0a91f65",
       "version": [
-        1,
+        2,
         0,
         0
       ],
@@ -237,7 +237,7 @@ tag @a[tag=!void_cleaned] add void_cleaned
     {
       "uuid": "e8d8136a-7a5b-4818-b813-61c21f2e71ad",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -256,12 +256,12 @@ tag @a[tag=!void_cleaned] add void_cleaned
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "2.0.0"
   }
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/scripts/lib/README.md (39 lines, 930 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/scripts/lib/README.md (41 lines, 1079 bytes)
 
 ```
 # OneBlock Dirtbound Kingdom Beta: script notes (scripts/lib)
@@ -301,10 +301,12 @@ Extracted from the script files; nothing here was run in game.
 
 ## Notes (AI review)
 
-Known limits, design decisions and things to check on the next update go here. Not filled in yet.
+- Shop lists 173 items (counted from `RAW` in `main.js`); ids rejected at runtime are skipped and logged.
+- `void_cleaner` adds `void_cleaned` only once Bedrock exists at (0,-1,0), so setup retries until the chunk is loaded.
+- Not tested in game.
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/scripts/main.js (396 lines, 22423 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/scripts/main.js (396 lines, 22405 bytes)
 
 ```
 import { world, system, ItemStack, ItemTypes } from "@minecraft/server";
@@ -492,7 +494,7 @@ function showMain(p) {
       tell(p, "Balance: " + balance(p) + " OneCoins. Your blocks mined: " + mined(p) + ". Shared core stage: " + STAGES[stageFor(globalScore("#breaks"))].name +
         " (" + globalScore("#breaks") + " total breaks). " + (next ? "Next shop tier: " + next.name + " at " + next.unlock + " of your own breaks." : "All shop tiers unlocked."));
     } else if (r.selection === 4) showPrestige(p);
-  }).catch(() => tell(p, "Trader UI failed to open. Interact with the Trader Post or Ledger again."));
+  }).catch(() => tell(p, "Trader UI failed to open. Use the Trader Ledger again."));
 }
 
 function showShop(p) {
@@ -704,12 +706,20 @@ system.run(() => {
 });
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/CHANGELOG.md (159 lines, 7278 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/CHANGELOG.md (167 lines, 7743 bytes)
 
 ```
 # Changelog — OneBlock Dirtbound Kingdom Beta
 
 ---
+
+## [v2] - 2026-11-21 - Void Cleaner Guard
+
+### Fixed
+- **Reliable first-join setup:** Players are marked as set up only after the Bedrock footing exists, so setup retries if the starting chunk was not loaded yet.
+- **No repeated notice:** The cleaning message is sent once, only to the player being set up.
+- **Trader menu error text:** Removed the outdated Trader Post reference.
+- **Shop item count:** Corrected the listed number of purchasable supplies to 173.
 
 ## [v1] - 2026-10-29
 
@@ -904,7 +914,7 @@ Use appropriate pickaxes as the core becomes harder. World-wide core progression
 
 - Use the custom **OneBlock Trader Ledger** item to open the shop. It is the only shop access method; there is no physical Trader Post block.
 - Starting balance: 50 OneCoins. Selling Dirt grants 1 OneCoin per block.
-- The shop contains 180 purchase options across ten tiers, with prices increasing as equipment improves.
+- The shop contains 173 purchase options across ten tiers, with prices increasing as equipment improves.
 - Unlocking a shop tier grants a one-time coin bonus. Every 250 personal core breaks grants another 20 OneCoins.
 - Every 500 world-wide core breaks triggers a Core Surge, awarding 50 OneCoins and spawning three hostile mobs near the player who reaches the milestone.
 - A bonus Emerald Block can appear above the platform. Breaking it grants 30 OneCoins and has a 20% chance to trigger a hostile mob wave.
@@ -996,11 +1006,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Dirtbound Kingdom Beta (v1)",
+    "name": "OneBlock Dirtbound Kingdom Beta (v2)",
     "description": "Custom Trader item texture for Dirtbound Kingdom. by ALNStudios",
     "uuid": "e8d8136a-7a5b-4818-b813-61c21f2e71ad",
     "version": [
-      1,
+      2,
       0,
       0
     ],
@@ -1015,7 +1025,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "fa89d5ac-9dd7-42a5-9f2f-941ab4e13f68",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -1026,7 +1036,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "2.0.0"
   }
 }
 ```

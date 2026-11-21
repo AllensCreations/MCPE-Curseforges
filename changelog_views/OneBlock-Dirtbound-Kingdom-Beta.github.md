@@ -1,9 +1,18 @@
 # Changelog — OneBlock Dirtbound Kingdom Beta
 
-## [v1] - 2026-10-29
+## [v2] - 2026-11-21 - Void Cleaner Guard
 
-### Improved & Balanced
+### Fixed
+
+<details>
+<summary><b>1.0.x</b> (1 release)</summary>
+
+### [v1] - 2026-10-29
+
+#### Improved & Balanced
 - **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.
+
+</details>
 
 <details>
 <summary><b>0.25.x</b> (1 release)</summary>
