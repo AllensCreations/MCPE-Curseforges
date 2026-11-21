@@ -543,3 +543,72 @@ world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
   if (itemStack.typeId !== LEDGER) return;
   source.sendMessage(`§6Luck Ledger§r\nBreaks: ${num(BREAKS_KEY)}\nLuck boosts left: ${num(BONUS_KEY)}\nJinxes left: ${num(JINX_KEY)}`);
 });
+
+const SETUP_TAG = "void_cleaned";
+const BUILT_KEY = "island_built";
+const SPAWN_BLOCK = { x: 0, y: 65, z: 0 };
+const SPAWN_STAND = { x: 0.5, y: 65, z: 0.5 };
+const CHEST_AT = { x: -1, y: 65, z: -1 };
+const STARTER = [
+  ["minecraft:oak_sapling", 3],
+  ["minecraft:bone_meal", 4],
+  ["minecraft:bread", 4],
+  ["minecraft:bucket", 1],
+  [LEDGER, 1],
+];
+let setupRunning = false;
+
+function blockAt(dimension, x, y, z) {
+  const block = dimension.getBlock({ x, y, z });
+  if (!block) throw new Error("chunk not loaded");
+  return block;
+}
+
+function buildIsland() {
+  const dimension = world.getDimension("overworld");
+  for (let x = -16; x <= 16; x++) {
+    for (let z = -16; z <= 16; z++) blockAt(dimension, x, -64, z).setType("minecraft:air");
+  }
+  blockAt(dimension, 0, 63, 0).setType("minecraft:bedrock");
+  for (let x = -1; x <= 1; x++) {
+    for (let z = -1; z <= 1; z++) blockAt(dimension, x, 64, z).setType("minecraft:grass_block");
+  }
+  blockAt(dimension, CORE.x, CORE.y, CORE.z).setType(LUCKY);
+  const chest = blockAt(dimension, CHEST_AT.x, CHEST_AT.y, CHEST_AT.z);
+  chest.setType("minecraft:chest");
+  const container = chest.getComponent("minecraft:inventory")?.container;
+  if (!container) throw new Error("chest inventory missing");
+  STARTER.forEach(([id, amount], slot) => container.setItem(slot, new ItemStack(id, amount)));
+  world.setDefaultSpawnLocation(SPAWN_BLOCK);
+  world.setDynamicProperty(BUILT_KEY, true);
+}
+
+function runSetup(player, tries) {
+  try {
+    buildIsland();
+    player.teleport(SPAWN_STAND);
+    player.addTag(SETUP_TAG);
+    setupRunning = false;
+  } catch (e) {
+    if (tries >= 15) {
+      setupRunning = false;
+      return;
+    }
+    system.runTimeout(() => runSetup(player, tries + 1), 20);
+  }
+}
+
+world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
+  if (!initialSpawn || setupRunning) return;
+  try {
+    if (player.hasTag(SETUP_TAG)) return;
+    if (world.getDynamicProperty(BUILT_KEY)) {
+      player.addTag(SETUP_TAG);
+      return;
+    }
+  } catch (e) {
+    return;
+  }
+  setupRunning = true;
+  system.runTimeout(() => runSetup(player, 0), 20);
+});

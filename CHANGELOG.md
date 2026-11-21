@@ -31,6 +31,12 @@
 
 ---
 
+## [v195] - 2026-11-21 - Island Setup Fix
+
+### Improved & Balanced
+- **Spawn point**: You now start standing on the lucky block in the center of the island, and the world spawn is set there.
+- **Island setup on first join**: The island, lucky block, starter chest and spawn point are now built when you first join, and the empty-world platform below is cleared.
+
 ## [v194] - 2026-11-21 - MCicons, Lib READMEs, Samples In Build And Sync
 
 - Minecraft icons now come from MCicons v2.1.1: `build-and-sync.yml` downloads the release file `mcicons-2.1.1.tgz` into `reference/mcicons/` (one file, hash-checked); recipe images and rule 1.5 use it first.

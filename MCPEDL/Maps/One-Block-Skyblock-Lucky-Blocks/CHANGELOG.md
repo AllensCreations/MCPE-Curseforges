@@ -2,6 +2,12 @@
 
 ---
 
+## [v4] - 2026-11-21 - Island Setup Fix
+
+### Improved & Balanced
+- **Spawn point**: You now start standing on the lucky block in the center of the island, and the world spawn is set there.
+- **Island setup on first join**: The island, lucky block, starter chest and spawn point are now built when you first join, and the empty-world platform below is cleared.
+
 ## [v3] - 2026-11-21 - Lucky Block Textures
 
 ### Added

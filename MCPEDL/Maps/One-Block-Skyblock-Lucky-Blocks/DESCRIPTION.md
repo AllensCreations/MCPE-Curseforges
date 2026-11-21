@@ -48,7 +48,7 @@ You start on a 3x3 grass island floating in an empty void, next to a single luck
 
 ## How to Use
 
-1. Open the world and wait a moment while the island appears; you spawn on the corner of the 3x3 island.
+1. Open the world and wait a moment while the island appears; you spawn standing on the lucky block in the center, so look down to break it.
 2. Break the lucky block in the center with any tool or your hand.
 3. Read the tier and result on the action bar, then pick up what dropped or deal with what appeared.
 4. Open the chest on the corner for your first saplings and tools.
