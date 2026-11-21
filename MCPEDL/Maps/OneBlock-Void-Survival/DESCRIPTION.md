@@ -44,7 +44,7 @@ The central block provides resources as you progress through increasingly advanc
 - Minecraft Bedrock Edition 1.21.50 or newer. Check the current world listing and package details before importing.
 - Each world is a separate file. Choose the Creative or Survival world that matches your intended play style.
 - Experimental features: Not verified.
-- Achievements: Unknown / needs confirmation.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

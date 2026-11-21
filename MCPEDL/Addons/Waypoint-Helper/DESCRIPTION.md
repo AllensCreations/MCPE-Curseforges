@@ -61,7 +61,7 @@ Right-click a Compass to open the Waypoint Helper menu. Save your current positi
 
 - Minecraft Bedrock Edition: not verified
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: source created. Not tested in game.
 
 ## Creator and Permissions

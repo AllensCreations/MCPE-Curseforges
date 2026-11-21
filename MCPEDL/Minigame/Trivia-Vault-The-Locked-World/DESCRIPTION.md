@@ -32,7 +32,7 @@ Use the Controller as the host or an operator and select Start. In Survival, att
 ## Compatibility
 - Minecraft Bedrock Edition: minimum version is listed in the Behavior Pack manifest.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Unknown / needs confirmation.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source updated, not tested in game.
 
 ## Creator and Permissions

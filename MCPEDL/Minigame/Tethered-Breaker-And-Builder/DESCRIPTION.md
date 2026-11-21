@@ -42,7 +42,7 @@ Two players share a 10-meter tether. The Breaker handles mining and combat but c
 
 - Minecraft Bedrock Edition: 1.26.40 or newer
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly. Operator commands require cheats, which disables achievements.
+- Achievements: Yes, achievement-friendly. Operator commands require cheats, which disables achievements.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

@@ -137,7 +137,7 @@ Configurable via the Behavior Pack subpack settings slider in World Settings:
 - Check the current pack listing for setup requirements.
 - Multiplayer behavior should be checked in the target game version.
 - Experimental features: Not verified.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

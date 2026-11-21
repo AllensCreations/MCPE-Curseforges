@@ -56,7 +56,7 @@ Hold a normal Stick, sneak, and use it. A menu titled @ALNStudios Cheatstick, fo
 
 - Minecraft Bedrock Edition: Minimum game version not verified.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

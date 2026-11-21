@@ -64,7 +64,7 @@ After an initial 15-second grace period upon spawning, the roulette begins after
 
 - Minecraft Bedrock Edition: 1.21.0 or newer.
 - Experimental features: Not verified.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

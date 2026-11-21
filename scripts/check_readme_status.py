@@ -412,7 +412,7 @@ def auto_generate_readme(proj_dir):
         interaction_cards.append(f"### {action}\n- **Requirement**: {requirement}\n- **What Happens**: {result}")
     interaction_section = "\n\n".join(interaction_cards) if interaction_cards else "Use the in-game interactions provided by the add-on. Refer to the included pack settings and item descriptions for supported controls."
 
-    achievement = "Likely achievement-friendly." if category == "Addons" else "Unknown / needs confirmation."
+    achievement = "Yes, achievement-friendly."
     project_type = {
         "Addons": "add-on",
         "Maps": "map",

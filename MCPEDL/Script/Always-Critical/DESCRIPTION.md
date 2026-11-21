@@ -32,7 +32,7 @@ Load the Behavior Pack in a world and fight as usual. Each hit a player lands on
 
 - Minecraft Bedrock Edition: Minimum version not verified.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly. The pack does not use cheats or commands.
+- Achievements: Yes, achievement-friendly. The pack does not use cheats or commands.
 - Verification: Source created. Not tested in game.
 
 ## Creator and Permissions

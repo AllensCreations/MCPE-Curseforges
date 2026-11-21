@@ -38,7 +38,7 @@ The Fletching Table becomes a working archery station. A menu shows your current
 
 - Minecraft Bedrock Edition: minimum version not verified; the pack declares 1.21.80.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

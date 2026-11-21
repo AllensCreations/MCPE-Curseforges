@@ -47,7 +47,7 @@ ALN PortalDoors adds a craftable Portal Door that stands two blocks tall. When y
 
 - Minecraft Bedrock Edition: 1.26.60 or newer.
 - Experimental features: Not verified. No experimental toggle is intentionally used.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

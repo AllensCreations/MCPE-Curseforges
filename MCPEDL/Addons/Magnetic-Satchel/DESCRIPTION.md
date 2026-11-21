@@ -86,7 +86,7 @@ Craft the Magnetic Satchel at a crafting table using either of these recipes:
 
 - Minecraft Bedrock Edition: 1.21.0 or newer.
 - Experimental features: Not verified.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

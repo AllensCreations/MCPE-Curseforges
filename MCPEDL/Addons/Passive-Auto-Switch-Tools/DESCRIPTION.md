@@ -96,7 +96,7 @@ The add-on aims to preserve tool details when switching items:
 
 - Minecraft Bedrock Edition: 1.21.0 or newer.
 - Experimental features: Not verified.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

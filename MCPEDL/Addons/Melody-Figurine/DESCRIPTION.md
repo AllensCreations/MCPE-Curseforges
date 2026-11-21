@@ -57,7 +57,7 @@ The Melody Figurine is a small decorative statue with a matching inventory icon 
 
 - Minecraft Bedrock Edition: 1.26.0 or later.
 - Experimental features: The current pack does not declare a requirement for experimental toggles.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Multiplayer and Realms behavior: Not verified.
 - Gameplay behavior should be checked in Minecraft before relying on it in a long-term world.
 - Verification: Source created, not tested in game.

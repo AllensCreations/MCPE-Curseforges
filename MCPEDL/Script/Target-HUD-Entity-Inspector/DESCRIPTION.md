@@ -65,7 +65,7 @@ Aim at a mob or another player and a single line appears on the Action Bar. It d
 
 - Minecraft Bedrock Edition: Minimum version not verified; the pack declares 1.26.30.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly. This pack runs no commands.
+- Achievements: Yes, achievement-friendly. This pack runs no commands.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

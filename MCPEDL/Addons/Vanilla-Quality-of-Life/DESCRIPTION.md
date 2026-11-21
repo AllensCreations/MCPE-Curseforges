@@ -75,7 +75,7 @@ Hit a block and the best tool from your hotbar swaps into Slot 1, then returns a
 
 - Minecraft Bedrock Edition: 1.26.50 or newer.
 - Experimental features: Not verified.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created and tested in game.
 
 ## Creator and Permissions

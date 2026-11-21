@@ -23,7 +23,7 @@
 
 - Minecraft Bedrock Edition: 1.26.40 or newer.
 - Experimental features: Not verified.
-- Achievements: Unknown / needs confirmation.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

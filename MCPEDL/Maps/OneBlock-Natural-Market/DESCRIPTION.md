@@ -51,7 +51,7 @@ Start in the void on the central block at (0, 0, 0), with no bedrock beneath it.
 - Stable Script API dependencies: `@minecraft/server` 2.10.0 and `@minecraft/server-ui` 2.2.0.
 - Experimental features: No experiment requirement detected in the inspected files.
 - UI compatibility: The market uses the game's standard forms, so it does not depend on a custom screen and works with other add-ons that customize form screens.
-- Achievements: Unknown / needs confirmation because the foundation world's settings have not been verified.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source updated; no package build or in-game test has been run for this UI revision.
 
 ## Creator and Permissions

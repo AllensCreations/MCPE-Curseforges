@@ -41,7 +41,7 @@ Right-click an Allay with a Copper Ingot to turn it into a flying sorting unit. 
 
 - Minecraft Bedrock Edition: 1.26.60 is the targeted minimum; this version was not verified against official release notes.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created; not tested in game.
 
 ## Creator and Permissions

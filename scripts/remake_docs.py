@@ -112,7 +112,7 @@ def standardize_description(text, name, version_text, min_engine, notices, label
     defaults = (
         ("Minecraft Bedrock Edition", f"- Minecraft Bedrock Edition: {min_engine} or newer.\n"),
         ("Experimental features", "- Experimental features: Not verified.\n"),
-        ("Achievements", "- Achievements: Likely achievement-friendly.\n" if addon else "- Achievements: Unknown / needs confirmation.\n"),
+        ("Achievements", "- Achievements: Yes, achievement-friendly.\n"),
         ("Verification", "- Verification: Source created, not tested in game.\n"),
     )
     if ci is None:

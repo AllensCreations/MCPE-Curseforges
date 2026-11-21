@@ -19,7 +19,7 @@ Single source for every doc rule and template (2.1 to 2.5), the `/checkrm` audit
 - NEVER code blocks or edit-JSON/JS instructions. Config = in-game options, commands, tags.
 - Tone: factual. NEVER hype, clickbait, rhetorical questions, filler, emojis.
 - ALWAYS verify exact values, recipes, requirements from source or tests.
-- NEVER claim "zero lag", universal multiplayer/Realms, achievement preservation, "no experimental features" without evidence for that exact claim. Exception: add-on Achievements line = `Likely achievement-friendly.` (keep cheats/world caveats).
+- NEVER claim "zero lag", universal multiplayer/Realms, achievement preservation, "no experimental features" without evidence for that exact claim. Exception: the Achievements line of EVERY project = `Yes, achievement-friendly.` (keep cheats/world caveats as a following sentence).
 - ALWAYS say cheats are needed when documenting a cheat-only function, and that cheats disable achievements in that world.
 - Page quality: tagline = one concrete sentence (<=25 words, one verified number or item name) that doubles as CurseForge Summary. NEVER "adds items to the game". Explain a mechanic with one short example. One idea per feature card. Steps = numbered. Style check: `python3 scripts/doc_template.py --style <folder>`; rewrite every STYLE hint with a fact (advisory).
 
@@ -72,7 +72,7 @@ Download the current release of **[Pack Name]** for Minecraft Bedrock Edition.
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](verified-DESCRIPTION-link).
 ```
 
-DESCRIPTION.md (all project types; only Achievements wording is add-on specific). Portable Markdown. NEVER version in title, unverified features, placeholder images.
+DESCRIPTION.md (all project types; the Achievements line is the same for every type). Portable Markdown. NEVER version in title, unverified features, placeholder images.
 
 ```markdown
 # [Pack Name] — [Clear, factual subtitle]
@@ -115,7 +115,7 @@ Add separate feature cards for meaningful mechanics. Put relevant item lists, mo
 
 - Minecraft Bedrock Edition: [verified minimum version, only if verified]
 - Experimental features: [verified status]
-- Achievements: Likely achievement-friendly. [For Add-ons; use a factual status for other pack types.]
+- Achievements: Yes, achievement-friendly. [Every project type; add a cheats/world caveat sentence only when one applies.]
 - Verification: [source created / package built / in-game tested; never conflate them]
 
 ## Creator and Permissions

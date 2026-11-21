@@ -31,6 +31,11 @@
 
 ---
 
+## [v205] - 2026-11-21 - Achievements Always Yes
+
+- Every project now says `- Achievements: Yes, achievement-friendly.` (owner confirmed in game that a pack with `product_type` `addon` keeps achievements allowed). The doc template, `build_payload.py`, `remake_docs.py`, `check_readme_status.py` and the self-test use it, and all `DESCRIPTION.md` files were updated; cheat and command caveats stay as a following sentence.
+- Rules: INSTRUCTIONS v37, generator v36, DOCS_RULES and the pack-update skill no longer allow Likely, Not or Unknown.
+
 ## [v204] - 2026-11-21 - Overhaul: Duplicates, Stray Files, CI
 
 - Removed stray files from the repo root (three old update `.sh` files, `descriptions.zip`) and the duplicate `tests/test_crafting_template.py` (same file as `scripts/`).

@@ -34,7 +34,7 @@ This add-on does not generate a complete OneBlock world. Use it in a world with 
 - Minimum Minecraft Bedrock version: 1.21.0.
 - Minecraft Bedrock Edition: 1.21.0 or newer.
 - Experimental features: Not verified.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

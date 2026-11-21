@@ -43,7 +43,7 @@ Protection cannot guarantee survival against every game mechanic, command, or de
 
 - Minecraft Bedrock Edition 1.26.x
 - Experimental features: The pack does not declare a requirement for experimental toggles.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

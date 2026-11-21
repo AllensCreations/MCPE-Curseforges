@@ -93,7 +93,7 @@ registerController({
   },
 });
 '''
-DOCS = {"README.md": "# X\nSource created, not tested in game.\nLikely achievement-friendly.\nNo experiment requirement detected in the inspected files.\n",
+DOCS = {"README.md": "# X\nSource created, not tested in game.\nYes, achievement-friendly.\nNo experiment requirement detected in the inspected files.\n",
         "DESCRIPTION.md": "# X\nPlayer text.\nThis is an unofficial community creation. It is not an official Minecraft product.\n", "CHANGELOG.md": "# Changelog\n---\n\n## [1.0.0] - 2026-01-01\n\n### Added\n- First version.\n"}
 
 
@@ -161,7 +161,7 @@ def main() -> int:
     ok(
         all(standardized.count(f"]({url})") == 1 for url in profile_urls)  # markdown links once; the listing images add <a href> copies
         and not standardized_badge_errors
-        and "- Achievements: Likely achievement-friendly." in standardized,
+        and "- Achievements: Yes, achievement-friendly." in standardized,
         "description: standardization applies profile, badge, and achievement policy",
     )
     hero_images = (
@@ -174,9 +174,7 @@ def main() -> int:
         description = doc_template.compliant_docs(ptype, "Sample Pack", "1.0.0")["DESCRIPTION.md"]
         badge_errors = []
         doc_template.check_description_badges(description, badge_errors)
-        has_expected_achievement_label = ptype != "addon" or (
-            "- Achievements: Likely achievement-friendly." in description
-        )
+        has_expected_achievement_label = "- Achievements: Yes, achievement-friendly." in description
         ok(
             not badge_errors
             and has_expected_achievement_label

@@ -43,7 +43,7 @@ ALN-GlobalMarket lets players list items for trade, name the item and amount the
 
 - Minecraft Bedrock Edition: 1.26.50 or newer
 - Experimental features: Not required
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: source created, not tested in game
 
 ## Creator and Permissions

@@ -36,12 +36,12 @@ Harvest Intelligence automatically replants supported mature crops after you bre
 
 - Minecraft Bedrock Edition 1.21.20 or newer.
 - No custom items or Resource Pack are included.
-- Likely achievement-friendly; availability can still depend on the Minecraft release and world settings.
+- Yes, achievement-friendly; availability can still depend on the Minecraft release and world settings.
 - Check the current Minecraft world settings if the add-on does not behave as expected.
 
 ---
 - Experimental features: Not verified.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

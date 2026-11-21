@@ -21,7 +21,7 @@ The add-on lets players tame selected hostile mobs and use supported creatures a
 
 - Minecraft Bedrock Edition. Check the current release listing for the supported version.
 - The Primal Beast Biscuit recipe is included with the downloaded add-on.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Experimental features: No experiment requirement detected in the inspected files.
 - Verification: Source created, not tested in game.
 

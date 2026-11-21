@@ -41,7 +41,7 @@ Other dishes provide different food values or effects. These examples highlight 
 
 - **Minecraft Bedrock Edition:** The pack declares a minimum engine version of 1.21.0. This is the declared minimum, not a guarantee that every later release behaves identically.
 - **Experimental features:** The current pack manifests do not declare an experimental toggle requirement. World settings and behavior may still vary by game version.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Feedback and Suggestions

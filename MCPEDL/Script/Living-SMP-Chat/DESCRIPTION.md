@@ -69,7 +69,7 @@ You play your world as usual. Between 6 and 14 virtual players are online at any
 
 - Minecraft Bedrock Edition: 1.26.60 (the minimum the pack declares, looked up on 2026-11-15)
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: source created and package built; not tested in game.
 
 ## Creator and Permissions

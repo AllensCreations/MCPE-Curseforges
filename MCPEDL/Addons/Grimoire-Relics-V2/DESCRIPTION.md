@@ -150,7 +150,7 @@ The pack includes exploration loot entries for Ancient Relics. Their intended lo
 - **Minecraft Bedrock Edition**: Intended target is 1.26+; the pack manifests list a minimum engine version of 1.21.0.
 - **Format**: Complete add-on (.mcaddon), containing a Behavior Pack and Resource Pack.
 - Experimental features: No experimental toggle requirement is declared for the current pack, but behavior can vary by game version and world settings.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - **Use**: Activate both included packs in your world and equip a tome in your offhand.
 - Verification: Source created, not tested in game.
 

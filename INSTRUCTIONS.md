@@ -1,4 +1,4 @@
-# Instructions: Core Repository Policy (v36)
+# Instructions: Core Repository Policy (v37)
 
 
 Repo policy, docs rules for AllensCreations/MCPE-Curseforges (creator name `ALNStudios`). Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
@@ -87,7 +87,7 @@ Achievements/experiments (every new pack, meaningful update):
 - Pack files NEVER establish an existing world's settings.
 - Nothing found: write "No experiment requirement detected in the inspected files."
 - Prefer stable implementation. NEVER silently weaken a feature to dodge an experiment.
-- Status: Add-ons (`MCPEDL/Addons/`) = ALWAYS `Likely achievement-friendly` (add-ons are achievement-friendly by Mojang's rules; keep cheat/world caveats). Other types: Likely achievement-friendly | Not achievement-friendly / may disable achievements | Unknown / needs confirmation.
+- Status: EVERY pack (add-on, map, script, minigame) = ALWAYS `Yes, achievement-friendly.` Every manifest carries `metadata.product_type` = `"addon"`, and the owner confirmed in game (ALN Pointer V20 `.mcaddon`) that a pack of that type keeps achievements allowed. Keep any cheat/command/world caveat as a following sentence. NEVER write Likely, Not or Unknown.
 - Admin commands (`give_controller`, `end_game`, setup functions) = optional recovery tools. Cheats disable achievements in that world: say so wherever documented.
 - Handoff: achievement status, experiments (none/required name/unknown), evidence, scope.
 
@@ -106,7 +106,7 @@ Implementation:
 
 - `header.description` contains `by ALNStudios` exactly once. NEVER attribution in title.
 - NEVER change pack UUIDs or world storage keys to rename a title. NEVER regenerate header UUIDs (breaks worlds).
-- Build sync: every processed project aligns all source manifests to one highest `X.Y.Z`: `header.version`, `metadata.version`, title suffix, module versions, same-project BP/RP deps. FORCES `metadata.authors` = `["ALNStudios"]` and `metadata.product_type` = `"addon"` in EVERY BP and RP manifest (new packs, updates, builds; NEVER another author or type), optional `metadata.license`. `product_type` is metadata only: the Bedrock Wiki says worlds with `"addon"` packs stopped keeping achievements enabled in 26.50 (MCPE-242529), so NEVER claim it guarantees achievements.
+- Build sync: every processed project aligns all source manifests to one highest `X.Y.Z`: `header.version`, `metadata.version`, title suffix, module versions, same-project BP/RP deps. FORCES `metadata.authors` = `["ALNStudios"]` and `metadata.product_type` = `"addon"` in EVERY BP and RP manifest (new packs, updates, builds; NEVER another author or type), optional `metadata.license`. `product_type` `"addon"` is what keeps achievements allowed (owner-confirmed in game). The Bedrock Wiki says Mojang removed this in game 26.50 (MCPE-242529): if a newer game version shows achievements disabled, report it, do not hide it.
 - Snapshots: `builds/<pack>/versions/V<X.Y.Z>/` (packages, `source.zip`, `source.sha256`, `build_info.json`). Refreshed when source/packages differ. Last 5 kept.
 - NOTHING auto-bumps. The new version is written in CHANGELOG.md AND, in the same update script, into every source manifest with `python3 scripts/manifest_tools.py --project <path> --set vX` (header.version, metadata.version, title suffix, module and dependency versions; UUIDs untouched; never lowers)
 , so every update changes the build. Publish to CurseForge uploads the newest changelog version as written and groups every entry since the last publish. The passive build (`Build Changed Packs & Sync Catalogs`) aligns each pack to its highest existing version and rebuilds. `--bump` / `AUTO_BUMP_MANIFEST=true` remain in `scripts/auto_bump_and_build.py` for manual use only.
@@ -278,6 +278,7 @@ Docs, API, vanilla data and repo files are read with the Context7 MCP tool `quer
 - [ ] Changed JSON validated. Instruction file changed: `scripts/check_instruction_files.py` passes.
 
 ## Version History
+- **v37:** The Achievements line is ALWAYS `Yes, achievement-friendly.` for every project type (owner confirmed in game that an add-on-type pack keeps achievements allowed). The doc template, validators and all `DESCRIPTION.md` files use it.
 - **v36:** Every manifest MUST carry `metadata.authors` = `["ALNStudios"]` and `metadata.product_type` = `"addon"` (`manifest_tools.ensure_metadata` forces both in the build; the title validator reports a miss). MCicons ids are indexed in `docs/mcicons-index.md` for Context7.
 - **v35:** Source priority lists MCicons (1b) for vanilla icons; the AI skills (`mcpe-context7`, `mcpe-new-pack`, `checkrm`) and the generator file now say to use MCicons first for any icon.
 - **v34:** Minecraft icons come from MCicons: the release file `reference/mcicons/mcicons-<ver>.tgz` (kept as ONE file, downloaded by `scripts/sync_mcicons.py` in `build-and-sync.yml`, read by `scripts/lib/mcicons.py`). Rule 1.5 uses it first for recipe diagrams and every other icon.

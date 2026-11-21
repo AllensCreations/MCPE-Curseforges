@@ -48,7 +48,7 @@ Rename a Book to Enchanter at an Anvil and use it to open a menu with Enchanter,
 
 - Minecraft Bedrock Edition: The pack declares 1.26.50 as its minimum; this has not been confirmed in game.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

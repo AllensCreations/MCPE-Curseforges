@@ -51,7 +51,7 @@ The Loot Spawner is a craftable 1x1 block that accepts any single item as a temp
 
 - Minecraft Bedrock Edition: 1.21.0 or newer.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

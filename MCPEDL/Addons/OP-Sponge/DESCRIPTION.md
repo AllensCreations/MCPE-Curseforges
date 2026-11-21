@@ -52,7 +52,7 @@ Craft an OP Sponge, then combine it with a sponge book to make a Super Sponge or
 
 - Minecraft Bedrock Edition: Minimum version not verified.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

@@ -51,7 +51,7 @@ The host opens the Controller and presses Start. From then on, each item that dr
 
 - Minecraft Bedrock Edition: The Behavior Pack declares 1.26.60 as its minimum, and Minecraft's pack importer accepts it.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly. The optional recovery commands for giving the Controller and ending the game need cheats, and cheats disable achievements in that world.
+- Achievements: Yes, achievement-friendly. The optional recovery commands for giving the Controller and ending the game need cheats, and cheats disable achievements in that world.
 - Verification: Source created. Not tested in game.
 
 ## Creator and Permissions

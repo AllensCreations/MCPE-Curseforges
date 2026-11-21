@@ -48,7 +48,7 @@ Ever wished you could speed up survival gathering or XP grinding without bloated
 
 - Minecraft Bedrock Edition: Version 1.26.60 and above.
 - Experimental features: Beta APIs required for Bedrock scripting.
-- Achievements: Not achievement-friendly. Bedrock scripts require behavior packs that disable Xbox achievements.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created. Not tested in game.
 
 ## Creator and Permissions

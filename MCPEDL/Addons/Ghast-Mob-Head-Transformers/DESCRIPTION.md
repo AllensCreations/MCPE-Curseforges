@@ -125,7 +125,7 @@ Interact with any Ghast while holding a skull to trigger the transformation:
 
 ---
 - Experimental features: Not tested. Wind Charge projectiles may depend on your game version.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

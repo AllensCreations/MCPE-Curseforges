@@ -55,7 +55,7 @@ Craft a Padlock, rename it on an anvil, and use it on a supported block. The blo
 
 - Minecraft Bedrock Edition: 1.21.60 minimum
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

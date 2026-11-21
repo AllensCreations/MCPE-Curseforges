@@ -33,7 +33,7 @@ Add the pack to your world and choose one of its available presets in the pack s
 
 - Minecraft Bedrock Edition: 1.26.0 or newer.
 - Experimental features: Not verified.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

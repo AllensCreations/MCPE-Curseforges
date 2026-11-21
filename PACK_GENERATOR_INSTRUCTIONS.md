@@ -1,4 +1,4 @@
-# Pack Generator Instructions (AI Agent, v35)
+# Pack Generator Instructions (AI Agent, v36)
 
 
 Builds a complete **addon**, **map**, **script**, or **minigame** from the user's idea. Returns ONE Termux `.sh` pack script that carries the whole project inside it (as base64). No other file is delivered.
@@ -47,7 +47,7 @@ Achievements/experiments (every new pack, meaningful update):
 - Pack files NEVER establish an existing world's settings.
 - Nothing found: write "No experiment requirement detected in the inspected files."
 - Prefer stable implementation. NEVER silently weaken a feature to dodge an experiment.
-- Status: Add-ons (`MCPEDL/Addons/`) = ALWAYS `Likely achievement-friendly` (add-ons are achievement-friendly by Mojang's rules; keep cheat/world caveats). Other types: Likely achievement-friendly | Not achievement-friendly / may disable achievements | Unknown / needs confirmation.
+- Status: EVERY pack (add-on, map, script, minigame) = ALWAYS `Yes, achievement-friendly.` Every manifest carries `metadata.product_type` = `"addon"`, and the owner confirmed in game (ALN Pointer V20 `.mcaddon`) that a pack of that type keeps achievements allowed. Keep any cheat/command/world caveat as a following sentence. NEVER write Likely, Not or Unknown.
 - Admin commands (`give_controller`, `end_game`, setup functions) = optional recovery tools. Cheats disable achievements in that world: say so wherever documented.
 - Handoff: achievement status, experiments (none/required name/unknown), evidence, scope.
 
@@ -66,7 +66,7 @@ Implementation:
 
 - `header.description` contains `by ALNStudios` exactly once. NEVER attribution in title.
 - NEVER change pack UUIDs or world storage keys to rename a title. NEVER regenerate header UUIDs (breaks worlds).
-- Build sync: every processed project aligns all source manifests to one highest `X.Y.Z`: `header.version`, `metadata.version`, title suffix, module versions, same-project BP/RP deps. FORCES `metadata.authors` = `["ALNStudios"]` and `metadata.product_type` = `"addon"` in EVERY BP and RP manifest (new packs, updates, builds; NEVER another author or type), optional `metadata.license`. `product_type` is metadata only: the Bedrock Wiki says worlds with `"addon"` packs stopped keeping achievements enabled in 26.50 (MCPE-242529), so NEVER claim it guarantees achievements.
+- Build sync: every processed project aligns all source manifests to one highest `X.Y.Z`: `header.version`, `metadata.version`, title suffix, module versions, same-project BP/RP deps. FORCES `metadata.authors` = `["ALNStudios"]` and `metadata.product_type` = `"addon"` in EVERY BP and RP manifest (new packs, updates, builds; NEVER another author or type), optional `metadata.license`. `product_type` `"addon"` is what keeps achievements allowed (owner-confirmed in game). The Bedrock Wiki says Mojang removed this in game 26.50 (MCPE-242529): if a newer game version shows achievements disabled, report it, do not hide it.
 - Snapshots: `builds/<pack>/versions/V<X.Y.Z>/` (packages, `source.zip`, `source.sha256`, `build_info.json`). Refreshed when source/packages differ. Last 5 kept.
 - NOTHING auto-bumps. The new version is written in CHANGELOG.md AND, in the same update script, into every source manifest with `python3 scripts/manifest_tools.py --project <path> --set vX` (header.version, metadata.version, title suffix, module and dependency versions; UUIDs untouched; never lowers)
 , so every update changes the build. Publish to CurseForge uploads the newest changelog version as written and groups every entry since the last publish. The passive build (`Build Changed Packs & Sync Catalogs`) aligns each pack to its highest existing version and rebuilds. `--bump` / `AUTO_BUMP_MANIFEST=true` remain in `scripts/auto_bump_and_build.py` for manual use only.

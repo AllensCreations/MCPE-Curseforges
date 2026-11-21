@@ -35,7 +35,7 @@ Increase the spawn frequency and group sizes of supported vanilla mobs across th
 - Actual spawn counts depend on world conditions and the selected preset.
 - Minecraft Bedrock Edition: 1.26.0 or newer.
 - Experimental features: Not verified.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

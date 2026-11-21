@@ -302,7 +302,7 @@ TITLE = re.compile(r"^.+ \(v(\d+)\.(\d+)\.(\d+)\)$")
 ALLOWED = {".json", ".js", ".mcfunction", ".md", ".txt", ".lang", ".png", ".jpg", ".jpeg", ".tga", ".ogg"}
 BLOCKED = (".mcworld", ".mcpack", ".mcaddon", ".zip")
 MAX_FILES, MAX_FILE, MAX_TOTAL, ZIP_LIMIT = 500, 5 * 1024 * 1024, 25 * 1024 * 1024, 48000
-ACHIEVEMENT = ("likely achievement-friendly", "not achievement-friendly", "unknown / needs confirmation")
+ACHIEVEMENT = ("yes, achievement-friendly",)
 COMMON_REQUIRED = ("project.json", "README.md", "DESCRIPTION.md", "CHANGELOG.md", "behavior_pack/manifest.json")
 MAP_REQUIRED = ("resource_pack/manifest.json", "behavior_pack/functions/tick.json",
                 "behavior_pack/functions/void_cleaner.mcfunction", "behavior_pack/functions/oneblock_setup.mcfunction",
@@ -813,7 +813,7 @@ def run_checks(root, repo_root=None, folder=None):
         if "not tested in game" not in both:
             warns.append("DOC: README.md or DESCRIPTION.md should state: source created, not tested in game")
         if not any(a in both for a in ACHIEVEMENT):
-            warns.append("DOC: needs one achievement status line (Likely achievement-friendly / Not achievement-friendly / Unknown)")
+            warns.append("DOC: needs one achievement status line (Yes, achievement-friendly.)")
         if "experiment" not in both:
             warns.append("DOC: needs an experiments line (for example: No experiment requirement detected in the inspected files.)")
     for url in re.findall(r"https?://[^\s)>\]]+", rtext):

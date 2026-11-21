@@ -39,7 +39,7 @@ Use the Controller to start the roulette. Every 30 seconds by default, mobs clos
 
 - Minecraft Bedrock Edition: 1.26.0 or newer.
 - Experimental features: No experimental features required.
-- Achievements: Likely achievement-friendly; cheats or world settings may disable achievements.
+- Achievements: Yes, achievement-friendly. Cheats or world settings may disable achievements.
 - Verification: Source created, not tested in game.
 - Fuse explosions do not break blocks by default; turn on Block damage in the Controller to allow it.
 

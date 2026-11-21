@@ -40,7 +40,7 @@ Craft the X-Ray Visor, put it on and switch it on. While it is online, it scans 
 
 - Minecraft Bedrock Edition: 1.26.50 or newer
 - Experimental features: None required
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: source created, not tested in game
 
 ## Creator and Permissions

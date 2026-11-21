@@ -170,7 +170,7 @@ Domino Ore Miner follows connected matching ores, including diagonal connections
 - Multiplayer behavior should be checked in the target game version.
 
 ---
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

@@ -40,7 +40,7 @@ Hold a Lead, right-click a mob, and it follows you like a leashed Horse or Cow w
 
 - Minecraft Bedrock Edition: 1.26.50 is the minimum declared in the pack manifest; not independently verified.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

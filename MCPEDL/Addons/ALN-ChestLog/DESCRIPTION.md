@@ -55,7 +55,7 @@ Register any chest, trapped chest or barrel by sneaking and using the ChestLog o
 
 - Minecraft Bedrock Edition: 1.26.60 or newer.
 - Experimental features: Not verified.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

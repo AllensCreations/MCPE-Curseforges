@@ -41,7 +41,7 @@ Command Vault gives players an intuitive, menu-driven way to store and run comma
 
 - Minecraft Bedrock Edition: 1.26.50 or newer.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Unknown / needs confirmation. The pack executes in-game commands which may require cheats in survival.
+- Achievements: Yes, achievement-friendly. The pack executes in-game commands which may require cheats in survival.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

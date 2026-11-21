@@ -45,7 +45,7 @@ The host or an operator starts the shared inventory with the ALNStudios Controll
 
 - Minecraft Bedrock Edition: 1.26.40 or newer. Older versions were not checked.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly; world settings or cheats can disable achievements.
+- Achievements: Yes, achievement-friendly. World settings or cheats can disable achievements.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

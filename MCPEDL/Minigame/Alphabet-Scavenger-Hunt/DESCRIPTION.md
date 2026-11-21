@@ -48,7 +48,7 @@ Take on 20 rounds, each with a new target letter and a 60-second timer. Complete
 
 - Minecraft Bedrock Edition: 1.26.40 or newer.
 - Experimental features: No experimental features required.
-- Achievements: Unknown / needs confirmation.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

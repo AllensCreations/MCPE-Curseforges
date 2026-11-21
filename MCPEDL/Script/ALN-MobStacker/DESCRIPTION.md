@@ -55,7 +55,7 @@ Build a farm or grinder as usual. Mobs of the same kind that stand close togethe
 
 - Minecraft Bedrock Edition: 1.26.60.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly. No cheats or commands are needed.
+- Achievements: Yes, achievement-friendly. No cheats or commands are needed.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

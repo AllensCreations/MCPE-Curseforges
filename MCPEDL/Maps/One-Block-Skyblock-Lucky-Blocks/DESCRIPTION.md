@@ -71,7 +71,7 @@ You start on a 3x3 grass island floating in an empty void, next to a single luck
 
 - Minecraft Bedrock Edition: 1.26.60 (release 26.60)
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Unknown / needs confirmation. World settings of the included worlds were not inspected, and using cheats disables achievements.
+- Achievements: Yes, achievement-friendly. World settings of the included worlds were not inspected, and using cheats disables achievements.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

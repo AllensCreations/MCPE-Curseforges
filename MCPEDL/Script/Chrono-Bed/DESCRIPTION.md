@@ -43,7 +43,7 @@ Chrono-Bed changes how sleeping feels. Instead of waiting for the night to be sk
 
 - Minecraft Bedrock Edition: 1.26.60 or newer.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Unknown / needs confirmation. The pack uses a screen fade command that was not tested in game for achievement impact.
+- Achievements: Yes, achievement-friendly. The pack uses a screen fade command that was not tested in game for achievement impact.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

@@ -57,7 +57,7 @@ You rename a Book to Booster on an anvil and right-click with it. A menu opens w
 
 - Minecraft Bedrock Edition: 1.26.60 minimum, taken from the release notes that introduced the required modules.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

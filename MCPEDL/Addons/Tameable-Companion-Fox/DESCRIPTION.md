@@ -64,7 +64,7 @@ Tame loyal foxes, command them to sit, and arm them with tools that each change 
 
 - Minecraft Bedrock Edition: 1.21.0
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

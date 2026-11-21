@@ -45,7 +45,7 @@ Tame a parrot and keep it close. As you explore, mine, fight and sleep, the parr
 
 - Minecraft Bedrock Edition: Stable release; the minimum game version is still to be confirmed.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created. Not tested in game.
 
 ## Creator and Permissions

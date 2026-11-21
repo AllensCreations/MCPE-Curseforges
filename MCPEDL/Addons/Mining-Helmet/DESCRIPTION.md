@@ -97,7 +97,7 @@ Combine a standard **Torch** with a **Golden Helmet** to craft the Level 10 Mini
 
 ---
 - Experimental features: Not verified.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

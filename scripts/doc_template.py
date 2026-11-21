@@ -54,7 +54,17 @@ GUIDELINES = """## Guidelines and Attribution
 DESCRIPTION_SECTIONS = ("Overview", "Key Features", "How to Use", "Compatibility", "Creator and Permissions",
                         "Guidelines and Attribution", "Search & Discovery Keywords")
 COMPAT_LABELS = ("Minecraft Bedrock Edition", "Experimental features", "Achievements", "Verification")
-ACHIEVEMENT = ("likely achievement-friendly", "not achievement-friendly", "unknown / needs confirmation")
+ACHIEVEMENT = ("yes, achievement-friendly",)
+ACHIEVEMENT_YES = "Yes, achievement-friendly."
+_OLD_STATUS = re.compile(r"^(?:likely achievement-friendly|not achievement-friendly|unknown / needs confirmation|yes, achievement-friendly)[.;:]?\s*", re.I)
+
+
+def achievement_line(old=""):
+    """The one Achievements bullet every project uses. Keeps only an old sentence about cheats or commands."""
+    rest = _OLD_STATUS.sub("", re.sub(r"^- (?:\*\*)?Achievements(?:\*\*)?:\s*", "", old or "").strip()).strip()
+    keep = [s.strip() for s in re.split(r"(?<=[.])\s+", rest) if re.search(r"cheat|command", s, re.I)]
+    tail = " ".join(s[0].upper() + s[1:] for s in keep if s)
+    return "- Achievements: " + ACHIEVEMENT_YES + (" " + tail if tail else "")
 VERIFIED = ("source created", "package built", "in-game tested")
 KEYWORD_ANCHORS = ("Minecraft Bedrock add-on", "MCPEDL add-on", "CurseForge Bedrock", "ALNStudios")
 CHANGELOG_GROUPS = ("Added", "Improved & Balanced", "Fixed")
@@ -144,17 +154,16 @@ def apply_description_policy(text, addon=False):
     while insert_at < len(lines) and not lines[insert_at].strip():
         lines.pop(insert_at)
     lines[insert_at:insert_at] = ["", *DESCRIPTION_BADGES, ""]
-    if addon:
-        found = False
-        for i, line in enumerate(lines):
-            if re.match(r"^- (?:\*\*)?Achievements(?:\*\*)?:", line):
-                lines[i] = "- Achievements: Likely achievement-friendly."
-                found = True
-        if not found:
-            compatibility = next((i for i, line in enumerate(lines) if line.strip().lower() == "## compatibility"), None)
-            if compatibility is not None:
-                insert_at = next((i for i in range(compatibility + 1, len(lines)) if lines[i].startswith("## ")), len(lines))
-                lines.insert(insert_at, "- Achievements: Likely achievement-friendly.")
+    found = False
+    for i, line in enumerate(lines):
+        if re.match(r"^- (?:\*\*)?Achievements(?:\*\*)?:", line):
+            lines[i] = achievement_line(line)
+            found = True
+    if not found:
+        compatibility = next((i for i, line in enumerate(lines) if line.strip().lower() == "## compatibility"), None)
+        if compatibility is not None:
+            insert_at = next((i for i in range(compatibility + 1, len(lines)) if lines[i].startswith("## ")), len(lines))
+            lines.insert(insert_at, achievement_line())
     return apply_listing_images("\n".join(lines))
 
 
@@ -283,10 +292,8 @@ def check_description(text, version, errors, ptype="addon", images_dir=None):
         errors.append(f"DOC: {n} '## Compatibility' must be exactly four bullets, in this order: " + ", ".join(f"'- {l}: ...'" for l in COMPAT_LABELS) + ".")
     else:
         ach, ver = found[2][1].lower(), found[3][1].lower()
-        if not any(a in ach for a in ACHIEVEMENT):
-            errors.append(f"DOC: {n} the Achievements line must use one of: Likely achievement-friendly, Not achievement-friendly, Unknown / needs confirmation.")
-        if ptype == "addon" and not ach.startswith("likely achievement-friendly"):
-            errors.append(f"DOC: {n} add-on Achievements must start with 'Likely achievement-friendly'.")
+        if not ach.startswith(ACHIEVEMENT[0]):
+            errors.append(f"DOC: {n} the Achievements line must start with '{ACHIEVEMENT_YES}' (every pack is an add-on type).")
         if not any(ver.startswith(v) for v in VERIFIED):
             errors.append(f"DOC: {n} the Verification line must start with 'Source created', 'Package built', or 'In-game tested'.")
     creators = body["Creator and Permissions"]
@@ -392,7 +399,7 @@ def check_docs(root, ptype, images_dir=None):
 def compliant_docs(ptype, name, version, ext=None, date="2026-01-01"):
     ext = ext or {"addon": "mcaddon", "map": "mcworld", "script": "mcpack", "minigame": "mcaddon"}.get(ptype, "mcaddon")
     cards = "\n".join(f"### Feature {i}\n- **What Happens**: Players can use feature {i} in the world.\n" for i in range(1, 9))
-    achievement = "Likely achievement-friendly." if ptype == "addon" else "Unknown / needs confirmation."
+    achievement = ACHIEVEMENT_YES
     description = (f"# {name} — A clear factual subtitle\n\n**By ALNStudios**\n\n"
                    f"{DESCRIPTION_BADGES[0]}\n{DESCRIPTION_BADGES[1]}\n\n"
                    f"**A short player-facing tagline.**\n\n> A concise, factual pitch explains what players can do and what makes the experience distinct.\n\n"

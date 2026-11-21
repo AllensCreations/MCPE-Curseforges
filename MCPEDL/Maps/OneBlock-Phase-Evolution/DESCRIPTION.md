@@ -48,7 +48,7 @@ Break the single block at the center of the island. Each successful player break
 
 - Minecraft Bedrock Edition: 1.26.50 or newer.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Unknown / needs confirmation.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions
