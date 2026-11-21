@@ -58,12 +58,13 @@ function getRarity(typeId) {
   return "common";
 }
 
-function blockKey(loc) {
-  return `${loc.x}:${loc.y}:${loc.z}:${loc.dimension.id}`;
+function blockKey(block) {
+  const loc = block.location;
+  return `${loc.x}:${loc.y}:${loc.z}:${block.dimension.id}`;
 }
 
 function getSpawnerData(block) {
-  const key = blockKey(block.location);
+  const key = blockKey(block);
   try {
     const raw = world.getDynamicProperty(`${PROP_ITEM}_${key}`);
     if (typeof raw !== "string" || !raw) return null;
@@ -80,7 +81,7 @@ function getSpawnerData(block) {
 }
 
 function setSpawnerData(block, itemId, rarity, ticksLeft) {
-  const key = blockKey(block.location);
+  const key = blockKey(block);
   try {
     world.setDynamicProperty(`${PROP_ITEM}_${key}`, itemId);
     world.setDynamicProperty(`${PROP_TYPE}_${key}`, rarity);
@@ -89,7 +90,7 @@ function setSpawnerData(block, itemId, rarity, ticksLeft) {
 }
 
 function clearSpawnerData(block) {
-  const key = blockKey(block.location);
+  const key = blockKey(block);
   try {
     world.setDynamicProperty(`${PROP_ITEM}_${key}`, "");
     world.setDynamicProperty(`${PROP_TYPE}_${key}`, "");
@@ -250,7 +251,7 @@ system.runInterval(() => {
         if (!blocks) continue;
         for (const block of blocks) {
           if (!block || block.typeId !== BLOCK_ID) continue;
-          const key = blockKey(block.location);
+          const key = blockKey(block);
           const data = getSpawnerData(block);
           if (!data || !data.itemId) { activeBlocks.delete(key); continue; }
           let ticksLeft = data.ticksLeft - 1;

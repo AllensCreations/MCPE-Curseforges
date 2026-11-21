@@ -2,6 +2,12 @@
 
 ---
 
+## [1.0.2] - 2026-11-22 - Bug Fixes: Render Method and Script Crash
+
+### Fixed
+- **MaterialInstances render conflict**: All material instances now use "alpha_test" uniformly. Bedrock rejects any block where named instances mix opaque and alpha_test, causing a component error and warning on load.
+- **Script crash in tick loop**: blockKey received block.location (a plain Vector3 with no dimension property) instead of the Block object. All four call sites now pass the Block directly so dimension.id resolves correctly.
+
 ## [1.0.1] - 2026-11-22 - Bug Fixes: Block Definition and Render Method
 
 ### Fixed

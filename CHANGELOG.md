@@ -31,6 +31,11 @@
 
 ---
 
+## [v207] - 2026-11-22 - ALN:LootSpawner v1.0.2 Render and Script Fixes
+
+### Fixed
+- **ALN:LootSpawner**: Unified all material instance render methods to alpha_test; fixed TypeError crash from blockKey reading dimension off a plain Vector3.
+
 ## [v206] - 2026-11-22 - ALN:LootSpawner Bug Fixes v1.0.1
 
 ### Fixed
