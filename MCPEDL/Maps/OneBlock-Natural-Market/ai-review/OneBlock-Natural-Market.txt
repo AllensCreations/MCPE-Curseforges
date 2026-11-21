@@ -164,19 +164,19 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/manifest.json (66 lines, 1175 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/manifest.json (66 lines, 1179 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v14)",
+    "name": "OneBlock Natural Market (v14.0.1)",
     "description": "OneBlock survival with a progression market and regenerating core. by ALNStudios",
     "uuid": "77f07d1a-fa7a-437d-8fea-72068be05162",
     "version": [
       14,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -191,7 +191,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "version": [
         14,
         0,
-        0
+        1
       ]
     },
     {
@@ -201,7 +201,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "version": [
         14,
         0,
-        0
+        1
       ],
       "entry": "scripts/main.js"
     }
@@ -212,7 +212,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "version": [
         14,
         0,
-        0
+        1
       ]
     },
     {
@@ -229,12 +229,12 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "14.0.0"
+    "version": "14.0.1"
   }
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (668 lines, 36701 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (685 lines, 37646 bytes)
 
 ```
 import { world, system, ItemStack, ItemTypes } from "@minecraft/server";
@@ -833,7 +833,8 @@ world.afterEvents.itemUse.subscribe(event => {
     system.run(() => marketMain(player));
   }
 });
-world.afterEvents.itemThrow.subscribe(event => {
+if (!world.afterEvents.itemThrow) log("WARN", "itemThrow event is not available in this API version; using the dropped-item scan for the Ledger instead.");
+world.afterEvents.itemThrow?.subscribe(event => {
   if (event.itemStack?.typeId !== LEDGER) return;
   const player = event.source;
   if (!player || player.typeId !== "minecraft:player") return;
@@ -904,14 +905,35 @@ system.runInterval(() => {
 }, 40);
 system.runInterval(rescuePhased, 5);
 system.run(() => log("INFO", "Script started and handlers registered. Debug chat: /tag @s add obm_debug. Status: /scriptevent allenscreations:obm_status"));
+system.runInterval(() => {
+  try {
+    for (const entity of world.getDimension("overworld").getEntities({ type: "minecraft:item" })) {
+      try {
+        if (entity.getComponent("minecraft:item")?.itemStack?.typeId !== LEDGER) continue;
+        const owner = world.getAllPlayers().find(p => p.dimension.id === "minecraft:overworld" && !hasLedger(p) && Math.hypot(p.location.x - entity.location.x, p.location.y - entity.location.y, p.location.z - entity.location.z) < 24);
+        if (!owner) continue;
+        const inv = inventoryOf(owner);
+        if (!inv) continue;
+        entity.kill();
+        inv.addItem(new ItemStack(LEDGER, 1));
+        tell(owner, "The Ledger returned to your inventory.");
+      } catch {}
+    }
+  } catch (e) { logError("ledger return scan", e); }
+}, 20);
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (111 lines, 6840 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (116 lines, 7192 bytes)
 
 ```
 # Changelog — OneBlock Natural Market
 
 ---
+
+## [14.0.1] - 2026-11-21 - Startup Crash Fix
+
+### Fixed
+- Fixed the map script stopping at startup with "cannot read property 'subscribe' of undefined". The Ledger throw event is not available in the game's script version, so it was replaced with a scan that returns a dropped Ledger to its owner. The market, core regeneration and rewards run again.
 
 ## [14.0.0] - 2026-11-21 - Inventory Icons And Core Height
 
@@ -1138,19 +1160,19 @@ Download the current release of **OneBlock Natural Market** for Minecraft Bedroc
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Natural-Market/DESCRIPTION.md).
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/manifest.json (37 lines, 629 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/manifest.json (37 lines, 633 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v14)",
+    "name": "OneBlock Natural Market (v14.0.1)",
     "description": "Trader Ledger icon for OneBlock Natural Market. by ALNStudios",
     "uuid": "187333a6-4353-4003-b379-471f85ce9021",
     "version": [
       14,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -1165,7 +1187,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "version": [
         14,
         0,
-        0
+        1
       ]
     }
   ],
@@ -1174,7 +1196,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "14.0.0"
+    "version": "14.0.1"
   }
 }
 ```
