@@ -8,7 +8,7 @@ This folder contains compiled release packages for **ALNLootSpawner (Arcane Reli
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`ALNLootSpawnerArcaneRelicDuplicator V1.mcaddon`** | `.mcaddon` | ~10 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNLootSpawner-Arcane-Relic-Duplicator/ALNLootSpawnerArcaneRelicDuplicator%20V1.mcaddon) |
+| **`ALNLootSpawnerArcaneRelicDuplicator V1.0.1.mcaddon`** | `.mcaddon` | ~10 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNLootSpawner-Arcane-Relic-Duplicator/ALNLootSpawnerArcaneRelicDuplicator%20V1.0.1.mcaddon) |
 
 ---
 

@@ -77,7 +77,7 @@ Output ONLY these three sections in order:
 
 ## File Contents
 
-## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/behavior_pack/blocks/loot_spawner.json (57 lines, 1530 bytes)
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/behavior_pack/blocks/loot_spawner.json (57 lines, 1525 bytes)
 
 ```
 {
@@ -87,7 +87,7 @@ Output ONLY these three sections in order:
       "identifier": "aln:loot_spawner",
       "menu_category": {
         "category": "construction",
-        "group": "minecraft:itemGroup.name.decorative"
+        "group": "itemGroup.name.decorative"
       }
     },
     "components": {
@@ -111,7 +111,7 @@ Output ONLY these three sections in order:
         },
         "glass": {
           "texture": "aln_loot_spawner_glass",
-          "render_method": "blend",
+          "render_method": "alpha_test",
           "face_dimming": false,
           "ambient_occlusion": false
         },
@@ -158,19 +158,19 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/behavior_pack/manifest.json (66 lines, 1131 bytes)
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/behavior_pack/manifest.json (66 lines, 1135 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:LootSpawner (v1)",
+    "name": "ALN:LootSpawner (v1.0.1)",
     "description": "Arcane Relic Duplicator Display Cage. by ALNStudios",
     "uuid": "168d9162-4f4a-4dda-a2c8-a550e2b9ad41",
     "version": [
       1,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -185,7 +185,7 @@ Output ONLY these three sections in order:
       "version": [
         1,
         0,
-        0
+        1
       ]
     },
     {
@@ -195,7 +195,7 @@ Output ONLY these three sections in order:
       "version": [
         1,
         0,
-        0
+        1
       ],
       "entry": "scripts/main.js"
     }
@@ -206,7 +206,7 @@ Output ONLY these three sections in order:
       "version": [
         1,
         0,
-        0
+        1
       ]
     },
     {
@@ -219,7 +219,7 @@ Output ONLY these three sections in order:
     }
   ],
   "metadata": {
-    "version": "1.0.0",
+    "version": "1.0.1",
     "authors": [
       "ALNStudios"
     ],
@@ -550,12 +550,20 @@ system.runInterval(() => {
 }, 1);
 ```
 
-## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/CHANGELOG.md (18 lines, 1270 bytes)
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/CHANGELOG.md (26 lines, 2020 bytes)
 
 ```
 # Changelog — ALN:LootSpawner (Arcane Relic Duplicator)
 
 ---
+
+## [1.0.1] - 2026-11-22 - Bug Fixes: Block Definition and Render Method
+
+### Fixed
+- **Block definition parse error**: Removed the invalid "minecraft:" namespace prefix from menu_category group; corrected to "itemGroup.name.decorative".
+- **Recipe cascade fix**: The recipe result error was caused by the block failing to register; fixing the block definition resolves it automatically.
+- **Glass render method conflict**: Changed the glass material instance from "blend" to "alpha_test" so it no longer conflicts with the opaque wildcard instance.
+- **blocks.json registry warning**: Removed the redundant custom block entry from the RP blocks.json; texture routing for custom-geometry blocks uses material_instances and terrain_texture.json only.
 
 ## [1.0.0] - 2026-11-21 - First Release
 
@@ -666,7 +674,7 @@ Minecraft Bedrock add-on, ALN LootSpawner Bedrock mod, MCPEDL add-on, CurseForge
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/README.md (19 lines, 940 bytes)
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/README.md (19 lines, 944 bytes)
 
 ```
 # ALNLootSpawner (Arcane Relic Duplicator)
@@ -676,7 +684,7 @@ Download the current release of **ALNLootSpawner (Arcane Relic Duplicator)** for
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNLootSpawner (Arcane Relic Duplicator) (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNLootSpawner-Arcane-Relic-Duplicator/ALNLootSpawnerArcaneRelicDuplicator%20V1.mcaddon)
+- **Direct download:** [Download ALNLootSpawner (Arcane Relic Duplicator) (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNLootSpawner-Arcane-Relic-Duplicator/ALNLootSpawnerArcaneRelicDuplicator%20V1.0.1.mcaddon)
 
 ## Installation
 
@@ -689,35 +697,27 @@ Download the current release of **ALNLootSpawner (Arcane Relic Duplicator)** for
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/DESCRIPTION.md).
 ```
 
-## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/blocks.json (12 lines, 227 bytes)
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/blocks.json (4 lines, 32 bytes)
 
 ```
 {
-  "format_version": "1.1.0",
-  "aln:loot_spawner": {
-    "sound": "stone",
-    "textures": {
-      "frame": "aln_loot_spawner_frame",
-      "glass": "aln_loot_spawner_glass",
-      "core": "aln_loot_spawner_core"
-    }
-  }
+  "format_version": "1.1.0"
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/manifest.json (37 lines, 606 bytes)
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/manifest.json (37 lines, 610 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:LootSpawner (v1)",
+    "name": "ALN:LootSpawner (v1.0.1)",
     "description": "Arcane Relic Duplicator Display Cage. by ALNStudios",
     "uuid": "1390b986-3030-4eee-a94b-1bd5ea7f88dd",
     "version": [
       1,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -732,12 +732,12 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "version": [
         1,
         0,
-        0
+        1
       ]
     }
   ],
   "metadata": {
-    "version": "1.0.0",
+    "version": "1.0.1",
     "authors": [
       "ALNStudios"
     ],
