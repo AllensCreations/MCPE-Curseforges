@@ -2,6 +2,12 @@
 
 ---
 
+## [v8] - 2026-11-21 - Apply Sounds
+
+### Improved & Balanced
+
+- **Apply sounds**: Pressing Apply now plays a higher sound when the boosters are on and a lower sound when they are off.
+
 ## [v7] - 2026-11-20 - No Booster Limit
 
 ### Improved & Balanced

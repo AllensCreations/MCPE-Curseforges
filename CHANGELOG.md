@@ -1,3 +1,7 @@
+## [v8] - 2026-11-21 - [Apply Sounds]
+
+- 2-in-1 Loot & XP Booster: Apply now plays a higher sound when the boosters are on and a lower sound when they are off.
+
 ## [v19] - 2026-11-20 - ALN-Pointer Aimbot Mob Types
 
 - ALN-Pointer: Bow Aimbot mob type choices and Elder Guardian aim fix.

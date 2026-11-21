@@ -2,12 +2,15 @@ import { world, system, EntityComponentTypes, CommandPermissionLevel, CustomComm
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
 const PACK_NAME = "2-in-1 Loot & XP Booster";
-const VERSION = "7";
+const VERSION = "8";
 const TITLE = `§l§6@ALNStudios §e${PACK_NAME}§r (v${VERSION})`;
 const ABOUT_TITLE = "About ALNStudios";
 const ICON_MAIN = "textures/items/experience_bottle";
 const ICON_ABOUT = "textures/items/name_tag";
 const ICON_EXIT = "textures/items/door_wood";
+const SOUND_ID = "random.orb";
+const SOUND_ON = { pitch: 1.4, volume: 1 };
+const SOUND_OFF = { pitch: 0.6, volume: 1 };
 const LOOT_LEVELS = [1, 2, 4, 8, 16, 32];
 const XP_LEVELS = [1, 2, 4, 8, 16, 32, 64];
 const LOOT_KEY = "aln_loot_index";
@@ -212,7 +215,7 @@ async function boosterScreen(player) {
   player.setDynamicProperty(CROPS_KEY, switches[2]);
   player.setDynamicProperty(MOBS_KEY, switches[3]);
   boosts.set(player.id, { loot: lootIndex, xp: xpIndex, on, ores: switches[1], crops: switches[2], mobs: switches[3] });
-  player.playSound("random.orb");
+  player.playSound(SOUND_ID, on ? SOUND_ON : SOUND_OFF);
   return undefined;
 }
 

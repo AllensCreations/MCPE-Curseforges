@@ -46,7 +46,7 @@ You rename a Book to Booster on an anvil and right-click with it. A menu opens w
 
 1. Rename a Book to Booster on an anvil.
 2. Hold it and right-click, then choose XP & Loot Booster.
-3. Drag the Loot and XP sliders, switch Boosters on or off, choose whether Ores, Crops and Mobs are boosted, press Apply.
+3. Drag the Loot and XP sliders, switch Boosters on or off, choose whether Ores, Crops and Mobs are boosted and press Apply. A higher sound means the boosters are on and a lower sound means they are off.
 
 ## Common Questions
 
