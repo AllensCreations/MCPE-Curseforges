@@ -1,0 +1,35 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:portal_door_book"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "OEO",
+      "OXO",
+      "OEO"
+    ],
+    "key": {
+      "O": {
+        "item": "minecraft:obsidian"
+      },
+      "E": {
+        "item": "minecraft:ender_pearl"
+      },
+      "X": {
+        "item": "minecraft:enchanted_book"
+      }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ],
+    "result": {
+      "item": "aln:portal_door"
+    }
+  }
+}

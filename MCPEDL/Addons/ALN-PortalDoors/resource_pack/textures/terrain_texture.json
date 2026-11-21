@@ -1,0 +1,10 @@
+{
+  "texture_data": {
+    "aln_portal_door": {
+      "textures": "textures/blocks/aln_portal_door"
+    },
+    "aln_portal_door_top": {
+      "textures": "textures/blocks/aln_portal_door_top"
+    }
+  }
+}

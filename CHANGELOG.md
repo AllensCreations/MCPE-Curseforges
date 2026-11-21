@@ -31,6 +31,11 @@
 
 ---
 
+## 2026-11-21 - New Addon ALN PortalDoors
+
+### Added
+- **ALN PortalDoors**: New addon project created from a pack script.
+
 ## [v198] - 2026-11-21 - Core Height Fix
 
 ### Fixed
