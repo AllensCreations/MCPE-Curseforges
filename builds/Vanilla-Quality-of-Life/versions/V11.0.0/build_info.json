@@ -1,0 +1,8 @@
+{
+  "changelog_version": "11.0.0",
+  "manifest_version": "11.0.0",
+  "packages": {
+    "VanillaQoL V11.mcaddon": "6afa1ba32e48fafb202e09e73513aa3f7722e2600d9148e64f51e2b8a3cbed30"
+  },
+  "source_sha256": "e26221c4e222fa57a0a4b363352a2a83d19146bc06c2755af6707affb5eff8a1"
+}

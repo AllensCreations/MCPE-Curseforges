@@ -16,8 +16,8 @@
 
 - **Export request:** `MCPEDL/Addons/Vanilla-Quality-of-Life`
 - **Destination:** `MCPEDL/Addons/Vanilla-Quality-of-Life`
-- **CURRENT VERSION: v10 / NEXT UPDATE: v11**  (`MCPEDL/Addons/Vanilla-Quality-of-Life/CHANGELOG.md`)
-- **Text files:** 462
+- **CURRENT VERSION: v11 / NEXT UPDATE: v12**  (`MCPEDL/Addons/Vanilla-Quality-of-Life/CHANGELOG.md`)
+- **Text files:** 450
 - **Skipped binary:** 5
 - **Paths not found:** 0
 
@@ -125,18 +125,6 @@
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/zombie_pigman.json`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/zombie_villager.json`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/zombie_villager_v2.json`
-- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/clock.json`
-- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/compass.json`
-- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/lantern.json`
-- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/lingering_potion.json`
-- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/milk_bucket.json`
-- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/potion.json`
-- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/recovery_compass.json`
-- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/redstone_torch.json`
-- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/soul_lantern.json`
-- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/soul_torch.json`
-- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/splash_potion.json`
-- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/torch.json`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/loot_tables/entities/creeper.json`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/loot_tables/entities/ender_dragon.json`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/loot_tables/entities/piglin.json`
@@ -503,7 +491,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v10 / NEXT UPDATE: v11).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v11 / NEXT UPDATE: v12).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -537,7 +525,7 @@ Output ONLY these three sections in order:
 
 ## File Contents
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/allay.json (287 lines, 7252 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/allay.json (291 lines, 7319 bytes)
 
 ```
 {
@@ -734,9 +722,13 @@ Output ONLY these three sections in order:
       "minecraft:is_hidden_when_invisible": {},
       "minecraft:jump.static": {},
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {},
       "minecraft:movement": {
@@ -829,7 +821,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/armadillo.json (828 lines, 22616 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/armadillo.json (832 lines, 22683 bytes)
 
 ```
 {
@@ -885,9 +877,13 @@ Output ONLY these three sections in order:
       "minecraft:nameable": {},
       "minecraft:balloonable": {},
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:pushable_by_entity": {},
       "minecraft:pushable_by_block": {},
@@ -1662,7 +1658,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/armor_stand.json (62 lines, 1513 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/armor_stand.json (66 lines, 1580 bytes)
 
 ```
 {
@@ -1718,9 +1714,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -1729,7 +1729,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/axolotl.json (574 lines, 14300 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/axolotl.json (578 lines, 14367 bytes)
 
 ```
 {
@@ -1976,9 +1976,13 @@ Output ONLY these three sections in order:
       "minecraft:pushable_by_entity": {},
       "minecraft:pushable_by_block": {},
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:despawn": {
         "despawn_from_distance": {}
@@ -2308,7 +2312,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/bat.json (94 lines, 2296 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/bat.json (98 lines, 2363 bytes)
 
 ```
 {
@@ -2396,9 +2400,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -2407,7 +2415,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/bee.json (1179 lines, 30148 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/bee.json (1183 lines, 30215 bytes)
 
 ```
 {
@@ -3011,9 +3019,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:balloonable": {
         "mass": 0.5
@@ -3591,7 +3603,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/blaze.json (218 lines, 5308 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/blaze.json (222 lines, 5375 bytes)
 
 ```
 {
@@ -3720,9 +3732,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -3814,7 +3830,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/boat.json (408 lines, 11992 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/boat.json (412 lines, 12059 bytes)
 
 ```
 {
@@ -3913,9 +3929,13 @@ Output ONLY these three sections in order:
       "minecraft:is_collidable": {},
       "minecraft:is_stackable": {},
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {},
       "minecraft:loot": {
@@ -4227,7 +4247,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/bogged.json (747 lines, 19621 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/bogged.json (751 lines, 19688 bytes)
 
 ```
 {
@@ -4735,9 +4755,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -4979,7 +5003,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/breeze.json (455 lines, 11912 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/breeze.json (459 lines, 11979 bytes)
 
 ```
 {
@@ -5407,9 +5431,13 @@ Output ONLY these three sections in order:
       },
       "minecraft:uses_legacy_friction": {},
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -5439,7 +5467,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/camel.json (553 lines, 14916 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/camel.json (557 lines, 14983 bytes)
 
 ```
 {
@@ -5749,9 +5777,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:balloonable": {},
       "minecraft:type_family": {
@@ -5997,7 +6029,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/camel_husk.json (520 lines, 14404 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/camel_husk.json (524 lines, 14471 bytes)
 
 ```
 {
@@ -6202,9 +6234,13 @@ Output ONLY these three sections in order:
         "jump_prevented_value": 0.5625
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -6522,7 +6558,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/cat.json (851 lines, 21330 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/cat.json (855 lines, 21394 bytes)
 
 ```
 {
@@ -6761,7 +6797,7 @@ Output ONLY these three sections in order:
         "minecraft:damage_sensor": {
           "triggers": [
             {
-              "deals_damage": false,
+              "deals_damage": "no",
               "on_damage": {
                 "filters": {
                   "test": "is_family",
@@ -6772,11 +6808,11 @@ Output ONLY these three sections in order:
             },
             {
               "cause": "entity_explosion",
-              "deals_damage": false
+              "deals_damage": "no"
             },
             {
               "cause": "block_explosion",
-              "deals_damage": false
+              "deals_damage": "no"
             }
           ]
         }
@@ -6900,9 +6936,13 @@ Output ONLY these three sections in order:
       },
       "minecraft:spawn_egg_interaction": {},
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:balloonable": {
         "mass": 0.6
@@ -7378,7 +7418,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/cave_spider.json (706 lines, 17682 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/cave_spider.json (710 lines, 17749 bytes)
 
 ```
 {
@@ -7524,9 +7564,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -8089,7 +8133,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/chest_boat.json (346 lines, 9775 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/chest_boat.json (350 lines, 9842 bytes)
 
 ```
 {
@@ -8193,9 +8237,13 @@ Output ONLY these three sections in order:
       "minecraft:is_collidable": {},
       "minecraft:is_stackable": {},
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {},
       "minecraft:physics": {},
@@ -8440,7 +8488,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/chest_minecart.json (72 lines, 1855 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/chest_minecart.json (76 lines, 1922 bytes)
 
 ```
 {
@@ -8506,9 +8554,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -8517,7 +8569,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/chicken.json (401 lines, 10392 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/chicken.json (405 lines, 10459 bytes)
 
 ```
 {
@@ -8755,9 +8807,13 @@ Output ONLY these three sections in order:
         }
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:balloonable": {
         "mass": 0.5
@@ -8923,7 +8979,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/command_block_minecart.json (125 lines, 3315 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/command_block_minecart.json (129 lines, 3382 bytes)
 
 ```
 {
@@ -8984,9 +9040,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -9053,7 +9113,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/copper_golem.json (813 lines, 22410 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/copper_golem.json (817 lines, 22477 bytes)
 
 ```
 {
@@ -9422,9 +9482,13 @@ Output ONLY these three sections in order:
       "minecraft:is_hidden_when_invisible": {},
       "minecraft:jump.static": {},
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {},
       "minecraft:loot": {
@@ -9871,7 +9935,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/cow.json (341 lines, 8567 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/cow.json (345 lines, 8634 bytes)
 
 ```
 {
@@ -10106,9 +10170,13 @@ Output ONLY these three sections in order:
         "priority": 9
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:balloonable": {},
       "minecraft:physics": {},
@@ -10217,7 +10285,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/creaking.json (689 lines, 19422 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/creaking.json (693 lines, 19489 bytes)
 
 ```
 {
@@ -10291,9 +10359,13 @@ Output ONLY these three sections in order:
         "jump_prevented_value": 0.5625
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -10911,7 +10983,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/creeper.json (356 lines, 9243 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/creeper.json (360 lines, 9310 bytes)
 
 ```
 {
@@ -11142,9 +11214,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -11272,7 +11348,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/cushion.json (61 lines, 1393 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/cushion.json (65 lines, 1460 bytes)
 
 ```
 {
@@ -11328,9 +11404,13 @@ Output ONLY these three sections in order:
       },
       "minecraft:conditional_bandwidth_optimization": {},
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     }
@@ -11338,7 +11418,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/dolphin.json (490 lines, 12318 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/dolphin.json (494 lines, 12385 bytes)
 
 ```
 {
@@ -11700,9 +11780,13 @@ Output ONLY these three sections in order:
       "minecraft:pushable_by_entity": {},
       "minecraft:pushable_by_block": {},
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:balloonable": {
         "mass": 0.4
@@ -11833,7 +11917,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/donkey.json (779 lines, 21199 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/donkey.json (783 lines, 21263 bytes)
 
 ```
 {
@@ -12131,7 +12215,7 @@ Output ONLY these three sections in order:
         "minecraft:damage_sensor": {
           "triggers": [
             {
-              "deals_damage": false,
+              "deals_damage": "no",
               "on_damage": {
                 "filters": {
                   "test": "is_family",
@@ -12142,11 +12226,11 @@ Output ONLY these three sections in order:
             },
             {
               "cause": "entity_explosion",
-              "deals_damage": false
+              "deals_damage": "no"
             },
             {
               "cause": "block_explosion",
-              "deals_damage": false
+              "deals_damage": "no"
             }
           ]
         }
@@ -12392,9 +12476,13 @@ Output ONLY these three sections in order:
         "value": 0.5
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:balloonable": {},
       "minecraft:healable": {
@@ -12617,7 +12705,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/drowned.json (916 lines, 24587 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/drowned.json (920 lines, 24654 bytes)
 
 ```
 {
@@ -13154,9 +13242,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -13538,7 +13630,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/elder_guardian.json (175 lines, 4632 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/elder_guardian.json (179 lines, 4699 bytes)
 
 ```
 {
@@ -13707,9 +13799,13 @@ Output ONLY these three sections in order:
       },
       "minecraft:uses_legacy_friction": {},
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -13718,7 +13814,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/ender_crystal.json (60 lines, 1405 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/ender_crystal.json (64 lines, 1472 bytes)
 
 ```
 {
@@ -13752,9 +13848,13 @@ Output ONLY these three sections in order:
         "is_pushable_by_piston": true
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -13948,7 +14048,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/enderman.json (364 lines, 8975 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/enderman.json (368 lines, 9042 bytes)
 
 ```
 {
@@ -14248,9 +14348,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -14317,7 +14421,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/endermite.json (132 lines, 3464 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/endermite.json (136 lines, 3531 bytes)
 
 ```
 {
@@ -14443,9 +14547,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -14454,7 +14562,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/evocation_illager.json (469 lines, 12657 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/evocation_illager.json (473 lines, 12724 bytes)
 
 ```
 {
@@ -14814,9 +14922,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -14928,7 +15040,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/fireworks_rocket.json (40 lines, 994 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/fireworks_rocket.json (44 lines, 1061 bytes)
 
 ```
 {
@@ -14962,9 +15074,13 @@ Output ONLY these three sections in order:
       "minecraft:pushable_by_entity": {},
       "minecraft:pushable_by_block": {},
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -14973,7 +15089,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/fish.json (164 lines, 4214 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/fish.json (168 lines, 4281 bytes)
 
 ```
 {
@@ -15131,9 +15247,13 @@ Output ONLY these three sections in order:
         "value": 0.1
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -15142,7 +15262,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/fox.json (964 lines, 25395 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/fox.json (968 lines, 25462 bytes)
 
 ```
 {
@@ -15845,9 +15965,13 @@ Output ONLY these three sections in order:
         "priority": 15
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:balloonable": {
         "mass": 0.6
@@ -16111,7 +16235,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/frog.json (603 lines, 15512 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/frog.json (607 lines, 15579 bytes)
 
 ```
 {
@@ -16334,9 +16458,13 @@ Output ONLY these three sections in order:
       "minecraft:is_hidden_when_invisible": {},
       "minecraft:jump.static": {},
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {},
       "minecraft:movement": {
@@ -16719,7 +16847,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/ghast.json (131 lines, 3335 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/ghast.json (135 lines, 3402 bytes)
 
 ```
 {
@@ -16844,9 +16972,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -16855,7 +16987,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/glow_squid.json (169 lines, 4124 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/glow_squid.json (173 lines, 4191 bytes)
 
 ```
 {
@@ -16922,9 +17054,13 @@ Output ONLY these three sections in order:
       "minecraft:is_hidden_when_invisible": {},
       "minecraft:jump.static": {},
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:loot": {
         "table": "loot_tables/entities/glow_squid.json"
@@ -17029,7 +17165,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/goat.json (463 lines, 11801 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/goat.json (467 lines, 11868 bytes)
 
 ```
 {
@@ -17410,9 +17546,13 @@ Output ONLY these three sections in order:
         "priority": 11
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:balloonable": {},
       "minecraft:physics": {},
@@ -17497,7 +17637,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/guardian.json (295 lines, 7726 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/guardian.json (299 lines, 7793 bytes)
 
 ```
 {
@@ -17678,9 +17818,13 @@ Output ONLY these three sections in order:
       },
       "minecraft:uses_legacy_friction": {},
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -17797,7 +17941,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/happy_ghast.json (932 lines, 27061 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/happy_ghast.json (936 lines, 27128 bytes)
 
 ```
 {
@@ -17838,9 +17982,13 @@ Output ONLY these three sections in order:
       },
       "minecraft:is_tamed": {},
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:nameable": {},
       "minecraft:offspring": {
@@ -18734,7 +18882,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/hoglin.json (562 lines, 13775 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/hoglin.json (566 lines, 13842 bytes)
 
 ```
 {
@@ -19151,9 +19299,13 @@ Output ONLY these three sections in order:
         "width": 0.6
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:despawn": {
         "despawn_from_distance": {}
@@ -19301,7 +19453,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/hopper_minecart.json (121 lines, 2985 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/hopper_minecart.json (125 lines, 3052 bytes)
 
 ```
 {
@@ -19367,9 +19519,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -19427,7 +19583,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/horse.json (931 lines, 24055 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/horse.json (935 lines, 24119 bytes)
 
 ```
 {
@@ -19786,7 +19942,7 @@ Output ONLY these three sections in order:
         "minecraft:damage_sensor": {
           "triggers": [
             {
-              "deals_damage": false,
+              "deals_damage": "no",
               "on_damage": {
                 "filters": {
                   "test": "is_family",
@@ -19797,11 +19953,11 @@ Output ONLY these three sections in order:
             },
             {
               "cause": "entity_explosion",
-              "deals_damage": false
+              "deals_damage": "no"
             },
             {
               "cause": "block_explosion",
-              "deals_damage": false
+              "deals_damage": "no"
             }
           ]
         }
@@ -19995,9 +20151,13 @@ Output ONLY these three sections in order:
         }
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:balloonable": {},
       "minecraft:healable": {
@@ -20363,7 +20523,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/husk.json (981 lines, 26362 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/husk.json (985 lines, 26429 bytes)
 
 ```
 {
@@ -20927,9 +21087,13 @@ Output ONLY these three sections in order:
         "value": 2
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -21349,7 +21513,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/iron_golem.json (547 lines, 15618 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/iron_golem.json (551 lines, 15685 bytes)
 
 ```
 {
@@ -21602,9 +21766,13 @@ Output ONLY these three sections in order:
         "value": 1.0
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {},
       "minecraft:loot": {
@@ -21901,7 +22069,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/llama.json (917 lines, 24028 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/llama.json (921 lines, 24092 bytes)
 
 ```
 {
@@ -22092,7 +22260,7 @@ Output ONLY these three sections in order:
         "minecraft:damage_sensor": {
           "triggers": [
             {
-              "deals_damage": false,
+              "deals_damage": "no",
               "on_damage": {
                 "filters": {
                   "test": "is_family",
@@ -22103,11 +22271,11 @@ Output ONLY these three sections in order:
             },
             {
               "cause": "entity_explosion",
-              "deals_damage": false
+              "deals_damage": "no"
             },
             {
               "cause": "block_explosion",
-              "deals_damage": false
+              "deals_damage": "no"
             }
           ]
         }
@@ -22406,9 +22574,13 @@ Output ONLY these three sections in order:
         "max": 40
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:balloonable": {},
       "minecraft:healable": {
@@ -22823,7 +22995,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/magma_cube.json (325 lines, 8056 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/magma_cube.json (329 lines, 8123 bytes)
 
 ```
 {
@@ -22946,9 +23118,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -23153,7 +23329,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/minecart.json (103 lines, 2665 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/minecart.json (107 lines, 2732 bytes)
 
 ```
 {
@@ -23250,9 +23426,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -23261,7 +23441,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/mooshroom.json (1249 lines, 37189 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/mooshroom.json (1253 lines, 37256 bytes)
 
 ```
 {
@@ -24203,9 +24383,13 @@ Output ONLY these three sections in order:
       "minecraft:jump.static": {},
       "minecraft:can_climb": {},
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:balloonable": {},
       "minecraft:despawn": {
@@ -24515,7 +24699,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/mule.json (688 lines, 18283 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/mule.json (692 lines, 18347 bytes)
 
 ```
 {
@@ -24725,7 +24909,7 @@ Output ONLY these three sections in order:
         "minecraft:damage_sensor": {
           "triggers": [
             {
-              "deals_damage": false,
+              "deals_damage": "no",
               "on_damage": {
                 "filters": {
                   "test": "is_family",
@@ -24736,11 +24920,11 @@ Output ONLY these three sections in order:
             },
             {
               "cause": "entity_explosion",
-              "deals_damage": false
+              "deals_damage": "no"
             },
             {
               "cause": "block_explosion",
-              "deals_damage": false
+              "deals_damage": "no"
             }
           ]
         }
@@ -24983,9 +25167,13 @@ Output ONLY these three sections in order:
         "value": 0.5
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:balloonable": {},
       "minecraft:healable": {
@@ -25208,7 +25396,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/nautilus.json (1028 lines, 28286 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/nautilus.json (1032 lines, 28353 bytes)
 
 ```
 {
@@ -25359,9 +25547,13 @@ Output ONLY these three sections in order:
         "success_rate": 0.1
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -26241,7 +26433,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/ocelot.json (445 lines, 11201 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/ocelot.json (449 lines, 11268 bytes)
 
 ```
 {
@@ -26488,9 +26680,13 @@ Output ONLY these three sections in order:
         "despawn_from_distance": {}
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:balloonable": {
         "mass": 0.7
@@ -26691,7 +26887,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/panda.json (747 lines, 18906 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/panda.json (751 lines, 18973 bytes)
 
 ```
 {
@@ -27274,9 +27470,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -27443,7 +27643,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/parched.json (684 lines, 17697 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/parched.json (688 lines, 17764 bytes)
 
 ```
 {
@@ -27914,9 +28114,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -28132,7 +28336,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/parrot.json (407 lines, 10468 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/parrot.json (411 lines, 10532 bytes)
 
 ```
 {
@@ -28218,9 +28422,13 @@ Output ONLY these three sections in order:
       "minecraft:is_hidden_when_invisible": {},
       "minecraft:jump.static": {},
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:movement": {
         "value": 0.4
@@ -28384,7 +28592,7 @@ Output ONLY these three sections in order:
         "minecraft:damage_sensor": {
           "triggers": [
             {
-              "deals_damage": false,
+              "deals_damage": "no",
               "on_damage": {
                 "filters": {
                   "test": "is_family",
@@ -28395,11 +28603,11 @@ Output ONLY these three sections in order:
             },
             {
               "cause": "entity_explosion",
-              "deals_damage": false
+              "deals_damage": "no"
             },
             {
               "cause": "block_explosion",
-              "deals_damage": false
+              "deals_damage": "no"
             }
           ]
         }
@@ -28544,7 +28752,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/phantom.json (164 lines, 4102 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/phantom.json (168 lines, 4169 bytes)
 
 ```
 {
@@ -28702,9 +28910,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -28713,7 +28925,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/pig.json (500 lines, 12801 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/pig.json (504 lines, 12868 bytes)
 
 ```
 {
@@ -29007,9 +29219,13 @@ Output ONLY these three sections in order:
         "height": 0.9
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:balloonable": {
         "mass": 0.9
@@ -29218,7 +29434,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/piglin.json (1282 lines, 34381 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/piglin.json (1286 lines, 34448 bytes)
 
 ```
 {
@@ -30294,9 +30510,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -30505,7 +30725,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/piglin_brute.json (377 lines, 9395 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/piglin_brute.json (381 lines, 9462 bytes)
 
 ```
 {
@@ -30645,9 +30865,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -30887,7 +31111,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/pillager.json (565 lines, 14897 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/pillager.json (569 lines, 14964 bytes)
 
 ```
 {
@@ -31119,9 +31343,13 @@ Output ONLY these three sections in order:
         "value": 0
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -31862,7 +32090,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/polar_bear.json (335 lines, 8350 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/polar_bear.json (339 lines, 8417 bytes)
 
 ```
 {
@@ -32094,9 +32322,13 @@ Output ONLY these three sections in order:
       "minecraft:pushable_by_entity": {},
       "minecraft:pushable_by_block": {},
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:balloonable": {},
       "minecraft:conditional_bandwidth_optimization": {},
@@ -32202,7 +32434,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/pufferfish.json (573 lines, 15467 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/pufferfish.json (577 lines, 15534 bytes)
 
 ```
 {
@@ -32356,9 +32588,13 @@ Output ONLY these three sections in order:
         "value": 0.13
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -32780,7 +33016,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/rabbit.json (470 lines, 11107 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/rabbit.json (474 lines, 11174 bytes)
 
 ```
 {
@@ -32953,9 +33189,13 @@ Output ONLY these three sections in order:
       },
       "minecraft:can_climb": {},
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:balloonable": {
         "mass": 0.4
@@ -33255,7 +33495,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/ravager.json (544 lines, 14115 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/ravager.json (548 lines, 14182 bytes)
 
 ```
 {
@@ -33644,9 +33884,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -33804,7 +34048,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/salmon.json (216 lines, 5366 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/salmon.json (220 lines, 5433 bytes)
 
 ```
 {
@@ -33956,9 +34200,13 @@ Output ONLY these three sections in order:
         "value": 0.12
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -34025,7 +34273,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/sheep.json (649 lines, 15678 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/sheep.json (653 lines, 15745 bytes)
 
 ```
 {
@@ -34301,9 +34549,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:balloonable": {
         "mass": 0.75
@@ -34679,7 +34931,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/shulker.json (816 lines, 21866 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/shulker.json (820 lines, 21933 bytes)
 
 ```
 {
@@ -35282,9 +35534,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -35500,7 +35756,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/silverfish.json (201 lines, 5222 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/silverfish.json (205 lines, 5289 bytes)
 
 ```
 {
@@ -35639,9 +35895,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -35706,7 +35966,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/skeleton.json (849 lines, 22023 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/skeleton.json (853 lines, 22090 bytes)
 
 ```
 {
@@ -36196,9 +36456,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -36560,7 +36824,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/skeleton_horse.json (274 lines, 7012 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/skeleton_horse.json (278 lines, 7079 bytes)
 
 ```
 {
@@ -36701,9 +36965,13 @@ Output ONLY these three sections in order:
         }
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:rideable": {
         "seat_count": 1,
@@ -36839,7 +37107,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/slime.json (328 lines, 8066 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/slime.json (332 lines, 8133 bytes)
 
 ```
 {
@@ -36978,9 +37246,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -37172,7 +37444,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/sniffer.json (422 lines, 10282 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/sniffer.json (426 lines, 10349 bytes)
 
 ```
 {
@@ -37249,9 +37521,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:balloonable": {},
       "minecraft:type_family": {
@@ -37599,7 +37875,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/snow_golem.json (222 lines, 5725 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/snow_golem.json (226 lines, 5792 bytes)
 
 ```
 {
@@ -37769,9 +38045,13 @@ Output ONLY these three sections in order:
       "minecraft:is_hidden_when_invisible": {},
       "minecraft:jump.static": {},
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {},
       "minecraft:loot": {
@@ -37826,7 +38106,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/spider.json (530 lines, 12986 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/spider.json (534 lines, 13053 bytes)
 
 ```
 {
@@ -37975,9 +38255,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -38361,7 +38645,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/squid.json (170 lines, 4150 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/squid.json (174 lines, 4217 bytes)
 
 ```
 {
@@ -38429,9 +38713,13 @@ Output ONLY these three sections in order:
       "minecraft:is_hidden_when_invisible": {},
       "minecraft:jump.static": {},
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:loot": {
         "table": "loot_tables/entities/squid.json"
@@ -38536,7 +38824,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/stray.json (774 lines, 20063 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/stray.json (778 lines, 20130 bytes)
 
 ```
 {
@@ -39028,9 +39316,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -39315,7 +39607,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/strider.json (609 lines, 16310 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/strider.json (613 lines, 16377 bytes)
 
 ```
 {
@@ -39719,9 +40011,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:balloonable": {},
       "minecraft:despawn": {
@@ -39929,7 +40225,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/sulfur_cube.json (2096 lines, 66316 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/sulfur_cube.json (2100 lines, 66383 bytes)
 
 ```
 {
@@ -41399,9 +41695,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -42030,7 +42330,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/tadpole.json (137 lines, 3239 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/tadpole.json (141 lines, 3306 bytes)
 
 ```
 {
@@ -42149,9 +42449,13 @@ Output ONLY these three sections in order:
         "probability": 0.02
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -42172,7 +42476,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/tnt_minecart.json (205 lines, 5500 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/tnt_minecart.json (209 lines, 5567 bytes)
 
 ```
 {
@@ -42233,9 +42537,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -42382,7 +42690,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/trader_llama.json (875 lines, 22060 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/trader_llama.json (879 lines, 22127 bytes)
 
 ```
 {
@@ -42889,9 +43197,13 @@ Output ONLY these three sections in order:
         "max": 40
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:balloonable": {},
       "minecraft:healable": {
@@ -43262,7 +43574,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/tropicalfish.json (1150 lines, 27708 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/tropicalfish.json (1154 lines, 27775 bytes)
 
 ```
 {
@@ -43420,9 +43732,13 @@ Output ONLY these three sections in order:
         "value": 0.12
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -44417,7 +44733,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/turtle.json (313 lines, 7714 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/turtle.json (317 lines, 7781 bytes)
 
 ```
 {
@@ -44658,9 +44974,13 @@ Output ONLY these three sections in order:
       },
       "minecraft:conditional_bandwidth_optimization": {},
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -44735,7 +45055,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/vex.json (210 lines, 5475 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/vex.json (214 lines, 5542 bytes)
 
 ```
 {
@@ -44898,9 +45218,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -44950,7 +45274,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/villager.json (1354 lines, 33674 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/villager.json (1358 lines, 33741 bytes)
 
 ```
 {
@@ -45191,9 +45515,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -46309,7 +46637,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/villager_v2.json (4331 lines, 120200 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/villager_v2.json (4335 lines, 120267 bytes)
 
 ```
 {
@@ -46581,9 +46909,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -50645,7 +50977,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/vindicator.json (526 lines, 13800 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/vindicator.json (530 lines, 13867 bytes)
 
 ```
 {
@@ -50819,9 +51151,13 @@ Output ONLY these three sections in order:
         "value": 0
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -51176,7 +51512,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/wandering_trader.json (472 lines, 12276 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/wandering_trader.json (476 lines, 12343 bytes)
 
 ```
 {
@@ -51579,9 +51915,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -51913,7 +52253,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/witch.json (489 lines, 12750 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/witch.json (493 lines, 12817 bytes)
 
 ```
 {
@@ -52298,9 +52638,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -52588,7 +52932,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/wither_skeleton.json (640 lines, 17018 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/wither_skeleton.json (644 lines, 17085 bytes)
 
 ```
 {
@@ -53220,9 +53564,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -53233,7 +53581,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/wolf.json (1368 lines, 35512 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/wolf.json (1372 lines, 35576 bytes)
 
 ```
 {
@@ -53570,7 +53918,7 @@ Output ONLY these three sections in order:
         "minecraft:damage_sensor": {
           "triggers": [
             {
-              "deals_damage": false,
+              "deals_damage": "no",
               "on_damage": {
                 "filters": {
                   "test": "is_family",
@@ -53581,11 +53929,11 @@ Output ONLY these three sections in order:
             },
             {
               "cause": "entity_explosion",
-              "deals_damage": false
+              "deals_damage": "no"
             },
             {
               "cause": "block_explosion",
-              "deals_damage": false
+              "deals_damage": "no"
             }
           ]
         }
@@ -54087,9 +54435,13 @@ Output ONLY these three sections in order:
       },
       "minecraft:uses_legacy_friction": {},
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -54606,7 +54958,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/zoglin.json (326 lines, 7868 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/zoglin.json (330 lines, 7935 bytes)
 
 ```
 {
@@ -54729,9 +55081,13 @@ Output ONLY these three sections in order:
         "value": 0.6
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:loot": {
         "table": "loot_tables/entities/zoglin.json"
@@ -54937,7 +55293,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/zombie.json (992 lines, 26856 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/zombie.json (996 lines, 26923 bytes)
 
 ```
 {
@@ -55492,9 +55848,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -55934,7 +56294,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/zombie_horse.json (675 lines, 18239 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/zombie_horse.json (679 lines, 18306 bytes)
 
 ```
 {
@@ -56452,9 +56812,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -56614,7 +56978,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/zombie_nautilus.json (941 lines, 26566 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/zombie_nautilus.json (945 lines, 26633 bytes)
 
 ```
 {
@@ -56776,9 +57140,13 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       }
     },
     "component_groups": {
@@ -57560,7 +57928,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/zombie_pigman.json (596 lines, 15685 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/zombie_pigman.json (600 lines, 15752 bytes)
 
 ```
 {
@@ -57968,9 +58336,13 @@ Output ONLY these three sections in order:
       },
       "minecraft:spawn_egg_interaction": {},
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -58161,7 +58533,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/zombie_villager.json (1259 lines, 31323 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/zombie_villager.json (1263 lines, 31390 bytes)
 
 ```
 {
@@ -58626,9 +58998,13 @@ Output ONLY these three sections in order:
         "singular_pickup": true
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -59425,7 +59801,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/zombie_villager_v2.json (1862 lines, 46966 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/zombie_villager_v2.json (1866 lines, 47033 bytes)
 
 ```
 {
@@ -59939,9 +60315,13 @@ Output ONLY these three sections in order:
       },
       "minecraft:spawn_egg_interaction": {},
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },
@@ -61292,234 +61672,6 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/clock.json (14 lines, 253 bytes)
-
-```
-{
-  "format_version": "1.20.30",
-  "minecraft:item": {
-    "description": {
-      "identifier": "minecraft:clock",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {
-      "minecraft:allow_off_hand": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/compass.json (14 lines, 255 bytes)
-
-```
-{
-  "format_version": "1.20.30",
-  "minecraft:item": {
-    "description": {
-      "identifier": "minecraft:compass",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {
-      "minecraft:allow_off_hand": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/lantern.json (14 lines, 255 bytes)
-
-```
-{
-  "format_version": "1.20.30",
-  "minecraft:item": {
-    "description": {
-      "identifier": "minecraft:lantern",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {
-      "minecraft:allow_off_hand": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/lingering_potion.json (14 lines, 262 bytes)
-
-```
-{
-  "format_version": "1.26.30",
-  "minecraft:item": {
-    "description": {
-      "identifier": "minecraft:lingering_potion",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {
-      "minecraft:max_stack_size": 16
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/milk_bucket.json (14 lines, 257 bytes)
-
-```
-{
-  "format_version": "1.26.30",
-  "minecraft:item": {
-    "description": {
-      "identifier": "minecraft:milk_bucket",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {
-      "minecraft:max_stack_size": 16
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/potion.json (14 lines, 252 bytes)
-
-```
-{
-  "format_version": "1.26.30",
-  "minecraft:item": {
-    "description": {
-      "identifier": "minecraft:potion",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {
-      "minecraft:max_stack_size": 16
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/recovery_compass.json (14 lines, 264 bytes)
-
-```
-{
-  "format_version": "1.20.30",
-  "minecraft:item": {
-    "description": {
-      "identifier": "minecraft:recovery_compass",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {
-      "minecraft:allow_off_hand": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/redstone_torch.json (15 lines, 263 bytes)
-
-```
-{
-  "format_version": "1.20.30",
-  "minecraft:item": {
-    "description": {
-      "identifier": "minecraft:redstone_torch",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {
-      "minecraft:allow_off_hand": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/soul_lantern.json (14 lines, 260 bytes)
-
-```
-{
-  "format_version": "1.20.30",
-  "minecraft:item": {
-    "description": {
-      "identifier": "minecraft:soul_lantern",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {
-      "minecraft:allow_off_hand": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/soul_torch.json (14 lines, 258 bytes)
-
-```
-{
-  "format_version": "1.20.30",
-  "minecraft:item": {
-    "description": {
-      "identifier": "minecraft:soul_torch",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {
-      "minecraft:allow_off_hand": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/splash_potion.json (14 lines, 259 bytes)
-
-```
-{
-  "format_version": "1.26.30",
-  "minecraft:item": {
-    "description": {
-      "identifier": "minecraft:splash_potion",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {
-      "minecraft:max_stack_size": 16
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/items/torch.json (14 lines, 253 bytes)
-
-```
-{
-  "format_version": "1.20.30",
-  "minecraft:item": {
-    "description": {
-      "identifier": "minecraft:torch",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {
-      "minecraft:allow_off_hand": true
-    }
-  }
-}
-```
-
 ## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/loot_tables/entities/creeper.json (292 lines, 6129 bytes)
 
 ```
@@ -62383,11 +62535,11 @@ Output ONLY these three sections in order:
 {
   "format_version": 2,
   "header": {
-    "name": "Vanilla Quality of Life (v10)",
+    "name": "Vanilla Quality of Life (v11)",
     "description": "Comprehensive survival Quality of Life suite with dynamic light, offhand quick-swap, passive auto-switch tools, tree capitator, and domino ore miner. by ALNStudios",
     "uuid": "5461534c-a7c4-4c5b-9269-8be52d2b761b",
     "version": [
-      10,
+      11,
       0,
       0
     ],
@@ -62403,7 +62555,7 @@ Output ONLY these three sections in order:
       "type": "data",
       "uuid": "81382d42-b64c-4759-8c05-0e4e3e8436e8",
       "version": [
-        10,
+        11,
         0,
         0
       ]
@@ -62414,7 +62566,7 @@ Output ONLY these three sections in order:
       "language": "javascript",
       "uuid": "880944f5-3d04-401d-a5d5-011d89c969b6",
       "version": [
-        10,
+        11,
         0,
         0
       ],
@@ -62429,7 +62581,7 @@ Output ONLY these three sections in order:
     {
       "uuid": "fd036566-d0b1-4f92-9b28-9dd45a376d44",
       "version": [
-        10,
+        11,
         0,
         0
       ]
@@ -62440,7 +62592,7 @@ Output ONLY these three sections in order:
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "10.0.0"
+    "version": "11.0.0"
   },
   "subpacks": [
     {
@@ -68008,7 +68160,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_cobblestone_stairs.json (35 lines, 646 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_cobblestone_stairs.json (35 lines, 622 bytes)
 
 ```
 {
@@ -68022,16 +68174,16 @@ Output ONLY these three sections in order:
     ],
     "ingredients": [
       {
-        "item": "minecraft:cobblestone_stairs"
+        "item": "minecraft:stone_stairs"
       },
       {
-        "item": "minecraft:cobblestone_stairs"
+        "item": "minecraft:stone_stairs"
       },
       {
-        "item": "minecraft:cobblestone_stairs"
+        "item": "minecraft:stone_stairs"
       },
       {
-        "item": "minecraft:cobblestone_stairs"
+        "item": "minecraft:stone_stairs"
       }
     ],
     "result": {
@@ -87204,12 +87356,24 @@ export const MINING_OPTIONS = Object.freeze({
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/CHANGELOG.md (432 lines, 19262 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/CHANGELOG.md (444 lines, 20002 bytes)
 
 ```
 # Changelog — Vanilla Quality of Life
 
 ---
+
+## [v11] - 2026-11-22 - Entity and Item Fixes
+
+### Improved & Balanced
+
+- **Item Settings**: Removed the item settings for Potions, Splash Potions, Lingering Potions, Milk Buckets, Torches, Lanterns, Clocks, and Compasses that the game refuses to load. Potions and Milk Buckets keep their normal stack size, and offhand swapping still works through the add-on's own script.
+
+### Fixed
+
+- **Pet and Mount Protection**: Tamed wolves, cats, parrots, horses, donkeys, mules, and llamas now use the damage setting the game accepts.
+- **Leash Distances**: Universal Leads now set their leash distances in the form the game accepts.
+- **Cobblestone Stairs Recycling**: The recycle recipe now uses the Cobblestone Stairs item name the game knows.
 
 ## [v10] - 2026-11-21 - Shapeless Recipe Unlock Fix
 
@@ -87721,7 +87885,7 @@ Download the current release of **Vanilla Quality of Life** for Minecraft Bedroc
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Vanilla Quality of Life (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/VanillaQoL%20V10.mcaddon)
+- **Direct download:** [Download Vanilla Quality of Life (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/VanillaQoL%20V11.mcaddon)
 
 ## Installation
 
@@ -87740,11 +87904,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "Vanilla Quality of Life (v10)",
+    "name": "Vanilla Quality of Life (v11)",
     "description": "Client entity locators and visual fixes for Vanilla Quality of Life. by ALNStudios",
     "uuid": "fd036566-d0b1-4f92-9b28-9dd45a376d44",
     "version": [
-      10,
+      11,
       0,
       0
     ],
@@ -87760,7 +87924,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "340a271e-9aa3-4c12-bc1a-0254e887ec38",
       "version": [
-        10,
+        11,
         0,
         0
       ]
@@ -87771,7 +87935,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "10.0.0"
+    "version": "11.0.0"
   }
 }
 ```

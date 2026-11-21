@@ -1,9 +1,24 @@
 # Changelog — Vanilla Quality of Life
 
-## [v10] - 2026-11-21 - Shapeless Recipe Unlock Fix
+## [v11] - 2026-11-22 - Entity and Item Fixes
+
+### Improved & Balanced
+- **Item Settings**: Removed the item settings for Potions, Splash Potions, Lingering Potions, Milk Buckets, Torches, Lanterns, Clocks, and Compasses that the game refuses to load. Potions and Milk Buckets keep their normal stack size, and offhand swapping still works through the add-on's own script.
 
 ### Fixed
+- **Pet and Mount Protection**: Tamed wolves, cats, parrots, horses, donkeys, mules, and llamas now use the damage setting the game accepts.
+- **Leash Distances**: Universal Leads now set their leash distances in the form the game accepts.
+- **Cobblestone Stairs Recycling**: The recycle recipe now uses the Cobblestone Stairs item name the game knows.
+
+<details>
+<summary><b>10.0.x</b> (1 release)</summary>
+
+### [v10] - 2026-11-21 - Shapeless Recipe Unlock Fix
+
+#### Fixed
 - **Shapeless Recipes**: Uncrafting, recombining, recycling, stonecutter, and other shapeless recipes now use the unlock format the game expects, so they load without errors.
+
+</details>
 
 <details>
 <summary><b>9.0.x</b> (1 release)</summary>
