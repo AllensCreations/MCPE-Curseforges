@@ -2,6 +2,14 @@
 
 ---
 
+## [1.0.1] - 2026-11-22 - Bug Fixes: Block Definition and Render Method
+
+### Fixed
+- **Block definition parse error**: Removed the invalid "minecraft:" namespace prefix from menu_category group; corrected to "itemGroup.name.decorative".
+- **Recipe cascade fix**: The recipe result error was caused by the block failing to register; fixing the block definition resolves it automatically.
+- **Glass render method conflict**: Changed the glass material instance from "blend" to "alpha_test" so it no longer conflicts with the opaque wildcard instance.
+- **blocks.json registry warning**: Removed the redundant custom block entry from the RP blocks.json; texture routing for custom-geometry blocks uses material_instances and terrain_texture.json only.
+
 ## [1.0.0] - 2026-11-21 - First Release
 
 ### Added

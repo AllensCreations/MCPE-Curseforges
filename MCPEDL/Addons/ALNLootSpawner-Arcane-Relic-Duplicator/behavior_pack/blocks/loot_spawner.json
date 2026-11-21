@@ -5,7 +5,7 @@
       "identifier": "aln:loot_spawner",
       "menu_category": {
         "category": "construction",
-        "group": "minecraft:itemGroup.name.decorative"
+        "group": "itemGroup.name.decorative"
       }
     },
     "components": {
@@ -29,7 +29,7 @@
         },
         "glass": {
           "texture": "aln_loot_spawner_glass",
-          "render_method": "blend",
+          "render_method": "alpha_test",
           "face_dimming": false,
           "ambient_occlusion": false
         },

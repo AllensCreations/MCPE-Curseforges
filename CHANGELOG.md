@@ -31,6 +31,11 @@
 
 ---
 
+## [v206] - 2026-11-22 - ALN:LootSpawner Bug Fixes v1.0.1
+
+### Fixed
+- **ALN:LootSpawner**: Corrected block definition group identifier, glass render method, and blocks.json registry warning.
+
 ## [v205] - 2026-11-21 - Achievements Always Yes
 
 - Every project now says `- Achievements: Yes, achievement-friendly.` (owner confirmed in game that a pack with `product_type` `addon` keeps achievements allowed). The doc template, `build_payload.py`, `remake_docs.py`, `check_readme_status.py` and the self-test use it, and all `DESCRIPTION.md` files were updated; cheat and command caveats stay as a following sentence.
