@@ -23,6 +23,7 @@ NEVER call `resolve-library-id`. NEVER query any other library.
 
 - `docs/instructions-reference.md`: `INSTRUCTIONS.md`, `DOCS_RULES.md`, `PACK_GENERATOR_INSTRUCTIONS.md` (Reply Format, Termux Script Rules, versions 1.3, recipes 1.4 and 1.5, templates 2.5, new packs Part 4).
 - `docs/scripts-and-workflows.md`: summary of every script and workflow, update spec syntax (`apply_update.py`, `make_update_script.py`).
+- `docs/mcicons-index.md`: every Minecraft icon id in MCicons (generated).
 - `docs/bedrock-guide.md`: add-on architecture, folder structure, manifest setup, target API versions.
 - Meaning of a build or doc check message: query the exact message text with the script name.
 
@@ -46,7 +47,9 @@ NEVER call `resolve-library-id`. NEVER query any other library.
 
 - Any vanilla item or block icon (recipe diagrams, sprites, README or listing images, UI art): use MCicons FIRST. It is the release file `reference/mcicons/mcicons-<ver>.tgz` in the repo (`package/dist/icons/minecraft_<id>.png`, 64x64, only `minecraft:` ids). It is NOT in Context7: read it with `scripts/lib/mcicons.py` (`has_icon(id)`, `icon_image(id)`), never retype or guess a PNG.
 - No icon for the id (custom ids, newer items): fall back to Samples (`/mojang/bedrock-samples`), then the Minecraft Wiki only if both lack a usable sprite. NEVER another icon site or third-party pack.
-- The `.tgz` is not in the kit zips. If a task needs it and it is not in the clone, ask the user to attach it; NEVER substitute a lookalike.
+- Context7 cannot index the binary `.tgz`, but `docs/mcicons-index.md` (`/allenscreations/mcpe-curseforges`) lists every icon id it holds: query it to check an id before using an icon.
+- The `.tgz` itself is not in the kit zips. To run code that reads the pixels it must be in the clone; if it is missing, ask the user to attach it. NEVER substitute a lookalike.
+- Every manifest (BP and RP) carries `metadata.authors` = `["ALNStudios"]` and `metadata.product_type` = `"addon"`, always.
 - Keep its `ASSET-NOTICE.md` with any redistributed icon.
 
 ## Reading the directory map

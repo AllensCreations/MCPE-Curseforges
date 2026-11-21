@@ -1,4 +1,4 @@
-# Instructions: Core Repository Policy (v35)
+# Instructions: Core Repository Policy (v36)
 
 
 Repo policy, docs rules for AllensCreations/MCPE-Curseforges (creator name `ALNStudios`). Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
@@ -106,7 +106,7 @@ Implementation:
 
 - `header.description` contains `by ALNStudios` exactly once. NEVER attribution in title.
 - NEVER change pack UUIDs or world storage keys to rename a title. NEVER regenerate header UUIDs (breaks worlds).
-- Build sync: every processed project aligns all source manifests to one highest `X.Y.Z`: `header.version`, `metadata.version`, title suffix, module versions, same-project BP/RP deps. Fills `metadata.authors` (`ALNStudios`), optional `metadata.license`.
+- Build sync: every processed project aligns all source manifests to one highest `X.Y.Z`: `header.version`, `metadata.version`, title suffix, module versions, same-project BP/RP deps. FORCES `metadata.authors` = `["ALNStudios"]` and `metadata.product_type` = `"addon"` in EVERY BP and RP manifest (new packs, updates, builds; NEVER another author or type), optional `metadata.license`. `product_type` is metadata only: the Bedrock Wiki says worlds with `"addon"` packs stopped keeping achievements enabled in 26.50 (MCPE-242529), so NEVER claim it guarantees achievements.
 - Snapshots: `builds/<pack>/versions/V<X.Y.Z>/` (packages, `source.zip`, `source.sha256`, `build_info.json`). Refreshed when source/packages differ. Last 5 kept.
 - NOTHING auto-bumps. The new version is written in CHANGELOG.md AND, in the same update script, into every source manifest with `python3 scripts/manifest_tools.py --project <path> --set vX` (header.version, metadata.version, title suffix, module and dependency versions; UUIDs untouched; never lowers)
 , so every update changes the build. Publish to CurseForge uploads the newest changelog version as written and groups every entry since the last publish. The passive build (`Build Changed Packs & Sync Catalogs`) aligns each pack to its highest existing version and rebuilds. `--bump` / `AUTO_BUMP_MANIFEST=true` remain in `scripts/auto_bump_and_build.py` for manual use only.
@@ -278,6 +278,7 @@ Docs, API, vanilla data and repo files are read with the Context7 MCP tool `quer
 - [ ] Changed JSON validated. Instruction file changed: `scripts/check_instruction_files.py` passes.
 
 ## Version History
+- **v36:** Every manifest MUST carry `metadata.authors` = `["ALNStudios"]` and `metadata.product_type` = `"addon"` (`manifest_tools.ensure_metadata` forces both in the build; the title validator reports a miss). MCicons ids are indexed in `docs/mcicons-index.md` for Context7.
 - **v35:** Source priority lists MCicons (1b) for vanilla icons; the AI skills (`mcpe-context7`, `mcpe-new-pack`, `checkrm`) and the generator file now say to use MCicons first for any icon.
 - **v34:** Minecraft icons come from MCicons: the release file `reference/mcicons/mcicons-<ver>.tgz` (kept as ONE file, downloaded by `scripts/sync_mcicons.py` in `build-and-sync.yml`, read by `scripts/lib/mcicons.py`). Rule 1.5 uses it first for recipe diagrams and every other icon.
 - **v33:** OneBlock world builds run inside `build-and-sync.yml` (the separate OneBlock workflow is removed). The MCPEDL catalog reads `## [vN]` and `## [X.Y.Z]` changelog headings.

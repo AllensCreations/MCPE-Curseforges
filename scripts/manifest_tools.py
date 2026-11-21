@@ -8,7 +8,7 @@ What lives here
   * bump_patch - the next X.Y.(Z+1) after the highest manifest version.
 
 Versions are exactly X.Y.Z everywhere: header.version, metadata.version, the "(vX.Y.Z)" title suffix, changelog headings, package names and build snapshots.
-  * ensure_metadata - fill metadata.authors (and metadata.license when MANIFEST_LICENSE is set).
+  * ensure_metadata - force metadata.authors = ALNStudios and product_type = addon; fill metadata.license (and metadata.license when MANIFEST_LICENSE is set).
   * compute_source_hash - a content hash of a project's source that ignores everything the
     build itself rewrites (manifest versions/titles, derived world copies, docs, archives),
     so "did the source change since the last snapshot?" has a stable answer.
@@ -148,16 +148,18 @@ def migrate_legacy_branding(data):
 
 
 def ensure_metadata(data, license_text=None):
-    """Fill metadata.authors (and metadata.license if given). Returns True if changed."""
+    """Force metadata.authors = [ALNStudios] and metadata.product_type = addon (and fill metadata.license if given). Returns True if changed."""
     changed = migrate_legacy_branding(data)
     meta = data.get("metadata")
     if not isinstance(meta, dict):
         meta = {}
         data["metadata"] = meta
         changed = True
-    authors = meta.get("authors")
-    if not (isinstance(authors, list) and any(isinstance(a, str) and a.strip() for a in authors)):
+    if meta.get("authors") != [AUTHOR]:
         meta["authors"] = [AUTHOR]
+        changed = True
+    if meta.get("product_type") != "addon":
+        meta["product_type"] = "addon"
         changed = True
     if license_text and not meta.get("license"):
         meta["license"] = license_text

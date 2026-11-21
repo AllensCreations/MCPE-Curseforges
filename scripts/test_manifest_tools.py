@@ -140,6 +140,16 @@ class ManifestToolsTest(unittest.TestCase):
         self.assertEqual(migrated["header"]["name"], "X (v1.2.4)")
         self.assertEqual(migrated["metadata"]["version"], "1.2.4")
 
+    def test_ensure_metadata_forces_author_and_product_type(self):
+        data = {"metadata": {"authors": ["Someone Else"], "product_type": "world"}}
+        self.assertTrue(mt.ensure_metadata(data))
+        self.assertEqual(data["metadata"]["authors"], ["ALNStudios"])
+        self.assertEqual(data["metadata"]["product_type"], "addon")
+        self.assertFalse(mt.ensure_metadata(data))
+        bare = {}
+        mt.ensure_metadata(bare)
+        self.assertEqual(bare["metadata"], {"authors": ["ALNStudios"], "product_type": "addon"})
+
     def test_legacy_creator_name_is_migrated_on_align(self):
         path = f"{self.root}/behavior_pack/manifest.json"
         data = json.load(open(path, encoding="utf-8"))

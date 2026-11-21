@@ -19,7 +19,8 @@ def advisories(paths):
         header = data.get("header") if isinstance(data.get("header"), dict) else {}
         if header.get("min_engine_version") in (None, [0, 0, 0]): notes.append(f"{rel}: min_engine_version is missing or the placeholder.")
         meta = data.get("metadata")
-        if not (isinstance(meta, dict) and meta.get("authors")): notes.append(f"{rel}: metadata.authors is missing (the build fills it in).")
+        if not (isinstance(meta, dict) and meta.get("authors") == ["ALNStudios"]): notes.append(f"{rel}: metadata.authors must be [\"ALNStudios\"] (the build fixes it).")
+        if not (isinstance(meta, dict) and meta.get("product_type") == "addon"): notes.append(f"{rel}: metadata.product_type must be \"addon\" (the build fixes it).")
     return notes
 
 def validate(paths):

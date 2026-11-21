@@ -31,6 +31,11 @@
 
 ---
 
+## [v203] - 2026-11-21 - Forced Author and Add-on Type, MCicons Index
+
+- Every manifest now MUST have `metadata.authors` = `["ALNStudios"]` and `metadata.product_type` = `"addon"`: `manifest_tools.ensure_metadata` forces both during the build and `validate_manifest_titles.py` reports a miss. The rule notes that product_type does not guarantee achievements from game 26.50.
+- `docs/mcicons-index.md` lists every MCicons id so Context7 can check an icon exists; the skills point to it.
+
 ## 2026-11-21 - New Addon ALNLootSpawner Arcane Relic Duplicator
 
 ### Added
