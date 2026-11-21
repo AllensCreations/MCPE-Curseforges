@@ -1,12 +1,23 @@
 # Changelog — Vanilla Quality of Life
 
-## [v7] - 2026-11-21 - Leaf Clearing
+## [v8] - 2026-11-21 - Stained Glass Recycling and Spider Fixes
 
-### Added
+### Fixed
+- **Stained Glass Pane Recycling**: The recycle recipes for colored glass panes now give back the matching stained glass instead of failing to load.
+- **Spider and Cave Spider**: Their models now load without animation errors.
+
+<details>
+<summary><b>7.0.x</b> (1 release)</summary>
+
+### [v7] - 2026-11-21 - Leaf Clearing
+
+#### Added
 - **Leaf Clearing**: Tree Capitator now clears the leaves of the tree it fells, and they still drop some saplings, sticks, and apples (Oak and Dark Oak only).
 
-### Improved & Balanced
+#### Improved & Balanced
 - **Auto-Switch Blocks**: Pistons, Sticky Pistons, and Observers now use a Pickaxe, Creaking Hearts and Cacti use an Axe, and Blocks of Dried Kelp use a Hoe.
+
+</details>
 
 <details>
 <summary><b>6.0.x</b> (1 release)</summary>
