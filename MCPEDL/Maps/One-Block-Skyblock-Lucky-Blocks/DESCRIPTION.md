@@ -5,7 +5,7 @@
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Break the one lucky block on a 3x3 void island and win one of 200 prizes, each with the same chance.**
+**Break the one lucky block on a 3x3 void island and win one of 250 prizes, each with the same chance.**
 
 > The center block comes back as one of 7 types, each with its own texture and a prize list that matches its purpose. Surprises such as a falling anvil or a loot chest struck by lightning keep every break exciting.
 
@@ -27,13 +27,16 @@ You start on a 3x3 grass island floating in an empty void, standing on a single 
 - **What Happens**: The first 20 breaks of the center block give 20 fixed, safe rewards in random order: wood, planks, sticks, a crafting table, wooden tools, leather armor, building blocks, a furnace, torches, food, seeds, saplings, a water bucket, a bed and farm animals.
 - **Good To Know**: Each tutorial break shows its number and a short tip on the action bar, and no setbacks happen. During the tutorial the center block is always the All-Round type.
 
-### 200 Equal Prizes
-- **What Happens**: In the All-Round block every one of the 200 prizes has the same 0.5% chance. A themed block picks equally among the prizes of its own list.
-- **Good To Know**: 154 prizes are rewards and 46 are setbacks, so about 77% of All-Round breaks give a reward. The same prize can come twice in a row.
+### 250 Equal Prizes
+- **What Happens**: In the All-Round block every one of the 250 prizes has the same 0.4% chance. A themed block picks equally among the prizes of its own list.
+- **Good To Know**: 198 prizes are rewards and 52 are setbacks, so about 79% of All-Round breaks give a reward. The same prize can come twice in a row.
 
 ### Physical Surprises
-- **What Happens**: Falling Anvil warns you on the action bar, then drops an anvil about 5 blocks above you. Thunder Pig and Thunder Villager summon a mob and call lightning on it about a quarter of a second later.
+- **What Happens**: Falling Anvil warns you on the action bar, then drops one anvil about 5 blocks above you, and it is removed a few seconds after it lands. Thunder Pig and Thunder Villager summon a mob and call lightning on it about a quarter of a second later.
 - **Good To Know**: Lightning strikes close to the island, so it can hurt you and set you on fire.
+
+### Baby Shower
+- **What Happens**: About 10 baby cows, pigs, sheep and chickens spawn around the island.
 
 ### Falling Chest
 - **What Happens**: A loot chest falls from about 8 blocks up onto a free spot next to the center block and holds 5 stacks of loot. Lightning strikes it 5 seconds after it lands.
@@ -44,7 +47,7 @@ You start on a 3x3 grass island floating in an empty void, standing on a single 
 - **Good To Know**: The first time you join, a short action bar tip tells you to break the lucky block and open the chest.
 
 ### Action Bar Results
-- **What Happens**: Each prize shows on the action bar with the block type and the prize name, and nothing is written in chat. Tutorial breaks show their number and a tip instead.
+- **What Happens**: Each prize shows on the action bar with the block type, its chance of appearing and the prize name, and nothing is written in chat. Tutorial breaks show their number and a tip instead.
 
 ## How to Use
 

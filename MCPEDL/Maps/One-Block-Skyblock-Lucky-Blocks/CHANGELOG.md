@@ -2,6 +2,16 @@
 
 ---
 
+## [v8] - 2026-11-22 - Baby Shower and Split Scripts
+
+### Added
+- **Baby Shower**: About 10 baby cows, pigs, sheep and chickens spawn around the island.
+- **49 more prizes**: The pool grows to 250 prizes, so each prize now has a 0.4% chance in the All-Round block.
+### Improved & Balanced
+- **Block chance on the action bar**: Each result now shows the chance of that block type.
+- **One anvil only**: Falling Anvil drops a single anvil and removes it after it lands.
+- **Split scripts**: The script is now split into modules in scripts/lib so it is easier to maintain.
+
 ## [v7] - 2026-11-22 - 20-Break Tutorial
 
 ### Added
