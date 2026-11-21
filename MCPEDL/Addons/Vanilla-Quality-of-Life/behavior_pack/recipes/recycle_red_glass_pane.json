@@ -13,11 +13,11 @@
     ],
     "key": {
       "P": {
-        "item": "minecraft:red_glass_pane"
+        "item": "minecraft:red_stained_glass_pane"
       }
     },
     "result": {
-      "item": "minecraft:red_glass",
+      "item": "minecraft:red_stained_glass",
       "count": 2
     },
     "unlock": {

@@ -13,11 +13,11 @@
     ],
     "key": {
       "P": {
-        "item": "minecraft:light_gray_glass_pane"
+        "item": "minecraft:light_gray_stained_glass_pane"
       }
     },
     "result": {
-      "item": "minecraft:light_gray_glass",
+      "item": "minecraft:light_gray_stained_glass",
       "count": 2
     },
     "unlock": {

@@ -27,6 +27,13 @@
 
 ---
 
+## [v192] - 2026-11-21 - Stained Glass Recycling and Spider Fixes
+
+### Fixed
+
+- **Stained Glass Pane Recycling**: The recycle recipes for colored glass panes now give back the matching stained glass instead of failing to load.
+- **Spider and Cave Spider**: Their models now load without animation errors.
+
 ## [v191] - 2026-11-21 - Leaf Clearing
 
 ### Added
