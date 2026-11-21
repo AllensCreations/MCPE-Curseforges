@@ -234,7 +234,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (700 lines, 38537 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (700 lines, 38542 bytes)
 
 ```
 import { world, system, ItemStack, ItemTypes } from "@minecraft/server";
@@ -262,7 +262,7 @@ const CATEGORIES = [
   { name: "Food", icon: "textures/items/bread" },
   { name: "Combat", icon: "textures/items/iron_sword" },
   { name: "Ores & Minerals", icon: "textures/items/diamond" },
-  { name: "Redstone", icon: "textures/items/redstone" },
+  { name: "Redstone", icon: "textures/items/redstone_dust" },
   { name: "Mob Drops", icon: "textures/items/bone" },
   { name: "Nether", icon: "textures/blocks/netherrack" },
   { name: "Endgame", icon: "textures/items/ender_pearl" }
@@ -938,7 +938,7 @@ system.runInterval(() => {
 }, 20);
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (123 lines, 7724 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (124 lines, 7768 bytes)
 
 ```
 # Changelog — OneBlock Natural Market
@@ -951,6 +951,7 @@ system.runInterval(() => {
 - Building Blocks bought in the market no longer join the OneBlock regeneration pool. Building Blocks added by earlier purchases are removed from the pool. Milestone blocks are unchanged.
 - The Ledger now comes back when you free an inventory slot. Before, a dropped Ledger could be deleted while your inventory was full, and a Ledger that could not be given at join was only retried when you rejoined.
 - Fixed missing market icons for Magma Block and Conduit.
+- Fixed the missing Redstone category icon.
 
 ## [14.0.1] - 2026-11-21 - Startup Crash Fix
 
