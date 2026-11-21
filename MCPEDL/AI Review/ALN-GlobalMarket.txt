@@ -5,7 +5,7 @@
 - **Export request:** `MCPEDL/Addons/ALN-GlobalMarket`
 - **Destination:** `MCPEDL/Addons/ALN-GlobalMarket`
 - **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALN-GlobalMarket/CHANGELOG.md`)
-- **Text files:** 9
+- **Text files:** 10
 - **Skipped binary:** 0
 - **Paths not found:** 0
 
@@ -14,6 +14,7 @@
 - `MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/manifest.json`
 - `MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/scripts/main.js`
 - `MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/scripts/trade_catalog.js`
+- `MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/scripts/trade_icons.js`
 - `MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/scripts/trade_storage.js`
 - `MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/scripts/trade_ui.js`
 - `MCPEDL/Addons/ALN-GlobalMarket/CHANGELOG.md`
@@ -70,13 +71,13 @@ Output ONLY these three sections in order:
 {
   "format_version": 2,
   "header": {
-    "name": "ALN-GlobalMarket (v1.0.1)",
+    "name": "ALN-GlobalMarket (v1.0.2)",
     "description": "Player-to-player barter market with escrow and offline payouts, by ALNStudios.",
     "uuid": "58c2ca6d-59a3-451a-9506-4995a7e0d23e",
     "version": [
       1,
       0,
-      1
+      2
     ],
     "min_engine_version": [
       1,
@@ -93,7 +94,7 @@ Output ONLY these three sections in order:
       "version": [
         1,
         0,
-        1
+        2
       ]
     }
   ],
@@ -111,7 +112,7 @@ Output ONLY these three sections in order:
     "authors": [
       "ALNStudios"
     ],
-    "version": "1.0.1"
+    "version": "1.0.2"
   }
 }
 ```
@@ -140,9 +141,11 @@ world.afterEvents.worldLoad.subscribe(() => {
 });
 ```
 
-## FILE: MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/scripts/trade_catalog.js (85 lines, 5471 bytes)
+## FILE: MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/scripts/trade_catalog.js (61 lines, 3746 bytes)
 
 ```
+import { ICON_NAMES } from "./trade_icons.js";
+
 export const CATEGORIES = ["All Items", "Ores & Resources", "Tools & Weapons", "Armor", "Food", "Blocks", "Other"];
 export const SORTS = ["Newest First", "Oldest First", "Item A-Z", "Seller A-Z"];
 
@@ -154,54 +157,28 @@ export const POPULAR_PAYMENTS = [
 
 const shortName = (typeId) => typeId.replace(/^[^:]*:/, "");
 
-const ITEM_ICONS = {};
-const addIcon = (id, texture = id) => { ITEM_ICONS[id] = texture; };
-
-["diamond", "emerald", "iron_ingot", "gold_ingot", "netherite_ingot", "copper_ingot", "coal", "charcoal",
- "apple", "bread", "carrot", "potato", "baked_potato", "beetroot", "cookie", "stick", "string", "feather",
- "bone", "leather", "flint", "gunpowder", "blaze_rod", "blaze_powder", "slime_ball", "ender_pearl",
- "ender_eye", "quartz", "amethyst_shard", "netherite_scrap", "raw_iron", "raw_gold", "raw_copper",
- "glowstone_dust", "clay_ball", "brick", "paper", "arrow", "shears", "flint_and_steel", "bucket", "sugar",
- "egg", "wheat", "snowball", "nether_star", "pumpkin_pie", "mushroom_stew", "dried_kelp", "spider_eye",
- "rotten_flesh", "name_tag", "trident", "elytra", "saddle", "lead"].forEach((n) => addIcon(n));
-
 const ALIASES = {
-    redstone: "redstone_dust", book: "book_normal", beef: "beef_raw", cooked_beef: "beef_cooked",
+    redstone: "redstone_dust", book: "book_normal", writable_book: "book_writable", compass: "compass_item",
+    baked_potato: "potato_baked", poisonous_potato: "potato_poisonous", slime_ball: "slimeball",
+    bucket: "bucket_empty", water_bucket: "bucket_water", lava_bucket: "bucket_lava", milk_bucket: "bucket_milk", lapis_lazuli: "dye_powder_blue", beef: "beef_raw", cooked_beef: "beef_cooked",
     porkchop: "porkchop_raw", cooked_porkchop: "porkchop_cooked", chicken: "chicken_raw",
     cooked_chicken: "chicken_cooked", mutton: "mutton_raw", cooked_mutton: "mutton_cooked",
     rabbit: "rabbit_raw", cooked_rabbit: "rabbit_cooked", cod: "fish_raw", cooked_cod: "fish_cooked",
     salmon: "fish_salmon_raw", cooked_salmon: "fish_salmon_cooked", golden_apple: "apple_golden",
-    golden_carrot: "carrot_golden", melon_slice: "melon", water_bucket: "bucket_water",
-    lava_bucket: "bucket_lava", milk_bucket: "bucket_milk", bow: "bow_standby", totem_of_undying: "totem",
+    golden_carrot: "carrot_golden", melon_slice: "melon", totem_of_undying: "totem", bow: "bow_standby",
 };
-for (const [id, tex] of Object.entries(ALIASES)) addIcon(id, tex);
 
-const TOOL_TIERS = { wooden: "wood", stone: "stone", iron: "iron", golden: "gold", diamond: "diamond", netherite: "netherite" };
-for (const [tier, tex] of Object.entries(TOOL_TIERS)) {
-    for (const kind of ["sword", "pickaxe", "axe", "shovel", "hoe"]) addIcon(`${tier}_${kind}`, `${tex}_${kind}`);
+const TIERS = { wooden: "wood", golden: "gold" };
+const GEAR = ["sword", "pickaxe", "axe", "shovel", "hoe", "helmet", "chestplate", "leggings", "boots"];
+for (const [tier, tex] of Object.entries(TIERS)) {
+    for (const piece of GEAR) ALIASES[`${tier}_${piece}`] = `${tex}_${piece}`;
 }
-const ARMOR_TIERS = { leather: "leather", chainmail: "chainmail", iron: "iron", golden: "gold", diamond: "diamond", netherite: "netherite" };
-for (const [tier, tex] of Object.entries(ARMOR_TIERS)) {
-    for (const piece of ["helmet", "chestplate", "leggings", "boots"]) addIcon(`${tier}_${piece}`, `${tex}_${piece}`);
-}
-
-const BLOCK_ICONS = {
-    stone: "stone", cobblestone: "cobblestone", dirt: "dirt", sand: "sand", gravel: "gravel",
-    glass: "glass", obsidian: "obsidian", netherrack: "netherrack", bedrock: "bedrock",
-    diamond_block: "diamond_block", emerald_block: "emerald_block", gold_block: "gold_block",
-    iron_block: "iron_block", coal_block: "coal_block", lapis_block: "lapis_block",
-    redstone_block: "redstone_block", oak_planks: "planks_oak", oak_log: "log_oak",
-    spruce_planks: "planks_spruce", spruce_log: "log_spruce", birch_planks: "planks_birch",
-    birch_log: "log_birch", diamond_ore: "diamond_ore", emerald_ore: "emerald_ore",
-    gold_ore: "gold_ore", iron_ore: "iron_ore", coal_ore: "coal_ore",
-};
 
 export function iconFor(typeId) {
     if (!typeId.startsWith("minecraft:")) return undefined;
     const n = shortName(typeId);
-    if (BLOCK_ICONS[n]) return `textures/blocks/${BLOCK_ICONS[n]}`;
-    if (ITEM_ICONS[n]) return `textures/items/${ITEM_ICONS[n]}`;
-    return undefined;
+    const tex = ALIASES[n] ?? n;
+    return ICON_NAMES.has(tex) ? `textures/items/${tex}` : undefined;
 }
 
 const TOOLS = /(_sword|_pickaxe|_axe|_shovel|_hoe)$|^(bow|crossbow|trident|shears|fishing_rod|mace|flint_and_steel|shield|spyglass|brush)$/;
@@ -227,6 +204,151 @@ export function timeAgo(timestamp) {
     if (s < 86400) return `${Math.floor(s / 3600)}h ago`;
     return `${Math.floor(s / 86400)}d ago`;
 }
+```
+
+## FILE: MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/scripts/trade_icons.js (141 lines, 18368 bytes)
+
+```
+export const ICON_NAMES = new Set([
+    "acacia_chest_boat", "acacia_hanging_sign", "amethyst_shard", "angler_pottery_sherd", "apple", "apple_golden",
+    "archer_pottery_sherd", "armadillo_scute", "armor_stand", "arms_up_pottery_sherd", "arrow", "bamboo_chest_raft",
+    "bamboo_door", "bamboo_hanging_sign", "bamboo_raft", "bamboo_sign", "banner_pattern", "bed_black",
+    "bed_blue", "bed_brown", "bed_cyan", "bed_gray", "bed_green", "bed_light_blue",
+    "bed_lime", "bed_magenta", "bed_orange", "bed_pink", "bed_purple", "bed_red",
+    "bed_silver", "bed_white", "bed_yellow", "beef_cooked", "beef_raw", "beetroot",
+    "beetroot_soup", "birch_chest_boat", "birch_hanging_sign", "black_cushion", "blade_pottery_sherd", "blaze_powder",
+    "blaze_rod", "blue_cushion", "blue_egg", "boat_acacia", "boat_birch", "boat_darkoak",
+    "boat_jungle", "boat_oak", "boat_spruce", "bolt_armor_trim_smithing_template", "bone", "book_enchanted",
+    "book_normal", "book_portfolio", "book_writable", "book_written", "bordure_indented_banner_pattern", "bow_pulling_0",
+    "bow_pulling_1", "bow_pulling_2", "bow_standby", "bowl", "bread", "breeze_rod",
+    "brewer_pottery_sherd", "brewing_stand", "brick", "broken_elytra", "brown_cushion", "brown_egg",
+    "brush", "bucket_axolotl", "bucket_cod", "bucket_empty", "bucket_lava", "bucket_milk",
+    "bucket_powder_snow", "bucket_pufferfish", "bucket_salmon", "bucket_sulfur_cube", "bucket_tadpole", "bucket_tropical",
+    "bucket_water", "bundle", "bundle_black", "bundle_black_open_back", "bundle_black_open_front", "bundle_blue",
+    "bundle_blue_open_back", "bundle_blue_open_front", "bundle_brown", "bundle_brown_open_back", "bundle_brown_open_front", "bundle_cyan",
+    "bundle_cyan_open_back", "bundle_cyan_open_front", "bundle_gray", "bundle_gray_open_back", "bundle_gray_open_front", "bundle_green",
+    "bundle_green_open_back", "bundle_green_open_front", "bundle_light_blue", "bundle_light_blue_open_back", "bundle_light_blue_open_front", "bundle_light_gray",
+    "bundle_light_gray_open_back", "bundle_light_gray_open_front", "bundle_lime", "bundle_lime_open_back", "bundle_lime_open_front", "bundle_magenta",
+    "bundle_magenta_open_back", "bundle_magenta_open_front", "bundle_open_back", "bundle_open_front", "bundle_orange", "bundle_orange_open_back",
+    "bundle_orange_open_front", "bundle_pink", "bundle_pink_open_back", "bundle_pink_open_front", "bundle_purple", "bundle_purple_open_back",
+    "bundle_purple_open_front", "bundle_red", "bundle_red_open_back", "bundle_red_open_front", "bundle_white", "bundle_white_open_back",
+    "bundle_white_open_front", "bundle_yellow", "bundle_yellow_open_back", "bundle_yellow_open_front", "burn_pottery_sherd", "cake",
+    "camera", "campfire", "carrot", "carrot_golden", "carrot_on_a_stick", "cauldron",
+    "chain", "chainmail_boots", "chainmail_chestplate", "chainmail_helmet", "chainmail_leggings", "chalkboard_large",
+    "chalkboard_medium", "chalkboard_small", "charcoal", "cherry_boat", "cherry_chest_boat", "cherry_door",
+    "cherry_hanging_sign", "cherry_sign", "chicken_cooked", "chicken_raw", "chorus_fruit", "chorus_fruit_popped",
+    "clay_ball", "clock_item", "coal", "coast_armor_trim_smithing_template", "comparator", "compass_item",
+    "cookie", "copper_axe", "copper_boots", "copper_chestplate", "copper_door", "copper_helmet",
+    "copper_hoe", "copper_horse_armor", "copper_ingot", "copper_leggings", "copper_nugget", "copper_pickaxe",
+    "copper_shovel", "copper_sword", "creeper_banner_pattern", "crimson_door", "crimson_hanging_sign", "crossbow_arrow",
+    "crossbow_firework", "crossbow_pulling_0", "crossbow_pulling_1", "crossbow_pulling_2", "crossbow_standby", "cyan_cushion",
+    "danger_pottery_sherd", "dark_oak_chest_boat", "dark_oak_hanging_sign", "diamond", "diamond_axe", "diamond_boots",
+    "diamond_chestplate", "diamond_helmet", "diamond_hoe", "diamond_horse_armor", "diamond_leggings", "diamond_pickaxe",
+    "diamond_shovel", "diamond_sword", "disc_fragment_5", "door_acacia", "door_birch", "door_dark_oak",
+    "door_iron", "door_jungle", "door_spruce", "door_wood", "dragons_breath", "dried_kelp",
+    "dune_armor_trim_smithing_template", "dye_powder_black", "dye_powder_black_new", "dye_powder_blue", "dye_powder_blue_new", "dye_powder_brown",
+    "dye_powder_brown_new", "dye_powder_cyan", "dye_powder_glow", "dye_powder_gray", "dye_powder_green", "dye_powder_light_blue",
+    "dye_powder_lime", "dye_powder_magenta", "dye_powder_orange", "dye_powder_pink", "dye_powder_purple", "dye_powder_red",
+    "dye_powder_silver", "dye_powder_white", "dye_powder_white_new", "dye_powder_yellow", "echo_shard", "egg",
+    "egg_agent", "egg_bat", "egg_bee", "egg_blaze", "egg_cat", "egg_cave_spider",
+    "egg_chicken", "egg_clownfish", "egg_cod", "egg_cow", "egg_creeper", "egg_dolphin",
+    "egg_donkey", "egg_drowned", "egg_elderguardian", "egg_enderman", "egg_endermite", "egg_evoker",
+    "egg_fox", "egg_ghast", "egg_guardian", "egg_horse", "egg_husk", "egg_lava_slime",
+    "egg_llama", "egg_mask", "egg_mule", "egg_mushroomcow", "egg_npc", "egg_null",
+    "egg_ocelot", "egg_panda", "egg_parrot", "egg_phantom", "egg_pig", "egg_pigzombie",
+    "egg_pillager", "egg_polarbear", "egg_pufferfish", "egg_rabbit", "egg_ravager", "egg_salmon",
+    "egg_sheep", "egg_shulker", "egg_silverfish", "egg_skeleton", "egg_skeletonhorse", "egg_slime",
+    "egg_spider", "egg_squid", "egg_stray", "egg_turtle", "egg_vex", "egg_villager",
+    "egg_vindicator", "egg_witch", "egg_wither", "egg_wolf", "egg_zombie", "egg_zombiehorse",
+    "egg_zombievillager", "elytra", "emerald", "empty_armor_slot_boots", "empty_armor_slot_chestplate", "empty_armor_slot_helmet",
+    "empty_armor_slot_leggings", "empty_armor_slot_shield", "end_crystal", "ender_eye", "ender_pearl", "experience_bottle",
+    "explorer_pottery_sherd", "exposed_copper_door", "eye_armor_trim_smithing_template", "feather", "field_masoned_banner_pattern", "fireball",
+    "fireworks", "fireworks_charge", "fish_clownfish_raw", "fish_cooked", "fish_pufferfish_raw", "fish_raw",
+    "fish_salmon_cooked", "fish_salmon_raw", "fishing_rod_cast", "fishing_rod_uncast", "flint", "flint_and_steel",
+    "flow_armor_trim_smithing_template", "flow_banner_pattern", "flow_pottery_sherd", "flower_banner_pattern", "flower_pot", "friend_pottery_sherd",
+    "ghast_tear", "globe_banner_pattern", "glow_berries", "glow_item_frame", "glowstone_dust", "goat_horn",
+    "gold_axe", "gold_boots", "gold_chestplate", "gold_helmet", "gold_hoe", "gold_horse_armor",
+    "gold_ingot", "gold_leggings", "gold_nugget", "gold_pickaxe", "gold_shovel", "gold_sword",
+    "gray_cushion", "green_cushion", "gunpowder", "guster_banner_pattern", "guster_pottery_sherd", "hanging_roots",
+    "harness/harness_black", "harness/harness_blue", "harness/harness_brown", "harness/harness_cyan", "harness/harness_gray", "harness/harness_green",
+    "harness/harness_light_blue", "harness/harness_light_gray", "harness/harness_lime", "harness/harness_magenta", "harness/harness_orange", "harness/harness_pink",
+    "harness/harness_purple", "harness/harness_red", "harness/harness_white", "harness/harness_yellow", "heart_pottery_sherd", "heartbreak_pottery_sherd",
+    "heartofthesea_closed", "honey_bottle", "honeycomb", "hopper", "host_armor_trim_smithing_template", "howl_pottery_sherd",
+    "iron_axe", "iron_boots", "iron_chestplate", "iron_helmet", "iron_hoe", "iron_horse_armor",
+    "iron_ingot", "iron_leggings", "iron_nugget", "iron_pickaxe", "iron_shovel", "iron_sword",
+    "item_frame", "jungle_chest_boat", "jungle_hanging_sign", "kelp", "lead", "leather",
+    "leather_boots", "leather_chestplate", "leather_helmet", "leather_horse_armor", "leather_leggings", "lever",
+    "light_blue_cushion", "light_gray_cushion", "lime_cushion", "lodestonecompass_item", "mace", "magenta_cushion",
+    "magma_cream", "mangrove_boat", "mangrove_chest_boat", "mangrove_door", "mangrove_hanging_sign", "mangrove_sign",
+    "map_abandoned_campsite", "map_ancient_city", "map_desert_pyramid", "map_desert_village", "map_empty", "map_filled",
+    "map_jungle_temple", "map_locked", "map_mansion", "map_mineshaft", "map_monument", "map_nautilus",
+    "map_plains_village", "map_savanna_village", "map_snowy_village", "map_swamp_hut", "map_taiga_village", "map_trial_chambers",
+    "map_warm_ocean_ruins", "melon", "melon_speckled", "minecart_chest", "minecart_command_block", "minecart_furnace",
+    "minecart_hopper", "minecart_normal", "minecart_tnt", "miner_pottery_sherd", "mojang_banner_pattern", "mourner_pottery_sherd",
+    "mushroom_stew", "music_disc_bounce", "music_disc_creator", "music_disc_creator_music_box", "music_disc_lava_chicken", "music_disc_precipice",
+    "music_disc_relic", "music_disc_tears", "mutton_cooked", "mutton_raw", "name_tag", "nautilus",
+    "nautilus_armor/copper_nautilus_armor", "nautilus_armor/diamond_nautilus_armor", "nautilus_armor/gold_nautilus_armor", "nautilus_armor/iron_nautilus_armor", "nautilus_armor/netherite_nautilus_armor", "nether_sprouts",
+    "nether_star", "nether_wart", "netherbrick", "netherite_axe", "netherite_boots", "netherite_chestplate",
+    "netherite_helmet", "netherite_hoe", "netherite_horse_armor", "netherite_ingot", "netherite_leggings", "netherite_pickaxe",
+    "netherite_scrap", "netherite_shovel", "netherite_sword", "netherite_upgrade_smithing_template", "oak_chest_boat", "oak_hanging_sign",
+    "ominous_bottle", "ominous_trial_key", "orange_cushion", "oxidized_copper_door", "painting", "pale_oak_boat",
+    "pale_oak_chest_boat", "pale_oak_door", "pale_oak_hanging_sign", "pale_oak_sign", "paper", "phantom_membrane",
+    "piglin_banner_pattern", "pink_cushion", "pitcher_pod", "plenty_pottery_sherd", "poplar_boat", "poplar_chest_boat",
+    "poplar_door", "poplar_hanging_sign", "poplar_sign", "porkchop_cooked", "porkchop_raw", "potato",
+    "potato_baked", "potato_poisonous", "potion_bottle_absorption", "potion_bottle_blindness", "potion_bottle_confusion", "potion_bottle_damageBoost",
+    "potion_bottle_digSlowdown", "potion_bottle_digSpeed", "potion_bottle_drinkable", "potion_bottle_empty", "potion_bottle_fireResistance", "potion_bottle_harm",
+    "potion_bottle_heal", "potion_bottle_healthBoost", "potion_bottle_hunger", "potion_bottle_infested", "potion_bottle_invisibility", "potion_bottle_jump",
+    "potion_bottle_levitation", "potion_bottle_lingering", "potion_bottle_lingering_damageBoost", "potion_bottle_lingering_fireResistance", "potion_bottle_lingering_harm", "potion_bottle_lingering_heal",
+    "potion_bottle_lingering_infested", "potion_bottle_lingering_invisibility", "potion_bottle_lingering_jump", "potion_bottle_lingering_moveSlowdown", "potion_bottle_lingering_moveSpeed", "potion_bottle_lingering_nightVision",
+    "potion_bottle_lingering_oozing", "potion_bottle_lingering_poison", "potion_bottle_lingering_regeneration", "potion_bottle_lingering_slowFall", "potion_bottle_lingering_turtleMaster", "potion_bottle_lingering_waterBreathing",
+    "potion_bottle_lingering_weakness", "potion_bottle_lingering_weaving", "potion_bottle_lingering_windCharged", "potion_bottle_lingering_wither", "potion_bottle_moveSlowdown", "potion_bottle_moveSpeed",
+    "potion_bottle_nightVision", "potion_bottle_oozing", "potion_bottle_poison", "potion_bottle_regeneration", "potion_bottle_resistance", "potion_bottle_saturation",
+    "potion_bottle_slowFall", "potion_bottle_splash", "potion_bottle_splash_absorption", "potion_bottle_splash_blindness", "potion_bottle_splash_confusion", "potion_bottle_splash_damageBoost",
+    "potion_bottle_splash_digSlowdown", "potion_bottle_splash_digSpeed", "potion_bottle_splash_fireResistance", "potion_bottle_splash_harm", "potion_bottle_splash_heal", "potion_bottle_splash_healthBoost",
+    "potion_bottle_splash_hunger", "potion_bottle_splash_infested", "potion_bottle_splash_invisibility", "potion_bottle_splash_jump", "potion_bottle_splash_moveSlowdown", "potion_bottle_splash_moveSpeed",
+    "potion_bottle_splash_nightVision", "potion_bottle_splash_oozing", "potion_bottle_splash_poison", "potion_bottle_splash_regeneration", "potion_bottle_splash_resistance", "potion_bottle_splash_saturation",
+    "potion_bottle_splash_slowFall", "potion_bottle_splash_turtleMaster", "potion_bottle_splash_waterBreathing", "potion_bottle_splash_weakness", "potion_bottle_splash_weaving", "potion_bottle_splash_windCharged",
+    "potion_bottle_splash_wither", "potion_bottle_turtleMaster", "potion_bottle_waterBreathing", "potion_bottle_weakness", "potion_bottle_weaving", "potion_bottle_windCharged",
+    "potion_bottle_wither", "potion_overlay", "prismarine_crystals", "prismarine_shard", "prize_pottery_sherd", "pumpkin_pie",
+    "purple_cushion", "quartz", "quiver", "rabbit_cooked", "rabbit_foot", "rabbit_hide",
+    "rabbit_raw", "rabbit_stew", "raiser_armor_trim_smithing_template", "raw_copper", "raw_gold", "raw_iron",
+    "record_11", "record_13", "record_5", "record_blocks", "record_cat", "record_chirp",
+    "record_far", "record_mall", "record_mellohi", "record_otherside", "record_pigstep", "record_stal",
+    "record_strad", "record_wait", "record_ward", "recovery_compass_item", "red_cushion", "redstone_dust",
+    "reeds", "repeater", "resin_brick", "rib_armor_trim_smithing_template", "rotten_flesh", "saddle",
+    "scrape_pottery_sherd", "seeds_beetroot", "seeds_melon", "seeds_pumpkin", "seeds_wheat", "sentry_armor_trim_smithing_template",
+    "shaper_armor_trim_smithing_template", "sheaf_pottery_sherd", "shears", "shelter_pottery_sherd", "shulker_shell", "sign",
+    "sign_acacia", "sign_birch", "sign_crimson", "sign_darkoak", "sign_jungle", "sign_spruce",
+    "sign_warped", "silence_armor_trim_smithing_template", "skull_banner_pattern", "skull_pottery_sherd", "slimeball", "snort_pottery_sherd",
+    "snout_armor_trim_smithing_template", "snowball", "soul_campfire", "spawn_eggs/spawn_egg_agent", "spawn_eggs/spawn_egg_allay", "spawn_eggs/spawn_egg_armadillo",
+    "spawn_eggs/spawn_egg_axolotl", "spawn_eggs/spawn_egg_bat", "spawn_eggs/spawn_egg_bee", "spawn_eggs/spawn_egg_blaze", "spawn_eggs/spawn_egg_bogged", "spawn_eggs/spawn_egg_breeze",
+    "spawn_eggs/spawn_egg_camel", "spawn_eggs/spawn_egg_camel_husk", "spawn_eggs/spawn_egg_cat", "spawn_eggs/spawn_egg_cave_spider", "spawn_eggs/spawn_egg_chicken", "spawn_eggs/spawn_egg_cod",
+    "spawn_eggs/spawn_egg_copper_golem", "spawn_eggs/spawn_egg_cow", "spawn_eggs/spawn_egg_creaking", "spawn_eggs/spawn_egg_creeper", "spawn_eggs/spawn_egg_dolphin", "spawn_eggs/spawn_egg_donkey",
+    "spawn_eggs/spawn_egg_drowned", "spawn_eggs/spawn_egg_elder_guardian", "spawn_eggs/spawn_egg_ender_dragon", "spawn_eggs/spawn_egg_enderman", "spawn_eggs/spawn_egg_endermite", "spawn_eggs/spawn_egg_evoker",
+    "spawn_eggs/spawn_egg_fox", "spawn_eggs/spawn_egg_frog", "spawn_eggs/spawn_egg_ghast", "spawn_eggs/spawn_egg_glow_squid", "spawn_eggs/spawn_egg_goat", "spawn_eggs/spawn_egg_guardian",
+    "spawn_eggs/spawn_egg_happy_ghast", "spawn_eggs/spawn_egg_hoglin", "spawn_eggs/spawn_egg_horse", "spawn_eggs/spawn_egg_husk", "spawn_eggs/spawn_egg_iron_golem", "spawn_eggs/spawn_egg_llama",
+    "spawn_eggs/spawn_egg_magma_cube", "spawn_eggs/spawn_egg_mooshroom", "spawn_eggs/spawn_egg_mule", "spawn_eggs/spawn_egg_nautilus", "spawn_eggs/spawn_egg_ocelot", "spawn_eggs/spawn_egg_panda",
+    "spawn_eggs/spawn_egg_parched", "spawn_eggs/spawn_egg_parrot", "spawn_eggs/spawn_egg_phantom", "spawn_eggs/spawn_egg_pig", "spawn_eggs/spawn_egg_piglin", "spawn_eggs/spawn_egg_piglin_brute",
+    "spawn_eggs/spawn_egg_pillager", "spawn_eggs/spawn_egg_polar_bear", "spawn_eggs/spawn_egg_pufferfish", "spawn_eggs/spawn_egg_rabbit", "spawn_eggs/spawn_egg_ravager", "spawn_eggs/spawn_egg_salmon",
+    "spawn_eggs/spawn_egg_sheep", "spawn_eggs/spawn_egg_shulker", "spawn_eggs/spawn_egg_silverfish", "spawn_eggs/spawn_egg_skeleton", "spawn_eggs/spawn_egg_skeleton_horse", "spawn_eggs/spawn_egg_slime",
+    "spawn_eggs/spawn_egg_sniffer", "spawn_eggs/spawn_egg_snow_golem", "spawn_eggs/spawn_egg_spider", "spawn_eggs/spawn_egg_squid", "spawn_eggs/spawn_egg_stray", "spawn_eggs/spawn_egg_strider",
+    "spawn_eggs/spawn_egg_sulfur_cube", "spawn_eggs/spawn_egg_tadpole", "spawn_eggs/spawn_egg_trader_llama", "spawn_eggs/spawn_egg_tropicalfish", "spawn_eggs/spawn_egg_turtle", "spawn_eggs/spawn_egg_vex",
+    "spawn_eggs/spawn_egg_villager", "spawn_eggs/spawn_egg_vindicator", "spawn_eggs/spawn_egg_wandering_trader", "spawn_eggs/spawn_egg_warden", "spawn_eggs/spawn_egg_witch", "spawn_eggs/spawn_egg_wither",
+    "spawn_eggs/spawn_egg_wither_skeleton", "spawn_eggs/spawn_egg_wolf", "spawn_eggs/spawn_egg_zoglin", "spawn_eggs/spawn_egg_zombie", "spawn_eggs/spawn_egg_zombie_horse", "spawn_eggs/spawn_egg_zombie_nautilus",
+    "spawn_eggs/spawn_egg_zombie_villager", "spawn_eggs/spawn_egg_zombified_piglin", "spear/copper_spear", "spear/diamond_spear", "spear/gold_spear", "spear/iron_spear",
+    "spear/netherite_spear", "spear/stone_spear", "spear/wood_spear", "spider_eye", "spider_eye_fermented", "spire_armor_trim_smithing_template",
+    "spruce_chest_boat", "spruce_hanging_sign", "spyglass", "stick", "stone_axe", "stone_hoe",
+    "stone_pickaxe", "stone_shovel", "stone_sword", "straw_bed", "string", "sugar",
+    "suspicious_stew", "sweet_berries", "tide_armor_trim_smithing_template", "tipped_arrow", "tipped_arrow_fireres", "tipped_arrow_harm",
+    "tipped_arrow_healing", "tipped_arrow_infested", "tipped_arrow_invisibility", "tipped_arrow_leaping", "tipped_arrow_nightvision", "tipped_arrow_oozing",
+    "tipped_arrow_poison", "tipped_arrow_regen", "tipped_arrow_slow", "tipped_arrow_slowfalling", "tipped_arrow_strength", "tipped_arrow_swift",
+    "tipped_arrow_turtlemaster", "tipped_arrow_waterbreathing", "tipped_arrow_weakness", "tipped_arrow_weaving", "tipped_arrow_windCharged", "tipped_arrow_wither",
+    "torchflower_seeds", "totem", "trial_key", "trident", "turtle_helmet", "turtle_shell_piece",
+    "vex_armor_trim_smithing_template", "ward_armor_trim_smithing_template", "warped_door", "warped_fungus_on_a_stick", "warped_hanging_sign", "wayfinder_armor_trim_smithing_template",
+    "weathered_copper_door", "wheat", "white_cushion", "wild_armor_trim_smithing_template", "wind_charge", "wolf_armor",
+    "wolf_armor_dyed", "wood_axe", "wood_hoe", "wood_pickaxe", "wood_shovel", "wood_sword",
+    "yellow_cushion",
+]);
 ```
 
 ## FILE: MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/scripts/trade_storage.js (191 lines, 6158 bytes)
@@ -775,12 +897,23 @@ async function showAbout(player) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-GlobalMarket/CHANGELOG.md (28 lines, 1156 bytes)
+## FILE: MCPEDL/Addons/ALN-GlobalMarket/CHANGELOG.md (39 lines, 1550 bytes)
 
 ```
 # Changelog — ALN-GlobalMarket
 
 ---
+
+## [1.0.2] - 2026-11-21 - Verified Icons
+
+### Added
+- **More Item Icons**: Many more items, including copper gear, now show their real icons in the market.
+
+### Improved & Balanced
+- **Icon Accuracy**: Item icons are now checked against the game's own item list, so nothing shows a placeholder.
+
+### Fixed
+- **Broken Icons**: Baked potatoes, slime balls and buckets now show the correct icon.
 
 ## [1.0.1] - 2026-11-21 - Icon Fixes
 
@@ -900,7 +1033,7 @@ Download the current release of **ALN-GlobalMarket** for Minecraft Bedrock Editi
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN-GlobalMarket (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-GlobalMarket/ALNGlobalMarket%20V1.0.1.mcaddon)
+- **Direct download:** [Download ALN-GlobalMarket (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-GlobalMarket/ALNGlobalMarket%20V1.0.2.mcaddon)
 
 ## Installation
 

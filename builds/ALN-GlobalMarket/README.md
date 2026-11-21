@@ -8,7 +8,7 @@ This folder contains compiled release packages for **ALN-GlobalMarket** by ALNSt
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`ALNGlobalMarket V1.0.1.mcaddon`** | `.mcaddon` | ~10 KB | Complete Add-on package for Minecraft Bedrock. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-GlobalMarket/ALNGlobalMarket%20V1.0.1.mcaddon) |
+| **`ALNGlobalMarket V1.0.2.mcaddon`** | `.mcaddon` | ~14 KB | Complete Add-on package for Minecraft Bedrock. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-GlobalMarket/ALNGlobalMarket%20V1.0.2.mcaddon) |
 
 ---
 
