@@ -1,8 +1,0 @@
-{
-  "changelog_version": "1.0.0",
-  "manifest_version": "1.0.0",
-  "packages": {
-    "ALNPortalDoors V1.mcaddon": "a64eea55fcb18c6eadaf6619f9a795dc6af623ec656c6efb94711ab4f58dcca2"
-  },
-  "source_sha256": "79d481c5e07911997bcbe84dda355763b95b84e668d0043f6e8b9221463a1a06"
-}
