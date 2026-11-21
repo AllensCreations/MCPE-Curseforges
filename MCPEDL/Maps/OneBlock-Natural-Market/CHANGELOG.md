@@ -10,6 +10,9 @@
 - Fixed missing market icons for Magma Block and Conduit.
 - Fixed the missing Redstone category icon.
 - Removed the "Balance & Progress" button, which never displayed its message. Coins, breaks and tier are shown in the menu text.
+- Back and Next Page buttons now use left and right arrow icons.
+- Removed special characters from menu text and replaced gray text colors with white.
+- The About screen now has a single Close button.
 
 ## [14.0.1] - 2026-11-21 - Startup Crash Fix
 

@@ -250,7 +250,7 @@ function log(level, message, key) {
   const line = "[OBM][" + level + "] " + message;
   console.warn(line);
   try {
-    for (const p of world.getAllPlayers()) if (p.hasTag(DEBUG_TAG)) p.sendMessage("§8" + line);
+    for (const p of world.getAllPlayers()) if (p.hasTag(DEBUG_TAG)) p.sendMessage("§f" + line);
   } catch {}
 }
 function logError(context, error) {
@@ -296,7 +296,7 @@ function itemAvailable(item) {
 function tell(player, message) { try { player.onScreenDisplay.setActionBar("§6[Market] §r" + message); } catch {} }
 
 function showBalance(player) {
-  try { player.onScreenDisplay.setActionBar("§6Coins: §e" + balance(player) + " §8| §7Blocks: §f" + personalBreaks(player)); } catch {}
+  try { player.onScreenDisplay.setActionBar("§6Coins: §e" + balance(player) + " §f| §fBlocks: §f" + personalBreaks(player)); } catch {}
 }
 function hasLedger(player) {
   const inv = inventoryOf(player);
@@ -409,19 +409,18 @@ function ensureCore() {
   } catch (e) { logError("ensureCore", e); }
 }
 function showAbout(player) {
-  const form = new MessageFormData()
-    .title("ABOUT — NATURAL MARKET")
+  const form = new ActionFormData()
+    .title("ABOUT - NATURAL MARKET")
     .body(
       "§l§aOneBlock Natural Market§r\n" +
-      "§7by ALNStudios§r\n\n" +
+      "by ALNStudios\n\n" +
       "Start in the void on a single regenerating block.\n" +
       "Break the core to earn §eCoins§r and grow your block pool.\n" +
       "Use the §bNatural Market Ledger§r to buy supplies.\n\n" +
-      "§7The Ledger cannot be dropped — it always returns to you.§r\n\n" +
-      "§8Version: v13 | ALNStudios | CurseForge / MCPEDL§r"
+      "The Ledger cannot be dropped. It always returns to you.\n\n" +
+      "Version: v15 | ALNStudios | CurseForge / MCPEDL"
     )
-    .button1("Close")
-    .button2("Close");
+    .button("Close");
   showForm(form, player).catch(e => { logError("showAbout", e); });
 }
 function marketMain(player) {
@@ -440,7 +439,7 @@ function marketMain(player) {
     .button("Nether", CATEGORIES[8].icon)
     .button("Endgame", CATEGORIES[9].icon)
     .button("Sell Eligible Items", "textures/items/gold_ingot")
-    .button("ℹ About", "textures/ui/icon_recipe_nature");
+    .button("About", "textures/ui/icon_recipe_nature");
   showForm(form, player).then(r => {
     if (r.canceled) return;
     if (r.selection < CATEGORIES.length) return showCategory(player, CATEGORIES[r.selection].name);
@@ -462,10 +461,10 @@ function showCategory(player, category, page = 0) {
       "\nTap a supply slot to buy the listed bundle." +
       (locked.length ? "\nMore supplies unlock as you mine the core." : ""));
   for (const item of visible) {
-    form.button(item.name + "\n§e" + item.amount + "x · " + (item.price * item.amount) + " Coins", item.icon || undefined);
+    form.button(item.name + "\n§e" + item.amount + "x - " + (item.price * item.amount) + " Coins", item.icon || undefined);
   }
-  if (safePage + 1 < pageCount) form.button("Next Page ▶", "textures/ui/arrow_dark_right");
-  form.button("◀ Back to Market", "textures/items/book_normal");
+  if (safePage + 1 < pageCount) form.button("Next Page", "textures/ui/arrow_right");
+  form.button("Back to Market", "textures/ui/arrow_left");
   showForm(form, player).then(r => {
     if (r.canceled) return;
     if (r.selection < visible.length) return purchase(player, visible[r.selection]);
@@ -491,7 +490,7 @@ function purchase(player, item) {
   if (charged < totalPrice) setBalance(player, balance(player) + totalPrice - charged);
   if (delivered <= 0) return tell(player, "Inventory full. No Coins were taken.");
   if (delivered < item.amount) tell(player, "Only " + delivered + " item(s) fit; charged " + charged + " Coins.");
-  else tell(player, "Purchased " + delivered + " × " + item.name + " for " + charged + " Coins.");
+  else tell(player, "Purchased " + delivered + " x " + item.name + " for " + charged + " Coins.");
   addBlockToPool(item);
   showBalance(player);
 }
