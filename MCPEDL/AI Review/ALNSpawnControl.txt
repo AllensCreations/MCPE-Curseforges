@@ -1,0 +1,1163 @@
+<!-- GRAPH-CONTEXT:START -->
+## Graph Context
+
+- **Project:** `ALNSpawnControl` | Category: `Script` | Version: `v2`
+- **Pack Types:** behavior_pack
+- **Siblings in Script:** `ALN-MobStacker (v2)` (v2), `Always-Critical (v2)` (v2), `Category: Script`, `Chrono-Bed (v2)` (v2), `Command-Vault (v3)` (v3), `Gameplay-Optimizer (v2)` (v2), `Living-SMP-Chat (v2)` (v2), `Loot-and-XP-Stick (v1)` (v1) …
+
+> _Auto-generated from graphify-out/graph.json — do not edit manually._
+<!-- GRAPH-CONTEXT:END -->
+
+---
+
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Script/ALNSpawnControl`
+- **Destination:** `MCPEDL/Script/ALNSpawnControl`
+- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Script/ALNSpawnControl/CHANGELOG.md`)
+- **Text files:** 9
+- **Skipped binary:** 6
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Script/ALNSpawnControl/behavior_pack/manifest.json`
+- `MCPEDL/Script/ALNSpawnControl/behavior_pack/scripts/main.js`
+- `MCPEDL/Script/ALNSpawnControl/behavior_pack/scripts/spawn_filter.js`
+- `MCPEDL/Script/ALNSpawnControl/behavior_pack/scripts/spawn_registry.js`
+- `MCPEDL/Script/ALNSpawnControl/behavior_pack/scripts/spawn_ui.js`
+- `MCPEDL/Script/ALNSpawnControl/CHANGELOG.md`
+- `MCPEDL/Script/ALNSpawnControl/DESCRIPTION.md`
+- `MCPEDL/Script/ALNSpawnControl/project.json`
+- `MCPEDL/Script/ALNSpawnControl/README.md`
+
+### Skipped (binary)
+
+- `MCPEDL/Script/ALNSpawnControl/assets/snapshots/BOSSES & RARE MOBS.jpg`
+- `MCPEDL/Script/ALNSpawnControl/assets/snapshots/HOW TO GET THE BOOK.jpg`
+- `MCPEDL/Script/ALNSpawnControl/assets/snapshots/OVER WORLD HOSTILE MENU.jpg`
+- `MCPEDL/Script/ALNSpawnControl/assets/snapshots/PASSIVE AND NEUTRAL MOBS.jpg`
+- `MCPEDL/Script/ALNSpawnControl/behavior_pack/pack_icon.png`
+- `MCPEDL/Script/ALNSpawnControl/pack_icon.png`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v3 / NEXT UPDATE: v4).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Script/ALNSpawnControl
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`.
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Script/ALNSpawnControl/behavior_pack/manifest.json (49 lines, 888 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN:SpawnControl (v3.0.3)",
+    "description": "Custom mob spawn whitelist and categorized form control panel. by ALNStudios",
+    "uuid": "698a7800-3ede-4b9b-8cab-e61eaa1c17c8",
+    "version": [
+      3,
+      0,
+      3
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "23b82696-046f-45bf-a630-6e5de0e46dee",
+      "version": [
+        3,
+        0,
+        3
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.3.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "3.0.3"
+  }
+}
+```
+
+## FILE: MCPEDL/Script/ALNSpawnControl/behavior_pack/scripts/main.js (9 lines, 246 bytes)
+
+```
+import { world } from "@minecraft/server";
+import { registerSpawnFilter } from "./spawn_filter.js";
+import { registerSpawnUI } from "./spawn_ui.js";
+
+world.afterEvents.worldLoad.subscribe(() => {
+  registerSpawnFilter();
+  registerSpawnUI();
+});
+```
+
+## FILE: MCPEDL/Script/ALNSpawnControl/behavior_pack/scripts/spawn_filter.js (80 lines, 1870 bytes)
+
+```
+import { world, EntityInitializationCause } from "@minecraft/server";
+import { getSpawnRules, getSpawnConfig } from "./spawn_registry.js";
+
+let blockedCount = 0;
+
+export function getBlockedCount() {
+  return blockedCount;
+}
+
+export function resetBlockedCount() {
+  blockedCount = 0;
+}
+
+const IGNORED_TYPES = new Set([
+  "minecraft:player",
+  "minecraft:item",
+  "minecraft:xp_orb",
+  "minecraft:arrow",
+  "minecraft:snowball",
+  "minecraft:egg",
+  "minecraft:splash_potion",
+  "minecraft:lingering_potion",
+  "minecraft:ender_pearl",
+  "minecraft:eye_of_ender_signal",
+  "minecraft:firework_rocket",
+  "minecraft:trident",
+  "minecraft:wind_charge_projectile",
+  "minecraft:breeze_wind_charge_projectile",
+  "minecraft:shulker_bullet",
+  "minecraft:wither_skull",
+  "minecraft:wither_skull_dangerous",
+  "minecraft:dragon_fireball",
+  "minecraft:small_fireball",
+  "minecraft:large_fireball",
+  "minecraft:boat",
+  "minecraft:chest_boat",
+  "minecraft:minecart",
+  "minecraft:chest_minecart",
+  "minecraft:hopper_minecart",
+  "minecraft:tnt_minecart",
+  "minecraft:command_block_minecart"
+]);
+
+export function registerSpawnFilter() {
+  world.afterEvents.entitySpawn.subscribe((event) => {
+    const entity = event.entity;
+    if (!entity || !entity.isValid) {
+      return;
+    }
+
+    const typeId = entity.typeId;
+    if (IGNORED_TYPES.has(typeId)) {
+      return;
+    }
+
+    const rules = getSpawnRules(world);
+    if (rules[typeId] !== false) {
+      return;
+    }
+
+    const config = getSpawnConfig(world);
+    if (!config.blockSpawnEggs) {
+      const cause = event.cause;
+      const isNaturalOrWorldGen =
+        cause === EntityInitializationCause.Spawned ||
+        cause === EntityInitializationCause.Born;
+
+      if (!isNaturalOrWorldGen) {
+        return;
+      }
+    }
+
+    try {
+      entity.remove();
+      blockedCount++;
+    } catch (e) {
+    }
+  });
+}
+```
+
+## FILE: MCPEDL/Script/ALNSpawnControl/behavior_pack/scripts/spawn_registry.js (143 lines, 4971 bytes)
+
+```
+export const MOB_CATEGORIES = {
+  overworld_hostiles: {
+    name: "Overworld Hostiles",
+    mobs: [
+      { id: "minecraft:zombie", name: "Zombie" },
+      { id: "minecraft:skeleton", name: "Skeleton" },
+      { id: "minecraft:creeper", name: "Creeper" },
+      { id: "minecraft:spider", name: "Spider" },
+      { id: "minecraft:cave_spider", name: "Cave Spider" },
+      { id: "minecraft:enderman", name: "Enderman" },
+      { id: "minecraft:witch", name: "Witch" },
+      { id: "minecraft:slime", name: "Slime" },
+      { id: "minecraft:drowned", name: "Drowned" },
+      { id: "minecraft:husk", name: "Husk" },
+      { id: "minecraft:stray", name: "Stray" },
+      { id: "minecraft:phantom", name: "Phantom" },
+      { id: "minecraft:pillager", name: "Pillager" },
+      { id: "minecraft:vindicator", name: "Vindicator" },
+      { id: "minecraft:evoker", name: "Evoker" },
+      { id: "minecraft:ravager", name: "Ravager" },
+      { id: "minecraft:breeze", name: "Breeze" },
+      { id: "minecraft:bogged", name: "Bogged" },
+      { id: "minecraft:creaking", name: "Creaking" }
+    ]
+  },
+  passive_neutral: {
+    name: "Passive & Neutral Mobs",
+    mobs: [
+      { id: "minecraft:cow", name: "Cow" },
+      { id: "minecraft:pig", name: "Pig" },
+      { id: "minecraft:sheep", name: "Sheep" },
+      { id: "minecraft:chicken", name: "Chicken" },
+      { id: "minecraft:rabbit", name: "Rabbit" },
+      { id: "minecraft:horse", name: "Horse" },
+      { id: "minecraft:donkey", name: "Donkey" },
+      { id: "minecraft:wolf", name: "Wolf" },
+      { id: "minecraft:cat", name: "Cat" },
+      { id: "minecraft:fox", name: "Fox" },
+      { id: "minecraft:axolotl", name: "Axolotl" },
+      { id: "minecraft:bee", name: "Bee" },
+      { id: "minecraft:villager", name: "Villager" },
+      { id: "minecraft:iron_golem", name: "Iron Golem" },
+      { id: "minecraft:snow_golem", name: "Snow Golem" },
+      { id: "minecraft:squid", name: "Squid" },
+      { id: "minecraft:glow_squid", name: "Glow Squid" },
+      { id: "minecraft:dolphin", name: "Dolphin" },
+      { id: "minecraft:turtle", name: "Turtle" },
+      { id: "minecraft:camel", name: "Camel" },
+      { id: "minecraft:sniffer", name: "Sniffer" },
+      { id: "minecraft:armadillo", name: "Armadillo" },
+      { id: "minecraft:allay", name: "Allay" }
+    ]
+  },
+  nether_end: {
+    name: "Nether & End Mobs",
+    mobs: [
+      { id: "minecraft:zombie_pigman", name: "Zombified Piglin" },
+      { id: "minecraft:piglin", name: "Piglin" },
+      { id: "minecraft:piglin_brute", name: "Piglin Brute" },
+      { id: "minecraft:hoglin", name: "Hoglin" },
+      { id: "minecraft:zoglin", name: "Zoglin" },
+      { id: "minecraft:blaze", name: "Blaze" },
+      { id: "minecraft:ghast", name: "Ghast" },
+      { id: "minecraft:magma_cube", name: "Magma Cube" },
+      { id: "minecraft:wither_skeleton", name: "Wither Skeleton" },
+      { id: "minecraft:strider", name: "Strider" },
+      { id: "minecraft:endermite", name: "Endermite" },
+      { id: "minecraft:shulker", name: "Shulker" }
+    ]
+  },
+  bosses_rare: {
+    name: "Bosses & Rare Mobs",
+    mobs: [
+      { id: "minecraft:warden", name: "Warden" },
+      { id: "minecraft:elder_guardian", name: "Elder Guardian" },
+      { id: "minecraft:guardian", name: "Guardian" },
+      { id: "minecraft:wither", name: "Wither" },
+      { id: "minecraft:ender_dragon", name: "Ender Dragon" }
+    ]
+  }
+};
+
+const RULES_KEY = "aln_spawn_rules";
+const CONFIG_KEY = "aln_spawn_config";
+
+export function getSpawnRules(world) {
+  try {
+    const raw = world.getDynamicProperty(RULES_KEY);
+    if (typeof raw === "string") {
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed === "object") {
+        return parsed;
+      }
+    }
+  } catch (e) {
+  }
+  const defaultRules = {};
+  for (const catKey of Object.keys(MOB_CATEGORIES)) {
+    for (const mob of MOB_CATEGORIES[catKey].mobs) {
+      defaultRules[mob.id] = true;
+    }
+  }
+  saveSpawnRules(world, defaultRules);
+  return defaultRules;
+}
+
+export function saveSpawnRules(world, rules) {
+  world.setDynamicProperty(RULES_KEY, JSON.stringify(rules));
+}
+
+export function getSpawnConfig(world) {
+  try {
+    const raw = world.getDynamicProperty(CONFIG_KEY);
+    if (typeof raw === "string") {
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed === "object") {
+        return {
+          blockSpawnEggs: Boolean(parsed.blockSpawnEggs),
+          adminOnly: Boolean(parsed.adminOnly)
+        };
+      }
+    }
+  } catch (e) {
+  }
+  const defaultConfig = { blockSpawnEggs: false, adminOnly: false };
+  saveSpawnConfig(world, defaultConfig);
+  return defaultConfig;
+}
+
+export function saveSpawnConfig(world, config) {
+  world.setDynamicProperty(CONFIG_KEY, JSON.stringify(config));
+}
+
+export function getAllMobIds() {
+  const ids = [];
+  for (const catKey of Object.keys(MOB_CATEGORIES)) {
+    for (const mob of MOB_CATEGORIES[catKey].mobs) {
+      ids.push(mob.id);
+    }
+  }
+  return ids;
+}
+```
+
+## FILE: MCPEDL/Script/ALNSpawnControl/behavior_pack/scripts/spawn_ui.js (595 lines, 16772 bytes)
+
+```
+import { world, system } from "@minecraft/server";
+import { ActionFormData, ModalFormData, MessageFormData } from "@minecraft/server-ui";
+import {
+  MOB_CATEGORIES,
+  getSpawnRules,
+  saveSpawnRules,
+  getSpawnConfig,
+  saveSpawnConfig,
+  getAllMobIds
+} from "./spawn_registry.js";
+import { getBlockedCount } from "./spawn_filter.js";
+
+const ADMIN_TAG = "aln_admin";
+
+function hasAdminPermission(player) {
+  const config = getSpawnConfig(world);
+  if (!config.adminOnly) {
+    return true;
+  }
+  const allPlayers = world.getAllPlayers();
+  const hasAnyAdmin = allPlayers.some((p) => p.hasTag(ADMIN_TAG));
+  if (!hasAnyAdmin) {
+    player.addTag(ADMIN_TAG);
+    player.onScreenDisplay.setActionBar("§a[SpawnControl] §fYou were granted Admin permissions.");
+    return true;
+  }
+  return player.hasTag(ADMIN_TAG);
+}
+
+export function registerSpawnUI() {
+  world.afterEvents.itemUse.subscribe((event) => {
+    const item = event.itemStack;
+    const player = event.source;
+
+    if (!item || !player) {
+      return;
+    }
+
+    const typeId = item.typeId;
+    if (typeId !== "minecraft:book") {
+      return;
+    }
+
+    const nameTag = item.nameTag;
+    if (!nameTag || nameTag.trim().toLowerCase() !== "spawn control") {
+      return;
+    }
+
+    if (!hasAdminPermission(player)) {
+      player.onScreenDisplay.setActionBar("§c[SpawnControl] §fOnly admins can open Spawn Control!");
+      return;
+    }
+
+    system.run(() => {
+      openMainMenu(player);
+    });
+  });
+}
+
+function openMainMenu(player) {
+  const rules = getSpawnRules(world);
+  const config = getSpawnConfig(world);
+  const allIds = getAllMobIds();
+
+  let allowedCount = 0;
+  let blockedCount = 0;
+
+  for (const id of allIds) {
+    if (rules[id] === false) {
+      blockedCount++;
+    } else {
+      allowedCount++;
+    }
+  }
+
+  const form = new ActionFormData();
+  form.title("§2§lALN:SpawnControl");
+  form.body(
+    `§7Manage world mob spawns with precision.\n\n` +
+    `§fActive Status:\n` +
+    `§aAllowed: §f${allowedCount} mobs\n` +
+    `§cBlocked: §f${blockedCount} mobs\n` +
+    `§eBlocked Spawns This Session: §f${getBlockedCount()}\n` +
+    `§bFilter Mode: §f${config.blockSpawnEggs ? "All Sources (Inc. Eggs)" : "Natural Only"}\n` +
+    `§dAdmin Tag Lock: §f${config.adminOnly ? "Enabled" : "Disabled"}\n` +
+    `§cDisabled Mobs Loaded Now: §f${countDisabledLoaded()}`
+  );
+
+  form.button("§1Overworld Hostiles\n§8Zombie, Creeper, Breeze...");
+  form.button("§2Passive & Neutral Mobs\n§8Cow, Sheep, Villager...");
+  form.button("§4Nether & End Mobs\n§8Blaze, Ghast, Piglin...");
+  form.button("§5Bosses & Rare Mobs\n§8Warden, Wither, Dragon...");
+  form.button("§6Quick Presets\n§8Enable/Disable Groups");
+  form.button("§3Global Filter Settings\n§8Mode & Admin Lock");
+  form.button("§cPurge Disabled Mobs\n§8Choose what gets removed");
+
+  form.show(player).then((response) => {
+    if (response.canceled) {
+      return;
+    }
+
+    switch (response.selection) {
+      case 0:
+        openCategoryMenu(player, "overworld_hostiles");
+        break;
+      case 1:
+        openCategoryMenu(player, "passive_neutral");
+        break;
+      case 2:
+        openCategoryMenu(player, "nether_end");
+        break;
+      case 3:
+        openCategoryMenu(player, "bosses_rare");
+        break;
+      case 4:
+        openPresetsMenu(player);
+        break;
+      case 5:
+        openGlobalSettingsMenu(player);
+        break;
+      case 6:
+        openPurgeMenu(player);
+        break;
+    }
+  });
+}
+
+function openCategoryMenu(player, categoryKey) {
+  const category = MOB_CATEGORIES[categoryKey];
+  if (!category) {
+    return;
+  }
+
+  const rules = getSpawnRules(world);
+  const form = new ModalFormData();
+  form.title(`§2${category.name}`);
+
+  form.dropdown("Group Action", ["No Change", "Enable All In Group", "Disable All In Group"], { defaultValueIndex: 0 });
+
+  for (const mob of category.mobs) {
+    const isAllowed = rules[mob.id] !== false;
+    form.toggle(`${mob.name}`, { defaultValue: isAllowed });
+  }
+
+  form.show(player).then((response) => {
+    if (response.canceled || !response.formValues) {
+      return;
+    }
+
+    const currentRules = getSpawnRules(world);
+    const groupAction = Number(response.formValues[0]);
+    category.mobs.forEach((mob, index) => {
+      if (groupAction === 1) {
+        currentRules[mob.id] = true;
+      } else if (groupAction === 2) {
+        currentRules[mob.id] = false;
+      } else {
+        currentRules[mob.id] = Boolean(response.formValues[index + 1]);
+      }
+    });
+
+    saveSpawnRules(world, currentRules);
+    player.onScreenDisplay.setActionBar(`§a[SpawnControl] §fUpdated ${category.name} spawn rules!`);
+  });
+}
+
+function openPresetsMenu(player) {
+  const form = new ActionFormData();
+  form.title("§6Quick Presets");
+  form.body("§7Choose a preset to apply instant spawn rule sets across categories:");
+
+  form.button("§aEnable All Mobs\n§8Allow all mobs to spawn");
+  form.button("§cDisable All Hostiles\n§8Block all hostile & Nether threats");
+  form.button("§eDisable All Passive Mobs\n§8Block all farm animals & pets");
+  form.button("§4Disable Everything\n§8Completely empty mob world");
+
+  form.show(player).then((response) => {
+    if (response.canceled) {
+      return;
+    }
+
+    const rules = getSpawnRules(world);
+
+    if (response.selection === 0) {
+      const allIds = getAllMobIds();
+      for (const id of allIds) {
+        rules[id] = true;
+      }
+      saveSpawnRules(world, rules);
+      player.onScreenDisplay.setActionBar("§a[SpawnControl] §fEnabled all mobs!");
+    } else if (response.selection === 1) {
+      for (const mob of MOB_CATEGORIES.overworld_hostiles.mobs) {
+        rules[mob.id] = false;
+      }
+      for (const mob of MOB_CATEGORIES.nether_end.mobs) {
+        rules[mob.id] = false;
+      }
+      for (const mob of MOB_CATEGORIES.bosses_rare.mobs) {
+        rules[mob.id] = false;
+      }
+      saveSpawnRules(world, rules);
+      player.onScreenDisplay.setActionBar("§a[SpawnControl] §fDisabled all hostiles & bosses!");
+    } else if (response.selection === 2) {
+      for (const mob of MOB_CATEGORIES.passive_neutral.mobs) {
+        rules[mob.id] = false;
+      }
+      saveSpawnRules(world, rules);
+      player.onScreenDisplay.setActionBar("§a[SpawnControl] §fDisabled all passive mobs!");
+    } else if (response.selection === 3) {
+      const allIds = getAllMobIds();
+      for (const id of allIds) {
+        rules[id] = false;
+      }
+      saveSpawnRules(world, rules);
+      player.onScreenDisplay.setActionBar("§a[SpawnControl] §fDisabled all mobs!");
+    }
+  });
+}
+
+function openGlobalSettingsMenu(player) {
+  const config = getSpawnConfig(world);
+  const form = new ModalFormData();
+  form.title("§3Global Filter Settings");
+
+  form.toggle("Include Spawn Eggs & Summon Commands", { defaultValue: config.blockSpawnEggs });
+  form.toggle("Admin Tag Lock (player tag: aln_admin)", { defaultValue: config.adminOnly });
+  form.toggle("Purge Loaded Disabled Mobs Now", { defaultValue: false });
+
+  form.show(player).then((response) => {
+    if (response.canceled || !response.formValues) {
+      return;
+    }
+
+    const blockSpawnEggs = Boolean(response.formValues[0]);
+    const adminOnly = Boolean(response.formValues[1]);
+
+    saveSpawnConfig(world, { blockSpawnEggs, adminOnly });
+    player.onScreenDisplay.setActionBar("§a[SpawnControl] §fSaved global filter settings!");
+  });
+}
+
+const PURGE_OPTIONS_KEY = "aln_purge_options";
+
+const PURGE_DIMENSIONS = [
+  { name: "All Dimensions", ids: ["overworld", "nether", "the_end"] },
+  { name: "Overworld", ids: ["overworld"] },
+  { name: "Nether", ids: ["nether"] },
+  { name: "The End", ids: ["the_end"] }
+];
+
+function isTamedEntity(entity) {
+  try {
+    if (entity.getComponent("minecraft:is_tamed")) {
+      return true;
+    }
+  } catch (e) {
+  }
+  try {
+    const tameable = entity.getComponent("minecraft:tameable");
+    if (tameable && tameable.isTamed === true) {
+      return true;
+    }
+  } catch (e) {
+  }
+  return false;
+}
+
+function isNameTaggedEntity(entity) {
+  try {
+    return typeof entity.nameTag === "string" && entity.nameTag.length > 0;
+  } catch (e) {
+    return false;
+  }
+}
+
+function isLeashedEntity(entity) {
+  try {
+    const leashable = entity.getComponent("minecraft:leashable");
+    return Boolean(leashable && leashable.isLeashed === true);
+  } catch (e) {
+    return false;
+  }
+}
+
+function isRiddenEntity(entity) {
+  try {
+    const rideable = entity.getComponent("minecraft:rideable");
+    return Boolean(rideable && rideable.getRiders().length > 0);
+  } catch (e) {
+    return false;
+  }
+}
+
+function isChestedEntity(entity) {
+  try {
+    return Boolean(entity.getComponent("minecraft:is_chested"));
+  } catch (e) {
+    return false;
+  }
+}
+
+const PURGE_PROTECTIONS = [
+  { key: "tamed", label: "Include Tamed Mobs", kept: "tamed", test: isTamedEntity },
+  { key: "named", label: "Include Name-Tagged Mobs", kept: "name-tagged", test: isNameTaggedEntity },
+  { key: "leashed", label: "Include Leashed Mobs", kept: "leashed", test: isLeashedEntity },
+  { key: "ridden", label: "Include Mobs With Riders", kept: "with riders", test: isRiddenEntity },
+  { key: "chested", label: "Include Mobs Carrying Chests", kept: "carrying chests", test: isChestedEntity }
+];
+
+function getMobNameMap() {
+  const map = {};
+  for (const key of Object.keys(MOB_CATEGORIES)) {
+    for (const mob of MOB_CATEGORIES[key].mobs) {
+      map[mob.id] = mob.name;
+    }
+  }
+  return map;
+}
+
+function getGroupMobIds(groupIndex) {
+  const keys = Object.keys(MOB_CATEGORIES);
+  if (groupIndex <= 0 || groupIndex > keys.length) {
+    return getAllMobIds();
+  }
+  return MOB_CATEGORIES[keys[groupIndex - 1]].mobs.map((mob) => mob.id);
+}
+
+function loadPurgeOptions() {
+  const options = {
+    dimension: 0,
+    group: 0,
+    tamed: false,
+    named: false,
+    leashed: false,
+    ridden: false,
+    chested: false
+  };
+  try {
+    const raw = world.getDynamicProperty(PURGE_OPTIONS_KEY);
+    if (typeof raw === "string") {
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed === "object") {
+        const dim = Number(parsed.dimension);
+        const grp = Number(parsed.group);
+        if (Number.isInteger(dim) && dim >= 0 && dim < PURGE_DIMENSIONS.length) {
+          options.dimension = dim;
+        }
+        if (Number.isInteger(grp) && grp >= 0 && grp <= Object.keys(MOB_CATEGORIES).length) {
+          options.group = grp;
+        }
+        for (const p of PURGE_PROTECTIONS) {
+          options[p.key] = Boolean(parsed[p.key]);
+        }
+      }
+    }
+  } catch (e) {
+  }
+  return options;
+}
+
+function savePurgeOptions(options) {
+  try {
+    world.setDynamicProperty(PURGE_OPTIONS_KEY, JSON.stringify(options));
+  } catch (e) {
+  }
+}
+
+function scanPurge(options, selectedIds) {
+  const rules = getSpawnRules(world);
+  const groupIds = new Set(getGroupMobIds(options.group));
+  const dimension = PURGE_DIMENSIONS[options.dimension] || PURGE_DIMENSIONS[0];
+  const types = {};
+  const kept = {};
+  for (const p of PURGE_PROTECTIONS) {
+    kept[p.key] = 0;
+  }
+
+  for (const dimId of dimension.ids) {
+    try {
+      const dim = world.getDimension(dimId);
+      if (!dim) {
+        continue;
+      }
+      for (const entity of dim.getEntities()) {
+        if (!entity || !entity.isValid) {
+          continue;
+        }
+        const id = entity.typeId;
+        if (rules[id] !== false || !groupIds.has(id)) {
+          continue;
+        }
+        if (selectedIds && !selectedIds.has(id)) {
+          continue;
+        }
+        let protectedBy = null;
+        for (const p of PURGE_PROTECTIONS) {
+          if (!options[p.key] && p.test(entity)) {
+            protectedBy = p.key;
+            break;
+          }
+        }
+        if (protectedBy) {
+          kept[protectedBy]++;
+          continue;
+        }
+        if (!types[id]) {
+          types[id] = [];
+        }
+        types[id].push(entity);
+      }
+    } catch (e) {
+    }
+  }
+
+  return { types, kept };
+}
+
+function describeKept(kept) {
+  const parts = [];
+  for (const p of PURGE_PROTECTIONS) {
+    if (kept[p.key] > 0) {
+      parts.push(`${kept[p.key]} ${p.kept}`);
+    }
+  }
+  return parts.length > 0 ? parts.join(", ") : "none";
+}
+
+function countDisabledLoaded() {
+  const rules = getSpawnRules(world);
+  let count = 0;
+  for (const dimId of PURGE_DIMENSIONS[0].ids) {
+    try {
+      const dim = world.getDimension(dimId);
+      if (!dim) {
+        continue;
+      }
+      for (const entity of dim.getEntities()) {
+        if (entity && entity.isValid && rules[entity.typeId] === false) {
+          count++;
+        }
+      }
+    } catch (e) {
+    }
+  }
+  return count;
+}
+
+function openPurgeMenu(player) {
+  const options = loadPurgeOptions();
+  const groupNames = ["All Groups"];
+  for (const key of Object.keys(MOB_CATEGORIES)) {
+    groupNames.push(MOB_CATEGORIES[key].name);
+  }
+
+  const form = new ModalFormData();
+  form.title("§cPurge Disabled Mobs");
+  form.dropdown("Dimension", PURGE_DIMENSIONS.map((d) => d.name), { defaultValueIndex: options.dimension });
+  form.dropdown("Mob Group", groupNames, { defaultValueIndex: options.group });
+  for (const p of PURGE_PROTECTIONS) {
+    form.toggle(p.label, { defaultValue: options[p.key] });
+  }
+
+  form.show(player).then((response) => {
+    if (response.canceled || !response.formValues) {
+      return;
+    }
+
+    const chosen = {
+      dimension: Number(response.formValues[0]),
+      group: Number(response.formValues[1])
+    };
+    PURGE_PROTECTIONS.forEach((p, index) => {
+      chosen[p.key] = Boolean(response.formValues[index + 2]);
+    });
+    savePurgeOptions(chosen);
+
+    system.run(() => openPurgeMobPicker(player, chosen));
+  });
+}
+
+function openPurgeMobPicker(player, options) {
+  const scan = scanPurge(options, null);
+  const ids = Object.keys(scan.types);
+
+  if (ids.length === 0) {
+    showPurgeResult(player, 0, scan.kept, [], "No disabled mobs matched your choices.");
+    return;
+  }
+
+  const names = getMobNameMap();
+  const form = new ModalFormData();
+  form.title("§cChoose Mobs To Purge");
+  for (const id of ids) {
+    form.toggle(`${names[id] || id} (${scan.types[id].length})`, { defaultValue: true });
+  }
+
+  form.show(player).then((response) => {
+    if (response.canceled || !response.formValues) {
+      return;
+    }
+
+    const selectedIds = new Set();
+    ids.forEach((id, index) => {
+      if (Boolean(response.formValues[index])) {
+        selectedIds.add(id);
+      }
+    });
+
+    if (selectedIds.size === 0) {
+      player.onScreenDisplay.setActionBar("§c[SpawnControl] §fNo mobs were selected.");
+      return;
+    }
+
+    system.run(() => openPurgeConfirm(player, options, selectedIds));
+  });
+}
+
+function openPurgeConfirm(player, options, selectedIds) {
+  const scan = scanPurge(options, selectedIds);
+  const names = getMobNameMap();
+  const ids = Object.keys(scan.types);
+  let total = 0;
+  const lines = [];
+  for (const id of ids) {
+    total += scan.types[id].length;
+    lines.push(`§f${names[id] || id}: §c${scan.types[id].length}`);
+  }
+
+  if (total === 0) {
+    showPurgeResult(player, 0, scan.kept, [], "No disabled mobs matched your choices.");
+    return;
+  }
+
+  const form = new MessageFormData();
+  form.title("§cConfirm Purge");
+  form.body(
+    `§fMobs to remove: §c${total}\n` +
+    `${lines.join("\n")}\n\n` +
+    `§7Kept safe: §f${describeKept(scan.kept)}\n\n` +
+    `§cThis cannot be undone.`
+  );
+  form.button1("Cancel");
+  form.button2("Purge Now");
+
+  form.show(player).then((response) => {
+    if (response.canceled || response.selection !== 1) {
+      player.onScreenDisplay.setActionBar("§e[SpawnControl] §fPurge cancelled.");
+      return;
+    }
+    system.run(() => runPurge(player, options, selectedIds));
+  });
+}
+
+function runPurge(player, options, selectedIds) {
+  const scan = scanPurge(options, selectedIds);
+  const names = getMobNameMap();
+  const removed = [];
+  let purged = 0;
+
+  for (const id of Object.keys(scan.types)) {
+    let typeCount = 0;
+    for (const entity of scan.types[id]) {
+      try {
+        if (entity.isValid) {
+          entity.remove();
+          typeCount++;
+          purged++;
+        }
+      } catch (e) {
+      }
+    }
+    if (typeCount > 0) {
+      removed.push(`${names[id] || id}: ${typeCount}`);
+    }
+  }
+
+  showPurgeResult(player, purged, scan.kept, removed, null);
+}
+
+function showPurgeResult(player, purged, kept, removed, note) {
+  const form = new ActionFormData();
+  form.title("§aPurge Summary");
+  let body = `§fMobs purged: §a${purged}\n§7Kept safe: §f${describeKept(kept)}`;
+  if (removed.length > 0) {
+    body += `\n\n§fRemoved:\n§7${removed.join("\n")}`;
+  }
+  if (note) {
+    body += `\n\n§e${note}`;
+  }
+  form.body(body);
+  form.button("Close");
+  form.show(player).then(() => {
+  });
+}
+```
+
+## FILE: MCPEDL/Script/ALNSpawnControl/CHANGELOG.md (52 lines, 3077 bytes)
+
+```
+# Changelog — ALN:SpawnControl
+
+---
+
+## [v3.0.3] - 2026-11-20 - Safer and Smarter Purge
+
+### Added
+- **Purge Confirmation**: A confirmation screen shows how many mobs will be removed and how many are kept before anything is purged.
+- **Purge Summary**: After a purge, a summary screen lists how many of each mob were removed and how many were kept safe.
+- **Per-Mob Purge**: After choosing a mob group, a second screen lists each disabled mob type that is loaded with its count so you can purge only the types you pick.
+- **Purge by Dimension**: Purge the Overworld, the Nether, the End, or all dimensions.
+- **Group Action**: Each mob group menu has a choice to enable or disable every mob in that group at once.
+- **Loaded Count**: The dashboard shows how many disabled mobs are loaded right now.
+
+### Improved & Balanced
+- **More Protected Mobs**: Leashed mobs, mobs with riders and mobs carrying chests are kept safe by default, alongside tamed and name-tagged mobs.
+- **Remembered Purge Choices**: The purge menu remembers your last dimension, group and protection choices.
+
+## [v3.0.2] - 2026-11-20 - Cleaner Menus
+
+### Improved & Balanced
+- **Back Buttons Removed**: The back switch and back button were removed from every menu. Close a menu to leave it and use the book again to reopen the dashboard.
+- **Plain Menu Text**: Emojis and symbols were removed from menu titles, buttons and the status panel so the text renders thicker and easier to read.
+
+## [v3.0.1] - 2026-11-20 - Separate Purge Menu
+
+### Added
+- **Purge Disabled Mobs Menu**: A new main menu button opens a purge screen of its own, separate from Global Filter Settings.
+- **Choose What Gets Purged**: Pick which of the 4 mob groups are purged, and choose whether tamed mobs and name-tagged mobs are included.
+
+### Improved & Balanced
+- **Pets and Named Mobs Stay Safe**: A purge no longer removes tamed or name-tagged mobs unless you turn them on.
+- **Cleaner Global Filter Settings**: The purge switch moved out of Global Filter Settings into the new menu.
+
+## [v3] - 2026-11-19 - Book Renamed to Spawn Control
+
+### Improved & Balanced
+- **Book Trigger Rename**: The book must now be renamed to "Spawn Control" instead of "Spawn Manager" to open the control panel.
+- **Book Only**: Only a regular Book opens the control panel; a Book and Quill no longer works.
+
+## [v2] - 2026-11-17
+
+**What's new in v1.0.0:** Packed with the v1.0.0 update. Includes: First Release.
+
+### Added
+
+- **Spawn Manager Book**: Right-click a Book or Writable Book renamed to "Spawn Manager" to open the interactive control panel.
+- **Categorized Mob Switches**: Toggle individual spawn rules across 58 mobs in 4 groups: Overworld Hostiles, Passive & Neutral Mobs, Nether & End Mobs, and Bosses & Rare Mobs.
+- **Quick Presets**: Apply one-tap presets to enable all mobs, disable all hostiles, disable all passives, or disable all mobs.
+- **Global Filter Settings**: Configure whether rules affect natural spawns only or all spawn causes including Spawn Eggs, enable an Admin Tag Lock, and trigger an immediate entity purge.
+```
+
+## FILE: MCPEDL/Script/ALNSpawnControl/DESCRIPTION.md (90 lines, 6831 bytes)
+
+```
+# ALN:SpawnControl — Custom Mob Spawn Whitelist & Toggle UI
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**Control world mob spawns with individual switches for 58 creatures, presets, and filter rules opened from a Spawn Control book.**
+
+> ALN:SpawnControl adds an interactive in-game control panel to configure individual mob spawning rules across 4 categorized rosters. It suits world builders, realm administrators, and survival players wanting a fine-tuned environment without custom entities.
+
+## Overview
+
+Rename a vanilla Book to "Spawn Control" on an Anvil and use it to open the control panel. From the dashboard, players can inspect active mob counts, configure 4 categorized mob rosters with individual toggles, apply one-tap presets, see how many disabled mobs are currently loaded, configure global filter modes, or open the separate purge menu to remove existing disabled mobs. All preferences are saved persistently to world storage.
+
+## Key Features
+
+### Categorized Mob Rosters
+- **What Happens**: Individual toggle switches govern 58 standard mobs organized across 4 distinct groups: Overworld Hostiles, Passive & Neutral Mobs, Nether & End Mobs, and Bosses & Rare Mobs.
+- **How It Works**: Open any category to adjust individual toggles, such as turning off Creeper or Phantom while keeping Zombie and Skeleton active. Close a menu to leave it and use the book again to reopen the dashboard.
+- **Good To Know**: All mobs are enabled by default. Mobs that are toggled off are removed immediately when spawning occurs. Each group menu also has a Group Action choice to enable or disable every mob in that group at once.
+
+### Custom Mob Spawner & Farm Control
+- **What Happens**: Fine-tune mob farms and monster spawners by permitting only chosen mob types to spawn while blocking all unwanted background spawns.
+- **Good for Chosen Mob Spawner**: Perfect for mob spawner chambers and specialized drop farms (such as Skeleton, Blaze, Witch, or Creeper farms). Disabling other competing mob spawns maximizes spawner efficiency, frees up mob caps, and prevents unwanted entities from crowding your spawn areas.
+- **How It Works**: Disable unneeded hostiles to maximize spawn rates for chosen creatures, or block specific mob types around complex farms without breaking the target mob grinder.
+
+### Quick Presets
+- **What Happens**: One-tap buttons allow bulk configuration: Enable All Mobs, Disable All Hostiles, Disable All Passive Mobs, or Disable Everything for an empty mob world.
+- **How It Works**: Selecting "Disable All Hostiles" immediately switches off all Overworld monsters, Nether threats, and bosses simultaneously.
+
+### Global Filter Rules
+- **What Happens**: Global settings let you choose whether spawn restrictions apply only to natural world-gen spawns or also block Spawn Eggs and summon commands.
+- **How It Works**: Leaving natural spawn mode active allows administrators to test mobs using Spawn Eggs while preventing wild spawns.
+
+### Entity Purge
+- **What Happens**: A dedicated Purge Disabled Mobs menu scans loaded chunks and removes mobs whose toggles are currently disabled.
+- **How It Works**: Pick a dimension and a mob group, then choose whether tamed mobs, name-tagged mobs, leashed mobs, mobs with riders, and mobs carrying chests are included. A second screen lists each disabled mob type that is loaded with its count so you can purge only the types you pick.
+- **Confirmation and Summary**: Before anything is removed, a confirmation screen shows how many mobs will be removed and how many are kept safe. After the purge, a summary screen lists what was removed.
+- **Good To Know**: Tamed, name-tagged, leashed, ridden and chested mobs are kept by default, and your last purge choices are remembered.
+
+### Admin Tag Lock
+- **What Happens**: An optional permission lock restricts opening the control panel to players carrying the administrator tag.
+- **How It Works**: When Admin Tag Lock is turned on, a player must carry the tag to open the book; the first player to open the book automatically receives the tag if none exists.
+
+## How to Use
+
+1. Import the .mcpack file and activate ALN:SpawnControl in your world's Behavior Packs.
+2. Place a Book (not a Book and Quill) in an Anvil and rename it to "Spawn Control".
+3. Hold the renamed book and use it to open the ALN:SpawnControl control panel.
+
+## Common Questions
+
+- **Do I need experimental toggles?**: No experimental toggles or cheats are required for normal menu usage.
+- **Does it stop mob spawners?**: When set to block natural spawns or all sources, spawner-generated entities of disabled mob types are intercepted upon spawning.
+- **Will turning off a mob remove existing ones?**: New spawns are blocked immediately; use the Purge Disabled Mobs menu to clear existing mobs. Tamed and name-tagged mobs are kept unless you include them.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.26.60
+- Experimental features: No experiment requirement detected in the inspected files.
+- Achievements: Unknown / needs confirmation.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, ALN:SpawnControl Bedrock mod, mob spawn whitelist, custom mob toggle, spawn control book, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+```
+
+## FILE: MCPEDL/Script/ALNSpawnControl/project.json (6 lines, 76 bytes)
+
+```
+{
+  "type": "script",
+  "name": "ALN:SpawnControl",
+  "controller": false
+}
+```
+
+## FILE: MCPEDL/Script/ALNSpawnControl/README.md (19 lines, 800 bytes)
+
+```
+# ALNSpawnControl
+
+Download the current release of **ALNSpawnControl** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcpack`
+- **Direct download:** [Download ALNSpawnControl (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpawnControl/ALNSpawnControl%20V3.0.3.mcpack)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Script/ALNSpawnControl/DESCRIPTION.md).
+```

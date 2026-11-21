@@ -1,0 +1,1609 @@
+<!-- GRAPH-CONTEXT:START -->
+## Graph Context
+
+- **Project:** `Shared-Hivemind-Inventory` | Category: `Minigame` | Version: `v2`
+- **Pack Types:** behavior_pack, resource_pack
+- **Siblings in Minigame:** `Alphabet-Scavenger-Hunt (v2)` (v2), `Category: Minigame`, `Minecraft-But-Every-Drop-is-Random-Chaos-Edition (v2)` (v2), `Mob-Chaos-Behavioral-Roulette (v2)` (v2), `Tethered-Breaker-And-Builder (v2)` (v2), `Trivia-Vault-The-Locked-World (v2)` (v2)
+
+> _Auto-generated from graphify-out/graph.json — do not edit manually._
+<!-- GRAPH-CONTEXT:END -->
+
+---
+
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Minigame/Shared-Hivemind-Inventory`
+- **Destination:** `MCPEDL/Minigame/Shared-Hivemind-Inventory`
+- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Minigame/Shared-Hivemind-Inventory/CHANGELOG.md`)
+- **Text files:** 14
+- **Skipped binary:** 4
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Minigame/Shared-Hivemind-Inventory/behavior_pack/functions/end_game.mcfunction`
+- `MCPEDL/Minigame/Shared-Hivemind-Inventory/behavior_pack/functions/give_controller.mcfunction`
+- `MCPEDL/Minigame/Shared-Hivemind-Inventory/behavior_pack/functions/team_inventory/join_message.mcfunction`
+- `MCPEDL/Minigame/Shared-Hivemind-Inventory/behavior_pack/items/controller.json`
+- `MCPEDL/Minigame/Shared-Hivemind-Inventory/behavior_pack/manifest.json`
+- `MCPEDL/Minigame/Shared-Hivemind-Inventory/behavior_pack/scripts/controller.js`
+- `MCPEDL/Minigame/Shared-Hivemind-Inventory/behavior_pack/scripts/hard_mode.js`
+- `MCPEDL/Minigame/Shared-Hivemind-Inventory/behavior_pack/scripts/main.js`
+- `MCPEDL/Minigame/Shared-Hivemind-Inventory/CHANGELOG.md`
+- `MCPEDL/Minigame/Shared-Hivemind-Inventory/DESCRIPTION.md`
+- `MCPEDL/Minigame/Shared-Hivemind-Inventory/project.json`
+- `MCPEDL/Minigame/Shared-Hivemind-Inventory/README.md`
+- `MCPEDL/Minigame/Shared-Hivemind-Inventory/resource_pack/manifest.json`
+- `MCPEDL/Minigame/Shared-Hivemind-Inventory/resource_pack/textures/item_texture.json`
+
+### Skipped (binary)
+
+- `MCPEDL/Minigame/Shared-Hivemind-Inventory/Icon.jpg`
+- `MCPEDL/Minigame/Shared-Hivemind-Inventory/behavior_pack/pack_icon.png`
+- `MCPEDL/Minigame/Shared-Hivemind-Inventory/resource_pack/pack_icon.png`
+- `MCPEDL/Minigame/Shared-Hivemind-Inventory/resource_pack/textures/items/controller.png`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Minigame/Shared-Hivemind-Inventory
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`.
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Minigame/Shared-Hivemind-Inventory/behavior_pack/functions/end_game.mcfunction (2 lines, 32 bytes)
+
+```
+scriptevent allenscreations:end
+```
+
+## FILE: MCPEDL/Minigame/Shared-Hivemind-Inventory/behavior_pack/functions/give_controller.mcfunction (2 lines, 49 bytes)
+
+```
+give @s aln:shared_hivemind_inventory_controller
+```
+
+## FILE: MCPEDL/Minigame/Shared-Hivemind-Inventory/behavior_pack/functions/team_inventory/join_message.mcfunction (3 lines, 88 bytes)
+
+```
+tellraw @s {"rawtext":[{"text":"§a[Team Inventory] §fSyncing shared inventory..."}]}
+```
+
+## FILE: MCPEDL/Minigame/Shared-Hivemind-Inventory/behavior_pack/items/controller.json (28 lines, 638 bytes)
+
+```
+{
+  "format_version": "1.26.40",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:shared_hivemind_inventory_controller",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "textures": {
+          "default": "controller"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "\u00a7l\u00a7bALN\u00a7dStudios \u00a76Controller"
+      },
+      "minecraft:use_animation": "spyglass",
+      "minecraft:use_modifiers": {
+        "use_duration": 0.1,
+        "movement_modifier": 1
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Minigame/Shared-Hivemind-Inventory/behavior_pack/manifest.json (58 lines, 1079 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Team Inventory (v2)",
+    "description": "Shared inventory, armor, offhand and Ender Chest for multiplayer, with Hard Mode. by ALNStudios",
+    "uuid": "ea58a63d-0e39-4d06-b07e-07c0a98ac0e3",
+    "version": [
+      2,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      40
+    ]
+  },
+  "modules": [
+    {
+      "description": "Team Inventory Script Engine",
+      "type": "script",
+      "language": "javascript",
+      "uuid": "e5b9f904-8fb7-4302-ac75-1fa2b1cf4f70",
+      "version": [
+        2,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "cc723f33-6729-4663-9077-dd1f1ed4d836",
+      "version": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.9.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.1.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "2.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Minigame/Shared-Hivemind-Inventory/behavior_pack/scripts/controller.js (186 lines, 5453 bytes)
+
+```
+import { world, system, ItemStack, EntityComponentTypes, GameMode } from "@minecraft/server";
+import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
+
+const CONTROLLER_ID = "aln:shared_hivemind_inventory_controller";
+const STATE_KEY = "game_state";
+const OPERATOR_LEVEL = 2;
+
+let config = null;
+let registered = false;
+
+const getState = () => {
+  const v = world.getDynamicProperty(STATE_KEY);
+  return typeof v === "string" ? v : "idle";
+};
+const setState = (s) => world.setDynamicProperty(STATE_KEY, s);
+const isCreative = (player) => player.getGameMode() === GameMode.Creative;
+const isHost = (player) => (typeof player.isOp === "function" ? player.isOp() : player.playerPermissionLevel === OPERATOR_LEVEL);
+const containerOf = (player) => player.getComponent(EntityComponentTypes.Inventory)?.container;
+
+function hasController(player) {
+  const inv = containerOf(player);
+  if (!inv) return false;
+  for (let i = 0; i < inv.size; i++) {
+    if (inv.getItem(i)?.typeId === CONTROLLER_ID) return true;
+  }
+  return false;
+}
+
+function giveController(player) {
+  if (hasController(player)) return;
+  containerOf(player)?.addItem(new ItemStack(CONTROLLER_ID, 1));
+}
+
+function consumeController(player) {
+  if (isCreative(player)) return;
+  const inv = containerOf(player);
+  if (!inv) return;
+  for (let i = 0; i < inv.size; i++) {
+    if (inv.getItem(i)?.typeId === CONTROLLER_ID) {
+      inv.setItem(i, undefined);
+      player.playSound("random.break");
+      player.sendMessage("The Controller broke.");
+      return;
+    }
+  }
+}
+
+function runStart(player) {
+  if (getState() === "running") {
+    player.sendMessage("Already running.");
+    return;
+  }
+  setState("running");
+  if (config.consumeOnStart) consumeController(player);
+  try {
+    config.onStart(player);
+  } catch (e) {
+    setState("idle");
+    giveController(player);
+    player.sendMessage("The game could not start.");
+  }
+}
+
+export function endGame() {
+  if (getState() !== "running") return;
+  setState("ended");
+  try {
+    config?.onEnd();
+  } catch (e) {
+    world.sendMessage("The game ended with an error.");
+  }
+  for (const p of world.getAllPlayers()) if (isHost(p)) giveController(p);
+}
+
+async function showHowToPlay(player) {
+  const form = new ActionFormData().title("How to play").body(config.howToPlay).button("Back");
+  let res;
+  try {
+    res = await form.show(player);
+  } catch (e) {
+    return;
+  }
+  if (!res.canceled && res.selection === 0) openController(player);
+}
+
+async function confirmEnd(player) {
+  if (getState() !== "running") {
+    player.sendMessage("No game is running.");
+    return;
+  }
+  const form = new ActionFormData()
+    .title("End game?")
+    .body("This stops the game that is running now.")
+    .button("End Game")
+    .button("Back");
+  let res;
+  try {
+    res = await form.show(player);
+  } catch (e) {
+    return;
+  }
+  if (res.canceled) return;
+  if (res.selection === 0) {
+    if (getState() !== "running") {
+      player.sendMessage("The game already ended.");
+      return;
+    }
+    world.sendMessage(`${player.name} ended the game.`);
+    endGame();
+  } else {
+    openController(player);
+  }
+}
+
+export async function openController(player, attempt = 0) {
+  const running = getState() === "running";
+  const note = running
+    ? "End Game stops the current game."
+    : config.consumeOnStart
+      ? (isCreative(player) ? "Creative: the Controller is kept." : "Start uses up the Controller.")
+      : "The Controller is kept.";
+  const extras = config.extras(player);
+  const form = new ActionFormData()
+    .title(config.title)
+    .body(`${config.gameInfo}\n\nState: ${getState()}\n${note}`)
+    .button(running ? "End Game" : "Start")
+    .button("How to play");
+  for (const extra of extras) form.button(extra.label);
+  let res;
+  try {
+    res = await form.show(player);
+  } catch (e) {
+    return;
+  }
+  if (res.canceled) {
+    if (res.cancelationReason === FormCancelationReason.UserBusy && attempt < 5) {
+      system.runTimeout(() => openController(player, attempt + 1), 10);
+    }
+    return;
+  }
+  if (res.selection === 0) {
+    if (running) confirmEnd(player);
+    else runStart(player);
+  } else if (res.selection === 1) {
+    showHowToPlay(player);
+  } else {
+    extras[res.selection - 2]?.run(player);
+  }
+}
+
+export function registerController(options) {
+  if (registered) return;
+  registered = true;
+  config = {
+    title: options?.title ?? "Controller",
+    gameInfo: options?.gameInfo ?? "",
+    howToPlay: options?.howToPlay ?? "",
+    consumeOnStart: options?.consumeOnStart === true,
+    onStart: options?.onStart ?? (() => {}),
+    onEnd: options?.onEnd ?? (() => {}),
+    extras: options?.extras ?? (() => []),
+  };
+
+  world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
+    if (itemStack?.typeId === CONTROLLER_ID && isHost(source)) openController(source);
+  });
+
+  system.afterEvents.scriptEventReceive.subscribe(({ id }) => {
+    if (id === "allenscreations:end") endGame();
+  });
+
+  world.afterEvents.worldLoad.subscribe(() => {
+    if (getState() === "running") setState("idle");
+    for (const p of world.getAllPlayers()) if (isHost(p)) giveController(p);
+  });
+
+  world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
+    if (!isHost(player)) return;
+    if (config.consumeOnStart) {
+      if (initialSpawn && (isCreative(player) || getState() !== "running")) giveController(player);
+      return;
+    }
+    giveController(player);
+  });
+}
+```
+
+## FILE: MCPEDL/Minigame/Shared-Hivemind-Inventory/behavior_pack/scripts/hard_mode.js (99 lines, 3066 bytes)
+
+```
+import { system, EntityComponentTypes } from "@minecraft/server";
+
+const lastHealth = new Map();
+const lastHunger = new Map();
+let sharedHealth = null;
+let sharedHunger = null;
+let killing = false;
+
+function safe(fn, fallback = undefined) { try { return fn(); } catch { return fallback; } }
+const healthOf = (p) => safe(() => p.getComponent(EntityComponentTypes.Health));
+const hungerOf = (p) => safe(() => p.getComponent(EntityComponentTypes.Hunger));
+const readValue = (comp, fallback) => safe(() => comp.currentValue, fallback);
+
+function mergeValue(entries, last, shared, addLosses) {
+  if (shared === null) return Math.min(...entries.map(e => readValue(e.comp, 0)));
+  let maxGain = 0;
+  let minLoss = 0;
+  let sumLoss = 0;
+  for (const { player, comp } of entries) {
+    const prev = last.get(player.id);
+    if (prev === undefined) continue;
+    const d = readValue(comp, prev) - prev;
+    if (d > maxGain) maxGain = d;
+    if (d < minLoss) minLoss = d;
+    if (d < 0) sumLoss += d;
+  }
+  return shared + maxGain + (addLosses ? sumLoss : minLoss);
+}
+
+function writeValue(entries, last, value) {
+  for (const { player, comp } of entries) {
+    const cur = readValue(comp, value);
+    if (Math.abs(cur - value) > 1e-6) safe(() => comp.setCurrentValue(value));
+    last.set(player.id, readValue(comp, value));
+  }
+}
+
+function prune(last, ids) {
+  for (const id of [...last.keys()]) if (!ids.has(id)) last.delete(id);
+}
+
+export function hardReset() {
+  lastHealth.clear();
+  lastHunger.clear();
+  sharedHealth = null;
+  sharedHunger = null;
+}
+
+export function hardKillAll(players) {
+  if (killing) return;
+  killing = true;
+  for (const p of players) safe(() => p.kill());
+  hardReset();
+  system.runTimeout(() => { killing = false; }, 10);
+}
+
+export function hardTick(players, options = {}) {
+  const shareHealth = options.health !== false;
+  const shareHunger = options.hunger !== false;
+  if (!shareHealth) {
+    lastHealth.clear();
+    sharedHealth = null;
+  }
+  if (!shareHunger) {
+    lastHunger.clear();
+    sharedHunger = null;
+  }
+  const hp = [];
+  const fd = [];
+  for (const p of players) {
+    const h = healthOf(p);
+    const f = hungerOf(p);
+    if (h) hp.push({ player: p, comp: h });
+    if (f) fd.push({ player: p, comp: f });
+  }
+  if (shareHealth) {
+    if (!hp.length) {
+      hardReset();
+      return;
+    }
+    prune(lastHealth, new Set(hp.map(e => e.player.id)));
+    const maxHp = Math.min(...hp.map(e => safe(() => e.comp.effectiveMax, 20)));
+    const nextHp = Math.min(Math.max(mergeValue(hp, lastHealth, sharedHealth, true), 0), maxHp);
+    if (nextHp <= 0) {
+      hardKillAll(players);
+      return;
+    }
+    sharedHealth = nextHp;
+    writeValue(hp, lastHealth, nextHp);
+  }
+  if (shareHunger && fd.length) {
+    prune(lastHunger, new Set(fd.map(e => e.player.id)));
+    const maxFood = Math.min(...fd.map(e => safe(() => e.comp.effectiveMax, 20)));
+    const nextFood = Math.min(Math.max(mergeValue(fd, lastHunger, sharedHunger, false), 0), maxFood);
+    sharedHunger = nextFood;
+    writeValue(fd, lastHunger, nextFood);
+  }
+}
+```
+
+## FILE: MCPEDL/Minigame/Shared-Hivemind-Inventory/behavior_pack/scripts/main.js (821 lines, 32975 bytes)
+
+```
+import { world, system, ItemStack, EquipmentSlot, EnchantmentTypes, EntityComponentTypes, GameMode } from "@minecraft/server";
+import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
+import { hardTick, hardReset, hardKillAll } from "./hard_mode.js";
+import { registerController, openController } from "./controller.js";
+
+const NAMESPACE = "allenscreations";
+const CONTROLLER_ID = `${NAMESPACE}:controller`;
+const LEGACY_SETTINGS_ID = `${NAMESPACE}:team_settings`;
+const STATE_KEY = "game_state";
+const STORAGE_KEY = "allenscreations:hivemind_v106";
+const MEMBERS_KEY = "allenscreations:team_members";
+const CLEAR_KEY = "allenscreations:team_clear";
+const KEEP_KEY = "allenscreations:team_keep";
+const SHARE_PREFIX = "allenscreations:team_share_";
+const HARD_KEY = "allenscreations:hard_mode";
+const HARD_HEALTH_KEY = "allenscreations:hard_health";
+const HARD_HUNGER_KEY = "allenscreations:hard_hunger";
+const NAMES_KEY = "allenscreations:team_names";
+const LAYOUT_KEY = "allenscreations:layout";
+const TITLE = "§l§bALN§dStudios §6Controller";
+const GAME_INFO = "Everyone shares one inventory. Use this menu before Start to choose the mode. Hard Health and Hard Hunger only apply in Hard mode.";
+const HOW_TO_PLAY = "Use the Controller and choose Start. After a short countdown, everyone's main inventory, armor, offhand and Ender Chest items are combined into one shared inventory, and anything one player picks up, uses or drops changes it for the whole team.\n\nPlayers who join while a game runs add their own items to the team.\n\nBefore Start, use the Controller menu to choose Normal or Hard mode. Its Team button lists who is on the team.\n\nIf anyone dies, the whole shared inventory drops once and is emptied for the team. The Ender Chest is kept. Creative and Spectator players are not part of it.\n\nIn Hard mode, health and hunger are shared too, and you can turn either one off in the Controller menu. If one player dies, everyone dies.\n\nThe host or an operator ends the game with the End Game button or the function end_game. The shared items are then divided between the players, and anyone offline gets their share when they join again, so nothing is duplicated.";
+const OPERATOR_LEVEL = 2;
+const MAX_STORED = 30000;
+const MAX_CHUNKS = 4;
+const MAX_APPLY_RETRIES = 10;
+const ERROR_COOLDOWN = 200;
+const INV_SLOTS = 36;
+const ENDER_SLOTS = 27;
+const SLOT_COUNT = INV_SLOTS + ENDER_SLOTS;
+const SAFETY_SCAN = 5;
+const START_COUNTDOWN = 5;
+const ARMOR_SLOTS = [EquipmentSlot.Head, EquipmentSlot.Chest, EquipmentSlot.Legs, EquipmentSlot.Feet];
+const EQUIPMENT_SLOTS = [...ARMOR_SLOTS, EquipmentSlot.Offhand];
+
+let master = null;
+let syncing = false;
+let initialized = false;
+let tickBusy = false;
+let warnedSize = false;
+let warnedNear = false;
+let needMerge = false;
+let rulesChecked = false;
+let counting = false;
+let countdownId = 0;
+let hardMsgLock = false;
+let chunked = 0;
+let lastErrorTick = -ERROR_COOLDOWN;
+const snapshots = new Map();
+const pendingDeath = new Map();
+const lastSeen = new Map();
+const joinMerge = new Set();
+const applyFails = new Map();
+const knownMembers = new Set();
+const dirty = new Set();
+
+function safe(fn, fallback = undefined) { try { return fn(); } catch { return fallback; } }
+function withSync(fn) {
+  syncing = true;
+  try { fn(); } finally { syncing = false; }
+}
+const getState = () => {
+  const v = world.getDynamicProperty(STATE_KEY);
+  return typeof v === "string" ? v : "idle";
+};
+const setState = (s) => world.setDynamicProperty(STATE_KEY, s);
+const isRunning = () => safe(getState, "idle") === "running";
+const isCreative = (player) => safe(() => player.getGameMode() === GameMode.Creative, false);
+const isHost = (player) => safe(() => (typeof player.isOp === "function" ? player.isOp() : player.playerPermissionLevel === OPERATOR_LEVEL), false);
+const containerOf = (player) => safe(() => player.getComponent(EntityComponentTypes.Inventory)?.container);
+const enderOf = (player) => safe(() => player.getComponent("minecraft:ender_inventory")?.container);
+const isHard = () => safe(() => world.getDynamicProperty(HARD_KEY) === "1", false);
+const isHardHealth = () => safe(() => world.getDynamicProperty(HARD_HEALTH_KEY) !== "0", true);
+const isHardHunger = () => safe(() => world.getDynamicProperty(HARD_HUNGER_KEY) !== "0", true);
+const isHostItem = (item) => item.typeId === CONTROLLER_ID || item.typeId === LEGACY_SETTINGS_ID;
+function equipmentOf(player) { return safe(() => player.getComponent("minecraft:equippable")); }
+function clone(item) { return item ? safe(() => item.clone(), undefined) : undefined; }
+function isAlive(player) {
+  if (!safe(() => player.isValid, false)) return false;
+  return safe(() => player.getComponent("minecraft:health")?.currentValue > 0, true);
+}
+function shares(player) {
+  return isAlive(player) && !isCreative(player) && safe(() => player.getGameMode() !== GameMode.Spectator, true);
+}
+function sharingPlayers() { return world.getAllPlayers().filter(shares); }
+
+function loadSet(key) {
+  const raw = safe(() => world.getDynamicProperty(key));
+  const list = typeof raw === "string" ? safe(() => JSON.parse(raw), []) : [];
+  return new Set(Array.isArray(list) ? list : []);
+}
+function saveSet(key, set) {
+  safe(() => world.setDynamicProperty(key, set.size ? JSON.stringify([...set]) : undefined));
+}
+
+function serializeItem(item) {
+  if (!item) return null;
+  const out = { id: item.typeId, amount: item.amount };
+  safe(() => { if (item.nameTag) out.nameTag = item.nameTag; });
+  safe(() => { const lore = item.getLore(); if (lore?.length) out.lore = lore; });
+  safe(() => { const d = item.getComponent("minecraft:durability"); if (d) out.damage = d.damage; });
+  safe(() => {
+    const c = item.getComponent("minecraft:dyeable")?.color;
+    if (c) out.color = { red: c.red, green: c.green, blue: c.blue };
+  });
+  safe(() => { if (item.lockMode && item.lockMode !== "none") out.lock = item.lockMode; });
+  safe(() => { if (item.keepOnDeath) out.keep = true; });
+  safe(() => { const on = item.getCanPlaceOn(); if (on?.length) out.placeOn = on; });
+  safe(() => { const off = item.getCanDestroy(); if (off?.length) out.destroy = off; });
+  safe(() => {
+    const c = item.getComponent("minecraft:enchantable");
+    if (c) {
+      const list = c.getEnchantments();
+      if (list.length) out.enchants = list.map(e => ({ id: e.type.id, level: e.level }));
+    }
+  });
+  return out;
+}
+function deserializeItem(data) {
+  if (!data?.id || !Number.isInteger(data.amount) || data.amount < 1) return undefined;
+  return safe(() => {
+    const item = new ItemStack(data.id, data.amount);
+    if (data.nameTag) item.nameTag = data.nameTag;
+    if (data.lore) safe(() => item.setLore(data.lore));
+    if (Number.isFinite(data.damage)) safe(() => { const d = item.getComponent("minecraft:durability"); if (d) d.damage = data.damage; });
+    if (data.enchants?.length) safe(() => {
+      const c = item.getComponent("minecraft:enchantable");
+      if (c) c.addEnchantments(data.enchants.map(e => ({ type: EnchantmentTypes.get(e.id), level: e.level })).filter(e => e.type));
+    });
+    safe(() => { if (data.color) { const c = item.getComponent("minecraft:dyeable"); if (c) c.color = data.color; } });
+    safe(() => { if (data.lock) item.lockMode = data.lock; });
+    safe(() => { if (data.keep) item.keepOnDeath = true; });
+    safe(() => { if (data.placeOn?.length) item.setCanPlaceOn(data.placeOn); });
+    safe(() => { if (data.destroy?.length) item.setCanDestroy(data.destroy); });
+    return item;
+  });
+}
+const signatures = new WeakMap();
+function signatureOf(item) {
+  let s = signatures.get(item);
+  if (s === undefined) {
+    const data = serializeItem(item);
+    delete data.amount;
+    s = JSON.stringify(data);
+    signatures.set(item, s);
+  }
+  return s;
+}
+function sameItem(a, b) {
+  if (!a || !b) return !a && !b;
+  if (a.typeId !== b.typeId || a.amount !== b.amount) return false;
+  return signatureOf(a) === signatureOf(b);
+}
+function identityKey(item) {
+  const s = serializeItem(item);
+  delete s.amount;
+  delete s.damage;
+  return JSON.stringify(s);
+}
+function damageOf(item) { return safe(() => item.getComponent("minecraft:durability")?.damage, 0) ?? 0; }
+function isDelta(prev, cur) {
+  return !!prev && !!cur && prev.typeId === cur.typeId && identityKey(prev) === identityKey(cur);
+}
+function applyDeltas(base, deltas) {
+  const item = clone(base);
+  if (!item) return undefined;
+  let amount = item.amount;
+  let damage = damageOf(item);
+  for (const d of deltas) {
+    amount += d.amount;
+    damage += d.damage;
+  }
+  amount = Math.min(Math.max(amount, 0), item.maxAmount);
+  if (amount < 1) return undefined;
+  item.amount = amount;
+  const dur = safe(() => item.getComponent("minecraft:durability"));
+  if (dur) {
+    if (damage >= dur.maxDurability) return undefined;
+    dur.damage = Math.max(damage, 0);
+  }
+  return item;
+}
+function visible(item) { return item && !isHostItem(item) ? clone(item) : undefined; }
+function readPlayer(player) {
+  const c = containerOf(player);
+  if (!c) return null;
+  const e = enderOf(player);
+  const slots = Array.from({ length: SLOT_COUNT }, (_, i) => visible(safe(() => (i < INV_SLOTS ? c.getItem(i) : e?.getItem(i - INV_SLOTS)))));
+  const eq = equipmentOf(player);
+  const equipment = {};
+  for (const slot of EQUIPMENT_SLOTS) equipment[slot] = visible(safe(() => eq?.getEquipment(slot)));
+  return { slots, equipment };
+}
+function serializeState(state) {
+  return {
+    slots: state.slots.map(serializeItem),
+    equipment: Object.fromEntries(EQUIPMENT_SLOTS.map(slot => [slot, serializeItem(state.equipment[slot])]))
+  };
+}
+function deserializeState(data) {
+  if (!data || !Array.isArray(data.slots) || (data.slots.length !== SLOT_COUNT && data.slots.length !== INV_SLOTS)) return null;
+  return {
+    slots: Array.from({ length: SLOT_COUNT }, (_, i) => deserializeItem(data.slots[i] ?? null)),
+    equipment: Object.fromEntries(EQUIPMENT_SLOTS.map(slot => [slot, deserializeItem(data.equipment?.[slot] ?? null)])),
+    pool: data.pool
+  };
+}
+function persist() {
+  if (!master) return;
+  const json = JSON.stringify(serializeState(master));
+  if (json.length > MAX_STORED * MAX_CHUNKS) {
+    safe(() => clearStored());
+    if (!warnedSize) {
+      warnedSize = true;
+      safe(() => world.sendMessage("§e[Team Inventory] The shared inventory is too large to save. It will not persist until it is smaller."));
+    }
+    return;
+  }
+  warnedSize = false;
+  const limit = MAX_STORED * MAX_CHUNKS;
+  if (json.length > limit * 0.8 && !warnedNear) {
+    warnedNear = true;
+    safe(() => world.sendMessage("§e[Team Inventory] The shared inventory is close to the save limit. Keep it smaller or it will stop saving."));
+  } else if (json.length < limit * 0.7) warnedNear = false;
+  safe(() => writeStored(json));
+}
+function loadPersisted() {
+  let raw = safe(() => world.getDynamicProperty(STORAGE_KEY));
+  if (typeof raw !== "string" || !raw) return null;
+  if (raw.startsWith("chunks:")) {
+    const parts = Number.parseInt(raw.slice(7), 10);
+    if (!Number.isInteger(parts) || parts < 2 || parts > MAX_CHUNKS) return null;
+    raw = "";
+    for (let i = 0; i < parts; i++) {
+      const piece = safe(() => world.getDynamicProperty(`${STORAGE_KEY}:${i}`));
+      if (typeof piece !== "string") return null;
+      raw += piece;
+    }
+    chunked = parts;
+  }
+  return safe(() => deserializeState(JSON.parse(raw)), null);
+}
+function clearStored() {
+  world.setDynamicProperty(STORAGE_KEY, undefined);
+  for (let i = 0; i < MAX_CHUNKS; i++) world.setDynamicProperty(`${STORAGE_KEY}:${i}`, undefined);
+  chunked = 0;
+}
+function writeStored(json) {
+  const parts = Math.ceil(json.length / MAX_STORED);
+  if (parts <= 1) {
+    if (chunked) clearStored();
+    world.setDynamicProperty(STORAGE_KEY, json);
+    return;
+  }
+  for (let i = 0; i < MAX_CHUNKS; i++) {
+    world.setDynamicProperty(`${STORAGE_KEY}:${i}`, i < parts ? json.slice(i * MAX_STORED, (i + 1) * MAX_STORED) : undefined);
+  }
+  world.setDynamicProperty(STORAGE_KEY, `chunks:${parts}`);
+  chunked = parts;
+}
+function emptyState() {
+  return { slots: Array(SLOT_COUNT).fill(undefined), equipment: Object.fromEntries(EQUIPMENT_SLOTS.map(s => [s, undefined])) };
+}
+function stateDiff(a, b) {
+  const slots = [];
+  for (let i = 0; i < SLOT_COUNT; i++) if (!sameItem(a.slots[i], b.slots[i])) slots.push(i);
+  const equipment = EQUIPMENT_SLOTS.filter(s => !sameItem(a.equipment[s], b.equipment[s]));
+  return { slots, equipment };
+}
+function writeState(player, state) {
+  const c = containerOf(player);
+  const eq = equipmentOf(player);
+  if (!c) return;
+  const ender = enderOf(player);
+  for (let i = 0; i < SLOT_COUNT; i++) {
+    const box = i < INV_SLOTS ? c : ender;
+    const at = i < INV_SLOTS ? i : i - INV_SLOTS;
+    if (!box) continue;
+    const live = safe(() => box.getItem(at));
+    if (!sameItem(visible(live), state.slots[i])) safe(() => box.setItem(at, clone(state.slots[i])));
+  }
+  for (const slot of EQUIPMENT_SLOTS) {
+    const live = safe(() => eq?.getEquipment(slot));
+    if (!sameItem(visible(live), state.equipment[slot])) safe(() => eq?.setEquipment(slot, clone(state.equipment[slot])));
+  }
+}
+function applyState(player, state = master) {
+  if (!state || !containerOf(player)) return;
+  writeState(player, state);
+  const read = readPlayer(player);
+  const fails = applyFails.get(player.id) ?? 0;
+  const diff = read ? stateDiff(state, read) : null;
+  if (diff && !diff.slots.length && !diff.equipment.length) {
+    applyFails.delete(player.id);
+    snapshots.set(player.id, read);
+  } else if (fails >= MAX_APPLY_RETRIES) {
+    applyFails.delete(player.id);
+    if (read) snapshots.set(player.id, read);
+  } else {
+    applyFails.set(player.id, fails + 1);
+    snapshots.delete(player.id);
+  }
+}
+function slotName(i) { if (i >= INV_SLOTS) return `Ender Chest slot ${i - INV_SLOTS + 1}`; return i < 9 ? `hotbar ${i + 1}` : `inventory slot ${i + 1}`; }
+function warnConflict(player, description) {
+  safe(() => player.sendMessage(`§e[Team Inventory] Inventory conflict in ${description}; your extra item was dropped at your feet.`));
+}
+function spawnAt(dimension, item, location) {
+  if (!item) return false;
+  return !!safe(() => { dimension.spawnItem(clone(item), location); return true; }, false);
+}
+function spawnSafely(player, item) { return spawnAt(player.dimension, item, player.location); }
+function inventoryStacks() {
+  return master.slots.slice(0, INV_SLOTS).filter(Boolean);
+}
+function placeItem(state, item, ender = false) {
+  const from = ender ? INV_SLOTS : 0;
+  const to = ender ? SLOT_COUNT : INV_SLOTS;
+  for (let i = from; i < to; i++) {
+    if (!state.slots[i]) {
+      state.slots[i] = clone(item);
+      return true;
+    }
+  }
+  return false;
+}
+function mergeInto(state, player) {
+  const read = readPlayer(player);
+  if (!read) return;
+  read.slots.forEach((item, i) => {
+    if (!item) return;
+    if (!state.slots[i]) state.slots[i] = clone(item);
+    else if (!placeItem(state, item, i >= INV_SLOTS)) spawnSafely(player, item);
+  });
+  for (const slot of EQUIPMENT_SLOTS) {
+    const item = read.equipment[slot];
+    if (!item) continue;
+    if (!state.equipment[slot]) state.equipment[slot] = clone(item);
+    else if (!placeItem(state, item)) spawnSafely(player, item);
+  }
+}
+function adoptLive(state, players) {
+  for (const p of players) {
+    const read = readPlayer(p);
+    if (!read) continue;
+    read.slots.forEach((item, i) => {
+      if (item && state.slots[i] && sameItem(state.slots[i], item)) state.slots[i] = item;
+    });
+    for (const slot of EQUIPMENT_SLOTS) {
+      const item = read.equipment[slot];
+      if (item && state.equipment[slot] && sameItem(state.equipment[slot], item)) state.equipment[slot] = item;
+    }
+  }
+}
+function resolveGroup(base, entries) {
+  const deltas = [];
+  const replacements = [];
+  for (const e of entries) {
+    if (isDelta(e.prev, e.cur)) deltas.push({ amount: e.cur.amount - e.prev.amount, damage: damageOf(e.cur) - damageOf(e.prev) });
+    else replacements.push(e);
+  }
+  if (!replacements.length) return { item: applyDeltas(base, deltas), losers: [] };
+  const winner = replacements[0];
+  const losers = replacements.slice(1).filter(e => e.cur && !sameItem(winner.cur, e.cur));
+  return { item: clone(winner.cur), losers };
+}
+function applyDetectedChanges(detected) {
+  const groups = new Map();
+  const add = (key, entry) => {
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(entry);
+  };
+  for (const { player, current, previous } of detected) {
+    const d = stateDiff(previous, current);
+    for (const i of d.slots) add(`s${i}`, { player, prev: previous.slots[i], cur: current.slots[i] });
+    for (const slot of d.equipment) add(`e${slot}`, { player, prev: previous.equipment[slot], cur: current.equipment[slot] });
+  }
+  for (const [key, entries] of groups) {
+    const isSlot = key[0] === "s";
+    const id = key.slice(1);
+    const base = isSlot ? master.slots[Number(id)] : master.equipment[id];
+    const { item, losers } = resolveGroup(base, entries);
+    for (const e of losers) {
+      spawnSafely(e.player, e.cur);
+      warnConflict(e.player, isSlot ? slotName(Number(id)) : id);
+    }
+    if (isSlot) master.slots[Number(id)] = item;
+    else master.equipment[id] = item;
+  }
+  if (groups.size) {
+    withSync(() => { for (const p of sharingPlayers()) applyState(p, master); });
+    persist();
+  }
+}
+function absorbJoiner(player, players) {
+  mergeInto(master, player);
+  for (const o of players) if (o.id !== player.id) applyState(o, master);
+  persist();
+  safe(() => player.sendMessage("§a[Team Inventory] §fYour items were added to the team inventory."));
+}
+function initialize(players) {
+  const merge = needMerge;
+  needMerge = false;
+  const members = loadSet(MEMBERS_KEY);
+  const joiners = merge || !members.size ? [] : players.filter(p => !members.has(p.id));
+  master = merge ? null : loadPersisted();
+  if (master?.pool) {
+    const first = players[0] ? readPlayer(players[0]) : null;
+    if (first) for (let i = 0; i < INV_SLOTS; i++) master.slots[i] = first.slots[i];
+    delete master.pool;
+  }
+  if (master) {
+    adoptLive(master, players);
+    for (const p of joiners) {
+      mergeInto(master, p);
+      safe(() => p.sendMessage("§a[Team Inventory] §fYour items were added to the team inventory."));
+    }
+  }
+  else {
+    master = emptyState();
+    if (merge) for (const p of players) mergeInto(master, p);
+    else if (players[0]) mergeInto(master, players[0]);
+  }
+  persist();
+  initialized = true;
+  withSync(() => { for (const p of players) applyState(p, master); });
+}
+function loadNames() {
+  const raw = safe(() => world.getDynamicProperty(NAMES_KEY));
+  const names = typeof raw === "string" ? safe(() => JSON.parse(raw), {}) : {};
+  return names && typeof names === "object" && !Array.isArray(names) ? names : {};
+}
+function rememberNames(players) {
+  const names = loadNames();
+  let changed = false;
+  for (const p of players) {
+    if (names[p.id] !== p.name) {
+      names[p.id] = p.name;
+      changed = true;
+    }
+  }
+  if (changed) safe(() => world.setDynamicProperty(NAMES_KEY, JSON.stringify(names)));
+}
+function pruneNames(keep) {
+  const names = loadNames();
+  const next = {};
+  for (const id of keep) if (names[id]) next[id] = names[id];
+  safe(() => world.setDynamicProperty(NAMES_KEY, Object.keys(next).length ? JSON.stringify(next) : undefined));
+}
+function trackMembers(players) {
+  const fresh = players.filter(p => !knownMembers.has(p.id));
+  if (!fresh.length) return;
+  const members = loadSet(MEMBERS_KEY);
+  for (const p of fresh) {
+    knownMembers.add(p.id);
+    members.add(p.id);
+  }
+  saveSet(MEMBERS_KEY, members);
+  rememberNames(fresh);
+}
+function hasStoredGame() {
+  return typeof safe(() => world.getDynamicProperty(STORAGE_KEY)) === "string";
+}
+function syncTick(full = true) {
+  if (syncing || tickBusy) return;
+  tickBusy = true;
+  try {
+    if (counting) return;
+    if (!isRunning()) {
+      dirty.clear();
+      if (initialized || !hasStoredGame()) return;
+      safe(() => setState("running"));
+    }
+    if (!rulesChecked) {
+      rulesChecked = true;
+      safe(() => { world.gameRules.keepInventory = true; });
+    }
+    const players = sharingPlayers();
+    if (!players.length) return;
+    for (const p of players) {
+      safe(() => lastSeen.set(p.id, { dimension: p.dimension, location: { x: p.location.x, y: p.location.y, z: p.location.z } }));
+    }
+    if (system.currentTick % 40 === 0) {
+      safe(() => { if (world.gameRules.keepInventory !== true) world.gameRules.keepInventory = true; });
+    }
+    if (!initialized) {
+      initialize(players);
+      trackMembers(players);
+      return;
+    }
+    for (const p of players) {
+      if (snapshots.has(p.id)) continue;
+      if (joinMerge.delete(p.id)) withSync(() => absorbJoiner(p, players));
+      withSync(() => applyState(p, master));
+    }
+    trackMembers(players);
+    const detected = [];
+    for (const p of players) {
+      if (!full && !dirty.has(p.id)) continue;
+      const before = snapshots.get(p.id);
+      const current = readPlayer(p);
+      if (!before || !current) continue;
+      const diff = stateDiff(before, current);
+      if (diff.slots.length || diff.equipment.length) detected.push({ player: p, current, previous: before });
+    }
+    dirty.clear();
+    if (detected.length) applyDetectedChanges(detected);
+  } finally { tickBusy = false; }
+}
+
+function applyKeepInventory() {
+  const prev = safe(() => world.gameRules.keepInventory);
+  if (typeof prev === "boolean" && safe(() => world.getDynamicProperty(KEEP_KEY)) === undefined) {
+    safe(() => world.setDynamicProperty(KEEP_KEY, prev ? "1" : "0"));
+  }
+  safe(() => { world.gameRules.keepInventory = true; });
+}
+function restoreKeepInventory() {
+  const prev = safe(() => world.getDynamicProperty(KEEP_KEY));
+  if (prev === undefined) return;
+  safe(() => { world.gameRules.keepInventory = prev === "1"; });
+  safe(() => world.setDynamicProperty(KEEP_KEY, undefined));
+}
+function resetSharing() {
+  master = null;
+  initialized = false;
+  needMerge = false;
+  snapshots.clear();
+  applyFails.clear();
+  knownMembers.clear();
+  safe(() => clearStored());
+}
+
+function removeHostItems(player, ids = [CONTROLLER_ID, LEGACY_SETTINGS_ID]) {
+  const inv = containerOf(player);
+  if (!inv) return;
+  for (let i = 0; i < inv.size; i++) {
+    const id = inv.getItem(i)?.typeId;
+    if (id && ids.includes(id)) inv.setItem(i, undefined);
+  }
+}
+
+function beginCountdown() {
+  const token = ++countdownId;
+  counting = true;
+  let left = START_COUNTDOWN;
+  world.sendMessage(`§a[Team Inventory] Sharing starts in ${left} seconds. Mode: ${isHard() ? "Hard" : "Normal"}.`);
+  const step = () => {
+    if (token !== countdownId || !isRunning()) return;
+    left--;
+    if (left <= 0) {
+      counting = false;
+      startSharing();
+      return;
+    }
+    for (const p of world.getAllPlayers()) safe(() => p.playSound("random.click"));
+    world.sendMessage(`§e[Team Inventory] ${left}...`);
+    system.runTimeout(step, 20);
+  };
+  system.runTimeout(step, 20);
+}
+function startSharing() {
+  resetSharing();
+  hardReset();
+  needMerge = true;
+  rulesChecked = true;
+  saveSet(MEMBERS_KEY, new Set());
+  pruneNames(loadSet(CLEAR_KEY));
+  applyKeepInventory();
+  world.sendMessage("§a[Team Inventory] Sharing started. Everyone's items are being combined.");
+}
+function distribute(online, holder, others, shares) {
+  const ids = [...online.map(p => p.id), ...others];
+  const states = new Map(ids.map(id => [id, emptyState()]));
+  let k = 0;
+  for (const item of inventoryStacks()) {
+    if (!item) continue;
+    if (!placeItem(states.get(ids[k % ids.length]), item)) spawnSafely(holder, item);
+    k++;
+  }
+  const held = states.get(holder.id);
+  for (let i = INV_SLOTS; i < SLOT_COUNT; i++) held.slots[i] = clone(master.slots[i]);
+  for (const slot of EQUIPMENT_SLOTS) held.equipment[slot] = clone(master.equipment[slot]);
+  for (const p of online) writeState(p, states.get(p.id));
+  for (const id of others) shares.set(id, states.get(id));
+}
+function endGame(source) {
+  countdownId++;
+  counting = false;
+  const online = sharingPlayers();
+  const holder = online.find(p => p.id === source?.id && isHost(p)) ?? online.find(isHost) ?? online[0];
+  const onlineIds = new Set(online.map(p => p.id));
+  const others = [...loadSet(MEMBERS_KEY)].filter(id => !onlineIds.has(id));
+  withSync(() => {
+    const shares = new Map();
+    if (master && holder) distribute(online, holder, others, shares);
+    else if (master && isAlive(source)) {
+      const stacks = [...inventoryStacks(), ...master.slots.slice(INV_SLOTS), ...EQUIPMENT_SLOTS.map(s => master.equipment[s])].filter(Boolean);
+      for (const item of stacks) spawnAt(source.dimension, item, source.location);
+    }
+    const pending = loadSet(CLEAR_KEY);
+    for (const id of others) {
+      const state = shares.get(id) ?? emptyState();
+      const other = world.getAllPlayers().find(p => p.id === id);
+      if (other && isAlive(other)) writeState(other, state);
+      else {
+        saveShare(id, state);
+        pending.add(id);
+      }
+    }
+    saveSet(CLEAR_KEY, pending);
+  });
+  saveSet(MEMBERS_KEY, new Set());
+  resetSharing();
+  hardReset();
+  restoreKeepInventory();
+  world.sendMessage(holder ? `§e[Team Inventory] Sharing ended. The shared items were divided between the players, and ${holder.name} holds the armor.` : "§e[Team Inventory] Sharing ended.");
+}
+function saveShare(id, state) {
+  const data = {
+    slots: state.slots.map(serializeItem),
+    equipment: Object.fromEntries(EQUIPMENT_SLOTS.map(slot => [slot, serializeItem(state.equipment[slot])]))
+  };
+  safe(() => world.setDynamicProperty(SHARE_PREFIX + id, JSON.stringify(data)));
+}
+function takeShare(id) {
+  const raw = safe(() => world.getDynamicProperty(SHARE_PREFIX + id));
+  if (typeof raw !== "string") return null;
+  safe(() => world.setDynamicProperty(SHARE_PREFIX + id, undefined));
+  return safe(() => deserializeState(JSON.parse(raw)), null);
+}
+
+function teamText() {
+  const all = world.getAllPlayers();
+  const sharing = new Set(sharingPlayers().map(p => p.id));
+  const names = loadNames();
+  const nameOf = (id) => all.find(p => p.id === id)?.name ?? names[id] ?? "Unknown player";
+  const lines = [];
+  if (isRunning() && !counting) {
+    const members = loadSet(MEMBERS_KEY);
+    for (const id of sharing) members.add(id);
+    lines.push("§aSharing:");
+    for (const p of all) if (sharing.has(p.id)) lines.push(`- ${p.name}`);
+    const idle = all.filter(p => !sharing.has(p.id));
+    if (idle.length) {
+      lines.push("§eOnline, not sharing:");
+      for (const p of idle) lines.push(`- ${p.name}`);
+    }
+    const offline = [...members].filter(id => !all.some(p => p.id === id));
+    if (offline.length) {
+      lines.push("§7Offline team members:");
+      for (const id of offline) lines.push(`- ${nameOf(id)}`);
+    }
+  } else {
+    lines.push(counting ? "§7The game is about to start." : "§7No game is running.");
+  }
+  const waiting = [...loadSet(CLEAR_KEY)].filter(id => typeof safe(() => world.getDynamicProperty(SHARE_PREFIX + id)) === "string");
+  if (waiting.length) {
+    lines.push("§6Share waiting for:");
+    for (const id of waiting) lines.push(`- ${nameOf(id)}`);
+  }
+  return lines.join("\n");
+}
+
+async function showTeam(player) {
+  const form = new ActionFormData().title(TITLE).body(teamText()).button("Back");
+  let res;
+  try {
+    res = await form.show(player);
+  } catch (e) {
+    return;
+  }
+  if (!res.canceled) openController(player);
+}
+
+function toggleSetting(player, key, on, off) {
+  if (isRunning()) {
+    player.sendMessage("Settings can only be changed before Start.");
+    return;
+  }
+  safe(() => world.setDynamicProperty(key, safe(() => world.getDynamicProperty(key)) === on ? off : on));
+  system.run(() => openController(player));
+}
+
+function controllerExtras() {
+  const lock = isRunning() ? " (locked)" : "";
+  return [
+    { label: `Mode: ${isHard() ? "Hard" : "Normal"}${lock}`, run: p => toggleSetting(p, HARD_KEY, "1", undefined) },
+    { label: `Hard Health: ${isHardHealth() ? "Shared" : "Separate"}${lock}`, run: p => toggleSetting(p, HARD_HEALTH_KEY, "0", undefined) },
+    { label: `Hard Hunger: ${isHardHunger() ? "Shared" : "Separate"}${lock}`, run: p => toggleSetting(p, HARD_HUNGER_KEY, "0", undefined) },
+    { label: "Team", run: p => showTeam(p) }
+  ];
+}
+
+registerController({
+  title: TITLE,
+  gameInfo: GAME_INFO,
+  howToPlay: HOW_TO_PLAY,
+  consumeOnStart: true,
+  extras: controllerExtras,
+  onStart: () => beginCountdown(),
+  onEnd: () => endGame()
+});
+
+world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
+  if (itemStack?.typeId !== CONTROLLER_ID || isHost(source)) return;
+  removeHostItems(source);
+  source.sendMessage("Only the host or an operator can hold this item.");
+});
+
+world.afterEvents.worldLoad.subscribe(() => {
+  safe(() => world.setDynamicProperty(LAYOUT_KEY, undefined));
+  for (const p of world.getAllPlayers()) if (isHost(p)) removeHostItems(p, [LEGACY_SETTINGS_ID]);
+});
+
+function dropSharedInventory(dead) {
+  const id = safe(() => dead.id);
+  if (id === undefined || pendingDeath.has(id)) return;
+  pendingDeath.set(id, true);
+  const seen = lastSeen.get(id);
+  const dim = safe(() => dead.dimension) ?? seen?.dimension ?? world.getDimension("overworld");
+  const at = safe(() => ({ x: dead.location.x, y: dead.location.y, z: dead.location.z })) ?? seen?.location ?? { x: 0, y: 64, z: 0 };
+  const loc = { x: at.x, y: at.y + 0.5, z: at.z };
+  safe(() => { world.gameRules.keepInventory = true; });
+  const stacks = [...inventoryStacks(), ...EQUIPMENT_SLOTS.map(s => master.equipment[s])].filter(Boolean);
+  const failed = [];
+  withSync(() => {
+    for (const item of stacks) if (!spawnAt(dim, item, loc)) failed.push(item);
+    const kept = master.slots.slice(INV_SLOTS);
+    master = emptyState();
+    kept.forEach((item, i) => { master.slots[INV_SLOTS + i] = item; });
+    safe(() => containerOf(dead)?.clearAll());
+    for (const p of sharingPlayers()) applyState(p, master);
+    persist();
+  });
+  if (failed.length) {
+    system.runTimeout(() => {
+      for (const item of failed) spawnAt(dim, item, loc);
+    }, 2);
+  }
+  system.runTimeout(() => { pendingDeath.delete(id); lastSeen.delete(id); }, 40);
+}
+function teamDeath(dead) {
+  if (!hardMsgLock) {
+    hardMsgLock = true;
+    safe(() => world.sendMessage(`§c[Team Inventory] ${dead.name} died, so the whole team dies.`));
+    system.runTimeout(() => { hardMsgLock = false; }, 40);
+  }
+  hardKillAll(sharingPlayers());
+}
+
+world.afterEvents.entityDie.subscribe(event => {
+  const dead = event.deadEntity;
+  if (safe(() => dead.typeId) !== "minecraft:player" || !isRunning() || counting || isCreative(dead)) return;
+  if (master) dropSharedInventory(dead);
+  if (isHard()) teamDeath(dead);
+});
+
+world.beforeEvents.playerLeave.subscribe(event => {
+  snapshots.delete(event.player.id);
+  applyFails.delete(event.player.id);
+  joinMerge.delete(event.player.id);
+});
+
+world.afterEvents.playerSpawn.subscribe(event => {
+  const player = event.player;
+  const pending = loadSet(CLEAR_KEY);
+  if (pending.has(player.id)) {
+    system.run(() => {
+      withSync(() => writeState(player, takeShare(player.id) ?? emptyState()));
+      pending.delete(player.id);
+      saveSet(CLEAR_KEY, pending);
+    });
+  }
+  if (event.initialSpawn !== false) {
+    if (isHost(player)) system.run(() => removeHostItems(player, [LEGACY_SETTINGS_ID]));
+    else system.run(() => removeHostItems(player));
+    if (isRunning() && initialized && !counting && shares(player) && !loadSet(MEMBERS_KEY).has(player.id)) joinMerge.add(player.id);
+    if (isRunning()) {
+      system.run(() => {
+        const result = safe(() => player.runCommand("function team_inventory/join_message"), null);
+        if (!result || result.successCount < 1) {
+          safe(() => player.sendMessage("§a[Team Inventory] §fSyncing shared inventory..."));
+        }
+      });
+    }
+  }
+  snapshots.delete(player.id);
+  applyFails.delete(player.id);
+});
+
+const hasInventoryEvent = typeof world.afterEvents.playerInventoryItemChange?.subscribe === "function";
+if (hasInventoryEvent) {
+  world.afterEvents.playerInventoryItemChange.subscribe(event => {
+    if (isRunning() && !counting) dirty.add(event.player.id);
+  });
+}
+
+function guardedTick(full) {
+  try { syncTick(full); }
+  catch {
+    syncing = false;
+    if (system.currentTick - lastErrorTick >= ERROR_COOLDOWN) {
+      lastErrorTick = system.currentTick;
+      safe(() => world.sendMessage("§c[Team Inventory] Sync paused for this check after an internal error."));
+    }
+  }
+}
+
+system.runInterval(() => {
+  const full = !hasInventoryEvent || system.currentTick % SAFETY_SCAN === 0;
+  if (full || dirty.size) guardedTick(full);
+}, 1);
+
+system.runInterval(() => {
+  try {
+    if (isRunning() && !counting && isHard()) hardTick(sharingPlayers(), { health: isHardHealth(), hunger: isHardHunger() });
+    else hardReset();
+  } catch {}
+}, 1);
+```
+
+## FILE: MCPEDL/Minigame/Shared-Hivemind-Inventory/CHANGELOG.md (143 lines, 8173 bytes)
+
+```
+# Changelog — Team Inventory
+
+---
+
+## [v2] - 2026-11-14
+
+**What's new in v1.22.6:** Packed with 3 updates, from v1.22.4 through v1.22.6. Includes: Personal Layout Removal; Death Drops and Joining Fix; Personal Layout Throw Fix.
+
+### Improved & Balanced
+
+- **Personal Layout Removed**: The Personal layout and its Controller button are gone. Everyone now shares one identical inventory, which keeps the add-on lighter on busy teams.
+- **Running Games**: A game that was running in Personal layout keeps its items and continues as a normal shared inventory.
+- **Personal Layout Speed**: Personal layout checks inventories every 4 ticks instead of every tick.
+- **Save Limit Warning**: The team is warned when the shared inventory is close to the save limit.
+
+### Fixed
+
+- **Death Drops**: The shared inventory now drops where a player dies, even when the death spot cannot be read, and Keep Inventory stays on while sharing.
+- **Item Details**: In Personal layout, teammates now get exact copies of items, so dye colors, banner patterns and trims are kept.
+- **Joining Players**: A player who joins while a game runs now adds their own items to the team instead of losing them.
+- **Thrown Items**: In Personal layout, items one player throws away are now removed for the rest of the team, and a failed removal no longer brings the items back.
+
+## [1.22.3] - 2026-11-13
+
+**What's new in v1.22.3:** Packed with the v1.22.3 update. Includes: Controller Merge.
+
+### Improved & Balanced
+
+- **Single Controller**: Mode, Layout, Hard Health, Hard Hunger and the Team list are now in the Controller menu, so the separate Team Settings item is gone.
+
+## [1.22.2] - 2026-11-13
+
+**What's new in v1.22.2:** Packed with the v1.22.2 update. Includes: Death Drops Fix.
+
+### Fixed
+
+- **Death Drops**: The shared inventory now drops where a player dies and is then emptied for the team.
+
+## [1.22.1] - 2026-11-13
+
+**What's new in v1.22.1:** Packed with the v1.22.1 update. Includes: Offline Shares and Safer Ending.
+
+### Added
+
+- **End Game Button**: The Controller menu has an End Game button. The host or an operator can end sharing without using a command, and the shared items are divided between players the same way.
+- **End Game Confirmation**: Choosing End Game now asks for confirmation first, so a stray tap no longer ends the game.
+- **Offline Player Shares**: Players who are offline when the game ends receive their share of the items the next time they join.
+- **Hard Mode Death Message**: When one player dies in Hard Mode, chat now says who died.
+
+### Improved & Balanced
+
+- **Start Message**: The chat message shown when sharing starts now lists the chosen Mode and Layout.
+- **Locked Menu Buttons**: The Mode and Layout buttons are marked as locked while sharing is running.
+- **Controller Name**: The Controller is now named ALNStudios Controller in game, matching its description.
+- **Larger Saves**: A bigger shared inventory can now be saved before the too-large warning appears.
+- **Lighter Syncing**: Item checks reuse earlier results instead of rebuilding them every tick.
+
+### Fixed
+
+- **Lost Items at End**: When the game ended in Personal layout and a player had no room, extra items could disappear. They now drop on the ground instead.
+- **Waiting Clears**: Starting a new game no longer skips cleaning the items of players who were offline when the last game ended.
+
+## [1.22.0] - 2026-11-13 - Personal Layout
+
+**What's new in v1.22.0:** Packed with 12 updates, from v1.6.0 through v1.0.1. Includes: End Game Safety Fixes.
+
+### Added
+
+- **End Game Confirmation**: Choosing End Game in the Controller menu now asks for confirmation first, so a stray tap no longer ends the game.
+- **Personal Layout**: The host or an operator can switch the Controller's Layout to Personal before starting. The team still shares the same items, but each player arranges their own main inventory and hotbar.
+- **Shared Ender Chest**: Every player's Ender Chest now holds the same items. Items from all Ender Chests are combined when the game starts, and the Ender Chest is not dropped when a player dies.
+- **Hard Mode**: The host or an operator can switch the Controller's Mode to Hard before starting. Health and hunger are then shared by the whole team, and when one player dies, everyone dies.
+- **ALNStudios Controller**: The host or an operator receives a Controller item. Using it opens a menu with Start and How to play. Starting uses it up in Survival and keeps it in Creative.
+- **Ending the Game**: An operator command ends sharing and divides the shared items between players. Another operator command gives a new Controller.
+- **Team Start**: Sharing now begins when the host chooses Start, and everyone's items are combined at that moment.
+- **Private Syncing Message**: Players receive a short shared-inventory syncing message when they join, without repeating it on death respawn.
+- **Persistent Shared Inventory**: Shared inventory state is retained when the world is restarted.
+- **Equipment Sharing**: Armor, offhand items, and the selected hotbar slot are included in the shared inventory.
+- **Conflict Feedback**: Players receive brief feedback when simultaneous slot changes conflict.
+
+### Improved & Balanced
+
+- **Start Message**: The chat message shown when sharing starts now lists the chosen Mode and Layout.
+- **Locked Menu Buttons**: The Mode and Layout buttons are marked as locked while sharing is running.
+- **Controller Name**: The Controller is now named ALNStudios Controller in game, matching its description.
+- **Controller Menu**: The menu now shows the current layout and has a Layout button.
+- **Controller Menu**: The menu now shows the current mode and has a Mode button.
+- **Ending the Game**: The host keeps the shared Ender Chest items and everyone else's Ender Chest is emptied.
+- **Death Chat**: The chat message that announced a player's death and where the shared inventory dropped is gone. The shared inventory still drops once at the spot where the player died.
+- **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.
+- **Simultaneous Changes**: Changes made by several players at the same moment are combined instead of dropping a spare copy of the stack.
+- **Faster Syncing**: Inventories are checked every tick and only changed slots are updated.
+- **Hotbar Selection**: Every player now keeps their own selected hotbar slot.
+- **Creative and Spectator**: Players in these modes no longer take part in the shared inventory.
+- **Restarts**: Items keep their full details after a restart when a teammate still holds the same item.
+- **World Settings**: The add-on leaves the world's inventory-on-death setting unchanged.
+- **Clearer Status**: Removed the always-visible status display and custom command controls.
+
+### Fixed
+
+- **Lost Items at End**: When the game ended in Personal layout and a player had no room, extra items could disappear. They now drop on the ground instead.
+- **Death Drops**: The shared inventory is no longer duplicated when several players die together.
+- **First Setup**: Items from every online player are combined instead of only the first player's.
+- **Join Sync**: A player's inventory is checked after syncing and retried if it did not update.
+- **Saving**: Players are warned when the shared inventory is too large to save, and an outdated saved copy is no longer kept.
+- **Error Messages**: Internal error warnings are limited so they no longer flood chat.
+- **Join Notification**: The inventory-sync message is shown more reliably when players join.
+- **Join Notification**: Improved delivery of the inventory-sync message when players join.
+
+### Improved & Balanced
+
+- **In-Game Title**: The in-game add-on title now shows the correct release version.
+- **Team Inventory Name**: Updated the in-game name to Team Inventory.
+
+## [1.0.0] - 2026-11-04
+
+**What's new in v1.1.0:** Packed with the v1.0.23 update.
+
+### v1.0.x (v1.0.23)
+
+#### Added
+- **End Game Button**: The Controller menu now has an End Game button. The host or an operator can end sharing without using the function, and the shared items are divided between players the same way.
+```
+
+## FILE: MCPEDL/Minigame/Shared-Hivemind-Inventory/DESCRIPTION.md (76 lines, 3972 bytes)
+
+```
+# Team Inventory — Shared Multiplayer Inventory
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+One inventory for the whole team. Team Inventory combines every player's main inventory, armor, offhand and Ender Chest items and keeps them identical for everyone until the game is ended.
+
+## Overview
+
+The host or an operator starts the shared inventory with the ALNStudios Controller. From that moment, anything one player picks up, uses or drops changes it for the whole team.
+
+## Key Features
+
+### Shared Inventory
+- **What Happens**: Main inventory, armor and offhand items are shared by every player who takes part.
+
+### ALNStudios Controller
+- **What Happens**: Only the host or an operator can hold and use the Controller.
+
+### Shared Ender Chest
+- **What Happens**: Every player's Ender Chest holds the same items, so something stored by one player can be taken out by another.
+
+### Hard Mode
+- **What Happens**: The host or an operator can switch the Mode to Hard before choosing Start.
+
+### Team Deaths
+- **What Happens**: The shared inventory drops once when a player dies and is then emptied for the team.
+
+### Ending the Game
+- **What Happens**: The host or an operator chooses End Game in the Controller menu or uses the function end_game.
+
+### Joining Players
+- **What Happens**: Players who join while sharing is running add their own items to the team and receive the team inventory.
+
+## How to Use
+
+1. Import the pack and enable both the Behavior Pack and the Resource Pack in the settings of any world you want to play.
+2. The host or an operator uses the Controller to pick the Mode, then chooses Start.
+3. Play together and coordinate item use with teammates.
+4. The host or an operator chooses End Game in the Controller menu, or runs the function end_game, to finish.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.26.40 or newer. Older versions were not checked.
+- Experimental features: No experiment requirement detected in the inspected files.
+- Achievements: Likely achievement-friendly; world settings or cheats can disable achievements.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, Team Inventory Bedrock mod, shared inventory, multiplayer shared items, shared armor and offhand, shared ender chest, shared health and hunger, hard mode, works in any world, team survival inventory, Minecraft PE multiplayer, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+```
+
+## FILE: MCPEDL/Minigame/Shared-Hivemind-Inventory/project.json (2 lines, 44 bytes)
+
+```
+{"type":"minigame","name":"Team Inventory"}
+```
+
+## FILE: MCPEDL/Minigame/Shared-Hivemind-Inventory/README.md (19 lines, 816 bytes)
+
+```
+# Team Inventory
+
+Download the current release of **Team Inventory** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download Team Inventory (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/TeamInventory%20V2.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Minigame/Shared-Hivemind-Inventory/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Minigame/Shared-Hivemind-Inventory/resource_pack/manifest.json (37 lines, 604 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Team Inventory (v2)",
+    "description": "Controller icon for Team Inventory. by ALNStudios",
+    "uuid": "cc723f33-6729-4663-9077-dd1f1ed4d836",
+    "version": [
+      2,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      40
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "fe93c9df-3594-44ea-858c-c9ea51a80f87",
+      "version": [
+        2,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "2.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Minigame/Shared-Hivemind-Inventory/resource_pack/textures/item_texture.json (10 lines, 176 bytes)
+
+```
+{
+  "resource_pack_name": "allenscreations",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "controller": {
+      "textures": "textures/items/controller"
+    }
+  }
+}
+```

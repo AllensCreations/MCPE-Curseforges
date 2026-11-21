@@ -1,0 +1,3352 @@
+<!-- GRAPH-CONTEXT:START -->
+## Graph Context
+
+- **Project:** `ALN-Pointer` | Category: `Addons` | Version: `v2`
+- **Pack Types:** behavior_pack, resource_pack
+- **Siblings in Addons:** `2-in-1-Loot--XP-Booster (v2)` (v2), `ALN-MoreDiscs (v2)` (v2), `ALN-Quiver (v2)` (v2), `ALN-Wireless-Headphones (v2)` (v2), `Category: Addons`, `Cheat-Stick (v4)` (v4), `Copper-Carrier-Logistics (v2)` (v2), `Enchanter (v2)` (v2) …
+
+> _Auto-generated from graphify-out/graph.json — do not edit manually._
+<!-- GRAPH-CONTEXT:END -->
+
+---
+
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Addons/ALN-Pointer`
+- **Destination:** `MCPEDL/Addons/ALN-Pointer`
+- **CURRENT VERSION: v19 / NEXT UPDATE: v20**  (`MCPEDL/Addons/ALN-Pointer/CHANGELOG.md`)
+- **Text files:** 36
+- **Skipped binary:** 16
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/items/aln_pointer.json`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/manifest.json`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/recipes/aln_pointer.json`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/bowaim.js`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/combat.js`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/extras.js`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/friends.js`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/gear.js`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/info.js`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/loops.js`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/menu.js`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/saved.js`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/store.js`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/tuning.js`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/subpacks/gift/items/aln_gift_on.json`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/subpacks/none/items/aln_gift_off.json`
+- `MCPEDL/Addons/ALN-Pointer/CHANGELOG.md`
+- `MCPEDL/Addons/ALN-Pointer/DESCRIPTION.md`
+- `MCPEDL/Addons/ALN-Pointer/project.json`
+- `MCPEDL/Addons/ALN-Pointer/README.md`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/manifest.json`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_10.json`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_11.json`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_12.json`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_13.json`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_4.json`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_5.json`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_6.json`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_7.json`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_8.json`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_9.json`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_target.json`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/textures/item_texture.json`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/ui/hud_screen.json`
+- `MCPEDL/Addons/ALN-Pointer/texture_sources/aln_pointer.json`
+
+### Skipped (binary)
+
+- `MCPEDL/Addons/ALN-Pointer/assets/items/aln_pointer.png`
+- `MCPEDL/Addons/ALN-Pointer/assets/snapshots/HOW TO CRAFT.jpg`
+- `MCPEDL/Addons/ALN-Pointer/assets/snapshots/INSIDE THE AIMBOT.jpg`
+- `MCPEDL/Addons/ALN-Pointer/assets/snapshots/LONG RANGE AIMBOT.gif`
+- `MCPEDL/Addons/ALN-Pointer/assets/snapshots/MENU.jpg`
+- `MCPEDL/Addons/ALN-Pointer/assets/snapshots/OUTSIDE THE AIMBOT.jpg`
+- `MCPEDL/Addons/ALN-Pointer/assets/snapshots/SNAPSHOT.jpg`
+- `MCPEDL/Addons/ALN-Pointer/assets/snapshots/TARGET LOCK 2.jpg`
+- `MCPEDL/Addons/ALN-Pointer/assets/snapshots/TARGET LOCK.jpg`
+- `MCPEDL/Addons/ALN-Pointer/assets/snapshots/TOTEM.jpg`
+- `MCPEDL/Addons/ALN-Pointer/assets/snapshots/TUNING.jpg`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/pack_icon.png`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/pack_icon.png`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/textures/items/aln_pointer.png`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/textures/particle/aln_circle.png`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/textures/particle/aln_target.png`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v19 / NEXT UPDATE: v20).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Addons/ALN-Pointer
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`.
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/items/aln_pointer.json (23 lines, 454 bytes)
+
+```
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "allenscreations:aln_pointer",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "textures": {
+          "default": "aln_pointer"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "§l§6Combat §eHelper"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/manifest.json (78 lines, 1371 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Combat Helper (v19)",
+    "description": "A cursor-shaped item that opens a menu of PVP toggles. by ALNStudios",
+    "uuid": "eec0404f-e785-480e-839e-0da27c699c31",
+    "version": [
+      19,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "13407ddf-e15f-4d9c-90ec-eaa908a586a1",
+      "version": [
+        19,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "63e54d22-75a9-41f8-9e7e-67b0553aace3",
+      "entry": "scripts/main.js",
+      "version": [
+        19,
+        0,
+        0
+      ]
+    }
+  ],
+  "subpacks": [
+    {
+      "folder_name": "none",
+      "name": "No Starter Item",
+      "memory_tier": 1
+    },
+    {
+      "folder_name": "gift",
+      "name": "Give Starter Item",
+      "memory_tier": 0
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "8232add1-8bcd-4f9b-92e8-59dfc483f35f",
+      "version": [
+        19,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.3.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "19.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/recipes/aln_pointer.json (29 lines, 468 bytes)
+
+```
+{
+  "format_version": "1.21.60",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "allenscreations:aln_pointer"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "###",
+      "## ",
+      "# #"
+    ],
+    "key": {
+      "#": {
+        "tag": "minecraft:wool"
+      }
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
+    "result": {
+      "item": "allenscreations:aln_pointer",
+      "count": 1
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/bowaim.js (166 lines, 5684 bytes)
+
+```
+import { world, system, EntityComponentTypes, GameMode } from "@minecraft/server";
+import { PLAYER_ID } from "./info.js";
+import { isOn } from "./store.js";
+import { tune } from "./tuning.js";
+import { isFriend } from "./friends.js";
+
+const ARROW = "minecraft:arrow";
+
+const GRAVITY = 0.05;
+const MIN_SPEED = 0.8;
+
+const minus = (a, b) => ({ x: a.x - b.x, y: a.y - b.y, z: a.z - b.z });
+const length = (v) => Math.hypot(v.x, v.y, v.z);
+
+// Edit these lists to change which mobs count as neutral or never get targeted.
+const NEUTRAL = new Set([
+  "minecraft:wolf",
+  "minecraft:enderman",
+  "minecraft:zombie_pigman",
+  "minecraft:piglin",
+  "minecraft:iron_golem",
+  "minecraft:bee",
+  "minecraft:llama",
+  "minecraft:trader_llama",
+  "minecraft:polar_bear",
+  "minecraft:dolphin",
+  "minecraft:panda",
+  "minecraft:goat",
+]);
+const IGNORED = new Set(["minecraft:armor_stand"]);
+
+function kindOf(entity) {
+  if (NEUTRAL.has(entity.typeId)) return "aimNeutral";
+  return entity.matches({ families: ["monster"] }) ? "aimHostile" : "aimPassive";
+}
+
+function candidates(owner) {
+  const options = { location: owner.location, maxDistance: tune(owner, "aimRange") };
+  const found = [];
+  if (tune(owner, "aimPlayers") === 1) {
+    found.push(...owner.dimension.getPlayers({ ...options, excludeGameModes: [GameMode.Creative, GameMode.Spectator] }));
+  }
+  for (const entity of owner.dimension.getEntities(options)) {
+    if (entity.id === owner.id || entity.typeId === PLAYER_ID || IGNORED.has(entity.typeId)) continue;
+    if (!entity.getComponent(EntityComponentTypes.Health)) continue;
+    const kind = kindOf(entity);
+    if (tune(owner, kind) !== 1) continue;
+    if (kind !== "aimHostile" && entity.getComponent(EntityComponentTypes.IsTamed)) continue;
+    found.push(entity);
+  }
+  return found.filter((e) => e.id !== owner.id && !isFriend(owner, e));
+}
+
+// Middle of the body: halfway between the feet and the head, so tall or odd shaped mobs are hit.
+function bodyPoint(entity) {
+  const base = entity.location;
+  const head = entity.getHeadLocation();
+  return { x: base.x, y: (base.y + head.y) / 2, z: base.z };
+}
+
+function seen(owner, entity) {
+  const eye = owner.getHeadLocation();
+  const points = [entity.getHeadLocation(), bodyPoint(entity)];
+  for (const point of points) {
+    const offset = minus(point, eye);
+    const distance = length(offset);
+    if (distance < 0.5) return true;
+    const direction = { x: offset.x / distance, y: offset.y / distance, z: offset.z / distance };
+    const hit = owner.dimension.getBlockFromRay(eye, direction, {
+      maxDistance: distance - 0.3,
+      includeLiquidBlocks: false,
+      includePassableBlocks: false,
+    });
+    if (!hit) return true;
+  }
+  return false;
+}
+
+// The aim circle is CIRCLE_HEIGHT of the screen height at 100% zoom.
+// Keep this equal to the circle size in resource_pack/ui/hud_screen.json (20%).
+const CIRCLE_HEIGHT = 0.2;
+
+const dot = (a, b) => a.x * b.x + a.y * b.y + a.z * b.z;
+
+// Circle radius in "screen units" (offset from the crosshair divided by depth).
+// Half the screen height equals tan(FOV / 2), so the circle radius is its height fraction times that.
+function circleRadius(owner) {
+  const diameter = CIRCLE_HEIGHT * (tune(owner, "aimZoom") / 100);
+  return diameter * Math.tan((tune(owner, "screenFov") * Math.PI) / 360);
+}
+
+export function pickTarget(owner) {
+  const eye = owner.getHeadLocation();
+  const view = owner.getViewDirection();
+  const flat = Math.hypot(view.x, view.z);
+  const right = flat < 1e-6 ? { x: 1, y: 0, z: 0 } : { x: -view.z / flat, y: 0, z: view.x / flat };
+  const up = {
+    x: right.y * view.z - right.z * view.y,
+    y: right.z * view.x - right.x * view.z,
+    z: right.x * view.y - right.y * view.x,
+  };
+  const radius = circleRadius(owner);
+  let best;
+  let bestDist = radius;
+  for (const entity of candidates(owner)) {
+    const points = [entity.getHeadLocation(), bodyPoint(entity)];
+    let dist = Infinity;
+    for (const point of points) {
+      const offset = minus(point, eye);
+      const depth = dot(offset, view);
+      if (depth < 1) continue;
+      dist = Math.min(dist, Math.hypot(dot(offset, right) / depth, dot(offset, up) / depth));
+    }
+    if (dist <= bestDist && seen(owner, entity)) {
+      bestDist = dist;
+      best = entity;
+    }
+  }
+  return best;
+}
+
+function aimPoint(from, target, speed) {
+  const body = bodyPoint(target);
+  const motion = target.getVelocity();
+  let wet = false;
+  try {
+    wet = target.isInWater;
+  } catch (e) {}
+  const drop = wet ? 0 : 0.5 * GRAVITY;
+  let point = body;
+  for (let i = 0; i < 2; i++) {
+    const t = length(minus(point, from)) / speed;
+    point = {
+      x: body.x + motion.x * t,
+      y: body.y + motion.y * t + drop * t * t,
+      z: body.z + motion.z * t,
+    };
+  }
+  return point;
+}
+
+function steer(arrow) {
+  try {
+    if (!arrow.isValid) return;
+    const projectile = arrow.getComponent(EntityComponentTypes.Projectile);
+    const owner = projectile?.owner;
+    if (!owner || owner.typeId !== PLAYER_ID || !isOn(owner, "bowAimbot")) return;
+    const speed = length(arrow.getVelocity());
+    if (speed < MIN_SPEED) return;
+    const target = pickTarget(owner);
+    if (!target) return;
+    const from = arrow.location;
+    const direction = minus(aimPoint(from, target, speed), from);
+    const size = length(direction);
+    if (size < 0.001) return;
+    projectile.shoot({ x: (direction.x / size) * speed, y: (direction.y / size) * speed, z: (direction.z / size) * speed });
+  } catch (e) {}
+}
+
+export function initBowAim() {
+  world.afterEvents.entitySpawn.subscribe(({ entity }) => {
+    if (entity.typeId !== ARROW) return;
+    system.run(() => steer(entity));
+  });
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/combat.js (140 lines, 5446 bytes)
+
+```
+import { world, system, EntityComponentTypes, EntityDamageCause, EquipmentSlot, ItemStack } from "@minecraft/server";
+import { PLAYER_ID } from "./info.js";
+import { isOn } from "./store.js";
+import { tune } from "./tuning.js";
+import { saveGear, restoreGear, hasStash } from "./gear.js";
+
+const TOTEM = "minecraft:totem_of_undying";
+const SHIELD = "minecraft:shield";
+const SPARKS = "minecraft:critical_hit_emitter";
+const IMMORTAL_FLOOR = 2;
+
+const NO_TOTEM = new Set([EntityDamageCause.void, EntityDamageCause.selfDestruct, EntityDamageCause.override]);
+const BLOCKED = new Set([EntityDamageCause.entityAttack, EntityDamageCause.projectile]);
+
+const slot = (p, which) => p.getComponent(EntityComponentTypes.Equippable)?.getEquipmentSlot(which);
+const bag = (p) => p.getComponent(EntityComponentTypes.Inventory)?.container;
+const hands = (p) => [slot(p, EquipmentSlot.Mainhand)?.getItem()?.typeId, slot(p, EquipmentSlot.Offhand)?.getItem()?.typeId];
+
+function totemIndex(p) {
+  const inv = bag(p);
+  for (let i = 0; inv && i < inv.size; i++) if (inv.getItem(i)?.typeId === TOTEM) return i;
+  return -1;
+}
+
+function equipTotem(p) {
+  const off = slot(p, EquipmentSlot.Offhand);
+  if (!off || hands(p).includes(TOTEM)) return;
+  const inv = bag(p);
+  const i = totemIndex(p);
+  const old = off.getItem();
+  if (i >= 0) {
+    off.setItem(inv.getItem(i));
+    inv.setItem(i, old);
+    return;
+  }
+  off.setItem(new ItemStack(TOTEM, 1));
+  const left = old && (inv ? inv.addItem(old) : old);
+  if (left) p.dimension.spawnItem(left, p.location);
+}
+
+function facing(p, src) {
+  const o = src.damagingProjectile?.location ?? src.damagingEntity?.location;
+  if (!o) return false;
+  const v = p.getViewDirection();
+  const dx = o.x - p.location.x;
+  const dz = o.z - p.location.z;
+  return dx * v.x + dz * v.z > 0;
+}
+
+function replayOptions(src) {
+  const by = src.damagingEntity?.isValid ? src.damagingEntity : undefined;
+  const proj = src.damagingProjectile?.isValid ? src.damagingProjectile : undefined;
+  return proj ? { damagingEntity: by, damagingProjectile: proj } : { cause: src.cause, damagingEntity: by };
+}
+
+function parry(victim, src) {
+  const foe = src.damagingEntity;
+  system.run(() => {
+    if (!victim.isValid) return;
+    const view = victim.getViewDirection();
+    const head = victim.getHeadLocation();
+    const at = { x: head.x + view.x * 0.9, y: head.y - 0.4 + view.y * 0.9, z: head.z + view.z * 0.9 };
+    victim.playSound("item.shield.block");
+    victim.dimension.spawnParticle(SPARKS, at);
+    victim.dimension.spawnParticle(SPARKS, { x: at.x, y: at.y + 0.2, z: at.z });
+    try {
+
+      if (foe?.isValid && src.cause === EntityDamageCause.entityAttack) {
+        const dx = foe.location.x - victim.location.x;
+        const dz = foe.location.z - victim.location.z;
+        const size = Math.hypot(dx, dz) || 1;
+        foe.applyKnockback({ x: (dx / size) * 0.6, z: (dz / size) * 0.6 }, 0.25);
+      }
+    } catch (e) {}
+  });
+}
+
+function onHurt(event) {
+  const victim = event.hurtEntity;
+  const src = event.damageSource;
+  const hitter = src.damagingEntity;
+  if (src.cause === EntityDamageCause.entityAttack && hitter?.typeId === PLAYER_ID && isOn(hitter, "alwaysCritical") && !hitter.isFalling) {
+    event.damage *= tune(hitter, "critPercent") / 100;
+    system.run(() => victim.isValid && victim.dimension.spawnParticle(SPARKS, victim.getHeadLocation()));
+  }
+  if (victim.typeId !== PLAYER_ID) return;
+  if (isOn(victim, "shield") && BLOCKED.has(src.cause) && hands(victim).includes(SHIELD) && facing(victim, src)) {
+    event.cancel = true;
+    parry(victim, src);
+    return;
+  }
+  if (isOn(victim, "immortal")) {
+    const left = victim.getComponent(EntityComponentTypes.Health)?.currentValue ?? 0;
+    if (left > 0 && event.damage > left - IMMORTAL_FLOOR) {
+      const safe = Math.max(0, left - IMMORTAL_FLOOR);
+      if (safe > 0) event.damage = safe;
+      else event.cancel = true;
+      return;
+    }
+  }
+  if (isOn(victim, "keepGear") && !hasStash(victim)) {
+    const life = victim.getComponent(EntityComponentTypes.Health);
+    const totemSaves =
+      !NO_TOTEM.has(src.cause) &&
+      (hands(victim).includes(TOTEM) || isOn(victim, "infiniteTotem") || (isOn(victim, "autoTotem") && totemIndex(victim) >= 0));
+    if (life && !totemSaves && life.currentValue - event.damage <= 0) {
+      const dealt = event.damage;
+      event.cancel = true;
+      system.run(() => {
+        if (!victim.isValid) return;
+        saveGear(victim);
+        victim.applyDamage(dealt, replayOptions(src));
+        system.runTimeout(() => {
+          try {
+            if (victim.isValid && victim.getComponent(EntityComponentTypes.Health).currentValue > 0) restoreGear(victim);
+          } catch (e) {}
+        }, 3);
+      });
+      return;
+    }
+  }
+  const infinite = isOn(victim, "infiniteTotem");
+  if (!infinite && !isOn(victim, "autoTotem")) return;
+  if (NO_TOTEM.has(src.cause) || hands(victim).includes(TOTEM)) return;
+  if (!infinite && totemIndex(victim) < 0) return;
+  const health = victim.getComponent(EntityComponentTypes.Health);
+  if (!health || health.currentValue - event.damage > 0) return;
+  const amount = event.damage;
+  event.cancel = true;
+  system.run(() => {
+    if (!victim.isValid) return;
+    equipTotem(victim);
+    if (hands(victim).includes(TOTEM)) victim.applyDamage(amount, replayOptions(src));
+  });
+}
+
+export function initCombat() {
+  world.beforeEvents.entityHurt.subscribe(onHurt);
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/extras.js (147 lines, 5172 bytes)
+
+```
+import { world, system, EntityComponentTypes, EntityDamageCause, EquipmentSlot, GameMode } from "@minecraft/server";
+import { PLAYER_ID } from "./info.js";
+import { isOn, anyOn } from "./store.js";
+import { tune } from "./tuning.js";
+import { pickTarget } from "./bowaim.js";
+
+const APPLE = "minecraft:golden_apple";
+const LOW_HEALTH = 8;
+const COOLDOWN = 400;
+const last = new Map();
+
+function feed(p) {
+  if (p.getGameMode() === GameMode.Creative || p.getGameMode() === GameMode.Spectator) return;
+  const health = p.getComponent(EntityComponentTypes.Health);
+  if (!health || health.currentValue <= 0 || health.currentValue > LOW_HEALTH) return;
+  if (system.currentTick - (last.get(p.id) ?? -COOLDOWN) < COOLDOWN) return;
+  const box = p.getComponent(EntityComponentTypes.Inventory)?.container;
+  if (!box) return;
+  for (let i = 0; i < box.size; i++) {
+    const item = box.getItem(i);
+    if (item?.typeId !== APPLE) continue;
+    if (item.amount > 1) {
+      item.amount -= 1;
+      box.setItem(i, item);
+    } else {
+      box.setItem(i, undefined);
+    }
+    p.addEffect("regeneration", 100, { amplifier: 1 });
+    p.addEffect("absorption", 2400);
+    p.playSound("random.burp");
+    last.set(p.id, system.currentTick);
+    return;
+  }
+}
+
+function show(event) {
+  const by = event.damageSource.damagingEntity;
+  if (by?.typeId !== PLAYER_ID || !isOn(by, "damageDisplay")) return;
+  const points = Math.round(event.damage * 10) / 10;
+  const hearts = Math.round(event.damage * 5) / 10;
+  try {
+    by.onScreenDisplay.setActionBar(`§c-${points} §7(${hearts} hearts)`);
+  } catch (e) {}
+}
+
+const KNOCK = 0.4;
+const BOWS = new Set(["minecraft:bow", "minecraft:crossbow"]);
+const dummies = new Map();
+
+function knock(event) {
+  const src = event.damageSource;
+  const by = src.damagingEntity;
+  const victim = event.hurtEntity;
+  if (src.cause !== EntityDamageCause.entityAttack || !by?.isValid || !victim.isValid) return;
+  let dx = victim.location.x - by.location.x;
+  let dz = victim.location.z - by.location.z;
+  const size = Math.hypot(dx, dz);
+  if (size < 0.001) return;
+  dx /= size;
+  dz /= size;
+  let push = 0;
+  if (by.typeId === PLAYER_ID && tune(by, "knockback") !== 100) push = ((tune(by, "knockback") - 100) / 100) * KNOCK;
+  if (victim.typeId === PLAYER_ID && isOn(victim, "noKnockback")) push = -KNOCK;
+  if (!push) return;
+  system.run(() => {
+    try {
+      if (victim.isValid) victim.applyKnockback({ x: dx * push, z: dz * push }, push * 0.5);
+    } catch (e) {}
+  });
+}
+
+const hud = new Map();
+
+function setCircle(p, name) {
+  if ((hud.get(p.id) ?? "") === name) return;
+  if (name) hud.set(p.id, name);
+  else hud.delete(p.id);
+  p.onScreenDisplay.setTitle(name, { fadeInDuration: 0, stayDuration: 72000, fadeOutDuration: 0 });
+}
+
+function mark(p) {
+  const held = p.getComponent(EntityComponentTypes.Equippable)?.getEquipmentSlot(EquipmentSlot.Mainhand)?.getItem()?.typeId;
+  if (!BOWS.has(held)) {
+    setCircle(p, "");
+    return;
+  }
+  const zoom = Math.min(300, Math.max(50, Math.round(tune(p, "aimZoom") / 10) * 10));
+  setCircle(p, tune(p, "aimCircle") === 1 ? `aln_z${zoom}` : "");
+
+  const target = pickTarget(p);
+  if (!target) return;
+  const head = target.getHeadLocation();
+  p.spawnParticle("allenscreations:aln_target", { x: head.x, y: head.y + 0.8, z: head.z });
+  const name = target.typeId === PLAYER_ID ? target.name : target.typeId.replace("minecraft:", "");
+  p.onScreenDisplay.setActionBar(`§cLocked on: ${name}`);
+}
+
+export function spawnDummy(p) {
+  try {
+    const old = dummies.get(p.id);
+    if (old?.isValid) old.remove();
+    const view = p.getViewDirection();
+    const size = Math.hypot(view.x, view.z) || 1;
+    const at = { x: p.location.x + (view.x / size) * 3, y: p.location.y, z: p.location.z + (view.z / size) * 3 };
+    const dummy = p.dimension.spawnEntity("minecraft:zombie", at);
+    dummy.nameTag = "Practice Dummy";
+    const quiet = { showParticles: false };
+    dummy.addEffect("slowness", 2400, { amplifier: 255, ...quiet });
+    dummy.addEffect("weakness", 2400, { amplifier: 255, ...quiet });
+    dummy.addEffect("regeneration", 2400, { amplifier: 4, ...quiet });
+    dummy.addEffect("fire_resistance", 2400, quiet);
+    dummies.set(p.id, dummy);
+    system.runTimeout(() => dummy.isValid && dummy.remove(), 2400);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+export function initExtras() {
+  system.runInterval(() => {
+    if (!anyOn("autoGapple")) return;
+    for (const p of world.getAllPlayers()) {
+      if (!p.isValid || !isOn(p, "autoGapple")) continue;
+      try {
+        feed(p);
+      } catch (e) {}
+    }
+  }, 10);
+  world.afterEvents.entityHurt.subscribe(show);
+  world.afterEvents.entityHurt.subscribe(knock);
+  system.runInterval(() => {
+    if (!anyOn("targetHighlight") && !hud.size) return;
+    for (const p of world.getAllPlayers()) {
+      if (!p.isValid) continue;
+      try {
+        if (isOn(p, "targetHighlight") && isOn(p, "bowAimbot")) mark(p);
+        else if (hud.has(p.id)) setCircle(p, "");
+      } catch (e) {}
+    }
+  }, 1);
+  world.afterEvents.playerLeave.subscribe(({ playerId }) => {
+    last.delete(playerId);
+    hud.delete(playerId);
+  });
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/friends.js (19 lines, 706 bytes)
+
+```
+import { world } from "@minecraft/server";
+import { PLAYER_ID } from "./info.js";
+import { readSaved, writeSaved } from "./saved.js";
+
+const KEY = "aln_pointer_friends";
+
+export const isFriend = (owner, other) => other.typeId === PLAYER_ID && readSaved(owner, KEY)[other.id] !== undefined;
+export const friendNames = (player) => Object.values(readSaved(player, KEY));
+export const others = (player) => world.getAllPlayers().filter((p) => p.id !== player.id);
+
+export function applyFriends(player, shown, values) {
+  const data = { ...readSaved(player, KEY) };
+  shown.forEach((p, i) => {
+    if (values[i] === true) data[p.id] = p.name;
+    else delete data[p.id];
+  });
+  writeSaved(player, KEY, data);
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/gear.js (55 lines, 1768 bytes)
+
+```
+import { world, EntityComponentTypes, EquipmentSlot } from "@minecraft/server";
+
+const WORN = [EquipmentSlot.Head, EquipmentSlot.Chest, EquipmentSlot.Legs, EquipmentSlot.Feet, EquipmentSlot.Offhand];
+const stash = new Map();
+
+export const hasStash = (p) => stash.has(p.id);
+
+export function saveGear(p) {
+  if (stash.has(p.id)) return;
+  const box = p.getComponent(EntityComponentTypes.Inventory)?.container;
+  const gear = p.getComponent(EntityComponentTypes.Equippable);
+  if (!box || !gear) return;
+  const items = [];
+  for (let i = 0; i < box.size; i++) {
+    const item = box.getItem(i);
+    if (!item) continue;
+    items.push([i, item]);
+    box.setItem(i, undefined);
+  }
+  const worn = [];
+  for (const which of WORN) {
+    const slot = gear.getEquipmentSlot(which);
+    const item = slot.getItem();
+    if (!item) continue;
+    worn.push([which, item]);
+    slot.setItem(undefined);
+  }
+  stash.set(p.id, { items, worn });
+}
+
+export function restoreGear(p) {
+  const saved = stash.get(p.id);
+  if (!saved) return;
+  stash.delete(p.id);
+  const box = p.getComponent(EntityComponentTypes.Inventory)?.container;
+  const gear = p.getComponent(EntityComponentTypes.Equippable);
+  if (!box || !gear) return;
+  for (const [i, item] of saved.items) {
+    const left = box.getItem(i) ? box.addItem(item) : (box.setItem(i, item), undefined);
+    if (left) p.dimension.spawnItem(left, p.location);
+  }
+  for (const [which, item] of saved.worn) {
+    const slot = gear.getEquipmentSlot(which);
+    if (!slot.getItem()) slot.setItem(item);
+    else {
+      const left = box.addItem(item);
+      if (left) p.dimension.spawnItem(left, p.location);
+    }
+  }
+}
+
+export function initGear() {
+  world.afterEvents.playerSpawn.subscribe(({ player }) => restoreGear(player));
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/info.js (5 lines, 178 bytes)
+
+```
+export const PACK_NAME = "Combat Helper";
+export const PACK_VERSION = "16";
+export const POINTER_ID = "allenscreations:aln_pointer";
+export const PLAYER_ID = "minecraft:player";
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/loops.js (124 lines, 4140 bytes)
+
+```
+import { world, system, EntityDamageCause, GameMode } from "@minecraft/server";
+import { isOn, anyOn } from "./store.js";
+import { tune } from "./tuning.js";
+import { isFriend } from "./friends.js";
+
+const MIN_FALL = 3;
+const WATER_LIFETIME = 40;
+const falls = new Map();
+const safeSpot = new Map();
+
+const dist = (a, e) => Math.hypot(e.location.x - a.x, e.location.y - a.y, e.location.z - a.z);
+const skip = (p) => p.getGameMode() === GameMode.Creative || p.getGameMode() === GameMode.Spectator;
+
+function face(p, t) {
+  const from = p.getHeadLocation();
+  const to = t.getHeadLocation();
+  const dx = to.x - from.x;
+  const dy = to.y - from.y;
+  const dz = to.z - from.z;
+  p.setRotation({ x: (-Math.atan2(dy, Math.hypot(dx, dz)) * 180) / Math.PI, y: (Math.atan2(-dx, dz) * 180) / Math.PI });
+  p.playSound("game.player.attack.strong");
+}
+
+function aura(p) {
+  const opts = { location: p.location, maxDistance: tune(p, "auraRange") };
+  const found = new Map();
+  const mode = tune(p, "auraTarget");
+  const mobs = mode === 2 ? [] : p.dimension.getEntities({ ...opts, families: ["monster"] });
+  const foes = mode === 1 ? [] : p.dimension.getPlayers({ ...opts, excludeGameModes: [GameMode.Creative, GameMode.Spectator] });
+  for (const e of [...mobs, ...foes]) if (e.id !== p.id && !isFriend(p, e)) found.set(e.id, e);
+  [...found.values()]
+    .sort((a, b) => dist(p.location, a) - dist(p.location, b))
+    .slice(0, tune(p, "auraTargets"))
+    .forEach((t, i) => {
+      if (i === 0 && tune(p, "auraFace") === 1) face(p, t);
+      t.applyDamage(tune(p, "auraDamage"), { cause: EntityDamageCause.entityAttack, damagingEntity: p });
+    });
+}
+
+const WATERS = new Set(["minecraft:water", "minecraft:flowing_water"]);
+
+function drop(p, spot) {
+  const dim = p.dimension;
+  const owned = [];
+  for (let dx = -1; dx <= 1; dx++) {
+    for (let dy = -1; dy <= 1; dy++) {
+      for (let dz = -1; dz <= 1; dz++) {
+        const b = dim.getBlock({ x: spot.x + dx, y: spot.y + dy, z: spot.z + dz });
+        if (b?.isAir) owned.push(b.location);
+      }
+    }
+  }
+  spot.setType("minecraft:water");
+  let age = 0;
+  const id = system.runInterval(() => {
+    age += 2;
+    let done = age >= WATER_LIFETIME;
+    try {
+      if (!done) done = !p.isValid || (age >= 6 && (p.isOnGround || p.getVelocity().y > -0.1));
+    } catch (e) {
+      done = true;
+    }
+    if (!done) return;
+    system.clearRun(id);
+    for (const at of owned) {
+      const b = dim.getBlock(at);
+      if (b && WATERS.has(b.typeId)) b.setType("minecraft:air");
+    }
+  }, 2);
+}
+
+function clutch(p) {
+  if (skip(p) || p.isOnGround || !p.isFalling || p.isGliding || p.isFlying || p.isInWater) {
+    falls.delete(p.id);
+    return;
+  }
+  const y = p.location.y;
+  const peak = Math.max(falls.get(p.id) ?? y, y);
+  falls.set(p.id, peak);
+  const vy = p.getVelocity().y;
+  if (peak - y < MIN_FALL || vy > -0.2) return;
+  const hit = p.dimension.getBlockFromRay(p.location, { x: 0, y: -1, z: 0 }, {
+    maxDistance: Math.max(4, -vy * 3),
+    includeLiquidBlocks: false,
+    includePassableBlocks: false,
+  });
+  const spot = hit?.block.above();
+  if (!spot?.isAir) return;
+  falls.delete(p.id);
+  drop(p, spot);
+}
+
+function immortal(p) {
+  const dim = p.dimension;
+  const at = p.location;
+  const bottom = dim.heightRange.min;
+  if (p.isOnGround && at.y > bottom + 4) {
+    safeSpot.set(p.id, { x: at.x, y: at.y, z: at.z, dim });
+    return;
+  }
+  const last = safeSpot.get(p.id);
+  if (at.y < bottom - 4 && last && last.dim.id === dim.id) p.teleport({ x: last.x, y: last.y, z: last.z }, { dimension: dim });
+}
+
+function each(id, fn) {
+  if (!anyOn(id)) return;
+  for (const p of world.getAllPlayers()) {
+    if (!p.isValid || !isOn(p, id)) continue;
+    try {
+      fn(p);
+    } catch (e) {}
+  }
+}
+
+export function initLoops() {
+  system.runInterval(() => each("aura", (p) => p.getGameMode() !== GameMode.Spectator && aura(p)), 10);
+  system.runInterval(() => each("waterClutch", clutch), 2);
+  system.runInterval(() => each("immortal", immortal), 4);
+  world.afterEvents.playerLeave.subscribe(({ playerId }) => {
+    falls.delete(playerId);
+    safeSpot.delete(playerId);
+  });
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/menu.js (236 lines, 9739 bytes)
+
+```
+import { system } from "@minecraft/server";
+import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
+import { PACK_NAME, PACK_VERSION } from "./info.js";
+import { FEATURES, isOn, applyValues, activeNames } from "./store.js";
+import { others, isFriend, applyFriends, friendNames } from "./friends.js";
+import { TUNING, tune, applyTuning, resetTuning } from "./tuning.js";
+import { spawnDummy } from "./extras.js";
+
+const ABOUT_ICON = "textures/items/name_tag";
+const EXIT_ICON = "textures/items/door_wood";
+
+const plain = (s) => String(s ?? "").replace(/§./g, "");
+const bold = (s) => `§l${plain(s)}§r`;
+const mainTitle = () => `§l§6@ALNStudios §e${PACK_NAME}§r (v${PACK_VERSION})`;
+const note = (s) => `§7${plain(s)}§r`;
+const wait = (ticks) => new Promise((resolve) => system.runTimeout(resolve, ticks));
+const opt = (form, name, ...args) => (typeof form[name] === "function" ? form[name](...args) : form);
+
+export function tell(player, color, text) {
+  try {
+    player.onScreenDisplay.setActionBar(`${color}${text}`);
+  } catch (e) {}
+}
+
+async function present(form, player) {
+  for (let attempt = 0; attempt < 6; attempt++) {
+    let res;
+    try {
+      res = await form.show(player);
+    } catch (e) {
+      return undefined;
+    }
+    if (res.canceled && res.cancelationReason === FormCancelationReason.UserBusy) {
+      await wait(10);
+      continue;
+    }
+    return res;
+  }
+  return undefined;
+}
+
+async function openAbout(player) {
+  const body = [
+    "Creator: ALNStudios",
+    `${PACK_NAME} v${PACK_VERSION}`,
+    "A cursor-shaped item that opens a menu of PVP toggles.",
+    "CurseForge: allenscreations",
+    "MCPEDL: alnstudios",
+    "Not affiliated with Mojang.",
+  ].join("\n");
+  const form = new ActionFormData().title(bold("About ALNStudios")).body(bold(body)).button(bold("Back"));
+  const res = await present(form, player);
+  if (res && !res.canceled) openMain(player);
+}
+
+const LAYOUT = [
+  { title: "Aura", items: [["f", "aura"], ["t", "auraRange"], ["t", "auraDamage"], ["t", "auraTargets"], ["t", "auraTarget"], ["t", "auraFace"]] },
+  { title: "Bow Aimbot", items: [["f", "bowAimbot"], ["t", "aimRange"], ["t", "aimZoom"], ["f", "targetHighlight"], ["t", "aimCircle"], ["t", "aimHostile"], ["t", "aimNeutral"], ["t", "aimPassive"], ["t", "aimPlayers"]] },
+  { title: "Offense", items: [["f", "alwaysCritical"], ["t", "critPercent"], ["t", "knockback"], ["f", "damageDisplay"]] },
+  { title: "Totems", items: [["f", "autoTotem"], ["f", "infiniteTotem"]] },
+  { title: "Defense", items: [["f", "immortal"], ["f", "shield"], ["f", "noKnockback"], ["f", "autoGapple"], ["f", "waterClutch"], ["f", "keepGear"]] },
+];
+
+const PRESETS = [
+  { name: "PVP", on: ["bowAimbot", "targetHighlight", "alwaysCritical", "damageDisplay", "autoTotem", "shield", "noKnockback", "autoGapple"] },
+  { name: "Safe", on: ["autoTotem", "immortal", "shield", "autoGapple", "waterClutch", "keepGear"] },
+  { name: "All off", on: [] },
+];
+
+async function openSettings(player) {
+  let form = new ModalFormData().title(bold("Combat Settings"));
+  form = opt(form, "header", bold(PACK_NAME));
+  form = opt(form, "label", bold(`${activeNames(player).length} of ${FEATURES.length} on`));
+  const schema = [];
+  for (const group of LAYOUT) {
+    form = opt(form, "divider");
+    form = opt(form, "header", bold(group.title));
+    for (const [kind, id] of group.items) {
+      if (kind === "f") {
+        const f = FEATURES.find((x) => x.id === id);
+        form = form.toggle(bold(f.name), { defaultValue: isOn(player, id) });
+        form = opt(form, "label", note(f.info));
+      } else {
+        const t = TUNING.find((x) => x.id === id);
+        form = t.choices
+          ? form.dropdown(bold(t.name), t.choices.map((c) => bold(c)), { defaultValueIndex: tune(player, id) })
+          : form.slider(bold(t.name), t.min, t.max, { defaultValue: tune(player, id), valueStep: t.step });
+      }
+      schema.push([kind, id]);
+    }
+  }
+  form = opt(form, "divider");
+  form = opt(form, "submitButton", bold("Apply"));
+  const res = await present(form, player);
+  if (!res) return;
+  if (res.canceled) {
+    openHub(player);
+    return;
+  }
+  const values = (res.formValues ?? []).filter((v) => typeof v === "boolean" || typeof v === "number");
+  if (values.length !== schema.length) {
+    tell(player, "§c", "The settings could not be read.");
+    return;
+  }
+  const flags = new Map();
+  const nums = new Map();
+  schema.forEach(([kind, id], i) => (kind === "f" ? flags : nums).set(id, values[i]));
+  applyValues(player, FEATURES.map((f) => (flags.has(f.id) ? flags.get(f.id) === true : isOn(player, f.id))));
+  applyTuning(player, TUNING.map((t) => (nums.has(t.id) ? nums.get(t.id) : tune(player, t.id))));
+  tell(player, "§a", `${activeNames(player).length} of ${FEATURES.length} on. Settings saved.`);
+}
+
+async function openPresets(player) {
+  let form = new ActionFormData().title(bold("Quick Presets")).body(bold("A preset replaces your toggles. Your slider values stay the same."));
+  for (const p of PRESETS) form = form.button(bold(p.name));
+  form = form.button(bold("Back"), EXIT_ICON);
+  const res = await present(form, player);
+  if (!res) return;
+  if (res.canceled || res.selection >= PRESETS.length) {
+    openHub(player);
+    return;
+  }
+  const preset = PRESETS[res.selection];
+  applyValues(player, FEATURES.map((f) => preset.on.includes(f.id)));
+  tell(player, "§a", `${preset.name} preset applied.`);
+}
+
+async function openFriends(player) {
+  const shown = others(player).slice(0, 30);
+  if (!shown.length) {
+    tell(player, "§e", "No other players are online.");
+    openHub(player);
+    return;
+  }
+  const saved = friendNames(player);
+  let form = new ModalFormData().title(bold("Friends"));
+  form = opt(form, "header", bold(PACK_NAME));
+  form = opt(form, "label", bold("Tick a player to make them a friend. Aura Mode and Bow Aimbot skip your friends."));
+  form = opt(form, "label", bold(saved.length ? `Saved friends: ${saved.join(", ")}` : "No friends saved yet."));
+  form = opt(form, "divider");
+  for (const other of shown) form = form.toggle(bold(other.name), { defaultValue: isFriend(player, other) });
+  form = opt(form, "submitButton", bold("Apply"));
+  const res = await present(form, player);
+  if (!res) return;
+  if (res.canceled) {
+    openHub(player);
+    return;
+  }
+  const values = (res.formValues ?? []).filter((v) => typeof v === "boolean");
+  if (values.length !== shown.length) {
+    tell(player, "§c", "The friends could not be read.");
+    return;
+  }
+  applyFriends(player, shown, values);
+  tell(player, "§a", `${friendNames(player).length} friends saved.`);
+}
+
+const FOVS = Array.from({ length: 81 }, (_, i) => 30 + i);
+
+async function openTuning(player) {
+  const fov = TUNING.find((t) => t.id === "screenFov");
+  let form = new ModalFormData().title(bold("Tuning"));
+  form = opt(form, "header", bold(PACK_NAME));
+  form = opt(form, "label", bold("Set your FOV to the Field of View in Settings > Video so the aim circle matches. Nothing saves unless Confirm changes is on."));
+  form = opt(form, "divider");
+  form = form.dropdown(bold(fov.name), FOVS.map((n) => bold(String(n))), { defaultValueIndex: tune(player, "screenFov") - 30 });
+  form = opt(form, "divider");
+  form = form.toggle(bold("Confirm changes"), { defaultValue: false });
+  form = form.toggle(bold("Reset all tuning to the defaults"), { defaultValue: false });
+  form = opt(form, "submitButton", bold("Apply"));
+  const res = await present(form, player);
+  if (!res) return;
+  if (res.canceled) {
+    openHub(player);
+    return;
+  }
+  const values = res.formValues ?? [];
+  const numbers = values.filter((v) => typeof v === "number");
+  const flags = values.filter((v) => typeof v === "boolean");
+  if (numbers.length !== 1 || flags.length !== 2) {
+    tell(player, "§c", "The tuning could not be read.");
+    return;
+  }
+  if (flags[0] !== true) {
+    tell(player, "§e", "Nothing changed. Turn on Confirm changes to save.");
+    return;
+  }
+  if (flags[1] === true) {
+    resetTuning(player);
+    tell(player, "§a", "Tuning reset to the defaults.");
+    return;
+  }
+  applyTuning(player, TUNING.map((t) => (t.id === "screenFov" ? FOVS[numbers[0]] : tune(player, t.id))));
+  tell(player, "§a", `FOV set to ${FOVS[numbers[0]]}.`);
+}
+
+async function openHub(player) {
+  const body = `${activeNames(player).length} of ${FEATURES.length} toggles on. ${friendNames(player).length} friends saved.`;
+  const form = new ActionFormData()
+    .title(bold("Combat Menu"))
+    .body(bold(body))
+    .button(bold("Combat Settings"))
+    .button(bold("Quick Presets"))
+    .button(bold("Friends"))
+    .button(bold("Tuning"))
+    .button(bold("Practice Dummy"))
+    .button(bold("Back"), EXIT_ICON);
+  const res = await present(form, player);
+  if (!res) return;
+  if (res.canceled || res.selection === 5) {
+    openMain(player);
+    return;
+  }
+  if (res.selection === 4) {
+    const ok = spawnDummy(player);
+    tell(player, ok ? "§a" : "§c", ok ? "Practice Dummy spawned. It stays for 2 minutes." : "The Practice Dummy could not spawn here.");
+    return;
+  }
+  [openSettings, openPresets, openFriends, openTuning][res.selection](player);
+}
+
+export async function openMain(player) {
+  const active = activeNames(player);
+  const body = active.length ? `On: ${active.join(", ")}` : "No toggles are on.";
+  const form = new ActionFormData()
+    .title(mainTitle())
+    .body(bold(body))
+    .button(bold("Combat Menu"))
+    .button(bold("About"), ABOUT_ICON)
+    .button(bold("Exit"), EXIT_ICON);
+  const res = await present(form, player);
+  if (!res || res.canceled) return;
+  if (res.selection === 0) openHub(player);
+  else if (res.selection === 1) openAbout(player);
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/saved.js (28 lines, 763 bytes)
+
+```
+import { world } from "@minecraft/server";
+
+const cache = new Map();
+
+export function readSaved(player, key) {
+  const id = `${key}|${player.id}`;
+  if (cache.has(id)) return cache.get(id);
+  let data = {};
+  const raw = player.getDynamicProperty(key);
+  if (typeof raw === "string") {
+    try {
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed === "object") data = parsed;
+    } catch (e) {}
+  }
+  cache.set(id, data);
+  return data;
+}
+
+export function writeSaved(player, key, data) {
+  cache.set(`${key}|${player.id}`, data);
+  player.setDynamicProperty(key, JSON.stringify(data));
+}
+
+world.afterEvents.playerLeave.subscribe(({ playerId }) => {
+  for (const id of [...cache.keys()]) if (id.endsWith(`|${playerId}`)) cache.delete(id);
+});
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/store.js (81 lines, 3479 bytes)
+
+```
+import { world } from "@minecraft/server";
+
+export const FEATURES = [
+  { id: "aura", name: "Aura Mode", info: "Hits hostile mobs and players around you." },
+  { id: "bowAimbot", name: "Bow Aimbot", info: "Arrows you shoot steer toward the target inside the aim circle." },
+  { id: "targetHighlight", name: "Target Highlight", info: "Shows a target image over who Bow Aimbot picks and the aim circle." },
+  { id: "alwaysCritical", name: "Always Critical", info: "Every melee hit deals extra damage." },
+  { id: "damageDisplay", name: "Damage Display", info: "Shows the damage of each hit you land on the action bar." },
+  { id: "autoTotem", name: "Auto Totem", info: "Moves a Totem of Undying into your hand before a deadly hit." },
+  { id: "infiniteTotem", name: "Infinite Totem", info: "Gives you a new Totem of Undying whenever you hold none." },
+  { id: "immortal", name: "Immortal", info: "You never drop below 1 heart, even from huge hits." },
+  { id: "shield", name: "Shield Always Active", info: "Blocks hits from the front while you carry a shield." },
+  { id: "noKnockback", name: "No Knockback", info: "Cancels the push you get from melee hits." },
+  { id: "autoGapple", name: "Auto Golden Apple", info: "Eats a golden apple for you when your health is 4 hearts or less." },
+  { id: "waterClutch", name: "Always Water Clutch", info: "Places temporary water under you before a long fall lands." },
+  { id: "keepGear", name: "Keep Gear On Death", info: "Keeps your items and armor when you die, for you only." },
+];
+
+const KEY = "aln_pointer_toggles";
+const cache = new Map();
+
+function load(player) {
+  const raw = player.getDynamicProperty(KEY);
+  let data = {};
+  if (typeof raw === "string") {
+    try {
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed === "object") data = parsed;
+    } catch (e) {}
+  }
+  if (data.neverDie === true && data.immortal === undefined) data.immortal = true;
+  delete data.neverDie;
+  if (Array.isArray(data._last)) data._last = data._last.map((id) => (id === "neverDie" ? "immortal" : id));
+  cache.set(player.id, data);
+  return data;
+}
+
+const read = (player) => cache.get(player.id) ?? load(player);
+
+export function isOn(player, id) {
+  return read(player)[id] === true;
+}
+
+export function activeNames(player) {
+  return FEATURES.filter((f) => isOn(player, f.id)).map((f) => f.name);
+}
+
+export function quickSwitch(player) {
+  const old = read(player);
+  const on = FEATURES.filter((f) => old[f.id] === true).map((f) => f.id);
+  const last = Array.isArray(old._last) ? old._last : [];
+  if (!on.length && !last.length) return "Nothing to bring back. Turn some toggles on first.";
+  const data = { _last: on.length ? on : last };
+  FEATURES.forEach((f) => {
+    data[f.id] = on.length ? false : last.includes(f.id);
+  });
+  cache.set(player.id, data);
+  player.setDynamicProperty(KEY, JSON.stringify(data));
+  return on.length ? "All toggles off. Sneak and use again to bring them back." : `${last.length} toggles back on.`;
+}
+
+export function applyValues(player, values) {
+  const data = { _last: read(player)._last };
+  FEATURES.forEach((f, i) => {
+    data[f.id] = values[i] === true;
+  });
+  cache.set(player.id, data);
+  player.setDynamicProperty(KEY, JSON.stringify(data));
+}
+
+export function anyOn(id) {
+  for (const player of world.getAllPlayers()) {
+    if (isOn(player, id)) return true;
+  }
+  return false;
+}
+
+world.afterEvents.playerLeave.subscribe(({ playerId }) => {
+  cache.delete(playerId);
+});
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/tuning.js (37 lines, 2162 bytes)
+
+```
+import { readSaved, writeSaved } from "./saved.js";
+
+const KEY = "aln_pointer_tuning";
+
+export const TUNING = [
+  { id: "auraRange", name: "Aura range (blocks)", min: 2, max: 6, step: 1, def: 4 },
+  { id: "auraDamage", name: "Aura damage (half hearts)", min: 1, max: 10, step: 1, def: 5 },
+  { id: "auraTargets", name: "Aura targets per hit", min: 1, max: 5, step: 1, def: 3 },
+  { id: "aimRange", name: "Bow Aimbot range (blocks)", min: 16, max: 96, step: 8, def: 48 },
+  { id: "aimZoom", name: "Aim circle zoom (percent)", min: 50, max: 300, step: 10, def: 100 },
+  { id: "screenFov", name: "Your game FOV setting", min: 30, max: 110, step: 1, def: 70 },
+  { id: "critPercent", name: "Always Critical damage (percent)", min: 110, max: 300, step: 10, def: 150 },
+  { id: "knockback", name: "Knockback you deal (percent)", min: 0, max: 200, step: 25, def: 100 },
+  { id: "auraTarget", name: "Aura hits", min: 0, max: 2, step: 1, def: 0, choices: ["Mobs and players", "Mobs only", "Players only"] },
+  { id: "auraFace", name: "Aura turns you to face the target", min: 0, max: 1, step: 1, def: 0, choices: ["No", "Yes"] },
+  { id: "aimCircle", name: "Target Highlight aim circle", min: 0, max: 1, step: 1, def: 1, choices: ["Off", "On"] },
+  { id: "aimHostile", name: "Aimbot hits hostile mobs", min: 0, max: 1, step: 1, def: 1, choices: ["Off", "On"] },
+  { id: "aimNeutral", name: "Aimbot hits neutral mobs", min: 0, max: 1, step: 1, def: 0, choices: ["Off", "On"] },
+  { id: "aimPassive", name: "Aimbot hits passive mobs", min: 0, max: 1, step: 1, def: 0, choices: ["Off", "On"] },
+  { id: "aimPlayers", name: "Aimbot hits players", min: 0, max: 1, step: 1, def: 1, choices: ["Off", "On"] },
+];
+
+export function tune(player, id) {
+  const value = readSaved(player, KEY)[id];
+  return typeof value === "number" ? value : TUNING.find((t) => t.id === id).def;
+}
+
+export function applyTuning(player, values) {
+  const data = {};
+  TUNING.forEach((t, i) => {
+    if (typeof values[i] === "number") data[t.id] = Math.min(t.max, Math.max(t.min, values[i]));
+  });
+  writeSaved(player, KEY, data);
+}
+
+export const resetTuning = (player) => writeSaved(player, KEY, {});
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/main.js (33 lines, 1235 bytes)
+
+```
+import { world, ItemStack, ItemTypes, EntityComponentTypes } from "@minecraft/server";
+import { POINTER_ID } from "./lib/info.js";
+import { openMain, tell } from "./lib/menu.js";
+import { quickSwitch } from "./lib/store.js";
+import { initCombat } from "./lib/combat.js";
+import { initLoops } from "./lib/loops.js";
+import { initBowAim } from "./lib/bowaim.js";
+import { initExtras } from "./lib/extras.js";
+import { initGear } from "./lib/gear.js";
+
+const GIVEN_KEY = "aln_pointer_given";
+const GIFT_MARKER = "allenscreations:aln_gift_on";
+
+world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
+  if (itemStack?.typeId !== POINTER_ID) return;
+  if (source.isSneaking) tell(source, "§e", quickSwitch(source));
+  else openMain(source);
+});
+
+world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
+  if (!initialSpawn || !ItemTypes.get(GIFT_MARKER) || player.getDynamicProperty(GIVEN_KEY) === true) return;
+  const inventory = player.getComponent(EntityComponentTypes.Inventory)?.container;
+  if (!inventory) return;
+  const left = inventory.addItem(new ItemStack(POINTER_ID, 1));
+  if (!left) player.setDynamicProperty(GIVEN_KEY, true);
+});
+
+initCombat();
+initLoops();
+initBowAim();
+initExtras();
+initGear();
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/subpacks/gift/items/aln_gift_on.json (15 lines, 262 bytes)
+
+```
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "allenscreations:aln_gift_on",
+      "menu_category": {
+        "category": "none"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/subpacks/none/items/aln_gift_off.json (15 lines, 263 bytes)
+
+```
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "allenscreations:aln_gift_off",
+      "menu_category": {
+        "category": "none"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/CHANGELOG.md (144 lines, 10373 bytes)
+
+```
+# Changelog — ALN Pointer
+
+---
+
+## [v19] - 2026-11-20 - Aimbot Mob Types
+
+### Added
+- **Aimbot Mob Types**: Bow Aimbot now has four On or Off choices under it: hostile mobs, neutral mobs, passive mobs and players. Hostile mobs and players stay on by default. Tamed pets are never targeted.
+
+### Fixed
+- **Elder Guardian**: Arrows now aim at the middle of the body instead of the head point, so big mobs such as the Elder Guardian are no longer overshot.
+- **Underwater Targets**: Arrows aimed at a target in water no longer add the extra lift for gravity, since arrows fly differently in water.
+
+## [v18] - 2026-11-20 - Grouped Menu and Immortal
+
+### Added
+- **Quick Presets**: A new button in the Combat Menu turns on a whole set of toggles at once: PVP, Safe or All off. Your slider values stay the same.
+
+### Changed
+- **Combat Settings**: Toggles and sliders now live in one form grouped by line. Aura has its range, damage, targets and options under it, Bow Aimbot has range, zoom and the aim circle under it, and Auto Totem and Infinite Totem sit together.
+- **Immortal**: Never Die is now Immortal. It keeps you at 1 heart instead of half a heart, shows no totem effect, and also blocks one-hit kills, the void and the kill command where the game lets the add-on cancel them. If you fall into the void you are moved back to the last ground you stood on.
+- **Tuning**: Tuning now holds Your game FOV setting as an exact list of values from 30 to 110. Nothing saves unless Confirm changes is on, so a stray touch cannot change it.
+
+## [v17] - 2026-11-20 - Circle Zoom
+
+### Changed
+- **Aim Circle**: The circle is now sized by a zoom setting instead of degrees. It is centered on your crosshair and its size no longer depends on your screen size or GUI scale.
+- **Bow Aimbot**: It now only locks onto a mob or player that is inside the circle, and picks the one closest to the center. The Locked on marker uses the same circle.
+- **Tuning**: The Bow Aimbot angle slider is replaced by Aim circle zoom (50 to 300 percent) and a new Your game FOV setting slider (30 to 110) that matches the circle to your in-game field of view.
+
+## [v16] - 2026-11-19 - Circle Size Matches Degrees
+
+### Changed
+- **Aim Circle**: The on-screen circle size is now exactly proportional to the Bow Aimbot angle. Each degree adds 1.6 pixels, so 25 degrees is the 40 by 40 size, 5 degrees is 8, 50 degrees is 80, and doubling the angle doubles the circle.
+
+## [v15] - 2026-11-19 - Circle Size By Degrees
+
+### Changed
+- **Aim Circle**: The on-screen circle is now sized by the Bow Aimbot angle. At the default 25 degrees it is shown at the 40 by 40 picture's own size, and other angles are scaled from that in proportion to the angle, from 8 pixels at 5 degrees up to 102 pixels at 50 degrees.
+
+## [v14] - 2026-11-19 - One Circle Picture
+
+### Changed
+- **Aim Circle**: The screen circle now uses one 16 by 16 picture, resource_pack/textures/particle/aln_circle.png, and the game stretches it to the size that matches the Bow Aimbot angle. The 10 separate aln_circle_4 to aln_circle_13 pictures are no longer used.
+
+## [v13] - 2026-11-19 - Crosshair Circle On Screen
+
+### Changed
+- **Aim Circle**: The circle is now drawn on the screen at your crosshair instead of in the world, so it stays exactly on the crosshair and does not lag when you turn. It uses the same 10 circle pictures, aln_circle_4.png to aln_circle_13.png, chosen by the Bow Aimbot angle. This adds a resource pack file, ui/hud_screen.json, and it uses the screen title while you hold a bow with Target Highlight on.
+
+## [v12] - 2026-11-19 - Aim Circle Pictures
+
+### Changed
+- **Aim Circle**: The circle around your crosshair is now a picture instead of flame dots. There are 10 circle pictures, 4 by 4 up to 13 by 13 pixels, one for each Bow Aimbot angle from 5 to 50 degrees. They are the files aln_circle_4.png to aln_circle_13.png in resource_pack/textures/particle.
+- **Smooth Following**: The target picture and the aim circle now refresh every tick instead of 4 times a second, so they follow the target and your crosshair without flickering.
+- **Bow Aimbot Angle**: The angle slider in Tuning now goes up to 50 degrees.
+
+## [v11] - 2026-11-19 - Parry Text Removed
+
+### Changed
+- **Parry Effect**: Blocking a hit with Shield Always Active no longer shows "Parried!" on the action bar. The sparks, the shield sound and the push on a melee attacker stay.
+
+## [v10] - 2026-11-19 - Shield Parry Effect
+
+### Added
+- **Parry Effect**: Every hit that Shield Always Active blocks now shows sparks in front of you, plays the shield sound, shows "Parried!" on the action bar and pushes a melee attacker back.
+
+## [v9] - 2026-11-19 - Target Image and Line Of Sight
+
+### Added
+- **Target Picture**: Target Highlight now shows a small picture above the target Bow Aimbot picks, only visible to you. The picture is the file resource_pack/textures/particle/aln_target.png, a 16 by 16 image.
+- **Aim Circle**: Target Highlight also draws a circle of flame dots around your crosshair that shows the Bow Aimbot aim range. A new Tuning choice switches it on or off.
+
+### Changed
+- **Line Of Sight**: Bow Aimbot now ignores mobs and players that are hidden behind blocks, and picks the one closest to your crosshair among those you can see.
+
+## [v8] - 2026-11-19 - Water Clutch Cleanup
+
+### Fixed
+- **Water Cleanup**: Always Water Clutch now removes its water as soon as you land, including the water that spread sideways from it, instead of leaving it behind. It still removes the water after about 2 seconds at most.
+
+## [v7] - 2026-11-19 - Gear and Dummy
+
+### Added
+- **Keep Gear On Death**: Your items, armor and off hand are set aside when you die and given back when you respawn, for you only and without changing the world rules.
+- **No Knockback**: Cancels the push you get from melee hits.
+- **Target Highlight**: Shows particles above the target Bow Aimbot picks and names it on the action bar while you hold a bow.
+- **Practice Dummy**: A new Combat Menu button that spawns a harmless zombie 3 blocks in front of you for testing, for 2 minutes.
+- **Knockback Slider**: A Tuning slider that makes the knockback you deal weaker or stronger, from 0 to 200 percent.
+- **Aura Options**: Tuning choices for Aura Mode to hit mobs and players, mobs only or players only, and to turn you to face the target with a hit sound.
+- **Totem Pop Effect**: Never Die now shows the totem particles and plays the totem sound when it saves you from a deadly hit.
+
+### Changed
+- **Combat Toggles**: The toggles screen now has 13 switches, and the Combat Menu has a Practice Dummy button before Back.
+
+## [v6] - 2026-11-19 - Never Die
+
+### Added
+- **Never Die**: A new toggle that keeps you at half a heart instead of dying, even from a one-hit explosion such as a creeper. The void and the kill command still work. The combat toggles screen now has 10 switches.
+
+### Fixed
+- **Totem After A Pop**: Auto Totem and Infinite Totem no longer ignore deadly hits that land within a quarter second after a totem pops, such as the second damage of an explosion.
+
+## [v5] - 2026-11-19 - Friends and Tuning
+
+### Added
+- **Friends**: Pick online players as friends in the new Combat Menu. Aura Mode and Bow Aimbot skip your friends, and the list is kept when they go offline.
+- **Tuning**: Six sliders change Aura range, Aura damage, Aura targets, Bow Aimbot range, Bow Aimbot angle and Always Critical damage. The starting values match the old fixed numbers, and a reset switch restores them.
+- **Auto Golden Apple**: Eats a golden apple from your inventory for you when your health is 4 hearts or less, with a 20 second wait between apples.
+- **Damage Display**: Shows the damage of each hit you land on the action bar.
+- **Quick Toggle**: Sneak while using the Combat Helper to switch all your toggles off, and do it again to bring them back.
+- **Starter Item Setting**: A pack choice between No Starter Item (default) and Give Starter Item, which gives each player a Combat Helper the first time they join.
+
+### Changed
+- **Combat Menu**: The first main menu button is now Combat Menu, which opens Combat Toggles, Friends and Tuning. The combat toggles screen now has 9 switches.
+- **Starter Item**: The Combat Helper is no longer given automatically on first join. Turn on Give Starter Item in the pack settings to get the old behavior.
+
+## [v4] - 2026-11-19 - New Name
+
+### Changed
+- **New Name**: The add-on is now called Combat Helper. The item, its menus, the pack titles and the description all use the new name. The item still uses the cursor look, and your existing item, saved toggles and worlds keep working.
+
+## [v3] - 2026-11-19 - Wool Recipe
+
+### Added
+- **Wool Recipe**: The ALN Pointer can now be crafted from 7 wool of any color in a cursor shape: the top row, the left and middle squares of the middle row, and the left and right squares of the bottom row. The recipe is unlocked from the start.
+
+### Fixed
+- **Menu Version**: The menu title now shows the same version as the pack.
+- **Totem Exclusions**: Auto Totem and Infinite Totem now skip the kill command and script-set deaths, which a totem cannot stop in vanilla Minecraft, instead of reacting to them.
+
+## [v2] - 2026-11-16 - First Release
+
+### Added
+- **ALN Pointer**: A cursor-shaped item that opens the ALNStudios menu. You get one the first time you join a world, and it is in the Equipment tab of the Creative inventory.
+- **Combat Toggles Menu**: A screen with 7 switches and a short explanation under each. Apply saves them for you and closes the menu, and each player keeps their own settings.
+- **Auto Totem**: Moves a Totem of Undying from your inventory into your off hand before a hit that would kill you.
+- **Infinite Totem**: Puts a new Totem of Undying in your off hand before a deadly hit when you have none left.
+- **Aura Mode**: Hits up to 3 nearby hostile mobs and players within 4 blocks for 5 damage every half second.
+- **Always Critical**: Every melee hit deals 1.5 times damage and shows the critical hit sparks.
+- **Bow Aimbot**: Arrows from a bow or crossbow steer toward the target nearest your crosshair within 48 blocks.
+- **Always Water Clutch**: Places water where you land after a fall of 3 blocks or more, then removes it after about 2 seconds.
+- **Shield Always Active**: Blocks melee hits and arrows from the front whenever you carry a shield.
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/DESCRIPTION.md (164 lines, 13680 bytes)
+
+```
+# Combat Helper — A cursor-shaped item that opens a menu of 13 PVP toggles
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**Use the Combat Helper item to switch 13 PVP toggles on or off per player, including Auto Totem and Bow Aimbot, and set friends and slider values.**
+
+> The Combat Helper is a cursor-shaped item that opens a menu with 13 toggles, a friends list and tuning sliders, each saved separately for every player. It suits friends who practice PVP in a world they own and want to pick their own settings.
+
+## Overview
+
+You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios menu. The toggles then run by themselves whenever you fight, shoot or fall, and vanilla Minecraft has no equivalent switches. The features are cheat-style helpers, so use them only on worlds where everyone agrees.
+
+## Key Features
+
+### Combat Helper Item
+- **What Happens**: A cursor-shaped item that opens the toggle menu when you use it. You craft one from wool, take one from the Equipment tab of the Creative inventory, or turn on the Give Starter Item pack setting to receive one the first time you join a world.
+- **How It Works**: Hold the Combat Helper and use it, like right-clicking on PC or tapping on mobile. Sneak while you use it to switch all your toggles off or back on. To craft one, fill the top row of a crafting table with wool, then the left and middle squares of the middle row, then the left and right squares of the bottom row. This takes 7 wool of any color and the shape looks like a cursor.
+- **Good To Know**: With Give Starter Item on, a full inventory on first join means the Combat Helper is offered again on your next join.
+
+### Combat Toggles Menu
+- **What Happens**: The main menu has three buttons: Combat Menu, About and Exit. Combat Menu opens a screen with Combat Toggles, Friends, Tuning and Practice Dummy. Combat Toggles lists 13 switches with a one-line explanation under each, and Apply saves them and closes the menu.
+- **How It Works**: Flip the switches you want, then tap Apply. Closing the screen without Apply brings you back one screen.
+- **Good To Know**: Toggles are saved per player, so each person in a world picks their own.
+
+### Auto Totem
+- **What Happens**: When a hit would kill you and you hold no Totem of Undying, one from your inventory moves into your off hand first, so the totem saves you.
+- **How It Works**: Keep a Totem of Undying anywhere in your inventory and switch Auto Totem on.
+- **Good To Know**: It does nothing without a totem in your inventory, and it cannot help against the void or the kill command.
+
+### Infinite Totem
+- **What Happens**: Works like Auto Totem, and when you have no totem at all it puts a new Totem of Undying in your off hand before a deadly hit.
+- **How It Works**: Switch it on and keep fighting. Each totem that pops is replaced before the next deadly hit.
+- **Good To Know**: An item that was in your off hand moves to your inventory, or drops at your feet if the inventory is full.
+
+### Aura Mode
+- **What Happens**: Every half second, you hit up to 3 of the nearest hostile mobs and other players within 4 blocks for 5 damage (2.5 hearts), without clicking.
+- **How It Works**: Stand near enemies with Aura Mode on and they take damage automatically.
+- **Good To Know**: Players in Creative or Spectator mode are never hit, and passive mobs are left alone.
+
+### Always Critical
+- **What Happens**: Every melee hit you land deals 1.5 times damage and shows the critical hit sparks, the same bonus as a vanilla critical hit, without jumping first.
+- **How It Works**: Hit a mob or player with a sword or axe while Always Critical is on.
+- **Good To Know**: A hit made while you are already falling is left as vanilla, so the bonus never stacks.
+
+### Bow Aimbot
+- **Mob Types**: Four On or Off choices under Bow Aimbot pick what it hits: hostile mobs, neutral mobs, passive mobs and players. Hostile mobs and players are on by default, and tamed pets are never targeted.
+- **What Happens**: Arrows you shoot from a bow or crossbow steer toward the hostile mob or player closest to your crosshair within 48 blocks and inside the aim circle on your screen.
+- **How It Works**: Aim roughly at a target and release. The arrow leads a moving target and allows for arrow drop.
+- **Good To Know**: If nothing is near your crosshair, the arrow flies as normal. A mob or player hidden behind blocks is never chosen.
+
+### Always Water Clutch
+- **What Happens**: When you fall 3 blocks or more and the ground is close, a water block appears in the space you land in, so the fall does no damage, and it is removed as soon as you stop falling, together with any water that spread from it.
+- **How It Works**: Switch it on and jump. No water bucket is needed.
+- **Good To Know**: It does not trigger in Creative or Spectator mode, while gliding or flying, or over water.
+
+### Shield Always Active
+- **What Happens**: While you carry a shield in either hand, every melee hit and arrow from the front half of your view is fully blocked, even if you are not holding the block button.
+- **How It Works**: Keep a shield in your hand or off hand and switch Shield Always Active on.
+- **Good To Know**: Hits from behind and other damage, such as fire or explosions, are not blocked. Each block plays the shield sound, shows sparks in front of you, and pushes a melee attacker back.
+
+### Auto Golden Apple
+- **What Happens**: When your health drops to 4 hearts or less, one golden apple from your inventory is eaten for you, giving Regeneration II for 5 seconds and Absorption for 2 minutes.
+- **How It Works**: Keep a golden apple anywhere in your inventory and switch Auto Golden Apple on.
+- **Good To Know**: It waits 20 seconds between apples, it does not restore hunger, and it does nothing in Creative or Spectator mode.
+
+### Damage Display
+- **What Happens**: Each time you hurt a mob or player, the action bar shows how much damage the hit did, in points and in hearts.
+- **How It Works**: Switch it on and hit something.
+- **Good To Know**: It also counts the hits made by Aura Mode.
+
+### Immortal
+- **What Happens**: You never drop below 1 heart. Any hit that would take you lower is cut down or cancelled, even a one-hit explosion.
+- **How It Works**: Switch Immortal on under Defense in Combat Settings. There is no totem sound or particle.
+- **Good To Know**: It also tries to block the void and the kill command, and if you fall into the void it moves you back to the last ground you stood on. It is used before the totem toggles, so no totem is spent while Immortal is on.
+
+### Keep Gear On Death
+- **What Happens**: When you die, your items and armor are set aside and given back when you respawn, so nothing drops, and only you keep your gear.
+- **How It Works**: Switch Keep Gear On Death on. After you respawn, your inventory, armor and off hand are back as they were.
+- **Good To Know**: The items are held in memory, so they are lost if the world closes before you respawn. A totem that saves you does not trigger it.
+
+### No Knockback
+- **What Happens**: Melee hits no longer push you back, or push you much less.
+- **How It Works**: Switch it on and take a hit. The script pushes you the other way by the amount a hit normally pushes you.
+- **Good To Know**: It cancels the push by about the usual amount, so a strong knockback enchantment can still move you a little.
+
+### Target Highlight
+- **What Happens**: While you hold a bow or crossbow, a small target picture floats above the mob or player Bow Aimbot will pick, the action bar names it, and a circle picture sits on your crosshair on the screen to show the aim range, so it never lags behind when you turn. Only you see them.
+- **How It Works**: Switch on both Bow Aimbot and Target Highlight, hold a bow and aim near an enemy.
+- **Good To Know**: It does nothing when Bow Aimbot is off, and the target picture only shows when a target is inside the circle. The circle can be switched off in Tuning, and its size follows the Bow Aimbot angle.
+
+### Practice Dummy
+- **What Happens**: A zombie called Practice Dummy appears 3 blocks in front of you. It cannot move or hurt you and it heals fast, so you can test Aura Mode, Always Critical and Damage Display.
+- **How It Works**: Open the Combat Menu and tap Practice Dummy.
+- **Good To Know**: It disappears after 2 minutes, and spawning a new one removes your old one.
+
+### Friends
+- **What Happens**: You pick online players as friends, and Aura Mode and Bow Aimbot skip them.
+- **How It Works**: Open the Combat Menu, tap Friends, tick the players you want and tap Apply.
+- **Good To Know**: Friends stay on your list when they go offline. The list is yours alone, so a friend is only safe from your toggles, not the other way round.
+
+### Tuning
+- **What Happens**: Seven sliders and three choices change how the toggles behave: Aura range (2 to 6 blocks), Aura damage (1 to 10), Aura targets (1 to 5), Bow Aimbot range (16 to 96 blocks), Aim circle zoom (50 to 300 percent), Your game FOV setting (30 to 110), Always Critical damage (110 to 300 percent), Knockback you deal (0 to 200 percent), Aura hits (mobs and players, mobs only or players only) whether Aura turns you to face the target, and whether Target Highlight draws the aim circle.
+- **How It Works**: Open the Combat Menu, tap Tuning, drag the sliders and tap Apply. A reset switch at the bottom puts everything back to the defaults.
+- **Good To Know**: The starting values match the old fixed numbers, so nothing changes until you move a slider.
+
+### Quick Toggle
+- **What Happens**: Sneaking while you use the Combat Helper switches every toggle off at once, and doing it again brings the same toggles back.
+- **How It Works**: Crouch and use the item instead of opening the menu.
+- **Good To Know**: Your friends and tuning stay as they are.
+
+### Starter Item Pack Setting
+- **What Happens**: The behavior pack has a choice between No Starter Item, which is the default, and Give Starter Item, which gives each player a Combat Helper the first time they join the world.
+- **How It Works**: Open the world settings, go to Behavior Packs, tap Combat Helper and use the subpack slider to pick Give Starter Item.
+- **Good To Know**: Each player gets one the first time they join with the setting on, and a player who already has one saved from before is not given another.
+
+## How to Use
+
+1. Craft a Combat Helper from 7 wool in a cursor shape, take one from the Equipment tab of the Creative inventory, or turn on Give Starter Item to receive one when you first join.
+2. Hold the Combat Helper and use it to open the ALNStudios menu, then tap Combat Menu and Combat Toggles.
+3. Switch on the toggles you want and tap Apply. The action bar shows how many toggles are on.
+4. Use the Combat Helper again any time to change your toggles, or open Friends and Tuning from the Combat Menu.
+
+## Common Questions
+
+- **How do I get another Combat Helper?**: Craft one from 7 wool on a crafting table, laid out like a cursor with the top row full, the left and middle squares of the middle row, and the left and right squares of the bottom row. You can also take one from the Equipment tab of the Creative inventory, or use the command /give @s allenscreations:aln_pointer, which needs cheats.
+- **Do my toggles affect other players?**: No. Each player has their own saved toggles, and a toggle only changes what that player does.
+- **Can I use it on a server?**: These features act like cheats. Many servers ban them, so use them only where the owner and the other players agree.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.26.60
+- Experimental features: No experiment requirement detected in the inspected files.
+- Achievements: Likely achievement-friendly.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, Combat Helper Bedrock mod, Minecraft PE PVP toggles, Auto Totem, Infinite Totem, Aura Mode, Always Critical, Bow Aimbot, Water Clutch, Immortal, Keep Gear, Practice Dummy, Auto Golden Apple, Damage Display, friends list, Minecraft PE mouse pointer item, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/project.json (5 lines, 49 bytes)
+
+```
+{
+  "type": "addon",
+  "name": "Combat Helper"
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/README.md (19 lines, 781 bytes)
+
+```
+# Combat Helper
+
+Download the current release of **Combat Helper** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download Combat Helper (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V19.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALN-Pointer/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/manifest.json (37 lines, 599 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Combat Helper (v19)",
+    "description": "Combat Helper item texture. by ALNStudios",
+    "uuid": "8232add1-8bcd-4f9b-92e8-59dfc483f35f",
+    "version": [
+      19,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "83f195c6-92d3-428a-b707-06188b6a5f8d",
+      "version": [
+        19,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "19.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_10.json (35 lines, 880 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "allenscreations:aln_circle_10",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/aln_circle_10"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.1
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": ["variable.r", "variable.r"],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 10,
+          "texture_height": 10,
+          "uv": [0, 0],
+          "uv_size": [10, 10]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_11.json (35 lines, 880 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "allenscreations:aln_circle_11",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/aln_circle_11"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.1
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": ["variable.r", "variable.r"],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 11,
+          "texture_height": 11,
+          "uv": [0, 0],
+          "uv_size": [11, 11]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_12.json (35 lines, 880 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "allenscreations:aln_circle_12",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/aln_circle_12"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.1
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": ["variable.r", "variable.r"],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 12,
+          "texture_height": 12,
+          "uv": [0, 0],
+          "uv_size": [12, 12]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_13.json (35 lines, 880 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "allenscreations:aln_circle_13",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/aln_circle_13"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.1
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": ["variable.r", "variable.r"],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 13,
+          "texture_height": 13,
+          "uv": [0, 0],
+          "uv_size": [13, 13]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_4.json (35 lines, 874 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "allenscreations:aln_circle_4",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/aln_circle_4"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.1
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": ["variable.r", "variable.r"],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 4,
+          "texture_height": 4,
+          "uv": [0, 0],
+          "uv_size": [4, 4]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_5.json (35 lines, 874 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "allenscreations:aln_circle_5",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/aln_circle_5"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.1
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": ["variable.r", "variable.r"],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 5,
+          "texture_height": 5,
+          "uv": [0, 0],
+          "uv_size": [5, 5]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_6.json (35 lines, 874 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "allenscreations:aln_circle_6",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/aln_circle_6"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.1
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": ["variable.r", "variable.r"],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 6,
+          "texture_height": 6,
+          "uv": [0, 0],
+          "uv_size": [6, 6]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_7.json (35 lines, 874 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "allenscreations:aln_circle_7",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/aln_circle_7"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.1
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": ["variable.r", "variable.r"],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 7,
+          "texture_height": 7,
+          "uv": [0, 0],
+          "uv_size": [7, 7]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_8.json (35 lines, 874 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "allenscreations:aln_circle_8",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/aln_circle_8"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.1
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": ["variable.r", "variable.r"],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 8,
+          "texture_height": 8,
+          "uv": [0, 0],
+          "uv_size": [8, 8]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_9.json (35 lines, 874 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "allenscreations:aln_circle_9",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/aln_circle_9"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.1
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": ["variable.r", "variable.r"],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 9,
+          "texture_height": 9,
+          "uv": [0, 0],
+          "uv_size": [9, 9]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_target.json (35 lines, 856 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "allenscreations:aln_target",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/aln_target"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.1
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [0.4, 0.4],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 16,
+          "texture_height": 16,
+          "uv": [0, 0],
+          "uv_size": [16, 16]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/textures/item_texture.json (10 lines, 174 bytes)
+
+```
+{
+  "resource_pack_name": "aln_pointer",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "aln_pointer": {
+      "textures": "textures/items/aln_pointer"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/ui/hud_screen.json (788 lines, 16285 bytes)
+
+```
+{
+  "namespace": "hud",
+  "aln_circle_50": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle",
+    "size": [
+      "100%y",
+      "10%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_z50')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_60": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle",
+    "size": [
+      "100%y",
+      "12%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_z60')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_70": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle",
+    "size": [
+      "100%y",
+      "14%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_z70')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_80": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle",
+    "size": [
+      "100%y",
+      "16%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_z80')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_90": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle",
+    "size": [
+      "100%y",
+      "18%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_z90')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_100": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle",
+    "size": [
+      "100%y",
+      "20%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_z100')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_110": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle",
+    "size": [
+      "100%y",
+      "22%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_z110')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_120": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle",
+    "size": [
+      "100%y",
+      "24%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_z120')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_130": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle",
+    "size": [
+      "100%y",
+      "26%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_z130')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_140": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle",
+    "size": [
+      "100%y",
+      "28%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_z140')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_150": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle",
+    "size": [
+      "100%y",
+      "30%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_z150')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_160": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle",
+    "size": [
+      "100%y",
+      "32%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_z160')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_170": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle",
+    "size": [
+      "100%y",
+      "34%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_z170')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_180": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle",
+    "size": [
+      "100%y",
+      "36%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_z180')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_190": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle",
+    "size": [
+      "100%y",
+      "38%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_z190')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_200": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle",
+    "size": [
+      "100%y",
+      "40%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_z200')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_210": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle",
+    "size": [
+      "100%y",
+      "42%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_z210')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_220": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle",
+    "size": [
+      "100%y",
+      "44%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_z220')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_230": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle",
+    "size": [
+      "100%y",
+      "46%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_z230')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_240": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle",
+    "size": [
+      "100%y",
+      "48%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_z240')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_250": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle",
+    "size": [
+      "100%y",
+      "50%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_z250')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_260": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle",
+    "size": [
+      "100%y",
+      "52%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_z260')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_270": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle",
+    "size": [
+      "100%y",
+      "54%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_z270')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_280": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle",
+    "size": [
+      "100%y",
+      "56%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_z280')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_290": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle",
+    "size": [
+      "100%y",
+      "58%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_z290')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_300": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle",
+    "size": [
+      "100%y",
+      "60%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_z300')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_panel": {
+    "type": "panel",
+    "controls": [
+      {
+        "aln_circle_50@hud.aln_circle_50": {}
+      },
+      {
+        "aln_circle_60@hud.aln_circle_60": {}
+      },
+      {
+        "aln_circle_70@hud.aln_circle_70": {}
+      },
+      {
+        "aln_circle_80@hud.aln_circle_80": {}
+      },
+      {
+        "aln_circle_90@hud.aln_circle_90": {}
+      },
+      {
+        "aln_circle_100@hud.aln_circle_100": {}
+      },
+      {
+        "aln_circle_110@hud.aln_circle_110": {}
+      },
+      {
+        "aln_circle_120@hud.aln_circle_120": {}
+      },
+      {
+        "aln_circle_130@hud.aln_circle_130": {}
+      },
+      {
+        "aln_circle_140@hud.aln_circle_140": {}
+      },
+      {
+        "aln_circle_150@hud.aln_circle_150": {}
+      },
+      {
+        "aln_circle_160@hud.aln_circle_160": {}
+      },
+      {
+        "aln_circle_170@hud.aln_circle_170": {}
+      },
+      {
+        "aln_circle_180@hud.aln_circle_180": {}
+      },
+      {
+        "aln_circle_190@hud.aln_circle_190": {}
+      },
+      {
+        "aln_circle_200@hud.aln_circle_200": {}
+      },
+      {
+        "aln_circle_210@hud.aln_circle_210": {}
+      },
+      {
+        "aln_circle_220@hud.aln_circle_220": {}
+      },
+      {
+        "aln_circle_230@hud.aln_circle_230": {}
+      },
+      {
+        "aln_circle_240@hud.aln_circle_240": {}
+      },
+      {
+        "aln_circle_250@hud.aln_circle_250": {}
+      },
+      {
+        "aln_circle_260@hud.aln_circle_260": {}
+      },
+      {
+        "aln_circle_270@hud.aln_circle_270": {}
+      },
+      {
+        "aln_circle_280@hud.aln_circle_280": {}
+      },
+      {
+        "aln_circle_290@hud.aln_circle_290": {}
+      },
+      {
+        "aln_circle_300@hud.aln_circle_300": {}
+      }
+    ]
+  },
+  "aln_circle_factory": {
+    "type": "panel",
+    "factory": {
+      "name": "hud_title_text_factory",
+      "control_ids": {
+        "hud_title_text": "aln_circle_panel@hud.aln_circle_panel"
+      }
+    }
+  },
+  "hud_title_text/title_frame/title": {
+    "modifications": [
+      {
+        "array_name": "bindings",
+        "operation": "insert_back",
+        "value": {
+          "binding_type": "view",
+          "source_property_name": "((#text - 'aln_z') = #text)",
+          "target_property_name": "#visible"
+        }
+      }
+    ]
+  },
+  "hud_title_text/title_frame/title_background": {
+    "modifications": [
+      {
+        "array_name": "bindings",
+        "operation": "insert_back",
+        "value": [
+          {
+            "binding_name": "#hud_title_text_string"
+          },
+          {
+            "binding_type": "view",
+            "source_property_name": "((#hud_title_text_string - 'aln_z') = #hud_title_text_string)",
+            "target_property_name": "#visible"
+          }
+        ]
+      }
+    ]
+  },
+  "root_panel": {
+    "modifications": [
+      {
+        "array_name": "controls",
+        "operation": "insert_front",
+        "value": {
+          "aln_circle_factory@hud.aln_circle_factory": {}
+        }
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/texture_sources/aln_pointer.json (303 lines, 3261 bytes)
+
+```
+[
+  {
+    "name": "aln_pointer",
+    "size": 16,
+    "palette": {
+      "0": "#00000000",
+      "1": "#161616",
+      "2": "#ffffff",
+      "3": "#bdbdbd"
+    },
+    "pixels": [
+      [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        2,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        1,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        1,
+        0,
+        1,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  }
+]
+```

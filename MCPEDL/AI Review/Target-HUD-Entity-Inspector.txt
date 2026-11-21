@@ -1,0 +1,905 @@
+<!-- GRAPH-CONTEXT:START -->
+## Graph Context
+
+- **Project:** `Target-HUD-Entity-Inspector` | Category: `Script` | Version: `v2`
+- **Pack Types:** behavior_pack
+- **Siblings in Script:** `ALN-MobStacker (v2)` (v2), `ALNSpawnControl (v2)` (v2), `Always-Critical (v2)` (v2), `Category: Script`, `Chrono-Bed (v2)` (v2), `Command-Vault (v3)` (v3), `Gameplay-Optimizer (v2)` (v2), `Living-SMP-Chat (v2)` (v2) …
+
+> _Auto-generated from graphify-out/graph.json — do not edit manually._
+<!-- GRAPH-CONTEXT:END -->
+
+---
+
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Script/Target-HUD-Entity-Inspector`
+- **Destination:** `MCPEDL/Script/Target-HUD-Entity-Inspector`
+- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Script/Target-HUD-Entity-Inspector/CHANGELOG.md`)
+- **Text files:** 7
+- **Skipped binary:** 1
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Script/Target-HUD-Entity-Inspector/behavior_pack/manifest.json`
+- `MCPEDL/Script/Target-HUD-Entity-Inspector/behavior_pack/scripts/main.js`
+- `MCPEDL/Script/Target-HUD-Entity-Inspector/behavior_pack/scripts/target_hud.js`
+- `MCPEDL/Script/Target-HUD-Entity-Inspector/CHANGELOG.md`
+- `MCPEDL/Script/Target-HUD-Entity-Inspector/DESCRIPTION.md`
+- `MCPEDL/Script/Target-HUD-Entity-Inspector/project.json`
+- `MCPEDL/Script/Target-HUD-Entity-Inspector/README.md`
+
+### Skipped (binary)
+
+- `MCPEDL/Script/Target-HUD-Entity-Inspector/behavior_pack/pack_icon.png`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Script/Target-HUD-Entity-Inspector
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`.
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Script/Target-HUD-Entity-Inspector/behavior_pack/manifest.json (46 lines, 929 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Target HUD Entity Inspector (v2)",
+    "description": "Shows the name, health bar and classification of the entity you are looking at on the Action Bar. by ALNStudios",
+    "uuid": "2965654f-c2a4-4f4e-9b00-397ae4dc0c9a",
+    "version": [
+      2,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      30
+    ]
+  },
+  "modules": [
+    {
+      "type": "script",
+      "language": "javascript",
+      "description": "Entity inspector raycast and Action Bar renderer",
+      "uuid": "aa3de7ef-87cf-4bc7-bc00-b726cde9fbd1",
+      "version": [
+        2,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "license": "All rights reserved",
+    "version": "2.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Script/Target-HUD-Entity-Inspector/behavior_pack/scripts/main.js (4 lines, 69 bytes)
+
+```
+import { startTargetHud } from "./target_hud.js";
+
+startTargetHud();
+```
+
+## FILE: MCPEDL/Script/Target-HUD-Entity-Inspector/behavior_pack/scripts/target_hud.js (553 lines, 15032 bytes)
+
+```
+import { EquipmentSlot, system, world } from "@minecraft/server";
+
+const MAX_DISTANCE = 16;
+const COMBAT_INTERVAL_TICKS = 1;
+const TRACK_INTERVAL_TICKS = 2;
+const IDLE_INTERVAL_TICKS = 5;
+const COMBAT_TICKS = 60;
+const REFRESH_TICKS = 20;
+const FLASH_TICKS = 30;
+const BAR_SEGMENTS = 20;
+const COMPACT_BAR_SEGMENTS = 10;
+const MAX_LINE_WIDTH = 66;
+const EFFECT_LIMITS = [3, 2, 1, 0, 0];
+const ANGER_TICKS = 1200;
+const PRUNE_INTERVAL_TICKS = 200;
+const BLANK_BAR = " ";
+
+const HOSTILE_MOBS = new Set([
+  "zombie", "zombie_villager", "husk", "drowned", "skeleton", "stray", "bogged",
+  "wither_skeleton", "creeper", "spider", "cave_spider", "blaze", "ghast", "slime",
+  "magma_cube", "witch", "phantom", "pillager", "vindicator", "evoker", "ravager",
+  "vex", "guardian", "elder_guardian", "warden", "wither", "ender_dragon", "shulker",
+  "silverfish", "endermite", "hoglin", "zoglin", "piglin_brute", "creaking", "breeze",
+  "parched", "camel_husk", "zombie_nautilus"
+]);
+
+const PASSIVE_MOBS = new Set([
+  "cow", "mooshroom", "pig", "sheep", "chicken", "horse", "donkey", "mule",
+  "skeleton_horse", "zombie_horse", "rabbit", "cat", "ocelot", "villager",
+  "wandering_trader", "squid", "glow_squid", "cod", "salmon", "pufferfish",
+  "tropical_fish", "turtle", "axolotl", "bat", "parrot", "fox", "camel", "sniffer",
+  "frog", "tadpole", "allay", "strider", "armadillo", "snow_golem", "happy_ghast",
+  "nautilus", "copper_golem"
+]);
+
+const PASSIVE_FAMILIES = ["animal", "fish", "villager", "npc"];
+
+const TYPE_COLORS = {
+  Player: "§b",
+  Hostile: "§c",
+  Aggressive: "§c",
+  Passive: "§a",
+  Neutral: "§e",
+  Tamed: "§d"
+};
+
+const KEY_EFFECTS = [
+  ["wither", true],
+  ["poison", true],
+  ["slowness", true],
+  ["weakness", true],
+  ["regeneration", false],
+  ["strength", false],
+  ["speed", false],
+  ["resistance", false],
+  ["fire_resistance", false]
+];
+
+const ROMAN = ["", "", "II", "III", "IV", "V"];
+
+const ARMOR_SLOTS = [
+  EquipmentSlot.Head,
+  EquipmentSlot.Chest,
+  EquipmentSlot.Legs,
+  EquipmentSlot.Feet
+];
+
+const ARMOR_POINTS = {
+  leather_helmet: 1, leather_chestplate: 3, leather_leggings: 2, leather_boots: 1,
+  copper_helmet: 2, copper_chestplate: 4, copper_leggings: 3, copper_boots: 1,
+  golden_helmet: 2, golden_chestplate: 5, golden_leggings: 3, golden_boots: 1,
+  chainmail_helmet: 2, chainmail_chestplate: 5, chainmail_leggings: 4, chainmail_boots: 1,
+  iron_helmet: 2, iron_chestplate: 6, iron_leggings: 5, iron_boots: 2,
+  diamond_helmet: 3, diamond_chestplate: 8, diamond_leggings: 6, diamond_boots: 3,
+  netherite_helmet: 3, netherite_chestplate: 8, netherite_leggings: 6, netherite_boots: 3,
+  turtle_helmet: 2
+};
+
+const angryUntil = new Map();
+const playerStates = new Map();
+
+function getState(playerId) {
+  let state = playerStates.get(playerId);
+  if (!state) {
+    state = { nextRun: 0, lastText: undefined, lastSent: 0, combatUntil: 0, flashUntil: 0, flashText: "" };
+    playerStates.set(playerId, state);
+  }
+  return state;
+}
+
+function markCombat(playerId, now) {
+  const state = getState(playerId);
+  state.combatUntil = now + COMBAT_TICKS;
+  state.nextRun = Math.min(state.nextRun, now);
+}
+
+function startFlash(playerId, label, now) {
+  const state = getState(playerId);
+  state.flashText = `§aDefeated §f${cleanText(label)}`;
+  state.flashUntil = now + FLASH_TICKS;
+  state.nextRun = Math.min(state.nextRun, now);
+}
+
+function cleanText(text) {
+  return String(text).replace(/§.?/g, "");
+}
+
+function shorten(text, limit) {
+  return text.length > limit ? `${text.slice(0, limit - 1)}.` : text;
+}
+
+function measureWidth(text) {
+  let width = 0;
+  for (const ch of cleanText(text)) {
+    if (ch === "|" || ch === ".") {
+      width += 0.4;
+    } else if (ch === " ") {
+      width += 0.7;
+    } else {
+      width += 1;
+    }
+  }
+  return width;
+}
+
+function stripNamespace(typeId) {
+  const index = typeId.indexOf(":");
+  return index === -1 ? typeId : typeId.slice(index + 1);
+}
+
+function titleCase(id) {
+  return id
+    .split("_")
+    .filter((part) => part.length > 0)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
+function hasEffect(entity, effectId) {
+  try {
+    return Boolean(entity.getEffect(effectId));
+  } catch (error) {
+    return false;
+  }
+}
+
+function isSpectator(entity) {
+  if (entity.typeId !== "minecraft:player" || typeof entity.getGameMode !== "function") {
+    return false;
+  }
+  try {
+    return String(entity.getGameMode()).toLowerCase() === "spectator";
+  } catch (error) {
+    return false;
+  }
+}
+
+function isHidden(entity) {
+  return hasEffect(entity, "invisibility") || isSpectator(entity);
+}
+
+function getDisplayName(entity) {
+  if (entity.typeId === "minecraft:player") {
+    return cleanText(entity.name);
+  }
+  if (typeof entity.nameTag === "string" && entity.nameTag.length > 0) {
+    return cleanText(entity.nameTag);
+  }
+  return titleCase(stripNamespace(entity.typeId));
+}
+
+function getBaseClassification(entity) {
+  if (entity.typeId === "minecraft:player") {
+    return "Player";
+  }
+  const shortId = stripNamespace(entity.typeId);
+  if (HOSTILE_MOBS.has(shortId)) {
+    return "Hostile";
+  }
+  if (PASSIVE_MOBS.has(shortId)) {
+    return "Passive";
+  }
+  const family = entity.getComponent("minecraft:type_family");
+  if (family) {
+    if (family.hasTypeFamily("monster")) {
+      return "Hostile";
+    }
+    for (const name of PASSIVE_FAMILIES) {
+      if (family.hasTypeFamily(name)) {
+        return "Passive";
+      }
+    }
+  }
+  return "Neutral";
+}
+
+function getTameInfo(entity, viewer) {
+  const tameable = entity.getComponent("minecraft:tameable");
+  if (!tameable || !tameable.isTamed) {
+    return undefined;
+  }
+  const ownerId = tameable.tamedToPlayerId;
+  if (ownerId !== undefined && ownerId === viewer.id) {
+    return { own: true, ownerName: undefined };
+  }
+  let ownerName;
+  if (ownerId !== undefined) {
+    for (const candidate of world.getAllPlayers()) {
+      if (candidate.id === ownerId) {
+        ownerName = cleanText(candidate.name);
+        break;
+      }
+    }
+  }
+  return { own: false, ownerName };
+}
+
+function getEquippable(entity) {
+  try {
+    return entity.getComponent("minecraft:equippable");
+  } catch (error) {
+    return undefined;
+  }
+}
+
+function getArmorPoints(entity) {
+  const equippable = getEquippable(entity);
+  if (!equippable) {
+    return 0;
+  }
+  let total = 0;
+  for (const slot of ARMOR_SLOTS) {
+    try {
+      const item = equippable.getEquipment(slot);
+      if (item) {
+        total += ARMOR_POINTS[stripNamespace(item.typeId)] ?? 0;
+      }
+    } catch (error) {
+      continue;
+    }
+  }
+  return total;
+}
+
+function getHeldItem(entity) {
+  const equippable = getEquippable(entity);
+  if (!equippable) {
+    return undefined;
+  }
+  try {
+    const item = equippable.getEquipment(EquipmentSlot.Mainhand);
+    if (!item) {
+      return undefined;
+    }
+    const label = typeof item.nameTag === "string" && item.nameTag.length > 0
+      ? cleanText(item.nameTag)
+      : titleCase(stripNamespace(item.typeId));
+    return item.amount > 1 ? `${label} x${item.amount}` : label;
+  } catch (error) {
+    return undefined;
+  }
+}
+
+function getEffectId(effect) {
+  if (typeof effect.typeId === "string") {
+    return stripNamespace(effect.typeId);
+  }
+  if (typeof effect.displayName === "string") {
+    return effect.displayName.toLowerCase().trim().replace(/\s+(i|ii|iii|iv|v)$/, "").replace(/\s+/g, "_");
+  }
+  return "";
+}
+
+function formatDuration(ticks) {
+  const seconds = Math.ceil(ticks / 20);
+  if (seconds >= 60) {
+    const rest = seconds % 60;
+    return `${Math.floor(seconds / 60)}:${rest < 10 ? "0" : ""}${rest}`;
+  }
+  return `${seconds}s`;
+}
+
+function getEffectTags(entity) {
+  const tags = [];
+  if (entity.isOnFire === true) {
+    tags.push("§6Burning");
+  }
+  let effects;
+  try {
+    effects = entity.getEffects();
+  } catch (error) {
+    return tags;
+  }
+  const byId = new Map();
+  for (const effect of effects) {
+    byId.set(getEffectId(effect), effect);
+  }
+  for (const [id, bad] of KEY_EFFECTS) {
+    const effect = byId.get(id);
+    if (!effect) {
+      continue;
+    }
+    let text = titleCase(id);
+    const level = effect.amplifier + 1;
+    if (level >= 2) {
+      text += ` ${ROMAN[level] ?? level}`;
+    }
+    if (typeof effect.duration === "number" && effect.duration > 0 && effect.duration < 72000) {
+      text += ` ${formatDuration(effect.duration)}`;
+    }
+    tags.push(`${bad ? "§c" : "§a"}${text}`);
+  }
+  return tags;
+}
+
+function getClassification(entity, tameInfo) {
+  if (tameInfo) {
+    return "Tamed";
+  }
+  const base = getBaseClassification(entity);
+  if (base !== "Neutral") {
+    return base;
+  }
+  const until = angryUntil.get(entity.id);
+  if (until !== undefined && until > system.currentTick) {
+    return "Aggressive";
+  }
+  return base;
+}
+
+function getBarColor(ratio) {
+  if (ratio > 0.6) {
+    return "§a";
+  }
+  if (ratio > 0.3) {
+    return "§e";
+  }
+  return "§c";
+}
+
+function buildHealthBar(current, max, segments) {
+  const ratio = max > 0 ? Math.min(1, Math.max(0, current / max)) : 0;
+  let filled = Math.round(ratio * segments);
+  if (current > 0 && filled === 0) {
+    filled = 1;
+  }
+  return `${getBarColor(ratio)}${"|".repeat(filled)}§8${"|".repeat(segments - filled)}`;
+}
+
+function findTarget(player) {
+  const hits = player.getEntitiesFromViewDirection({ maxDistance: MAX_DISTANCE });
+  if (hits.length === 0) {
+    return undefined;
+  }
+
+  let blockDistance = Infinity;
+  const blockHit = player.getBlockFromViewDirection({
+    maxDistance: MAX_DISTANCE,
+    includeLiquidBlocks: false,
+    includePassableBlocks: false
+  });
+  if (blockHit) {
+    const head = player.getHeadLocation();
+    const face = blockHit.faceLocation;
+    const dx = face.x - head.x;
+    const dy = face.y - head.y;
+    const dz = face.z - head.z;
+    blockDistance = Math.sqrt(dx * dx + dy * dy + dz * dz);
+  }
+
+  for (const hit of hits) {
+    const entity = hit.entity;
+    if (!entity.isValid || entity.id === player.id) {
+      continue;
+    }
+    if (hit.distance > blockDistance) {
+      continue;
+    }
+    const health = entity.getComponent("minecraft:health");
+    if (!health || health.currentValue <= 0) {
+      continue;
+    }
+    if (isHidden(entity)) {
+      continue;
+    }
+    return { entity, distance: hit.distance };
+  }
+  return undefined;
+}
+
+function collectInfo(entity, viewer, distance) {
+  const health = entity.getComponent("minecraft:health");
+  const isPlayer = entity.typeId === "minecraft:player";
+  const tameInfo = getTameInfo(entity, viewer);
+  const type = getClassification(entity, tameInfo);
+  const armor = getArmorPoints(entity);
+  return {
+    name: getDisplayName(entity),
+    current: Math.ceil(health.currentValue),
+    max: Math.ceil(health.effectiveMax),
+    absorbed: hasEffect(entity, "absorption") ? " §6+" : "",
+    showArmor: isPlayer || armor > 0,
+    armor,
+    held: getHeldItem(entity),
+    effects: getEffectTags(entity),
+    type,
+    color: TYPE_COLORS[type] ?? "§f",
+    owner: tameInfo && !tameInfo.own ? tameInfo.ownerName : undefined,
+    distance: Math.round(distance)
+  };
+}
+
+function formatLine(info, level) {
+  const compact = level >= 1;
+  const segments = compact ? COMPACT_BAR_SEGMENTS : BAR_SEGMENTS;
+  const name = compact ? shorten(info.name, 14) : info.name;
+  let line = `§f${name} §8| ${buildHealthBar(info.current, info.max, segments)} §f${info.current}/${info.max}${info.absorbed}`;
+  if (info.showArmor) {
+    line += compact ? ` §8| §7A §f${info.armor}` : ` §8| §7Armor §f${info.armor}`;
+  }
+  if (info.held && level < 4) {
+    line += compact ? ` §8| §f${shorten(info.held, 12)}` : ` §8| §7Held §f${info.held}`;
+  }
+  const effects = info.effects.slice(0, EFFECT_LIMITS[level]);
+  for (const tag of effects) {
+    line += ` §8| ${tag}`;
+  }
+  let typeLabel = `${info.color}${info.type}`;
+  if (!compact && info.owner) {
+    typeLabel += ` §7of ${info.owner}`;
+  }
+  return `${line} §8| ${typeLabel} §8| §7${info.distance}m`;
+}
+
+function buildActionBar(entity, viewer, distance) {
+  const info = collectInfo(entity, viewer, distance);
+  let line = "";
+  for (let level = 0; level < EFFECT_LIMITS.length; level++) {
+    line = formatLine(info, level);
+    if (measureWidth(line) <= MAX_LINE_WIDTH) {
+      return line;
+    }
+  }
+  return line;
+}
+
+function updatePlayer(player, now) {
+  const state = getState(player.id);
+  if (now < state.nextRun) {
+    return;
+  }
+
+  let text;
+  if (now < state.flashUntil) {
+    text = state.flashText;
+  } else {
+    try {
+      const target = findTarget(player);
+      if (target) {
+        text = buildActionBar(target.entity, player, target.distance);
+      }
+    } catch (error) {
+      text = undefined;
+    }
+  }
+
+  if (text !== undefined) {
+    if (text !== state.lastText || now - state.lastSent >= REFRESH_TICKS) {
+      player.onScreenDisplay.setActionBar(text);
+      state.lastText = text;
+      state.lastSent = now;
+    }
+    state.nextRun = now + (now < state.combatUntil ? COMBAT_INTERVAL_TICKS : TRACK_INTERVAL_TICKS);
+    return;
+  }
+
+  if (state.lastText !== undefined) {
+    player.onScreenDisplay.setActionBar(BLANK_BAR);
+    state.lastText = undefined;
+  }
+  state.nextRun = now + (now < state.combatUntil ? COMBAT_INTERVAL_TICKS : IDLE_INTERVAL_TICKS);
+}
+
+function pruneAnger() {
+  const now = system.currentTick;
+  for (const [id, until] of angryUntil) {
+    if (until <= now) {
+      angryUntil.delete(id);
+    }
+  }
+}
+
+export function startTargetHud() {
+  system.runInterval(() => {
+    const now = system.currentTick;
+    for (const player of world.getAllPlayers()) {
+      if (!player.isValid) {
+        continue;
+      }
+      updatePlayer(player, now);
+    }
+  }, 1);
+
+  system.runInterval(pruneAnger, PRUNE_INTERVAL_TICKS);
+
+  world.afterEvents.entityHurt.subscribe((event) => {
+    const victim = event.hurtEntity;
+    if (!victim.isValid) {
+      return;
+    }
+    const now = system.currentTick;
+    const victimIsPlayer = victim.typeId === "minecraft:player";
+    if (victimIsPlayer) {
+      markCombat(victim.id, now);
+    }
+    const attacker = event.damageSource.damagingEntity;
+    if (!attacker || !attacker.isValid || attacker.typeId !== "minecraft:player") {
+      return;
+    }
+    markCombat(attacker.id, now);
+    if (!victimIsPlayer) {
+      angryUntil.set(victim.id, now + ANGER_TICKS);
+    }
+  });
+
+  world.afterEvents.entityDie.subscribe((event) => {
+    const dead = event.deadEntity;
+    let label = "Target";
+    let deadId;
+    try {
+      deadId = dead.id;
+      label = getDisplayName(dead);
+    } catch (error) {
+      label = "Target";
+    }
+    if (deadId !== undefined) {
+      angryUntil.delete(deadId);
+    }
+    try {
+      const attacker = event.damageSource.damagingEntity;
+      if (attacker && attacker.isValid && attacker.typeId === "minecraft:player" && attacker.id !== deadId) {
+        startFlash(attacker.id, label, system.currentTick);
+      }
+    } catch (error) {
+      return;
+    }
+  });
+
+  world.afterEvents.playerLeave.subscribe((event) => {
+    playerStates.delete(event.playerId);
+  });
+}
+```
+
+## FILE: MCPEDL/Script/Target-HUD-Entity-Inspector/CHANGELOG.md (91 lines, 3624 bytes)
+
+```
+# Changelog — Target HUD Entity Inspector
+
+---
+
+## [v2] - 2026-11-15
+
+**What's new in v1.1.2:** Packed with the v1.1.2 update. Includes: Status Effects and Defeated Flash.
+
+### Added
+
+- **Status Effects**: Key effects on the target, such as Poison II 13s, now show with their level and time left, and Burning shows while the target is on fire.
+- **Defeated Flash**: When you finish off a mob or player, Defeated and its name flash on the Action Bar for a moment.
+
+### Improved & Balanced
+
+- **Compact Layout**: When the line is too long for the screen, it switches to a shorter version with a 10-segment bar, shorter names and fewer effects.
+- **Gear Reading**: Armor and the held item are now read piece by piece, so one unreadable piece no longer hides the rest.
+
+### Fixed
+
+- **Name Colors**: Mobs renamed with color or format codes no longer recolor or garble the display.
+- **Dead Targets**: A target with no health left is no longer shown at 0 health.
+
+## [1.1.1] - 2026-11-14
+
+**What's new in v1.1.1:** Packed with the v1.1.1 update. Includes: Smooth Bar and Mob Gear.
+
+### Added
+
+- **Held Item**: The item in the target's main hand now appears beside its armor.
+- **Armor on Mobs**: Mobs that wear armor now show their armor points, not only players.
+- **Pet Owners**: Pets tamed by other players now show as Tamed with the owner's name when that player is online.
+
+### Improved & Balanced
+
+- **Smooth Health Bar**: The bar now has 20 segments and turns from green to yellow to red as health drops.
+- **Adaptive Refresh**: The display updates every tick in a fight, every 2 ticks on a target and every 5 ticks while idle.
+- **Steadier Display**: An unchanged line is no longer sent over and over, which removes needless flicker.
+- **Absorption Marker**: A gold plus sign appears beside the health numbers when the target has Absorption.
+- **More Mobs Recognized**: More vanilla mobs have a type, and unknown mobs use their game family before falling back to Neutral.
+- **Any Tamed Animal**: Tamed animals other than Wolves and Cats now show as Tamed.
+
+### Fixed
+
+- **Hidden Targets**: Invisible mobs, invisible players and players in Spectator mode no longer show their health.
+
+## [1.1.0] - 2026-11-11
+
+**What's new in v1.1.0:** Packed with the v1.0.2 update.
+
+### Added
+
+- **Distance Readout**: The display now ends with how far away the target is, such as 5m.
+- **Armor Points**: Players you look at now show their armor points beside their health.
+- **Tamed Pets**: Your own tamed Wolves and Cats now show as Tamed instead of Neutral or Passive.
+
+### Improved & Balanced
+
+- **Lower Minimum Version**: The Behavior Pack now asks for Minecraft 1.26.30 instead of 1.26.50.
+
+## [1.0.1] - 2026-11-11
+
+### Added
+- **Health Bar**: A ten-segment bar such as ||||||.... now sits beside the health numbers, so health reads at a glance during a fight.
+- **Aggressive Status**: Neutral mobs you hurt now show as Aggressive for one minute after your last hit, then return to Neutral.
+
+### Improved & Balanced
+- **Cleaner Display**: The Target label and the status effects list are gone, leaving name, health bar, health numbers and type.
+- **Colored Types**: Each type has its own color: Player, Hostile, Aggressive, Passive and Neutral.
+- **Faster Refresh**: The display updates every 2 ticks instead of every 3.
+
+### Fixed
+- **Lingering Display**: The display is cleared at once when you look away from a mob, instead of fading out slowly.
+
+## [1.0.0] - 2026-11-11
+
+### Added
+- **Entity Inspector**: Look at a mob or player within 16 blocks to see its name, health, type and status effects on the Action Bar.
+```
+
+## FILE: MCPEDL/Script/Target-HUD-Entity-Inspector/DESCRIPTION.md (96 lines, 5492 bytes)
+
+```
+# Target HUD Entity Inspector — Health Bar and Mob Type on the Action Bar
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**Look at any mob or player within 16 blocks to see its name, a smooth 20-segment health bar, its health numbers, its armor, the item it holds, its main status effects, its type and how far away it is.**
+
+> Shows the entity under your crosshair on the Action Bar with a smooth color-changing bar beside the numbers.
+
+## Overview
+
+Aim at a mob or another player and a single line appears on the Action Bar. It disappears as soon as you look away or a block is in the way.
+
+## Key Features
+
+### Health Bar
+- **What Happens**: A smooth bar of 20 segments shows how much health the target has left, next to the exact numbers, for example 14/20.
+- **Good To Know**: A gold plus sign beside the numbers means the target has Absorption.
+
+### Mob Type
+- **What Happens**: The line names the type as Player, Hostile, Passive, Neutral or Aggressive, each in its own color.
+- **Good To Know**: Aggressive lasts one minute after your last hit on that mob, then returns to Neutral.
+
+### Distance Readout
+- **What Happens**: The line ends with the distance to the target in blocks, for example 5m.
+
+### Armor Points
+- **What Happens**: When you look at a player, or at a mob wearing armor, the armor points appear beside the health.
+- **Good To Know**: Points are counted from the Leather, Copper, Golden, Chainmail, Iron, Diamond and Netherite armor they wear, plus a Turtle Shell helmet.
+
+### Tamed Pets
+- **What Happens**: Tamed animals show as Tamed, in their own color, instead of Neutral or Passive. Pets tamed by other players also show their owner, such as Tamed of Steve.
+- **Good To Know**: The owner's name is shown only while that player is online.
+
+### Held Item
+- **What Happens**: The item in the target's main hand appears after its armor, with a count when it is a stack, for example Iron Sword.
+
+### Status Effects
+- **What Happens**: Key effects on the target appear with their level and time left, for example Poison II 13s. Burning shows while the target is on fire.
+- **Good To Know**: Wither, Poison, Slowness, Weakness, Regeneration, Strength, Speed, Resistance and Fire Resistance are shown, up to three at a time and fewer when the line is long. Effects that last an hour or more show no time left.
+
+### Defeated Flash
+- **What Happens**: When you finish off a mob or player, Defeated and its name flash on the Action Bar for about a second and a half.
+
+### Compact Layout
+- **What Happens**: When the line would be too long for the screen, it switches to a shorter version with a 10-segment bar, shorter names and fewer effects.
+- **Good To Know**: If there is still not enough room, the effects and then the held item are dropped.
+
+### Adaptive Refresh
+- **What Happens**: The display updates every tick while you are fighting, every 2 ticks while you look at a target and every 5 ticks while nothing is in view.
+- **Good To Know**: An unchanged line is sent again only about once a second, so the display stays steady.
+
+### Hidden Targets
+- **What Happens**: Invisible mobs, invisible players and players in Spectator mode are not shown. Targets with no health left are not shown either.
+
+## How to Use
+
+1. Enable the Behavior Pack in your world's settings.
+2. Look at a mob or player within 16 blocks.
+3. Read the name, health bar, health numbers, type and distance on the Action Bar.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: Minimum version not verified; the pack declares 1.26.30.
+- Experimental features: No experiment requirement detected in the inspected files.
+- Achievements: Likely achievement-friendly. This pack runs no commands.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, Target HUD Entity Inspector Bedrock mod, mob health bar, target health display, Aggressive neutral mobs, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+```
+
+## FILE: MCPEDL/Script/Target-HUD-Entity-Inspector/project.json (2 lines, 58 bytes)
+
+```
+{"type": "script", "name": "Target HUD Entity Inspector"}
+```
+
+## FILE: MCPEDL/Script/Target-HUD-Entity-Inspector/README.md (19 lines, 850 bytes)
+
+```
+# Target HUD Entity Inspector
+
+Download the current release of **Target HUD Entity Inspector** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcpack`
+- **Direct download:** [Download Target HUD Entity Inspector (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Target-HUD-Entity-Inspector/TargetHUD%20V2.mcpack)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Script/Target-HUD-Entity-Inspector/DESCRIPTION.md).
+```

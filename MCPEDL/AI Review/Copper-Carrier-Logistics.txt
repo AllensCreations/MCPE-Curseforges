@@ -1,0 +1,1087 @@
+<!-- GRAPH-CONTEXT:START -->
+## Graph Context
+
+- **Project:** `Copper-Carrier-Logistics` | Category: `Addons` | Version: `v2`
+- **Pack Types:** behavior_pack
+- **Siblings in Addons:** `2-in-1-Loot--XP-Booster (v2)` (v2), `ALN-MoreDiscs (v2)` (v2), `ALN-Pointer (v2)` (v2), `ALN-Quiver (v2)` (v2), `ALN-Wireless-Headphones (v2)` (v2), `Category: Addons`, `Cheat-Stick (v4)` (v4), `Enchanter (v2)` (v2) …
+
+> _Auto-generated from graphify-out/graph.json — do not edit manually._
+<!-- GRAPH-CONTEXT:END -->
+
+---
+
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Addons/Copper-Carrier-Logistics`
+- **Destination:** `MCPEDL/Addons/Copper-Carrier-Logistics`
+- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/Copper-Carrier-Logistics/CHANGELOG.md`)
+- **Text files:** 9
+- **Skipped binary:** 0
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Addons/Copper-Carrier-Logistics/behavior_pack/manifest.json`
+- `MCPEDL/Addons/Copper-Carrier-Logistics/behavior_pack/scripts/carrier.js`
+- `MCPEDL/Addons/Copper-Carrier-Logistics/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/Copper-Carrier-Logistics/behavior_pack/scripts/memory.js`
+- `MCPEDL/Addons/Copper-Carrier-Logistics/behavior_pack/scripts/sorting.js`
+- `MCPEDL/Addons/Copper-Carrier-Logistics/CHANGELOG.md`
+- `MCPEDL/Addons/Copper-Carrier-Logistics/DESCRIPTION.md`
+- `MCPEDL/Addons/Copper-Carrier-Logistics/project.json`
+- `MCPEDL/Addons/Copper-Carrier-Logistics/README.md`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Addons/Copper-Carrier-Logistics
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`.
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Addons/Copper-Carrier-Logistics/behavior_pack/manifest.json (45 lines, 841 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Copper-Carrier Logistics (v2)",
+    "description": "Allays carry Copper Golems as flying sorting units with a 54-slot buffer and a 64-block range. by ALNStudios",
+    "uuid": "c127be93-35d8-4236-9dcd-dd6a1895ead2",
+    "version": [
+      2,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "b5e7bf0e-6be2-4af4-8ee3-a1335aaf2bd0",
+      "version": [
+        2,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "2.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Copper-Carrier-Logistics/behavior_pack/scripts/carrier.js (362 lines, 9558 bytes)
+
+```
+import { world, system, GameMode } from "@minecraft/server";
+import { MAX_SLOTS, slotCount, clearBuffer, dropBuffer } from "./memory.js";
+
+export const CARRIER_TAG = "cc_carrier";
+export const UNIT_TAG = "cc_unit";
+export const ACTIVATED_MESSAGE = "§6[ COPPER-CARRIER ] §bFlying Sorting Unit Activated! Range: 64 Blocks.";
+
+const ALLAY_ID = "minecraft:allay";
+const GOLEM_ID = "minecraft:copper_golem";
+const INGOT_ID = "minecraft:copper_ingot";
+const SHEARS_ID = "minecraft:shears";
+const GOLEM_PROP = "cc:golem";
+const OWNER_PROP = "cc:owner";
+const HOME_PROP = "cc:home";
+const DIMENSIONS = ["overworld", "nether", "the_end"];
+const ANCHOR_INTERVAL = 1;
+const DISCOVER_INTERVAL = 100;
+const HOLD_DROP = 0.45;
+const HOLD_FORWARD = 0.3;
+const MISS_LIMIT = 40;
+const ORPHAN_LIMIT = 6;
+const GOLEM_SEARCH_RADIUS = 8;
+const USE_COOLDOWN = 6;
+const PIN_DURATION = 20000000;
+
+const carriers = new Map();
+const orphans = new Map();
+const lastUse = new Map();
+
+export function getCarriers() {
+  return [...carriers.values()];
+}
+
+export function say(player, text) {
+  try {
+    player.onScreenDisplay.setActionBar(text);
+  } catch {
+    return;
+  }
+}
+
+function emitParticle(dimension, id, position) {
+  try {
+    dimension.spawnParticle(id, position);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export function burst(dimension, location, strong) {
+  const base = { x: location.x, y: location.y + 0.8, z: location.z };
+  const count = strong ? 6 : 2;
+  for (let i = 0; i < count; i++) {
+    const point = {
+      x: base.x + (Math.random() - 0.5) * 1.2,
+      y: base.y + Math.random() * 0.8,
+      z: base.z + (Math.random() - 0.5) * 1.2,
+    };
+    if (!emitParticle(dimension, "minecraft:electric_spark_particle", point)) {
+      emitParticle(dimension, "minecraft:villager_happy", point);
+    }
+  }
+  try {
+    dimension.playSound(strong ? "note.pling" : "random.orb", base, {
+      volume: 0.7,
+      pitch: strong ? 1.6 : 1.2,
+    });
+  } catch {
+    return;
+  }
+}
+
+function pinGolem(golem) {
+  try {
+    golem.addEffect("slowness", PIN_DURATION, { amplifier: 255, showParticles: false });
+  } catch {
+    return;
+  }
+}
+
+function unpinGolem(golem) {
+  try {
+    golem.removeEffect("slowness");
+  } catch {
+    return;
+  }
+}
+
+function readHome(allay) {
+  try {
+    const raw = allay.getDynamicProperty(HOME_PROP);
+    if (typeof raw !== "string") return null;
+    const home = JSON.parse(raw);
+    if (home && Number.isFinite(home.x) && Number.isFinite(home.y) && Number.isFinite(home.z) && typeof home.d === "string") {
+      return home;
+    }
+  } catch {
+    return null;
+  }
+  return null;
+}
+
+function homeAt(allay) {
+  const at = allay.location;
+  return { x: Math.floor(at.x), y: Math.floor(at.y), z: Math.floor(at.z), d: allay.dimension.id };
+}
+
+export function setHome(state) {
+  state.home = homeAt(state.allay);
+  state.containers = [];
+  state.nextScan = 0;
+  try {
+    state.allay.setDynamicProperty(HOME_PROP, JSON.stringify(state.home));
+  } catch {
+    return;
+  }
+}
+
+function createState(allay, golem) {
+  return {
+    id: allay.id,
+    allay,
+    golem,
+    golemId: golem.id,
+    lastLoc: allay.location,
+    dim: allay.dimension,
+    home: readHome(allay) ?? homeAt(allay),
+    containers: [],
+    nextScan: 0,
+    misses: 0,
+    phase: "idle",
+    dest: null,
+    stuck: 0,
+    candidates: new Set(),
+    blocked: new Map(),
+    cycle: 0,
+  };
+}
+
+function attach(player, allay, golem) {
+  allay.addTag(CARRIER_TAG);
+  golem.addTag(UNIT_TAG);
+  allay.setDynamicProperty(GOLEM_PROP, golem.id);
+  allay.setDynamicProperty(OWNER_PROP, player.id);
+  pinGolem(golem);
+  const state = createState(allay, golem);
+  carriers.set(allay.id, state);
+  setHome(state);
+  return state;
+}
+
+function untagGolem(state) {
+  try {
+    if (state.golem.isValid) {
+      state.golem.removeTag(UNIT_TAG);
+      unpinGolem(state.golem);
+    }
+  } catch {
+    return;
+  }
+}
+
+export function releaseCarrier(state, dropItems) {
+  carriers.delete(state.id);
+  if (dropItems) dropBuffer(state.id, state.allay, state.dim, state.lastLoc);
+  clearBuffer(state.id, state.allay);
+  untagGolem(state);
+  try {
+    if (state.allay.isValid) {
+      state.allay.removeTag(CARRIER_TAG);
+      state.allay.setDynamicProperty(GOLEM_PROP, undefined);
+      state.allay.setDynamicProperty(OWNER_PROP, undefined);
+      state.allay.setDynamicProperty(HOME_PROP, undefined);
+    }
+  } catch {
+    return;
+  }
+}
+
+function discover() {
+  for (const id of DIMENSIONS) {
+    let list;
+    try {
+      list = world.getDimension(id).getEntities({ tags: [CARRIER_TAG] });
+    } catch {
+      continue;
+    }
+    for (const allay of list) {
+      const known = carriers.get(allay.id);
+      if (known && known.allay.isValid) continue;
+      const golemId = allay.getDynamicProperty(GOLEM_PROP);
+      const golem = typeof golemId === "string" ? world.getEntity(golemId) : undefined;
+      if (golem && golem.isValid) {
+        orphans.delete(allay.id);
+        pinGolem(golem);
+        if (known) {
+          known.allay = allay;
+          known.golem = golem;
+          known.misses = 0;
+        } else {
+          carriers.set(allay.id, createState(allay, golem));
+        }
+        continue;
+      }
+      const misses = (orphans.get(allay.id) ?? 0) + 1;
+      orphans.set(allay.id, misses);
+      if (misses >= ORPHAN_LIMIT) {
+        orphans.delete(allay.id);
+        allay.removeTag(CARRIER_TAG);
+      }
+    }
+  }
+}
+
+function anchorAll() {
+  for (const state of [...carriers.values()]) {
+    const allay = state.allay;
+    if (!allay.isValid) continue;
+    const at = allay.location;
+    state.lastLoc = at;
+    state.dim = allay.dimension;
+    if (!state.golem.isValid) {
+      const found = world.getEntity(state.golemId);
+      if (found && found.isValid) {
+        state.golem = found;
+        state.misses = 0;
+        pinGolem(found);
+      } else {
+        state.misses++;
+        if (state.misses >= MISS_LIMIT) releaseCarrier(state, true);
+        continue;
+      }
+    }
+    try {
+      const yaw = allay.getRotation().y;
+      const radians = (yaw * Math.PI) / 180;
+      state.golem.teleport(
+        {
+          x: at.x - Math.sin(radians) * HOLD_FORWARD,
+          y: at.y - HOLD_DROP,
+          z: at.z + Math.cos(radians) * HOLD_FORWARD,
+        },
+        { dimension: allay.dimension, rotation: { x: 0, y: yaw } }
+      );
+    } catch {
+      continue;
+    }
+  }
+}
+
+function isCreative(player) {
+  try {
+    return player.getGameMode() === GameMode.Creative;
+  } catch {
+    return false;
+  }
+}
+
+function consumeHeldIngot(player) {
+  try {
+    const container = player.getComponent("minecraft:inventory").container;
+    const slot = player.selectedSlotIndex;
+    const held = container.getItem(slot);
+    if (!held || held.typeId !== INGOT_ID) return false;
+    if (held.amount > 1) {
+      held.amount -= 1;
+      container.setItem(slot, held);
+    } else {
+      container.setItem(slot, undefined);
+    }
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function findFreeGolem(allay) {
+  const nearby = allay.dimension.getEntities({
+    type: GOLEM_ID,
+    location: allay.location,
+    maxDistance: GOLEM_SEARCH_RADIUS,
+  });
+  return nearby.find((entity) => !entity.hasTag(UNIT_TAG));
+}
+
+function spawnGolem(player, allay) {
+  if (!isCreative(player) && !consumeHeldIngot(player)) return undefined;
+  try {
+    return allay.dimension.spawnEntity(GOLEM_ID, allay.location);
+  } catch {
+    say(player, "§6[ COPPER-CARRIER ] §cA Copper Golem could not be spawned here.");
+    return undefined;
+  }
+}
+
+function handleIngot(player, allay) {
+  if (!allay.isValid || !player.isValid) return;
+  const existing = carriers.get(allay.id);
+  if (existing) {
+    setHome(existing);
+    say(player, `§6[ COPPER-CARRIER ] §bSorting area set here. Buffer ${slotCount(allay)}/${MAX_SLOTS} slots`);
+    return;
+  }
+  const golem = findFreeGolem(allay) ?? spawnGolem(player, allay);
+  if (!golem) return;
+  attach(player, allay, golem);
+  burst(allay.dimension, allay.location, true);
+  say(player, ACTIVATED_MESSAGE);
+}
+
+function handleShears(player, allay) {
+  const state = carriers.get(allay.id);
+  if (!state) return;
+  releaseCarrier(state, true);
+  say(player, "§6[ COPPER-CARRIER ] §bSorting unit released. Buffered items were dropped.");
+}
+
+function handleDeath(deadEntity) {
+  let id;
+  try {
+    id = deadEntity.id;
+  } catch {
+    return;
+  }
+  const direct = carriers.get(id);
+  if (direct) {
+    releaseCarrier(direct, true);
+    return;
+  }
+  for (const state of carriers.values()) {
+    if (state.golemId === id) {
+      releaseCarrier(state, true);
+      return;
+    }
+  }
+}
+
+export function initCarrier() {
+  world.beforeEvents.playerInteractWithEntity.subscribe((event) => {
+    const { player, target, itemStack } = event;
+    if (!itemStack || target.typeId !== ALLAY_ID) return;
+    const useIngot = itemStack.typeId === INGOT_ID;
+    const useShears = itemStack.typeId === SHEARS_ID && target.hasTag(CARRIER_TAG);
+    if (!useIngot && !useShears) return;
+    event.cancel = true;
+    system.run(() => {
+      const now = system.currentTick;
+      if (now - (lastUse.get(player.id) ?? -USE_COOLDOWN) < USE_COOLDOWN) return;
+      lastUse.set(player.id, now);
+      if (useIngot) handleIngot(player, target);
+      else handleShears(player, target);
+    });
+  });
+
+  world.afterEvents.entityDie.subscribe((event) => handleDeath(event.deadEntity));
+  world.afterEvents.playerLeave.subscribe((event) => lastUse.delete(event.playerId));
+
+  system.runInterval(anchorAll, ANCHOR_INTERVAL);
+  system.runInterval(discover, DISCOVER_INTERVAL);
+}
+```
+
+## FILE: MCPEDL/Addons/Copper-Carrier-Logistics/behavior_pack/scripts/main.js (6 lines, 119 bytes)
+
+```
+import { initCarrier } from "./carrier.js";
+import { initSorting } from "./sorting.js";
+
+initCarrier();
+initSorting();
+```
+
+## FILE: MCPEDL/Addons/Copper-Carrier-Logistics/behavior_pack/scripts/memory.js (144 lines, 3855 bytes)
+
+```
+import { ItemStack } from "@minecraft/server";
+
+export const MAX_SLOTS = 54;
+export const SCAN_RADIUS = 64;
+
+const BUFFER_PROP = "cc:buffer";
+const DATA_BEARING = [
+  /^minecraft:(potion|splash_potion|lingering_potion|tipped_arrow|filled_map|written_book|enchanted_book|firework_rocket|firework_star|goat_horn|suspicious_stew|ominous_bottle|bundle)$/,
+  /banner$/,
+  /shulker_box$/,
+];
+
+const buffers = new Map();
+const stackSizes = new Map();
+
+function readJson(entity, prop, fallback) {
+  try {
+    const raw = entity.getDynamicProperty(prop);
+    return typeof raw === "string" ? JSON.parse(raw) : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function writeJson(entity, prop, value) {
+  try {
+    entity.setDynamicProperty(prop, JSON.stringify(value));
+  } catch {
+    return;
+  }
+}
+
+export function isPlain(stack) {
+  try {
+    if (DATA_BEARING.some((pattern) => pattern.test(stack.typeId))) return false;
+    if (stack.nameTag || stack.getLore().length > 0) return false;
+    if (stack.getComponent("minecraft:inventory")) return false;
+    const enchantable = stack.getComponent("minecraft:enchantable");
+    if (enchantable && enchantable.getEnchantments().length > 0) return false;
+    const durability = stack.getComponent("minecraft:durability");
+    if (durability && durability.damage > 0) return false;
+    return stack.getDynamicPropertyIds().length === 0;
+  } catch {
+    return false;
+  }
+}
+
+export function maxStack(typeId) {
+  if (!stackSizes.has(typeId)) {
+    let size = 64;
+    try {
+      size = new ItemStack(typeId, 1).maxAmount;
+    } catch {
+      size = 64;
+    }
+    stackSizes.set(typeId, size);
+  }
+  return stackSizes.get(typeId);
+}
+
+function validSlot(slot) {
+  return Array.isArray(slot) && typeof slot[0] === "string" && Number.isInteger(slot[1]) && slot[1] > 0;
+}
+
+export function getSlots(entity) {
+  let slots = buffers.get(entity.id);
+  if (!slots) {
+    const stored = readJson(entity, BUFFER_PROP, []);
+    slots = Array.isArray(stored) ? stored.filter(validSlot) : [];
+    buffers.set(entity.id, slots);
+  }
+  return slots;
+}
+
+export function saveSlots(entity) {
+  writeJson(entity, BUFFER_PROP, getSlots(entity));
+}
+
+export function pruneSlots(entity) {
+  const slots = getSlots(entity);
+  for (let i = slots.length - 1; i >= 0; i--) {
+    if (slots[i][1] <= 0) slots.splice(i, 1);
+  }
+  saveSlots(entity);
+}
+
+export function slotCount(entity) {
+  return getSlots(entity).length;
+}
+
+export function canAccept(entity, typeId) {
+  const slots = getSlots(entity);
+  if (slots.length < MAX_SLOTS) return true;
+  const max = maxStack(typeId);
+  return slots.some((slot) => slot[0] === typeId && slot[1] < max);
+}
+
+export function bufferAdd(entity, typeId, amount) {
+  const slots = getSlots(entity);
+  const max = maxStack(typeId);
+  let left = amount;
+  for (const slot of slots) {
+    if (left <= 0) break;
+    if (slot[0] === typeId && slot[1] < max) {
+      const moved = Math.min(max - slot[1], left);
+      slot[1] += moved;
+      left -= moved;
+    }
+  }
+  while (left > 0 && slots.length < MAX_SLOTS) {
+    const moved = Math.min(max, left);
+    slots.push([typeId, moved]);
+    left -= moved;
+  }
+  saveSlots(entity);
+  return amount - left;
+}
+
+export function clearBuffer(entityId, entity) {
+  buffers.delete(entityId);
+  try {
+    if (entity && entity.isValid) entity.setDynamicProperty(BUFFER_PROP, undefined);
+  } catch {
+    return;
+  }
+}
+
+export function dropBuffer(entityId, entity, dimension, location) {
+  let slots = buffers.get(entityId);
+  if (!slots && entity && entity.isValid) slots = getSlots(entity);
+  if (!slots || !dimension || !location) return 0;
+  let dropped = 0;
+  for (const slot of slots) {
+    try {
+      dimension.spawnItem(new ItemStack(slot[0], slot[1]), location);
+      dropped += slot[1];
+    } catch {
+      continue;
+    }
+  }
+  slots.length = 0;
+  return dropped;
+}
+```
+
+## FILE: MCPEDL/Addons/Copper-Carrier-Logistics/behavior_pack/scripts/sorting.js (300 lines, 8169 bytes)
+
+```
+import { world, system, ItemStack } from "@minecraft/server";
+import { getCarriers, burst, say } from "./carrier.js";
+import { SCAN_RADIUS, getSlots, pruneSlots, bufferAdd, canAccept, isPlain } from "./memory.js";
+
+const SORT_INTERVAL = 5;
+const FULL_SWEEP_CYCLES = 8;
+const FLY_STEP = 8;
+const PICKUP_RANGE = 3;
+const DELIVER_RANGE = 3;
+const MAX_CANDIDATES = 96;
+const RETRY_TICKS = 400;
+const STUCK_LIMIT = 24;
+const SCAN_EVERY = 100;
+const AREA_H = 12;
+const AREA_V = 8;
+const MAX_CONTAINERS = 80;
+const CONTAINER_PATTERN = /(chest|barrel)$/;
+const ITEM_ID = "minecraft:item";
+const OWNER_PROP = "cc:owner";
+
+function distance(a, b) {
+  return Math.hypot(a.x - b.x, a.y - b.y, a.z - b.z);
+}
+
+function spotKey(spot) {
+  return `${spot.x}|${spot.y}|${spot.z}`;
+}
+
+function flyToward(allay, goal) {
+  try {
+    const from = allay.location;
+    const total = distance(from, goal);
+    if (total <= FLY_STEP) {
+      allay.teleport(goal, { facingLocation: goal });
+      return 0;
+    }
+    const ratio = FLY_STEP / total;
+    allay.teleport(
+      {
+        x: from.x + (goal.x - from.x) * ratio,
+        y: from.y + (goal.y - from.y) * ratio,
+        z: from.z + (goal.z - from.z) * ratio,
+      },
+      { facingLocation: goal }
+    );
+    return total - FLY_STEP;
+  } catch {
+    return Infinity;
+  }
+}
+
+function typesIn(container) {
+  const types = new Set();
+  for (let i = 0; i < container.size; i++) {
+    const item = container.getItem(i);
+    if (item) types.add(item.typeId);
+  }
+  return types;
+}
+
+function readContainer(block) {
+  try {
+    return block.getComponent("minecraft:inventory")?.container;
+  } catch {
+    return undefined;
+  }
+}
+
+function scanArea(state) {
+  const home = state.home;
+  const found = [];
+  let dimension;
+  try {
+    dimension = world.getDimension(home.d);
+  } catch {
+    return found;
+  }
+  for (let dx = -AREA_H; dx <= AREA_H; dx++) {
+    for (let dy = -AREA_V; dy <= AREA_V; dy++) {
+      for (let dz = -AREA_H; dz <= AREA_H; dz++) {
+        if (found.length >= MAX_CONTAINERS) return found;
+        let block;
+        try {
+          block = dimension.getBlock({ x: home.x + dx, y: home.y + dy, z: home.z + dz });
+        } catch {
+          continue;
+        }
+        if (!block || !CONTAINER_PATTERN.test(block.typeId) || block.typeId.includes("ender")) continue;
+        const container = readContainer(block);
+        if (!container) continue;
+        found.push({
+          x: home.x + dx,
+          y: home.y + dy,
+          z: home.z + dz,
+          types: typesIn(container),
+          gap: Math.hypot(dx, dy, dz),
+        });
+      }
+    }
+  }
+  return found.sort((a, b) => a.gap - b.gap);
+}
+
+function sweep(state) {
+  const allay = state.allay;
+  const found = allay.dimension.getEntities({
+    type: ITEM_ID,
+    location: allay.location,
+    maxDistance: SCAN_RADIUS,
+  });
+  for (const entity of found) {
+    if (state.candidates.size >= MAX_CANDIDATES) break;
+    state.candidates.add(entity);
+  }
+}
+
+function readStack(entity) {
+  try {
+    return entity.getComponent("minecraft:item")?.itemStack;
+  } catch {
+    return undefined;
+  }
+}
+
+function wantedTypes(state) {
+  const wanted = new Set();
+  for (const spot of state.containers) {
+    for (const type of spot.types) wanted.add(type);
+  }
+  return wanted;
+}
+
+function pickTarget(state, wanted) {
+  const allay = state.allay;
+  const here = allay.location;
+  let best;
+  let bestDistance = SCAN_RADIUS;
+  for (const entity of [...state.candidates]) {
+    if (!entity.isValid) {
+      state.candidates.delete(entity);
+      continue;
+    }
+    const stack = readStack(entity);
+    if (!stack || !wanted.has(stack.typeId) || !isPlain(stack) || !canAccept(allay, stack.typeId)) continue;
+    const gap = distance(here, entity.location);
+    if (gap <= bestDistance) {
+      best = entity;
+      bestDistance = gap;
+    }
+  }
+  return best;
+}
+
+function collect(state, target) {
+  const allay = state.allay;
+  const stack = readStack(target);
+  if (!stack) return;
+  const spot = target.location;
+  const remaining = flyToward(allay, { x: spot.x, y: spot.y + 0.4, z: spot.z });
+  if (remaining === Infinity) {
+    state.stuck++;
+    if (state.stuck >= STUCK_LIMIT) state.candidates.delete(target);
+    return;
+  }
+  state.stuck = 0;
+  if (remaining > PICKUP_RANGE) return;
+  const accepted = bufferAdd(allay, stack.typeId, stack.amount);
+  const rest = stack.amount - accepted;
+  state.candidates.delete(target);
+  target.remove();
+  if (rest > 0) allay.dimension.spawnItem(new ItemStack(stack.typeId, rest), spot);
+  burst(allay.dimension, allay.location, false);
+}
+
+function nextDestination(state) {
+  const now = system.currentTick;
+  for (const slot of getSlots(state.allay)) {
+    for (const spot of state.containers) {
+      if (!spot.types.has(slot[0])) continue;
+      if ((state.blocked.get(spotKey(spot)) ?? 0) > now) continue;
+      return spot;
+    }
+  }
+  return undefined;
+}
+
+function notifyOwner(state, moved) {
+  const ownerId = state.allay.getDynamicProperty(OWNER_PROP);
+  const owner = world.getAllPlayers().find((player) => player.id === ownerId);
+  if (owner) say(owner, `§6[ COPPER-CARRIER ] §bSorted ${moved} items into storage.`);
+}
+
+function deliver(state) {
+  const allay = state.allay;
+  const spot = state.dest;
+  const key = spotKey(spot);
+  const remaining = flyToward(allay, { x: spot.x + 0.5, y: spot.y + 1.6, z: spot.z + 0.5 });
+  if (remaining === Infinity) {
+    state.stuck++;
+    if (state.stuck >= STUCK_LIMIT) {
+      state.blocked.set(key, system.currentTick + RETRY_TICKS);
+      state.phase = "idle";
+      state.stuck = 0;
+    }
+    return;
+  }
+  state.stuck = 0;
+  if (remaining > DELIVER_RANGE) return;
+  let container;
+  try {
+    container = readContainer(allay.dimension.getBlock({ x: spot.x, y: spot.y, z: spot.z }));
+  } catch {
+    container = undefined;
+  }
+  state.phase = "idle";
+  state.dest = null;
+  if (!container) {
+    state.blocked.set(key, system.currentTick + RETRY_TICKS);
+    state.nextScan = 0;
+    return;
+  }
+  const live = typesIn(container);
+  let moved = 0;
+  let leftover = 0;
+  for (const slot of getSlots(allay)) {
+    if (!live.has(slot[0])) continue;
+    const refused = container.addItem(new ItemStack(slot[0], slot[1]));
+    const left = refused ? refused.amount : 0;
+    moved += slot[1] - left;
+    slot[1] = left;
+    leftover += left;
+  }
+  pruneSlots(allay);
+  if (leftover > 0 || moved === 0) state.blocked.set(key, system.currentTick + RETRY_TICKS);
+  if (moved > 0) {
+    burst(allay.dimension, allay.location, true);
+    notifyOwner(state, moved);
+  }
+}
+
+function tickCarrier(state) {
+  const allay = state.allay;
+  if (!allay.isValid || allay.dimension.id !== state.home.d) return;
+  if (state.phase === "deliver") {
+    deliver(state);
+    return;
+  }
+  state.cycle++;
+  if (state.cycle % FULL_SWEEP_CYCLES === 1) sweep(state);
+  const working = state.candidates.size > 0 || getSlots(allay).length > 0;
+  if (!working) {
+    state.phase = "idle";
+    return;
+  }
+  if (system.currentTick >= state.nextScan) {
+    state.containers = scanArea(state);
+    state.nextScan = system.currentTick + SCAN_EVERY;
+  }
+  if (state.containers.length === 0) {
+    state.phase = "idle";
+    return;
+  }
+  const target = pickTarget(state, wantedTypes(state));
+  if (target) {
+    state.phase = "collect";
+    collect(state, target);
+    return;
+  }
+  const spot = nextDestination(state);
+  if (!spot) {
+    state.phase = "idle";
+    return;
+  }
+  state.phase = "deliver";
+  state.dest = spot;
+  deliver(state);
+}
+
+export function initSorting() {
+  world.afterEvents.entitySpawn.subscribe((event) => {
+    const entity = event.entity;
+    if (!entity || entity.typeId !== ITEM_ID) return;
+    for (const state of getCarriers()) {
+      if (!state.allay.isValid || state.allay.dimension.id !== entity.dimension.id) continue;
+      if (state.candidates.size >= MAX_CANDIDATES) continue;
+      if (distance(state.allay.location, entity.location) <= SCAN_RADIUS) state.candidates.add(entity);
+    }
+  });
+
+  system.runInterval(() => {
+    for (const state of getCarriers()) {
+      try {
+        tickCarrier(state);
+      } catch {
+        continue;
+      }
+    }
+  }, SORT_INTERVAL);
+}
+```
+
+## FILE: MCPEDL/Addons/Copper-Carrier-Logistics/CHANGELOG.md (22 lines, 1159 bytes)
+
+```
+# Changelog — Copper-Carrier Logistics
+
+---
+
+## [v2] - 2026-11-03
+
+### Added
+- **Move Sorting Area**: Right-click a flying sorting unit with a Copper Ingot to set its sorting area to where it hovers.
+
+### Improved & Balanced
+- **Copper Golem Style Sorting**: Units now deliver items to nearby chests and barrels that already hold the same item, like a normal Copper Golem but flying. No setup is needed, and the item ledger was removed.
+- **Held Copper Golem**: The Copper Golem is held under the Allay and is kept from walking around while carried.
+
+## [1.0.0] - 2026-11-03
+
+### Added
+- **Flying Sorting Unit**: Right-click an Allay with a Copper Ingot to give it a Copper Golem passenger. Right-click it with Shears to release it.
+- **Item Ledger**: Sneak and right-click a container with a Copper Ingot to register its item types, up to 50 per unit.
+- **54-Slot Memory Buffer**: Units carry collected items until they reach the matching container.
+- **64-Block Collection Range**: Matching drops within 64 blocks are collected and delivered automatically.
+- **Sorting Effects**: Spark particles and a note sound play on pickups and completed deliveries.
+```
+
+## FILE: MCPEDL/Addons/Copper-Carrier-Logistics/DESCRIPTION.md (72 lines, 3546 bytes)
+
+```
+# Copper-Carrier Logistics — Allay and Copper Golem Flying Sorting Units
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**An Allay carries a Copper Golem and sorts your drops like a Copper Golem that can fly.**
+
+> Pair an Allay with a Copper Golem to create a flying sorting unit.
+
+## Overview
+
+Right-click an Allay with a Copper Ingot to turn it into a flying sorting unit. The Copper Golem is held under the Allay instead of walking.
+
+## Key Features
+
+### Flying Sorting Unit
+- **What Happens**: Right-click an Allay with a Copper Ingot.
+
+### Copper Golem Style Sorting
+- **What Happens**: The unit delivers each item to a chest or barrel that already holds the same item.
+
+### 54-Slot Memory Buffer
+- **What Happens**: The unit holds collected items in a 54-slot buffer until it delivers them.
+
+### 64-Block Collection Range
+- **What Happens**: Items that drop within 64 blocks of the unit and have matching storage are collected automatically.
+
+### Fast Sorting Feedback
+- **What Happens**: Spark particles and a note sound play when items are collected and when a delivery is completed.
+
+## How to Use
+
+1. Install the add-on and enable the Behavior Pack in your world.
+2. Put at least one of each item you want sorted into the chests or barrels near where the unit will work.
+3. Right-click an Allay with a Copper Ingot, ideally next to a Copper Golem.
+4. Drop or mine matching items near the unit and watch them get sorted.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.26.60 is the targeted minimum; this version was not verified against official release notes.
+- Experimental features: No experiment requirement detected in the inspected files.
+- Achievements: Likely achievement-friendly.
+- Verification: Source created; not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, Copper-Carrier Logistics Bedrock mod, Allay carrier, flying Copper Golem, Copper Golem sorting, flying item sorter, automatic chest sorting, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+```
+
+## FILE: MCPEDL/Addons/Copper-Carrier-Logistics/project.json (5 lines, 60 bytes)
+
+```
+{
+  "type": "addon",
+  "name": "Copper-Carrier Logistics"
+}
+```
+
+## FILE: MCPEDL/Addons/Copper-Carrier-Logistics/README.md (19 lines, 842 bytes)
+
+```
+# Copper-Carrier Logistics
+
+Download the current release of **Copper-Carrier Logistics** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download Copper-Carrier Logistics (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Copper-Carrier-Logistics/CopperCarrier%20V2.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/Copper-Carrier-Logistics/DESCRIPTION.md).
+```

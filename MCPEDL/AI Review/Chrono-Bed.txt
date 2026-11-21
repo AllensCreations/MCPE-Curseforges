@@ -1,0 +1,448 @@
+<!-- GRAPH-CONTEXT:START -->
+## Graph Context
+
+- **Project:** `Chrono-Bed` | Category: `Script` | Version: `v2`
+- **Pack Types:** behavior_pack
+- **Siblings in Script:** `ALN-MobStacker (v2)` (v2), `ALNSpawnControl (v2)` (v2), `Always-Critical (v2)` (v2), `Category: Script`, `Command-Vault (v3)` (v3), `Gameplay-Optimizer (v2)` (v2), `Living-SMP-Chat (v2)` (v2), `Loot-and-XP-Stick (v1)` (v1) …
+
+> _Auto-generated from graphify-out/graph.json — do not edit manually._
+<!-- GRAPH-CONTEXT:END -->
+
+---
+
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Script/Chrono-Bed`
+- **Destination:** `MCPEDL/Script/Chrono-Bed`
+- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Script/Chrono-Bed/CHANGELOG.md`)
+- **Text files:** 8
+- **Skipped binary:** 0
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Script/Chrono-Bed/behavior_pack/manifest.json`
+- `MCPEDL/Script/Chrono-Bed/behavior_pack/scripts/chrono_bed.js`
+- `MCPEDL/Script/Chrono-Bed/behavior_pack/scripts/main.js`
+- `MCPEDL/Script/Chrono-Bed/behavior_pack/scripts/time_engine.js`
+- `MCPEDL/Script/Chrono-Bed/CHANGELOG.md`
+- `MCPEDL/Script/Chrono-Bed/DESCRIPTION.md`
+- `MCPEDL/Script/Chrono-Bed/project.json`
+- `MCPEDL/Script/Chrono-Bed/README.md`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Script/Chrono-Bed
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`.
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Script/Chrono-Bed/behavior_pack/manifest.json (44 lines, 765 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Chrono-Bed (v2)",
+    "description": "Replaces instant sleep with an accelerating night time-lapse. by ALNStudios",
+    "uuid": "6be89c03-ec4a-412b-8419-f9c36ea529cb",
+    "version": [
+      2,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "1bc1a9a8-291d-43b1-b0db-7b631fef8e99",
+      "version": [
+        2,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "version": "2.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Script/Chrono-Bed/behavior_pack/scripts/chrono_bed.js (15 lines, 483 bytes)
+
+```
+import { world } from "@minecraft/server";
+import { startTimeLapse } from "./time_engine.js";
+
+const isBed = (block) => {
+  const id = block?.typeId;
+  return typeof id === "string" && id.startsWith("minecraft:") && id.endsWith("_bed");
+};
+
+export function initChronoBed() {
+  world.afterEvents.playerInteractWithBlock.subscribe(({ player, block, isFirstEvent }) => {
+    if (isFirstEvent === false || !isBed(block)) return;
+    startTimeLapse(player, world.getTimeOfDay());
+  });
+}
+```
+
+## FILE: MCPEDL/Script/Chrono-Bed/behavior_pack/scripts/main.js (4 lines, 67 bytes)
+
+```
+import { initChronoBed } from "./chrono_bed.js";
+
+initChronoBed();
+```
+
+## FILE: MCPEDL/Script/Chrono-Bed/behavior_pack/scripts/time_engine.js (171 lines, 5223 bytes)
+
+```
+import { world, system, BlockVolume } from "@minecraft/server";
+
+const OVERWORLD = "minecraft:overworld";
+const MORNING = 1000;
+const DAY_LENGTH = 24000;
+const NIGHT_START = 12542;
+const NIGHT_END = 23459;
+const MIN_STEP = 200;
+const MAX_STEP = 500;
+const RAMP_PER_TICK = 5;
+const WAKE_GRACE = 20;
+const SCAN_RADIUS = 32;
+const SCAN_HEIGHT = 16;
+const MIN_Y = -64;
+const MAX_Y = 319;
+const TICKS_PER_STAGE = 1500;
+const BATCH = 200;
+
+const CROPS = {
+  "minecraft:wheat": ["growth", 7],
+  "minecraft:carrots": ["growth", 7],
+  "minecraft:potatoes": ["growth", 7],
+  "minecraft:beetroot": ["growth", 7],
+  "minecraft:melon_stem": ["growth", 7],
+  "minecraft:pumpkin_stem": ["growth", 7],
+  "minecraft:nether_wart": ["age", 3],
+};
+
+const SAPLINGS = [
+  "minecraft:oak_sapling",
+  "minecraft:spruce_sapling",
+  "minecraft:birch_sapling",
+  "minecraft:jungle_sapling",
+  "minecraft:acacia_sapling",
+  "minecraft:dark_oak_sapling",
+  "minecraft:cherry_sapling",
+  "minecraft:pale_oak_sapling",
+];
+
+const GROWTH_TYPES = [...Object.keys(CROPS), ...SAPLINGS];
+
+let handle;
+let elapsed = 0;
+let waiting = 0;
+let skipped = 0;
+let targetTime = 0;
+const sleepers = new Map();
+
+const isNight = (t) => t >= NIGHT_START && t <= NIGHT_END;
+
+function formatClock(t) {
+  const hour = (Math.floor(t / 1000) + 6) % 24;
+  const minute = Math.floor(((t % 1000) * 60) / 1000);
+  return String(hour).padStart(2, "0") + String(minute).padStart(2, "0");
+}
+
+function safe(fn) {
+  try {
+    fn();
+  } catch (e) {
+    return;
+  }
+}
+
+function boostBlock(block, stages) {
+  if (!block) return 0;
+  const id = block.typeId;
+  const perm = block.permutation;
+  if (SAPLINGS.includes(id)) {
+    if (perm.getState("age_bit") === false) block.setPermutation(perm.withState("age_bit", true));
+    return 0;
+  }
+  const spec = CROPS[id];
+  if (!spec) return 0;
+  const current = perm.getState(spec[0]);
+  if (typeof current !== "number" || current >= spec[1]) return 0;
+  block.setPermutation(perm.withState(spec[0], Math.min(spec[1], current + stages)));
+  return 1;
+}
+
+function* growJob(players, stages, completed) {
+  let grown = 0;
+  const seen = new Set();
+  for (const p of players) {
+    try {
+      const dim = p.dimension;
+      const x = Math.floor(p.location.x);
+      const y = Math.floor(p.location.y);
+      const z = Math.floor(p.location.z);
+      const volume = new BlockVolume(
+        { x: x - SCAN_RADIUS, y: Math.max(MIN_Y, y - SCAN_HEIGHT), z: z - SCAN_RADIUS },
+        { x: x + SCAN_RADIUS, y: Math.min(MAX_Y, y + SCAN_HEIGHT), z: z + SCAN_RADIUS }
+      );
+      let n = 0;
+      const found = dim.getBlocks(volume, { includeTypes: GROWTH_TYPES }, true);
+      for (const pos of found.getBlockLocationIterator()) {
+        const key = pos.x + "," + pos.y + "," + pos.z;
+        if (seen.has(key)) continue;
+        seen.add(key);
+        grown += boostBlock(dim.getBlock(pos), stages);
+        n += 1;
+        if (n % BATCH === 0) yield;
+      }
+    } catch (e) {
+      continue;
+    }
+    yield;
+  }
+  if (!completed) return;
+  const text = grown > 0
+    ? "§a[ GOOD MORNING ] §fCrops grew while you rested!"
+    : "§a[ GOOD MORNING ] §fThe night is over.";
+  for (const p of players) safe(() => p.onScreenDisplay.setActionBar(text));
+}
+
+function finish(completed) {
+  if (handle !== undefined) system.clearRun(handle);
+  handle = undefined;
+  const players = [...sleepers.values()];
+  sleepers.clear();
+  const stages = Math.floor(skipped / TICKS_PER_STAGE);
+  for (const p of players) {
+    safe(() => p.onScreenDisplay.setActionBar(completed ? "§a[ GOOD MORNING ]" : ""));
+    if (completed) {
+      safe(() => p.playSound("note.chime", { volume: 1, pitch: 1 }));
+      safe(() => p.runCommand("camera @s fade time 0 0.2 1.2 color 0 0 0"));
+    }
+  }
+  if (stages > 0 || completed) system.runJob(growJob(players, stages, completed));
+}
+
+function tick() {
+  const sleeping = world.getAllPlayers().filter((p) => p.isSleeping && p.dimension.id === OVERWORLD);
+  if (sleeping.length === 0) {
+    waiting += 1;
+    if (waiting > WAKE_GRACE) finish(false);
+    return;
+  }
+  waiting = 0;
+  for (const p of sleeping) sleepers.set(p.id, p);
+  const remaining = targetTime - world.getAbsoluteTime();
+  if (remaining <= 0) {
+    finish(true);
+    return;
+  }
+  const speed = Math.min(MAX_STEP, MIN_STEP + elapsed * RAMP_PER_TICK);
+  const step = Math.min(speed, remaining);
+  world.setAbsoluteTime(world.getAbsoluteTime() + step);
+  skipped += step;
+  elapsed += 1;
+  const clock = formatClock(world.getTimeOfDay());
+  const pitch = 0.8 + (speed / MAX_STEP) * 0.8;
+  for (const p of sleeping) {
+    safe(() => p.onScreenDisplay.setActionBar("§b[ CHRONO-BED ] §eAccelerating Time... §7(" + clock + " / 0700)"));
+    if (elapsed % 2 === 0) safe(() => p.playSound("random.click", { volume: 0.4, pitch }));
+  }
+  if (step >= remaining) finish(true);
+}
+
+export function startTimeLapse(player, startTime) {
+  if (handle !== undefined) return false;
+  if (!isNight(startTime) || player.dimension.id !== OVERWORLD) return false;
+  elapsed = 0;
+  waiting = 0;
+  skipped = 0;
+  sleepers.clear();
+  targetTime = world.getAbsoluteTime() + ((MORNING - startTime + DAY_LENGTH) % DAY_LENGTH);
+  handle = system.runInterval(tick, 1);
+  return true;
+}
+```
+
+## FILE: MCPEDL/Script/Chrono-Bed/CHANGELOG.md (12 lines, 502 bytes)
+
+```
+# Changelog — Chrono-Bed
+
+---
+
+## [v2] - 2026-11-04
+
+### Added
+- **Bed Time-Lapse**: Sleeping at night now carries the world to 07:00 in an accelerating time-lapse.
+- **Morning Clock Display**: A live clock above the hotbar counts toward 07:00 during the time-lapse.
+- **Crop Growth While You Sleep**: Nearby crops advance through their growth stages in proportion to the time that passed.
+- **Sound and Screen Effects**: A ticking sound, a morning chime, and a screen fade accompany the time-lapse.
+```
+
+## FILE: MCPEDL/Script/Chrono-Bed/DESCRIPTION.md (74 lines, 3656 bytes)
+
+```
+# Chrono-Bed — Dynamic Time-Lapse Sleep
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**Sleep through the night in a fast, accelerating time-lapse.**
+
+> Use any bed at night and watch the clock race to morning while nearby crops keep growing.
+
+## Overview
+
+Chrono-Bed changes how sleeping feels. Instead of waiting for the night to be skipped, the world speeds through the hours while you stay in bed, with a live clock on your screen and a ticking sound that rises in pitch as time speeds up.
+
+## Key Features
+
+### Bed Time-Lapse
+- **What Happens**: Using any bed at night in the Overworld starts a fast time-lapse that carries the world to 07:00.
+
+### Morning Clock Display
+- **What Happens**: A message above your hotbar shows the current in-game clock time counting toward 07:00.
+
+### Crop Growth While You Sleep
+- **What Happens**: Wheat, carrots, potatoes, beetroot, nether wart, melon stems, and pumpkin stems near you advance through their growth stages in proportion to the time that passed.
+
+### Sapling Preparation
+- **What Happens**: Saplings in the same area are readied to grow.
+
+### Sound and Screen Effects
+- **What Happens**: A gentle ticking sound plays during the time-lapse, and a morning chime and a screen fade mark the moment it ends.
+
+### What Is Not Included
+- **What Happens**: Furnaces, brewing stands, and animals are not sped up by this pack.
+
+## How to Use
+
+1. Add Chrono-Bed to your world and activate it in the world settings.
+2. Wait for night in the Overworld, then use any bed.
+3. Stay in bed until the morning message appears.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.26.60 or newer.
+- Experimental features: No experiment requirement detected in the inspected files.
+- Achievements: Unknown / needs confirmation. The pack uses a screen fade command that was not tested in game for achievement impact.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, Chrono-Bed Bedrock mod, Minecraft sleep time-lapse, bed night skip, crop growth while sleeping, faster sleep, Minecraft PE QoL, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+```
+
+## FILE: MCPEDL/Script/Chrono-Bed/project.json (2 lines, 41 bytes)
+
+```
+{"type": "script", "name": "Chrono-Bed"}
+```
+
+## FILE: MCPEDL/Script/Chrono-Bed/README.md (19 lines, 765 bytes)
+
+```
+# Chrono-Bed
+
+Download the current release of **Chrono-Bed** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcpack`
+- **Direct download:** [Download Chrono-Bed (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Chrono-Bed/ChronoBed%20V2.mcpack)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Script/Chrono-Bed/DESCRIPTION.md).
+```

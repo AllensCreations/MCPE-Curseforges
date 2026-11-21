@@ -1,0 +1,1028 @@
+<!-- GRAPH-CONTEXT:START -->
+## Graph Context
+
+- **Project:** `Minecraft-But-Every-Drop-is-Random-Chaos-Edition` | Category: `Minigame` | Version: `v2`
+- **Pack Types:** behavior_pack, resource_pack
+- **Siblings in Minigame:** `Alphabet-Scavenger-Hunt (v2)` (v2), `Category: Minigame`, `Mob-Chaos-Behavioral-Roulette (v2)` (v2), `Shared-Hivemind-Inventory (v2)` (v2), `Tethered-Breaker-And-Builder (v2)` (v2), `Trivia-Vault-The-Locked-World (v2)` (v2)
+
+> _Auto-generated from graphify-out/graph.json — do not edit manually._
+<!-- GRAPH-CONTEXT:END -->
+
+---
+
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition`
+- **Destination:** `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition`
+- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/CHANGELOG.md`)
+- **Text files:** 14
+- **Skipped binary:** 3
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/functions/end_game.mcfunction`
+- `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/functions/give_controller.mcfunction`
+- `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/items/controller.json`
+- `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/manifest.json`
+- `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/scripts/controller.js`
+- `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/scripts/main.js`
+- `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/scripts/random_drops.js`
+- `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/scripts/random_loot_table.js`
+- `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/CHANGELOG.md`
+- `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/DESCRIPTION.md`
+- `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/project.json`
+- `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/README.md`
+- `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/resource_pack/manifest.json`
+- `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/resource_pack/textures/item_texture.json`
+
+### Skipped (binary)
+
+- `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/pack_icon.png`
+- `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/resource_pack/pack_icon.png`
+- `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/resource_pack/textures/items/controller.png`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`.
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/functions/end_game.mcfunction (2 lines, 32 bytes)
+
+```
+scriptevent allenscreations:end
+```
+
+## FILE: MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/functions/give_controller.mcfunction (2 lines, 41 bytes)
+
+```
+give @s aln:random_drop_chaos_controller
+```
+
+## FILE: MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/items/controller.json (28 lines, 635 bytes)
+
+```
+{
+  "format_version": "1.26.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:random_drop_chaos_controller",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "textures": {
+          "default": "controller"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "\u00a7l\u00a7bAllens\u00a7dCreations \u00a76Controller"
+      },
+      "minecraft:use_animation": "spyglass",
+      "minecraft:use_modifiers": {
+        "use_duration": 0.1,
+        "movement_modifier": 1
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/manifest.json (66 lines, 1208 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Minecraft, But Every Drop is Random: Chaos Edition (v2)",
+    "description": "Every block and mob drop turns into a different item, reshuffled for each run. by ALNStudios",
+    "uuid": "d89cb4b0-9297-4930-b11c-6aa1e4256b05",
+    "version": [
+      2,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "fd77aa0b-f34c-4c69-bdfb-6c42d193a053",
+      "version": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "cd554f91-d644-4920-b091-96d83c09ad9a",
+      "version": [
+        2,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "a0033158-5884-4ee5-abf0-8c443a11a422",
+      "version": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.3.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "2.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/scripts/controller.js (181 lines, 5244 bytes)
+
+```
+import { world, system, ItemStack, EntityComponentTypes, GameMode } from "@minecraft/server";
+import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
+
+const CONTROLLER_ID = "aln:random_drop_chaos_controller";
+const STATE_KEY = "game_state";
+const OPERATOR_LEVEL = 2;
+
+let config = null;
+let registered = false;
+
+const getState = () => {
+  const v = world.getDynamicProperty(STATE_KEY);
+  return typeof v === "string" ? v : "idle";
+};
+const setState = (s) => world.setDynamicProperty(STATE_KEY, s);
+const isCreative = (player) => player.getGameMode() === GameMode.Creative;
+const isHost = (player) => (typeof player.isOp === "function" ? player.isOp() : player.playerPermissionLevel === OPERATOR_LEVEL);
+const containerOf = (player) => player.getComponent(EntityComponentTypes.Inventory)?.container;
+
+function hasController(player) {
+  const inv = containerOf(player);
+  if (!inv) return false;
+  for (let i = 0; i < inv.size; i++) {
+    if (inv.getItem(i)?.typeId === CONTROLLER_ID) return true;
+  }
+  return false;
+}
+
+function giveController(player) {
+  if (hasController(player)) return;
+  containerOf(player)?.addItem(new ItemStack(CONTROLLER_ID, 1));
+}
+
+function consumeController(player) {
+  if (isCreative(player)) return;
+  const inv = containerOf(player);
+  if (!inv) return;
+  for (let i = 0; i < inv.size; i++) {
+    if (inv.getItem(i)?.typeId === CONTROLLER_ID) {
+      inv.setItem(i, undefined);
+      player.playSound("random.break");
+      player.sendMessage("The Controller broke.");
+      return;
+    }
+  }
+}
+
+function runStart(player) {
+  if (getState() === "running") {
+    player.sendMessage("Already running.");
+    return;
+  }
+  setState("running");
+  if (config.consumeOnStart) consumeController(player);
+  try {
+    config.onStart(player);
+  } catch (e) {
+    setState("idle");
+    giveController(player);
+    player.sendMessage("The game could not start.");
+  }
+}
+
+export function endGame() {
+  if (getState() !== "running") return;
+  setState("ended");
+  try {
+    config?.onEnd();
+  } catch (e) {
+    world.sendMessage("The game ended with an error.");
+  }
+  for (const p of world.getAllPlayers()) if (isHost(p)) giveController(p);
+}
+
+async function showHowToPlay(player) {
+  const form = new ActionFormData().title("How to play").body(config.howToPlay).button("Back");
+  let res;
+  try {
+    res = await form.show(player);
+  } catch (e) {
+    return;
+  }
+  if (!res.canceled && res.selection === 0) openController(player);
+}
+
+async function confirmEnd(player) {
+  if (getState() !== "running") {
+    player.sendMessage("No game is running.");
+    return;
+  }
+  const form = new ActionFormData()
+    .title("End game?")
+    .body("This stops the game that is running now.")
+    .button("End Game")
+    .button("Back");
+  let res;
+  try {
+    res = await form.show(player);
+  } catch (e) {
+    return;
+  }
+  if (res.canceled) return;
+  if (res.selection === 0) {
+    if (getState() !== "running") {
+      player.sendMessage("The game already ended.");
+      return;
+    }
+    world.sendMessage(`${player.name} ended the game.`);
+    endGame();
+  } else {
+    openController(player);
+  }
+}
+
+async function openController(player, attempt = 0) {
+  const running = getState() === "running";
+  const note = running
+    ? "End Game stops the current game."
+    : config.consumeOnStart
+      ? (isCreative(player) ? "Creative: the Controller is kept." : "Start uses up the Controller.")
+      : "The Controller is kept.";
+  const form = new ActionFormData()
+    .title(config.title)
+    .body(`${config.gameInfo}\n\nState: ${getState()}\n${note}`)
+    .button(running ? "End Game" : "Start")
+    .button("How to play");
+  let res;
+  try {
+    res = await form.show(player);
+  } catch (e) {
+    return;
+  }
+  if (res.canceled) {
+    if (res.cancelationReason === FormCancelationReason.UserBusy && attempt < 5) {
+      system.runTimeout(() => openController(player, attempt + 1), 10);
+    }
+    return;
+  }
+  if (res.selection === 0) {
+    if (running) confirmEnd(player);
+    else runStart(player);
+  } else if (res.selection === 1) {
+    showHowToPlay(player);
+  }
+}
+
+export function registerController(options) {
+  if (registered) return;
+  registered = true;
+  config = {
+    title: options?.title ?? "Controller",
+    gameInfo: options?.gameInfo ?? "",
+    howToPlay: options?.howToPlay ?? "",
+    consumeOnStart: options?.consumeOnStart === true,
+    onStart: options?.onStart ?? (() => {}),
+    onEnd: options?.onEnd ?? (() => {}),
+  };
+
+  world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
+    if (itemStack?.typeId === CONTROLLER_ID && isHost(source)) openController(source);
+  });
+
+  system.afterEvents.scriptEventReceive.subscribe(({ id }) => {
+    if (id === "allenscreations:end") endGame();
+  });
+
+  world.afterEvents.worldLoad.subscribe(() => {
+    if (getState() === "running") setState("idle");
+    for (const p of world.getAllPlayers()) if (isHost(p)) giveController(p);
+  });
+
+  world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
+    if (!isHost(player)) return;
+    if (config.consumeOnStart) {
+      if (initialSpawn && (isCreative(player) || getState() !== "running")) giveController(player);
+      return;
+    }
+    giveController(player);
+  });
+}
+```
+
+## FILE: MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/scripts/main.js (85 lines, 2904 bytes)
+
+```
+import { world, system, CommandPermissionLevel, CustomCommandStatus } from "@minecraft/server";
+import { registerController, endGame } from "./controller.js";
+import { initLootTable, reshuffle } from "./random_loot_table.js";
+import { registerDropHooks, setActive, isActive } from "./random_drops.js";
+
+const DRAGON_ID = "minecraft:ender_dragon";
+const BOOK_ID = "minecraft:book";
+
+function broadcast(message) {
+  for (const player of world.getAllPlayers()) {
+    try {
+      player.onScreenDisplay.setActionBar(message);
+    } catch (e) {}
+  }
+}
+
+function tryReshuffle(player) {
+  if (isActive()) {
+    try {
+      player?.onScreenDisplay.setActionBar("§cThe drop table is locked while a game is running.");
+    } catch (e) {}
+    return false;
+  }
+  reshuffle();
+  broadcast("§a§kXXXXXX §r§aSomething has changed... §a§kXXXXXX");
+  return true;
+}
+
+function win() {
+  broadcast("§aThe Ender Dragon is down. Chaos conquered!");
+  endGame();
+}
+
+registerController({
+  title: "Every Drop is Random",
+  consumeOnStart: true,
+  gameInfo: "Type: Challenge\nPlayers: 1 or more\nGoal: Defeat the Ender Dragon while every block and mob drop is swapped for a different item.",
+  howToPlay: "Goal: Defeat the Ender Dragon.\nRules: While a game runs, every item dropped by a broken block or a defeated mob is replaced by another item. The same item always turns into the same replacement during one run, and each Start shuffles a new table.\nReshuffle: Outside a game, use the command aln:reshuffle or sneak and use a Book.\nController: Start uses up the Controller (Creative keeps it), and a new one is given when the game ends.\nHow it ends: Defeating the Ender Dragon wins the run.",
+  onStart: () => {
+    reshuffle();
+    setActive(true);
+    broadcast("§a§kXXXXXX §r§aSomething is happening... §a§kXXXXXX");
+  },
+  onEnd: () => {
+    setActive(false);
+    broadcast("§eThe game ended. Drops are normal again.");
+  }
+});
+
+registerDropHooks();
+
+world.afterEvents.worldLoad.subscribe(() => {
+  initLootTable();
+});
+
+world.afterEvents.entityDie.subscribe(({ deadEntity }) => {
+  try {
+    if (isActive() && deadEntity.typeId === DRAGON_ID) win();
+  } catch (e) {}
+});
+
+world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
+  if (itemStack?.typeId !== BOOK_ID) return;
+  if (!source.isSneaking) return;
+  tryReshuffle(source);
+});
+
+system.beforeEvents.startup.subscribe(({ customCommandRegistry }) => {
+  customCommandRegistry.registerCommand(
+    {
+      name: "aln:reshuffle",
+      description: "Reshuffle the random drop table for a new run",
+      permissionLevel: CommandPermissionLevel.Any,
+      cheatsRequired: false
+    },
+    (origin) => {
+      const player = origin.sourceEntity;
+      system.run(() => {
+        tryReshuffle(player && player.typeId === "minecraft:player" ? player : undefined);
+      });
+      return { status: CustomCommandStatus.Success };
+    }
+  );
+});
+```
+
+## FILE: MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/scripts/random_drops.js (152 lines, 4005 bytes)
+
+```
+import { world, system, ItemStack } from "@minecraft/server";
+import { getReplacement } from "./random_loot_table.js";
+
+const PROCESSED_TAG = "aln_randomized";
+const ITEM_ENTITY = "minecraft:item";
+const PLAYER_ENTITY = "minecraft:player";
+const RADIUS_SQUARED = 1.5 * 1.5;
+const ZONE_TICKS = 3;
+const MAX_STACKS = 64;
+
+let active = false;
+let zones = [];
+let pending = [];
+const queue = [];
+let jobRunning = false;
+const maxAmounts = new Map();
+
+export function setActive(value) {
+  active = value === true;
+  if (!active) {
+    zones = [];
+    pending = [];
+    queue.length = 0;
+  }
+}
+
+export function isActive() {
+  return active;
+}
+
+function isNear(a, b) {
+  const dx = a.x - b.x;
+  const dy = a.y - b.y;
+  const dz = a.z - b.z;
+  return dx * dx + dy * dy + dz * dz <= RADIUS_SQUARED;
+}
+
+function getMaxAmount(typeId) {
+  let amount = maxAmounts.get(typeId);
+  if (amount === undefined) {
+    amount = Math.max(1, new ItemStack(typeId, 1).maxAmount);
+    maxAmounts.set(typeId, amount);
+  }
+  return amount;
+}
+
+function processItem(entity) {
+  try {
+    if (!entity.isValid) return;
+    if (entity.hasTag(PROCESSED_TAG)) return;
+    const component = entity.getComponent("minecraft:item");
+    if (!component) return;
+    const original = component.itemStack;
+    const replacementId = getReplacement(original.typeId);
+    if (!replacementId || replacementId === original.typeId) {
+      entity.addTag(PROCESSED_TAG);
+      return;
+    }
+    const dimension = entity.dimension;
+    const location = entity.location;
+    const maxAmount = getMaxAmount(replacementId);
+    let remaining = original.amount;
+    let stacks = 0;
+    while (remaining > 0 && stacks < MAX_STACKS) {
+      const amount = Math.min(maxAmount, remaining);
+      const spawned = dimension.spawnItem(new ItemStack(replacementId, amount), location);
+      spawned.addTag(PROCESSED_TAG);
+      remaining -= amount;
+      stacks += 1;
+    }
+    entity.remove();
+  } catch (e) {}
+}
+
+function* drain() {
+  try {
+    let index = 0;
+    while (index < queue.length) {
+      processItem(queue[index]);
+      index += 1;
+      yield;
+    }
+  } finally {
+    queue.length = 0;
+    jobRunning = false;
+  }
+}
+
+function enqueue(entity) {
+  queue.push(entity);
+  if (jobRunning) return;
+  jobRunning = true;
+  system.runJob(drain());
+}
+
+function prune(tick) {
+  if (zones.length > 0) zones = zones.filter((zone) => tick - zone.tick <= ZONE_TICKS);
+  if (pending.length > 0) pending = pending.filter((item) => tick - item.tick <= ZONE_TICKS);
+}
+
+function openZone(dimensionId, location) {
+  const tick = system.currentTick;
+  prune(tick);
+  zones.push({ dimensionId, location, tick });
+  if (pending.length === 0) return;
+  const rest = [];
+  for (const item of pending) {
+    if (item.dimensionId === dimensionId && isNear(item.location, location)) enqueue(item.entity);
+    else rest.push(item);
+  }
+  pending = rest;
+}
+
+function onItemSpawned(entity) {
+  const tick = system.currentTick;
+  prune(tick);
+  const dimensionId = entity.dimension.id;
+  const location = entity.location;
+  for (const zone of zones) {
+    if (zone.dimensionId === dimensionId && isNear(zone.location, location)) {
+      enqueue(entity);
+      return;
+    }
+  }
+  pending.push({ entity, dimensionId, location, tick });
+}
+
+export function registerDropHooks() {
+  world.afterEvents.entitySpawn.subscribe(({ entity }) => {
+    if (!active) return;
+    try {
+      if (entity.typeId === ITEM_ENTITY) onItemSpawned(entity);
+    } catch (e) {}
+  });
+
+  world.afterEvents.playerBreakBlock.subscribe(({ block, dimension }) => {
+    if (!active) return;
+    try {
+      const center = { x: block.location.x + 0.5, y: block.location.y + 0.5, z: block.location.z + 0.5 };
+      openZone(dimension.id, center);
+    } catch (e) {}
+  });
+
+  world.afterEvents.entityDie.subscribe(({ deadEntity }) => {
+    if (!active) return;
+    try {
+      if (deadEntity.typeId === PLAYER_ENTITY) return;
+      openZone(deadEntity.dimension.id, deadEntity.location);
+    } catch (e) {}
+  });
+}
+```
+
+## FILE: MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/scripts/random_loot_table.js (173 lines, 8904 bytes)
+
+```
+import { world, ItemTypes } from "@minecraft/server";
+
+const SEED_KEY = "aln_chaos_seed";
+const NAMESPACE = "minecraft:";
+
+const POOL_NAMES = [
+  "stone", "cobblestone", "granite", "diorite", "andesite", "deepslate", "cobbled_deepslate", "tuff", "calcite",
+  "dirt", "grass_block", "podzol", "mycelium", "mud", "packed_mud", "mud_bricks", "sand", "red_sand", "gravel", "clay",
+  "sandstone", "red_sandstone", "oak_log", "spruce_log", "birch_log", "jungle_log", "acacia_log", "dark_oak_log",
+  "mangrove_log", "cherry_log", "pale_oak_log", "crimson_stem", "warped_stem", "oak_planks", "spruce_planks",
+  "birch_planks", "jungle_planks", "acacia_planks", "dark_oak_planks", "mangrove_planks", "cherry_planks",
+  "bamboo_planks", "crimson_planks", "warped_planks", "oak_sapling", "spruce_sapling", "birch_sapling",
+  "jungle_sapling", "acacia_sapling", "dark_oak_sapling", "cherry_sapling", "oak_leaves", "spruce_leaves",
+  "glass", "white_wool", "obsidian", "crying_obsidian", "netherrack", "soul_sand", "soul_soil", "basalt",
+  "blackstone", "glowstone", "end_stone", "purpur_block", "prismarine", "sea_lantern", "ice", "packed_ice",
+  "blue_ice", "snow", "cactus", "sugar_cane", "bamboo", "kelp", "pumpkin", "melon_block", "hay_block",
+  "bookshelf", "tnt", "sponge", "wet_sponge", "slime", "honey_block", "moss_block", "amethyst_block",
+  "dripstone_block", "pointed_dripstone", "sculk", "sculk_sensor", "copper_block", "iron_block", "gold_block",
+  "diamond_block", "emerald_block", "lapis_block", "redstone_block", "coal_block", "netherite_block",
+  "quartz_block", "bone_block", "magma", "nether_wart_block", "warped_wart_block", "shroomlight",
+  "crafting_table", "furnace", "blast_furnace", "smoker", "chest", "barrel", "ender_chest", "anvil",
+  "enchanting_table", "brewing_stand", "cauldron", "beacon", "conduit", "jukebox", "note_block", "lectern",
+  "grindstone", "loom", "smithing_table", "stonecutter_block", "cartography_table", "fletching_table",
+  "composter", "bell", "lantern", "soul_lantern", "torch", "soul_torch", "campfire", "soul_campfire",
+  "ladder", "scaffolding", "rail", "golden_rail", "detector_rail", "activator_rail", "piston", "sticky_piston",
+  "observer", "dispenser", "dropper", "hopper", "lever", "stone_button", "redstone_torch", "redstone_lamp",
+  "daylight_detector", "target", "lightning_rod", "tripwire_hook", "trapped_chest", "comparator", "repeater",
+  "wooden_door", "iron_door", "trapdoor", "iron_trapdoor", "fence", "fence_gate", "oak_stairs", "stone_stairs",
+  "cobblestone_wall", "white_bed", "oak_sign", "oak_boat", "web", "vine", "waterlily", "sea_pickle",
+  "glow_lichen", "azalea", "flowering_azalea", "yellow_flower", "red_flower", "cornflower", "lily_of_the_valley",
+  "sunflower", "lilac", "rose_bush", "peony", "torchflower", "pitcher_plant", "spore_blossom", "big_dripleaf",
+  "hanging_roots", "mangrove_roots", "coal", "charcoal", "raw_iron", "raw_gold", "raw_copper", "iron_ingot",
+  "gold_ingot", "copper_ingot", "iron_nugget", "gold_nugget", "diamond", "emerald", "lapis_lazuli", "redstone",
+  "quartz", "amethyst_shard", "netherite_scrap", "netherite_ingot", "ancient_debris", "coal_ore", "iron_ore",
+  "gold_ore", "copper_ore", "lapis_ore", "redstone_ore", "diamond_ore", "emerald_ore", "deepslate_coal_ore",
+  "deepslate_iron_ore", "deepslate_gold_ore", "deepslate_copper_ore", "deepslate_lapis_ore",
+  "deepslate_redstone_ore", "deepslate_diamond_ore", "deepslate_emerald_ore", "nether_gold_ore", "quartz_ore",
+  "flint", "clay_ball", "brick", "netherbrick", "stick", "string", "feather", "leather", "paper", "book", "bone",
+  "bone_meal", "gunpowder", "slime_ball", "ender_pearl", "ender_eye", "blaze_rod", "blaze_powder", "ghast_tear",
+  "magma_cream", "nether_star", "prismarine_shard", "prismarine_crystals", "phantom_membrane", "rabbit_hide",
+  "rabbit_foot", "spider_eye", "fermented_spider_eye", "ink_sac", "glow_ink_sac", "glowstone_dust", "sugar",
+  "egg", "heart_of_the_sea", "nautilus_shell", "shulker_shell", "dragon_breath", "breeze_rod", "wind_charge",
+  "echo_shard", "goat_horn", "turtle_scute", "armadillo_scute", "honeycomb", "honey_bottle", "glass_bottle",
+  "bucket", "water_bucket", "lava_bucket", "milk_bucket", "bowl", "name_tag", "lead", "saddle", "compass",
+  "clock", "map", "shears", "flint_and_steel", "fishing_rod", "carrot_on_a_stick", "spyglass", "brush",
+  "elytra", "totem_of_undying", "trident", "bow", "crossbow", "arrow", "spectral_arrow", "shield",
+  "firework_rocket", "firework_star", "minecart", "chest_minecart", "tnt_minecart", "hopper_minecart",
+  "experience_bottle", "enchanted_book", "golden_apple", "enchanted_golden_apple", "golden_carrot",
+  "glistering_melon_slice", "apple", "bread", "cookie", "cake", "pumpkin_pie", "mushroom_stew", "beetroot_soup",
+  "rabbit_stew", "suspicious_stew", "baked_potato", "potato", "poisonous_potato", "carrot", "beetroot", "wheat",
+  "wheat_seeds", "pumpkin_seeds", "melon_seeds", "beetroot_seeds", "melon_slice", "sweet_berries",
+  "glow_berries", "dried_kelp", "cooked_beef", "beef", "cooked_porkchop", "porkchop", "cooked_chicken",
+  "chicken", "cooked_mutton", "mutton", "cooked_rabbit", "rabbit", "cooked_cod", "cod", "cooked_salmon",
+  "salmon", "tropical_fish", "pufferfish", "rotten_flesh", "chorus_fruit", "popped_chorus_fruit", "cocoa_beans",
+  "wooden_sword", "wooden_pickaxe", "wooden_axe", "wooden_shovel", "wooden_hoe", "stone_sword", "stone_pickaxe",
+  "stone_axe", "stone_shovel", "stone_hoe", "iron_sword", "iron_pickaxe", "iron_axe", "iron_shovel", "iron_hoe",
+  "golden_sword", "golden_pickaxe", "golden_axe", "golden_shovel", "golden_hoe", "diamond_sword",
+  "diamond_pickaxe", "diamond_axe", "diamond_shovel", "diamond_hoe", "netherite_sword", "netherite_pickaxe",
+  "netherite_axe", "netherite_shovel", "netherite_hoe", "mace", "leather_helmet", "leather_chestplate",
+  "leather_leggings", "leather_boots", "chainmail_helmet", "chainmail_chestplate", "chainmail_leggings",
+  "chainmail_boots", "iron_helmet", "iron_chestplate", "iron_leggings", "iron_boots", "golden_helmet",
+  "golden_chestplate", "golden_leggings", "golden_boots", "diamond_helmet", "diamond_chestplate",
+  "diamond_leggings", "diamond_boots", "netherite_helmet", "netherite_chestplate", "netherite_leggings",
+  "netherite_boots", "turtle_helmet", "netherite_upgrade_smithing_template", "white_dye", "red_dye", "blue_dye",
+  "green_dye", "black_dye", "music_disc_13", "music_disc_cat", "music_disc_pigstep", "dragon_egg"
+];
+
+let pool = [];
+let mapping = new Map();
+let seed = 0;
+let ready = false;
+
+function createRandom(initial) {
+  let state = initial | 0;
+  return function () {
+    state = (state + 0x6d2b79f5) | 0;
+    let t = Math.imul(state ^ (state >>> 15), 1 | state);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function hashId(text, salt) {
+  let h = (2166136261 ^ salt) >>> 0;
+  for (let i = 0; i < text.length; i++) {
+    h ^= text.charCodeAt(i);
+    h = Math.imul(h, 16777619) >>> 0;
+  }
+  return h >>> 0;
+}
+
+function freshSeed() {
+  return Math.floor(Math.random() * 2147483646) + 1;
+}
+
+function resolvePool() {
+  const found = [];
+  const seen = new Set();
+  for (const name of POOL_NAMES) {
+    const id = NAMESPACE + name;
+    if (seen.has(id)) continue;
+    seen.add(id);
+    let type;
+    try {
+      type = ItemTypes.get(id);
+    } catch (e) {
+      type = undefined;
+    }
+    if (type) found.push(id);
+  }
+  return found;
+}
+
+function build(seedValue) {
+  seed = seedValue;
+  if (pool.length === 0) pool = resolvePool();
+  const count = pool.length;
+  const random = createRandom(seedValue);
+  const order = pool.map((_, index) => index);
+  for (let i = count - 1; i > 0; i--) {
+    const j = Math.floor(random() * (i + 1));
+    const swap = order[i];
+    order[i] = order[j];
+    order[j] = swap;
+  }
+  if (count > 1) {
+    for (let i = 0; i < count; i++) {
+      if (order[i] === i) {
+        const j = (i + 1) % count;
+        const swap = order[i];
+        order[i] = order[j];
+        order[j] = swap;
+      }
+    }
+  }
+  mapping = new Map();
+  for (let i = 0; i < count; i++) mapping.set(pool[i], pool[order[i]]);
+}
+
+function ensureReady() {
+  if (ready) return;
+  const stored = world.getDynamicProperty(SEED_KEY);
+  const value = typeof stored === "number" ? stored : freshSeed();
+  if (typeof stored !== "number") world.setDynamicProperty(SEED_KEY, value);
+  build(value);
+  ready = true;
+}
+
+export function initLootTable() {
+  try {
+    ensureReady();
+  } catch (e) {
+    ready = false;
+  }
+}
+
+export function reshuffle() {
+  const value = freshSeed();
+  world.setDynamicProperty(SEED_KEY, value);
+  build(value);
+  ready = true;
+  return value;
+}
+
+export function getReplacement(typeId) {
+  ensureReady();
+  const direct = mapping.get(typeId);
+  if (direct) return direct;
+  if (pool.length === 0) return typeId;
+  return pool[hashId(typeId, seed) % pool.length];
+}
+```
+
+## FILE: MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/CHANGELOG.md (50 lines, 2142 bytes)
+
+```
+# Changelog — Minecraft, But Every Drop is Random: Chaos Edition
+
+---
+
+## [v2] - 2026-11-15
+
+**What's new in v1.0.4:** Packed with 2 updates, from v1.0.3 through v1.0.4. Includes: Burst Smoothing; Smoother Drops.
+
+### Fixed
+
+- **Lag Spikes**: Large bursts of drops, such as a big tree, TNT or a mob farm, are now swapped a few at a time instead of all in one moment, so the game stays smooth.
+- **Lag Spikes**: Drop swapping no longer scans the area around every broken block or defeated mob, so mining and fighting stay smooth.
+
+### Removed
+
+- **Chaos Drop Feed**: Rare swaps no longer show the original and the new item on the action bar.
+
+### Improved & Balanced
+
+- **Mystery Messages**: Starting and reshuffling now show scrambled text that signals something is happening, instead of an item count and a run code.
+
+## [1.0.2] - 2026-11-15
+
+**What's new in v1.0.2:** Packed with the v1.0.2 update. Includes: Controller Auto Destroy.
+
+### Improved & Balanced
+
+- **Controller Auto Destroy**: The Controller is now used up when a game starts (Creative mode keeps it), and the host receives a new one when the game ends.
+
+## [1.0.1] - 2026-11-15 - Import Fix
+
+### Fixed
+- **Pack Import**: The packs now import in Minecraft. The minimum game version they declared was higher than Minecraft accepts.
+
+## [1.0.0] - 2026-11-15 - Chaos Edition Launch
+
+### Added
+- **Random Drops Challenge**: Every item dropped by a broken block or a defeated mob is replaced by a different item while a game is running, and each replacement keeps the original stack size.
+- **Run Table**: Each item always turns into the same replacement during a run, and every Start shuffles a new table for a new run.
+- **Chaos Drop Feed**: Rare swaps, such as a Diamond or an Elytra, show the original item and the new item on the action bar.
+- **Reshuffle Command and Book**: Outside a game, the aln:reshuffle command or sneaking while using a Book reshuffles the table.
+- **Controller**: The host opens a menu with Start and How to play, and ends the game from the same item.
+- **Dragon Win**: Defeating the Ender Dragon during a game wins the run and ends the game.
+```
+
+## FILE: MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/DESCRIPTION.md (82 lines, 4803 bytes)
+
+```
+# Minecraft, But Every Drop is Random: Chaos Edition — Randomized Drop Challenge
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**Every block and mob drop turns into a different item, and defeating the Ender Dragon wins the run.**
+
+> This minigame swaps every drop, from Dirt to Rotten Flesh, for another item from a shuffled table. It suits survival challenge runs where nobody knows what the next block will give.
+
+## Overview
+
+The host opens the Controller and presses Start. From then on, each item that drops from a broken block or a defeated mob is replaced by another item, and the stack size stays the same. The same item always turns into the same replacement during one run, so players can learn the table as they go. The Controller is used up when the game starts, and the run ends when the Ender Dragon falls.
+
+## Key Features
+
+### Randomized Drops
+- **What Happens**: Blocks and mobs drop a different item than normal, and the number of items stays the same. Items that cannot stack as high as the original are split into several stacks.
+- **How It Works**: If Oak Log is swapped for a Golden Apple in your run, every Oak Log you break gives Golden Apples for the rest of that run.
+- **Good To Know**: Items dropped by players on death are not swapped.
+
+### Fresh Table Every Run
+- **What Happens**: Pressing Start shuffles a new table, and no item is swapped for itself.
+- **Good To Know**: The table cannot be reshuffled while a game is running.
+
+### Reshuffle Outside a Game
+- **What Happens**: Any player can reshuffle the table while no game is running, by using the command or by sneaking while using a Book.
+- **Good To Know**: Starting a game always shuffles a new table anyway.
+
+### Controller
+- **What Happens**: The host and operators receive the Controller. It opens a menu with Start and How to play.
+- **Good To Know**: Start uses up the Controller, except in Creative mode, and a new one is given to the host and operators when the game ends.
+
+## How to Use
+
+1. Enable the Behavior Pack and the Resource Pack in a world and take the Controller.
+2. Use the Controller and press Start.
+3. Break blocks and defeat mobs, then defeat the Ender Dragon to win.
+
+## Commands
+
+- `/aln:reshuffle`: Reshuffles the random drop table while no game is running.
+
+## Common Questions
+
+- **Can I reshuffle during a game?**: No. The table stays fixed while a game runs, so each run keeps one set of swaps.
+- **What happens to the Controller when a game starts?**: It is used up unless you are in Creative mode, and a new one is given to the host and operators when the game ends.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: The Behavior Pack declares 1.26.60 as its minimum, and Minecraft's pack importer accepts it.
+- Experimental features: No experiment requirement detected in the inspected files.
+- Achievements: Likely achievement-friendly. The optional recovery commands for giving the Controller and ending the game need cheats, and cheats disable achievements in that world.
+- Verification: Source created. Not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, Minecraft But Every Drop is Random Bedrock mod, random drops, drop randomizer, Ender Dragon challenge, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+```
+
+## FILE: MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/project.json (4 lines, 88 bytes)
+
+```
+{
+  "type": "minigame",
+  "name": "Minecraft, But Every Drop is Random: Chaos Edition"
+}
+```
+
+## FILE: MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/README.md (19 lines, 995 bytes)
+
+```
+# Minecraft, But Every Drop is Random Chaos Edition
+
+Download the current release of **Minecraft, But Every Drop is Random Chaos Edition** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download Minecraft, But Every Drop is Random Chaos Edition (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/MinecraftButEveryDropIsRandomChaosEdition%20V2.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/resource_pack/manifest.json (37 lines, 638 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Minecraft, But Every Drop is Random: Chaos Edition (v2)",
+    "description": "Controller icon for the minigame. by ALNStudios",
+    "uuid": "a0033158-5884-4ee5-abf0-8c443a11a422",
+    "version": [
+      2,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "c209c2b8-2634-4212-ad2d-180b40d58078",
+      "version": [
+        2,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "2.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/resource_pack/textures/item_texture.json (10 lines, 176 bytes)
+
+```
+{
+  "resource_pack_name": "allenscreations",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "controller": {
+      "textures": "textures/items/controller"
+    }
+  }
+}
+```

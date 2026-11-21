@@ -1,0 +1,537 @@
+<!-- GRAPH-CONTEXT:START -->
+## Graph Context
+
+- **Project:** `Sudden-Death-Roulette` | Category: `Addons` | Version: `v2`
+- **Pack Types:** behavior_pack
+- **Siblings in Addons:** `2-in-1-Loot--XP-Booster (v2)` (v2), `ALN-MoreDiscs (v2)` (v2), `ALN-Pointer (v2)` (v2), `ALN-Quiver (v2)` (v2), `ALN-Wireless-Headphones (v2)` (v2), `Category: Addons`, `Cheat-Stick (v4)` (v4), `Copper-Carrier-Logistics (v2)` (v2) …
+
+> _Auto-generated from graphify-out/graph.json — do not edit manually._
+<!-- GRAPH-CONTEXT:END -->
+
+---
+
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Addons/Sudden-Death-Roulette`
+- **Destination:** `MCPEDL/Addons/Sudden-Death-Roulette`
+- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/Sudden-Death-Roulette/CHANGELOG.md`)
+- **Text files:** 5
+- **Skipped binary:** 0
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Addons/Sudden-Death-Roulette/behavior_pack/manifest.json`
+- `MCPEDL/Addons/Sudden-Death-Roulette/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/Sudden-Death-Roulette/CHANGELOG.md`
+- `MCPEDL/Addons/Sudden-Death-Roulette/DESCRIPTION.md`
+- `MCPEDL/Addons/Sudden-Death-Roulette/README.md`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Addons/Sudden-Death-Roulette
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`.
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Addons/Sudden-Death-Roulette/behavior_pack/manifest.json (45 lines, 901 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Sudden Death Roulette (v2)",
+    "description": "Sudden Death Roulette: The Diamond Race. Find a diamond before the Grim claims you. Escalating random death rolls, three warnings and a jumpscare elimination. by ALNStudios",
+    "uuid": "36ea54e6-d805-45bc-910f-952d9dc48214",
+    "version": [
+      2,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "69b526db-8265-4a35-9118-9e7b25aa224e",
+      "version": [
+        2,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.13.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "2.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Sudden-Death-Roulette/behavior_pack/scripts/main.js (276 lines, 8256 bytes)
+
+```
+import { world, system } from "@minecraft/server";
+
+/* ------------------------------ Configuration ------------------------------ */
+const GRACE_SECONDS = 15;
+const NEAR_MISS_BAND = 0.05;      // roll in [fatal, fatal + band) is a "near-miss"
+const WARNING_GAP_SECONDS = 10;   // minimum time between two warning stages
+const FINAL_GAP_SECONDS = 5;      // minimum time between Stage 3 and the fatal strike
+const JUMPSCARE_TICKS = 40;       // length of the jumpscare before the kill
+const RESET_KEY = "sdr:race_over";
+
+const WARNINGS = [
+  "",
+  "§8[!] §cThe Grim is near... his cold breath brushes against your neck.",
+  "§8[!] §4The Grim is near... heavy footsteps echo behind the stone.",
+  "§8[!] §4THE GRIM IS HERE... YOUR TIME HAS SLIPPED AWAY."
+];
+
+// Escalation: per-second chance of a fatal roll by elapsed seconds.
+function fatalChance(seconds) {
+  if (seconds < 60) return 0.0035;
+  if (seconds < 180) return 0.0075;
+  return 0.015;
+}
+
+/* --------------------------------- State ----------------------------------- */
+const states = new Map();
+let raceOver = false;
+try {
+  raceOver = world.getDynamicProperty(RESET_KEY) === true;
+} catch (e) {}
+
+function getState(player) {
+  let s = states.get(player.id);
+  if (!s) {
+    s = { start: system.currentTick, stage: 0, lastWarn: -9999, dying: false, dead: false };
+    states.set(player.id, s);
+  }
+  return s;
+}
+
+function elapsedSeconds(s) {
+  return (system.currentTick - s.start) / 20;
+}
+
+/* --------------------------------- Helpers --------------------------------- */
+function sound(player, id, volume, pitch) {
+  try {
+    player.playSound(id, { volume, pitch });
+  } catch (e) {}
+}
+
+function effect(player, id, amplifier, ticks) {
+  try {
+    player.addEffect(id, ticks, { amplifier, showParticles: false });
+  } catch (e) {}
+}
+
+function burst(dimension, id, loc, count, spread) {
+  for (let i = 0; i < count; i++) {
+    try {
+      dimension.spawnParticle(id, {
+        x: loc.x + (Math.random() - 0.5) * spread,
+        y: loc.y + Math.random() * 2,
+        z: loc.z + (Math.random() - 0.5) * spread
+      });
+    } catch (e) {
+      return;
+    }
+  }
+}
+
+function hasDiamond(player) {
+  const inventory = player.getComponent("minecraft:inventory");
+  if (!inventory || !inventory.container) return false;
+  const container = inventory.container;
+  for (let i = 0; i < container.size; i++) {
+    const item = container.getItem(i);
+    if (item && item.typeId === "minecraft:diamond") return true;
+  }
+  return false;
+}
+
+function clearScreen(player) {
+  for (const id of ["blindness", "slowness"]) {
+    try {
+      player.removeEffect(id);
+    } catch (e) {}
+  }
+  try {
+    player.runCommand("title @s clear");
+  } catch (e) {}
+  try {
+    if (player.camera) player.camera.clear();
+  } catch (e) {}
+}
+
+/* ------------------------------ Warning system ------------------------------ */
+function warn(player, s, now) {
+  s.stage += 1;
+  s.lastWarn = now;
+  player.onScreenDisplay.setTitle(" ", {
+    subtitle: WARNINGS[s.stage],
+    fadeInDuration: 5,
+    stayDuration: 80,
+    fadeOutDuration: 20
+  });
+  if (s.stage === 1) {
+    sound(player, "ambient.cave", 1, 0.8);
+  } else if (s.stage === 2) {
+    sound(player, "note.bass", 1, 0.6);
+    sound(player, "mob.warden.heartbeat", 1, 1);
+  } else {
+    sound(player, "mob.elder_guardian.curse", 1, 1);
+    effect(player, "blindness", 0, 30);
+  }
+}
+
+/* --------------------------- Elimination jumpscare --------------------------- */
+function snapCamera(player) {
+  const rot = player.getRotation();
+  try {
+    if (player.camera && typeof player.camera.setCamera === "function") {
+      const l = player.location;
+      player.camera.setCamera("minecraft:free", {
+        location: { x: l.x, y: l.y + 1.62, z: l.z },
+        rotation: { x: 90, y: rot.y },
+        easeOptions: { easeTime: 0.2 }
+      });
+    }
+  } catch (e) {}
+  try {
+    player.setRotation({ x: 90, y: rot.y });
+  } catch (e) {}
+  try {
+    player.runCommand("camerashake add @s 1 2 rotational");
+  } catch (e) {}
+}
+
+function jumpscare(player, s) {
+  s.dying = true;
+  const dimension = player.dimension;
+  const loc = player.location;
+
+  effect(player, "slowness", 255, JUMPSCARE_TICKS + 20);
+  effect(player, "blindness", 0, 40);
+
+  player.onScreenDisplay.setTitle("§0§k||||||||||||||||||||§r", {
+    subtitle: "§4HE FOUND YOU.",
+    fadeInDuration: 0,
+    stayDuration: 30,
+    fadeOutDuration: 5
+  });
+
+  sound(player, "mob.ghast.scream", 1, 1.8);
+  sound(player, "mob.warden.roar", 1, 1);
+  sound(player, "ambient.weather.thunder", 1, 1);
+
+  snapCamera(player);
+
+  try {
+    dimension.spawnEntity("minecraft:lightning_bolt", loc);
+  } catch (e) {}
+  burst(dimension, "minecraft:soul_particle", loc, 24, 3);
+  burst(dimension, "minecraft:huge_explosion_emitter", loc, 2, 1);
+
+  system.runTimeout(() => {
+    try {
+      try {
+        if (player.camera) player.camera.clear();
+      } catch (e) {}
+      if (raceOver) {
+        s.dying = false;
+        return;
+      }
+      s.dead = true;
+      player.kill();
+      world.sendMessage("§8[ROULETTE] §c" + player.name + " failed to find diamonds before the Grim claimed their soul.");
+    } catch (e) {
+      s.dying = false;
+    }
+  }, JUMPSCARE_TICKS);
+}
+
+/* ---------------------------------- Victory ---------------------------------- */
+function declareVictory(winner) {
+  if (raceOver) return;
+  raceOver = true;
+  try {
+    world.setDynamicProperty(RESET_KEY, true);
+  } catch (e) {}
+  world.sendMessage("§a[SURVIVOR] §f" + winner.name + " found Diamonds and banished the Grim!");
+  for (const player of world.getAllPlayers()) {
+    try {
+      const s = getState(player);
+      s.stage = 0;
+      s.dying = false;
+      clearScreen(player);
+      sound(player, "random.levelup", 1, 1);
+      sound(player, "ui.toast.challenge_complete", 1, 1);
+      player.onScreenDisplay.setActionBar("§a[ GRIM LOTTERY ] §fThe Grim has been banished");
+    } catch (e) {}
+  }
+}
+
+/* --------------------------------- Main loops -------------------------------- */
+function hud(player, s) {
+  const total = Math.floor(elapsedSeconds(s));
+  const minutes = Math.floor(total / 60);
+  const seconds = total % 60;
+  player.onScreenDisplay.setActionBar(
+    "§4[ GRIM LOTTERY ] §fTime: " + minutes + "m " + seconds + "s §8| §cThreat: Stage " + s.stage + "/3 §8| §bObjective: Diamond"
+  );
+}
+
+// Once per second: HUD, then the death lottery.
+system.runInterval(() => {
+  if (raceOver) return;
+  const now = system.currentTick;
+  for (const player of world.getAllPlayers()) {
+    try {
+      const s = getState(player);
+      if (s.dead || s.dying) continue;
+      hud(player, s);
+
+      const seconds = elapsedSeconds(s);
+      if (seconds < GRACE_SECONDS) continue;
+
+      const fatal = fatalChance(seconds);
+      const roll = Math.random();
+      const sinceWarn = (now - s.lastWarn) / 20;
+
+      if (s.stage >= 3) {
+        if (roll < fatal && sinceWarn >= FINAL_GAP_SECONDS) jumpscare(player, s);
+      } else if (roll < fatal + NEAR_MISS_BAND && sinceWarn >= WARNING_GAP_SECONDS) {
+        // A fatal roll before Stage 3 becomes a near-miss, so every run gets all three warnings.
+        warn(player, s, now);
+      }
+    } catch (e) {}
+  }
+}, 20);
+
+// Diamond scan runs more often than the roll so a pickup ends the race almost at once.
+system.runInterval(() => {
+  if (raceOver) return;
+  for (const player of world.getAllPlayers()) {
+    try {
+      const s = getState(player);
+      if (s.dead || s.dying) continue;
+      if (hasDiamond(player)) {
+        declareVictory(player);
+        return;
+      }
+    } catch (e) {}
+  }
+}, 5);
+
+world.afterEvents.playerLeave.subscribe((event) => {
+  states.delete(event.playerId);
+});
+
+// Optional: /scriptevent sdr:reset restarts the challenge for everyone.
+try {
+  if (system.afterEvents && system.afterEvents.scriptEventReceive) {
+    system.afterEvents.scriptEventReceive.subscribe((event) => {
+      if (event.id !== "sdr:reset") return;
+      raceOver = false;
+      try {
+        world.setDynamicProperty(RESET_KEY, false);
+      } catch (e) {}
+      states.clear();
+      for (const player of world.getAllPlayers()) clearScreen(player);
+      world.sendMessage("§8[ROULETTE] §7The Grim stirs again. The race restarts.");
+    });
+  }
+} catch (e) {}
+```
+
+## FILE: MCPEDL/Addons/Sudden-Death-Roulette/CHANGELOG.md (10 lines, 170 bytes)
+
+```
+# Changelog — Sudden Death Roulette
+
+---
+
+## [v2] - 2026-10-29
+
+### Improved & Balanced
+
+- **Changelog started**: Version history is recorded from this release onward.
+```
+
+## FILE: MCPEDL/Addons/Sudden-Death-Roulette/DESCRIPTION.md (95 lines, 4525 bytes)
+
+```
+# Sudden Death Roulette — The Diamond Race
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**ESCALATING SURVIVAL CHALLENGE & PERILOUS DIAMOND HUNT**
+
+Race against an escalating, invisible death clock: find a diamond before the Grim Reaper claims your soul. Features escalating roll odds, near-miss heartbeats, three tiered audio-visual warnings, and a cinematic elimination jumpscare.
+
+---
+
+## Overview
+
+**Sudden Death Roulette: The Diamond Race** transforms ordinary Minecraft survival into a high-stakes survival challenge. Engineered on the modern Minecraft Bedrock mechanics, the danger escalates until you find a Diamond.
+
+After an initial 15-second grace period upon spawning, the roulette begins after the grace period. Surviving rolls isn't guaranteed—only by mining or acquiring a genuine diamond can a player lift the curse and secure permanent salvation.
+
+---
+
+## Escalating Danger Stages
+
+### Starting Grace Period
+- **Trigger & Frequency**: First 15 seconds after joining
+- **Audio-Visual Warning**: Peaceful ambient chimes, initial rules toast
+- **Threat Level**: Safe
+
+### Stage 1: The Whispers
+- **Trigger & Frequency**: Early roll failure
+- **Audio-Visual Warning**: Faint warden heartbeat, unsettling subterranean whisper sounds
+- **Threat Level**: Low
+
+### Stage 2: The Shivers
+- **Trigger & Frequency**: Moderate roll failure
+- **Audio-Visual Warning**: Sudden screen darkening, shivering sound, cold dread title
+- **Threat Level**: High
+
+### Stage 3: The Toll
+- **Trigger & Frequency**: Critical roll failure
+- **Audio-Visual Warning**: Resonant bell toll, screeching ghast echo, final warning broadcast
+- **Threat Level**: Imminent Death
+
+### Elimination
+- **Trigger & Frequency**: Lethal roulette strike
+- **Audio-Visual Warning**: brief cinematic blindness jumpscare, thunder roar, instant lethal damage
+- **Threat Level**: Game Over
+
+---
+
+## Victory Condition & Mechanics
+
+- **The Diamond Salvation**:
+  - Finding, mining, or picking up a vanilla Diamond (Diamond) immediately halts the death roulette.
+  - Plays a triumphant victory fanfare, broadcasts a server-wide survival announcement, and permanently clears the reaper's curse for that player.
+- **Near-Miss Feedback**:
+  - If a player narrowly survives a fatal roll within the 5% margin, an audible racing heartbeat and rapid particle burst warns them of their close brush with death.
+- **Multiplayer Compatible**:
+  - Each player tracks their own individual roulette timer, warning tiers, and salvation status independently.
+
+---
+
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.21.0 or newer.
+- Experimental features: Not verified.
+- Achievements: Likely achievement-friendly.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Sudden Death Roulette Minecraft Bedrock, Grace Period Bedrock, Stage 1: The Whispers Bedrock, Stage 2: The Shivers Bedrock, Stage 3: The Toll Bedrock, Minecraft PE survival, MCPEDL, CurseForge Bedrock, ALNStudios, Minecraft Bedrock add-on, MCPEDL add-on.
+```
+
+## FILE: MCPEDL/Addons/Sudden-Death-Roulette/README.md (19 lines, 825 bytes)
+
+```
+# Sudden Death Roulette
+
+Download the current release of **Sudden Death Roulette** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download Sudden Death Roulette (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Sudden-Death-Roulette/SuddenDeath%20V2.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/Sudden-Death-Roulette/DESCRIPTION.md).
+```

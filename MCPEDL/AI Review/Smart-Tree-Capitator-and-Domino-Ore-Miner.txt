@@ -1,0 +1,973 @@
+<!-- GRAPH-CONTEXT:START -->
+## Graph Context
+
+- **Project:** `Smart-Tree-Capitator-and-Domino-Ore-Miner` | Category: `Addons` | Version: `v2`
+- **Pack Types:** behavior_pack
+- **Siblings in Addons:** `2-in-1-Loot--XP-Booster (v2)` (v2), `ALN-MoreDiscs (v2)` (v2), `ALN-Pointer (v2)` (v2), `ALN-Quiver (v2)` (v2), `ALN-Wireless-Headphones (v2)` (v2), `Category: Addons`, `Cheat-Stick (v4)` (v4), `Copper-Carrier-Logistics (v2)` (v2) …
+
+> _Auto-generated from graphify-out/graph.json — do not edit manually._
+<!-- GRAPH-CONTEXT:END -->
+
+---
+
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Addons/Smart-Tree-Capitator-and-Domino-Ore-Miner`
+- **Destination:** `MCPEDL/Addons/Smart-Tree-Capitator-and-Domino-Ore-Miner`
+- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/Smart-Tree-Capitator-and-Domino-Ore-Miner/CHANGELOG.md`)
+- **Text files:** 5
+- **Skipped binary:** 2
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Addons/Smart-Tree-Capitator-and-Domino-Ore-Miner/behavior_pack/manifest.json`
+- `MCPEDL/Addons/Smart-Tree-Capitator-and-Domino-Ore-Miner/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/Smart-Tree-Capitator-and-Domino-Ore-Miner/CHANGELOG.md`
+- `MCPEDL/Addons/Smart-Tree-Capitator-and-Domino-Ore-Miner/DESCRIPTION.md`
+- `MCPEDL/Addons/Smart-Tree-Capitator-and-Domino-Ore-Miner/README.md`
+
+### Skipped (binary)
+
+- `MCPEDL/Addons/Smart-Tree-Capitator-and-Domino-Ore-Miner/behavior_pack/pack_icon.png`
+- `MCPEDL/Addons/Smart-Tree-Capitator-and-Domino-Ore-Miner/pack_icon.png`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Addons/Smart-Tree-Capitator-and-Domino-Ore-Miner
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`.
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Addons/Smart-Tree-Capitator-and-Domino-Ore-Miner/behavior_pack/manifest.json (46 lines, 929 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Smart Tree Capitator and Domino Ore Miner (v2)",
+    "description": "Sneak-activated tree capitator and domino ore miner with durability safety protection. by ALNStudios",
+    "uuid": "4d9c7a18-036d-4e1f-a4b4-d702b16c3387",
+    "version": [
+      2,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "description": "Smart Tree Capitator and Domino Ore Miner Script Module",
+      "type": "script",
+      "language": "javascript",
+      "uuid": "1f132867-c993-4052-97bf-75501c8073dd",
+      "version": [
+        2,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.13.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "2.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Smart-Tree-Capitator-and-Domino-Ore-Miner/behavior_pack/scripts/main.js (576 lines, 20133 bytes)
+
+```
+/**
+ * Smart Tree Capitator & Domino Ore Miner
+ * Created by ALNStudios — MCPE Curseforges
+ *
+ * Single-file self-contained Script API implementation.
+ * Target: Minecraft Bedrock 1.21+ / Script API @minecraft/server 1.13.0+
+ */
+
+import { world, system, EquipmentSlot, ItemStack } from "@minecraft/server";
+
+// ─── Configuration ────────────────────────────────────────────────────────────
+
+const CONFIG = {
+  TREE_CAPITATOR_ENABLED: true,
+  DOMINO_ORE_MINER_ENABLED: true,
+  MAX_TREE_BLOCKS: 128,
+  MAX_TREE_HEIGHT: 320,
+  TREE_HORIZONTAL_RANGE: 1,
+  TREE_DOWNWARD_RANGE: 0,
+  MATCH_TREE_SPECIES: true,
+  MAX_ORE_CLUSTER_SIZE: 64,
+  INSTANT_BURST: true,
+  BLOCKS_PER_TICK: 6,
+  DURABILITY_SAFETY_THRESHOLD: 5,
+  ALERT_SOUND: "note.bass",
+  ALERT_PITCH: 0.7,
+  ALERT_VOLUME: 1.0,
+  NETHER_GOLD_POLICY: "nether_gold",
+};
+
+// ─── Tool & Block Identifiers ─────────────────────────────────────────────────
+
+const AXE_IDENTIFIERS = new Set([
+  "minecraft:wooden_axe",
+  "minecraft:stone_axe",
+  "minecraft:iron_axe",
+  "minecraft:golden_axe",
+  "minecraft:diamond_axe",
+  "minecraft:netherite_axe",
+]);
+
+const PICKAXE_TIERS = {
+  "minecraft:wooden_axe": 1,
+  "minecraft:golden_axe": 1,
+  "minecraft:wooden_pickaxe": 1,
+  "minecraft:golden_pickaxe": 1,
+  "minecraft:stone_pickaxe": 2,
+  "minecraft:iron_pickaxe": 3,
+  "minecraft:diamond_pickaxe": 4,
+  "minecraft:netherite_pickaxe": 5,
+};
+
+function isAxe(typeId) {
+  if (!typeId) return false;
+  return AXE_IDENTIFIERS.has(typeId) || typeId.endsWith("_axe");
+}
+
+function isPickaxe(typeId) {
+  if (!typeId) return false;
+  return Boolean(PICKAXE_TIERS[typeId]) || typeId.endsWith("_pickaxe");
+}
+
+function getPickaxeTier(typeId) {
+  return PICKAXE_TIERS[typeId] || (typeId?.endsWith("_pickaxe") ? 3 : 0);
+}
+
+const ELIGIBLE_LOGS = new Set([
+  // Oak
+  "minecraft:oak_log", "minecraft:stripped_oak_log", "minecraft:oak_wood", "minecraft:stripped_oak_wood",
+  // Spruce
+  "minecraft:spruce_log", "minecraft:stripped_spruce_log", "minecraft:spruce_wood", "minecraft:stripped_spruce_wood",
+  // Birch
+  "minecraft:birch_log", "minecraft:stripped_birch_log", "minecraft:birch_wood", "minecraft:stripped_birch_wood",
+  // Jungle
+  "minecraft:jungle_log", "minecraft:stripped_jungle_log", "minecraft:jungle_wood", "minecraft:stripped_jungle_wood",
+  // Acacia
+  "minecraft:acacia_log", "minecraft:stripped_acacia_log", "minecraft:acacia_wood", "minecraft:stripped_acacia_wood",
+  // Dark Oak
+  "minecraft:dark_oak_log", "minecraft:stripped_dark_oak_log", "minecraft:dark_oak_wood", "minecraft:stripped_dark_oak_wood",
+  // Mangrove
+  "minecraft:mangrove_log", "minecraft:stripped_mangrove_log", "minecraft:mangrove_wood", "minecraft:stripped_mangrove_wood",
+  "minecraft:mangrove_roots", "minecraft:muddy_mangrove_roots",
+  // Cherry
+  "minecraft:cherry_log", "minecraft:stripped_cherry_log", "minecraft:cherry_wood", "minecraft:stripped_cherry_wood",
+  // Pale Oak
+  "minecraft:pale_oak_log", "minecraft:stripped_pale_oak_log", "minecraft:pale_oak_wood", "minecraft:stripped_pale_oak_wood",
+  // Nether Fungi
+  "minecraft:crimson_stem", "minecraft:stripped_crimson_stem", "minecraft:crimson_hyphae", "minecraft:stripped_crimson_hyphae",
+  "minecraft:warped_stem", "minecraft:stripped_warped_stem", "minecraft:warped_hyphae", "minecraft:stripped_warped_hyphae",
+]);
+
+function isEligibleLog(blockId) {
+  if (!blockId) return false;
+  if (ELIGIBLE_LOGS.has(blockId)) return true;
+  return /(log|wood|stem|hyphae|mangrove_roots)$/i.test(blockId);
+}
+
+function getWoodSpecies(typeId) {
+  if (!typeId) return null;
+  const match = typeId.match(/(dark_oak|pale_oak|oak|spruce|birch|jungle|acacia|mangrove|cherry|crimson|warped)/i);
+  return match ? match[1].toLowerCase() : null;
+}
+
+function isMatchingLog(blockId, targetSpecies) {
+  if (!isEligibleLog(blockId)) return false;
+  if (!CONFIG.MATCH_TREE_SPECIES || !targetSpecies) return true;
+  const species = getWoodSpecies(blockId);
+  return !species || species === targetSpecies;
+}
+
+const ORE_DEFINITIONS = {
+  // Coal (Tier 1: Wood+)
+  "minecraft:coal_ore": { category: "coal", minTier: 1, dropItem: "minecraft:coal" },
+  "minecraft:deepslate_coal_ore": { category: "coal", minTier: 1, dropItem: "minecraft:coal" },
+
+  // Iron (Tier 2: Stone+)
+  "minecraft:iron_ore": { category: "iron", minTier: 2, dropItem: "minecraft:raw_iron" },
+  "minecraft:deepslate_iron_ore": { category: "iron", minTier: 2, dropItem: "minecraft:raw_iron" },
+
+  // Copper (Tier 2: Stone+)
+  "minecraft:copper_ore": { category: "copper", minTier: 2, dropItem: "minecraft:raw_copper", minDrop: 2, maxDrop: 5 },
+  "minecraft:deepslate_copper_ore": { category: "copper", minTier: 2, dropItem: "minecraft:raw_copper", minDrop: 2, maxDrop: 5 },
+
+  // Lapis Lazuli (Tier 2: Stone+)
+  "minecraft:lapis_ore": { category: "lapis", minTier: 2, dropItem: "minecraft:lapis_lazuli", minDrop: 4, maxDrop: 9 },
+  "minecraft:deepslate_lapis_ore": { category: "lapis", minTier: 2, dropItem: "minecraft:lapis_lazuli", minDrop: 4, maxDrop: 9 },
+
+  // Gold (Tier 3: Iron+)
+  "minecraft:gold_ore": { category: "gold", minTier: 3, dropItem: "minecraft:raw_gold" },
+  "minecraft:deepslate_gold_ore": { category: "gold", minTier: 3, dropItem: "minecraft:raw_gold" },
+
+  // Nether Gold (Tier 1: Wood+)
+  "minecraft:nether_gold_ore": {
+    category: CONFIG.NETHER_GOLD_POLICY,
+    minTier: 1,
+    dropItem: "minecraft:gold_nugget",
+    minDrop: 2,
+    maxDrop: 6,
+  },
+
+  // Redstone (Tier 3: Iron+)
+  "minecraft:redstone_ore": { category: "redstone", minTier: 3, dropItem: "minecraft:redstone", minDrop: 4, maxDrop: 5 },
+  "minecraft:deepslate_redstone_ore": { category: "redstone", minTier: 3, dropItem: "minecraft:redstone", minDrop: 4, maxDrop: 5 },
+  "minecraft:lit_redstone_ore": { category: "redstone", minTier: 3, dropItem: "minecraft:redstone", minDrop: 4, maxDrop: 5 },
+  "minecraft:lit_deepslate_redstone_ore": { category: "redstone", minTier: 3, dropItem: "minecraft:redstone", minDrop: 4, maxDrop: 5 },
+
+  // Diamond (Tier 3: Iron+)
+  "minecraft:diamond_ore": { category: "diamond", minTier: 3, dropItem: "minecraft:diamond" },
+  "minecraft:deepslate_diamond_ore": { category: "diamond", minTier: 3, dropItem: "minecraft:diamond" },
+
+  // Emerald (Tier 3: Iron+)
+  "minecraft:emerald_ore": { category: "emerald", minTier: 3, dropItem: "minecraft:emerald" },
+  "minecraft:deepslate_emerald_ore": { category: "emerald", minTier: 3, dropItem: "minecraft:emerald" },
+
+  // Nether Quartz (Tier 1: Wood+)
+  "minecraft:quartz_ore": { category: "quartz", minTier: 1, dropItem: "minecraft:quartz" },
+  "minecraft:nether_quartz_ore": { category: "quartz", minTier: 1, dropItem: "minecraft:quartz" },
+
+  // Ancient Debris (Tier 4: Diamond+)
+  "minecraft:ancient_debris": { category: "ancient_debris", minTier: 4, dropItem: "minecraft:ancient_debris" },
+};
+
+function getOreInfo(blockId) {
+  if (!blockId) return null;
+  return ORE_DEFINITIONS[blockId] || null;
+}
+
+const NEIGHBOR_OFFSETS_26 = [];
+for (let dx = -1; dx <= 1; dx++) {
+  for (let dy = -1; dy <= 1; dy++) {
+    for (let dz = -1; dz <= 1; dz++) {
+      if (dx === 0 && dy === 0 && dz === 0) continue;
+      NEIGHBOR_OFFSETS_26.push({ x: dx, y: dy, z: dz });
+    }
+  }
+}
+
+// ─── Durability & Tool Protection Helpers ─────────────────────────────────────
+
+function getMainhandTool(player) {
+  if (!player || !player.isValid()) return undefined;
+  const equippable = player.getComponent("minecraft:equippable");
+  if (!equippable) return undefined;
+  return equippable.getEquipment(EquipmentSlot.Mainhand);
+}
+
+function checkToolSafety(player) {
+  if (!player || !player.isValid()) {
+    return { safe: false, remaining: 0 };
+  }
+
+  const tool = getMainhandTool(player);
+  if (!tool) {
+    return { safe: false, remaining: 0 };
+  }
+
+  const durabilityComp = tool.getComponent("minecraft:durability");
+  if (!durabilityComp) {
+    return { safe: true, tool, remaining: 9999 };
+  }
+
+  const remaining = durabilityComp.maxDurability - durabilityComp.damage;
+  if (remaining <= CONFIG.DURABILITY_SAFETY_THRESHOLD) {
+    return { safe: false, tool, remaining };
+  }
+
+  return { safe: true, tool, remaining };
+}
+
+function applyToolDurabilityDamage(player) {
+  if (!player || !player.isValid()) return false;
+
+  const equippable = player.getComponent("minecraft:equippable");
+  if (!equippable) return false;
+
+  const tool = equippable.getEquipment(EquipmentSlot.Mainhand);
+  if (!tool) return false;
+
+  const durabilityComp = tool.getComponent("minecraft:durability");
+  if (!durabilityComp) return true;
+
+  let unbreakingLevel = 0;
+  try {
+    const enchantable = tool.getComponent("minecraft:enchantable");
+    if (enchantable) {
+      const unbreaking = enchantable.getEnchantment("unbreaking");
+      if (unbreaking && typeof unbreaking.level === "number") {
+        unbreakingLevel = unbreaking.level;
+      }
+    }
+  } catch (err) {}
+
+  const shouldTakeDamage = unbreakingLevel > 0
+    ? (Math.random() < 1.0 / (unbreakingLevel + 1))
+    : true;
+
+  if (shouldTakeDamage) {
+    durabilityComp.damage += 1;
+
+    if (durabilityComp.damage >= durabilityComp.maxDurability) {
+      equippable.setEquipment(EquipmentSlot.Mainhand, undefined);
+      try {
+        player.playSound("random.break", { volume: 1.0, pitch: 0.9 });
+      } catch (e) {}
+      return false;
+    }
+
+    equippable.setEquipment(EquipmentSlot.Mainhand, tool);
+  }
+
+  return true;
+}
+
+function notifyToolProtection(player, remainingDurability) {
+  if (!player || !player.isValid()) return;
+
+  try {
+    player.playSound(CONFIG.ALERT_SOUND, {
+      volume: CONFIG.ALERT_VOLUME,
+      pitch: CONFIG.ALERT_PITCH,
+    });
+  } catch (e) {}
+
+  try {
+    player.onScreenDisplay.setActionBar(
+      `§e[Tool Protection] §cStopped mining to save tool! §6(${remainingDurability} durability left)`
+    );
+  } catch (e) {}
+}
+
+function calculateFortuneDropCount(fortuneLevel, minBase = 1, maxBase = 1) {
+  const baseCount = minBase === maxBase
+    ? minBase
+    : Math.floor(Math.random() * (maxBase - minBase + 1)) + minBase;
+
+  if (fortuneLevel <= 0) return baseCount;
+  const multiplier = Math.max(1, Math.floor(Math.random() * (fortuneLevel + 2)));
+  return Math.min(baseCount * multiplier, 64);
+}
+
+function isTreeCanopy(dimension, blocks) {
+  if (!blocks || blocks.length === 0) return false;
+  const candidates = [...blocks].sort((a, b) => b.y - a.y).slice(0, 8);
+  for (const pos of candidates) {
+    for (let dx = -2; dx <= 2; dx++) {
+      for (let dz = -2; dz <= 2; dz++) {
+        for (let dy = -1; dy <= 2; dy++) {
+          try {
+            const b = dimension.getBlock({ x: pos.x + dx, y: pos.y + dy, z: pos.z + dz });
+            if (!b) continue;
+
+            // Nether tree canopies (wart blocks and shroomlights)
+            if (b.typeId.includes("wart_block") || b.typeId.includes("shroomlight")) {
+              return true;
+            }
+
+            // Overworld leaves: ignore player-placed leaves (persistent_bit: true)
+            if (b.typeId.includes("leaves")) {
+              const permutation = b.permutation;
+              const isPersistent = permutation?.getState("persistent_bit");
+              // If persistent_bit is true, the leaves were placed by a player (decorative)
+              if (isPersistent === true) {
+                continue;
+              }
+              // Natural tree leaf detected
+              return true;
+            }
+          } catch (e) {}
+        }
+      }
+    }
+  }
+  return false;
+}
+
+// ─── Tree Capitator Execution ─────────────────────────────────────────────────
+
+function executeTreeCapitator(player, dimension, startLoc, startBlockId, onComplete) {
+  if (typeof startBlockId === "function") {
+    onComplete = startBlockId;
+    startBlockId = null;
+  }
+  if (!CONFIG.TREE_CAPITATOR_ENABLED) {
+    if (onComplete) onComplete();
+    return;
+  }
+
+  const targetSpecies = startBlockId ? getWoodSpecies(startBlockId) : null;
+  const visited = new Set();
+  visited.add(`${startLoc.x},${startLoc.y},${startLoc.z}`);
+
+  const blocksToBreak = [];
+  const queue = [{ x: startLoc.x, y: startLoc.y, z: startLoc.z }];
+
+  // 26-neighbor 3D flood fill (detecting all surrounding connected blocks dx, dy, dz in [-1, 0, 1])
+  // Upward-biased (dy >= 0) to fell entire trunk and branching canopy without digging below broken stump
+  while (queue.length > 0 && blocksToBreak.length < CONFIG.MAX_TREE_BLOCKS) {
+    const cur = queue.shift();
+
+    for (let dy = 0; dy <= 1; dy++) {
+      for (let dx = -1; dx <= 1; dx++) {
+        for (let dz = -1; dz <= 1; dz++) {
+          if (dx === 0 && dy === 0 && dz === 0) continue;
+
+          const nx = cur.x + dx;
+          const ny = cur.y + dy;
+          const nz = cur.z + dz;
+
+          if (ny < startLoc.y) continue;
+          if (ny > startLoc.y + CONFIG.MAX_TREE_HEIGHT) continue;
+
+          const key = `${nx},${ny},${nz}`;
+          if (visited.has(key)) continue;
+          visited.add(key);
+
+          try {
+            const block = dimension.getBlock({ x: nx, y: ny, z: nz });
+            if (block && isMatchingLog(block.typeId, targetSpecies)) {
+              const logPos = { x: nx, y: ny, z: nz };
+              blocksToBreak.push(logPos);
+              queue.push(logPos);
+              if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
+            }
+          } catch (e) {}
+        }
+        if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
+      }
+      if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
+    }
+  }
+
+  if (blocksToBreak.length === 0) {
+    if (onComplete) onComplete();
+    return;
+  }
+
+  // House & build protection: require natural tree canopy (leaves with persistent_bit: false or nether canopy)
+  if (!isTreeCanopy(dimension, blocksToBreak)) {
+    if (onComplete) onComplete();
+    return;
+  }
+
+  // Break felled logs
+  for (const pos of blocksToBreak) {
+    if (!player || !player.isValid()) break;
+
+    const safety = checkToolSafety(player);
+    if (!safety.safe) {
+      notifyToolProtection(player, safety.remaining);
+      break;
+    }
+
+    try {
+      dimension.runCommand(`setblock ${pos.x} ${pos.y} ${pos.z} air destroy`);
+      applyToolDurabilityDamage(player);
+    } catch (err) {}
+  }
+
+  if (onComplete) onComplete();
+}
+
+// ─── Domino Ore Miner Execution ───────────────────────────────────────────────
+
+function executeDominoOreMiner(player, dimension, startLoc, startBlockId, onComplete) {
+  if (!CONFIG.DOMINO_ORE_MINER_ENABLED) {
+    if (onComplete) onComplete();
+    return;
+  }
+
+  const startOreInfo = getOreInfo(startBlockId);
+  if (!startOreInfo) {
+    if (onComplete) onComplete();
+    return;
+  }
+
+  const initialTool = getMainhandTool(player);
+  const toolTier = getPickaxeTier(initialTool?.typeId);
+  if (toolTier < startOreInfo.minTier) {
+    if (onComplete) onComplete();
+    return;
+  }
+
+  const queue = [{ x: startLoc.x, y: startLoc.y, z: startLoc.z }];
+  const visited = new Set();
+  visited.add(`${startLoc.x},${startLoc.y},${startLoc.z}`);
+
+  const cluster = [];
+
+  while (queue.length > 0 && cluster.length < CONFIG.MAX_ORE_CLUSTER_SIZE) {
+    const current = queue.shift();
+
+    for (const offset of NEIGHBOR_OFFSETS_26) {
+      const nx = current.x + offset.x;
+      const ny = current.y + offset.y;
+      const nz = current.z + offset.z;
+      const key = `${nx},${ny},${nz}`;
+
+      if (visited.has(key)) continue;
+      visited.add(key);
+
+      if (ny < -64 || ny > 320) continue;
+
+      try {
+        const neighborBlock = dimension.getBlock({ x: nx, y: ny, z: nz });
+        if (!neighborBlock) continue;
+
+        const neighborOreInfo = getOreInfo(neighborBlock.typeId);
+        if (neighborOreInfo && neighborOreInfo.category === startOreInfo.category) {
+          cluster.push({
+            x: nx,
+            y: ny,
+            z: nz,
+            blockId: neighborBlock.typeId,
+            oreInfo: neighborOreInfo,
+          });
+          queue.push({ x: nx, y: ny, z: nz });
+
+          if (cluster.length >= CONFIG.MAX_ORE_CLUSTER_SIZE) break;
+        }
+      } catch (err) {}
+    }
+  }
+
+  if (cluster.length === 0) {
+    if (onComplete) onComplete();
+    return;
+  }
+
+  for (const target of cluster) {
+    if (!player || !player.isValid()) break;
+
+    const safety = checkToolSafety(player);
+    if (!safety.safe) {
+      notifyToolProtection(player, safety.remaining);
+      break;
+    }
+
+    const currentTool = safety.tool;
+    const currentTier = getPickaxeTier(currentTool?.typeId);
+    if (currentTier < target.oreInfo.minTier) break;
+
+    let silkTouch = false;
+    let fortuneLevel = 0;
+
+    try {
+      const enchantable = currentTool.getComponent("minecraft:enchantable");
+      if (enchantable) {
+        silkTouch = Boolean(enchantable.getEnchantment("silk_touch"));
+        const fortune = enchantable.getEnchantment("fortune");
+        if (fortune && typeof fortune.level === "number") {
+          fortuneLevel = fortune.level;
+        }
+      }
+    } catch (e) {}
+
+    try {
+      const centerPos = { x: target.x + 0.5, y: target.y + 0.5, z: target.z + 0.5 };
+
+      if (silkTouch) {
+        dimension.spawnItem(new ItemStack(target.blockId, 1), centerPos);
+        dimension.getBlock({ x: target.x, y: target.y, z: target.z })?.setType("minecraft:air");
+        try {
+          dimension.playSound("dig.stone", centerPos, { volume: 0.8, pitch: 1.0 });
+        } catch (pe) {}
+      } else if (fortuneLevel > 0 && target.oreInfo.dropItem && target.oreInfo.dropItem !== target.blockId) {
+        const minDrop = target.oreInfo.minDrop || 1;
+        const maxDrop = target.oreInfo.maxDrop || 1;
+        const count = calculateFortuneDropCount(fortuneLevel, minDrop, maxDrop);
+
+        dimension.spawnItem(new ItemStack(target.oreInfo.dropItem, count), centerPos);
+        dimension.getBlock({ x: target.x, y: target.y, z: target.z })?.setType("minecraft:air");
+        try {
+          dimension.playSound("dig.stone", centerPos, { volume: 0.8, pitch: 1.0 });
+        } catch (pe) {}
+      } else {
+        dimension.runCommand(`setblock ${target.x} ${target.y} ${target.z} air destroy`);
+      }
+
+      applyToolDurabilityDamage(player);
+    } catch (err) {}
+  }
+
+  if (onComplete) onComplete();
+}
+
+// ─── Event Dispatcher ─────────────────────────────────────────────────────────
+
+const activeOperations = new Set();
+
+world.afterEvents.playerBreakBlock.subscribe((event) => {
+  const { block, brokenBlockPermutation, player, dimension, itemStackBeforeBreak } = event;
+
+  if (!player || !player.isValid()) return;
+  if (!player.isSneaking) return;
+  if (activeOperations.has(player.id)) return;
+
+  const startLoc = {
+    x: Math.floor(block.location.x),
+    y: Math.floor(block.location.y),
+    z: Math.floor(block.location.z),
+  };
+  const brokenTypeId = brokenBlockPermutation?.type?.id;
+  if (!brokenTypeId) return;
+
+  const tool = getMainhandTool(player) || itemStackBeforeBreak;
+  if (!tool) return;
+
+  const toolTypeId = tool.typeId;
+
+  // Tree Capitator
+  if (isAxe(toolTypeId) && isEligibleLog(brokenTypeId)) {
+    activeOperations.add(player.id);
+    try {
+      executeTreeCapitator(player, dimension, startLoc, brokenTypeId, () => {
+        activeOperations.delete(player.id);
+      });
+    } catch (err) {
+      activeOperations.delete(player.id);
+    }
+    return;
+  }
+
+  // Domino Ore Miner
+  if (isPickaxe(toolTypeId) && getOreInfo(brokenTypeId)) {
+    activeOperations.add(player.id);
+    try {
+      executeDominoOreMiner(player, dimension, startLoc, brokenTypeId, () => {
+        activeOperations.delete(player.id);
+      });
+    } catch (err) {
+      activeOperations.delete(player.id);
+    }
+    return;
+  }
+});
+```
+
+## FILE: MCPEDL/Addons/Smart-Tree-Capitator-and-Domino-Ore-Miner/CHANGELOG.md (34 lines, 1835 bytes)
+
+```
+# Changelog — Smart Tree Capitator and Domino Ore Miner
+
+---
+
+## [v2] - 2026-10-29
+
+### Improved & Balanced
+
+- **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.
+
+## [1.0.6] — 2026-10-16
+
+### Added & Improved
+- **The Leaf Scan (Player-Placed Leaves Ignored)**: Overworld tree canopy detection now evaluates natural leaf growth. Decorative leaves placed by players (sheared leaves) are recognized as custom decorations and completely ignored, protecting custom hedges, bushes, and decorative roof foliage from falsely triggering tree felling. Only naturally grown leaves and Nether canopies validate the tree canopy.
+- **Mobile-Friendly Documentation**: Upgraded documentation to mobile card format for responsive viewing and integrated search keywords for discoverability.
+
+---
+
+## [1.0.5] — 2026-10-15
+
+  — Upgraded tree log detection to a unified upward-biased connected-log search (adjacent blocks in all horizontal and upward directions with horizontal and upward connections).
+  — Seamlessly fells contiguous straight trunks, complex diagonal branches (Acacia, Cherry, Large Oak), and sprawling mega trees immediately.
+  — Maintains strict wood species matching (matching tree logs) so adjacent trees of different species are untouched.
+  — Preserves **House Protection** (protected leaf canopies), requiring leaf, wart block, or shroomlight canopy presence to prevent accidental felling of wooden builds and log cabins.
+
+---
+
+## [1.0.4] — 2026-10-15
+
+  — Sneak-activated Tree Capitator with 128-block maximum tree capacity.
+  — connected ore mining with stone/deepslate category normalization up to 64 blocks.
+  — Durability Safety Guard stopping chain mining when tool reaches 5 durability.
+  — Built-in Unbreaking enchantment calculations and Silk Touch / Fortune support.
+```
+
+## FILE: MCPEDL/Addons/Smart-Tree-Capitator-and-Domino-Ore-Miner/DESCRIPTION.md (201 lines, 7395 bytes)
+
+```
+# Smart Tree Capitator and Domino Ore Miner — Vein and Tree Miner
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**SNEAK-ACTIVATED VEIN MINING & BUILT-IN TOOL PROTECTION**
+
+Fell entire trees and mine contiguous ore veins in a single sneak-break, protected by automated durability safety stops.
+
+---
+
+## Overview
+
+Mining large underground ore clusters and chopping tall trees one block at a time can take time. **Smart Tree Capitator & Domino Ore Miner** adds sneak-activated chain mining to Minecraft Bedrock Edition . Sneak while breaking a log or ore to fell the entire tree or harvest the connected ore vein in one action.
+
+## Key Features
+
+### Sneak-Activated Mining
+
+### Connected Tree Felling
+
+### Connected Ore Mining
+
+### Mineral Category Normalization
+
+### Durability Safety Guard
+
+### Unbreaking Respect
+
+### Fortune & Silk Touch Support
+
+### Zero Hunger Penalties
+
+## How It Works
+
+### Standard Mining
+- **Requirement**: Standing or walking
+- **What Happens**: Breaks single block with standard vanilla drops.
+
+### Tree Capitation
+- **Requirement**: Sneak with an Axe
+- **What Happens**: Fells connected trunk logs and branches upward up to 128 blocks during the same mining action.
+
+### Domino Ore Mining
+- **Requirement**: Sneak with a Pickaxe
+- **What Happens**: Sweeps contiguous ore veins across 26 spatial neighbors up to 64 blocks.
+
+### Durability Protection
+- **Requirement**: Tool has 5 durability points remaining
+- **What Happens**: Halts chain break immediately, preserves tool, and plays alert sound.
+
+### Tool Switch Safety
+- **Requirement**: Switch or unequip tool
+- **What Happens**: Terminates chain process instantly before processing the next block.
+
+---
+
+## How Tree Felling Works
+
+When you break an eligible log while sneaking with an axe, the add-on scans through the tree:
+
+1. **Connected Branches**: Follows connected logs and branches, including diagonal connections.
+2. **Matching Wood Types**: Only the same wood type is felled, helping protect nearby trees.
+3. **The Leaf Scan (Player-Placed Leaves Ignored)**: Ignores player-placed leaves (sheared decorative leaves), ensuring custom hedges, bushes, and decorative roof foliage are never falsely detected as natural tree canopies.
+4. **Build Protection**: Uses nearby natural canopy clues to reduce accidental damage to wooden builds.
+5. **Safety Limits**: Capped at 128 logs per tree and bounded by the world height range to prevent runaway chain reactions.
+
+### Supported Trees
+- **Overworld**: Oak, Spruce, Birch, Jungle, Acacia, Dark Oak, Mangrove (including roots), Cherry, and Pale Oak.
+- **Nether**: Crimson Stem, Warped Stem, Crimson Hyphae, Warped Hyphae.
+- **Wood Variants**: All stripped logs and all 6-sided bark wood blocks.
+- **Canopy Leaves**: Left intact for natural leaf decay so saplings, sticks, and apples drop normally over time.
+
+---
+
+## How Ore Mining Works
+
+Domino Ore Miner follows connected matching ores, including diagonal connections, up to the 64-block cluster limit. Regular and deepslate versions of the same ore can be mined together:
+
+### Coal
+- **Minimum Pickaxe**: Wooden+
+- **Drops**: Coal
+
+### Iron
+- **Minimum Pickaxe**: Stone+
+- **Drops**: Raw Iron
+
+### Copper
+- **Minimum Pickaxe**: Stone+
+- **Drops**: Raw Copper (2–5)
+
+### Gold
+- **Minimum Pickaxe**: Iron+
+- **Drops**: Raw Gold
+
+### Nether Gold
+- **Minimum Pickaxe**: Wooden+
+- **Drops**: Gold Nuggets (2–6)
+
+### Lapis Lazuli
+- **Minimum Pickaxe**: Stone+
+- **Drops**: Lapis Lazuli (4–9)
+
+### Redstone
+- **Minimum Pickaxe**: Iron+
+- **Drops**: Redstone Dust (4–5)
+
+### Diamond
+- **Minimum Pickaxe**: Iron+
+- **Drops**: Diamond
+
+### Emerald
+- **Minimum Pickaxe**: Iron+
+- **Drops**: Emerald
+
+### Nether Quartz
+- **Minimum Pickaxe**: Wooden+
+- **Drops**: Nether Quartz
+
+### Ancient Debris
+- **Minimum Pickaxe**: Diamond+
+- **Drops**: Ancient Debris Block
+
+*Only blocks of the same mineral category are traversed. Pickaxe tier validation ensures lower-tier tools will not trigger higher-tier ore chains.*
+
+---
+
+## Durability Protection System
+
+- Checks the tool's remaining durability before breaking each additional block.
+- Halts immediately when remaining durability  reaches 5 or less.
+- Plays an audible warning sound (warning sound) and displays an action bar alert:
+  > **[Tool Protection]** Stopped mining to save tool! (5 durability left)
+- Revalidates the equipped tool before each block break. If the tool is switched or removed, chain mining stops instantly.
+- Respects the normal durability-saving effect of the Unbreaking enchantment.
+
+---
+
+## Default Settings
+
+### Tree Capitator
+- **Default Value**: Enabled
+- **Description**: Fells connected trunks and branches up to 128 logs
+
+### Domino Ore Miner
+- **Default Value**: Enabled
+- **Description**: Mines connected ore clusters up to 64 blocks
+
+### Mining Speed
+- **Default Value**: Instant Burst
+- **Description**: Mines the full vein or tree in a single stroke
+
+### Durability Safety Stop
+- **Default Value**: 5 Durability
+- **Description**: Halts automatically to protect rare tools from breaking
+
+### Alert Audio
+- **Default Value**: Bass Note
+- **Description**: Plays an alert sound when safety stop activates
+
+---
+
+## Compatibility
+
+- Minecraft Bedrock Edition 1.21.0+
+- Experimental features: Check the current release instructions and world settings.
+- Pure Behavior Pack format (.mcpack and .mcaddon)
+- Multiplayer behavior should be checked in the target game version.
+
+---
+- Achievements: Likely achievement-friendly.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Smart Tree Capitator and Domino Ore Miner Bedrock add-on, Sneak Minecraft Bedrock, Mineral Category Normalization Minecraft Bedrock, Durability Safety Guard Minecraft Bedrock, Unbreaking Respect Minecraft Bedrock, Minecraft PE mod, MCPEDL add-on, CurseForge Bedrock, ALNStudios, Minecraft Bedrock add-on.
+```
+
+## FILE: MCPEDL/Addons/Smart-Tree-Capitator-and-Domino-Ore-Miner/README.md (19 lines, 928 bytes)
+
+```
+# Smart Tree Capitator and Domino Ore Miner
+
+Download the current release of **Smart Tree Capitator and Domino Ore Miner** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download Smart Tree Capitator and Domino Ore Miner (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Smart-Tree-Capitator-and-Domino-Ore-Miner/SmartCapitator%20V2.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/Smart-Tree-Capitator-and-Domino-Ore-Miner/DESCRIPTION.md).
+```

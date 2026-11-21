@@ -1,0 +1,4739 @@
+<!-- GRAPH-CONTEXT:START -->
+## Graph Context
+
+- **Project:** `ALN-MoreDiscs` | Category: `Addons` | Version: `v2`
+- **Pack Types:** behavior_pack, resource_pack
+- **Siblings in Addons:** `2-in-1-Loot--XP-Booster (v2)` (v2), `ALN-Pointer (v2)` (v2), `ALN-Quiver (v2)` (v2), `ALN-Wireless-Headphones (v2)` (v2), `Category: Addons`, `Cheat-Stick (v4)` (v4), `Copper-Carrier-Logistics (v2)` (v2), `Enchanter (v2)` (v2) …
+
+> _Auto-generated from graphify-out/graph.json — do not edit manually._
+<!-- GRAPH-CONTEXT:END -->
+
+---
+
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Addons/ALN-MoreDiscs`
+- **Destination:** `MCPEDL/Addons/ALN-MoreDiscs`
+- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Addons/ALN-MoreDiscs/CHANGELOG.md`)
+- **Text files:** 35
+- **Skipped binary:** 30
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/item_catalog/crafting_item_catalog.json`
+- `MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_1.json`
+- `MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_10.json`
+- `MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_2.json`
+- `MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_3.json`
+- `MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_4.json`
+- `MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_5.json`
+- `MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_6.json`
+- `MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_7.json`
+- `MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_8.json`
+- `MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_9.json`
+- `MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/manifest.json`
+- `MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_1.json`
+- `MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_10.json`
+- `MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_2.json`
+- `MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_3.json`
+- `MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_4.json`
+- `MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_5.json`
+- `MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_6.json`
+- `MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_7.json`
+- `MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_8.json`
+- `MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_9.json`
+- `MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/scripts/disc_jukebox.js`
+- `MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/ALN-MoreDiscs/CHANGELOG.md`
+- `MCPEDL/Addons/ALN-MoreDiscs/CURSEFORGE_DESCRIPTION.md`
+- `MCPEDL/Addons/ALN-MoreDiscs/DESCRIPTION.md`
+- `MCPEDL/Addons/ALN-MoreDiscs/project.json`
+- `MCPEDL/Addons/ALN-MoreDiscs/README.md`
+- `MCPEDL/Addons/ALN-MoreDiscs/resource_pack/manifest.json`
+- `MCPEDL/Addons/ALN-MoreDiscs/resource_pack/sounds/sound_definitions.json`
+- `MCPEDL/Addons/ALN-MoreDiscs/resource_pack/texts/en_US.lang`
+- `MCPEDL/Addons/ALN-MoreDiscs/resource_pack/texts/languages.json`
+- `MCPEDL/Addons/ALN-MoreDiscs/resource_pack/textures/item_texture.json`
+- `MCPEDL/Addons/ALN-MoreDiscs/texture_sources/aln_discs.json`
+
+### Skipped (binary)
+
+- `MCPEDL/Addons/ALN-MoreDiscs/assets/items/aln_disc_1.png`
+- `MCPEDL/Addons/ALN-MoreDiscs/assets/items/aln_disc_10.png`
+- `MCPEDL/Addons/ALN-MoreDiscs/assets/items/aln_disc_2.png`
+- `MCPEDL/Addons/ALN-MoreDiscs/assets/items/aln_disc_3.png`
+- `MCPEDL/Addons/ALN-MoreDiscs/assets/items/aln_disc_4.png`
+- `MCPEDL/Addons/ALN-MoreDiscs/assets/items/aln_disc_5.png`
+- `MCPEDL/Addons/ALN-MoreDiscs/assets/items/aln_disc_6.png`
+- `MCPEDL/Addons/ALN-MoreDiscs/assets/items/aln_disc_7.png`
+- `MCPEDL/Addons/ALN-MoreDiscs/assets/items/aln_disc_8.png`
+- `MCPEDL/Addons/ALN-MoreDiscs/assets/items/aln_disc_9.png`
+- `MCPEDL/Addons/ALN-MoreDiscs/resource_pack/sounds/music/aln_track_1.ogg`
+- `MCPEDL/Addons/ALN-MoreDiscs/resource_pack/sounds/music/aln_track_10.ogg`
+- `MCPEDL/Addons/ALN-MoreDiscs/resource_pack/sounds/music/aln_track_2.ogg`
+- `MCPEDL/Addons/ALN-MoreDiscs/resource_pack/sounds/music/aln_track_3.ogg`
+- `MCPEDL/Addons/ALN-MoreDiscs/resource_pack/sounds/music/aln_track_4.ogg`
+- `MCPEDL/Addons/ALN-MoreDiscs/resource_pack/sounds/music/aln_track_5.ogg`
+- `MCPEDL/Addons/ALN-MoreDiscs/resource_pack/sounds/music/aln_track_6.ogg`
+- `MCPEDL/Addons/ALN-MoreDiscs/resource_pack/sounds/music/aln_track_7.ogg`
+- `MCPEDL/Addons/ALN-MoreDiscs/resource_pack/sounds/music/aln_track_8.ogg`
+- `MCPEDL/Addons/ALN-MoreDiscs/resource_pack/sounds/music/aln_track_9.ogg`
+- `MCPEDL/Addons/ALN-MoreDiscs/resource_pack/textures/items/aln_disc_1.png`
+- `MCPEDL/Addons/ALN-MoreDiscs/resource_pack/textures/items/aln_disc_10.png`
+- `MCPEDL/Addons/ALN-MoreDiscs/resource_pack/textures/items/aln_disc_2.png`
+- `MCPEDL/Addons/ALN-MoreDiscs/resource_pack/textures/items/aln_disc_3.png`
+- `MCPEDL/Addons/ALN-MoreDiscs/resource_pack/textures/items/aln_disc_4.png`
+- `MCPEDL/Addons/ALN-MoreDiscs/resource_pack/textures/items/aln_disc_5.png`
+- `MCPEDL/Addons/ALN-MoreDiscs/resource_pack/textures/items/aln_disc_6.png`
+- `MCPEDL/Addons/ALN-MoreDiscs/resource_pack/textures/items/aln_disc_7.png`
+- `MCPEDL/Addons/ALN-MoreDiscs/resource_pack/textures/items/aln_disc_8.png`
+- `MCPEDL/Addons/ALN-MoreDiscs/resource_pack/textures/items/aln_disc_9.png`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v3 / NEXT UPDATE: v4).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Addons/ALN-MoreDiscs
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`.
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/item_catalog/crafting_item_catalog.json (31 lines, 867 bytes)
+
+```
+{
+  "format_version": "1.26.60",
+  "minecraft:crafting_items_catalog": {
+    "categories": [
+      {
+        "category_name": "items",
+        "groups": [
+          {
+            "group_identifier": {
+              "icon": "aln:music_disc_neon_horizon",
+              "name": "minecraft:itemGroup.name.record"
+            },
+            "items": [
+              "aln:music_disc_neon_horizon",
+              "aln:music_disc_ember_lantern",
+              "aln:music_disc_quiet_tides",
+              "aln:music_disc_crystal_caverns",
+              "aln:music_disc_starlight_express",
+              "aln:music_disc_midnight_drive",
+              "aln:music_disc_sunlit_meadow",
+              "aln:music_disc_deepslate_echoes",
+              "aln:music_disc_pixel_parade",
+              "aln:music_disc_golden_hour"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_1.json (29 lines, 649 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:music_disc_neon_horizon",
+      "menu_category": {
+        "category": "items",
+        "group": "minecraft:itemGroup.name.record"
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "aln_disc_1"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "item.aln:music_disc_neon_horizon"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:record": {
+        "comparator_signal": 3,
+        "duration": 76,
+        "sound_event": "record.neon_horizon"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_10.json (29 lines, 648 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:music_disc_golden_hour",
+      "menu_category": {
+        "category": "items",
+        "group": "minecraft:itemGroup.name.record"
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "aln_disc_10"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "item.aln:music_disc_golden_hour"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:record": {
+        "comparator_signal": 12,
+        "duration": 84,
+        "sound_event": "record.golden_hour"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_2.json (29 lines, 652 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:music_disc_ember_lantern",
+      "menu_category": {
+        "category": "items",
+        "group": "minecraft:itemGroup.name.record"
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "aln_disc_2"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "item.aln:music_disc_ember_lantern"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:record": {
+        "comparator_signal": 4,
+        "duration": 82,
+        "sound_event": "record.ember_lantern"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_3.json (29 lines, 646 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:music_disc_quiet_tides",
+      "menu_category": {
+        "category": "items",
+        "group": "minecraft:itemGroup.name.record"
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "aln_disc_3"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "item.aln:music_disc_quiet_tides"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:record": {
+        "comparator_signal": 5,
+        "duration": 85,
+        "sound_event": "record.quiet_tides"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_4.json (29 lines, 658 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:music_disc_crystal_caverns",
+      "menu_category": {
+        "category": "items",
+        "group": "minecraft:itemGroup.name.record"
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "aln_disc_4"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "item.aln:music_disc_crystal_caverns"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:record": {
+        "comparator_signal": 6,
+        "duration": 58,
+        "sound_event": "record.crystal_caverns"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_5.json (29 lines, 664 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:music_disc_starlight_express",
+      "menu_category": {
+        "category": "items",
+        "group": "minecraft:itemGroup.name.record"
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "aln_disc_5"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "item.aln:music_disc_starlight_express"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:record": {
+        "comparator_signal": 7,
+        "duration": 70,
+        "sound_event": "record.starlight_express"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_6.json (29 lines, 655 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:music_disc_midnight_drive",
+      "menu_category": {
+        "category": "items",
+        "group": "minecraft:itemGroup.name.record"
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "aln_disc_6"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "item.aln:music_disc_midnight_drive"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:record": {
+        "comparator_signal": 8,
+        "duration": 75,
+        "sound_event": "record.midnight_drive"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_7.json (29 lines, 652 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:music_disc_sunlit_meadow",
+      "menu_category": {
+        "category": "items",
+        "group": "minecraft:itemGroup.name.record"
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "aln_disc_7"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "item.aln:music_disc_sunlit_meadow"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:record": {
+        "comparator_signal": 9,
+        "duration": 55,
+        "sound_event": "record.sunlit_meadow"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_8.json (29 lines, 662 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:music_disc_deepslate_echoes",
+      "menu_category": {
+        "category": "items",
+        "group": "minecraft:itemGroup.name.record"
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "aln_disc_8"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "item.aln:music_disc_deepslate_echoes"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:record": {
+        "comparator_signal": 10,
+        "duration": 85,
+        "sound_event": "record.deepslate_echoes"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_9.json (29 lines, 650 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:music_disc_pixel_parade",
+      "menu_category": {
+        "category": "items",
+        "group": "minecraft:itemGroup.name.record"
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "aln_disc_9"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "item.aln:music_disc_pixel_parade"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:record": {
+        "comparator_signal": 11,
+        "duration": 71,
+        "sound_event": "record.pixel_parade"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/manifest.json (53 lines, 1014 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN MoreDiscs (v3)",
+    "description": "ALN:MoreDiscs by ALNStudios: Adds 10 custom music discs for Jukeboxes & Wireless Headphones. Create custom personal packs at: https://alnstudios-more-discs.vercel.app",
+    "uuid": "96a63a52-ef96-468f-ae36-b6d52dd57ac2",
+    "version": [
+      3,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "9bea39e7-1e66-4072-9b33-cb0a6338ba6c",
+      "entry": "scripts/main.js",
+      "version": [
+        3,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "428fa8bb-b2df-4222-a02f-609c97cc967e",
+      "version": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "3.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_1.json (41 lines, 707 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:music_disc_neon_horizon_recipe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PCP",
+      "FNF",
+      "PXP"
+    ],
+    "key": {
+      "P": {
+        "item": "minecraft:paper"
+      },
+      "C": {
+        "item": "minecraft:coal"
+      },
+      "F": {
+        "item": "minecraft:flint"
+      },
+      "N": {
+        "item": "minecraft:noteblock"
+      },
+      "X": {
+        "item": "minecraft:redstone"
+      }
+    },
+    "result": {
+      "item": "aln:music_disc_neon_horizon",
+      "count": 1
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_10.json (41 lines, 709 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:music_disc_golden_hour_recipe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PCP",
+      "FNF",
+      "PXP"
+    ],
+    "key": {
+      "P": {
+        "item": "minecraft:paper"
+      },
+      "C": {
+        "item": "minecraft:coal"
+      },
+      "F": {
+        "item": "minecraft:flint"
+      },
+      "N": {
+        "item": "minecraft:noteblock"
+      },
+      "X": {
+        "item": "minecraft:blaze_powder"
+      }
+    },
+    "result": {
+      "item": "aln:music_disc_golden_hour",
+      "count": 1
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_2.json (41 lines, 713 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:music_disc_ember_lantern_recipe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PCP",
+      "FNF",
+      "PXP"
+    ],
+    "key": {
+      "P": {
+        "item": "minecraft:paper"
+      },
+      "C": {
+        "item": "minecraft:coal"
+      },
+      "F": {
+        "item": "minecraft:flint"
+      },
+      "N": {
+        "item": "minecraft:noteblock"
+      },
+      "X": {
+        "item": "minecraft:lapis_lazuli"
+      }
+    },
+    "result": {
+      "item": "aln:music_disc_ember_lantern",
+      "count": 1
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_3.json (41 lines, 711 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:music_disc_quiet_tides_recipe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PCP",
+      "FNF",
+      "PXP"
+    ],
+    "key": {
+      "P": {
+        "item": "minecraft:paper"
+      },
+      "C": {
+        "item": "minecraft:coal"
+      },
+      "F": {
+        "item": "minecraft:flint"
+      },
+      "N": {
+        "item": "minecraft:noteblock"
+      },
+      "X": {
+        "item": "minecraft:amethyst_shard"
+      }
+    },
+    "result": {
+      "item": "aln:music_disc_quiet_tides",
+      "count": 1
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_4.json (41 lines, 719 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:music_disc_crystal_caverns_recipe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PCP",
+      "FNF",
+      "PXP"
+    ],
+    "key": {
+      "P": {
+        "item": "minecraft:paper"
+      },
+      "C": {
+        "item": "minecraft:coal"
+      },
+      "F": {
+        "item": "minecraft:flint"
+      },
+      "N": {
+        "item": "minecraft:noteblock"
+      },
+      "X": {
+        "item": "minecraft:glowstone_dust"
+      }
+    },
+    "result": {
+      "item": "aln:music_disc_crystal_caverns",
+      "count": 1
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_5.json (41 lines, 721 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:music_disc_starlight_express_recipe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PCP",
+      "FNF",
+      "PXP"
+    ],
+    "key": {
+      "P": {
+        "item": "minecraft:paper"
+      },
+      "C": {
+        "item": "minecraft:coal"
+      },
+      "F": {
+        "item": "minecraft:flint"
+      },
+      "N": {
+        "item": "minecraft:noteblock"
+      },
+      "X": {
+        "item": "minecraft:copper_ingot"
+      }
+    },
+    "result": {
+      "item": "aln:music_disc_starlight_express",
+      "count": 1
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_6.json (41 lines, 713 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:music_disc_midnight_drive_recipe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PCP",
+      "FNF",
+      "PXP"
+    ],
+    "key": {
+      "P": {
+        "item": "minecraft:paper"
+      },
+      "C": {
+        "item": "minecraft:coal"
+      },
+      "F": {
+        "item": "minecraft:flint"
+      },
+      "N": {
+        "item": "minecraft:noteblock"
+      },
+      "X": {
+        "item": "minecraft:iron_ingot"
+      }
+    },
+    "result": {
+      "item": "aln:music_disc_midnight_drive",
+      "count": 1
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_7.json (41 lines, 711 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:music_disc_sunlit_meadow_recipe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PCP",
+      "FNF",
+      "PXP"
+    ],
+    "key": {
+      "P": {
+        "item": "minecraft:paper"
+      },
+      "C": {
+        "item": "minecraft:coal"
+      },
+      "F": {
+        "item": "minecraft:flint"
+      },
+      "N": {
+        "item": "minecraft:noteblock"
+      },
+      "X": {
+        "item": "minecraft:gold_ingot"
+      }
+    },
+    "result": {
+      "item": "aln:music_disc_sunlit_meadow",
+      "count": 1
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_8.json (41 lines, 714 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:music_disc_deepslate_echoes_recipe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PCP",
+      "FNF",
+      "PXP"
+    ],
+    "key": {
+      "P": {
+        "item": "minecraft:paper"
+      },
+      "C": {
+        "item": "minecraft:coal"
+      },
+      "F": {
+        "item": "minecraft:flint"
+      },
+      "N": {
+        "item": "minecraft:noteblock"
+      },
+      "X": {
+        "item": "minecraft:emerald"
+      }
+    },
+    "result": {
+      "item": "aln:music_disc_deepslate_echoes",
+      "count": 1
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_9.json (41 lines, 705 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:music_disc_pixel_parade_recipe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PCP",
+      "FNF",
+      "PXP"
+    ],
+    "key": {
+      "P": {
+        "item": "minecraft:paper"
+      },
+      "C": {
+        "item": "minecraft:coal"
+      },
+      "F": {
+        "item": "minecraft:flint"
+      },
+      "N": {
+        "item": "minecraft:noteblock"
+      },
+      "X": {
+        "item": "minecraft:quartz"
+      }
+    },
+    "result": {
+      "item": "aln:music_disc_pixel_parade",
+      "count": 1
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/scripts/disc_jukebox.js (210 lines, 6492 bytes)
+
+```
+import { world, system } from "@minecraft/server";
+
+const DISCS = {
+  "aln:music_disc_neon_horizon": { track: 1, title: "Neon Horizon", seconds: 76, sound: "record.neon_horizon" },
+  "aln:music_disc_ember_lantern": { track: 2, title: "Ember Lantern", seconds: 82, sound: "record.ember_lantern" },
+  "aln:music_disc_quiet_tides": { track: 3, title: "Quiet Tides", seconds: 85, sound: "record.quiet_tides" },
+  "aln:music_disc_crystal_caverns": { track: 4, title: "Crystal Caverns", seconds: 58, sound: "record.crystal_caverns" },
+  "aln:music_disc_starlight_express": { track: 5, title: "Starlight Express", seconds: 70, sound: "record.starlight_express" },
+  "aln:music_disc_midnight_drive": { track: 6, title: "Midnight Drive", seconds: 75, sound: "record.midnight_drive" },
+  "aln:music_disc_sunlit_meadow": { track: 7, title: "Sunlit Meadow", seconds: 55, sound: "record.sunlit_meadow" },
+  "aln:music_disc_deepslate_echoes": { track: 8, title: "Deepslate Echoes", seconds: 85, sound: "record.deepslate_echoes" },
+  "aln:music_disc_pixel_parade": { track: 9, title: "Pixel Parade", seconds: 71, sound: "record.pixel_parade" },
+  "aln:music_disc_golden_hour": { track: 10, title: "Golden Hour", seconds: 84, sound: "record.golden_hour" }
+};
+
+const JUKEBOX = "minecraft:jukebox";
+const STATE_KEY = "aln_morediscs:active";
+const EVENT_STARTED = "aln:disc_started";
+const EVENT_STOPPED = "aln:disc_stopped";
+const EVENT_QUERY = "aln:disc_query";
+const PLAY_FROM_SCRIPT = false;
+const CHECK_INTERVAL = 40;
+const SETTLE_DELAY = 3;
+const SOUND_VOLUME = 4;
+
+const active = new Map();
+let loaded = false;
+
+function keyOf(dimensionId, x, y, z) {
+  return `${dimensionId}|${x}|${y}|${z}`;
+}
+
+function load() {
+  if (loaded) return;
+  loaded = true;
+  try {
+    const raw = world.getDynamicProperty(STATE_KEY);
+    if (typeof raw !== "string") return;
+    for (const entry of JSON.parse(raw)) {
+      if (entry && typeof entry.id === "string" && DISCS[entry.disc]) active.set(entry.id, entry);
+    }
+  } catch (error) {
+    active.clear();
+  }
+}
+
+function save() {
+  try {
+    world.setDynamicProperty(STATE_KEY, JSON.stringify([...active.values()]));
+  } catch (error) {}
+}
+
+function send(eventId, payload) {
+  try {
+    world.getDimension("overworld").runCommand(`scriptevent ${eventId} ${JSON.stringify(payload)}`);
+  } catch (error) {}
+}
+
+function spawnNotes(dimension, x, y, z) {
+  try {
+    dimension.spawnParticle("minecraft:note_particle", { x: x + 0.5, y: y + 1.2, z: z + 0.5 });
+  } catch (error) {}
+}
+
+function stopSound(disc) {
+  if (!PLAY_FROM_SCRIPT) return;
+  for (const other of active.values()) {
+    if (other.disc === disc) return;
+  }
+  try {
+    world.getDimension("overworld").runCommand(`stopsound @a ${DISCS[disc].sound}`);
+  } catch (error) {}
+}
+
+function stopTrack(id, reason) {
+  const entry = active.get(id);
+  if (!entry) return;
+  active.delete(id);
+  save();
+  send(EVENT_STOPPED, { id, disc: entry.disc, track: entry.track, reason });
+  stopSound(entry.disc);
+}
+
+function startTrack(dimension, x, y, z, discId) {
+  const disc = DISCS[discId];
+  if (!disc) return;
+  const id = keyOf(dimension.id, x, y, z);
+  const previous = active.get(id);
+  if (previous && previous.disc === discId) return;
+  if (previous) stopTrack(id, "replaced");
+  const entry = {
+    id,
+    dim: dimension.id,
+    x,
+    y,
+    z,
+    disc: discId,
+    track: disc.track,
+    title: disc.title,
+    seconds: disc.seconds,
+    startedAt: Date.now(),
+  };
+  active.set(id, entry);
+  save();
+  send(EVENT_STARTED, entry);
+  if (PLAY_FROM_SCRIPT) {
+    try {
+      dimension.playSound(disc.sound, { x: x + 0.5, y: y + 1, z: z + 0.5 }, { volume: SOUND_VOLUME, pitch: 1 });
+    } catch (error) {}
+  }
+  spawnNotes(dimension, x, y, z);
+}
+
+function settle(dimensionId, location, heldTypeId) {
+  load();
+  const dimension = world.getDimension(dimensionId);
+  const { x, y, z } = location;
+  const id = keyOf(dimensionId, x, y, z);
+  let block;
+  try {
+    block = dimension.getBlock(location);
+  } catch (error) {
+    return;
+  }
+  if (!block) return;
+  if (block.typeId !== JUKEBOX) {
+    stopTrack(id, "broken");
+    return;
+  }
+  let known = false;
+  let recordId;
+  try {
+    const player = block.getComponent("minecraft:record_player");
+    if (player) {
+      const record = player.getRecord();
+      recordId = record ? record.typeId : undefined;
+      known = true;
+    }
+  } catch (error) {}
+  if (known) {
+    if (recordId && DISCS[recordId]) startTrack(dimension, x, y, z, recordId);
+    else stopTrack(id, "ejected");
+    return;
+  }
+  if (active.has(id)) stopTrack(id, "ejected");
+  else if (heldTypeId && DISCS[heldTypeId]) startTrack(dimension, x, y, z, heldTypeId);
+}
+
+function tick() {
+  load();
+  if (active.size === 0) return;
+  const now = Date.now();
+  for (const [id, entry] of [...active]) {
+    let block;
+    try {
+      block = world.getDimension(entry.dim).getBlock({ x: entry.x, y: entry.y, z: entry.z });
+    } catch (error) {
+      continue;
+    }
+    if (!block) continue;
+    if (block.typeId !== JUKEBOX) {
+      stopTrack(id, "broken");
+      continue;
+    }
+    if (now - entry.startedAt >= entry.seconds * 1000 + 2000) {
+      stopTrack(id, "ended");
+      continue;
+    }
+    spawnNotes(block.dimension, entry.x, entry.y, entry.z);
+  }
+}
+
+export function getActiveDiscs() {
+  load();
+  return [...active.values()];
+}
+
+export function initDiscJukebox() {
+  world.beforeEvents.playerInteractWithBlock.subscribe((event) => {
+    const { block, player, itemStack, isFirstEvent } = event;
+    if (!isFirstEvent || block.typeId !== JUKEBOX) return;
+    if (player.isSneaking && itemStack) return;
+    const dimensionId = block.dimension.id;
+    const location = { x: block.location.x, y: block.location.y, z: block.location.z };
+    const held = itemStack ? itemStack.typeId : undefined;
+    system.runTimeout(() => settle(dimensionId, location, held), SETTLE_DELAY);
+  });
+
+  world.afterEvents.playerBreakBlock.subscribe((event) => {
+    if (event.brokenBlockPermutation.type.id !== JUKEBOX) return;
+    const { x, y, z } = event.block.location;
+    const id = keyOf(event.block.dimension.id, x, y, z);
+    system.run(() => {
+      load();
+      stopTrack(id, "broken");
+    });
+  });
+
+  system.afterEvents.scriptEventReceive.subscribe(
+    (event) => {
+      if (event.id !== EVENT_QUERY) return;
+      load();
+      for (const entry of active.values()) send(EVENT_STARTED, entry);
+    },
+    { namespaces: ["aln"] }
+  );
+
+  system.runInterval(tick, CHECK_INTERVAL);
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/scripts/main.js (4 lines, 73 bytes)
+
+```
+import { initDiscJukebox } from "./disc_jukebox.js";
+
+initDiscJukebox();
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/CHANGELOG.md (35 lines, 1742 bytes)
+
+```
+# Changelog — ALN MoreDiscs
+
+---
+
+## [v3] - 2026-11-18 - Headphones Disc Names
+
+### Improved & Balanced
+- **Headphones Naming**: All ten discs now use the music disc naming that ALN Wireless Headphones expects.
+- **Craft Again**: Discs from earlier versions in existing worlds no longer work and must be crafted again.
+
+## [v2] - 2026-11-17 - Disc Group
+
+### Added
+- **Creative Group**: All ten discs now sit together in their own ALN MoreDiscs group in the Items tab of the creative inventory.
+
+### Fixed
+- **Disc Group**: The discs now use their own group name instead of the vanilla music disc group name.
+
+## [1.1.0] - 2026-11-16 - Ten Discs
+
+### Added
+- **Five New Discs**: Track 6 Midnight Drive, Track 7 Sunlit Meadow, Track 8 Deepslate Echoes, Track 9 Pixel Parade and Track 10 Golden Hour, each an original track.
+- **New Recipes**: The new discs use the same recipe layout with Iron Ingot, Gold Ingot, Emerald, Nether Quartz or Blaze Powder as the accent item.
+
+### Improved & Balanced
+- **Disc Icons**: All ten discs now use a tilted vanilla-style disc icon with a label color of their own.
+
+## [1.0.0] - 2026-11-16 - First Release
+
+### Added
+- **Five Music Discs**: Track 1 Neon Horizon, Track 2 Ember Lantern, Track 3 Quiet Tides, Track 4 Crystal Caverns and Track 5 Starlight Express, each an original track.
+- **Survival Recipes**: Each disc is crafted from Paper, Coal, Flint, a Note Block and one accent item, and all recipes are unlocked from the start.
+- **Jukebox Playback**: Use a disc on a Jukebox to play it, use it again to take the disc out, and see note particles while it plays.
+- **Headphones Announcements**: Starting and stopping a disc announces the track number, name and length for ALN Wireless Headphones.
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/CURSEFORGE_DESCRIPTION.md (55 lines, 2773 bytes)
+
+```
+# ALN:MoreDiscs by ALNStudios
+
+**Craft ten original music discs and play them in a Jukebox in Survival.**
+
+ALN:MoreDiscs adds ten custom music discs with their own tracks. Each disc is crafted in a Crafting Table, plays in a Jukebox, and works with the ALN Wireless Headphones add-on.
+
+## Features
+
+### Ten Original Tracks
+Every track is an original, royalty-free piece made for this pack by ALNStudios.
+
+- Track 1: Neon Horizon (1:16)
+- Track 2: Ember Lantern (1:22)
+- Track 3: Quiet Tides (1:25)
+- Track 4: Crystal Caverns (0:58)
+- Track 5: Starlight Express (1:10)
+- Track 6: Midnight Drive (1:15)
+- Track 7: Sunlit Meadow (0:55)
+- Track 8: Deepslate Echoes (1:25)
+- Track 9: Pixel Parade (1:11)
+- Track 10: Golden Hour (1:24)
+
+### Survival Crafting
+All ten discs are craftable and their recipes are unlocked from the start.
+
+- Top row: Paper, Coal, Paper
+- Middle row: Flint, Note Block, Flint
+- Bottom row: Paper, accent item, Paper
+- Accent item: Redstone Dust for Track 1, Lapis Lazuli for Track 2, Amethyst Shard for Track 3, Glowstone Dust for Track 4, Copper Ingot for Track 5, Iron Ingot for Track 6, Gold Ingot for Track 7, Emerald for Track 8, Nether Quartz for Track 9, Blaze Powder for Track 10
+
+### Jukebox Playback
+Hold a disc and right-click a Jukebox to play it. Right-click again to take the disc out. Note particles rise from the Jukebox while a track plays.
+
+## Compatibility
+
+- Minecraft Bedrock Edition 1.26.60
+- No experimental features required in the inspected files.
+- Works alongside **ALN Wireless Headphones**: when a disc starts or stops, the add-on announces the track number, track name and length for the headphones to display. This has not been tested together in game.
+
+## Create Your Own Discs
+
+ALNStudios offers a free companion web tool for packaging your own audio files into a personal pack that stays on your own device: [https://alnstudios-more-discs.vercel.app](https://alnstudios-more-discs.vercel.app)
+
+## User-Generated Content and Copyright Disclaimer
+
+ALNStudios distributes only the ten original default tracks included in this add-on. ALNStudios does not host or distribute copyrighted music on its servers. Any audio files you convert with the web tool stay your own responsibility: you are solely responsible for making sure they are used for private, personal gameplay only and that you have the right to use them. Do not upload or redistribute packs made from music you do not have the rights to.
+
+## Creator
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+Verification: source created, package built, not tested in game.
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/DESCRIPTION.md (93 lines, 5398 bytes)
+
+```
+# ALN MoreDiscs — Ten Craftable Music Discs With Original Tracks
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**Craft ten original music discs, each with its own 55 to 85 second track, and play them in a Jukebox in Survival.**
+
+> ALN MoreDiscs adds ten music discs, Track 1 to Track 10, each crafted from Paper, Coal, Flint, a Note Block and one accent item. They give a Jukebox new music without any other add-on.
+
+## Overview
+
+Craft a disc at a Crafting Table, put it in a Jukebox and the matching track plays. Every track is an original piece made for this pack, so the ten discs add music to your world without using any existing songs. The discs also announce which track is playing and for how long, so ALN Wireless Headphones can show it.
+
+## Key Features
+
+### Ten Original Tracks
+- **What Happens**: The pack adds ten discs with one track each. The track list is below.
+- Track 1: Neon Horizon (1:16)
+- Track 2: Ember Lantern (1:22)
+- Track 3: Quiet Tides (1:25)
+- Track 4: Crystal Caverns (0:58)
+- Track 5: Starlight Express (1:10)
+- Track 6: Midnight Drive (1:15)
+- Track 7: Sunlit Meadow (0:55)
+- Track 8: Deepslate Echoes (1:25)
+- Track 9: Pixel Parade (1:11)
+- Track 10: Golden Hour (1:24)
+- **Good To Know**: Each disc stacks to 1, like a vanilla music disc.
+
+### Survival Crafting
+- **What Happens**: Craft each disc at a Crafting Table. Top row: Paper, Coal, Paper. Middle row: Flint, Note Block, Flint. Bottom row: Paper, the accent item, Paper.
+- **How It Works**: The accent item picks the track: Redstone Dust for Track 1, Lapis Lazuli for Track 2, Amethyst Shard for Track 3, Glowstone Dust for Track 4, Copper Ingot for Track 5, Iron Ingot for Track 6, Gold Ingot for Track 7, Emerald for Track 8, Nether Quartz for Track 9, Blaze Powder for Track 10.
+- **Good To Know**: All ten recipes are unlocked from the start, so no cheats and no recipe discovery are needed.
+
+### Jukebox Playback
+- **What Happens**: Use a disc on a Jukebox to play it, and use the Jukebox again to take the disc back out. Note particles rise from the Jukebox while a track plays.
+- **Good To Know**: Breaking the Jukebox or taking the disc out ends the track.
+
+### ALN Wireless Headphones Support
+- **What Happens**: When a disc starts or stops, the pack announces the track number, the track name and its length so ALN Wireless Headphones can show them.
+- **Good To Know**: This has not been tested together with ALN Wireless Headphones in game.
+
+### Make Your Own Discs
+- **What Happens**: The free web tool at https://alnstudios-more-discs.vercel.app is meant to turn your own audio files into a personal pack on your own device.
+- **Good To Know**: ALNStudios only distributes the ten original tracks. Audio you convert yourself must be for private, personal play, and you are responsible for having the right to use it.
+
+## How to Use
+
+1. Open the Crafting Table and craft a disc with the recipe above.
+2. Right-click a Jukebox while holding the disc.
+3. Listen for the track and watch the note particles rise from the Jukebox.
+4. Right-click the Jukebox again to take the disc out and stop the track.
+
+## Common Questions
+
+- **Do I need cheats to get the discs?**: No. All ten discs are craftable in Survival and their recipes are unlocked from the start.
+- **Can I use my own music?**: ALNStudios ships only the ten original tracks. The linked web tool is the route for personal packs, for private use only.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.26.60
+- Experimental features: No experiment requirement detected in the inspected files.
+- Achievements: Likely achievement-friendly.
+- Verification: Source created, package built, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, ALN MoreDiscs Bedrock mod, custom music discs, Jukebox music, Note Block recipe, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/project.json (5 lines, 49 bytes)
+
+```
+{
+  "type": "addon",
+  "name": "ALN MoreDiscs"
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/README.md (19 lines, 786 bytes)
+
+```
+# ALN MoreDiscs
+
+Download the current release of **ALN MoreDiscs** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download ALN MoreDiscs (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V3.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALN-MoreDiscs/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/resource_pack/manifest.json (37 lines, 624 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN MoreDiscs (v3)",
+    "description": "Disc textures, names and music tracks for ALN MoreDiscs. by ALNStudios",
+    "uuid": "428fa8bb-b2df-4222-a02f-609c97cc967e",
+    "version": [
+      3,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "084c6d11-2f61-4186-9b73-fbaa8f293328",
+      "version": [
+        3,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "3.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/resource_pack/sounds/sound_definitions.json (116 lines, 2397 bytes)
+
+```
+{
+  "format_version": "1.14.0",
+  "sound_definitions": {
+    "record.neon_horizon": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_1",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.ember_lantern": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_2",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.quiet_tides": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_3",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.crystal_caverns": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_4",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.starlight_express": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_5",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.midnight_drive": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_6",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.sunlit_meadow": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_7",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.deepslate_echoes": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_8",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.pixel_parade": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_9",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.golden_hour": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_10",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/resource_pack/texts/en_US.lang (22 lines, 2102 bytes)
+
+```
+item.aln:music_disc_neon_horizon=Music Disc\n§7Track 1: Neon Horizon\n§8ALNStudios Music Series
+item.aln:music_disc_neon_horizon.name=Music Disc\n§7Track 1: Neon Horizon\n§8ALNStudios Music Series
+item.aln:music_disc_ember_lantern=Music Disc\n§7Track 2: Ember Lantern\n§8ALNStudios Music Series
+item.aln:music_disc_ember_lantern.name=Music Disc\n§7Track 2: Ember Lantern\n§8ALNStudios Music Series
+item.aln:music_disc_quiet_tides=Music Disc\n§7Track 3: Quiet Tides\n§8ALNStudios Music Series
+item.aln:music_disc_quiet_tides.name=Music Disc\n§7Track 3: Quiet Tides\n§8ALNStudios Music Series
+item.aln:music_disc_crystal_caverns=Music Disc\n§7Track 4: Crystal Caverns\n§8ALNStudios Music Series
+item.aln:music_disc_crystal_caverns.name=Music Disc\n§7Track 4: Crystal Caverns\n§8ALNStudios Music Series
+item.aln:music_disc_starlight_express=Music Disc\n§7Track 5: Starlight Express\n§8ALNStudios Music Series
+item.aln:music_disc_starlight_express.name=Music Disc\n§7Track 5: Starlight Express\n§8ALNStudios Music Series
+item.aln:music_disc_midnight_drive=Music Disc\n§7Track 6: Midnight Drive\n§8ALNStudios Music Series
+item.aln:music_disc_midnight_drive.name=Music Disc\n§7Track 6: Midnight Drive\n§8ALNStudios Music Series
+item.aln:music_disc_sunlit_meadow=Music Disc\n§7Track 7: Sunlit Meadow\n§8ALNStudios Music Series
+item.aln:music_disc_sunlit_meadow.name=Music Disc\n§7Track 7: Sunlit Meadow\n§8ALNStudios Music Series
+item.aln:music_disc_deepslate_echoes=Music Disc\n§7Track 8: Deepslate Echoes\n§8ALNStudios Music Series
+item.aln:music_disc_deepslate_echoes.name=Music Disc\n§7Track 8: Deepslate Echoes\n§8ALNStudios Music Series
+item.aln:music_disc_pixel_parade=Music Disc\n§7Track 9: Pixel Parade\n§8ALNStudios Music Series
+item.aln:music_disc_pixel_parade.name=Music Disc\n§7Track 9: Pixel Parade\n§8ALNStudios Music Series
+item.aln:music_disc_golden_hour=Music Disc\n§7Track 10: Golden Hour\n§8ALNStudios Music Series
+item.aln:music_disc_golden_hour.name=Music Disc\n§7Track 10: Golden Hour\n§8ALNStudios Music Series
+itemGroup.name.record=Music Discs
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/resource_pack/texts/languages.json (4 lines, 14 bytes)
+
+```
+[
+  "en_US"
+]
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/resource_pack/textures/item_texture.json (37 lines, 833 bytes)
+
+```
+{
+  "resource_pack_name": "aln_morediscs",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "aln_disc_1": {
+      "textures": "textures/items/aln_disc_1"
+    },
+    "aln_disc_2": {
+      "textures": "textures/items/aln_disc_2"
+    },
+    "aln_disc_3": {
+      "textures": "textures/items/aln_disc_3"
+    },
+    "aln_disc_4": {
+      "textures": "textures/items/aln_disc_4"
+    },
+    "aln_disc_5": {
+      "textures": "textures/items/aln_disc_5"
+    },
+    "aln_disc_6": {
+      "textures": "textures/items/aln_disc_6"
+    },
+    "aln_disc_7": {
+      "textures": "textures/items/aln_disc_7"
+    },
+    "aln_disc_8": {
+      "textures": "textures/items/aln_disc_8"
+    },
+    "aln_disc_9": {
+      "textures": "textures/items/aln_disc_9"
+    },
+    "aln_disc_10": {
+      "textures": "textures/items/aln_disc_10"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/texture_sources/aln_discs.json (3043 lines, 33454 bytes)
+
+```
+[
+  {
+    "name": "aln_disc_1",
+    "size": 16,
+    "palette": {
+      "0": "#00000000",
+      "1": "#212121",
+      "2": "#404040",
+      "3": "#515151",
+      "4": "#262626",
+      "5": "#111111",
+      "6": "#ff4d8d",
+      "7": "#ffffff"
+    },
+    "pixels": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        2,
+        2,
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        2,
+        2,
+        2,
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        3,
+        3,
+        2,
+        6,
+        6,
+        6,
+        2,
+        2,
+        3,
+        2,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        2,
+        3,
+        2,
+        2,
+        6,
+        6,
+        4,
+        7,
+        7,
+        2,
+        2,
+        3,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        3,
+        2,
+        2,
+        7,
+        7,
+        7,
+        2,
+        3,
+        3,
+        2,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        4,
+        2,
+        2,
+        2,
+        3,
+        3,
+        2,
+        3,
+        2,
+        2,
+        2,
+        2,
+        4,
+        1,
+        0
+      ],
+      [
+        0,
+        5,
+        4,
+        4,
+        4,
+        2,
+        2,
+        2,
+        2,
+        2,
+        4,
+        4,
+        4,
+        5,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        5,
+        5,
+        5,
+        4,
+        4,
+        4,
+        4,
+        4,
+        5,
+        5,
+        5,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        5,
+        5,
+        5,
+        5,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "name": "aln_disc_2",
+    "size": 16,
+    "palette": {
+      "0": "#00000000",
+      "1": "#212121",
+      "2": "#404040",
+      "3": "#515151",
+      "4": "#262626",
+      "5": "#111111",
+      "6": "#ff9d1c",
+      "7": "#ffffff"
+    },
+    "pixels": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        2,
+        2,
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        2,
+        2,
+        2,
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        3,
+        3,
+        2,
+        6,
+        6,
+        6,
+        2,
+        2,
+        3,
+        2,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        2,
+        3,
+        2,
+        2,
+        6,
+        6,
+        4,
+        7,
+        7,
+        2,
+        2,
+        3,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        3,
+        2,
+        2,
+        7,
+        7,
+        7,
+        2,
+        3,
+        3,
+        2,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        4,
+        2,
+        2,
+        2,
+        3,
+        3,
+        2,
+        3,
+        2,
+        2,
+        2,
+        2,
+        4,
+        1,
+        0
+      ],
+      [
+        0,
+        5,
+        4,
+        4,
+        4,
+        2,
+        2,
+        2,
+        2,
+        2,
+        4,
+        4,
+        4,
+        5,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        5,
+        5,
+        5,
+        4,
+        4,
+        4,
+        4,
+        4,
+        5,
+        5,
+        5,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        5,
+        5,
+        5,
+        5,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "name": "aln_disc_3",
+    "size": 16,
+    "palette": {
+      "0": "#00000000",
+      "1": "#212121",
+      "2": "#404040",
+      "3": "#515151",
+      "4": "#262626",
+      "5": "#111111",
+      "6": "#2fd4cc",
+      "7": "#ffffff"
+    },
+    "pixels": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        2,
+        2,
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        2,
+        2,
+        2,
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        3,
+        3,
+        2,
+        6,
+        6,
+        6,
+        2,
+        2,
+        3,
+        2,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        2,
+        3,
+        2,
+        2,
+        6,
+        6,
+        4,
+        7,
+        7,
+        2,
+        2,
+        3,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        3,
+        2,
+        2,
+        7,
+        7,
+        7,
+        2,
+        3,
+        3,
+        2,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        4,
+        2,
+        2,
+        2,
+        3,
+        3,
+        2,
+        3,
+        2,
+        2,
+        2,
+        2,
+        4,
+        1,
+        0
+      ],
+      [
+        0,
+        5,
+        4,
+        4,
+        4,
+        2,
+        2,
+        2,
+        2,
+        2,
+        4,
+        4,
+        4,
+        5,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        5,
+        5,
+        5,
+        4,
+        4,
+        4,
+        4,
+        4,
+        5,
+        5,
+        5,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        5,
+        5,
+        5,
+        5,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "name": "aln_disc_4",
+    "size": 16,
+    "palette": {
+      "0": "#00000000",
+      "1": "#212121",
+      "2": "#404040",
+      "3": "#515151",
+      "4": "#262626",
+      "5": "#111111",
+      "6": "#9a7dff",
+      "7": "#ffffff"
+    },
+    "pixels": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        2,
+        2,
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        2,
+        2,
+        2,
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        3,
+        3,
+        2,
+        6,
+        6,
+        6,
+        2,
+        2,
+        3,
+        2,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        2,
+        3,
+        2,
+        2,
+        6,
+        6,
+        4,
+        7,
+        7,
+        2,
+        2,
+        3,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        3,
+        2,
+        2,
+        7,
+        7,
+        7,
+        2,
+        3,
+        3,
+        2,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        4,
+        2,
+        2,
+        2,
+        3,
+        3,
+        2,
+        3,
+        2,
+        2,
+        2,
+        2,
+        4,
+        1,
+        0
+      ],
+      [
+        0,
+        5,
+        4,
+        4,
+        4,
+        2,
+        2,
+        2,
+        2,
+        2,
+        4,
+        4,
+        4,
+        5,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        5,
+        5,
+        5,
+        4,
+        4,
+        4,
+        4,
+        4,
+        5,
+        5,
+        5,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        5,
+        5,
+        5,
+        5,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "name": "aln_disc_5",
+    "size": 16,
+    "palette": {
+      "0": "#00000000",
+      "1": "#212121",
+      "2": "#404040",
+      "3": "#515151",
+      "4": "#262626",
+      "5": "#111111",
+      "6": "#ffd800",
+      "7": "#ffffff"
+    },
+    "pixels": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        2,
+        2,
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        2,
+        2,
+        2,
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        3,
+        3,
+        2,
+        6,
+        6,
+        6,
+        2,
+        2,
+        3,
+        2,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        2,
+        3,
+        2,
+        2,
+        6,
+        6,
+        4,
+        7,
+        7,
+        2,
+        2,
+        3,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        3,
+        2,
+        2,
+        7,
+        7,
+        7,
+        2,
+        3,
+        3,
+        2,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        4,
+        2,
+        2,
+        2,
+        3,
+        3,
+        2,
+        3,
+        2,
+        2,
+        2,
+        2,
+        4,
+        1,
+        0
+      ],
+      [
+        0,
+        5,
+        4,
+        4,
+        4,
+        2,
+        2,
+        2,
+        2,
+        2,
+        4,
+        4,
+        4,
+        5,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        5,
+        5,
+        5,
+        4,
+        4,
+        4,
+        4,
+        4,
+        5,
+        5,
+        5,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        5,
+        5,
+        5,
+        5,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "name": "aln_disc_6",
+    "size": 16,
+    "palette": {
+      "0": "#00000000",
+      "1": "#212121",
+      "2": "#404040",
+      "3": "#515151",
+      "4": "#262626",
+      "5": "#111111",
+      "6": "#3d7bff",
+      "7": "#ffffff"
+    },
+    "pixels": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        2,
+        2,
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        2,
+        2,
+        2,
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        3,
+        3,
+        2,
+        6,
+        6,
+        6,
+        2,
+        2,
+        3,
+        2,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        2,
+        3,
+        2,
+        2,
+        6,
+        6,
+        4,
+        7,
+        7,
+        2,
+        2,
+        3,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        3,
+        2,
+        2,
+        7,
+        7,
+        7,
+        2,
+        3,
+        3,
+        2,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        4,
+        2,
+        2,
+        2,
+        3,
+        3,
+        2,
+        3,
+        2,
+        2,
+        2,
+        2,
+        4,
+        1,
+        0
+      ],
+      [
+        0,
+        5,
+        4,
+        4,
+        4,
+        2,
+        2,
+        2,
+        2,
+        2,
+        4,
+        4,
+        4,
+        5,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        5,
+        5,
+        5,
+        4,
+        4,
+        4,
+        4,
+        4,
+        5,
+        5,
+        5,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        5,
+        5,
+        5,
+        5,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "name": "aln_disc_7",
+    "size": 16,
+    "palette": {
+      "0": "#00000000",
+      "1": "#212121",
+      "2": "#404040",
+      "3": "#515151",
+      "4": "#262626",
+      "5": "#111111",
+      "6": "#7fdc3c",
+      "7": "#ffffff"
+    },
+    "pixels": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        2,
+        2,
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        2,
+        2,
+        2,
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        3,
+        3,
+        2,
+        6,
+        6,
+        6,
+        2,
+        2,
+        3,
+        2,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        2,
+        3,
+        2,
+        2,
+        6,
+        6,
+        4,
+        7,
+        7,
+        2,
+        2,
+        3,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        3,
+        2,
+        2,
+        7,
+        7,
+        7,
+        2,
+        3,
+        3,
+        2,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        4,
+        2,
+        2,
+        2,
+        3,
+        3,
+        2,
+        3,
+        2,
+        2,
+        2,
+        2,
+        4,
+        1,
+        0
+      ],
+      [
+        0,
+        5,
+        4,
+        4,
+        4,
+        2,
+        2,
+        2,
+        2,
+        2,
+        4,
+        4,
+        4,
+        5,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        5,
+        5,
+        5,
+        4,
+        4,
+        4,
+        4,
+        4,
+        5,
+        5,
+        5,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        5,
+        5,
+        5,
+        5,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "name": "aln_disc_8",
+    "size": 16,
+    "palette": {
+      "0": "#00000000",
+      "1": "#212121",
+      "2": "#404040",
+      "3": "#515151",
+      "4": "#262626",
+      "5": "#111111",
+      "6": "#00b86b",
+      "7": "#ffffff"
+    },
+    "pixels": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        2,
+        2,
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        2,
+        2,
+        2,
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        3,
+        3,
+        2,
+        6,
+        6,
+        6,
+        2,
+        2,
+        3,
+        2,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        2,
+        3,
+        2,
+        2,
+        6,
+        6,
+        4,
+        7,
+        7,
+        2,
+        2,
+        3,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        3,
+        2,
+        2,
+        7,
+        7,
+        7,
+        2,
+        3,
+        3,
+        2,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        4,
+        2,
+        2,
+        2,
+        3,
+        3,
+        2,
+        3,
+        2,
+        2,
+        2,
+        2,
+        4,
+        1,
+        0
+      ],
+      [
+        0,
+        5,
+        4,
+        4,
+        4,
+        2,
+        2,
+        2,
+        2,
+        2,
+        4,
+        4,
+        4,
+        5,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        5,
+        5,
+        5,
+        4,
+        4,
+        4,
+        4,
+        4,
+        5,
+        5,
+        5,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        5,
+        5,
+        5,
+        5,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "name": "aln_disc_9",
+    "size": 16,
+    "palette": {
+      "0": "#00000000",
+      "1": "#212121",
+      "2": "#404040",
+      "3": "#515151",
+      "4": "#262626",
+      "5": "#111111",
+      "6": "#ff5a3c",
+      "7": "#ffffff"
+    },
+    "pixels": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        2,
+        2,
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        2,
+        2,
+        2,
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        3,
+        3,
+        2,
+        6,
+        6,
+        6,
+        2,
+        2,
+        3,
+        2,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        2,
+        3,
+        2,
+        2,
+        6,
+        6,
+        4,
+        7,
+        7,
+        2,
+        2,
+        3,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        3,
+        2,
+        2,
+        7,
+        7,
+        7,
+        2,
+        3,
+        3,
+        2,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        4,
+        2,
+        2,
+        2,
+        3,
+        3,
+        2,
+        3,
+        2,
+        2,
+        2,
+        2,
+        4,
+        1,
+        0
+      ],
+      [
+        0,
+        5,
+        4,
+        4,
+        4,
+        2,
+        2,
+        2,
+        2,
+        2,
+        4,
+        4,
+        4,
+        5,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        5,
+        5,
+        5,
+        4,
+        4,
+        4,
+        4,
+        4,
+        5,
+        5,
+        5,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        5,
+        5,
+        5,
+        5,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "name": "aln_disc_10",
+    "size": 16,
+    "palette": {
+      "0": "#00000000",
+      "1": "#212121",
+      "2": "#404040",
+      "3": "#515151",
+      "4": "#262626",
+      "5": "#111111",
+      "6": "#ffb347",
+      "7": "#ffffff"
+    },
+    "pixels": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        2,
+        2,
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        2,
+        2,
+        2,
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        3,
+        3,
+        2,
+        6,
+        6,
+        6,
+        2,
+        2,
+        3,
+        2,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        2,
+        3,
+        2,
+        2,
+        6,
+        6,
+        4,
+        7,
+        7,
+        2,
+        2,
+        3,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        3,
+        2,
+        2,
+        7,
+        7,
+        7,
+        2,
+        3,
+        3,
+        2,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        4,
+        2,
+        2,
+        2,
+        3,
+        3,
+        2,
+        3,
+        2,
+        2,
+        2,
+        2,
+        4,
+        1,
+        0
+      ],
+      [
+        0,
+        5,
+        4,
+        4,
+        4,
+        2,
+        2,
+        2,
+        2,
+        2,
+        4,
+        4,
+        4,
+        5,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        5,
+        5,
+        5,
+        4,
+        4,
+        4,
+        4,
+        4,
+        5,
+        5,
+        5,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        5,
+        5,
+        5,
+        5,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  }
+]
+```

@@ -1,0 +1,1392 @@
+<!-- GRAPH-CONTEXT:START -->
+## Graph Context
+
+- **Project:** `Mining-Helmet` | Category: `Addons` | Version: `v2`
+- **Pack Types:** behavior_pack, resource_pack
+- **Siblings in Addons:** `2-in-1-Loot--XP-Booster (v2)` (v2), `ALN-MoreDiscs (v2)` (v2), `ALN-Pointer (v2)` (v2), `ALN-Quiver (v2)` (v2), `ALN-Wireless-Headphones (v2)` (v2), `Category: Addons`, `Cheat-Stick (v4)` (v4), `Copper-Carrier-Logistics (v2)` (v2) …
+
+> _Auto-generated from graphify-out/graph.json — do not edit manually._
+<!-- GRAPH-CONTEXT:END -->
+
+---
+
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Addons/Mining-Helmet`
+- **Destination:** `MCPEDL/Addons/Mining-Helmet`
+- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/Mining-Helmet/CHANGELOG.md`)
+- **Text files:** 21
+- **Skipped binary:** 18
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Addons/Mining-Helmet/behavior_pack/items/mining_helmet.json`
+- `MCPEDL/Addons/Mining-Helmet/behavior_pack/items/torch_mining_helmet.json`
+- `MCPEDL/Addons/Mining-Helmet/behavior_pack/manifest.json`
+- `MCPEDL/Addons/Mining-Helmet/behavior_pack/recipes/mining_helmet.json`
+- `MCPEDL/Addons/Mining-Helmet/behavior_pack/recipes/mining_helmet_torch.json`
+- `MCPEDL/Addons/Mining-Helmet/behavior_pack/recipes/mining_helmet_upgrade.json`
+- `MCPEDL/Addons/Mining-Helmet/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/Mining-Helmet/behavior_pack/scripts/mode.js`
+- `MCPEDL/Addons/Mining-Helmet/behavior_pack/subpacks/cursor_light/scripts/mode.js`
+- `MCPEDL/Addons/Mining-Helmet/behavior_pack/subpacks/head_light/scripts/mode.js`
+- `MCPEDL/Addons/Mining-Helmet/CHANGELOG.md`
+- `MCPEDL/Addons/Mining-Helmet/DESCRIPTION.md`
+- `MCPEDL/Addons/Mining-Helmet/IMAGE_PROMPTS.md`
+- `MCPEDL/Addons/Mining-Helmet/README.md`
+- `MCPEDL/Addons/Mining-Helmet/resource_pack/attachables/mining_helmet.json`
+- `MCPEDL/Addons/Mining-Helmet/resource_pack/attachables/torch_mining_helmet.json`
+- `MCPEDL/Addons/Mining-Helmet/resource_pack/manifest.json`
+- `MCPEDL/Addons/Mining-Helmet/resource_pack/texts/en_US.lang`
+- `MCPEDL/Addons/Mining-Helmet/resource_pack/texts/languages.json`
+- `MCPEDL/Addons/Mining-Helmet/resource_pack/textures/item_texture.json`
+- `MCPEDL/Addons/Mining-Helmet/TEXTURE_GUIDE.md`
+
+### Skipped (binary)
+
+- `MCPEDL/Addons/Mining-Helmet/1791946330457.jpg`
+- `MCPEDL/Addons/Mining-Helmet/assets/items/mining_helmet.png`
+- `MCPEDL/Addons/Mining-Helmet/assets/items/torch_mining_helmet.png`
+- `MCPEDL/Addons/Mining-Helmet/assets/recipes/recipe_lantern.png`
+- `MCPEDL/Addons/Mining-Helmet/assets/recipes/recipe_torch.png`
+- `MCPEDL/Addons/Mining-Helmet/banner.jpg`
+- `MCPEDL/Addons/Mining-Helmet/behavior_pack/pack_icon.png`
+- `MCPEDL/Addons/Mining-Helmet/mcpedl.png`
+- `MCPEDL/Addons/Mining-Helmet/mining_helmet_preview.png`
+- `MCPEDL/Addons/Mining-Helmet/pack_icon.png`
+- `MCPEDL/Addons/Mining-Helmet/recipe_lantern.png`
+- `MCPEDL/Addons/Mining-Helmet/recipe_torch.png`
+- `MCPEDL/Addons/Mining-Helmet/resource_pack/pack_icon.png`
+- `MCPEDL/Addons/Mining-Helmet/resource_pack/textures/items/mining_helmet.png`
+- `MCPEDL/Addons/Mining-Helmet/resource_pack/textures/items/torch_mining_helmet.png`
+- `MCPEDL/Addons/Mining-Helmet/resource_pack/textures/models/armor/mining_helmet_1.png`
+- `MCPEDL/Addons/Mining-Helmet/resource_pack/textures/models/armor/torch_mining_helmet_1.png`
+- `MCPEDL/Addons/Mining-Helmet/torch_mining_helmet_preview.png`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Addons/Mining-Helmet
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`.
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Addons/Mining-Helmet/behavior_pack/items/mining_helmet.json (47 lines, 1110 bytes)
+
+```
+{
+  "format_version": "1.21.0",
+  "minecraft:item": {
+    "description": {
+      "identifier": "custom:mining_helmet",
+      "menu_category": {
+        "category": "equipment",
+        "group": "minecraft:itemGroup.name.helmet"
+      }
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "Mining Helmet"
+      },
+      "minecraft:icon": "mining_helmet",
+      "minecraft:max_stack_size": 1,
+      "minecraft:wearable": {
+        "slot": "slot.armor.head",
+        "protection": 2
+      },
+      "minecraft:durability": {
+        "max_durability": 165
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "minecraft:gold_ingot"
+            ],
+            "repair_amount": "context.other->query.remaining_durability + 0.25 * context.other->query.max_durability"
+          }
+        ]
+      },
+      "minecraft:enchantable": {
+        "slot": "armor_head",
+        "value": 15
+      },
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_armor",
+          "minecraft:is_helmet"
+        ]
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Mining-Helmet/behavior_pack/items/torch_mining_helmet.json (47 lines, 1130 bytes)
+
+```
+{
+  "format_version": "1.21.0",
+  "minecraft:item": {
+    "description": {
+      "identifier": "custom:torch_mining_helmet",
+      "menu_category": {
+        "category": "equipment",
+        "group": "minecraft:itemGroup.name.helmet"
+      }
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "Mining Helmet (Torch)"
+      },
+      "minecraft:icon": "torch_mining_helmet",
+      "minecraft:max_stack_size": 1,
+      "minecraft:wearable": {
+        "slot": "slot.armor.head",
+        "protection": 2
+      },
+      "minecraft:durability": {
+        "max_durability": 165
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "minecraft:gold_ingot"
+            ],
+            "repair_amount": "context.other->query.remaining_durability + 0.25 * context.other->query.max_durability"
+          }
+        ]
+      },
+      "minecraft:enchantable": {
+        "slot": "armor_head",
+        "value": 15
+      },
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_armor",
+          "minecraft:is_helmet"
+        ]
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Mining-Helmet/behavior_pack/manifest.json (76 lines, 1442 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Mining Helmet (v2)",
+    "description": "Wearable Mining Helmet with real-time dynamic light tracking using @minecraft/server. by ALNStudios",
+    "uuid": "1a05f976-9731-4a23-934d-c77cc12722c9",
+    "version": [
+      2,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "description": "Mining Helmet Behavior Module",
+      "type": "data",
+      "uuid": "1f870630-db51-4db7-aed3-04565e5a316d",
+      "version": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "description": "Mining Helmet Dynamic Lighting Script",
+      "type": "script",
+      "language": "javascript",
+      "uuid": "27df98da-a8b7-4786-ada8-abc8876f6508",
+      "version": [
+        2,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.13.0"
+    },
+    {
+      "uuid": "1b31b370-3c6e-4f8a-bb0b-7d1aaaf04e11",
+      "version": [
+        2,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "2.0.0"
+  },
+  "subpacks": [
+    {
+      "folder_name": "cursor_light",
+      "name": "Cursor Light (Default)",
+      "memory_tier": 1
+    },
+    {
+      "folder_name": "head_light",
+      "name": "Head Light",
+      "memory_tier": 0
+    }
+  ]
+}
+```
+
+## FILE: MCPEDL/Addons/Mining-Helmet/behavior_pack/recipes/mining_helmet.json (31 lines, 516 bytes)
+
+```
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:mining_helmet_lantern"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " L ",
+      " H "
+    ],
+    "key": {
+      "L": {
+        "item": "minecraft:lantern"
+      },
+      "H": {
+        "item": "minecraft:golden_helmet"
+      }
+    },
+    "result": {
+      "item": "custom:mining_helmet",
+      "count": 1
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Mining-Helmet/behavior_pack/recipes/mining_helmet_torch.json (31 lines, 518 bytes)
+
+```
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:mining_helmet_torch"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " T ",
+      " H "
+    ],
+    "key": {
+      "T": {
+        "item": "minecraft:torch"
+      },
+      "H": {
+        "item": "minecraft:golden_helmet"
+      }
+    },
+    "result": {
+      "item": "custom:torch_mining_helmet",
+      "count": 1
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Mining-Helmet/behavior_pack/recipes/mining_helmet_upgrade.json (31 lines, 519 bytes)
+
+```
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:mining_helmet_upgrade"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " L ",
+      " H "
+    ],
+    "key": {
+      "L": {
+        "item": "minecraft:lantern"
+      },
+      "H": {
+        "item": "custom:torch_mining_helmet"
+      }
+    },
+    "result": {
+      "item": "custom:mining_helmet",
+      "count": 1
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Mining-Helmet/behavior_pack/scripts/main.js (473 lines, 15228 bytes)
+
+```
+/**
+ * Mining Helmet Dynamic Following Light System
+ * Created by ALNStudios — MCPE Curseforges
+ *
+ * Tracks the Mining Helmet in the player's head slot and handheld light sources.
+ * Generates dynamic light with specific power levels:
+ * - Lantern Helmet / Lantern: Level 15 (maximum bright emission)
+ * - Torch Helmet / Torch: Level 10 (warm localized emission)
+ * Restores placed light blocks back to air upon movement, unequip, death, or disconnect.
+ *
+ * Light modes (chosen by the Behavior Pack subpack, see scripts/mode.js):
+ * - cursor (default): a dim light at yourself (level 2) plus a light at the block, water or entity
+ *   you are looking at (distance falloff, no head fallback, no distance limit)
+ * - head: light is placed just above your head
+ */
+import { world, system, EquipmentSlot, BlockPermutation } from "@minecraft/server";
+import { LIGHT_MODE } from "./mode.js";
+
+const LIGHT_POWERS = {
+  "custom:mining_helmet": 15,
+  "custom:torch_mining_helmet": 10,
+  "minecraft:lantern": 15,
+  "minecraft:torch": 10,
+  "minecraft:soul_lantern": 10,
+  "minecraft:soul_torch": 10
+};
+
+const LIGHT_UPDATE_INTERVAL = 2; // Run every 2 ticks (10 times/sec)
+const CURSOR_MAX_DISTANCE = 1000; // Effectively unlimited; the game only reaches loaded chunks
+const FACE_OFFSETS = {
+  Up: { x: 0, y: 1, z: 0 },
+  Down: { x: 0, y: -1, z: 0 },
+  North: { x: 0, y: 0, z: -1 },
+  South: { x: 0, y: 0, z: 1 },
+  East: { x: 1, y: 0, z: 0 },
+  West: { x: -1, y: 0, z: 0 }
+};
+
+const SELF_LIGHT_LEVEL = 2; // Fixed dim light at yourself (keep between 1 and 3)
+
+// Distance falloff for the light on what you look at (power 15 fades to 10; power 10 never fades)
+const FALLOFF_START = 32; // Full power up to this distance, in blocks
+const FALLOFF_RANGE = 64; // Fade completes this many blocks after FALLOFF_START
+const FALLOFF_MIN_LEVEL = 10; // Lowest level the fade reaches
+
+// Cheaper raycast: skip recalculating while your view is unchanged
+const CURSOR_REFRESH_TICKS = 20; // Always recalculate at least once per second
+
+// Entities the cursor light ignores
+const IGNORED_ENTITIES = new Set(["minecraft:item", "minecraft:xp_orb", "minecraft:arrow", "minecraft:snowball"]);
+
+/**
+ * Light level of the light on what you look at, with distance falloff
+ * @param {number} power
+ * @param {number} distance
+ */
+function getFarLightLevel(power, distance) {
+  const floor = Math.min(power, FALLOFF_MIN_LEVEL);
+  const t = Math.max(0, Math.min(1, (distance - FALLOFF_START) / FALLOFF_RANGE));
+  return Math.round(power - (power - floor) * t);
+}
+
+/**
+ * Checks if a block is a still water source (flowing water is never replaced)
+ * @param {any} block
+ */
+function isWaterSource(block) {
+  try {
+    return block.typeId === "minecraft:water" && block.permutation.getState("liquid_depth") === 0;
+  } catch (e) {
+    return false;
+  }
+}
+
+/**
+ * State map storing the active light blocks and light level per player
+ * @type {Map<string, { dim: any, x: number, y: number, z: number, level: number, restore?: any }[]>}
+ */
+const activePlayerLights = new Map();
+
+/**
+ * Per-player cursor cache used to skip raycasts while the view is unchanged
+ * @type {Map<string, { key: string, tick: number, hasEntity: boolean }>}
+ */
+const cursorCache = new Map();
+
+/**
+ * Checks if a block is a light block
+ * @param {string} typeId
+ */
+function isLightBlock(typeId) {
+  return typeId === "minecraft:light_block" || (typeId && typeId.startsWith("minecraft:light_block"));
+}
+
+/**
+ * Validates if a block coordinate can hold a temporary light block
+ * @param {any} block
+ */
+function canHoldLight(block) {
+  if (!block) return false;
+  try {
+    return block.isAir || isLightBlock(block.typeId) || isWaterSource(block);
+  } catch (e) {
+    return false;
+  }
+}
+
+/**
+ * Restores one placed light block back to air (or back to water) safely
+ * @param {{ dim: any, x: number, y: number, z: number, restore?: any }} light
+ */
+function clearLightBlock(light) {
+  try {
+    const block = light.dim.getBlock({ x: light.x, y: light.y, z: light.z });
+    if (block && isLightBlock(block.typeId)) {
+      block.setPermutation(light.restore || BlockPermutation.resolve("minecraft:air"));
+    }
+  } catch (e) {
+    // Gracefully handle unloaded chunks or edge conditions
+  }
+}
+
+/**
+ * Restores all of a player's placed light blocks back to air safely
+ * @param {string} playerId
+ * @param {boolean} [keepCache] Keep the cursor cache (used when nothing is in view)
+ */
+function removePlayerLight(playerId, keepCache = false) {
+  if (!keepCache) cursorCache.delete(playerId);
+  const lights = activePlayerLights.get(playerId);
+  if (!lights) return;
+
+  for (const light of lights) {
+    clearLightBlock(light);
+  }
+
+  activePlayerLights.delete(playerId);
+}
+
+/**
+ * Places a light block with a specific level at the target coordinates
+ * @param {any} dim
+ * @param {number} x
+ * @param {number} y
+ * @param {number} z
+ * @param {number} level
+ * @returns {{ restore: any } | null} Placement info (restore = water to put back), or null if it failed
+ */
+function placeLightBlock(dim, x, y, z, level) {
+  try {
+    const block = dim.getBlock({ x, y, z });
+    if (!canHoldLight(block)) return null;
+
+    // Remember still water so it can be put back when the light moves away
+    const restore = isWaterSource(block) ? block.permutation : null;
+
+    try {
+      block.setPermutation(BlockPermutation.resolve("minecraft:light_block", { block_light_level: level }));
+      return { restore };
+    } catch {
+      try {
+        block.setPermutation(BlockPermutation.resolve(`minecraft:light_block_${level}`));
+        return { restore };
+      } catch {
+        return null;
+      }
+    }
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Resolves the highest light power emitted by a player's equipment
+ * @param {any} player
+ * @returns {number} Light power level (0 if unlit)
+ */
+function getPlayerLightPower(player) {
+  let maxLevel = 0;
+  try {
+    const equippable = player.getComponent("minecraft:equippable") || player.getComponent("equippable");
+    if (!equippable) return 0;
+
+    const headItem = equippable.getEquipment(EquipmentSlot.Head);
+    if (headItem && LIGHT_POWERS[headItem.typeId]) {
+      maxLevel = Math.max(maxLevel, LIGHT_POWERS[headItem.typeId]);
+    }
+
+    const offhandItem = equippable.getEquipment(EquipmentSlot.Offhand);
+    if (offhandItem && LIGHT_POWERS[offhandItem.typeId]) {
+      maxLevel = Math.max(maxLevel, LIGHT_POWERS[offhandItem.typeId]);
+    }
+
+    const mainhandItem = equippable.getEquipment(EquipmentSlot.Mainhand);
+    if (mainhandItem && LIGHT_POWERS[mainhandItem.typeId]) {
+      maxLevel = Math.max(maxLevel, LIGHT_POWERS[mainhandItem.typeId]);
+    }
+  } catch (e) {}
+
+  return maxLevel;
+}
+
+/**
+ * Finds the nearest entity you are looking at, before the given distance
+ * @param {any} player
+ * @param {number} maxDistance
+ * @returns {{ entity: any, distance: number } | null}
+ */
+function getLookedAtEntity(player, maxDistance) {
+  try {
+    const found = player.getEntitiesFromViewDirection({
+      maxDistance,
+      ignoreBlockCollision: true // maxDistance is already the distance to the block in view
+    });
+    for (const item of found) {
+      const entity = item.entity;
+      if (!entity || entity.id === player.id || IGNORED_ENTITIES.has(entity.typeId)) continue;
+      return { entity, distance: item.distance };
+    }
+  } catch (e) {}
+  return null;
+}
+
+/**
+ * Builds the light targets for a player. Each target has a light level and a list of
+ * fallback positions; the first one that can hold a light block is used.
+ * Targets are ordered brightest first.
+ * @param {any} player
+ * @param {number} power
+ * @returns {{ targets: {level:number, candidates:{x:number,y:number,z:number}[]}[], hasEntity: boolean }}
+ */
+function getLightTargets(player, power) {
+  if (LIGHT_MODE === "cursor") {
+    try {
+      const head = player.getHeadLocation();
+      const hx = Math.floor(head.x);
+      const hy = Math.floor(head.y);
+      const hz = Math.floor(head.z);
+
+      // Underwater the ray would stop at the water around you, so skip liquids there
+      let headInLiquid = false;
+      try {
+        headInLiquid = !!player.dimension.getBlock({ x: hx, y: hy, z: hz }).isLiquid;
+      } catch (e) {}
+
+      const hit = player.getBlockFromViewDirection({
+        maxDistance: CURSOR_MAX_DISTANCE,
+        includeLiquidBlocks: !headInLiquid,
+        includePassableBlocks: false
+      });
+
+      let blockDistance = CURSOR_MAX_DISTANCE;
+      if (hit && hit.block) {
+        const fl = hit.faceLocation || { x: 0.5, y: 0.5, z: 0.5 };
+        blockDistance = Math.hypot(
+          hit.block.location.x + fl.x - head.x,
+          hit.block.location.y + fl.y - head.y,
+          hit.block.location.z + fl.z - head.z
+        );
+      }
+
+      // An entity in front of the block (or with no block at all) gets the light instead
+      const looked = getLookedAtEntity(player, blockDistance);
+
+      let farCandidates;
+      let farDistance;
+      if (looked) {
+        const eyes = looked.entity.getHeadLocation ? looked.entity.getHeadLocation() : looked.entity.location;
+        const feet = looked.entity.location;
+        farCandidates = [
+          { x: Math.floor(eyes.x), y: Math.floor(eyes.y), z: Math.floor(eyes.z) },
+          { x: Math.floor(feet.x), y: Math.floor(feet.y), z: Math.floor(feet.z) }
+        ];
+        farDistance = looked.distance;
+      } else if (hit && hit.block) {
+        const offset = FACE_OFFSETS[hit.face] || FACE_OFFSETS.Up;
+        farCandidates = [
+          {
+            x: hit.block.location.x + offset.x,
+            y: hit.block.location.y + offset.y,
+            z: hit.block.location.z + offset.z
+          }
+        ];
+        farDistance = blockDistance;
+      } else {
+        // Nothing in view: no cursor light
+        return { targets: [], hasEntity: false };
+      }
+
+      return {
+        hasEntity: !!looked,
+        targets: [
+          // Light on what you look at, fading with distance
+          { level: getFarLightLevel(power, farDistance), candidates: farCandidates },
+          // Dim light at yourself
+          {
+            level: SELF_LIGHT_LEVEL,
+            candidates: [
+              { x: hx, y: hy, z: hz },
+              { x: hx, y: Math.floor(player.location.y + 0.3), z: hz }
+            ]
+          }
+        ]
+      };
+    } catch (e) {
+      // Unloaded chunk or nothing targetable: no cursor light
+      return { targets: [], hasEntity: false };
+    }
+  }
+
+  // Head mode: just above the head, falling back to torso level
+  const x = Math.floor(player.location.x);
+  const z = Math.floor(player.location.z);
+  return {
+    hasEntity: false,
+    targets: [
+      {
+        level: power,
+        candidates: [
+          { x, y: Math.floor(player.location.y + 1.6), z },
+          { x, y: Math.floor(player.location.y + 0.3), z }
+        ]
+      }
+    ]
+  };
+}
+
+/**
+ * Main dynamic lighting loop
+ */
+system.runInterval(() => {
+  let players;
+  try {
+    players = world.getAllPlayers();
+  } catch (e) {
+    return;
+  }
+
+  for (const player of players) {
+    try {
+      const playerId = player.id;
+      const power = getPlayerLightPower(player);
+
+      // If no light power is active, extinguish light
+      if (power <= 0) {
+        removePlayerLight(playerId);
+        continue;
+      }
+
+      const dim = player.dimension;
+
+      // Cursor mode: skip the raycasts while your view is unchanged (and no entity is lit)
+      let cacheKey = null;
+      if (LIGHT_MODE === "cursor") {
+        const eye = player.getHeadLocation();
+        const dir = player.getViewDirection();
+        cacheKey = [
+          eye.x.toFixed(1), eye.y.toFixed(1), eye.z.toFixed(1),
+          dir.x.toFixed(2), dir.y.toFixed(2), dir.z.toFixed(2),
+          power, dim.id
+        ].join(",");
+        const cached = cursorCache.get(playerId);
+        if (
+          cached &&
+          cached.key === cacheKey &&
+          !cached.hasEntity &&
+          system.currentTick - cached.tick < CURSOR_REFRESH_TICKS
+        ) {
+          continue;
+        }
+      }
+
+      const { targets, hasEntity } = getLightTargets(player, power);
+      if (cacheKey) {
+        cursorCache.set(playerId, { key: cacheKey, tick: system.currentTick, hasEntity });
+      }
+
+      // Cursor mode with nothing in view: no light
+      if (targets.length === 0) {
+        removePlayerLight(playerId, true);
+        continue;
+      }
+
+      const oldLights = activePlayerLights.get(playerId) || [];
+      const newLights = [];
+
+      for (const target of targets) {
+        for (const candidate of target.candidates) {
+          // Spot already used by a brighter light of this player
+          const duplicate = newLights.some(
+            (l) => l.x === candidate.x && l.y === candidate.y && l.z === candidate.z
+          );
+          if (duplicate) break;
+
+          // Already placed here with the exact level: keep it
+          const existing = oldLights.find(
+            (l) =>
+              l.dim === dim &&
+              l.x === candidate.x &&
+              l.y === candidate.y &&
+              l.z === candidate.z &&
+              l.level === target.level
+          );
+          if (existing) {
+            newLights.push(existing);
+            break;
+          }
+
+          // Same spot with another level: clear it first so water is restored before re-placing
+          const stale = oldLights.find(
+            (l) => l.dim === dim && l.x === candidate.x && l.y === candidate.y && l.z === candidate.z
+          );
+          const placed = placeLightBlock(dim, candidate.x, candidate.y, candidate.z, target.level);
+          if (placed) {
+            newLights.push({
+              dim,
+              x: candidate.x,
+              y: candidate.y,
+              z: candidate.z,
+              level: target.level,
+              restore: stale ? stale.restore || placed.restore : placed.restore
+            });
+            break;
+          }
+        }
+      }
+
+      // Nothing could be placed this tick: keep the previous lights
+      if (newLights.length === 0) {
+        continue;
+      }
+
+      // Clean up previous positions that are no longer used
+      for (const old of oldLights) {
+        const stillUsed = newLights.some(
+          (l) => l.dim === old.dim && l.x === old.x && l.y === old.y && l.z === old.z
+        );
+        if (!stillUsed) {
+          clearLightBlock(old);
+        }
+      }
+
+      activePlayerLights.set(playerId, newLights);
+    } catch (e) {}
+  }
+}, LIGHT_UPDATE_INTERVAL);
+
+// Clean up light block when a player leaves the server
+world.afterEvents.playerLeave.subscribe((event) => {
+  if (event.playerId) {
+    removePlayerLight(event.playerId);
+  }
+});
+
+// Clean up light block when a player changes dimension
+if (world.afterEvents.playerDimensionChange) {
+  world.afterEvents.playerDimensionChange.subscribe((event) => {
+    if (event.player && event.player.id) {
+      removePlayerLight(event.player.id);
+    }
+  });
+}
+
+// Clean up light block when a player dies
+world.afterEvents.entityDie.subscribe((event) => {
+  const entity = event.deadEntity;
+  if (entity && entity.typeId === "minecraft:player") {
+    removePlayerLight(entity.id);
+  }
+});
+
+console.warn(`[Mining Helmet] Dynamic light system initialized (mode: ${LIGHT_MODE}, Torch: 10, Lantern: 15).`);
+```
+
+## FILE: MCPEDL/Addons/Mining-Helmet/behavior_pack/scripts/mode.js (6 lines, 139 bytes)
+
+```
+/**
+ * Mining Helmet light mode (Cursor Light).
+ * The light follows the block you are looking at.
+ */
+export const LIGHT_MODE = "cursor";
+```
+
+## FILE: MCPEDL/Addons/Mining-Helmet/behavior_pack/subpacks/cursor_light/scripts/mode.js (6 lines, 139 bytes)
+
+```
+/**
+ * Mining Helmet light mode (Cursor Light).
+ * The light follows the block you are looking at.
+ */
+export const LIGHT_MODE = "cursor";
+```
+
+## FILE: MCPEDL/Addons/Mining-Helmet/behavior_pack/subpacks/head_light/scripts/mode.js (6 lines, 125 bytes)
+
+```
+/**
+ * Mining Helmet light mode (Head Light).
+ * The light stays just above your head.
+ */
+export const LIGHT_MODE = "head";
+```
+
+## FILE: MCPEDL/Addons/Mining-Helmet/CHANGELOG.md (68 lines, 2243 bytes)
+
+```
+# Changelog — Mining Helmet
+
+---
+
+## [v2] - 2026-11-12
+
+**What's new in v1.14.5:** Packed with the v1.14.5 update. Includes: Mob Light and Falloff.
+
+### Added
+
+- **Mob light**: Cursor Light now lights up the mob you are looking at instead of the wall behind it.
+
+### Improved & Balanced
+
+- **Distance falloff**: The light on what you look at fades from full power to level 10 on faraway targets. Torch helmets stay at level 10.
+- **Steady self light**: The light at you is now always level 2.
+- **Safer water**: Light only replaces still water, and flowing water is left untouched.
+- **Smoother performance**: The game skips extra checks while you hold your view steady.
+
+## [1.14.4] - 2026-11-13 - Water Light
+
+### Added
+
+- **Water light**: Cursor Light now works when you look at water, and also when you are underwater.
+
+### Improved & Balanced
+
+- **Dim light at you**: The light at you is now a soft level 1 to 3 glow, while the light on what you look at keeps the full helmet power.
+
+## [1.14.3] - 2026-11-13 - Light From You
+
+### Improved & Balanced
+
+- **Light from you**: Cursor Light now also glows just in front of you, so it looks like the light comes from you even when you look through a one-block gap.
+- **Far light kept**: The light on the block you are looking at is still placed, with no distance limit.
+
+## [1.14.2] - 2026-11-13 - Unlimited Cursor Light
+
+### Improved & Balanced
+
+- **Cursor Light range**: The light now follows whatever block you look at, no matter how far away it is.
+- **No head fallback**: Cursor Light no longer returns to your head when nothing is in view. The light turns off until you look at a block again.
+
+## [1.14.1] - 2026-11-13 - Cursor Light Mode
+
+### Added
+
+- **Cursor Light mode**: The helmet light now follows the spot you are looking at instead of staying above your head.
+- **Head Light subpack**: Pick the Head Light subpack in the Behavior Pack settings to keep the light above your head like before.
+
+### Improved & Balanced
+
+- **Default light mode**: Cursor Light is now the default mode. If nothing is in view, the light stays above your head.
+
+## [1.14.0] - 2026-10-29
+
+### Improved & Balanced
+
+- **Changelog started**: Version history is recorded from this release onward.
+```
+
+## FILE: MCPEDL/Addons/Mining-Helmet/DESCRIPTION.md (128 lines, 4980 bytes)
+
+```
+# Mining Helmet — Dynamic Lighting Add-on
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+Wearable light for cave mining and night exploration.
+
+---
+
+## Overview
+
+**Mining Helmet** adds wearable headgear with moving light to Minecraft Bedrock Edition. Equipped in your head armor slot, it continuously lights up your surroundings as you walk, run, and dig, leaving both hands free for your pickaxe, weapon, or shield. By default the light follows the spot you are looking at, and a Head Light subpack keeps it above your head instead.
+
+The helmet provides moving light while worn, and holding a Lantern or Torch can also provide handheld light.
+
+---
+
+## Features and Light Power Ratings
+
+### Mining Helmet (Lantern)
+- **Light Power Level**: **15**
+- **Illumination Type**: High-Intensity Beam
+- **Description**: Bright illumination while worn.
+
+### Mining Helmet (Torch)
+- **Light Power Level**: **10**
+- **Illumination Type**: Medium Warm Glow
+- **Description**: A lower-light option for early-game cave exploration.
+
+### Handheld / Offhand Lantern
+- **Light Power Level**: **15**
+- **Illumination Type**: Portable Floodlight
+- **Description**: Provides moving light while a standard Lantern is held in either hand.
+
+### Handheld / Offhand Torch
+- **Light Power Level**: **10**
+- **Illumination Type**: Portable Torch Light
+- **Description**: Provides moving light while a standard Torch is held in either hand.
+
+---
+
+## Equipment Specifications
+
+### Light Power
+- **Lantern Version**: Level 15 (Daylight Maximum)
+- **Torch Version**: Level 10 (Warm Glow)
+
+### Equipment Slot
+- **Lantern Version**: Head Armor
+- **Torch Version**: Head Armor
+
+### Armor Defense
+- **Lantern Version**: 2 Armor Points
+- **Torch Version**: 2 Armor Points
+
+### Durability
+- **Lantern Version**: 165 Uses
+- **Torch Version**: 165 Uses
+
+### Repair Item
+- **Lantern Version**: Gold Ingot
+- **Torch Version**: Gold Ingot
+
+### Enchantability
+- **Lantern Version**: Protection, Unbreaking, Mending, Aqua Affinity, Respiration
+- **Torch Version**: Protection, Unbreaking, Mending, Aqua Affinity, Respiration
+
+---
+
+## Crafting Recipes
+
+### 1. Lantern Recipe (Level 15)
+Combine a standard **Lantern** with a **Golden Helmet** in a crafting table to produce the Level 15 Mining Helmet.
+
+### 2. Torch Recipe (Level 10)
+Combine a standard **Torch** with a **Golden Helmet** to craft the Level 10 Mining Helmet for early survival.
+
+---
+
+## How to Use
+
+1. Import the complete add-on and enable its included packs in your world settings.
+2. Craft the Lantern or Torch Mining Helmet using the listed ingredients.
+3. Equip the helmet in your head armor slot to carry its light with you. Holding a Lantern or Torch can also provide light.
+4. The light follows your cursor by default. To keep it above your head, choose the Head Light subpack in the Behavior Pack settings.
+
+## Compatibility
+
+- Minecraft Bedrock Edition. Check the current package listing for the supported release range.
+- Complete Add-on (.mcaddon) format
+
+---
+- Experimental features: Not verified.
+- Achievements: Likely achievement-friendly.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Mining Helmet Bedrock add-on, Mining Helmet (Lantern) Minecraft Bedrock, Mining Helmet (Torch) Minecraft Bedrock, Handheld / Offhand Lantern Minecraft Bedrock, Handheld / Offhand Torch Minecraft Bedrock, Minecraft PE mod, MCPEDL add-on, CurseForge Bedrock, ALNStudios, Minecraft Bedrock add-on.
+```
+
+## FILE: MCPEDL/Addons/Mining-Helmet/IMAGE_PROMPTS.md (48 lines, 3389 bytes)
+
+````
+# Mining Helmet - Image Generation Prompts
+
+This document provides optimized prompts for generating promotional logos and banners for **Mining Helmet** by ALNStudios.
+
+---
+
+## 1. Square Pack Icon / Logo (1:1 Aspect Ratio)
+
+### Visual Concept
+A gleaming golden miner's helmet with a lantern securely mounted on the forehead, projecting a powerful conical beam of bright warm light cutting through dark deepslate stone. Exposed diamond and gold ores sparkle in the background.
+
+### Recommended Tool Settings
+- **Aspect Ratio:** `1:1` (`--ar 1:1` for Midjourney)
+- **Resolution:** 1024x1024 (scaled to 512x512 for `pack_icon.png`)
+- **Render Style:** Clean 3D Minecraft isometric asset render, high specular gold reflections, dramatic volumetric light beam.
+
+### Prompt (Copy-Paste)
+```text
+Crisp 3D Minecraft pack icon of a heavy golden miner helmet, isometric close-up view. The golden helmet has a sturdy brass-framed lantern mounted firmly on its forehead, casting an intense, bright cone of warm level-15 light into the foreground. The background consists of dark deepslate cobblestone with sparkling embedded cyan diamond ores and raw gold ore blocks catching the light beam. Dramatic high-contrast shadows, volumetric dust particles drifting in the light rays, polished metallic reflections. Bold clean typography at the bottom reads "MINING HELMET" with a refined gold-plated subtitle badge reading "by ALNStudios", ray traced, Unreal Engine 5 studio render, 8k --ar 1:1 --v 6.1 --stylize 250
+```
+
+### Negative Prompt
+```text
+dull lighting, flat shading, non-minecraft curves, plastic textures, blurry ore blocks, distorted text, low resolution, messy artifacts
+```
+
+---
+
+## 2. Horizontal Hero Banner (16:9 Aspect Ratio)
+
+### Visual Concept
+A cavernous, dark deepslate underground cavern. An intrepid miner wearing enchanted armor and the glowing Mining Helmet stands at the edge of an underground chasm. The helmet's light beam slices through the pitch-black cave, illuminating hanging dripstone stalactites, an abandoned wooden mineshaft trestle, and rich clusters of diamond ores across the abyss.
+
+### Recommended Tool Settings
+- **Aspect Ratio:** `16:9` (`--ar 16:9` for Midjourney)
+- **Resolution:** 1920x1080 or 2560x1440 (CurseForge & MCPEDL hero showcase)
+- **Render Style:** Atmospheric cave exploration still, intense volumetric light rays, deep dark contrast, RTX ray-traced lighting.
+
+### Prompt (Copy-Paste)
+```text
+Atmospheric wide 16:9 cinematic Minecraft cave render. Deep inside a massive underground deepslate cavern, a lone spelunker wearing an illuminated golden Mining Helmet stands on a rocky ledge looking down into a vast subterranean canyon. The helmet casts a brilliant, realistic conical beam of light slicing through the darkness, illuminating hanging pointed dripstones, an abandoned oak mineshaft bridge with minecart tracks, and glowing clusters of raw copper and diamond ores embedded in the cavern walls. Distant glowing lava falls cast warm red rim highlights. Elegant cinematic title text placed prominently in the upper third reads "MINING HELMET" with a crisp glowing subtitle "by ALNStudios", photorealistic block materials, ray tracing, 8k resolution --ar 16:9 --v 6.1 --stylize 300
+```
+
+### Negative Prompt
+```text
+oversaturated, daytime, flat ambient lighting, cartoonish smooth textures, illegible text, low resolution, glitchy geometry
+```
+````
+
+## FILE: MCPEDL/Addons/Mining-Helmet/README.md (19 lines, 786 bytes)
+
+```
+# Mining Helmet
+
+Download the current release of **Mining Helmet** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download Mining Helmet (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/MiningHelmet%20V2.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/Mining-Helmet/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Addons/Mining-Helmet/resource_pack/attachables/mining_helmet.json (26 lines, 625 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "custom:mining_helmet",
+      "materials": {
+        "default": "armor",
+        "enchanted": "armor_enchanted"
+      },
+      "textures": {
+        "default": "textures/models/armor/mining_helmet_1",
+        "enchanted": "textures/misc/enchanted_item_glint"
+      },
+      "geometry": {
+        "default": "geometry.humanoid.armor.helmet"
+      },
+      "scripts": {
+        "parent_setup": "variable.helmet_layer_visible = 0.0;"
+      },
+      "render_controllers": [
+        "controller.render.armor"
+      ]
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Mining-Helmet/resource_pack/attachables/torch_mining_helmet.json (26 lines, 638 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "custom:torch_mining_helmet",
+      "materials": {
+        "default": "armor",
+        "enchanted": "armor_enchanted"
+      },
+      "textures": {
+        "default": "textures/models/armor/torch_mining_helmet_1",
+        "enchanted": "textures/misc/enchanted_actor_glint"
+      },
+      "geometry": {
+        "default": "geometry.humanoid.armor.helmet"
+      },
+      "scripts": {
+        "parent_setup": "variable.helmet_layer_visible = 0.0;"
+      },
+      "render_controllers": [
+        "controller.render.armor"
+      ]
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Mining-Helmet/resource_pack/manifest.json (38 lines, 680 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Mining Helmet (v2)",
+    "description": "Textures, attachables, and client models for Mining Helmet. by ALNStudios",
+    "uuid": "1b31b370-3c6e-4f8a-bb0b-7d1aaaf04e11",
+    "version": [
+      2,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "description": "Mining Helmet Resource Module",
+      "type": "resources",
+      "uuid": "5511d907-7311-4b78-a0ea-c118f858b703",
+      "version": [
+        2,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "2.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Mining-Helmet/resource_pack/texts/en_US.lang (7 lines, 330 bytes)
+
+```
+pack.name=Mining Helmet RP
+pack.description=Textures, attachables, and models for Mining Helmet. By ALNStudios.
+item.custom:mining_helmet.name=Mining Helmet (Lantern)
+item.custom:mining_helmet=Mining Helmet (Lantern)
+item.custom:torch_mining_helmet.name=Mining Helmet (Torch)
+item.custom:torch_mining_helmet=Mining Helmet (Torch)
+```
+
+## FILE: MCPEDL/Addons/Mining-Helmet/resource_pack/texts/languages.json (4 lines, 14 bytes)
+
+```
+[
+  "en_US"
+]
+```
+
+## FILE: MCPEDL/Addons/Mining-Helmet/resource_pack/textures/item_texture.json (13 lines, 271 bytes)
+
+```
+{
+  "resource_pack_name": "mining_helmet",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "mining_helmet": {
+      "textures": "textures/items/mining_helmet"
+    },
+    "torch_mining_helmet": {
+      "textures": "textures/items/torch_mining_helmet"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Mining-Helmet/TEXTURE_GUIDE.md (80 lines, 5025 bytes)
+
+````
+# Mining Helmet - Texture Modification and UV Mapping Guide
+
+![Mining Helmet Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Mining-Helmet/1791946330457.jpg)
+
+This technical guide details the exact pixel mapping, palette structure, and UV offsets used to transform the vanilla Golden Helmet texture into the custom Mining Helmet (`custom:mining_helmet`).
+
+---
+
+## Overview of Assets
+
+| Asset Type | File Path | Resolution | Format | Role |
+| :--- | :--- | :--- | :--- | :--- |
+| **Armor Model Texture** | `textures/models/armor/mining_helmet_1.png` | 64 x 32 | PNG (RGBA) | Renders on the player/armor stand humanoid head model |
+| **Inventory Item Icon** | `textures/items/mining_helmet.png` | 16 x 16 | PNG (RGBA) | Displayed in inventory, hotbar, and crafting results |
+| **Attachable Hook** | `attachables/mining_helmet.json` | JSON | Bedrock 1.10+ | Binds model texture to `geometry.humanoid.armor.helmet` |
+| **Item Texture Hook** | `textures/item_texture.json` | JSON | Bedrock Atlas | Maps `mining_helmet` icon to `textures/items/mining_helmet` |
+
+---
+
+## Color Palette and Hex Reference
+
+```
+┌─────────────────┬───────────┬────────────────────────────────────────┐
+│ Region          │ Hex Color │ Role / Description                     │
+├─────────────────┼───────────┼────────────────────────────────────────┤
+│ Gold Crown      │ #FFEB73   │ Hard hat top specular highlights       │
+│ Gold Base Body  │ #FECD2D   │ Standard industrial gold hard hat body │
+│ Gold Shadow     │ #C39114   │ Side temples, bevels, and under-brim   │
+│ Rubber Lip/Rim  │ #202226   │ Heavy-duty bottom protective gasket    │
+│ Metallic Mount  │ #3C4048   │ Dark gray forehead lantern bracket     │
+│ Lamp Core Light │ #FFFFF0   │ Center bulb maximum emission cluster   │
+│ Lamp Amber Glow │ #FFDC46   │ Warm halogen ambient lens fringe       │
+└─────────────────┴───────────┴────────────────────────────────────────┘
+```
+
+---
+
+## Detailed Pixel Mapping
+
+### 1. Armor Model (`textures/models/armor/mining_helmet_1.png` - 64 x 32)
+The standard Bedrock humanoid armor model uses a 64x32 canvas with the helmet mapped to the head cube:
+
+#### A. Crown and Skullcap Coverage (Hair Area Only)
+Unlike full bucket helmets that enclose the jaw and cheeks, the Mining Helmet adopts an open-face miner skullcap profile:
+- Top Face (`8, 0` to `16, 8` and `40, 0` to `48, 8`): Full 8x8 gold hardhat dome with raised center ridge (`X: 11..12` / `X: 43..44`) in specular `#FFF176`.
+- Upper Hair and Brow (`Y: 8..9`): Continuous gold hard hat cap body with protective dark rubber gasket/rim (`#2E2822`).
+- Nape / Back Hair (`Y: 10..11`, `X: 24..31` and `X: 56..63`): Shaded gold cap rim cupping the upper back of the hair.
+
+#### B. Forehead Center Mounted Light
+- Mount and Bracket (`Y: 9..11`, `X: 10..13` and `X: 42..45`): Dark metallic alloy mounting plate (`#37474F`).
+- Centered Headlamp Lens (`Y: 10`, `X: 11..12` and `X: 43..44`):
+  - Core bulb: Pure high-intensity electric white (`#FFFFFF`).
+  - Warm lens surround: Halogen emission tint (`#FFF9C4` / `#FFE082`).
+
+#### C. Open Face Transparency (`Y: 12..15`)
+- Rows 12 through 15 across all facial and side quadrants are 100% transparent (alpha = 0).
+- Rows 10..11 along the eyes and cheeks are transparent outside the center lamp bracket (`X: 10..13`).
+- This leaves the player's eyes, nose, cheeks, mouth, chin, and lower ears completely open and visible without visor clipping.
+
+---
+
+### 2. Item Icon (`textures/items/mining_helmet.png` - 16 x 16)
+
+![Mining Helmet Item Texture](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Mining-Helmet/mining_helmet_preview.png)
+
+- Hard Hat Silhouette: Modeled with an open hard hat dome, raised central crown ridge, and dark lower brim.
+- Center Headlamp:
+  - Dark mounting bracket (`#37474F`) at rows `Y: 6..9`.
+  - Glowing white center bulb (`#FFFFFF`) with amber lens fringe (`#FFE082` / `#FFF9C4`).
+- Open Profile: Distinct miner hard hat silhouette with open lower facial clearance.
+
+---
+
+## Blockbench and Image Editor Instructions
+
+1. Open Blockbench -> Minecraft Skin / Entity Model or any pixel art editor (Aseprite, Photoshop, GIMP).
+2. Load `textures/models/armor/mining_helmet_1.png` on the humanoid helmet mesh (`geometry.humanoid.armor.helmet`).
+3. Notice that the top crown (`Y: 0..7`) and upper hair rows (`Y: 8..11`) wrap the skull and hair, while `Y: 12..15` remain transparent for the open face.
+4. Export as a 32-bit PNG with RGBA alpha channel intact.
+````

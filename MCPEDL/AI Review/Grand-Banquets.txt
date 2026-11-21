@@ -1,0 +1,2057 @@
+<!-- GRAPH-CONTEXT:START -->
+## Graph Context
+
+- **Project:** `Grand-Banquets` | Category: `Addons` | Version: `v2`
+- **Pack Types:** behavior_pack, resource_pack
+- **Siblings in Addons:** `2-in-1-Loot--XP-Booster (v2)` (v2), `ALN-MoreDiscs (v2)` (v2), `ALN-Pointer (v2)` (v2), `ALN-Quiver (v2)` (v2), `ALN-Wireless-Headphones (v2)` (v2), `Category: Addons`, `Cheat-Stick (v4)` (v4), `Copper-Carrier-Logistics (v2)` (v2) …
+
+> _Auto-generated from graphify-out/graph.json — do not edit manually._
+<!-- GRAPH-CONTEXT:END -->
+
+---
+
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Addons/Grand-Banquets`
+- **Destination:** `MCPEDL/Addons/Grand-Banquets`
+- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/Grand-Banquets/CHANGELOG.md`)
+- **Text files:** 72
+- **Skipped binary:** 101
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/bacon_and_eggs.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/braised_ribs.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/celestial_roast.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/cheese_bread_pot.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/citadel_ham.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/dragonlords_galantine.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/fishermans_platter.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/glazed_ham.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/glazed_wings.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/harvest_loaf.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/highland_venison.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/honey_berry_tart.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/hunters_stew.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/imperial_feast.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/kelp_fish_broth.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/lumberjacks_ham.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/mariners_pot.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/miners_roast.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/mushroom_casserole.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/phoenix_roast.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/potato_loaf.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/pumpkin_casserole.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/roast_turkey.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/roasted_roots.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/sausage_pan.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/scholars_dumplings.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/shepherds_pie.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/sovereign_platter.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/strider_gumbo.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/veggie_skillet.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/verdant_ambrosia.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/items/warlords_steak.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/manifest.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/bacon_and_eggs.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/braised_ribs.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/celestial_roast.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/cheese_bread_pot.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/citadel_ham.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/dragonlords_galantine.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/fishermans_platter.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/glazed_ham.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/glazed_wings.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/harvest_loaf.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/highland_venison.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/honey_berry_tart.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/hunters_stew.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/imperial_feast.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/kelp_fish_broth.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/lumberjacks_ham.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/mariners_pot.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/miners_roast.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/mushroom_casserole.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/phoenix_roast.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/potato_loaf.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/pumpkin_casserole.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/roast_turkey.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/roasted_roots.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/sausage_pan.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/scholars_dumplings.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/shepherds_pie.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/sovereign_platter.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/strider_gumbo.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/veggie_skillet.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/verdant_ambrosia.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/warlords_steak.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/Grand-Banquets/CHANGELOG.md`
+- `MCPEDL/Addons/Grand-Banquets/DESCRIPTION.md`
+- `MCPEDL/Addons/Grand-Banquets/README.md`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/manifest.json`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/texts/en_US.lang`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/item_texture.json`
+
+### Skipped (binary)
+
+- `MCPEDL/Addons/Grand-Banquets/assets/items/bacon_and_eggs.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/items/braised_ribs.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/items/celestial_roast.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/items/cheese_bread_pot.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/items/citadel_ham.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/items/dragonlords_galantine.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/items/fishermans_platter.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/items/glazed_ham.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/items/glazed_wings.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/items/harvest_loaf.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/items/highland_venison.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/items/honey_berry_tart.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/items/hunters_stew.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/items/imperial_feast.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/items/kelp_fish_broth.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/items/lumberjacks_ham.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/items/mariners_pot.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/items/miners_roast.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/items/mushroom_casserole.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/items/phoenix_roast.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/items/potato_loaf.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/items/pumpkin_casserole.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/items/roast_turkey.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/items/roasted_roots.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/items/sausage_pan.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/items/scholars_dumplings.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/items/shepherds_pie.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/items/sovereign_platter.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/items/strider_gumbo.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/items/veggie_skillet.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/items/verdant_ambrosia.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/items/warlords_steak.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/bacon_and_eggs_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/braised_ribs_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/celestial_roast_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/cheese_bread_pot_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/citadel_ham_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/dragonlords_galantine_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/fishermans_platter_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/glazed_ham_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/glazed_wings_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/harvest_loaf_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/highland_venison_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/honey_berry_tart_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/hunters_stew_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/imperial_feast_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/item_previews.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/kelp_fish_broth_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/lumberjacks_ham_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/mariners_pot_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/miners_roast_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/mushroom_casserole_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/phoenix_roast_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/potato_loaf_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/pumpkin_casserole_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/roast_turkey_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/roasted_roots_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/sausage_pan_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/scholars_dumplings_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/shepherds_pie_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/sovereign_platter_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/strider_gumbo_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/tier_1_recipes.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/tier_2_recipes.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/tier_3_recipes.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/tier_4_recipes.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/veggie_skillet_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/verdant_ambrosia_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/assets/recipes/warlords_steak_recipe.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/bacon_and_eggs.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/braised_ribs.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/celestial_roast.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/cheese_bread_pot.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/citadel_ham.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/dragonlords_galantine.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/fishermans_platter.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/glazed_ham.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/glazed_wings.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/harvest_loaf.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/highland_venison.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/honey_berry_tart.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/hunters_stew.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/imperial_feast.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/kelp_fish_broth.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/lumberjacks_ham.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/mariners_pot.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/miners_roast.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/mushroom_casserole.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/phoenix_roast.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/potato_loaf.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/pumpkin_casserole.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/roast_turkey.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/roasted_roots.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/sausage_pan.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/scholars_dumplings.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/shepherds_pie.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/sovereign_platter.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/strider_gumbo.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/veggie_skillet.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/verdant_ambrosia.png`
+- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/warlords_steak.png`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Addons/Grand-Banquets
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`.
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/bacon_and_eggs.json (2 lines, 486 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:bacon_and_eggs","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"bacon_and_eggs"}},"minecraft:display_name":{"value":"Smoked Bacon & Eggs"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":11,"saturation_modifier":0.8,"can_always_eat":false}}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/braised_ribs.json (2 lines, 482 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:braised_ribs","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"braised_ribs"}},"minecraft:display_name":{"value":"Braised Forest Ribs"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":13,"saturation_modifier":1.2,"can_always_eat":false}}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/celestial_roast.json (2 lines, 511 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:celestial_roast","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"celestial_roast"}},"minecraft:display_name":{"value":"Celestial Echo Roast"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":20,"saturation_modifier":1.2,"can_always_eat":true},"minecraft:glint":true}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/cheese_bread_pot.json (2 lines, 534 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:cheese_bread_pot","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"cheese_bread_pot"}},"minecraft:display_name":{"value":"Baked Cheese & Bread Pot"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":13,"saturation_modifier":1.2,"can_always_eat":false,"using_converts_to":"minecraft:bucket"}}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/citadel_ham.json (2 lines, 508 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:citadel_ham","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"citadel_ham"}},"minecraft:display_name":{"value":"Golden Citadel Glazed Ham"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":17,"saturation_modifier":1.2,"can_always_eat":true},"minecraft:glint":true}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/dragonlords_galantine.json (2 lines, 533 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:dragonlords_galantine","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"dragonlords_galantine"}},"minecraft:display_name":{"value":"Dragonlord's Abyssal Galantine"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":20,"saturation_modifier":1.2,"can_always_eat":true},"minecraft:glint":true}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/fishermans_platter.json (2 lines, 494 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:fishermans_platter","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"fishermans_platter"}},"minecraft:display_name":{"value":"Fisherman's Platter"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":12,"saturation_modifier":1.0,"can_always_eat":false}}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/glazed_ham.json (2 lines, 474 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:glazed_ham","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"glazed_ham"}},"minecraft:display_name":{"value":"Glazed Ham Tray"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":14,"saturation_modifier":1.2,"can_always_eat":false}}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/glazed_wings.json (2 lines, 532 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:glazed_wings","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"glazed_wings"}},"minecraft:display_name":{"value":"Glazed Amber Glider Wings"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":14,"saturation_modifier":1.2,"can_always_eat":true,"using_converts_to":"minecraft:glass_bottle"}}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/harvest_loaf.json (2 lines, 484 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:harvest_loaf","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"harvest_loaf"}},"minecraft:display_name":{"value":"Farmer's Harvest Loaf"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":12,"saturation_modifier":1.0,"can_always_eat":false}}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/highland_venison.json (2 lines, 495 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:highland_venison","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"highland_venison"}},"minecraft:display_name":{"value":"Highland Runner's Venison"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":14,"saturation_modifier":1.2,"can_always_eat":true}}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/honey_berry_tart.json (2 lines, 538 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:honey_berry_tart","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"honey_berry_tart"}},"minecraft:display_name":{"value":"Sunlit Honey Berry Tart"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":12,"saturation_modifier":1.2,"can_always_eat":true,"using_converts_to":"minecraft:glass_bottle"}}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/hunters_stew.json (2 lines, 522 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:hunters_stew","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"hunters_stew"}},"minecraft:display_name":{"value":"Campfire Hunter's Stew"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":12,"saturation_modifier":1.0,"can_always_eat":false,"using_converts_to":"minecraft:bowl"}}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/imperial_feast.json (2 lines, 516 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:imperial_feast","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"imperial_feast"}},"minecraft:display_name":{"value":"Imperial Hero's Crown Feast"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":20,"saturation_modifier":1.2,"can_always_eat":true},"minecraft:glint":true}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/kelp_fish_broth.json (2 lines, 530 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:kelp_fish_broth","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"kelp_fish_broth"}},"minecraft:display_name":{"value":"Savory Kelp & Fish Broth"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":11,"saturation_modifier":0.8,"can_always_eat":false,"using_converts_to":"minecraft:bowl"}}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/lumberjacks_ham.json (2 lines, 536 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:lumberjacks_ham","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"lumberjacks_ham"}},"minecraft:display_name":{"value":"Lumberjack's Spiced Ham"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":15,"saturation_modifier":1.2,"can_always_eat":true,"using_converts_to":"minecraft:glass_bottle"}}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/mariners_pot.json (2 lines, 522 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:mariners_pot","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"mariners_pot"}},"minecraft:display_name":{"value":"Mariner's Deepwater Pot"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":13,"saturation_modifier":1.2,"can_always_eat":true,"using_converts_to":"minecraft:bowl"}}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/miners_roast.json (2 lines, 488 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:miners_roast","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"miners_roast"}},"minecraft:display_name":{"value":"Deep Delver's Miners Roast"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":14,"saturation_modifier":1.2,"can_always_eat":true}}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/mushroom_casserole.json (2 lines, 537 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:mushroom_casserole","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"mushroom_casserole"}},"minecraft:display_name":{"value":"Creamy Mushroom Casserole"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":11,"saturation_modifier":0.8,"can_always_eat":false,"using_converts_to":"minecraft:bowl"}}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/phoenix_roast.json (2 lines, 507 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:phoenix_roast","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"phoenix_roast"}},"minecraft:display_name":{"value":"Phoenix Spiced Roast"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":16,"saturation_modifier":1.2,"can_always_eat":true},"minecraft:glint":true}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/potato_loaf.json (2 lines, 479 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:potato_loaf","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"potato_loaf"}},"minecraft:display_name":{"value":"Rustic Potato Loaf"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":11,"saturation_modifier":0.8,"can_always_eat":false}}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/pumpkin_casserole.json (2 lines, 534 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:pumpkin_casserole","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"pumpkin_casserole"}},"minecraft:display_name":{"value":"Autumn Pumpkin Casserole"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":12,"saturation_modifier":1.0,"can_always_eat":false,"using_converts_to":"minecraft:bowl"}}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/roast_turkey.json (2 lines, 483 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:roast_turkey","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"roast_turkey"}},"minecraft:display_name":{"value":"Stuffed Roast Turkey"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":14,"saturation_modifier":1.2,"can_always_eat":false}}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/roasted_roots.json (2 lines, 483 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:roasted_roots","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"roasted_roots"}},"minecraft:display_name":{"value":"Roasted Root Feast"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":10,"saturation_modifier":0.8,"can_always_eat":false}}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/sausage_pan.json (2 lines, 522 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:sausage_pan","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"sausage_pan"}},"minecraft:display_name":{"value":"Country Pork Sausage Pan"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":12,"saturation_modifier":1.0,"can_always_eat":false,"using_converts_to":"minecraft:bowl"}}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/scholars_dumplings.json (2 lines, 499 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:scholars_dumplings","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"scholars_dumplings"}},"minecraft:display_name":{"value":"Lapis Scholar's Dumplings"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":16,"saturation_modifier":1.2,"can_always_eat":true}}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/shepherds_pie.json (2 lines, 486 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:shepherds_pie","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"shepherds_pie"}},"minecraft:display_name":{"value":"Hearty Shepherd's Pie"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":12,"saturation_modifier":1.0,"can_always_eat":false}}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/sovereign_platter.json (2 lines, 527 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:sovereign_platter","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"sovereign_platter"}},"minecraft:display_name":{"value":"Tide Sovereign's Seafood Platter"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":16,"saturation_modifier":1.2,"can_always_eat":true},"minecraft:glint":true}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/strider_gumbo.json (2 lines, 523 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:strider_gumbo","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"strider_gumbo"}},"minecraft:display_name":{"value":"Nether Strider's Gumbo"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":13,"saturation_modifier":1.2,"can_always_eat":true,"using_converts_to":"minecraft:bowl"}}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/veggie_skillet.json (2 lines, 528 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:veggie_skillet","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"veggie_skillet"}},"minecraft:display_name":{"value":"Vegetable Medley Skillet"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":10,"saturation_modifier":0.8,"can_always_eat":false,"using_converts_to":"minecraft:bowl"}}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/verdant_ambrosia.json (2 lines, 519 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:verdant_ambrosia","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"verdant_ambrosia"}},"minecraft:display_name":{"value":"Verdant Sovereign Ambrosia"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":18,"saturation_modifier":1.2,"can_always_eat":true},"minecraft:glint":true}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/items/warlords_steak.json (2 lines, 518 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:warlords_steak","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:icon":{"textures":{"default":"warlords_steak"}},"minecraft:display_name":{"value":"Warlord's Crimson Steak Feast"},"minecraft:use_animation":"eat","minecraft:use_modifiers":{"use_duration":2.4,"movement_modifier":0.35},"minecraft:food":{"nutrition":17,"saturation_modifier":1.2,"can_always_eat":true},"minecraft:glint":true}}}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/manifest.json (62 lines, 1110 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Grand Banquets (v2)",
+    "description": "Adds 32 craftable custom food dishes across four tiers, including meals with special status effects. by ALNStudios",
+    "uuid": "485dca7d-bdc8-4fce-bc51-6b7d459907d1",
+    "version": [
+      2,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "4fd39a00-2f96-462e-9725-50d7a583769c",
+      "version": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "2ba52d2e-6b8d-4dea-9b19-e2b8e1eda59d",
+      "version": [
+        2,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "77eb5486-758d-4a9f-9949-4eba0b900d30",
+      "version": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.13.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "2.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/bacon_and_eggs.json (37 lines, 611 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "custom:bacon_and_eggs"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:bowl"
+      },
+      {
+        "item": "minecraft:cooked_porkchop"
+      },
+      {
+        "item": "minecraft:egg"
+      },
+      {
+        "item": "minecraft:egg"
+      },
+      {
+        "item": "minecraft:bread"
+      }
+    ],
+    "result": {
+      "item": "custom:bacon_and_eggs"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/braised_ribs.json (37 lines, 631 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "custom:braised_ribs"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:bowl"
+      },
+      {
+        "item": "minecraft:cooked_porkchop"
+      },
+      {
+        "item": "minecraft:cooked_porkchop"
+      },
+      {
+        "item": "minecraft:carrot"
+      },
+      {
+        "item": "minecraft:brown_mushroom"
+      }
+    ],
+    "result": {
+      "item": "custom:braised_ribs"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/celestial_roast.json (36 lines, 633 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:celestial_roast"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "D  "
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:echo_shard"
+      },
+      "B": {
+        "item": "minecraft:enchanted_golden_apple"
+      },
+      "C": {
+        "item": "minecraft:cooked_mutton"
+      },
+      "D": {
+        "item": "minecraft:cooked_beef"
+      }
+    },
+    "result": {
+      "item": "custom:celestial_roast"
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/cheese_bread_pot.json (34 lines, 571 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "custom:cheese_bread_pot"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:bowl"
+      },
+      {
+        "item": "minecraft:milk_bucket"
+      },
+      {
+        "item": "minecraft:bread"
+      },
+      {
+        "item": "minecraft:baked_potato"
+      }
+    ],
+    "result": {
+      "item": "custom:cheese_bread_pot"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/citadel_ham.json (36 lines, 617 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:citadel_ham"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AAB",
+      "CD "
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:cooked_porkchop"
+      },
+      "B": {
+        "item": "minecraft:golden_apple"
+      },
+      "C": {
+        "item": "minecraft:gold_ingot"
+      },
+      "D": {
+        "item": "minecraft:magma_cream"
+      }
+    },
+    "result": {
+      "item": "custom:citadel_ham"
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/dragonlords_galantine.json (39 lines, 706 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:dragonlords_galantine"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "DE "
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:dragon_breath"
+      },
+      "B": {
+        "item": "minecraft:netherite_scrap"
+      },
+      "C": {
+        "item": "minecraft:cooked_beef"
+      },
+      "D": {
+        "item": "minecraft:cooked_porkchop"
+      },
+      "E": {
+        "item": "minecraft:golden_apple"
+      }
+    },
+    "result": {
+      "item": "custom:dragonlords_galantine"
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/fishermans_platter.json (37 lines, 633 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "custom:fishermans_platter"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:bowl"
+      },
+      {
+        "item": "minecraft:cooked_cod"
+      },
+      {
+        "item": "minecraft:cooked_salmon"
+      },
+      {
+        "item": "minecraft:baked_potato"
+      },
+      {
+        "item": "minecraft:wheat"
+      }
+    ],
+    "result": {
+      "item": "custom:fishermans_platter"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/glazed_ham.json (37 lines, 621 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "custom:glazed_ham"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:bowl"
+      },
+      {
+        "item": "minecraft:cooked_porkchop"
+      },
+      {
+        "item": "minecraft:cooked_porkchop"
+      },
+      {
+        "item": "minecraft:carrot"
+      },
+      {
+        "item": "minecraft:beetroot"
+      }
+    ],
+    "result": {
+      "item": "custom:glazed_ham"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/glazed_wings.json (37 lines, 640 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "custom:glazed_wings"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:honey_bottle"
+      },
+      {
+        "item": "minecraft:cooked_chicken"
+      },
+      {
+        "item": "minecraft:cooked_chicken"
+      },
+      {
+        "item": "minecraft:feather"
+      },
+      {
+        "item": "minecraft:phantom_membrane"
+      }
+    ],
+    "result": {
+      "item": "custom:glazed_wings"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/harvest_loaf.json (37 lines, 609 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "custom:harvest_loaf"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:bowl"
+      },
+      {
+        "item": "minecraft:bread"
+      },
+      {
+        "item": "minecraft:wheat"
+      },
+      {
+        "item": "minecraft:carrot"
+      },
+      {
+        "item": "minecraft:baked_potato"
+      }
+    ],
+    "result": {
+      "item": "custom:harvest_loaf"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/highland_venison.json (37 lines, 647 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "custom:highland_venison"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:cooked_mutton"
+      },
+      {
+        "item": "minecraft:cooked_mutton"
+      },
+      {
+        "item": "minecraft:sweet_berries"
+      },
+      {
+        "item": "minecraft:cocoa_beans"
+      },
+      {
+        "item": "minecraft:baked_potato"
+      }
+    ],
+    "result": {
+      "item": "custom:highland_venison"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/honey_berry_tart.json (37 lines, 630 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "custom:honey_berry_tart"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:honey_bottle"
+      },
+      {
+        "item": "minecraft:sweet_berries"
+      },
+      {
+        "item": "minecraft:glow_berries"
+      },
+      {
+        "item": "minecraft:wheat"
+      },
+      {
+        "item": "minecraft:egg"
+      }
+    ],
+    "result": {
+      "item": "custom:honey_berry_tart"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/hunters_stew.json (37 lines, 624 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "custom:hunters_stew"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:bowl"
+      },
+      {
+        "item": "minecraft:cooked_beef"
+      },
+      {
+        "item": "minecraft:carrot"
+      },
+      {
+        "item": "minecraft:brown_mushroom"
+      },
+      {
+        "item": "minecraft:baked_potato"
+      }
+    ],
+    "result": {
+      "item": "custom:hunters_stew"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/imperial_feast.json (39 lines, 692 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:imperial_feast"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "DE "
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:totem_of_undying"
+      },
+      "B": {
+        "item": "minecraft:emerald_block"
+      },
+      "C": {
+        "item": "minecraft:golden_apple"
+      },
+      "D": {
+        "item": "minecraft:cooked_beef"
+      },
+      "E": {
+        "item": "minecraft:cooked_chicken"
+      }
+    },
+    "result": {
+      "item": "custom:imperial_feast"
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/kelp_fish_broth.json (37 lines, 625 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "custom:kelp_fish_broth"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:bowl"
+      },
+      {
+        "item": "minecraft:dried_kelp"
+      },
+      {
+        "item": "minecraft:cooked_cod"
+      },
+      {
+        "item": "minecraft:carrot"
+      },
+      {
+        "item": "minecraft:baked_potato"
+      }
+    ],
+    "result": {
+      "item": "custom:kelp_fish_broth"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/lumberjacks_ham.json (37 lines, 641 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "custom:lumberjacks_ham"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:cooked_porkchop"
+      },
+      {
+        "item": "minecraft:cooked_porkchop"
+      },
+      {
+        "item": "minecraft:honey_bottle"
+      },
+      {
+        "item": "minecraft:bread"
+      },
+      {
+        "item": "minecraft:cocoa_beans"
+      }
+    ],
+    "result": {
+      "item": "custom:lumberjacks_ham"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/mariners_pot.json (37 lines, 627 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "custom:mariners_pot"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:bowl"
+      },
+      {
+        "item": "minecraft:cooked_salmon"
+      },
+      {
+        "item": "minecraft:cooked_cod"
+      },
+      {
+        "item": "minecraft:dried_kelp"
+      },
+      {
+        "item": "minecraft:warped_fungus"
+      }
+    ],
+    "result": {
+      "item": "custom:mariners_pot"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/miners_roast.json (37 lines, 635 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "custom:miners_roast"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:cooked_beef"
+      },
+      {
+        "item": "minecraft:glow_berries"
+      },
+      {
+        "item": "minecraft:glow_berries"
+      },
+      {
+        "item": "minecraft:baked_potato"
+      },
+      {
+        "item": "minecraft:cocoa_beans"
+      }
+    ],
+    "result": {
+      "item": "custom:miners_roast"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/mushroom_casserole.json (37 lines, 627 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "custom:mushroom_casserole"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:bowl"
+      },
+      {
+        "item": "minecraft:brown_mushroom"
+      },
+      {
+        "item": "minecraft:red_mushroom"
+      },
+      {
+        "item": "minecraft:egg"
+      },
+      {
+        "item": "minecraft:wheat"
+      }
+    ],
+    "result": {
+      "item": "custom:mushroom_casserole"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/phoenix_roast.json (36 lines, 620 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:phoenix_roast"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AAB",
+      "CD "
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:cooked_chicken"
+      },
+      "B": {
+        "item": "minecraft:blaze_powder"
+      },
+      "C": {
+        "item": "minecraft:magma_cream"
+      },
+      "D": {
+        "item": "minecraft:gold_ingot"
+      }
+    },
+    "result": {
+      "item": "custom:phoenix_roast"
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/potato_loaf.json (37 lines, 611 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "custom:potato_loaf"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:bowl"
+      },
+      {
+        "item": "minecraft:baked_potato"
+      },
+      {
+        "item": "minecraft:baked_potato"
+      },
+      {
+        "item": "minecraft:wheat"
+      },
+      {
+        "item": "minecraft:egg"
+      }
+    ],
+    "result": {
+      "item": "custom:potato_loaf"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/pumpkin_casserole.json (37 lines, 619 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "custom:pumpkin_casserole"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:bowl"
+      },
+      {
+        "item": "minecraft:pumpkin"
+      },
+      {
+        "item": "minecraft:cooked_mutton"
+      },
+      {
+        "item": "minecraft:egg"
+      },
+      {
+        "item": "minecraft:wheat"
+      }
+    ],
+    "result": {
+      "item": "custom:pumpkin_casserole"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/roast_turkey.json (37 lines, 626 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "custom:roast_turkey"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:bowl"
+      },
+      {
+        "item": "minecraft:cooked_chicken"
+      },
+      {
+        "item": "minecraft:cooked_chicken"
+      },
+      {
+        "item": "minecraft:bread"
+      },
+      {
+        "item": "minecraft:baked_potato"
+      }
+    ],
+    "result": {
+      "item": "custom:roast_turkey"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/roasted_roots.json (37 lines, 614 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "custom:roasted_roots"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:bowl"
+      },
+      {
+        "item": "minecraft:carrot"
+      },
+      {
+        "item": "minecraft:beetroot"
+      },
+      {
+        "item": "minecraft:baked_potato"
+      },
+      {
+        "item": "minecraft:bread"
+      }
+    ],
+    "result": {
+      "item": "custom:roasted_roots"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/sausage_pan.json (37 lines, 614 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "custom:sausage_pan"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:bowl"
+      },
+      {
+        "item": "minecraft:cooked_porkchop"
+      },
+      {
+        "item": "minecraft:egg"
+      },
+      {
+        "item": "minecraft:baked_potato"
+      },
+      {
+        "item": "minecraft:wheat"
+      }
+    ],
+    "result": {
+      "item": "custom:sausage_pan"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/scholars_dumplings.json (37 lines, 643 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "custom:scholars_dumplings"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:lapis_lazuli"
+      },
+      {
+        "item": "minecraft:wheat"
+      },
+      {
+        "item": "minecraft:cooked_chicken"
+      },
+      {
+        "item": "minecraft:cocoa_beans"
+      },
+      {
+        "item": "minecraft:glow_berries"
+      }
+    ],
+    "result": {
+      "item": "custom:scholars_dumplings"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/shepherds_pie.json (34 lines, 568 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "custom:shepherds_pie"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:bowl"
+      },
+      {
+        "item": "minecraft:cooked_mutton"
+      },
+      {
+        "item": "minecraft:baked_potato"
+      },
+      {
+        "item": "minecraft:carrot"
+      }
+    ],
+    "result": {
+      "item": "custom:shepherds_pie"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/sovereign_platter.json (36 lines, 633 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:sovereign_platter"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AAB",
+      "CD "
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:cooked_salmon"
+      },
+      "B": {
+        "item": "minecraft:nautilus_shell"
+      },
+      "C": {
+        "item": "minecraft:golden_carrot"
+      },
+      "D": {
+        "item": "minecraft:blaze_powder"
+      }
+    },
+    "result": {
+      "item": "custom:sovereign_platter"
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/strider_gumbo.json (37 lines, 636 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "custom:strider_gumbo"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:bowl"
+      },
+      {
+        "item": "minecraft:crimson_fungus"
+      },
+      {
+        "item": "minecraft:warped_fungus"
+      },
+      {
+        "item": "minecraft:cooked_porkchop"
+      },
+      {
+        "item": "minecraft:nether_wart"
+      }
+    ],
+    "result": {
+      "item": "custom:strider_gumbo"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/veggie_skillet.json (37 lines, 623 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "custom:veggie_skillet"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:bowl"
+      },
+      {
+        "item": "minecraft:carrot"
+      },
+      {
+        "item": "minecraft:beetroot"
+      },
+      {
+        "item": "minecraft:baked_potato"
+      },
+      {
+        "item": "minecraft:red_mushroom"
+      }
+    ],
+    "result": {
+      "item": "custom:veggie_skillet"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/verdant_ambrosia.json (39 lines, 689 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:verdant_ambrosia"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "DE "
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:golden_apple"
+      },
+      "B": {
+        "item": "minecraft:golden_carrot"
+      },
+      "C": {
+        "item": "minecraft:glow_berries"
+      },
+      "D": {
+        "item": "minecraft:blaze_powder"
+      },
+      "E": {
+        "item": "minecraft:gold_ingot"
+      }
+    },
+    "result": {
+      "item": "custom:verdant_ambrosia"
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/warlords_steak.json (36 lines, 621 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:warlords_steak"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AAB",
+      "CD "
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:cooked_beef"
+      },
+      "B": {
+        "item": "minecraft:blaze_powder"
+      },
+      "C": {
+        "item": "minecraft:golden_carrot"
+      },
+      "D": {
+        "item": "minecraft:gold_ingot"
+      }
+    },
+    "result": {
+      "item": "custom:warlords_steak"
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/scripts/main.js (32 lines, 1708 bytes)
+
+```
+import { world } from "@minecraft/server";
+
+// Banquet buff table: item typeId -> [effect, amplifier (level - 1), duration in seconds]
+const BUFFS = {
+  "custom:glazed_wings": [["jump_boost", 1, 180], ["slow_falling", 0, 60]],
+  "custom:miners_roast": [["haste", 1, 180], ["night_vision", 0, 180]],
+  "custom:mariners_pot": [["dolphins_grace", 0, 120], ["water_breathing", 0, 240]],
+  "custom:highland_venison": [["speed", 1, 180]],
+  "custom:lumberjacks_ham": [["haste", 0, 240], ["saturation", 0, 30]],
+  "custom:honey_berry_tart": [["saturation", 1, 60], ["speed", 0, 120]],
+  "custom:strider_gumbo": [["fire_resistance", 0, 180]],
+  "custom:scholars_dumplings": [["night_vision", 0, 240], ["luck", 0, 180]],
+  "custom:warlords_steak": [["strength", 1, 120], ["resistance", 0, 120]],
+  "custom:citadel_ham": [["absorption", 1, 180], ["resistance", 1, 120]],
+  "custom:sovereign_platter": [["conduit_power", 0, 180], ["regeneration", 1, 60]],
+  "custom:phoenix_roast": [["fire_resistance", 0, 600], ["strength", 0, 180]],
+  "custom:verdant_ambrosia": [["regeneration", 1, 90], ["saturation", 2, 30]],
+  "custom:dragonlords_galantine": [["strength", 2, 180], ["resistance", 1, 180], ["fire_resistance", 0, 600]],
+  "custom:celestial_roast": [["absorption", 4, 240], ["regeneration", 2, 120], ["resistance", 1, 180]],
+  "custom:imperial_feast": [["village_hero", 4, 900], ["saturation", 3, 120], ["resistance", 0, 300]]
+};
+
+world.afterEvents.itemCompleteUse.subscribe((event) => {
+  const buffs = BUFFS[event.itemStack.typeId];
+  if (!buffs) return;
+  for (const [effect, amplifier, seconds] of buffs) {
+    try {
+      event.source.addEffect(effect, seconds * 20, { amplifier });
+    } catch (e) {}
+  }
+});
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/CHANGELOG.md (10 lines, 163 bytes)
+
+```
+# Changelog — Grand Banquets
+
+---
+
+## [v2] - 2026-10-29
+
+### Improved & Balanced
+
+- **Changelog started**: Version history is recorded from this release onward.
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/DESCRIPTION.md (78 lines, 4302 bytes)
+
+```
+# Grand Banquets — Craftable Meals and Feasts
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+Grand Banquets adds 32 craftable custom foods to Minecraft Bedrock Edition. The collection is arranged into four tiers, from everyday survival meals to elaborate feasts with additional status effects.
+
+## Overview
+
+Cook a wider range of meals using familiar Minecraft ingredients. Each dish has its own food values, and selected meals also grant status effects after eating. Recipes are available without needing to unlock them first.
+
+## Custom Food Items
+
+The collection includes dishes such as Shepherd's Pie, Hunter's Stew, Roast Turkey, Glazed Wings, Miner's Roast, Mariner's Pot, Dragonlord's Abyssal Galantine, Celestial Echo Roast, Sovereign Platter, and Imperial Hero's Crown Feast.
+
+## Crafting Recipes
+
+Recipes are available in the crafting table. Use the ingredients for the dish you want to prepare.
+
+## Featured Food Effects
+
+Some dishes provide additional effects after eating:
+
+- **Miner's Roast:** Haste II and Night Vision for 3 minutes.
+- **Mariner's Pot:** Dolphin's Grace for 2 minutes and Water Breathing for 4 minutes.
+- **Glazed Wings:** Jump Boost II for 3 minutes and Slow Falling for 1 minute.
+- **Imperial Feast:** Village Hero for 15 minutes, Saturation for 2 minutes, and Resistance for 5 minutes.
+
+Other dishes provide different food values or effects. These examples highlight selected meals from the full collection.
+
+## How to Use
+
+1. Download and import the `.mcaddon` package into Minecraft Bedrock Edition.
+2. Activate the add-on's Behavior Pack and Resource Pack in your world settings if they are not enabled automatically.
+3. Open a crafting table and use the ingredients shown in the recipe for the dish you want to prepare.
+4. Eat a prepared dish to restore hunger and receive any status effects assigned to it.
+
+## Compatibility and World Settings
+
+- **Minecraft Bedrock Edition:** The pack declares a minimum engine version of 1.21.0. This is the declared minimum, not a guarantee that every later release behaves identically.
+- **Experimental features:** The current pack manifests do not declare an experimental toggle requirement. World settings and behavior may still vary by game version.
+- Achievements: Likely achievement-friendly.
+- Verification: Source created, not tested in game.
+
+## Feedback and Suggestions
+
+If you find a bug or a feature that does not work as expected, please leave a comment. Add-on ideas and suggestions for future features are welcome.
+
+---
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Grand Banquets Bedrock add-on, craftable meals Minecraft, food recipes and feasts, Minecraft Bedrock cooking, survival food variety, Minecraft PE add-on, MCPEDL, CurseForge Bedrock, ALNStudios, Minecraft Bedrock add-on, MCPEDL add-on.
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/README.md (19 lines, 792 bytes)
+
+```
+# Grand Banquets
+
+Download the current release of **Grand Banquets** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download Grand Banquets (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grand-Banquets/GrandBanquets%20V2.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/Grand-Banquets/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/resource_pack/manifest.json (47 lines, 789 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Grand Banquets (v2)",
+    "description": "Provides item icons and display names for the 32 custom banquet dishes. by ALNStudios",
+    "uuid": "77eb5486-758d-4a9f-9949-4eba0b900d30",
+    "version": [
+      2,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "e2a0c21d-77d1-4633-8182-5c7434844b14",
+      "version": [
+        2,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "485dca7d-bdc8-4fce-bc51-6b7d459907d1",
+      "version": [
+        2,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "2.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/resource_pack/texts/en_US.lang (33 lines, 1799 bytes)
+
+```
+item.custom:shepherds_pie.name=Hearty Shepherd's Pie
+item.custom:hunters_stew.name=Campfire Hunter's Stew
+item.custom:roast_turkey.name=Stuffed Roast Turkey
+item.custom:fishermans_platter.name=Fisherman's Platter
+item.custom:braised_ribs.name=Braised Forest Ribs
+item.custom:veggie_skillet.name=Vegetable Medley Skillet
+item.custom:sausage_pan.name=Country Pork Sausage Pan
+item.custom:potato_loaf.name=Rustic Potato Loaf
+item.custom:mushroom_casserole.name=Creamy Mushroom Casserole
+item.custom:roasted_roots.name=Roasted Root Feast
+item.custom:bacon_and_eggs.name=Smoked Bacon & Eggs
+item.custom:pumpkin_casserole.name=Autumn Pumpkin Casserole
+item.custom:glazed_ham.name=Glazed Ham Tray
+item.custom:harvest_loaf.name=Farmer's Harvest Loaf
+item.custom:kelp_fish_broth.name=Savory Kelp & Fish Broth
+item.custom:cheese_bread_pot.name=Baked Cheese & Bread Pot
+item.custom:glazed_wings.name=Glazed Amber Glider Wings
+item.custom:miners_roast.name=Deep Delver's Miners Roast
+item.custom:mariners_pot.name=Mariner's Deepwater Pot
+item.custom:highland_venison.name=Highland Runner's Venison
+item.custom:lumberjacks_ham.name=Lumberjack's Spiced Ham
+item.custom:honey_berry_tart.name=Sunlit Honey Berry Tart
+item.custom:strider_gumbo.name=Nether Strider's Gumbo
+item.custom:scholars_dumplings.name=Lapis Scholar's Dumplings
+item.custom:warlords_steak.name=Warlord's Crimson Steak Feast
+item.custom:citadel_ham.name=Golden Citadel Glazed Ham
+item.custom:sovereign_platter.name=Tide Sovereign's Seafood Platter
+item.custom:phoenix_roast.name=Phoenix Spiced Roast
+item.custom:verdant_ambrosia.name=Verdant Sovereign Ambrosia
+item.custom:dragonlords_galantine.name=Dragonlord's Abyssal Galantine
+item.custom:celestial_roast.name=Celestial Echo Roast
+item.custom:imperial_feast.name=Imperial Hero's Crown Feast
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/resource_pack/textures/item_texture.json (2 lines, 2336 bytes)
+
+```
+{"resource_pack_name":"grand_banquets","texture_name":"atlas.items","texture_data":{"shepherds_pie":{"textures":"textures/items/banquet/shepherds_pie"},"hunters_stew":{"textures":"textures/items/banquet/hunters_stew"},"roast_turkey":{"textures":"textures/items/banquet/roast_turkey"},"fishermans_platter":{"textures":"textures/items/banquet/fishermans_platter"},"braised_ribs":{"textures":"textures/items/banquet/braised_ribs"},"veggie_skillet":{"textures":"textures/items/banquet/veggie_skillet"},"sausage_pan":{"textures":"textures/items/banquet/sausage_pan"},"potato_loaf":{"textures":"textures/items/banquet/potato_loaf"},"mushroom_casserole":{"textures":"textures/items/banquet/mushroom_casserole"},"roasted_roots":{"textures":"textures/items/banquet/roasted_roots"},"bacon_and_eggs":{"textures":"textures/items/banquet/bacon_and_eggs"},"pumpkin_casserole":{"textures":"textures/items/banquet/pumpkin_casserole"},"glazed_ham":{"textures":"textures/items/banquet/glazed_ham"},"harvest_loaf":{"textures":"textures/items/banquet/harvest_loaf"},"kelp_fish_broth":{"textures":"textures/items/banquet/kelp_fish_broth"},"cheese_bread_pot":{"textures":"textures/items/banquet/cheese_bread_pot"},"glazed_wings":{"textures":"textures/items/banquet/glazed_wings"},"miners_roast":{"textures":"textures/items/banquet/miners_roast"},"mariners_pot":{"textures":"textures/items/banquet/mariners_pot"},"highland_venison":{"textures":"textures/items/banquet/highland_venison"},"lumberjacks_ham":{"textures":"textures/items/banquet/lumberjacks_ham"},"honey_berry_tart":{"textures":"textures/items/banquet/honey_berry_tart"},"strider_gumbo":{"textures":"textures/items/banquet/strider_gumbo"},"scholars_dumplings":{"textures":"textures/items/banquet/scholars_dumplings"},"warlords_steak":{"textures":"textures/items/banquet/warlords_steak"},"citadel_ham":{"textures":"textures/items/banquet/citadel_ham"},"sovereign_platter":{"textures":"textures/items/banquet/sovereign_platter"},"phoenix_roast":{"textures":"textures/items/banquet/phoenix_roast"},"verdant_ambrosia":{"textures":"textures/items/banquet/verdant_ambrosia"},"dragonlords_galantine":{"textures":"textures/items/banquet/dragonlords_galantine"},"celestial_roast":{"textures":"textures/items/banquet/celestial_roast"},"imperial_feast":{"textures":"textures/items/banquet/imperial_feast"}}}
+```

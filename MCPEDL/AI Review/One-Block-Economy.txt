@@ -1,0 +1,460 @@
+<!-- GRAPH-CONTEXT:START -->
+## Graph Context
+
+- **Project:** `One-Block-Economy` | Category: `Addons` | Version: `v2`
+- **Pack Types:** behavior_pack
+- **Siblings in Addons:** `2-in-1-Loot--XP-Booster (v2)` (v2), `ALN-MoreDiscs (v2)` (v2), `ALN-Pointer (v2)` (v2), `ALN-Quiver (v2)` (v2), `ALN-Wireless-Headphones (v2)` (v2), `Category: Addons`, `Cheat-Stick (v4)` (v4), `Copper-Carrier-Logistics (v2)` (v2) …
+
+> _Auto-generated from graphify-out/graph.json — do not edit manually._
+<!-- GRAPH-CONTEXT:END -->
+
+---
+
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Addons/One-Block-Economy`
+- **Destination:** `MCPEDL/Addons/One-Block-Economy`
+- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/One-Block-Economy/CHANGELOG.md`)
+- **Text files:** 6
+- **Skipped binary:** 1
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Addons/One-Block-Economy/behavior_pack/manifest.json`
+- `MCPEDL/Addons/One-Block-Economy/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/One-Block-Economy/behavior_pack/scripts/phases.js`
+- `MCPEDL/Addons/One-Block-Economy/CHANGELOG.md`
+- `MCPEDL/Addons/One-Block-Economy/DESCRIPTION.md`
+- `MCPEDL/Addons/One-Block-Economy/README.md`
+
+### Skipped (binary)
+
+- `MCPEDL/Addons/One-Block-Economy/behavior_pack/pack_icon.png`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Addons/One-Block-Economy
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`.
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Addons/One-Block-Economy/behavior_pack/manifest.json (45 lines, 919 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "One-Block Hardcore Survival Economy (v2)",
+    "description": "One-Block: Hardcore Survival Economy. A 20-phase single-block regeneration engine with break milestones, a Wandering Trader every 250 blocks and a void safeguard. by ALNStudios",
+    "uuid": "449be628-2f33-4c58-843f-bd7a316f7123",
+    "version": [
+      2,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "45380eba-96d5-4431-8876-5af1576f0d85",
+      "version": [
+        2,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.13.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "2.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/One-Block-Economy/behavior_pack/scripts/main.js (158 lines, 5443 bytes)
+
+```
+import { world, system } from "@minecraft/server";
+import { PHASE_COUNT, phaseName, phaseIndexFor, pickBlock } from "./phases.js";
+
+/* ------------------------------ Configuration ------------------------------ */
+const ORIGIN = { x: 0, y: 64, z: 0 };            // the central block
+const ABOVE_ORIGIN = { x: 0.5, y: 65, z: 0.5 };  // merchant spawn and void rescue point
+const COUNT_KEY = "total_blocks_broken";
+const MERCHANT_EVERY = 250;
+const MERCHANT_TICKS = 1200;                      // 60 seconds
+const MERCHANT_TAG = "ob_merchant";
+const VOID_Y = -50;
+const VOID_DAMAGE = 10;
+
+/* --------------------------------- State ----------------------------------- */
+let total = 0;
+let ready = false;
+const hudPause = new Map(); // player id -> tick until which the HUD stays quiet
+
+const overworld = () => world.getDimension("overworld");
+
+function saveTotal() {
+  try {
+    world.setDynamicProperty(COUNT_KEY, total);
+  } catch (e) {}
+}
+
+function pauseHud(player, ticks) {
+  hudPause.set(player.id, system.currentTick + ticks);
+}
+
+/* ----------------------- Regeneration and progression ----------------------- */
+// Puts the next block for the current phase on the origin. Returns false if the chunk is unloaded.
+function placeNext() {
+  const block = overworld().getBlock(ORIGIN);
+  if (!block) return false;
+  block.setType(pickBlock(phaseIndexFor(total)));
+  return true;
+}
+
+function announcePhase(index) {
+  const title = "§6[PHASE UNLOCKED] §fPhase " + (index + 1) + ": " + phaseName(index);
+  for (const player of world.getAllPlayers()) {
+    try {
+      player.onScreenDisplay.setTitle(title);
+      player.playSound("random.levelup");
+    } catch (e) {}
+  }
+}
+
+/* ---------------------------------- Merchant --------------------------------- */
+function spawnMerchant() {
+  let trader;
+  try {
+    trader = overworld().spawnEntity("minecraft:wandering_trader", ABOVE_ORIGIN);
+    trader.addTag(MERCHANT_TAG);
+    // Slowness 255 keeps the trader standing on the origin instead of wandering into the void.
+    trader.addEffect("slowness", MERCHANT_TICKS + 100, { amplifier: 255, showParticles: false });
+  } catch (e) {
+    return;
+  }
+  for (const player of world.getAllPlayers()) {
+    try {
+      player.onScreenDisplay.setActionBar("§a[MERCHANT] §fA Wandering Trader has arrived for 60 seconds!");
+      pauseHud(player, 100);
+    } catch (e) {}
+  }
+  system.runTimeout(() => {
+    try {
+      trader.remove();
+    } catch (e) {}
+  }, MERCHANT_TICKS);
+}
+
+/* -------------------------------- Event hooks -------------------------------- */
+world.afterEvents.playerBreakBlock.subscribe((event) => {
+  if (!ready) return;
+  const b = event.block;
+  if (b.dimension.id !== "minecraft:overworld" || b.x !== ORIGIN.x || b.y !== ORIGIN.y || b.z !== ORIGIN.z) return;
+
+  const before = phaseIndexFor(total);
+  total += 1;
+  saveTotal();
+  const after = phaseIndexFor(total);
+
+  // Regenerate on the next tick.
+  system.run(() => {
+    try {
+      placeNext();
+      if (total % MERCHANT_EVERY === 0) spawnMerchant();
+    } catch (e) {}
+  });
+  if (after !== before) announcePhase(after);
+});
+
+world.afterEvents.playerLeave.subscribe((event) => {
+  hudPause.delete(event.playerId);
+});
+
+/* ----------------------------- Void safeguard (10 ticks) ----------------------------- */
+system.runInterval(() => {
+  if (!ready) return;
+  for (const player of world.getAllPlayers()) {
+    try {
+      if (player.location.y >= VOID_Y) continue;
+      player.teleport(ABOVE_ORIGIN, { dimension: overworld() });
+      try {
+        player.clearVelocity();
+      } catch (e) {}
+      // The safety tax never kills: it leaves at least half a heart.
+      const health = player.getComponent("minecraft:health");
+      const damage = health ? Math.min(VOID_DAMAGE, Math.max(0, health.currentValue - 1)) : VOID_DAMAGE;
+      if (damage > 0) player.applyDamage(damage);
+      player.playSound("mob.enderdragon.hit");
+      player.onScreenDisplay.setActionBar("§c[VOID SAVIOR] §fSaved from the abyss! Safety tax applied.");
+      pauseHud(player, 60);
+    } catch (e) {}
+  }
+}, 10);
+
+/* ----------------------------- HUD and origin check (20 ticks) ----------------------------- */
+system.runInterval(() => {
+  if (!ready) return;
+  const now = system.currentTick;
+
+  // Fallback: if the origin vanished some other way (explosion, piston...), bring it back without counting it.
+  try {
+    const block = overworld().getBlock(ORIGIN);
+    if (block && block.isAir) placeNext();
+  } catch (e) {}
+
+  const index = phaseIndexFor(total);
+  const text =
+    "§6[ ONE-BLOCK ECONOMY ] §fBlocks: " + total + " §8| §ePhase " + (index + 1) + "/" + PHASE_COUNT + " §8| §b" + phaseName(index);
+  for (const player of world.getAllPlayers()) {
+    try {
+      if ((hudPause.get(player.id) || 0) > now) continue;
+      player.onScreenDisplay.setActionBar(text);
+    } catch (e) {}
+  }
+}, 20);
+
+/* ---------------------------------- Startup ---------------------------------- */
+// Runs on the first tick, when world state can be read safely.
+system.run(() => {
+  try {
+    const saved = world.getDynamicProperty(COUNT_KEY);
+    total = typeof saved === "number" ? saved : 0;
+  } catch (e) {}
+  try {
+    world.setDefaultSpawnLocation({ x: 0, y: 65, z: 0 });
+  } catch (e) {}
+  try {
+    // Clear any trader left over from before a reload.
+    for (const e of overworld().getEntities({ tags: [MERCHANT_TAG] })) e.remove();
+  } catch (e) {}
+  ready = true;
+});
+```
+
+## FILE: MCPEDL/Addons/One-Block-Economy/behavior_pack/scripts/phases.js (62 lines, 3504 bytes)
+
+```
+// 20-phase block pools. Each phase starts at `from` blocks broken and lasts until the next phase starts.
+// Names are Bedrock block ids (without the "minecraft:" prefix).
+const POOLS = [
+  { name: "Humble Beginnings", from: 0, blocks: ["dirt", "grass_block", "oak_log", "gravel", "clay"] },
+  { name: "Stone Age", from: 151, blocks: ["cobblestone", "stone", "mossy_cobblestone", "oak_log", "coarse_dirt"] },
+  { name: "Mossy Grove", from: 401, blocks: ["moss_block", "azalea_leaves", "oak_log", "birch_log", "mud"] },
+  { name: "Cavern Depths", from: 751, blocks: ["andesite", "diorite", "granite", "coal_ore", "deepslate"] },
+  { name: "Iron Forge", from: 1201, blocks: ["raw_iron_block", "stone", "iron_ore", "smooth_basalt", "calcite"] },
+  { name: "Ocean Floor", from: 1801, blocks: ["clay", "gravel", "prismarine", "sponge", "dripstone_block"] },
+  { name: "Mushroom Realm", from: 2501, blocks: ["red_mushroom_block", "brown_mushroom_block", "mycelium", "podzol"] },
+  { name: "Jungle Canopy", from: 3301, blocks: ["jungle_log", "bamboo_block", "melon_block", "mossy_stone_bricks"] },
+  { name: "Desert Dunes", from: 4201, blocks: ["sand", "red_sand", "sandstone", "smooth_sandstone", "hardened_clay", "raw_gold_block"] },
+  { name: "Frozen Tundra", from: 5201, blocks: ["packed_ice", "blue_ice", "snow", "spruce_log"] },
+  { name: "Redstone Caverns", from: 6301, blocks: ["redstone_ore", "redstone_block", "basalt", "smooth_stone", "obsidian"] },
+  { name: "Nether Gate", from: 7501, blocks: ["netherrack", "soul_sand", "soul_soil", "magma", "quartz_ore"] },
+  { name: "Crimson Wastes", from: 8801, blocks: ["crimson_stem", "warped_stem", "nether_wart_block", "shroomlight", "blackstone"] },
+  { name: "Fortress of Embers", from: 10201, blocks: ["nether_brick", "glowstone", "nether_gold_ore", "red_nether_brick"] },
+  { name: "Deep Dark Geodes", from: 11801, blocks: ["deepslate", "cobbled_deepslate", "lapis_ore", "amethyst_block"] },
+  { name: "Diamond Vaults", from: 13501, blocks: ["deepslate_diamond_ore", "diamond_block", "obsidian", "crying_obsidian"] },
+  { name: "Sculk Abyss", from: 15501, blocks: ["sculk", "sculk_catalyst", "ancient_debris", "bone_block"] },
+  { name: "End Isles", from: 17801, blocks: ["end_stone", "end_bricks", "purpur_block", "purpur_pillar"] },
+  { name: "Royal Treasury", from: 20301, blocks: ["crying_obsidian", "end_bricks", "gilded_blackstone", "emerald_block"] },
+  { name: "Cosmic Chaos", from: 23001, blocks: [] }
+];
+
+export const PHASE_COUNT = POOLS.length;
+
+export function phaseName(index) {
+  return POOLS[index].name;
+}
+
+// Index (0-19) of the phase that applies once `total` blocks have been broken.
+export function phaseIndexFor(total) {
+  for (let i = POOLS.length - 1; i >= 0; i--) {
+    if (total >= POOLS[i].from) return i;
+  }
+  return 0;
+}
+
+function randomFrom(list) {
+  return list[Math.floor(Math.random() * list.length)];
+}
+
+// Phase 20 draws from every earlier pool; later pools are weighted heavier.
+function cosmicPick() {
+  const last = POOLS.length - 1;
+  let weight = 0;
+  for (let i = 0; i < last; i++) weight += i + 1;
+  let roll = Math.random() * weight;
+  for (let i = 0; i < last; i++) {
+    roll -= i + 1;
+    if (roll < 0) return randomFrom(POOLS[i].blocks);
+  }
+  return randomFrom(POOLS[last - 1].blocks);
+}
+
+// Returns a full block id for the given phase index.
+export function pickBlock(index) {
+  const block = index === POOLS.length - 1 ? cosmicPick() : randomFrom(POOLS[index].blocks);
+  return "minecraft:" + block;
+}
+```
+
+## FILE: MCPEDL/Addons/One-Block-Economy/CHANGELOG.md (10 lines, 184 bytes)
+
+```
+# Changelog — One-Block Hardcore Survival Economy
+
+---
+
+## [v2] - 2026-10-29
+
+### Improved & Balanced
+
+- **Changelog started**: Version history is recorded from this release onward.
+```
+
+## FILE: MCPEDL/Addons/One-Block-Economy/DESCRIPTION.md (65 lines, 3122 bytes)
+
+```
+# One-Block Hardcore Survival Economy — 20-Phase Progression Add-on
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+This Minecraft Bedrock add-on adds central-block progression, recurring Wandering Trader visits, and a void-rescue feature for a compatible OneBlock world.
+
+## Features
+
+### OneBlock Regeneration
+- The central block returns after it is broken.
+- Each break advances the saved block counter and can unlock a new phase.
+
+### 20 Progression Phases
+- The block pool changes as the total number of blocks broken increases.
+- An action-bar display shows the total, current phase, and phase name.
+
+### Wandering Trader
+- A Wandering Trader arrives every 250 blocks broken.
+- Each visit lasts about 60 seconds.
+
+### Void Rescue
+- Players who fall below Y = -50 are teleported back above the OneBlock.
+- The rescue applies damage but is designed to leave at least one health point.
+
+## Important World Requirement
+
+This add-on does not generate a complete OneBlock world. Use it in a world with the central block at **(0, 64, 0)** in the Overworld.
+
+## Compatibility
+
+- Minimum Minecraft Bedrock version: 1.21.0.
+- Minecraft Bedrock Edition: 1.21.0 or newer.
+- Experimental features: Not verified.
+- Achievements: Likely achievement-friendly.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+One-Block Hardcore Survival Economy Minecraft Bedrock, OneBlock Regeneration Bedrock, 20 Progression Phases Bedrock, Wandering Trader Bedrock, Void Rescue Bedrock, Minecraft PE add-on, MCPEDL, CurseForge Bedrock, ALNStudios, Minecraft Bedrock add-on, MCPEDL add-on.
+```
+
+## FILE: MCPEDL/Addons/One-Block-Economy/README.md (19 lines, 863 bytes)
+
+```
+# One-Block Hardcore Survival Economy
+
+Download the current release of **One-Block Hardcore Survival Economy** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download One-Block Hardcore Survival Economy (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/One-Block-Economy/OneBlockEconomy%20V2.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/One-Block-Economy/DESCRIPTION.md).
+```

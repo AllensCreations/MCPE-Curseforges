@@ -1,0 +1,1781 @@
+<!-- GRAPH-CONTEXT:START -->
+## Graph Context
+
+- **Project:** `Alphabet-Scavenger-Hunt` | Category: `Minigame` | Version: `v2`
+- **Pack Types:** behavior_pack, resource_pack
+- **Siblings in Minigame:** `Category: Minigame`, `Minecraft-But-Every-Drop-is-Random-Chaos-Edition (v2)` (v2), `Mob-Chaos-Behavioral-Roulette (v2)` (v2), `Shared-Hivemind-Inventory (v2)` (v2), `Tethered-Breaker-And-Builder (v2)` (v2), `Trivia-Vault-The-Locked-World (v2)` (v2)
+
+> _Auto-generated from graphify-out/graph.json — do not edit manually._
+<!-- GRAPH-CONTEXT:END -->
+
+---
+
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Minigame/Alphabet-Scavenger-Hunt`
+- **Destination:** `MCPEDL/Minigame/Alphabet-Scavenger-Hunt`
+- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Minigame/Alphabet-Scavenger-Hunt/CHANGELOG.md`)
+- **Text files:** 14
+- **Skipped binary:** 7
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Minigame/Alphabet-Scavenger-Hunt/behavior_pack/functions/end_game.mcfunction`
+- `MCPEDL/Minigame/Alphabet-Scavenger-Hunt/behavior_pack/functions/give_controller.mcfunction`
+- `MCPEDL/Minigame/Alphabet-Scavenger-Hunt/behavior_pack/items/controller.json`
+- `MCPEDL/Minigame/Alphabet-Scavenger-Hunt/behavior_pack/manifest.json`
+- `MCPEDL/Minigame/Alphabet-Scavenger-Hunt/behavior_pack/scripts/controller.js`
+- `MCPEDL/Minigame/Alphabet-Scavenger-Hunt/behavior_pack/scripts/item_data.js`
+- `MCPEDL/Minigame/Alphabet-Scavenger-Hunt/behavior_pack/scripts/main.js`
+- `MCPEDL/Minigame/Alphabet-Scavenger-Hunt/CHANGELOG.md`
+- `MCPEDL/Minigame/Alphabet-Scavenger-Hunt/DESCRIPTION.md`
+- `MCPEDL/Minigame/Alphabet-Scavenger-Hunt/IMAGE_PROMPTS.md`
+- `MCPEDL/Minigame/Alphabet-Scavenger-Hunt/project.json`
+- `MCPEDL/Minigame/Alphabet-Scavenger-Hunt/README.md`
+- `MCPEDL/Minigame/Alphabet-Scavenger-Hunt/resource_pack/manifest.json`
+- `MCPEDL/Minigame/Alphabet-Scavenger-Hunt/resource_pack/textures/item_texture.json`
+
+### Skipped (binary)
+
+- `MCPEDL/Minigame/Alphabet-Scavenger-Hunt/1791906906852.jpg`
+- `MCPEDL/Minigame/Alphabet-Scavenger-Hunt/1791906974481.jpg`
+- `MCPEDL/Minigame/Alphabet-Scavenger-Hunt/behavior_pack/pack_icon.png`
+- `MCPEDL/Minigame/Alphabet-Scavenger-Hunt/mcpedl.png`
+- `MCPEDL/Minigame/Alphabet-Scavenger-Hunt/pack_icon.png`
+- `MCPEDL/Minigame/Alphabet-Scavenger-Hunt/resource_pack/pack_icon.png`
+- `MCPEDL/Minigame/Alphabet-Scavenger-Hunt/resource_pack/textures/items/controller.png`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Minigame/Alphabet-Scavenger-Hunt
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`.
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Minigame/Alphabet-Scavenger-Hunt/behavior_pack/functions/end_game.mcfunction (2 lines, 32 bytes)
+
+```
+scriptevent allenscreations:end
+```
+
+## FILE: MCPEDL/Minigame/Alphabet-Scavenger-Hunt/behavior_pack/functions/give_controller.mcfunction (2 lines, 47 bytes)
+
+```
+give @s aln:alphabet_scavenger_hunt_controller
+```
+
+## FILE: MCPEDL/Minigame/Alphabet-Scavenger-Hunt/behavior_pack/items/controller.json (28 lines, 641 bytes)
+
+```
+{
+  "format_version": "1.26.40",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:alphabet_scavenger_hunt_controller",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "textures": {
+          "default": "controller"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "\u00a7l\u00a7bAllens\u00a7dCreations \u00a76Controller"
+      },
+      "minecraft:use_animation": "spyglass",
+      "minecraft:use_modifiers": {
+        "use_duration": 0.1,
+        "movement_modifier": 1
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Minigame/Alphabet-Scavenger-Hunt/behavior_pack/manifest.json (68 lines, 1372 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Alphabet Scavenger Hunt (v2)",
+    "description": "High-stakes 20-round survival challenge. Scavenge items matching the target letter before the 60s timer expires or suffer permanent max health decay!. by ALNStudios",
+    "uuid": "ada4eaa0-2796-4c73-a8c2-7e60d04fcf18",
+    "version": [
+      2,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      40
+    ]
+  },
+  "modules": [
+    {
+      "description": "Alphabet Scavenger Hunt Data Module",
+      "type": "data",
+      "uuid": "b4ab001a-a533-49f9-a560-6918fb5b0b06",
+      "version": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "description": "Alphabet Scavenger Hunt Game Script",
+      "type": "script",
+      "language": "javascript",
+      "entry": "scripts/main.js",
+      "uuid": "950c903e-42a2-48f3-8e64-60f2af35b73e",
+      "version": [
+        2,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "a5f9a639-fe66-47df-8519-bb256701a77e",
+      "version": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.9.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.0.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "2.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Minigame/Alphabet-Scavenger-Hunt/behavior_pack/scripts/controller.js (181 lines, 5250 bytes)
+
+```
+import { world, system, ItemStack, EntityComponentTypes, GameMode } from "@minecraft/server";
+import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
+
+const CONTROLLER_ID = "aln:alphabet_scavenger_hunt_controller";
+const STATE_KEY = "game_state";
+const OPERATOR_LEVEL = 2;
+
+let config = null;
+let registered = false;
+
+const getState = () => {
+  const v = world.getDynamicProperty(STATE_KEY);
+  return typeof v === "string" ? v : "idle";
+};
+const setState = (s) => world.setDynamicProperty(STATE_KEY, s);
+const isCreative = (player) => player.getGameMode() === GameMode.Creative;
+const isHost = (player) => (typeof player.isOp === "function" ? player.isOp() : player.playerPermissionLevel === OPERATOR_LEVEL);
+const containerOf = (player) => player.getComponent(EntityComponentTypes.Inventory)?.container;
+
+function hasController(player) {
+  const inv = containerOf(player);
+  if (!inv) return false;
+  for (let i = 0; i < inv.size; i++) {
+    if (inv.getItem(i)?.typeId === CONTROLLER_ID) return true;
+  }
+  return false;
+}
+
+function giveController(player) {
+  if (hasController(player)) return;
+  containerOf(player)?.addItem(new ItemStack(CONTROLLER_ID, 1));
+}
+
+function consumeController(player) {
+  if (isCreative(player)) return;
+  const inv = containerOf(player);
+  if (!inv) return;
+  for (let i = 0; i < inv.size; i++) {
+    if (inv.getItem(i)?.typeId === CONTROLLER_ID) {
+      inv.setItem(i, undefined);
+      player.playSound("random.break");
+      player.sendMessage("The Controller broke.");
+      return;
+    }
+  }
+}
+
+function runStart(player) {
+  if (getState() === "running") {
+    player.sendMessage("Already running.");
+    return;
+  }
+  setState("running");
+  if (config.consumeOnStart) consumeController(player);
+  try {
+    config.onStart(player);
+  } catch (e) {
+    setState("idle");
+    giveController(player);
+    player.sendMessage("The game could not start.");
+  }
+}
+
+export function endGame() {
+  if (getState() !== "running") return;
+  setState("ended");
+  try {
+    config?.onEnd();
+  } catch (e) {
+    world.sendMessage("The game ended with an error.");
+  }
+  for (const p of world.getAllPlayers()) if (isHost(p)) giveController(p);
+}
+
+async function showHowToPlay(player) {
+  const form = new ActionFormData().title("How to play").body(config.howToPlay).button("Back");
+  let res;
+  try {
+    res = await form.show(player);
+  } catch (e) {
+    return;
+  }
+  if (!res.canceled && res.selection === 0) openController(player);
+}
+
+async function confirmEnd(player) {
+  if (getState() !== "running") {
+    player.sendMessage("No game is running.");
+    return;
+  }
+  const form = new ActionFormData()
+    .title("End game?")
+    .body("This stops the game that is running now.")
+    .button("End Game")
+    .button("Back");
+  let res;
+  try {
+    res = await form.show(player);
+  } catch (e) {
+    return;
+  }
+  if (res.canceled) return;
+  if (res.selection === 0) {
+    if (getState() !== "running") {
+      player.sendMessage("The game already ended.");
+      return;
+    }
+    world.sendMessage(`${player.name} ended the game.`);
+    endGame();
+  } else {
+    openController(player);
+  }
+}
+
+async function openController(player, attempt = 0) {
+  const running = getState() === "running";
+  const note = running
+    ? "End Game stops the current game."
+    : config.consumeOnStart
+      ? (isCreative(player) ? "Creative: the Controller is kept." : "Start uses up the Controller.")
+      : "The Controller is kept.";
+  const form = new ActionFormData()
+    .title(config.title)
+    .body(`${config.gameInfo}\n\nState: ${getState()}\n${note}`)
+    .button(running ? "End Game" : "Start")
+    .button("How to play");
+  let res;
+  try {
+    res = await form.show(player);
+  } catch (e) {
+    return;
+  }
+  if (res.canceled) {
+    if (res.cancelationReason === FormCancelationReason.UserBusy && attempt < 5) {
+      system.runTimeout(() => openController(player, attempt + 1), 10);
+    }
+    return;
+  }
+  if (res.selection === 0) {
+    if (running) confirmEnd(player);
+    else runStart(player);
+  } else if (res.selection === 1) {
+    showHowToPlay(player);
+  }
+}
+
+export function registerController(options) {
+  if (registered) return;
+  registered = true;
+  config = {
+    title: options?.title ?? "Controller",
+    gameInfo: options?.gameInfo ?? "",
+    howToPlay: options?.howToPlay ?? "",
+    consumeOnStart: options?.consumeOnStart === true,
+    onStart: options?.onStart ?? (() => {}),
+    onEnd: options?.onEnd ?? (() => {}),
+  };
+
+  world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
+    if (itemStack?.typeId === CONTROLLER_ID && isHost(source)) openController(source);
+  });
+
+  system.afterEvents.scriptEventReceive.subscribe(({ id }) => {
+    if (id === "allenscreations:end") endGame();
+  });
+
+  world.afterEvents.worldLoad.subscribe(() => {
+    if (getState() === "running") setState("idle");
+    for (const p of world.getAllPlayers()) if (isHost(p)) giveController(p);
+  });
+
+  world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
+    if (!isHost(player)) return;
+    if (config.consumeOnStart) {
+      if (initialSpawn && (isCreative(player) || getState() !== "running")) giveController(player);
+      return;
+    }
+    giveController(player);
+  });
+}
+```
+
+## FILE: MCPEDL/Minigame/Alphabet-Scavenger-Hunt/behavior_pack/scripts/item_data.js (372 lines, 11449 bytes)
+
+```
+/**
+ * Item Database & Verification Engine for Alphabet Scavenger Hunt
+ * Sourced from PrismarineJS/minecraft-data (Bedrock edition standards)
+ * Created by ALNStudios
+ */
+
+/**
+ * Common Bedrock items mapping from item typeId to official in-game display name.
+ * Sourced from PrismarineJS/minecraft-data (data/bedrock/items.json).
+ */
+export const BEDROCK_ITEM_DISPLAY_NAMES = {
+  // Foods & Plants
+  "cooked_beef": "Steak",
+  "beef": "Raw Beef",
+  "cooked_porkchop": "Cooked Porkchop",
+  "porkchop": "Raw Porkchop",
+  "cooked_mutton": "Cooked Mutton",
+  "mutton": "Raw Mutton",
+  "cooked_chicken": "Cooked Chicken",
+  "chicken": "Raw Chicken",
+  "cooked_rabbit": "Cooked Rabbit",
+  "rabbit": "Raw Rabbit",
+  "cooked_cod": "Cooked Cod",
+  "cod": "Raw Cod",
+  "cooked_salmon": "Cooked Salmon",
+  "salmon": "Raw Salmon",
+  "tropical_fish": "Tropical Fish",
+  "pufferfish": "Pufferfish",
+  "bread": "Bread",
+  "apple": "Apple",
+  "golden_apple": "Golden Apple",
+  "enchanted_golden_apple": "Enchanted Golden Apple",
+  "carrot": "Carrot",
+  "golden_carrot": "Golden Carrot",
+  "potato": "Potato",
+  "baked_potato": "Baked Potato",
+  "poisonous_potato": "Poisonous Potato",
+  "beetroot": "Beetroot",
+  "beetroot_soup": "Beetroot Soup",
+  "sweet_berries": "Sweet Berries",
+  "glow_berries": "Glow Berries",
+  "melon_slice": "Melon Slice",
+  "glistering_melon_slice": "Glistering Melon Slice",
+  "cookie": "Cookie",
+  "cake": "Cake",
+  "pumpkin_pie": "Pumpkin Pie",
+  "mushroom_stew": "Mushroom Stew",
+  "rabbit_stew": "Rabbit Stew",
+  "suspicious_stew": "Suspicious Stew",
+  "honey_bottle": "Honey Bottle",
+  "honeycomb": "Honeycomb",
+  "chorus_fruit": "Chorus Fruit",
+  "popped_chorus_fruit": "Popped Chorus Fruit",
+  "wheat": "Wheat",
+  "wheat_seeds": "Wheat Seeds",
+  "pumpkin_seeds": "Pumpkin Seeds",
+  "melon_seeds": "Melon Seeds",
+  "beetroot_seeds": "Beetroot Seeds",
+  "torchflower_seeds": "Torchflower Seeds",
+  "pitcher_pod": "Pitcher Pod",
+  "sugar_cane": "Sugar Cane",
+  "sugar": "Sugar",
+  "egg": "Egg",
+  "kelp": "Kelp",
+  "dried_kelp": "Dried Kelp",
+  "sea_pickle": "Sea Pickle",
+
+  // Minerals & Raw Materials
+  "coal": "Coal",
+  "charcoal": "Charcoal",
+  "raw_iron": "Raw Iron",
+  "iron_ingot": "Iron Ingot",
+  "raw_copper": "Raw Copper",
+  "copper_ingot": "Copper Ingot",
+  "raw_gold": "Raw Gold",
+  "gold_ingot": "Gold Ingot",
+  "diamond": "Diamond",
+  "emerald": "Emerald",
+  "netherite_ingot": "Netherite Ingot",
+  "netherite_scrap": "Netherite Scrap",
+  "quartz": "Nether Quartz",
+  "amethyst_shard": "Amethyst Shard",
+  "lapis_lazuli": "Lapis Lazuli",
+  "redstone": "Redstone Dust",
+  "glowstone_dust": "Glowstone Dust",
+  "gold_nugget": "Gold Nugget",
+  "iron_nugget": "Iron Nugget",
+  "flint": "Flint",
+  "clay_ball": "Clay Ball",
+  "brick": "Brick",
+  "netherbrick": "Nether Brick",
+  "slime_ball": "Slimeball",
+  "magma_cream": "Magma Cream",
+  "bone": "Bone",
+  "bone_meal": "Bone Meal",
+  "feather": "Feather",
+  "leather": "Leather",
+  "rabbit_hide": "Rabbit Hide",
+  "rabbit_foot": "Rabbit's Foot",
+  "string": "String",
+  "stick": "Stick",
+  "gunpowder": "Gunpowder",
+  "rotten_flesh": "Rotten Flesh",
+  "spider_eye": "Spider Eye",
+  "fermented_spider_eye": "Fermented Spider Eye",
+  "blaze_rod": "Blaze Rod",
+  "blaze_powder": "Blaze Powder",
+  "ghast_tear": "Ghast Tear",
+  "ender_pearl": "Ender Pearl",
+  "eye_of_ender": "Eye of Ender",
+  "shulker_shell": "Shulker Shell",
+  "nautilus_shell": "Nautilus Shell",
+  "heart_of_the_sea": "Heart of the Sea",
+  "prismarine_shard": "Prismarine Shard",
+  "prismarine_crystals": "Prismarine Crystals",
+  "ink_sac": "Ink Sac",
+  "glow_ink_sac": "Glow Ink Sac",
+  "breeze_rod": "Breeze Rod",
+  "wind_charge": "Wind Charge",
+  "heavy_core": "Heavy Core",
+
+  // Tools & Weapons
+  "wooden_sword": "Wooden Sword",
+  "wooden_pickaxe": "Wooden Pickaxe",
+  "wooden_axe": "Wooden Axe",
+  "wooden_shovel": "Wooden Shovel",
+  "wooden_hoe": "Wooden Hoe",
+  "stone_sword": "Stone Sword",
+  "stone_pickaxe": "Stone Pickaxe",
+  "stone_axe": "Stone Axe",
+  "stone_shovel": "Stone Shovel",
+  "stone_hoe": "Stone Hoe",
+  "iron_sword": "Iron Sword",
+  "iron_pickaxe": "Iron Pickaxe",
+  "iron_axe": "Iron Axe",
+  "iron_shovel": "Iron Shovel",
+  "iron_hoe": "Iron Hoe",
+  "golden_sword": "Golden Sword",
+  "golden_pickaxe": "Golden Pickaxe",
+  "golden_axe": "Golden Axe",
+  "golden_shovel": "Golden Shovel",
+  "golden_hoe": "Golden Hoe",
+  "diamond_sword": "Diamond Sword",
+  "diamond_pickaxe": "Diamond Pickaxe",
+  "diamond_axe": "Diamond Axe",
+  "diamond_shovel": "Diamond Shovel",
+  "diamond_hoe": "Diamond Hoe",
+  "netherite_sword": "Netherite Sword",
+  "netherite_pickaxe": "Netherite Pickaxe",
+  "netherite_axe": "Netherite Axe",
+  "netherite_shovel": "Netherite Shovel",
+  "netherite_hoe": "Netherite Hoe",
+  "bow": "Bow",
+  "crossbow": "Crossbow",
+  "arrow": "Arrow",
+  "mace": "Mace",
+  "shield": "Shield",
+  "trident": "Trident",
+  "shears": "Shears",
+  "fishing_rod": "Fishing Rod",
+  "flint_and_steel": "Flint and Steel",
+
+  // Armor
+  "leather_helmet": "Leather Cap",
+  "leather_chestplate": "Leather Tunic",
+  "leather_leggings": "Leather Pants",
+  "leather_boots": "Leather Boots",
+  "chainmail_helmet": "Chainmail Helmet",
+  "chainmail_chestplate": "Chainmail Chestplate",
+  "chainmail_leggings": "Chainmail Leggings",
+  "chainmail_boots": "Chainmail Boots",
+  "iron_helmet": "Iron Helmet",
+  "iron_chestplate": "Iron Chestplate",
+  "iron_leggings": "Iron Leggings",
+  "iron_boots": "Iron Boots",
+  "golden_helmet": "Golden Helmet",
+  "golden_chestplate": "Golden Chestplate",
+  "golden_leggings": "Golden Leggings",
+  "golden_boots": "Golden Boots",
+  "diamond_helmet": "Diamond Helmet",
+  "diamond_chestplate": "Diamond Chestplate",
+  "diamond_leggings": "Diamond Leggings",
+  "diamond_boots": "Diamond Boots",
+  "netherite_helmet": "Netherite Helmet",
+  "netherite_chestplate": "Netherite Chestplate",
+  "netherite_leggings": "Netherite Leggings",
+  "netherite_boots": "Netherite Boots",
+  "turtle_helmet": "Turtle Shell",
+  "elytra": "Elytra",
+
+  // Utilities & Common Blocks
+  "torch": "Torch",
+  "soul_torch": "Soul Torch",
+  "lantern": "Lantern",
+  "soul_lantern": "Soul Lantern",
+  "campfire": "Campfire",
+  "soul_campfire": "Soul Campfire",
+  "crafting_table": "Crafting Table",
+  "furnace": "Furnace",
+  "blast_furnace": "Blast Furnace",
+  "smoker": "Smoker",
+  "chest": "Chest",
+  "barrel": "Barrel",
+  "ender_chest": "Ender Chest",
+  "shulker_box": "Shulker Box",
+  "anvil": "Anvil",
+  "grindstone": "Grindstone",
+  "smithing_table": "Smithing Table",
+  "stonecutter": "Stonecutter",
+  "loom": "Loom",
+  "composter": "Composter",
+  "cauldron": "Cauldron",
+  "bucket": "Bucket",
+  "water_bucket": "Water Bucket",
+  "lava_bucket": "Lava Bucket",
+  "milk_bucket": "Milk Bucket",
+  "compass": "Compass",
+  "clock": "Clock",
+  "spyglass": "Spyglass",
+  "lead": "Lead",
+  "name_tag": "Name Tag",
+  "saddle": "Saddle",
+  "paper": "Paper",
+  "book": "Book",
+  "writable_book": "Book and Quill",
+  "written_book": "Written Book",
+  "map": "Empty Map",
+  "glass_bottle": "Glass Bottle",
+  "potion": "Potion",
+  "splash_potion": "Splash Potion",
+  "lingering_potion": "Lingering Potion",
+  "bed": "Bed",
+  "bell": "Bell",
+  "brewing_stand": "Brewing Stand",
+  "beacon": "Beacon",
+  "conduit": "Conduit",
+  "lodestone": "Lodestone",
+  "respawn_anchor": "Respawn Anchor",
+  "experience_bottle": "Bottle o' Enchanting",
+  "totem_of_undying": "Totem of Undying",
+  "fire_charge": "Fire Charge",
+  "tnt": "TNT",
+  "cobweb": "Cobweb",
+
+  // Wood & Building Basics
+  "oak_log": "Oak Log",
+  "oak_planks": "Oak Planks",
+  "spruce_log": "Spruce Log",
+  "spruce_planks": "Spruce Planks",
+  "birch_log": "Birch Log",
+  "birch_planks": "Birch Planks",
+  "jungle_log": "Jungle Log",
+  "jungle_planks": "Jungle Planks",
+  "acacia_log": "Acacia Log",
+  "acacia_planks": "Acacia Planks",
+  "dark_oak_log": "Dark Oak Log",
+  "dark_oak_planks": "Dark Oak Planks",
+  "mangrove_log": "Mangrove Log",
+  "mangrove_planks": "Mangrove Planks",
+  "cherry_log": "Cherry Log",
+  "cherry_planks": "Cherry Planks",
+  "bamboo_block": "Block of Bamboo",
+  "bamboo_planks": "Bamboo Planks",
+  "crimson_stem": "Crimson Stem",
+  "crimson_planks": "Crimson Planks",
+  "warped_stem": "Warped Stem",
+  "warped_planks": "Warped Planks",
+  "ladder": "Ladder",
+  "scaffolding": "Scaffolding",
+  "cobblestone": "Cobblestone",
+  "stone": "Stone",
+  "dirt": "Dirt",
+  "sand": "Sand",
+  "gravel": "Gravel",
+  "andesite": "Andesite",
+  "diorite": "Diorite",
+  "granite": "Granite",
+  "deepslate": "Deepslate",
+  "tuff": "Tuff",
+  "calcite": "Calcite",
+  "dripstone_block": "Dripstone Block",
+  "pointed_dripstone": "Pointed Dripstone",
+  "moss_block": "Moss Block",
+  "glass": "Glass"
+};
+
+/**
+ * Extracts all searchable word tokens for an item from:
+ * 1) Raw item identifier tokens (split by underscore)
+ * 2) Official in-game display name tokens from PrismarineJS/minecraft-data
+ * 3) Custom anvil nametag tokens (if renamed by the player)
+ *
+ * @param {string} typeId e.g. "minecraft:cooked_beef"
+ * @param {string|null} customNameTag optional custom anvil name
+ * @returns {string[]} array of uppercase word tokens
+ */
+export function getItemSearchTokens(typeId, customNameTag = null) {
+  const tokens = new Set();
+  const rawId = typeId.replace(/^.*:/, "").toLowerCase();
+
+  // 1. Raw ID full string & underscore-split words
+  tokens.add(rawId);
+  for (const part of rawId.split("_")) {
+    if (part.length > 0) tokens.add(part);
+  }
+
+  // 2. Official display name from PrismarineJS/minecraft-data
+  const mappedDisplayName = BEDROCK_ITEM_DISPLAY_NAMES[rawId];
+  if (mappedDisplayName) {
+    const cleanDisplay = mappedDisplayName.toLowerCase();
+    tokens.add(cleanDisplay);
+    for (const word of cleanDisplay.split(/[\s_\-']+/)) {
+      if (word.length > 0) tokens.add(word);
+    }
+  } else {
+    // Fallback: title-cased words from rawId
+    for (const part of rawId.split("_")) {
+      if (part.length > 0) tokens.add(part);
+    }
+  }
+
+  // 3. Custom anvil nametag (if renamed)
+  if (customNameTag && typeof customNameTag === "string") {
+    const cleanCustom = customNameTag.trim().toLowerCase();
+    tokens.add(cleanCustom);
+    for (const word of cleanCustom.split(/[\s_\-']+/)) {
+      if (word.length > 0) tokens.add(word);
+    }
+  }
+
+  return Array.from(tokens);
+}
+
+/**
+ * Determines whether an item matches the target letter.
+ * Returns true if ANY search token (word) starts with the target letter.
+ *
+ * @param {string} typeId e.g. "minecraft:cooked_beef"
+ * @param {string} letter e.g. "S" (Steak) or "B" (Beef) or "C" (Cooked)
+ * @param {string|null} customNameTag
+ * @returns {boolean}
+ */
+export function itemMatchesTargetLetter(typeId, letter, customNameTag = null) {
+  if (!typeId || !letter) return false;
+  const targetChar = letter.trim().charAt(0).toLowerCase();
+  const tokens = getItemSearchTokens(typeId, customNameTag);
+
+  for (const token of tokens) {
+    if (token.length > 0 && token.charAt(0) === targetChar) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+/**
+ * Produces clean display name for notifications (no emojis)
+ * @param {string} typeId
+ * @returns {string}
+ */
+export function getFriendlyItemName(typeId) {
+  const rawId = typeId.replace(/^.*:/, "").toLowerCase();
+  if (BEDROCK_ITEM_DISPLAY_NAMES[rawId]) {
+    return BEDROCK_ITEM_DISPLAY_NAMES[rawId];
+  }
+  return rawId
+    .split("_")
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+    .join(" ");
+}
+```
+
+## FILE: MCPEDL/Minigame/Alphabet-Scavenger-Hunt/behavior_pack/scripts/main.js (752 lines, 25598 bytes)
+
+```
+/**
+ * Alphabet Scavenger Hunt Challenge
+ * Bedrock Script API (@minecraft/server v1.13.0+)
+ * Compatible with Minecraft Bedrock 1.21.0 - 1.26.x+
+ * Sourced from PrismarineJS/minecraft-data
+ * Created by ALNStudios
+ * Note: ZERO EMOJIS in all display strings, chat messages, and UI bars.
+ */
+
+import { world, system } from "@minecraft/server";
+import { itemMatchesTargetLetter, getFriendlyItemName } from "./item_data.js";
+import { registerController, endGame } from "./controller.js";
+
+// ============================================================================
+// 1. CONFIGURATION & GAME CONSTANTS
+// ============================================================================
+
+export const TOTAL_ROUNDS = 20;
+export const ROUND_DURATION_SECONDS = 60;       // 60s to find the item
+export const INTERMISSION_DURATION_SECONDS = 30; // 30s rest between rounds
+export const HP_PENALTY_PER_FAILURE = 2;          // -2 Max HP (1 full heart) per failure
+export const BASE_MAX_HEALTH = 20;               // Standard 20 HP (10 hearts)
+
+// Balanced survival letter pool (Excludes Q, X, Z, Y, J, K, U, V)
+export const FAIR_LETTERS = [
+  "A", "B", "C", "D", "E", "F", "G", "H", "I",
+  "L", "M", "N", "O", "P", "R", "S", "T", "W"
+];
+
+// Sound Cue Identifiers
+const SOUND_SUCCESS = "random.levelup";
+const SOUND_FAIL = "random.break";
+const SOUND_CAVE = "ambient.cave";
+const SOUND_COUNTDOWN = "random.click";
+const SOUND_VICTORY = "ui.toast.challenge_complete";
+const SOUND_FIREWORKS = ["firework.blast", "firework.large_blast", "firework.twinkle"];
+
+// Victory celebration (kept small on purpose so it never lags)
+const CELEBRATION_BURST_INTERVAL_TICKS = 10;  // one burst every half second
+const CELEBRATION_BURST_COUNT = 14;           // about 7 seconds of fireworks
+const CELEBRATION_MAX_ROCKETS_PER_BURST = 4;  // hard cap on live rockets
+const CELEBRATION_MAX_SPOTS_PER_BURST = 4;    // hard cap on particle spots
+const CELEBRATION_END_DELAY_TICKS = 240;      // 12s, then the run is closed
+const CELEBRATION_PARTICLES = ["minecraft:totem_particle", "minecraft:endrod", "minecraft:villager_happy"];
+const FIREWORK_ROCKET_ID = "minecraft:fireworks_rocket";
+
+// Bossbar identifier
+const BOSSBAR_ID = "scavenger_hunt";
+const BOSSBAR_MAX_FAILURES = 3;
+
+// Dynamic Property Keys
+const PROP_PENALTY_HP = "scavenger_penalty_hp";
+const PROP_ALLOWED_MAX_HP = "scavenger_allowed_max_hp";
+
+// ============================================================================
+// 2. GAME STATE MANAGEMENT
+// ============================================================================
+
+export const GameState = {
+  IDLE: "IDLE",
+  INTERMISSION: "INTERMISSION",
+  ACTIVE: "ACTIVE",
+  VICTORY: "VICTORY",
+  FAILED: "FAILED"
+};
+
+class ScavengerHuntManager {
+  constructor() {
+    this.state = GameState.IDLE;
+    this.currentRound = 0;
+    this.targetLetter = "";
+    this.timerSeconds = 0;
+    this.lastLetter = "";
+
+    // Players who died during the current run (co-op: the run only fails when all are out)
+    this.eliminated = new Set();
+
+    // Celebration handles
+    this.fireworksRun = null;
+    this.celebrationEnd = null;
+
+    // Bossbar throttling
+    this.bossbarReady = false;
+    this.bossbarBroken = false;
+    this.bossbarFailures = 0;
+    this.lastBossbarKey = "";
+  }
+
+  // --------------------------------------------------------------------------
+  // Bossbar (throttled: only sends commands when something actually changed)
+  // --------------------------------------------------------------------------
+
+  initBossbar() {
+    try {
+      const overworld = world.getDimension("overworld");
+      overworld.runCommand(`bossbar add ${BOSSBAR_ID} "Alphabet Scavenger Hunt"`);
+    } catch (e) {
+      // Bossbar may already exist
+    }
+    try {
+      const overworld = world.getDimension("overworld");
+      overworld.runCommand(`bossbar set ${BOSSBAR_ID} players @a`);
+      overworld.runCommand(`bossbar set ${BOSSBAR_ID} style progress`);
+    } catch (e) {}
+    this.bossbarReady = true;
+  }
+
+  /**
+   * Updates the native top-screen bossbar. Skips the work when nothing changed.
+   * After repeated failures the bossbar is switched off for the session so it
+   * never wastes server time (the action bar still shows everything).
+   */
+  updateBossbar(title, value, max, color = "yellow") {
+    if (this.bossbarBroken) return;
+    const key = `${title}|${value}|${max}|${color}`;
+    if (key === this.lastBossbarKey) return;
+    this.lastBossbarKey = key;
+    if (!this.bossbarReady) this.initBossbar();
+
+    const safeTitle = String(title).replace(/"/g, "'");
+    let ok = false;
+    try {
+      const overworld = world.getDimension("overworld");
+      const res = overworld.runCommand(`bossbar set ${BOSSBAR_ID} name "${safeTitle}"`);
+      ok = !res || res.successCount === undefined || res.successCount > 0;
+      if (ok) {
+        overworld.runCommand(`bossbar set ${BOSSBAR_ID} players @a`);
+        overworld.runCommand(`bossbar set ${BOSSBAR_ID} max ${Math.max(1, max)}`);
+        overworld.runCommand(`bossbar set ${BOSSBAR_ID} value ${Math.max(0, value)}`);
+        overworld.runCommand(`bossbar set ${BOSSBAR_ID} color ${color}`);
+        overworld.runCommand(`bossbar set ${BOSSBAR_ID} visible true`);
+      }
+    } catch (e) {
+      ok = false;
+    }
+
+    if (ok) {
+      this.bossbarFailures = 0;
+    } else {
+      this.bossbarFailures++;
+      if (this.bossbarFailures >= BOSSBAR_MAX_FAILURES) this.bossbarBroken = true;
+    }
+  }
+
+  hideBossbar() {
+    this.lastBossbarKey = "";
+    if (this.bossbarBroken) return;
+    try {
+      const overworld = world.getDimension("overworld");
+      overworld.runCommand(`bossbar set ${BOSSBAR_ID} visible false`);
+    } catch (e) {}
+  }
+
+  // --------------------------------------------------------------------------
+  // Run lifecycle
+  // --------------------------------------------------------------------------
+
+  /**
+   * Starts a brand new challenge run
+   */
+  startNewRun() {
+    this.stopCelebration();
+    this.eliminated.clear();
+    this.currentRound = 0;
+    this.state = GameState.INTERMISSION;
+    this.timerSeconds = 10; // 10s warmup for Round 1
+    this.lastLetter = "";
+    this.lastBossbarKey = "";
+    this.initBossbar();
+
+    // Reset health penalties for all active players
+    for (const player of world.getAllPlayers()) {
+      this.resetPlayerPenalties(player);
+      try {
+        player.playSound("random.orb", { volume: 1.0, pitch: 1.0 });
+      } catch (e) {}
+    }
+    world.sendMessage("========================================");
+    world.sendMessage("[START] ALPHABET SCAVENGER HUNT CHALLENGE");
+    world.sendMessage("Find items matching the target letter in your inventory!");
+    world.sendMessage(`Complete all ${TOTAL_ROUNDS} Rounds or suffer Permanent Max HP Loss!`);
+    world.sendMessage("========================================");
+  }
+
+  /**
+   * Called by the Controller when the run ends (manual End, game over, or after the victory show)
+   */
+  handleEnd() {
+    this.stopCelebration();
+    const previous = this.state;
+    if (previous === GameState.ACTIVE || previous === GameState.INTERMISSION) {
+      this.state = GameState.IDLE;
+      this.hideBossbar();
+      world.sendMessage("[Scavenger Hunt] The challenge has ended.");
+    } else if (previous === GameState.VICTORY) {
+      this.state = GameState.IDLE;
+      this.hideBossbar();
+    }
+    // Penalties only last for one run
+    this.resetAllPenalties();
+    this.eliminated.clear();
+  }
+
+  /**
+   * Begins an active round with a newly chosen letter
+   */
+  startNextRound() {
+    this.currentRound++;
+    if (this.currentRound > TOTAL_ROUNDS) {
+      this.triggerVictory();
+      return;
+    }
+
+    // Pick fair random letter without repeating the previous one
+    let available = FAIR_LETTERS.filter((l) => l !== this.lastLetter);
+    if (available.length === 0) available = FAIR_LETTERS;
+    this.targetLetter = available[Math.floor(Math.random() * available.length)];
+    this.lastLetter = this.targetLetter;
+
+    this.state = GameState.ACTIVE;
+    this.timerSeconds = ROUND_DURATION_SECONDS;
+
+    // Sound alert
+    for (const player of world.getAllPlayers()) {
+      try {
+        player.playSound("note.pling", { volume: 1.0, pitch: 1.2 });
+      } catch (e) {}
+    }
+
+    world.sendMessage(
+      `§e[Round ${this.currentRound}/${TOTAL_ROUNDS}] §fTarget Letter: §b[ ${this.targetLetter} ] §f-- Time: §c60 seconds§f!`
+    );
+  }
+
+  /**
+   * Marks round as successfully passed
+   * @param {import("@minecraft/server").Player} player
+   * @param {string} typeId
+   */
+  completeRound(player, typeId) {
+    try {
+      player.playSound(SOUND_SUCCESS, { volume: 1.0, pitch: 1.0 });
+    } catch (e) {}
+
+    const friendlyName = getFriendlyItemName(typeId);
+    world.sendMessage(
+      `§a[PASS] [Round ${this.currentRound}/${TOTAL_ROUNDS}] §f${player.name} found §e${friendlyName} §ffor Letter §b[ ${this.targetLetter} ]§f!`
+    );
+
+    if (this.currentRound >= TOTAL_ROUNDS) {
+      this.triggerVictory();
+      return;
+    }
+
+    // Enter 30-second intermission before the next round
+    this.state = GameState.INTERMISSION;
+    this.timerSeconds = INTERMISSION_DURATION_SECONDS;
+  }
+
+  /**
+   * Handles failure when the 60-second round timer reaches 0
+   */
+  handleRoundFailure() {
+    world.sendMessage(
+      `§c[FAIL] TIME EXPIRED! Failed to find an item for Letter [ ${this.targetLetter} ]!`
+    );
+
+    let anyPlayerAlive = false;
+
+    for (const player of world.getAllPlayers()) {
+      if (!player.isValid() || this.eliminated.has(player.id)) continue;
+
+      const newAllowedHp = this.applyHealthPenalty(player);
+      if (newAllowedHp > 0) {
+        anyPlayerAlive = true;
+      }
+    }
+
+    // A penalty hit may have just finished the last player
+    if (this.state === GameState.FAILED) return;
+
+    if (!anyPlayerAlive) {
+      this.triggerGameOver();
+      return;
+    }
+
+    if (this.currentRound >= TOTAL_ROUNDS) {
+      this.triggerVictory();
+      return;
+    }
+
+    // Enter intermission after failure
+    this.state = GameState.INTERMISSION;
+    this.timerSeconds = INTERMISSION_DURATION_SECONDS;
+  }
+
+  /**
+   * Applies permanent maximum health penalty to a player
+   * @param {import("@minecraft/server").Player} player
+   * @returns {number} new allowed max health
+   */
+  applyHealthPenalty(player) {
+    const currentPenalty = (player.getDynamicProperty(PROP_PENALTY_HP) ?? 0);
+    const newPenalty = currentPenalty + HP_PENALTY_PER_FAILURE;
+    const allowedMaxHp = Math.max(1, BASE_MAX_HEALTH - newPenalty);
+
+    player.setDynamicProperty(PROP_PENALTY_HP, newPenalty);
+    player.setDynamicProperty(PROP_ALLOWED_MAX_HP, allowedMaxHp);
+
+    try {
+      player.playSound(SOUND_FAIL, { volume: 1.0, pitch: 0.8 });
+      player.playSound(SOUND_CAVE, { volume: 1.0, pitch: 1.0 });
+    } catch (e) {}
+
+    // Deal immediate punishment damage
+    try {
+      player.applyDamage(HP_PENALTY_PER_FAILURE, { cause: "magic" });
+    } catch (e) {}
+
+    // Clamp current health to new allowed maximum
+    this.enforceHealthClamp(player);
+
+    const heartsLost = (newPenalty / 2).toFixed(0);
+    player.sendMessage(
+      `§c[PENALTY] Permanent Max Health reduced to ${allowedMaxHp}/${BASE_MAX_HEALTH} HP (-${heartsLost} Hearts)!`
+    );
+
+    return allowedMaxHp;
+  }
+
+  /**
+   * Strictly clamps player health so it cannot regenerate past the penalised max health
+   * @param {import("@minecraft/server").Player} player
+   */
+  enforceHealthClamp(player) {
+    if (!player.isValid()) return;
+    const allowedMaxHp = player.getDynamicProperty(PROP_ALLOWED_MAX_HP) ?? BASE_MAX_HEALTH;
+    if (allowedMaxHp >= BASE_MAX_HEALTH) return;
+
+    try {
+      const healthComp = player.getComponent("minecraft:health");
+      if (healthComp && healthComp.currentValue > allowedMaxHp) {
+        healthComp.setCurrentValue(allowedMaxHp);
+      }
+    } catch (e) {}
+  }
+
+  /**
+   * Resets player health penalties and restores full 20 HP
+   * @param {import("@minecraft/server").Player} player
+   */
+  resetPlayerPenalties(player) {
+    if (!player.isValid()) return;
+    player.setDynamicProperty(PROP_PENALTY_HP, 0);
+    player.setDynamicProperty(PROP_ALLOWED_MAX_HP, BASE_MAX_HEALTH);
+
+    try {
+      const healthComp = player.getComponent("minecraft:health");
+      if (healthComp) {
+        healthComp.setCurrentValue(BASE_MAX_HEALTH);
+      }
+    } catch (e) {}
+  }
+
+  resetAllPenalties() {
+    for (const player of world.getAllPlayers()) this.resetPlayerPenalties(player);
+  }
+
+  /**
+   * Gets current penalty HP for display
+   * @param {import("@minecraft/server").Player} player
+   * @returns {number}
+   */
+  getPlayerPenaltyHp(player) {
+    return (player.getDynamicProperty(PROP_PENALTY_HP) ?? 0);
+  }
+
+  /**
+   * A player died during the run. In co-op the run continues until everyone is out.
+   * @param {import("@minecraft/server").Entity} dead
+   */
+  handlePlayerDeath(dead) {
+    if (this.state !== GameState.ACTIVE && this.state !== GameState.INTERMISSION) return;
+    this.eliminated.add(dead.id);
+    try {
+      world.sendMessage(`§c[OUT] ${dead.name} was eliminated.`);
+    } catch (e) {}
+
+    const everyoneOut = world.getAllPlayers().every((p) => this.eliminated.has(p.id));
+    if (everyoneOut) this.triggerGameOver();
+  }
+
+  // --------------------------------------------------------------------------
+  // Victory celebration
+  // --------------------------------------------------------------------------
+
+  /**
+   * Triggers victory state with title, sounds and fireworks
+   */
+  triggerVictory() {
+    if (this.state === GameState.VICTORY) return;
+    this.state = GameState.VICTORY;
+    this.updateBossbar("[VICTORY] CHALLENGE COMPLETE (20/20)!", 100, 100, "green");
+
+    world.sendMessage("========================================");
+    world.sendMessage("§6[VICTORY] CONGRATULATIONS! CHALLENGE COMPLETE!");
+    world.sendMessage("§aYou survived all 20 Rounds of the Alphabet Scavenger Hunt!");
+    world.sendMessage("========================================");
+
+    this.startCelebration();
+  }
+
+  startCelebration() {
+    this.stopCelebration();
+
+    for (const player of world.getAllPlayers()) {
+      if (!player.isValid()) continue;
+      try {
+        player.onScreenDisplay.setTitle("§6§lCONGRATULATIONS!", {
+          subtitle: `§aAll ${TOTAL_ROUNDS} rounds complete!`,
+          fadeInDuration: 10,
+          stayDuration: 120,
+          fadeOutDuration: 30,
+        });
+        player.playSound(SOUND_VICTORY, { volume: 1.0, pitch: 1.0 });
+        player.playSound(SOUND_SUCCESS, { volume: 1.0, pitch: 1.0 });
+      } catch (e) {}
+    }
+
+    let bursts = 0;
+    this.fireworksRun = system.runInterval(() => {
+      if (this.state !== GameState.VICTORY || bursts >= CELEBRATION_BURST_COUNT) {
+        this.stopFireworks();
+        return;
+      }
+      bursts++;
+      this.fireworkBurst();
+    }, CELEBRATION_BURST_INTERVAL_TICKS);
+
+    // Close the run after the show so the Controller comes back and a new run can start
+    this.celebrationEnd = system.runTimeout(() => {
+      this.celebrationEnd = null;
+      if (this.state === GameState.VICTORY) endGame();
+    }, CELEBRATION_END_DELAY_TICKS);
+  }
+
+  /**
+   * One capped burst: a few rockets, a few particle spots, firework sounds.
+   * Total entities and particles per burst stay small so nothing lags.
+   */
+  fireworkBurst() {
+    let rockets = 0;
+    let spots = 0;
+
+    for (const player of world.getAllPlayers()) {
+      if (!player.isValid()) continue;
+      if (rockets >= CELEBRATION_MAX_ROCKETS_PER_BURST && spots >= CELEBRATION_MAX_SPOTS_PER_BURST) break;
+
+      const base = player.location;
+      const dimension = player.dimension;
+      const angle = Math.random() * Math.PI * 2;
+      const distance = 3 + Math.random() * 5;
+      const x = base.x + Math.cos(angle) * distance;
+      const z = base.z + Math.sin(angle) * distance;
+
+      if (rockets < CELEBRATION_MAX_ROCKETS_PER_BURST) {
+        try {
+          dimension.spawnEntity(FIREWORK_ROCKET_ID, { x, y: base.y, z });
+          rockets++;
+        } catch (e) {}
+      }
+
+      if (spots < CELEBRATION_MAX_SPOTS_PER_BURST) {
+        const y = base.y + 7 + Math.random() * 4;
+        for (const name of CELEBRATION_PARTICLES) {
+          try {
+            dimension.spawnParticle(name, { x, y, z });
+          } catch (e) {}
+        }
+        spots++;
+      }
+
+      try {
+        const sound = SOUND_FIREWORKS[Math.floor(Math.random() * SOUND_FIREWORKS.length)];
+        player.playSound(sound, { volume: 1.0, pitch: 0.9 + Math.random() * 0.3 });
+      } catch (e) {}
+    }
+  }
+
+  stopFireworks() {
+    if (this.fireworksRun !== null) {
+      system.clearRun(this.fireworksRun);
+      this.fireworksRun = null;
+    }
+  }
+
+  stopCelebration() {
+    this.stopFireworks();
+    if (this.celebrationEnd !== null) {
+      system.clearRun(this.celebrationEnd);
+      this.celebrationEnd = null;
+    }
+  }
+
+  /**
+   * Triggers mission failure state
+   */
+  triggerGameOver() {
+    if (this.state === GameState.FAILED) return;
+    this.state = GameState.FAILED;
+    this.updateBossbar("[GAME OVER] MISSION FAILED!", 0, 100, "red");
+
+    world.sendMessage("========================================");
+    world.sendMessage("[GAME OVER] MISSION FAILED!");
+    world.sendMessage("Every player was eliminated.");
+    world.sendMessage("========================================");
+    endGame();
+  }
+}
+
+export const manager = new ScavengerHuntManager();
+
+registerController({
+  title: "Alphabet Scavenger Hunt",
+  gameInfo: "Type: Survival scavenger challenge\nPlayers: Solo or co-op\nGoal: Complete 20 rounds by finding an inventory item that begins with each target letter.",
+  howToPlay: "Start the challenge from the Controller. Each round gives players 60 seconds to find an item whose name begins with the displayed letter. A missed round permanently reduces maximum health. Complete 20 rounds to win and enjoy the fireworks; if every player is eliminated, the challenge ends. The Controller can end or restart the run.",
+  onStart: () => manager.startNewRun(),
+  onEnd: () => manager.handleEnd(),
+});
+
+// ============================================================================
+// 3. INVENTORY VERIFICATION USING PRISMARINEJS MINECRAFT-DATA
+// ============================================================================
+
+// Match results are cached per item type and letter, so each item is only analysed once.
+const matchCache = new Map();
+
+function typeMatchesLetter(typeId, letter) {
+  const key = `${letter}|${typeId}`;
+  let result = matchCache.get(key);
+  if (result === undefined) {
+    // Anvil renames are intentionally ignored so a renamed item can not win a round
+    result = itemMatchesTargetLetter(typeId, letter, null);
+    matchCache.set(key, result);
+  }
+  return result;
+}
+
+/**
+ * Scans player inventory for an item starting with the target letter.
+ * Supports identifier tokens and official display names.
+ *
+ * @param {import("@minecraft/server").Player} player
+ * @param {string} letter
+ * @returns {string|null} matching item typeId or null
+ */
+export function scanPlayerInventoryForLetter(player, letter) {
+  try {
+    const inv = player.getComponent("minecraft:inventory");
+    if (!inv || !inv.container) return null;
+
+    const container = inv.container;
+    for (let slot = 0; slot < container.size; slot++) {
+      const item = container.getItem(slot);
+      if (item && item.typeId && typeMatchesLetter(item.typeId, letter)) {
+        return item.typeId;
+      }
+    }
+  } catch (e) {}
+  return null;
+}
+
+// ============================================================================
+// 4. CORE ENGINE LOOPS & TOP-SCREEN UI
+// ============================================================================
+
+// Game logic and UI: once per second (was every tick)
+system.runInterval(() => {
+  const players = world.getAllPlayers();
+  if (players.length === 0) return;
+  onSecondTick(players);
+  renderTopScreenUI(players);
+}, 20);
+
+// Health clamp: twice per second, and it exits instantly for players without a penalty
+system.runInterval(() => {
+  if (manager.state === GameState.IDLE) return;
+  for (const player of world.getAllPlayers()) {
+    manager.enforceHealthClamp(player);
+  }
+}, 10);
+
+/**
+ * Main 1-second game timer routine
+ * @param {import("@minecraft/server").Player[]} players
+ */
+function onSecondTick(players) {
+  if (manager.state === GameState.IDLE) return;
+
+  // ACTIVE ROUND STATE
+  if (manager.state === GameState.ACTIVE) {
+    // 1. Scan player inventories for target letter item
+    for (const player of players) {
+      if (!player.isValid() || manager.eliminated.has(player.id)) continue;
+      const matchedTypeId = scanPlayerInventoryForLetter(player, manager.targetLetter);
+      if (matchedTypeId) {
+        manager.completeRound(player, matchedTypeId);
+        return;
+      }
+    }
+
+    // 2. Decrement countdown
+    if (manager.timerSeconds > 0) {
+      manager.timerSeconds--;
+
+      // Sound countdown cue for final 5 seconds
+      if (manager.timerSeconds <= 5 && manager.timerSeconds > 0) {
+        for (const player of players) {
+          try {
+            player.playSound(SOUND_COUNTDOWN, { volume: 0.8, pitch: 1.5 });
+          } catch (e) {}
+        }
+      }
+
+      // Timer expired: apply penalty!
+      if (manager.timerSeconds <= 0) {
+        manager.handleRoundFailure();
+      }
+    }
+    return;
+  }
+
+  // INTERMISSION REST STATE
+  if (manager.state === GameState.INTERMISSION) {
+    if (manager.timerSeconds > 0) {
+      manager.timerSeconds--;
+      if (manager.timerSeconds <= 0) {
+        manager.startNextRound();
+      }
+    }
+  }
+}
+
+/**
+ * Displays objective at top of screen via Bossbar (once, shared) and Action Bar (per player).
+ * ZERO emojis used in all display strings.
+ *
+ * @param {import("@minecraft/server").Player[]} players
+ */
+function renderTopScreenUI(players) {
+  const round = manager.currentRound;
+  const time = manager.timerSeconds;
+  const letter = manager.targetLetter;
+
+  let bossbarTitle = "";
+  let bossbarColor = "yellow";
+  let bossbarVal = time;
+  let bossbarMax = ROUND_DURATION_SECONDS;
+
+  switch (manager.state) {
+    case GameState.IDLE:
+      bossbarTitle = "Alphabet Scavenger Hunt";
+      bossbarColor = "white";
+      bossbarVal = 0;
+      bossbarMax = 1;
+      break;
+    case GameState.ACTIVE:
+      bossbarTitle = `Round ${round}/${TOTAL_ROUNDS} | Letter: [ ${letter} ] | Time: ${time}s`;
+      bossbarColor = time <= 15 ? "red" : time <= 30 ? "yellow" : "green";
+      break;
+    case GameState.INTERMISSION:
+      bossbarTitle = round === 0
+        ? `Get Ready | First Letter in ${time}s`
+        : `Intermission | Next Letter in ${time}s | Round ${round}/${TOTAL_ROUNDS}`;
+      bossbarColor = "blue";
+      bossbarMax = round === 0 ? 10 : INTERMISSION_DURATION_SECONDS;
+      break;
+    case GameState.VICTORY:
+      bossbarTitle = `[ VICTORY ] All ${TOTAL_ROUNDS} Rounds Conquered!`;
+      bossbarColor = "green";
+      bossbarVal = 100;
+      bossbarMax = 100;
+      break;
+    case GameState.FAILED:
+      bossbarTitle = "[ MISSION FAILED ] Every player was eliminated.";
+      bossbarColor = "red";
+      bossbarVal = 0;
+      bossbarMax = 100;
+      break;
+  }
+
+  // One shared bossbar update (skipped automatically when nothing changed)
+  manager.updateBossbar(bossbarTitle, bossbarVal, bossbarMax, bossbarColor);
+
+  for (const player of players) {
+    if (!player.isValid()) continue;
+
+    const penaltyHp = manager.getPlayerPenaltyHp(player);
+    const penaltyText = penaltyHp > 0 ? `-${penaltyHp} HP` : `0 HP`;
+    let topText = "";
+
+    switch (manager.state) {
+      case GameState.IDLE:
+        topText = "§e[ Alphabet Scavenger ] §fUse the Controller to start";
+        break;
+      case GameState.ACTIVE:
+        // Format: [ Round 5/20 ] Letter: [ C ] | Time: 42s | Penalty: -2 HP
+        topText = `§e[ Round ${round}/${TOTAL_ROUNDS} ] §fLetter: §b[ ${letter} ] §f| Time: §c${time}s §f| Penalty: §c${penaltyText}`;
+        break;
+      case GameState.INTERMISSION:
+        topText = round === 0
+          ? `§a[ Get Ready ] §fFirst Letter In: §e${time}s`
+          : `§a[ Round ${round}/${TOTAL_ROUNDS} Complete ] §fNext Letter In: §e${time}s §f| Penalty: §c${penaltyText}`;
+        break;
+      case GameState.VICTORY:
+        topText = `§6[ CHALLENGE COMPLETE (${TOTAL_ROUNDS}/${TOTAL_ROUNDS}) ] §aAll ${TOTAL_ROUNDS} Rounds Conquered!`;
+        break;
+      case GameState.FAILED:
+        topText = "§4[ MISSION FAILED ] §cUse the Controller to restart.";
+        break;
+    }
+
+    try {
+      player.onScreenDisplay.setActionBar(topText);
+    } catch (e) {}
+  }
+}
+
+// ============================================================================
+// Player Death Check: a death eliminates that player; the run ends when all are out
+world.afterEvents.entityDie.subscribe((event) => {
+  const dead = event.deadEntity;
+  if (dead && dead.typeId === "minecraft:player") {
+    manager.handlePlayerDeath(dead);
+  }
+});
+
+// Welcome / instructions on player join (Zero emojis)
+world.afterEvents.playerSpawn.subscribe((event) => {
+  const { player, initialSpawn } = event;
+  if (initialSpawn) {
+    system.runTimeout(() => {
+      if (!player.isValid()) return;
+      player.sendMessage("========================================");
+      player.sendMessage("[INFO] ALPHABET SCAVENGER HUNT CHALLENGE");
+      player.sendMessage("Survive 20 Rounds! Find items matching the target letter.");
+      player.sendMessage("Use the Controller item to start, end, or restart the challenge.");
+      player.sendMessage("========================================");
+    }, 40);
+  }
+});
+```
+
+## FILE: MCPEDL/Minigame/Alphabet-Scavenger-Hunt/CHANGELOG.md (31 lines, 1133 bytes)
+
+```
+# Changelog — Alphabet Scavenger Hunt
+
+---
+
+## [v2] - 2026-11-14
+
+**What's new in v1.9.1:** Packed with the v1.9.1 update. Includes: Victory Celebration.
+
+### Added
+
+- **Victory Celebration**: Finishing all 20 rounds now shows a Congratulations title and a fireworks display, then the Controller comes back so you can play again.
+
+### Improved & Balanced
+
+- **Smoother Performance**: The challenge now updates once per second instead of every tick, which greatly reduces lag.
+- **Co-op Eliminations**: A player who dies is eliminated, and the challenge only ends when every player is out.
+- **Fair Matching**: Renaming an item in an anvil no longer counts toward a round.
+- **Clearer Warm-up**: The countdown before Round 1 now shows Get Ready.
+
+### Fixed
+
+- **Round One Start**: The challenge no longer stops by itself when the first round begins.
+- **Restart After Winning**: The Controller works again after a victory.
+- **Health Penalties**: Lost maximum health is restored when a challenge ends.
+
+## [1.9.0] - 2026-10-29
+
+### Improved & Balanced
+
+- **Changelog started**: Version history is recorded from this release onward.
+```
+
+## FILE: MCPEDL/Minigame/Alphabet-Scavenger-Hunt/DESCRIPTION.md (79 lines, 3876 bytes)
+
+```
+# Alphabet Scavenger Hunt — Timed Survival Minigame
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+Race against the clock to find, gather, or craft an item whose name begins with the round's target letter. Turn an ordinary world into a fast-paced challenge that rewards quick thinking and smart inventory management.
+
+## Overview
+
+Take on 20 rounds, each with a new target letter and a 60-second timer. Complete a round to earn a preparation break; fail and your maximum health drops, making the next round even tougher.
+
+## Key Features
+
+### Twenty-Round Challenge
+- **What Happens**: Work through 20 rounds to complete the full challenge.
+
+### Timed Letter Hunts
+- **What Happens**: Find, gather, mine, or craft an item matching the target letter before the timer expires.
+
+### Preparation Breaks
+- **What Happens**: Earn a 30-second break after a successful round to organize your inventory and prepare.
+
+### Flexible Item Matching
+- **What Happens**: Supported common and formal item names count toward the same letter when they refer to the same item.
+
+### Stacking Failure Penalties
+- **What Happens**: Each failed round lowers your maximum health by two points, and the penalty builds throughout the run.
+
+### Clear Round Feedback
+- **What Happens**: Keep track of your round, target letter, timer, and penalties with on-screen updates and audio warnings.
+
+### Victory Celebration
+- **What Happens**: Finish all 20 rounds to see a Congratulations title and a fireworks display, then start a new run from the Controller.
+
+### Controller Item
+- **What Happens**: Use the Controller to start, restart, or end a challenge without typing commands.
+
+## How to Use
+
+1. Import the complete pack and enable it in your world settings.
+2. Use the Controller item to choose Start.
+3. Find an item matching the target letter before the timer expires.
+4. Choose Restart for another run or End when you are finished.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.26.40 or newer.
+- Experimental features: No experimental features required.
+- Achievements: Unknown / needs confirmation.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, Alphabet Scavenger Hunt Bedrock minigame, timed survival challenge, Minecraft PE scavenger hunt, letter item hunt, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+```
+
+## FILE: MCPEDL/Minigame/Alphabet-Scavenger-Hunt/IMAGE_PROMPTS.md (48 lines, 3411 bytes)
+
+````
+# Alphabet Scavenger Hunt - Image Generation Prompts
+
+This document provides optimized prompts for generating promotional logos and banners for **Alphabet Scavenger Hunt** by ALNStudios.
+
+---
+
+## 1. Square Pack Icon / Logo (1:1 Aspect Ratio)
+
+### Visual Concept
+A bold, vibrant letter "A" block carved from emerald and polished gold, glowing with intense game-show energy, flanked by an active ticking digital stopwatch and an hourglass running out of sand, symbolizing the high-stakes 60-second time limit.
+
+### Recommended Tool Settings
+- **Aspect Ratio:** `1:1` (`--ar 1:1` for Midjourney)
+- **Resolution:** 1024x1024 (scaled to 512x512 for `pack_icon.png`)
+- **Render Style:** Clean 3D game logo render, bright party lighting, dynamic action sparks, high-contrast arcade aesthetic.
+
+### Prompt (Copy-Paste)
+```text
+Eye-catching 3D Minecraft pack icon with a central game-show aesthetic. In the center, a large, bold Minecraft block sculpted into the letter "A" made of luminous emerald and edged with polished gold. Resting against the letter block is an active digital countdown timer displaying "00:59" in glowing neon yellow and a brass steampunk hourglass with falling golden sand. Flying alphabet letter blocks (B, C, D, Z) float in the background surrounded by vibrant celebration sparks and confetti. Rich deep blue gradient backdrop with studio rim lighting. Bold playful 3D typography across the bottom reads "ALPHABET HUNT" with an official clean subtitle reading "by ALNStudios", Unreal Engine 5 render, 8k resolution --ar 1:1 --v 6.1 --stylize 250
+```
+
+### Negative Prompt
+```text
+dull colors, low contrast, messy letters, distorted numbers, dark gloomy horror, blurry geometry, watermark, text glitch
+```
+
+---
+
+## 2. Horizontal Hero Banner (16:9 Aspect Ratio)
+
+### Visual Concept
+An exhilarating, fast-paced survival race against the clock. Multiple Minecraft players are sprinting frantically across varied biomes searching for items matching their assigned letters. In the center, a sprinting player leaps across a ravine clutching a Diamond (for letter 'D') just as the top-screen bossbar timer counts down to its final seconds, with victory fireworks lighting up the sky.
+
+### Recommended Tool Settings
+- **Aspect Ratio:** `16:9` (`--ar 16:9` for Midjourney)
+- **Resolution:** 1920x1080 or 2560x1440 (CurseForge & MCPEDL hero showcase)
+- **Render Style:** High-energy action gameplay still, motion blur on sprinting characters, dynamic volumetric lighting.
+
+### Prompt (Copy-Paste)
+```text
+High-energy 16:9 cinematic Minecraft minigame action scene. In the foreground, an excited Minecraft player sprints and leaps across a rocky mountain canyon, triumphantly holding up a sparkling Diamond item. At the top of the screen, a sleek holographic Minecraft bossbar HUD displays "[ ROUND 14 - TARGET: LETTER D ] 00:07 SECONDS REMAINING". In the midground, other competitive teammates scramble through trees and chests, racing against the clock. The sky is filled with colorful celebratory fireworks, particle trails, and warm golden sunlight. Bold energetic typography centered at the top reads "ALPHABET SCAVENGER HUNT" with a sleek gold-embossed subtitle "by ALNStudios", octane render, ray tracing, 8k resolution --ar 16:9 --v 6.1 --stylize 300
+```
+
+### Negative Prompt
+```text
+slow, boring, static, flat lighting, illegible HUD text, distorted anatomy, messy composition, low resolution
+```
+````
+
+## FILE: MCPEDL/Minigame/Alphabet-Scavenger-Hunt/project.json (5 lines, 62 bytes)
+
+```
+{
+  "type": "minigame",
+  "name": "Alphabet Scavenger Hunt"
+}
+```
+
+## FILE: MCPEDL/Minigame/Alphabet-Scavenger-Hunt/README.md (19 lines, 838 bytes)
+
+```
+# Alphabet Scavenger Hunt
+
+Download the current release of **Alphabet Scavenger Hunt** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download Alphabet Scavenger Hunt (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/AlphabetHunt%20V2.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Minigame/Alphabet-Scavenger-Hunt/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Minigame/Alphabet-Scavenger-Hunt/resource_pack/manifest.json (37 lines, 604 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Alphabet Scavenger Hunt (v2)",
+    "description": "Controller icon resources. by ALNStudios",
+    "uuid": "a5f9a639-fe66-47df-8519-bb256701a77e",
+    "version": [
+      2,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      40
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "97822c15-dcd6-49e7-90e5-d9537afa4b68",
+      "version": [
+        2,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "2.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Minigame/Alphabet-Scavenger-Hunt/resource_pack/textures/item_texture.json (10 lines, 176 bytes)
+
+```
+{
+  "resource_pack_name": "allenscreations",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "controller": {
+      "textures": "textures/items/controller"
+    }
+  }
+}
+```

@@ -1,0 +1,4798 @@
+<!-- GRAPH-CONTEXT:START -->
+## Graph Context
+
+- **Project:** `Grimoire-Relics-V2` | Category: `Addons` | Version: `v2`
+- **Pack Types:** behavior_pack, resource_pack
+- **Siblings in Addons:** `2-in-1-Loot--XP-Booster (v2)` (v2), `ALN-MoreDiscs (v2)` (v2), `ALN-Pointer (v2)` (v2), `ALN-Quiver (v2)` (v2), `ALN-Wireless-Headphones (v2)` (v2), `Category: Addons`, `Cheat-Stick (v4)` (v4), `Copper-Carrier-Logistics (v2)` (v2) …
+
+> _Auto-generated from graphify-out/graph.json — do not edit manually._
+<!-- GRAPH-CONTEXT:END -->
+
+---
+
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Addons/Grimoire-Relics-V2`
+- **Destination:** `MCPEDL/Addons/Grimoire-Relics-V2`
+- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Addons/Grimoire-Relics-V2/CHANGELOG.md`)
+- **Text files:** 50
+- **Skipped binary:** 62
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/grimoire_relics_art_guide.csv`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_abyss.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_alchemist.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_delver.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_dragon.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_druid.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_frost.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_golem.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_hydra.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_lich.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_lunar.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_mirror.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_phoenix.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_scholar.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_seraph.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_solar.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_storm.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_titan.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_vampire.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_void.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_zephyr.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/loot_tables/chests/ancient_city.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/loot_tables/chests/bastion_treasure.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/loot_tables/chests/end_city_treasure.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/loot_tables/chests/shipwrecktreasure.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/loot_tables/chests/simple_dungeon.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/loot_tables/chests/stronghold_library.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/manifest.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/recipes/tome_abyss.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/recipes/tome_alchemist.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/recipes/tome_delver.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/recipes/tome_druid.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/recipes/tome_frost.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/recipes/tome_golem.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/recipes/tome_hydra.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/recipes/tome_lunar.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/recipes/tome_scholar.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/recipes/tome_seraph.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/recipes/tome_solar.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/recipes/tome_storm.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/recipes/tome_titan.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/recipes/tome_zephyr.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/Grimoire-Relics-V2/CHANGELOG.md`
+- `MCPEDL/Addons/Grimoire-Relics-V2/DESCRIPTION.md`
+- `MCPEDL/Addons/Grimoire-Relics-V2/README.md`
+- `MCPEDL/Addons/Grimoire-Relics-V2/resource_pack/manifest.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/resource_pack/textures/item_texture.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/resource_pack/ui/_ui_defs.json`
+- `MCPEDL/Addons/Grimoire-Relics-V2/resource_pack/ui/hud_screen.json`
+
+### Skipped (binary)
+
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/all_recipes_sheet.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/bp_icon_32.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/bp_icon_preview.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_abyss.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_alchemist.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_delver.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_dragon.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_druid.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_frost.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_golem.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_hydra.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_lich.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_lunar.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_mirror.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_phoenix.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_scholar.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_seraph.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_solar.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_storm.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_titan.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_vampire.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_void.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_zephyr.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_abyss_recipe.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_alchemist_recipe.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_delver_recipe.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_druid_recipe.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_frost_recipe.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_golem_recipe.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_hydra_recipe.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_lunar_recipe.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_scholar_recipe.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_seraph_recipe.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_solar_recipe.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_storm_recipe.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_titan_recipe.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_zephyr_recipe.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/rp_icon_32.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/assets/rp_icon_preview.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/pack_icon.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/minecraft_textures.zip`
+- `MCPEDL/Addons/Grimoire-Relics-V2/resource_pack/pack_icon.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/resource_pack/textures/items/tome_abyss.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/resource_pack/textures/items/tome_alchemist.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/resource_pack/textures/items/tome_delver.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/resource_pack/textures/items/tome_dragon.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/resource_pack/textures/items/tome_druid.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/resource_pack/textures/items/tome_frost.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/resource_pack/textures/items/tome_golem.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/resource_pack/textures/items/tome_hydra.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/resource_pack/textures/items/tome_lich.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/resource_pack/textures/items/tome_lunar.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/resource_pack/textures/items/tome_mirror.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/resource_pack/textures/items/tome_phoenix.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/resource_pack/textures/items/tome_scholar.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/resource_pack/textures/items/tome_seraph.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/resource_pack/textures/items/tome_solar.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/resource_pack/textures/items/tome_storm.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/resource_pack/textures/items/tome_titan.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/resource_pack/textures/items/tome_vampire.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/resource_pack/textures/items/tome_void.png`
+- `MCPEDL/Addons/Grimoire-Relics-V2/resource_pack/textures/items/tome_zephyr.png`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v3 / NEXT UPDATE: v4).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Addons/Grimoire-Relics-V2
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`.
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/assets/grimoire_relics_art_guide.csv (22 lines, 5276 bytes)
+
+```
+ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
+1,Infernal Phoenix,custom:tome_phoenix,"Ancient Relic (Loot-Only — Bastion Remnants)",Ancient Relic,"Molten Cinder & Gold Feathering: Dark charcoal/obsidian leather cover wrapped in glowing orange ember veins. Center crest features a stylized flame bird emblem in gold and magma-red pixels with burnt parchment edges."
+2,Abyssal Tide,custom:tome_abyss,Craftable & Shipwreck Loot,Elemental & Nature,"Prismarine & Kelp Leather: Deep teal/sea-green cover with polished dark prismarine borders. Center emblem features a radiant Heart of the Sea core with coral/bubble filigree."
+3,Zephyr Wind,custom:tome_zephyr,Craftable,Elemental & Nature,"Cloud Silk & Silver Wings: Sky-blue with ivory leather and silver feather wings wrapping the spine. Center crest is an airy vortex swirl in pale cloud-white."
+4,Necrotic Lich,custom:tome_lich,"Ancient Relic (Loot-Only — Bastion Remnants)",Ancient Relic,"Soul Crypt & Bone Ribs: Pale ribcage-bone brackets pinning down cracked pitch-black soul-sand leather. Center emblem is a turquoise/soul-cyan glowing skull surrounded by wisping soul smoke."
+5,Mountain Titan,custom:tome_titan,Craftable,Elemental & Nature,"Carved Granite & Slate Plates: Heavy, weathered stone tablet styling with cracked chiseled stone borders and iron rivets. Center emblem is a heavy anvil or cracked boulder icon."
+6,Blood Vampire,custom:tome_vampire,"Ancient Relic (Loot-Only — Monster Dungeons)",Ancient Relic,"Crimson Velvet & Gilded Bat Crest: Deep royal burgundy/wine-red velvet cover with black wrought-iron filigree corners. Center emblem features a faceted teardrop ruby gem resembling a drop of blood."
+7,Lunar Eclipse,custom:tome_lunar,Craftable,Celestial & Light,"Midnight Indigo & Silver Crescent: Deep starlit midnight indigo cover with faint constellation specks. Center emblem features a sharp silver-white crescent moon with a dark eclipse shadow."
+8,Solar Dawn,custom:tome_solar,Craftable,Celestial & Light,"Radiant Sunburst & Brass: Warm terracotta/sandstone leather with polished brass sunray trim. Center crest is a blazing golden sun disk with 8 outward triangular rays."
+9,Verdant Druid,custom:tome_druid,Craftable,Elemental & Nature,"Living Oak Bark & Moss: Natural wooden bark texture with lush emerald moss and tiny wild vines along the spine. Center emblem is a bright green clover leaf or ancient wooden rune."
+10,Frost Weaver,custom:tome_frost,Craftable,Elemental & Nature,"Glacial Packed Ice: Translucent pale-cyan crystal tome with frosted silver ice corners. Center emblem is a crisp 6-point snowflake crystalline star."
+11,Stormcaller,custom:tome_storm,Craftable,Elemental & Nature,"Stormcloud & Copper Lightning: Dark thunderhead-gray cover bound with aged oxidized copper brackets. Center crest is a bright zigzag electric yellow/azure lightning bolt."
+12,Deep Delver,custom:tome_delver,Craftable & Dungeon Loot,Utility & Combat,"Deepslate & Molten Core: Dark slate bricks reinforced with iron corner brackets and coal dust. Center crest is an embedded glowing yellow/orange miner's lantern or glowing pickaxe head."
+13,Void Phantom,custom:tome_void,"Ancient Relic (Loot-Only — Ancient Cities)",Ancient Relic,"Echo Shard & Sculk Tendrils: Deep navy and sculk-cyan tones with animated-look dark matter cracks. Center emblem depicts a blind Warden/Phantom eye socket glowing in bioluminescent cyan."
+14,Iron Golem,custom:tome_golem,Craftable,Utility & Combat,"Rusted Iron & Red Poppy: Riveted industrial iron plates with faint streaks of rust and green vine moss. Center crest features a delicate red poppy flower over an iron bar latch."
+15,Venom Hydra,custom:tome_hydra,Craftable,Utility & Combat,"Reptilian Serpent Scales: Dark emerald and lime serpent scale pattern with dripping toxic green slime accents. Center crest is a triple serpent fang or venom vial."
+16,Cursed Alchemist,custom:tome_alchemist,Craftable & Dungeon Loot,Utility & Combat,"Distillery Leather & Potion Flask: Stained antique brown alchemical leather with measuring marks along the side. Center crest is a glass potion alembic/flask filled with swirling purple elixir."
+17,Radiant Seraph,custom:tome_seraph,Craftable,Celestial & Light,"Opalescent Ivory & Angelic Gold: Pure white marble/leather cover with heavenly golden wing brackets. Center crest is a glowing halo or sacred six-pointed golden star."
+18,Arcane Scholar,custom:tome_scholar,Craftable & Dungeon Loot,Utility & Combat,"Ancient Library Tome & XP Orb: Classic rich brown leather with worn golden bookmark ribbons and Latin/runic border stitching. Center crest is a glowing lime-green experience orb surrounded by celestial glyphs."
+19,Mirror Trickster,custom:tome_mirror,"Ancient Relic (Loot-Only — Ancient Cities)",Ancient Relic,"Prismatic Glass & Violet Velvet: Royal purple tome with reflective silver-white bevels mimicking broken mirror glass. Center crest features a shifting dual-faced harlequin mask or prism diamond."
+20,Cataclysm Dragon,custom:tome_dragon,"Ancient Relic (Loot-Only — End Cities)",Ancient Relic,"Dragon Scale & Purpur Carapace: Rugged purpur-violet dragon scales with dark obsidian spine plates. Center emblem features an oval magenta dragon eye with a slit vertical pupil."
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_abyss.json (47 lines, 1062 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "custom:tome_abyss",
+      "menu_category": {
+        "category": "equipment",
+        "group": "minecraft:itemGroup.name.book"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:allow_off_hand": true,
+      "minecraft:icon": {
+        "textures": {
+          "default": "tome_abyss"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "\u00a7dTome: Abyssal Tide"
+      },
+      "minecraft:durability": {
+        "max_durability": 100
+      },
+      "minecraft:enchantable": {
+        "value": 15,
+        "slot": "all"
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "custom:tome_abyss"
+            ],
+            "repair_amount": "context.other->query.remaining_durability"
+          },
+          {
+            "items": [
+              "minecraft:book"
+            ],
+            "repair_amount": 1
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_alchemist.json (47 lines, 1078 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "custom:tome_alchemist",
+      "menu_category": {
+        "category": "equipment",
+        "group": "minecraft:itemGroup.name.book"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:allow_off_hand": true,
+      "minecraft:icon": {
+        "textures": {
+          "default": "tome_alchemist"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "\u00a7dTome: Cursed Alchemist"
+      },
+      "minecraft:durability": {
+        "max_durability": 100
+      },
+      "minecraft:enchantable": {
+        "value": 15,
+        "slot": "all"
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "custom:tome_alchemist"
+            ],
+            "repair_amount": "context.other->query.remaining_durability"
+          },
+          {
+            "items": [
+              "minecraft:book"
+            ],
+            "repair_amount": 1
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_delver.json (47 lines, 1064 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "custom:tome_delver",
+      "menu_category": {
+        "category": "equipment",
+        "group": "minecraft:itemGroup.name.book"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:allow_off_hand": true,
+      "minecraft:icon": {
+        "textures": {
+          "default": "tome_delver"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "\u00a7dTome: Deep Delver"
+      },
+      "minecraft:durability": {
+        "max_durability": 100
+      },
+      "minecraft:enchantable": {
+        "value": 15,
+        "slot": "all"
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "custom:tome_delver"
+            ],
+            "repair_amount": "context.other->query.remaining_durability"
+          },
+          {
+            "items": [
+              "minecraft:book"
+            ],
+            "repair_amount": 1
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_dragon.json (47 lines, 1069 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "custom:tome_dragon",
+      "menu_category": {
+        "category": "equipment",
+        "group": "minecraft:itemGroup.name.book"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:allow_off_hand": true,
+      "minecraft:icon": {
+        "textures": {
+          "default": "tome_dragon"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "\u00a7dTome: Cataclysm Dragon"
+      },
+      "minecraft:durability": {
+        "max_durability": 100
+      },
+      "minecraft:enchantable": {
+        "value": 15,
+        "slot": "all"
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "custom:tome_dragon"
+            ],
+            "repair_amount": "context.other->query.remaining_durability"
+          },
+          {
+            "items": [
+              "minecraft:book"
+            ],
+            "repair_amount": 1
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_druid.json (47 lines, 1063 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "custom:tome_druid",
+      "menu_category": {
+        "category": "equipment",
+        "group": "minecraft:itemGroup.name.book"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:allow_off_hand": true,
+      "minecraft:icon": {
+        "textures": {
+          "default": "tome_druid"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "\u00a7dTome: Verdant Druid"
+      },
+      "minecraft:durability": {
+        "max_durability": 100
+      },
+      "minecraft:enchantable": {
+        "value": 15,
+        "slot": "all"
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "custom:tome_druid"
+            ],
+            "repair_amount": "context.other->query.remaining_durability"
+          },
+          {
+            "items": [
+              "minecraft:book"
+            ],
+            "repair_amount": 1
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_frost.json (47 lines, 1062 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "custom:tome_frost",
+      "menu_category": {
+        "category": "equipment",
+        "group": "minecraft:itemGroup.name.book"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:allow_off_hand": true,
+      "minecraft:icon": {
+        "textures": {
+          "default": "tome_frost"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "\u00a7dTome: Frost Weaver"
+      },
+      "minecraft:durability": {
+        "max_durability": 100
+      },
+      "minecraft:enchantable": {
+        "value": 15,
+        "slot": "all"
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "custom:tome_frost"
+            ],
+            "repair_amount": "context.other->query.remaining_durability"
+          },
+          {
+            "items": [
+              "minecraft:book"
+            ],
+            "repair_amount": 1
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_golem.json (47 lines, 1060 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "custom:tome_golem",
+      "menu_category": {
+        "category": "equipment",
+        "group": "minecraft:itemGroup.name.book"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:allow_off_hand": true,
+      "minecraft:icon": {
+        "textures": {
+          "default": "tome_golem"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "\u00a7dTome: Iron Golem"
+      },
+      "minecraft:durability": {
+        "max_durability": 100
+      },
+      "minecraft:enchantable": {
+        "value": 15,
+        "slot": "all"
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "custom:tome_golem"
+            ],
+            "repair_amount": "context.other->query.remaining_durability"
+          },
+          {
+            "items": [
+              "minecraft:book"
+            ],
+            "repair_amount": 1
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_hydra.json (47 lines, 1061 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "custom:tome_hydra",
+      "menu_category": {
+        "category": "equipment",
+        "group": "minecraft:itemGroup.name.book"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:allow_off_hand": true,
+      "minecraft:icon": {
+        "textures": {
+          "default": "tome_hydra"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "\u00a7dTome: Venom Hydra"
+      },
+      "minecraft:durability": {
+        "max_durability": 100
+      },
+      "minecraft:enchantable": {
+        "value": 15,
+        "slot": "all"
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "custom:tome_hydra"
+            ],
+            "repair_amount": "context.other->query.remaining_durability"
+          },
+          {
+            "items": [
+              "minecraft:book"
+            ],
+            "repair_amount": 1
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_lich.json (47 lines, 1060 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "custom:tome_lich",
+      "menu_category": {
+        "category": "equipment",
+        "group": "minecraft:itemGroup.name.book"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:allow_off_hand": true,
+      "minecraft:icon": {
+        "textures": {
+          "default": "tome_lich"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "\u00a7dTome: Necrotic Lich"
+      },
+      "minecraft:durability": {
+        "max_durability": 100
+      },
+      "minecraft:enchantable": {
+        "value": 15,
+        "slot": "all"
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "custom:tome_lich"
+            ],
+            "repair_amount": "context.other->query.remaining_durability"
+          },
+          {
+            "items": [
+              "minecraft:book"
+            ],
+            "repair_amount": 1
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_lunar.json (47 lines, 1063 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "custom:tome_lunar",
+      "menu_category": {
+        "category": "equipment",
+        "group": "minecraft:itemGroup.name.book"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:allow_off_hand": true,
+      "minecraft:icon": {
+        "textures": {
+          "default": "tome_lunar"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "\u00a7dTome: Lunar Eclipse"
+      },
+      "minecraft:durability": {
+        "max_durability": 100
+      },
+      "minecraft:enchantable": {
+        "value": 15,
+        "slot": "all"
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "custom:tome_lunar"
+            ],
+            "repair_amount": "context.other->query.remaining_durability"
+          },
+          {
+            "items": [
+              "minecraft:book"
+            ],
+            "repair_amount": 1
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_mirror.json (47 lines, 1069 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "custom:tome_mirror",
+      "menu_category": {
+        "category": "equipment",
+        "group": "minecraft:itemGroup.name.book"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:allow_off_hand": true,
+      "minecraft:icon": {
+        "textures": {
+          "default": "tome_mirror"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "\u00a7dTome: Mirror Trickster"
+      },
+      "minecraft:durability": {
+        "max_durability": 100
+      },
+      "minecraft:enchantable": {
+        "value": 15,
+        "slot": "all"
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "custom:tome_mirror"
+            ],
+            "repair_amount": "context.other->query.remaining_durability"
+          },
+          {
+            "items": [
+              "minecraft:book"
+            ],
+            "repair_amount": 1
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_phoenix.json (47 lines, 1072 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "custom:tome_phoenix",
+      "menu_category": {
+        "category": "equipment",
+        "group": "minecraft:itemGroup.name.book"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:allow_off_hand": true,
+      "minecraft:icon": {
+        "textures": {
+          "default": "tome_phoenix"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "\u00a7dTome: Infernal Phoenix"
+      },
+      "minecraft:durability": {
+        "max_durability": 100
+      },
+      "minecraft:enchantable": {
+        "value": 15,
+        "slot": "all"
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "custom:tome_phoenix"
+            ],
+            "repair_amount": "context.other->query.remaining_durability"
+          },
+          {
+            "items": [
+              "minecraft:book"
+            ],
+            "repair_amount": 1
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_scholar.json (47 lines, 1070 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "custom:tome_scholar",
+      "menu_category": {
+        "category": "equipment",
+        "group": "minecraft:itemGroup.name.book"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:allow_off_hand": true,
+      "minecraft:icon": {
+        "textures": {
+          "default": "tome_scholar"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "\u00a7dTome: Arcane Scholar"
+      },
+      "minecraft:durability": {
+        "max_durability": 100
+      },
+      "minecraft:enchantable": {
+        "value": 15,
+        "slot": "all"
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "custom:tome_scholar"
+            ],
+            "repair_amount": "context.other->query.remaining_durability"
+          },
+          {
+            "items": [
+              "minecraft:book"
+            ],
+            "repair_amount": 1
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_seraph.json (47 lines, 1067 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "custom:tome_seraph",
+      "menu_category": {
+        "category": "equipment",
+        "group": "minecraft:itemGroup.name.book"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:allow_off_hand": true,
+      "minecraft:icon": {
+        "textures": {
+          "default": "tome_seraph"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "\u00a7dTome: Radiant Seraph"
+      },
+      "minecraft:durability": {
+        "max_durability": 100
+      },
+      "minecraft:enchantable": {
+        "value": 15,
+        "slot": "all"
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "custom:tome_seraph"
+            ],
+            "repair_amount": "context.other->query.remaining_durability"
+          },
+          {
+            "items": [
+              "minecraft:book"
+            ],
+            "repair_amount": 1
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_solar.json (47 lines, 1060 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "custom:tome_solar",
+      "menu_category": {
+        "category": "equipment",
+        "group": "minecraft:itemGroup.name.book"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:allow_off_hand": true,
+      "minecraft:icon": {
+        "textures": {
+          "default": "tome_solar"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "\u00a7dTome: Solar Dawn"
+      },
+      "minecraft:durability": {
+        "max_durability": 100
+      },
+      "minecraft:enchantable": {
+        "value": 15,
+        "slot": "all"
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "custom:tome_solar"
+            ],
+            "repair_amount": "context.other->query.remaining_durability"
+          },
+          {
+            "items": [
+              "minecraft:book"
+            ],
+            "repair_amount": 1
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_storm.json (47 lines, 1061 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "custom:tome_storm",
+      "menu_category": {
+        "category": "equipment",
+        "group": "minecraft:itemGroup.name.book"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:allow_off_hand": true,
+      "minecraft:icon": {
+        "textures": {
+          "default": "tome_storm"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "\u00a7dTome: Stormcaller"
+      },
+      "minecraft:durability": {
+        "max_durability": 100
+      },
+      "minecraft:enchantable": {
+        "value": 15,
+        "slot": "all"
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "custom:tome_storm"
+            ],
+            "repair_amount": "context.other->query.remaining_durability"
+          },
+          {
+            "items": [
+              "minecraft:book"
+            ],
+            "repair_amount": 1
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_titan.json (47 lines, 1064 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "custom:tome_titan",
+      "menu_category": {
+        "category": "equipment",
+        "group": "minecraft:itemGroup.name.book"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:allow_off_hand": true,
+      "minecraft:icon": {
+        "textures": {
+          "default": "tome_titan"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "\u00a7dTome: Mountain Titan"
+      },
+      "minecraft:durability": {
+        "max_durability": 100
+      },
+      "minecraft:enchantable": {
+        "value": 15,
+        "slot": "all"
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "custom:tome_titan"
+            ],
+            "repair_amount": "context.other->query.remaining_durability"
+          },
+          {
+            "items": [
+              "minecraft:book"
+            ],
+            "repair_amount": 1
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_vampire.json (47 lines, 1069 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "custom:tome_vampire",
+      "menu_category": {
+        "category": "equipment",
+        "group": "minecraft:itemGroup.name.book"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:allow_off_hand": true,
+      "minecraft:icon": {
+        "textures": {
+          "default": "tome_vampire"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "\u00a7dTome: Blood Vampire"
+      },
+      "minecraft:durability": {
+        "max_durability": 100
+      },
+      "minecraft:enchantable": {
+        "value": 15,
+        "slot": "all"
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "custom:tome_vampire"
+            ],
+            "repair_amount": "context.other->query.remaining_durability"
+          },
+          {
+            "items": [
+              "minecraft:book"
+            ],
+            "repair_amount": 1
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_void.json (47 lines, 1059 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "custom:tome_void",
+      "menu_category": {
+        "category": "equipment",
+        "group": "minecraft:itemGroup.name.book"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:allow_off_hand": true,
+      "minecraft:icon": {
+        "textures": {
+          "default": "tome_void"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "\u00a7dTome: Void Phantom"
+      },
+      "minecraft:durability": {
+        "max_durability": 100
+      },
+      "minecraft:enchantable": {
+        "value": 15,
+        "slot": "all"
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "custom:tome_void"
+            ],
+            "repair_amount": "context.other->query.remaining_durability"
+          },
+          {
+            "items": [
+              "minecraft:book"
+            ],
+            "repair_amount": 1
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_zephyr.json (47 lines, 1064 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "custom:tome_zephyr",
+      "menu_category": {
+        "category": "equipment",
+        "group": "minecraft:itemGroup.name.book"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:allow_off_hand": true,
+      "minecraft:icon": {
+        "textures": {
+          "default": "tome_zephyr"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "\u00a7dTome: Zephyr Wind"
+      },
+      "minecraft:durability": {
+        "max_durability": 100
+      },
+      "minecraft:enchantable": {
+        "value": 15,
+        "slot": "all"
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "custom:tome_zephyr"
+            ],
+            "repair_amount": "context.other->query.remaining_durability"
+          },
+          {
+            "items": [
+              "minecraft:book"
+            ],
+            "repair_amount": 1
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/loot_tables/chests/ancient_city.json (439 lines, 9822 bytes)
+
+```
+{
+  "pools": [
+    {
+      "rolls": {
+        "min": 5,
+        "max": 10.0
+      },
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "item",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 2.0
+              },
+              "add": false
+            },
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.15,
+                "max": 0.7
+              }
+            }
+          ],
+          "name": "custom:tome_void",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "name": "minecraft:music_disc_otherside",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": 1,
+              "add": false
+            }
+          ],
+          "name": "minecraft:compass"
+        },
+        {
+          "type": "item",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 2.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:sculk_catalyst"
+        },
+        {
+          "type": "item",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": 1,
+              "add": false
+            },
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.8,
+                "max": 1.0
+              },
+              "add": false
+            },
+            {
+              "function": "enchant_with_levels",
+              "levels": {
+                "min": 30,
+                "max": 50.0
+              },
+              "treasure": true
+            }
+          ],
+          "name": "minecraft:diamond_hoe"
+        },
+        {
+          "type": "item",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": 1,
+              "add": false
+            }
+          ],
+          "name": "minecraft:lead"
+        },
+        {
+          "type": "item",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": 1,
+              "add": false
+            }
+          ],
+          "name": "minecraft:diamond_horse_armor"
+        },
+        {
+          "type": "item",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 5
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:leather"
+        },
+        {
+          "type": "item",
+          "weight": 2,
+          "name": "minecraft:music_disc_13"
+        },
+        {
+          "type": "item",
+          "weight": 2,
+          "name": "minecraft:music_disc_cat"
+        },
+        {
+          "type": "item",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "levels": {
+                "min": 30,
+                "max": 50.0
+              },
+              "treasure": true
+            }
+          ],
+          "name": "minecraft:diamond_leggings"
+        },
+        {
+          "type": "item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "swift_sneak",
+                  "level": [
+                    1,
+                    3
+                  ]
+                }
+              ]
+            }
+          ],
+          "name": "minecraft:book"
+        },
+        {
+          "type": "item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 4,
+                "max": 10.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:sculk"
+        },
+        {
+          "type": "item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:sculk_sensor"
+        },
+        {
+          "type": "item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 4.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:candle"
+        },
+        {
+          "type": "item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 15.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:amethyst_shard"
+        },
+        {
+          "type": "item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:experience_bottle"
+        },
+        {
+          "type": "item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 15.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:glow_berries"
+        },
+        {
+          "type": "item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "levels": {
+                "min": 20,
+                "max": 39.0
+              },
+              "treasure": true
+            }
+          ],
+          "name": "minecraft:iron_leggings"
+        },
+        {
+          "type": "item",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:echo_shard"
+        },
+        {
+          "type": "item",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:disc_fragment_5"
+        },
+        {
+          "type": "item",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 3.0
+              },
+              "add": false
+            },
+            {
+              "function": "set_potion",
+              "id": "strong_regeneration"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "item",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "enchant_randomly"
+            }
+          ],
+          "name": "minecraft:book"
+        },
+        {
+          "type": "item",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 3,
+                "max": 10.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:book"
+        },
+        {
+          "type": "item",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 15.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:bone"
+        },
+        {
+          "type": "item",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 15.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:soul_torch"
+        },
+        {
+          "type": "item",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 6,
+                "max": 15.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:coal"
+        },
+        {
+          "type": "item",
+          "name": "custom:tome_mirror",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": 1
+            },
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.15,
+                "max": 0.7
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "empty",
+          "weight": 75
+        },
+        {
+          "type": "item",
+          "name": "minecraft:ward_armor_trim_smithing_template",
+          "weight": 4
+        },
+        {
+          "type": "item",
+          "name": "minecraft:silence_armor_trim_smithing_template",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/loot_tables/chests/bastion_treasure.json (382 lines, 8362 bytes)
+
+```
+{
+  "pools": [
+    {
+      "rolls": 3,
+      "entries": [
+        {
+          "type": "item",
+          "weight": 15,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": 1
+            }
+          ],
+          "name": "minecraft:netherite_ingot"
+        },
+        {
+          "type": "item",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": 1
+            },
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.15,
+                "max": 0.7
+              }
+            }
+          ],
+          "name": "custom:tome_phoenix"
+        },
+        {
+          "type": "item",
+          "weight": 8,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": 1
+            }
+          ],
+          "name": "minecraft:netherite_scrap"
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": 2
+            }
+          ],
+          "name": "minecraft:ancient_debris",
+          "weight": 4
+        },
+        {
+          "type": "item",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_damage",
+              "damage": {
+                "min": 0.8,
+                "max": 1
+              }
+            },
+            {
+              "function": "enchant_randomly"
+            }
+          ],
+          "name": "minecraft:diamond_sword"
+        },
+        {
+          "type": "item",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_damage",
+              "damage": {
+                "min": 0.8,
+                "max": 1
+              }
+            },
+            {
+              "function": "enchant_randomly"
+            }
+          ],
+          "name": "minecraft:diamond_spear"
+        },
+        {
+          "type": "item",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_damage",
+              "damage": {
+                "min": 0.8,
+                "max": 1
+              }
+            },
+            {
+              "function": "enchant_randomly"
+            }
+          ],
+          "name": "minecraft:diamond_chestplate"
+        },
+        {
+          "type": "item",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_damage",
+              "damage": {
+                "min": 0.8,
+                "max": 1
+              }
+            },
+            {
+              "function": "enchant_randomly"
+            }
+          ],
+          "name": "minecraft:diamond_helmet"
+        },
+        {
+          "type": "item",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_damage",
+              "damage": {
+                "min": 0.8,
+                "max": 1
+              }
+            },
+            {
+              "function": "enchant_randomly"
+            }
+          ],
+          "name": "minecraft:diamond_leggings"
+        },
+        {
+          "type": "item",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_damage",
+              "damage": {
+                "min": 0.8,
+                "max": 1
+              }
+            },
+            {
+              "function": "enchant_randomly"
+            }
+          ],
+          "name": "minecraft:diamond_boots"
+        },
+        {
+          "type": "item",
+          "weight": 6,
+          "name": "minecraft:diamond_sword"
+        },
+        {
+          "type": "item",
+          "weight": 6,
+          "name": "minecraft:diamond_spear"
+        },
+        {
+          "type": "item",
+          "weight": 5,
+          "name": "minecraft:diamond_chestplate"
+        },
+        {
+          "type": "item",
+          "weight": 5,
+          "name": "minecraft:diamond_helmet"
+        },
+        {
+          "type": "item",
+          "weight": 5,
+          "name": "minecraft:diamond_boots"
+        },
+        {
+          "type": "item",
+          "weight": 5,
+          "name": "minecraft:diamond_leggings"
+        },
+        {
+          "type": "item",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 2,
+                "max": 6
+              }
+            }
+          ],
+          "name": "minecraft:diamond"
+        },
+        {
+          "type": "item",
+          "name": "custom:tome_lich",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": 1
+            },
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.15,
+                "max": 0.7
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 3,
+        "max": 4
+      },
+      "entries": [
+        {
+          "type": "item",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 12,
+                "max": 25
+              }
+            }
+          ],
+          "name": "minecraft:arrow",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 2,
+                "max": 5
+              }
+            }
+          ],
+          "name": "minecraft:gold_block",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 3,
+                "max": 9
+              }
+            }
+          ],
+          "name": "minecraft:gold_ingot",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 3,
+                "max": 9
+              }
+            }
+          ],
+          "name": "minecraft:iron_ingot",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 3,
+                "max": 5
+              }
+            }
+          ],
+          "name": "minecraft:crying_obsidian",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 8,
+                "max": 23
+              }
+            }
+          ],
+          "name": "minecraft:quartz",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 5,
+                "max": 15
+              }
+            }
+          ],
+          "name": "minecraft:gilded_blackstone",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 3,
+                "max": 8
+              }
+            }
+          ],
+          "name": "minecraft:magma_cream",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 2,
+                "max": 5
+              }
+            }
+          ],
+          "name": "minecraft:iron_block",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "empty",
+          "weight": 11
+        },
+        {
+          "type": "item",
+          "name": "minecraft:snout_armor_trim_smithing_template",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:netherite_upgrade_smithing_template",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/loot_tables/chests/end_city_treasure.json (364 lines, 8246 bytes)
+
+```
+{
+  "pools": [
+    {
+      "rolls": {
+        "min": 2,
+        "max": 6
+      },
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:diamond",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 2,
+                "max": 7
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:iron_ingot",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 4,
+                "max": 8
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:gold_ingot",
+          "weight": 15,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 2,
+                "max": 7
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:emerald",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 2,
+                "max": 6
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:beetroot_seeds",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 10
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:saddle",
+          "weight": 3
+        },
+        {
+          "type": "item",
+          "name": "minecraft:horsearmoriron",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "minecraft:copper_horse_armor",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "minecraft:horsearmorgold",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "minecraft:horsearmordiamond",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "minecraft:diamond_sword",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "treasure": true,
+              "levels": {
+                "min": 20,
+                "max": 39
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:diamond_spear",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "treasure": true,
+              "levels": {
+                "min": 20,
+                "max": 39
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:diamond_boots",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "treasure": true,
+              "levels": {
+                "min": 20,
+                "max": 39
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:diamond_chestplate",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "treasure": true,
+              "levels": {
+                "min": 20,
+                "max": 39
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:diamond_leggings",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "treasure": true,
+              "levels": {
+                "min": 20,
+                "max": 39
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:diamond_helmet",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "treasure": true,
+              "levels": {
+                "min": 20,
+                "max": 39
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:diamond_pickaxe",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "treasure": true,
+              "levels": {
+                "min": 20,
+                "max": 39
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:diamond_shovel",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "treasure": true,
+              "levels": {
+                "min": 20,
+                "max": 39
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:iron_sword",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "treasure": true,
+              "levels": {
+                "min": 20,
+                "max": 39
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:iron_boots",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "treasure": true,
+              "levels": {
+                "min": 20,
+                "max": 39
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:iron_chestplate",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "treasure": true,
+              "levels": {
+                "min": 20,
+                "max": 39
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:iron_leggings",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "treasure": true,
+              "levels": {
+                "min": 20,
+                "max": 39
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:iron_helmet",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "treasure": true,
+              "levels": {
+                "min": 20,
+                "max": 39
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:iron_pickaxe",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "treasure": true,
+              "levels": {
+                "min": 20,
+                "max": 39
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:iron_shovel",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "treasure": true,
+              "levels": {
+                "min": 20,
+                "max": 39
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "custom:tome_dragon",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": 1
+            },
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.15,
+                "max": 0.7
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "empty",
+          "weight": 14
+        },
+        {
+          "type": "item",
+          "name": "minecraft:spire_armor_trim_smithing_template",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/loot_tables/chests/shipwrecktreasure.json (156 lines, 3182 bytes)
+
+```
+{
+  "pools": [
+    {
+      "rolls": {
+        "min": 3,
+        "max": 6
+      },
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:iron_ingot",
+          "weight": 90,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 5
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:gold_ingot",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 5
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:emerald",
+          "weight": 40,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 5
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:diamond",
+          "weight": 5
+        },
+        {
+          "type": "item",
+          "name": "minecraft:experience_bottle",
+          "weight": 5
+        },
+        {
+          "type": "item",
+          "name": "custom:tome_abyss",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": 1
+            },
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.15,
+                "max": 0.7
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 2,
+        "max": 5
+      },
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:iron_nugget",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 10
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:gold_nugget",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 10
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:dye",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 10
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "empty",
+          "weight": 5
+        },
+        {
+          "type": "item",
+          "name": "minecraft:coast_armor_trim_smithing_template",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": 2
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/loot_tables/chests/simple_dungeon.json (314 lines, 6697 bytes)
+
+```
+{
+  "pools": [
+    {
+      "rolls": {
+        "min": 1,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:leather",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 5
+              },
+              "add": false
+            }
+          ],
+          "weight": 20
+        },
+        {
+          "type": "item",
+          "name": "minecraft:golden_apple",
+          "weight": 15
+        },
+        {
+          "type": "item",
+          "name": "minecraft:appleEnchanted",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "name": "minecraft:record_13",
+          "weight": 15
+        },
+        {
+          "type": "item",
+          "name": "minecraft:record_cat",
+          "weight": 15
+        },
+        {
+          "type": "item",
+          "name": "minecraft:record_otherside",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "name": "minecraft:name_tag",
+          "weight": 20
+        },
+        {
+          "type": "item",
+          "name": "minecraft:horsearmorgold",
+          "weight": 10
+        },
+        {
+          "type": "item",
+          "name": "minecraft:horsearmoriron",
+          "weight": 15
+        },
+        {
+          "type": "item",
+          "name": "minecraft:copper_horse_armor",
+          "weight": 15
+        },
+        {
+          "type": "item",
+          "name": "minecraft:horsearmordiamond",
+          "weight": 5
+        },
+        {
+          "type": "item",
+          "name": "minecraft:book",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "enchant_randomly"
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "custom:tome_delver",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": 1
+            },
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.15,
+                "max": 0.7
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "custom:tome_vampire",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": 1
+            },
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.15,
+                "max": 0.7
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 1,
+        "max": 4
+      },
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:iron_ingot",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 4
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:gold_ingot",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 4
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:bread",
+          "weight": 20
+        },
+        {
+          "type": "item",
+          "name": "minecraft:wheat",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 4
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:bucket",
+          "weight": 10
+        },
+        {
+          "type": "item",
+          "name": "minecraft:redstone",
+          "weight": 15,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 4
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:coal",
+          "weight": 15,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 4
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:melon_seeds",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 2,
+                "max": 4
+              }
+            }
+          ],
+          "weight": 10
+        },
+        {
+          "type": "item",
+          "name": "minecraft:pumpkin_seeds",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 2,
+                "max": 4
+              }
+            }
+          ],
+          "weight": 10
+        },
+        {
+          "type": "item",
+          "name": "minecraft:beetroot_seeds",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 2,
+                "max": 4
+              }
+            }
+          ],
+          "weight": 10
+        }
+      ]
+    },
+    {
+      "rolls": 3,
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:bone",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 8
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:gunpowder",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 8
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:rotten_flesh",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 8
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:string",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 8
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/loot_tables/chests/stronghold_library.json (108 lines, 2227 bytes)
+
+```
+{
+  "pools": [
+    {
+      "rolls": {
+        "min": 2,
+        "max": 10
+      },
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:book",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 3
+              }
+            }
+          ],
+          "weight": 100
+        },
+        {
+          "type": "item",
+          "name": "minecraft:paper",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 2,
+                "max": 7
+              }
+            }
+          ],
+          "weight": 100
+        },
+        {
+          "type": "item",
+          "name": "minecraft:map",
+          "weight": 5
+        },
+        {
+          "type": "item",
+          "name": "minecraft:compass",
+          "weight": 5
+        },
+        {
+          "type": "item",
+          "name": "minecraft:book",
+          "weight": 60,
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "levels": 30,
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "custom:tome_scholar",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": 1
+            },
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.15,
+                "max": 0.7
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "custom:tome_alchemist",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": 1
+            },
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.15,
+                "max": 0.7
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:eye_armor_trim_smithing_template",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/manifest.json (62 lines, 1157 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Grimoire Relics V2 (v3)",
+    "description": "Grimoire Relics. 20 magical tomes (14 craftable, 6 Ancient Relics) whose buffs, auras and reactive powers work only while held in your offhand. by ALNStudios",
+    "uuid": "72a2d49b-0a13-4a3d-a038-e7ba05f0f6df",
+    "version": [
+      3,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "e5b1fc4f-fbfe-42c9-b139-bdc486e45590",
+      "version": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "d9ffe8f5-b6f2-47af-9676-c324dd51a90f",
+      "version": [
+        3,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "cefdddd0-186d-4bc2-ad03-553ce7d08676",
+      "version": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.13.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "3.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/recipes/tome_abyss.json (34 lines, 563 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:tome_abyss"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "CEC",
+      "EBE",
+      "CEC"
+    ],
+    "key": {
+      "E": {
+        "item": "minecraft:prismarine_shard"
+      },
+      "C": {
+        "item": "minecraft:nautilus_shell"
+      },
+      "B": {
+        "item": "minecraft:book"
+      }
+    },
+    "result": {
+      "item": "custom:tome_abyss"
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/recipes/tome_alchemist.json (34 lines, 564 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:tome_alchemist"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "CEC",
+      "EBE",
+      "CEC"
+    ],
+    "key": {
+      "E": {
+        "item": "minecraft:glass_bottle"
+      },
+      "C": {
+        "item": "minecraft:nether_wart"
+      },
+      "B": {
+        "item": "minecraft:book"
+      }
+    },
+    "result": {
+      "item": "custom:tome_alchemist"
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/recipes/tome_delver.json (34 lines, 552 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:tome_delver"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "CEC",
+      "EBE",
+      "CEC"
+    ],
+    "key": {
+      "E": {
+        "item": "minecraft:raw_iron"
+      },
+      "C": {
+        "item": "minecraft:glowstone"
+      },
+      "B": {
+        "item": "minecraft:book"
+      }
+    },
+    "result": {
+      "item": "custom:tome_delver"
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/recipes/tome_druid.json (34 lines, 552 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:tome_druid"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "CEC",
+      "EBE",
+      "CEC"
+    ],
+    "key": {
+      "E": {
+        "item": "minecraft:bone_meal"
+      },
+      "C": {
+        "item": "minecraft:moss_block"
+      },
+      "B": {
+        "item": "minecraft:book"
+      }
+    },
+    "result": {
+      "item": "custom:tome_druid"
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/recipes/tome_frost.json (34 lines, 551 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:tome_frost"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "CEC",
+      "EBE",
+      "CEC"
+    ],
+    "key": {
+      "E": {
+        "item": "minecraft:packed_ice"
+      },
+      "C": {
+        "item": "minecraft:snowball"
+      },
+      "B": {
+        "item": "minecraft:book"
+      }
+    },
+    "result": {
+      "item": "custom:tome_frost"
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/recipes/tome_golem.json (34 lines, 557 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:tome_golem"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "CEC",
+      "EBE",
+      "CEC"
+    ],
+    "key": {
+      "E": {
+        "item": "minecraft:carved_pumpkin"
+      },
+      "C": {
+        "item": "minecraft:iron_ingot"
+      },
+      "B": {
+        "item": "minecraft:book"
+      }
+    },
+    "result": {
+      "item": "custom:tome_golem"
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/recipes/tome_hydra.json (34 lines, 553 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:tome_hydra"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "CEC",
+      "EBE",
+      "CEC"
+    ],
+    "key": {
+      "E": {
+        "item": "minecraft:spider_eye"
+      },
+      "C": {
+        "item": "minecraft:slime_ball"
+      },
+      "B": {
+        "item": "minecraft:book"
+      }
+    },
+    "result": {
+      "item": "custom:tome_hydra"
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/recipes/tome_lunar.json (34 lines, 559 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:tome_lunar"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "CEC",
+      "EBE",
+      "CEC"
+    ],
+    "key": {
+      "E": {
+        "item": "minecraft:amethyst_shard"
+      },
+      "C": {
+        "item": "minecraft:lapis_lazuli"
+      },
+      "B": {
+        "item": "minecraft:book"
+      }
+    },
+    "result": {
+      "item": "custom:tome_lunar"
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/recipes/tome_scholar.json (34 lines, 565 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:tome_scholar"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "CEC",
+      "EBE",
+      "CEC"
+    ],
+    "key": {
+      "E": {
+        "item": "minecraft:lapis_block"
+      },
+      "C": {
+        "item": "minecraft:experience_bottle"
+      },
+      "B": {
+        "item": "minecraft:book"
+      }
+    },
+    "result": {
+      "item": "custom:tome_scholar"
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/recipes/tome_seraph.json (34 lines, 569 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:tome_seraph"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "CEC",
+      "EBE",
+      "CEC"
+    ],
+    "key": {
+      "E": {
+        "item": "minecraft:golden_apple"
+      },
+      "C": {
+        "item": "minecraft:glistering_melon_slice"
+      },
+      "B": {
+        "item": "minecraft:book"
+      }
+    },
+    "result": {
+      "item": "custom:tome_seraph"
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/recipes/tome_solar.json (34 lines, 552 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:tome_solar"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "CEC",
+      "EBE",
+      "CEC"
+    ],
+    "key": {
+      "E": {
+        "item": "minecraft:sunflower"
+      },
+      "C": {
+        "item": "minecraft:gold_ingot"
+      },
+      "B": {
+        "item": "minecraft:book"
+      }
+    },
+    "result": {
+      "item": "custom:tome_solar"
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/recipes/tome_storm.json (34 lines, 558 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:tome_storm"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "CEC",
+      "EBE",
+      "CEC"
+    ],
+    "key": {
+      "E": {
+        "item": "minecraft:copper_ingot"
+      },
+      "C": {
+        "item": "minecraft:lightning_rod"
+      },
+      "B": {
+        "item": "minecraft:book"
+      }
+    },
+    "result": {
+      "item": "custom:tome_storm"
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/recipes/tome_titan.json (34 lines, 551 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:tome_titan"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "CEC",
+      "EBE",
+      "CEC"
+    ],
+    "key": {
+      "E": {
+        "item": "minecraft:obsidian"
+      },
+      "C": {
+        "item": "minecraft:iron_block"
+      },
+      "B": {
+        "item": "minecraft:book"
+      }
+    },
+    "result": {
+      "item": "custom:tome_titan"
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/recipes/tome_zephyr.json (34 lines, 558 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:tome_zephyr"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "CEC",
+      "EBE",
+      "CEC"
+    ],
+    "key": {
+      "E": {
+        "item": "minecraft:feather"
+      },
+      "C": {
+        "item": "minecraft:phantom_membrane"
+      },
+      "B": {
+        "item": "minecraft:book"
+      }
+    },
+    "result": {
+      "item": "custom:tome_zephyr"
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/scripts/main.js (711 lines, 25940 bytes)
+
+```
+import { world, system, EquipmentSlot } from "@minecraft/server";
+
+const EFFECT_TICKS = 60;
+const NV_TICKS = 260;
+const OWN_TICKS = 640;
+const FROST_COST_EVERY = 4;
+const MELEE = "entityAttack";
+const states = new Map();
+const badParticles = new Set();
+const SOIL_CROPS = ["minecraft:wheat", "minecraft:carrots", "minecraft:potatoes", "minecraft:beetroot", "minecraft:melon_stem", "minecraft:pumpkin_stem", "minecraft:nether_wart"];
+const BLAST = ["blockExplosion", "entityExplosion", "fireworks"];
+const GOOD = ["speed", "haste", "strength", "jump_boost", "regeneration", "resistance", "fire_resistance", "water_breathing", "invisibility", "night_vision", "health_boost", "absorption", "saturation", "slow_falling", "conduit_power", "dolphins_grace", "luck", "village_hero"];
+
+function st(p) {
+  let s = states.get(p.id);
+  if (!s) {
+    s = { relic: null, n: 0, ring: 0, peak: {}, light: null, lastXp: null, lastVoid: -99999, lastGolem: -99999 };
+    states.set(p.id, s);
+  }
+  return s;
+}
+
+const now = () => system.currentTick;
+const safeBlock = (dim, loc) => {
+  try {
+    return dim.getBlock(loc);
+  } catch (err) {
+    return undefined;
+  }
+};
+const health = (e) => e.getComponent("minecraft:health");
+
+function heal(e, amount) {
+  const h = health(e);
+  if (h) h.setCurrentValue(Math.min(h.effectiveMax, h.currentValue + amount));
+}
+
+function addFx(e, id, amp, ticks) {
+  try {
+    e.addEffect(id, ticks, { amplifier: amp, showParticles: false });
+  } catch (err) {}
+}
+
+function dropFx(e, ids) {
+  for (const id of ids) {
+    try {
+      e.removeEffect(id);
+    } catch (err) {}
+  }
+}
+
+function dropOwn(e, ids) {
+  for (const id of ids) {
+    try {
+      const f = e.getEffect(id);
+      if (f && f.duration >= 0 && f.duration <= OWN_TICKS) e.removeEffect(id);
+    } catch (err) {}
+  }
+}
+
+function particle(dim, id, loc) {
+  if (badParticles.has(id)) return;
+  try {
+    dim.spawnParticle(id, loc);
+  } catch (err) {
+    badParticles.add(id);
+  }
+}
+
+let wet = false;
+
+function raining(dim) {
+  try {
+    if (typeof dim.getWeather === "function") {
+      const w = dim.getWeather();
+      return w === "Rain" || w === "Thunder";
+    }
+  } catch (err) {}
+  return wet;
+}
+
+try {
+  if (world.afterEvents.weatherChange) {
+    world.afterEvents.weatherChange.subscribe((ev) => {
+      const w = ev.newWeather !== undefined ? String(ev.newWeather) : ev.lightning ? "Thunder" : ev.raining ? "Rain" : "Clear";
+      wet = w === "Rain" || w === "Thunder";
+    });
+  }
+} catch (err) {}
+
+function outdoors(p) {
+  try {
+    const top = p.dimension.getTopmostBlock({ x: Math.floor(p.location.x), z: Math.floor(p.location.z) });
+    return !top || top.location.y <= Math.floor(p.location.y);
+  } catch (err) {
+    return true;
+  }
+}
+
+const isDay = () => world.getTimeOfDay() < 12000;
+const isNight = () => {
+  const t = world.getTimeOfDay();
+  return t >= 13000 && t <= 23000;
+};
+
+function kick(e, up) {
+  try {
+    e.applyImpulse({ x: 0, y: up, z: 0 });
+  } catch (err) {
+    try {
+      e.applyKnockback(0, 0, 0, up);
+    } catch (err2) {}
+  }
+}
+
+/* Tome registry: typeId -> configuration */
+const RELICS = {
+  "custom:tome_phoenix": {
+    name: "Infernal Phoenix", info: ["Permanent Fire Resistance", "Attackers and your targets burn 5s"],
+    particle: "minecraft:basic_flame_particle", py: 0.1, ids: ["fire_resistance"],
+    effects: () => [["fire_resistance", 0]],
+    onHurt: (p, ev, a) => {
+      if (a && a.id !== p.id && ev.damageSource.cause === MELEE) {
+        a.setOnFire(5, true);
+        damageOffhand(p, 1);
+      }
+    },
+    onHit: (p, ev, v) => {
+      if (ev.damageSource.cause === MELEE) {
+        v.setOnFire(5, true);
+        damageOffhand(p, 1);
+      }
+    }
+  },
+  "custom:tome_abyss": {
+    name: "Abyssal Tide", info: ["Permanent Water Breathing", "Night Vision under water", "Dolphin's Grace while swimming"],
+    particle: "minecraft:water_splash_particle", ids: ["water_breathing", "night_vision", "dolphins_grace"],
+    effects: (p) => {
+      const l = [["water_breathing", 0]];
+      if (p.isInWater) l.push(["night_vision", 0]);
+      if (p.isSwimming) l.push(["dolphins_grace", 0]);
+      return l;
+    }
+  },
+  "custom:tome_zephyr": {
+    name: "Zephyr Wind", info: ["Speed II + Jump Boost I", "Auto Slow Falling when plunging", "Fall damage healed back"],
+    particle: "minecraft:white_smoke_particle", py: 0.3, ids: ["speed", "jump_boost", "slow_falling"],
+    effects: (p) => {
+      const l = [["speed", 1], ["jump_boost", 0]];
+      if (!p.isOnGround && p.getVelocity().y < -0.5) l.push(["slow_falling", 0]);
+      return l;
+    },
+    onHurt: (p, ev) => {
+      if (ev.damageSource.cause === "fall") {
+        heal(p, ev.damage);
+        damageOffhand(p, 1);
+      }
+    }
+  },
+  "custom:tome_lich": {
+    name: "Necrotic Lich", info: ["Melee strikes inflict Wither II (3s)"],
+    particle: "minecraft:soul_particle", ids: [],
+    onHit: (p, ev, v) => {
+      if (ev.damageSource.cause === MELEE) {
+        addFx(v, "wither", 1, 60);
+        damageOffhand(p, 1);
+      }
+    }
+  },
+  "custom:tome_titan": {
+    name: "Mountain Titan", info: ["Resistance II", "Knockback immunity", "Slowness I"],
+    particle: "minecraft:basic_smoke_particle", ids: ["resistance", "slowness"],
+    effects: () => [["resistance", 1], ["slowness", 0]],
+    onHurt: (p, ev, a) => {
+      if (a) {
+        system.run(() => { try { p.clearVelocity(); } catch (err) {} });
+        damageOffhand(p, 1);
+      }
+    }
+  },
+  "custom:tome_vampire": {
+    name: "Blood Vampire", info: ["Melee hits heal you 1 heart"],
+    particle: "minecraft:heart_particle", ids: [],
+    onHit: (p, ev) => {
+      if (ev.damageSource.cause === MELEE) {
+        heal(p, 2);
+        damageOffhand(p, 1);
+      }
+    }
+  },
+  "custom:tome_lunar": {
+    name: "Lunar Eclipse", info: ["At night: Invisibility + Strength I"],
+    particle: "minecraft:endrod", ids: ["invisibility", "strength"],
+    effects: (p) => (p.dimension.id === "minecraft:overworld" && isNight() ? [["invisibility", 0], ["strength", 0]] : [])
+  },
+  "custom:tome_solar": {
+    name: "Solar Dawn", info: ["Daytime under open sky:", "Saturation + Regeneration I"],
+    particle: "minecraft:totem_particle", ids: ["saturation", "regeneration"],
+    effects: (p) => (p.dimension.id === "minecraft:overworld" && isDay() && outdoors(p) ? [["saturation", 0], ["regeneration", 0]] : [])
+  },
+  "custom:tome_druid": {
+    name: "Verdant Druid", info: ["Poison immunity", "Fertilizes crops and saplings within 3 blocks"],
+    particle: "minecraft:villager_happy", ids: [],
+    tick: (p, s) => {
+      dropFx(p, ["poison", "fatal_poison"]);
+      if (s.n % 6 !== 0) return;
+      const l = p.location;
+      const bx = Math.floor(l.x), by = Math.floor(l.y), bz = Math.floor(l.z);
+      let fertilized = false;
+      for (let dx = -3; dx <= 3; dx++) for (let dz = -3; dz <= 3; dz++) for (let dy = -1; dy <= 1; dy++) {
+        const b = safeBlock(p.dimension, { x: bx + dx, y: by + dy, z: bz + dz });
+        if (!b) continue;
+        try {
+          const perm = b.permutation;
+          if (SOIL_CROPS.includes(b.typeId)) {
+            const g = perm.getState(b.typeId === "minecraft:nether_wart" ? "age" : "growth");
+            if (typeof g === "number" && g < (b.typeId === "minecraft:nether_wart" ? 3 : 7)) {
+              b.setPermutation(perm.withState(b.typeId === "minecraft:nether_wart" ? "age" : "growth", g + 1));
+              fertilized = true;
+            }
+          } else if (b.typeId.endsWith("_sapling")) {
+            b.setPermutation(perm.withState("age_bit", true));
+            fertilized = true;
+          }
+        } catch (err) {}
+      }
+      if (fertilized) damageOffhand(p, 1);
+    }
+  },
+  "custom:tome_frost": {
+    name: "Frost Weaver", info: ["Frost Walker II: walk on water", "Powder snow damage healed back"],
+    particle: "minecraft:snowflake_particle", ids: [],
+    tick: (p, s) => {
+      if (p.isSneaking) return;
+      const l = p.location;
+      const bx = Math.floor(l.x), by = Math.floor(l.y) - 1, bz = Math.floor(l.z);
+      let froze = false;
+      for (let dx = -3; dx <= 3; dx++) for (let dz = -3; dz <= 3; dz++) {
+        const b = safeBlock(p.dimension, { x: bx + dx, y: by, z: bz + dz });
+        const up = safeBlock(p.dimension, { x: bx + dx, y: by + 1, z: bz + dz });
+        if (b && up && b.typeId === "minecraft:water" && up.isAir) {
+          b.setType("minecraft:frosted_ice");
+          froze = true;
+        }
+      }
+      if (froze) {
+        s.frost = (s.frost || 0) + 1;
+        if (s.frost % FROST_COST_EVERY === 0) damageOffhand(p, 1);
+      }
+    },
+    onHurt: (p, ev) => {
+      if (ev.damageSource.cause === "freezing") {
+        heal(p, ev.damage);
+        damageOffhand(p, 1);
+      }
+    }
+  },
+  "custom:tome_storm": {
+    name: "Stormcaller", info: ["Speed III outdoors in rain or thunder", "15% lightning on melee attackers"],
+    particle: "minecraft:electric_spark_particle", ids: ["speed"],
+    effects: (p) => (p.dimension.id === "minecraft:overworld" && raining(p.dimension) && outdoors(p) ? [["speed", 2]] : []),
+    onHurt: (p, ev, a) => {
+      if (a && a.id !== p.id && ev.damageSource.cause === MELEE && Math.random() < 0.15) {
+        a.dimension.spawnEntity("minecraft:lightning_bolt", a.location);
+        damageOffhand(p, 2);
+      }
+    }
+  },
+  "custom:tome_delver": {
+    name: "Deep Delver", info: ["Permanent Haste II", "Light block at your feet in the dark"],
+    particle: "minecraft:lava_particle", ids: ["haste"],
+    effects: () => [["haste", 1]],
+    tick: (p, s) => {
+      const l = p.location;
+      const pos = { x: Math.floor(l.x), y: Math.floor(l.y), z: Math.floor(l.z) };
+      const dark = !outdoors(p) && l.y < 55;
+      if (s.light && (!dark || s.light.x !== pos.x || s.light.y !== pos.y || s.light.z !== pos.z)) clearLight(p, s);
+      if (!dark || s.light) return;
+      const b = safeBlock(p.dimension, pos);
+      if (!b || !b.isAir) return;
+      for (const id of ["minecraft:light_block_12", "minecraft:light_block"]) {
+        try {
+          b.setType(id);
+          s.light = pos;
+          s.lightDim = p.dimension.id;
+          return;
+        } catch (err) {}
+      }
+    },
+    end: (p, s) => clearLight(p, s)
+  },
+  "custom:tome_void": {
+    name: "Void Phantom", info: ["End only: 2s phase lift out of the void", "Then 1s slow falling; single use"],
+    particle: "minecraft:basic_portal_particle", ids: [],
+    fast: (p, s) => {
+      if (p.dimension.id !== "minecraft:the_end") return;
+
+      // Watch the return descent and cushion the final touchdown.
+      if (s.voidDropping) {
+        const y = p.location.y;
+        if (y > s.voidPeakY) s.voidPeakY = y;
+        if (y < s.voidPeakY) {
+          const bx = Math.floor(p.location.x);
+          const by = Math.floor(p.location.y);
+          const bz = Math.floor(p.location.z);
+          let groundFound = false;
+          for (let dy = 1; dy <= 3; dy++) {
+            try {
+              const b = p.dimension.getBlock({ x: bx, y: by - dy, z: bz });
+              if (b && !b.isAir && b.typeId !== "minecraft:air" && !b.isLiquid) {
+                groundFound = true;
+                break;
+              }
+            } catch (err) {}
+          }
+          if (groundFound) {
+            s.voidDropping = false;
+            try { p.clearVelocity(); } catch (err) {}
+            addFx(p, "slow_falling", 0, 20);
+            // Consume the activated relic after safe touchdown, even if it was moved from offhand.
+            const consumed = consumeVoidRelic(p, s);
+            s.voidRescueActive = false;
+            if (consumed) {
+              s.voidUsed = false;
+              s.voidRelicConsumed = false;
+            }
+            p.onScreenDisplay.setActionBar("§d✦ Void Phantom: Touchdown cushioned ✦");
+            p.playSound("random.orb");
+          }
+        }
+      }
+
+      if (p.location.y <= -10) activateVoidPhantom(p, s);
+    },
+    onHurt: (p, ev, a, s) => {
+      if (p.dimension.id === "minecraft:the_end" && ev.damageSource.cause === "void") {
+        activateVoidPhantom(p, s);
+      }
+    }
+  },
+  "custom:tome_golem": {
+    name: "Iron Golem", info: ["4 Absorption hearts every 30s", "Melee hits launch targets upward"],
+    particle: "minecraft:critical_hit_emitter", ids: ["absorption"],
+    tick: (p, s) => {
+      if (now() - s.lastGolem >= 600) {
+        s.lastGolem = now();
+        addFx(p, "absorption", 1, 640);
+        damageOffhand(p, 1);
+      }
+    },
+    onHit: (p, ev, v) => {
+      if (ev.damageSource.cause === MELEE) {
+        kick(v, 0.5);
+        damageOffhand(p, 1);
+      }
+    }
+  },
+  "custom:tome_hydra": {
+    name: "Venom Hydra", info: ["Immune to Poison and Wither", "Your hits inflict Poison II (5s)"],
+    particle: "minecraft:mobspell_emitter", ids: [],
+    tick: (p) => dropFx(p, ["poison", "fatal_poison", "wither"]),
+    onHit: (p, ev, v) => {
+      addFx(v, "poison", 1, 100);
+      damageOffhand(p, 1);
+    }
+  },
+  "custom:tome_alchemist": {
+    name: "Cursed Alchemist", info: ["Refreshes your beneficial potion effects"],
+    particle: "minecraft:witchspell_emitter", ids: [],
+    tick: (p, s) => {
+      const seen = {};
+      let refreshed = false;
+      for (const e of p.getEffects()) {
+        const id = e.typeId.replace("minecraft:", "");
+        if (!GOOD.includes(id) || e.duration < 0) continue;
+        seen[id] = true;
+        s.peak[id] = Math.max(s.peak[id] || 0, e.duration);
+        if (e.duration < s.peak[id] - 20) {
+          addFx(p, id, e.amplifier, s.peak[id]);
+          refreshed = true;
+        }
+      }
+      for (const id of Object.keys(s.peak)) if (!seen[id]) delete s.peak[id];
+      if (refreshed) damageOffhand(p, 1);
+    }
+  },
+  "custom:tome_seraph": {
+    name: "Radiant Seraph", info: ["Permanent Regeneration II", "Immune to Blindness and Nausea"],
+    particle: "minecraft:endrod", py: 2.1, ids: ["regeneration"],
+    effects: () => [["regeneration", 1]],
+    tick: (p) => dropFx(p, ["blindness", "nausea"])
+  },
+  "custom:tome_scholar": {
+    name: "Arcane Scholar", info: ["Experience gained is tripled"],
+    particle: "minecraft:enchanting_table_particle", ids: [],
+    onEquip: (p, s) => { s.lastXp = null; },
+    tick: (p, s) => {
+      const x = p.getTotalXp();
+      if (s.lastXp !== null && x > s.lastXp) {
+        p.addExperience((x - s.lastXp) * 2);
+        s.lastXp = p.getTotalXp();
+        damageOffhand(p, 1);
+      } else s.lastXp = x;
+    }
+  },
+  "custom:tome_mirror": {
+    name: "Mirror Trickster", info: ["25% to heal back a hit", "and blink 3 blocks backward"],
+    particle: "minecraft:endrod", ids: [],
+    onHurt: (p, ev) => {
+      if (Math.random() >= 0.25) return;
+      heal(p, ev.damage);
+      damageOffhand(p, 2);
+      const l = p.location, d = p.getViewDirection();
+      const to = { x: l.x - d.x * 3, y: l.y, z: l.z - d.z * 3 };
+      for (let i = 0; i < 8; i++) particle(p.dimension, "minecraft:basic_smoke_particle", { x: l.x, y: l.y + 0.3 + i * 0.2, z: l.z });
+      let clear = true;
+      for (let i = 1; i <= 3 && clear; i++) {
+        const f = safeBlock(p.dimension, { x: l.x - d.x * i, y: l.y, z: l.z - d.z * i });
+        const h = safeBlock(p.dimension, { x: l.x - d.x * i, y: l.y + 1, z: l.z - d.z * i });
+        clear = !!(f && h && f.isAir && h.isAir);
+      }
+      if (clear) p.teleport(to);
+    }
+  },
+  "custom:tome_dragon": {
+    name: "Cataclysm Dragon", info: ["Strength II + Resistance I", "Heals dragon breath and explosion damage"],
+    particle: "minecraft:dragon_breath_trail", ids: ["strength", "resistance"],
+    effects: () => [["strength", 1], ["resistance", 0]],
+    onHurt: (p, ev) => {
+      const c = ev.damageSource.cause;
+      if (BLAST.includes(c) || (c === "magic" && p.dimension.id === "minecraft:the_end")) {
+        heal(p, ev.damage);
+        damageOffhand(p, 2);
+      }
+    }
+  }
+};
+
+function activateVoidPhantom(p, s) {
+  // This relic is single-use: no cooldown and no second rescue after activation.
+  if (s.voidUsed || p.dimension.id !== "minecraft:the_end") return;
+  s.voidUsed = true;
+  s.voidRescueActive = true;
+  s.voidElevating = true;
+  s.voidPeakY = -99999;
+
+  try { p.clearVelocity(); } catch (err) {}
+  heal(p, 20);
+  addFx(p, "levitation", 59, 40);
+  p.onScreenDisplay.setActionBar("§5✦ The Void Phantom phases you upward from the abyss! ✦");
+  p.playSound("portal.travel");
+  p.playSound("mob.phantom.swoop");
+
+  system.runTimeout(() => {
+    try {
+      dropFx(p, ["levitation"]);
+      s.voidElevating = false;
+      s.voidDropping = true;
+      s.voidPeakY = p.location.y;
+    } catch (err) {}
+  }, 40);
+}
+
+function consumeVoidRelic(p, s) {
+  if (s.voidRelicConsumed) return false;
+  s.voidRelicConsumed = true;
+
+  try {
+    const eq = p.getComponent("minecraft:equippable");
+    const off = eq && eq.getEquipment(EquipmentSlot.Offhand);
+    if (off && off.typeId === "custom:tome_void") {
+      eq.setEquipment(EquipmentSlot.Offhand, undefined);
+      p.playSound("random.break");
+      p.onScreenDisplay.setActionBar("§cYour Void Phantom has shattered!");
+      return true;
+    }
+
+    const inventory = p.getComponent("minecraft:inventory");
+    const container = inventory && inventory.container;
+    if (container) {
+      for (let i = 0; i < container.size; i++) {
+        const item = container.getItem(i);
+        if (!item || item.typeId !== "custom:tome_void") continue;
+        if (item.amount > 1) {
+          item.amount -= 1;
+          container.setItem(i, item);
+        } else {
+          container.setItem(i, undefined);
+        }
+        p.playSound("random.break");
+        p.onScreenDisplay.setActionBar("§cYour Void Phantom has shattered!");
+        return true;
+      }
+    }
+  } catch (err) {}
+  return false;
+}
+
+function clearLight(p, s) {
+  if (!s.light) return;
+  try {
+    const d = world.getDimension(s.lightDim || p.dimension.id);
+    const b = d.getBlock(s.light);
+    if (b && b.typeId.startsWith("minecraft:light_block")) b.setType("minecraft:air");
+  } catch (err) {}
+  s.light = null;
+  s.lightDim = null;
+}
+
+/* Offhand gate: every effect and trigger reads the live offhand slot */
+function offhandItem(p) {
+  const eq = p.getComponent("minecraft:equippable");
+  return eq ? eq.getEquipment(EquipmentSlot.Offhand) : undefined;
+}
+
+function damageOffhand(p, amount = 1) {
+  try {
+    const eq = p.getComponent("minecraft:equippable");
+    if (!eq) return;
+    const item = eq.getEquipment(EquipmentSlot.Offhand);
+    if (!item) return;
+    const dur = item.getComponent("minecraft:durability");
+    if (!dur) return;
+    
+    // Honor Unbreaking (script damage bypasses vanilla handling): 1/(level+1) chance to take damage.
+    try {
+      const ench = item.getComponent("minecraft:enchantable");
+      const ub = ench && ench.getEnchantment("unbreaking");
+      if (ub && ub.level > 0 && Math.random() >= 1 / (ub.level + 1)) return;
+    } catch (err) {}
+    if (dur.damage + amount >= dur.maxDurability) {
+      // Break the item
+      eq.setEquipment(EquipmentSlot.Offhand, undefined);
+      p.playSound("random.break");
+      p.onScreenDisplay.setActionBar("§cYour Grimoire has shattered!");
+      particle(p.dimension, "minecraft:item_break", { x: p.location.x, y: p.location.y + 1, z: p.location.z });
+    } else {
+      dur.damage += amount;
+      eq.setEquipment(EquipmentSlot.Offhand, item);
+    }
+  } catch (err) {}
+}
+
+function relicOf(p) {
+  const item = offhandItem(p);
+  return item ? RELICS[item.typeId] : undefined;
+}
+
+const STORY = {
+  "custom:tome_phoenix": ["Born in the ash of a fallen kingdom,", "it burns what dares to touch its keeper."],
+  "custom:tome_abyss": ["A drowned scholar bound the tide to ink.", "The sea still answers to its pages."],
+  "custom:tome_zephyr": ["Written on a feather the wind refused to", "let fall. Its reader never lands hard."],
+  "custom:tome_lich": ["The lich signed its last page in withered", "ink. Each blow remembers its grave."],
+  "custom:tome_titan": ["Carved from a mountain's heart, it", "teaches the body to stand like stone."],
+  "custom:tome_vampire": ["A name crossed out a hundred times.", "What it takes, it returns to you."],
+  "custom:tome_lunar": ["Its pages open only when the moon rises.", "Night wears the reader as a cloak."],
+  "custom:tome_solar": ["Pressed between two sunrises, this tome", "keeps the first warm light of day."],
+  "custom:tome_druid": ["Seeds slept in its binding for an age.", "Where the keeper walks, green returns."],
+  "custom:tome_frost": ["Its first line was written on a lake", "that never cracked beneath the weaver."],
+  "custom:tome_storm": ["A thunderhead was folded into its spine.", "It wakes when the clouds break open."],
+  "custom:tome_delver": ["Found in a mine no map remembers.", "Its pages glow where the stone is dark."],
+  "custom:tome_void": ["Torn from the edge of the End. It sings", "once to a falling soul, then is gone."],
+  "custom:tome_golem": ["Wrought of iron and a villager's prayer.", "It guards, and it throws what it hates."],
+  "custom:tome_hydra": ["Every head drips a different verse.", "None of them is kind to a foe."],
+  "custom:tome_alchemist": ["Its author brewed until the cauldron", "brewed back. The potions never fade."],
+  "custom:tome_seraph": ["A choir once sang these words aloud.", "Light still mends whoever holds them."],
+  "custom:tome_scholar": ["Margins crammed with the notes of ten", "thousand lives. Learning pays triple."],
+  "custom:tome_mirror": ["The reflection on its cover blinks first.", "A trickster steps where you stood."],
+  "custom:tome_dragon": ["The last dragon wrote one page, then", "roared. The world still shakes from it."],
+};
+
+function loreFor(id) {
+  const lines = ["§8Offhand Relic", ...RELICS[id].info.map((t) => "§7• " + t)];
+  const tale = STORY[id];
+  if (tale) lines.push("§5Legend", ...tale.map((t) => "§8§o" + t));
+  return lines.slice(0, 20);
+}
+
+function refreshLore(item) {
+  const want = loreFor(item.typeId);
+  const have = item.getLore();
+  if (have.length === want.length && have.every((t, i) => t === want[i])) return false;
+  item.setLore(want);
+  return true;
+}
+
+function ensureLore(p) {
+  const eq = p.getComponent("minecraft:equippable");
+  const off = eq && eq.getEquipment(EquipmentSlot.Offhand);
+  if (off && RELICS[off.typeId] && refreshLore(off)) eq.setEquipment(EquipmentSlot.Offhand, off);
+  const c = p.getComponent("minecraft:inventory").container;
+  for (let i = 0; i < c.size; i++) {
+    const item = c.getItem(i);
+    if (item && RELICS[item.typeId] && refreshLore(item)) c.setItem(i, item);
+  }
+}
+
+function release(p, s) {
+  const old = RELICS[s.relic];
+  if (!old) return;
+  dropOwn(p, old.ids);
+  if (old.end) old.end(p, s);
+  s.peak = {};
+}
+
+function attune(p, s, id) {
+  release(p, s);
+  s.relic = id;
+  const cfg = RELICS[id];
+  if (!cfg) return;
+  if (cfg.onEquip) cfg.onEquip(p, s);
+  p.onScreenDisplay.setActionBar("§6[ ALNSTUDIOS ] §d✦ Relic Attuned: " + cfg.name + " ✦");
+  system.runTimeout(() => {
+    try {
+      if (s.relic === id) p.onScreenDisplay.setActionBar("§7" + cfg.info.join(" §8|§7 "));
+    } catch (err) {}
+  }, 50);
+}
+
+/* 10-tick passive loop */
+let cycle = 0;
+system.runInterval(() => {
+  cycle++;
+  for (const p of world.getAllPlayers()) {
+    try {
+      const s = st(p);
+      const item = offhandItem(p);
+      const id = item && RELICS[item.typeId] ? item.typeId : null;
+      if (id !== s.relic) attune(p, s, id);
+      const cfg = RELICS[id];
+      if (cfg) {
+        s.n++;
+        if (cfg.effects) for (const [fx, amp] of cfg.effects(p, s)) addFx(p, fx, amp, fx === "night_vision" ? NV_TICKS : EFFECT_TICKS);
+        if (cfg.tick) cfg.tick(p, s);
+      }
+      if (cycle % 4 === 0) ensureLore(p);
+    } catch (err) {}
+  }
+}, 10);
+
+/* Fast watch: only the Void Phantom needs it (a fall into the void is quicker than 10 ticks) */
+system.runInterval(() => {
+  for (const p of world.getAllPlayers()) {
+    try {
+      const s = states.get(p.id);
+      if (s && s.voidRescueActive) {
+        RELICS["custom:tome_void"].fast(p, s);
+        continue;
+      }
+      const cfg = s && RELICS[s.relic];
+      if (cfg && cfg.fast && relicOf(p) === cfg) cfg.fast(p, s);
+    } catch (err) {}
+  }
+}, 2);
+
+/* Minimal ambient sparkle: 1 subtle particle every 20 ticks (1.0s) */
+system.runInterval(() => {
+  for (const p of world.getAllPlayers()) {
+    try {
+      const s = states.get(p.id);
+      const cfg = s && RELICS[s.relic];
+      if (!cfg) continue;
+      s.ring += 0.5;
+      const l = p.location;
+      const y = l.y + (cfg.py === undefined ? 1.0 : cfg.py);
+      // Spawn 1 subtle ambient particle with gentle orbit
+      const px = l.x + Math.cos(s.ring) * 0.75;
+      const pz = l.z + Math.sin(s.ring) * 0.75;
+      particle(p.dimension, cfg.particle, { x: px, y, z: pz });
+    } catch (err) {}
+  }
+}, 20);
+
+/* Combat triggers (live offhand check, so unequipping stops them at once) */
+world.afterEvents.entityHurt.subscribe((ev) => {
+  try {
+    const victim = ev.hurtEntity;
+    const atk = ev.damageSource.damagingEntity;
+    if (victim.typeId === "minecraft:player") {
+      const cfg = relicOf(victim);
+      if (cfg && cfg.onHurt) cfg.onHurt(victim, ev, atk, st(victim));
+    }
+    if (atk && atk.typeId === "minecraft:player") {
+      const cfg = relicOf(atk);
+      if (cfg && cfg.onHit) cfg.onHit(atk, ev, victim, st(atk));
+    }
+  } catch (err) {}
+});
+
+world.afterEvents.playerSpawn.subscribe((ev) => {
+  const s = states.get(ev.player.id);
+  if (!s) return;
+  s.voidRescueActive = false;
+  s.voidElevating = false;
+  s.voidDropping = false;
+  s.voidUsed = false;
+  s.lastXp = null;
+  clearLight(ev.player, s);
+});
+
+world.afterEvents.playerLeave.subscribe((ev) => {
+  const s = states.get(ev.playerId);
+  if (s && s.light) {
+    try {
+      const d = world.getDimension(s.lightDim || "overworld");
+      const b = d && d.getBlock(s.light);
+      if (b && b.typeId.startsWith("minecraft:light_block")) b.setType("minecraft:air");
+    } catch (err) {}
+  }
+  states.delete(ev.playerId);
+});
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/CHANGELOG.md (186 lines, 8397 bytes)
+
+```
+# Changelog - Grimoire Relics V2
+
+---
+
+## [v3] - 2026-11-19 - Tome Lore Stories
+
+### Added
+- **Tome Lore Stories**: Every tome now shows a short legend in its tooltip under the ability list.
+### Improved & Balanced
+- **Frost Weaver Durability**: Frost Walker II now costs 1 durability for every 4 freezes instead of every freeze, so a tome lasts much longer when crossing water.
+- **Refreshing Tooltips**: Tome tooltips update themselves when their text changes, so older tomes pick up the new ability text and legends.
+### Fixed
+- **Void Phantom Tooltip**: The two over-long tooltip lines are shortened so they are no longer cut off.
+
+## [v2] - 2026-11-16
+
+**What's new in v1.13.2:** Packed with the v1.13.2 update.
+
+### Fixed
+
+- **Abyssal Tide in Shipwrecks**: Shipwreck Treasure now uses the correct loot table name so Abyssal Tide can be added to those chests.
+- **Stormcaller Speed**: Speed III now follows rain and thunder on all supported game versions.
+- **Potion Effects Kept**: Putting a tome away no longer cancels long-lasting potion or beacon effects of the same type.
+
+### Improved & Balanced
+
+- **Accurate Descriptions**: Tomes that block damage now say they heal the damage back, so a fatal hit is not prevented. Deep Delver's light, the hidden status icons and the Enchanted Golden Apple change in Ancient City and Bastion chests are now documented.
+- **Branding**: The relic attunement message now reads ALNSTUDIOS.
+
+## [1.13.1] - 2026-11-13
+
+**What's new in v1.13.1:** Packed with the v1.13.1 update.
+
+### Fixed
+
+- Solar Dawn, Stormcaller and Deep Delver now detect open sky while standing in tall grass, crops, flowers or snow layers.
+- Void Phantom rescue state resets on respawn, so a death mid-rescue no longer blocks future rescues or consumes a spare tome.
+- Deep Delver light blocks are removed in the dimension they were placed in.
+- Mirror Trickster blink can no longer pass through walls.
+- Grimoire shatter message and sound now always play.
+- Unbreaking now works on tomes (1/(level+1) chance to take damage).
+- Druid and Frost Weaver no longer abort when scanning near unloaded chunks.
+- Shipwreck loot table renamed to shipwreck_treasure.json so Abyssal Tide can generate.
+- Removed circular dependency (resource pack no longer depends on the behavior pack).
+
+## [1.13.0] - 2026-11-04
+
+### Improved & Balanced
+
+- **Clearer Tome Locations**: The description now lists every exploration chest that can contain Abyssal Tide, Deep Delver, Arcane Scholar, and Cursed Alchemist, and corrects a few wording mistakes. No gameplay changes.
+
+## [1.12.0] - 2026-10-29
+
+### Improved & Balanced
+
+- **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.
+
+## [1.6.0] - 2026-10-20
+
+### Improved & Balanced
+- **Single-Use Void Rescue**: The first rescue consumes the Void Phantom, preventing repeated activations.
+- Kept the End-only rescue, brief upward lift, and touchdown slow-falling cushion.
+
+---
+
+## [1.5.0] - 2026-10-19
+
+---
+
+## [1.3.0] - 2026-10-15
+
+  - Simplified the carried spellbook appearance and removed the previous custom model presentation.
+  - **Handheld Appearance:** Grimoires now display cleanly in either hand.
+
+  - Restricted emergency void rescue strictly to **The End** dimension (The End).
+  - **Void Phantom Escape:** Improved the relic's rapid lift out of the void to help players recover from a fall.
+  - **Safer Landing:** Added a brief Slow Falling cushion at touchdown to help prevent fall damage without a long floating effect.
+
+  - Reduced on-screen status-effect clutter.
+
+---
+
+## [1.2.0] - 2026-10-15
+
+  - Confined Void Phantom protection strictly to The End dimension (The End).
+  - Initial integration of ground-proximity cushion landing.
+
+---
+
+## [1.1.0] - 2026-10-15
+
+### Added
+- **Spellbook Presentation:** Improved the way spellbooks appear when carried, with clearer textures and a more polished in-game look.
+
+- **Natural Carried Movement:** Refined the spellbook's appearance while walking and standing still.
+
+- **Creative Inventory Organization:** Grouped the grimoires together in the Creative inventory for easier browsing.
+- **Pack Icons:** Added dedicated icons to make the add-on easier to identify in pack settings.
+
+- **Item Texture Refresh:** Improved the appearance of the tome icons and refreshed the recipe previews.
+
+  - **Subtle Relic Aura:** Reduced the particle effect to a quieter ambient sparkle.
+
+  - Fine-tuned vanilla Book (Book) anvil repairs to a strict **1:1 ratio** (1 durability point restored per book).
+
+### Fixed
+- **Void Phantom Rescue:** Improved emergency rescue behavior in the Overworld, The End, and the Nether, with a safer landing and brief Slow Falling protection.
+
+---
+
+## [1.0.0] - 2026-10-15
+
+### Added
+
+Initial release of Grimoire Relics V2, a collection of magical tomes that provide different effects while held in the offhand.
+
+  - **Infernal Phoenix**: Permanent Fire Resistance + offensive & defensive 5-second fire ignitions.
+  - **Abyssal Tide**: Permanent Water Breathing + underwater Night Vision + Dolphin's Grace swimming.
+  - **Zephyr Wind**: Speed II, Jump Boost I, auto Slow Falling plunge, and full fall damage immunity.
+  - **Necrotic Lich**: Melee strikes inflict Wither II for 3 seconds.
+  - **Mountain Titan**: Resistance II, Slowness I, and full knockback neutralization.
+  - **Blood Vampire**: Life Leech healing 1 full heart (2 HP) per melee hit.
+  - **Lunar Eclipse**: Nocturnal Invisibility + Strength I during Overworld nighttime.
+  - **Solar Dawn**: Saturation + Regeneration I during open Overworld daylight.
+  - **Verdant Druid**: Poison immunity + passive fertilization of crops and saplings within 3 blocks.
+  - **Frost Weaver**: Frost Walker II water freezing underfoot + powder snow freezing immunity.
+  - **Stormcaller**: Speed III outdoors in rain/thunder + 15% retaliatory lightning strike against melee attackers.
+  - **Deep Delver**: Permanent Haste II + automatic light in dark areas under Y=55 in the dark.
+  - **Void Phantom**: Emergency surface and The End spawn platform (100, 49, 0) void rescue with Slow Falling.
+  - **Iron Golem**: 4 Absorption hearts every 30s + melee launch knockback.
+  - **Venom Hydra**: Poison and Wither immunity + melee Poison II infliction.
+  - **Cursed Alchemist**: Infinite duration preservation and refreshing of all active beneficial potion effects.
+  - **Radiant Seraph**: Permanent Regeneration II + Blindness and Nausea immunity.
+  - **Arcane Scholar**: Triples all experience gained from mob drops, mining, and orbs.
+  - **Mirror Trickster**: 25% evasive damage negation with a 3-block backward blink through smoke.
+  - **Cataclysm Dragon**: Strength II, Resistance I, and complete immunity to explosions and dragon breath.
+
+  - Each relic features **100 Max Durability** (durability).
+  - **Event-Only Wear**: Passive stat buffs do not consume durability. Durability is deducted only when active abilities, combat procs, or emergency rescues trigger.
+  - **Enchanting & Mending**: Compatible with Enchanting Tables and Anvils (enchanting), supporting **Mending**, **Efficiency**, and **Unbreaking**.
+  - **Anvil Repairing**: Repairable by combining matching tomes or using vanilla **Books** (Book) at a strict 1:1 ratio (1 durability restored per book) repairable.
+  - **Shatter Audio & Particles**: Plays authentic item breaking sound, spawns break particles, and notifies the player on shatter.
+
+  - 6 tomes are designated as uncraftable **Ancient Relics** obtainable only through rare exploration chests:
+    - Ancient Cities: *Void Phantom* & *Mirror Trickster* (replaces enchanted golden apple rolls).
+    - Bastion Remnants: *Infernal Phoenix* & *Necrotic Lich* (replaces enchanted golden apple rolls).
+    - End Cities: *Cataclysm Dragon*.
+    - Dungeon Monster Rooms: *Blood Vampire* (replaces enchanted golden apple rolls).
+  - Additional dungeon distribution for *Deep Delver*, *Arcane Scholar*, *Cursed Alchemist*, and *Abyssal Tide*.
+  - **Relic Antiquity Wear**: Looted tomes generate with realistic ancient wear, spawning with 15% to 70% used durability (set damage).
+
+  - 14 craftable tomes surrounding a central Book in a shaped Crafting Table grid.
+  - Generated pixel-art crafting recipe diagrams using vanilla Bedrock sample item textures.
+
+  - **Elemental Visuals:** Added distinct halo effects to reflect each tome's elemental identity.
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/DESCRIPTION.md (186 lines, 10314 bytes)
+
+```
+# Grimoire Relics V2
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+Equip one of 20 magical grimoires in your offhand to gain its distinct passive effects, combat abilities, environmental powers, or subtle particle aura. Fourteen tomes are craftable; six Ancient Relics are found through exploration.
+
+---
+
+## Overview
+
+Grimoire Relics V2 adds a collection of magical tomes to Minecraft Bedrock Edition. Each tome has its own effect and is active while equipped in the offhand. Switching away from a tome stops its relic-specific effects.
+
+---
+
+## The 20 Grimoire Relics
+
+### **Infernal Phoenix**
+- **Abilities & Mechanics**: Permanent Fire Resistance. Attackers that melee hit you are set on fire for 5s; targets you melee hit burn for 5s.
+- **Acquisition**: **Ancient Relic (Loot Only)**: Bastion Treasure
+
+### **Abyssal Tide**
+- **Abilities & Mechanics**: Permanent Water Breathing. Night Vision while underwater. Dolphin's Grace while swimming.
+- **Acquisition**: Craftable; also found in Shipwreck Treasure
+
+### **Zephyr Wind**
+- **Abilities & Mechanics**: Speed II + Jump Boost I. Auto Slow Falling when plunging (while falling quickly). Fall damage is healed back right after it lands; a fatal fall is not prevented.
+- **Acquisition**: Craftable
+
+### **Necrotic Lich**
+- **Abilities & Mechanics**: Melee strikes inflict Wither II for 3s on victims.
+- **Acquisition**: **Ancient Relic (Loot Only)**: Bastion Treasure
+
+### **Mountain Titan**
+- **Abilities & Mechanics**: Permanent Resistance II and Slowness I. Complete knockback immunity (cancels knockback velocity on damage).
+- **Acquisition**: Craftable
+
+### **Blood Vampire**
+- **Abilities & Mechanics**: Life Leech: Every successful melee strike restores 1 full heart (2 HP).
+- **Acquisition**: **Ancient Relic (Loot Only)**: Dungeon Monster Rooms
+
+### **Lunar Eclipse**
+- **Abilities & Mechanics**: Nocturnal Blessing: Invisibility and Strength I during nighttime in the Overworld.
+- **Acquisition**: Craftable
+
+### **Solar Dawn**
+- **Abilities & Mechanics**: Solar Nourishment: Saturation and Regeneration I under open daylight skies in the Overworld.
+- **Acquisition**: Craftable
+
+### **Verdant Druid**
+- **Abilities & Mechanics**: Poison immunity. Naturally fertilizes crops and advances saplings within a 3-block radius.
+- **Acquisition**: Craftable
+
+### **Frost Weaver**
+- **Abilities & Mechanics**: Frost Walker II (freezes water underfoot into frosted ice, unless sneaking). Powder snow freezing damage is healed back right after it lands.
+- **Acquisition**: Craftable
+
+### **Stormcaller**
+- **Abilities & Mechanics**: Speed III outdoors during rain or thunderstorms. 15% chance to strike melee attackers with real lightning.
+- **Acquisition**: Craftable
+
+### **Deep Delver**
+- **Abilities & Mechanics**: Permanent Haste II. Places a light block at your feet while you are below Y=55 and not under open sky.
+- **Acquisition**: Craftable; also found in Dungeon Monster Rooms
+
+### **Void Phantom**
+- **Abilities & Mechanics**: In The End, the first void rescue triggers a brief 2-second upward lift, followed by a 1-second Slow Falling cushion when safe ground is detected during descent. The rescue continues if you remove the tome from your offhand. After safe touchdown, the activated Void Phantom is consumed from your offhand or inventory if it can be found. Only one rescue can activate per player session.
+- **Acquisition**: **Ancient Relic (Loot Only)**: Ancient Cities
+
+### **Iron Golem**
+- **Abilities & Mechanics**: Fortified Armor: Grants 4 Absorption hearts every 30s. Melee strikes launch enemies upward into the air.
+- **Acquisition**: Craftable
+
+### **Venom Hydra**
+- **Abilities & Mechanics**: Full immunity to Poison and Wither. Melee attacks inflict Poison II (5s).
+- **Acquisition**: Craftable
+
+### **Cursed Alchemist**
+- **Abilities & Mechanics**: Potion Mastery: Keeps active beneficial potion effects from expiring while the tome is equipped.
+- **Acquisition**: Craftable; also found in Stronghold Libraries
+
+### **Radiant Seraph**
+- **Abilities & Mechanics**: Permanent Regeneration II. Complete immunity to Blindness and Nausea.
+- **Acquisition**: Craftable
+
+### **Arcane Scholar**
+- **Abilities & Mechanics**: Arcane Intellect: Triples all experience gained from mob drops, mining, and orbs.
+- **Acquisition**: Craftable; also found in Stronghold Libraries
+
+### **Mirror Trickster**
+- **Abilities & Mechanics**: Elusive Phase: 25% chance upon taking damage to heal that damage back and blink 3 blocks backward through smoke. A fatal hit is not prevented.
+- **Acquisition**: **Ancient Relic (Loot Only)**: Ancient Cities
+
+### **Cataclysm Dragon**
+- **Abilities & Mechanics**: Strength II and Resistance I. Dragon breath and explosion damage is healed back right after it lands; a fatal hit is not prevented.
+- **Acquisition**: **Ancient Relic (Loot Only)**: End Cities
+
+---
+
+## Crafting Pattern
+
+There are **14 craftable tomes** made at a standard Crafting Table using shaped recipes arranged around a central Book. The recipes are available through the crafting table. The **6 Ancient Relics** (Void Phantom, Cataclysm Dragon, Necrotic Lich, Mirror Trickster, Blood Vampire, and Infernal Phoenix) cannot be crafted and are found through exploration loot:
+
+<p align="center">
+</p>
+
+---
+
+## Durability, Enchanting & World Generation
+
+### Durability, Enchanting, and Repairing
+- **100 durability points**: Each Grimoire possesses a durability health bar.
+- **Event-Only Wear**: Passive stat buffs (such as Water Breathing, Speed, or Haste) do **not** drain durability. Durability is consumed strictly upon active mechanical execution:
+  - *Combat triggers* (e.g. Phoenix burn on hit/hurt, Vampire life-steal, Iron Golem absorption & launch, Hydra poison, Lich wither): 1 durability per event.
+  - *Environmental abilities* (e.g. Druid crop boost, Stormcaller lightning strike, Mirror Trickster blink): 1 to 2 durability per event. Frost Weaver costs 1 durability for every 4 times it freezes water underfoot.
+  - *Emergency Lifesavers* (Void Phantom): single use; the relic is consumed after a safe touchdown.
+- **Enchanting Table & Anvil Compatible**:
+  - Can be enchanted via the Enchanting Table or Anvil with enchantments like **Mending**, **Efficiency**, and **Unbreaking**.
+  - **Mending** restores tome durability automatically as you collect experience orbs.
+- **Anvil Repairing**:
+  - Combine two of the same tomes on an Anvil to restore their remaining durability.
+  - Can also be repaired on an Anvil using standard **Books** at a strict **1:1 ratio** (1 book restores 1 durability point).
+- **Shatter**: If durability reaches 0 without being repaired or protected, the tome shatters with an item break sound and particles and is removed from your equipment.
+
+### World Chest Distribution
+The pack includes exploration loot entries for Ancient Relics. Their intended locations are:
+- **Ancient Cities**: Chance for **Void Phantom** and **Mirror Trickster**.
+- **Bastion Remnants (Treasure)**: **Infernal Phoenix** and **Necrotic Lich**.
+- **End Cities**: **Cataclysm Dragon**.
+- **Stronghold Libraries**: **Arcane Scholar** and **Cursed Alchemist**.
+- **Shipwreck Treasuries**: **Abyssal Tide**.
+- **Monster Rooms / Simple Dungeons**: **Blood Vampire** and **Deep Delver**.
+- **Enchanted Golden Apples**: No longer appear in Ancient City and Bastion Treasure chests; the tomes take their place.
+
+---
+
+## In-Game Information
+
+- **Offhand use**: Equip a tome in your offhand to activate its abilities.
+- **Item descriptions**: Tome lore describes its main abilities and conditions.
+- **Recipe guide**: The image above shows the crafting patterns for craftable tomes.
+- **Status icons**: The Resource Pack hides the on-screen status effect icons.
+
+---
+
+## Compatibility and Setup
+
+- **Minecraft Bedrock Edition**: Intended target is 1.26+; the pack manifests list a minimum engine version of 1.21.0.
+- **Format**: Complete add-on (.mcaddon), containing a Behavior Pack and Resource Pack.
+- Experimental features: No experimental toggle requirement is declared for the current pack, but behavior can vary by game version and world settings.
+- Achievements: Likely achievement-friendly.
+- **Use**: Activate both included packs in your world and equip a tome in your offhand.
+- Verification: Source created, not tested in game.
+
+## Help and Suggestions
+
+If a feature is broken or does not work as described, please leave a comment on the project page. Add-on suggestions and ideas are welcome.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Grimoire Relics V2 Bedrock add-on, magical offhand relics, craftable grimoires, Ancient Relics exploration, Void Phantom rescue relic, Minecraft Bedrock magic items, Minecraft PE RPG add-on, MCPEDL, CurseForge Bedrock, ALNStudios, Minecraft Bedrock add-on, MCPEDL add-on.
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/README.md (19 lines, 813 bytes)
+
+```
+# Grimoire Relics V2
+
+Download the current release of **Grimoire Relics V2** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download Grimoire Relics V2 (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grimoire-Relics-V2/GrimoireRelics%20V3.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/Grimoire-Relics-V2/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/resource_pack/manifest.json (38 lines, 647 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Grimoire Relics V2 (v3)",
+    "description": "Grimoire Relics resource pack with the 20 tome icons. by ALNStudios",
+    "uuid": "cefdddd0-186d-4bc2-ad03-553ce7d08676",
+    "version": [
+      3,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "40aee9ba-808f-401a-9abe-2509ab23d1db",
+      "version": [
+        3,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "3.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/resource_pack/textures/item_texture.json (2 lines, 1193 bytes)
+
+```
+{"resource_pack_name":"grimoire_relics","texture_name":"atlas.items","texture_data":{"tome_phoenix":{"textures":"textures/items/tome_phoenix"},"tome_abyss":{"textures":"textures/items/tome_abyss"},"tome_zephyr":{"textures":"textures/items/tome_zephyr"},"tome_lich":{"textures":"textures/items/tome_lich"},"tome_titan":{"textures":"textures/items/tome_titan"},"tome_vampire":{"textures":"textures/items/tome_vampire"},"tome_lunar":{"textures":"textures/items/tome_lunar"},"tome_solar":{"textures":"textures/items/tome_solar"},"tome_druid":{"textures":"textures/items/tome_druid"},"tome_frost":{"textures":"textures/items/tome_frost"},"tome_storm":{"textures":"textures/items/tome_storm"},"tome_delver":{"textures":"textures/items/tome_delver"},"tome_void":{"textures":"textures/items/tome_void"},"tome_golem":{"textures":"textures/items/tome_golem"},"tome_hydra":{"textures":"textures/items/tome_hydra"},"tome_alchemist":{"textures":"textures/items/tome_alchemist"},"tome_seraph":{"textures":"textures/items/tome_seraph"},"tome_scholar":{"textures":"textures/items/tome_scholar"},"tome_mirror":{"textures":"textures/items/tome_mirror"},"tome_dragon":{"textures":"textures/items/tome_dragon"}}}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/resource_pack/ui/_ui_defs.json (6 lines, 48 bytes)
+
+```
+{
+  "ui_defs": [
+    "ui/hud_screen.json"
+  ]
+}
+```
+
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/resource_pack/ui/hud_screen.json (8 lines, 121 bytes)
+
+```
+{
+  "namespace": "hud",
+  "mob_effects_renderer@mob_effects_renderer": {
+    "ignored": true,
+    "size": [ 0, 0 ]
+  }
+}
+```

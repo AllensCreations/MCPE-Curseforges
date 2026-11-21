@@ -1,0 +1,1791 @@
+<!-- GRAPH-CONTEXT:START -->
+## Graph Context
+
+- **Project:** `Tameable-Companion-Fox` | Category: `Addons` | Version: `v2`
+- **Pack Types:** behavior_pack, resource_pack
+- **Siblings in Addons:** `2-in-1-Loot--XP-Booster (v2)` (v2), `ALN-MoreDiscs (v2)` (v2), `ALN-Pointer (v2)` (v2), `ALN-Quiver (v2)` (v2), `ALN-Wireless-Headphones (v2)` (v2), `Category: Addons`, `Cheat-Stick (v4)` (v4), `Copper-Carrier-Logistics (v2)` (v2) …
+
+> _Auto-generated from graphify-out/graph.json — do not edit manually._
+<!-- GRAPH-CONTEXT:END -->
+
+---
+
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Addons/Tameable-Companion-Fox`
+- **Destination:** `MCPEDL/Addons/Tameable-Companion-Fox`
+- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/Tameable-Companion-Fox/CHANGELOG.md`)
+- **Text files:** 9
+- **Skipped binary:** 4
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Addons/Tameable-Companion-Fox/behavior_pack/entities/fox.json`
+- `MCPEDL/Addons/Tameable-Companion-Fox/behavior_pack/manifest.json`
+- `MCPEDL/Addons/Tameable-Companion-Fox/CHANGELOG.md`
+- `MCPEDL/Addons/Tameable-Companion-Fox/DESCRIPTION.md`
+- `MCPEDL/Addons/Tameable-Companion-Fox/README.md`
+- `MCPEDL/Addons/Tameable-Companion-Fox/resource_pack/animation_controllers/fox.animation_controllers.json`
+- `MCPEDL/Addons/Tameable-Companion-Fox/resource_pack/manifest.json`
+- `MCPEDL/Addons/Tameable-Companion-Fox/resource_pack/texts/en_US.lang`
+- `MCPEDL/Addons/Tameable-Companion-Fox/resource_pack/texts/languages.json`
+
+### Skipped (binary)
+
+- `MCPEDL/Addons/Tameable-Companion-Fox/assets/snapshots/TAMED FOX SIT.jpg`
+- `MCPEDL/Addons/Tameable-Companion-Fox/assets/snapshots/TAMED FOX STAND.jpg`
+- `MCPEDL/Addons/Tameable-Companion-Fox/behavior_pack/pack_icon.png`
+- `MCPEDL/Addons/Tameable-Companion-Fox/resource_pack/pack_icon.png`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Addons/Tameable-Companion-Fox
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`.
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Addons/Tameable-Companion-Fox/behavior_pack/entities/fox.json (1386 lines, 85396 bytes)
+
+```
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": { "identifier": "minecraft:fox", "is_spawnable": true, "is_summonable": true, "is_experimental": false },
+    "component_groups": {
+      "fox:red": {
+        "minecraft:variant": { "value": 0 }
+      },
+      "fox:arctic": {
+        "minecraft:variant": { "value": 1 }
+      },
+      "fox:wild": {
+        "minecraft:tameable": {
+          "probability": 0.75,
+          "tame_items": ["sweet_berries", "glow_berries"],
+          "tame_event": { "event": "minecraft:on_tame", "target": "self" }
+        },
+        "minecraft:behavior.panic": { "priority": 1, "speed_multiplier": 1.25 }
+      },
+      "fox:tamed": {
+        "minecraft:is_tamed": {},
+        "minecraft:health": { "value": 30, "max": 30 },
+        "minecraft:nameable": { "always_show": true },
+        "minecraft:sittable": {},
+        "minecraft:behavior.stay_while_sitting": { "priority": 1 },
+        "minecraft:behavior.follow_owner": { "priority": 5, "speed_multiplier": 1.0, "start_distance": 10, "stop_distance": 2 },
+        "minecraft:behavior.owner_hurt_target": { "priority": 2 },
+        "minecraft:behavior.owner_hurt_by_target": { "priority": 3 },
+        "minecraft:behavior.nearest_attackable_target": {
+          "priority": 4,
+          "must_see": true,
+          "entity_types": [
+            {
+              "filters": {
+                "all_of": [
+                  { "test": "is_family", "subject": "other", "value": "monster" },
+                  { "test": "is_family", "subject": "other", "operator": "!=", "value": "creeper" },
+                  { "test": "is_family", "subject": "other", "operator": "!=", "value": "warden" }
+                ]
+              },
+              "max_dist": 16
+            }
+          ]
+        },
+        "minecraft:healable": {
+          "items": [
+            { "item": "sweet_berries", "heal_amount": 4 },
+            { "item": "glow_berries", "heal_amount": 4 }
+          ]
+        },
+        "minecraft:interact": {
+          "interactions": [
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "wooden_sword" }
+                  ]
+                },
+                "event": "fox:equip_wooden_sword",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.fox_give_weapon",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "stone_sword" }
+                  ]
+                },
+                "event": "fox:equip_stone_sword",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.fox_give_weapon",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "golden_sword" }
+                  ]
+                },
+                "event": "fox:equip_golden_sword",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.fox_give_weapon",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "iron_sword" }
+                  ]
+                },
+                "event": "fox:equip_iron_sword",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.fox_give_weapon",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "diamond_sword" }
+                  ]
+                },
+                "event": "fox:equip_diamond_sword",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.fox_give_weapon",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "netherite_sword" }
+                  ]
+                },
+                "event": "fox:equip_netherite_sword",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.fox_give_weapon",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "wooden_axe" }
+                  ]
+                },
+                "event": "fox:equip_wooden_axe",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.fox_give_weapon",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "stone_axe" }
+                  ]
+                },
+                "event": "fox:equip_stone_axe",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.fox_give_weapon",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "golden_axe" }
+                  ]
+                },
+                "event": "fox:equip_golden_axe",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.fox_give_weapon",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "iron_axe" }
+                  ]
+                },
+                "event": "fox:equip_iron_axe",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.fox_give_weapon",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "diamond_axe" }
+                  ]
+                },
+                "event": "fox:equip_diamond_axe",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.fox_give_weapon",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "netherite_axe" }
+                  ]
+                },
+                "event": "fox:equip_netherite_axe",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.fox_give_weapon",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "wooden_pickaxe" }
+                  ]
+                },
+                "event": "fox:equip_wooden_pickaxe",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.fox_give_weapon",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "stone_pickaxe" }
+                  ]
+                },
+                "event": "fox:equip_stone_pickaxe",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.fox_give_weapon",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "golden_pickaxe" }
+                  ]
+                },
+                "event": "fox:equip_golden_pickaxe",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.fox_give_weapon",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "iron_pickaxe" }
+                  ]
+                },
+                "event": "fox:equip_iron_pickaxe",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.fox_give_weapon",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "diamond_pickaxe" }
+                  ]
+                },
+                "event": "fox:equip_diamond_pickaxe",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.fox_give_weapon",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "netherite_pickaxe" }
+                  ]
+                },
+                "event": "fox:equip_netherite_pickaxe",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.fox_give_weapon",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "wooden_shovel" }
+                  ]
+                },
+                "event": "fox:equip_wooden_shovel",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.fox_give_weapon",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "stone_shovel" }
+                  ]
+                },
+                "event": "fox:equip_stone_shovel",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.fox_give_weapon",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "golden_shovel" }
+                  ]
+                },
+                "event": "fox:equip_golden_shovel",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.fox_give_weapon",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "iron_shovel" }
+                  ]
+                },
+                "event": "fox:equip_iron_shovel",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.fox_give_weapon",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "diamond_shovel" }
+                  ]
+                },
+                "event": "fox:equip_diamond_shovel",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.fox_give_weapon",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "netherite_shovel" }
+                  ]
+                },
+                "event": "fox:equip_netherite_shovel",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.fox_give_weapon",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "wooden_hoe" }
+                  ]
+                },
+                "event": "fox:equip_wooden_hoe",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.fox_give_weapon",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "stone_hoe" }
+                  ]
+                },
+                "event": "fox:equip_stone_hoe",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.fox_give_weapon",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "golden_hoe" }
+                  ]
+                },
+                "event": "fox:equip_golden_hoe",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.fox_give_weapon",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "iron_hoe" }
+                  ]
+                },
+                "event": "fox:equip_iron_hoe",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.fox_give_weapon",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "diamond_hoe" }
+                  ]
+                },
+                "event": "fox:equip_diamond_hoe",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.fox_give_weapon",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "netherite_hoe" }
+                  ]
+                },
+                "event": "fox:equip_netherite_hoe",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.fox_give_weapon",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "is_sneak_held", "subject": "other", "value": true },
+                    { "test": "all_slots_empty", "subject": "other", "domain": "hand" }
+                  ]
+                },
+                "event": "fox:disarm",
+                "target": "self"
+              },
+              "take_item": true,
+              "interact_text": "action.interact.fox_take_weapon",
+              "swing": true
+            }
+          ]
+        }
+      },
+      "fox:armed_wooden_sword": {
+        "minecraft:attack": { "damage": 5 },
+        "minecraft:behavior.melee_attack": { "priority": 4, "speed_multiplier": 1.5, "track_target": true }
+      },
+      "fox:armed_stone_sword": {
+        "minecraft:attack": { "damage": 6 },
+        "minecraft:behavior.melee_attack": { "priority": 4, "speed_multiplier": 1.5, "track_target": true }
+      },
+      "fox:armed_golden_sword": {
+        "minecraft:attack": { "damage": 5 },
+        "minecraft:behavior.melee_attack": { "priority": 4, "speed_multiplier": 1.5, "track_target": true }
+      },
+      "fox:armed_iron_sword": {
+        "minecraft:attack": { "damage": 7 },
+        "minecraft:behavior.melee_attack": { "priority": 4, "speed_multiplier": 1.5, "track_target": true }
+      },
+      "fox:armed_diamond_sword": {
+        "minecraft:attack": { "damage": 8 },
+        "minecraft:behavior.melee_attack": { "priority": 4, "speed_multiplier": 1.5, "track_target": true }
+      },
+      "fox:armed_netherite_sword": {
+        "minecraft:attack": { "damage": 9 },
+        "minecraft:behavior.melee_attack": { "priority": 4, "speed_multiplier": 1.5, "track_target": true }
+      },
+      "fox:armed_wooden_axe": {
+        "minecraft:attack": { "damage": 7 },
+        "minecraft:behavior.melee_attack": { "priority": 4, "speed_multiplier": 1.25, "track_target": true, "cooldown_time": 1.5 },
+        "minecraft:behavior.leap_at_target": { "priority": 3, "yd": 0.6, "must_be_on_ground": true }
+      },
+      "fox:armed_stone_axe": {
+        "minecraft:attack": { "damage": 8 },
+        "minecraft:behavior.melee_attack": { "priority": 4, "speed_multiplier": 1.25, "track_target": true, "cooldown_time": 1.5 },
+        "minecraft:behavior.leap_at_target": { "priority": 3, "yd": 0.6, "must_be_on_ground": true }
+      },
+      "fox:armed_golden_axe": {
+        "minecraft:attack": { "damage": 7 },
+        "minecraft:behavior.melee_attack": { "priority": 4, "speed_multiplier": 1.25, "track_target": true, "cooldown_time": 1.5 },
+        "minecraft:behavior.leap_at_target": { "priority": 3, "yd": 0.6, "must_be_on_ground": true }
+      },
+      "fox:armed_iron_axe": {
+        "minecraft:attack": { "damage": 9 },
+        "minecraft:behavior.melee_attack": { "priority": 4, "speed_multiplier": 1.25, "track_target": true, "cooldown_time": 1.5 },
+        "minecraft:behavior.leap_at_target": { "priority": 3, "yd": 0.6, "must_be_on_ground": true }
+      },
+      "fox:armed_diamond_axe": {
+        "minecraft:attack": { "damage": 10 },
+        "minecraft:behavior.melee_attack": { "priority": 4, "speed_multiplier": 1.25, "track_target": true, "cooldown_time": 1.5 },
+        "minecraft:behavior.leap_at_target": { "priority": 3, "yd": 0.6, "must_be_on_ground": true }
+      },
+      "fox:armed_netherite_axe": {
+        "minecraft:attack": { "damage": 11 },
+        "minecraft:behavior.melee_attack": { "priority": 4, "speed_multiplier": 1.25, "track_target": true, "cooldown_time": 1.5 },
+        "minecraft:behavior.leap_at_target": { "priority": 3, "yd": 0.6, "must_be_on_ground": true }
+      },
+      "fox:armed_wooden_pickaxe": {
+        "minecraft:attack": { "damage": 4, "effect_name": "slowness", "effect_duration": 3 },
+        "minecraft:behavior.melee_attack": {
+          "priority": 4,
+          "speed_multiplier": 1.25,
+          "track_target": true,
+          "on_attack": { "event": "fox:used_wooden_pickaxe", "target": "self" }
+        }
+      },
+      "fox:cooldown_wooden_pickaxe": {
+        "minecraft:attack": { "damage": 4 },
+        "minecraft:behavior.melee_attack": { "priority": 4, "speed_multiplier": 1.25, "track_target": true },
+        "minecraft:timer": {
+          "time": 8,
+          "looping": false,
+          "time_down_event": { "event": "fox:ready_wooden_pickaxe", "target": "self" }
+        }
+      },
+      "fox:armed_stone_pickaxe": {
+        "minecraft:attack": { "damage": 5, "effect_name": "slowness", "effect_duration": 3 },
+        "minecraft:behavior.melee_attack": {
+          "priority": 4,
+          "speed_multiplier": 1.25,
+          "track_target": true,
+          "on_attack": { "event": "fox:used_stone_pickaxe", "target": "self" }
+        }
+      },
+      "fox:cooldown_stone_pickaxe": {
+        "minecraft:attack": { "damage": 5 },
+        "minecraft:behavior.melee_attack": { "priority": 4, "speed_multiplier": 1.25, "track_target": true },
+        "minecraft:timer": {
+          "time": 8,
+          "looping": false,
+          "time_down_event": { "event": "fox:ready_stone_pickaxe", "target": "self" }
+        }
+      },
+      "fox:armed_golden_pickaxe": {
+        "minecraft:attack": { "damage": 4, "effect_name": "slowness", "effect_duration": 3 },
+        "minecraft:behavior.melee_attack": {
+          "priority": 4,
+          "speed_multiplier": 1.25,
+          "track_target": true,
+          "on_attack": { "event": "fox:used_golden_pickaxe", "target": "self" }
+        }
+      },
+      "fox:cooldown_golden_pickaxe": {
+        "minecraft:attack": { "damage": 4 },
+        "minecraft:behavior.melee_attack": { "priority": 4, "speed_multiplier": 1.25, "track_target": true },
+        "minecraft:timer": {
+          "time": 8,
+          "looping": false,
+          "time_down_event": { "event": "fox:ready_golden_pickaxe", "target": "self" }
+        }
+      },
+      "fox:armed_iron_pickaxe": {
+        "minecraft:attack": { "damage": 6, "effect_name": "slowness", "effect_duration": 3 },
+        "minecraft:behavior.melee_attack": {
+          "priority": 4,
+          "speed_multiplier": 1.25,
+          "track_target": true,
+          "on_attack": { "event": "fox:used_iron_pickaxe", "target": "self" }
+        }
+      },
+      "fox:cooldown_iron_pickaxe": {
+        "minecraft:attack": { "damage": 6 },
+        "minecraft:behavior.melee_attack": { "priority": 4, "speed_multiplier": 1.25, "track_target": true },
+        "minecraft:timer": {
+          "time": 8,
+          "looping": false,
+          "time_down_event": { "event": "fox:ready_iron_pickaxe", "target": "self" }
+        }
+      },
+      "fox:armed_diamond_pickaxe": {
+        "minecraft:attack": { "damage": 7, "effect_name": "slowness", "effect_duration": 3 },
+        "minecraft:behavior.melee_attack": {
+          "priority": 4,
+          "speed_multiplier": 1.25,
+          "track_target": true,
+          "on_attack": { "event": "fox:used_diamond_pickaxe", "target": "self" }
+        }
+      },
+      "fox:cooldown_diamond_pickaxe": {
+        "minecraft:attack": { "damage": 7 },
+        "minecraft:behavior.melee_attack": { "priority": 4, "speed_multiplier": 1.25, "track_target": true },
+        "minecraft:timer": {
+          "time": 8,
+          "looping": false,
+          "time_down_event": { "event": "fox:ready_diamond_pickaxe", "target": "self" }
+        }
+      },
+      "fox:armed_netherite_pickaxe": {
+        "minecraft:attack": { "damage": 8, "effect_name": "slowness", "effect_duration": 3 },
+        "minecraft:behavior.melee_attack": {
+          "priority": 4,
+          "speed_multiplier": 1.25,
+          "track_target": true,
+          "on_attack": { "event": "fox:used_netherite_pickaxe", "target": "self" }
+        }
+      },
+      "fox:cooldown_netherite_pickaxe": {
+        "minecraft:attack": { "damage": 8 },
+        "minecraft:behavior.melee_attack": { "priority": 4, "speed_multiplier": 1.25, "track_target": true },
+        "minecraft:timer": {
+          "time": 8,
+          "looping": false,
+          "time_down_event": { "event": "fox:ready_netherite_pickaxe", "target": "self" }
+        }
+      },
+      "fox:armed_wooden_shovel": {
+        "minecraft:attack": { "damage": 4 },
+        "minecraft:behavior.melee_attack": { "priority": 4, "speed_multiplier": 1.25, "track_target": true, "reach_multiplier": 2.2 }
+      },
+      "fox:armed_stone_shovel": {
+        "minecraft:attack": { "damage": 5 },
+        "minecraft:behavior.melee_attack": { "priority": 4, "speed_multiplier": 1.25, "track_target": true, "reach_multiplier": 2.2 }
+      },
+      "fox:armed_golden_shovel": {
+        "minecraft:attack": { "damage": 4 },
+        "minecraft:behavior.melee_attack": { "priority": 4, "speed_multiplier": 1.25, "track_target": true, "reach_multiplier": 2.2 }
+      },
+      "fox:armed_iron_shovel": {
+        "minecraft:attack": { "damage": 6 },
+        "minecraft:behavior.melee_attack": { "priority": 4, "speed_multiplier": 1.25, "track_target": true, "reach_multiplier": 2.2 }
+      },
+      "fox:armed_diamond_shovel": {
+        "minecraft:attack": { "damage": 7 },
+        "minecraft:behavior.melee_attack": { "priority": 4, "speed_multiplier": 1.25, "track_target": true, "reach_multiplier": 2.2 }
+      },
+      "fox:armed_netherite_shovel": {
+        "minecraft:attack": { "damage": 8 },
+        "minecraft:behavior.melee_attack": { "priority": 4, "speed_multiplier": 1.25, "track_target": true, "reach_multiplier": 2.2 }
+      },
+      "fox:armed_wooden_hoe": {
+        "minecraft:attack": { "damage": 4, "effect_name": "poison", "effect_duration": 4 },
+        "minecraft:behavior.melee_attack": {
+          "priority": 4,
+          "speed_multiplier": 1.25,
+          "track_target": true,
+          "cooldown_time": 1.2,
+          "on_attack": { "event": "fox:used_wooden_hoe", "target": "self" }
+        }
+      },
+      "fox:cooldown_wooden_hoe": {
+        "minecraft:attack": { "damage": 4 },
+        "minecraft:behavior.melee_attack": { "priority": 4, "speed_multiplier": 1.25, "track_target": true, "cooldown_time": 1.2 },
+        "minecraft:timer": {
+          "time": 8,
+          "looping": false,
+          "time_down_event": { "event": "fox:ready_wooden_hoe", "target": "self" }
+        }
+      },
+      "fox:armed_stone_hoe": {
+        "minecraft:attack": { "damage": 5, "effect_name": "poison", "effect_duration": 4 },
+        "minecraft:behavior.melee_attack": {
+          "priority": 4,
+          "speed_multiplier": 1.25,
+          "track_target": true,
+          "cooldown_time": 1.2,
+          "on_attack": { "event": "fox:used_stone_hoe", "target": "self" }
+        }
+      },
+      "fox:cooldown_stone_hoe": {
+        "minecraft:attack": { "damage": 5 },
+        "minecraft:behavior.melee_attack": { "priority": 4, "speed_multiplier": 1.25, "track_target": true, "cooldown_time": 1.2 },
+        "minecraft:timer": {
+          "time": 8,
+          "looping": false,
+          "time_down_event": { "event": "fox:ready_stone_hoe", "target": "self" }
+        }
+      },
+      "fox:armed_golden_hoe": {
+        "minecraft:attack": { "damage": 4, "effect_name": "poison", "effect_duration": 4 },
+        "minecraft:behavior.melee_attack": {
+          "priority": 4,
+          "speed_multiplier": 1.25,
+          "track_target": true,
+          "cooldown_time": 1.2,
+          "on_attack": { "event": "fox:used_golden_hoe", "target": "self" }
+        }
+      },
+      "fox:cooldown_golden_hoe": {
+        "minecraft:attack": { "damage": 4 },
+        "minecraft:behavior.melee_attack": { "priority": 4, "speed_multiplier": 1.25, "track_target": true, "cooldown_time": 1.2 },
+        "minecraft:timer": {
+          "time": 8,
+          "looping": false,
+          "time_down_event": { "event": "fox:ready_golden_hoe", "target": "self" }
+        }
+      },
+      "fox:armed_iron_hoe": {
+        "minecraft:attack": { "damage": 6, "effect_name": "poison", "effect_duration": 4 },
+        "minecraft:behavior.melee_attack": {
+          "priority": 4,
+          "speed_multiplier": 1.25,
+          "track_target": true,
+          "cooldown_time": 1.2,
+          "on_attack": { "event": "fox:used_iron_hoe", "target": "self" }
+        }
+      },
+      "fox:cooldown_iron_hoe": {
+        "minecraft:attack": { "damage": 6 },
+        "minecraft:behavior.melee_attack": { "priority": 4, "speed_multiplier": 1.25, "track_target": true, "cooldown_time": 1.2 },
+        "minecraft:timer": {
+          "time": 8,
+          "looping": false,
+          "time_down_event": { "event": "fox:ready_iron_hoe", "target": "self" }
+        }
+      },
+      "fox:armed_diamond_hoe": {
+        "minecraft:attack": { "damage": 7, "effect_name": "poison", "effect_duration": 4 },
+        "minecraft:behavior.melee_attack": {
+          "priority": 4,
+          "speed_multiplier": 1.25,
+          "track_target": true,
+          "cooldown_time": 1.2,
+          "on_attack": { "event": "fox:used_diamond_hoe", "target": "self" }
+        }
+      },
+      "fox:cooldown_diamond_hoe": {
+        "minecraft:attack": { "damage": 7 },
+        "minecraft:behavior.melee_attack": { "priority": 4, "speed_multiplier": 1.25, "track_target": true, "cooldown_time": 1.2 },
+        "minecraft:timer": {
+          "time": 8,
+          "looping": false,
+          "time_down_event": { "event": "fox:ready_diamond_hoe", "target": "self" }
+        }
+      },
+      "fox:armed_netherite_hoe": {
+        "minecraft:attack": { "damage": 8, "effect_name": "poison", "effect_duration": 4 },
+        "minecraft:behavior.melee_attack": {
+          "priority": 4,
+          "speed_multiplier": 1.25,
+          "track_target": true,
+          "cooldown_time": 1.2,
+          "on_attack": { "event": "fox:used_netherite_hoe", "target": "self" }
+        }
+      },
+      "fox:cooldown_netherite_hoe": {
+        "minecraft:attack": { "damage": 8 },
+        "minecraft:behavior.melee_attack": { "priority": 4, "speed_multiplier": 1.25, "track_target": true, "cooldown_time": 1.2 },
+        "minecraft:timer": {
+          "time": 8,
+          "looping": false,
+          "time_down_event": { "event": "fox:ready_netherite_hoe", "target": "self" }
+        }
+      }
+    },
+    "components": {
+      "minecraft:is_hidden_when_invisible": {},
+      "minecraft:type_family": {
+        "family": ["fox", "lightweight", "mob"]
+      },
+      "minecraft:breathable": { "total_supply": 15, "suffocate_time": 0 },
+      "minecraft:collision_box": { "width": 0.6, "height": 0.7 },
+      "minecraft:nameable": {},
+      "minecraft:health": { "value": 20, "max": 20 },
+      "minecraft:movement": { "value": 0.3 },
+      "minecraft:navigation.walk": { "can_path_over_water": true, "avoid_water": true, "avoid_damage_blocks": true },
+      "minecraft:movement.basic": {},
+      "minecraft:jump.static": {},
+      "minecraft:can_climb": {},
+      "minecraft:attack": { "damage": 4 },
+      "minecraft:despawn": {
+        "despawn_from_distance": {}
+      },
+      "minecraft:leashable": { "soft_distance": 4.0, "hard_distance": 6.0, "max_distance": 10.0 },
+      "minecraft:physics": {},
+      "minecraft:pushable": { "is_pushable": true, "is_pushable_by_piston": true },
+      "minecraft:behavior.float": { "priority": 0 },
+      "minecraft:behavior.leap_at_target": { "priority": 3, "yd": 0.4, "must_be_on_ground": true },
+      "minecraft:behavior.melee_attack": { "priority": 4, "speed_multiplier": 1.25, "track_target": true },
+      "minecraft:behavior.random_stroll": { "priority": 6, "speed_multiplier": 1.0 },
+      "minecraft:behavior.look_at_player": { "priority": 7, "look_distance": 6.0 },
+      "minecraft:equipment": {
+        "slot_drop_chance": [
+          { "slot": "slot.weapon.mainhand", "drop_chance": 1.0 }
+        ]
+      }
+    },
+    "events": {
+      "minecraft:entity_spawned": {
+        "sequence": [
+          {
+            "add": {
+              "component_groups": ["fox:wild"]
+            }
+          },
+          {
+            "filters": { "test": "is_snow_covered", "value": true },
+            "add": {
+              "component_groups": ["fox:arctic"]
+            }
+          },
+          {
+            "filters": { "test": "is_snow_covered", "value": false },
+            "add": {
+              "component_groups": ["fox:red"]
+            }
+          }
+        ]
+      },
+      "minecraft:on_tame": {
+        "remove": {
+          "component_groups": ["fox:wild"]
+        },
+        "add": {
+          "component_groups": ["fox:tamed"]
+        }
+      },
+      "fox:equip_wooden_sword": {
+        "remove": {
+          "component_groups": ["fox:armed_stone_sword", "fox:armed_golden_sword", "fox:armed_iron_sword", "fox:armed_diamond_sword", "fox:armed_netherite_sword", "fox:armed_wooden_axe", "fox:armed_stone_axe", "fox:armed_golden_axe", "fox:armed_iron_axe", "fox:armed_diamond_axe", "fox:armed_netherite_axe", "fox:armed_wooden_pickaxe", "fox:cooldown_wooden_pickaxe", "fox:armed_stone_pickaxe", "fox:cooldown_stone_pickaxe", "fox:armed_golden_pickaxe", "fox:cooldown_golden_pickaxe", "fox:armed_iron_pickaxe", "fox:cooldown_iron_pickaxe", "fox:armed_diamond_pickaxe", "fox:cooldown_diamond_pickaxe", "fox:armed_netherite_pickaxe", "fox:cooldown_netherite_pickaxe", "fox:armed_wooden_shovel", "fox:armed_stone_shovel", "fox:armed_golden_shovel", "fox:armed_iron_shovel", "fox:armed_diamond_shovel", "fox:armed_netherite_shovel", "fox:armed_wooden_hoe", "fox:cooldown_wooden_hoe", "fox:armed_stone_hoe", "fox:cooldown_stone_hoe", "fox:armed_golden_hoe", "fox:cooldown_golden_hoe", "fox:armed_iron_hoe", "fox:cooldown_iron_hoe", "fox:armed_diamond_hoe", "fox:cooldown_diamond_hoe", "fox:armed_netherite_hoe", "fox:cooldown_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_wooden_sword"]
+        }
+      },
+      "fox:equip_stone_sword": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_sword", "fox:armed_golden_sword", "fox:armed_iron_sword", "fox:armed_diamond_sword", "fox:armed_netherite_sword", "fox:armed_wooden_axe", "fox:armed_stone_axe", "fox:armed_golden_axe", "fox:armed_iron_axe", "fox:armed_diamond_axe", "fox:armed_netherite_axe", "fox:armed_wooden_pickaxe", "fox:cooldown_wooden_pickaxe", "fox:armed_stone_pickaxe", "fox:cooldown_stone_pickaxe", "fox:armed_golden_pickaxe", "fox:cooldown_golden_pickaxe", "fox:armed_iron_pickaxe", "fox:cooldown_iron_pickaxe", "fox:armed_diamond_pickaxe", "fox:cooldown_diamond_pickaxe", "fox:armed_netherite_pickaxe", "fox:cooldown_netherite_pickaxe", "fox:armed_wooden_shovel", "fox:armed_stone_shovel", "fox:armed_golden_shovel", "fox:armed_iron_shovel", "fox:armed_diamond_shovel", "fox:armed_netherite_shovel", "fox:armed_wooden_hoe", "fox:cooldown_wooden_hoe", "fox:armed_stone_hoe", "fox:cooldown_stone_hoe", "fox:armed_golden_hoe", "fox:cooldown_golden_hoe", "fox:armed_iron_hoe", "fox:cooldown_iron_hoe", "fox:armed_diamond_hoe", "fox:cooldown_diamond_hoe", "fox:armed_netherite_hoe", "fox:cooldown_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_stone_sword"]
+        }
+      },
+      "fox:equip_golden_sword": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_sword", "fox:armed_stone_sword", "fox:armed_iron_sword", "fox:armed_diamond_sword", "fox:armed_netherite_sword", "fox:armed_wooden_axe", "fox:armed_stone_axe", "fox:armed_golden_axe", "fox:armed_iron_axe", "fox:armed_diamond_axe", "fox:armed_netherite_axe", "fox:armed_wooden_pickaxe", "fox:cooldown_wooden_pickaxe", "fox:armed_stone_pickaxe", "fox:cooldown_stone_pickaxe", "fox:armed_golden_pickaxe", "fox:cooldown_golden_pickaxe", "fox:armed_iron_pickaxe", "fox:cooldown_iron_pickaxe", "fox:armed_diamond_pickaxe", "fox:cooldown_diamond_pickaxe", "fox:armed_netherite_pickaxe", "fox:cooldown_netherite_pickaxe", "fox:armed_wooden_shovel", "fox:armed_stone_shovel", "fox:armed_golden_shovel", "fox:armed_iron_shovel", "fox:armed_diamond_shovel", "fox:armed_netherite_shovel", "fox:armed_wooden_hoe", "fox:cooldown_wooden_hoe", "fox:armed_stone_hoe", "fox:cooldown_stone_hoe", "fox:armed_golden_hoe", "fox:cooldown_golden_hoe", "fox:armed_iron_hoe", "fox:cooldown_iron_hoe", "fox:armed_diamond_hoe", "fox:cooldown_diamond_hoe", "fox:armed_netherite_hoe", "fox:cooldown_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_golden_sword"]
+        }
+      },
+      "fox:equip_iron_sword": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_sword", "fox:armed_stone_sword", "fox:armed_golden_sword", "fox:armed_diamond_sword", "fox:armed_netherite_sword", "fox:armed_wooden_axe", "fox:armed_stone_axe", "fox:armed_golden_axe", "fox:armed_iron_axe", "fox:armed_diamond_axe", "fox:armed_netherite_axe", "fox:armed_wooden_pickaxe", "fox:cooldown_wooden_pickaxe", "fox:armed_stone_pickaxe", "fox:cooldown_stone_pickaxe", "fox:armed_golden_pickaxe", "fox:cooldown_golden_pickaxe", "fox:armed_iron_pickaxe", "fox:cooldown_iron_pickaxe", "fox:armed_diamond_pickaxe", "fox:cooldown_diamond_pickaxe", "fox:armed_netherite_pickaxe", "fox:cooldown_netherite_pickaxe", "fox:armed_wooden_shovel", "fox:armed_stone_shovel", "fox:armed_golden_shovel", "fox:armed_iron_shovel", "fox:armed_diamond_shovel", "fox:armed_netherite_shovel", "fox:armed_wooden_hoe", "fox:cooldown_wooden_hoe", "fox:armed_stone_hoe", "fox:cooldown_stone_hoe", "fox:armed_golden_hoe", "fox:cooldown_golden_hoe", "fox:armed_iron_hoe", "fox:cooldown_iron_hoe", "fox:armed_diamond_hoe", "fox:cooldown_diamond_hoe", "fox:armed_netherite_hoe", "fox:cooldown_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_iron_sword"]
+        }
+      },
+      "fox:equip_diamond_sword": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_sword", "fox:armed_stone_sword", "fox:armed_golden_sword", "fox:armed_iron_sword", "fox:armed_netherite_sword", "fox:armed_wooden_axe", "fox:armed_stone_axe", "fox:armed_golden_axe", "fox:armed_iron_axe", "fox:armed_diamond_axe", "fox:armed_netherite_axe", "fox:armed_wooden_pickaxe", "fox:cooldown_wooden_pickaxe", "fox:armed_stone_pickaxe", "fox:cooldown_stone_pickaxe", "fox:armed_golden_pickaxe", "fox:cooldown_golden_pickaxe", "fox:armed_iron_pickaxe", "fox:cooldown_iron_pickaxe", "fox:armed_diamond_pickaxe", "fox:cooldown_diamond_pickaxe", "fox:armed_netherite_pickaxe", "fox:cooldown_netherite_pickaxe", "fox:armed_wooden_shovel", "fox:armed_stone_shovel", "fox:armed_golden_shovel", "fox:armed_iron_shovel", "fox:armed_diamond_shovel", "fox:armed_netherite_shovel", "fox:armed_wooden_hoe", "fox:cooldown_wooden_hoe", "fox:armed_stone_hoe", "fox:cooldown_stone_hoe", "fox:armed_golden_hoe", "fox:cooldown_golden_hoe", "fox:armed_iron_hoe", "fox:cooldown_iron_hoe", "fox:armed_diamond_hoe", "fox:cooldown_diamond_hoe", "fox:armed_netherite_hoe", "fox:cooldown_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_diamond_sword"]
+        }
+      },
+      "fox:equip_netherite_sword": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_sword", "fox:armed_stone_sword", "fox:armed_golden_sword", "fox:armed_iron_sword", "fox:armed_diamond_sword", "fox:armed_wooden_axe", "fox:armed_stone_axe", "fox:armed_golden_axe", "fox:armed_iron_axe", "fox:armed_diamond_axe", "fox:armed_netherite_axe", "fox:armed_wooden_pickaxe", "fox:cooldown_wooden_pickaxe", "fox:armed_stone_pickaxe", "fox:cooldown_stone_pickaxe", "fox:armed_golden_pickaxe", "fox:cooldown_golden_pickaxe", "fox:armed_iron_pickaxe", "fox:cooldown_iron_pickaxe", "fox:armed_diamond_pickaxe", "fox:cooldown_diamond_pickaxe", "fox:armed_netherite_pickaxe", "fox:cooldown_netherite_pickaxe", "fox:armed_wooden_shovel", "fox:armed_stone_shovel", "fox:armed_golden_shovel", "fox:armed_iron_shovel", "fox:armed_diamond_shovel", "fox:armed_netherite_shovel", "fox:armed_wooden_hoe", "fox:cooldown_wooden_hoe", "fox:armed_stone_hoe", "fox:cooldown_stone_hoe", "fox:armed_golden_hoe", "fox:cooldown_golden_hoe", "fox:armed_iron_hoe", "fox:cooldown_iron_hoe", "fox:armed_diamond_hoe", "fox:cooldown_diamond_hoe", "fox:armed_netherite_hoe", "fox:cooldown_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_netherite_sword"]
+        }
+      },
+      "fox:equip_wooden_axe": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_sword", "fox:armed_stone_sword", "fox:armed_golden_sword", "fox:armed_iron_sword", "fox:armed_diamond_sword", "fox:armed_netherite_sword", "fox:armed_stone_axe", "fox:armed_golden_axe", "fox:armed_iron_axe", "fox:armed_diamond_axe", "fox:armed_netherite_axe", "fox:armed_wooden_pickaxe", "fox:cooldown_wooden_pickaxe", "fox:armed_stone_pickaxe", "fox:cooldown_stone_pickaxe", "fox:armed_golden_pickaxe", "fox:cooldown_golden_pickaxe", "fox:armed_iron_pickaxe", "fox:cooldown_iron_pickaxe", "fox:armed_diamond_pickaxe", "fox:cooldown_diamond_pickaxe", "fox:armed_netherite_pickaxe", "fox:cooldown_netherite_pickaxe", "fox:armed_wooden_shovel", "fox:armed_stone_shovel", "fox:armed_golden_shovel", "fox:armed_iron_shovel", "fox:armed_diamond_shovel", "fox:armed_netherite_shovel", "fox:armed_wooden_hoe", "fox:cooldown_wooden_hoe", "fox:armed_stone_hoe", "fox:cooldown_stone_hoe", "fox:armed_golden_hoe", "fox:cooldown_golden_hoe", "fox:armed_iron_hoe", "fox:cooldown_iron_hoe", "fox:armed_diamond_hoe", "fox:cooldown_diamond_hoe", "fox:armed_netherite_hoe", "fox:cooldown_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_wooden_axe"]
+        }
+      },
+      "fox:equip_stone_axe": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_sword", "fox:armed_stone_sword", "fox:armed_golden_sword", "fox:armed_iron_sword", "fox:armed_diamond_sword", "fox:armed_netherite_sword", "fox:armed_wooden_axe", "fox:armed_golden_axe", "fox:armed_iron_axe", "fox:armed_diamond_axe", "fox:armed_netherite_axe", "fox:armed_wooden_pickaxe", "fox:cooldown_wooden_pickaxe", "fox:armed_stone_pickaxe", "fox:cooldown_stone_pickaxe", "fox:armed_golden_pickaxe", "fox:cooldown_golden_pickaxe", "fox:armed_iron_pickaxe", "fox:cooldown_iron_pickaxe", "fox:armed_diamond_pickaxe", "fox:cooldown_diamond_pickaxe", "fox:armed_netherite_pickaxe", "fox:cooldown_netherite_pickaxe", "fox:armed_wooden_shovel", "fox:armed_stone_shovel", "fox:armed_golden_shovel", "fox:armed_iron_shovel", "fox:armed_diamond_shovel", "fox:armed_netherite_shovel", "fox:armed_wooden_hoe", "fox:cooldown_wooden_hoe", "fox:armed_stone_hoe", "fox:cooldown_stone_hoe", "fox:armed_golden_hoe", "fox:cooldown_golden_hoe", "fox:armed_iron_hoe", "fox:cooldown_iron_hoe", "fox:armed_diamond_hoe", "fox:cooldown_diamond_hoe", "fox:armed_netherite_hoe", "fox:cooldown_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_stone_axe"]
+        }
+      },
+      "fox:equip_golden_axe": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_sword", "fox:armed_stone_sword", "fox:armed_golden_sword", "fox:armed_iron_sword", "fox:armed_diamond_sword", "fox:armed_netherite_sword", "fox:armed_wooden_axe", "fox:armed_stone_axe", "fox:armed_iron_axe", "fox:armed_diamond_axe", "fox:armed_netherite_axe", "fox:armed_wooden_pickaxe", "fox:cooldown_wooden_pickaxe", "fox:armed_stone_pickaxe", "fox:cooldown_stone_pickaxe", "fox:armed_golden_pickaxe", "fox:cooldown_golden_pickaxe", "fox:armed_iron_pickaxe", "fox:cooldown_iron_pickaxe", "fox:armed_diamond_pickaxe", "fox:cooldown_diamond_pickaxe", "fox:armed_netherite_pickaxe", "fox:cooldown_netherite_pickaxe", "fox:armed_wooden_shovel", "fox:armed_stone_shovel", "fox:armed_golden_shovel", "fox:armed_iron_shovel", "fox:armed_diamond_shovel", "fox:armed_netherite_shovel", "fox:armed_wooden_hoe", "fox:cooldown_wooden_hoe", "fox:armed_stone_hoe", "fox:cooldown_stone_hoe", "fox:armed_golden_hoe", "fox:cooldown_golden_hoe", "fox:armed_iron_hoe", "fox:cooldown_iron_hoe", "fox:armed_diamond_hoe", "fox:cooldown_diamond_hoe", "fox:armed_netherite_hoe", "fox:cooldown_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_golden_axe"]
+        }
+      },
+      "fox:equip_iron_axe": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_sword", "fox:armed_stone_sword", "fox:armed_golden_sword", "fox:armed_iron_sword", "fox:armed_diamond_sword", "fox:armed_netherite_sword", "fox:armed_wooden_axe", "fox:armed_stone_axe", "fox:armed_golden_axe", "fox:armed_diamond_axe", "fox:armed_netherite_axe", "fox:armed_wooden_pickaxe", "fox:cooldown_wooden_pickaxe", "fox:armed_stone_pickaxe", "fox:cooldown_stone_pickaxe", "fox:armed_golden_pickaxe", "fox:cooldown_golden_pickaxe", "fox:armed_iron_pickaxe", "fox:cooldown_iron_pickaxe", "fox:armed_diamond_pickaxe", "fox:cooldown_diamond_pickaxe", "fox:armed_netherite_pickaxe", "fox:cooldown_netherite_pickaxe", "fox:armed_wooden_shovel", "fox:armed_stone_shovel", "fox:armed_golden_shovel", "fox:armed_iron_shovel", "fox:armed_diamond_shovel", "fox:armed_netherite_shovel", "fox:armed_wooden_hoe", "fox:cooldown_wooden_hoe", "fox:armed_stone_hoe", "fox:cooldown_stone_hoe", "fox:armed_golden_hoe", "fox:cooldown_golden_hoe", "fox:armed_iron_hoe", "fox:cooldown_iron_hoe", "fox:armed_diamond_hoe", "fox:cooldown_diamond_hoe", "fox:armed_netherite_hoe", "fox:cooldown_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_iron_axe"]
+        }
+      },
+      "fox:equip_diamond_axe": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_sword", "fox:armed_stone_sword", "fox:armed_golden_sword", "fox:armed_iron_sword", "fox:armed_diamond_sword", "fox:armed_netherite_sword", "fox:armed_wooden_axe", "fox:armed_stone_axe", "fox:armed_golden_axe", "fox:armed_iron_axe", "fox:armed_netherite_axe", "fox:armed_wooden_pickaxe", "fox:cooldown_wooden_pickaxe", "fox:armed_stone_pickaxe", "fox:cooldown_stone_pickaxe", "fox:armed_golden_pickaxe", "fox:cooldown_golden_pickaxe", "fox:armed_iron_pickaxe", "fox:cooldown_iron_pickaxe", "fox:armed_diamond_pickaxe", "fox:cooldown_diamond_pickaxe", "fox:armed_netherite_pickaxe", "fox:cooldown_netherite_pickaxe", "fox:armed_wooden_shovel", "fox:armed_stone_shovel", "fox:armed_golden_shovel", "fox:armed_iron_shovel", "fox:armed_diamond_shovel", "fox:armed_netherite_shovel", "fox:armed_wooden_hoe", "fox:cooldown_wooden_hoe", "fox:armed_stone_hoe", "fox:cooldown_stone_hoe", "fox:armed_golden_hoe", "fox:cooldown_golden_hoe", "fox:armed_iron_hoe", "fox:cooldown_iron_hoe", "fox:armed_diamond_hoe", "fox:cooldown_diamond_hoe", "fox:armed_netherite_hoe", "fox:cooldown_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_diamond_axe"]
+        }
+      },
+      "fox:equip_netherite_axe": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_sword", "fox:armed_stone_sword", "fox:armed_golden_sword", "fox:armed_iron_sword", "fox:armed_diamond_sword", "fox:armed_netherite_sword", "fox:armed_wooden_axe", "fox:armed_stone_axe", "fox:armed_golden_axe", "fox:armed_iron_axe", "fox:armed_diamond_axe", "fox:armed_wooden_pickaxe", "fox:cooldown_wooden_pickaxe", "fox:armed_stone_pickaxe", "fox:cooldown_stone_pickaxe", "fox:armed_golden_pickaxe", "fox:cooldown_golden_pickaxe", "fox:armed_iron_pickaxe", "fox:cooldown_iron_pickaxe", "fox:armed_diamond_pickaxe", "fox:cooldown_diamond_pickaxe", "fox:armed_netherite_pickaxe", "fox:cooldown_netherite_pickaxe", "fox:armed_wooden_shovel", "fox:armed_stone_shovel", "fox:armed_golden_shovel", "fox:armed_iron_shovel", "fox:armed_diamond_shovel", "fox:armed_netherite_shovel", "fox:armed_wooden_hoe", "fox:cooldown_wooden_hoe", "fox:armed_stone_hoe", "fox:cooldown_stone_hoe", "fox:armed_golden_hoe", "fox:cooldown_golden_hoe", "fox:armed_iron_hoe", "fox:cooldown_iron_hoe", "fox:armed_diamond_hoe", "fox:cooldown_diamond_hoe", "fox:armed_netherite_hoe", "fox:cooldown_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_netherite_axe"]
+        }
+      },
+      "fox:equip_wooden_pickaxe": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_sword", "fox:armed_stone_sword", "fox:armed_golden_sword", "fox:armed_iron_sword", "fox:armed_diamond_sword", "fox:armed_netherite_sword", "fox:armed_wooden_axe", "fox:armed_stone_axe", "fox:armed_golden_axe", "fox:armed_iron_axe", "fox:armed_diamond_axe", "fox:armed_netherite_axe", "fox:armed_wooden_pickaxe", "fox:armed_stone_pickaxe", "fox:cooldown_stone_pickaxe", "fox:armed_golden_pickaxe", "fox:cooldown_golden_pickaxe", "fox:armed_iron_pickaxe", "fox:cooldown_iron_pickaxe", "fox:armed_diamond_pickaxe", "fox:cooldown_diamond_pickaxe", "fox:armed_netherite_pickaxe", "fox:cooldown_netherite_pickaxe", "fox:armed_wooden_shovel", "fox:armed_stone_shovel", "fox:armed_golden_shovel", "fox:armed_iron_shovel", "fox:armed_diamond_shovel", "fox:armed_netherite_shovel", "fox:armed_wooden_hoe", "fox:cooldown_wooden_hoe", "fox:armed_stone_hoe", "fox:cooldown_stone_hoe", "fox:armed_golden_hoe", "fox:cooldown_golden_hoe", "fox:armed_iron_hoe", "fox:cooldown_iron_hoe", "fox:armed_diamond_hoe", "fox:cooldown_diamond_hoe", "fox:armed_netherite_hoe", "fox:cooldown_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:cooldown_wooden_pickaxe"]
+        }
+      },
+      "fox:used_wooden_pickaxe": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_pickaxe"]
+        },
+        "add": {
+          "component_groups": ["fox:cooldown_wooden_pickaxe"]
+        }
+      },
+      "fox:ready_wooden_pickaxe": {
+        "remove": {
+          "component_groups": ["fox:cooldown_wooden_pickaxe"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_wooden_pickaxe"]
+        }
+      },
+      "fox:equip_stone_pickaxe": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_sword", "fox:armed_stone_sword", "fox:armed_golden_sword", "fox:armed_iron_sword", "fox:armed_diamond_sword", "fox:armed_netherite_sword", "fox:armed_wooden_axe", "fox:armed_stone_axe", "fox:armed_golden_axe", "fox:armed_iron_axe", "fox:armed_diamond_axe", "fox:armed_netherite_axe", "fox:armed_wooden_pickaxe", "fox:cooldown_wooden_pickaxe", "fox:armed_stone_pickaxe", "fox:armed_golden_pickaxe", "fox:cooldown_golden_pickaxe", "fox:armed_iron_pickaxe", "fox:cooldown_iron_pickaxe", "fox:armed_diamond_pickaxe", "fox:cooldown_diamond_pickaxe", "fox:armed_netherite_pickaxe", "fox:cooldown_netherite_pickaxe", "fox:armed_wooden_shovel", "fox:armed_stone_shovel", "fox:armed_golden_shovel", "fox:armed_iron_shovel", "fox:armed_diamond_shovel", "fox:armed_netherite_shovel", "fox:armed_wooden_hoe", "fox:cooldown_wooden_hoe", "fox:armed_stone_hoe", "fox:cooldown_stone_hoe", "fox:armed_golden_hoe", "fox:cooldown_golden_hoe", "fox:armed_iron_hoe", "fox:cooldown_iron_hoe", "fox:armed_diamond_hoe", "fox:cooldown_diamond_hoe", "fox:armed_netherite_hoe", "fox:cooldown_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:cooldown_stone_pickaxe"]
+        }
+      },
+      "fox:used_stone_pickaxe": {
+        "remove": {
+          "component_groups": ["fox:armed_stone_pickaxe"]
+        },
+        "add": {
+          "component_groups": ["fox:cooldown_stone_pickaxe"]
+        }
+      },
+      "fox:ready_stone_pickaxe": {
+        "remove": {
+          "component_groups": ["fox:cooldown_stone_pickaxe"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_stone_pickaxe"]
+        }
+      },
+      "fox:equip_golden_pickaxe": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_sword", "fox:armed_stone_sword", "fox:armed_golden_sword", "fox:armed_iron_sword", "fox:armed_diamond_sword", "fox:armed_netherite_sword", "fox:armed_wooden_axe", "fox:armed_stone_axe", "fox:armed_golden_axe", "fox:armed_iron_axe", "fox:armed_diamond_axe", "fox:armed_netherite_axe", "fox:armed_wooden_pickaxe", "fox:cooldown_wooden_pickaxe", "fox:armed_stone_pickaxe", "fox:cooldown_stone_pickaxe", "fox:armed_golden_pickaxe", "fox:armed_iron_pickaxe", "fox:cooldown_iron_pickaxe", "fox:armed_diamond_pickaxe", "fox:cooldown_diamond_pickaxe", "fox:armed_netherite_pickaxe", "fox:cooldown_netherite_pickaxe", "fox:armed_wooden_shovel", "fox:armed_stone_shovel", "fox:armed_golden_shovel", "fox:armed_iron_shovel", "fox:armed_diamond_shovel", "fox:armed_netherite_shovel", "fox:armed_wooden_hoe", "fox:cooldown_wooden_hoe", "fox:armed_stone_hoe", "fox:cooldown_stone_hoe", "fox:armed_golden_hoe", "fox:cooldown_golden_hoe", "fox:armed_iron_hoe", "fox:cooldown_iron_hoe", "fox:armed_diamond_hoe", "fox:cooldown_diamond_hoe", "fox:armed_netherite_hoe", "fox:cooldown_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:cooldown_golden_pickaxe"]
+        }
+      },
+      "fox:used_golden_pickaxe": {
+        "remove": {
+          "component_groups": ["fox:armed_golden_pickaxe"]
+        },
+        "add": {
+          "component_groups": ["fox:cooldown_golden_pickaxe"]
+        }
+      },
+      "fox:ready_golden_pickaxe": {
+        "remove": {
+          "component_groups": ["fox:cooldown_golden_pickaxe"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_golden_pickaxe"]
+        }
+      },
+      "fox:equip_iron_pickaxe": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_sword", "fox:armed_stone_sword", "fox:armed_golden_sword", "fox:armed_iron_sword", "fox:armed_diamond_sword", "fox:armed_netherite_sword", "fox:armed_wooden_axe", "fox:armed_stone_axe", "fox:armed_golden_axe", "fox:armed_iron_axe", "fox:armed_diamond_axe", "fox:armed_netherite_axe", "fox:armed_wooden_pickaxe", "fox:cooldown_wooden_pickaxe", "fox:armed_stone_pickaxe", "fox:cooldown_stone_pickaxe", "fox:armed_golden_pickaxe", "fox:cooldown_golden_pickaxe", "fox:armed_iron_pickaxe", "fox:armed_diamond_pickaxe", "fox:cooldown_diamond_pickaxe", "fox:armed_netherite_pickaxe", "fox:cooldown_netherite_pickaxe", "fox:armed_wooden_shovel", "fox:armed_stone_shovel", "fox:armed_golden_shovel", "fox:armed_iron_shovel", "fox:armed_diamond_shovel", "fox:armed_netherite_shovel", "fox:armed_wooden_hoe", "fox:cooldown_wooden_hoe", "fox:armed_stone_hoe", "fox:cooldown_stone_hoe", "fox:armed_golden_hoe", "fox:cooldown_golden_hoe", "fox:armed_iron_hoe", "fox:cooldown_iron_hoe", "fox:armed_diamond_hoe", "fox:cooldown_diamond_hoe", "fox:armed_netherite_hoe", "fox:cooldown_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:cooldown_iron_pickaxe"]
+        }
+      },
+      "fox:used_iron_pickaxe": {
+        "remove": {
+          "component_groups": ["fox:armed_iron_pickaxe"]
+        },
+        "add": {
+          "component_groups": ["fox:cooldown_iron_pickaxe"]
+        }
+      },
+      "fox:ready_iron_pickaxe": {
+        "remove": {
+          "component_groups": ["fox:cooldown_iron_pickaxe"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_iron_pickaxe"]
+        }
+      },
+      "fox:equip_diamond_pickaxe": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_sword", "fox:armed_stone_sword", "fox:armed_golden_sword", "fox:armed_iron_sword", "fox:armed_diamond_sword", "fox:armed_netherite_sword", "fox:armed_wooden_axe", "fox:armed_stone_axe", "fox:armed_golden_axe", "fox:armed_iron_axe", "fox:armed_diamond_axe", "fox:armed_netherite_axe", "fox:armed_wooden_pickaxe", "fox:cooldown_wooden_pickaxe", "fox:armed_stone_pickaxe", "fox:cooldown_stone_pickaxe", "fox:armed_golden_pickaxe", "fox:cooldown_golden_pickaxe", "fox:armed_iron_pickaxe", "fox:cooldown_iron_pickaxe", "fox:armed_diamond_pickaxe", "fox:armed_netherite_pickaxe", "fox:cooldown_netherite_pickaxe", "fox:armed_wooden_shovel", "fox:armed_stone_shovel", "fox:armed_golden_shovel", "fox:armed_iron_shovel", "fox:armed_diamond_shovel", "fox:armed_netherite_shovel", "fox:armed_wooden_hoe", "fox:cooldown_wooden_hoe", "fox:armed_stone_hoe", "fox:cooldown_stone_hoe", "fox:armed_golden_hoe", "fox:cooldown_golden_hoe", "fox:armed_iron_hoe", "fox:cooldown_iron_hoe", "fox:armed_diamond_hoe", "fox:cooldown_diamond_hoe", "fox:armed_netherite_hoe", "fox:cooldown_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:cooldown_diamond_pickaxe"]
+        }
+      },
+      "fox:used_diamond_pickaxe": {
+        "remove": {
+          "component_groups": ["fox:armed_diamond_pickaxe"]
+        },
+        "add": {
+          "component_groups": ["fox:cooldown_diamond_pickaxe"]
+        }
+      },
+      "fox:ready_diamond_pickaxe": {
+        "remove": {
+          "component_groups": ["fox:cooldown_diamond_pickaxe"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_diamond_pickaxe"]
+        }
+      },
+      "fox:equip_netherite_pickaxe": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_sword", "fox:armed_stone_sword", "fox:armed_golden_sword", "fox:armed_iron_sword", "fox:armed_diamond_sword", "fox:armed_netherite_sword", "fox:armed_wooden_axe", "fox:armed_stone_axe", "fox:armed_golden_axe", "fox:armed_iron_axe", "fox:armed_diamond_axe", "fox:armed_netherite_axe", "fox:armed_wooden_pickaxe", "fox:cooldown_wooden_pickaxe", "fox:armed_stone_pickaxe", "fox:cooldown_stone_pickaxe", "fox:armed_golden_pickaxe", "fox:cooldown_golden_pickaxe", "fox:armed_iron_pickaxe", "fox:cooldown_iron_pickaxe", "fox:armed_diamond_pickaxe", "fox:cooldown_diamond_pickaxe", "fox:armed_netherite_pickaxe", "fox:armed_wooden_shovel", "fox:armed_stone_shovel", "fox:armed_golden_shovel", "fox:armed_iron_shovel", "fox:armed_diamond_shovel", "fox:armed_netherite_shovel", "fox:armed_wooden_hoe", "fox:cooldown_wooden_hoe", "fox:armed_stone_hoe", "fox:cooldown_stone_hoe", "fox:armed_golden_hoe", "fox:cooldown_golden_hoe", "fox:armed_iron_hoe", "fox:cooldown_iron_hoe", "fox:armed_diamond_hoe", "fox:cooldown_diamond_hoe", "fox:armed_netherite_hoe", "fox:cooldown_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:cooldown_netherite_pickaxe"]
+        }
+      },
+      "fox:used_netherite_pickaxe": {
+        "remove": {
+          "component_groups": ["fox:armed_netherite_pickaxe"]
+        },
+        "add": {
+          "component_groups": ["fox:cooldown_netherite_pickaxe"]
+        }
+      },
+      "fox:ready_netherite_pickaxe": {
+        "remove": {
+          "component_groups": ["fox:cooldown_netherite_pickaxe"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_netherite_pickaxe"]
+        }
+      },
+      "fox:equip_wooden_shovel": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_sword", "fox:armed_stone_sword", "fox:armed_golden_sword", "fox:armed_iron_sword", "fox:armed_diamond_sword", "fox:armed_netherite_sword", "fox:armed_wooden_axe", "fox:armed_stone_axe", "fox:armed_golden_axe", "fox:armed_iron_axe", "fox:armed_diamond_axe", "fox:armed_netherite_axe", "fox:armed_wooden_pickaxe", "fox:cooldown_wooden_pickaxe", "fox:armed_stone_pickaxe", "fox:cooldown_stone_pickaxe", "fox:armed_golden_pickaxe", "fox:cooldown_golden_pickaxe", "fox:armed_iron_pickaxe", "fox:cooldown_iron_pickaxe", "fox:armed_diamond_pickaxe", "fox:cooldown_diamond_pickaxe", "fox:armed_netherite_pickaxe", "fox:cooldown_netherite_pickaxe", "fox:armed_stone_shovel", "fox:armed_golden_shovel", "fox:armed_iron_shovel", "fox:armed_diamond_shovel", "fox:armed_netherite_shovel", "fox:armed_wooden_hoe", "fox:cooldown_wooden_hoe", "fox:armed_stone_hoe", "fox:cooldown_stone_hoe", "fox:armed_golden_hoe", "fox:cooldown_golden_hoe", "fox:armed_iron_hoe", "fox:cooldown_iron_hoe", "fox:armed_diamond_hoe", "fox:cooldown_diamond_hoe", "fox:armed_netherite_hoe", "fox:cooldown_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_wooden_shovel"]
+        }
+      },
+      "fox:equip_stone_shovel": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_sword", "fox:armed_stone_sword", "fox:armed_golden_sword", "fox:armed_iron_sword", "fox:armed_diamond_sword", "fox:armed_netherite_sword", "fox:armed_wooden_axe", "fox:armed_stone_axe", "fox:armed_golden_axe", "fox:armed_iron_axe", "fox:armed_diamond_axe", "fox:armed_netherite_axe", "fox:armed_wooden_pickaxe", "fox:cooldown_wooden_pickaxe", "fox:armed_stone_pickaxe", "fox:cooldown_stone_pickaxe", "fox:armed_golden_pickaxe", "fox:cooldown_golden_pickaxe", "fox:armed_iron_pickaxe", "fox:cooldown_iron_pickaxe", "fox:armed_diamond_pickaxe", "fox:cooldown_diamond_pickaxe", "fox:armed_netherite_pickaxe", "fox:cooldown_netherite_pickaxe", "fox:armed_wooden_shovel", "fox:armed_golden_shovel", "fox:armed_iron_shovel", "fox:armed_diamond_shovel", "fox:armed_netherite_shovel", "fox:armed_wooden_hoe", "fox:cooldown_wooden_hoe", "fox:armed_stone_hoe", "fox:cooldown_stone_hoe", "fox:armed_golden_hoe", "fox:cooldown_golden_hoe", "fox:armed_iron_hoe", "fox:cooldown_iron_hoe", "fox:armed_diamond_hoe", "fox:cooldown_diamond_hoe", "fox:armed_netherite_hoe", "fox:cooldown_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_stone_shovel"]
+        }
+      },
+      "fox:equip_golden_shovel": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_sword", "fox:armed_stone_sword", "fox:armed_golden_sword", "fox:armed_iron_sword", "fox:armed_diamond_sword", "fox:armed_netherite_sword", "fox:armed_wooden_axe", "fox:armed_stone_axe", "fox:armed_golden_axe", "fox:armed_iron_axe", "fox:armed_diamond_axe", "fox:armed_netherite_axe", "fox:armed_wooden_pickaxe", "fox:cooldown_wooden_pickaxe", "fox:armed_stone_pickaxe", "fox:cooldown_stone_pickaxe", "fox:armed_golden_pickaxe", "fox:cooldown_golden_pickaxe", "fox:armed_iron_pickaxe", "fox:cooldown_iron_pickaxe", "fox:armed_diamond_pickaxe", "fox:cooldown_diamond_pickaxe", "fox:armed_netherite_pickaxe", "fox:cooldown_netherite_pickaxe", "fox:armed_wooden_shovel", "fox:armed_stone_shovel", "fox:armed_iron_shovel", "fox:armed_diamond_shovel", "fox:armed_netherite_shovel", "fox:armed_wooden_hoe", "fox:cooldown_wooden_hoe", "fox:armed_stone_hoe", "fox:cooldown_stone_hoe", "fox:armed_golden_hoe", "fox:cooldown_golden_hoe", "fox:armed_iron_hoe", "fox:cooldown_iron_hoe", "fox:armed_diamond_hoe", "fox:cooldown_diamond_hoe", "fox:armed_netherite_hoe", "fox:cooldown_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_golden_shovel"]
+        }
+      },
+      "fox:equip_iron_shovel": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_sword", "fox:armed_stone_sword", "fox:armed_golden_sword", "fox:armed_iron_sword", "fox:armed_diamond_sword", "fox:armed_netherite_sword", "fox:armed_wooden_axe", "fox:armed_stone_axe", "fox:armed_golden_axe", "fox:armed_iron_axe", "fox:armed_diamond_axe", "fox:armed_netherite_axe", "fox:armed_wooden_pickaxe", "fox:cooldown_wooden_pickaxe", "fox:armed_stone_pickaxe", "fox:cooldown_stone_pickaxe", "fox:armed_golden_pickaxe", "fox:cooldown_golden_pickaxe", "fox:armed_iron_pickaxe", "fox:cooldown_iron_pickaxe", "fox:armed_diamond_pickaxe", "fox:cooldown_diamond_pickaxe", "fox:armed_netherite_pickaxe", "fox:cooldown_netherite_pickaxe", "fox:armed_wooden_shovel", "fox:armed_stone_shovel", "fox:armed_golden_shovel", "fox:armed_diamond_shovel", "fox:armed_netherite_shovel", "fox:armed_wooden_hoe", "fox:cooldown_wooden_hoe", "fox:armed_stone_hoe", "fox:cooldown_stone_hoe", "fox:armed_golden_hoe", "fox:cooldown_golden_hoe", "fox:armed_iron_hoe", "fox:cooldown_iron_hoe", "fox:armed_diamond_hoe", "fox:cooldown_diamond_hoe", "fox:armed_netherite_hoe", "fox:cooldown_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_iron_shovel"]
+        }
+      },
+      "fox:equip_diamond_shovel": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_sword", "fox:armed_stone_sword", "fox:armed_golden_sword", "fox:armed_iron_sword", "fox:armed_diamond_sword", "fox:armed_netherite_sword", "fox:armed_wooden_axe", "fox:armed_stone_axe", "fox:armed_golden_axe", "fox:armed_iron_axe", "fox:armed_diamond_axe", "fox:armed_netherite_axe", "fox:armed_wooden_pickaxe", "fox:cooldown_wooden_pickaxe", "fox:armed_stone_pickaxe", "fox:cooldown_stone_pickaxe", "fox:armed_golden_pickaxe", "fox:cooldown_golden_pickaxe", "fox:armed_iron_pickaxe", "fox:cooldown_iron_pickaxe", "fox:armed_diamond_pickaxe", "fox:cooldown_diamond_pickaxe", "fox:armed_netherite_pickaxe", "fox:cooldown_netherite_pickaxe", "fox:armed_wooden_shovel", "fox:armed_stone_shovel", "fox:armed_golden_shovel", "fox:armed_iron_shovel", "fox:armed_netherite_shovel", "fox:armed_wooden_hoe", "fox:cooldown_wooden_hoe", "fox:armed_stone_hoe", "fox:cooldown_stone_hoe", "fox:armed_golden_hoe", "fox:cooldown_golden_hoe", "fox:armed_iron_hoe", "fox:cooldown_iron_hoe", "fox:armed_diamond_hoe", "fox:cooldown_diamond_hoe", "fox:armed_netherite_hoe", "fox:cooldown_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_diamond_shovel"]
+        }
+      },
+      "fox:equip_netherite_shovel": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_sword", "fox:armed_stone_sword", "fox:armed_golden_sword", "fox:armed_iron_sword", "fox:armed_diamond_sword", "fox:armed_netherite_sword", "fox:armed_wooden_axe", "fox:armed_stone_axe", "fox:armed_golden_axe", "fox:armed_iron_axe", "fox:armed_diamond_axe", "fox:armed_netherite_axe", "fox:armed_wooden_pickaxe", "fox:cooldown_wooden_pickaxe", "fox:armed_stone_pickaxe", "fox:cooldown_stone_pickaxe", "fox:armed_golden_pickaxe", "fox:cooldown_golden_pickaxe", "fox:armed_iron_pickaxe", "fox:cooldown_iron_pickaxe", "fox:armed_diamond_pickaxe", "fox:cooldown_diamond_pickaxe", "fox:armed_netherite_pickaxe", "fox:cooldown_netherite_pickaxe", "fox:armed_wooden_shovel", "fox:armed_stone_shovel", "fox:armed_golden_shovel", "fox:armed_iron_shovel", "fox:armed_diamond_shovel", "fox:armed_wooden_hoe", "fox:cooldown_wooden_hoe", "fox:armed_stone_hoe", "fox:cooldown_stone_hoe", "fox:armed_golden_hoe", "fox:cooldown_golden_hoe", "fox:armed_iron_hoe", "fox:cooldown_iron_hoe", "fox:armed_diamond_hoe", "fox:cooldown_diamond_hoe", "fox:armed_netherite_hoe", "fox:cooldown_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_netherite_shovel"]
+        }
+      },
+      "fox:equip_wooden_hoe": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_sword", "fox:armed_stone_sword", "fox:armed_golden_sword", "fox:armed_iron_sword", "fox:armed_diamond_sword", "fox:armed_netherite_sword", "fox:armed_wooden_axe", "fox:armed_stone_axe", "fox:armed_golden_axe", "fox:armed_iron_axe", "fox:armed_diamond_axe", "fox:armed_netherite_axe", "fox:armed_wooden_pickaxe", "fox:cooldown_wooden_pickaxe", "fox:armed_stone_pickaxe", "fox:cooldown_stone_pickaxe", "fox:armed_golden_pickaxe", "fox:cooldown_golden_pickaxe", "fox:armed_iron_pickaxe", "fox:cooldown_iron_pickaxe", "fox:armed_diamond_pickaxe", "fox:cooldown_diamond_pickaxe", "fox:armed_netherite_pickaxe", "fox:cooldown_netherite_pickaxe", "fox:armed_wooden_shovel", "fox:armed_stone_shovel", "fox:armed_golden_shovel", "fox:armed_iron_shovel", "fox:armed_diamond_shovel", "fox:armed_netherite_shovel", "fox:armed_wooden_hoe", "fox:armed_stone_hoe", "fox:cooldown_stone_hoe", "fox:armed_golden_hoe", "fox:cooldown_golden_hoe", "fox:armed_iron_hoe", "fox:cooldown_iron_hoe", "fox:armed_diamond_hoe", "fox:cooldown_diamond_hoe", "fox:armed_netherite_hoe", "fox:cooldown_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:cooldown_wooden_hoe"]
+        }
+      },
+      "fox:used_wooden_hoe": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:cooldown_wooden_hoe"]
+        }
+      },
+      "fox:ready_wooden_hoe": {
+        "remove": {
+          "component_groups": ["fox:cooldown_wooden_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_wooden_hoe"]
+        }
+      },
+      "fox:equip_stone_hoe": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_sword", "fox:armed_stone_sword", "fox:armed_golden_sword", "fox:armed_iron_sword", "fox:armed_diamond_sword", "fox:armed_netherite_sword", "fox:armed_wooden_axe", "fox:armed_stone_axe", "fox:armed_golden_axe", "fox:armed_iron_axe", "fox:armed_diamond_axe", "fox:armed_netherite_axe", "fox:armed_wooden_pickaxe", "fox:cooldown_wooden_pickaxe", "fox:armed_stone_pickaxe", "fox:cooldown_stone_pickaxe", "fox:armed_golden_pickaxe", "fox:cooldown_golden_pickaxe", "fox:armed_iron_pickaxe", "fox:cooldown_iron_pickaxe", "fox:armed_diamond_pickaxe", "fox:cooldown_diamond_pickaxe", "fox:armed_netherite_pickaxe", "fox:cooldown_netherite_pickaxe", "fox:armed_wooden_shovel", "fox:armed_stone_shovel", "fox:armed_golden_shovel", "fox:armed_iron_shovel", "fox:armed_diamond_shovel", "fox:armed_netherite_shovel", "fox:armed_wooden_hoe", "fox:cooldown_wooden_hoe", "fox:armed_stone_hoe", "fox:armed_golden_hoe", "fox:cooldown_golden_hoe", "fox:armed_iron_hoe", "fox:cooldown_iron_hoe", "fox:armed_diamond_hoe", "fox:cooldown_diamond_hoe", "fox:armed_netherite_hoe", "fox:cooldown_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:cooldown_stone_hoe"]
+        }
+      },
+      "fox:used_stone_hoe": {
+        "remove": {
+          "component_groups": ["fox:armed_stone_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:cooldown_stone_hoe"]
+        }
+      },
+      "fox:ready_stone_hoe": {
+        "remove": {
+          "component_groups": ["fox:cooldown_stone_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_stone_hoe"]
+        }
+      },
+      "fox:equip_golden_hoe": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_sword", "fox:armed_stone_sword", "fox:armed_golden_sword", "fox:armed_iron_sword", "fox:armed_diamond_sword", "fox:armed_netherite_sword", "fox:armed_wooden_axe", "fox:armed_stone_axe", "fox:armed_golden_axe", "fox:armed_iron_axe", "fox:armed_diamond_axe", "fox:armed_netherite_axe", "fox:armed_wooden_pickaxe", "fox:cooldown_wooden_pickaxe", "fox:armed_stone_pickaxe", "fox:cooldown_stone_pickaxe", "fox:armed_golden_pickaxe", "fox:cooldown_golden_pickaxe", "fox:armed_iron_pickaxe", "fox:cooldown_iron_pickaxe", "fox:armed_diamond_pickaxe", "fox:cooldown_diamond_pickaxe", "fox:armed_netherite_pickaxe", "fox:cooldown_netherite_pickaxe", "fox:armed_wooden_shovel", "fox:armed_stone_shovel", "fox:armed_golden_shovel", "fox:armed_iron_shovel", "fox:armed_diamond_shovel", "fox:armed_netherite_shovel", "fox:armed_wooden_hoe", "fox:cooldown_wooden_hoe", "fox:armed_stone_hoe", "fox:cooldown_stone_hoe", "fox:armed_golden_hoe", "fox:armed_iron_hoe", "fox:cooldown_iron_hoe", "fox:armed_diamond_hoe", "fox:cooldown_diamond_hoe", "fox:armed_netherite_hoe", "fox:cooldown_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:cooldown_golden_hoe"]
+        }
+      },
+      "fox:used_golden_hoe": {
+        "remove": {
+          "component_groups": ["fox:armed_golden_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:cooldown_golden_hoe"]
+        }
+      },
+      "fox:ready_golden_hoe": {
+        "remove": {
+          "component_groups": ["fox:cooldown_golden_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_golden_hoe"]
+        }
+      },
+      "fox:equip_iron_hoe": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_sword", "fox:armed_stone_sword", "fox:armed_golden_sword", "fox:armed_iron_sword", "fox:armed_diamond_sword", "fox:armed_netherite_sword", "fox:armed_wooden_axe", "fox:armed_stone_axe", "fox:armed_golden_axe", "fox:armed_iron_axe", "fox:armed_diamond_axe", "fox:armed_netherite_axe", "fox:armed_wooden_pickaxe", "fox:cooldown_wooden_pickaxe", "fox:armed_stone_pickaxe", "fox:cooldown_stone_pickaxe", "fox:armed_golden_pickaxe", "fox:cooldown_golden_pickaxe", "fox:armed_iron_pickaxe", "fox:cooldown_iron_pickaxe", "fox:armed_diamond_pickaxe", "fox:cooldown_diamond_pickaxe", "fox:armed_netherite_pickaxe", "fox:cooldown_netherite_pickaxe", "fox:armed_wooden_shovel", "fox:armed_stone_shovel", "fox:armed_golden_shovel", "fox:armed_iron_shovel", "fox:armed_diamond_shovel", "fox:armed_netherite_shovel", "fox:armed_wooden_hoe", "fox:cooldown_wooden_hoe", "fox:armed_stone_hoe", "fox:cooldown_stone_hoe", "fox:armed_golden_hoe", "fox:cooldown_golden_hoe", "fox:armed_iron_hoe", "fox:armed_diamond_hoe", "fox:cooldown_diamond_hoe", "fox:armed_netherite_hoe", "fox:cooldown_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:cooldown_iron_hoe"]
+        }
+      },
+      "fox:used_iron_hoe": {
+        "remove": {
+          "component_groups": ["fox:armed_iron_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:cooldown_iron_hoe"]
+        }
+      },
+      "fox:ready_iron_hoe": {
+        "remove": {
+          "component_groups": ["fox:cooldown_iron_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_iron_hoe"]
+        }
+      },
+      "fox:equip_diamond_hoe": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_sword", "fox:armed_stone_sword", "fox:armed_golden_sword", "fox:armed_iron_sword", "fox:armed_diamond_sword", "fox:armed_netherite_sword", "fox:armed_wooden_axe", "fox:armed_stone_axe", "fox:armed_golden_axe", "fox:armed_iron_axe", "fox:armed_diamond_axe", "fox:armed_netherite_axe", "fox:armed_wooden_pickaxe", "fox:cooldown_wooden_pickaxe", "fox:armed_stone_pickaxe", "fox:cooldown_stone_pickaxe", "fox:armed_golden_pickaxe", "fox:cooldown_golden_pickaxe", "fox:armed_iron_pickaxe", "fox:cooldown_iron_pickaxe", "fox:armed_diamond_pickaxe", "fox:cooldown_diamond_pickaxe", "fox:armed_netherite_pickaxe", "fox:cooldown_netherite_pickaxe", "fox:armed_wooden_shovel", "fox:armed_stone_shovel", "fox:armed_golden_shovel", "fox:armed_iron_shovel", "fox:armed_diamond_shovel", "fox:armed_netherite_shovel", "fox:armed_wooden_hoe", "fox:cooldown_wooden_hoe", "fox:armed_stone_hoe", "fox:cooldown_stone_hoe", "fox:armed_golden_hoe", "fox:cooldown_golden_hoe", "fox:armed_iron_hoe", "fox:cooldown_iron_hoe", "fox:armed_diamond_hoe", "fox:armed_netherite_hoe", "fox:cooldown_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:cooldown_diamond_hoe"]
+        }
+      },
+      "fox:used_diamond_hoe": {
+        "remove": {
+          "component_groups": ["fox:armed_diamond_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:cooldown_diamond_hoe"]
+        }
+      },
+      "fox:ready_diamond_hoe": {
+        "remove": {
+          "component_groups": ["fox:cooldown_diamond_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_diamond_hoe"]
+        }
+      },
+      "fox:equip_netherite_hoe": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_sword", "fox:armed_stone_sword", "fox:armed_golden_sword", "fox:armed_iron_sword", "fox:armed_diamond_sword", "fox:armed_netherite_sword", "fox:armed_wooden_axe", "fox:armed_stone_axe", "fox:armed_golden_axe", "fox:armed_iron_axe", "fox:armed_diamond_axe", "fox:armed_netherite_axe", "fox:armed_wooden_pickaxe", "fox:cooldown_wooden_pickaxe", "fox:armed_stone_pickaxe", "fox:cooldown_stone_pickaxe", "fox:armed_golden_pickaxe", "fox:cooldown_golden_pickaxe", "fox:armed_iron_pickaxe", "fox:cooldown_iron_pickaxe", "fox:armed_diamond_pickaxe", "fox:cooldown_diamond_pickaxe", "fox:armed_netherite_pickaxe", "fox:cooldown_netherite_pickaxe", "fox:armed_wooden_shovel", "fox:armed_stone_shovel", "fox:armed_golden_shovel", "fox:armed_iron_shovel", "fox:armed_diamond_shovel", "fox:armed_netherite_shovel", "fox:armed_wooden_hoe", "fox:cooldown_wooden_hoe", "fox:armed_stone_hoe", "fox:cooldown_stone_hoe", "fox:armed_golden_hoe", "fox:cooldown_golden_hoe", "fox:armed_iron_hoe", "fox:cooldown_iron_hoe", "fox:armed_diamond_hoe", "fox:cooldown_diamond_hoe", "fox:armed_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:cooldown_netherite_hoe"]
+        }
+      },
+      "fox:used_netherite_hoe": {
+        "remove": {
+          "component_groups": ["fox:armed_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:cooldown_netherite_hoe"]
+        }
+      },
+      "fox:ready_netherite_hoe": {
+        "remove": {
+          "component_groups": ["fox:cooldown_netherite_hoe"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_netherite_hoe"]
+        }
+      },
+      "fox:disarm": {
+        "remove": {
+          "component_groups": ["fox:armed_wooden_sword", "fox:armed_stone_sword", "fox:armed_golden_sword", "fox:armed_iron_sword", "fox:armed_diamond_sword", "fox:armed_netherite_sword", "fox:armed_wooden_axe", "fox:armed_stone_axe", "fox:armed_golden_axe", "fox:armed_iron_axe", "fox:armed_diamond_axe", "fox:armed_netherite_axe", "fox:armed_wooden_pickaxe", "fox:cooldown_wooden_pickaxe", "fox:armed_stone_pickaxe", "fox:cooldown_stone_pickaxe", "fox:armed_golden_pickaxe", "fox:cooldown_golden_pickaxe", "fox:armed_iron_pickaxe", "fox:cooldown_iron_pickaxe", "fox:armed_diamond_pickaxe", "fox:cooldown_diamond_pickaxe", "fox:armed_netherite_pickaxe", "fox:cooldown_netherite_pickaxe", "fox:armed_wooden_shovel", "fox:armed_stone_shovel", "fox:armed_golden_shovel", "fox:armed_iron_shovel", "fox:armed_diamond_shovel", "fox:armed_netherite_shovel", "fox:armed_wooden_hoe", "fox:cooldown_wooden_hoe", "fox:armed_stone_hoe", "fox:cooldown_stone_hoe", "fox:armed_golden_hoe", "fox:cooldown_golden_hoe", "fox:armed_iron_hoe", "fox:cooldown_iron_hoe", "fox:armed_diamond_hoe", "fox:cooldown_diamond_hoe", "fox:armed_netherite_hoe", "fox:cooldown_netherite_hoe"]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Tameable-Companion-Fox/behavior_pack/manifest.json (37 lines, 622 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Tameable Companion Fox (v2)",
+    "description": "Tameable foxes with sitting and equip interactions. by ALNStudios",
+    "uuid": "d34a1439-f03d-4e88-b31e-982a2fc4a347",
+    "version": [
+      2,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "e868e811-abc0-44a8-a4f2-bae3143f138d",
+      "version": [
+        2,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "2.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Tameable-Companion-Fox/CHANGELOG.md (75 lines, 3121 bytes)
+
+```
+# Changelog — Tameable Companion Fox
+
+---
+
+## [v2] - 2026-11-16
+
+**What's new in v1.8.5:** Packed with 3 updates, from v1.8.3 through v1.8.5. Includes: Fox Tool Balance; Fox Tool Attacks; Fox Combat Upgrade.
+
+### Improved & Balanced
+
+- **Material Damage**: A fox's damage now depends on the tool it holds. Wooden and golden tools hit the softest, then stone, iron, diamond, and netherite.
+- **Effect Cooldowns**: Pickaxe slowness and hoe poison can only trigger once every 8 seconds.
+- **Swap Protection**: Swapping tools starts the effect cooldown, so it cannot be reset by switching.
+- **Attack Pace**: Axe attacks land every 1.5 seconds and hoe attacks every 1.2 seconds.
+- **Warden Safety**: Tamed foxes no longer pick fights with wardens.
+- **Tool Prompt**: The prompt for handing over a tool now reads Give Tool.
+- **Owner Only Arming**: Only a fox's owner can hand it a weapon.
+- **Translated Prompts**: The weapon prompts now use language files so they can be translated.
+
+### Fixed
+
+- **Shovel Reach**: A shovel now lets the fox attack from farther away than a bare fox, as described.
+
+### Added
+
+- **Tool Arming**: Pickaxes, shovels, and hoes can now be handed to a tamed fox along with swords and axes.
+- **Pickaxe Style**: A pickaxe fox deals 5 damage and slows what it hits for 3 seconds.
+- **Shovel Style**: A shovel fox deals 5 damage and attacks from farther away.
+- **Hoe Style**: A hoe fox deals 4 damage and poisons what it hits for 4 seconds.
+- **Weapon Styles**: A fox holding a sword chases targets faster, and a fox holding an axe leaps higher.
+- **Take Weapon Back**: Sneak and interact with an empty hand to take the weapon from your fox.
+- **Hostile Mob Defense**: Tamed foxes attack hostile mobs they can see within 16 blocks, except creepers.
+
+## [1.8.2] - 2026-11-16 - Give Weapon Prompt
+
+### Fixed
+- **Give Weapon Prompt**: The prompt for handing a tamed fox a sword or axe now reads Give Weapon instead of showing a raw text key.
+
+## [1.8.2] - 2026-11-15
+
+**What's new in v1.8.2:** Packed with the v1.8.2 update. Includes: Give Weapon Prompt.
+
+### Fixed
+
+- **Give Weapon Prompt**: The prompt for handing a tamed fox a sword or axe now reads Give Weapon instead of showing a raw text key.
+
+## [1.8.1] - 2026-11-15 - Fox Arming and Healing
+
+### Added
+- **Weapon Arming**: Hand a tamed fox a sword or axe to raise its attack to 6 or 8 damage.
+- **Healing Support**: Feeding a hurt tamed fox sweet berries or glow berries restores 4 health.
+
+### Improved & Balanced
+- **Berry Taming Chance**: Each berry has a 75% chance of taming a wild fox.
+- **Snowy Foxes**: Foxes that spawn on snow are arctic foxes again.
+- **Leads and Name Tags**: Foxes can be leashed and named again.
+
+### Fixed
+- **Fox Pack Folder**: The fox now sits in the same Behavior Pack folder as the pack manifest so it is included in the package.
+- **Fox Settings**: Corrected misspelled and unsupported fox settings for leaping, equipment drops, name tags, taming chance, and sitting.
+
+## [1.8.0] - 2026-10-29
+
+### Improved & Balanced
+
+- **Changelog started**: Version history is recorded from this release onward.
+```
+
+## FILE: MCPEDL/Addons/Tameable-Companion-Fox/DESCRIPTION.md (95 lines, 5304 bytes)
+
+```
+# Tameable Companion Fox — Advanced Fox Companion
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+Tame loyal foxes, command them to sit, and arm them with tools that each change how they fight.
+
+---
+
+## Overview
+
+**Tameable Companion Fox** lets you tame wild foxes into loyal companions. Feed a wild fox sweet berries or glow berries to bond with it, tell it to sit and stay with an empty hand, and hand it a sword, axe, pickaxe, shovel, or hoe to change how it fights. A tamed fox follows you and fights the mobs that hurt you or that you hurt.
+
+## Key Features
+
+### Berry Taming
+- **What Happens**: Each sweet berry or glow berry you feed a wild fox has a 75% chance of taming it.
+
+### Bodyguard Protection
+- **What Happens**: A tamed fox follows you, attacks mobs that hurt you or that you hurt, and goes after hostile mobs it can see within 16 blocks. Its bare attack deals 4 damage.
+- **Good To Know**: Tamed foxes leave creepers and wardens alone.
+
+### Upgraded Vitality
+- **What Happens**: A tamed fox has 30 health, up from the 20 of a wild fox.
+
+### Sit & Stand Commands
+- **What Happens**: Interact with a tamed fox using an empty hand to make it sit and stay in place. Interact again to make it stand up and follow you.
+
+### Weapon Arming
+- **What Happens**: Interact with your own tamed fox while holding a sword, axe, pickaxe, shovel, or hoe to hand it over. The fox's damage depends on the tool it holds, and each tool gives it a different attack style.
+- **Good To Know**: Wooden and golden tools deal the least damage, and stone, iron, diamond, and netherite tools deal more in that order. Sneak and interact with an empty hand to take the tool back. An armed fox drops its tool when it dies.
+
+### Sword Style
+- **What Happens**: A fox holding a sword deals 5 to 9 damage and chases its targets faster.
+
+### Axe Style
+- **What Happens**: A fox holding an axe deals 7 to 11 damage and leaps higher at its targets.
+- **Good To Know**: Axe attacks are slower, landing once every 1.5 seconds.
+
+### Pickaxe Style
+- **What Happens**: A fox holding a pickaxe deals 4 to 8 damage and slows what it hits for 3 seconds.
+- **Good To Know**: The slow can only trigger once every 8 seconds, and swapping tools starts that wait again.
+
+### Shovel Style
+- **What Happens**: A fox holding a shovel deals 4 to 8 damage and attacks from farther away.
+
+### Hoe Style
+- **What Happens**: A fox holding a hoe deals 4 to 8 damage and poisons what it hits for 4 seconds.
+- **Good To Know**: The poison can only trigger once every 8 seconds, and swapping tools starts that wait again. Hoe attacks land once every 1.2 seconds.
+
+### Healing Support
+- **What Happens**: Feeding a hurt tamed fox sweet berries or glow berries restores 4 health.
+
+## How to Use
+
+1. Hold sweet berries or glow berries and interact with a wild fox until it is tamed.
+2. Interact with your fox using an empty hand to make it sit, and interact again to make it stand up and follow you.
+3. Hold a sword, axe, pickaxe, shovel, or hoe and interact with your fox to arm it. Sneak and interact with an empty hand to take the tool back.
+4. Feed your fox sweet berries or glow berries when it is hurt to restore its health.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.21.0
+- Experimental features: No experiment requirement detected in the inspected files.
+- Achievements: Likely achievement-friendly.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Tameable Companion Fox Minecraft Bedrock, Berry Taming Bedrock, Bodyguard Protection Bedrock, Upgraded Vitality Bedrock, Sit & Stand Commands Bedrock, Weapon Arming Bedrock, Tool Attack Styles Bedrock, Healing Support Bedrock, Minecraft PE survival, MCPEDL, CurseForge Bedrock, ALNStudios, Minecraft Bedrock add-on, MCPEDL add-on.
+```
+
+## FILE: MCPEDL/Addons/Tameable-Companion-Fox/README.md (19 lines, 831 bytes)
+
+```
+# Tameable Companion Fox
+
+Download the current release of **Tameable Companion Fox** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download Tameable Companion Fox (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tameable-Companion-Fox/CompanionFox%20V2.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/Tameable-Companion-Fox/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Addons/Tameable-Companion-Fox/resource_pack/animation_controllers/fox.animation_controllers.json (26 lines, 566 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.fox.movement": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            { "walk": "query.modified_move_speed" }
+          ],
+          "transitions": [
+            { "sitting": "query.is_sitting" }
+          ]
+        },
+        "sitting": {
+          "animations": ["sleep"],
+          "blend_time": 0.25,
+          "transitions": [
+            { "default": "!query.is_sitting" }
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Tameable-Companion-Fox/resource_pack/manifest.json (37 lines, 617 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Tameable Companion Fox (v2)",
+    "description": "Resource pack for Tameable Companion Fox. by ALNStudios",
+    "uuid": "996c09c4-1460-4a46-b37c-3a164534b33f",
+    "version": [
+      2,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "e9c739ea-d2b3-4984-aab2-f995b137ce69",
+      "version": [
+        2,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "2.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Tameable-Companion-Fox/resource_pack/texts/en_US.lang (3 lines, 84 bytes)
+
+```
+action.interact.fox_give_weapon=Give Tool
+action.interact.fox_take_weapon=Take Tool
+```
+
+## FILE: MCPEDL/Addons/Tameable-Companion-Fox/resource_pack/texts/languages.json (2 lines, 10 bytes)
+
+```
+["en_US"]
+```

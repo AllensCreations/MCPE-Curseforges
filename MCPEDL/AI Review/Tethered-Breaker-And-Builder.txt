@@ -1,0 +1,1301 @@
+<!-- GRAPH-CONTEXT:START -->
+## Graph Context
+
+- **Project:** `Tethered-Breaker-And-Builder` | Category: `Minigame` | Version: `v2`
+- **Pack Types:** behavior_pack, resource_pack
+- **Siblings in Minigame:** `Alphabet-Scavenger-Hunt (v2)` (v2), `Category: Minigame`, `Minecraft-But-Every-Drop-is-Random-Chaos-Edition (v2)` (v2), `Mob-Chaos-Behavioral-Roulette (v2)` (v2), `Shared-Hivemind-Inventory (v2)` (v2), `Trivia-Vault-The-Locked-World (v2)` (v2)
+
+> _Auto-generated from graphify-out/graph.json — do not edit manually._
+<!-- GRAPH-CONTEXT:END -->
+
+---
+
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Minigame/Tethered-Breaker-And-Builder`
+- **Destination:** `MCPEDL/Minigame/Tethered-Breaker-And-Builder`
+- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Minigame/Tethered-Breaker-And-Builder/CHANGELOG.md`)
+- **Text files:** 13
+- **Skipped binary:** 4
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Minigame/Tethered-Breaker-And-Builder/behavior_pack/functions/end_game.mcfunction`
+- `MCPEDL/Minigame/Tethered-Breaker-And-Builder/behavior_pack/functions/give_controller.mcfunction`
+- `MCPEDL/Minigame/Tethered-Breaker-And-Builder/behavior_pack/items/controller.json`
+- `MCPEDL/Minigame/Tethered-Breaker-And-Builder/behavior_pack/manifest.json`
+- `MCPEDL/Minigame/Tethered-Breaker-And-Builder/behavior_pack/scripts/controller.js`
+- `MCPEDL/Minigame/Tethered-Breaker-And-Builder/behavior_pack/scripts/main.js`
+- `MCPEDL/Minigame/Tethered-Breaker-And-Builder/CHANGELOG.md`
+- `MCPEDL/Minigame/Tethered-Breaker-And-Builder/DESCRIPTION.md`
+- `MCPEDL/Minigame/Tethered-Breaker-And-Builder/project.json`
+- `MCPEDL/Minigame/Tethered-Breaker-And-Builder/README.md`
+- `MCPEDL/Minigame/Tethered-Breaker-And-Builder/resource_pack/manifest.json`
+- `MCPEDL/Minigame/Tethered-Breaker-And-Builder/resource_pack/particles/tether_leash.json`
+- `MCPEDL/Minigame/Tethered-Breaker-And-Builder/resource_pack/textures/item_texture.json`
+
+### Skipped (binary)
+
+- `MCPEDL/Minigame/Tethered-Breaker-And-Builder/behavior_pack/pack_icon.png`
+- `MCPEDL/Minigame/Tethered-Breaker-And-Builder/icon.png`
+- `MCPEDL/Minigame/Tethered-Breaker-And-Builder/resource_pack/pack_icon.png`
+- `MCPEDL/Minigame/Tethered-Breaker-And-Builder/resource_pack/textures/items/controller.png`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v3 / NEXT UPDATE: v4).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Minigame/Tethered-Breaker-And-Builder
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`.
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/behavior_pack/functions/end_game.mcfunction (2 lines, 32 bytes)
+
+```
+scriptevent allenscreations:end
+```
+
+## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/behavior_pack/functions/give_controller.mcfunction (2 lines, 48 bytes)
+
+```
+give @s aln:tethered_breaker_builder_controller
+```
+
+## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/behavior_pack/items/controller.json (28 lines, 642 bytes)
+
+```
+{
+  "format_version": "1.26.40",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:tethered_breaker_builder_controller",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "textures": {
+          "default": "controller"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "\u00a7l\u00a7bAllens\u00a7dCreations \u00a76Controller"
+      },
+      "minecraft:use_animation": "spyglass",
+      "minecraft:use_modifiers": {
+        "use_duration": 0.1,
+        "movement_modifier": 1
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/behavior_pack/manifest.json (58 lines, 1088 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Tethered Breaker and Builder (v3)",
+    "description": "2-Player Asymmetric Co-op challenge with a dynamic elastic leash. by ALNStudios",
+    "uuid": "57d260b6-c748-4db4-8feb-0d5d6be74613",
+    "version": [
+      3,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      40
+    ]
+  },
+  "modules": [
+    {
+      "description": "Tethered Asymmetric Co-op Script Engine",
+      "type": "script",
+      "language": "javascript",
+      "uuid": "969f8937-48b6-4394-9cbf-c4224c551d7b",
+      "version": [
+        3,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "f3a1c7e2-6b84-4d19-9a52-0c7e5d8b1a36",
+      "version": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.9.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.0.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "3.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/behavior_pack/scripts/controller.js (157 lines, 4613 bytes)
+
+```
+import { world, system, ItemStack, EntityComponentTypes, GameMode } from "@minecraft/server";
+import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
+
+const CONTROLLER_ID = "aln:tethered_breaker_builder_controller";
+const STATE_KEY = "game_state";
+const OPERATOR_LEVEL = 2;
+
+let config = null;
+let registered = false;
+let stateCache;
+const stateListeners = [];
+
+const getState = () => {
+  if (stateCache === undefined) {
+    try {
+      const v = world.getDynamicProperty(STATE_KEY);
+      stateCache = typeof v === "string" ? v : "idle";
+    } catch {
+      return "idle";
+    }
+  }
+  return stateCache;
+};
+const setState = (s) => {
+  stateCache = s;
+  try { world.setDynamicProperty(STATE_KEY, s); } catch {}
+  for (const fn of stateListeners) {
+    try { fn(s); } catch {}
+  }
+};
+export const isRunning = () => getState() === "running";
+export const onStateChange = (fn) => { stateListeners.push(fn); };
+
+const isCreative = (player) => player.getGameMode() === GameMode.Creative;
+const isHost = (player) => (typeof player.isOp === "function" ? player.isOp() : player.playerPermissionLevel === OPERATOR_LEVEL);
+const containerOf = (player) => player.getComponent(EntityComponentTypes.Inventory)?.container;
+
+function hasController(player) {
+  const inv = containerOf(player);
+  if (!inv) return false;
+  for (let i = 0; i < inv.size; i++) {
+    if (inv.getItem(i)?.typeId === CONTROLLER_ID) return true;
+  }
+  return false;
+}
+
+function giveController(player) {
+  if (hasController(player)) return;
+  containerOf(player)?.addItem(new ItemStack(CONTROLLER_ID, 1));
+}
+
+function consumeController(player) {
+  if (isCreative(player)) return;
+  const inv = containerOf(player);
+  if (!inv) return;
+  for (let i = 0; i < inv.size; i++) {
+    if (inv.getItem(i)?.typeId === CONTROLLER_ID) {
+      inv.setItem(i, undefined);
+      player.playSound("random.break");
+      player.sendMessage("The Controller broke.");
+      return;
+    }
+  }
+}
+
+function runStart(player) {
+  if (getState() === "running") {
+    player.sendMessage("Already running.");
+    return;
+  }
+  setState("running");
+  consumeController(player);
+  try {
+    config.onStart(player);
+  } catch (e) {
+    setState("idle");
+    giveController(player);
+    player.sendMessage("The game could not start.");
+  }
+}
+
+export function endGame() {
+  if (getState() !== "running") return;
+  setState("ended");
+  try {
+    config?.onEnd();
+  } catch (e) {
+    world.sendMessage("The game ended with an error.");
+  }
+  for (const p of world.getAllPlayers()) if (isHost(p)) giveController(p);
+}
+
+async function showHowToPlay(player) {
+  const form = new ActionFormData().title("How to play").body(config.howToPlay).button("Back");
+  let res;
+  try {
+    res = await form.show(player);
+  } catch (e) {
+    return;
+  }
+  if (!res.canceled && res.selection === 0) openController(player);
+}
+
+async function openController(player, attempt = 0) {
+  const note = isCreative(player) ? "Creative: the Controller is kept." : "Start uses up the Controller.";
+  const form = new ActionFormData()
+    .title(config.title)
+    .body(`${config.gameInfo}\n\nState: ${getState()}\n${note}`)
+    .button("Start")
+    .button("How to play");
+  for (const x of config.extras) form.button(typeof x.label === "function" ? x.label() : x.label);
+  let res;
+  try {
+    res = await form.show(player);
+  } catch (e) {
+    return;
+  }
+  if (res.canceled) {
+    if (res.cancelationReason === FormCancelationReason.UserBusy && attempt < 5) {
+      system.runTimeout(() => openController(player, attempt + 1), 10);
+    }
+    return;
+  }
+  if (res.selection === 0) {
+    runStart(player);
+  } else if (res.selection === 1) {
+    showHowToPlay(player);
+  } else {
+    try { config.extras[res.selection - 2]?.run(player); } catch {}
+  }
+}
+
+export function registerController(options) {
+  if (registered) return;
+  registered = true;
+  config = {
+    title: options?.title ?? "Controller",
+    gameInfo: options?.gameInfo ?? "",
+    howToPlay: options?.howToPlay ?? "",
+    onStart: options?.onStart ?? (() => {}),
+    onEnd: options?.onEnd ?? (() => {}),
+    extras: Array.isArray(options?.extras) ? options.extras : [],
+  };
+
+  world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
+    if (itemStack?.typeId === CONTROLLER_ID && isHost(source)) openController(source);
+  });
+
+  system.afterEvents.scriptEventReceive.subscribe(({ id }) => {
+    if (id === "allenscreations:end") endGame();
+  });
+
+  world.afterEvents.playerSpawn.subscribe(({ player }) => {
+    if (isHost(player) && (isCreative(player) || getState() !== "running")) giveController(player);
+  });
+}
+```
+
+## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/behavior_pack/scripts/main.js (668 lines, 21991 bytes)
+
+```
+import { world, system, GameMode, EntityDamageCause } from "@minecraft/server";
+import { ActionFormData } from "@minecraft/server-ui";
+import { registerController, endGame, isRunning, onStateChange } from "./controller.js";
+
+const CONFIG = {
+  TICK_STEP: 2,
+  TENSE_DISTANCE: 6,
+  MAX_TETHER_DISTANCE: 8,
+  DAMAGE_DISTANCE: 9,
+  ROPE_LIMIT: 10,
+  RECALL_DISTANCE: 64,
+  RECALL_TICKS: 100,
+  DIMENSION_RECALL_TICKS: 300,
+  STRAIN_GRACE_TICKS: 60,
+  STRAIN_DAMAGE: 2,
+  STRAIN_INTERVAL_TICKS: 20,
+  STRAIN_MIN_HEALTH: 2,
+  BEAM_INTERVAL_TICKS: 4,
+  BEAM_MIN_DISTANCE: 4,
+  BEAM_SPACING: 1.25,
+  MAX_BEAM_PARTICLES: 12,
+  HUD_REFRESH_TICKS: 20,
+  WAIT_HUD_TICKS: 20,
+  MAX_PULL: 0.6,
+  MAX_VPULL: 0.5,
+  RESPAWN_DELAY_TICKS: 10,
+  RESPAWN_GRACE_TICKS: 100,
+  PROMPT_GRACE_TICKS: 100,
+  NOTICE_TICKS: 60,
+  NOTICE_REPEAT_TICKS: 20,
+  PROMPT_SWEEP_TICKS: 200,
+  DUMMY_ENTITY: "minecraft:armor_stand"
+};
+
+const TENSE_SQ = CONFIG.TENSE_DISTANCE * CONFIG.TENSE_DISTANCE;
+const MAX_SQ = CONFIG.MAX_TETHER_DISTANCE * CONFIG.MAX_TETHER_DISTANCE;
+const DAMAGE_SQ = CONFIG.DAMAGE_DISTANCE * CONFIG.DAMAGE_DISTANCE;
+const RECALL_SQ = CONFIG.RECALL_DISTANCE * CONFIG.RECALL_DISTANCE;
+const BEAM_MIN_SQ = CONFIG.BEAM_MIN_DISTANCE * CONFIG.BEAM_MIN_DISTANCE;
+const ROPE_SQ = CONFIG.ROPE_LIMIT * CONFIG.ROPE_LIMIT;
+
+const ROLE_PROP = "tether:role";
+const BREAKER = "breaker";
+const BUILDER = "builder";
+const WAIT_TEXT = "§7[LEASH: WAITING] §fWaiting for your partner";
+const LEASH_PARTICLE = "tether:leash_beam";
+const PARTICLES = [LEASH_PARTICLE, LEASH_PARTICLE, LEASH_PARTICLE, LEASH_PARTICLE];
+
+const FORBIDDEN_EXACT = new Set([
+  "minecraft:flint_and_steel", "minecraft:fire_charge", "minecraft:armor_stand",
+  "minecraft:end_crystal", "minecraft:item_frame", "minecraft:glow_item_frame",
+  "minecraft:painting", "minecraft:bone_meal", "minecraft:ender_eye"
+]);
+
+const notices = new Map();
+const hudState = new Map();
+const roles = new Map();
+const placerCache = new Map();
+const promptPending = new Set();
+const tether = { dimTicks: 0, farTicks: 0, strainTicks: 0, soundCd: 0, beamCd: 0, waitCd: 0, key: -1, text: "" };
+const beamPos = { x: 0, y: 0, z: 0 };
+const kb = { x: 0, z: 0 };
+
+let pair = null;
+let dummy = null;
+let pairDirty = true;
+let tickId;
+let sweepId;
+
+function computePlacer(id) {
+  if (FORBIDDEN_EXACT.has(id)) return true;
+  if (id === "minecraft:milk_bucket" || id === "minecraft:bucket") return false;
+  return id.endsWith("_bucket") || id.endsWith("_spawn_egg") || id.endsWith("_boat") ||
+    id.endsWith("_chest_boat") || id.endsWith("_raft") || id.endsWith("_chest_raft") || id.endsWith("minecart");
+}
+
+function isPlacerItem(id) {
+  if (!id) return false;
+  let v = placerCache.get(id);
+  if (v === undefined) {
+    v = computePlacer(id);
+    placerCache.set(id, v);
+  }
+  return v;
+}
+
+function getRole(player) {
+  const id = player?.id;
+  if (id === undefined) return undefined;
+  const cached = roles.get(id);
+  if (cached !== undefined) return cached || undefined;
+  let v;
+  try { v = player.getDynamicProperty(ROLE_PROP); } catch { return undefined; }
+  const role = v === BREAKER || v === BUILDER ? v : undefined;
+  roles.set(id, role ?? "");
+  return role;
+}
+
+function setRole(player, role) {
+  try {
+    player.setDynamicProperty(ROLE_PROP, role);
+    roles.set(player.id, role ?? "");
+    player.removeTag("role_breaker");
+    player.removeTag("role_builder");
+    if (role) player.addTag(role === BREAKER ? "role_breaker" : "role_builder");
+  } catch {}
+  pairDirty = true;
+}
+
+const canPlace = (p) => !isRunning() || getRole(p) === BUILDER;
+const canBreak = (p) => !isRunning() || getRole(p) === BREAKER;
+const canAttack = (p) => !isRunning() || getRole(p) === BREAKER;
+
+function roleTaken(role, except) {
+  return world.getAllPlayers().some((p) => p.id !== except?.id && getRole(p) === role);
+}
+
+function notify(player, text) {
+  const now = system.currentTick;
+  let n = notices.get(player.id);
+  if (!n) {
+    n = { text, until: 0, shown: -1000, sound: -1000 };
+    notices.set(player.id, n);
+  }
+  n.text = text;
+  n.until = now + CONFIG.NOTICE_TICKS;
+  const showNow = now - n.shown >= CONFIG.NOTICE_REPEAT_TICKS;
+  const soundNow = now - n.sound >= CONFIG.NOTICE_REPEAT_TICKS;
+  if (!showNow && !soundNow) return;
+  if (showNow) n.shown = now;
+  if (soundNow) n.sound = now;
+  system.run(() => {
+    try {
+      if (!player.isValid) return;
+      if (showNow) player.onScreenDisplay.setActionBar(text);
+      if (soundNow) player.playSound("note.bass", { volume: 0.5, pitch: 0.6 });
+    } catch {}
+  });
+}
+
+function promptRole(player) {
+  try {
+    if (!isRunning() || !player?.isValid || getRole(player) || promptPending.has(player.id)) return;
+    promptPending.add(player.id);
+    try { player.addEffect("resistance", CONFIG.PROMPT_GRACE_TICKS, { amplifier: 4, showParticles: false }); } catch {}
+    const takenBreaker = roleTaken(BREAKER, player);
+    const takenBuilder = roleTaken(BUILDER, player);
+    new ActionFormData()
+      .title("TETHERED: CHOOSE ROLE")
+      .body(
+        "Select your role (one player per role):\n\n" +
+        "BREAKER:\n- Mines blocks and fights\n- CANNOT place blocks, fluids, fire or spawn things\n\n" +
+        "BUILDER:\n- Places blocks and fluids\n- CANNOT mine blocks or attack\n\n" +
+        "You are tethered within 15 meters. Until you pick a role you cannot build, mine or fight."
+      )
+      .button(takenBreaker ? "BREAKER (taken)" : "Play as BREAKER")
+      .button(takenBuilder ? "BUILDER (taken)" : "Play as BUILDER")
+      .show(player)
+      .then((res) => {
+        promptPending.delete(player.id);
+        if (!isRunning() || !player.isValid || getRole(player) || res.canceled) return;
+        const role = res.selection === 0 ? BREAKER : BUILDER;
+        if (roleTaken(role, player)) {
+          player.sendMessage("§c[TETHERED] That role is already taken. Pick the other one.");
+          system.runTimeout(() => promptRole(player), 20);
+          return;
+        }
+        setRole(player, role);
+        player.sendMessage(role === BREAKER
+          ? "§a[TETHERED] You are the §lBREAKER§r§a! Mine blocks and protect your Builder."
+          : "§e[TETHERED] You are the §lBUILDER§r§e! Construct and support your Breaker.");
+        player.playSound("random.levelup", { volume: 1, pitch: role === BREAKER ? 1.2 : 1.0 });
+      })
+      .catch(() => promptPending.delete(player.id));
+  } catch {
+    promptPending.delete(player?.id);
+  }
+}
+
+function sweep() {
+  if (!isRunning()) return;
+  for (const p of world.getAllPlayers()) if (!getRole(p)) promptRole(p);
+}
+
+world.beforeEvents.playerInteractWithBlock.subscribe((ev) => {
+  if (!isRunning()) return;
+  const p = ev.player;
+  const id = ev.itemStack?.typeId;
+  if (!id) return;
+  if (!canPlace(p)) {
+    if (!isPlacerItem(id)) return;
+    ev.cancel = true;
+    if (ev.isFirstEvent) notify(p, "§cOnly the Builder can place blocks, fluids, fire or spawn things!");
+    return;
+  }
+  const lighter = id === "minecraft:flint_and_steel" || id === "minecraft:fire_charge";
+  if (id === "minecraft:tnt_minecart" || (lighter && ev.block?.typeId === "minecraft:tnt")) {
+    ev.cancel = true;
+    if (ev.isFirstEvent) notify(p, "§cThe Builder cannot detonate TNT!");
+  }
+});
+
+world.afterEvents.playerPlaceBlock.subscribe((ev) => {
+  if (!isRunning()) return;
+  const p = ev.player;
+  if (canPlace(p)) return;
+  try {
+    const block = ev.block;
+    let refund;
+    try { refund = block.getItemStack(1, true); } catch {}
+    block.setType("minecraft:air");
+    if (refund && p.getGameMode() !== GameMode.Creative) {
+      const left = p.getComponent("minecraft:inventory")?.container?.addItem(refund);
+      if (left) p.dimension.spawnItem(left, p.location);
+    }
+    notify(p, "§cOnly the Builder can place blocks!");
+  } catch {}
+});
+
+world.beforeEvents.playerBreakBlock.subscribe((ev) => {
+  if (!isRunning() || canBreak(ev.player)) return;
+  ev.cancel = true;
+  notify(ev.player, "§cOnly the Breaker can break blocks!");
+});
+
+world.beforeEvents.entityHurt.subscribe((ev) => {
+  if (!isRunning()) return;
+  const attacker = ev.damageSource?.damagingEntity;
+  if (attacker?.typeId !== "minecraft:player" || attacker.id === ev.hurtEntity?.id || canAttack(attacker)) return;
+  ev.cancel = true;
+  notify(attacker, "§cOnly the Breaker can attack!");
+});
+
+const DUMMY_TAG = "tethered_test_dummy";
+
+function dummyValid() {
+  try { return !!dummy && dummy.isValid; } catch { return false; }
+}
+
+function removeDummy(player) {
+  try { if (dummyValid()) dummy.remove(); } catch {}
+  try {
+    for (const e of player?.dimension?.getEntities({ tags: [DUMMY_TAG] }) ?? []) {
+      try { e.remove(); } catch {}
+    }
+  } catch {}
+  dummy = null;
+  pairDirty = true;
+}
+
+function spawnDummy(player) {
+  removeDummy(player);
+  try {
+    const l = player.location;
+    const d = player.dimension.spawnEntity(CONFIG.DUMMY_ENTITY, { x: l.x + 2, y: l.y, z: l.z });
+    d.nameTag = "Test Dummy";
+    d.addTag(DUMMY_TAG);
+    dummy = d;
+    pairDirty = true;
+    player.sendMessage(isRunning()
+      ? "§a[TETHERED] Test Dummy spawned. Pick a role and you are leashed to it."
+      : "§a[TETHERED] Test Dummy spawned. Press Start, pick a role, and you are leashed to it.");
+  } catch {
+    player.sendMessage("§c[TETHERED] The Test Dummy could not be spawned here.");
+  }
+}
+
+function toggleDummy(player) {
+  if (dummyValid()) {
+    removeDummy(player);
+    player.sendMessage("§e[TETHERED] Test Dummy removed.");
+  } else {
+    spawnDummy(player);
+  }
+}
+
+function recall(a, b) {
+  if (a === dummy) safeTeleport(a, b);
+  else safeTeleport(b, a);
+}
+
+function computePair() {
+  let breaker;
+  let builder;
+  for (const p of world.getAllPlayers()) {
+    if (!p.isValid) continue;
+    const r = getRole(p);
+    if (r === BREAKER && !breaker) breaker = p;
+    else if (r === BUILDER && !builder) builder = p;
+  }
+  if (breaker && builder) return { breaker, builder };
+  if (dummyValid()) {
+    if (breaker) return { breaker, builder: dummy };
+    if (builder) return { breaker: dummy, builder };
+  }
+  return null;
+}
+
+function getPair() {
+  if (!pairDirty && (pair === null || (pair.breaker.isValid && pair.builder.isValid))) return pair;
+  pairDirty = false;
+  pair = computePair();
+  return pair;
+}
+
+function mode(p) {
+  try { return p.getGameMode(); } catch { return GameMode.Survival; }
+}
+
+function isAlive(p) {
+  try {
+    const h = p.getComponent("minecraft:health");
+    return !h || h.currentValue > 0;
+  } catch { return false; }
+}
+
+function hud(p, text) {
+  if (p.typeId !== "minecraft:player") return;
+  const now = system.currentTick;
+  const n = notices.get(p.id);
+  const out = n && n.until > now ? n.text : text;
+  let s = hudState.get(p.id);
+  if (s === undefined) {
+    s = { text: "", tick: -1000 };
+    hudState.set(p.id, s);
+  }
+  if (s.text === out && now - s.tick < CONFIG.HUD_REFRESH_TICKS) return;
+  s.text = out;
+  s.tick = now;
+  try { p.onScreenDisplay.setActionBar(out); } catch {}
+}
+
+function resetTether() {
+  tether.dimTicks = 0;
+  tether.farTicks = 0;
+  tether.strainTicks = 0;
+  tether.soundCd = 0;
+  tether.beamCd = 0;
+  tether.key = -1;
+}
+
+function safeTeleport(p, target) {
+  const dest = { x: target.location.x, y: target.location.y, z: target.location.z };
+  try {
+    p.teleport(dest, { dimension: target.dimension, checkForBlocks: true });
+  } catch {
+    try { p.teleport(dest, { dimension: target.dimension }); } catch {}
+  }
+}
+
+function renderBeam(dim, a, b, dist, particle) {
+  const steps = Math.min(CONFIG.MAX_BEAM_PARTICLES, Math.max(2, Math.floor(dist / CONFIG.BEAM_SPACING)));
+  const sx = (b.x - a.x) / steps;
+  const sy = (b.y - a.y) / steps;
+  const sz = (b.z - a.z) / steps;
+  try {
+    for (let i = 1; i < steps; i++) {
+      beamPos.x = a.x + sx * i;
+      beamPos.y = a.y + 1.1 + sy * i;
+      beamPos.z = a.z + sz * i;
+      dim.spawnParticle(particle, beamPos);
+    }
+  } catch {}
+}
+
+function pull(p, dx, dz, up, strength) {
+  const m = mode(p);
+  if (m === GameMode.Creative || m === GameMode.Spectator) return;
+  kb.x = dx * strength;
+  kb.z = dz * strength;
+  const v = up > 0 ? Math.min(CONFIG.MAX_VPULL, up * strength) : 0;
+  try { p.applyKnockback(kb, v); } catch {}
+}
+
+function tpTo(p, x, y, z) {
+  const dest = { x, y, z };
+  try {
+    p.teleport(dest, { dimension: p.dimension, checkForBlocks: true });
+  } catch {
+    try { p.teleport(dest, { dimension: p.dimension }); } catch {}
+  }
+}
+
+function clampRope(A, B, la, lb, dist) {
+  const cA = mode(A) === GameMode.Creative;
+  const cB = mode(B) === GameMode.Creative;
+  if (cA && cB) return;
+  const ancA = anchored(A);
+  const ancB = anchored(B);
+  let wa = 0.5;
+  if (cA || (ancA && !ancB)) wa = 0;
+  else if (cB || (ancB && !ancA)) wa = 1;
+  const wb = 1 - wa;
+  const f = (dist - CONFIG.ROPE_LIMIT) / dist;
+  const mx = (lb.x - la.x) * f;
+  const my = (lb.y - la.y) * f;
+  const mz = (lb.z - la.z) * f;
+  if (wa > 0) tpTo(A, la.x + mx * wa, la.y + my * wa, la.z + mz * wa);
+  if (wb > 0) tpTo(B, lb.x - mx * wb, lb.y - my * wb, lb.z - mz * wb);
+}
+
+function anchored(p) {
+  try { return p.isOnGround || p.isInWater || p.isClimbing; } catch { return false; }
+}
+
+function strain(p) {
+  try {
+    const h = p.getComponent("minecraft:health");
+    if (!h || h.currentValue - CONFIG.STRAIN_DAMAGE < CONFIG.STRAIN_MIN_HEALTH) return;
+    p.applyDamage(CONFIG.STRAIN_DAMAGE, { cause: EntityDamageCause.contact });
+    p.playSound("random.break", { volume: 0.9, pitch: 1.1 });
+  } catch {}
+}
+
+function leashText(level, d) {
+  if (level === 0) return `§a[LEASH: SLACK] §fDistance: ${d}m`;
+  if (level === 1) return `§e[LEASH: TENSE] §fDistance: ${d}m`;
+  if (level === 2) return `§6[LEASH: OVERSTRETCHED] §fDistance: ${d}m`;
+  return `§c[LEASH: STRAINED] §fDistance: ${d}m! Damage incoming`;
+}
+
+function waitForPartner(step) {
+  resetTether();
+  tether.waitCd += step;
+  if (tether.waitCd < CONFIG.WAIT_HUD_TICKS) return;
+  tether.waitCd = 0;
+  for (const p of world.getAllPlayers()) if (getRole(p)) hud(p, WAIT_TEXT);
+}
+
+function tick() {
+  if (!isRunning()) return;
+  const step = CONFIG.TICK_STEP;
+  const pr = getPair();
+  if (!pr) { waitForPartner(step); return; }
+  const { breaker: A, builder: B } = pr;
+
+  if (!isAlive(A) || !isAlive(B)) { resetTether(); return; }
+  if (mode(A) === GameMode.Spectator || mode(B) === GameMode.Spectator) {
+    hud(A, "§7[LEASH: PAUSED] §fSpectator");
+    hud(B, "§7[LEASH: PAUSED] §fSpectator");
+    resetTether();
+    return;
+  }
+
+  if (A.dimension.id !== B.dimension.id) {
+    tether.dimTicks += step;
+    const left = Math.max(0, Math.ceil((CONFIG.DIMENSION_RECALL_TICKS - tether.dimTicks) / 20));
+    const text = `§c[LEASH: STRETCHED ACROSS DIMENSIONS] §fFollow your partner! Recall in ${left}s`;
+    hud(A, text);
+    hud(B, text);
+    if (tether.dimTicks >= CONFIG.DIMENSION_RECALL_TICKS) {
+      recall(A, B);
+      tether.dimTicks = 0;
+    }
+    return;
+  }
+  tether.dimTicks = 0;
+
+  const la = A.location;
+  const lb = B.location;
+  const dx = lb.x - la.x;
+  const dy = lb.y - la.y;
+  const dz = lb.z - la.z;
+  const d2 = dx * dx + dy * dy + dz * dz;
+
+  if (d2 > RECALL_SQ) {
+    tether.farTicks += step;
+    tether.strainTicks = 0;
+    const left = Math.max(0, Math.ceil((CONFIG.RECALL_TICKS - tether.farTicks) / 20));
+    const text = `§c[LEASH: SNAPPED] §f${Math.floor(Math.sqrt(d2))}m apart. Recall in ${left}s`;
+    hud(A, text);
+    hud(B, text);
+    tether.key = -1;
+    if (tether.farTicks >= CONFIG.RECALL_TICKS) {
+      recall(A, B);
+      tether.farTicks = 0;
+    }
+    return;
+  }
+  tether.farTicks = 0;
+
+  let level = 0;
+  if (d2 > DAMAGE_SQ) level = 3;
+  else if (d2 > MAX_SQ) level = 2;
+  else if (d2 >= TENSE_SQ) level = 1;
+
+  const dist = Math.sqrt(d2);
+  const half = Math.round(dist * 2);
+  const key = level * 10000 + half;
+  if (key !== tether.key) {
+    tether.key = key;
+    tether.text = leashText(level, (half / 2).toFixed(1));
+  }
+
+  tether.beamCd += step;
+  if (tether.beamCd >= CONFIG.BEAM_INTERVAL_TICKS) {
+    tether.beamCd = 0;
+    if (d2 >= BEAM_MIN_SQ) renderBeam(A.dimension, la, lb, dist, PARTICLES[level]);
+  }
+  hud(A, tether.text);
+  hud(B, tether.text);
+  if (d2 > ROPE_SQ) clampRope(A, B, la, lb, dist);
+
+  if (level < 2) {
+    tether.strainTicks = 0;
+    tether.soundCd = 0;
+    return;
+  }
+
+  const hd = Math.sqrt(dx * dx + dz * dz);
+  const ux = hd > 0.01 ? dx / hd : 0;
+  const uz = hd > 0.01 ? dz / hd : 0;
+  const vy = dy / dist;
+  const s = Math.min(CONFIG.MAX_PULL, 0.2 + (dist - CONFIG.MAX_TETHER_DISTANCE) * 0.1);
+  const anchorA = anchored(A);
+  const anchorB = anchored(B);
+  if (anchorA && !anchorB) pull(B, -ux, -uz, -vy, s);
+  else if (anchorB && !anchorA) pull(A, ux, uz, vy, s);
+  else {
+    pull(A, ux, uz, vy, s * 0.6);
+    pull(B, -ux, -uz, -vy, s * 0.6);
+  }
+
+  tether.soundCd += step;
+  if (tether.soundCd >= 16) {
+    tether.soundCd = 0;
+    try { A.playSound("note.bass", { volume: 0.8, pitch: 0.5 }); } catch {}
+    try { B.playSound("note.bass", { volume: 0.8, pitch: 0.5 }); } catch {}
+  }
+
+  if (level === 2) {
+    tether.strainTicks = 0;
+    return;
+  }
+  tether.strainTicks += step;
+  const over = tether.strainTicks - CONFIG.STRAIN_GRACE_TICKS;
+  if (over >= 0 && over % CONFIG.STRAIN_INTERVAL_TICKS < step) {
+    strain(A);
+    strain(B);
+  }
+}
+
+function syncLoops() {
+  if (isRunning()) {
+    if (tickId === undefined) tickId = system.runInterval(tick, CONFIG.TICK_STEP);
+    if (sweepId === undefined) sweepId = system.runInterval(sweep, CONFIG.PROMPT_SWEEP_TICKS);
+    return;
+  }
+  if (tickId !== undefined) {
+    system.clearRun(tickId);
+    tickId = undefined;
+  }
+  if (sweepId !== undefined) {
+    system.clearRun(sweepId);
+    sweepId = undefined;
+  }
+  pair = null;
+  hudState.clear();
+  resetTether();
+  tether.waitCd = 0;
+}
+
+onStateChange(() => {
+  pairDirty = true;
+  syncLoops();
+});
+system.run(syncLoops);
+
+world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
+  pairDirty = true;
+  if (initialSpawn) roles.delete(player.id);
+  if (!isRunning()) return;
+  if (initialSpawn) {
+    if (!getRole(player)) system.runTimeout(() => promptRole(player), 40);
+    return;
+  }
+  system.runTimeout(() => {
+    try {
+      if (!isRunning() || !player.isValid) return;
+      if (!getRole(player)) { promptRole(player); return; }
+      const pr = getPair();
+      if (!pr || (player.id !== pr.breaker.id && player.id !== pr.builder.id)) return;
+      const partner = player.id === pr.breaker.id ? pr.builder : pr.breaker;
+      if (!partner.isValid || !isAlive(partner)) return;
+      safeTeleport(player, partner);
+      player.addEffect("resistance", CONFIG.RESPAWN_GRACE_TICKS, { amplifier: 4, showParticles: false });
+      player.addEffect("regeneration", CONFIG.RESPAWN_GRACE_TICKS, { amplifier: 1, showParticles: false });
+      player.sendMessage("§a[TETHERED] You respawned and re-anchored to your partner!");
+      if (partner.typeId === "minecraft:player") partner.sendMessage(`§a[TETHERED] ${player.name} respawned at your position.`);
+    } catch {}
+  }, CONFIG.RESPAWN_DELAY_TICKS);
+});
+
+world.afterEvents.playerLeave.subscribe(({ playerId }) => {
+  notices.delete(playerId);
+  hudState.delete(playerId);
+  roles.delete(playerId);
+  promptPending.delete(playerId);
+  pairDirty = true;
+});
+
+world.afterEvents.entityDie.subscribe(({ deadEntity }) => {
+  if (!isRunning() || deadEntity?.typeId !== "minecraft:ender_dragon") return;
+  world.sendMessage("§6[TETHERED] The Ender Dragon has fallen. The tethered pair wins!");
+  endGame();
+});
+
+function resolveTarget(ev) {
+  if (ev.sourceEntity?.typeId === "minecraft:player") return ev.sourceEntity;
+  const name = ev.message?.trim();
+  return name ? world.getAllPlayers().find((p) => p.name === name) : undefined;
+}
+
+function forceRole(target, role) {
+  for (const o of world.getAllPlayers()) if (o.id !== target.id && getRole(o) === role) setRole(o, undefined);
+  setRole(target, role);
+  target.sendMessage(`§a[TETHERED] Assigned to role: ${role.toUpperCase()}.`);
+}
+
+system.afterEvents.scriptEventReceive.subscribe((ev) => {
+  if (ev.id === "tether:dummy") {
+    if (ev.sourceEntity?.typeId === "minecraft:player") toggleDummy(ev.sourceEntity);
+    return;
+  }
+  if (!isRunning()) return;
+  if (ev.id === "tether:reset") {
+    for (const p of world.getAllPlayers()) setRole(p, undefined);
+    world.sendMessage("§c[TETHERED] All roles have been reset.");
+  } else if (ev.id === "tether:swap") {
+    const pr = getPair();
+    if (!pr) return;
+    setRole(pr.breaker, BUILDER);
+    setRole(pr.builder, BREAKER);
+    world.sendMessage("§e[TETHERED] Roles swapped.");
+  } else if (ev.id === "tether:breaker" || ev.id === "tether:builder") {
+    const target = resolveTarget(ev);
+    if (!target) return;
+    forceRole(target, ev.id === "tether:breaker" ? BREAKER : BUILDER);
+  }
+});
+
+registerController({
+  title: "Tethered: Breaker and Builder",
+  gameInfo: "Type: Co-op challenge\nPlayers: 2 (one Breaker, one Builder)\nGoal: Defeat the Ender Dragon together while tethered within 15 meters.",
+  howToPlay: "Goal: Defeat the Ender Dragon as a pair.\nRoles: The Breaker mines and fights but cannot place anything. The Builder places blocks and fluids but cannot mine or attack.\nLeash: Stay within 15 meters. Beyond that you are pulled together, and beyond 18 meters you take strain damage.\nHow it ends: The Ender Dragon dies, or an operator uses the end game function.",
+  extras: [{
+    label: () => (dummyValid() ? "Remove Test Dummy (testing only)" : "Spawn Test Dummy (testing only)"),
+    run: (player) => toggleDummy(player)
+  }],
+  onStart: () => {
+    resetTether();
+    for (const p of world.getAllPlayers()) {
+      setRole(p, undefined);
+      promptRole(p);
+    }
+    world.sendMessage("§a[TETHERED] The challenge has started. Choose your roles.");
+  },
+  onEnd: () => {
+    removeDummy();
+    resetTether();
+    notices.clear();
+    hudState.clear();
+    for (const p of world.getAllPlayers()) setRole(p, undefined);
+    world.sendMessage("§c[TETHERED] The challenge has ended. Restrictions are lifted.");
+  }
+});
+```
+
+## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/CHANGELOG.md (67 lines, 4078 bytes)
+
+```
+# Changelog — Tethered: Breaker and Builder
+
+---
+
+## [v3] - 2026-11-20 - Leash Limit
+
+### Improved & Balanced
+- **Rope limit**: The tether is now 10 meters long. Partners can no longer get farther apart than that, including straight up or down, so building or flying away from your partner pulls you back.
+- **Tension**: You feel tension from 6 meters and are pulled toward your partner beyond 8 meters. The pull now works up and down as well. Strain damage starts beyond 9 meters.
+- **Leash look**: The beam is now a brown leash-style line that keeps the same color at every distance. The on-screen display still shows the four distance states.
+- **Own beam particle**: The beam no longer uses the built-in flame, spark and happy particles, so it needs no extra particle variables.
+
+## [2.0.1] - 2026-11-20 - Test Dummy
+
+### Added
+- **Test Dummy**: The Controller has a new Spawn Test Dummy option for testing alone. It places a stand-in partner next to you that you are leashed to once you pick a role. Removing it, or ending the challenge, takes it away. A real partner who picks the other role replaces it.
+
+## [v2] - 2026-11-14
+
+**What's new in v1.12.1:** Packed with the v1.12.1 update. Includes: Performance and Stability.
+
+### Added
+
+- **Waiting for partner**: If your partner leaves or has not chosen a role yet, the screen says you are waiting and the leash timers pause.
+- **Role menu protection**: Players are protected for five seconds while the role menu is open.
+
+### Improved & Balanced
+
+- **Smoother gameplay**: The leash, restrictions and on-screen display do far less work, which cuts lag, especially on phones and busy worlds.
+- **Lighter beam**: The leash beam is drawn less often with fewer particles, and is hidden when partners are very close.
+- **Steadier on-screen display**: The leash distance is shown in half-meter steps and only refreshes when it changes.
+- **No cost between games**: The pack does no leash work until a challenge is started and stops when it ends.
+
+### Fixed
+
+- **Restriction messages**: Messages explaining blocked actions now appear right away, even before both roles are chosen.
+- **Controller after respawn**: The host or an operator gets the Controller back after respawning when no challenge is running.
+
+## [1.12.0] - 2026-10-29
+
+### Improved & Balanced
+
+- **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.
+
+## [1.7.0] - 2026-10-27
+
+### Added
+- **Controller**: The host or an operator starts the challenge from the ALNStudios Controller. Roles and the leash are active only while the challenge is running.
+- **Win condition**: Defeating the Ender Dragon ends the challenge.
+- **Recall**: Partners who stay more than 64 blocks apart, or in different dimensions, are brought together.
+
+### Improved & Balanced
+- **Role choice**: Each role can be held by one player. Players without a role cannot build, mine or fight, and are asked again until they choose.
+- **Breaker limits**: Spawn eggs, boats, minecarts, armor stands, item frames, paintings, end crystals and bone meal are now blocked along with buckets and fire. Anything placed anyway is removed and returned.
+- **Builder limits**: Builders can no longer hurt anything with bows, tridents or thrown items, or set off TNT.
+- **Gentler leash**: The pull is weaker and stays horizontal. Strain damage starts after 3 seconds and never takes you below one heart. Creative and spectator players are not pulled.
+
+### Fixed
+- **Pack failed to work**: The pack stopped working after the role menu in current versions of Minecraft. The leash, restrictions and respawn support now work.
+- **Role cheating**: Closing the role menu no longer removes restrictions, and roles cannot be changed with the tag command.
+- **Lag from distant partners**: Very distant partners no longer cause lag from beam particles.
+- **Joining**: Joining the world no longer teleports you to your partner.
+- **Restriction messages**: Messages explaining blocked actions now stay on screen.
+- **Description**: Removed the claim that the Builder has exclusive crafting.
+```
+
+## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/DESCRIPTION.md (73 lines, 3875 bytes)
+
+```
+# Tethered: Breaker and Builder — Two-Player Co-op Challenge
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+Work together as a mining-and-combat partner and a building specialist while an elastic tether keeps you close. Tethered: Breaker and Builder divides survival abilities between two players, making teamwork essential.
+
+## Overview
+
+Two players share a 10-meter tether. The Breaker handles mining and combat but cannot place blocks or fluids.
+
+## Key Features
+
+### Asymmetric Roles
+- **What Happens**: Each player chooses Breaker or Builder when the challenge starts.
+
+### Elastic Tether
+- **What Happens**: Partners feel tension from 6 meters and are pulled toward each other beyond 8 meters, including up and down. They can never get more than 10 meters apart, and strain damage applies beyond 9 meters after a short grace period.
+
+### Tension Feedback
+- **What Happens**: A particle beam, sound cues and an on-screen display show four distance states: slack, tense, overstretched and strained.
+
+### Recall
+- **What Happens**: Partners who are very far apart or in different dimensions for too long are brought back together.
+
+### Respawn Support
+- **What Happens**: A partner who dies respawns beside the survivor with temporary protection.
+
+### Controller
+- **What Happens**: The host or an operator uses the ALNStudios Controller to start the challenge, read the rules and, for solo testing, spawn a Test Dummy partner to be leashed to.
+
+## How to Use
+
+1. Import and enable the pack in a Minecraft Bedrock world.
+2. The host or an operator uses the Controller and chooses Start.
+3. Each player picks a role from the menu.
+4. The Breaker gathers and defends while the Builder constructs. Stay within the leash range.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.26.40 or newer
+- Experimental features: No experiment requirement detected in the inspected files.
+- Achievements: Likely achievement-friendly. Operator commands require cheats, which disables achievements.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock co-op challenge, Tethered Breaker and Builder, asymmetric two-player survival, Minecraft tether, cooperative mining and building, multiplayer survival minigame, Minecraft PE challenge, MCPEDL, CurseForge Bedrock, ALNStudios, Minecraft Bedrock add-on, MCPEDL add-on.
+```
+
+## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/project.json (2 lines, 61 bytes)
+
+```
+{"type": "minigame", "name": "Tethered Breaker and Builder"}
+```
+
+## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/README.md (19 lines, 866 bytes)
+
+```
+# Tethered Breaker and Builder
+
+Download the current release of **Tethered Breaker and Builder** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download Tethered Breaker and Builder (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/TetheredBuilder%20V3.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Minigame/Tethered-Breaker-And-Builder/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/resource_pack/manifest.json (37 lines, 626 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Tethered Breaker and Builder (v3)",
+    "description": "Controller icon for the Tethered challenge. by ALNStudios",
+    "uuid": "f3a1c7e2-6b84-4d19-9a52-0c7e5d8b1a36",
+    "version": [
+      3,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      40
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "8c2e94d7-1f60-4b3a-a7d5-39e0b6c4f812",
+      "version": [
+        3,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "3.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/resource_pack/particles/tether_leash.json (42 lines, 1066 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "tether:leash_beam",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/particles"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_expression": {
+        "activation_expression": 1,
+        "expiration_expression": 0
+      },
+      "minecraft:emitter_shape_sphere": {
+        "radius": 0.01,
+        "direction": [0, 0, 0]
+      },
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.3
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [0.09, 0.09],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 128,
+          "texture_height": 128,
+          "uv": [0, 16],
+          "uv_size": [8, 8]
+        }
+      },
+      "minecraft:particle_appearance_tinting": {
+        "color": [0.545, 0.353, 0.169, 1.0]
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/resource_pack/textures/item_texture.json (10 lines, 176 bytes)
+
+```
+{
+  "resource_pack_name": "allenscreations",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "controller": {
+      "textures": "textures/items/controller"
+    }
+  }
+}
+```

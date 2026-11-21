@@ -1,0 +1,578 @@
+<!-- GRAPH-CONTEXT:START -->
+## Graph Context
+
+- **Project:** `Immortal-Pets` | Category: `Addons` | Version: `v2`
+- **Pack Types:** behavior_pack
+- **Siblings in Addons:** `2-in-1-Loot--XP-Booster (v2)` (v2), `ALN-MoreDiscs (v2)` (v2), `ALN-Pointer (v2)` (v2), `ALN-Quiver (v2)` (v2), `ALN-Wireless-Headphones (v2)` (v2), `Category: Addons`, `Cheat-Stick (v4)` (v4), `Copper-Carrier-Logistics (v2)` (v2) …
+
+> _Auto-generated from graphify-out/graph.json — do not edit manually._
+<!-- GRAPH-CONTEXT:END -->
+
+---
+
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Addons/Immortal-Pets`
+- **Destination:** `MCPEDL/Addons/Immortal-Pets`
+- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/Immortal-Pets/CHANGELOG.md`)
+- **Text files:** 16
+- **Skipped binary:** 0
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Addons/Immortal-Pets/behavior_pack/functions/immortalpets/protect_pet.mcfunction`
+- `MCPEDL/Addons/Immortal-Pets/behavior_pack/manifest.json`
+- `MCPEDL/Addons/Immortal-Pets/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/Immortal-Pets/behavior_pack/subpacks/all/items/mode_all.json`
+- `MCPEDL/Addons/Immortal-Pets/behavior_pack/subpacks/cat/items/mode_cat.json`
+- `MCPEDL/Addons/Immortal-Pets/behavior_pack/subpacks/donkey/items/mode_donkey.json`
+- `MCPEDL/Addons/Immortal-Pets/behavior_pack/subpacks/horse/items/mode_horse.json`
+- `MCPEDL/Addons/Immortal-Pets/behavior_pack/subpacks/llamas/items/mode_llamas.json`
+- `MCPEDL/Addons/Immortal-Pets/behavior_pack/subpacks/mule/items/mode_mule.json`
+- `MCPEDL/Addons/Immortal-Pets/behavior_pack/subpacks/parrot/items/mode_parrot.json`
+- `MCPEDL/Addons/Immortal-Pets/behavior_pack/subpacks/skeleton_horse/items/mode_skeleton_horse.json`
+- `MCPEDL/Addons/Immortal-Pets/behavior_pack/subpacks/wolf/items/mode_wolf.json`
+- `MCPEDL/Addons/Immortal-Pets/behavior_pack/subpacks/zombie_horse/items/mode_zombie_horse.json`
+- `MCPEDL/Addons/Immortal-Pets/CHANGELOG.md`
+- `MCPEDL/Addons/Immortal-Pets/DESCRIPTION.md`
+- `MCPEDL/Addons/Immortal-Pets/README.md`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Addons/Immortal-Pets
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`.
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Addons/Immortal-Pets/behavior_pack/functions/immortalpets/protect_pet.mcfunction (4 lines, 207 bytes)
+
+```
+effect @e[tag=immortalpets:protected] resistance infinite 255 true
+effect @e[tag=immortalpets:protected] fire_resistance infinite 0 true
+effect @e[tag=immortalpets:protected] water_breathing infinite 0 true
+```
+
+## FILE: MCPEDL/Addons/Immortal-Pets/behavior_pack/manifest.json (97 lines, 1926 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Immortal Pets (v2)",
+    "description": "Instant protection for selected tamed cats, wolves, parrots, horses, donkeys, mules, skeleton horses, zombie horses, and llamas. Includes persistent effect recovery and the exact-case EID exception. by ALNStudios",
+    "uuid": "de3f20ae-29fe-43a6-942a-e092aad5ae02",
+    "version": [
+      2,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "af67632c-4012-456a-8a9e-55c4d34063a4",
+      "version": [
+        2,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.13.0"
+    }
+  ],
+  "subpacks": [
+    {
+      "folder_name": "cat",
+      "name": "1 - Cat",
+      "memory_tier": 1
+    },
+    {
+      "folder_name": "wolf",
+      "name": "2 - Wolf",
+      "memory_tier": 2
+    },
+    {
+      "folder_name": "parrot",
+      "name": "3 - Parrot",
+      "memory_tier": 3
+    },
+    {
+      "folder_name": "horse",
+      "name": "4 - Horse",
+      "memory_tier": 4
+    },
+    {
+      "folder_name": "donkey",
+      "name": "5 - Donkey",
+      "memory_tier": 5
+    },
+    {
+      "folder_name": "mule",
+      "name": "6 - Mule",
+      "memory_tier": 6
+    },
+    {
+      "folder_name": "skeleton_horse",
+      "name": "7 - Skeleton Horse",
+      "memory_tier": 7
+    },
+    {
+      "folder_name": "zombie_horse",
+      "name": "8 - Zombie Horse",
+      "memory_tier": 8
+    },
+    {
+      "folder_name": "all",
+      "name": "9 - All Supported Pets",
+      "memory_tier": 9
+    },
+    {
+      "folder_name": "llamas",
+      "name": "10 - Llamas",
+      "memory_tier": 10
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "2.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Immortal-Pets/behavior_pack/scripts/main.js (194 lines, 4178 bytes)
+
+```
+import { world, system, ItemTypes } from "@minecraft/server";
+
+const MARKER_PREFIX = "immortalpets:mode_";
+const STORAGE_KEY = "immortalpets:selected_mode";
+const PROTECTED_TAG = "immortalpets:protected";
+const TRIGGER_NAME = "EID";
+const DIMENSIONS = ["overworld", "nether", "the_end"];
+const FALLBACK_INTERVAL = 200;
+
+const TARGETS = {
+  cat: ["minecraft:cat"],
+  wolf: ["minecraft:wolf"],
+  parrot: ["minecraft:parrot"],
+  horse: ["minecraft:horse"],
+  donkey: ["minecraft:donkey"],
+  mule: ["minecraft:mule"],
+  skeleton_horse: ["minecraft:skeleton_horse"],
+  zombie_horse: ["minecraft:zombie_horse"],
+  llamas: ["minecraft:llama", "minecraft:trader_llama"],
+  all: [
+    "minecraft:cat",
+    "minecraft:wolf",
+    "minecraft:parrot",
+    "minecraft:horse",
+    "minecraft:donkey",
+    "minecraft:mule",
+    "minecraft:skeleton_horse",
+    "minecraft:zombie_horse",
+    "minecraft:llama",
+    "minecraft:trader_llama"
+  ]
+};
+
+const CLEARED_EFFECTS = ["poison", "fatal_poison"];
+
+let activeTypes = null;
+let activeSet = null;
+
+function readSavedMode() {
+  try {
+    const saved = world.getDynamicProperty(STORAGE_KEY);
+    if (typeof saved === "string" && TARGETS[saved]) return saved;
+  } catch {}
+  return null;
+}
+
+function saveMode(mode) {
+  try {
+    if (world.getDynamicProperty(STORAGE_KEY) !== mode) {
+      world.setDynamicProperty(STORAGE_KEY, mode);
+    }
+  } catch {}
+}
+
+function applyMode(mode) {
+  activeTypes = TARGETS[mode];
+  activeSet = new Set(activeTypes);
+}
+
+function resolveMode() {
+  if (activeTypes) return;
+
+  let found = [];
+  try {
+    found = Object.keys(TARGETS).filter((mode) =>
+      ItemTypes.get(MARKER_PREFIX + mode)
+    );
+  } catch {}
+
+  if (found.length === 1) {
+    saveMode(found[0]);
+    applyMode(found[0]);
+    return;
+  }
+
+  applyMode(readSavedMode() || "all");
+}
+
+function isSelectedTamedPet(entity) {
+  if (!activeSet || !activeSet.has(entity.typeId)) return false;
+  try {
+    return !!entity.getComponent("minecraft:is_tamed");
+  } catch {
+    return false;
+  }
+}
+
+function runProtectionFunction(entity) {
+  try {
+    entity.dimension.runCommand("function immortalpets/protect_pet");
+  } catch {}
+}
+
+function clearPoison(entity) {
+  for (const effect of CLEARED_EFFECTS) {
+    try {
+      entity.removeEffect(effect);
+    } catch {}
+  }
+}
+
+function restoreHealth(entity) {
+  try {
+    const health = entity.getComponent("minecraft:health");
+    if (health && health.currentValue < health.effectiveMax) {
+      health.resetToMaxValue();
+    }
+  } catch {}
+}
+
+function registerPet(entity, applyEffects = true) {
+  if (!isSelectedTamedPet(entity)) return false;
+
+  if (entity.nameTag === TRIGGER_NAME) {
+    try {
+      entity.kill();
+    } catch {}
+    return false;
+  }
+
+  try {
+    if (!entity.hasTag(PROTECTED_TAG)) entity.addTag(PROTECTED_TAG);
+  } catch {}
+
+  clearPoison(entity);
+  if (applyEffects) runProtectionFunction(entity);
+  return true;
+}
+
+function handleDamage(entity) {
+  if (!registerPet(entity)) return;
+  restoreHealth(entity);
+}
+
+world.afterEvents.entityTamed.subscribe((event) => {
+  try {
+    resolveMode();
+    registerPet(event.entity);
+  } catch {}
+});
+
+world.afterEvents.entitySpawn.subscribe((event) => {
+  try {
+    resolveMode();
+    registerPet(event.entity);
+  } catch {}
+});
+
+world.afterEvents.entityHurt.subscribe((event) => {
+  try {
+    resolveMode();
+    handleDamage(event.hurtEntity);
+  } catch {}
+});
+
+function scanForExistingPets() {
+  resolveMode();
+
+  for (const dimId of DIMENSIONS) {
+    let dimension;
+    try {
+      dimension = world.getDimension(dimId);
+    } catch {
+      continue;
+    }
+
+    let hasProtectedPet = false;
+
+    for (const type of activeTypes) {
+      let entities;
+      try {
+        entities = dimension.getEntities({ type });
+      } catch {
+        continue;
+      }
+
+      for (const entity of entities) {
+        try {
+          if (registerPet(entity, false)) hasProtectedPet = true;
+        } catch {}
+      }
+    }
+
+    if (hasProtectedPet) {
+      try {
+        dimension.runCommand("function immortalpets/protect_pet");
+      } catch {}
+    }
+  }
+}
+
+system.runTimeout(scanForExistingPets, 1);
+system.runInterval(scanForExistingPets, FALLBACK_INTERVAL);
+```
+
+## FILE: MCPEDL/Addons/Immortal-Pets/behavior_pack/subpacks/all/items/mode_all.json (2 lines, 153 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"immortalpets:mode_all","menu_category":{"category":"none"}},"components":{}}}
+```
+
+## FILE: MCPEDL/Addons/Immortal-Pets/behavior_pack/subpacks/cat/items/mode_cat.json (2 lines, 153 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"immortalpets:mode_cat","menu_category":{"category":"none"}},"components":{}}}
+```
+
+## FILE: MCPEDL/Addons/Immortal-Pets/behavior_pack/subpacks/donkey/items/mode_donkey.json (2 lines, 156 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"immortalpets:mode_donkey","menu_category":{"category":"none"}},"components":{}}}
+```
+
+## FILE: MCPEDL/Addons/Immortal-Pets/behavior_pack/subpacks/horse/items/mode_horse.json (2 lines, 155 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"immortalpets:mode_horse","menu_category":{"category":"none"}},"components":{}}}
+```
+
+## FILE: MCPEDL/Addons/Immortal-Pets/behavior_pack/subpacks/llamas/items/mode_llamas.json (2 lines, 156 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"immortalpets:mode_llamas","menu_category":{"category":"none"}},"components":{}}}
+```
+
+## FILE: MCPEDL/Addons/Immortal-Pets/behavior_pack/subpacks/mule/items/mode_mule.json (2 lines, 154 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"immortalpets:mode_mule","menu_category":{"category":"none"}},"components":{}}}
+```
+
+## FILE: MCPEDL/Addons/Immortal-Pets/behavior_pack/subpacks/parrot/items/mode_parrot.json (2 lines, 156 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"immortalpets:mode_parrot","menu_category":{"category":"none"}},"components":{}}}
+```
+
+## FILE: MCPEDL/Addons/Immortal-Pets/behavior_pack/subpacks/skeleton_horse/items/mode_skeleton_horse.json (2 lines, 164 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"immortalpets:mode_skeleton_horse","menu_category":{"category":"none"}},"components":{}}}
+```
+
+## FILE: MCPEDL/Addons/Immortal-Pets/behavior_pack/subpacks/wolf/items/mode_wolf.json (2 lines, 154 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"immortalpets:mode_wolf","menu_category":{"category":"none"}},"components":{}}}
+```
+
+## FILE: MCPEDL/Addons/Immortal-Pets/behavior_pack/subpacks/zombie_horse/items/mode_zombie_horse.json (2 lines, 162 bytes)
+
+```
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"immortalpets:mode_zombie_horse","menu_category":{"category":"none"}},"components":{}}}
+```
+
+## FILE: MCPEDL/Addons/Immortal-Pets/CHANGELOG.md (23 lines, 717 bytes)
+
+```
+# Changelog — Immortal Pets
+
+---
+
+## [v2] - 2026-11-12
+
+**What's new in v1.10.1:** Packed with the v1.10.1 update. Includes: Description and Code Cleanup.
+
+### Improved & Balanced
+
+- **Streamlined damage checks**: Hurt pets now go through one protection pass, with the same poison removal and health recovery as before.
+- **Clearer description page**: The description now follows the standard layout, with a new How to Use section listing every protection mode.
+
+### Fixed
+
+- **MCPEDL profile link**: The MCPEDL profile link on the description page now points to the correct profile.
+
+## [1.10.0] - 2026-10-29
+
+### Improved & Balanced
+
+- **Changelog started**: Version history is recorded from this release onward.
+```
+
+## FILE: MCPEDL/Addons/Immortal-Pets/DESCRIPTION.md (74 lines, 3550 bytes)
+
+```
+# Immortal Pets — Advanced Pet Protection
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+Pick which tamed companions to protect, and Immortal Pets keeps them safe in every dimension.
+
+## Overview
+
+Immortal Pets automatically protects selected tamed companions in the Overworld, Nether, and End. Protection starts when a supported pet is tamed and is restored for existing pets as the world loads.
+
+## Key Features
+
+- Infinite Resistance, Fire Resistance, and Water Breathing effects.
+- Automatic health recovery and poison-effect removal.
+- Protection is refreshed when supported pets appear and when their area loads.
+- Selective protection for cats, wolves, parrots, horses, donkeys, mules, skeleton horses, zombie horses, and llamas.
+- **Special name rule:** A selected, tamed pet named EID is killed.
+- No custom gameplay items or player-run commands.
+
+## How to Use
+
+1. Download the add-on and open it with Minecraft to import it.
+2. Turn on the Behavior Pack in your world's settings.
+3. Choose one protection mode in the Behavior Pack settings:
+   - 1 - Cat
+   - 2 - Wolf
+   - 3 - Parrot
+   - 4 - Horse
+   - 5 - Donkey
+   - 6 - Mule
+   - 7 - Skeleton Horse
+   - 8 - Zombie Horse
+   - 9 - All Supported Pets
+   - 10 - Llamas
+4. If no mode can be detected, All Supported Pets is used.
+
+Protection cannot guarantee survival against every game mechanic, command, or despawn scenario. Test environmental damage and reload behavior in the target Bedrock version before relying on it for a permanent world.
+
+## Compatibility
+
+- Minecraft Bedrock Edition 1.26.x
+- Experimental features: The pack does not declare a requirement for experimental toggles.
+- Achievements: Likely achievement-friendly.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Immortal Pets Bedrock add-on, pet protection Minecraft, companion survival protection, pet recovery mechanics, Minecraft Bedrock pets, Minecraft PE survival add-on, MCPEDL, CurseForge Bedrock, ALNStudios, Minecraft Bedrock add-on, MCPEDL add-on.
+```
+
+## FILE: MCPEDL/Addons/Immortal-Pets/README.md (19 lines, 786 bytes)
+
+```
+# Immortal Pets
+
+Download the current release of **Immortal Pets** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download Immortal Pets (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/ImmortalPets%20V2.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/Immortal-Pets/DESCRIPTION.md).
+```

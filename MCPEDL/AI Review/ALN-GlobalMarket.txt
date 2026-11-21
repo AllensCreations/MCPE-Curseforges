@@ -1,0 +1,871 @@
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Addons/ALN-GlobalMarket`
+- **Destination:** `MCPEDL/Addons/ALN-GlobalMarket`
+- **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALN-GlobalMarket/CHANGELOG.md`)
+- **Text files:** 9
+- **Skipped binary:** 0
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/manifest.json`
+- `MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/scripts/trade_catalog.js`
+- `MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/scripts/trade_storage.js`
+- `MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/scripts/trade_ui.js`
+- `MCPEDL/Addons/ALN-GlobalMarket/CHANGELOG.md`
+- `MCPEDL/Addons/ALN-GlobalMarket/DESCRIPTION.md`
+- `MCPEDL/Addons/ALN-GlobalMarket/project.json`
+- `MCPEDL/Addons/ALN-GlobalMarket/README.md`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v1 / NEXT UPDATE: v2).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Addons/ALN-GlobalMarket
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`.
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/manifest.json (48 lines, 857 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN-GlobalMarket (v1)",
+    "description": "Player-to-player barter market with escrow and offline payouts, by ALNStudios.",
+    "uuid": "58c2ca6d-59a3-451a-9506-4995a7e0d23e",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      50
+    ]
+  },
+  "modules": [
+    {
+      "type": "script",
+      "language": "javascript",
+      "entry": "scripts/main.js",
+      "uuid": "4809d8a3-d47a-4fae-b056-bc1cac59a5be",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.3.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "version": "1.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/scripts/main.js (20 lines, 565 bytes)
+
+```
+import { world, system } from "@minecraft/server";
+import { deliverPayouts } from "./trade_storage.js";
+import { registerTradeUI } from "./trade_ui.js";
+
+function scheduleDelivery(player) {
+    system.runTimeout(() => {
+        if (player.isValid) deliverPayouts(player);
+    }, 40);
+}
+
+world.afterEvents.worldLoad.subscribe(() => {
+    registerTradeUI();
+
+    world.afterEvents.playerSpawn.subscribe((event) => {
+        if (event.initialSpawn) scheduleDelivery(event.player);
+    });
+
+    for (const player of world.getAllPlayers()) scheduleDelivery(player);
+});
+```
+
+## FILE: MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/scripts/trade_catalog.js (65 lines, 3980 bytes)
+
+```
+export const CATEGORIES = ["All Items", "Ores & Resources", "Tools & Weapons", "Armor", "Food", "Blocks", "Other"];
+export const SORTS = ["Newest First", "Oldest First", "Item A-Z", "Seller A-Z"];
+
+export const POPULAR_PAYMENTS = [
+    "minecraft:diamond", "minecraft:emerald", "minecraft:gold_ingot", "minecraft:iron_ingot",
+    "minecraft:netherite_ingot", "minecraft:copper_ingot", "minecraft:lapis_lazuli",
+    "minecraft:redstone", "minecraft:coal",
+];
+
+const shortName = (typeId) => typeId.replace(/^[^:]*:/, "");
+
+const ITEM_ICON_OVERRIDES = {
+    redstone: "redstone_dust", beef: "beef_raw", cooked_beef: "beef_cooked",
+    porkchop: "porkchop_raw", cooked_porkchop: "porkchop_cooked",
+    chicken: "chicken_raw", cooked_chicken: "chicken_cooked",
+    mutton: "mutton_raw", cooked_mutton: "mutton_cooked",
+    rabbit: "rabbit_raw", cooked_rabbit: "rabbit_cooked",
+    cod: "fish_raw", cooked_cod: "fish_cooked",
+    salmon: "fish_salmon_raw", cooked_salmon: "fish_salmon_cooked",
+    golden_apple: "apple_golden", water_bucket: "bucket_water", lava_bucket: "bucket_lava",
+    milk_bucket: "bucket_milk", bow: "bow_standby", crossbow: "crossbow_standby",
+    wheat_seeds: "seeds_wheat", totem_of_undying: "totem", lapis_lazuli: "dye_powder_blue",
+};
+const BLOCK_ICONS = {
+    stone: "stone", cobblestone: "cobblestone", dirt: "dirt", sand: "sand", gravel: "gravel",
+    glass: "glass", obsidian: "obsidian", netherrack: "netherrack", bedrock: "bedrock",
+    diamond_block: "diamond_block", emerald_block: "emerald_block", gold_block: "gold_block",
+    iron_block: "iron_block", coal_block: "coal_block", lapis_block: "lapis_block",
+    redstone_block: "redstone_block", oak_planks: "planks_oak", oak_log: "log_oak",
+    spruce_planks: "planks_spruce", spruce_log: "log_spruce", birch_planks: "planks_birch",
+    birch_log: "log_birch", diamond_ore: "diamond_ore", emerald_ore: "emerald_ore",
+    gold_ore: "gold_ore", iron_ore: "iron_ore", coal_ore: "coal_ore",
+};
+
+export function iconFor(typeId) {
+    if (!typeId.startsWith("minecraft:")) return undefined;
+    const n = shortName(typeId);
+    if (BLOCK_ICONS[n]) return `textures/blocks/${BLOCK_ICONS[n]}`;
+    return `textures/items/${ITEM_ICON_OVERRIDES[n] ?? n}`;
+}
+
+const TOOLS = /(_sword|_pickaxe|_axe|_shovel|_hoe)$|^(bow|crossbow|trident|shears|fishing_rod|mace|flint_and_steel|shield|spyglass|brush)$/;
+const ARMOR = /(_helmet|_chestplate|_leggings|_boots)$|^elytra$/;
+const FOOD = /^(apple|golden_apple|enchanted_golden_apple|bread|beef|cooked_beef|porkchop|cooked_porkchop|mutton|cooked_mutton|chicken|cooked_chicken|rabbit|cooked_rabbit|cod|cooked_cod|salmon|cooked_salmon|carrot|golden_carrot|potato|baked_potato|beetroot|melon_slice|cookie|cake|pumpkin_pie|mushroom_stew|rabbit_stew|beetroot_soup|sweet_berries|glow_berries|honey_bottle|dried_kelp|chorus_fruit)$/;
+const RESOURCE = /(ingot|nugget|_ore$|lapis|quartz|amethyst_shard|netherite_scrap|blaze_rod|ender_pearl|gunpowder|glowstone_dust|slime_ball)|^(raw_.*|diamond|emerald|coal|charcoal|redstone|string|leather|bone|flint|copper_ingot)$/;
+const BLOCKISH = /(_block|_planks|_log|_wood|_slab|_stairs|_wall|_fence|_fence_gate|_door|_trapdoor|_glass|_wool|_concrete|_terracotta|_bricks?|_leaves|_sapling|_button|_pressure_plate)$|^(glass|stone|cobblestone|dirt|grass_block|sand|gravel|obsidian|netherrack|end_stone|tnt|glowstone|sea_lantern|bookshelf|chest|barrel|furnace|crafting_table)$/;
+
+export function categoryOf(typeId) {
+    const n = shortName(typeId);
+    if (TOOLS.test(n)) return 2;
+    if (ARMOR.test(n)) return 3;
+    if (FOOD.test(n)) return 4;
+    if (RESOURCE.test(n)) return 1;
+    if (BLOCKISH.test(n)) return 5;
+    return 6;
+}
+
+export function timeAgo(timestamp) {
+    const s = Math.max(0, Math.floor((Date.now() - timestamp) / 1000));
+    if (s < 60) return "just now";
+    if (s < 3600) return `${Math.floor(s / 60)}m ago`;
+    if (s < 86400) return `${Math.floor(s / 3600)}h ago`;
+    return `${Math.floor(s / 86400)}d ago`;
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/scripts/trade_storage.js (181 lines, 5887 bytes)
+
+```
+import { world, ItemStack, ItemTypes } from "@minecraft/server";
+
+const LISTINGS_KEY = "aln_market_listings";
+const PAYOUTS_KEY = "aln_market_payouts";
+const MAX_JSON_LENGTH = 30000;
+const INV_SLOTS = 36;
+
+const UNSUPPORTED = /shulker_box|bundle|potion|tipped_arrow|banner|firework|filled_map|written_book|writable_book|goat_horn|decorated_pot|suspicious_/;
+
+function readJson(key, fallback) {
+    try {
+        const raw = world.getDynamicProperty(key);
+        if (typeof raw !== "string") return fallback;
+        const parsed = JSON.parse(raw);
+        return parsed && typeof parsed === "object" ? parsed : fallback;
+    } catch {
+        return fallback;
+    }
+}
+
+function writeJson(key, value) {
+    const json = JSON.stringify(value);
+    if (json.length > MAX_JSON_LENGTH) return false;
+    world.setDynamicProperty(key, json);
+    return true;
+}
+
+export function loadListings() {
+    const data = readJson(LISTINGS_KEY, []);
+    return Array.isArray(data) ? data : [];
+}
+export function saveListings(listings) {
+    return writeJson(LISTINGS_KEY, listings);
+}
+function loadPayouts() {
+    const data = readJson(PAYOUTS_KEY, {});
+    return Array.isArray(data) ? {} : data;
+}
+function savePayouts(map) {
+    return writeJson(PAYOUTS_KEY, map);
+}
+
+export function newListingId() {
+    return Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+}
+
+export function normalizeItemId(raw) {
+    if (typeof raw !== "string") return undefined;
+    let id = raw.trim().toLowerCase().replace(/\s+/g, "_");
+    if (!id) return undefined;
+    if (!id.includes(":")) id = "minecraft:" + id;
+    return id;
+}
+
+export function resolveItemId(raw) {
+    const id = normalizeItemId(raw);
+    if (!id) return undefined;
+    try {
+        return ItemTypes.get(id)?.id;
+    } catch {
+        return undefined;
+    }
+}
+
+export function prettyName(typeId) {
+    const [ns, name] = typeId.includes(":") ? typeId.split(":") : ["minecraft", typeId];
+    const nice = name.split("_").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+    return ns === "minecraft" ? nice : `${nice} (${ns})`;
+}
+
+export function getContainer(player) {
+    return player.getComponent("minecraft:inventory").container;
+}
+
+export function isPlainItem(item) {
+    if (!item || item.nameTag || UNSUPPORTED.test(item.typeId)) return false;
+    if (item.getLore().length > 0) return false;
+    const ench = item.getComponent("minecraft:enchantable");
+    if (ench && ench.getEnchantments().length > 0) return false;
+    const dur = item.getComponent("minecraft:durability");
+    if (dur && dur.damage > 0) return false;
+    return true;
+}
+
+export function getSellableSummary(player) {
+    const container = getContainer(player);
+    const summary = new Map();
+    for (let i = 0; i < Math.min(container.size, INV_SLOTS); i++) {
+        const item = container.getItem(i);
+        if (!isPlainItem(item)) continue;
+        summary.set(item.typeId, (summary.get(item.typeId) ?? 0) + item.amount);
+    }
+    return summary;
+}
+
+export function countItem(player, typeId) {
+    return getSellableSummary(player).get(typeId) ?? 0;
+}
+
+export function removeItem(player, typeId, amount) {
+    if (countItem(player, typeId) < amount) return false;
+    const container = getContainer(player);
+    let remaining = amount;
+    for (let i = 0; i < Math.min(container.size, INV_SLOTS) && remaining > 0; i++) {
+        const item = container.getItem(i);
+        if (!item || item.typeId !== typeId || !isPlainItem(item)) continue;
+        const take = Math.min(remaining, item.amount);
+        if (take === item.amount) {
+            container.setItem(i, undefined);
+        } else {
+            item.amount -= take;
+            container.setItem(i, item);
+        }
+        remaining -= take;
+    }
+    return remaining === 0;
+}
+
+export function giveItem(player, typeId, amount) {
+    const container = getContainer(player);
+    const max = new ItemStack(typeId, 1).maxAmount;
+    let remaining = amount;
+    while (remaining > 0) {
+        const n = Math.min(remaining, max);
+        const overflow = container.addItem(new ItemStack(typeId, n));
+        if (overflow) player.dimension.spawnItem(overflow, player.location);
+        remaining -= n;
+    }
+}
+
+export function findOnlinePlayer(playerId) {
+    return world.getAllPlayers().find((p) => p.id === playerId);
+}
+
+function buildPayoutEntry(listing, buyerName) {
+    return {
+        typeId: listing.wantTypeId,
+        amount: listing.wantAmount,
+        name: listing.wantDisplayName,
+        sold: listing.sellDisplayName,
+        buyer: buyerName,
+    };
+}
+
+export function tryQueuePayout(listing, buyerName, commit = true) {
+    const map = loadPayouts();
+    (map[listing.sellerId] ??= []).push(buildPayoutEntry(listing, buyerName));
+    if (!commit) return JSON.stringify(map).length <= MAX_JSON_LENGTH;
+    return savePayouts(map);
+}
+
+export function routePayment(listing, buyerName) {
+    const seller = findOnlinePlayer(listing.sellerId);
+    if (seller) {
+        giveItem(seller, listing.wantTypeId, listing.wantAmount);
+        seller.onScreenDisplay.setActionBar(
+            `§a[PlayerTrade] §f${buyerName} bought your ${listing.sellDisplayName}! Received ${listing.wantAmount}x ${listing.wantDisplayName}!`
+        );
+        seller.playSound("random.levelup");
+        return true;
+    }
+    return tryQueuePayout(listing, buyerName, true);
+}
+
+export function deliverPayouts(player) {
+    const map = loadPayouts();
+    const entries = map[player.id];
+    if (!Array.isArray(entries) || entries.length === 0) return;
+
+    delete map[player.id];
+    if (!savePayouts(map)) return;
+
+    for (const e of entries) {
+        giveItem(player, e.typeId, e.amount);
+        player.sendMessage(
+            `§a[PlayerTrade] §f${e.buyer} bought your ${e.sold}! Received ${e.amount}x ${e.name}!`
+        );
+    }
+    player.playSound("random.levelup");
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/scripts/trade_ui.js (345 lines, 15074 bytes)
+
+```
+import { world, system } from "@minecraft/server";
+import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
+import {
+    loadListings, saveListings, newListingId, resolveItemId, prettyName,
+    getSellableSummary, countItem, removeItem, giveItem,
+    findOnlinePlayer, routePayment, tryQueuePayout,
+} from "./trade_storage.js";
+import { CATEGORIES, SORTS, POPULAR_PAYMENTS, iconFor, categoryOf, timeAgo } from "./trade_catalog.js";
+
+const TRADE_BOOKS = new Set(["minecraft:book", "minecraft:writable_book"]);
+const BOOK_NAME = "player trade";
+const MAX_WANT = 2304;
+const PAGE_SIZE = 8;
+const activeUsers = new Set();
+
+const sleep = (ticks) => new Promise((res) => system.runTimeout(res, ticks));
+const bar = (player, msg) => player.onScreenDisplay.setActionBar(msg);
+
+async function showForm(form, player) {
+    for (let i = 0; i < 30; i++) {
+        const res = await form.show(player);
+        if (res.canceled && res.cancelationReason === FormCancelationReason.UserBusy) {
+            await sleep(10);
+            continue;
+        }
+        return res;
+    }
+    return { canceled: true };
+}
+
+function parseInt10(text, min, max) {
+    const s = String(text ?? "").trim();
+    if (!/^\d+$/.test(s)) return undefined;
+    const n = Number(s);
+    return n >= min && n <= max ? n : undefined;
+}
+
+export function registerTradeUI() {
+    world.afterEvents.itemUse.subscribe((event) => {
+        const player = event.source;
+        const item = event.itemStack;
+        if (!item || !TRADE_BOOKS.has(item.typeId)) return;
+        if (item.nameTag?.trim().toLowerCase() !== BOOK_NAME) return;
+        if (activeUsers.has(player.id)) return;
+
+        activeUsers.add(player.id);
+        showMainMenu(player)
+            .catch((e) => console.warn(`[ALN:GlobalMarket] ${e}`))
+            .finally(() => activeUsers.delete(player.id));
+    });
+}
+
+async function showMainMenu(player) {
+    while (true) {
+        const all = loadListings();
+        const mine = all.filter((l) => l.sellerId === player.id).length;
+
+        const form = new ActionFormData()
+            .title("§6§lALN:GlobalMarket")
+            .header("§6§lGLOBAL MARKET")
+            .label(`§7Welcome, §f${player.name}§7! Trade safely with every player on the server.`)
+            .divider()
+            .label(`§7Active Market Listings: §e${all.length}\n§7Your Listings: §a${mine}`)
+            .divider()
+            .button("§a§lSell\n§r§7List an item for barter", "textures/items/emerald")
+            .button("§b§lPurchase\n§r§7Browse the marketplace", "textures/items/diamond")
+            .button("§e§lAbout\n§r§7How the market works", "textures/items/book_normal")
+            .button("§c§lExit", "textures/ui/cancel");
+
+        const res = await showForm(form, player);
+        if (res.canceled || res.selection === 3) return;
+
+        if (res.selection === 0) await showSell(player);
+        else if (res.selection === 1) await showPurchase(player);
+        else if (res.selection === 2) await showAbout(player);
+    }
+}
+
+async function showSell(player, prefill = {}) {
+    const entries = [...getSellableSummary(player).entries()];
+    if (entries.length === 0) {
+        bar(player, "§c[PlayerTrade] §fYou have no sellable items (enchanted, renamed or damaged items are excluded).");
+        return;
+    }
+
+    const itemLabels = entries.map(([id, n]) => `${prettyName(id)} §8(x${n})`);
+    const payLabels = POPULAR_PAYMENTS.map(prettyName);
+
+    const form = new ModalFormData()
+        .title("§a§lCreate Trade Listing")
+        .dropdown("§a§l1. §r§aItem to Sell §7(from your inventory)", itemLabels, { defaultValueIndex: prefill.item ?? 0 })
+        .textField("§a§l2. §r§aQuantity to Sell", "e.g., 16", { defaultValue: prefill.sellAmt ?? "1" })
+        .dropdown("§b§l3. §r§bPayment Wanted §7(popular items)", payLabels, { defaultValueIndex: prefill.pay ?? 0 })
+        .textField("§b§l4. §r§bOr Type Any Item §7(overrides the list above)", "e.g., netherite_ingot", { defaultValue: prefill.custom ?? "" })
+        .textField("§b§l5. §r§bPayment Quantity", "e.g., 2", { defaultValue: prefill.wantAmt ?? "1" })
+        .submitButton("Post Trade Listing");
+
+    const res = await showForm(form, player);
+    if (res.canceled) return;
+
+    const [itemIdx, sellRaw, payIdx, customRaw, wantAmtRaw] = res.formValues;
+    const retry = (msg) => {
+        bar(player, `§c[PlayerTrade] §f${msg}`);
+        return showSell(player, { item: itemIdx, sellAmt: sellRaw, pay: payIdx, custom: customRaw, wantAmt: wantAmtRaw });
+    };
+
+    const [sellTypeId] = entries[itemIdx];
+    const available = countItem(player, sellTypeId);
+    const sellAmount = parseInt10(sellRaw, 1, available);
+    if (sellAmount === undefined) return retry(`Quantity to sell must be a whole number from 1 to ${available}.`);
+
+    const custom = String(customRaw ?? "").trim();
+    const wantTypeId = custom ? resolveItemId(custom) : POPULAR_PAYMENTS[payIdx];
+    if (!wantTypeId) return retry(`"${custom}" is not a valid item. Try diamond, emerald, iron_ingot...`);
+
+    const wantAmount = parseInt10(wantAmtRaw, 1, MAX_WANT);
+    if (wantAmount === undefined) return retry(`Payment quantity must be a whole number from 1 to ${MAX_WANT}.`);
+
+    if (!removeItem(player, sellTypeId, sellAmount)) return retry("Could not take the items from your inventory.");
+
+    const listing = {
+        id: newListingId(),
+        sellerId: player.id,
+        sellerName: player.name,
+        sellTypeId,
+        sellDisplayName: prettyName(sellTypeId),
+        sellAmount,
+        wantTypeId,
+        wantDisplayName: prettyName(wantTypeId),
+        wantAmount,
+        timestamp: Date.now(),
+    };
+
+    const listings = loadListings();
+    listings.push(listing);
+    if (!saveListings(listings)) {
+        giveItem(player, sellTypeId, sellAmount);
+        bar(player, "§c[PlayerTrade] §fThe market is full right now. Your items were returned.");
+        return;
+    }
+
+    player.playSound("random.orb");
+    for (const p of world.getAllPlayers()) {
+        bar(p, `§6[PlayerTrade] §f${player.name} listed §e${sellAmount}x ${listing.sellDisplayName} §ffor §b${wantAmount}x ${listing.wantDisplayName}`);
+    }
+}
+
+function applyFilters(all, st, player, have) {
+    const q = st.search.trim().toLowerCase();
+    const out = all.filter((l) => {
+        if (st.mine && l.sellerId !== player.id) return false;
+        if (st.category > 0 && categoryOf(l.sellTypeId) !== st.category) return false;
+        if (st.afford && (l.sellerId === player.id || (have.get(l.wantTypeId) ?? 0) < l.wantAmount)) return false;
+        if (q) {
+            const hit = l.sellDisplayName.toLowerCase().includes(q)
+                || l.sellTypeId.includes(q.replace(/\s+/g, "_"))
+                || l.sellerName.toLowerCase().includes(q);
+            if (!hit) return false;
+        }
+        return true;
+    });
+    const sorters = [
+        (a, b) => b.timestamp - a.timestamp,
+        (a, b) => a.timestamp - b.timestamp,
+        (a, b) => a.sellDisplayName.localeCompare(b.sellDisplayName),
+        (a, b) => a.sellerName.localeCompare(b.sellerName),
+    ];
+    return out.sort(sorters[st.sort]);
+}
+
+async function showPurchase(player) {
+    const st = { category: 0, sort: 0, search: "", mine: false, afford: false, page: 0 };
+
+    while (true) {
+        const all = loadListings();
+        const have = getSellableSummary(player);
+        const mineCount = all.filter((l) => l.sellerId === player.id).length;
+        const list = applyFilters(all, st, player, have);
+        const pages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
+        st.page = Math.min(st.page, pages - 1);
+        const slice = list.slice(st.page * PAGE_SIZE, (st.page + 1) * PAGE_SIZE);
+
+        const active = [`§f${CATEGORIES[st.category]}`, `§f${SORTS[st.sort]}`];
+        if (st.search.trim()) active.push(`§fSearch: "${st.search.trim()}"`);
+        if (st.mine) active.push("§fMy listings");
+        if (st.afford) active.push("§fAffordable");
+
+        const form = new ActionFormData()
+            .title("§b§lGlobal Market")
+            .header("§b§lMARKETPLACE")
+            .label(`§7Showing §e${list.length}§7 of §e${all.length}§7 listings  §8|  §7Page §e${st.page + 1}§7/§e${pages}\n§7${active.join("§8 • §7")}`);
+
+        const actions = [];
+        const add = (text, icon, fn) => { form.button(text, icon); actions.push(fn); };
+
+        add("§l§9Filters & Search\n§r§7Category, sort, find items", "textures/items/compass", async () => {
+            await showFilters(player, st);
+        });
+        add(`§l§6My Listings\n§r§7${mineCount} active`, "textures/items/name_tag", async () => {
+            st.mine = !st.mine;
+            st.page = 0;
+        });
+
+        form.divider();
+        if (slice.length === 0) {
+            form.label("§7No listings match your filters. Try changing the category or search.");
+        }
+        for (const l of slice) {
+            const canPay = l.sellerId !== player.id && (have.get(l.wantTypeId) ?? 0) >= l.wantAmount;
+            const priceColor = l.sellerId === player.id ? "§e" : canPay ? "§a" : "§c";
+            add(
+                `§f§l${l.sellAmount}x ${l.sellDisplayName}\n§r§7Wants ${priceColor}${l.wantAmount}x ${l.wantDisplayName} §8| §7${l.sellerName}`,
+                iconFor(l.sellTypeId),
+                async () => { await showListingDetail(player, l.id); }
+            );
+        }
+
+        form.divider();
+        if (st.page > 0) add("§7< Previous Page", undefined, async () => { st.page--; });
+        if (st.page < pages - 1) add("§7Next Page >", undefined, async () => { st.page++; });
+        add("§7Back to Menu", "textures/ui/cancel", async () => "back");
+
+        const res = await showForm(form, player);
+        if (res.canceled) return;
+        const result = await actions[res.selection]?.();
+        if (result === "back") return;
+    }
+}
+
+async function showFilters(player, st) {
+    const form = new ModalFormData()
+        .title("§9§lFilters & Search")
+        .dropdown("§l§9Category", CATEGORIES, { defaultValueIndex: st.category })
+        .dropdown("§l§9Sort By", SORTS, { defaultValueIndex: st.sort })
+        .textField("§l§9Search §r§7(item or seller name)", "e.g., diamond", { defaultValue: st.search })
+        .toggle("§aOnly my listings", { defaultValue: st.mine })
+        .toggle("§aOnly what I can afford", { defaultValue: st.afford })
+        .submitButton("Apply");
+
+    const res = await showForm(form, player);
+    if (res.canceled) return;
+    [st.category, st.sort, st.search, st.mine, st.afford] = res.formValues;
+    st.search = String(st.search ?? "");
+    st.page = 0;
+}
+
+async function showListingDetail(player, listingId) {
+    const l = loadListings().find((x) => x.id === listingId);
+    if (!l) {
+        bar(player, "§c[PlayerTrade] §fThat listing is no longer available.");
+        return;
+    }
+    const own = l.sellerId === player.id;
+    const have = countItem(player, l.wantTypeId);
+    const haveColor = have >= l.wantAmount ? "§a" : "§c";
+
+    const form = new ActionFormData()
+        .title(own ? "§6§lYour Listing" : "§b§lListing Details")
+        .header(`§f§l${l.sellAmount}x ${l.sellDisplayName}`)
+        .label(`§7Category: §f${CATEGORIES[categoryOf(l.sellTypeId)]}\n§7Seller: §e${l.sellerName}${own ? " §7(you)" : ""}\n§7Listed: §f${timeAgo(l.timestamp)}`)
+        .divider()
+        .label(`§7Price: §b${l.wantAmount}x ${l.wantDisplayName}\n§7You have: ${haveColor}${have}§7 / §f${l.wantAmount}`)
+        .divider();
+
+    if (own) form.button("§c§lCancel Listing\n§r§7Reclaim your escrow items", "textures/ui/cancel");
+    else form.button(`§a§lBuy Now\n§r§7Pay ${l.wantAmount}x ${l.wantDisplayName}`, iconFor(l.sellTypeId));
+    form.button("§7Back to Market");
+
+    const res = await showForm(form, player);
+    if (res.canceled || res.selection !== 0) return;
+
+    if (own) cancelListing(player, l.id);
+    else attemptPurchase(player, l.id);
+}
+
+function cancelListing(player, listingId) {
+    const listings = loadListings();
+    const idx = listings.findIndex((l) => l.id === listingId && l.sellerId === player.id);
+    if (idx < 0) {
+        bar(player, "§c[PlayerTrade] §fThat listing is no longer available.");
+        return;
+    }
+    const [l] = listings.splice(idx, 1);
+    if (!saveListings(listings)) {
+        bar(player, "§c[PlayerTrade] §fCould not cancel the listing. Try again.");
+        return;
+    }
+    giveItem(player, l.sellTypeId, l.sellAmount);
+    player.playSound("random.orb");
+    bar(player, `§a[PlayerTrade] §fListing cancelled. Reclaimed ${l.sellAmount}x ${l.sellDisplayName}.`);
+}
+
+function attemptPurchase(buyer, listingId) {
+    const listings = loadListings();
+    const idx = listings.findIndex((l) => l.id === listingId);
+    if (idx < 0) {
+        bar(buyer, "§c[PlayerTrade] §fThat listing is no longer available.");
+        return;
+    }
+    const l = listings[idx];
+    if (l.sellerId === buyer.id) return;
+
+    if (countItem(buyer, l.wantTypeId) < l.wantAmount) {
+        bar(buyer, `§c[PlayerTrade] §fYou need §b${l.wantAmount}x ${l.wantDisplayName} §fto buy this!`);
+        return;
+    }
+    if (!findOnlinePlayer(l.sellerId) && !tryQueuePayout(l, buyer.name, false)) {
+        bar(buyer, "§c[PlayerTrade] §fThe seller's payout vault is full. Try again later.");
+        return;
+    }
+
+    if (!removeItem(buyer, l.wantTypeId, l.wantAmount)) {
+        bar(buyer, "§c[PlayerTrade] §fPayment failed. No items were taken.");
+        return;
+    }
+    listings.splice(idx, 1);
+    if (!saveListings(listings)) {
+        giveItem(buyer, l.wantTypeId, l.wantAmount);
+        bar(buyer, "§c[PlayerTrade] §fTrade failed. Your payment was returned.");
+        return;
+    }
+
+    giveItem(buyer, l.sellTypeId, l.sellAmount);
+    routePayment(l, buyer.name);
+    buyer.playSound("random.levelup");
+    bar(buyer, `§a[PlayerTrade] §fBought ${l.sellAmount}x ${l.sellDisplayName} for ${l.wantAmount}x ${l.wantDisplayName}!`);
+}
+
+async function showAbout(player) {
+    const form = new ActionFormData()
+        .title("§e§lAbout ALN:GlobalMarket")
+        .header("§6§lHOW IT WORKS")
+        .label("§eEscrow\n§fItems you list leave your inventory and are held safely until sold or cancelled.")
+        .divider()
+        .label("§eItem IDs\n§fType friendly names like §bdiamond§f, §bemerald§f, §biron_ingot§f or §bminecraft:diamond§f.")
+        .divider()
+        .label("§eCancel a Listing\n§fOpen §bPurchase§f, tap §6My Listings§f, choose your listing, then Cancel Listing.")
+        .divider()
+        .label("§ePayouts\n§fIf the seller is offline, payment is vaulted and delivered when they next join.")
+        .divider()
+        .label("§7Only unmodified items can be traded (no enchanted, renamed, damaged, potion or container items).\n\n§8Made by §7ALNStudios")
+        .button("§7Back to Menu", "textures/ui/cancel");
+    await showForm(form, player);
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-GlobalMarket/CHANGELOG.md (17 lines, 700 bytes)
+
+```
+# Changelog — ALN-GlobalMarket
+
+---
+
+## [1.0.0] - 2026-11-19 - Initial Release
+
+### Added
+- **Global Market**: Rename a Book to "Player Trade" on an Anvil and use it to open the market from anywhere.
+- **Sell and Purchase**: List items for barter, browse listings with filters, sorting and search, and buy from a details screen.
+- **Offline Payouts**: Sellers receive their payment when they next join if they were offline during the sale.
+
+### Improved & Balanced
+- **Unmodified Items Only**: Enchanted, renamed, damaged and container items cannot be listed, so nothing is lost in escrow.
+
+### Fixed
+- **Safe Purchases**: A listing that sold while you were browsing can no longer be bought twice.
+```
+
+## FILE: MCPEDL/Addons/ALN-GlobalMarket/DESCRIPTION.md (74 lines, 3743 bytes)
+
+```
+# ALN-GlobalMarket — Player-to-Player Barter Market
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**Open a Global Market with a Book renamed Player Trade and barter items with any player, even offline ones.**
+
+> Adds a player-to-player market opened with a renamed Book, with escrow-held listings and offline payouts. It suits worlds and servers where players want to trade items safely.
+
+## Overview
+
+ALN-GlobalMarket lets players list items for trade, name the item and amount they want in return, and let other players buy those listings. Listed items are held safely in escrow, and payments reach the seller even when they are offline.
+
+## Key Features
+
+### Safe Escrow
+- **What Happens**: Items you list leave your inventory and are held until they sell or you cancel the listing.
+- **Good To Know**: Enchanted, renamed, damaged and container items cannot be listed.
+
+### Marketplace Browser
+- **What Happens**: Browse listings with item icons, category filters, sorting and search, with prices shown green when you can afford them and red when you cannot.
+- **How It Works**: Choose Purchase, then use Filters & Search or the My Listings button.
+
+### Listing Details
+- **What Happens**: A details screen shows the seller, how long ago the item was listed and how much of the payment item you hold before you buy.
+
+### Offline Payouts
+- **What Happens**: If the seller is offline when you buy, the payment is vaulted and delivered the next time they join.
+
+### Easy Cancellation
+- **What Happens**: Cancel your own listing at any time and get the held items back.
+- **How It Works**: Choose Purchase, open your own listing, then choose Cancel Listing.
+
+## How to Use
+
+1. Rename a Book to "Player Trade" on an Anvil.
+2. Use the Book to open the Global Market.
+3. Choose Sell to list an item, or Purchase to browse listings.
+4. Choose About for a short in-game guide.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.26.50 or newer
+- Experimental features: Not required
+- Achievements: Likely achievement-friendly.
+- Verification: source created, not tested in game
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, MCPEDL add-on, CurseForge Bedrock, ALNStudios, player market, barter, trading, escrow, shop
+```
+
+## FILE: MCPEDL/Addons/ALN-GlobalMarket/project.json (2 lines, 46 bytes)
+
+```
+{"type": "addon", "name": "ALN-GlobalMarket"}
+```
+
+## FILE: MCPEDL/Addons/ALN-GlobalMarket/README.md (19 lines, 804 bytes)
+
+```
+# ALN-GlobalMarket
+
+Download the current release of **ALN-GlobalMarket** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download ALN-GlobalMarket (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-GlobalMarket/ALNGlobalMarket%20V1.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALN-GlobalMarket/DESCRIPTION.md).
+```
