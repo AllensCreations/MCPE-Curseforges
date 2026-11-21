@@ -21,7 +21,11 @@ You start on a 3x3 grass island floating in an empty void, standing on a single 
 
 ### 7 Lucky Block Types
 - **What Happens**: The types are All-Round, Farming, Building, Combat, Mining, Mystic and Treasure. Each has its own texture with a symbol on the sides and top.
-- **Good To Know**: A themed block gives prizes from its own list, such as saplings and food from Farming or swords and armor from Combat. The All-Round block can give any prize.
+- **Good To Know**: A themed block gives prizes from its own list, such as saplings and food from Farming or swords and armor from Combat. The All-Round block can give any prize. After the tutorial, Building is the most common type at 20% of blocks and Treasure is the rarest at 9%.
+
+### 20-Break Tutorial
+- **What Happens**: The first 20 breaks of the center block give 20 fixed, safe rewards in random order: wood, planks, sticks, a crafting table, wooden tools, leather armor, building blocks, a furnace, torches, food, seeds, saplings, a water bucket, a bed and farm animals.
+- **Good To Know**: Each tutorial break shows its number and a short tip on the action bar, and no setbacks happen. During the tutorial the center block is always the All-Round type.
 
 ### 200 Equal Prizes
 - **What Happens**: In the All-Round block every one of the 200 prizes has the same 0.5% chance. A themed block picks equally among the prizes of its own list.
@@ -40,20 +44,20 @@ You start on a 3x3 grass island floating in an empty void, standing on a single 
 - **Good To Know**: The first time you join, a short action bar tip tells you to break the lucky block and open the chest.
 
 ### Action Bar Results
-- **What Happens**: Each prize shows on the action bar with the block type and the prize name, and nothing is written in chat.
+- **What Happens**: Each prize shows on the action bar with the block type and the prize name, and nothing is written in chat. Tutorial breaks show their number and a tip instead.
 
 ## How to Use
 
 1. Open the world and wait a moment while the island appears; you spawn standing on the lucky block in the center, so look down to break it.
 2. Read the prize on the action bar, then pick up what dropped or deal with what appeared.
 3. Open the chest on the corner for your first saplings and tools.
-4. Keep breaking the block that comes back and try each type.
+4. Follow the 20-break tutorial, then keep breaking the block that comes back and try each type.
 
 ## Common Questions
 
 - **Does the lucky block run out?**: No. It is placed again each time it is broken, so you can keep going without limit.
 - **Can I choose the type?**: No. The type is random each time the block comes back.
-- **Do the prizes get better as I go?**: No. Every break draws from the same list, so any prize can come at any time.
+- **Do the prizes get better as I go?**: No. After the 20-break tutorial every break draws from the same list, so any prize can come at any time.
 
 ## Compatibility
 

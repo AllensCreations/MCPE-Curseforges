@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "One Block Skyblock Lucky Blocks (v6)",
+    "name": "One Block Skyblock Lucky Blocks (v7)",
     "description": "One lucky block on a 3x3 void island. by ALNStudios",
     "uuid": "f8fcd28a-a8f9-479e-9326-94fd587c589f",
     "version": [
-      6,
+      7,
       0,
       0
     ],
@@ -20,7 +20,7 @@
       "type": "data",
       "uuid": "ec84754f-7614-472d-ad98-89d8fd1e24b7",
       "version": [
-        6,
+        7,
         0,
         0
       ]
@@ -31,7 +31,7 @@
       "uuid": "1d0ec910-add9-46ec-a03f-4f23f6b8907c",
       "entry": "scripts/main.js",
       "version": [
-        6,
+        7,
         0,
         0
       ]
@@ -41,7 +41,7 @@
     {
       "uuid": "8e8d2f07-56e1-4271-bb5f-e8ae848db662",
       "version": [
-        6,
+        7,
         0,
         0
       ]
@@ -55,7 +55,7 @@
     "authors": [
       "ALNStudios"
     ],
-    "version": "6.0.0",
+    "version": "7.0.0",
     "product_type": "addon"
   }
 }

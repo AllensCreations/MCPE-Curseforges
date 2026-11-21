@@ -3,6 +3,7 @@ import { world, system, ItemStack } from "@minecraft/server";
 const LUCKY = "allenscreations:lucky_block";
 const TIP_KEY = "lucky_tip_shown";
 const BUILT_KEY = "island_built";
+const TUTORIAL_KEY = "tutorial_left";
 const SETUP_TAG = "void_cleaned";
 const CORE = { x: 0, y: 64, z: 0 };
 const SPAWN_BLOCK = { x: 0, y: 65, z: 0 };
@@ -16,13 +17,13 @@ const STARTER = [
 ];
 
 const TYPES = {
-  "allenscreations:lucky_block": { theme: "", label: "§eAll-Round", weight: 22 },
-  "allenscreations:lucky_farming": { theme: "F", label: "§aFarming", weight: 16 },
-  "allenscreations:lucky_building": { theme: "B", label: "§6Building", weight: 16 },
-  "allenscreations:lucky_combat": { theme: "C", label: "§cCombat", weight: 16 },
-  "allenscreations:lucky_mining": { theme: "M", label: "§bMining", weight: 16 },
+  "allenscreations:lucky_block": { theme: "", label: "§eAll-Round", weight: 17 },
+  "allenscreations:lucky_farming": { theme: "F", label: "§aFarming", weight: 14 },
+  "allenscreations:lucky_building": { theme: "B", label: "§6Building", weight: 20 },
+  "allenscreations:lucky_combat": { theme: "C", label: "§cCombat", weight: 14 },
+  "allenscreations:lucky_mining": { theme: "M", label: "§bMining", weight: 14 },
   "allenscreations:lucky_mystic": { theme: "Y", label: "§dMystic", weight: 12 },
-  "allenscreations:lucky_treasure": { theme: "T", label: "§3Treasure", weight: 8 },
+  "allenscreations:lucky_treasure": { theme: "T", label: "§3Treasure", weight: 9 },
 };
 
 const rand = (n) => Math.floor(Math.random() * n);
@@ -408,7 +409,60 @@ const PRIZES = [
   ["Bump on the Head", "b", "B", hurt(3)],
 ];
 
+const TUTORIAL = [
+  ["Oak Logs", items([["minecraft:oak_log", 12]]), "Craft logs into planks in your inventory"],
+  ["Oak Planks", items([["minecraft:oak_planks", 24]]), "Planks make tables, tools and blocks"],
+  ["Sticks", items([["minecraft:stick", 16]]), "Sticks are part of every tool"],
+  ["Crafting Table", items([["minecraft:crafting_table", 1]]), "Place it to craft bigger recipes"],
+  ["Wooden Pickaxe and Axe", kit("minecraft:wooden_pickaxe", "minecraft:wooden_axe"), "Pickaxe for stone, axe for wood"],
+  ["Wooden Shovel and Sword", kit("minecraft:wooden_shovel", "minecraft:wooden_sword"), "A sword keeps early mobs away"],
+  ["Leather Helmet and Chestplate", kit("minecraft:leather_helmet", "minecraft:leather_chestplate"), "Equip armor from your inventory"],
+  ["Leather Leggings and Boots", kit("minecraft:leather_leggings", "minecraft:leather_boots"), "Wear all four pieces for full protection"],
+  ["Dirt", items([["minecraft:dirt", 32]]), "Dirt helps you grow your island"],
+  ["Cobblestone", items([["minecraft:cobblestone", 32]]), "Your first strong building block"],
+  ["Sand", items([["minecraft:sand", 16]]), "Smelt sand in a furnace to make glass"],
+  ["Furnace and Coal", items([["minecraft:furnace", 1], ["minecraft:coal", 8]]), "Furnaces cook food and smelt ores"],
+  ["Torches", items([["minecraft:torch", 16]]), "Light keeps mobs from spawning"],
+  ["Food Basket", items([["minecraft:bread", 8], ["minecraft:cooked_beef", 6]]), "Eat when your hunger bar drops"],
+  ["Crop Seeds", items([["minecraft:wheat_seeds", 8], ["minecraft:carrot", 4], ["minecraft:potato", 4]]), "Plant seeds on dirt near water"],
+  ["Saplings and Bone Meal", items([["minecraft:oak_sapling", 4], ["minecraft:bone_meal", 8]]), "Plant saplings on grass, then use bone meal"],
+  ["Water Bucket", items([["minecraft:water_bucket", 1]]), "Water makes farmland and an endless supply"],
+  ["Bed", items([["minecraft:red_bed", 1]]), "Sleep to skip the night and set your spawn"],
+  ["Farm Animals", both(mobs("minecraft:cow", 1), mobs("minecraft:sheep", 1)), "Animals give food and wool"],
+  ["Birch Logs", items([["minecraft:birch_log", 12]]), "Mix wood types for different looks"],
+];
+
+const tutorialRaw = () => world.getDynamicProperty(TUTORIAL_KEY);
+const tutorialActive = () => tutorialRaw() !== "done";
+
+function takeTutorial() {
+  const raw = tutorialRaw();
+  if (raw === "done") return null;
+  const left = typeof raw === "string" && raw.length > 0 ? raw.split(",").map(Number) : TUTORIAL.map((entry, index) => index);
+  const index = left.splice(rand(left.length), 1)[0];
+  world.setDynamicProperty(TUTORIAL_KEY, left.length > 0 ? left.join(",") : "done");
+  return { entry: TUTORIAL[index], number: TUTORIAL.length - left.length, last: left.length === 0 };
+}
+
+function showTutorial(player, dimension, loc, step) {
+  const ctx = { player, dimension, loc, top: { x: loc.x + 0.5, y: loc.y + 1.2, z: loc.z + 0.5 } };
+  try {
+    step.entry[1](ctx);
+  } catch (e) {
+    return;
+  }
+  try {
+    player.onScreenDisplay.setActionBar(`§bTutorial ${step.number}/${TUTORIAL.length} §8|§r §a${step.entry[0]} §8-§r §7${step.entry[2]}`);
+    player.playSound("random.levelup");
+    dimension.spawnParticle("minecraft:villager_happy", ctx.top);
+  } catch (e) {
+    return;
+  }
+  if (step.last) later(80, () => player.onScreenDisplay.setActionBar("§6Tutorial complete! From now on every break is a random prize."));
+}
+
 function nextBlockId() {
+  if (tutorialActive()) return LUCKY;
   const ids = Object.keys(TYPES);
   let roll = Math.random() * ids.reduce((sum, id) => sum + TYPES[id].weight, 0);
   for (const id of ids) {
@@ -452,11 +506,13 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
   const loc = { x: block.location.x, y: block.location.y, z: block.location.z };
   const isCore = dimension.id === "minecraft:overworld" && loc.x === CORE.x && loc.y === CORE.y && loc.z === CORE.z;
   system.run(() => {
+    const step = isCore ? takeTutorial() : null;
     if (isCore) {
       const target = dimension.getBlock(loc);
       if (target && target.isAir) target.setType(nextBlockId());
     }
-    trigger(player, dimension, loc, type);
+    if (step) showTutorial(player, dimension, loc, step);
+    else trigger(player, dimension, loc, type);
   });
 });
 
@@ -475,7 +531,7 @@ world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
   world.setDynamicProperty(TIP_KEY, true);
   system.runTimeout(() => {
     try {
-      player.onScreenDisplay.setActionBar("§6Break the lucky block under you. Open the chest on the corner first.");
+      player.onScreenDisplay.setActionBar("§6Break the lucky block under you. Open the chest first. The first 20 breaks are a safe tutorial.");
     } catch (e) {
       return;
     }

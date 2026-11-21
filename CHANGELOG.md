@@ -31,6 +31,14 @@
 
 ---
 
+## [v208] - 2026-11-22 - 20-Break Tutorial
+
+### Added
+- **20-break tutorial**: The first 20 breaks of the center block give 20 fixed, safe rewards in random order, such as wood, wooden tools, leather armor and building blocks, with the break number and a tip on the action bar.
+### Improved & Balanced
+- **Building is the most common type**: Building now appears 20% of the time, the highest of all types. All-Round is 17%, Farming, Combat and Mining 14% each, Mystic 12% and Treasure 9%.
+- **Tutorial block**: The center block is always All-Round during the tutorial.
+
 ## [v207] - 2026-11-22 - 200 Equal Prizes
 
 ### Added
