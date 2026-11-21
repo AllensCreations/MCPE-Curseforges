@@ -1,0 +1,15 @@
+{
+  "resource_pack_name": "aln_loot_spawner",
+  "texture_name": "atlas.terrain",
+  "texture_data": {
+    "aln_loot_spawner_frame": {
+      "textures": "textures/blocks/aln_loot_spawner_frame"
+    },
+    "aln_loot_spawner_glass": {
+      "textures": "textures/blocks/aln_loot_spawner_glass"
+    },
+    "aln_loot_spawner_core": {
+      "textures": "textures/blocks/aln_loot_spawner_core"
+    }
+  }
+}

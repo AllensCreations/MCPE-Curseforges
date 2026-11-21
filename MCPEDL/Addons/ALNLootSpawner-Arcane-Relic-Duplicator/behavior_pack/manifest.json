@@ -1,0 +1,64 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN:LootSpawner (v1)",
+    "description": "Arcane Relic Duplicator Display Cage. by ALNStudios",
+    "uuid": "168d9162-4f4a-4dda-a2c8-a550e2b9ad41",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "3311ef8b-9324-488f-a985-332584287f78",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "7aaef769-5181-441e-a032-cbd1ee354a36",
+      "version": [
+        1,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "1390b986-3030-4eee-a94b-1bd5ea7f88dd",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.15.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "1.3.0"
+    }
+  ],
+  "metadata": {
+    "version": "1.0.0",
+    "authors": [
+      "ALNStudios"
+    ]
+  }
+}

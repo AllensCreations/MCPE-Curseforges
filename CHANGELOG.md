@@ -31,6 +31,11 @@
 
 ---
 
+## 2026-11-21 - New Addon ALNLootSpawner Arcane Relic Duplicator
+
+### Added
+- **ALNLootSpawner Arcane Relic Duplicator**: New addon project created from a pack script.
+
 ## [v202] - 2026-11-21 - MCicons In AI Skills
 
 - Vanilla item and block icons: MCicons first (INSTRUCTIONS v35 source priority 1b, generator v34, skills `mcpe-context7` Icons section, `mcpe-new-pack`, `checkrm`), then Samples.
