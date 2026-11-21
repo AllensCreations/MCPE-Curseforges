@@ -5,7 +5,7 @@ Download the current release of **ALN-GlobalMarket** for Minecraft Bedrock Editi
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN-GlobalMarket (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-GlobalMarket/ALNGlobalMarket%20V1.mcaddon)
+- **Direct download:** [Download ALN-GlobalMarket (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons)
 
 ## Installation
 

@@ -52,11 +52,21 @@ export function normalizeItemId(raw) {
     return id;
 }
 
+export function maxStack(typeId) {
+    try {
+        return new ItemStack(typeId, 1).maxAmount;
+    } catch {
+        return undefined;
+    }
+}
+
 export function resolveItemId(raw) {
     const id = normalizeItemId(raw);
     if (!id) return undefined;
     try {
-        return ItemTypes.get(id)?.id;
+        const type = ItemTypes.get(id);
+        if (!type || type.id === "minecraft:air") return undefined;
+        return maxStack(type.id) ? type.id : undefined;
     } catch {
         return undefined;
     }

@@ -2,7 +2,7 @@ import { world, system } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 import {
     loadListings, saveListings, newListingId, resolveItemId, prettyName,
-    getSellableSummary, countItem, removeItem, giveItem,
+    getSellableSummary, countItem, removeItem, giveItem, maxStack,
     findOnlinePlayer, routePayment, tryQueuePayout,
 } from "./trade_storage.js";
 import { CATEGORIES, SORTS, POPULAR_PAYMENTS, iconFor, categoryOf, timeAgo } from "./trade_catalog.js";
@@ -10,6 +10,7 @@ import { CATEGORIES, SORTS, POPULAR_PAYMENTS, iconFor, categoryOf, timeAgo } fro
 const TRADE_BOOKS = new Set(["minecraft:book", "minecraft:writable_book"]);
 const BOOK_NAME = "player trade";
 const MAX_WANT = 2304;
+const INV_SLOTS = 36;
 const PAGE_SIZE = 8;
 const activeUsers = new Set();
 
@@ -113,8 +114,9 @@ async function showSell(player, prefill = {}) {
     const wantTypeId = custom ? resolveItemId(custom) : POPULAR_PAYMENTS[payIdx];
     if (!wantTypeId) return retry(`"${custom}" is not a valid item. Try diamond, emerald, iron_ingot...`);
 
-    const wantAmount = parseInt10(wantAmtRaw, 1, MAX_WANT);
-    if (wantAmount === undefined) return retry(`Payment quantity must be a whole number from 1 to ${MAX_WANT}.`);
+    const wantMax = Math.min(MAX_WANT, maxStack(wantTypeId) * INV_SLOTS);
+    const wantAmount = parseInt10(wantAmtRaw, 1, wantMax);
+    if (wantAmount === undefined) return retry(`Payment quantity must be a whole number from 1 to ${wantMax}.`);
 
     if (!removeItem(player, sellTypeId, sellAmount)) return retry("Could not take the items from your inventory.");
 
@@ -193,7 +195,7 @@ async function showPurchase(player) {
         const actions = [];
         const add = (text, icon, fn) => { form.button(text, icon); actions.push(fn); };
 
-        add("§l§9Filters & Search\n§r§7Category, sort, find items", "textures/items/compass", async () => {
+        add("§l§9Filters & Search\n§r§7Category, sort, find items", "textures/items/paper", async () => {
             await showFilters(player, st);
         });
         add(`§l§6My Listings\n§r§7${mineCount} active`, "textures/items/name_tag", async () => {

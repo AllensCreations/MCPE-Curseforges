@@ -1,6 +1,5 @@
 # ALN-GlobalMarket — Player-to-Player Barter Market
 **By ALNStudios**
-
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
@@ -43,7 +42,7 @@ ALN-GlobalMarket lets players list items for trade, name the item and amount the
 
 - Minecraft Bedrock Edition: 1.26.50 or newer
 - Experimental features: Not required
-- Achievements: Likely achievement-friendly.
+- Achievements: Likely achievement-friendly. Using cheats in a world can disable achievements.
 - Verification: source created, not tested in game
 
 ## Creator and Permissions
@@ -70,4 +69,3 @@ ALN-GlobalMarket lets players list items for trade, name the item and amount the
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, MCPEDL add-on, CurseForge Bedrock, ALNStudios, player market, barter, trading, escrow, shop
-

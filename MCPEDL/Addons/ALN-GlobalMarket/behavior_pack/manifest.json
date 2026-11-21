@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN-GlobalMarket (v1)",
+    "name": "ALN-GlobalMarket (v1.0.1)",
     "description": "Player-to-player barter market with escrow and offline payouts, by ALNStudios.",
     "uuid": "58c2ca6d-59a3-451a-9506-4995a7e0d23e",
     "version": [
       1,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -24,7 +24,7 @@
       "version": [
         1,
         0,
-        0
+        1
       ]
     }
   ],
@@ -42,6 +42,6 @@
     "authors": [
       "ALNStudios"
     ],
-    "version": "1.0.0"
+    "version": "1.0.1"
   }
 }

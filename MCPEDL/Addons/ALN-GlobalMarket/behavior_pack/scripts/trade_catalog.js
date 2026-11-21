@@ -9,18 +9,37 @@ export const POPULAR_PAYMENTS = [
 
 const shortName = (typeId) => typeId.replace(/^[^:]*:/, "");
 
-const ITEM_ICON_OVERRIDES = {
-    redstone: "redstone_dust", beef: "beef_raw", cooked_beef: "beef_cooked",
-    porkchop: "porkchop_raw", cooked_porkchop: "porkchop_cooked",
-    chicken: "chicken_raw", cooked_chicken: "chicken_cooked",
-    mutton: "mutton_raw", cooked_mutton: "mutton_cooked",
-    rabbit: "rabbit_raw", cooked_rabbit: "rabbit_cooked",
-    cod: "fish_raw", cooked_cod: "fish_cooked",
-    salmon: "fish_salmon_raw", cooked_salmon: "fish_salmon_cooked",
-    golden_apple: "apple_golden", water_bucket: "bucket_water", lava_bucket: "bucket_lava",
-    milk_bucket: "bucket_milk", bow: "bow_standby", crossbow: "crossbow_standby",
-    wheat_seeds: "seeds_wheat", totem_of_undying: "totem", lapis_lazuli: "dye_powder_blue",
+const ITEM_ICONS = {};
+const addIcon = (id, texture = id) => { ITEM_ICONS[id] = texture; };
+
+["diamond", "emerald", "iron_ingot", "gold_ingot", "netherite_ingot", "copper_ingot", "coal", "charcoal",
+ "apple", "bread", "carrot", "potato", "baked_potato", "beetroot", "cookie", "stick", "string", "feather",
+ "bone", "leather", "flint", "gunpowder", "blaze_rod", "blaze_powder", "slime_ball", "ender_pearl",
+ "ender_eye", "quartz", "amethyst_shard", "netherite_scrap", "raw_iron", "raw_gold", "raw_copper",
+ "glowstone_dust", "clay_ball", "brick", "paper", "arrow", "shears", "flint_and_steel", "bucket", "sugar",
+ "egg", "wheat", "snowball", "nether_star", "pumpkin_pie", "mushroom_stew", "dried_kelp", "spider_eye",
+ "rotten_flesh", "name_tag", "trident", "elytra", "saddle", "lead"].forEach((n) => addIcon(n));
+
+const ALIASES = {
+    redstone: "redstone_dust", book: "book_normal", beef: "beef_raw", cooked_beef: "beef_cooked",
+    porkchop: "porkchop_raw", cooked_porkchop: "porkchop_cooked", chicken: "chicken_raw",
+    cooked_chicken: "chicken_cooked", mutton: "mutton_raw", cooked_mutton: "mutton_cooked",
+    rabbit: "rabbit_raw", cooked_rabbit: "rabbit_cooked", cod: "fish_raw", cooked_cod: "fish_cooked",
+    salmon: "fish_salmon_raw", cooked_salmon: "fish_salmon_cooked", golden_apple: "apple_golden",
+    golden_carrot: "carrot_golden", melon_slice: "melon", water_bucket: "bucket_water",
+    lava_bucket: "bucket_lava", milk_bucket: "bucket_milk", bow: "bow_standby", totem_of_undying: "totem",
 };
+for (const [id, tex] of Object.entries(ALIASES)) addIcon(id, tex);
+
+const TOOL_TIERS = { wooden: "wood", stone: "stone", iron: "iron", golden: "gold", diamond: "diamond", netherite: "netherite" };
+for (const [tier, tex] of Object.entries(TOOL_TIERS)) {
+    for (const kind of ["sword", "pickaxe", "axe", "shovel", "hoe"]) addIcon(`${tier}_${kind}`, `${tex}_${kind}`);
+}
+const ARMOR_TIERS = { leather: "leather", chainmail: "chainmail", iron: "iron", golden: "gold", diamond: "diamond", netherite: "netherite" };
+for (const [tier, tex] of Object.entries(ARMOR_TIERS)) {
+    for (const piece of ["helmet", "chestplate", "leggings", "boots"]) addIcon(`${tier}_${piece}`, `${tex}_${piece}`);
+}
+
 const BLOCK_ICONS = {
     stone: "stone", cobblestone: "cobblestone", dirt: "dirt", sand: "sand", gravel: "gravel",
     glass: "glass", obsidian: "obsidian", netherrack: "netherrack", bedrock: "bedrock",
@@ -36,7 +55,8 @@ export function iconFor(typeId) {
     if (!typeId.startsWith("minecraft:")) return undefined;
     const n = shortName(typeId);
     if (BLOCK_ICONS[n]) return `textures/blocks/${BLOCK_ICONS[n]}`;
-    return `textures/items/${ITEM_ICON_OVERRIDES[n] ?? n}`;
+    if (ITEM_ICONS[n]) return `textures/items/${ITEM_ICONS[n]}`;
+    return undefined;
 }
 
 const TOOLS = /(_sword|_pickaxe|_axe|_shovel|_hoe)$|^(bow|crossbow|trident|shears|fishing_rod|mace|flint_and_steel|shield|spyglass|brush)$/;
