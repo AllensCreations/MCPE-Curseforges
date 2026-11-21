@@ -1,18 +1,29 @@
 # Changelog — ALN-GlobalMarket
 
-## [1.0.1] - 2026-11-21 - Icon Fixes
+## [1.0.2] - 2026-11-21 - Verified Icons
 
 ### Added
-- **Payment Item Checks**: Air and other items that cannot be held are now rejected as payment.
+- **More Item Icons**: Many more items, including copper gear, now show their real icons in the market.
 
 ### Improved & Balanced
-- **Payment Limits**: The payment amount is capped by how many of that item fit in an inventory, so unstackable items cannot flood the world.
+- **Icon Accuracy**: Item icons are now checked against the game's own item list, so nothing shows a placeholder.
 
 ### Fixed
-- **Missing Icons**: Listings now show icons only for items with a known icon, so the purple and black placeholder squares are gone.
+- **Broken Icons**: Baked potatoes, slime balls and buckets now show the correct icon.
 
 <details>
-<summary><b>1.0.x</b> (1 release)</summary>
+<summary><b>1.0.x</b> (2 releases)</summary>
+
+### [1.0.1] - 2026-11-21 - Icon Fixes
+
+#### Added
+- **Payment Item Checks**: Air and other items that cannot be held are now rejected as payment.
+
+#### Improved & Balanced
+- **Payment Limits**: The payment amount is capped by how many of that item fit in an inventory, so unstackable items cannot flood the world.
+
+#### Fixed
+- **Missing Icons**: Listings now show icons only for items with a known icon, so the purple and black placeholder squares are gone.
 
 ### [1.0.0] - 2026-11-19 - Initial Release
 

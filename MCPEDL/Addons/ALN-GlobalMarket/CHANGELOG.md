@@ -2,6 +2,17 @@
 
 ---
 
+## [1.0.2] - 2026-11-21 - Verified Icons
+
+### Added
+- **More Item Icons**: Many more items, including copper gear, now show their real icons in the market.
+
+### Improved & Balanced
+- **Icon Accuracy**: Item icons are now checked against the game's own item list, so nothing shows a placeholder.
+
+### Fixed
+- **Broken Icons**: Baked potatoes, slime balls and buckets now show the correct icon.
+
 ## [1.0.1] - 2026-11-21 - Icon Fixes
 
 ### Added
