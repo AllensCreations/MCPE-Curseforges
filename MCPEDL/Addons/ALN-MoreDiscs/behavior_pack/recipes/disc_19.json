@@ -1,0 +1,40 @@
+{
+  "format_version": "1.21.50",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:music_disc_dirt_house_blues_recipe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PCP",
+      "FNF",
+      "XPX"
+    ],
+    "key": {
+      "P": {
+        "item": "minecraft:paper"
+      },
+      "C": {
+        "item": "minecraft:coal"
+      },
+      "F": {
+        "item": "minecraft:flint"
+      },
+      "N": {
+        "item": "minecraft:noteblock"
+      },
+      "X": {
+        "item": "minecraft:quartz"
+      }
+    },
+    "result": {
+      "item": "aln:music_disc_dirt_house_blues",
+      "count": 1
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}

@@ -31,6 +31,66 @@
     },
     "aln_disc_10": {
       "textures": "textures/items/aln_disc_10"
+    },
+    "aln_disc_11": {
+      "textures": "textures/items/aln_disc_11"
+    },
+    "aln_disc_12": {
+      "textures": "textures/items/aln_disc_12"
+    },
+    "aln_disc_13": {
+      "textures": "textures/items/aln_disc_13"
+    },
+    "aln_disc_14": {
+      "textures": "textures/items/aln_disc_14"
+    },
+    "aln_disc_15": {
+      "textures": "textures/items/aln_disc_15"
+    },
+    "aln_disc_16": {
+      "textures": "textures/items/aln_disc_16"
+    },
+    "aln_disc_17": {
+      "textures": "textures/items/aln_disc_17"
+    },
+    "aln_disc_18": {
+      "textures": "textures/items/aln_disc_18"
+    },
+    "aln_disc_19": {
+      "textures": "textures/items/aln_disc_19"
+    },
+    "aln_disc_20": {
+      "textures": "textures/items/aln_disc_20"
+    },
+    "aln_disc_21": {
+      "textures": "textures/items/aln_disc_21"
+    },
+    "aln_disc_22": {
+      "textures": "textures/items/aln_disc_22"
+    },
+    "aln_disc_23": {
+      "textures": "textures/items/aln_disc_23"
+    },
+    "aln_disc_24": {
+      "textures": "textures/items/aln_disc_24"
+    },
+    "aln_disc_25": {
+      "textures": "textures/items/aln_disc_25"
+    },
+    "aln_disc_26": {
+      "textures": "textures/items/aln_disc_26"
+    },
+    "aln_disc_27": {
+      "textures": "textures/items/aln_disc_27"
+    },
+    "aln_disc_28": {
+      "textures": "textures/items/aln_disc_28"
+    },
+    "aln_disc_29": {
+      "textures": "textures/items/aln_disc_29"
+    },
+    "aln_disc_30": {
+      "textures": "textures/items/aln_disc_30"
     }
   }
 }

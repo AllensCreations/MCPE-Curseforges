@@ -1,0 +1,43 @@
+{
+  "format_version": "1.21.50",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:music_disc_old_world_seed_recipe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PCP",
+      "FNF",
+      "XPY"
+    ],
+    "key": {
+      "P": {
+        "item": "minecraft:paper"
+      },
+      "C": {
+        "item": "minecraft:coal"
+      },
+      "F": {
+        "item": "minecraft:flint"
+      },
+      "N": {
+        "item": "minecraft:noteblock"
+      },
+      "X": {
+        "item": "minecraft:lapis_lazuli"
+      },
+      "Y": {
+        "item": "minecraft:amethyst_shard"
+      }
+    },
+    "result": {
+      "item": "aln:music_disc_old_world_seed",
+      "count": 1
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}

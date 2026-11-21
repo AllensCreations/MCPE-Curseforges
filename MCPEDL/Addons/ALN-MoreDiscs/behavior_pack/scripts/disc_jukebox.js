@@ -10,7 +10,27 @@ const DISCS = {
   "aln:music_disc_sunlit_meadow": { track: 7, title: "Sunlit Meadow", seconds: 55, sound: "record.sunlit_meadow" },
   "aln:music_disc_deepslate_echoes": { track: 8, title: "Deepslate Echoes", seconds: 85, sound: "record.deepslate_echoes" },
   "aln:music_disc_pixel_parade": { track: 9, title: "Pixel Parade", seconds: 71, sound: "record.pixel_parade" },
-  "aln:music_disc_golden_hour": { track: 10, title: "Golden Hour", seconds: 84, sound: "record.golden_hour" }
+  "aln:music_disc_golden_hour": { track: 10, title: "Golden Hour", seconds: 84, sound: "record.golden_hour" },
+  "aln:music_disc_first_night": { track: 11, title: "First Night", seconds: 80, sound: "record.first_night" },
+  "aln:music_disc_cobblestone_dawn": { track: 12, title: "Cobblestone Dawn", seconds: 70, sound: "record.cobblestone_dawn" },
+  "aln:music_disc_crafting_table_memories": { track: 13, title: "Crafting Table Memories", seconds: 60, sound: "record.crafting_table_memories" },
+  "aln:music_disc_alpha_sunrise": { track: 14, title: "Alpha Sunrise", seconds: 76, sound: "record.alpha_sunrise" },
+  "aln:music_disc_beta_lullaby": { track: 15, title: "Beta Lullaby", seconds: 63, sound: "record.beta_lullaby" },
+  "aln:music_disc_village_dusk": { track: 16, title: "Village Dusk", seconds: 72, sound: "record.village_dusk" },
+  "aln:music_disc_wooden_pickaxe": { track: 17, title: "Wooden Pickaxe", seconds: 73, sound: "record.wooden_pickaxe" },
+  "aln:music_disc_torchlight": { track: 18, title: "Torchlight", seconds: 86, sound: "record.torchlight" },
+  "aln:music_disc_dirt_house_blues": { track: 19, title: "Dirt House Blues", seconds: 65, sound: "record.dirt_house_blues" },
+  "aln:music_disc_bedtime_beacon": { track: 20, title: "Bedtime Beacon", seconds: 92, sound: "record.bedtime_beacon" },
+  "aln:music_disc_rainy_window": { track: 21, title: "Rainy Window", seconds: 78, sound: "record.rainy_window" },
+  "aln:music_disc_old_world_seed": { track: 22, title: "Old World Seed", seconds: 58, sound: "record.old_world_seed" },
+  "aln:music_disc_minecart_lullaby": { track: 23, title: "Minecart Lullaby", seconds: 63, sound: "record.minecart_lullaby" },
+  "aln:music_disc_lava_lamp_nights": { track: 24, title: "Lava Lamp Nights", seconds: 89, sound: "record.lava_lamp_nights" },
+  "aln:music_disc_sheep_counting": { track: 25, title: "Sheep Counting", seconds: 66, sound: "record.sheep_counting" },
+  "aln:music_disc_snowy_taiga_walk": { track: 26, title: "Snowy Taiga Walk", seconds: 74, sound: "record.snowy_taiga_walk" },
+  "aln:music_disc_floppy_disk_summer": { track: 27, title: "Floppy Disk Summer", seconds: 68, sound: "record.floppy_disk_summer" },
+  "aln:music_disc_creeper_waltz": { track: 28, title: "Creeper Waltz", seconds: 70, sound: "record.creeper_waltz" },
+  "aln:music_disc_pixel_postcards": { track: 29, title: "Pixel Postcards", seconds: 76, sound: "record.pixel_postcards" },
+  "aln:music_disc_sunset_hotbar": { track: 30, title: "Sunset Hotbar", seconds: 70, sound: "record.sunset_hotbar" }
 };
 
 const JUKEBOX = "minecraft:jukebox";

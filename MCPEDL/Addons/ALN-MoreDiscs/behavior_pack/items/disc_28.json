@@ -1,0 +1,28 @@
+{
+  "format_version": "1.21.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:music_disc_creeper_waltz",
+      "menu_category": {
+        "category": "items",
+        "group": "minecraft:itemGroup.name.record"
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "aln_disc_28"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "item.aln:music_disc_creeper_waltz"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:record": {
+        "comparator_signal": 15,
+        "duration": 70,
+        "sound_event": "record.creeper_waltz"
+      }
+    }
+  }
+}

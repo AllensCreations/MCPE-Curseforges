@@ -31,6 +31,15 @@
 
 ---
 
+## [v211] - 2026-11-22 - Thirty Discs
+
+### Added
+- **Twenty New Discs**: Track 11 First Night, Track 12 Cobblestone Dawn, Track 13 Crafting Table Memories, Track 14 Alpha Sunrise, Track 15 Beta Lullaby, Track 16 Village Dusk, Track 17 Wooden Pickaxe, Track 18 Torchlight, Track 19 Dirt House Blues, Track 20 Bedtime Beacon, Track 21 Rainy Window, Track 22 Old World Seed, Track 23 Minecart Lullaby, Track 24 Lava Lamp Nights, Track 25 Sheep Counting, Track 26 Snowy Taiga Walk, Track 27 Floppy Disk Summer, Track 28 Creeper Waltz, Track 29 Pixel Postcards, Track 30 Sunset Hotbar, each an original track in a soft piano, music box and chiptune style.
+- **New Recipes**: Tracks 11 to 20 use the earlier layout with the accent item in both bottom corners, and Tracks 21 to 30 use two different accent items there.
+- **Disc Icons**: Each new disc has a tilted vanilla-style disc icon with a label color of its own.
+### Improved & Balanced
+- **Headphones Announcements**: The new discs announce their track number, name and length the same way as Tracks 1 to 10.
+
 ## [v210] - 2026-11-22 - Baby Shower and Split Scripts
 
 ### Added

@@ -110,6 +110,226 @@
           "volume": 1.0
         }
       ]
+    },
+    "record.first_night": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_11",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.cobblestone_dawn": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_12",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.crafting_table_memories": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_13",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.alpha_sunrise": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_14",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.beta_lullaby": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_15",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.village_dusk": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_16",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.wooden_pickaxe": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_17",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.torchlight": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_18",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.dirt_house_blues": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_19",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.bedtime_beacon": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_20",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.rainy_window": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_21",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.old_world_seed": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_22",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.minecart_lullaby": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_23",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.lava_lamp_nights": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_24",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.sheep_counting": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_25",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.snowy_taiga_walk": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_26",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.floppy_disk_summer": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_27",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.creeper_waltz": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_28",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.pixel_postcards": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_29",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.sunset_hotbar": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_30",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
     }
   }
 }

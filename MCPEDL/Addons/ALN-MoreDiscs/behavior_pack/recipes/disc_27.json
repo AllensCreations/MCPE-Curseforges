@@ -1,0 +1,43 @@
+{
+  "format_version": "1.21.50",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:music_disc_floppy_disk_summer_recipe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PCP",
+      "FNF",
+      "XPY"
+    ],
+    "key": {
+      "P": {
+        "item": "minecraft:paper"
+      },
+      "C": {
+        "item": "minecraft:coal"
+      },
+      "F": {
+        "item": "minecraft:flint"
+      },
+      "N": {
+        "item": "minecraft:noteblock"
+      },
+      "X": {
+        "item": "minecraft:gold_ingot"
+      },
+      "Y": {
+        "item": "minecraft:emerald"
+      }
+    },
+    "result": {
+      "item": "aln:music_disc_floppy_disk_summer",
+      "count": 1
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "format_version": "1.21.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:music_disc_village_dusk",
+      "menu_category": {
+        "category": "items",
+        "group": "minecraft:itemGroup.name.record"
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "aln_disc_16"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "item.aln:music_disc_village_dusk"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:record": {
+        "comparator_signal": 3,
+        "duration": 72,
+        "sound_event": "record.village_dusk"
+      }
+    }
+  }
+}

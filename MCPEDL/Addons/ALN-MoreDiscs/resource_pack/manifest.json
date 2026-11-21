@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN MoreDiscs (v3)",
+    "name": "ALN MoreDiscs (v4)",
     "description": "Disc textures, names and music tracks for ALN MoreDiscs. by ALNStudios",
     "uuid": "428fa8bb-b2df-4222-a02f-609c97cc967e",
     "version": [
-      3,
+      4,
       0,
       0
     ],
@@ -20,7 +20,7 @@
       "type": "resources",
       "uuid": "084c6d11-2f61-4186-9b73-fbaa8f293328",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -31,6 +31,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "3.0.0"
+    "version": "4.0.0"
   }
 }

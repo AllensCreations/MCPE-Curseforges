@@ -1,0 +1,28 @@
+{
+  "format_version": "1.21.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:music_disc_floppy_disk_summer",
+      "menu_category": {
+        "category": "items",
+        "group": "minecraft:itemGroup.name.record"
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "aln_disc_27"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "item.aln:music_disc_floppy_disk_summer"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:record": {
+        "comparator_signal": 14,
+        "duration": 68,
+        "sound_event": "record.floppy_disk_summer"
+      }
+    }
+  }
+}

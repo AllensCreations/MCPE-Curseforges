@@ -7,7 +7,7 @@ Extracted from the script files; nothing here was run in game.
 
 | File | Lines | Purpose |
 | :-- | --: | :-- |
-| `scripts/disc_jukebox.js` | 210 | (no header comment) |
+| `scripts/disc_jukebox.js` | 230 | (no header comment) |
 | `scripts/main.js` | 4 | (no header comment) |
 
 ## Imports
