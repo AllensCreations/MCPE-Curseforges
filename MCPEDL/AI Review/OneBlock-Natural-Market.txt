@@ -17,12 +17,13 @@
 - **Export request:** `MCPEDL/Maps/OneBlock-Natural-Market`
 - **Destination:** `MCPEDL/Maps/OneBlock-Natural-Market`
 - **CURRENT VERSION: v16 / NEXT UPDATE: v17**  (`MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md`)
-- **Text files:** 14
+- **Text files:** 15
 - **Skipped binary:** 11
 - **Paths not found:** 0
 
 ### Files in this export
 
+- `MCPEDL/Maps/OneBlock-Natural-Market/assets/snapshots/snapshots`
 - `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/functions/oneblock_setup.mcfunction`
 - `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/functions/oneblock_tick.mcfunction`
 - `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/functions/tick.json`
@@ -94,6 +95,12 @@ Output ONLY these three sections in order:
 ---
 
 ## File Contents
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/assets/snapshots/snapshots (2 lines, 9 bytes)
+
+```
+.gitkeep
+```
 
 ## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/functions/oneblock_setup.mcfunction (2 lines, 54 bytes)
 
