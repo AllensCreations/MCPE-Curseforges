@@ -53,7 +53,7 @@ on:
           - "MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition"
           - "MCPEDL/Minigame/Shared-Hivemind-Inventory"
           - "MCPEDL/Minigame/Tethered-Breaker-And-Builder"
-          - "MCPEDL/Script/ALNSpawnControl"
+          - "MCPEDL/Script/ALN-MobStacker"
           # END registered
       publish_map_variant:
         description: "Maps only (default = auto, all = Creative + Survival + Hardcore)"
