@@ -21,6 +21,9 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - "docs/**"
+      - "context7.json"
   schedule:
     - cron: "17 2 * * *"
   workflow_dispatch:

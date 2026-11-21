@@ -27,6 +27,12 @@
 
 ---
 
+## [v183] - 2026-11-21 - Context7 Docs Folder
+
+- Context7 now indexes only `docs/` (bedrock guide, instructions reference, scripts and workflows summary).
+- AI review prompt is one short Context7 instruction; `docs/**` and `context7.json` pushes no longer start the build.
+- Context7 lookups are batched: one query per library.
+
 ## [v182] - 2026-11-21 - Ledger Keep, Icon Fixes, Action Bar, About Button
 
 - **OneBlock Natural Market v13**: Ledger keep/return, icon fixes, action bar feedback, About button.

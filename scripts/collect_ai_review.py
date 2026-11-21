@@ -44,6 +44,7 @@ OPAQUE = {"builds", "Package", "changelog_views", "graphify-out", "reference", "
 DIR_NOTES = {
     ".agents/skills": "agent skills, one folder each",
     ".github/workflows": "CI and dispatch workflows",
+    "docs": "the ONLY folder Context7 indexes: rules, script summaries, Bedrock guide (query it, do not dump it)",
     "scripts": "build, validate, package and update tooling (run it, do not retype it)",
     "MCPEDL": "all projects: Addons, Maps, Script, Minigame",
     "assets": "shared images and the ALN UI Redesign skin",
@@ -157,8 +158,7 @@ def build_kit(root, kit, out, label):
 AI_PROMPT = r'''# AI Instructions & Review Notes
 
 Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
-Rules, templates and script syntax are NOT repeated here. Read them through Context7 as the `mcpe-context7` skill says
-(`INSTRUCTIONS.md`, `DOCS_RULES.md`, `PACK_GENERATOR_INSTRUCTIONS.md`, `scripts/make_update_script.py`, `scripts/apply_update.py`).
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: __ACTION_NOTE_TYPE__

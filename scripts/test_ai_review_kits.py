@@ -82,7 +82,7 @@ class KitTests(unittest.TestCase):
         txt = (self.out / "pack" / f"{pack.name}.txt").read_text(encoding="utf-8")
         self.assertNotRegex(txt, r"(?m)^## FILE: (changelog_views|Package)/")
         self.assertNotIn(".curseforge.html", txt)
-        self.assertIn("mcpe-context7", txt)
+        self.assertIn("single Context7 query", txt)
         self.assertEqual(len(re.findall(r"(?m)^## Reply Format", txt)), 1)
 
 

@@ -1,4 +1,4 @@
-# Pack Generator Instructions (AI Agent, v30)
+# Pack Generator Instructions (AI Agent, v31)
 
 
 Builds a complete **addon**, **map**, **script**, or **minigame** from the user's idea. Returns ONE Termux `.sh` pack script that carries the whole project inside it (as base64). No other file is delivered.
@@ -119,10 +119,10 @@ Docs, API, vanilla data and repo files are read with the Context7 MCP tool `quer
   - `/mojang/bedrock-samples`: vanilla ids, textures, recipes, components, entities, formats, `version.json` (1.1 priority 2).
   - `/microsoftdocs/minecraft-creator`: `@minecraft/server` and `@minecraft/server-ui` API, JSON schemas, stable and module versions (1.1 priority 3).
   - `/websites/wiki_bedrock_dev`: manifest structure, scripting guides, techniques (1.1 priority 5).
-  - `/allenscreations/mcpe-curseforges`: this repo's instruction files, `scripts/`, `SKILL.md`.
-- Before ANY code, manifest, JSON, `.mcfunction`, recipe, version or doc fact: query first, write second. One topic per query. Name the exact member, file, id or schema and the module or game version (e.g. `ItemStack constructor @minecraft/server`, `recipe_shaped format`).
+  - `/allenscreations/mcpe-curseforges`: this repo's rules, script summaries and Bedrock guide, indexed ONLY from `docs/` (`docs/instructions-reference.md`, `docs/scripts-and-workflows.md`, `docs/bedrock-guide.md`).
+- Before ANY code, manifest, JSON, `.mcfunction`, recipe, version or doc fact: query first, write second. Batch: at most ONE `query-docs` call per needed `libraryId` (several topics together in that call), all calls in one parallel turn. NEVER several calls to the same `libraryId`, NEVER sequential retry loops. Name the exact member, file, id or schema and the module or game version (e.g. `ItemStack constructor @minecraft/server`, `recipe_shaped format`).
 - Verify every import, class, method, property, event, enum, component and JSON field against the retrieved text before using it. NEVER guess. NEVER outdated syntax: the `mojang-minecraft` modules, `world.events`, 1.x-era imports.
-- Empty or doubtful result: retry once with a narrower query, then stop. Say "not verified" (1.2), NEVER fill the gap from memory. Results that disagree with each other: report per 1.1.
+- Empty or doubtful result: do NOT query again. Say "not verified" (1.2), NEVER fill the gap from memory. Results that disagree with each other: report per 1.1.
 - Context7 is an index and can lag the game. Versions come from the retrieved text only, with the query date. A result that does not state the latest stable version = "not verified". Preview/beta members only as 1.2 allows.
 - Repo files: `/allenscreations/mcpe-curseforges` is the repo as last indexed. A file attached in the conversation (e.g. `tools.txt`) or read from a clone wins; tell the user about any difference. Scripts that must run (`build_payload.py`, `doc_template.py`, `import_project_payload.py`, `make_pack_script.py`, `pixel_json_to_png.py`) need the COMPLETE unchanged text: a snippet is not enough. Incomplete: ask the user to attach `tools.txt`, NEVER rewrite from memory.
 - Handoff: one bullet `Docs queried (YYYY-MM-DD): <library IDs and topics>`.

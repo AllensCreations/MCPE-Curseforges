@@ -7,7 +7,7 @@ description: Use before looking up ANY repo rule, repo script, Bedrock API membe
 
 ## Authority
 
-- `INSTRUCTIONS.md` 1.16 is the policy. This skill is only its routing table and never overrides it.
+- `INSTRUCTIONS.md` 1.16 (copy in `docs/instructions-reference.md`) is the policy. This skill is only its routing table and never overrides it.
 - An AI review kit (`*_tools.txt`) holds a directory map and skills, no file contents. That is on purpose: read what the task needs through Context7, not from a pasted dump.
 
 ## Libraries (ONLY these four, IDs exactly, `query-docs` only)
@@ -15,24 +15,22 @@ description: Use before looking up ANY repo rule, repo script, Bedrock API membe
 - `/microsoftdocs/minecraft-creator`: `@minecraft/server` and `@minecraft/server-ui` API, JSON schemas, stable and module versions.
 - `/mojang/bedrock-samples`: vanilla ids, textures, recipes, components, entities, formats, `version.json`.
 - `/websites/wiki_bedrock_dev`: manifest structure, scripting guides, techniques.
-- `/allenscreations/mcpe-curseforges`: this repo's instruction files, `scripts/` and skills.
+- `/allenscreations/mcpe-curseforges`: this repo's rules, script summaries and Bedrock guide. Context7 indexes ONLY `docs/`.
 
 NEVER call `resolve-library-id`. NEVER query any other library.
 
-## Repo lookups (`/allenscreations/mcpe-curseforges`)
+## Repo lookups (`/allenscreations/mcpe-curseforges`, `docs/` only)
 
-- Reply format, Termux script order: `INSTRUCTIONS.md Reply Format (STRICT)` and `Termux Script Rules`.
-- Update spec syntax (`@@ replace`, `@@ create`, `@@ delete-file`): `scripts/apply_update.py spec format` and `scripts/make_update_script.py usage`.
-- README, DESCRIPTION, CHANGELOG templates: `DOCS_RULES.md 2.5 Templates`.
-- New pack, map, script, minigame: `PACK_GENERATOR_INSTRUCTIONS.md Part 4`.
-- Versions and manifests: `INSTRUCTIONS.md 1.3`. Recipe unlock and images: 1.4 and 1.5. UI skin: 1.13 and 1.14.
-- Meaning of a build or doc check message: query the exact message text with the script name, for example `build_payload.py void_cleaner`.
+- `docs/instructions-reference.md`: `INSTRUCTIONS.md`, `DOCS_RULES.md`, `PACK_GENERATOR_INSTRUCTIONS.md` (Reply Format, Termux Script Rules, versions 1.3, recipes 1.4 and 1.5, templates 2.5, new packs Part 4).
+- `docs/scripts-and-workflows.md`: summary of every script and workflow, update spec syntax (`apply_update.py`, `make_update_script.py`).
+- `docs/bedrock-guide.md`: add-on architecture, folder structure, manifest setup, target API versions.
+- Meaning of a build or doc check message: query the exact message text with the script name.
 
 ## Rules
 
-1. Query first, write second. One topic per query. Name the exact member, file, id or schema and the game or module version.
+1. Query first, write second. Batch: at most ONE `query-docs` call per needed `libraryId`, covering every topic needed from it, all calls in one parallel turn. NEVER two calls to the same `libraryId`. Name the exact member, file, id or schema and the game or module version.
 2. Verify every import, class, method, property and JSON field against the retrieved text. NEVER `mojang-minecraft`, `world.events` or 1.x syntax.
-3. Empty or doubtful result: retry once with a narrower query, then say "not verified". NEVER fill the gap from memory.
+3. Empty or doubtful result: no sequential retry loop. Say "not verified". NEVER fill the gap from memory.
 4. Versions come only from retrieved text. State the exact version used and the query date.
 5. Handoff bullet: `Docs queried (YYYY-MM-DD): <library IDs and topics>`.
 6. Library IDs, query text and the word Context7 NEVER go into shipped files or player-facing docs.
