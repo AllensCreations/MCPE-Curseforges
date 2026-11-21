@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Magnetic Satchel** by ALNSt
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`MagneticSatchel V2.mcaddon`** | `.mcaddon` | ~4 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Magnetic-Satchel/MagneticSatchel%20V2.mcaddon) |
+| **`MagneticSatchel V2.mcaddon`** | `.mcaddon` | ~5 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Magnetic-Satchel/MagneticSatchel%20V2.mcaddon) |
 
 ---
 

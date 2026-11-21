@@ -17,7 +17,7 @@
 - **Export request:** `MCPEDL/Minigame/Trivia-Vault-The-Locked-World`
 - **Destination:** `MCPEDL/Minigame/Trivia-Vault-The-Locked-World`
 - **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Minigame/Trivia-Vault-The-Locked-World/CHANGELOG.md`)
-- **Text files:** 16
+- **Text files:** 17
 - **Skipped binary:** 1
 - **Paths not found:** 0
 
@@ -30,6 +30,7 @@
 - `MCPEDL/Minigame/Trivia-Vault-The-Locked-World/behavior_pack/scripts/consequences.js`
 - `MCPEDL/Minigame/Trivia-Vault-The-Locked-World/behavior_pack/scripts/controller.js`
 - `MCPEDL/Minigame/Trivia-Vault-The-Locked-World/behavior_pack/scripts/difficulty.js`
+- `MCPEDL/Minigame/Trivia-Vault-The-Locked-World/behavior_pack/scripts/lib/README.md`
 - `MCPEDL/Minigame/Trivia-Vault-The-Locked-World/behavior_pack/scripts/main.js`
 - `MCPEDL/Minigame/Trivia-Vault-The-Locked-World/behavior_pack/scripts/questions.js`
 - `MCPEDL/Minigame/Trivia-Vault-The-Locked-World/behavior_pack/subpacks/hardmode/scripts/difficulty.js`
@@ -403,6 +404,61 @@ export function registerController(options) {
 
 ```
 export const HARDMODE = false;
+```
+
+## FILE: MCPEDL/Minigame/Trivia-Vault-The-Locked-World/behavior_pack/scripts/lib/README.md (51 lines, 1507 bytes)
+
+```
+# Trivia Vault: The Locked World: script notes (scripts/lib)
+
+For the AI review. Keep this file in step with the scripts: update it whenever a file in `scripts/` changes.
+Extracted from the script files; nothing here was run in game.
+
+## Files
+
+| File | Lines | Purpose |
+| :-- | --: | :-- |
+| `scripts/consequences.js` | 2 | (no header comment) |
+| `scripts/controller.js` | 181 | (no header comment) |
+| `scripts/difficulty.js` | 2 | (no header comment) |
+| `scripts/main.js` | 252 | (no header comment) |
+| `scripts/questions.js` | 633 | (no header comment) |
+
+## Imports
+
+- `@minecraft/server` (in `controller.js`, `main.js`)
+- `@minecraft/server-ui` (in `controller.js`, `main.js`)
+- `./consequences.js` (in `main.js`)
+- `./controller.js` (in `main.js`)
+- `./difficulty.js` (in `main.js`)
+- `./questions.js` (in `main.js`)
+
+## Events
+
+- `system.afterEvents.scriptEventReceive`
+- `world.afterEvents.entityDie`
+- `world.afterEvents.itemUse`
+- `world.afterEvents.playerLeave`
+- `world.afterEvents.playerSpawn`
+- `world.afterEvents.worldLoad`
+- `world.beforeEvents.playerBreakBlock`
+- script events (`scriptEventReceive`) are handled
+
+## Custom ids
+
+- `allenscreations:end` (`controller.js`)
+- `aln:trivia_vault_controller` (`controller.js`)
+- plus 11 vanilla `minecraft:` id(s)
+
+## Features found
+
+- ActionFormData
+- delayed task (system.runTimeout)
+- dynamic properties (saved data)
+
+## Notes (AI review)
+
+Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
 ## FILE: MCPEDL/Minigame/Trivia-Vault-The-Locked-World/behavior_pack/scripts/main.js (252 lines, 11739 bytes)

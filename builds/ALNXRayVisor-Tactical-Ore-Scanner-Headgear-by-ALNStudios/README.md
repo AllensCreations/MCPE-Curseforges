@@ -8,7 +8,7 @@ This folder contains compiled release packages for **ALNXRayVisor (Tactical Ore-
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`ALNXRayVisorTacticalOreScannerHeadgearByALNStudios V1.mcaddon`** | `.mcaddon` | ~15 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios/ALNXRayVisorTacticalOreScannerHeadgearByALNStudios%20V1.mcaddon) |
+| **`ALNXRayVisorTacticalOreScannerHeadgearByALNStudios V1.mcaddon`** | `.mcaddon` | ~16 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios/ALNXRayVisorTacticalOreScannerHeadgearByALNStudios%20V1.mcaddon) |
 
 ---
 

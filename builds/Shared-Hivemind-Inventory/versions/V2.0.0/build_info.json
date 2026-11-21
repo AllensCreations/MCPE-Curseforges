@@ -2,7 +2,7 @@
   "changelog_version": "2.0.0",
   "manifest_version": "2.0.0",
   "packages": {
-    "TeamInventory V2.mcaddon": "842ab2e9453c835b0265fcb02e3c27050c2adb3f1079a79cf01373eff7322648"
+    "TeamInventory V2.mcaddon": "2ee0185a2fe8c0718e820a4f1f57a192084eecd82d5102a3cb58b98b81bfa50f"
   },
   "source_sha256": "bbe1edf70fb116a00862ec992c7795d7bc359a27d1fe0602bfcf99f57ee5da00"
 }

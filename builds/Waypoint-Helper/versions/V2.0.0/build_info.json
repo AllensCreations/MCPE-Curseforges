@@ -2,7 +2,7 @@
   "changelog_version": "2.0.0",
   "manifest_version": "2.0.0",
   "packages": {
-    "WaypointHelper V2.mcaddon": "aa75861db99ac51892a6e185a8daa645ff45eda981daa3cb888c8831a53c5b10"
+    "WaypointHelper V2.mcaddon": "dbab3e88966c1631896d967c5fe887b78404b00f0e3853f167e4d627eb10fd00"
   },
   "source_sha256": "fc043804dc6792b488ef8e171667af0b873ccca63345f02836f21067b1e891e8"
 }

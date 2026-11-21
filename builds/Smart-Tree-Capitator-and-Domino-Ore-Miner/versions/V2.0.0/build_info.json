@@ -2,7 +2,7 @@
   "changelog_version": "2.0.0",
   "manifest_version": "2.0.0",
   "packages": {
-    "SmartCapitator V2.mcaddon": "929e3efa317c4f291e8723312c0682a1855abf816a6d59bb407bc7b0eef19b43"
+    "SmartCapitator V2.mcaddon": "c35dda94b5b6640e070f5349de24ee6c3627dfc7e45ced857151b5a1f0103409"
   },
   "source_sha256": "840a1577181bc316769432628663dcf77378eb5ed71ea1967da6694c0105fd33"
 }

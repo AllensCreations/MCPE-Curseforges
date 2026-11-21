@@ -2,7 +2,7 @@
   "changelog_version": "2.0.0",
   "manifest_version": "2.0.0",
   "packages": {
-    "AutoSwitchTools V2.mcaddon": "616204e3c17be9bbf37b615812e4cff4be105d16cbc6ac0bd71b2c029f4cc22b"
+    "AutoSwitchTools V2.mcaddon": "e0d7567c0305e19f21e278e8db6498918e39fdea54aaaacc0d3bbbc44f6ee325"
   },
   "source_sha256": "a5035db51ca901a44828a04c34b8380af03dc37d656a87bd372358dc24ceabdb"
 }

@@ -17,13 +17,14 @@
 - **Export request:** `MCPEDL/Script/Target-HUD-Entity-Inspector`
 - **Destination:** `MCPEDL/Script/Target-HUD-Entity-Inspector`
 - **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Script/Target-HUD-Entity-Inspector/CHANGELOG.md`)
-- **Text files:** 7
+- **Text files:** 8
 - **Skipped binary:** 1
 - **Paths not found:** 0
 
 ### Files in this export
 
 - `MCPEDL/Script/Target-HUD-Entity-Inspector/behavior_pack/manifest.json`
+- `MCPEDL/Script/Target-HUD-Entity-Inspector/behavior_pack/scripts/lib/README.md`
 - `MCPEDL/Script/Target-HUD-Entity-Inspector/behavior_pack/scripts/main.js`
 - `MCPEDL/Script/Target-HUD-Entity-Inspector/behavior_pack/scripts/target_hud.js`
 - `MCPEDL/Script/Target-HUD-Entity-Inspector/CHANGELOG.md`
@@ -126,6 +127,46 @@ Output ONLY these three sections in order:
     "version": "2.0.0"
   }
 }
+```
+
+## FILE: MCPEDL/Script/Target-HUD-Entity-Inspector/behavior_pack/scripts/lib/README.md (36 lines, 840 bytes)
+
+```
+# Target HUD Entity Inspector: script notes (scripts/lib)
+
+For the AI review. Keep this file in step with the scripts: update it whenever a file in `scripts/` changes.
+Extracted from the script files; nothing here was run in game.
+
+## Files
+
+| File | Lines | Purpose |
+| :-- | --: | :-- |
+| `scripts/main.js` | 4 | (no header comment) |
+| `scripts/target_hud.js` | 553 | (no header comment) |
+
+## Imports
+
+- `@minecraft/server` (in `target_hud.js`)
+- `./target_hud.js` (in `main.js`)
+
+## Events
+
+- `world.afterEvents.entityDie`
+- `world.afterEvents.entityHurt`
+- `world.afterEvents.playerLeave`
+
+## Custom ids
+
+- none found
+- plus 5 vanilla `minecraft:` id(s)
+
+## Features found
+
+- repeating timer (system.runInterval)
+
+## Notes (AI review)
+
+Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
 ## FILE: MCPEDL/Script/Target-HUD-Entity-Inspector/behavior_pack/scripts/main.js (4 lines, 69 bytes)

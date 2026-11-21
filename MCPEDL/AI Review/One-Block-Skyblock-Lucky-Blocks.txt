@@ -17,7 +17,7 @@
 - **Export request:** `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks`
 - **Destination:** `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks`
 - **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/CHANGELOG.md`)
-- **Text files:** 20
+- **Text files:** 21
 - **Skipped binary:** 7
 - **Paths not found:** 0
 
@@ -31,6 +31,7 @@
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/items/trader_ledger.json`
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/loot_tables/empty.json`
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/manifest.json`
+- `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/scripts/lib/README.md`
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/scripts/main.js`
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/CHANGELOG.md`
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/DESCRIPTION.md`
@@ -256,6 +257,47 @@ execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cle
     "version": "3.0.0"
   }
 }
+```
+
+## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/scripts/lib/README.md (37 lines, 901 bytes)
+
+```
+# One Block Skyblock Lucky Blocks: script notes (scripts/lib)
+
+For the AI review. Keep this file in step with the scripts: update it whenever a file in `scripts/` changes.
+Extracted from the script files; nothing here was run in game.
+
+## Files
+
+| File | Lines | Purpose |
+| :-- | --: | :-- |
+| `scripts/main.js` | 546 | (no header comment) |
+
+## Imports
+
+- `@minecraft/server` (in `main.js`)
+
+## Events
+
+- `world.afterEvents.itemUse`
+- `world.afterEvents.playerBreakBlock`
+- `world.afterEvents.playerSpawn`
+
+## Custom ids
+
+- `allenscreations:lucky_block` (`main.js`)
+- `allenscreations:trader_ledger` (`main.js`)
+- plus 162 vanilla `minecraft:` id(s)
+
+## Features found
+
+- delayed task (system.runTimeout)
+- dynamic properties (saved data)
+- repeating timer (system.runInterval)
+
+## Notes (AI review)
+
+Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
 ## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/scripts/main.js (546 lines, 21329 bytes)

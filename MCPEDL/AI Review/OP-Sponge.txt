@@ -17,7 +17,7 @@
 - **Export request:** `MCPEDL/Addons/OP-Sponge`
 - **Destination:** `MCPEDL/Addons/OP-Sponge`
 - **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/OP-Sponge/CHANGELOG.md`)
-- **Text files:** 115
+- **Text files:** 116
 - **Skipped binary:** 0
 - **Paths not found:** 0
 
@@ -125,6 +125,7 @@
 - `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_7_from_books.json`
 - `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_8_from_books.json`
 - `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_9_from_books.json`
+- `MCPEDL/Addons/OP-Sponge/behavior_pack/scripts/lib/README.md`
 - `MCPEDL/Addons/OP-Sponge/behavior_pack/scripts/main.js`
 - `MCPEDL/Addons/OP-Sponge/behavior_pack/texts/en_US.lang`
 - `MCPEDL/Addons/OP-Sponge/behavior_pack/texts/languages.json`
@@ -5846,6 +5847,42 @@ Output ONLY these three sections in order:
     }
   }
 }
+```
+
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/scripts/lib/README.md (32 lines, 685 bytes)
+
+```
+# OP Sponge: script notes (scripts/lib)
+
+For the AI review. Keep this file in step with the scripts: update it whenever a file in `scripts/` changes.
+Extracted from the script files; nothing here was run in game.
+
+## Files
+
+| File | Lines | Purpose |
+| :-- | --: | :-- |
+| `scripts/main.js` | 131 | (no header comment) |
+
+## Imports
+
+- `@minecraft/server` (in `main.js`)
+
+## Events
+
+- `world.afterEvents.playerPlaceBlock`
+
+## Custom ids
+
+- none found
+- plus 4 vanilla `minecraft:` id(s)
+
+## Features found
+
+- none of: forms, dynamic properties, runCommand, timers
+
+## Notes (AI review)
+
+Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
 ## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/scripts/main.js (131 lines, 3385 bytes)

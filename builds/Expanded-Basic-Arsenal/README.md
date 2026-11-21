@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Expanded Basic Arsenal** by
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`ExpandedBasicArsenal V2.mcaddon`** | `.mcaddon` | ~21 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V2.mcaddon) |
+| **`ExpandedBasicArsenal V2.mcaddon`** | `.mcaddon` | ~22 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V2.mcaddon) |
 
 ---
 

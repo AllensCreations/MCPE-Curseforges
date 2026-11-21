@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Chrono-Bed** by ALNStudios.
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`ChronoBed V2.mcpack`** | `.mcpack` | ~3 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Chrono-Bed/ChronoBed%20V2.mcpack) |
+| **`ChronoBed V2.mcpack`** | `.mcpack` | ~4 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Chrono-Bed/ChronoBed%20V2.mcpack) |
 
 ---
 

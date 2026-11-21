@@ -2,7 +2,7 @@
   "changelog_version": "2.0.0",
   "manifest_version": "2.0.0",
   "packages": {
-    "MiningHelmet V2.mcaddon": "295bf38c16eace4247c47bbf696e68a227a887c5cc00870cff999787d923c8bf"
+    "MiningHelmet V2.mcaddon": "d4b0b6272b3b117112087a95b62a326d5192a099086b263394cc46b05d7c33c0"
   },
   "source_sha256": "2e751ba39ad1462a41fceda918ae140506ac6f95390cba29f595d2f897955080"
 }

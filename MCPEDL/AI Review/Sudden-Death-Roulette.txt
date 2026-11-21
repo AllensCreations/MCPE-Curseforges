@@ -17,13 +17,14 @@
 - **Export request:** `MCPEDL/Addons/Sudden-Death-Roulette`
 - **Destination:** `MCPEDL/Addons/Sudden-Death-Roulette`
 - **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/Sudden-Death-Roulette/CHANGELOG.md`)
-- **Text files:** 5
+- **Text files:** 6
 - **Skipped binary:** 0
 - **Paths not found:** 0
 
 ### Files in this export
 
 - `MCPEDL/Addons/Sudden-Death-Roulette/behavior_pack/manifest.json`
+- `MCPEDL/Addons/Sudden-Death-Roulette/behavior_pack/scripts/lib/README.md`
 - `MCPEDL/Addons/Sudden-Death-Roulette/behavior_pack/scripts/main.js`
 - `MCPEDL/Addons/Sudden-Death-Roulette/CHANGELOG.md`
 - `MCPEDL/Addons/Sudden-Death-Roulette/DESCRIPTION.md`
@@ -119,6 +120,48 @@ Output ONLY these three sections in order:
     "version": "2.0.0"
   }
 }
+```
+
+## FILE: MCPEDL/Addons/Sudden-Death-Roulette/behavior_pack/scripts/lib/README.md (38 lines, 892 bytes)
+
+```
+# Sudden Death Roulette: script notes (scripts/lib)
+
+For the AI review. Keep this file in step with the scripts: update it whenever a file in `scripts/` changes.
+Extracted from the script files; nothing here was run in game.
+
+## Files
+
+| File | Lines | Purpose |
+| :-- | --: | :-- |
+| `scripts/main.js` | 276 | (no header comment) |
+
+## Imports
+
+- `@minecraft/server` (in `main.js`)
+
+## Events
+
+- `system.afterEvents.scriptEventReceive`
+- `world.afterEvents.playerLeave`
+- script events (`scriptEventReceive`) are handled
+
+## Custom ids
+
+- `sdr:race_over` (`main.js`)
+- `sdr:reset` (`main.js`)
+- plus 6 vanilla `minecraft:` id(s)
+
+## Features found
+
+- delayed task (system.runTimeout)
+- dynamic properties (saved data)
+- repeating timer (system.runInterval)
+- runCommand
+
+## Notes (AI review)
+
+Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
 ## FILE: MCPEDL/Addons/Sudden-Death-Roulette/behavior_pack/scripts/main.js (276 lines, 8256 bytes)

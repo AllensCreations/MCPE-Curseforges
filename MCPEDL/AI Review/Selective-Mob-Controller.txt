@@ -17,13 +17,14 @@
 - **Export request:** `MCPEDL/Addons/Selective-Mob-Controller`
 - **Destination:** `MCPEDL/Addons/Selective-Mob-Controller`
 - **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/Selective-Mob-Controller/CHANGELOG.md`)
-- **Text files:** 70
+- **Text files:** 71
 - **Skipped binary:** 1
 - **Paths not found:** 0
 
 ### Files in this export
 
 - `MCPEDL/Addons/Selective-Mob-Controller/behavior_pack/manifest.json`
+- `MCPEDL/Addons/Selective-Mob-Controller/behavior_pack/scripts/lib/README.md`
 - `MCPEDL/Addons/Selective-Mob-Controller/behavior_pack/scripts/main.js`
 - `MCPEDL/Addons/Selective-Mob-Controller/behavior_pack/spawn_rules/zombie.json`
 - `MCPEDL/Addons/Selective-Mob-Controller/behavior_pack/subpacks/hostiles_only/scripts/main.js`
@@ -221,6 +222,43 @@ Output ONLY these three sections in order:
     "version": "2.0.0"
   }
 }
+```
+
+## FILE: MCPEDL/Addons/Selective-Mob-Controller/behavior_pack/scripts/lib/README.md (33 lines, 728 bytes)
+
+```
+# Selective Mob Controller: script notes (scripts/lib)
+
+For the AI review. Keep this file in step with the scripts: update it whenever a file in `scripts/` changes.
+Extracted from the script files; nothing here was run in game.
+
+## Files
+
+| File | Lines | Purpose |
+| :-- | --: | :-- |
+| `scripts/main.js` | 118 | (no header comment) |
+
+## Imports
+
+- `@minecraft/server` (in `main.js`)
+
+## Events
+
+- `world.afterEvents.entityDie`
+- `world.afterEvents.entitySpawn`
+
+## Custom ids
+
+- none found
+- plus 39 vanilla `minecraft:` id(s)
+
+## Features found
+
+- none of: forms, dynamic properties, runCommand, timers
+
+## Notes (AI review)
+
+Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
 ## FILE: MCPEDL/Addons/Selective-Mob-Controller/behavior_pack/scripts/main.js (118 lines, 3177 bytes)

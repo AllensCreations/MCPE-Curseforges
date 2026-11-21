@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Melody Figurine** by ALNStu
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`MelodyFigurine V2.mcaddon`** | `.mcaddon` | ~847 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Melody-Figurine/MelodyFigurine%20V2.mcaddon) |
+| **`MelodyFigurine V2.mcaddon`** | `.mcaddon` | ~848 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Melody-Figurine/MelodyFigurine%20V2.mcaddon) |
 
 ---
 

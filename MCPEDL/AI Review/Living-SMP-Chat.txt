@@ -17,7 +17,7 @@
 - **Export request:** `MCPEDL/Script/Living-SMP-Chat`
 - **Destination:** `MCPEDL/Script/Living-SMP-Chat`
 - **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Script/Living-SMP-Chat/CHANGELOG.md`)
-- **Text files:** 16
+- **Text files:** 17
 - **Skipped binary:** 6
 - **Paths not found:** 0
 
@@ -27,6 +27,7 @@
 - `MCPEDL/Script/Living-SMP-Chat/behavior_pack/scripts/chat_director.js`
 - `MCPEDL/Script/Living-SMP-Chat/behavior_pack/scripts/chat_generator.js`
 - `MCPEDL/Script/Living-SMP-Chat/behavior_pack/scripts/chat_lines_extra.js`
+- `MCPEDL/Script/Living-SMP-Chat/behavior_pack/scripts/lib/README.md`
 - `MCPEDL/Script/Living-SMP-Chat/behavior_pack/scripts/main.js`
 - `MCPEDL/Script/Living-SMP-Chat/behavior_pack/scripts/mode.js`
 - `MCPEDL/Script/Living-SMP-Chat/behavior_pack/scripts/smp_roster.js`
@@ -1008,6 +1009,60 @@ export const BRAND_DIALOGS = [
   [[0, "is ALNStudios on here?"], [1, "he is the one who made this pack"], [2, "please follow him, it really helps"], [0, "on it"]],
   [[0, "what should i download next?"], [1, "check out ALNStudios"], [2, "yes, his add-ons are worth a look"], [0, "adding to my list, following him too"]],
 ];
+```
+
+## FILE: MCPEDL/Script/Living-SMP-Chat/behavior_pack/scripts/lib/README.md (50 lines, 1625 bytes)
+
+```
+# Living SMP Chat: script notes (scripts/lib)
+
+For the AI review. Keep this file in step with the scripts: update it whenever a file in `scripts/` changes.
+Extracted from the script files; nothing here was run in game.
+
+## Files
+
+| File | Lines | Purpose |
+| :-- | --: | :-- |
+| `scripts/chat_director.js` | 265 | (no header comment) |
+| `scripts/chat_generator.js` | 222 | (no header comment) |
+| `scripts/chat_lines_extra.js` | 349 | (no header comment) |
+| `scripts/main.js` | 137 | (no header comment) |
+| `scripts/mode.js` | 3 | (no header comment) |
+| `scripts/smp_roster.js` | 130 | (no header comment) |
+| `scripts/smp_voices.js` | 86 | (no header comment) |
+
+## Imports
+
+- `@minecraft/server` (in `chat_director.js`, `main.js`, `smp_roster.js`)
+- `./chat_director.js` (in `main.js`)
+- `./chat_generator.js` (in `chat_director.js`, `main.js`)
+- `./chat_lines_extra.js` (in `chat_director.js`, `chat_generator.js`)
+- `./mode.js` (in `chat_director.js`, `main.js`)
+- `./smp_roster.js` (in `chat_director.js`, `main.js`)
+- `./smp_voices.js` (in `chat_director.js`, `chat_generator.js`)
+
+## Events
+
+- `world.afterEvents.chatSend`
+- `world.afterEvents.entityDie`
+- `world.afterEvents.playerBreakBlock`
+- `world.afterEvents.playerLeave`
+- `world.afterEvents.playerSpawn`
+
+## Custom ids
+
+- `alnstudios:living_smp_online` (`smp_roster.js`)
+- plus 7 vanilla `minecraft:` id(s)
+
+## Features found
+
+- delayed task (system.runTimeout)
+- dynamic properties (saved data)
+- repeating timer (system.runInterval)
+
+## Notes (AI review)
+
+Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
 ## FILE: MCPEDL/Script/Living-SMP-Chat/behavior_pack/scripts/main.js (137 lines, 4604 bytes)

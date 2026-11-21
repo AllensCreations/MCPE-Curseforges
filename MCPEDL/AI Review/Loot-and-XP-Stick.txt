@@ -17,13 +17,14 @@
 - **Export request:** `MCPEDL/Script/Loot-and-XP-Stick`
 - **Destination:** `MCPEDL/Script/Loot-and-XP-Stick`
 - **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Script/Loot-and-XP-Stick/CHANGELOG.md`)
-- **Text files:** 6
+- **Text files:** 7
 - **Skipped binary:** 2
 - **Paths not found:** 0
 
 ### Files in this export
 
 - `MCPEDL/Script/Loot-and-XP-Stick/behavior_pack/manifest.json`
+- `MCPEDL/Script/Loot-and-XP-Stick/behavior_pack/scripts/lib/README.md`
 - `MCPEDL/Script/Loot-and-XP-Stick/behavior_pack/scripts/main.js`
 - `MCPEDL/Script/Loot-and-XP-Stick/CHANGELOG.md`
 - `MCPEDL/Script/Loot-and-XP-Stick/DESCRIPTION.md`
@@ -128,6 +129,49 @@ Output ONLY these three sections in order:
     "version": "1.0.0"
   }
 }
+```
+
+## FILE: MCPEDL/Script/Loot-and-XP-Stick/behavior_pack/scripts/lib/README.md (39 lines, 898 bytes)
+
+```
+# Loot and XP Stick: script notes (scripts/lib)
+
+For the AI review. Keep this file in step with the scripts: update it whenever a file in `scripts/` changes.
+Extracted from the script files; nothing here was run in game.
+
+## Files
+
+| File | Lines | Purpose |
+| :-- | --: | :-- |
+| `scripts/main.js` | 230 | (no header comment) |
+
+## Imports
+
+- `@minecraft/server` (in `main.js`)
+- `@minecraft/server-ui` (in `main.js`)
+
+## Events
+
+- `world.afterEvents.entityDie`
+- `world.afterEvents.entitySpawn`
+- `world.afterEvents.playerBreakBlock`
+- `world.beforeEvents.itemUse`
+
+## Custom ids
+
+- none found
+- plus 16 vanilla `minecraft:` id(s)
+
+## Features found
+
+- ModalFormData
+- delayed task (system.runTimeout)
+- dynamic properties (saved data)
+- repeating timer (system.runInterval)
+
+## Notes (AI review)
+
+Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
 ## FILE: MCPEDL/Script/Loot-and-XP-Stick/behavior_pack/scripts/main.js (230 lines, 7421 bytes)

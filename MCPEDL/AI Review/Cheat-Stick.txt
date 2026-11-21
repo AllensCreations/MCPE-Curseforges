@@ -17,13 +17,14 @@
 - **Export request:** `MCPEDL/Addons/Cheat-Stick`
 - **Destination:** `MCPEDL/Addons/Cheat-Stick`
 - **CURRENT VERSION: v4 / NEXT UPDATE: v5**  (`MCPEDL/Addons/Cheat-Stick/CHANGELOG.md`)
-- **Text files:** 6
+- **Text files:** 7
 - **Skipped binary:** 1
 - **Paths not found:** 0
 
 ### Files in this export
 
 - `MCPEDL/Addons/Cheat-Stick/behavior_pack/manifest.json`
+- `MCPEDL/Addons/Cheat-Stick/behavior_pack/scripts/lib/README.md`
 - `MCPEDL/Addons/Cheat-Stick/behavior_pack/scripts/main.js`
 - `MCPEDL/Addons/Cheat-Stick/CHANGELOG.md`
 - `MCPEDL/Addons/Cheat-Stick/DESCRIPTION.md`
@@ -137,6 +138,46 @@ Output ONLY these three sections in order:
     "version": "4.0.0"
   }
 }
+```
+
+## FILE: MCPEDL/Addons/Cheat-Stick/behavior_pack/scripts/lib/README.md (36 lines, 779 bytes)
+
+```
+# Cheat Stick: script notes (scripts/lib)
+
+For the AI review. Keep this file in step with the scripts: update it whenever a file in `scripts/` changes.
+Extracted from the script files; nothing here was run in game.
+
+## Files
+
+| File | Lines | Purpose |
+| :-- | --: | :-- |
+| `scripts/main.js` | 364 | (no header comment) |
+
+## Imports
+
+- `@minecraft/server` (in `main.js`)
+- `@minecraft/server-ui` (in `main.js`)
+
+## Events
+
+- `world.afterEvents.entityDie`
+- `world.afterEvents.itemUse`
+
+## Custom ids
+
+- `cheatstick:slot` (`main.js`)
+- plus 7 vanilla `minecraft:` id(s)
+
+## Features found
+
+- ActionFormData
+- ModalFormData
+- dynamic properties (saved data)
+
+## Notes (AI review)
+
+Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
 ## FILE: MCPEDL/Addons/Cheat-Stick/behavior_pack/scripts/main.js (364 lines, 9891 bytes)

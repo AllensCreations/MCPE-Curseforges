@@ -11,7 +11,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | **New Pack Kit (zip: map and scripts)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/New-Pack.zip) |
 | **Update Pack Kit (zip: map and scripts)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Update-Pack.zip) |
 | **Repo Maintenance Kit (zip: map and scripts)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Maintenance.zip) |
-| **Bedrock Samples (AI Review)** | *(not yet built)* |
+| **Bedrock Samples (AI Review)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/bedrock-samples.txt) |
 | **Vanilla Bedrock Reference (JSON.gz)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/bedrock-samples/bedrock-samples.min.json.gz) |
 | **Bedrock Reference Bundle (v1.26.60)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/bedrock-samples/bedrock-reference-pack-1.26.60.zip) |
 | **Minecraft Script API TypeScript Definitions (.d.ts Zip)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/typescript-definitions/minecraft-bedrock-types.zip) |

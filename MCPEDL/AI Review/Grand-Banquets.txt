@@ -17,7 +17,7 @@
 - **Export request:** `MCPEDL/Addons/Grand-Banquets`
 - **Destination:** `MCPEDL/Addons/Grand-Banquets`
 - **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/Grand-Banquets/CHANGELOG.md`)
-- **Text files:** 72
+- **Text files:** 73
 - **Skipped binary:** 101
 - **Paths not found:** 0
 
@@ -88,6 +88,7 @@
 - `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/veggie_skillet.json`
 - `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/verdant_ambrosia.json`
 - `MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/warlords_steak.json`
+- `MCPEDL/Addons/Grand-Banquets/behavior_pack/scripts/lib/README.md`
 - `MCPEDL/Addons/Grand-Banquets/behavior_pack/scripts/main.js`
 - `MCPEDL/Addons/Grand-Banquets/CHANGELOG.md`
 - `MCPEDL/Addons/Grand-Banquets/DESCRIPTION.md`
@@ -1806,6 +1807,56 @@ Output ONLY these three sections in order:
     }
   }
 }
+```
+
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/scripts/lib/README.md (46 lines, 1258 bytes)
+
+```
+# Grand Banquets: script notes (scripts/lib)
+
+For the AI review. Keep this file in step with the scripts: update it whenever a file in `scripts/` changes.
+Extracted from the script files; nothing here was run in game.
+
+## Files
+
+| File | Lines | Purpose |
+| :-- | --: | :-- |
+| `scripts/main.js` | 32 | (no header comment) |
+
+## Imports
+
+- `@minecraft/server` (in `main.js`)
+
+## Events
+
+- `world.afterEvents.itemCompleteUse`
+
+## Custom ids
+
+- `custom:celestial_roast` (`main.js`)
+- `custom:citadel_ham` (`main.js`)
+- `custom:dragonlords_galantine` (`main.js`)
+- `custom:glazed_wings` (`main.js`)
+- `custom:highland_venison` (`main.js`)
+- `custom:honey_berry_tart` (`main.js`)
+- `custom:imperial_feast` (`main.js`)
+- `custom:lumberjacks_ham` (`main.js`)
+- `custom:mariners_pot` (`main.js`)
+- `custom:miners_roast` (`main.js`)
+- `custom:phoenix_roast` (`main.js`)
+- `custom:scholars_dumplings` (`main.js`)
+- `custom:sovereign_platter` (`main.js`)
+- `custom:strider_gumbo` (`main.js`)
+- `custom:verdant_ambrosia` (`main.js`)
+- `custom:warlords_steak` (`main.js`)
+
+## Features found
+
+- none of: forms, dynamic properties, runCommand, timers
+
+## Notes (AI review)
+
+Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
 ## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/scripts/main.js (32 lines, 1708 bytes)

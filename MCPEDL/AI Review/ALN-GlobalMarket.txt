@@ -5,13 +5,14 @@
 - **Export request:** `MCPEDL/Addons/ALN-GlobalMarket`
 - **Destination:** `MCPEDL/Addons/ALN-GlobalMarket`
 - **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALN-GlobalMarket/CHANGELOG.md`)
-- **Text files:** 10
+- **Text files:** 11
 - **Skipped binary:** 0
 - **Paths not found:** 0
 
 ### Files in this export
 
 - `MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/manifest.json`
+- `MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/scripts/lib/README.md`
 - `MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/scripts/main.js`
 - `MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/scripts/trade_catalog.js`
 - `MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/scripts/trade_icons.js`
@@ -115,6 +116,56 @@ Output ONLY these three sections in order:
     "version": "1.0.2"
   }
 }
+```
+
+## FILE: MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/scripts/lib/README.md (46 lines, 1274 bytes)
+
+```
+# ALN-GlobalMarket: script notes (scripts/lib)
+
+For the AI review. Keep this file in step with the scripts: update it whenever a file in `scripts/` changes.
+Extracted from the script files; nothing here was run in game.
+
+## Files
+
+| File | Lines | Purpose |
+| :-- | --: | :-- |
+| `scripts/main.js` | 20 | (no header comment) |
+| `scripts/trade_catalog.js` | 61 | (no header comment) |
+| `scripts/trade_icons.js` | 141 | (no header comment) |
+| `scripts/trade_storage.js` | 191 | (no header comment) |
+| `scripts/trade_ui.js` | 347 | (no header comment) |
+
+## Imports
+
+- `@minecraft/server` (in `main.js`, `trade_storage.js`, `trade_ui.js`)
+- `@minecraft/server-ui` (in `trade_ui.js`)
+- `./trade_catalog.js` (in `trade_ui.js`)
+- `./trade_icons.js` (in `trade_catalog.js`)
+- `./trade_storage.js` (in `main.js`, `trade_ui.js`)
+- `./trade_ui.js` (in `main.js`)
+
+## Events
+
+- `world.afterEvents.itemUse`
+- `world.afterEvents.playerSpawn`
+- `world.afterEvents.worldLoad`
+
+## Custom ids
+
+- none found
+- plus 15 vanilla `minecraft:` id(s)
+
+## Features found
+
+- ActionFormData
+- ModalFormData
+- delayed task (system.runTimeout)
+- dynamic properties (saved data)
+
+## Notes (AI review)
+
+Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
 ## FILE: MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/scripts/main.js (20 lines, 565 bytes)

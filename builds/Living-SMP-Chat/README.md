@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Living SMP Chat** by ALNStu
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`LivingSMPChat V2.mcpack`** | `.mcpack` | ~174 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Living-SMP-Chat/LivingSMPChat%20V2.mcpack) |
+| **`LivingSMPChat V2.mcpack`** | `.mcpack` | ~175 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Living-SMP-Chat/LivingSMPChat%20V2.mcpack) |
 
 ---
 

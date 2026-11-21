@@ -17,7 +17,7 @@
 - **Export request:** `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta`
 - **Destination:** `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta`
 - **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/CHANGELOG.md`)
-- **Text files:** 17
+- **Text files:** 18
 - **Skipped binary:** 4
 - **Paths not found:** 0
 
@@ -32,6 +32,7 @@
 - `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/functions/void_cleaner.mcfunction`
 - `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/items/trader_ledger.json`
 - `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/manifest.json`
+- `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/scripts/lib/README.md`
 - `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/scripts/main.js`
 - `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/CHANGELOG.md`
 - `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/DESCRIPTION.md`
@@ -258,6 +259,49 @@ tag @a[tag=!void_cleaned] add void_cleaned
     "version": "1.0.0"
   }
 }
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/scripts/lib/README.md (39 lines, 930 bytes)
+
+```
+# OneBlock Dirtbound Kingdom Beta: script notes (scripts/lib)
+
+For the AI review. Keep this file in step with the scripts: update it whenever a file in `scripts/` changes.
+Extracted from the script files; nothing here was run in game.
+
+## Files
+
+| File | Lines | Purpose |
+| :-- | --: | :-- |
+| `scripts/main.js` | 396 | (no header comment) |
+
+## Imports
+
+- `@minecraft/server` (in `main.js`)
+- `@minecraft/server-ui` (in `main.js`)
+
+## Events
+
+- `world.afterEvents.itemUse`
+- `world.afterEvents.playerBreakBlock`
+- `world.afterEvents.playerLeave`
+- `world.afterEvents.playerSpawn`
+
+## Custom ids
+
+- `allenscreations:trader_ledger` (`main.js`)
+- plus 9 vanilla `minecraft:` id(s)
+
+## Features found
+
+- ActionFormData
+- MessageFormData
+- delayed task (system.runTimeout)
+- repeating timer (system.runInterval)
+
+## Notes (AI review)
+
+Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
 ## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/scripts/main.js (396 lines, 22423 bytes)

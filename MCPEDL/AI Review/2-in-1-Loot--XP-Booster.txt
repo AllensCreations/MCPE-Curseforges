@@ -17,13 +17,14 @@
 - **Export request:** `MCPEDL/Addons/2-in-1-Loot--XP-Booster`
 - **Destination:** `MCPEDL/Addons/2-in-1-Loot--XP-Booster`
 - **CURRENT VERSION: v7 / NEXT UPDATE: v8**  (`MCPEDL/Addons/2-in-1-Loot--XP-Booster/CHANGELOG.md`)
-- **Text files:** 12
+- **Text files:** 13
 - **Skipped binary:** 15
 - **Paths not found:** 0
 
 ### Files in this export
 
 - `MCPEDL/Addons/2-in-1-Loot--XP-Booster/behavior_pack/manifest.json`
+- `MCPEDL/Addons/2-in-1-Loot--XP-Booster/behavior_pack/scripts/lib/README.md`
 - `MCPEDL/Addons/2-in-1-Loot--XP-Booster/behavior_pack/scripts/main.js`
 - `MCPEDL/Addons/2-in-1-Loot--XP-Booster/CHANGELOG.md`
 - `MCPEDL/Addons/2-in-1-Loot--XP-Booster/DESCRIPTION.md`
@@ -156,6 +157,53 @@ Output ONLY these three sections in order:
     "version": "7.0.0"
   }
 }
+```
+
+## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/behavior_pack/scripts/lib/README.md (43 lines, 1053 bytes)
+
+```
+# 2-in-1 Loot & XP Booster: script notes (scripts/lib)
+
+For the AI review. Keep this file in step with the scripts: update it whenever a file in `scripts/` changes.
+Extracted from the script files; nothing here was run in game.
+
+## Files
+
+| File | Lines | Purpose |
+| :-- | --: | :-- |
+| `scripts/main.js` | 464 | (no header comment) |
+
+## Imports
+
+- `@minecraft/server` (in `main.js`)
+- `@minecraft/server-ui` (in `main.js`)
+
+## Events
+
+- `system.beforeEvents.startup`
+- `world.afterEvents.entityDie`
+- `world.afterEvents.itemUse`
+- `world.afterEvents.playerBreakBlock`
+- `world.afterEvents.playerInteractWithBlock`
+- `world.afterEvents.playerLeave`
+- `world.afterEvents.playerPlaceBlock`
+
+## Custom ids
+
+- `aln:booster` (`main.js`)
+- plus 28 vanilla `minecraft:` id(s)
+
+## Features found
+
+- ActionFormData
+- ModalFormData
+- delayed task (system.runTimeout)
+- dynamic properties (saved data)
+- repeating timer (system.runInterval)
+
+## Notes (AI review)
+
+Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
 ## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/behavior_pack/scripts/main.js (464 lines, 15663 bytes)

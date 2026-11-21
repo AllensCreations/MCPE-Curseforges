@@ -17,7 +17,7 @@
 - **Export request:** `MCPEDL/Addons/Fletching-Table-Arsenal`
 - **Destination:** `MCPEDL/Addons/Fletching-Table-Arsenal`
 - **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/Fletching-Table-Arsenal/CHANGELOG.md`)
-- **Text files:** 10
+- **Text files:** 11
 - **Skipped binary:** 0
 - **Paths not found:** 0
 
@@ -26,6 +26,7 @@
 - `MCPEDL/Addons/Fletching-Table-Arsenal/behavior_pack/manifest.json`
 - `MCPEDL/Addons/Fletching-Table-Arsenal/behavior_pack/scripts/fletcher.js`
 - `MCPEDL/Addons/Fletching-Table-Arsenal/behavior_pack/scripts/impact.js`
+- `MCPEDL/Addons/Fletching-Table-Arsenal/behavior_pack/scripts/lib/README.md`
 - `MCPEDL/Addons/Fletching-Table-Arsenal/behavior_pack/scripts/main.js`
 - `MCPEDL/Addons/Fletching-Table-Arsenal/CHANGELOG.md`
 - `MCPEDL/Addons/Fletching-Table-Arsenal/DESCRIPTION.md`
@@ -571,6 +572,54 @@ export function registerImpactSystem() {
 
   world.afterEvents.playerLeave.subscribe((event) => pending.delete(event.playerId));
 }
+```
+
+## FILE: MCPEDL/Addons/Fletching-Table-Arsenal/behavior_pack/scripts/lib/README.md (44 lines, 1182 bytes)
+
+```
+# Fletching Table Arsenal: script notes (scripts/lib)
+
+For the AI review. Keep this file in step with the scripts: update it whenever a file in `scripts/` changes.
+Extracted from the script files; nothing here was run in game.
+
+## Files
+
+| File | Lines | Purpose |
+| :-- | --: | :-- |
+| `scripts/fletcher.js` | 233 | (no header comment) |
+| `scripts/impact.js` | 194 | (no header comment) |
+| `scripts/main.js` | 16 | (no header comment) |
+
+## Imports
+
+- `@minecraft/server` (in `fletcher.js`, `impact.js`, `main.js`)
+- `@minecraft/server-ui` (in `fletcher.js`)
+- `./fletcher.js` (in `impact.js`, `main.js`)
+- `./impact.js` (in `main.js`)
+
+## Events
+
+- `world.afterEvents.entitySpawn`
+- `world.afterEvents.itemStartUse`
+- `world.afterEvents.playerLeave`
+- `world.afterEvents.projectileHitBlock`
+- `world.afterEvents.projectileHitEntity`
+- `world.beforeEvents.playerInteractWithBlock`
+
+## Custom ids
+
+- none found
+- plus 19 vanilla `minecraft:` id(s)
+
+## Features found
+
+- ActionFormData
+- delayed task (system.runTimeout)
+- repeating timer (system.runInterval)
+
+## Notes (AI review)
+
+Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
 ## FILE: MCPEDL/Addons/Fletching-Table-Arsenal/behavior_pack/scripts/main.js (16 lines, 521 bytes)

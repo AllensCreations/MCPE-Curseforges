@@ -17,7 +17,7 @@
 - **Export request:** `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition`
 - **Destination:** `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition`
 - **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/CHANGELOG.md`)
-- **Text files:** 14
+- **Text files:** 15
 - **Skipped binary:** 3
 - **Paths not found:** 0
 
@@ -28,6 +28,7 @@
 - `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/items/controller.json`
 - `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/manifest.json`
 - `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/scripts/controller.js`
+- `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/scripts/lib/README.md`
 - `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/scripts/main.js`
 - `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/scripts/random_drops.js`
 - `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/scripts/random_loot_table.js`
@@ -384,6 +385,61 @@ export function registerController(options) {
     giveController(player);
   });
 }
+```
+
+## FILE: MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/scripts/lib/README.md (51 lines, 1571 bytes)
+
+```
+# Minecraft, But Every Drop is Random: Chaos Edition: script notes (scripts/lib)
+
+For the AI review. Keep this file in step with the scripts: update it whenever a file in `scripts/` changes.
+Extracted from the script files; nothing here was run in game.
+
+## Files
+
+| File | Lines | Purpose |
+| :-- | --: | :-- |
+| `scripts/controller.js` | 181 | (no header comment) |
+| `scripts/main.js` | 85 | (no header comment) |
+| `scripts/random_drops.js` | 152 | (no header comment) |
+| `scripts/random_loot_table.js` | 173 | (no header comment) |
+
+## Imports
+
+- `@minecraft/server` (in `controller.js`, `main.js`, `random_drops.js`, `random_loot_table.js`)
+- `@minecraft/server-ui` (in `controller.js`)
+- `./controller.js` (in `main.js`)
+- `./random_drops.js` (in `main.js`)
+- `./random_loot_table.js` (in `main.js`, `random_drops.js`)
+
+## Events
+
+- `system.afterEvents.scriptEventReceive`
+- `system.beforeEvents.startup`
+- `world.afterEvents.entityDie`
+- `world.afterEvents.entitySpawn`
+- `world.afterEvents.itemUse`
+- `world.afterEvents.playerBreakBlock`
+- `world.afterEvents.playerSpawn`
+- `world.afterEvents.worldLoad`
+- script events (`scriptEventReceive`) are handled
+
+## Custom ids
+
+- `allenscreations:end` (`controller.js`)
+- `aln:random_drop_chaos_controller` (`controller.js`)
+- `aln:reshuffle` (`main.js`)
+- plus 4 vanilla `minecraft:` id(s)
+
+## Features found
+
+- ActionFormData
+- delayed task (system.runTimeout)
+- dynamic properties (saved data)
+
+## Notes (AI review)
+
+Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
 ## FILE: MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/scripts/main.js (85 lines, 2904 bytes)

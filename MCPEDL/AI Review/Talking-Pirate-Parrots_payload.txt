@@ -17,13 +17,14 @@
 - **Export request:** `MCPEDL/Addons/Talking-Pirate-Parrots_payload`
 - **Destination:** `MCPEDL/Addons/Talking-Pirate-Parrots_payload`
 - **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/Talking-Pirate-Parrots_payload/CHANGELOG.md`)
-- **Text files:** 9
+- **Text files:** 10
 - **Skipped binary:** 50
 - **Paths not found:** 0
 
 ### Files in this export
 
 - `MCPEDL/Addons/Talking-Pirate-Parrots_payload/behavior_pack/manifest.json`
+- `MCPEDL/Addons/Talking-Pirate-Parrots_payload/behavior_pack/scripts/lib/README.md`
 - `MCPEDL/Addons/Talking-Pirate-Parrots_payload/behavior_pack/scripts/main.js`
 - `MCPEDL/Addons/Talking-Pirate-Parrots_payload/CHANGELOG.md`
 - `MCPEDL/Addons/Talking-Pirate-Parrots_payload/DESCRIPTION.md`
@@ -184,6 +185,46 @@ Output ONLY these three sections in order:
     "version": "2.0.0"
   }
 }
+```
+
+## FILE: MCPEDL/Addons/Talking-Pirate-Parrots_payload/behavior_pack/scripts/lib/README.md (36 lines, 832 bytes)
+
+```
+# Talking Pirate Parrots: script notes (scripts/lib)
+
+For the AI review. Keep this file in step with the scripts: update it whenever a file in `scripts/` changes.
+Extracted from the script files; nothing here was run in game.
+
+## Files
+
+| File | Lines | Purpose |
+| :-- | --: | :-- |
+| `scripts/main.js` | 251 | (no header comment) |
+
+## Imports
+
+- `@minecraft/server` (in `main.js`)
+
+## Events
+
+- `world.afterEvents.entityHurt`
+- `world.afterEvents.itemCompleteUse`
+- `world.afterEvents.playerBreakBlock`
+- `world.afterEvents.playerInteractWithBlock`
+- `world.afterEvents.playerSpawn`
+
+## Custom ids
+
+- none found
+- plus 30 vanilla `minecraft:` id(s)
+
+## Features found
+
+- repeating timer (system.runInterval)
+
+## Notes (AI review)
+
+Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
 ## FILE: MCPEDL/Addons/Talking-Pirate-Parrots_payload/behavior_pack/scripts/main.js (251 lines, 7602 bytes)

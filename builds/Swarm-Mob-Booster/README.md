@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Swarm Mob Booster** by ALNS
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`SwarmBooster V2.mcaddon`** | `.mcaddon` | ~88 KB | Complete Add-on package for Minecraft Bedrock. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Swarm-Mob-Booster/SwarmBooster%20V2.mcaddon) |
+| **`SwarmBooster V2.mcaddon`** | `.mcaddon` | ~89 KB | Complete Add-on package for Minecraft Bedrock. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Swarm-Mob-Booster/SwarmBooster%20V2.mcaddon) |
 
 ---
 

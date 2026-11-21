@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Trivia Vault The Locked Wor
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`TriviaVault V2.mcaddon`** | `.mcaddon` | ~40 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Trivia-Vault-The-Locked-World/TriviaVault%20V2.mcaddon) |
+| **`TriviaVault V2.mcaddon`** | `.mcaddon` | ~41 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Trivia-Vault-The-Locked-World/TriviaVault%20V2.mcaddon) |
 
 ---
 

@@ -17,7 +17,7 @@
 - **Export request:** `MCPEDL/Addons/Padlock-and-Key`
 - **Destination:** `MCPEDL/Addons/Padlock-and-Key`
 - **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/Padlock-and-Key/CHANGELOG.md`)
-- **Text files:** 15
+- **Text files:** 16
 - **Skipped binary:** 8
 - **Paths not found:** 0
 
@@ -31,6 +31,7 @@
 - `MCPEDL/Addons/Padlock-and-Key/behavior_pack/scripts/lib/doors.js`
 - `MCPEDL/Addons/Padlock-and-Key/behavior_pack/scripts/lib/lockdata.js`
 - `MCPEDL/Addons/Padlock-and-Key/behavior_pack/scripts/lib/pistons.js`
+- `MCPEDL/Addons/Padlock-and-Key/behavior_pack/scripts/lib/README.md`
 - `MCPEDL/Addons/Padlock-and-Key/behavior_pack/scripts/main.js`
 - `MCPEDL/Addons/Padlock-and-Key/CHANGELOG.md`
 - `MCPEDL/Addons/Padlock-and-Key/DESCRIPTION.md`
@@ -717,6 +718,59 @@ export function followLocks(event) {
   };
   system.runTimeout(step, 2);
 }
+```
+
+## FILE: MCPEDL/Addons/Padlock-and-Key/behavior_pack/scripts/lib/README.md (49 lines, 1416 bytes)
+
+```
+# Padlock & Key: script notes (scripts/lib)
+
+For the AI review. Keep this file in step with the scripts: update it whenever a file in `scripts/` changes.
+Extracted from the script files; nothing here was run in game.
+
+## Files
+
+| File | Lines | Purpose |
+| :-- | --: | :-- |
+| `scripts/lib/doors.js` | 49 | (no header comment) |
+| `scripts/lib/lockdata.js` | 236 | (no header comment) |
+| `scripts/lib/pistons.js` | 146 | (no header comment) |
+| `scripts/main.js` | 325 | (no header comment) |
+
+## Imports
+
+- `@minecraft/server` (in `lib/doors.js`, `lib/lockdata.js`, `lib/pistons.js`, `main.js`)
+- `./lib/doors.js` (in `main.js`)
+- `./lib/lockdata.js` (in `main.js`)
+- `./lib/pistons.js` (in `main.js`)
+- `./lockdata.js` (in `lib/doors.js`, `lib/pistons.js`)
+
+## Events
+
+- `world.afterEvents.pistonActivate`
+- `world.afterEvents.playerLeave`
+- `world.afterEvents.playerPlaceBlock`
+- `world.beforeEvents.explosion`
+- `world.beforeEvents.itemUse`
+- `world.beforeEvents.playerBreakBlock`
+- `world.beforeEvents.playerInteractWithBlock`
+
+## Custom ids
+
+- `pnk:key` (`main.js`)
+- `pnk:key_glow` (`main.js`)
+- `pnk:padlock` (`main.js`)
+- plus 15 vanilla `minecraft:` id(s)
+
+## Features found
+
+- delayed task (system.runTimeout)
+- dynamic properties (saved data)
+- repeating timer (system.runInterval)
+
+## Notes (AI review)
+
+Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
 ## FILE: MCPEDL/Addons/Padlock-and-Key/behavior_pack/scripts/main.js (325 lines, 10492 bytes)

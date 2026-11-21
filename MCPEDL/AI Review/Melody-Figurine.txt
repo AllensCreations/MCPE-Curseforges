@@ -17,7 +17,7 @@
 - **Export request:** `MCPEDL/Addons/Melody-Figurine`
 - **Destination:** `MCPEDL/Addons/Melody-Figurine`
 - **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/Melody-Figurine/CHANGELOG.md`)
-- **Text files:** 15
+- **Text files:** 16
 - **Skipped binary:** 4
 - **Paths not found:** 0
 
@@ -27,6 +27,7 @@
 - `MCPEDL/Addons/Melody-Figurine/behavior_pack/items/melody_figurine.json`
 - `MCPEDL/Addons/Melody-Figurine/behavior_pack/loot_tables/blocks/melody_figurine.json`
 - `MCPEDL/Addons/Melody-Figurine/behavior_pack/manifest.json`
+- `MCPEDL/Addons/Melody-Figurine/behavior_pack/scripts/lib/README.md`
 - `MCPEDL/Addons/Melody-Figurine/behavior_pack/scripts/main.js`
 - `MCPEDL/Addons/Melody-Figurine/CHANGELOG.md`
 - `MCPEDL/Addons/Melody-Figurine/DESCRIPTION.md`
@@ -259,6 +260,43 @@ Output ONLY these three sections in order:
     "version": "2.0.0"
   }
 }
+```
+
+## FILE: MCPEDL/Addons/Melody-Figurine/behavior_pack/scripts/lib/README.md (33 lines, 742 bytes)
+
+```
+# Melody Figurine: script notes (scripts/lib)
+
+For the AI review. Keep this file in step with the scripts: update it whenever a file in `scripts/` changes.
+Extracted from the script files; nothing here was run in game.
+
+## Files
+
+| File | Lines | Purpose |
+| :-- | --: | :-- |
+| `scripts/main.js` | 354 | (no header comment) |
+
+## Imports
+
+- `@minecraft/server` (in `main.js`)
+
+## Events
+
+- `world.afterEvents.playerInteractWithBlock`
+
+## Custom ids
+
+- `melody:melody_figurine` (`main.js`)
+- `melody:melody_song` (`main.js`)
+- plus 16 vanilla `minecraft:` id(s)
+
+## Features found
+
+- repeating timer (system.runInterval)
+
+## Notes (AI review)
+
+Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
 ## FILE: MCPEDL/Addons/Melody-Figurine/behavior_pack/scripts/main.js (354 lines, 10602 bytes)

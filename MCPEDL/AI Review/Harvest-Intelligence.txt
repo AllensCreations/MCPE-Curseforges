@@ -17,13 +17,14 @@
 - **Export request:** `MCPEDL/Addons/Harvest-Intelligence`
 - **Destination:** `MCPEDL/Addons/Harvest-Intelligence`
 - **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/Harvest-Intelligence/CHANGELOG.md`)
-- **Text files:** 5
+- **Text files:** 6
 - **Skipped binary:** 0
 - **Paths not found:** 0
 
 ### Files in this export
 
 - `MCPEDL/Addons/Harvest-Intelligence/behavior_pack/manifest.json`
+- `MCPEDL/Addons/Harvest-Intelligence/behavior_pack/scripts/lib/README.md`
 - `MCPEDL/Addons/Harvest-Intelligence/behavior_pack/scripts/main.js`
 - `MCPEDL/Addons/Harvest-Intelligence/CHANGELOG.md`
 - `MCPEDL/Addons/Harvest-Intelligence/DESCRIPTION.md`
@@ -120,6 +121,43 @@ Output ONLY these three sections in order:
     "version": "2.0.0"
   }
 }
+```
+
+## FILE: MCPEDL/Addons/Harvest-Intelligence/behavior_pack/scripts/lib/README.md (33 lines, 725 bytes)
+
+```
+# Harvest Intelligence: script notes (scripts/lib)
+
+For the AI review. Keep this file in step with the scripts: update it whenever a file in `scripts/` changes.
+Extracted from the script files; nothing here was run in game.
+
+## Files
+
+| File | Lines | Purpose |
+| :-- | --: | :-- |
+| `scripts/main.js` | 365 | (no header comment) |
+
+## Imports
+
+- `@minecraft/server` (in `main.js`)
+
+## Events
+
+- `world.afterEvents.playerBreakBlock`
+- `world.afterEvents.playerInteractWithBlock`
+
+## Custom ids
+
+- none found
+- plus 33 vanilla `minecraft:` id(s)
+
+## Features found
+
+- repeating timer (system.runInterval)
+
+## Notes (AI review)
+
+Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
 ## FILE: MCPEDL/Addons/Harvest-Intelligence/behavior_pack/scripts/main.js (365 lines, 13650 bytes)
