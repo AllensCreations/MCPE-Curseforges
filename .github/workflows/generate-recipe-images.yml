@@ -34,6 +34,9 @@ jobs:
       - name: Export crafting recipe SVGs as PNGs
         run: python scripts/convert_crafting_recipe_svgs_to_png.py
 
+      - name: Get MCicons (Minecraft item and block icons)
+        run: python scripts/sync_mcicons.py || echo "::warning::MCicons could not be downloaded; Samples textures are used."
+
       - name: Get official Mojang Bedrock Samples textures
         run: |
           git clone --depth 1 https://github.com/Mojang/bedrock-samples.git /tmp/bedrock-samples

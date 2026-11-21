@@ -27,6 +27,13 @@
 
 ---
 
+## [v194] - 2026-11-21 - MCicons, Lib READMEs, Samples In Build And Sync
+
+- Minecraft icons now come from MCicons v2.1.1: `build-and-sync.yml` downloads the release file `mcicons-2.1.1.tgz` into `reference/mcicons/` (one file, hash-checked); recipe images and rule 1.5 use it first.
+- Bedrock samples sync now runs inside `build-and-sync.yml` (Mondays, manual runs, or when `bedrock-samples.txt` is missing); `sync-bedrock-samples.yml` is removed.
+- 53 packs got `behavior_pack/scripts/lib/README.md` (script notes for the AI review), made by `scripts/make_lib_readmes.py`.
+- Old crafting and recipe image tests fixed (cairosvg tests skip when it is missing).
+
 ## [v193] - 2026-11-21 - OneBlock World Icon in mcworld
 
 - OneBlock world builder: a `world_icon.jpeg` (or `world_icon.jpg`) in `MCPEDL/Maps/<map name>/` is now added automatically to every generated `.mcworld` as `world_icon.jpeg` in the world root, replacing any icon from the Mcpeworlds foundation. A file that is not a JPEG stops the build, and the archive check fails when the icon is missing.

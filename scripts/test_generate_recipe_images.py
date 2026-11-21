@@ -157,13 +157,11 @@ class WriteTests(Base):
         self.assertEqual(gri.main(["--root", str(self.root), "--samples", str(self.samples), "--check"]), 0)
         self.assertFalse((self.pack / "assets").exists())
 
-    def test_dedicated_packs_are_skipped_unless_included(self):
+    def test_find_packs_lists_every_pack_with_recipes(self):
         other = self.root / "MCPEDL" / "Addons" / "Grand-Banquets" / "behavior_pack" / "recipes"
         other.mkdir(parents=True)
-        names = [p.name for p in gri.find_packs(self.root, None, False)]
-        self.assertEqual(names, ["Demo"])
-        names = [p.name for p in gri.find_packs(self.root, None, True)]
-        self.assertEqual(names, ["Demo", "Grand-Banquets"])
+        self.assertEqual([p.name for p in gri.find_packs(self.root, None)], ["Demo", "Grand-Banquets"])
+        self.assertEqual([p.name for p in gri.find_packs(self.root, "MCPEDL/Addons/Demo")], ["Demo"])
 
     def test_items_from_recipes_exports_custom_results_only(self):
         wj(self.pack / "behavior_pack" / "recipes" / "vanilla_out.json", {"minecraft:recipe_shapeless": {

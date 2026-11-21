@@ -7,7 +7,7 @@ scripts/lib/crafting_template.py. The description builder shows that folder auto
 
 Textures
   custom items  : the pack's own resource_pack (BP item icon -> item_texture.json, then textures/items/**/<name>.png)
-  vanilla items : Mojang Bedrock Samples (env BEDROCK_SAMPLES_ROOT, default /tmp/bedrock-samples), through the verified
+  vanilla items : MCicons first (reference/mcicons/mcicons-<ver>.tgz, one file, filled by scripts/sync_mcicons.py, read by scripts/lib/mcicons.py), then Mojang Bedrock Samples (env BEDROCK_SAMPLES_ROOT, default /tmp/bedrock-samples), through the verified
                   VANILLA_OVERRIDES table first, then textures/items/<name>.png, then Samples' item_texture.json.
                   Nothing is guessed: an ingredient with no verified texture is reported and nothing is written.
 Every problem of every recipe is reported together (INSTRUCTIONS.md 1.5), and nothing is written until all resolve.
@@ -228,6 +228,12 @@ def _texture_from_json(rp: Path, name: str) -> Path | None:
 
 
 def vanilla_icon(item_id: str, samples_root: Path = None) -> Image.Image:
+    if samples_root is None:  # an explicit --samples folder (tests, one-off checks) keeps using Samples only
+        sys.path.insert(0, str(Path(__file__).resolve().parent / "lib"))
+        import mcicons
+        found = mcicons.icon_image(item_id)
+        if found is not None:
+            return found
     rp = _samples_rp(samples_root or SAMPLES_ROOT)
     name = short(item_id)
     entry = VANILLA_OVERRIDES.get(f"minecraft:{name}")

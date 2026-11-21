@@ -40,6 +40,7 @@ MCPEDL/<Addons|Maps|Script|Minigame>/<Name>/
   assets/          listing images
   CHANGELOG.md  README.md  DESCRIPTION.md  LOCK
 MCPEDL/AI Review/  GENERATED AI review files (<Pack>.txt, <Pack>.zip, kits)
+reference/mcicons/ MCicons release file (mcicons-<ver>.tgz): the source of Minecraft icons
 builds/            GENERATED packages and snapshots
 Package/           GENERATED listing kits
 changelog_views/   GENERATED

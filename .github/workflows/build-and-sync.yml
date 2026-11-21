@@ -17,6 +17,9 @@ name: Build Changed Packs & Sync Catalogs
 # succeeds it starts this workflow once so the catalogs pick up the new version.
 # "Run workflow" is still available for a manual full rebuild; its only option is a OneBlock map name
 # (blank = every map). OneBlock world archives are built here too (there is no separate OneBlock workflow).
+# The Mojang bedrock-samples reference (reference/bedrock-samples, TypeScript definitions, reference bundle and
+# MCPEDL/AI Review/bedrock-samples.txt) is refreshed here too: every Monday run, every manual run, and whenever
+# bedrock-samples.txt is missing. Problems there are warnings and never block the build.
 
 on:
   push:
@@ -31,6 +34,11 @@ on:
     inputs:
       map_name:
         description: "OneBlock map folder under MCPEDL/Maps/ to build the worlds for (blank = every map)"
+        required: false
+        default: ""
+        type: string
+      ref:
+        description: "bedrock-samples branch, tag or commit to read for the reference refresh (blank = default branch)"
         required: false
         default: ""
         type: string
@@ -268,6 +276,56 @@ jobs:
       - name: Refresh Listing Kits (name, summary, description HTML, image prompts)
         run: python3 scripts/build_listing_kits.py --all || echo "::warning::Some listing kits could not be built (see log)."
 
+      - name: Sync MCicons (Minecraft item and block icons, one .tgz file in reference/mcicons)
+        continue-on-error: true
+        run: python3 scripts/sync_mcicons.py
+
+      # Bedrock reference refresh (formerly the separate "Sync Bedrock Samples Reference" workflow).
+      - name: Decide whether to refresh the Bedrock reference
+        id: samples
+        shell: bash
+        run: |
+          set -uo pipefail
+          run=false
+          [ "${{ github.event_name }}" = "workflow_dispatch" ] && run=true
+          [ "${{ github.event_name }}" = "schedule" ] && [ "$(date -u +%u)" = "1" ] && run=true
+          [ -s "MCPEDL/AI Review/bedrock-samples.txt" ] || run=true
+          echo "run=$run" >> "$GITHUB_OUTPUT"
+          echo "Refresh Bedrock reference: $run"
+
+      - name: Fetch bedrock-samples (text files and schemas)
+        if: ${{ steps.samples.outputs.run == 'true' }}
+        continue-on-error: true
+        env:
+          REF: ${{ inputs.ref }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          SRC="$RUNNER_TEMP/bedrock-samples"
+          rm -rf "$SRC"
+          git clone --depth 1 --filter=blob:none --sparse ${REF:+--branch "$REF"} \
+            https://github.com/Mojang/bedrock-samples.git "$SRC"
+          git -C "$SRC" sparse-checkout set --no-cone \
+            '/behavior_pack/' '/resource_pack/' '/metadata/json_schemas/'
+          if [ -d "$SRC/metadata/json_schemas" ]; then
+            mkdir -p reference/bedrock-samples/json_schemas
+            cp -r "$SRC/metadata/json_schemas"/* reference/bedrock-samples/json_schemas/
+          fi
+          find "$SRC/behavior_pack" "$SRC/resource_pack" -type f \
+            ! \( -name '*.json' -o -name '*.lang' \) -delete
+          echo "Upstream commit: $(git -C "$SRC" rev-parse HEAD)"
+          python3 scripts/build_bedrock_reference.py --src "$SRC" --out reference/bedrock-samples
+
+      - name: Fetch Minecraft Script API TypeScript definitions (.d.ts)
+        if: ${{ steps.samples.outputs.run == 'true' }}
+        continue-on-error: true
+        run: python3 scripts/sync_minecraft_types.py reference/typescript-definitions
+
+      - name: Bundle reference package and write bedrock-samples.txt
+        if: ${{ steps.samples.outputs.run == 'true' }}
+        continue-on-error: true
+        run: python3 scripts/bundle_bedrock_reference_pack.py .
+
       - name: Refresh per-package AI review files
         run: python3 scripts/auto_ai_review.py
 
@@ -329,6 +387,9 @@ jobs:
             if [ -d "$dir" ]; then git add "$dir"; fi
           done
           git add -A -- ai-review 2>/dev/null || true
+          for dir in reference/bedrock-samples reference/typescript-definitions reference/mcicons; do
+            if [ -d "$dir" ]; then git add "$dir"; fi
+          done
           if [ -f README.md ]; then git add README.md; fi
           if [ -f MCPEDL/README.md ]; then git add MCPEDL/README.md; fi
           if [ -f scripts/CRAFTING_TABLE.png ]; then git add scripts/CRAFTING_TABLE.png; fi
