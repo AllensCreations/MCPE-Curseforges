@@ -29,9 +29,13 @@
       "minecraft:pushable_by_entity": {},
       "minecraft:pushable_by_block": {},
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:leashable_to": {}
     },

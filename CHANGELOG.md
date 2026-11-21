@@ -31,6 +31,18 @@
 
 ---
 
+## [v209] - 2026-11-22 - Entity and Item Fixes
+
+### Improved & Balanced
+
+- **Item Settings**: Removed the item settings for Potions, Splash Potions, Lingering Potions, Milk Buckets, Torches, Lanterns, Clocks, and Compasses that the game refuses to load. Potions and Milk Buckets keep their normal stack size, and offhand swapping still works through the add-on's own script.
+
+### Fixed
+
+- **Pet and Mount Protection**: Tamed wolves, cats, parrots, horses, donkeys, mules, and llamas now use the damage setting the game accepts.
+- **Leash Distances**: Universal Leads now set their leash distances in the form the game accepts.
+- **Cobblestone Stairs Recycling**: The recycle recipe now uses the Cobblestone Stairs item name the game knows.
+
 ## [v208] - 2026-11-22 - 20-Break Tutorial
 
 ### Added

@@ -9,16 +9,16 @@
     ],
     "ingredients": [
       {
-        "item": "minecraft:cobblestone_stairs"
+        "item": "minecraft:stone_stairs"
       },
       {
-        "item": "minecraft:cobblestone_stairs"
+        "item": "minecraft:stone_stairs"
       },
       {
-        "item": "minecraft:cobblestone_stairs"
+        "item": "minecraft:stone_stairs"
       },
       {
-        "item": "minecraft:cobblestone_stairs"
+        "item": "minecraft:stone_stairs"
       }
     ],
     "result": {

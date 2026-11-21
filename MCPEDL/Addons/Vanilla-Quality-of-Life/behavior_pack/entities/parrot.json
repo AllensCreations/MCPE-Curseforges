@@ -81,9 +81,13 @@
       "minecraft:is_hidden_when_invisible": {},
       "minecraft:jump.static": {},
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:movement": {
         "value": 0.4
@@ -247,7 +251,7 @@
         "minecraft:damage_sensor": {
           "triggers": [
             {
-              "deals_damage": false,
+              "deals_damage": "no",
               "on_damage": {
                 "filters": {
                   "test": "is_family",
@@ -258,11 +262,11 @@
             },
             {
               "cause": "entity_explosion",
-              "deals_damage": false
+              "deals_damage": "no"
             },
             {
               "cause": "block_explosion",
-              "deals_damage": false
+              "deals_damage": "no"
             }
           ]
         }

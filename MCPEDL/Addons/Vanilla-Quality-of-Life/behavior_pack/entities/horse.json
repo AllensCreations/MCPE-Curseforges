@@ -354,7 +354,7 @@
         "minecraft:damage_sensor": {
           "triggers": [
             {
-              "deals_damage": false,
+              "deals_damage": "no",
               "on_damage": {
                 "filters": {
                   "test": "is_family",
@@ -365,11 +365,11 @@
             },
             {
               "cause": "entity_explosion",
-              "deals_damage": false
+              "deals_damage": "no"
             },
             {
               "cause": "block_explosion",
-              "deals_damage": false
+              "deals_damage": "no"
             }
           ]
         }
@@ -563,9 +563,13 @@
         }
       },
       "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
+        "presets": [
+          {
+            "soft_distance": 4.0,
+            "hard_distance": 6.0,
+            "max_distance": 10.0
+          }
+        ]
       },
       "minecraft:balloonable": {},
       "minecraft:healable": {
