@@ -46,6 +46,7 @@ on:
           - "MCPEDL/Addons/Universal-Leash"
           - "MCPEDL/Addons/Vanilla-Quality-of-Life"
           - "MCPEDL/Addons/Waypoint-Helper"
+          - "MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks"
           - "MCPEDL/Maps/OneBlock-Natural-Market"
           - "MCPEDL/Maps/OneBlock-Void-Survival"
           - "MCPEDL/Minigame/Alphabet-Scavenger-Hunt"
@@ -53,7 +54,6 @@ on:
           - "MCPEDL/Minigame/Shared-Hivemind-Inventory"
           - "MCPEDL/Minigame/Tethered-Breaker-And-Builder"
           - "MCPEDL/Script/ALNSpawnControl"
-          - "MCPEDL/Script/Command-Vault"
           # END registered
       publish_map_variant:
         description: "Maps only (default = auto, all = Creative + Survival + Hardcore)"
