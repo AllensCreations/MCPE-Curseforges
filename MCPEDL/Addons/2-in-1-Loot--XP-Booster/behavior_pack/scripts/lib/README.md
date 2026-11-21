@@ -39,4 +39,8 @@ Extracted from the script files; nothing here was run in game.
 
 ## Notes (AI review)
 
-Known limits, design decisions and things to check on the next update go here. Not filled in yet.
+- Block loot: the block's own loot is rolled again with the tool used. Silk Touch, unfinished crops, bone meal crops and Creative mode are skipped. The Creative check reads the text of `getGameMode()` and is not verified in game.
+- Mob loot: the mob's own loot is rolled again with the killer's main hand item. Baby mobs are not checked (not verified).
+- Extra drops from one break or kill are combined into full stacks with `isStackableWith` before they are spawned.
+- XP: nearby orbs are multiplied by spawning extra orbs for the closest player. The value of an extra orb is not set by the script (not verified); `Dimension.spawnXp` sets an exact value from 1 to 12000 if this needs changing.
+- Nothing here was run in game.

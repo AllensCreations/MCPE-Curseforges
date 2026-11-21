@@ -2,7 +2,7 @@ import { world, system, EntityComponentTypes, CommandPermissionLevel, CustomComm
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
 const PACK_NAME = "2-in-1 Loot & XP Booster";
-const VERSION = "8";
+const VERSION = "9";
 const TITLE = `§l§6@ALNStudios §e${PACK_NAME}§r (v${VERSION})`;
 const ABOUT_TITLE = "About ALNStudios";
 const ICON_MAIN = "textures/items/experience_bottle";
@@ -21,7 +21,6 @@ const CROPS_KEY = "aln_loot_crops";
 const MOBS_KEY = "aln_loot_mobs";
 const BOOK_ID = "minecraft:book";
 const TRIGGER_NAME = "booster";
-const DROP_TAG = "aln_boosted_drop";
 const XP_TAG = "aln_boosted_xp";
 const XP_RADIUS = 8;
 const XP_PICKUP_SQUARED = 1;
@@ -310,30 +309,63 @@ function rollMultiplier(max) {
   return 1 + Math.floor(Math.random() * max);
 }
 
+function isCreative(player) {
+  try {
+    return String(player.getGameMode()).toLowerCase() === "creative";
+  } catch (error) {
+    return false;
+  }
+}
+
+function addToTotals(totals, stack) {
+  for (const entry of totals) {
+    if (entry.stack.isStackableWith(stack)) {
+      entry.amount += stack.amount;
+      return;
+    }
+  }
+  totals.push({ stack, amount: stack.amount });
+}
+
+function spawnTotals(dimension, location, totals) {
+  for (const entry of totals) {
+    const size = entry.stack.maxAmount;
+    let left = entry.amount;
+    while (left > 0) {
+      const count = Math.min(size, left);
+      const piece = entry.stack.clone();
+      piece.amount = count;
+      try {
+        dimension.spawnItem(piece, location);
+      } catch (error) {
+        return;
+      }
+      left -= count;
+    }
+  }
+}
+
 function addExtraBlockLoot(dimension, center, permutation, tool, maxMultiplier, skipSelf) {
   const rounds = rollMultiplier(maxMultiplier) - 1;
   if (rounds <= 0) return;
   const typeId = permutation.type.id;
   const manager = world.getLootTableManager();
+  const totals = [];
   for (let round = 0; round < rounds; round++) {
     let stacks;
     try {
       stacks = manager.generateLootFromBlockPermutation(permutation, tool);
     } catch (error) {
-      return;
+      break;
     }
-    if (!stacks) return;
+    if (!stacks) break;
     for (const stack of stacks) {
       if (stack.maxAmount <= 1) continue;
       if (skipSelf && stack.typeId === typeId) continue;
-      try {
-        const spawned = dimension.spawnItem(stack, center);
-        spawned.addTag(DROP_TAG);
-      } catch (error) {
-        return;
-      }
+      addToTotals(totals, stack);
     }
   }
+  spawnTotals(dimension, center, totals);
 }
 
 function addExtraMobLoot(player, deadEntity, maxMultiplier) {
@@ -351,24 +383,21 @@ function addExtraMobLoot(player, deadEntity, maxMultiplier) {
     return;
   }
   const manager = world.getLootTableManager();
+  const totals = [];
   for (let round = 0; round < rounds; round++) {
     let stacks;
     try {
       stacks = manager.generateLootFromEntity(deadEntity, tool);
     } catch (error) {
-      return;
+      break;
     }
-    if (!stacks) return;
+    if (!stacks) break;
     for (const stack of stacks) {
       if (stack.maxAmount <= 1) continue;
-      try {
-        const spawned = dimension.spawnItem(stack, location);
-        spawned.addTag(DROP_TAG);
-      } catch (error) {
-        return;
-      }
+      addToTotals(totals, stack);
     }
   }
+  spawnTotals(dimension, location, totals);
 }
 
 function blockKey(dimension, location) {
@@ -393,6 +422,7 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
 
   const maxMultiplier = lootMultiplier(player);
   if (maxMultiplier <= 1) return;
+  if (isCreative(player)) return;
   const category = blockCategory(brokenBlockPermutation.type.id);
   if (!category || !getBoost(player)[category]) return;
   if (!isGrown(brokenBlockPermutation)) return;

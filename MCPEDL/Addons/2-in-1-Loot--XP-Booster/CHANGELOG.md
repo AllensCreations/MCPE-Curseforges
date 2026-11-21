@@ -2,6 +2,16 @@
 
 ---
 
+## [v9] - 2026-11-22 - Stack Merging and Creative Fix
+
+### Added
+
+- **Merged extra drops**: Extra Loot drops from blocks and mobs are now combined into full stacks, so high Loot levels create far fewer items on the ground.
+
+### Fixed
+
+- **Creative mode**: Breaking ores and crops in Creative mode no longer gives extra loot, because those blocks drop nothing in Creative mode.
+
 ## [v8] - 2026-11-21 - Apply Sounds
 
 ### Improved & Balanced
