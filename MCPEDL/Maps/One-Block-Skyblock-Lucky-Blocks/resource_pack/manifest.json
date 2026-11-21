@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "One Block Skyblock Lucky Blocks (v4)",
+    "name": "One Block Skyblock Lucky Blocks (v5)",
     "description": "Lucky block texture. by ALNStudios",
     "uuid": "8e8d2f07-56e1-4271-bb5f-e8ae848db662",
     "version": [
-      4,
+      5,
       0,
       0
     ],
@@ -20,7 +20,7 @@
       "type": "resources",
       "uuid": "2871df63-c3f5-4516-87ee-35bb02dc838f",
       "version": [
-        4,
+        5,
         0,
         0
       ]
@@ -30,6 +30,6 @@
     "authors": [
       "ALNStudios"
     ],
-    "version": "4.0.0"
+    "version": "5.0.0"
   }
 }

@@ -6,6 +6,24 @@
   "texture_data": {
     "allenscreations_lucky_block_side": { "textures": "textures/blocks/lucky_block_side" },
     "allenscreations_lucky_block_top": { "textures": "textures/blocks/lucky_block_top" },
-    "allenscreations_lucky_block_bottom": { "textures": "textures/blocks/lucky_block_bottom" }
+    "allenscreations_lucky_block_bottom": { "textures": "textures/blocks/lucky_block_bottom" },
+    "allenscreations_lucky_farming_side": { "textures": "textures/blocks/lucky_farming_side" },
+    "allenscreations_lucky_farming_top": { "textures": "textures/blocks/lucky_farming_top" },
+    "allenscreations_lucky_farming_bottom": { "textures": "textures/blocks/lucky_farming_bottom" },
+    "allenscreations_lucky_building_side": { "textures": "textures/blocks/lucky_building_side" },
+    "allenscreations_lucky_building_top": { "textures": "textures/blocks/lucky_building_top" },
+    "allenscreations_lucky_building_bottom": { "textures": "textures/blocks/lucky_building_bottom" },
+    "allenscreations_lucky_combat_side": { "textures": "textures/blocks/lucky_combat_side" },
+    "allenscreations_lucky_combat_top": { "textures": "textures/blocks/lucky_combat_top" },
+    "allenscreations_lucky_combat_bottom": { "textures": "textures/blocks/lucky_combat_bottom" },
+    "allenscreations_lucky_mining_side": { "textures": "textures/blocks/lucky_mining_side" },
+    "allenscreations_lucky_mining_top": { "textures": "textures/blocks/lucky_mining_top" },
+    "allenscreations_lucky_mining_bottom": { "textures": "textures/blocks/lucky_mining_bottom" },
+    "allenscreations_lucky_mystic_side": { "textures": "textures/blocks/lucky_mystic_side" },
+    "allenscreations_lucky_mystic_top": { "textures": "textures/blocks/lucky_mystic_top" },
+    "allenscreations_lucky_mystic_bottom": { "textures": "textures/blocks/lucky_mystic_bottom" },
+    "allenscreations_lucky_treasure_side": { "textures": "textures/blocks/lucky_treasure_side" },
+    "allenscreations_lucky_treasure_top": { "textures": "textures/blocks/lucky_treasure_top" },
+    "allenscreations_lucky_treasure_bottom": { "textures": "textures/blocks/lucky_treasure_bottom" }
   }
 }

@@ -16,8 +16,12 @@ You start on a 3x3 grass island floating in an empty void, next to a single luck
 ## Key Features
 
 ### One Central Lucky Block
-- **What Happens**: The lucky block sits at the center of the island and is replaced the moment you break it.
+- **What Happens**: The lucky block sits at the center of the island and is replaced the moment you break it, with a random type from the pool.
 - **Good To Know**: If the center spot ever becomes empty, the lucky block is placed there again within about 5 seconds.
+
+### 7 Lucky Block Types
+- **What Happens**: The center block comes back as a random type: All-Round, Farming, Building, Combat, Mining, Mystic or Treasure. Each type has its own texture and weights matching good results about 8 times higher.
+- **Good To Know**: Every type can still give any good result of the current tier. Bad luck is the same for all types.
 
 ### 70/30 Luck
 - **What Happens**: Every break has a 70% chance of good luck and a 30% chance of bad luck from the very first block, with no guaranteed good streak.
@@ -31,16 +35,20 @@ You start on a 3x3 grass island floating in an empty void, next to a single luck
 - **What Happens**: Good tiers run Common, Uncommon, Good, Nice, Great, Rare, Superb, Excellent, Fantastic, Epic, Heroic, Majestic, Glorious, Radiant, Exalted, Legendary, Ancient, Celestial, Divine and Mythical.
 - **Good To Know**: Every tier has its own results, and late bad tiers are severe and can end a run.
 
-### 120 Good Results and 81 Bad Results
+### 134 Good Results and 84 Bad Results
 - **What Happens**: Early good results are mostly building materials such as Sapling Pack, Dirt Delivery, Oak Logs, Plank Bundle and Stone Delivery.
 - **Good To Know**: Explosions from the lucky block do not break the island, but a hit or a blast can still knock you into the void.
 
+### Physical Surprises
+- **What Happens**: Falling Anvil warns you on the action bar, then drops an anvil about 5 blocks above you. Thunder Pig and Thunder Villager summon a mob and call lightning on it about a quarter of a second later.
+- **Good To Know**: Lightning strikes close to the island, so it can hurt you and set you on fire.
+
 ### Starter Chest
 - **What Happens**: A chest waits on a corner of the island with 3 Oak Saplings, 4 Bone Meal, 4 Bread, a Bucket and a Luck Ledger.
-- **Good To Know**: The first time you join, a short chat tip tells you to break the lucky block and open the chest.
+- **Good To Know**: The first time you join, a short action bar tip tells you to break the lucky block and open the chest.
 
 ### Luck Ledger
-- **What Happens**: Use the Luck Ledger to see how many blocks you have broken and how many Four-Leaf Fortune or Jinx breaks are left.
+- **What Happens**: Use the Luck Ledger to show on the action bar how many blocks you have broken and how many Four-Leaf Fortune or Jinx breaks are left.
 - **Good To Know**: It does not show which progression step you are on.
 
 ### Influence Your Luck

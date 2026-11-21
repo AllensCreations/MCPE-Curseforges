@@ -2,6 +2,16 @@
 
 ---
 
+## [v5] - 2026-11-21 - Lucky Block Types
+
+### Added
+- **Lucky block types**: The center block now comes back as one of 7 types: All-Round, Farming, Building, Combat, Mining, Mystic or Treasure. Each has its own texture and favors matching good results.
+- **14 new results**: Wooden Sword, Wooden Pickaxe, Experience Spark, Archer Starter, Coal Starter, Book Stack, Emerald Find, Stone Sword, Stone Pickaxe, Lapis Pinch, Lucky Coin, Iron Blade, Arrow Quiver and Spare Shield.
+- **Falling Anvil**: A warning shows on the action bar, then an anvil drops from above you.
+- **Thunder Pig and Thunder Villager**: A mob appears and lightning strikes it about a quarter of a second later.
+### Improved & Balanced
+- **Action bar only**: Results, the first-join tip and the Luck Ledger now show on the action bar instead of in chat.
+
 ## [v4] - 2026-11-21 - Island Setup Fix
 
 ### Improved & Balanced

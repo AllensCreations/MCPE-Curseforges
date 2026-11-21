@@ -1,6 +1,200 @@
 import { world, system, ItemStack } from "@minecraft/server";
 
 const LUCKY = "allenscreations:lucky_block";
+const TYPES = {
+  "allenscreations:lucky_block": { theme: null, label: "§eAll-Round", weight: 22 },
+  "allenscreations:lucky_farming": { theme: "farming", label: "§aFarming", weight: 16 },
+  "allenscreations:lucky_building": { theme: "building", label: "§6Building", weight: 16 },
+  "allenscreations:lucky_combat": { theme: "combat", label: "§cCombat", weight: 16 },
+  "allenscreations:lucky_mining": { theme: "mining", label: "§bMining", weight: 16 },
+  "allenscreations:lucky_mystic": { theme: "mystic", label: "§dMystic", weight: 12 },
+  "allenscreations:lucky_treasure": { theme: "treasure", label: "§3Treasure", weight: 8 },
+};
+const THEME_BOOST = 8;
+const THEME_NAMES = {
+  farming: new Set([
+    "Sapling Pack",
+    "Seed Pouch",
+    "Flower Bouquet",
+    "Plains Wanderers",
+    "Sapling Mix",
+    "Apple Pickings",
+    "Forest Friends",
+    "Harvest Basket",
+    "Farmer's Kit",
+    "Cooked Feast",
+    "Sugar Cane Cuttings",
+    "Hay Bales",
+    "Villager Visit",
+    "Glow Berries",
+    "Golden Carrots",
+    "Celebration Cake",
+    "Leaf Bundle",
+  ]),
+  building: new Set([
+    "Dirt Delivery",
+    "Oak Logs",
+    "Birch Logs",
+    "Plank Bundle",
+    "Stick Bundle",
+    "Grass Blocks",
+    "Sand Pile",
+    "Log Pile",
+    "Leaf Bundle",
+    "Stone Delivery",
+    "Furnace and Fuel",
+    "Sand and Gravel",
+    "Torch Bundle",
+    "Cave Torches",
+    "Crafting Corner",
+    "Iron Blocks",
+    "Obsidian Stack",
+    "Bookshelf Bundle",
+    "Anvil Gift",
+    "Nether Bricks",
+    "Soul Sand and Netherrack",
+    "Bed Set",
+    "Obsidian Cache",
+    "End Rods",
+    "Prismarine Haul",
+    "Sea Lanterns",
+    "Purpur Stack",
+    "Sculk Haul",
+    "Ender Chest",
+  ]),
+  combat: new Set([
+    "Wooden Sword",
+    "Archer Starter",
+    "Stone Sword",
+    "Iron Blade",
+    "Arrow Quiver",
+    "Spare Shield",
+    "Wolf Pup",
+    "Sword and Shield",
+    "Bow and Arrows",
+    "Iron Armor Pair",
+    "Diamond Armor Pair",
+    "Netherite Armor Set",
+    "Totem of Undying",
+    "Twin Totems",
+    "Golden Apples",
+    "Golden Apple Stack",
+    "Enchanted Golden Apples",
+    "Strength Surge",
+    "Fire Shield",
+    "Regeneration Surge",
+    "Trident",
+    "Divine Aura",
+  ]),
+  mining: new Set([
+    "Wooden Pickaxe",
+    "Coal Starter",
+    "Stone Pickaxe",
+    "Wooden Tool Set",
+    "Stone Tool Set",
+    "Coal Stack",
+    "Raw Iron Haul",
+    "Copper Haul",
+    "Coal Seam",
+    "Empty Bucket",
+    "Iron Ingots",
+    "Iron Tool Kit",
+    "Water Bucket",
+    "Lava Bucket",
+    "Gold Haul",
+    "Redstone Dust",
+    "Lapis Lazuli",
+    "Amethyst Shards",
+    "Night Sight",
+    "Diamond Pair",
+    "Diamond Pickaxe",
+    "Haste Rush",
+    "Quartz Haul",
+    "Ancient Debris",
+    "Ancient Debris Cache",
+    "Netherite Scrap",
+    "Diamond Haul",
+    "Netherite Pickaxe",
+    "Piglin Bribe",
+    "Flint Stack",
+    "Furnace and Fuel",
+    "Torch Bundle",
+    "Cave Torches",
+  ]),
+  mystic: new Set([
+    "Experience Spark",
+    "Book Stack",
+    "Lapis Pinch",
+    "XP Surge",
+    "Bookshelf Bundle",
+    "Enchanting Table",
+    "Lapis Stack",
+    "Experience Flood",
+    "Nether Kit",
+    "Glowstone Dust",
+    "Nether Wart",
+    "Brewing Kit",
+    "Ender Pearls",
+    "Eyes of Ender",
+    "Eye Stack",
+    "Blaze Rods",
+    "Slow Falling",
+    "Echo Shards",
+    "Disc Fragment",
+    "Quiet Steps",
+    "Sea Blessing",
+    "Experience Ascension",
+    "Divine Aura",
+    "Four-Leaf Fortune",
+    "Golden Horseshoe",
+    "Chorus Fruit",
+    "Shulker Shells",
+    "Amethyst Shards",
+    "Anvil Gift",
+  ]),
+  treasure: new Set([
+    "Emerald Find",
+    "Lucky Coin",
+    "Gold Haul",
+    "Piglin Bribe",
+    "Diamond Pair",
+    "Diamond Haul",
+    "Diamond Blocks",
+    "Netherite Ingot",
+    "Netherite Scrap",
+    "Netherite Armor Set",
+    "Netherite Pickaxe",
+    "Ancient Debris Cache",
+    "Elytra",
+    "Beacon",
+    "Nether Star",
+    "Nether Star Pair",
+    "Dragon Egg",
+    "Dragon Head",
+    "Ocean Treasures",
+    "Trident",
+    "Ender Chest",
+    "Shulker Shells",
+    "Echo Shards",
+    "Enchanted Golden Apples",
+    "Totem of Undying",
+    "Twin Totems",
+    "Four-Leaf Fortune",
+    "Golden Horseshoe",
+    "Villager Visit",
+    "Celebration Cake",
+  ]),
+};
+
+function nextBlockId() {
+  const ids = Object.keys(TYPES);
+  let roll = Math.random() * ids.reduce((sum, id) => sum + TYPES[id].weight, 0);
+  for (const id of ids) {
+    roll -= TYPES[id].weight;
+    if (roll < 0) return id;
+  }
+  return LUCKY;
+}
 const LEDGER = "allenscreations:trader_ledger";
 const TIP_KEY = "lucky_tip_shown";
 const CORE = { x: 0, y: 64, z: 0 };
@@ -77,6 +271,36 @@ const fire = (seconds) => (ctx) => {
   ctx.player.setOnFire(seconds);
 };
 
+const thunderMob = (id) => (ctx) => {
+  const where = spot(ctx, 1);
+  ctx.dimension.spawnEntity(id, where);
+  later(5, () => ctx.dimension.spawnEntity("minecraft:lightning_bolt", where));
+};
+
+const fallingAnvil = (ctx) => {
+  const warn = (text) => {
+    ctx.player.onScreenDisplay.setActionBar(text);
+    ctx.player.playSound("note.bass");
+  };
+  later(20, () => warn("§c§lLook up! Something heavy is coming..."));
+  later(40, () => warn("§4§lMOVE!"));
+  later(60, () => {
+    const at = ctx.player.location;
+    const x = Math.floor(at.x);
+    const z = Math.floor(at.z);
+    const block = ctx.dimension.getBlock({ x, y: Math.floor(at.y) + 5, z });
+    if (!block) return;
+    block.setType("minecraft:anvil");
+    later(30, () => {
+      const now = ctx.player.location;
+      for (let dy = 0; dy <= 1; dy++) {
+        const cell = ctx.dimension.getBlock({ x: Math.floor(now.x), y: Math.floor(now.y) + dy, z: Math.floor(now.z) });
+        if (cell && cell.typeId === "minecraft:anvil") cell.setType("minecraft:air");
+      }
+    });
+  });
+};
+
 const butterfingers = (ctx) => {
   const inv = ctx.player.getComponent("minecraft:inventory")?.container;
   const slot = ctx.player.selectedSlotIndex;
@@ -109,6 +333,9 @@ const STAGES = [
       ["Sand Pile", items([["minecraft:sand", 12]])],
       ["Flower Bouquet", items([["minecraft:dandelion", 3], ["minecraft:poppy", 3]])],
       ["Plains Wanderers", both(mobs("minecraft:cow", 1), mobs("minecraft:sheep", 1))],
+      ["Wooden Sword", kit("minecraft:wooden_sword"), 2],
+      ["Wooden Pickaxe", kit("minecraft:wooden_pickaxe"), 2],
+      ["Experience Spark", levels(2)],
     ],
     bad: [
       ["Hunger Pangs", effect("hunger", 10)],
@@ -116,6 +343,7 @@ const STAGES = [
       ["Butterfingers", butterfingers],
       ["XP Tax", tax(2)],
       ["Stubbed Toe", hurt(2)],
+      ["Falling Anvil", fallingAnvil],
     ],
   },
   {
@@ -128,11 +356,16 @@ const STAGES = [
       ["Leaf Bundle", items([["minecraft:oak_leaves", 16]])],
       ["Forest Friends", both(mobs("minecraft:pig", 1), mobs("minecraft:chicken", 2))],
       ["Wolf Pup", both(mobs("minecraft:wolf", 1), items([["minecraft:bone", 4]]))],
+      ["Archer Starter", items([["minecraft:bow", 1], ["minecraft:arrow", 12]])],
+      ["Coal Starter", items([["minecraft:coal", 6]])],
+      ["Book Stack", items([["minecraft:book", 4]])],
+      ["Emerald Find", items([["minecraft:emerald", 3]])],
     ],
     bad: [
       ["Zombie Wanderer", mobs("minecraft:zombie", 1)],
       ["Spider Scare", mobs("minecraft:spider", 1)],
       ["Weak Wrists", effect("weakness", 15)],
+      ["Thunder Pig", thunderMob("minecraft:pig")],
       ["Dizzy Spell", effect("nausea", 6)],
     ],
   },
@@ -144,6 +377,10 @@ const STAGES = [
       ["Furnace and Fuel", items([["minecraft:furnace", 1], ["minecraft:charcoal", 8]]), 2],
       ["Sand and Gravel", items([["minecraft:sand", 16], ["minecraft:gravel", 16]]), 2],
       ["Torch Bundle", items([["minecraft:torch", 12], ["minecraft:coal", 4]])],
+      ["Stone Sword", kit("minecraft:stone_sword")],
+      ["Stone Pickaxe", kit("minecraft:stone_pickaxe")],
+      ["Lapis Pinch", items([["minecraft:lapis_lazuli", 6]])],
+      ["Lucky Coin", items([["minecraft:gold_ingot", 2]])],
     ],
     bad: [
       ["Zombie Pair", mobs("minecraft:zombie", 2)],
@@ -166,6 +403,7 @@ const STAGES = [
       ["Pillager Scout", mobs("minecraft:pillager", 1)],
       ["Poison Sting", effect("poison", 8)],
       ["Sudden Darkness", effect("darkness", 8)],
+      ["Thunder Villager", thunderMob("minecraft:villager")],
     ],
   },
   {
@@ -208,6 +446,7 @@ const STAGES = [
       ["Redstone Dust", items([["minecraft:redstone", 20]])],
       ["Lapis Lazuli", items([["minecraft:lapis_lazuli", 16]])],
       ["Amethyst Shards", items([["minecraft:amethyst_shard", 8]])],
+      ["Iron Blade", kit("minecraft:iron_sword")],
       ["Glow Berries", items([["minecraft:glow_berries", 8]])],
       ["Night Sight", effect("night_vision", 120)],
     ],
@@ -224,6 +463,7 @@ const STAGES = [
       ["Diamond Pickaxe", kit("minecraft:diamond_pickaxe")],
       ["Obsidian Stack", items([["minecraft:obsidian", 6]])],
       ["Iron Blocks", items([["minecraft:iron_block", 2]])],
+      ["Arrow Quiver", items([["minecraft:arrow", 32]])],
       ["Haste Rush", effect("haste", 60, 1)],
       ["XP Surge", levels(6)],
     ],
@@ -241,6 +481,7 @@ const STAGES = [
       ["Lapis Stack", items([["minecraft:lapis_lazuli", 24]])],
       ["Experience Flood", levels(10)],
       ["Anvil Gift", kit("minecraft:anvil")],
+      ["Spare Shield", kit("minecraft:shield")],
     ],
     bad: [
       ["Witch Coven", mobs("minecraft:witch", 2)],
@@ -435,15 +676,16 @@ function windowTier(base) {
   return base;
 }
 
-function pickOutcome(kind, breaks) {
+function pickOutcome(kind, breaks, theme) {
   const base = Math.min(MAX_BASE, Math.floor((breaks - 1) / STAGE_BREAKS));
   const index = windowTier(base);
   const pool = STAGES[index][kind].filter((o) => o[0] !== lastName);
-  const total = pool.reduce((sum, o) => sum + (o[2] ?? 1), 0);
+  const weight = (o) => (o[2] ?? 1) * (kind === "good" && theme && THEME_NAMES[theme].has(o[0]) ? THEME_BOOST : 1);
+  const total = pool.reduce((sum, o) => sum + weight(o), 0);
   let roll = Math.random() * total;
   let outcome = pool[pool.length - 1];
   for (const o of pool) {
-    roll -= o[2] ?? 1;
+    roll -= weight(o);
     if (roll < 0) {
       outcome = o;
       break;
@@ -470,10 +712,9 @@ function rollKind(player) {
 }
 
 function announce(ctx, kind, label, outcome, breaks) {
-  const line = `${label}§r: ${outcome[0]}`;
+  const line = `${ctx.type.label}§r §8|§r ${label}§r: ${outcome[0]} §8#${breaks}`;
   try {
     ctx.player.onScreenDisplay.setActionBar(line);
-    ctx.player.sendMessage(`§7Break ${breaks}: §r${line}`);
     ctx.player.playSound(kind === "good" ? "random.levelup" : "note.bass");
     ctx.dimension.spawnParticle(kind === "good" ? "minecraft:villager_happy" : "minecraft:villager_angry", ctx.top);
   } catch (e) {
@@ -481,13 +722,13 @@ function announce(ctx, kind, label, outcome, breaks) {
   }
 }
 
-function trigger(player, dimension, loc) {
+function trigger(player, dimension, loc, type) {
   const breaks = num(BREAKS_KEY) + 1;
   world.setDynamicProperty(BREAKS_KEY, breaks);
-  const ctx = { player, dimension, loc, top: { x: loc.x + 0.5, y: loc.y + 1.2, z: loc.z + 0.5 } };
+  const ctx = { player, dimension, loc, type, top: { x: loc.x + 0.5, y: loc.y + 1.2, z: loc.z + 0.5 } };
   const kind = rollKind(player);
   const names = kind === "good" ? GOOD_TIERS : BAD_TIERS;
-  let { outcome, index } = pickOutcome(kind, breaks);
+  let { outcome, index } = pickOutcome(kind, breaks, type.theme);
   let tier = names[index];
   try {
     outcome[1](ctx);
@@ -504,16 +745,17 @@ function trigger(player, dimension, loc) {
 }
 
 world.afterEvents.playerBreakBlock.subscribe((event) => {
-  if (event.brokenBlockPermutation.type.id !== LUCKY) return;
+  const type = TYPES[event.brokenBlockPermutation.type.id];
+  if (!type) return;
   const { player, dimension, block } = event;
   const loc = { x: block.location.x, y: block.location.y, z: block.location.z };
   const isCore = dimension.id === "minecraft:overworld" && loc.x === CORE.x && loc.y === CORE.y && loc.z === CORE.z;
   system.run(() => {
     if (isCore) {
       const target = dimension.getBlock(loc);
-      if (target && target.isAir) target.setType(LUCKY);
+      if (target && target.isAir) target.setType(nextBlockId());
     }
-    trigger(player, dimension, loc);
+    trigger(player, dimension, loc, type);
   });
 });
 
@@ -521,7 +763,7 @@ system.runInterval(() => {
   if (world.getPlayers({ tags: ["void_cleaned"] }).length === 0) return;
   try {
     const block = world.getDimension("overworld").getBlock(CORE);
-    if (block && block.isAir) block.setType(LUCKY);
+    if (block && block.isAir) block.setType(nextBlockId());
   } catch (e) {
     return;
   }
@@ -532,7 +774,7 @@ world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
   world.setDynamicProperty(TIP_KEY, true);
   system.runTimeout(() => {
     try {
-      player.sendMessage("§6Break the lucky block in the middle of the island. Open the chest on the corner first.");
+      player.onScreenDisplay.setActionBar("§6Break the lucky block in the middle of the island. Open the chest on the corner first.");
     } catch (e) {
       return;
     }
@@ -541,7 +783,7 @@ world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
 
 world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
   if (itemStack.typeId !== LEDGER) return;
-  source.sendMessage(`§6Luck Ledger§r\nBreaks: ${num(BREAKS_KEY)}\nLuck boosts left: ${num(BONUS_KEY)}\nJinxes left: ${num(JINX_KEY)}`);
+  source.onScreenDisplay.setActionBar(`§6Luck Ledger§r §8|§r Breaks: ${num(BREAKS_KEY)} §8|§r Boosts: ${num(BONUS_KEY)} §8|§r Jinxes: ${num(JINX_KEY)}`);
 });
 
 const SETUP_TAG = "void_cleaned";
