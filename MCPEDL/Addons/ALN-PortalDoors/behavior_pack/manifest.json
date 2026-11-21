@@ -1,0 +1,65 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN PortalDoors (v1)",
+    "description": "Placeable 1x2 arcane portal doorways with a named destination hub. by ALNStudios",
+    "uuid": "63076b05-cf16-4e2d-9587-730369b22de0",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "24570f0a-596e-4f9c-bce3-002e4d3d7676",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "entry": "scripts/main.js",
+      "uuid": "6a11ae2f-5cb4-4138-956c-0815d8987234",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "58752688-02a7-4b27-a8ae-2cc347120d7b",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.10.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.2.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}
