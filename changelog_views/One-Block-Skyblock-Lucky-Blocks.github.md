@@ -1,10 +1,26 @@
 # Changelog — One Block Skyblock Lucky Blocks
 
-## [v4] - 2026-11-21 - Island Setup Fix
+## [v5] - 2026-11-21 - Lucky Block Types
+
+### Added
+- **Lucky block types**: The center block now comes back as one of 7 types: All-Round, Farming, Building, Combat, Mining, Mystic or Treasure. Each has its own texture and favors matching good results.
+- **14 new results**: Wooden Sword, Wooden Pickaxe, Experience Spark, Archer Starter, Coal Starter, Book Stack, Emerald Find, Stone Sword, Stone Pickaxe, Lapis Pinch, Lucky Coin, Iron Blade, Arrow Quiver and Spare Shield.
+- **Falling Anvil**: A warning shows on the action bar, then an anvil drops from above you.
+- **Thunder Pig and Thunder Villager**: A mob appears and lightning strikes it about a quarter of a second later.
 
 ### Improved & Balanced
+- **Action bar only**: Results, the first-join tip and the Luck Ledger now show on the action bar instead of in chat.
+
+<details>
+<summary><b>4.0.x</b> (1 release)</summary>
+
+### [v4] - 2026-11-21 - Island Setup Fix
+
+#### Improved & Balanced
 - **Spawn point**: You now start standing on the lucky block in the center of the island, and the world spawn is set there.
 - **Island setup on first join**: The island, lucky block, starter chest and spawn point are now built when you first join, and the empty-world platform below is cleared.
+
+</details>
 
 <details>
 <summary><b>3.0.x</b> (1 release)</summary>
