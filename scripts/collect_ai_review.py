@@ -134,7 +134,7 @@ def build_kit(root, kit, out, label):
              "No file contents are pasted here on purpose. Rules, docs and script source are read through Context7 `query-docs` "
              "(see the `mcpe-context7` skill below). Do not ask for a full dump.\n"]
     if files:
-        parts.append(f"The complete, unchanged scripts this task has to RUN are in `{zip_name}` under `files/`: unzip and run them, never retype them.\n")
+        parts.append(f"The complete, unchanged scripts this task has to RUN are in the same kit zip as this file, under `files/`: unzip and run them, never retype them.\n")
         parts += [f"- `files/{rel}`" for rel, _ in files] + [""]
     parts += ["## Directories\n", directory_map(root), ""]
     for rel, text in skills:

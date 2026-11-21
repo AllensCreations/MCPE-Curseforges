@@ -8,7 +8,7 @@ description: Use before looking up ANY repo rule, repo script, Bedrock API membe
 ## Authority
 
 - `INSTRUCTIONS.md` 1.16 (copy in `docs/instructions-reference.md`) is the policy. This skill is only its routing table and never overrides it.
-- An AI review kit (`*_tools.txt`) holds a directory map and skills, no file contents. That is on purpose: read what the task needs through Context7, not from a pasted dump.
+- An AI review kit (`*_tools.txt` inside the kit zip) holds a directory map and skills, no file contents. That is on purpose: read what the task needs through Context7, not from a pasted dump.
 
 ## Libraries (ONLY these four, IDs exactly, `query-docs` only)
 
@@ -38,7 +38,7 @@ NEVER call `resolve-library-id`. NEVER query any other library.
 ## Scripts that must run
 
 - `make_pack_script.py`, `build_payload.py`, `import_project_payload.py`, `doc_template.py`, `pixel_json_to_png.py`, `make_update_script.py` and `apply_update.py` need their COMPLETE unchanged text. A Context7 snippet is not enough.
-- The complete files are in the kit zip (`New-Pack_files.zip`, `Update-Pack_files.zip` or `tools_files.zip`) under `files/`. Unzip, run from there, NEVER retype or edit them.
+- The complete files are in the kit zip (`New-Pack.zip`, `Update-Pack.zip` or `Maintenance.zip`) under `files/`. Unzip, run from there, NEVER retype or edit them.
 - No zip and only partial text from a query: stop and ask the user to attach the zip. NEVER rewrite a script from memory.
 - A file attached in the conversation or read from a clone wins over the Context7 index. Context7 shows the repo as last indexed. Tell the user about any difference.
 

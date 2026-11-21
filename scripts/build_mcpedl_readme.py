@@ -12,13 +12,14 @@ Usage: python3 scripts/build_mcpedl_readme.py [--check] [--root DIR]
 """
 import argparse
 import os
+import json
 import re
 import sys
 from pathlib import Path
 from urllib.parse import quote
 
 CATEGORIES = (("Addons", "Add-ons"), ("Maps", "Maps"), ("Script", "Scripts"), ("Minigame", "Minigames"))
-CHANGELOG_TOP = re.compile(r"(?m)^## \[(\d+\.\d+\.\d+)\]")
+CHANGELOG_TOP = re.compile(r"(?m)^## \[v?(\d+(?:\.\d+){0,2})\]")
 RAW = "https://github.com/AllensCreations/MCPE-Curseforges/raw/main/"
 GITHUB_RAW = "https://github.com/AllensCreations/MCPE-Curseforges/raw/main/"
 
@@ -34,12 +35,9 @@ def get_ai_kits(root: Path):
         bundle_label = "Complete Bedrock Reference Bundle (Samples, Schemas & Types Zip)"
 
     return (
-        ("New Pack Kit (map and skills)", "MCPEDL/AI Review/New-Pack_tools.txt"),
-        ("New Pack Scripts (zip, unzip and run)", "MCPEDL/AI Review/New-Pack_files.zip"),
-        ("Update Pack Kit (map and skills)", "MCPEDL/AI Review/Update-Pack_tools.txt"),
-        ("Update Pack Scripts (zip, unzip and run)", "MCPEDL/AI Review/Update-Pack_files.zip"),
-        ("Repo Maintenance Kit (map and skills)", "MCPEDL/AI Review/tools.txt"),
-        ("Repo Maintenance Scripts (zip)", "MCPEDL/AI Review/tools_files.zip"),
+        ("New Pack Kit (zip: map and scripts)", "MCPEDL/AI Review/New-Pack.zip"),
+        ("Update Pack Kit (zip: map and scripts)", "MCPEDL/AI Review/Update-Pack.zip"),
+        ("Repo Maintenance Kit (zip: map and scripts)", "MCPEDL/AI Review/Maintenance.zip"),
         ("Bedrock Samples (AI Review)", "MCPEDL/AI Review/bedrock-samples.txt"),
         ("Vanilla Bedrock Reference (JSON.gz)", "reference/bedrock-samples/bedrock-samples.min.json.gz"),
         (bundle_label, bundle_path),
@@ -72,13 +70,42 @@ def pack_title(project):
     return project.name.replace("-", " ").replace("_", " ")
 
 
+def _norm(v):
+    """'6' -> 'v6'; '14.0.1' stays '14.0.1'. Both forms are used in the changelogs."""
+    return f"v{v}" if re.fullmatch(r"\d+", v) else v
+
+
+def _tuple(v):
+    parts = [int(x) for x in v.lstrip("v").split(".")]
+    return tuple(parts + [0] * (3 - len(parts)))
+
+
 def pack_version(project):
+    """Newest changelog heading (## [v6] or ## [14.0.1]); the Behavior Pack manifest only when there is none."""
     c = project / "CHANGELOG.md"
     if c.is_file():
         m = CHANGELOG_TOP.search(c.read_text(encoding="utf-8", errors="replace"))
         if m:
-            return m.group(1)
-    return "-"
+            return _norm(m.group(1))
+    mv = manifest_version(project)
+    return _norm(".".join(map(str, mv)).replace(".0.0", "")) if mv else "-"
+
+
+def manifest_version(project):
+    m = project / "behavior_pack" / "manifest.json"
+    try:
+        v = json.loads(m.read_text(encoding="utf-8"))["header"]["version"]
+        return tuple(v) if isinstance(v, list) else None
+    except (OSError, ValueError, KeyError, TypeError):
+        return None
+
+
+def version_mismatch(project):
+    """Warning text when the changelog's newest version differs from the manifest's, else None."""
+    v, mv = pack_version(project), manifest_version(project)
+    if v == "-" or mv is None:
+        return None
+    return None if _tuple(v) == tuple(mv) else f"version mismatch {project.parent.name}/{project.name}: changelog {v}, manifest {'.'.join(map(str, mv))}"
 
 
 def render(root):
@@ -111,6 +138,9 @@ def render(root):
             ai = f"[Download]({RAW}{quote(review.relative_to(root).as_posix())})" if review.is_file() else "-"
             listing = root / "Package" / f"{p.name}.listing.md"
             pkg = f"[Package]({link(mcpedl, listing)})" if listing.is_file() else "-"
+            mismatch = version_mismatch(p)
+            if mismatch:
+                warnings.append(mismatch)
             title = pack_title(p).replace("|", "/")
             rows.append(f"| **{title}** | {pack_version(p)} | [Source]({link(mcpedl, p)}) | {pkg} | {ai} |")
         sections.append(f"## {label}\n\n" + "\n".join(rows) + "\n")

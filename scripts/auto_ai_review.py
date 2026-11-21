@@ -9,9 +9,10 @@ For each package folder MCPEDL/<Category>/<Name> it builds the same export as th
   MCPEDL/AI Review/.<Name>.source-hash     (what the file was built from; a package whose hash matches is skipped)
 The kits are identical for every package, so they are saved once. Each is a directory map plus skills (no file
 contents) and, where the task has to run scripts, a zip with the complete scripts as real files:
-  MCPEDL/AI Review/tools.txt          + tools_files.zip         (repo maintenance)
-  MCPEDL/AI Review/New-Pack_tools.txt + New-Pack_files.zip      (new project)
-  MCPEDL/AI Review/Update-Pack_tools.txt + Update-Pack_files.zip (update; also copied into every package zip)
+  MCPEDL/AI Review/Maintenance.zip  (repo maintenance)
+  MCPEDL/AI Review/New-Pack.zip     (new project)
+  MCPEDL/AI Review/Update-Pack.zip  (update; also copied into every package zip)
+Each kit zip holds <Kit>_tools.txt (directory map + skills) and the runnable scripts under files/.
 Generated views (changelog_views/, Package/*.listing.md) are not part of an export and do not trigger a rebuild.
 The root README.md list is refreshed only when it holds the two marker lines
   <!-- AI-REVIEW:START -->  and  <!-- AI-REVIEW:END -->
@@ -92,6 +93,21 @@ def write_if_changed(path: Path, data: str) -> bool:
     return True
 
 
+def write_kit_zip(dest: Path, tools_txt: Path, map_name: str, files_zips) -> None:
+    """ONE zip per kit: the map text at the top plus the runnable scripts under files/. Deterministic bytes."""
+    def info(name):
+        i = zipfile.ZipInfo(name, date_time=(2020, 1, 1, 0, 0, 0))
+        i.compress_type = zipfile.ZIP_DEFLATED
+        i.external_attr = 0o644 << 16
+        return i
+    with zipfile.ZipFile(dest, "w", zipfile.ZIP_DEFLATED) as zf:
+        zf.writestr(info(map_name), tools_txt.read_bytes(), compresslevel=9)
+        for fz in files_zips:
+            with zipfile.ZipFile(fz) as src:
+                for member in src.namelist():
+                    zf.writestr(info(member), src.read(member), compresslevel=9)
+
+
 def link(rel: str) -> str:
     return RAW + "/" + urllib.parse.quote(rel)
 
@@ -158,50 +174,38 @@ def main() -> int:
                 tool_paths.append(target)
         tools_dir = ROOT / OUT_DIR
         tools_hash = digest(tool_paths)
-        for kit_name, paths_kw in (("tools.txt", "REPO"), ("New-Pack_tools.txt", "NEW"), ("Update-Pack_tools.txt", "UPDATE")):
-            kit_path  = tools_dir / kit_name
-            kit_stamp = tools_dir / f".{kit_name.replace('.txt', '')}-hash"
+        for zip_name, paths_kw in (("Maintenance.zip", "REPO"), ("New-Pack.zip", "NEW"), ("Update-Pack.zip", "UPDATE")):
+            kit_path = tools_dir / zip_name
+            kit_stamp = tools_dir / f".{zip_name[:-4]}-hash"
             if args.all or not kit_path.is_file() or not kit_stamp.is_file() or kit_stamp.read_text().strip() != tools_hash:
                 out = Path(tmp) / f"kit_{paths_kw}"
                 try:
                     run_collector(paths_kw, out, skip_tools=False)
                     made = sorted(out.glob("*_tools.txt"))
                     if made:
-                        tools_dir.mkdir(exist_ok=True)
-                        shutil.copyfile(made[0], kit_path)
+                        tools_dir.mkdir(parents=True, exist_ok=True)
+                        write_kit_zip(kit_path, made[0], zip_name[:-4] + "_tools.txt", sorted(out.glob("*_files.zip")))
                         changed.append(kit_path.relative_to(ROOT).as_posix())
                         print(f"Built {kit_path.relative_to(ROOT)}")
-                        stem = kit_name[:-len("_tools.txt")] if kit_name.endswith("_tools.txt") else "tools"
-                        zip_path = tools_dir / f"{stem}_files.zip"
-                        made_zip = sorted(out.glob("*_files.zip"))
-                        if made_zip:
-                            shutil.copyfile(made_zip[0], zip_path)
-                            changed.append(zip_path.relative_to(ROOT).as_posix())
-                            print(f"Built {zip_path.relative_to(ROOT)}")
-                        elif zip_path.is_file():
-                            zip_path.unlink()
                         kit_stamp.write_text(tools_hash + "\n", encoding="utf-8")
                 except subprocess.CalledProcessError:
-                    print(f"::warning::{kit_name} could not be built; skipped.")
+                    print(f"::warning::{zip_name} could not be built; skipped.")
 
 
-    # Package AI review zips (combining <PackName>.txt and <PackName>_tools.txt from Update-Pack kit)
-    update_tools = tools_dir / "Update-Pack_tools.txt"
-    update_files = tools_dir / "Update-Pack_files.zip"
+    # Package AI review zips: <Pack>.txt + everything in the Update-Pack kit zip
+    update_kit = tools_dir / "Update-Pack.zip"
     for cat, pack in packages():
         name = pack.name
         txt = ROOT / OUT_DIR / f"{name}.txt"
         if not txt.is_file():
             continue
         zpath = ROOT / OUT_DIR / f"{name}.zip"
-        newest = max([p.stat().st_mtime for p in (update_tools, update_files) if p.is_file()] or [0])
+        newest = update_kit.stat().st_mtime if update_kit.is_file() else 0
         if not zpath.is_file() or txt.stat().st_mtime > zpath.stat().st_mtime or newest > zpath.stat().st_mtime:
             with zipfile.ZipFile(zpath, "w", compression=zipfile.ZIP_DEFLATED) as zf:
                 zf.write(txt, arcname=f"{name}.txt")
-                if update_tools.is_file():
-                    zf.write(update_tools, arcname=f"{name}_tools.txt")
-                if update_files.is_file():
-                    with zipfile.ZipFile(update_files) as src:
+                if update_kit.is_file():
+                    with zipfile.ZipFile(update_kit) as src:
                         for member in src.namelist():
                             zf.writestr(member, src.read(member))
             changed.append(zpath.relative_to(ROOT).as_posix())
@@ -214,8 +218,8 @@ def main() -> int:
         text = readme.read_text(encoding="utf-8")
         if START in text and END in text:
             lines = [START, "", "Latest AI review files (one per package, refreshed after every package update):", ""]
-            if (ROOT / OUT_DIR / "tools.txt").is_file():
-                lines.append(f"- [Repo map and skills]({link(OUT_DIR + '/tools.txt')})")
+            if (ROOT / OUT_DIR / "Maintenance.zip").is_file():
+                lines.append(f"- [Repo maintenance kit]({link(OUT_DIR + '/Maintenance.zip')})")
             if (ROOT / "reference/bedrock-samples/bedrock-samples.min.json.gz").is_file():
                 lines.append(f"- [Vanilla Bedrock reference (JSON, gzip)]({link('reference/bedrock-samples/bedrock-samples.min.json.gz')})")
             for cat in CATEGORIES:

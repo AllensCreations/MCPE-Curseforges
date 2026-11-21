@@ -1,4 +1,4 @@
-# Instructions: Core Repository Policy (v32)
+# Instructions: Core Repository Policy (v33)
 
 
 Repo policy, docs rules for AllensCreations/MCPE-Curseforges (creator name `ALNStudios`). Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
@@ -147,7 +147,7 @@ General:
 - OneBlock script = general pack. MUST work in any world. NEVER depend on a world's terrain/database/settings. Project-specific (coords, spawn, cleanup, shop) lives in that project's spec (Dirtbound: `SPEC.md` in its folder).
 - `Mcpeworlds/{Creative,Survival,Hardcore}/` = ONLY world foundations (convenience targets, not a usage limit). NEVER old world ZIPs, `Oneblock-assets.mcworld`, `assets/Void_For_Workv2.mcworld`, persisted `assets/oneblock-template/`.
 - NEVER create/fabricate/borrow/require `db/CURRENT` or LevelDB data (database-free void design). NEVER modify source foundations; build renames only the staged copy's world name.
-- Build: `build-oneblock-variants.yml` copies each foundation to staging, keeps its `level.dat`, adds map BP + RP, packages `.mcworld` into `MCPEDL/Maps/<Map-Name>/`. Source: `MCPEDL/Maps/<Map-Name>/behavior_pack/`, `resource_pack/`.
+- Build: `build-and-sync.yml` (OneBlock steps) copies each foundation to staging, keeps its `level.dat`, adds map BP + RP, packages `.mcworld` into `MCPEDL/Maps/<Map-Name>/`. Source: `MCPEDL/Maps/<Map-Name>/behavior_pack/`, `resource_pack/`.
 - Maps ship Creative+Survival+Hardcore worlds. Add-ons/Scripts/Minigames ship no world: the Test World was removed. NEVER `test_world.json`, `<Name> - Test.mcworld`, a separate tester package or `Tester Build/`. Add-on workflows NEVER misclassify a Map.
 - One OneBlock gameplay pack per world (maps only). Installing a different one: remove the old pack folders + link entries from all 3 modes first. NEVER touch unrelated packs.
 - Install per mode (identical in all three): `behavior_pack/` -> `<mode>/behavior_packs/<Map-Name>_BP/`, `resource_pack/` -> `<mode>/resource_packs/<Map-Name>_RP/`. Update = replace whole folder. Link files at world root `world_behavior_packs.json` / `world_resource_packs.json`: `[{ "pack_id": "<manifest header uuid>", "version": [1, 0, 0] }]`, replace same `pack_id` on update. NEVER invent UUID/version. Unresolved deps: stop, report path.
@@ -277,6 +277,7 @@ Docs, API, vanilla data and repo files are read with the Context7 MCP tool `quer
 - [ ] Changed JSON validated. Instruction file changed: `scripts/check_instruction_files.py` passes.
 
 ## Version History
+- **v33:** OneBlock world builds run inside `build-and-sync.yml` (the separate OneBlock workflow is removed). The MCPEDL catalog reads `## [vN]` and `## [X.Y.Z]` changelog headings.
 - **v32:** AI review files live in `MCPEDL/AI Review/` (`<Pack>.txt`, `<Pack>.zip`, shared kits), not in `ai-review/` folders. Every pack with a `main.js` also has `behavior_pack/scripts/lib/README.md` (rule in `PACK_GENERATOR_INSTRUCTIONS.md`, Script module).
 - **v31:** Optional `behavior_pack/scripts/lib/` folder for shared script helpers (see `PACK_GENERATOR_INSTRUCTIONS.md` Script module). Library-only Python modules moved to `scripts/lib/` (`crafting_template.py`, `build_description_views.py`, `build_image_prompts.py`).
 - **v30:** 1.16 batches Context7 lookups: at most one `query-docs` call per `libraryId`, all in one parallel turn, no retry loops. Repo rules and script summaries are read from `docs/` (the only folder Context7 indexes).

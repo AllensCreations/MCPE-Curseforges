@@ -15,7 +15,8 @@ name: Build Changed Packs & Sync Catalogs
 #
 # Publishing to CurseForge lives in its own workflow (publish-curseforge.yml). When a publish
 # succeeds it starts this workflow once so the catalogs pick up the new version.
-# "Run workflow" is still available for a manual full rebuild (it has no options).
+# "Run workflow" is still available for a manual full rebuild; its only option is a OneBlock map name
+# (blank = every map). OneBlock world archives are built here too (there is no separate OneBlock workflow).
 
 on:
   push:
@@ -27,6 +28,12 @@ on:
   schedule:
     - cron: "17 2 * * *"
   workflow_dispatch:
+    inputs:
+      map_name:
+        description: "OneBlock map folder under MCPEDL/Maps/ to build the worlds for (blank = every map)"
+        required: false
+        default: ""
+        type: string
 
 # Least privilege by default; the job asks for what it needs.
 permissions:
@@ -41,9 +48,10 @@ jobs:
     concurrency:
       group: release-build-refresh
       cancel-in-progress: false
-    # Pushes only: skip bot commits, and skip when the push touches Dirtbound's source tree
-    # (its dedicated world build owns that README and archives).
-    if: ${{ github.event_name != 'push' || (!contains(github.event.head_commit.message, '[skip ci]') && !contains(toJSON(github.event.commits), 'MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/')) }}
+    # Pushes only: skip bot commits.
+    if: ${{ github.event_name != 'push' || !contains(github.event.head_commit.message, '[skip ci]') }}
+    env:
+      ONEBLOCK_INPUT_MAP: ${{ inputs.map_name }}
 
     steps:
       - name: Check out the triggering branch
@@ -96,17 +104,54 @@ jobs:
           echo "Running: python3 scripts/auto_bump_and_build.py --all"
           python3 scripts/auto_bump_and_build.py --all
 
-      # Generic pack builds do not create .mcworld files. Rebuild eligible OneBlock
-      # archives on the daily and manual runs. On pushes, "Build OneBlock Creative, Survival,
-      # and Hardcore Worlds" already rebuilds them (same paths trigger it), so doing it here
-      # too only made two workflows race to commit the same binaries.
-      - name: Rebuild non-test-gated OneBlock world archives
-        if: ${{ github.event_name != 'push' }}
+      # OneBlock worlds (formerly the separate "Build OneBlock Creative, Survival, and Hardcore Worlds"
+      # workflow, merged here so one runner, one concurrency group and one commit own every generated file).
+      #   push / manual run with a map name: build what was asked, test-gated maps included.
+      #   daily / manual run without a name: every map except the test-gated ones.
+      - name: Validate OneBlock map name
+        if: ${{ inputs.map_name != '' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$ONEBLOCK_INPUT_MAP" =~ ^[A-Za-z0-9._-]+$ ]] \
+            || { echo "::error::Map name may only use letters, numbers, . _ -"; exit 1; }
+          [ -f "MCPEDL/Maps/$ONEBLOCK_INPUT_MAP/oneblock.json" ] \
+            || { echo "::error::MCPEDL/Maps/$ONEBLOCK_INPUT_MAP/oneblock.json not found"; exit 1; }
+
+      - name: Align saved OneBlock map releases to their changelogs
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import os
+          import sys
+          from pathlib import Path
+
+          sys.path.insert(0, "scripts")
+          import prepare_curseforge_upload as release
+
+          selected = os.environ.get("ONEBLOCK_INPUT_MAP", "").strip()
+          for config in sorted(Path("MCPEDL/Maps").glob("*/oneblock.json")):
+              project = config.parent
+              if selected and project.name != selected:
+                  continue
+              try:
+                  release.read_info(f"MCPEDL/Maps/{project.name}")
+              except ValueError:
+                  continue  # not registered in builds/Curseforge_IDs.json
+              version, _ = release.latest_changelog_entry(project / "CHANGELOG.md")
+              release.align_manifests(project, version)
+          PY
+
+      - name: Build OneBlock Creative, Survival and Hardcore worlds
         env:
           ONEBLOCK_TEST_GATED_MAPS: OneBlock-Dirtbound-Kingdom-Beta
         shell: bash
         run: |
           set -euo pipefail
+          if [ "${{ github.event_name }}" = "push" ] || [ -n "$ONEBLOCK_INPUT_MAP" ]; then
+            ONEBLOCK_MAP="$ONEBLOCK_INPUT_MAP" python3 scripts/build_oneblock_variants_from_template.py
+            exit 0
+          fi
           while IFS= read -r config; do
             project="${config%/oneblock.json}"
             map="${project##*/}"
@@ -119,8 +164,37 @@ jobs:
 
       - name: Synchronize OneBlock map READMEs
         env:
-          ONEBLOCK_SKIP_MAPS: OneBlock-Dirtbound-Kingdom-Beta
+          ONEBLOCK_SKIP_MAPS: ${{ (github.event_name != 'push' && inputs.map_name == '') && 'OneBlock-Dirtbound-Kingdom-Beta' || '' }}
         run: python3 scripts/sync_oneblock_map_readmes.py
+
+      - name: Verify generated OneBlock worlds are database-free
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import glob, os, sys, zipfile
+          only = os.environ.get("ONEBLOCK_INPUT_MAP", "").strip()
+          bad = []
+          for cfg in glob.glob("MCPEDL/Maps/*/oneblock.json"):
+              folder = os.path.dirname(cfg)
+              if only and os.path.basename(folder) != only:
+                  continue
+              for w in glob.glob(folder + "/*.mcworld"):
+                  names = zipfile.ZipFile(w).namelist()
+                  if not any(n.endswith("level.dat") for n in names):
+                      bad.append(f"{w}: missing level.dat")
+                  if any(n.startswith("db/") or "/db/" in n for n in names):
+                      bad.append(f"{w}: contains db/ data")
+          if bad:
+              print("\n".join("::error::" + b for b in bad)); sys.exit(1)
+          print("Structural checks passed (not an in-game test).")
+          PY
+
+      - name: Upload generated OneBlock worlds as artifact
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: oneblock-worlds
+          path: ${{ inputs.map_name != '' && format('MCPEDL/Maps/{0}/*.mcworld', inputs.map_name) || 'MCPEDL/Maps/*/*.mcworld' }}
+          if-no-files-found: ignore
 
       - name: Sync every README link to the current builds
         run: python3 scripts/step_summary.py "README link sync (follows the manifest version)" -- python3 scripts/sync_readme_links.py
@@ -221,12 +295,9 @@ jobs:
         with:
           name: ai-review-bundle
           path: |
-            MCPEDL/AI Review/tools.txt
-            MCPEDL/AI Review/tools_files.zip
-            MCPEDL/AI Review/New-Pack_tools.txt
-            MCPEDL/AI Review/New-Pack_files.zip
-            MCPEDL/AI Review/Update-Pack_tools.txt
-            MCPEDL/AI Review/Update-Pack_files.zip
+            MCPEDL/AI Review/Maintenance.zip
+            MCPEDL/AI Review/New-Pack.zip
+            MCPEDL/AI Review/Update-Pack.zip
             MCPEDL/AI Review/*.txt
           if-no-files-found: ignore
 

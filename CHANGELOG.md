@@ -27,6 +27,12 @@
 
 ---
 
+## [v190] - 2026-11-21 - Kit Zips, Catalog Versions, OneBlock In Build And Sync
+
+- Three kit zips only: `New-Pack.zip`, `Update-Pack.zip`, `Maintenance.zip` in `MCPEDL/AI Review/` (map text + scripts under `files/`); the six old kit files are removed.
+- MCPEDL catalog versions now read `## [vN]` and `## [X.Y.Z]` changelog headings, fall back to the manifest, and warn when changelog and manifest differ.
+- OneBlock world builds run inside `build-and-sync.yml` (optional `map_name` input); `build-oneblock-variants.yml` is removed.
+
 ## [v189] - 2026-11-21 - AI Review Folder
 
 - AI review files, zips and kits now live in `MCPEDL/AI Review/` (links, workflow and scripts updated); the next build regenerates them and removes the old `ai-review/` folders.

@@ -63,8 +63,8 @@ def scripts_page():
              "It ignores pushes that only touch `docs/**` or `context7.json`. The review prompt "
              "(`AI_PROMPT` in `scripts/collect_ai_review.py`) holds no rules: it tells the reviewer to query this "
              "documentation once.\n\n"
-             "- `collect_ai_review.py`: builds one export, or a shared kit (`New-Pack_tools.txt`, `Update-Pack_tools.txt`, "
-             "`tools.txt` + `*_files.zip`).\n"
+             "- `collect_ai_review.py`: builds one export, or a shared kit zip (`New-Pack.zip`, `Update-Pack.zip`, "
+             "`Maintenance.zip`: map text + scripts under `files/`).\n"
              "- `auto_ai_review.py`: refreshes the per-pack export of every pack whose files changed (hash stamps).\n"
              "- `enrich_ai_review.py`: adds Graphify context.\n\n"
              "## Scripts\n\n")
