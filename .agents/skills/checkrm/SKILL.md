@@ -56,5 +56,5 @@ Details are in `DOCS_RULES.md`, Sections 3.3 and 3.4. The rules that matter most
 - **Samples root.** Use `BEDROCK_SAMPLES_ROOT`; the recipe-image workflow clones it to `/tmp/bedrock-samples`. If the checkout is missing or lacks the asset, report the limitation instead of guessing. A sparse `git clone --filter=blob:none --sparse` plus `git sparse-checkout set --no-cone <paths>` works when raw downloads are blocked.
 - **Versions.** Content changes between releases. State the Samples version (`version.json`) a name or availability claim was verified against.
 - **Texture indexes** begin with a `//` comment line (strip it before parsing), and many block textures are `.tga`; check both extensions before calling a texture missing.
-- **Images.** Do not copy Wiki images or large blocks of Wiki text into the repository. Generate sprites and recipe diagrams from Samples textures, scaled with nearest-neighbor interpolation.
+- **Images.** Do not copy Wiki images or large blocks of Wiki text into the repository. Generate sprites and recipe diagrams from MCicons icons first (`reference/mcicons/mcicons-<ver>.tgz`, read with `scripts/lib/mcicons.py`), then Samples textures when MCicons has no icon for the id, scaled with nearest-neighbor interpolation.
 - If shell access to `minecraft.wiki` is blocked, report it, do not route around it, and fall back to Samples.

@@ -5,7 +5,7 @@ Context7 usage: `INSTRUCTIONS.md`, `DOCS_RULES.md`, `PACK_GENERATOR_INSTRUCTIONS
 
 <!-- BEGIN INSTRUCTIONS.md -->
 
-# Instructions: Core Repository Policy (v34)
+# Instructions: Core Repository Policy (v35)
 
 
 Repo policy, docs rules for AllensCreations/MCPE-Curseforges (creator name `ALNStudios`). Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
@@ -69,7 +69,7 @@ Part 1 wins. `DOCS_RULES.md` never overrides it. Generator file never overrides 
 - ALWAYS inspect source files before claims. Ask only if an unresolved choice affects gameplay, compatibility, distribution, data loss, or versioning. Else use defaults.
 - NEVER invent features, versions, links, assets, test results, compatibility, achievement support, performance, platform behavior. Separate verified facts from assumptions.
 - NEVER claim in-game test/function run/gameplay result unless tested in Minecraft. Archive/JSON/syntax checks prove structure only.
-- Source priority (report disagreements, NEVER choose silently). Read sources 2, 3 and 5 through Context7 (1.16): 1 add-on's own files; 2 Mojang Bedrock Samples (`/mojang/bedrock-samples`; offline copy reference/bedrock-samples/bedrock-samples.min.json.gz): vanilla ids, textures, recipes, components, formats;
+- Source priority (report disagreements, NEVER choose silently). Read sources 2, 3 and 5 through Context7 (1.16): 1 add-on's own files; 1b MCicons release file `reference/mcicons/mcicons-<ver>.tgz` (NOT in Context7; vanilla item and block icons, use it first for any icon); 2 Mojang Bedrock Samples (`/mojang/bedrock-samples`; offline copy reference/bedrock-samples/bedrock-samples.min.json.gz): vanilla ids, textures, recipes, components, formats;
  3 Minecraft Creator Docs (`/microsoftdocs/minecraft-creator`): stable versions, API; 4 Minecraft Wiki (https://minecraft.wiki/, not in Context7, only through a web tool when one exists): display names, edition, icon look; 5 Bedrock Wiki (`/websites/wiki_bedrock_dev`): formats, techniques. Sources 4-5 NEVER override 1-3 on ids, versions, API.
 - NEVER comments in shipped `.js`, `.mcfunction`, `.json`. Explanations go in docs or handoff.
 - NEVER imply Mojang/Microsoft endorsement.
@@ -285,6 +285,7 @@ Docs, API, vanilla data and repo files are read with the Context7 MCP tool `quer
 - [ ] Changed JSON validated. Instruction file changed: `scripts/check_instruction_files.py` passes.
 
 ## Version History
+- **v35:** Source priority lists MCicons (1b) for vanilla icons; the AI skills (`mcpe-context7`, `mcpe-new-pack`, `checkrm`) and the generator file now say to use MCicons first for any icon.
 - **v34:** Minecraft icons come from MCicons: the release file `reference/mcicons/mcicons-<ver>.tgz` (kept as ONE file, downloaded by `scripts/sync_mcicons.py` in `build-and-sync.yml`, read by `scripts/lib/mcicons.py`). Rule 1.5 uses it first for recipe diagrams and every other icon.
 - **v33:** OneBlock world builds run inside `build-and-sync.yml` (the separate OneBlock workflow is removed). The MCPEDL catalog reads `## [vN]` and `## [X.Y.Z]` changelog headings.
 - **v32:** AI review files live in `MCPEDL/AI Review/` (`<Pack>.txt`, `<Pack>.zip`, shared kits), not in `ai-review/` folders. Every pack with a `main.js` also has `behavior_pack/scripts/lib/README.md` (rule in `PACK_GENERATOR_INSTRUCTIONS.md`, Script module).
@@ -527,7 +528,7 @@ CHANGELOG.md. Newest first. Groups: Added, Improved & Balanced, Fixed (bugs as i
 
 <!-- BEGIN PACK_GENERATOR_INSTRUCTIONS.md -->
 
-# Pack Generator Instructions (AI Agent, v33)
+# Pack Generator Instructions (AI Agent, v34)
 
 
 Builds a complete **addon**, **map**, **script**, or **minigame** from the user's idea. Returns ONE Termux `.sh` pack script that carries the whole project inside it (as base64). No other file is delivered.
@@ -551,7 +552,7 @@ Order of work: read Part 1 (incl. 1.16), `DOCS_RULES.md`, then Part 4 from 4.0. 
 - ALWAYS inspect source files before claims. Ask only if an unresolved choice affects gameplay, compatibility, distribution, data loss, or versioning. Else use defaults.
 - NEVER invent features, versions, links, assets, test results, compatibility, achievement support, performance, platform behavior. Separate verified facts from assumptions.
 - NEVER claim in-game test/function run/gameplay result unless tested in Minecraft. Archive/JSON/syntax checks prove structure only.
-- Source priority (report disagreements, NEVER choose silently). Read sources 2, 3 and 5 through Context7 (1.16): 1 add-on's own files; 2 Mojang Bedrock Samples (`/mojang/bedrock-samples`; offline copy reference/bedrock-samples/bedrock-samples.min.json.gz): vanilla ids, textures, recipes, components, formats;
+- Source priority (report disagreements, NEVER choose silently). Read sources 2, 3 and 5 through Context7 (1.16): 1 add-on's own files; 1b MCicons release file `reference/mcicons/mcicons-<ver>.tgz` (NOT in Context7; vanilla item and block icons, use it first for any icon); 2 Mojang Bedrock Samples (`/mojang/bedrock-samples`; offline copy reference/bedrock-samples/bedrock-samples.min.json.gz): vanilla ids, textures, recipes, components, formats;
  3 Minecraft Creator Docs (`/microsoftdocs/minecraft-creator`): stable versions, API; 4 Minecraft Wiki (https://minecraft.wiki/, not in Context7, only through a web tool when one exists): display names, edition, icon look; 5 Bedrock Wiki (`/websites/wiki_bedrock_dev`): formats, techniques. Sources 4-5 NEVER override 1-3 on ids, versions, API.
 - NEVER comments in shipped `.js`, `.mcfunction`, `.json`. Explanations go in docs or handoff.
 - NEVER imply Mojang/Microsoft endorsement.
@@ -688,7 +689,7 @@ NEVER guess the type. At most ONE more question, only if the answer changes the 
 - Deliver ONLY the one pack `.sh`. NEVER deliver a separate `.zip`, pack file (`.mcaddon`/`.mcworld`/`.mcpack`), `.json`, `.js`, `.b64` or any other file; every file lives inside the `.sh`. `build/` is scratch: never delivered, never committed.
 - NEVER invent features, versions, links, assets, results, compatibility. ZIP build proves structure only.
 - ALWAYS look up latest stable Bedrock + `@minecraft/server` + `@minecraft/server-ui` at time of work, record date (1.2). NEVER preview/beta/RC unless a requested feature needs it (then disclose in DESCRIPTION). `min_engine_version` per 1.2. Cannot confirm which game version first shipped your module version: say so.
-- Art: NEVER AI-generated images; new custom textures ONLY as pixel JSON (4.13). NEVER CurseForge/MCPEDL listing images in the payload (linked by URL from `assets/Images/`). Trader Ledger (maps) and Controller (minigames) icons ONLY from the repo copy that `build_payload.py` installs. Other textures: real vanilla names, user-supplied, pixel JSON (4.13), or omit.
+- Art: vanilla item and block icons ALWAYS from MCicons first (`reference/mcicons/mcicons-<ver>.tgz` via `scripts/lib/mcicons.py`; only `minecraft:` ids, custom ids have no icon), then Samples; NEVER other icon sites. NEVER AI-generated images; new custom textures ONLY as pixel JSON (4.13). NEVER CurseForge/MCPEDL listing images in the payload (linked by URL from `assets/Images/`). Trader Ledger (maps) and Controller (minigames) icons ONLY from the repo copy that `build_payload.py` installs. Other textures: real vanilla names, user-supplied, pixel JSON (4.13), or omit.
 - Gap in the idea: choose the most reasonable option, state it in DESCRIPTION.md.
 - Shell may be plain `sh`: NEVER brace expansion. After creating files, list them, confirm they exist.
 - `.sh` names: 1.1 rule (`(Repofilename)_(Version)_(Rand).sh`).

@@ -1,4 +1,4 @@
-# Instructions: Core Repository Policy (v34)
+# Instructions: Core Repository Policy (v35)
 
 
 Repo policy, docs rules for AllensCreations/MCPE-Curseforges (creator name `ALNStudios`). Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
@@ -62,7 +62,7 @@ Part 1 wins. `DOCS_RULES.md` never overrides it. Generator file never overrides 
 - ALWAYS inspect source files before claims. Ask only if an unresolved choice affects gameplay, compatibility, distribution, data loss, or versioning. Else use defaults.
 - NEVER invent features, versions, links, assets, test results, compatibility, achievement support, performance, platform behavior. Separate verified facts from assumptions.
 - NEVER claim in-game test/function run/gameplay result unless tested in Minecraft. Archive/JSON/syntax checks prove structure only.
-- Source priority (report disagreements, NEVER choose silently). Read sources 2, 3 and 5 through Context7 (1.16): 1 add-on's own files; 2 Mojang Bedrock Samples (`/mojang/bedrock-samples`; offline copy reference/bedrock-samples/bedrock-samples.min.json.gz): vanilla ids, textures, recipes, components, formats;
+- Source priority (report disagreements, NEVER choose silently). Read sources 2, 3 and 5 through Context7 (1.16): 1 add-on's own files; 1b MCicons release file `reference/mcicons/mcicons-<ver>.tgz` (NOT in Context7; vanilla item and block icons, use it first for any icon); 2 Mojang Bedrock Samples (`/mojang/bedrock-samples`; offline copy reference/bedrock-samples/bedrock-samples.min.json.gz): vanilla ids, textures, recipes, components, formats;
  3 Minecraft Creator Docs (`/microsoftdocs/minecraft-creator`): stable versions, API; 4 Minecraft Wiki (https://minecraft.wiki/, not in Context7, only through a web tool when one exists): display names, edition, icon look; 5 Bedrock Wiki (`/websites/wiki_bedrock_dev`): formats, techniques. Sources 4-5 NEVER override 1-3 on ids, versions, API.
 - NEVER comments in shipped `.js`, `.mcfunction`, `.json`. Explanations go in docs or handoff.
 - NEVER imply Mojang/Microsoft endorsement.
@@ -278,6 +278,7 @@ Docs, API, vanilla data and repo files are read with the Context7 MCP tool `quer
 - [ ] Changed JSON validated. Instruction file changed: `scripts/check_instruction_files.py` passes.
 
 ## Version History
+- **v35:** Source priority lists MCicons (1b) for vanilla icons; the AI skills (`mcpe-context7`, `mcpe-new-pack`, `checkrm`) and the generator file now say to use MCicons first for any icon.
 - **v34:** Minecraft icons come from MCicons: the release file `reference/mcicons/mcicons-<ver>.tgz` (kept as ONE file, downloaded by `scripts/sync_mcicons.py` in `build-and-sync.yml`, read by `scripts/lib/mcicons.py`). Rule 1.5 uses it first for recipe diagrams and every other icon.
 - **v33:** OneBlock world builds run inside `build-and-sync.yml` (the separate OneBlock workflow is removed). The MCPEDL catalog reads `## [vN]` and `## [X.Y.Z]` changelog headings.
 - **v32:** AI review files live in `MCPEDL/AI Review/` (`<Pack>.txt`, `<Pack>.zip`, shared kits), not in `ai-review/` folders. Every pack with a `main.js` also has `behavior_pack/scripts/lib/README.md` (rule in `PACK_GENERATOR_INSTRUCTIONS.md`, Script module).

@@ -42,6 +42,13 @@ NEVER call `resolve-library-id`. NEVER query any other library.
 - No zip and only partial text from a query: stop and ask the user to attach the zip. NEVER rewrite a script from memory.
 - A file attached in the conversation or read from a clone wins over the Context7 index. Context7 shows the repo as last indexed. Tell the user about any difference.
 
+## Icons (MCicons)
+
+- Any vanilla item or block icon (recipe diagrams, sprites, README or listing images, UI art): use MCicons FIRST. It is the release file `reference/mcicons/mcicons-<ver>.tgz` in the repo (`package/dist/icons/minecraft_<id>.png`, 64x64, only `minecraft:` ids). It is NOT in Context7: read it with `scripts/lib/mcicons.py` (`has_icon(id)`, `icon_image(id)`), never retype or guess a PNG.
+- No icon for the id (custom ids, newer items): fall back to Samples (`/mojang/bedrock-samples`), then the Minecraft Wiki only if both lack a usable sprite. NEVER another icon site or third-party pack.
+- The `.tgz` is not in the kit zips. If a task needs it and it is not in the clone, ask the user to attach it; NEVER substitute a lookalike.
+- Keep its `ASSET-NOTICE.md` with any redistributed icon.
+
 ## Reading the directory map
 
 - The map lists directories with file counts. Pick the folder, then query for the file. For exact file text of a pack, ask for a Collect Files export of that path.
