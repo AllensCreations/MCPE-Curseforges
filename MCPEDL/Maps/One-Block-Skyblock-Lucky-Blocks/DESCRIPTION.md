@@ -5,73 +5,61 @@
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Break the one lucky block on a 3x3 void island and climb 20 luck tiers, from Plains wood to Mythical netherite.**
+**Break the one lucky block on a 3x3 void island and win one of 200 prizes, each with the same chance.**
 
-> Your rewards follow a natural Minecraft playthrough, moving quietly from wood and dirt to caves, the Nether, the End and beyond as you keep breaking.
+> The center block comes back as one of 7 types, each with its own texture and a prize list that matches its purpose. Surprises such as a falling anvil or a loot chest struck by lightning keep every break exciting.
 
 ## Overview
 
-You start on a 3x3 grass island floating in an empty void, next to a single lucky block in the center. Mine it, and it returns in the same spot with a new result: items, food, tools, friendly animals, potion effects, hostile mobs or short bursts of danger.
+You start on a 3x3 grass island floating in an empty void, standing on a single lucky block in the center. Break it and it returns in the same spot as a random type: All-Round, Farming, Building, Combat, Mining, Mystic or Treasure. Every break gives a prize: items, food, tools, friendly animals, potion effects, or a small setback such as a hostile mob or a short danger.
 
 ## Key Features
 
 ### One Central Lucky Block
 - **What Happens**: The lucky block sits at the center of the island and is replaced the moment you break it, with a random type from the pool.
-- **Good To Know**: If the center spot ever becomes empty, the lucky block is placed there again within about 5 seconds.
+- **Good To Know**: If the center spot ever becomes empty, a lucky block is placed there again within about 5 seconds.
 
 ### 7 Lucky Block Types
-- **What Happens**: The center block comes back as a random type: All-Round, Farming, Building, Combat, Mining, Mystic or Treasure. Each type has its own texture and weights matching good results about 8 times higher.
-- **Good To Know**: Every type can still give any good result of the current tier. Bad luck is the same for all types.
+- **What Happens**: The types are All-Round, Farming, Building, Combat, Mining, Mystic and Treasure. Each has its own texture with a symbol on the sides and top.
+- **Good To Know**: A themed block gives prizes from its own list, such as saplings and food from Farming or swords and armor from Combat. The All-Round block can give any prize.
 
-### 70/30 Luck
-- **What Happens**: Every break has a 70% chance of good luck and a 30% chance of bad luck from the very first block, with no guaranteed good streak.
-- **Good To Know**: The good luck chance stays between 50% and 90%, even with every luck change active.
-
-### Silent Progression
-- **What Happens**: The results follow a playthrough: Plains, Forest, Stone Age, Farm and Village, Shallow Caves, Iron Age, Deep Caves, Diamond Age, Enchanting, Nether Gate, Nether Wastes, Fortress and Blaze, Ender Prep, Stronghold, Deep Dark, Ancient Wonders, Ocean Depths, End City, Beacon Rise and Mythical.
-- **Good To Know**: No message announces a step.
-
-### 20 Tiers of Good Luck and 20 of Bad Luck
-- **What Happens**: Good tiers run Common, Uncommon, Good, Nice, Great, Rare, Superb, Excellent, Fantastic, Epic, Heroic, Majestic, Glorious, Radiant, Exalted, Legendary, Ancient, Celestial, Divine and Mythical.
-- **Good To Know**: Every tier has its own results, and late bad tiers are severe and can end a run.
-
-### 134 Good Results and 84 Bad Results
-- **What Happens**: Early good results are mostly building materials such as Sapling Pack, Dirt Delivery, Oak Logs, Plank Bundle and Stone Delivery.
-- **Good To Know**: Explosions from the lucky block do not break the island, but a hit or a blast can still knock you into the void.
+### 200 Equal Prizes
+- **What Happens**: In the All-Round block every one of the 200 prizes has the same 0.5% chance. A themed block picks equally among the prizes of its own list.
+- **Good To Know**: 154 prizes are rewards and 46 are setbacks, so about 77% of All-Round breaks give a reward. The same prize can come twice in a row.
 
 ### Physical Surprises
 - **What Happens**: Falling Anvil warns you on the action bar, then drops an anvil about 5 blocks above you. Thunder Pig and Thunder Villager summon a mob and call lightning on it about a quarter of a second later.
 - **Good To Know**: Lightning strikes close to the island, so it can hurt you and set you on fire.
 
+### Falling Chest
+- **What Happens**: A loot chest falls from about 8 blocks up onto a free spot next to the center block and holds 5 stacks of loot. Lightning strikes it 5 seconds after it lands.
+- **Good To Know**: Anything still inside when the lightning hits is spilled on the ground at the chest spot.
+
 ### Starter Chest
-- **What Happens**: A chest waits on a corner of the island with 3 Oak Saplings, 4 Bone Meal, 4 Bread, a Bucket and a Luck Ledger.
+- **What Happens**: A chest waits on a corner of the island with 3 Oak Saplings, 4 Bone Meal, 4 Bread and a Bucket.
 - **Good To Know**: The first time you join, a short action bar tip tells you to break the lucky block and open the chest.
 
-### Luck Ledger
-- **What Happens**: Use the Luck Ledger to show on the action bar how many blocks you have broken and how many Four-Leaf Fortune or Jinx breaks are left.
-- **Good To Know**: It does not show which progression step you are on.
-
-### Influence Your Luck
-- **What Happens**: The Four-Leaf Fortune and Golden Horseshoe results raise the good luck chance by 20 points for the next 5 and 10 breaks.
+### Action Bar Results
+- **What Happens**: Each prize shows on the action bar with the block type and the prize name, and nothing is written in chat.
 
 ## How to Use
 
 1. Open the world and wait a moment while the island appears; you spawn standing on the lucky block in the center, so look down to break it.
-2. Break the lucky block in the center with any tool or your hand.
-3. Read the tier and result on the action bar, then pick up what dropped or deal with what appeared.
-4. Open the chest on the corner for your first saplings and tools.
+2. Read the prize on the action bar, then pick up what dropped or deal with what appeared.
+3. Open the chest on the corner for your first saplings and tools.
+4. Keep breaking the block that comes back and try each type.
 
 ## Common Questions
 
 - **Does the lucky block run out?**: No. It is placed again each time it is broken, so you can keep going without limit.
-- **Can I see which step I am on?**: No. Only the tier name and result of each break are shown.
-- **What happens after the last step?**: The odds stay there, with tiers from Legendary to Mythical.
+- **Can I choose the type?**: No. The type is random each time the block comes back.
+- **Do the prizes get better as I go?**: No. Every break draws from the same list, so any prize can come at any time.
 
 ## Compatibility
 
 - Minecraft Bedrock Edition: 1.26.60 (release 26.60)
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Yes, achievement-friendly. World settings of the included worlds were not inspected, and using cheats disables achievements.
+- Achievements: Unknown / needs confirmation. World settings of the included worlds were not inspected, and using cheats disables achievements.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions
@@ -97,5 +85,4 @@ You start on a 3x3 grass island floating in an empty void, next to a single luck
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, One Block Skyblock Lucky Blocks Bedrock map, one block skyblock, lucky block map, progressive one block, void island survival, Minecraft PE skyblock, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
-
+Minecraft Bedrock add-on, One Block Skyblock Lucky Blocks Bedrock map, one block skyblock, lucky block map, lucky block types, void island survival, Minecraft PE skyblock, MCPEDL add-on, CurseForge Bedrock, ALNStudios.

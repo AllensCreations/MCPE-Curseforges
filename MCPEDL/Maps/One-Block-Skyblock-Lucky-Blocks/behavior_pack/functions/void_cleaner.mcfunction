@@ -8,6 +8,5 @@ execute as @a[tag=!void_cleaned] run item replace block -1 65 -1 slot.container 
 execute as @a[tag=!void_cleaned] run item replace block -1 65 -1 slot.container 1 with bone_meal 4
 execute as @a[tag=!void_cleaned] run item replace block -1 65 -1 slot.container 2 with bread 4
 execute as @a[tag=!void_cleaned] run item replace block -1 65 -1 slot.container 3 with bucket 1
-execute as @a[tag=!void_cleaned] run item replace block -1 65 -1 slot.container 4 with allenscreations:trader_ledger 1
 execute as @a[tag=!void_cleaned] run setworldspawn 0 65 0
 execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cleaned
