@@ -16,7 +16,7 @@
 
 - **Export request:** `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks`
 - **Destination:** `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks`
-- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/CHANGELOG.md`)
+- **CURRENT VERSION: v4 / NEXT UPDATE: v5**  (`MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/CHANGELOG.md`)
 - **Text files:** 21
 - **Skipped binary:** 7
 - **Paths not found:** 0
@@ -64,7 +64,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v3 / NEXT UPDATE: v4).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v4 / NEXT UPDATE: v5).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -130,7 +130,7 @@ Output ONLY these three sections in order:
 setblock 0 63 0 bedrock
 setblock 0 64 0 allenscreations:lucky_block keep
 fill -1 64 -1 1 64 1 grass_block keep
-setworldspawn 1 65 1
+setworldspawn 0 65 0
 ```
 
 ## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/functions/oneblock_tick.mcfunction (2 lines, 95 bytes)
@@ -151,7 +151,7 @@ execute if entity @a[tag=void_cleaned] unless block 0 63 0 bedrock run setblock 
 
 ```
 execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air
-execute as @a[tag=!void_cleaned] run tp @s 1.5 65 1.5
+execute as @a[tag=!void_cleaned] run tp @s 0.5 65 0.5
 execute as @a[tag=!void_cleaned] run setblock 0 63 0 bedrock
 execute as @a[tag=!void_cleaned] run setblock 0 64 0 allenscreations:lucky_block keep
 execute as @a[tag=!void_cleaned] run fill -1 64 -1 1 64 1 grass_block keep
@@ -161,7 +161,7 @@ execute as @a[tag=!void_cleaned] run item replace block -1 65 -1 slot.container 
 execute as @a[tag=!void_cleaned] run item replace block -1 65 -1 slot.container 2 with bread 4
 execute as @a[tag=!void_cleaned] run item replace block -1 65 -1 slot.container 3 with bucket 1
 execute as @a[tag=!void_cleaned] run item replace block -1 65 -1 slot.container 4 with allenscreations:trader_ledger 1
-execute as @a[tag=!void_cleaned] run setworldspawn 1 65 1
+execute as @a[tag=!void_cleaned] run setworldspawn 0 65 0
 execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cleaned
 ```
 
@@ -200,11 +200,11 @@ execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cle
 {
   "format_version": 2,
   "header": {
-    "name": "One Block Skyblock Lucky Blocks (v3)",
+    "name": "One Block Skyblock Lucky Blocks (v4)",
     "description": "One lucky block on a 3x3 void island. by ALNStudios",
     "uuid": "f8fcd28a-a8f9-479e-9326-94fd587c589f",
     "version": [
-      3,
+      4,
       0,
       0
     ],
@@ -219,7 +219,7 @@ execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cle
       "type": "data",
       "uuid": "ec84754f-7614-472d-ad98-89d8fd1e24b7",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -230,7 +230,7 @@ execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cle
       "uuid": "1d0ec910-add9-46ec-a03f-4f23f6b8907c",
       "entry": "scripts/main.js",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -240,7 +240,7 @@ execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cle
     {
       "uuid": "8e8d2f07-56e1-4271-bb5f-e8ae848db662",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -254,7 +254,7 @@ execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cle
     "authors": [
       "ALNStudios"
     ],
-    "version": "3.0.0"
+    "version": "4.0.0"
   }
 }
 ```
@@ -300,7 +300,7 @@ Extracted from the script files; nothing here was run in game.
 Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
-## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/scripts/main.js (546 lines, 21329 bytes)
+## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/scripts/main.js (615 lines, 23451 bytes)
 
 ```
 import { world, system, ItemStack } from "@minecraft/server";
@@ -848,14 +848,89 @@ world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
   if (itemStack.typeId !== LEDGER) return;
   source.sendMessage(`§6Luck Ledger§r\nBreaks: ${num(BREAKS_KEY)}\nLuck boosts left: ${num(BONUS_KEY)}\nJinxes left: ${num(JINX_KEY)}`);
 });
+
+const SETUP_TAG = "void_cleaned";
+const BUILT_KEY = "island_built";
+const SPAWN_BLOCK = { x: 0, y: 65, z: 0 };
+const SPAWN_STAND = { x: 0.5, y: 65, z: 0.5 };
+const CHEST_AT = { x: -1, y: 65, z: -1 };
+const STARTER = [
+  ["minecraft:oak_sapling", 3],
+  ["minecraft:bone_meal", 4],
+  ["minecraft:bread", 4],
+  ["minecraft:bucket", 1],
+  [LEDGER, 1],
+];
+let setupRunning = false;
+
+function blockAt(dimension, x, y, z) {
+  const block = dimension.getBlock({ x, y, z });
+  if (!block) throw new Error("chunk not loaded");
+  return block;
+}
+
+function buildIsland() {
+  const dimension = world.getDimension("overworld");
+  for (let x = -16; x <= 16; x++) {
+    for (let z = -16; z <= 16; z++) blockAt(dimension, x, -64, z).setType("minecraft:air");
+  }
+  blockAt(dimension, 0, 63, 0).setType("minecraft:bedrock");
+  for (let x = -1; x <= 1; x++) {
+    for (let z = -1; z <= 1; z++) blockAt(dimension, x, 64, z).setType("minecraft:grass_block");
+  }
+  blockAt(dimension, CORE.x, CORE.y, CORE.z).setType(LUCKY);
+  const chest = blockAt(dimension, CHEST_AT.x, CHEST_AT.y, CHEST_AT.z);
+  chest.setType("minecraft:chest");
+  const container = chest.getComponent("minecraft:inventory")?.container;
+  if (!container) throw new Error("chest inventory missing");
+  STARTER.forEach(([id, amount], slot) => container.setItem(slot, new ItemStack(id, amount)));
+  world.setDefaultSpawnLocation(SPAWN_BLOCK);
+  world.setDynamicProperty(BUILT_KEY, true);
+}
+
+function runSetup(player, tries) {
+  try {
+    buildIsland();
+    player.teleport(SPAWN_STAND);
+    player.addTag(SETUP_TAG);
+    setupRunning = false;
+  } catch (e) {
+    if (tries >= 15) {
+      setupRunning = false;
+      return;
+    }
+    system.runTimeout(() => runSetup(player, tries + 1), 20);
+  }
+}
+
+world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
+  if (!initialSpawn || setupRunning) return;
+  try {
+    if (player.hasTag(SETUP_TAG)) return;
+    if (world.getDynamicProperty(BUILT_KEY)) {
+      player.addTag(SETUP_TAG);
+      return;
+    }
+  } catch (e) {
+    return;
+  }
+  setupRunning = true;
+  system.runTimeout(() => runSetup(player, 0), 20);
+});
 ```
 
-## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/CHANGELOG.md (44 lines, 2382 bytes)
+## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/CHANGELOG.md (50 lines, 2743 bytes)
 
 ```
 # Changelog — One Block Skyblock Lucky Blocks
 
 ---
+
+## [v4] - 2026-11-21 - Island Setup Fix
+
+### Improved & Balanced
+- **Spawn point**: You now start standing on the lucky block in the center of the island, and the world spawn is set there.
+- **Island setup on first join**: The island, lucky block, starter chest and spawn point are now built when you first join, and the empty-world platform below is cleared.
 
 ## [v3] - 2026-11-21 - Lucky Block Textures
 
@@ -894,7 +969,7 @@ world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
 - **Luck changes**: The Rabbit's Foot off-hand bonus is removed. Luck now changes only through the Four-Leaf Fortune, Golden Horseshoe and Jinx results, and the good luck chance stays between 50% and 90%.
 ```
 
-## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/DESCRIPTION.md (94 lines, 5761 bytes)
+## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/DESCRIPTION.md (94 lines, 5797 bytes)
 
 ```
 # One Block Skyblock Lucky Blocks — A single lucky block on a 3x3 void island
@@ -947,7 +1022,7 @@ You start on a 3x3 grass island floating in an empty void, next to a single luck
 
 ## How to Use
 
-1. Open the world and wait a moment while the island appears; you spawn on the corner of the 3x3 island.
+1. Open the world and wait a moment while the island appears; you spawn standing on the lucky block in the center, so look down to break it.
 2. Break the lucky block in the center with any tool or your hand.
 3. Read the tier and result on the action bar, then pick up what dropped or deal with what appeared.
 4. Open the chest on the corner for your first saplings and tools.
@@ -1038,11 +1113,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "One Block Skyblock Lucky Blocks (v3)",
+    "name": "One Block Skyblock Lucky Blocks (v4)",
     "description": "Lucky block texture. by ALNStudios",
     "uuid": "8e8d2f07-56e1-4271-bb5f-e8ae848db662",
     "version": [
-      3,
+      4,
       0,
       0
     ],
@@ -1057,7 +1132,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "2871df63-c3f5-4516-87ee-35bb02dc838f",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -1067,7 +1142,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
     "authors": [
       "ALNStudios"
     ],
-    "version": "3.0.0"
+    "version": "4.0.0"
   }
 }
 ```

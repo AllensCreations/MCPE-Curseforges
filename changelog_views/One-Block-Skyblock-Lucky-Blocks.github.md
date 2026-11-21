@@ -1,9 +1,20 @@
 # Changelog — One Block Skyblock Lucky Blocks
 
-## [v3] - 2026-11-21 - Lucky Block Textures
+## [v4] - 2026-11-21 - Island Setup Fix
 
-### Added
+### Improved & Balanced
+- **Spawn point**: You now start standing on the lucky block in the center of the island, and the world spawn is set there.
+- **Island setup on first join**: The island, lucky block, starter chest and spawn point are now built when you first join, and the empty-world platform below is cleared.
+
+<details>
+<summary><b>3.0.x</b> (1 release)</summary>
+
+### [v3] - 2026-11-21 - Lucky Block Textures
+
+#### Added
 - **Lucky block look**: The lucky block now has its own gold texture, with a question mark on the sides, a four-leaf clover on top and a plain gold bottom.
+
+</details>
 
 <details>
 <summary><b>2.0.x</b> (1 release)</summary>
