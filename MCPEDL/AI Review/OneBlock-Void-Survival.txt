@@ -18,7 +18,7 @@
 - **Destination:** `MCPEDL/Maps/OneBlock-Void-Survival`
 - **CURRENT VERSION: v4 / NEXT UPDATE: v5**  (`MCPEDL/Maps/OneBlock-Void-Survival/CHANGELOG.md`)
 - **Text files:** 61
-- **Skipped binary:** 7
+- **Skipped binary:** 22
 - **Paths not found:** 0
 
 ### Files in this export
@@ -88,6 +88,21 @@
 ### Skipped (binary)
 
 - `MCPEDL/Maps/OneBlock-Void-Survival/VoidSurvival V4.mcworld`
+- `MCPEDL/Maps/OneBlock-Void-Survival/assets/recipes/bell_recipe.png`
+- `MCPEDL/Maps/OneBlock-Void-Survival/assets/recipes/calcite_recipe.png`
+- `MCPEDL/Maps/OneBlock-Void-Survival/assets/recipes/deepslate_deepslate_coal_recipe.png`
+- `MCPEDL/Maps/OneBlock-Void-Survival/assets/recipes/deepslate_recipe.png`
+- `MCPEDL/Maps/OneBlock-Void-Survival/assets/recipes/grass_block_melon_seed_dirt_to_grass_recipe.png`
+- `MCPEDL/Maps/OneBlock-Void-Survival/assets/recipes/grass_block_pumpkin_seed_dirt_to_grass_recipe.png`
+- `MCPEDL/Maps/OneBlock-Void-Survival/assets/recipes/grass_block_recipe.png`
+- `MCPEDL/Maps/OneBlock-Void-Survival/assets/recipes/grass_block_seed_dirt_to_grass_recipe.png`
+- `MCPEDL/Maps/OneBlock-Void-Survival/assets/recipes/grass_block_torchflower_seed_dirt_to_grass_recipe.png`
+- `MCPEDL/Maps/OneBlock-Void-Survival/assets/recipes/gravel_recipe.png`
+- `MCPEDL/Maps/OneBlock-Void-Survival/assets/recipes/name_tag_recipe.png`
+- `MCPEDL/Maps/OneBlock-Void-Survival/assets/recipes/saddle_recipe.png`
+- `MCPEDL/Maps/OneBlock-Void-Survival/assets/recipes/sand_recipe.png`
+- `MCPEDL/Maps/OneBlock-Void-Survival/assets/recipes/sponge_recipe.png`
+- `MCPEDL/Maps/OneBlock-Void-Survival/assets/recipes/tuff_recipe.png`
 - `MCPEDL/Maps/OneBlock-Void-Survival/behavior_pack/pack_icon.png`
 - `MCPEDL/Maps/OneBlock-Void-Survival/mcpedl.png`
 - `MCPEDL/Maps/OneBlock-Void-Survival/world/behavior_packs/OneBlockVoid/pack_icon.png`

@@ -18,7 +18,7 @@
 - **Destination:** `MCPEDL/Addons/Mining-Helmet`
 - **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/Mining-Helmet/CHANGELOG.md`)
 - **Text files:** 22
-- **Skipped binary:** 18
+- **Skipped binary:** 21
 - **Paths not found:** 0
 
 ### Files in this export
@@ -51,8 +51,11 @@
 - `MCPEDL/Addons/Mining-Helmet/1791946330457.jpg`
 - `MCPEDL/Addons/Mining-Helmet/assets/items/mining_helmet.png`
 - `MCPEDL/Addons/Mining-Helmet/assets/items/torch_mining_helmet.png`
+- `MCPEDL/Addons/Mining-Helmet/assets/recipes/mining_helmet_mining_helmet_upgrade_recipe.png`
+- `MCPEDL/Addons/Mining-Helmet/assets/recipes/mining_helmet_recipe.png`
 - `MCPEDL/Addons/Mining-Helmet/assets/recipes/recipe_lantern.png`
 - `MCPEDL/Addons/Mining-Helmet/assets/recipes/recipe_torch.png`
+- `MCPEDL/Addons/Mining-Helmet/assets/recipes/torch_mining_helmet_recipe.png`
 - `MCPEDL/Addons/Mining-Helmet/banner.jpg`
 - `MCPEDL/Addons/Mining-Helmet/behavior_pack/pack_icon.png`
 - `MCPEDL/Addons/Mining-Helmet/mcpedl.png`

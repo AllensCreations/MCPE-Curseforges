@@ -6,7 +6,7 @@
 - **Destination:** `MCPEDL/Addons/ALN-ChestLog`
 - **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Addons/ALN-ChestLog/CHANGELOG.md`)
 - **Text files:** 14
-- **Skipped binary:** 3
+- **Skipped binary:** 5
 - **Paths not found:** 0
 
 ### Files in this export
@@ -28,6 +28,8 @@
 
 ### Skipped (binary)
 
+- `MCPEDL/Addons/ALN-ChestLog/assets/items/chest_log.png`
+- `MCPEDL/Addons/ALN-ChestLog/assets/recipes/chest_log_recipe.png`
 - `MCPEDL/Addons/ALN-ChestLog/behavior_pack/pack_icon.png`
 - `MCPEDL/Addons/ALN-ChestLog/resource_pack/pack_icon.png`
 - `MCPEDL/Addons/ALN-ChestLog/resource_pack/textures/items/aln_chest_log.png`

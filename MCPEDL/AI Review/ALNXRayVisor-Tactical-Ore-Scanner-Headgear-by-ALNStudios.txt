@@ -6,7 +6,7 @@
 - **Destination:** `MCPEDL/Addons/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios`
 - **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios/CHANGELOG.md`)
 - **Text files:** 23
-- **Skipped binary:** 4
+- **Skipped binary:** 6
 - **Paths not found:** 0
 
 ### Files in this export
@@ -37,6 +37,8 @@
 
 ### Skipped (binary)
 
+- `MCPEDL/Addons/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios/assets/items/xray_visor.png`
+- `MCPEDL/Addons/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios/assets/recipes/xray_visor_recipe.png`
 - `MCPEDL/Addons/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios/behavior_pack/pack_icon.png`
 - `MCPEDL/Addons/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios/resource_pack/pack_icon.png`
 - `MCPEDL/Addons/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios/resource_pack/textures/entity/attachable/xray_visor.png`

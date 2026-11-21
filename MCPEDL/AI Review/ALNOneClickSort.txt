@@ -6,7 +6,7 @@
 - **Destination:** `MCPEDL/Addons/ALNOneClickSort`
 - **CURRENT VERSION: v10 / NEXT UPDATE: v11**  (`MCPEDL/Addons/ALNOneClickSort/CHANGELOG.md`)
 - **Text files:** 25
-- **Skipped binary:** 5
+- **Skipped binary:** 11
 - **Paths not found:** 0
 
 ### Files in this export
@@ -39,6 +39,12 @@
 
 ### Skipped (binary)
 
+- `MCPEDL/Addons/ALNOneClickSort/assets/items/auto_sort_feather.png`
+- `MCPEDL/Addons/ALNOneClickSort/assets/items/restock_feather.png`
+- `MCPEDL/Addons/ALNOneClickSort/assets/items/sort_settings_book.png`
+- `MCPEDL/Addons/ALNOneClickSort/assets/recipes/auto_sort_feather_recipe.png`
+- `MCPEDL/Addons/ALNOneClickSort/assets/recipes/restock_feather_recipe.png`
+- `MCPEDL/Addons/ALNOneClickSort/assets/recipes/sort_settings_book_recipe.png`
 - `MCPEDL/Addons/ALNOneClickSort/behavior_pack/pack_icon.png`
 - `MCPEDL/Addons/ALNOneClickSort/resource_pack/pack_icon.png`
 - `MCPEDL/Addons/ALNOneClickSort/resource_pack/textures/items/auto_sort_feather.png`

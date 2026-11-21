@@ -1,0 +1,8 @@
+{
+  "changelog_version": "8.0.0",
+  "manifest_version": "8.0.0",
+  "packages": {
+    "LootXPBooster V8.mcaddon": "399e088cb86651f4d25ad297e6dbf9b30613a0859f0a1bb12d9a6d68fd8ac898"
+  },
+  "source_sha256": "f53c3ae939d321c15d47f55a051865e34855a957646d0c811bdf9f992660b89f"
+}

@@ -16,7 +16,7 @@
 
 - **Export request:** `MCPEDL/Addons/2-in-1-Loot--XP-Booster`
 - **Destination:** `MCPEDL/Addons/2-in-1-Loot--XP-Booster`
-- **CURRENT VERSION: v7 / NEXT UPDATE: v8**  (`MCPEDL/Addons/2-in-1-Loot--XP-Booster/CHANGELOG.md`)
+- **CURRENT VERSION: v8 / NEXT UPDATE: v9**  (`MCPEDL/Addons/2-in-1-Loot--XP-Booster/CHANGELOG.md`)
 - **Text files:** 13
 - **Skipped binary:** 15
 - **Paths not found:** 0
@@ -64,7 +64,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v7 / NEXT UPDATE: v8).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v8 / NEXT UPDATE: v9).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -104,11 +104,11 @@ Output ONLY these three sections in order:
 {
   "format_version": 2,
   "header": {
-    "name": "2-in-1 Loot & XP Booster (v7)",
+    "name": "2-in-1 Loot & XP Booster (v8)",
     "description": "Loot and XP multipliers controlled from a renamed Book. by ALNStudios",
     "uuid": "ac428a01-d829-4779-aeb1-52bbb3d37e0d",
     "version": [
-      7,
+      8,
       0,
       0
     ],
@@ -124,7 +124,7 @@ Output ONLY these three sections in order:
       "language": "javascript",
       "uuid": "7234ab02-50fd-43f5-b082-493403c5aaa4",
       "version": [
-        7,
+        8,
         0,
         0
       ],
@@ -135,7 +135,7 @@ Output ONLY these three sections in order:
     {
       "uuid": "c36706a8-ddfe-419f-bd1b-69d929186543",
       "version": [
-        7,
+        8,
         0,
         0
       ]
@@ -154,7 +154,7 @@ Output ONLY these three sections in order:
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "7.0.0"
+    "version": "8.0.0"
   }
 }
 ```
@@ -206,19 +206,22 @@ Extracted from the script files; nothing here was run in game.
 Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
-## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/behavior_pack/scripts/main.js (464 lines, 15663 bytes)
+## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/behavior_pack/scripts/main.js (467 lines, 15806 bytes)
 
 ```
 import { world, system, EntityComponentTypes, CommandPermissionLevel, CustomCommandStatus } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
 const PACK_NAME = "2-in-1 Loot & XP Booster";
-const VERSION = "7";
+const VERSION = "8";
 const TITLE = `§l§6@ALNStudios §e${PACK_NAME}§r (v${VERSION})`;
 const ABOUT_TITLE = "About ALNStudios";
 const ICON_MAIN = "textures/items/experience_bottle";
 const ICON_ABOUT = "textures/items/name_tag";
 const ICON_EXIT = "textures/items/door_wood";
+const SOUND_ID = "random.orb";
+const SOUND_ON = { pitch: 1.4, volume: 1 };
+const SOUND_OFF = { pitch: 0.6, volume: 1 };
 const LOOT_LEVELS = [1, 2, 4, 8, 16, 32];
 const XP_LEVELS = [1, 2, 4, 8, 16, 32, 64];
 const LOOT_KEY = "aln_loot_index";
@@ -423,7 +426,7 @@ async function boosterScreen(player) {
   player.setDynamicProperty(CROPS_KEY, switches[2]);
   player.setDynamicProperty(MOBS_KEY, switches[3]);
   boosts.set(player.id, { loot: lootIndex, xp: xpIndex, on, ores: switches[1], crops: switches[2], mobs: switches[3] });
-  player.playSound("random.orb");
+  player.playSound(SOUND_ID, on ? SOUND_ON : SOUND_OFF);
   return undefined;
 }
 
@@ -674,12 +677,18 @@ system.runInterval(() => {
 }, XP_INTERVAL_TICKS);
 ```
 
-## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/CHANGELOG.md (237 lines, 9607 bytes)
+## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/CHANGELOG.md (243 lines, 9792 bytes)
 
 ```
 # Changelog — 2-in-1 Loot & XP Booster
 
 ---
+
+## [v8] - 2026-11-21 - Apply Sounds
+
+### Improved & Balanced
+
+- **Apply sounds**: Pressing Apply now plays a higher sound when the boosters are on and a lower sound when they are off.
 
 ## [v7] - 2026-11-20 - No Booster Limit
 
@@ -843,7 +852,7 @@ system.runInterval(() => {
 - **Redesigned UI**: A Resource Pack with the Cheatstick menu textures.
 ```
 
-## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/DESCRIPTION.md (88 lines, 6348 bytes)
+## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/DESCRIPTION.md (88 lines, 6430 bytes)
 
 ```
 # 2-in-1 Loot & XP Booster — Renamed Book Menu for Loot and XP Multipliers
@@ -894,7 +903,7 @@ You rename a Book to Booster on an anvil and right-click with it. A menu opens w
 
 1. Rename a Book to Booster on an anvil.
 2. Hold it and right-click, then choose XP & Loot Booster.
-3. Drag the Loot and XP sliders, switch Boosters on or off, choose whether Ores, Crops and Mobs are boosted, press Apply.
+3. Drag the Loot and XP sliders, switch Boosters on or off, choose whether Ores, Crops and Mobs are boosted and press Apply. A higher sound means the boosters are on and a lower sound means they are off.
 
 ## Common Questions
 
@@ -953,7 +962,7 @@ Download the current release of **2-in-1 Loot & XP Booster** for Minecraft Bedro
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download 2-in-1 Loot & XP Booster (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/2-in-1-Loot--XP-Booster/LootXPBooster%20V7.mcaddon)
+- **Direct download:** [Download 2-in-1 Loot & XP Booster (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/2-in-1-Loot--XP-Booster/LootXPBooster%20V8.mcaddon)
 
 ## Installation
 
@@ -972,11 +981,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "Redesigned UI (v7)",
+    "name": "Redesigned UI (v8)",
     "description": "ALNStudios Redesigned UI skin for the Booster menus. by ALNStudios",
     "uuid": "c36706a8-ddfe-419f-bd1b-69d929186543",
     "version": [
-      7,
+      8,
       0,
       0
     ],
@@ -991,7 +1000,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "a22e0559-f882-4b93-b587-b17de35134a7",
       "version": [
-        7,
+        8,
         0,
         0
       ]
@@ -1002,7 +1011,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "7.0.0"
+    "version": "8.0.0"
   }
 }
 ```

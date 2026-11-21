@@ -18,7 +18,7 @@
 - **Destination:** `MCPEDL/Addons/Expanded-Basic-Arsenal`
 - **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/Expanded-Basic-Arsenal/CHANGELOG.md`)
 - **Text files:** 39
-- **Skipped binary:** 20
+- **Skipped binary:** 37
 - **Paths not found:** 0
 
 ### Files in this export
@@ -75,6 +75,23 @@
 - `MCPEDL/Addons/Expanded-Basic-Arsenal/assets/items/aln_slingshot_pulling_2.png`
 - `MCPEDL/Addons/Expanded-Basic-Arsenal/assets/items/aln_slingshot_standby.png`
 - `MCPEDL/Addons/Expanded-Basic-Arsenal/assets/items/aln_wooden_club.png`
+- `MCPEDL/Addons/Expanded-Basic-Arsenal/assets/items/blowgun.png`
+- `MCPEDL/Addons/Expanded-Basic-Arsenal/assets/items/copper_dagger.png`
+- `MCPEDL/Addons/Expanded-Basic-Arsenal/assets/items/flint_spear.png`
+- `MCPEDL/Addons/Expanded-Basic-Arsenal/assets/items/slingshot.png`
+- `MCPEDL/Addons/Expanded-Basic-Arsenal/assets/items/wooden_club.png`
+- `MCPEDL/Addons/Expanded-Basic-Arsenal/assets/recipes/blowgun_recipe.png`
+- `MCPEDL/Addons/Expanded-Basic-Arsenal/assets/recipes/copper_dagger_recipe.png`
+- `MCPEDL/Addons/Expanded-Basic-Arsenal/assets/recipes/flint_spear_recipe.png`
+- `MCPEDL/Addons/Expanded-Basic-Arsenal/assets/recipes/slingshot_recipe.png`
+- `MCPEDL/Addons/Expanded-Basic-Arsenal/assets/recipes/wooden_club_recipe.png`
+- `MCPEDL/Addons/Expanded-Basic-Arsenal/assets/recipes/wooden_club_wooden_club_birch_recipe.png`
+- `MCPEDL/Addons/Expanded-Basic-Arsenal/assets/recipes/wooden_club_wooden_club_cherry_recipe.png`
+- `MCPEDL/Addons/Expanded-Basic-Arsenal/assets/recipes/wooden_club_wooden_club_dark_oak_recipe.png`
+- `MCPEDL/Addons/Expanded-Basic-Arsenal/assets/recipes/wooden_club_wooden_club_jungle_recipe.png`
+- `MCPEDL/Addons/Expanded-Basic-Arsenal/assets/recipes/wooden_club_wooden_club_mangrove_recipe.png`
+- `MCPEDL/Addons/Expanded-Basic-Arsenal/assets/recipes/wooden_club_wooden_club_oak_recipe.png`
+- `MCPEDL/Addons/Expanded-Basic-Arsenal/assets/recipes/wooden_club_wooden_club_spruce_recipe.png`
 - `MCPEDL/Addons/Expanded-Basic-Arsenal/resource_pack/textures/items/aln_blowgun.png`
 - `MCPEDL/Addons/Expanded-Basic-Arsenal/resource_pack/textures/items/aln_copper_dagger.png`
 - `MCPEDL/Addons/Expanded-Basic-Arsenal/resource_pack/textures/items/aln_dart.png`

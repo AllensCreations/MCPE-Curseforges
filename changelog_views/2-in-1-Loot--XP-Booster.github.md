@@ -1,10 +1,20 @@
 # Changelog — 2-in-1 Loot & XP Booster
 
-## [v7] - 2026-11-20 - No Booster Limit
+## [v8] - 2026-11-21 - Apply Sounds
 
 ### Improved & Balanced
+- **Apply sounds**: Pressing Apply now plays a higher sound when the boosters are on and a lower sound when they are off.
+
+<details>
+<summary><b>7.0.x</b> (1 release)</summary>
+
+### [v7] - 2026-11-20 - No Booster Limit
+
+#### Improved & Balanced
 - **No booster limit**: Extra Loot drops and extra XP orbs are no longer capped per moment, so every boosted drop and orb appears.
 - **No Action Bar messages**: The Booster limit message and the Action Bar messages after pressing Apply are removed.
+
+</details>
 
 <details>
 <summary><b>6.0.x</b> (1 release)</summary>
