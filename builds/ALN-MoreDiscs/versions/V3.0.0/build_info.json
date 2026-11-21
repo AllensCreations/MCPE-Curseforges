@@ -2,7 +2,7 @@
   "changelog_version": "3.0.0",
   "manifest_version": "3.0.0",
   "packages": {
-    "ALNMoreDiscs V3.mcaddon": "94651072a1983633917dfcb710b8b716e63c6bf2cd5c610488683bade09b857f"
+    "ALNMoreDiscs V3.mcaddon": "6fd1272a9758193c7fc8ca5c97cdceeffaf277383ba4280842e338ba7196ea0e"
   },
-  "source_sha256": "d321a78add890819092cd6b56dd8a679b5facb4d670366a155cb758a5db0d9ca"
+  "source_sha256": "1d1d9f95cdddc2c5c0384726bcf03d1b320b905f1b1ff0df12329cc73934649c"
 }
