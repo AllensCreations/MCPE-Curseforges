@@ -1,12 +1,23 @@
 # Changelog — OneBlock Natural Market
 
-## [16.0.0] - 2026-11-21 - 30 Tiers And Spawn Eggs
-
-### Added
+## [16.0.1] - 2026-11-21 - Core Tier Reorder
 
 ### Changed
 
-### Fixed
+### Added
+
+<details>
+<summary><b>16.0.x</b> (1 release)</summary>
+
+### [16.0.0] - 2026-11-21 - 30 Tiers And Spawn Eggs
+
+#### Added
+
+#### Changed
+
+#### Fixed
+
+</details>
 
 <details>
 <summary><b>15.0.x</b> (1 release)</summary>

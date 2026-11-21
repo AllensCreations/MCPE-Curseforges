@@ -164,19 +164,19 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/manifest.json (66 lines, 1175 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/manifest.json (66 lines, 1179 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v16)",
+    "name": "OneBlock Natural Market (v16.0.1)",
     "description": "OneBlock survival with a progression market and regenerating core. by ALNStudios",
     "uuid": "77f07d1a-fa7a-437d-8fea-72068be05162",
     "version": [
       16,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -191,7 +191,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "version": [
         16,
         0,
-        0
+        1
       ]
     },
     {
@@ -201,7 +201,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "version": [
         16,
         0,
-        0
+        1
       ],
       "entry": "scripts/main.js"
     }
@@ -212,7 +212,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "version": [
         16,
         0,
-        0
+        1
       ]
     },
     {
@@ -229,12 +229,12 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "16.0.0"
+    "version": "16.0.1"
   }
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (730 lines, 40375 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (732 lines, 40415 bytes)
 
 ```
 import { world, system, ItemStack, ItemTypes } from "@minecraft/server";
@@ -253,7 +253,7 @@ const UNSAFE_CORE = new Set([
   "minecraft:water", "minecraft:flowing_water", "minecraft:lava", "minecraft:flowing_lava",
   "minecraft:oak_door", "minecraft:torch", "minecraft:redstone_torch", "minecraft:soul_torch",
   "minecraft:lever", "minecraft:ladder", "minecraft:oak_sapling", "minecraft:sugar_cane",
-  "minecraft:bamboo", "minecraft:repeater", "minecraft:comparator", "minecraft:anvil"
+  "minecraft:bamboo", "minecraft:repeater", "minecraft:comparator", "minecraft:anvil", "minecraft:netherite_block"
 ]);
 const CATEGORIES = [
   { name: "Building Blocks", icon: "textures/blocks/stone" },
@@ -269,12 +269,14 @@ const CATEGORIES = [
   { name: "Endgame", icon: "textures/items/ender_pearl" }
 ];
 const TIER_BLOCKS = [
-  ["dirt"], ["oak_log"], ["cobblestone"], ["coal_ore", "copper_ore"], ["iron_ore"],
-  ["gold_ore"], ["spruce_log"], ["stone"], ["lapis_ore"], ["redstone_ore"],
-  ["birch_log"], ["mossy_cobblestone"], ["sandstone"], ["deepslate"], ["deepslate_iron_ore"],
-  ["deepslate_gold_ore"], ["diamond_ore"], ["emerald_ore"], ["netherrack"], ["soul_sand"],
-  ["nether_gold_ore"], ["quartz_ore"], ["blackstone"], ["basalt"], ["end_stone"],
-  ["purpur_block"], ["ancient_debris"], ["netherite_block"], ["crying_obsidian"], ["obsidian"]
+  ["dirt"], ["coarse_dirt"], ["clay"],
+  ["oak_log"], ["spruce_log"], ["birch_log"], ["jungle_log"], ["acacia_log"],
+  ["cobblestone"], ["stone"], ["andesite"], ["diorite"], ["granite"],
+  ["coal_ore", "copper_ore"], ["iron_ore"], ["gold_ore"], ["lapis_ore"], ["redstone_ore"],
+  ["deepslate_iron_ore"], ["deepslate_gold_ore"], ["diamond_ore"], ["emerald_ore"],
+  ["nether_gold_ore"], ["quartz_ore"],
+  ["stone_bricks"], ["quartz_block"], ["purpur_block"], ["crying_obsidian"],
+  ["ancient_debris"], ["obsidian"]
 ];
 const MILESTONES = TIER_BLOCKS.map((ids, i) => ({
   unlock: i === 0 ? 0 : Math.round(10000 * Math.pow(i / (TIER_BLOCKS.length - 1), 1.6) / 10) * 10,
@@ -485,7 +487,7 @@ const TIER_FIX = {
   wooden_pickaxe: 1, wooden_axe: 1, wooden_shovel: 1, wooden_sword: 1,
   furnace: 2, torch: 3, coal: 3, coal_ore: 3,
   gold_ore: 5, gold_ingot: 5, golden_pickaxe: 5, golden_axe: 5, golden_sword: 5,
-  lapis_lazuli: 8, crying_obsidian: 28, obsidian: 29
+  lapis_lazuli: 8, crying_obsidian: 27, ancient_debris: 28, obsidian: 29
 };
 for (const item of CATALOG) {
   let t = OLD_TIER_TO_NEW[item.tier] ?? 0;
@@ -968,12 +970,23 @@ system.runInterval(() => {
 }, 20);
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (150 lines, 9414 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (161 lines, 9970 bytes)
 
 ```
 # Changelog — OneBlock Natural Market
 
 ---
+
+## [16.0.1] - 2026-11-21 - Core Tier Reorder
+
+### Changed
+- The core block order is now Dirt, Wood, Stone, Ores, then Blocks across the 30 tiers, ending with Obsidian at tier 30.
+- Ancient Debris moved to tier 29.
+- Netherite Block can no longer enter the core pool, even if bought.
+- Mossy Cobblestone, Sandstone, Deepslate, Netherrack, Soul Sand, Blackstone, Basalt and End Stone are no longer part of the tier order.
+
+### Added
+- Clay, Coarse Dirt, Jungle Log, Acacia Log, Andesite, Diorite, Granite, Stone Bricks and Quartz Block join the tier order.
 
 ## [16.0.0] - 2026-11-21 - 30 Tiers And Spawn Eggs
 
@@ -1239,19 +1252,19 @@ Download the current release of **OneBlock Natural Market** for Minecraft Bedroc
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Natural-Market/DESCRIPTION.md).
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/manifest.json (37 lines, 629 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/manifest.json (37 lines, 633 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v16)",
+    "name": "OneBlock Natural Market (v16.0.1)",
     "description": "Trader Ledger icon for OneBlock Natural Market. by ALNStudios",
     "uuid": "187333a6-4353-4003-b379-471f85ce9021",
     "version": [
       16,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -1266,7 +1279,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "version": [
         16,
         0,
-        0
+        1
       ]
     }
   ],
@@ -1275,7 +1288,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "16.0.0"
+    "version": "16.0.1"
   }
 }
 ```
