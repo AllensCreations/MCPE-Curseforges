@@ -16,7 +16,7 @@
 
 - **Export request:** `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta`
 - **Destination:** `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta`
-- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/CHANGELOG.md`)
+- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/CHANGELOG.md`)
 - **Text files:** 18
 - **Skipped binary:** 4
 - **Paths not found:** 0
@@ -58,7 +58,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v3 / NEXT UPDATE: v4).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -99,11 +99,11 @@ Output ONLY these three sections in order:
 titleraw @s actionbar {"rawtext":[{"text":"§6Dirtbound §8| §eBalance: §f"},{"score":{"name":"@s","objective":"dirtbound_coins"}},{"text":" §6OneCoins"}]}
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/functions/bonus_spawn.mcfunction (3 lines, 124 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/functions/bonus_spawn.mcfunction (3 lines, 126 bytes)
 
 ```
 # Place the optional bonus block above the new spawn/core area.
-execute if block 1 1 0 air run setblock 1 1 0 emerald_block
+execute if block 1 65 0 air run setblock 1 65 0 emerald_block
 ```
 
 ## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/functions/give_trader.mcfunction (2 lines, 40 bytes)
@@ -112,11 +112,11 @@ execute if block 1 1 0 air run setblock 1 1 0 emerald_block
 give @s allenscreations:trader_ledger 1
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/functions/oneblock_setup.mcfunction (4 lines, 205 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/functions/oneblock_setup.mcfunction (4 lines, 207 bytes)
 
 ```
 # Run the Void Cleaner; its per-player void_cleaned tag guards first-join setup.
-# The cleaner sets the spawn at (0,1,0), Bedrock at (0,-1,0), and grass at the core position (0,0,0).
+# The cleaner sets the spawn at (0,65,0), Bedrock at (0,63,0), and grass at the core position (0,64,0).
 function void_cleaner
 ```
 
@@ -127,7 +127,7 @@ function void_cleaner
 function oneblock_setup
 
 # Ongoing safety recovery protects only the core foundation.
-execute if block 0 -1 0 air run setblock 0 -1 0 bedrock
+execute if block 0 63 0 air run setblock 0 63 0 bedrock
 
 # Balance is displayed as actionbar text instead of a sidebar scoreboard.
 execute as @a[tag=void_cleaned] run function balance_display
@@ -144,19 +144,19 @@ execute as @a[tag=void_cleaned] run function balance_display
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/functions/void_cleaner.mcfunction (11 lines, 833 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/functions/void_cleaner.mcfunction (11 lines, 840 bytes)
 
 ```
 # One-time per-player void cleanup and spawn setup for Dirtbound.
 # Test fixes by importing the rebuilt Creative world as a new world; existing worlds keep their saved pack and player tags.
 # Clear the full 33x33 square on Y=-64, from X/Z -16 through +16 (not just 0 through 15), then establish the starting block and spawn.
 execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air
-execute as @a[tag=!void_cleaned] run tp @s 0 1 0
-execute as @a[tag=!void_cleaned] run setblock 0 -1 0 bedrock
-execute as @a[tag=!void_cleaned] run setblock 0 0 0 minecraft:grass_block
-execute as @a[tag=!void_cleaned] run setworldspawn 0 1 0
-execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tellraw @s {"rawtext":[{"text":"§aDone cleaning"}]}
-execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cleaned
+execute as @a[tag=!void_cleaned] run tp @s 0.5 65 0.5
+execute as @a[tag=!void_cleaned] run setblock 0 63 0 bedrock
+execute as @a[tag=!void_cleaned] run setblock 0 64 0 minecraft:grass_block
+execute as @a[tag=!void_cleaned] run setworldspawn 0 65 0
+execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tellraw @s {"rawtext":[{"text":"§aDone cleaning"}]}
+execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cleaned
 ```
 
 ## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/items/trader_ledger.json (28 lines, 596 bytes)
@@ -197,11 +197,11 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Dirtbound Kingdom Beta (v2)",
+    "name": "OneBlock Dirtbound Kingdom Beta (v3)",
     "description": "OneBlock survival economy with an interactive Trader item and 173 purchasable supplies. by ALNStudios",
     "uuid": "8d4d93bf-c8b2-4df4-9f28-52f4f8f08b10",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -216,7 +216,7 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
       "type": "data",
       "uuid": "6cf34061-8f23-43aa-8a11-8320c8f9a5d4",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -226,7 +226,7 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
       "language": "javascript",
       "uuid": "a2dcb37f-22c9-47b4-8b17-1bd3c0a91f65",
       "version": [
-        2,
+        3,
         0,
         0
       ],
@@ -237,7 +237,7 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
     {
       "uuid": "e8d8136a-7a5b-4818-b813-61c21f2e71ad",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -256,12 +256,12 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "3.0.0"
   }
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/scripts/lib/README.md (41 lines, 1079 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/scripts/lib/README.md (42 lines, 1158 bytes)
 
 ```
 # OneBlock Dirtbound Kingdom Beta: script notes (scripts/lib)
@@ -301,12 +301,13 @@ Extracted from the script files; nothing here was run in game.
 
 ## Notes (AI review)
 
+- Core (0,64,0), Bedrock (0,63,0), world spawn (0,65,0), bonus block (1,65,0).
 - Shop lists 173 items (counted from `RAW` in `main.js`); ids rejected at runtime are skipped and logged.
-- `void_cleaner` adds `void_cleaned` only once Bedrock exists at (0,-1,0), so setup retries until the chunk is loaded.
+- `void_cleaner` adds `void_cleaned` only once Bedrock exists at (0,63,0), so setup retries until the chunk is loaded.
 - Not tested in game.
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/scripts/main.js (396 lines, 22405 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/scripts/main.js (396 lines, 22407 bytes)
 
 ```
 import { world, system, ItemStack, ItemTypes } from "@minecraft/server";
@@ -315,8 +316,8 @@ import { ActionFormData, MessageFormData } from "@minecraft/server-ui";
 // ---------------------------------------------------------------------------
 // Config
 // ---------------------------------------------------------------------------
-const ORIGIN = { x: 0, y: 0, z: 0 };
-const BONUS_POS = { x: 1, y: 1, z: 0 };
+const ORIGIN = { x: 0, y: 64, z: 0 };
+const BONUS_POS = { x: 1, y: 65, z: 0 };
 const OVERWORLD = "minecraft:overworld";
 // Core only initializes once some player has the "void_cleaned" tag (set by your own function/pack).
 // Set to false if you don't use a void-cleanup step.
@@ -706,12 +707,17 @@ system.run(() => {
 });
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/CHANGELOG.md (167 lines, 7743 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/CHANGELOG.md (172 lines, 7960 bytes)
 
 ```
 # Changelog — OneBlock Dirtbound Kingdom Beta
 
 ---
+
+## [v3] - 2026-11-21 - Core Height Fix
+
+### Fixed
+- **Correct starting height:** The central block now sits at 0 64 0, with Bedrock at 0 63 0 and the world spawn at 0 65 0. The bonus Emerald Block appears at 1 65 0.
 
 ## [v2] - 2026-11-21 - Void Cleaner Guard
 
@@ -877,7 +883,7 @@ system.run(() => {
 - Added a custom inventory icon for the Trader item.
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/DESCRIPTION.md (88 lines, 5923 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/DESCRIPTION.md (88 lines, 5924 bytes)
 
 ```
 # OneBlock Dirtbound Kingdom Beta
@@ -891,7 +897,7 @@ OneBlock Dirtbound Kingdom Beta is a database-free void-survival challenge built
 
 ## Overview
 
-The central block is at **(0, 0, 0)**, with Bedrock directly below and player spawn above it. First-time setup clears the starting area and prepares the platform before progression begins.
+The central block is at **(0, 64, 0)**, with Bedrock directly below and player spawn above it. First-time setup clears the starting area and prepares the platform before progression begins.
 
 ## Ten Core Stages
 
@@ -1006,11 +1012,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Dirtbound Kingdom Beta (v2)",
+    "name": "OneBlock Dirtbound Kingdom Beta (v3)",
     "description": "Custom Trader item texture for Dirtbound Kingdom. by ALNStudios",
     "uuid": "e8d8136a-7a5b-4818-b813-61c21f2e71ad",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -1025,7 +1031,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "fa89d5ac-9dd7-42a5-9f2f-941ab4e13f68",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -1036,7 +1042,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "3.0.0"
   }
 }
 ```
@@ -1055,19 +1061,19 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/SPEC.md (13 lines, 1469 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/SPEC.md (13 lines, 1479 bytes)
 
 ```
 # Dirtbound Kingdom: Technical Spec (v1)
 
 Moved from `INSTRUCTIONS.md` 1.7.
 
-- Core `(0,0,0)`, Bedrock `(0,-1,0)`, spawn `(0,1,0)`. Trader Ledger = only shop access. No physical Trader Post.
-- `void_cleaner.mcfunction`, once per player, guarded `tag=!void_cleaned`, order: 1 `execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air` (33x33 = 1,089 blocks; `fill 0 -64 0 15 -64 15 air` = 256, WRONG); 2 teleport untagged player to `(0,1,0)` (only function-side teleport); 3 Bedrock `(0,-1,0)`; 4 grass placeholder `(0,0,0)`; 5 world spawn `(0,1,0)`; 6 cleaning notice; 7 add `void_cleaned` ONLY once core Bedrock exists.
-- Chunk loading: Bedrock does not keep spawn chunks loaded; fill on unloaded chunks fails silently. Final tag MUST be conditional: `execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cleaned`. Guard the notice against retry spam. Unverified until tested in game (1.11).
+- Core `(0,64,0)`, Bedrock `(0,63,0)`, spawn `(0,65,0)`. Trader Ledger = only shop access. No physical Trader Post.
+- `void_cleaner.mcfunction`, once per player, guarded `tag=!void_cleaned`, order: 1 `execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air` (33x33 = 1,089 blocks; `fill 0 -64 0 15 -64 15 air` = 256, WRONG); 2 teleport untagged player to `(0.5,65,0.5)` (only function-side teleport); 3 Bedrock `(0,63,0)`; 4 grass placeholder `(0,64,0)`; 5 world spawn `(0,65,0)`; 6 cleaning notice; 7 add `void_cleaned` ONLY once core Bedrock exists.
+- Chunk loading: Bedrock does not keep spawn chunks loaded; fill on unloaded chunks fails silently. Final tag MUST be conditional: `execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cleaned`. Guard the notice against retry spam. Unverified until tested in game (1.11).
 - NEVER expand cleanup beyond this layer without approval.
 - `tick.json`: `void_cleaner` before `oneblock_tick`. `oneblock_tick` restores only missing Bedrock. NEVER reset spawn, teleport, place/replace core.
-- Script API owns core `(0,0,0)`, break rewards, stage progression; waits for `void_cleaned` before replacing the placeholder.
+- Script API owns core `(0,64,0)`, break rewards, stage progression; waits for `void_cleaned` before replacing the placeholder.
 - Player tags persist: a source fix NEVER patches an imported world. Test with a fresh import.
 - Mechanics change: update source, player docs, test checklists together; reinstall into all 3 world folders.
 ```

@@ -1,8 +1,17 @@
 # Changelog — OneBlock Dirtbound Kingdom Beta
 
-## [v2] - 2026-11-21 - Void Cleaner Guard
+## [v3] - 2026-11-21 - Core Height Fix
 
 ### Fixed
+
+<details>
+<summary><b>2.0.x</b> (1 release)</summary>
+
+### [v2] - 2026-11-21 - Void Cleaner Guard
+
+#### Fixed
+
+</details>
 
 <details>
 <summary><b>1.0.x</b> (1 release)</summary>
