@@ -10,39 +10,19 @@
 
 ---
 
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
 # Repo Export
 
 ## Index
 
 - **Export request:** `MCPEDL/Addons/Vanilla-Quality-of-Life`
 - **Destination:** `MCPEDL/Addons/Vanilla-Quality-of-Life`
-- **CURRENT VERSION: v5 / NEXT UPDATE: v6**  (`MCPEDL/Addons/Vanilla-Quality-of-Life/CHANGELOG.md`)
-- **Text files:** 464
+- **CURRENT VERSION: v6 / NEXT UPDATE: v7**  (`MCPEDL/Addons/Vanilla-Quality-of-Life/CHANGELOG.md`)
+- **Text files:** 463
 - **Skipped binary:** 5
 - **Paths not found:** 0
 
 ### Files in this export
 
-- `changelog_views/Vanilla-Quality-of-Life.curseforge.html`
-- `changelog_views/Vanilla-Quality-of-Life.github.md`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/allay.json`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/armadillo.json`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/armor_stand.json`
@@ -483,6 +463,8 @@
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/offhand.js`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/ore-miner.js`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/player-loop.js`
+- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/README.md`
+- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/replant.js`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/slot-switch.js`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/state.js`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/tool-categories.js`
@@ -504,7 +486,6 @@
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/resource_pack/manifest.json`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/resource_pack/texts/en_US.lang`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/resource_pack/texts/languages.json`
-- `Package/Vanilla-Quality-of-Life.listing.md`
 
 ### Skipped (binary)
 
@@ -519,10 +500,11 @@
 # AI Instructions & Review Notes
 
 Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
-Context7 Support: Enabled. For full instructions, schemas, and helper script syntax, query Context7 (`INSTRUCTIONS.md`, `PACK_GENERATOR_INSTRUCTIONS.md`, `DOCS_RULES.md`, `make_update_script.py`, `doc_template.py`).
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v5 / NEXT UPDATE: v6).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v6 / NEXT UPDATE: v7).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -537,34 +519,10 @@ Repo-root-relative folders for this work:
 ## Rules
 1. NEVER invent features, versions, links, assets, test results.
 2. Output only what changed. Smallest edits. No unrelated rewrites.
-3. No notes/summaries/explanations unless asked.
-4. Any project type (add-on, map, script, workflow, website). Keep folder layout.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `ai-review/`, `MCPEDL/README.md`.
 
-## Update request = ONE Termux script
-- Name: `<Repofilename>_<Version>_<RAND>.sh` (e.g. `Monster-Companions_v2_k7q2x.sh`). Deliver as downloadable file.
-- Repofilename: project/folder/file changed. No extension, no spaces (hyphens ok).
-- Version: new vX format. Update = X+1 (e.g., v1 -> v2, or legacy 1.3.4 -> v2).
-- RAND: >=5 random lowercase letters/digits. Fresh every script. NEVER reuse.
-Script order:
-1. `#!/data/data/com.termux/files/usr/bin/bash` + `set -e`
-2. `cd "$HOME/MCPE-Curseforges"`; `git clone` repo URL first if folder missing
-3. `git pull --rebase`
-4. Apply ALL changes as exact search-and-replace edits via `python3 scripts/make_update_script.py spec.txt` (format queryable via Context7).
-5. Validate every changed .json with python3. Stop on error.
-5b. Verify top CHANGELOG.md heading == new vX == script filename version. If project has manifests: run `python3 scripts/manifest_tools.py --project "$DEST" --set X.0.0` (or `vX`).
-6. `git add` changed paths only; `git commit -m "<short message>"`; `git push`
-6b. Add an entry to the ROOT `CHANGELOG.md`: `## [vN] - YYYY-MM-DD - [Update Name]`
-7. Idempotent: skip anything already applied.
-8. Last line: `rm -f -- "$SELF"` (self-deleting script).
-
-## Documentation Standards
-- Query Context7 for exact `DOCS_RULES.md` formatting templates.
-- CHANGELOG.md: MANDATORY on every update (`## [vX] - YYYY-MM-DD - [Update Name]`).
-- Player-facing only: in-game item names ("Diamond"), NEVER code identifiers (`minecraft:diamond`), internal function names, or raw JSON keys.
-- README.md: download landing page only (11 non-empty lines).
-- DESCRIPTION.md: full details, standard badges, feature cards, guidelines block.
-
-## Reply Format (STRICT)
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
 ```
 [SYSTEM_CONFIG]
 Mode: Direct Execution
@@ -579,251 +537,6 @@ Output ONLY these three sections in order:
 ---
 
 ## File Contents
-
-## FILE: changelog_views/Vanilla-Quality-of-Life.curseforge.html (11 lines, 15100 bytes)
-
-```
-<h2>v5 - 2026-11-20 - Offhand Torch, Grass, and Recipe Fixes</h2><h3>Added</h3><ul><li><strong>Redstone Torch Offhand</strong>: Redstone Torches can now be held in your offhand like other torches.</li></ul><h3>Improved &amp; Balanced</h3><ul><li><strong>Sleeping</strong>: The add-on no longer changes how many players must sleep to skip the night.</li><li><strong>Newer Game Support</strong>: The Behavior Pack now targets the script version that ships with Minecraft 1.26.50.</li></ul><h3>Fixed</h3><ul><li><strong>Grass and Shears</strong>: Auto-switch now also recognizes Short Grass and Tall Grass.</li><li><strong>Stairs Recipes</strong>: Stairs crafting recipes with uneven layouts now use full-width layouts, and the Bamboo Mosaic Stairs recipe file name is corrected.</li></ul>
-<h2>4.0.x (2 releases)</h2><div class="spoiler"><h3>v4 - 2026-11-20 - Script Split and Tool Fixes</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Organized Scripts</strong>: The add-on&#x27;s code is now split into separate files in a lib folder, one for each feature, so it is easier to maintain. Nothing changes in game.</li></ul><h4>Fixed</h4><ul><li><strong>Auto-Switch Blocks</strong>: Auto-switch now picks a Pickaxe for Blocks of Coal, Quartz blocks, Bone Blocks, Respawn Anchors, Conduits, and Lightning Rods, and Packed Mud no longer switches you to a shovel.</li><li><strong>Fortune on Iron and Gold</strong>: Domino Ore Miner now applies Fortune to Iron Ore and Gold Ore, including their Deepslate versions, like it already did for other ores.</li><li><strong>Leaving the World</strong>: Chain mining pause and pending tool wear are now cleared when a player leaves, so nothing carries over.</li></ul><h3>v4 - 2026-11-20 - Block Tool and Fortune Fixes</h3><h4>Fixed</h4><ul><li><strong>Auto-Switch Blocks</strong>: Auto-switch now picks a Pickaxe for Blocks of Coal, Quartz blocks, Bone Blocks, Respawn Anchors, Conduits, and Lightning Rods, and Packed Mud no longer switches you to a shovel.</li><li><strong>Fortune on Iron and Gold</strong>: Domino Ore Miner now applies Fortune to Iron Ore and Gold Ore, including their Deepslate versions, like it already did for other ores.</li><li><strong>Leaving the World</strong>: Chain mining pause and pending tool wear are now cleared when a player leaves, so nothing carries over.</li></ul></div>
-<h2>3.0.x (1 release)</h2><div class="spoiler"><h3>v3 - 2026-11-14</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Clearer Description</strong>: The listing now follows the new layout with an overview, feature cards, step-by-step instructions, common questions, and a compatibility summary.</li></ul><h4>Fixed</h4><ul><li><strong>Leash Details</strong>: The description no longer says the Warden and Wither can be leashed, and no longer claims a fixed number of leashable mobs.</li><li><strong>Creator Links</strong>: The MCPEDL profile link and its image now appear once and point to the correct page.</li></ul></div>
-<h2>2.1.x (2 releases)</h2><div class="spoiler"><h3>2.1.1 - 2026-11-14</h3><h4>Added</h4><ul><li><strong>Swap-Back After Mining</strong>: A moment after you stop mining or fighting, the item that was in Slot 1 returns to its original slot instead of staying swapped.</li><li><strong>Tree Size Message</strong>: An action-bar message now tells you when a tree was too large to fell completely.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Faster Auto-Switch</strong>: Auto-switch now waits only about a tenth of a second after a block breaks, so it keeps up with instant-break blocks.</li><li><strong>Hotbar-Only Tool Search</strong>: Auto-switch now only uses tools from your hotbar, so items in your backpack are never moved.</li><li><strong>Chain Mining Experience</strong>: Chain mining now spawns at most 10 experience orbs per chain and gives any extra experience straight to you, so far fewer orbs appear.</li><li><strong>Lighter Held Light Checks</strong>: The held-light update does less work while you carry no light item.</li></ul><h3>2.1.0 - 2026-11-07</h3><h4>Added</h4><ul><li><strong>More Held Lights</strong>: Glowstone, Sea Lanterns, Shroomlights, and Jack o&#x27;Lanterns now light up your surroundings at Light Level 15 while you hold them.</li><li><strong>Silk Touch Auto-Switch</strong>: Hitting glass or ice now switches to a Silk Touch tool if you carry one, and bookshelves prefer a Silk Touch Axe.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Mending Preference</strong>: When two tools are equally good for a job, auto-switch now uses the Mending tool that needs repair first.</li><li><strong>Grouped Chain Drops</strong>: Tree Capitator and Domino Ore Miner now merge their drops into full stacks within 5-block areas, so far fewer item entities appear.</li><li><strong>Direct Block Breaking</strong>: Tree Capitator and Domino Ore Miner now break blocks and place their drops directly instead of running game commands.</li></ul></div>
-<h2>2.0.x (1 release)</h2><div class="spoiler"><h3>2.0.0 - 2026-11-06</h3><h4>Removed</h4><ul><li><strong>Offhand Swap Command</strong>: The command that swapped your offhand item is removed. Use double-sneak or Sneak + Use in the air instead.</li><li><strong>Personal Toggles</strong>: The per-player toggles added in the previous update are removed. Choose how Tree Capitator and Domino Ore Miner behave for your world with the Behavior Pack&#x27;s subpack settings.</li></ul><h4>Added</h4><ul><li><strong>Personal Toggles</strong>: Each player can turn Auto-Switch, Tree Capitator, Domino Ore Miner, and Offhand Quick-Swap on or off for themselves with /scriptevent qol:toggle. Use status to see your settings and reset to turn everything back on.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Zero Durability Tools</strong>: A tool at 0 durability now breaks only the single block you hit and no longer starts Tree Capitator or Domino Ore Miner.</li><li><strong>Durability Floor</strong>: Tree Capitator and Domino Ore Miner now use your tool down to 0 durability without breaking it, and the next use of that tool breaks it.</li></ul></div>
-<h2>1.29.x (1 release)</h2><div class="spoiler"><h3>1.29.0 - 2026-11-02</h3><h4>Fixed</h4><ul><li><strong>Tool Durability</strong>: Tree Capitator and Domino Ore Miner now reliably wear down the tool you used, even if auto-switch changes your held item right afterward.</li><li><strong>Mangrove Trees</strong>: Mangrove trees with moss carpet around their roots are now felled, and breaking Muddy Mangrove Roots no longer switches you to a shovel.</li><li><strong>Auto-Switch After Chain Mining</strong>: Auto-switch now waits about two seconds after a tree or ore vein is chain mined before it can change your tool.</li></ul></div>
-<h2>1.28.x (1 release)</h2><div class="spoiler"><h3>1.28.0 - 2026-11-01</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Clearer Mining Presets</strong>: The three mining presets in the pack settings now describe what they do: Sneak to Chain Mine (Default), Auto Chain Mine: Tool in Slot 1, and Chain Mining Off (Other Features On).</li><li><strong>Resource Pack Included</strong>: The Behavior Pack now requires its Resource Pack, so both are enabled together when you activate it.</li></ul></div>
-<h2>1.27.x (1 release)</h2><div class="spoiler"><h3>1.27.0 - 2026-11-01</h3><h4>Fixed</h4><ul><li><strong>Enchanted Tool Offhand Swap</strong>: Swapping an enchanted or damaged tool into your offhand with a torch no longer resets it, so enchantments and remaining durability are kept.</li></ul></div>
-<h2>1.26.x (1 release)</h2><div class="spoiler"><h3>1.26.0 - 2026-10-29</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Maintenance release</strong>: Repackaged the pack; no gameplay changes were recorded.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Durability Guard</strong>: Chain mining now stops only when the tool has 0 durability left, instead of at 1.</li><li><strong>Offhand Torch Placement Removed</strong>: Torches in the offhand can no longer be placed with Sneak + Click. Offhand quick-swap and held-item light still work.</li></ul><h4>Fixed</h4><ul><li><strong>Auto-Switch With Chain Mining</strong>: Auto-switch now pauses briefly while a tree or ore vein is being mined so the tool in hand cannot change during it.</li><li><strong>Broken Tool Chain Mining</strong>: Tree Capitator and Domino Ore Miner no longer keep breaking blocks after the tool has broken or has no durability left.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Continuous Auto-Switch</strong>: While you keep mining, aiming at a different kind of block, such as moving from stone to dirt, now switches to the best tool without stopping.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Redstone Fortune</strong>: Chain-mined Redstone Ore with Fortune now drops extra dust the way the single-block version does, instead of multiplying the whole stack.</li><li><strong>Ore Experience</strong>: Chain-mined ores now drop their normal experience as orbs when mined without Silk Touch.</li><li><strong>Tree Capitator Limits</strong>: Logs more than 8 blocks away from the broken log are ignored, so neighboring trees are far less likely to be felled together.</li><li><strong>Player Build Protection</strong>: Trees touching planks, doors, fences, glass, bricks, or storage blocks are left standing.</li><li><strong>Game Rules</strong>: Sleep skipping and the faster random tick speed are now set once when the world first loads, so you can change them afterward.</li></ul><h4>Fixed</h4><ul><li><strong>Cobweb Shears Switch</strong>: Looking at a cobweb no longer swaps shears into your hand; the swap now happens only when you hit the cobweb.</li><li><strong>Creative Mode</strong>: Chain mining and tree felling no longer wear down tools or drop items in Creative.</li><li><strong>Melon and Pumpkin Stems</strong>: Breaking a stem with an axe no longer fells nearby trees.</li><li><strong>Accidental Hand Swap</strong>: Quickly tapping sneak while moving or in the air, such as while bridging, no longer swaps your hands.</li><li><strong>Leftover Light Blocks</strong>: Moving light blocks left behind after a crash or reload are now removed the next time the world loads.</li></ul><h4>Fixed</h4><ul></ul><h4>Improved &amp; Balanced</h4><ul></ul><h4>Fixed</h4><ul></ul><h4>Changed</h4><ul></ul><h4>Changed</h4><ul></ul><h4>Fixed</h4><ul></ul><h4>Added</h4><ul><li><strong>Optional Mining Presets</strong>: Added selectable Behavior Pack presets for Tree Capitator Only, Vein Miner Only, and Vanilla Mining (both disabled). The default pack keeps both features enabled. Other QoL features remain active in every preset.</li></ul><h4>Added &amp; Improved</h4><ul><li><strong>The Leaf Scan (Player-Placed Leaves Ignored)</strong>: Overworld tree canopy detection now evaluates natural leaf growth. Decorative leaves harvested with shears and placed manually by players are recognized as custom decorations and completely ignored, preventing custom hedges, bushes, and decorative roof foliage from falsely triggering tree felling or getting destroyed. Only naturally grown leaves and Nether canopies validate the tree canopy.</li></ul><h4>Added</h4><ul><li><strong>Mob Head Drops Balanced</strong>: Standardized mob head drops (Zombie, Skeleton, Creeper, Piglin, Wither Skeleton, Ender Dragon, PvP Player) to a balanced 1.0% base drop chance (+0.5% per Looting level up to 2.5% max at Looting III).</li><li><strong>Wandering Trader Collector Head Trades</strong>: Adjusted head trade offering probability to a rare 2% spawn rate in collector trade pools, priced at 1 Diamond Block + 16 Emeralds per head.</li><li><strong>Shulker Shell Drop Rate</strong>: Adjusted Shulker Shell drops to 1 to 2 shells (yielding 2 to 3 with Looting enchantments).</li><li><strong>Boss Leashing Immunity</strong>: Removed leashing capability from the Warden, Wither, and Ender Dragon to maintain boss encounter integrity while preserving universal leashing on all 98 standard entities.</li><li><strong>tool durability stop</strong>: Tuned tool durability stop from 5 to 1 durability point, giving players maximum tool usage before emergency protection activates.</li><li><strong>Stonecutter Woodcutter All 12 Woods</strong>: Added full Stonecutter recipe support for Pale Oak (Logs to Planks, Slabs, Stairs, Fences, Fence Gates, and Trapdoors), completing support for all 12 wood variants in Minecraft Bedrock.</li></ul><h4>Changed</h4><ul></ul><h4>Added</h4><ul><li><strong>Offhand Quick-Swap</strong>: Double-sneak gesture or sneak+use in air to quickly swap Torches, Lanterns, Clocks, and Compasses between mainhand and offhand.</li></ul><h4>Added</h4><ul><li><strong>Mob Head Trophy Drops</strong>: 2.5% base drop chance on player kills for Zombie, Skeleton, Creeper, and Piglin heads.</li><li><strong>Wandering Trader Collector Trades</strong>: Rare head exchanges and biome flora trading.</li><li><strong>Single-Player Sleep</strong>: 1 player sleeping in a bed skips the night on multiplayer worlds and Realms.</li><li><strong>Guaranteed Shulker Shells</strong>: 2 shells guaranteed per Shulker kill.</li></ul><h4>Added</h4><ul><li><strong>Stonecutter Woodcutter</strong>: Cut all 11 wood types in the Stonecutter at fair 1:1 craft ratios (Planks, Slabs, Stairs, Fences, Gates).</li><li><strong>Stackable Potions &amp; Milk</strong>: Potions, Splash Potions, Lingering Potions, and Milk Buckets stack up to 16 per inventory slot.</li></ul><h4>Added</h4><ul><li><strong>Universal Leashing</strong>: Support for leashing 101 mobs including Villagers, Golems, and pacified hostiles.</li><li><strong>Spider Leash Locators</strong>: Custom torso locator alignment for spiders and cave spiders.</li><li><strong>Pet Friendly-Fire Immunity</strong>: Tamed companions take zero damage from friendly sweeps, arrows, and explosions.</li><li><strong>Fast Leaf Decay</strong>: Floating leaves decay within 1 to 2 seconds after tree felling.</li></ul></div>
-<h2>1.0.x (1 release)</h2><div class="spoiler"><h3>1.0.0 - 2026-11-02</h3><h4>v1.3.x (v1.3.30)</h4><ul><li><strong>Smoother Held Light</strong>: The light from torches and lanterns in your hands now updates every tick, so it keeps up with you while moving and jumping.</li><li><strong>Auto-Switch Only While Mining</strong>: Auto-switch now acts only while you are hitting blocks and no longer changes your tool just because you are looking at something.</li><li><strong>Light Flicker While Pillar Jumping</strong>: Placing a block where your held light was no longer leaves you in the dark; the light moves back to you immediately.</li><li><strong>Durability After Auto-Switch</strong>: If auto-switch changes your tool at the same moment a tree or ore vein is chain mined, the tool you actually mined with is put back in your hand and takes the durability loss instead of the new tool.</li><li><strong>Switch Delay After Breaking</strong>: Auto-switch now waits a few ticks after any block breaks before changing your tool, so the tool you broke the block with keeps its durability loss.</li></ul></div>
-```
-
-## FILE: changelog_views/Vanilla-Quality-of-Life.github.md (226 lines, 13277 bytes)
-
-```
-# Changelog — Vanilla Quality of Life
-
-## [v5] - 2026-11-20 - Offhand Torch, Grass, and Recipe Fixes
-
-### Added
-- **Redstone Torch Offhand**: Redstone Torches can now be held in your offhand like other torches.
-
-### Improved & Balanced
-- **Sleeping**: The add-on no longer changes how many players must sleep to skip the night.
-- **Newer Game Support**: The Behavior Pack now targets the script version that ships with Minecraft 1.26.50.
-
-### Fixed
-- **Grass and Shears**: Auto-switch now also recognizes Short Grass and Tall Grass.
-- **Stairs Recipes**: Stairs crafting recipes with uneven layouts now use full-width layouts, and the Bamboo Mosaic Stairs recipe file name is corrected.
-
-<details>
-<summary><b>4.0.x</b> (2 releases)</summary>
-
-### [v4] - 2026-11-20 - Script Split and Tool Fixes
-
-#### Improved & Balanced
-- **Organized Scripts**: The add-on's code is now split into separate files in a lib folder, one for each feature, so it is easier to maintain. Nothing changes in game.
-
-#### Fixed
-- **Auto-Switch Blocks**: Auto-switch now picks a Pickaxe for Blocks of Coal, Quartz blocks, Bone Blocks, Respawn Anchors, Conduits, and Lightning Rods, and Packed Mud no longer switches you to a shovel.
-- **Fortune on Iron and Gold**: Domino Ore Miner now applies Fortune to Iron Ore and Gold Ore, including their Deepslate versions, like it already did for other ores.
-- **Leaving the World**: Chain mining pause and pending tool wear are now cleared when a player leaves, so nothing carries over.
-
-### [v4] - 2026-11-20 - Block Tool and Fortune Fixes
-
-#### Fixed
-- **Auto-Switch Blocks**: Auto-switch now picks a Pickaxe for Blocks of Coal, Quartz blocks, Bone Blocks, Respawn Anchors, Conduits, and Lightning Rods, and Packed Mud no longer switches you to a shovel.
-- **Fortune on Iron and Gold**: Domino Ore Miner now applies Fortune to Iron Ore and Gold Ore, including their Deepslate versions, like it already did for other ores.
-- **Leaving the World**: Chain mining pause and pending tool wear are now cleared when a player leaves, so nothing carries over.
-
-</details>
-
-<details>
-<summary><b>3.0.x</b> (1 release)</summary>
-
-### [v3] - 2026-11-14
-
-#### Improved & Balanced
-- **Clearer Description**: The listing now follows the new layout with an overview, feature cards, step-by-step instructions, common questions, and a compatibility summary.
-
-#### Fixed
-- **Leash Details**: The description no longer says the Warden and Wither can be leashed, and no longer claims a fixed number of leashable mobs.
-- **Creator Links**: The MCPEDL profile link and its image now appear once and point to the correct page.
-
-</details>
-
-<details>
-<summary><b>2.1.x</b> (2 releases)</summary>
-
-### [2.1.1] - 2026-11-14
-
-#### Added
-- **Swap-Back After Mining**: A moment after you stop mining or fighting, the item that was in Slot 1 returns to its original slot instead of staying swapped.
-- **Tree Size Message**: An action-bar message now tells you when a tree was too large to fell completely.
-
-#### Improved & Balanced
-- **Faster Auto-Switch**: Auto-switch now waits only about a tenth of a second after a block breaks, so it keeps up with instant-break blocks.
-- **Hotbar-Only Tool Search**: Auto-switch now only uses tools from your hotbar, so items in your backpack are never moved.
-- **Chain Mining Experience**: Chain mining now spawns at most 10 experience orbs per chain and gives any extra experience straight to you, so far fewer orbs appear.
-- **Lighter Held Light Checks**: The held-light update does less work while you carry no light item.
-
-### [2.1.0] - 2026-11-07
-
-#### Added
-- **More Held Lights**: Glowstone, Sea Lanterns, Shroomlights, and Jack o'Lanterns now light up your surroundings at Light Level 15 while you hold them.
-- **Silk Touch Auto-Switch**: Hitting glass or ice now switches to a Silk Touch tool if you carry one, and bookshelves prefer a Silk Touch Axe.
-
-#### Improved & Balanced
-- **Mending Preference**: When two tools are equally good for a job, auto-switch now uses the Mending tool that needs repair first.
-- **Grouped Chain Drops**: Tree Capitator and Domino Ore Miner now merge their drops into full stacks within 5-block areas, so far fewer item entities appear.
-- **Direct Block Breaking**: Tree Capitator and Domino Ore Miner now break blocks and place their drops directly instead of running game commands.
-
-</details>
-
-<details>
-<summary><b>2.0.x</b> (1 release)</summary>
-
-### [2.0.0] - 2026-11-06
-
-#### Removed
-- **Offhand Swap Command**: The command that swapped your offhand item is removed. Use double-sneak or Sneak + Use in the air instead.
-- **Personal Toggles**: The per-player toggles added in the previous update are removed. Choose how Tree Capitator and Domino Ore Miner behave for your world with the Behavior Pack's subpack settings.
-
-#### Added
-- **Personal Toggles**: Each player can turn Auto-Switch, Tree Capitator, Domino Ore Miner, and Offhand Quick-Swap on or off for themselves with /scriptevent qol:toggle. Use status to see your settings and reset to turn everything back on.
-
-#### Improved & Balanced
-- **Zero Durability Tools**: A tool at 0 durability now breaks only the single block you hit and no longer starts Tree Capitator or Domino Ore Miner.
-- **Durability Floor**: Tree Capitator and Domino Ore Miner now use your tool down to 0 durability without breaking it, and the next use of that tool breaks it.
-
-</details>
-
-<details>
-<summary><b>1.29.x</b> (1 release)</summary>
-
-### [1.29.0] - 2026-11-02
-
-#### Fixed
-- **Tool Durability**: Tree Capitator and Domino Ore Miner now reliably wear down the tool you used, even if auto-switch changes your held item right afterward.
-- **Mangrove Trees**: Mangrove trees with moss carpet around their roots are now felled, and breaking Muddy Mangrove Roots no longer switches you to a shovel.
-- **Auto-Switch After Chain Mining**: Auto-switch now waits about two seconds after a tree or ore vein is chain mined before it can change your tool.
-
-</details>
-
-<details>
-<summary><b>1.28.x</b> (1 release)</summary>
-
-### [1.28.0] - 2026-11-01
-
-#### Improved & Balanced
-- **Clearer Mining Presets**: The three mining presets in the pack settings now describe what they do: Sneak to Chain Mine (Default), Auto Chain Mine: Tool in Slot 1, and Chain Mining Off (Other Features On).
-- **Resource Pack Included**: The Behavior Pack now requires its Resource Pack, so both are enabled together when you activate it.
-
-</details>
-
-<details>
-<summary><b>1.27.x</b> (1 release)</summary>
-
-### [1.27.0] - 2026-11-01
-
-#### Fixed
-- **Enchanted Tool Offhand Swap**: Swapping an enchanted or damaged tool into your offhand with a torch no longer resets it, so enchantments and remaining durability are kept.
-
-</details>
-
-<details>
-<summary><b>1.26.x</b> (1 release)</summary>
-
-### [1.26.0] - 2026-10-29
-
-#### Improved & Balanced
-- **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.
-
-#### Improved & Balanced
-- **Durability Guard**: Chain mining now stops only when the tool has 0 durability left, instead of at 1.
-- **Offhand Torch Placement Removed**: Torches in the offhand can no longer be placed with Sneak + Click. Offhand quick-swap and held-item light still work.
-
-#### Fixed
-- **Auto-Switch With Chain Mining**: Auto-switch now pauses briefly while a tree or ore vein is being mined so the tool in hand cannot change during it.
-- **Broken Tool Chain Mining**: Tree Capitator and Domino Ore Miner no longer keep breaking blocks after the tool has broken or has no durability left.
-
-#### Improved & Balanced
-- **Continuous Auto-Switch**: While you keep mining, aiming at a different kind of block, such as moving from stone to dirt, now switches to the best tool without stopping.
-
-#### Improved & Balanced
-- **Redstone Fortune**: Chain-mined Redstone Ore with Fortune now drops extra dust the way the single-block version does, instead of multiplying the whole stack.
-- **Ore Experience**: Chain-mined ores now drop their normal experience as orbs when mined without Silk Touch.
-- **Tree Capitator Limits**: Logs more than 8 blocks away from the broken log are ignored, so neighboring trees are far less likely to be felled together.
-- **Player Build Protection**: Trees touching planks, doors, fences, glass, bricks, or storage blocks are left standing.
-- **Game Rules**: Sleep skipping and the faster random tick speed are now set once when the world first loads, so you can change them afterward.
-
-#### Fixed
-- **Cobweb Shears Switch**: Looking at a cobweb no longer swaps shears into your hand; the swap now happens only when you hit the cobweb.
-- **Creative Mode**: Chain mining and tree felling no longer wear down tools or drop items in Creative.
-- **Melon and Pumpkin Stems**: Breaking a stem with an axe no longer fells nearby trees.
-- **Accidental Hand Swap**: Quickly tapping sneak while moving or in the air, such as while bridging, no longer swaps your hands.
-- **Leftover Light Blocks**: Moving light blocks left behind after a crash or reload are now removed the next time the world loads.
-
-#### Fixed
-
-#### Improved & Balanced
-
-#### Fixed
-
-#### Changed
-
-#### Changed
-
-#### Fixed
-
-#### Added
-- **Optional Mining Presets**: Added selectable Behavior Pack presets for Tree Capitator Only, Vein Miner Only, and Vanilla Mining (both disabled). The default pack keeps both features enabled. Other QoL features remain active in every preset.
-
-#### Added & Improved
-- **The Leaf Scan (Player-Placed Leaves Ignored)**: Overworld tree canopy detection now evaluates natural leaf growth. Decorative leaves harvested with shears and placed manually by players are recognized as custom decorations and completely ignored, preventing custom hedges, bushes, and decorative roof foliage from falsely triggering tree felling or getting destroyed. Only naturally grown leaves and Nether canopies validate the tree canopy.
-
-#### Added
-- **Mob Head Drops Balanced**: Standardized mob head drops (Zombie, Skeleton, Creeper, Piglin, Wither Skeleton, Ender Dragon, PvP Player) to a balanced 1.0% base drop chance (+0.5% per Looting level up to 2.5% max at Looting III).
-- **Wandering Trader Collector Head Trades**: Adjusted head trade offering probability to a rare 2% spawn rate in collector trade pools, priced at 1 Diamond Block + 16 Emeralds per head.
-- **Shulker Shell Drop Rate**: Adjusted Shulker Shell drops to 1 to 2 shells (yielding 2 to 3 with Looting enchantments).
-- **Boss Leashing Immunity**: Removed leashing capability from the Warden, Wither, and Ender Dragon to maintain boss encounter integrity while preserving universal leashing on all 98 standard entities.
-- **tool durability stop**: Tuned tool durability stop from 5 to 1 durability point, giving players maximum tool usage before emergency protection activates.
-- **Stonecutter Woodcutter All 12 Woods**: Added full Stonecutter recipe support for Pale Oak (Logs to Planks, Slabs, Stairs, Fences, Fence Gates, and Trapdoors), completing support for all 12 wood variants in Minecraft Bedrock.
-
-#### Changed
-
-#### Added
-- **Offhand Quick-Swap**: Double-sneak gesture or sneak+use in air to quickly swap Torches, Lanterns, Clocks, and Compasses between mainhand and offhand.
-
-#### Added
-- **Mob Head Trophy Drops**: 2.5% base drop chance on player kills for Zombie, Skeleton, Creeper, and Piglin heads.
-- **Wandering Trader Collector Trades**: Rare head exchanges and biome flora trading.
-- **Single-Player Sleep**: 1 player sleeping in a bed skips the night on multiplayer worlds and Realms.
-- **Guaranteed Shulker Shells**: 2 shells guaranteed per Shulker kill.
-
-#### Added
-- **Stonecutter Woodcutter**: Cut all 11 wood types in the Stonecutter at fair 1:1 craft ratios (Planks, Slabs, Stairs, Fences, Gates).
-- **Stackable Potions & Milk**: Potions, Splash Potions, Lingering Potions, and Milk Buckets stack up to 16 per inventory slot.
-
-#### Added
-- **Universal Leashing**: Support for leashing 101 mobs including Villagers, Golems, and pacified hostiles.
-- **Spider Leash Locators**: Custom torso locator alignment for spiders and cave spiders.
-- **Pet Friendly-Fire Immunity**: Tamed companions take zero damage from friendly sweeps, arrows, and explosions.
-- **Fast Leaf Decay**: Floating leaves decay within 1 to 2 seconds after tree felling.
-
-</details>
-
-<details>
-<summary><b>1.0.x</b> (1 release)</summary>
-
-### [1.0.0] - 2026-11-02
-
-#### v1.3.x (v1.3.30)
-- **Smoother Held Light**: The light from torches and lanterns in your hands now updates every tick, so it keeps up with you while moving and jumping.
-- **Auto-Switch Only While Mining**: Auto-switch now acts only while you are hitting blocks and no longer changes your tool just because you are looking at something.
-- **Light Flicker While Pillar Jumping**: Placing a block where your held light was no longer leaves you in the dark; the light moves back to you immediately.
-- **Durability After Auto-Switch**: If auto-switch changes your tool at the same moment a tree or ore vein is chain mined, the tool you actually mined with is put back in your hand and takes the durability loss instead of the new tool.
-- **Switch Delay After Breaking**: Auto-switch now waits a few ticks after any block breaks before changing your tool, so the tool you broke the block with keeps its durability loss.
-
-</details>
-```
 
 ## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/entities/allay.json (287 lines, 7252 bytes)
 
@@ -62671,11 +62384,11 @@ Output ONLY these three sections in order:
 {
   "format_version": 2,
   "header": {
-    "name": "Vanilla Quality of Life (v5)",
+    "name": "Vanilla Quality of Life (v6)",
     "description": "Comprehensive survival Quality of Life suite with dynamic light, offhand quick-swap, passive auto-switch tools, tree capitator, and domino ore miner. by ALNStudios",
     "uuid": "5461534c-a7c4-4c5b-9269-8be52d2b761b",
     "version": [
-      5,
+      6,
       0,
       0
     ],
@@ -62691,7 +62404,7 @@ Output ONLY these three sections in order:
       "type": "data",
       "uuid": "81382d42-b64c-4759-8c05-0e4e3e8436e8",
       "version": [
-        5,
+        6,
         0,
         0
       ]
@@ -62702,7 +62415,7 @@ Output ONLY these three sections in order:
       "language": "javascript",
       "uuid": "880944f5-3d04-401d-a5d5-011d89c969b6",
       "version": [
-        5,
+        6,
         0,
         0
       ],
@@ -62717,7 +62430,7 @@ Output ONLY these three sections in order:
     {
       "uuid": "fd036566-d0b1-4f92-9b28-9dd45a376d44",
       "version": [
-        5,
+        6,
         0,
         0
       ]
@@ -62728,7 +62441,7 @@ Output ONLY these three sections in order:
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "5.0.0"
+    "version": "6.0.0"
   },
   "subpacks": [
     {
@@ -73526,7 +73239,7 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
 });
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/config.js (78 lines, 1888 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/config.js (83 lines, 2006 bytes)
 
 ```
 // Shared settings and item tables.
@@ -73582,6 +73295,11 @@ export const CONFIG = {
 
   STARTUP_DELAY_TICKS: 40,
   RANDOM_TICK_SPEED: 4,
+  APPLY_RANDOM_TICK_SPEED: true,
+
+  REPLANT_SAPLINGS: true,
+  REPLANT_REQUIRES_SAPLING: true,
+  MAX_REPLANT_SPOTS: 4,
 };
 
 export const SUPPORTED_OFFHAND_ITEMS = new Set([
@@ -73724,7 +73442,7 @@ export function notifyTreeTooLarge(player) {
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/lifecycle.js (62 lines, 2400 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/lifecycle.js (62 lines, 2434 bytes)
 
 ```
 // Player leave cleanup, startup tasks and the startup log.
@@ -73779,7 +73497,7 @@ system.runTimeout(() => {
   persistLights();
 
   try {
-    if (!world.getDynamicProperty("qol:gamerules_set")) {
+    if (CONFIG.APPLY_RANDOM_TICK_SPEED && !world.getDynamicProperty("qol:gamerules_set")) {
       const dim = world.getDimension("overworld");
       dim.runCommand(`gamerule randomTickSpeed ${CONFIG.RANDOM_TICK_SPEED}`);
       world.setDynamicProperty("qol:gamerules_set", true);
@@ -74427,6 +74145,118 @@ system.runInterval(() => {
 }, 1);
 ```
 
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/README.md (21 lines, 1183 bytes)
+
+```
+# Scripts: lib
+
+`main.js` only imports these files. Edit the file that matches the feature.
+
+| File | What it does |
+|---|---|
+| `config.js` | Settings and item tables. Chain mining switches come from `../mining-options.js`. |
+| `state.js` | Per-player data shared between files. |
+| `utils.js` | Small helpers for items, containers and targets. |
+| `offhand.js`, `light.js`, `player-loop.js` | Offhand quick-swap and moving held light. |
+| `tool-categories.js` | Which tool each block needs. Add new block IDs here. |
+| `tool-scoring.js`, `slot-switch.js`, `autoswitch.js` | Picking and swapping the best tool. |
+| `durability.js` | Stops chain mining before a tool breaks. |
+| `blocks.js` | Removes blocks and groups drops. |
+| `tree-capitator.js`, `replant.js` | Tree felling and sapling replanting. |
+| `ore-miner.js` | Domino Ore Miner, Fortune and experience. |
+| `chain-mining.js` | Starts Tree Capitator or Domino Ore Miner when a block breaks. |
+| `lifecycle.js` | Player-leave cleanup, startup tasks and the startup log. |
+
+Useful switches in `config.js`: `REPLANT_SAPLINGS`, `REPLANT_REQUIRES_SAPLING`, `MAX_REPLANT_SPOTS`, `APPLY_RANDOM_TICK_SPEED`, `RANDOM_TICK_SPEED`.
+```
+
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/replant.js (83 lines, 2666 bytes)
+
+```
+// Sapling replanting after Tree Capitator.
+import { BlockPermutation } from "@minecraft/server";
+import { CONFIG } from "./config.js";
+import { getContainer, isGameMode } from "./utils.js";
+
+const SAPLING_SPECIES = new Set([
+  "oak", "spruce", "birch", "jungle", "acacia", "dark_oak", "cherry", "pale_oak",
+]);
+const LEGACY_SAPLING_SPECIES = new Set(["oak", "spruce", "birch", "jungle", "acacia", "dark_oak"]);
+
+const SOIL_BLOCKS = new Set([
+  "minecraft:dirt", "minecraft:grass_block", "minecraft:podzol", "minecraft:coarse_dirt",
+  "minecraft:dirt_with_roots", "minecraft:moss_block", "minecraft:mud", "minecraft:mycelium",
+]);
+
+function saplingItemId(species) {
+  return `minecraft:${species}_sapling`;
+}
+
+function resolveSaplingPermutation(species) {
+  try {
+    return BlockPermutation.resolve(saplingItemId(species));
+  } catch (e) {}
+  if (LEGACY_SAPLING_SPECIES.has(species)) {
+    try {
+      return BlockPermutation.resolve("minecraft:sapling", { sapling_type: species });
+    } catch (e) {}
+  }
+  return null;
+}
+
+function findSaplingSlot(player, itemId) {
+  const container = getContainer(player);
+  if (!container) return null;
+  for (let i = 0; i < container.size; i++) {
+    const item = container.getItem(i);
+    if (item && item.typeId === itemId) return { container, slot: i, item };
+  }
+  return null;
+}
+
+function consumeSapling(found) {
+  const { container, slot, item } = found;
+  if (item.amount > 1) {
+    item.amount -= 1;
+    container.setItem(slot, item);
+  } else {
+    container.setItem(slot, undefined);
+  }
+}
+
+export function replantSaplings(player, dimension, startLoc, removed, species) {
+  if (!CONFIG.REPLANT_SAPLINGS || !SAPLING_SPECIES.has(species)) return;
+  const permutation = resolveSaplingPermutation(species);
+  if (!permutation) return;
+
+  const free = isGameMode(player, "creative") || !CONFIG.REPLANT_REQUIRES_SAPLING;
+  const itemId = saplingItemId(species);
+  const spots = [startLoc, ...removed.filter((p) => p.y === startLoc.y)];
+  const seen = new Set();
+  let planted = 0;
+
+  for (const pos of spots) {
+    if (planted >= CONFIG.MAX_REPLANT_SPOTS) break;
+    const key = `${pos.x},${pos.z}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    try {
+      const block = dimension.getBlock(pos);
+      const below = dimension.getBlock({ x: pos.x, y: pos.y - 1, z: pos.z });
+      if (!block || !below || !block.isAir || !SOIL_BLOCKS.has(below.typeId)) continue;
+      let found = null;
+      if (!free) {
+        found = findSaplingSlot(player, itemId);
+        if (!found) break;
+      }
+      block.setPermutation(permutation);
+      planted++;
+      if (found) consumeSapling(found);
+    } catch (e) {}
+  }
+}
+```
+
 ## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/slot-switch.js (116 lines, 4010 bytes)
 
 ```
@@ -74869,13 +74699,14 @@ export function scoreItem(item, category, slot, blockId) {
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/tree-capitator.js (205 lines, 7734 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/tree-capitator.js (211 lines, 7984 bytes)
 
 ```
 // Tree Capitator.
 import { addGroupedDrop, removeBlockAt, spawnGroupedDrops } from "./blocks.js";
 import { CONFIG } from "./config.js";
 import { applyToolDurabilityDamage, checkToolSafety, notifyToolProtection, notifyTreeTooLarge } from "./durability.js";
+import { replantSaplings } from "./replant.js";
 import { isGameMode, normalizeId } from "./utils.js";
 
 export const AXE_IDENTIFIERS = new Set([
@@ -75056,6 +74887,7 @@ export function executeTreeCapitator(player, dimension, startLoc, startBlockId, 
   const capped = blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS;
   const creative = isGameMode(player, "creative");
   const drops = new Map();
+  let removedCount = 0;
   for (const pos of blocksToBreak) {
     if (!player || !player.isValid) break;
 
@@ -75067,12 +74899,16 @@ export function executeTreeCapitator(player, dimension, startLoc, startBlockId, 
 
     try {
       const brokenId = removeBlockAt(dimension, pos);
+      if (brokenId) removedCount++;
       if (brokenId && !creative) addGroupedDrop(drops, pos, brokenId, 1);
       applyToolDurabilityDamage(player);
     } catch (err) {}
   }
   spawnGroupedDrops(dimension, drops);
   if (capped) notifyTreeTooLarge(player);
+  if (!capped && removedCount === blocksToBreak.length) {
+    replantSaplings(player, dimension, startLoc, blocksToBreak, targetSpecies);
+  }
 
   if (onComplete) onComplete();
 }
@@ -87255,12 +87091,22 @@ export const MINING_OPTIONS = Object.freeze({
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/CHANGELOG.md (393 lines, 17743 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/CHANGELOG.md (403 lines, 18152 bytes)
 
 ```
 # Changelog — Vanilla Quality of Life
 
 ---
+
+## [v6] - 2026-11-21 - Tree Replanting
+
+### Added
+
+- **Tree Replanting**: After Tree Capitator fells a whole tree, a matching sapling is planted where the trunk stood, using one sapling from your inventory (free in Creative).
+
+### Improved & Balanced
+
+- **Crop Growth Setting**: The random tick speed the pack sets on first load is now listed in the description and can be turned off in the script settings.
 
 ## [v5] - 2026-11-20 - Offhand Torch, Grass, and Recipe Fixes
 
@@ -87562,7 +87408,7 @@ This major milestone integrates **Passive Auto-Switch Tools**, **Smart Tree Capi
 - **Fast Leaf Decay**: Floating leaves decay within 1 to 2 seconds after tree felling.
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/DESCRIPTION.md (93 lines, 5779 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/DESCRIPTION.md (102 lines, 6677 bytes)
 
 ```
 # Vanilla Quality of Life — Survival convenience features for Minecraft Bedrock
@@ -87589,6 +87435,14 @@ Hit a block and the best tool from your hotbar swaps into Slot 1, then returns a
 ### Tree Capitator
 - **What Happens**: Sneak while chopping a log with an Axe to fell the whole tree, up to 128 logs, with the drops merged into full stacks within 5-block areas.
 - **Good To Know**: Trees touching player-built blocks such as planks, doors, fences, glass, bricks, or storage are left standing, and logs more than 8 blocks sideways from the broken log are ignored.
+
+### Tree Replanting
+- **What Happens**: After a whole tree is felled from its base, a matching sapling is planted where the trunk stood, using one sapling from your inventory for each spot.
+- **Good To Know**: It works for Oak, Spruce, Birch, Jungle, Acacia, Dark Oak, Cherry, and Pale Oak on dirt, grass, podzol, coarse dirt, rooted dirt, moss, mud, or mycelium, plants up to 4 saplings for wide trunks, and costs nothing in Creative.
+
+### Faster Crop Growth
+- **What Happens**: The first time the pack loads in a world, it sets the random tick speed to 4, so crops and saplings grow faster.
+- **Good To Know**: This is applied once per world, and you can change it afterward with the /gamerule command.
 
 ### Domino Ore Miner
 - **What Happens**: Sneak while mining an ore with a Pickaxe to harvest the connected vein, up to 64 ore blocks, or 4 for Ancient Debris.
@@ -87623,6 +87477,7 @@ Hit a block and the best tool from your hotbar swaps into Slot 1, then returns a
 
 - **Why did a tree stay standing?**: Trees touching player-built blocks such as planks, doors, or fences are skipped, and a very large tree is cut off at 128 logs.
 - **Why did auto-switch ignore a tool in my backpack?**: Auto-switch only uses tools in your hotbar.
+- **Why was no sapling planted after I felled a tree?**: A sapling is planted only when the whole tree was felled, the trunk stood on a supported soil block, and you carry a matching sapling.
 - **What happens when a tool reaches 0 durability?**: Chain mining stops, and the next use of that tool breaks it.
 
 ## Compatibility
@@ -87720,7 +87575,7 @@ Download the current release of **Vanilla Quality of Life** for Minecraft Bedroc
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Vanilla Quality of Life (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/VanillaQoL%20V5.mcaddon)
+- **Direct download:** [Download Vanilla Quality of Life (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/VanillaQoL%20V6.mcaddon)
 
 ## Installation
 
@@ -87845,11 +87700,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "Vanilla Quality of Life (v5)",
+    "name": "Vanilla Quality of Life (v6)",
     "description": "Client entity locators and visual fixes for Vanilla Quality of Life. by ALNStudios",
     "uuid": "fd036566-d0b1-4f92-9b28-9dd45a376d44",
     "version": [
-      5,
+      6,
       0,
       0
     ],
@@ -87865,7 +87720,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "340a271e-9aa3-4c12-bc1a-0254e887ec38",
       "version": [
-        5,
+        6,
         0,
         0
       ]
@@ -87876,7 +87731,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "5.0.0"
+    "version": "6.0.0"
   }
 }
 ```
@@ -87895,75 +87750,3 @@ pack.description=Client entity locators and visual fixes for Vanilla Quality of 
   "en_US"
 ]
 ```
-
-## FILE: Package/Vanilla-Quality-of-Life.listing.md (68 lines, 15698 bytes)
-
-````
-# Listing Kit: Vanilla Quality of Life
-
-Tap the Copy button on a block, then paste it into the CurseForge listing. Generated from DESCRIPTION.md: edit that, not this file.
-
-## Package Name
-
-```text
-Vanilla Quality of Life
-```
-
-## Summary (130/256)
-
-```text
-Auto-switching tools, 128-log tree felling, and 64-ore vein mining with Tree Capitator and Domino Ore Miner for Minecraft Bedrock.
-```
-
-## Description (HTML)
-
-Paste into the CurseForge description editor in source (HTML) mode.
-
-```html
-<div><div style="border:2px solid #15803d;border-radius:18px;line-height:1.5"><br><h1 style="font-size:34px;text-align:center">Vanilla Quality of Life</h1><p style="color:#8a94a3;font-size:14px;text-align:center">by ALNStudios</p><p style="text-align:center"><span style="background-color:#15803d;color:#ffffff;border-radius:20px;font-size:16px">&nbsp;&nbsp;<strong>Auto-switching tools, 128-log tree felling, and 64-ore vein mining with Tree Capitator and Domino Ore Miner for Minecraft Bedrock.</strong>&nbsp;&nbsp;</span></p><p style="text-align:center;margin-left:16px;margin-right:16px">Adds automatic tool and weapon switching, Tree Capitator, Domino Ore Miner, offhand quick-swap with moving held light, extra leashable mobs, new recipes, and Wandering Trader collector trades.</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px"><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Bedrock</strong>: 1.26+&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Experimental</strong>: No&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Achievements</strong>: Likely achievement-friendly&nbsp;&nbsp;</div></div><br></div>
-<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;About&nbsp;&nbsp;</span></h2>
-<p>Hit a block and the best tool from your hotbar swaps into Slot 1, then returns a moment after you stop. Sneak while chopping a log or mining an ore to fell the whole tree or take the connected vein.</p>
-<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;What You Get&nbsp;&nbsp;</span></h2>
-<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Tool and Weapon Auto-Switch</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>With Slot 1 selected, hitting a block or mob swaps the best tool from your hotbar into Slot 1, and the item that was there returns a moment after you stop.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Tools close to breaking are avoided, and a Mending tool that needs repair wins when two tools are equally good.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Tree Capitator</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Sneak while chopping a log with an Axe to fell the whole tree, up to 128 logs, with the drops merged into full stacks within 5-block areas.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Trees touching player-built blocks such as planks, doors, fences, glass, bricks, or storage are left standing, and logs more than 8 blocks sideways from the broken log are ignored.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Domino Ore Miner</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Sneak while mining an ore with a Pickaxe to harvest the connected vein, up to 64 ore blocks, or 4 for Ancient Debris.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Ores give their normal experience without Silk Touch, as up to 10 orbs per chain with any extra going straight to you.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Mining Presets</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Three presets in the Behavior Pack's subpack settings choose how chain mining starts: Sneak to Chain Mine (Default), Auto Chain Mine: Tool in Slot 1, and Chain Mining Off (Other Features On).</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Changing the preset may need the pack reactivated or the world reloaded.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Tool Durability Guard</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Chain mining stops when your tool has 0 durability left, with a warning sound and an action-bar alert.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> A tool at 0 durability breaks only the single block you hit and does not start Tree Capitator or Domino Ore Miner.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Offhand Quick-Swap and Held Light</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Double-sneak while standing still, or sneak and use in the air, to move your held item into your offhand.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Universal Leads</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Leads work on Villagers, Iron Golems, Creepers, Endermen, Ghasts, and most other mobs, while the Warden, Wither, and Ender Dragon cannot be leashed.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Pet and Mount Protection</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Tamed Wolves, Cats, Parrots, Horses, Donkeys, Mules, and Llamas take no damage from player melee attacks, sweeping strikes, and arrows.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Tamed animals are also immune to Creeper and TNT explosion damage.</span></p></div></div></div>
-<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Get Started&nbsp;&nbsp;</span></h2>
-<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Import the complete add-on and enable both included packs in your world settings.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Choose a mining preset in the Behavior Pack's subpack settings: Sneak to Chain Mine (Default), Auto Chain Mine: Tool in Slot 1, or Chain Mining Off (Other Features On).</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Put your tools in the hotbar, select Slot 1, and hit blocks or mobs to see the best tool swap in.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">4</div></td><td style="text-align:left;">Sneak while breaking a log with an Axe or an ore with a Pickaxe to fell the tree or mine the vein.</td></tr></tbody></table>
-<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Common Questions&nbsp;&nbsp;</span></h2>
-<div class="spoiler" title="Why did a tree stay standing?" data-title="Why did a tree stay standing?"><p><strong>Why did a tree stay standing?</strong><br>Trees touching player-built blocks such as planks, doors, or fences are skipped, and a very large tree is cut off at 128 logs.</p></div><div class="spoiler" title="Why did auto-switch ignore a tool in my backpack?" data-title="Why did auto-switch ignore a tool in my backpack?"><p><strong>Why did auto-switch ignore a tool in my backpack?</strong><br>Auto-switch only uses tools in your hotbar.</p></div><div class="spoiler" title="What happens when a tool reaches 0 durability?" data-title="What happens when a tool reaches 0 durability?"><p><strong>What happens when a tool reaches 0 durability?</strong><br>Chain mining stops, and the next use of that tool breaks it.</p></div>
-<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Install&nbsp;&nbsp;</span></h2>
-<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Download the file from this page and open it with Minecraft.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Create or edit a world and turn on the new pack(s) in its settings.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Play. No Experimental toggles needed.</td></tr></tbody></table>
-<div style="border:1px solid #8a94a3;border-radius:16px;text-align:center"><br><div style="background-color:#15803d;color:#ffffff;border-radius:20px;font-size:15px;line-height:2;display:inline-block">&nbsp;&nbsp;<strong>Found a Bug or Have a Suggestion?</strong>&nbsp;&nbsp;</div><p style="font-size:14px;">Please leave a comment on this project page! All bug reports, gameplay feedback, and pack suggestions are welcome and appreciated.</p></div>
-<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Support&nbsp;&nbsp;</span></h2><div style="border:1px solid #8a94a3;border-radius:16px;text-align:center"><br><a href="https://ko-fi.com/alnstudios"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/ko-fi.png" alt="Support ALNStudios on Ko-fi" width="250"></a><br><br></div><p style="text-align:center"><a href="https://www.curseforge.com/members/allenscreations/projects"><strong>CurseForge</strong></a> &nbsp;|&nbsp; <a href="https://mcpedl.com/user/alnstudios/"><strong>MCPEDL</strong></a> &nbsp;|&nbsp; <a href="https://ko-fi.com/alnstudios"><strong>Ko-fi</strong></a></p>
-<hr>
-<p style="text-align:center;color:#8a94a3;font-size:13px"><strong>By ALNStudios</strong></p>
-<div class="spoiler"><p style="font-size:13px"><strong>Permissions and credits</strong></p><ul style="font-size:13px"><li>Rights: All rights reserved for ALNStudios.</li><li>Content creators: You may feature this creation in videos and streams with credit to ALNStudios.</li><li>Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link to this page.</li><li>Unofficial community creation. Not an official Minecraft product and not approved by or associated with Mojang or Microsoft.</li></ul></div>
-<p style="text-align:center;color:#8a94a3;font-size:12px">Minecraft Bedrock add-on, Vanilla Quality of Life Bedrock mod, MCPEDL add-on, CurseForge Bedrock, ALNStudios, tool auto switch, tree capitator, ore vein miner, offhand quick swap, universal leash.</p></div>
-```
-
-## AI Image Prompts
-
-### Reference Images
-
-- **Logo reference**: attach your own logo. The generator uses it only for brand colors and mood. The result must be a new design, not a copy.
-- **Snapshot references**: attach 1 to 4 of your in-game snapshots of this pack. The generator copies their look, not their screen layout.
-
-### Logo Prompt
-
-```text
-Use the attached logo only as a brand reference for its color palette and overall mood. Do not copy it. Create a new, original logo with a different composition and a different main symbol. Do not just recolor, resize, crop, mirror or tweak the attached logo.
-Create a clean, square (1:1) logo image for the Minecraft Bedrock add-on "Vanilla Quality of Life". Auto-switching tools, 128-log tree felling, and 64-ore vein mining with Tree Capitator and Domino Ore Miner for Minecraft Bedrock.
-Base the main symbol on the pack idea above. Match the blocky look of the attached in-game snapshots. Center the logo, use a simple background, and keep it readable at small sizes.
-Text: "Vanilla Quality of Life" and, in small letters, "ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
-Do not add Minecraft, Mojang or Microsoft logos, watermarks, or characters from other games.
-```
-
-### Banner Prompt
-
-```text
-Create a wide (16:9) banner image for the Minecraft Bedrock add-on "Vanilla Quality of Life". Auto-switching tools, 128-log tree felling, and 64-ore vein mining with Tree Capitator and Domino Ore Miner for Minecraft Bedrock.
-Use the attached in-game snapshots as scene and style references: copy their blocky look, lighting, colors and the kind of scenery they show. Make a new composition inspired by them. Do not copy the on-screen HUD, chat or hotbar.
-Use the attached logo only as a brand reference for its colors and mood. Do not copy it. Put a new, original logo design in the banner, large enough to read, on the left or center.
-Hint at these pack features visually: Tool and Weapon Auto-Switch, Tree Capitator, Domino Ore Miner, Mining Presets, Tool Durability Guard.
-Text: "Vanilla Quality of Life" and, in small letters, "by ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
-Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no watermarks.
-```
-````

@@ -1,17 +1,30 @@
 # Changelog — Vanilla Quality of Life
 
-## [v5] - 2026-11-20 - Offhand Torch, Grass, and Recipe Fixes
+## [v6] - 2026-11-21 - Tree Replanting
 
 ### Added
-- **Redstone Torch Offhand**: Redstone Torches can now be held in your offhand like other torches.
+- **Tree Replanting**: After Tree Capitator fells a whole tree, a matching sapling is planted where the trunk stood, using one sapling from your inventory (free in Creative).
 
 ### Improved & Balanced
+- **Crop Growth Setting**: The random tick speed the pack sets on first load is now listed in the description and can be turned off in the script settings.
+
+<details>
+<summary><b>5.0.x</b> (1 release)</summary>
+
+### [v5] - 2026-11-20 - Offhand Torch, Grass, and Recipe Fixes
+
+#### Added
+- **Redstone Torch Offhand**: Redstone Torches can now be held in your offhand like other torches.
+
+#### Improved & Balanced
 - **Sleeping**: The add-on no longer changes how many players must sleep to skip the night.
 - **Newer Game Support**: The Behavior Pack now targets the script version that ships with Minecraft 1.26.50.
 
-### Fixed
+#### Fixed
 - **Grass and Shears**: Auto-switch now also recognizes Short Grass and Tall Grass.
 - **Stairs Recipes**: Stairs crafting recipes with uneven layouts now use full-width layouts, and the Bamboo Mosaic Stairs recipe file name is corrected.
+
+</details>
 
 <details>
 <summary><b>4.0.x</b> (2 releases)</summary>
