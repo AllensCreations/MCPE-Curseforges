@@ -1,12 +1,25 @@
 # Changelog — Vanilla Quality of Life
 
-## [v6] - 2026-11-21 - Tree Replanting
+## [v7] - 2026-11-21 - Leaf Clearing
 
 ### Added
-- **Tree Replanting**: After Tree Capitator fells a whole tree, a matching sapling is planted where the trunk stood, using one sapling from your inventory (free in Creative).
+- **Leaf Clearing**: Tree Capitator now clears the leaves of the tree it fells, and they still drop some saplings, sticks, and apples (Oak and Dark Oak only).
 
 ### Improved & Balanced
+- **Auto-Switch Blocks**: Pistons, Sticky Pistons, and Observers now use a Pickaxe, Creaking Hearts and Cacti use an Axe, and Blocks of Dried Kelp use a Hoe.
+
+<details>
+<summary><b>6.0.x</b> (1 release)</summary>
+
+### [v6] - 2026-11-21 - Tree Replanting
+
+#### Added
+- **Tree Replanting**: After Tree Capitator fells a whole tree, a matching sapling is planted where the trunk stood, using one sapling from your inventory (free in Creative).
+
+#### Improved & Balanced
 - **Crop Growth Setting**: The random tick speed the pack sets on first load is now listed in the description and can be turned off in the script settings.
+
+</details>
 
 <details>
 <summary><b>5.0.x</b> (1 release)</summary>

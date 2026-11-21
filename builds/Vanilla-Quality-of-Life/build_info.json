@@ -1,8 +1,8 @@
 {
-  "changelog_version": "6.0.0",
-  "manifest_version": "6.0.0",
+  "changelog_version": "7.0.0",
+  "manifest_version": "7.0.0",
   "packages": {
-    "VanillaQoL V6.mcaddon": "f9b5185552029cb05705677fe2459e28f950bbce2788fed995f2d6c6389639b2"
+    "VanillaQoL V7.mcaddon": "5e92f725114363c8c1b71ec23c5ba2052c4826c4e29ee10ad15635447662e3f7"
   },
-  "source_sha256": "7003df26bb6f4a270c75dc0ee874e256c215497b2d5013454dcd4b442349149d"
+  "source_sha256": "884d0deb55e03051df5b92d130e4f6472b18af214a3453b83e1b6ad96cf073ff"
 }

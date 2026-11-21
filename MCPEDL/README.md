@@ -54,7 +54,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | **Talking Pirate Parrots** | v2 | [Source](Addons/Talking-Pirate-Parrots_payload) | [Package](../Package/Talking-Pirate-Parrots_payload.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Talking-Pirate-Parrots_payload.txt) |
 | **Tameable Companion Fox** | v2 | [Source](Addons/Tameable-Companion-Fox) | [Package](../Package/Tameable-Companion-Fox.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Tameable-Companion-Fox.txt) |
 | **Universal Leash** | v3 | [Source](Addons/Universal-Leash) | [Package](../Package/Universal-Leash.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Universal-Leash.txt) |
-| **Vanilla Quality of Life** | v6 | [Source](Addons/Vanilla-Quality-of-Life) | [Package](../Package/Vanilla-Quality-of-Life.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Vanilla-Quality-of-Life.txt) |
+| **Vanilla Quality of Life** | v7 | [Source](Addons/Vanilla-Quality-of-Life) | [Package](../Package/Vanilla-Quality-of-Life.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Vanilla-Quality-of-Life.txt) |
 | **Waypoint Helper** | v2 | [Source](Addons/Waypoint-Helper) | [Package](../Package/Waypoint-Helper.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Waypoint-Helper.txt) |
 
 ## Maps

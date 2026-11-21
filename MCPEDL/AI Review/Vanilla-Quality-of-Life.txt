@@ -16,8 +16,8 @@
 
 - **Export request:** `MCPEDL/Addons/Vanilla-Quality-of-Life`
 - **Destination:** `MCPEDL/Addons/Vanilla-Quality-of-Life`
-- **CURRENT VERSION: v6 / NEXT UPDATE: v7**  (`MCPEDL/Addons/Vanilla-Quality-of-Life/CHANGELOG.md`)
-- **Text files:** 463
+- **CURRENT VERSION: v7 / NEXT UPDATE: v8**  (`MCPEDL/Addons/Vanilla-Quality-of-Life/CHANGELOG.md`)
+- **Text files:** 464
 - **Skipped binary:** 5
 - **Paths not found:** 0
 
@@ -458,6 +458,7 @@
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/chain-mining.js`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/config.js`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/durability.js`
+- `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/leaves.js`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/lifecycle.js`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/light.js`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/offhand.js`
@@ -504,7 +505,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v6 / NEXT UPDATE: v7).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v7 / NEXT UPDATE: v8).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -62384,11 +62385,11 @@ Output ONLY these three sections in order:
 {
   "format_version": 2,
   "header": {
-    "name": "Vanilla Quality of Life (v6)",
+    "name": "Vanilla Quality of Life (v7)",
     "description": "Comprehensive survival Quality of Life suite with dynamic light, offhand quick-swap, passive auto-switch tools, tree capitator, and domino ore miner. by ALNStudios",
     "uuid": "5461534c-a7c4-4c5b-9269-8be52d2b761b",
     "version": [
-      6,
+      7,
       0,
       0
     ],
@@ -62404,7 +62405,7 @@ Output ONLY these three sections in order:
       "type": "data",
       "uuid": "81382d42-b64c-4759-8c05-0e4e3e8436e8",
       "version": [
-        6,
+        7,
         0,
         0
       ]
@@ -62415,7 +62416,7 @@ Output ONLY these three sections in order:
       "language": "javascript",
       "uuid": "880944f5-3d04-401d-a5d5-011d89c969b6",
       "version": [
-        6,
+        7,
         0,
         0
       ],
@@ -62430,7 +62431,7 @@ Output ONLY these three sections in order:
     {
       "uuid": "fd036566-d0b1-4f92-9b28-9dd45a376d44",
       "version": [
-        6,
+        7,
         0,
         0
       ]
@@ -62441,7 +62442,7 @@ Output ONLY these three sections in order:
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "6.0.0"
+    "version": "7.0.0"
   },
   "subpacks": [
     {
@@ -73239,7 +73240,7 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
 });
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/config.js (83 lines, 2006 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/config.js (88 lines, 2110 bytes)
 
 ```
 // Shared settings and item tables.
@@ -73300,6 +73301,11 @@ export const CONFIG = {
   REPLANT_SAPLINGS: true,
   REPLANT_REQUIRES_SAPLING: true,
   MAX_REPLANT_SPOTS: 4,
+
+  LEAF_CLEARING_ENABLED: true,
+  LEAF_CLEAR_RANGE: 6,
+  MAX_LEAVES_CLEARED: 600,
+  LEAF_DROP_SCALE: 1,
 };
 
 export const SUPPORTED_OFFHAND_ITEMS = new Set([
@@ -73439,6 +73445,131 @@ export function notifyTreeTooLarge(player) {
   try {
     player.onScreenDisplay.setActionBar("§e[Tree Capitator] §6Tree too large, some logs were left standing");
   } catch (e) {}
+}
+```
+
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/leaves.js (121 lines, 3788 bytes)
+
+```
+// Leaf clearing after Tree Capitator.
+import { CONFIG } from "./config.js";
+import { addGroupedDrop, removeBlockAt, spawnGroupedDrops } from "./blocks.js";
+import { isGameMode } from "./utils.js";
+
+const NEIGHBORS = [[1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1]];
+
+// Chance per cleared leaf. Sticks are shared by every tree.
+const LEAF_LOOT = {
+  oak: { sapling: 0.05, apple: 0.005 },
+  dark_oak: { sapling: 0.05, apple: 0.005 },
+  spruce: { sapling: 0.05 },
+  birch: { sapling: 0.05 },
+  jungle: { sapling: 0.025 },
+  acacia: { sapling: 0.05 },
+  cherry: { sapling: 0.05 },
+  pale_oak: { sapling: 0.05 },
+};
+const STICK_CHANCE = 0.02;
+
+function isPersistent(block) {
+  try {
+    return block.permutation.getState("persistent_bit") === true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function getBlockSafe(dimension, x, y, z) {
+  try {
+    return dimension.getBlock({ x, y, z });
+  } catch (e) {
+    return undefined;
+  }
+}
+
+function touchesLog(dimension, pos, isTreeLog) {
+  for (const [dx, dy, dz] of NEIGHBORS) {
+    const b = getBlockSafe(dimension, pos.x + dx, pos.y + dy, pos.z + dz);
+    if (b && isTreeLog(b.typeId)) return true;
+  }
+  return false;
+}
+
+function rollLeafDrops(drops, pos, species) {
+  const scale = CONFIG.LEAF_DROP_SCALE;
+  const loot = LEAF_LOOT[species];
+  if (Math.random() < loot.sapling * scale) {
+    addGroupedDrop(drops, pos, `minecraft:${species}_sapling`, 1);
+  }
+  if (loot.apple && Math.random() < loot.apple * scale) {
+    addGroupedDrop(drops, pos, "minecraft:apple", 1);
+  }
+  if (Math.random() < STICK_CHANCE * scale) {
+    addGroupedDrop(drops, pos, "minecraft:stick", 1 + Math.floor(Math.random() * 2));
+  }
+}
+
+export function clearTreeLeaves(player, dimension, logPositions, species, isTreeLog) {
+  if (!CONFIG.LEAF_CLEARING_ENABLED || !LEAF_LOOT[species]) return;
+  const leafId = `minecraft:${species}_leaves`;
+
+  const found = new Map();
+  let frontier = logPositions;
+  for (let depth = 1; depth <= CONFIG.LEAF_CLEAR_RANGE && frontier.length > 0; depth++) {
+    const next = [];
+    for (const cur of frontier) {
+      for (const [dx, dy, dz] of NEIGHBORS) {
+        const x = cur.x + dx;
+        const y = cur.y + dy;
+        const z = cur.z + dz;
+        const key = `${x},${y},${z}`;
+        if (found.has(key)) continue;
+        const block = getBlockSafe(dimension, x, y, z);
+        if (!block || block.typeId !== leafId || isPersistent(block)) continue;
+        const pos = { x, y, z };
+        found.set(key, pos);
+        next.push(pos);
+        if (found.size >= CONFIG.MAX_LEAVES_CLEARED) break;
+      }
+      if (found.size >= CONFIG.MAX_LEAVES_CLEARED) break;
+    }
+    if (found.size >= CONFIG.MAX_LEAVES_CLEARED) break;
+    frontier = next;
+  }
+  if (found.size === 0) return;
+
+  // Leaves that still hang on another log of the same wood stay, so neighbouring trees are safe.
+  const keep = new Set();
+  let seeds = [];
+  for (const [key, pos] of found) {
+    if (touchesLog(dimension, pos, isTreeLog)) {
+      keep.add(key);
+      seeds.push(pos);
+    }
+  }
+  for (let depth = 1; depth < CONFIG.LEAF_CLEAR_RANGE && seeds.length > 0; depth++) {
+    const next = [];
+    for (const cur of seeds) {
+      for (const [dx, dy, dz] of NEIGHBORS) {
+        const key = `${cur.x + dx},${cur.y + dy},${cur.z + dz}`;
+        if (!found.has(key) || keep.has(key)) continue;
+        keep.add(key);
+        next.push(found.get(key));
+      }
+    }
+    seeds = next;
+  }
+
+  const creative = isGameMode(player, "creative");
+  const drops = new Map();
+  for (const [key, pos] of found) {
+    if (keep.has(key)) continue;
+    try {
+      const removed = removeBlockAt(dimension, pos);
+      if (removed && !creative) rollLeafDrops(drops, pos, species);
+    } catch (e) {}
+  }
+  spawnGroupedDrops(dimension, drops);
 }
 ```
 
@@ -74145,7 +74276,7 @@ system.runInterval(() => {
 }, 1);
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/README.md (21 lines, 1183 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/README.md (21 lines, 1255 bytes)
 
 ```
 # Scripts: lib
@@ -74162,12 +74293,12 @@ system.runInterval(() => {
 | `tool-scoring.js`, `slot-switch.js`, `autoswitch.js` | Picking and swapping the best tool. |
 | `durability.js` | Stops chain mining before a tool breaks. |
 | `blocks.js` | Removes blocks and groups drops. |
-| `tree-capitator.js`, `replant.js` | Tree felling and sapling replanting. |
+| `tree-capitator.js`, `replant.js`, `leaves.js` | Tree felling, sapling replanting and leaf clearing. |
 | `ore-miner.js` | Domino Ore Miner, Fortune and experience. |
 | `chain-mining.js` | Starts Tree Capitator or Domino Ore Miner when a block breaks. |
 | `lifecycle.js` | Player-leave cleanup, startup tasks and the startup log. |
 
-Useful switches in `config.js`: `REPLANT_SAPLINGS`, `REPLANT_REQUIRES_SAPLING`, `MAX_REPLANT_SPOTS`, `APPLY_RANDOM_TICK_SPEED`, `RANDOM_TICK_SPEED`.
+Useful switches in `config.js`: `REPLANT_SAPLINGS`, `REPLANT_REQUIRES_SAPLING`, `MAX_REPLANT_SPOTS`, `LEAF_CLEARING_ENABLED`, `LEAF_DROP_SCALE`, `APPLY_RANDOM_TICK_SPEED`, `RANDOM_TICK_SPEED`.
 ```
 
 ## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/replant.js (83 lines, 2666 bytes)
@@ -74426,7 +74557,7 @@ export const lastAutoSwitchKey = new Map();
 export const lastBreakTick = new Map();
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/tool-categories.js (123 lines, 5435 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/tool-categories.js (125 lines, 5584 bytes)
 
 ```
 // Which tool type each block needs.
@@ -74493,7 +74624,7 @@ export function getRequiredToolCategory(typeId) {
   if (
     id === "hay_block" || id === "target" || id === "sponge" || id === "wet_sponge" ||
     id.includes("sculk") || id.includes("moss_block") || id.includes("moss_carpet") ||
-    id.includes("wart_block") || id === "shroomlight"
+    id.includes("wart_block") || id === "shroomlight" || id === "dried_kelp_block"
   ) {
     return ToolCategory.HOE;
   }
@@ -74507,7 +74638,8 @@ export function getRequiredToolCategory(typeId) {
     id.includes("melon") || id === "cocoa" || id.includes("beehive") || id === "bee_nest" ||
     id.includes("ladder") || id.includes("sign") || id.includes("mushroom_stem") ||
     id.includes("mushroom_block") || id === "jukebox" || id === "daylight_detector" ||
-    id === "note_block" || id.includes("bamboo_block") || id.includes("bamboo_mosaic") ||
+    id === "note_block" || id === "creaking_heart" || id === "cactus" ||
+    id.includes("bamboo_block") || id.includes("bamboo_mosaic") ||
     (id.endsWith("_fence") && !id.includes("nether_brick")) || id.endsWith("_fence_gate")
   ) {
     return ToolCategory.AXE;
@@ -74544,7 +74676,8 @@ export function getRequiredToolCategory(typeId) {
     id.includes("lantern") || id.includes("chain") || id.includes("spawner") ||
     id.includes("vault") || id.includes("crafter") || id.includes("quartz") ||
     id === "coal_block" || id === "bone_block" || id === "respawn_anchor" ||
-    id === "conduit" || id === "lightning_rod"
+    id === "conduit" || id === "lightning_rod" ||
+    id === "piston" || id === "sticky_piston" || id === "observer"
   ) {
     return ToolCategory.PICKAXE;
   }
@@ -74699,13 +74832,14 @@ export function scoreItem(item, category, slot, blockId) {
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/tree-capitator.js (211 lines, 7984 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/tree-capitator.js (214 lines, 8216 bytes)
 
 ```
 // Tree Capitator.
 import { addGroupedDrop, removeBlockAt, spawnGroupedDrops } from "./blocks.js";
 import { CONFIG } from "./config.js";
 import { applyToolDurabilityDamage, checkToolSafety, notifyToolProtection, notifyTreeTooLarge } from "./durability.js";
+import { clearTreeLeaves } from "./leaves.js";
 import { replantSaplings } from "./replant.js";
 import { isGameMode, normalizeId } from "./utils.js";
 
@@ -74908,6 +75042,8 @@ export function executeTreeCapitator(player, dimension, startLoc, startBlockId, 
   if (capped) notifyTreeTooLarge(player);
   if (!capped && removedCount === blocksToBreak.length) {
     replantSaplings(player, dimension, startLoc, blocksToBreak, targetSpecies);
+    const isTreeLog = (id) => isEligibleLog(id) && getWoodSpecies(id) === targetSpecies;
+    clearTreeLeaves(player, dimension, [startLoc, ...blocksToBreak], targetSpecies, isTreeLog);
   }
 
   if (onComplete) onComplete();
@@ -87091,12 +87227,22 @@ export const MINING_OPTIONS = Object.freeze({
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/CHANGELOG.md (403 lines, 18152 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/CHANGELOG.md (413 lines, 18545 bytes)
 
 ```
 # Changelog — Vanilla Quality of Life
 
 ---
+
+## [v7] - 2026-11-21 - Leaf Clearing
+
+### Added
+
+- **Leaf Clearing**: Tree Capitator now clears the leaves of the tree it fells, and they still drop some saplings, sticks, and apples (Oak and Dark Oak only).
+
+### Improved & Balanced
+
+- **Auto-Switch Blocks**: Pistons, Sticky Pistons, and Observers now use a Pickaxe, Creaking Hearts and Cacti use an Axe, and Blocks of Dried Kelp use a Hoe.
 
 ## [v6] - 2026-11-21 - Tree Replanting
 
@@ -87408,7 +87554,7 @@ This major milestone integrates **Passive Auto-Switch Tools**, **Smart Tree Capi
 - **Fast Leaf Decay**: Floating leaves decay within 1 to 2 seconds after tree felling.
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/DESCRIPTION.md (102 lines, 6677 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/DESCRIPTION.md (106 lines, 6993 bytes)
 
 ```
 # Vanilla Quality of Life — Survival convenience features for Minecraft Bedrock
@@ -87439,6 +87585,10 @@ Hit a block and the best tool from your hotbar swaps into Slot 1, then returns a
 ### Tree Replanting
 - **What Happens**: After a whole tree is felled from its base, a matching sapling is planted where the trunk stood, using one sapling from your inventory for each spot.
 - **Good To Know**: It works for Oak, Spruce, Birch, Jungle, Acacia, Dark Oak, Cherry, and Pale Oak on dirt, grass, podzol, coarse dirt, rooted dirt, moss, mud, or mycelium, plants up to 4 saplings for wide trunks, and costs nothing in Creative.
+
+### Leaf Clearing
+- **What Happens**: When Tree Capitator fells a whole tree, that tree's leaves are cleared too, and they still drop some saplings, sticks, and apples (Oak and Dark Oak only).
+- **Good To Know**: Leaves still holding on to another tree of the same wood stay in place, and nothing drops in Creative.
 
 ### Faster Crop Growth
 - **What Happens**: The first time the pack loads in a world, it sets the random tick speed to 4, so crops and saplings grow faster.
@@ -87485,7 +87635,7 @@ Hit a block and the best tool from your hotbar swaps into Slot 1, then returns a
 - Minecraft Bedrock Edition: 1.26.50 or newer.
 - Experimental features: Not verified.
 - Achievements: Likely achievement-friendly.
-- Verification: Source created, not tested in game.
+- Verification: Source created and tested in game.
 
 ## Creator and Permissions
 
@@ -87575,7 +87725,7 @@ Download the current release of **Vanilla Quality of Life** for Minecraft Bedroc
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Vanilla Quality of Life (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/VanillaQoL%20V6.mcaddon)
+- **Direct download:** [Download Vanilla Quality of Life (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/VanillaQoL%20V7.mcaddon)
 
 ## Installation
 
@@ -87700,11 +87850,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "Vanilla Quality of Life (v6)",
+    "name": "Vanilla Quality of Life (v7)",
     "description": "Client entity locators and visual fixes for Vanilla Quality of Life. by ALNStudios",
     "uuid": "fd036566-d0b1-4f92-9b28-9dd45a376d44",
     "version": [
-      6,
+      7,
       0,
       0
     ],
@@ -87720,7 +87870,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "340a271e-9aa3-4c12-bc1a-0254e887ec38",
       "version": [
-        6,
+        7,
         0,
         0
       ]
@@ -87731,7 +87881,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "6.0.0"
+    "version": "7.0.0"
   }
 }
 ```
