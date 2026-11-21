@@ -16,10 +16,8 @@
       "item": "minecraft:melon_slice",
       "count": 9
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

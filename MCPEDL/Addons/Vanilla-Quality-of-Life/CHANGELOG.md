@@ -2,6 +2,12 @@
 
 ---
 
+## [v10] - 2026-11-21 - Shapeless Recipe Unlock Fix
+
+### Fixed
+
+- **Shapeless Recipes**: Uncrafting, recombining, recycling, stonecutter, and other shapeless recipes now use the unlock format the game expects, so they load without errors.
+
 ## [v9] - 2026-11-21 - Spider Model Fix
 
 ### Fixed

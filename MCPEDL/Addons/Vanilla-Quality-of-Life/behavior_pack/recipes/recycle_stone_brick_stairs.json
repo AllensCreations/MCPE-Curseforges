@@ -25,10 +25,8 @@
       "item": "minecraft:stone_bricks",
       "count": 3
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
