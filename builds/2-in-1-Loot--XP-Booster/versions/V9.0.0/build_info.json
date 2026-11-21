@@ -1,0 +1,8 @@
+{
+  "changelog_version": "9.0.0",
+  "manifest_version": "9.0.0",
+  "packages": {
+    "LootXPBooster V9.mcaddon": "685d8f215110f2ee485ac2fc31e0be8564d65eb64c8af97dc48df2ddb44ac5f6"
+  },
+  "source_sha256": "c813b9dbd658a52afad1f5954625dd98b9b4987b1551c1803ae592a59d3fd086"
+}

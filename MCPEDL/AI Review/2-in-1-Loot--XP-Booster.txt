@@ -16,7 +16,7 @@
 
 - **Export request:** `MCPEDL/Addons/2-in-1-Loot--XP-Booster`
 - **Destination:** `MCPEDL/Addons/2-in-1-Loot--XP-Booster`
-- **CURRENT VERSION: v8 / NEXT UPDATE: v9**  (`MCPEDL/Addons/2-in-1-Loot--XP-Booster/CHANGELOG.md`)
+- **CURRENT VERSION: v9 / NEXT UPDATE: v10**  (`MCPEDL/Addons/2-in-1-Loot--XP-Booster/CHANGELOG.md`)
 - **Text files:** 13
 - **Skipped binary:** 15
 - **Paths not found:** 0
@@ -64,7 +64,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v8 / NEXT UPDATE: v9).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v9 / NEXT UPDATE: v10).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -104,11 +104,11 @@ Output ONLY these three sections in order:
 {
   "format_version": 2,
   "header": {
-    "name": "2-in-1 Loot & XP Booster (v8)",
+    "name": "2-in-1 Loot & XP Booster (v9)",
     "description": "Loot and XP multipliers controlled from a renamed Book. by ALNStudios",
     "uuid": "ac428a01-d829-4779-aeb1-52bbb3d37e0d",
     "version": [
-      8,
+      9,
       0,
       0
     ],
@@ -124,7 +124,7 @@ Output ONLY these three sections in order:
       "language": "javascript",
       "uuid": "7234ab02-50fd-43f5-b082-493403c5aaa4",
       "version": [
-        8,
+        9,
         0,
         0
       ],
@@ -135,7 +135,7 @@ Output ONLY these three sections in order:
     {
       "uuid": "c36706a8-ddfe-419f-bd1b-69d929186543",
       "version": [
-        8,
+        9,
         0,
         0
       ]
@@ -154,12 +154,12 @@ Output ONLY these three sections in order:
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "8.0.0"
+    "version": "9.0.0"
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/behavior_pack/scripts/lib/README.md (43 lines, 1053 bytes)
+## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/behavior_pack/scripts/lib/README.md (47 lines, 1682 bytes)
 
 ```
 # 2-in-1 Loot & XP Booster: script notes (scripts/lib)
@@ -203,17 +203,21 @@ Extracted from the script files; nothing here was run in game.
 
 ## Notes (AI review)
 
-Known limits, design decisions and things to check on the next update go here. Not filled in yet.
+- Block loot: the block's own loot is rolled again with the tool used. Silk Touch, unfinished crops, bone meal crops and Creative mode are skipped. The Creative check reads the text of `getGameMode()` and is not verified in game.
+- Mob loot: the mob's own loot is rolled again with the killer's main hand item. Baby mobs are not checked (not verified).
+- Extra drops from one break or kill are combined into full stacks with `isStackableWith` before they are spawned.
+- XP: nearby orbs are multiplied by spawning extra orbs for the closest player. The value of an extra orb is not set by the script (not verified); `Dimension.spawnXp` sets an exact value from 1 to 12000 if this needs changing.
+- Nothing here was run in game.
 ```
 
-## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/behavior_pack/scripts/main.js (467 lines, 15806 bytes)
+## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/behavior_pack/scripts/main.js (497 lines, 16492 bytes)
 
 ```
 import { world, system, EntityComponentTypes, CommandPermissionLevel, CustomCommandStatus } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
 const PACK_NAME = "2-in-1 Loot & XP Booster";
-const VERSION = "8";
+const VERSION = "9";
 const TITLE = `§l§6@ALNStudios §e${PACK_NAME}§r (v${VERSION})`;
 const ABOUT_TITLE = "About ALNStudios";
 const ICON_MAIN = "textures/items/experience_bottle";
@@ -232,7 +236,6 @@ const CROPS_KEY = "aln_loot_crops";
 const MOBS_KEY = "aln_loot_mobs";
 const BOOK_ID = "minecraft:book";
 const TRIGGER_NAME = "booster";
-const DROP_TAG = "aln_boosted_drop";
 const XP_TAG = "aln_boosted_xp";
 const XP_RADIUS = 8;
 const XP_PICKUP_SQUARED = 1;
@@ -521,30 +524,63 @@ function rollMultiplier(max) {
   return 1 + Math.floor(Math.random() * max);
 }
 
+function isCreative(player) {
+  try {
+    return String(player.getGameMode()).toLowerCase() === "creative";
+  } catch (error) {
+    return false;
+  }
+}
+
+function addToTotals(totals, stack) {
+  for (const entry of totals) {
+    if (entry.stack.isStackableWith(stack)) {
+      entry.amount += stack.amount;
+      return;
+    }
+  }
+  totals.push({ stack, amount: stack.amount });
+}
+
+function spawnTotals(dimension, location, totals) {
+  for (const entry of totals) {
+    const size = entry.stack.maxAmount;
+    let left = entry.amount;
+    while (left > 0) {
+      const count = Math.min(size, left);
+      const piece = entry.stack.clone();
+      piece.amount = count;
+      try {
+        dimension.spawnItem(piece, location);
+      } catch (error) {
+        return;
+      }
+      left -= count;
+    }
+  }
+}
+
 function addExtraBlockLoot(dimension, center, permutation, tool, maxMultiplier, skipSelf) {
   const rounds = rollMultiplier(maxMultiplier) - 1;
   if (rounds <= 0) return;
   const typeId = permutation.type.id;
   const manager = world.getLootTableManager();
+  const totals = [];
   for (let round = 0; round < rounds; round++) {
     let stacks;
     try {
       stacks = manager.generateLootFromBlockPermutation(permutation, tool);
     } catch (error) {
-      return;
+      break;
     }
-    if (!stacks) return;
+    if (!stacks) break;
     for (const stack of stacks) {
       if (stack.maxAmount <= 1) continue;
       if (skipSelf && stack.typeId === typeId) continue;
-      try {
-        const spawned = dimension.spawnItem(stack, center);
-        spawned.addTag(DROP_TAG);
-      } catch (error) {
-        return;
-      }
+      addToTotals(totals, stack);
     }
   }
+  spawnTotals(dimension, center, totals);
 }
 
 function addExtraMobLoot(player, deadEntity, maxMultiplier) {
@@ -562,24 +598,21 @@ function addExtraMobLoot(player, deadEntity, maxMultiplier) {
     return;
   }
   const manager = world.getLootTableManager();
+  const totals = [];
   for (let round = 0; round < rounds; round++) {
     let stacks;
     try {
       stacks = manager.generateLootFromEntity(deadEntity, tool);
     } catch (error) {
-      return;
+      break;
     }
-    if (!stacks) return;
+    if (!stacks) break;
     for (const stack of stacks) {
       if (stack.maxAmount <= 1) continue;
-      try {
-        const spawned = dimension.spawnItem(stack, location);
-        spawned.addTag(DROP_TAG);
-      } catch (error) {
-        return;
-      }
+      addToTotals(totals, stack);
     }
   }
+  spawnTotals(dimension, location, totals);
 }
 
 function blockKey(dimension, location) {
@@ -604,6 +637,7 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
 
   const maxMultiplier = lootMultiplier(player);
   if (maxMultiplier <= 1) return;
+  if (isCreative(player)) return;
   const category = blockCategory(brokenBlockPermutation.type.id);
   if (!category || !getBoost(player)[category]) return;
   if (!isGrown(brokenBlockPermutation)) return;
@@ -677,12 +711,22 @@ system.runInterval(() => {
 }, XP_INTERVAL_TICKS);
 ```
 
-## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/CHANGELOG.md (243 lines, 9792 bytes)
+## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/CHANGELOG.md (253 lines, 10170 bytes)
 
 ```
 # Changelog — 2-in-1 Loot & XP Booster
 
 ---
+
+## [v9] - 2026-11-22 - Stack Merging and Creative Fix
+
+### Added
+
+- **Merged extra drops**: Extra Loot drops from blocks and mobs are now combined into full stacks, so high Loot levels create far fewer items on the ground.
+
+### Fixed
+
+- **Creative mode**: Breaking ores and crops in Creative mode no longer gives extra loot, because those blocks drop nothing in Creative mode.
 
 ## [v8] - 2026-11-21 - Apply Sounds
 
@@ -852,7 +896,7 @@ system.runInterval(() => {
 - **Redesigned UI**: A Resource Pack with the Cheatstick menu textures.
 ```
 
-## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/DESCRIPTION.md (88 lines, 6428 bytes)
+## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/DESCRIPTION.md (88 lines, 6591 bytes)
 
 ```
 # 2-in-1 Loot & XP Booster — Renamed Book Menu for Loot and XP Multipliers
@@ -886,7 +930,7 @@ You rename a Book to Booster on an anvil and right-click with it. A menu opens w
 
 ### Loot Drop Booster
 - **What Happens**: Drag the Loot slider across six levels, 1x, 2x, 4x, 8x, 16x and 32x, for ores, crops and other Fortune-style blocks you break and for mobs you kill.
-- **Good To Know**: Each drop rolls a random bonus up to the level you pick. It works like a Fortune and Looting bonus, but with its own random roll. Ores, gilded blackstone, amethyst clusters, nether wart, sweet berries, wheat, carrots, potatoes, beetroot and mob loot are multiplied, so normal blocks such as dirt, stone and wood drop as usual, and unstackable items such as tools are left alone. Mining with Silk Touch drops the block once and is never multiplied. Blocks are boosted by rolling their loot again, so only items that block can really drop are multiplied, and mobs are boosted the same way, using the weapon you killed with, so rare drops stay rare but get more chances to appear. The Ores, Crops and Mobs switches let you choose which kinds of loot are boosted. Crops, nether wart and sweet berries are multiplied only when fully grown, and crops sped up with bone meal are not multiplied. Blocks that drop themselves or can be crafted back from their drops, such as ancient debris, melons, glowstone and sea lanterns, are never multiplied, so they cannot be farmed by placing and breaking. Fortune still works, and the booster multiplies on top of it. Only real mobs count, so armor stands, boats, minecarts and mobs that carry items, such as donkeys, mules, llamas, allays, foxes and villagers, are not multiplied, and each drop goes to the nearest player who caused it. Only drops that appear the instant you break a block or kill a mob are multiplied, so items thrown or dropped nearby are left alone.
+- **Good To Know**: Each drop rolls a random bonus up to the level you pick. It works like a Fortune and Looting bonus, but with its own random roll. Ores, gilded blackstone, amethyst clusters, nether wart, sweet berries, wheat, carrots, potatoes, beetroot and mob loot are multiplied, so normal blocks such as dirt, stone and wood drop as usual, and unstackable items such as tools are left alone. Mining with Silk Touch drops the block once and is never multiplied, and blocks broken in Creative mode are not multiplied because they drop nothing. Blocks are boosted by rolling their loot again, so only items that block can really drop are multiplied, and mobs are boosted the same way, using the weapon you killed with, so rare drops stay rare but get more chances to appear. The Ores, Crops and Mobs switches let you choose which kinds of loot are boosted. Crops, nether wart and sweet berries are multiplied only when fully grown, and crops sped up with bone meal are not multiplied. Blocks that drop themselves or can be crafted back from their drops, such as ancient debris, melons, glowstone and sea lanterns, are never multiplied, so they cannot be farmed by placing and breaking. Fortune still works, and the booster multiplies on top of it. Extra drops are combined into full stacks, so large boosts create fewer items on the ground. Only real mobs count, so armor stands, boats, minecarts and mobs that carry items, such as donkeys, mules, llamas, allays, foxes and villagers, are not multiplied, and only mobs you kill yourself are boosted. Only drops that appear the instant you break a block or kill a mob are multiplied, so items thrown or dropped nearby are left alone.
 
 ### XP Gain Booster
 - **What Happens**: Drag the XP slider across seven levels, 1x, 2x, 4x, 8x, 16x, 32x and 64x, and each XP orb near you is turned into that many orbs.
@@ -962,7 +1006,7 @@ Download the current release of **2-in-1 Loot & XP Booster** for Minecraft Bedro
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download 2-in-1 Loot & XP Booster (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/2-in-1-Loot--XP-Booster/LootXPBooster%20V8.mcaddon)
+- **Direct download:** [Download 2-in-1 Loot & XP Booster (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/2-in-1-Loot--XP-Booster/LootXPBooster%20V9.mcaddon)
 
 ## Installation
 
@@ -981,11 +1025,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "Redesigned UI (v8)",
+    "name": "Redesigned UI (v9)",
     "description": "ALNStudios Redesigned UI skin for the Booster menus. by ALNStudios",
     "uuid": "c36706a8-ddfe-419f-bd1b-69d929186543",
     "version": [
-      8,
+      9,
       0,
       0
     ],
@@ -1000,7 +1044,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "a22e0559-f882-4b93-b587-b17de35134a7",
       "version": [
-        8,
+        9,
         0,
         0
       ]
@@ -1011,7 +1055,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "8.0.0"
+    "version": "9.0.0"
   }
 }
 ```

@@ -1,9 +1,22 @@
 # Changelog — 2-in-1 Loot & XP Booster
 
-## [v8] - 2026-11-21 - Apply Sounds
+## [v9] - 2026-11-22 - Stack Merging and Creative Fix
 
-### Improved & Balanced
+### Added
+- **Merged extra drops**: Extra Loot drops from blocks and mobs are now combined into full stacks, so high Loot levels create far fewer items on the ground.
+
+### Fixed
+- **Creative mode**: Breaking ores and crops in Creative mode no longer gives extra loot, because those blocks drop nothing in Creative mode.
+
+<details>
+<summary><b>8.0.x</b> (1 release)</summary>
+
+### [v8] - 2026-11-21 - Apply Sounds
+
+#### Improved & Balanced
 - **Apply sounds**: Pressing Apply now plays a higher sound when the boosters are on and a lower sound when they are off.
+
+</details>
 
 <details>
 <summary><b>7.0.x</b> (1 release)</summary>

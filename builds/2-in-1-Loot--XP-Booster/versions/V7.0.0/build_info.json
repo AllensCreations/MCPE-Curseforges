@@ -1,8 +1,0 @@
-{
-  "changelog_version": "7.0.0",
-  "manifest_version": "7.0.0",
-  "packages": {
-    "LootXPBooster V7.mcaddon": "c2f5abe609db2d78384bac13a6b090463b5c41dfada1936da071c84baef520c1"
-  },
-  "source_sha256": "8f5a99cb77c7cc0398a1b53e5b6c55da185c61da0e3a44eff1ab2afa5968ac68"
-}
