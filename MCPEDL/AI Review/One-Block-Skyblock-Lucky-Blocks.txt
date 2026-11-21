@@ -16,8 +16,8 @@
 
 - **Export request:** `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks`
 - **Destination:** `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks`
-- **CURRENT VERSION: v7 / NEXT UPDATE: v8**  (`MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/CHANGELOG.md`)
-- **Text files:** 27
+- **CURRENT VERSION: v8 / NEXT UPDATE: v9**  (`MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/CHANGELOG.md`)
+- **Text files:** 34
 - **Skipped binary:** 26
 - **Paths not found:** 0
 
@@ -36,7 +36,14 @@
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/functions/void_cleaner.mcfunction`
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/loot_tables/empty.json`
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/manifest.json`
+- `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/scripts/lib/config.js`
+- `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/scripts/lib/events.js`
+- `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/scripts/lib/helpers.js`
+- `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/scripts/lib/island.js`
+- `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/scripts/lib/prizes.js`
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/scripts/lib/README.md`
+- `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/scripts/lib/tutorial.js`
+- `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/scripts/lib/types.js`
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/scripts/main.js`
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/CHANGELOG.md`
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/DESCRIPTION.md`
@@ -89,7 +96,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v7 / NEXT UPDATE: v8).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v8 / NEXT UPDATE: v9).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -437,11 +444,11 @@ execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cle
 {
   "format_version": 2,
   "header": {
-    "name": "One Block Skyblock Lucky Blocks (v7)",
+    "name": "One Block Skyblock Lucky Blocks (v8)",
     "description": "One lucky block on a 3x3 void island. by ALNStudios",
     "uuid": "f8fcd28a-a8f9-479e-9326-94fd587c589f",
     "version": [
-      7,
+      8,
       0,
       0
     ],
@@ -456,7 +463,7 @@ execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cle
       "type": "data",
       "uuid": "ec84754f-7614-472d-ad98-89d8fd1e24b7",
       "version": [
-        7,
+        8,
         0,
         0
       ]
@@ -467,7 +474,7 @@ execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cle
       "uuid": "1d0ec910-add9-46ec-a03f-4f23f6b8907c",
       "entry": "scripts/main.js",
       "version": [
-        7,
+        8,
         0,
         0
       ]
@@ -477,7 +484,7 @@ execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cle
     {
       "uuid": "8e8d2f07-56e1-4271-bb5f-e8ae848db662",
       "version": [
-        7,
+        8,
         0,
         0
       ]
@@ -491,75 +498,33 @@ execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cle
     "authors": [
       "ALNStudios"
     ],
-    "version": "7.0.0",
+    "version": "8.0.0",
     "product_type": "addon"
   }
 }
 ```
 
-## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/scripts/lib/README.md (37 lines, 901 bytes)
+## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/scripts/lib/config.js (30 lines, 1475 bytes)
 
 ```
-# One Block Skyblock Lucky Blocks: script notes (scripts/lib)
-
-For the AI review. Keep this file in step with the scripts: update it whenever a file in `scripts/` changes.
-Extracted from the script files; nothing here was run in game.
-
-## Files
-
-| File | Lines | Purpose |
-| :-- | --: | :-- |
-| `scripts/main.js` | 546 | (no header comment) |
-
-## Imports
-
-- `@minecraft/server` (in `main.js`)
-
-## Events
-
-- `world.afterEvents.itemUse`
-- `world.afterEvents.playerBreakBlock`
-- `world.afterEvents.playerSpawn`
-
-## Custom ids
-
-- `allenscreations:lucky_block` (`main.js`)
-- `allenscreations:trader_ledger` (`main.js`)
-- plus 162 vanilla `minecraft:` id(s)
-
-## Features found
-
-- delayed task (system.runTimeout)
-- dynamic properties (saved data)
-- repeating timer (system.runInterval)
-
-## Notes (AI review)
-
-Known limits, design decisions and things to check on the next update go here. Not filled in yet.
-```
-
-## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/scripts/main.js (597 lines, 29124 bytes)
-
-```
-import { world, system, ItemStack } from "@minecraft/server";
-
-const LUCKY = "allenscreations:lucky_block";
-const TIP_KEY = "lucky_tip_shown";
-const BUILT_KEY = "island_built";
-const TUTORIAL_KEY = "tutorial_left";
-const SETUP_TAG = "void_cleaned";
-const CORE = { x: 0, y: 64, z: 0 };
-const SPAWN_BLOCK = { x: 0, y: 65, z: 0 };
-const SPAWN_STAND = { x: 0.5, y: 65, z: 0.5 };
-const CHEST_AT = { x: -1, y: 65, z: -1 };
-const STARTER = [
+// Shared constants: ids, saved-data keys, island layout and the lucky block type table with each type's chance.
+export const LUCKY = "allenscreations:lucky_block";
+export const TIP_KEY = "lucky_tip_shown";
+export const BUILT_KEY = "island_built";
+export const TUTORIAL_KEY = "tutorial_left";
+export const SETUP_TAG = "void_cleaned";
+export const CORE = { x: 0, y: 64, z: 0 };
+export const SPAWN_BLOCK = { x: 0, y: 65, z: 0 };
+export const SPAWN_STAND = { x: 0.5, y: 65, z: 0.5 };
+export const CHEST_AT = { x: -1, y: 65, z: -1 };
+export const STARTER = [
   ["minecraft:oak_sapling", 3],
   ["minecraft:bone_meal", 4],
   ["minecraft:bread", 4],
   ["minecraft:bucket", 1],
 ];
 
-const TYPES = {
+export const TYPES = {
   "allenscreations:lucky_block": { theme: "", label: "§eAll-Round", weight: 17 },
   "allenscreations:lucky_farming": { theme: "F", label: "§aFarming", weight: 14 },
   "allenscreations:lucky_building": { theme: "B", label: "§6Building", weight: 20 },
@@ -569,57 +534,32 @@ const TYPES = {
   "allenscreations:lucky_treasure": { theme: "T", label: "§3Treasure", weight: 9 },
 };
 
-const rand = (n) => Math.floor(Math.random() * n);
-const spot = (ctx, lift) => ({ x: ctx.top.x + rand(3) - 1, y: ctx.loc.y + lift, z: ctx.top.z + rand(3) - 1 });
+const TOTAL_WEIGHT = Object.values(TYPES).reduce((sum, type) => sum + type.weight, 0);
+for (const type of Object.values(TYPES)) type.chance = Math.round((type.weight * 100) / TOTAL_WEIGHT);
+```
 
-const items = (list) => (ctx) => {
-  for (const [id, n] of list) ctx.dimension.spawnItem(new ItemStack(id, n), ctx.top);
-};
-const kit = (...ids) => items(ids.map((id) => [id, 1]));
-const mobs = (id, n, lift = 1) => (ctx) => {
-  for (let i = 0; i < n; i++) ctx.dimension.spawnEntity(id, spot(ctx, lift));
-};
-const effect = (id, seconds, amplifier = 0) => (ctx) => {
-  ctx.player.addEffect(id, seconds * 20, { amplifier });
-};
-const levels = (n) => (ctx) => {
-  ctx.player.addLevels(n);
-};
-const tax = (n) => (ctx) => {
-  ctx.player.addLevels(-Math.min(n, ctx.player.level));
-};
-const hurt = (n) => (ctx) => {
-  ctx.player.applyDamage(n);
-};
-const both = (...runs) => (ctx) => {
-  for (const run of runs) run(ctx);
-};
-const later = (ticks, fn) => {
-  system.runTimeout(() => {
-    try {
-      fn();
-    } catch (e) {
-      return;
-    }
-  }, ticks);
-};
-const strikes = (n) => (ctx) => {
-  for (let i = 0; i < n; i++) later(i * 15 + 1, () => ctx.dimension.spawnEntity("minecraft:lightning_bolt", ctx.top));
-};
-const booms = (n, radius) => (ctx) => {
-  for (let i = 0; i < n; i++) later(i * 20 + 1, () => ctx.dimension.createExplosion(ctx.top, radius, { breaksBlocks: false, causesFire: false }));
-};
-const fire = (seconds) => (ctx) => {
-  ctx.player.setOnFire(seconds);
-};
+## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/scripts/lib/events.js (161 lines, 5456 bytes)
 
-const thunderMob = (id) => (ctx) => {
+```
+// Physical prizes: thunder mobs, falling anvil, falling loot chest, baby shower, lava splash, butterfingers.
+import { ItemStack } from "@minecraft/server";
+import { rand, spot, later } from "./helpers.js";
+
+export const thunderMob = (id) => (ctx) => {
   const where = spot(ctx, 1);
   ctx.dimension.spawnEntity(id, where);
   later(5, () => ctx.dimension.spawnEntity("minecraft:lightning_bolt", where));
 };
 
-const butterfingers = (ctx) => {
+const BABY_KINDS = ["minecraft:cow", "minecraft:pig", "minecraft:sheep", "minecraft:chicken"];
+
+export const babyShower = (ctx) => {
+  for (let i = 0; i < 10; i++) {
+    ctx.dimension.spawnEntity(`${BABY_KINDS[rand(BABY_KINDS.length)]}<minecraft:entity_born>`, spot(ctx, 1));
+  }
+};
+
+export const butterfingers = (ctx) => {
   const inv = ctx.player.getComponent("minecraft:inventory")?.container;
   const slot = ctx.player.selectedSlotIndex;
   const item = inv?.getItem(slot);
@@ -628,7 +568,7 @@ const butterfingers = (ctx) => {
   ctx.dimension.spawnItem(item, ctx.top);
 };
 
-const lavaSplash = (ctx) => {
+export const lavaSplash = (ctx) => {
   const block = ctx.dimension.getBlock({ x: ctx.loc.x, y: ctx.loc.y + 3, z: ctx.loc.z });
   if (!block) throw new Error("block not loaded");
   block.setType("minecraft:lava");
@@ -637,7 +577,11 @@ const lavaSplash = (ctx) => {
   });
 };
 
-const fallingAnvil = (ctx) => {
+let anvilBusy = false;
+
+export const fallingAnvil = (ctx) => {
+  if (anvilBusy) throw new Error("an anvil is already falling");
+  anvilBusy = true;
   const warn = (text) => {
     ctx.player.onScreenDisplay.setActionBar(text);
     ctx.player.playSound("note.bass");
@@ -648,16 +592,26 @@ const fallingAnvil = (ctx) => {
     const at = ctx.player.location;
     const x = Math.floor(at.x);
     const z = Math.floor(at.z);
-    const block = ctx.dimension.getBlock({ x, y: Math.floor(at.y) + 5, z });
-    if (!block) return;
+    const top = Math.floor(at.y) + 5;
+    const block = ctx.dimension.getBlock({ x, y: top, z });
+    if (!block) {
+      anvilBusy = false;
+      return;
+    }
     block.setType("minecraft:anvil");
-    later(30, () => {
-      const now = ctx.player.location;
-      for (let dy = 0; dy <= 1; dy++) {
-        const cell = ctx.dimension.getBlock({ x: Math.floor(now.x), y: Math.floor(now.y) + dy, z: Math.floor(now.z) });
+    later(20, () => {
+      if (block.typeId === "minecraft:anvil") block.setType("minecraft:air");
+    });
+    later(70, () => {
+      for (let y = top; y >= top - 8; y--) {
+        const cell = ctx.dimension.getBlock({ x, y, z });
         if (cell && cell.typeId === "minecraft:anvil") cell.setType("minecraft:air");
       }
+      anvilBusy = false;
     });
+  });
+  later(200, () => {
+    anvilBusy = false;
   });
 };
 
@@ -676,7 +630,7 @@ const CHEST_LOOT = [
   ["minecraft:redstone", 12],
 ];
 
-const lightningChest = (ctx) => {
+export const lightningChest = (ctx) => {
   const player = ctx.player.location;
   const px = Math.floor(player.x);
   const pz = Math.floor(player.z);
@@ -747,9 +701,146 @@ const lightningChest = (ctx) => {
   };
   later(2, fall);
 };
+```
 
-// 200 prizes: [name, kind, themes, run]. Themes: F farming, B building, C combat, M mining, Y mystic, T treasure.
-const PRIZES = [
+## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/scripts/lib/helpers.js (47 lines, 1687 bytes)
+
+```
+// Small building blocks used by prizes: random picks, item and mob spawns, effects, delayed tasks.
+import { system, ItemStack } from "@minecraft/server";
+
+export const rand = (n) => Math.floor(Math.random() * n);
+export const spot = (ctx, lift) => ({ x: ctx.top.x + rand(3) - 1, y: ctx.loc.y + lift, z: ctx.top.z + rand(3) - 1 });
+
+export const items = (list) => (ctx) => {
+  for (const [id, n] of list) ctx.dimension.spawnItem(new ItemStack(id, n), ctx.top);
+};
+export const kit = (...ids) => items(ids.map((id) => [id, 1]));
+export const mobs = (id, n, lift = 1) => (ctx) => {
+  for (let i = 0; i < n; i++) ctx.dimension.spawnEntity(id, spot(ctx, lift));
+};
+export const effect = (id, seconds, amplifier = 0) => (ctx) => {
+  ctx.player.addEffect(id, seconds * 20, { amplifier });
+};
+export const levels = (n) => (ctx) => {
+  ctx.player.addLevels(n);
+};
+export const tax = (n) => (ctx) => {
+  ctx.player.addLevels(-Math.min(n, ctx.player.level));
+};
+export const hurt = (n) => (ctx) => {
+  ctx.player.applyDamage(n);
+};
+export const both = (...runs) => (ctx) => {
+  for (const run of runs) run(ctx);
+};
+export const later = (ticks, fn) => {
+  system.runTimeout(() => {
+    try {
+      fn();
+    } catch (e) {
+      return;
+    }
+  }, ticks);
+};
+export const strikes = (n) => (ctx) => {
+  for (let i = 0; i < n; i++) later(i * 15 + 1, () => ctx.dimension.spawnEntity("minecraft:lightning_bolt", ctx.top));
+};
+export const booms = (n, radius) => (ctx) => {
+  for (let i = 0; i < n; i++) later(i * 20 + 1, () => ctx.dimension.createExplosion(ctx.top, radius, { breaksBlocks: false, causesFire: false }));
+};
+export const fire = (seconds) => (ctx) => {
+  ctx.player.setOnFire(seconds);
+};
+```
+
+## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/scripts/lib/island.js (75 lines, 2564 bytes)
+
+```
+// First join: builds the island, starter chest and spawn point, tags the player, and shows the first tip.
+import { world, system, ItemStack } from "@minecraft/server";
+import { LUCKY, TIP_KEY, BUILT_KEY, SETUP_TAG, CORE, SPAWN_BLOCK, SPAWN_STAND, CHEST_AT, STARTER } from "./config.js";
+
+let setupRunning = false;
+
+function blockAt(dimension, x, y, z) {
+  const block = dimension.getBlock({ x, y, z });
+  if (!block) throw new Error("chunk not loaded");
+  return block;
+}
+
+function buildIsland() {
+  const dimension = world.getDimension("overworld");
+  for (let x = -16; x <= 16; x++) {
+    for (let z = -16; z <= 16; z++) blockAt(dimension, x, -64, z).setType("minecraft:air");
+  }
+  blockAt(dimension, 0, 63, 0).setType("minecraft:bedrock");
+  for (let x = -1; x <= 1; x++) {
+    for (let z = -1; z <= 1; z++) blockAt(dimension, x, 64, z).setType("minecraft:grass_block");
+  }
+  blockAt(dimension, CORE.x, CORE.y, CORE.z).setType(LUCKY);
+  const chest = blockAt(dimension, CHEST_AT.x, CHEST_AT.y, CHEST_AT.z);
+  chest.setType("minecraft:chest");
+  const container = chest.getComponent("minecraft:inventory")?.container;
+  if (!container) throw new Error("chest inventory missing");
+  STARTER.forEach(([id, amount], slot) => container.setItem(slot, new ItemStack(id, amount)));
+  world.setDefaultSpawnLocation(SPAWN_BLOCK);
+  world.setDynamicProperty(BUILT_KEY, true);
+}
+
+function runSetup(player, tries) {
+  try {
+    buildIsland();
+    player.teleport(SPAWN_STAND);
+    player.addTag(SETUP_TAG);
+    setupRunning = false;
+  } catch (e) {
+    if (tries >= 15) {
+      setupRunning = false;
+      return;
+    }
+    system.runTimeout(() => runSetup(player, tries + 1), 20);
+  }
+}
+
+export function registerIsland() {
+  world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
+    if (!initialSpawn || world.getDynamicProperty(TIP_KEY)) return;
+    world.setDynamicProperty(TIP_KEY, true);
+    system.runTimeout(() => {
+      try {
+        player.onScreenDisplay.setActionBar("§6Break the lucky block under you. Open the chest first. The first 20 breaks are a safe tutorial.");
+      } catch (e) {
+        return;
+      }
+    }, 100);
+  });
+
+  world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
+    if (!initialSpawn || setupRunning) return;
+    try {
+      if (player.hasTag(SETUP_TAG)) return;
+      if (world.getDynamicProperty(BUILT_KEY)) {
+        player.addTag(SETUP_TAG);
+        return;
+      }
+    } catch (e) {
+      return;
+    }
+    setupRunning = true;
+    system.runTimeout(() => runSetup(player, 0), 20);
+  });
+}
+```
+
+## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/scripts/lib/prizes.js (257 lines, 17932 bytes)
+
+```
+// The prize list: [name, kind (g good, b bad), themes (F B C M Y T), run]. Every prize has the same chance.
+import { items, kit, mobs, effect, levels, tax, hurt, both, strikes, booms, fire } from "./helpers.js";
+import { thunderMob, butterfingers, lavaSplash, fallingAnvil, lightningChest, babyShower } from "./events.js";
+
+export const PRIZES = [
   ["Sapling Pack", "g", "F", items([["minecraft:oak_sapling", 3], ["minecraft:birch_sapling", 2], ["minecraft:bone_meal", 4]])],
   ["Dirt Delivery", "g", "B", items([["minecraft:dirt", 24]])],
   ["Oak Logs", "g", "B", items([["minecraft:oak_log", 10]])],
@@ -950,9 +1041,109 @@ const PRIZES = [
   ["Heavy Head", "b", "M", effect("mining_fatigue", 12)],
   ["Shaky Knees", "b", "C", effect("slowness", 6, 1)],
   ["Bump on the Head", "b", "B", hurt(3)],
+  ["Baby Shower", "g", "F", babyShower],
+  ["Spruce Sapling Pack", "g", "F", items([["minecraft:spruce_sapling", 4], ["minecraft:dark_oak_sapling", 2]])],
+  ["Wheat Bundle", "g", "F", items([["minecraft:wheat", 16]])],
+  ["Gourd Seeds", "g", "F", items([["minecraft:pumpkin_seeds", 8], ["minecraft:melon_seeds", 8]])],
+  ["Beetroot Seeds", "g", "F", items([["minecraft:beetroot_seeds", 12]])],
+  ["Porkchop Dinner", "g", "F", items([["minecraft:cooked_porkchop", 8]])],
+  ["Apple Crate", "g", "F", items([["minecraft:apple", 10]])],
+  ["Chicken Coop", "g", "F", mobs("minecraft:chicken", 4)],
+  ["Flower Meadow", "g", "F", items([["minecraft:dandelion", 8], ["minecraft:poppy", 8]])],
+  ["Cake Time", "g", "F", items([["minecraft:cake", 1]])],
+  ["Spruce Log Stack", "g", "B", items([["minecraft:spruce_log", 16]])],
+  ["Cobblestone Stack", "g", "B", items([["minecraft:cobblestone", 48]])],
+  ["Gravel Haul", "g", "B", items([["minecraft:gravel", 32]])],
+  ["Glass Pile", "g", "B", items([["minecraft:glass", 24]])],
+  ["Netherrack Pile", "g", "B", items([["minecraft:netherrack", 32]])],
+  ["Oak Leaf Pile", "g", "B", items([["minecraft:oak_leaves", 16]])],
+  ["Torch Crate", "g", "B", items([["minecraft:torch", 32]])],
+  ["Ladder Roll", "g", "B", items([["minecraft:ladder", 24]])],
+  ["Chest Pair", "g", "B", items([["minecraft:chest", 2]])],
+  ["Trapdoor Pack", "g", "B", items([["minecraft:oak_trapdoor", 8]])],
+  ["Iron Sword", "g", "C", kit("minecraft:iron_sword")],
+  ["Iron Axe", "g", "CM", kit("minecraft:iron_axe")],
+  ["Stone Axe", "g", "CM", kit("minecraft:stone_axe")],
+  ["Arrow Bundle", "g", "C", items([["minecraft:arrow", 24]])],
+  ["Iron Helmet and Chestplate", "g", "C", kit("minecraft:iron_helmet", "minecraft:iron_chestplate")],
+  ["Diamond Helmet", "g", "CT", kit("minecraft:diamond_helmet")],
+  ["Diamond Chestplate", "g", "CT", kit("minecraft:diamond_chestplate")],
+  ["Wolf Pair", "g", "C", mobs("minecraft:wolf", 2)],
+  ["Marathon Speed", "g", "C", effect("speed", 120)],
+  ["Iron Pickaxe", "g", "M", kit("minecraft:iron_pickaxe")],
+  ["Iron Axe and Shovel", "g", "M", kit("minecraft:iron_axe", "minecraft:iron_shovel")],
+  ["Stone Shovel and Hoe", "g", "MF", kit("minecraft:stone_shovel", "minecraft:stone_hoe")],
+  ["Raw Copper Haul", "g", "M", items([["minecraft:raw_copper", 16]])],
+  ["Copper Ingots", "g", "M", items([["minecraft:copper_ingot", 12]])],
+  ["Charcoal Stack", "g", "M", items([["minecraft:charcoal", 16]])],
+  ["Flint Pile", "g", "M", items([["minecraft:flint", 8]])],
+  ["Blaze Powder Pinch", "g", "Y", items([["minecraft:blaze_powder", 6]])],
+  ["Nautilus Find", "g", "YT", items([["minecraft:nautilus_shell", 1]])],
+  ["Ocean Power", "g", "Y", effect("conduit_power", 60)],
+  ["Fire Immunity", "g", "Y", effect("fire_resistance", 120)],
+  ["Night Eyes", "g", "Y", effect("night_vision", 180)],
+  ["Heart of the Sea", "g", "T", items([["minecraft:heart_of_the_sea", 1]])],
+  ["Diamond Cache", "g", "T", items([["minecraft:diamond", 5]])],
+  ["Copper and Gold", "g", "MT", items([["minecraft:copper_ingot", 8], ["minecraft:gold_ingot", 6]])],
+  ["Sleepy Spell", "b", "Y", both(effect("mining_fatigue", 8), effect("slowness", 5))],
+  ["Foggy Head", "b", "Y", both(effect("darkness", 6), effect("nausea", 4))],
+  ["Rotten Feast", "b", "F", both(items([["minecraft:rotten_flesh", 12]]), effect("hunger", 10))],
+  ["Bone Rattle", "b", "C", both(mobs("minecraft:skeleton", 1), effect("weakness", 8))],
+  ["Slimy Surprise", "b", "M", mobs("minecraft:slime", 2)],
+  ["Wet Socks", "b", "B", both(effect("slowness", 8), effect("weakness", 6))],
 ];
+```
 
-const TUTORIAL = [
+## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/scripts/lib/README.md (37 lines, 901 bytes)
+
+```
+# One Block Skyblock Lucky Blocks: script notes (scripts/lib)
+
+For the AI review. Keep this file in step with the scripts: update it whenever a file in `scripts/` changes.
+Extracted from the script files; nothing here was run in game.
+
+## Files
+
+| File | Lines | Purpose |
+| :-- | --: | :-- |
+| `scripts/main.js` | 546 | (no header comment) |
+
+## Imports
+
+- `@minecraft/server` (in `main.js`)
+
+## Events
+
+- `world.afterEvents.itemUse`
+- `world.afterEvents.playerBreakBlock`
+- `world.afterEvents.playerSpawn`
+
+## Custom ids
+
+- `allenscreations:lucky_block` (`main.js`)
+- `allenscreations:trader_ledger` (`main.js`)
+- plus 162 vanilla `minecraft:` id(s)
+
+## Features found
+
+- delayed task (system.runTimeout)
+- dynamic properties (saved data)
+- repeating timer (system.runInterval)
+
+## Notes (AI review)
+
+Known limits, design decisions and things to check on the next update go here. Not filled in yet.
+```
+
+## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/scripts/lib/tutorial.js (57 lines, 3700 bytes)
+
+```
+// The 20-break tutorial: fixed safe rewards given in random order, tracked in a saved world value.
+import { world } from "@minecraft/server";
+import { TUTORIAL_KEY } from "./config.js";
+import { rand, items, kit, mobs, both, later } from "./helpers.js";
+
+export const TUTORIAL = [
   ["Oak Logs", items([["minecraft:oak_log", 12]]), "Craft logs into planks in your inventory"],
   ["Oak Planks", items([["minecraft:oak_planks", 24]]), "Planks make tables, tools and blocks"],
   ["Sticks", items([["minecraft:stick", 16]]), "Sticks are part of every tool"],
@@ -976,9 +1167,9 @@ const TUTORIAL = [
 ];
 
 const tutorialRaw = () => world.getDynamicProperty(TUTORIAL_KEY);
-const tutorialActive = () => tutorialRaw() !== "done";
+export const tutorialActive = () => tutorialRaw() !== "done";
 
-function takeTutorial() {
+export function takeTutorial() {
   const raw = tutorialRaw();
   if (raw === "done") return null;
   const left = typeof raw === "string" && raw.length > 0 ? raw.split(",").map(Number) : TUTORIAL.map((entry, index) => index);
@@ -987,7 +1178,7 @@ function takeTutorial() {
   return { entry: TUTORIAL[index], number: TUTORIAL.length - left.length, last: left.length === 0 };
 }
 
-function showTutorial(player, dimension, loc, step) {
+export function showTutorial(player, dimension, loc, step) {
   const ctx = { player, dimension, loc, top: { x: loc.x + 0.5, y: loc.y + 1.2, z: loc.z + 0.5 } };
   try {
     step.entry[1](ctx);
@@ -1003,8 +1194,16 @@ function showTutorial(player, dimension, loc, step) {
   }
   if (step.last) later(80, () => player.onScreenDisplay.setActionBar("§6Tutorial complete! From now on every break is a random prize."));
 }
+```
 
-function nextBlockId() {
+## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/scripts/lib/types.js (15 lines, 467 bytes)
+
+```
+// Picks the next lucky block type for the center spot, using each type's weight.
+import { LUCKY, TYPES } from "./config.js";
+import { tutorialActive } from "./tutorial.js";
+
+export function nextBlockId() {
   if (tutorialActive()) return LUCKY;
   const ids = Object.keys(TYPES);
   let roll = Math.random() * ids.reduce((sum, id) => sum + TYPES[id].weight, 0);
@@ -1014,10 +1213,23 @@ function nextBlockId() {
   }
   return LUCKY;
 }
+```
+
+## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/scripts/main.js (65 lines, 2330 bytes)
+
+```
+// Entry point: wires the break event, the lucky block safety timer and the island setup together.
+import { world, system } from "@minecraft/server";
+import { TYPES, CORE, SETUP_TAG } from "./lib/config.js";
+import { rand } from "./lib/helpers.js";
+import { PRIZES } from "./lib/prizes.js";
+import { takeTutorial, showTutorial } from "./lib/tutorial.js";
+import { nextBlockId } from "./lib/types.js";
+import { registerIsland } from "./lib/island.js";
 
 function announce(ctx, prize) {
   const good = prize[1] === "g";
-  const line = `${ctx.type.label}§r §8|§r ${good ? "§a" : "§c"}${prize[0]}`;
+  const line = `${ctx.type.label}§r §7${ctx.type.chance}% §8|§r ${good ? "§a" : "§c"}${prize[0]}`;
   try {
     ctx.player.onScreenDisplay.setActionBar(line);
     ctx.player.playSound(good ? "random.levelup" : "note.bass");
@@ -1069,82 +1281,25 @@ system.runInterval(() => {
   }
 }, 100);
 
-world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
-  if (!initialSpawn || world.getDynamicProperty(TIP_KEY)) return;
-  world.setDynamicProperty(TIP_KEY, true);
-  system.runTimeout(() => {
-    try {
-      player.onScreenDisplay.setActionBar("§6Break the lucky block under you. Open the chest first. The first 20 breaks are a safe tutorial.");
-    } catch (e) {
-      return;
-    }
-  }, 100);
-});
-
-let setupRunning = false;
-
-function blockAt(dimension, x, y, z) {
-  const block = dimension.getBlock({ x, y, z });
-  if (!block) throw new Error("chunk not loaded");
-  return block;
-}
-
-function buildIsland() {
-  const dimension = world.getDimension("overworld");
-  for (let x = -16; x <= 16; x++) {
-    for (let z = -16; z <= 16; z++) blockAt(dimension, x, -64, z).setType("minecraft:air");
-  }
-  blockAt(dimension, 0, 63, 0).setType("minecraft:bedrock");
-  for (let x = -1; x <= 1; x++) {
-    for (let z = -1; z <= 1; z++) blockAt(dimension, x, 64, z).setType("minecraft:grass_block");
-  }
-  blockAt(dimension, CORE.x, CORE.y, CORE.z).setType(LUCKY);
-  const chest = blockAt(dimension, CHEST_AT.x, CHEST_AT.y, CHEST_AT.z);
-  chest.setType("minecraft:chest");
-  const container = chest.getComponent("minecraft:inventory")?.container;
-  if (!container) throw new Error("chest inventory missing");
-  STARTER.forEach(([id, amount], slot) => container.setItem(slot, new ItemStack(id, amount)));
-  world.setDefaultSpawnLocation(SPAWN_BLOCK);
-  world.setDynamicProperty(BUILT_KEY, true);
-}
-
-function runSetup(player, tries) {
-  try {
-    buildIsland();
-    player.teleport(SPAWN_STAND);
-    player.addTag(SETUP_TAG);
-    setupRunning = false;
-  } catch (e) {
-    if (tries >= 15) {
-      setupRunning = false;
-      return;
-    }
-    system.runTimeout(() => runSetup(player, tries + 1), 20);
-  }
-}
-
-world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
-  if (!initialSpawn || setupRunning) return;
-  try {
-    if (player.hasTag(SETUP_TAG)) return;
-    if (world.getDynamicProperty(BUILT_KEY)) {
-      player.addTag(SETUP_TAG);
-      return;
-    }
-  } catch (e) {
-    return;
-  }
-  setupRunning = true;
-  system.runTimeout(() => runSetup(player, 0), 20);
-});
+registerIsland();
 ```
 
-## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/CHANGELOG.md (78 lines, 4909 bytes)
+## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/CHANGELOG.md (88 lines, 5480 bytes)
 
 ```
 # Changelog — One Block Skyblock Lucky Blocks
 
 ---
+
+## [v8] - 2026-11-22 - Baby Shower and Split Scripts
+
+### Added
+- **Baby Shower**: About 10 baby cows, pigs, sheep and chickens spawn around the island.
+- **49 more prizes**: The pool grows to 250 prizes, so each prize now has a 0.4% chance in the All-Round block.
+### Improved & Balanced
+- **Block chance on the action bar**: Each result now shows the chance of that block type.
+- **One anvil only**: Falling Anvil drops a single anvil and removes it after it lands.
+- **Split scripts**: The script is now split into modules in scripts/lib so it is easier to maintain.
 
 ## [v7] - 2026-11-22 - 20-Break Tutorial
 
@@ -1217,7 +1372,7 @@ world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
 - **Luck changes**: The Rabbit's Foot off-hand bonus is removed. Luck now changes only through the Four-Leaf Fortune, Golden Horseshoe and Jinx results, and the good luck chance stays between 50% and 90%.
 ```
 
-## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/DESCRIPTION.md (94 lines, 6443 bytes)
+## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/DESCRIPTION.md (97 lines, 6624 bytes)
 
 ```
 # One Block Skyblock Lucky Blocks — A single lucky block on a 3x3 void island
@@ -1227,7 +1382,7 @@ world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Break the one lucky block on a 3x3 void island and win one of 200 prizes, each with the same chance.**
+**Break the one lucky block on a 3x3 void island and win one of 250 prizes, each with the same chance.**
 
 > The center block comes back as one of 7 types, each with its own texture and a prize list that matches its purpose. Surprises such as a falling anvil or a loot chest struck by lightning keep every break exciting.
 
@@ -1249,13 +1404,16 @@ You start on a 3x3 grass island floating in an empty void, standing on a single 
 - **What Happens**: The first 20 breaks of the center block give 20 fixed, safe rewards in random order: wood, planks, sticks, a crafting table, wooden tools, leather armor, building blocks, a furnace, torches, food, seeds, saplings, a water bucket, a bed and farm animals.
 - **Good To Know**: Each tutorial break shows its number and a short tip on the action bar, and no setbacks happen. During the tutorial the center block is always the All-Round type.
 
-### 200 Equal Prizes
-- **What Happens**: In the All-Round block every one of the 200 prizes has the same 0.5% chance. A themed block picks equally among the prizes of its own list.
-- **Good To Know**: 154 prizes are rewards and 46 are setbacks, so about 77% of All-Round breaks give a reward. The same prize can come twice in a row.
+### 250 Equal Prizes
+- **What Happens**: In the All-Round block every one of the 250 prizes has the same 0.4% chance. A themed block picks equally among the prizes of its own list.
+- **Good To Know**: 198 prizes are rewards and 52 are setbacks, so about 79% of All-Round breaks give a reward. The same prize can come twice in a row.
 
 ### Physical Surprises
-- **What Happens**: Falling Anvil warns you on the action bar, then drops an anvil about 5 blocks above you. Thunder Pig and Thunder Villager summon a mob and call lightning on it about a quarter of a second later.
+- **What Happens**: Falling Anvil warns you on the action bar, then drops one anvil about 5 blocks above you, and it is removed a few seconds after it lands. Thunder Pig and Thunder Villager summon a mob and call lightning on it about a quarter of a second later.
 - **Good To Know**: Lightning strikes close to the island, so it can hurt you and set you on fire.
+
+### Baby Shower
+- **What Happens**: About 10 baby cows, pigs, sheep and chickens spawn around the island.
 
 ### Falling Chest
 - **What Happens**: A loot chest falls from about 8 blocks up onto a free spot next to the center block and holds 5 stacks of loot. Lightning strikes it 5 seconds after it lands.
@@ -1266,7 +1424,7 @@ You start on a 3x3 grass island floating in an empty void, standing on a single 
 - **Good To Know**: The first time you join, a short action bar tip tells you to break the lucky block and open the chest.
 
 ### Action Bar Results
-- **What Happens**: Each prize shows on the action bar with the block type and the prize name, and nothing is written in chat. Tutorial breaks show their number and a tip instead.
+- **What Happens**: Each prize shows on the action bar with the block type, its chance of appearing and the prize name, and nothing is written in chat. Tutorial breaks show their number and a tip instead.
 
 ## How to Use
 
@@ -1361,11 +1519,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "One Block Skyblock Lucky Blocks (v7)",
+    "name": "One Block Skyblock Lucky Blocks (v8)",
     "description": "Lucky block texture. by ALNStudios",
     "uuid": "8e8d2f07-56e1-4271-bb5f-e8ae848db662",
     "version": [
-      7,
+      8,
       0,
       0
     ],
@@ -1380,7 +1538,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "2871df63-c3f5-4516-87ee-35bb02dc838f",
       "version": [
-        7,
+        8,
         0,
         0
       ]
@@ -1390,7 +1548,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
     "authors": [
       "ALNStudios"
     ],
-    "version": "7.0.0",
+    "version": "8.0.0",
     "product_type": "addon"
   }
 }
