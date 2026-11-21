@@ -1,15 +1,29 @@
 # Changelog — One Block Skyblock Lucky Blocks
 
-## [v6] - 2026-11-22 - 200 Equal Prizes
+## [v7] - 2026-11-22 - 20-Break Tutorial
 
 ### Added
+- **20-break tutorial**: The first 20 breaks of the center block give 20 fixed, safe rewards in random order, such as wood, wooden tools, leather armor and building blocks, with the break number and a tip on the action bar.
+
+### Improved & Balanced
+- **Building is the most common type**: Building now appears 20% of the time, the highest of all types. All-Round is 17%, Farming, Combat and Mining 14% each, Mystic 12% and Treasure 9%.
+- **Tutorial block**: The center block is always All-Round during the tutorial.
+
+<details>
+<summary><b>6.0.x</b> (1 release)</summary>
+
+### [v6] - 2026-11-22 - 200 Equal Prizes
+
+#### Added
 - **200 equal prizes**: Every break now picks from a flat list of 200 prizes. In the All-Round block each prize has the same 0.5% chance, and each themed block picks equally from its own list.
 - **Falling Chest**: A loot chest falls next to the island and lightning strikes it 5 seconds after it lands.
 - **New prizes**: 40 more prizes across farming, building, combat, mining, mystic and treasure, plus a few small setbacks.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **Flat odds**: Luck tiers, the 70/30 split and the step-by-step progression are gone, and the heaviest setbacks (large hordes, wardens and chain explosions) were removed.
 - **Luck Ledger removed**: The Luck Ledger item, its counters and its starter chest slot are gone.
+
+</details>
 
 <details>
 <summary><b>5.0.x</b> (1 release)</summary>
