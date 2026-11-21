@@ -73,7 +73,9 @@
     "last_release_version": "1.0.0"
   },
   "MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks": {
-    "project_id": "1821677"
+    "project_id": "1821677",
+    "last_published_version": "7",
+    "last_release_version": "6"
   },
   "MCPEDL/Maps/OneBlock-Natural-Market": {
     "project_id": "1819420",
