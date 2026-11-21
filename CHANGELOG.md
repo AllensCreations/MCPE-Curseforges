@@ -27,6 +27,10 @@
 
 ---
 
+## [v193] - 2026-11-21 - OneBlock World Icon in mcworld
+
+- OneBlock world builder: a `world_icon.jpeg` (or `world_icon.jpg`) in `MCPEDL/Maps/<map name>/` is now added automatically to every generated `.mcworld` as `world_icon.jpeg` in the world root, replacing any icon from the Mcpeworlds foundation. A file that is not a JPEG stops the build, and the archive check fails when the icon is missing.
+
 ## [v192] - 2026-11-21 - Stained Glass Recycling and Spider Fixes
 
 ### Fixed

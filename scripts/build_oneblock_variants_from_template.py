@@ -179,6 +179,14 @@ def build_variant(project: Path, map_name: str, mode: str) -> Path:
                 patch_level_dat(metadata, world_name)
         (world / "levelname.txt").write_text(world_name, encoding="utf-8")
 
+        icon_source = next((project / n for n in ("world_icon.jpeg", "world_icon.jpg") if (project / n).is_file()), None)
+        if icon_source:
+            if icon_source.read_bytes()[:3] != b"\xff\xd8\xff":
+                raise ValueError(f"World icon is not a JPEG image: {icon_source}")
+            for stale in world.glob("world_icon.*"):
+                stale.unlink()
+            shutil.copyfile(icon_source, world / "world_icon.jpeg")
+
         # Replace the template's old packs while preserving its actual world database and mode settings.
         for folder in ("behavior_packs", "resource_packs"):
             path = world / folder
@@ -229,13 +237,13 @@ def build_variant(project: Path, map_name: str, mode: str) -> Path:
                     info.external_attr = 0o644 << 16
                     archive.writestr(info, path.read_bytes())
 
-    verify_archive(staged_output, bp_uuid, bp_version, rp_uuid, rp_version, bp_folder, rp_folder)
+    verify_archive(staged_output, bp_uuid, bp_version, rp_uuid, rp_version, bp_folder, rp_folder, icon_source is not None)
     staged_output.replace(output)
     return output
 
 
 def verify_archive(path: Path, bp_uuid: str, bp_version: list[int], rp_uuid: str | None,
-                   rp_version: list[int] | None, bp_folder: str, rp_folder: str) -> None:
+                   rp_version: list[int] | None, bp_folder: str, rp_folder: str, icon: bool = False) -> None:
     with zipfile.ZipFile(path) as archive:
         names = set(archive.namelist())
         required = {
@@ -248,6 +256,8 @@ def verify_archive(path: Path, bp_uuid: str, bp_version: list[int], rp_uuid: str
         }
         if "level.dat_old" in names:
             required.add("level.dat_old")
+        if icon:
+            required.add("world_icon.jpeg")
         missing = required - names
         if missing:
             raise RuntimeError(f"{path.name} missing required entries: {', '.join(sorted(missing))}")
