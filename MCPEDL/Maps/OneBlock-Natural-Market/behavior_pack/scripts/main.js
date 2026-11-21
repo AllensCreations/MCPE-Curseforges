@@ -440,19 +440,12 @@ function marketMain(player) {
     .button("Nether", CATEGORIES[8].icon)
     .button("Endgame", CATEGORIES[9].icon)
     .button("Sell Eligible Items", "textures/items/gold_ingot")
-    .button("Balance & Progress", "textures/items/emerald")
     .button("ℹ About", "textures/ui/icon_recipe_nature");
   showForm(form, player).then(r => {
     if (r.canceled) return;
     if (r.selection < CATEGORIES.length) return showCategory(player, CATEGORIES[r.selection].name);
     if (r.selection === CATEGORIES.length) return sellEligible(player);
-    if (r.selection === CATEGORIES.length + 1) {
-      const next = MILESTONES.find(m => m.unlock > personalBreaks(player));
-      player.onScreenDisplay.setActionBar("§6Coins: §e" + balance(player) + " §8| §7Breaks: §f" + personalBreaks(player) +
-        (next ? " §8| §7Next tier: §f" + next.unlock : " §8| §aAll tiers unlocked"));
-      showBalance(player);
-    }
-    if (r.selection === CATEGORIES.length + 2) return showAbout(player);
+    if (r.selection === CATEGORIES.length + 1) return showAbout(player);
   }).catch(e => { logError("marketMain", e); tell(player, "The market menu could not open. Try using the Ledger again."); });
 }
 

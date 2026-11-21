@@ -9,6 +9,7 @@
 - The Ledger now comes back when you free an inventory slot. Before, a dropped Ledger could be deleted while your inventory was full, and a Ledger that could not be given at join was only retried when you rejoined.
 - Fixed missing market icons for Magma Block and Conduit.
 - Fixed the missing Redstone category icon.
+- Removed the "Balance & Progress" button, which never displayed its message. Coins, breaks and tier are shown in the menu text.
 
 ## [14.0.1] - 2026-11-21 - Startup Crash Fix
 
