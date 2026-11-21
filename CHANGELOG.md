@@ -27,6 +27,16 @@
 
 ---
 
+## [v186] - 2026-11-21 - Inventory Icons And Core Height
+
+### Fixed
+- **Inventory icons**: market slots now use each item's inventory icon (the flat item sprite) wherever the game has one, and the block's own texture for full blocks. 26 slots with missing or wrong textures were corrected, including Lever, Hopper, Repeater, Comparator, Nautilus Shell, Dragon's Breath, Heart of the Sea, Furnace, Oak Door, Piston, Shulker Box, Bamboo, Observer, Tripwire Hook, Warped and Crimson Stem, Ender Chest, Conduit, Lantern and Sugar Cane.
+- Shield and Magma Block have no flat icon in the game files, so they show text only instead of a broken picture.
+
+### Changed
+- **Core height**: the central block is now at 0, 64, 0 and the world spawn point is at 0, 65, 0 (on top of the block).
+- Existing worlds: a block left at the old height (0, 0, 0) is not moved.
+
 ## [v185] - 2026-11-21 - Lucky Block Textures
 
 ### Added
