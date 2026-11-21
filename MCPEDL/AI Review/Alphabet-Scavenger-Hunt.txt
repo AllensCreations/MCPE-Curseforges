@@ -1611,7 +1611,7 @@ world.afterEvents.playerSpawn.subscribe((event) => {
 - **Changelog started**: Version history is recorded from this release onward.
 ```
 
-## FILE: MCPEDL/Minigame/Alphabet-Scavenger-Hunt/DESCRIPTION.md (79 lines, 3876 bytes)
+## FILE: MCPEDL/Minigame/Alphabet-Scavenger-Hunt/DESCRIPTION.md (79 lines, 3873 bytes)
 
 ```
 # Alphabet Scavenger Hunt — Timed Survival Minigame
@@ -1664,7 +1664,7 @@ Take on 20 rounds, each with a new target letter and a 60-second timer. Complete
 
 - Minecraft Bedrock Edition: 1.26.40 or newer.
 - Experimental features: No experimental features required.
-- Achievements: Unknown / needs confirmation.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

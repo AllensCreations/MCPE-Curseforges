@@ -1154,7 +1154,7 @@ registerController({
 - **Description**: Removed the claim that the Builder has exclusive crafting.
 ```
 
-## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/DESCRIPTION.md (73 lines, 3875 bytes)
+## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/DESCRIPTION.md (73 lines, 3873 bytes)
 
 ```
 # Tethered: Breaker and Builder — Two-Player Co-op Challenge
@@ -1201,7 +1201,7 @@ Two players share a 10-meter tether. The Breaker handles mining and combat but c
 
 - Minecraft Bedrock Edition: 1.26.40 or newer
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly. Operator commands require cheats, which disables achievements.
+- Achievements: Yes, achievement-friendly. Operator commands require cheats, which disables achievements.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

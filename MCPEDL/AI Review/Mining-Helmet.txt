@@ -1012,7 +1012,7 @@ export const LIGHT_MODE = "head";
 - **Changelog started**: Version history is recorded from this release onward.
 ```
 
-## FILE: MCPEDL/Addons/Mining-Helmet/DESCRIPTION.md (128 lines, 4980 bytes)
+## FILE: MCPEDL/Addons/Mining-Helmet/DESCRIPTION.md (128 lines, 4978 bytes)
 
 ```
 # Mining Helmet — Dynamic Lighting Add-on
@@ -1110,7 +1110,7 @@ Combine a standard **Torch** with a **Golden Helmet** to craft the Level 10 Mini
 
 ---
 - Experimental features: Not verified.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

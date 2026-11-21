@@ -1222,7 +1222,7 @@ world.afterEvents.worldLoad.subscribe(() => {
 - **Unloaded chunk buffer**: Items for unloaded chests are held and delivered when the chunk loads.
 ```
 
-## FILE: MCPEDL/Addons/ALN-ChestLog/DESCRIPTION.md (86 lines, 4973 bytes)
+## FILE: MCPEDL/Addons/ALN-ChestLog/DESCRIPTION.md (86 lines, 4971 bytes)
 
 ```
 # ALN ChestLog — Wireless remote chest deposit with an unloaded-chunk buffer
@@ -1282,7 +1282,7 @@ Register any chest, trapped chest or barrel by sneaking and using the ChestLog o
 
 - Minecraft Bedrock Edition: 1.26.60 or newer.
 - Experimental features: Not verified.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

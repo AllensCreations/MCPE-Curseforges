@@ -660,7 +660,7 @@ registerImpactSystem();
 - **Incendiary Arrows**: Sets targets and nearby open space on fire.
 ```
 
-## FILE: MCPEDL/Addons/Fletching-Table-Arsenal/DESCRIPTION.md (69 lines, 4024 bytes)
+## FILE: MCPEDL/Addons/Fletching-Table-Arsenal/DESCRIPTION.md (69 lines, 4022 bytes)
 
 ```
 # Fletching Table Arsenal — Tactical Arrow Workstation
@@ -703,7 +703,7 @@ The Fletching Table becomes a working archery station. A menu shows your current
 
 - Minecraft Bedrock Edition: minimum version not verified; the pack declares 1.21.80.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

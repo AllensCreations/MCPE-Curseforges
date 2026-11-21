@@ -498,7 +498,7 @@ world.afterEvents.itemCompleteUse.subscribe(({ source, itemStack }) => {
 - **One Voice at a Time**: When several tamed parrots are nearby, only one speaks, then everyone nearby stays quiet for 5 to 10 seconds.
 ```
 
-## FILE: MCPEDL/Addons/Talking-Pirate-Parrots_payload/DESCRIPTION.md (76 lines, 4018 bytes)
+## FILE: MCPEDL/Addons/Talking-Pirate-Parrots_payload/DESCRIPTION.md (76 lines, 4016 bytes)
 
 ```
 # Talking Pirate Parrots — Tamed parrots with sassy pirate voices
@@ -548,7 +548,7 @@ Tame a parrot and keep it close. As you explore, mine, fight and sleep, the parr
 
 - Minecraft Bedrock Edition: Stable release; the minimum game version is still to be confirmed.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created. Not tested in game.
 
 ## Creator and Permissions

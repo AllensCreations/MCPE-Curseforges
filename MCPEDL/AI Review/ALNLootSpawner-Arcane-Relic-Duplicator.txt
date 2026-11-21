@@ -572,7 +572,7 @@ system.runInterval(() => {
 - **Light emission**: The placed block emits light level 10 from its core.
 ```
 
-## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/DESCRIPTION.md (82 lines, 5479 bytes)
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/DESCRIPTION.md (82 lines, 5477 bytes)
 
 ```
 # ALN:LootSpawner (Arcane Relic Duplicator) — Rarity-scaled item duplication in a Beacon-style glass display cage
@@ -628,7 +628,7 @@ The Loot Spawner is a craftable 1x1 block that accepts any single item as a temp
 
 - Minecraft Bedrock Edition: 1.21.0 or newer.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

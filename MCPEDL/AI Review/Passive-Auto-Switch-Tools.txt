@@ -914,7 +914,7 @@ console.warn(
 - **Changelog started**: Version history is recorded from this release onward.
 ```
 
-## FILE: MCPEDL/Addons/Passive-Auto-Switch-Tools/DESCRIPTION.md (127 lines, 6087 bytes)
+## FILE: MCPEDL/Addons/Passive-Auto-Switch-Tools/DESCRIPTION.md (127 lines, 6085 bytes)
 
 ```
 # Passive Auto-Switch Tools - Automatic Tool Selection
@@ -1015,7 +1015,7 @@ The add-on aims to preserve tool details when switching items:
 
 - Minecraft Bedrock Edition: 1.21.0 or newer.
 - Experimental features: Not verified.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

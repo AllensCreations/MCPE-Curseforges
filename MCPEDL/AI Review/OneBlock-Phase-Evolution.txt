@@ -665,7 +665,7 @@ system.runInterval(() => {
 - **Separate progression state**: Kept the OneBlock break counter independent from shared inventory storage.
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Phase-Evolution/DESCRIPTION.md (79 lines, 4829 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Phase-Evolution/DESCRIPTION.md (79 lines, 4826 bytes)
 
 ```
 # OneBlock Phase Evolution — A cumulative twelve-phase OneBlock map
@@ -718,7 +718,7 @@ Break the single block at the center of the island. Each successful player break
 
 - Minecraft Bedrock Edition: 1.26.50 or newer.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Unknown / needs confirmation.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

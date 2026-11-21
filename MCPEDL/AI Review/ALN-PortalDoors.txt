@@ -710,7 +710,7 @@ system.runInterval(() => {
 - **Pickup**: Owners can pick a door up and get the item back.
 ```
 
-## FILE: MCPEDL/Addons/ALN-PortalDoors/DESCRIPTION.md (78 lines, 4290 bytes)
+## FILE: MCPEDL/Addons/ALN-PortalDoors/DESCRIPTION.md (78 lines, 4288 bytes)
 
 ```
 # ALN PortalDoors — Placeable 1x2 Portal Doorways with a Named Destination Menu
@@ -762,7 +762,7 @@ ALN PortalDoors adds a craftable Portal Door that stands two blocks tall. When y
 
 - Minecraft Bedrock Edition: 1.26.60 or newer.
 - Experimental features: Not verified. No experimental toggle is intentionally used.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

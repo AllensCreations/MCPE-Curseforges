@@ -425,7 +425,7 @@ system.runInterval(() => {
 - **Master Toggle**: Instant on/off toggle per player.
 ```
 
-## FILE: MCPEDL/Script/Loot-and-XP-Stick/DESCRIPTION.md (79 lines, 4444 bytes)
+## FILE: MCPEDL/Script/Loot-and-XP-Stick/DESCRIPTION.md (79 lines, 4374 bytes)
 
 ```
 # Loot and XP Stick — Simple Stick Menu for Loot and XP Multipliers
@@ -478,7 +478,7 @@ Ever wished you could speed up survival gathering or XP grinding without bloated
 
 - Minecraft Bedrock Edition: Version 1.26.60 and above.
 - Experimental features: Beta APIs required for Bedrock scripting.
-- Achievements: Not achievement-friendly. Bedrock scripts require behavior packs that disable Xbox achievements.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created. Not tested in game.
 
 ## Creator and Permissions

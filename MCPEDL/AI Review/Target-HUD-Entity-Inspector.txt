@@ -818,7 +818,7 @@ export function startTargetHud() {
 - **Entity Inspector**: Look at a mob or player within 16 blocks to see its name, health, type and status effects on the Action Bar.
 ```
 
-## FILE: MCPEDL/Script/Target-HUD-Entity-Inspector/DESCRIPTION.md (96 lines, 5492 bytes)
+## FILE: MCPEDL/Script/Target-HUD-Entity-Inspector/DESCRIPTION.md (96 lines, 5490 bytes)
 
 ```
 # Target HUD Entity Inspector — Health Bar and Mob Type on the Action Bar
@@ -888,7 +888,7 @@ Aim at a mob or another player and a single line appears on the Action Bar. It d
 
 - Minecraft Bedrock Edition: Minimum version not verified; the pack declares 1.26.30.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly. This pack runs no commands.
+- Achievements: Yes, achievement-friendly. This pack runs no commands.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

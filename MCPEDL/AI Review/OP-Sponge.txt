@@ -6879,7 +6879,7 @@ item.allenscreations:extreme_sponge_book_1.name=Extreme Sponge I Book
 - **Recipe**: Craft an OP Sponge from a Sponge and Prismarine Crystals.
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/DESCRIPTION.md (83 lines, 4527 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/DESCRIPTION.md (83 lines, 4525 bytes)
 
 ```
 # OP Sponge — Enchantable Sponges That Absorb Up to 100,000 Water Blocks
@@ -6936,7 +6936,7 @@ Craft an OP Sponge, then combine it with a sponge book to make a Super Sponge or
 
 - Minecraft Bedrock Edition: Minimum version not verified.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

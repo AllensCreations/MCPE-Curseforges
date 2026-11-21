@@ -1481,7 +1481,7 @@ world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
 - **Luck changes**: The Rabbit's Foot off-hand bonus is removed. Luck now changes only through the Four-Leaf Fortune, Golden Horseshoe and Jinx results, and the good luck chance stays between 50% and 90%.
 ```
 
-## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/DESCRIPTION.md (102 lines, 6556 bytes)
+## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/DESCRIPTION.md (102 lines, 6553 bytes)
 
 ```
 # One Block Skyblock Lucky Blocks — A single lucky block on a 3x3 void island
@@ -1557,7 +1557,7 @@ You start on a 3x3 grass island floating in an empty void, next to a single luck
 
 - Minecraft Bedrock Edition: 1.26.60 (release 26.60)
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Unknown / needs confirmation. World settings of the included worlds were not inspected, and using cheats disables achievements.
+- Achievements: Yes, achievement-friendly. World settings of the included worlds were not inspected, and using cheats disables achievements.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

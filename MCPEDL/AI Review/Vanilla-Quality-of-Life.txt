@@ -87550,7 +87550,7 @@ This major milestone integrates **Passive Auto-Switch Tools**, **Smart Tree Capi
 - **Fast Leaf Decay**: Floating leaves decay within 1 to 2 seconds after tree felling.
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/DESCRIPTION.md (106 lines, 6993 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/DESCRIPTION.md (106 lines, 6991 bytes)
 
 ```
 # Vanilla Quality of Life — Survival convenience features for Minecraft Bedrock
@@ -87630,7 +87630,7 @@ Hit a block and the best tool from your hotbar swaps into Slot 1, then returns a
 
 - Minecraft Bedrock Edition: 1.26.50 or newer.
 - Experimental features: Not verified.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created and tested in game.
 
 ## Creator and Permissions

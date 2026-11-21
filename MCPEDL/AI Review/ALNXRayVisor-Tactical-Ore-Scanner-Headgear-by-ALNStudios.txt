@@ -630,7 +630,7 @@ export function registerToggleListener() {
 - **Battery and Toggle**: Right-click to switch the visor on or off, with a battery readout on the action bar that drains 1% every 5 seconds.
 ```
 
-## FILE: MCPEDL/Addons/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios/DESCRIPTION.md (71 lines, 3971 bytes)
+## FILE: MCPEDL/Addons/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios/DESCRIPTION.md (71 lines, 3969 bytes)
 
 ```
 # ALN:XRayVisor (Tactical Ore-Scanner Headgear) by ALNStudios — Mark Ores Through Walls
@@ -675,7 +675,7 @@ Craft the X-Ray Visor, put it on and switch it on. While it is online, it scans 
 
 - Minecraft Bedrock Edition: 1.26.50 or newer
 - Experimental features: None required
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: source created, not tested in game
 
 ## Creator and Permissions

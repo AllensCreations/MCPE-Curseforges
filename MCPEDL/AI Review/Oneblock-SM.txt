@@ -1757,7 +1757,7 @@ async function achMenu(p) {
 - Block pools now contain only blocks that generate naturally. Removed: planks, stripped logs, polished stone variants, stone, mud, nether and end bricks, packed mud, raw metal blocks, purpur and dyed terracotta. Added natural blocks such as mycelium, moss, azalea leaves, deepslate, sandstone, calcite, mushroom blocks, pumpkin, melon, nether stems and soul soil. Contract loot no longer contains planks or glass.
 ```
 
-## FILE: MCPEDL/Maps/Oneblock-SM/DESCRIPTION.md (54 lines, 4656 bytes)
+## FILE: MCPEDL/Maps/Oneblock-SM/DESCRIPTION.md (54 lines, 4653 bytes)
 
 ```
 # OneBlock: Sovereign Market — Dirt-to-Sovereignty OneBlock Economy
@@ -1785,7 +1785,7 @@ async function achMenu(p) {
 
 - Minecraft Bedrock Edition: 1.26.40 or newer.
 - Experimental features: Not verified.
-- Achievements: Unknown / needs confirmation.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

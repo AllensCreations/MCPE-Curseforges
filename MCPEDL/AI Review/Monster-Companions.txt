@@ -30118,7 +30118,7 @@ Default subpack: the Warden and the Wither stay vanilla.
 - **Biscuit Recipe:** One Rotten Flesh, one Bone, one Sweet Berries, and one Honey Bottle craft four Primal Beast Biscuits.
 ```
 
-## FILE: MCPEDL/Addons/Monster-Companions/DESCRIPTION.md (201 lines, 9888 bytes)
+## FILE: MCPEDL/Addons/Monster-Companions/DESCRIPTION.md (201 lines, 9886 bytes)
 
 ```
 # Monster Companions
@@ -30144,7 +30144,7 @@ The add-on lets players tame selected hostile mobs and use supported creatures a
 
 - Minecraft Bedrock Edition. Check the current release listing for the supported version.
 - The Primal Beast Biscuit recipe is included with the downloaded add-on.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Experimental features: No experiment requirement detected in the inspected files.
 - Verification: Source created, not tested in game.
 

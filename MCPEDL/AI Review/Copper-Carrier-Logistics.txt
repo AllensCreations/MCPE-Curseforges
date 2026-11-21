@@ -1029,7 +1029,7 @@ export function initSorting() {
 - **Sorting Effects**: Spark particles and a note sound play on pickups and completed deliveries.
 ```
 
-## FILE: MCPEDL/Addons/Copper-Carrier-Logistics/DESCRIPTION.md (72 lines, 3546 bytes)
+## FILE: MCPEDL/Addons/Copper-Carrier-Logistics/DESCRIPTION.md (72 lines, 3544 bytes)
 
 ```
 # Copper-Carrier Logistics — Allay and Copper Golem Flying Sorting Units
@@ -1075,7 +1075,7 @@ Right-click an Allay with a Copper Ingot to turn it into a flying sorting unit. 
 
 - Minecraft Bedrock Edition: 1.26.60 is the targeted minimum; this version was not verified against official release notes.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created; not tested in game.
 
 ## Creator and Permissions

@@ -1062,7 +1062,7 @@ import "./headphone_stream.js";
 - **Live Track Display**: While worn, the Action Bar shows the disc name with elapsed and total time, and clears when you take the headphones off.
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Headphones/DESCRIPTION.md (76 lines, 5437 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Headphones/DESCRIPTION.md (76 lines, 5435 bytes)
 
 ```
 # ALN Wireless Headphones — Stream a Jukebox to Your Action Bar
@@ -1112,7 +1112,7 @@ Craft the Wireless Headphones, hold them, and sneak while using a Jukebox to pai
 
 - Minecraft Bedrock Edition: 1.26.60
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

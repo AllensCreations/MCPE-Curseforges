@@ -1085,7 +1085,7 @@ function showPurgeResult(player, purged, kept, removed, note) {
 - **Global Filter Settings**: Configure whether rules affect natural spawns only or all spawn causes including Spawn Eggs, enable an Admin Tag Lock, and trigger an immediate entity purge.
 ```
 
-## FILE: MCPEDL/Script/ALNSpawnControl/DESCRIPTION.md (90 lines, 6831 bytes)
+## FILE: MCPEDL/Script/ALNSpawnControl/DESCRIPTION.md (90 lines, 6828 bytes)
 
 ```
 # ALN:SpawnControl — Custom Mob Spawn Whitelist & Toggle UI
@@ -1149,7 +1149,7 @@ Rename a vanilla Book to "Spawn Control" on an Anvil and use it to open the cont
 
 - Minecraft Bedrock Edition: 1.26.60
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Unknown / needs confirmation.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

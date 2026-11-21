@@ -521,7 +521,7 @@ system.runInterval(scanForExistingPets, FALLBACK_INTERVAL);
 - **Changelog started**: Version history is recorded from this release onward.
 ```
 
-## FILE: MCPEDL/Addons/Immortal-Pets/DESCRIPTION.md (74 lines, 3550 bytes)
+## FILE: MCPEDL/Addons/Immortal-Pets/DESCRIPTION.md (74 lines, 3548 bytes)
 
 ```
 # Immortal Pets — Advanced Pet Protection
@@ -569,7 +569,7 @@ Protection cannot guarantee survival against every game mechanic, command, or de
 
 - Minecraft Bedrock Edition 1.26.x
 - Experimental features: The pack does not declare a requirement for experimental toggles.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

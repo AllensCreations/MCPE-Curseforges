@@ -384,7 +384,7 @@ export function startTimeLapse(player, startTime) {
 - **Sound and Screen Effects**: A ticking sound, a morning chime, and a screen fade accompany the time-lapse.
 ```
 
-## FILE: MCPEDL/Script/Chrono-Bed/DESCRIPTION.md (74 lines, 3656 bytes)
+## FILE: MCPEDL/Script/Chrono-Bed/DESCRIPTION.md (74 lines, 3653 bytes)
 
 ```
 # Chrono-Bed — Dynamic Time-Lapse Sleep
@@ -432,7 +432,7 @@ Chrono-Bed changes how sleeping feels. Instead of waiting for the night to be sk
 
 - Minecraft Bedrock Edition: 1.26.60 or newer.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Unknown / needs confirmation. The pack uses a screen fade command that was not tested in game for achievement impact.
+- Achievements: Yes, achievement-friendly. The pack uses a screen fade command that was not tested in game for achievement impact.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

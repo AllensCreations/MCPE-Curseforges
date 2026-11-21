@@ -1415,7 +1415,7 @@ export const HARDMODE = true;
 - Kept hint lifelines without removing answer choices.
 ```
 
-## FILE: MCPEDL/Minigame/Trivia-Vault-The-Locked-World/DESCRIPTION.md (63 lines, 3743 bytes)
+## FILE: MCPEDL/Minigame/Trivia-Vault-The-Locked-World/DESCRIPTION.md (63 lines, 3740 bytes)
 
 ```
 # Trivia Vault: The Locked World — Survival Trivia Challenge
@@ -1452,7 +1452,7 @@ Use the Controller as the host or an operator and select Start. In Survival, att
 ## Compatibility
 - Minecraft Bedrock Edition: minimum version is listed in the Behavior Pack manifest.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Unknown / needs confirmation.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source updated, not tested in game.
 
 ## Creator and Permissions

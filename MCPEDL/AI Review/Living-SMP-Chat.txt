@@ -1555,7 +1555,7 @@ export const CHAT_PACE = 2;
 - **Ambient SMP Banter**: every 1.5 to 3 minutes the server chat fills with 2 to 5 message conversations about videos, builds, lag and small PvP dramas.
 ```
 
-## FILE: MCPEDL/Script/Living-SMP-Chat/DESCRIPTION.md (100 lines, 6604 bytes)
+## FILE: MCPEDL/Script/Living-SMP-Chat/DESCRIPTION.md (100 lines, 6602 bytes)
 
 ```
 # Living SMP Chat — A Hermitcraft-Style Server Simulated in Chat
@@ -1628,7 +1628,7 @@ You play your world as usual. Between 6 and 14 virtual players are online at any
 
 - Minecraft Bedrock Edition: 1.26.60 (the minimum the pack declares, looked up on 2026-11-15)
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: source created and package built; not tested in game.
 
 ## Creator and Permissions

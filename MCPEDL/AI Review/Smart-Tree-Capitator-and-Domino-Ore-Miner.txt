@@ -782,7 +782,7 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
   — Built-in Unbreaking enchantment calculations and Silk Touch / Fortune support.
 ```
 
-## FILE: MCPEDL/Addons/Smart-Tree-Capitator-and-Domino-Ore-Miner/DESCRIPTION.md (201 lines, 7395 bytes)
+## FILE: MCPEDL/Addons/Smart-Tree-Capitator-and-Domino-Ore-Miner/DESCRIPTION.md (201 lines, 7393 bytes)
 
 ```
 # Smart Tree Capitator and Domino Ore Miner — Vein and Tree Miner
@@ -957,7 +957,7 @@ Domino Ore Miner follows connected matching ores, including diagonal connections
 - Multiplayer behavior should be checked in the target game version.
 
 ---
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

@@ -3111,7 +3111,7 @@ All notable updates and improvements to the **Selective Mob Controller** add-on 
 - **Protected Companions & NPCs**: Complete exemption for tamed pets, villagers, iron golems, wandering traders, and bosses.
 ```
 
-## FILE: MCPEDL/Addons/Selective-Mob-Controller/DESCRIPTION.md (64 lines, 2862 bytes)
+## FILE: MCPEDL/Addons/Selective-Mob-Controller/DESCRIPTION.md (64 lines, 2860 bytes)
 
 ```
 # Selective Mob Controller — Choose the Mobs in Your World
@@ -3149,7 +3149,7 @@ Add the pack to your world and choose one of its available presets in the pack s
 
 - Minecraft Bedrock Edition: 1.26.0 or newer.
 - Experimental features: Not verified.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

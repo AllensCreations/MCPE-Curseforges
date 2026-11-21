@@ -1201,7 +1201,7 @@ system.runInterval(() => {
 - **Key copies**: Hold a Key in your main hand and an Iron Nugget in your offhand, then use the Key to make one extra Key with the same name.
 ```
 
-## FILE: MCPEDL/Addons/Padlock-and-Key/DESCRIPTION.md (86 lines, 5560 bytes)
+## FILE: MCPEDL/Addons/Padlock-and-Key/DESCRIPTION.md (86 lines, 5558 bytes)
 
 ```
 # Padlock & Key — Password Locks for Chests and Doors
@@ -1261,7 +1261,7 @@ Craft a Padlock, rename it on an anvil, and use it on a supported block. The blo
 
 - Minecraft Bedrock Edition: 1.21.60 minimum
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

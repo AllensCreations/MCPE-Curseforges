@@ -3218,7 +3218,7 @@ system.afterEvents.scriptEventReceive.subscribe((event) => {
 - **Changelog started**: Version history is recorded from this release onward.
 ```
 
-## FILE: MCPEDL/Script/Universal-Clutch/DESCRIPTION.md (168 lines, 8644 bytes)
+## FILE: MCPEDL/Script/Universal-Clutch/DESCRIPTION.md (168 lines, 8642 bytes)
 
 ```
 # Universal Clutch — Intelligent Fall Mitigation Script
@@ -3360,7 +3360,7 @@ Configurable via the Behavior Pack subpack settings slider in World Settings:
 - Check the current pack listing for setup requirements.
 - Multiplayer behavior should be checked in the target game version.
 - Experimental features: Not verified.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

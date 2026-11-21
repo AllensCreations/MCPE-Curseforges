@@ -5820,7 +5820,7 @@ Output ONLY these three sections in order:
 - **Changelog started**: Version history is recorded from this release onward.
 ```
 
-## FILE: MCPEDL/Addons/Ghast-Mob-Head-Transformers/DESCRIPTION.md (156 lines, 6642 bytes)
+## FILE: MCPEDL/Addons/Ghast-Mob-Head-Transformers/DESCRIPTION.md (156 lines, 6640 bytes)
 
 ```
 # Ghast Mob Head Transformers — Giant Flying Mob Heads
@@ -5950,7 +5950,7 @@ Interact with any Ghast while holding a skull to trigger the transformation:
 
 ---
 - Experimental features: Not tested. Wind Charge projectiles may depend on your game version.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

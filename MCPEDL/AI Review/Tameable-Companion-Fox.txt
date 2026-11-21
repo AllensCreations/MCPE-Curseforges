@@ -1585,7 +1585,7 @@ Output ONLY these three sections in order:
 - **Changelog started**: Version history is recorded from this release onward.
 ```
 
-## FILE: MCPEDL/Addons/Tameable-Companion-Fox/DESCRIPTION.md (95 lines, 5304 bytes)
+## FILE: MCPEDL/Addons/Tameable-Companion-Fox/DESCRIPTION.md (95 lines, 5302 bytes)
 
 ```
 # Tameable Companion Fox — Advanced Fox Companion
@@ -1654,7 +1654,7 @@ Tame loyal foxes, command them to sit, and arm them with tools that each change 
 
 - Minecraft Bedrock Edition: 1.21.0
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

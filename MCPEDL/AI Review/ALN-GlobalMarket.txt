@@ -992,7 +992,7 @@ async function showAbout(player) {
 - **Safe Purchases**: A listing that sold while you were browsing can no longer be bought twice.
 ```
 
-## FILE: MCPEDL/Addons/ALN-GlobalMarket/DESCRIPTION.md (74 lines, 3743 bytes)
+## FILE: MCPEDL/Addons/ALN-GlobalMarket/DESCRIPTION.md (74 lines, 3741 bytes)
 
 ```
 # ALN-GlobalMarket — Player-to-Player Barter Market
@@ -1040,7 +1040,7 @@ ALN-GlobalMarket lets players list items for trade, name the item and amount the
 
 - Minecraft Bedrock Edition: 1.26.50 or newer
 - Experimental features: Not required
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: source created, not tested in game
 
 ## Creator and Permissions

@@ -1084,7 +1084,7 @@ export function startMerger() {
 - **Sneak Kill**: Sneaking during a kill clears the whole stack with drops and experience scaled by Looting.
 ```
 
-## FILE: MCPEDL/Script/ALN-MobStacker/DESCRIPTION.md (86 lines, 6499 bytes)
+## FILE: MCPEDL/Script/ALN-MobStacker/DESCRIPTION.md (86 lines, 6497 bytes)
 
 ```
 # ALN:MobStacker — Lag-Free Farm and Grinder Condenser
@@ -1144,7 +1144,7 @@ Build a farm or grinder as usual. Mobs of the same kind that stand close togethe
 
 - Minecraft Bedrock Edition: 1.26.60.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly. No cheats or commands are needed.
+- Achievements: Yes, achievement-friendly. No cheats or commands are needed.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

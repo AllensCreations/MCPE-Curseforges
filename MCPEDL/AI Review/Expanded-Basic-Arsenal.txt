@@ -1562,7 +1562,7 @@ world.afterEvents.itemReleaseUse.subscribe(({ source, itemStack }) => {
 - **Crafting Recipes**: Recipes for all five weapons use Sticks, String, Stripped Logs, Flint, Bamboo and Copper Ingots.
 ```
 
-## FILE: MCPEDL/Addons/Expanded-Basic-Arsenal/DESCRIPTION.md (89 lines, 6368 bytes)
+## FILE: MCPEDL/Addons/Expanded-Basic-Arsenal/DESCRIPTION.md (89 lines, 6366 bytes)
 
 ```
 # Expanded Basic Arsenal — Five early-game weapons for Minecraft Bedrock
@@ -1625,7 +1625,7 @@ Craft a weapon from first-day materials, then pick the one that fits the fight. 
 
 - Minecraft Bedrock Edition: 1.26.60
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

@@ -60725,7 +60725,7 @@ Output ONLY these three sections in order:
 - **Spider Lead Position**: Leads attach to the body of Spiders and Cave Spiders.
 ```
 
-## FILE: MCPEDL/Addons/Universal-Leash/DESCRIPTION.md (71 lines, 3764 bytes)
+## FILE: MCPEDL/Addons/Universal-Leash/DESCRIPTION.md (71 lines, 3762 bytes)
 
 ```
 # Universal Leash — Attach a Lead to 98 entity types
@@ -60770,7 +60770,7 @@ Hold a Lead, right-click a mob, and it follows you like a leashed Horse or Cow w
 
 - Minecraft Bedrock Edition: 1.26.50 is the minimum declared in the pack manifest; not independently verified.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

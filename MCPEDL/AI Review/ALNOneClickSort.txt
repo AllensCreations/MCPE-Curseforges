@@ -1035,7 +1035,7 @@ export const PARTICLES = false;
 - **Sort Settings**: Right-click a Book renamed Sort Settings to choose the sort order, hotbar sorting and feedback.
 ```
 
-## FILE: MCPEDL/Addons/ALNOneClickSort/DESCRIPTION.md (101 lines, 7773 bytes)
+## FILE: MCPEDL/Addons/ALNOneClickSort/DESCRIPTION.md (101 lines, 7771 bytes)
 
 ```
 # ALN:OneClickSort — One-Click Backpack, Chest and Restock Sorter
@@ -1110,7 +1110,7 @@ Hold the Auto-Sort Feather in your hand. Right-click to sort your backpack, or s
 
 - Minecraft Bedrock Edition: 1.26.60 (current stable release when this pack was made, not tested on older versions)
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly.
+- Achievements: Yes, achievement-friendly.
 - Verification: source created, package built, not tested in game
 
 ## Creator and Permissions
