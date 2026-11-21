@@ -1,0 +1,1005 @@
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator`
+- **Destination:** `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator`
+- **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/CHANGELOG.md`)
+- **Text files:** 16
+- **Skipped binary:** 3
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/behavior_pack/blocks/loot_spawner.json`
+- `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/behavior_pack/loot_tables/blocks/loot_spawner.json`
+- `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/behavior_pack/manifest.json`
+- `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/behavior_pack/recipes/loot_spawner.json`
+- `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/behavior_pack/scripts/lib/README.md`
+- `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/CHANGELOG.md`
+- `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/DESCRIPTION.md`
+- `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/project.json`
+- `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/README.md`
+- `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/blocks.json`
+- `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/manifest.json`
+- `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/models/blocks/loot_spawner.geo.json`
+- `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/texts/en_US.lang`
+- `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/texts/languages.json`
+- `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/textures/terrain_texture.json`
+
+### Skipped (binary)
+
+- `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/textures/blocks/aln_loot_spawner_core.png`
+- `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/textures/blocks/aln_loot_spawner_frame.png`
+- `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/textures/blocks/aln_loot_spawner_glass.png`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v1 / NEXT UPDATE: v2).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`.
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/behavior_pack/blocks/loot_spawner.json (57 lines, 1530 bytes)
+
+```
+{
+  "format_version": "1.21.0",
+  "minecraft:block": {
+    "description": {
+      "identifier": "aln:loot_spawner",
+      "menu_category": {
+        "category": "construction",
+        "group": "minecraft:itemGroup.name.decorative"
+      }
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 3.0
+      },
+      "minecraft:destructible_by_explosion": {
+        "explosion_resistance": 10
+      },
+      "minecraft:light_emission": 10,
+      "minecraft:light_dampening": 0,
+      "minecraft:map_color": "#4B0082",
+      "minecraft:loot": "loot_tables/blocks/loot_spawner.json",
+      "minecraft:geometry": {
+        "identifier": "geometry.aln_loot_spawner"
+      },
+      "minecraft:material_instances": {
+        "frame": {
+          "texture": "aln_loot_spawner_frame",
+          "render_method": "opaque"
+        },
+        "glass": {
+          "texture": "aln_loot_spawner_glass",
+          "render_method": "blend",
+          "face_dimming": false,
+          "ambient_occlusion": false
+        },
+        "core": {
+          "texture": "aln_loot_spawner_core",
+          "render_method": "opaque",
+          "face_dimming": false
+        },
+        "*": {
+          "texture": "aln_loot_spawner_frame",
+          "render_method": "opaque"
+        }
+      },
+      "minecraft:collision_box": {
+        "origin": [-8, 0, -8],
+        "size": [16, 16, 16]
+      },
+      "minecraft:selection_box": {
+        "origin": [-8, 0, -8],
+        "size": [16, 16, 16]
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/behavior_pack/loot_tables/blocks/loot_spawner.json (16 lines, 206 bytes)
+
+```
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "aln:loot_spawner",
+          "weight": 1,
+          "count": 1
+        }
+      ]
+    }
+  ]
+}
+```
+
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/behavior_pack/manifest.json (65 lines, 1102 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN:LootSpawner (v1)",
+    "description": "Arcane Relic Duplicator Display Cage. by ALNStudios",
+    "uuid": "168d9162-4f4a-4dda-a2c8-a550e2b9ad41",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "3311ef8b-9324-488f-a985-332584287f78",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "7aaef769-5181-441e-a032-cbd1ee354a36",
+      "version": [
+        1,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "1390b986-3030-4eee-a94b-1bd5ea7f88dd",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.15.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "1.3.0"
+    }
+  ],
+  "metadata": {
+    "version": "1.0.0",
+    "authors": [
+      "ALNStudios"
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/behavior_pack/recipes/loot_spawner.json (35 lines, 579 bytes)
+
+```
+{
+  "format_version": "1.21.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:recipe_loot_spawner"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "GOG",
+      "GCG",
+      "GOG"
+    ],
+    "key": {
+      "G": {
+        "item": "minecraft:glass_pane"
+      },
+      "O": {
+        "item": "minecraft:obsidian"
+      },
+      "C": {
+        "item": "minecraft:gold_ingot"
+      }
+    },
+    "result": {
+      "item": "aln:loot_spawner",
+      "count": 1
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/behavior_pack/scripts/lib/README.md (4 lines, 66 bytes)
+
+```
+# scripts/lib
+
+Shared helper modules used by this pack's scripts.
+```
+
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/behavior_pack/scripts/main.js (271 lines, 10025 bytes)
+
+```
+import { world, system, ItemStack, BlockInventoryComponent } from "@minecraft/server";
+import { ActionFormData } from "@minecraft/server-ui";
+
+const BLOCK_ID = "aln:loot_spawner";
+const PROP_ITEM = "aln:spawner_item";
+const PROP_TYPE = "aln:spawner_type";
+const PROP_TICK = "aln:spawner_tick";
+const PROP_ACTIVE = "aln:spawner_active";
+
+const RARITY = {
+  common:   { label: "Common",   color: "§f", ticks: 160  },
+  uncommon: { label: "Uncommon", color: "§a", ticks: 400  },
+  rare:     { label: "Rare",     color: "§b", ticks: 1200 },
+  epic:     { label: "Epic",     color: "§d", ticks: 4800 }
+};
+
+const EPIC_ITEMS = new Set([
+  "minecraft:netherite_ingot","minecraft:netherite_scrap","minecraft:ancient_debris",
+  "minecraft:enchanted_golden_apple","minecraft:totem_of_undying","minecraft:nether_star",
+  "minecraft:elytra","minecraft:heavy_core"
+]);
+
+const RARE_ITEMS = new Set([
+  "minecraft:diamond","minecraft:emerald","minecraft:gold_ingot","minecraft:ender_pearl",
+  "minecraft:blaze_rod","minecraft:ghast_tear","minecraft:shulker_shell",
+  "minecraft:music_disc_13","minecraft:music_disc_cat","minecraft:music_disc_blocks",
+  "minecraft:music_disc_chirp","minecraft:music_disc_far","minecraft:music_disc_mall",
+  "minecraft:music_disc_mellohi","minecraft:music_disc_stal","minecraft:music_disc_strad",
+  "minecraft:music_disc_ward","minecraft:music_disc_11","minecraft:music_disc_wait",
+  "minecraft:music_disc_otherside","minecraft:music_disc_5","minecraft:music_disc_pigstep",
+  "minecraft:music_disc_relic","minecraft:heart_of_the_sea","minecraft:conduit",
+  "minecraft:trident","minecraft:end_crystal","minecraft:beacon"
+]);
+
+const UNCOMMON_ITEMS = new Set([
+  "minecraft:iron_ingot","minecraft:coal","minecraft:copper_ingot","minecraft:redstone",
+  "minecraft:lapis_lazuli","minecraft:quartz","minecraft:cooked_beef","minecraft:cooked_porkchop",
+  "minecraft:cooked_chicken","minecraft:cooked_mutton","minecraft:cooked_rabbit",
+  "minecraft:cooked_salmon","minecraft:cooked_cod","minecraft:bread","minecraft:cake",
+  "minecraft:potion","minecraft:splash_potion","minecraft:lingering_potion",
+  "minecraft:experience_bottle","minecraft:book","minecraft:leather","minecraft:string"
+]);
+
+const BLOCKED_CONTAINERS = new Set([
+  "minecraft:shulker_box","minecraft:undyed_shulker_box","minecraft:white_shulker_box",
+  "minecraft:orange_shulker_box","minecraft:magenta_shulker_box","minecraft:light_blue_shulker_box",
+  "minecraft:yellow_shulker_box","minecraft:lime_shulker_box","minecraft:pink_shulker_box",
+  "minecraft:gray_shulker_box","minecraft:light_gray_shulker_box","minecraft:cyan_shulker_box",
+  "minecraft:purple_shulker_box","minecraft:blue_shulker_box","minecraft:brown_shulker_box",
+  "minecraft:green_shulker_box","minecraft:red_shulker_box","minecraft:black_shulker_box",
+  "minecraft:bundle","minecraft:chest","minecraft:trapped_chest","minecraft:barrel"
+]);
+
+function getRarity(typeId) {
+  if (EPIC_ITEMS.has(typeId))   return "epic";
+  if (RARE_ITEMS.has(typeId))   return "rare";
+  if (UNCOMMON_ITEMS.has(typeId)) return "uncommon";
+  return "common";
+}
+
+function blockKey(loc) {
+  return `${loc.x}:${loc.y}:${loc.z}:${loc.dimension.id}`;
+}
+
+function getSpawnerData(block) {
+  const key = blockKey(block.location);
+  try {
+    const raw = world.getDynamicProperty(`${PROP_ITEM}_${key}`);
+    if (typeof raw !== "string" || !raw) return null;
+    return {
+      itemId:   raw,
+      rarity:   typeof world.getDynamicProperty(`${PROP_TYPE}_${key}`) === "string"
+                  ? world.getDynamicProperty(`${PROP_TYPE}_${key}`) : "common",
+      ticksLeft: typeof world.getDynamicProperty(`${PROP_TICK}_${key}`) === "number"
+                  ? world.getDynamicProperty(`${PROP_TICK}_${key}`) : RARITY["common"].ticks
+    };
+  } catch (e) {
+    return null;
+  }
+}
+
+function setSpawnerData(block, itemId, rarity, ticksLeft) {
+  const key = blockKey(block.location);
+  try {
+    world.setDynamicProperty(`${PROP_ITEM}_${key}`, itemId);
+    world.setDynamicProperty(`${PROP_TYPE}_${key}`, rarity);
+    world.setDynamicProperty(`${PROP_TICK}_${key}`, ticksLeft);
+  } catch (e) {}
+}
+
+function clearSpawnerData(block) {
+  const key = blockKey(block.location);
+  try {
+    world.setDynamicProperty(`${PROP_ITEM}_${key}`, "");
+    world.setDynamicProperty(`${PROP_TYPE}_${key}`, "");
+    world.setDynamicProperty(`${PROP_TICK}_${key}`, 0);
+  } catch (e) {}
+}
+
+function tryInsertIntoContainer(block, item) {
+  const loc = block.location;
+  const dim = block.dimension;
+  const below = dim.getBlock({ x: loc.x, y: loc.y - 1, z: loc.z });
+  if (!below) return false;
+  const tid = below.typeId;
+  const isContainer = tid === "minecraft:chest" || tid === "minecraft:trapped_chest"
+                   || tid === "minecraft:barrel" || tid === "minecraft:hopper";
+  if (!isContainer) return false;
+  try {
+    const inv = below.getComponent("minecraft:inventory");
+    if (!inv || !inv.container) return false;
+    const container = inv.container;
+    for (let i = 0; i < container.size; i++) {
+      const slot = container.getItem(i);
+      if (!slot) {
+        container.setItem(i, new ItemStack(item, 1));
+        return true;
+      }
+      if (slot.typeId === item && slot.amount < slot.maxAmount) {
+        container.setItem(i, new ItemStack(item, slot.amount + 1));
+        return true;
+      }
+    }
+  } catch (e) {}
+  return false;
+}
+
+function ejectItem(block, itemId) {
+  if (tryInsertIntoContainer(block, itemId)) return;
+  try {
+    const loc = block.location;
+    block.dimension.spawnItem(new ItemStack(itemId, 1), {
+      x: loc.x + 0.5,
+      y: loc.y + 1.1,
+      z: loc.z + 0.5
+    });
+  } catch (e) {}
+}
+
+function ticksToTime(ticks) {
+  const secs = Math.ceil(ticks / 20);
+  if (secs >= 60) {
+    const m = Math.floor(secs / 60);
+    const s = secs % 60;
+    return s > 0 ? `${m}m ${s}s` : `${m}m`;
+  }
+  return `${secs}s`;
+}
+
+async function openSpawnerUI(player, block) {
+  const data = getSpawnerData(block);
+  if (!data) return;
+  const rar = RARITY[data.rarity] || RARITY.common;
+  const totalTicks = rar.ticks;
+  const elapsed = totalTicks - data.ticksLeft;
+  const pct = Math.max(0, Math.min(100, Math.floor((elapsed / totalTicks) * 100)));
+  const timeLeft = ticksToTime(data.ticksLeft);
+
+  const form = new ActionFormData()
+    .title("Loot Spawner")
+    .body(
+      `Item: ${data.itemId.replace("minecraft:", "")}\n` +
+      `Rarity: ${rar.color}${rar.label}§r\n\n` +
+      `Progress: ${pct}%\n` +
+      `Next duplicate in: ${timeLeft}`
+    )
+    .button("Retrieve Template Item")
+    .button("Exit");
+
+  let res;
+  try { res = await form.show(player); } catch (e) { return; }
+  if (!res || res.canceled) return;
+  if (res.selection === 0) {
+    try {
+      player.getComponent("minecraft:inventory")?.container?.addItem(new ItemStack(data.itemId, 1));
+    } catch (e) {}
+    clearSpawnerData(block);
+    player.playSound("random.orb");
+    player.onScreenDisplay.setActionBar("§aTemplate retrieved.");
+  }
+}
+
+world.afterEvents.playerInteractWithBlock.subscribe(({ player, block, beforeItemStack }) => {
+  if (block.typeId !== BLOCK_ID) return;
+  const existing = getSpawnerData(block);
+
+  if (existing) {
+    system.run(() => openSpawnerUI(player, block));
+    return;
+  }
+
+  const held = beforeItemStack;
+  if (!held) {
+    player.onScreenDisplay.setActionBar("§eHold an item and interact to attune it.");
+    return;
+  }
+
+  const typeId = held.typeId;
+  if (BLOCKED_CONTAINERS.has(typeId)) {
+    player.onScreenDisplay.setActionBar("§cFilled containers cannot be attuned.");
+    return;
+  }
+  if (typeId === "minecraft:air" || typeId === BLOCK_ID) {
+    player.onScreenDisplay.setActionBar("§eHold an item and interact to attune it.");
+    return;
+  }
+
+  const rarity = getRarity(typeId);
+  const ticks = RARITY[rarity].ticks;
+
+  try {
+    const inv = player.getComponent("minecraft:inventory");
+    if (!inv || !inv.container) return;
+    const container = inv.container;
+    for (let i = 0; i < container.size; i++) {
+      const slot = container.getItem(i);
+      if (slot && slot.typeId === typeId) {
+        if (slot.amount > 1) {
+          container.setItem(i, new ItemStack(typeId, slot.amount - 1));
+        } else {
+          container.setItem(i, undefined);
+        }
+        break;
+      }
+    }
+  } catch (e) {}
+
+  setSpawnerData(block, typeId, rarity, ticks);
+  player.playSound("beacon.activate");
+  const rar = RARITY[rarity];
+  player.onScreenDisplay.setActionBar(`§bAttuned: §r${typeId.replace("minecraft:", "")} §8[${rar.color}${rar.label}§8]`);
+});
+
+const activeBlocks = new Map();
+
+system.runInterval(() => {
+  for (const dim of ["minecraft:overworld","minecraft:nether","minecraft:the_end"]) {
+    let dimension;
+    try { dimension = world.getDimension(dim); } catch (e) { continue; }
+    for (const player of world.getAllPlayers()) {
+      if (player.dimension.id !== dim) continue;
+      const origin = player.location;
+      const range = 32;
+      try {
+        const blocks = dimension.getBlocks(
+          { x: origin.x - range, y: origin.y - range, z: origin.z - range },
+          { x: origin.x + range, y: origin.y + range, z: origin.z + range },
+          { type: BLOCK_ID }
+        );
+        if (!blocks) continue;
+        for (const block of blocks) {
+          if (!block || block.typeId !== BLOCK_ID) continue;
+          const key = blockKey(block.location);
+          const data = getSpawnerData(block);
+          if (!data || !data.itemId) { activeBlocks.delete(key); continue; }
+          let ticksLeft = data.ticksLeft - 1;
+          if (ticksLeft <= 0) {
+            ticksLeft = RARITY[data.rarity]?.ticks ?? RARITY.common.ticks;
+            ejectItem(block, data.itemId);
+            try {
+              dimension.spawnParticle("minecraft:basic_flame_particle",
+                { x: block.location.x + 0.5, y: block.location.y + 1.0, z: block.location.z + 0.5 });
+            } catch (pe) {}
+          }
+          setSpawnerData(block, data.itemId, data.rarity, ticksLeft);
+        }
+      } catch (e) {}
+    }
+  }
+}, 1);
+```
+
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/CHANGELOG.md (18 lines, 1270 bytes)
+
+```
+# Changelog — ALN:LootSpawner (Arcane Relic Duplicator)
+
+---
+
+## [1.0.0] - 2026-11-21 - First Release
+
+### Added
+- **Loot Spawner block**: Players can place the ornate 1x1 Beacon-style display block in survival.
+- **Rarity classification engine**: Items are automatically sorted into Common, Uncommon, Rare, or Epic tiers with cycle times of 8, 20, 60, and 240 seconds.
+- **Item attunement**: Players interact with an empty block while holding an item to consume one unit as the template relic.
+- **Duplication loop**: The block produces one copy of the template item on each completed cycle.
+- **Container output**: Duplicates insert automatically into a chest, barrel, or hopper directly beneath the block.
+- **Inspection UI**: Players open a form showing item name, rarity tier with color coding, progress percentage, and time until the next duplicate.
+- **Template retrieval**: Players retrieve the original item from the inspection UI, resetting the block.
+- **Container protection**: Filled shulker boxes and bundles are blocked from attunement to prevent rarity timer bypasses.
+- **Survival crafting recipe**: Glass Panes, Obsidian, and Gold Ingots craft the block at a crafting table.
+- **Light emission**: The placed block emits light level 10 from its core.
+```
+
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/DESCRIPTION.md (82 lines, 5479 bytes)
+
+```
+# ALN:LootSpawner (Arcane Relic Duplicator) — Rarity-scaled item duplication in a Beacon-style glass display cage
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**Place one Loot Spawner, insert any item, and receive periodic duplicates scaled to 4 rarity tiers from 8 seconds to 240 seconds.**
+
+> A 1x1 ornate display block with gilded obsidian framing and translucent glass panels lets players attune any item and collect automatic duplicates into a chest or hopper below.
+
+## Overview
+
+The Loot Spawner is a craftable 1x1 block that accepts any single item as a template and periodically produces one copy of it. The duplication speed scales with the item's rarity: common drops duplicate every 8 seconds, while Netherite and other top-tier items duplicate every 240 seconds. Players interact with the block to attune an item, check the live progress timer, or retrieve the original. Duplicates feed directly into a chest, barrel, or hopper placed beneath the block, or pop out on top when no container is present.
+
+## Key Features
+
+### Beacon-Style Glass Display Block
+- **What Happens**: Players place the Loot Spawner block, which renders as a gilded obsidian pedestal with four corner pillars and translucent glass panels on all four sides, letting players see inside the chamber.
+
+### Rarity-Based Duplication Engine
+- **What Happens**: Players insert an item and the block classifies it into one of four tiers: Common (8-second cycle), Uncommon (20-second cycle), Rare (60-second cycle), or Epic (240-second cycle), then counts down and produces one copy on each completion.
+
+### Interactive Inspection UI
+- **What Happens**: Players interact with an active Loot Spawner to open a form showing the attuned item name, its rarity tier with a color code, the live progress percentage, and the countdown until the next duplicate.
+
+### Template Retrieval
+- **What Happens**: Players press Retrieve Template Item in the inspection UI to stop duplication and return the original item to their inventory, resetting the block to empty.
+
+### Automatic Container Output
+- **What Happens**: When a duplication cycle completes, the block checks the space directly below for a chest, barrel, or hopper and inserts the duplicate there; if no container is present the item appears on top of the block instead.
+
+### Survival Crafting Recipe
+- **What Happens**: Players craft the Loot Spawner at a crafting table using Glass Panes, Obsidian, and Gold Ingots in a 3x3 ring pattern, with no experiment requirement.
+
+### Nested Container Protection
+- **What Happens**: Players cannot attune filled shulker boxes, chests, or bundles, preventing rarity timer bypasses through container nesting.
+
+### Light-Emitting Chamber
+- **What Happens**: The placed Loot Spawner emits light level 10 from its arcane core, illuminating the surrounding area.
+
+## How to Use
+
+1. Craft the Loot Spawner using the shaped recipe: Glass Panes in the corners and edges, Obsidian in the remaining outer slots, and a Gold Ingot in the center.
+2. Place the Loot Spawner block in your world.
+3. Hold any item you want to duplicate and interact (right-click or tap) the block to attune it. One unit of the item is consumed as the template.
+4. Wait for the duplication timer to complete. Place a chest, barrel, or hopper directly below the block to collect duplicates automatically.
+5. Interact with the active block at any time to open the inspection panel and check progress or retrieve your template.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.21.0 or newer.
+- Experimental features: No experiment requirement detected in the inspected files.
+- Achievements: Likely achievement-friendly.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, ALN LootSpawner Bedrock mod, MCPEDL add-on, CurseForge Bedrock, ALNStudios, item duplicator Bedrock, relic display case, beacon block addon, rarity tier duplicator, loot spawner Minecraft.
+```
+
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/project.json (5 lines, 77 bytes)
+
+```
+{
+  "type": "addon",
+  "name": "ALN:LootSpawner (Arcane Relic Duplicator)"
+}
+```
+
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/README.md (19 lines, 940 bytes)
+
+```
+# ALNLootSpawner (Arcane Relic Duplicator)
+
+Download the current release of **ALNLootSpawner (Arcane Relic Duplicator)** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download ALNLootSpawner (Arcane Relic Duplicator) (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNLootSpawner-Arcane-Relic-Duplicator/ALNLootSpawnerArcaneRelicDuplicator%20V1.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/blocks.json (12 lines, 227 bytes)
+
+```
+{
+  "format_version": "1.1.0",
+  "aln:loot_spawner": {
+    "sound": "stone",
+    "textures": {
+      "frame": "aln_loot_spawner_frame",
+      "glass": "aln_loot_spawner_glass",
+      "core": "aln_loot_spawner_core"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/manifest.json (36 lines, 577 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN:LootSpawner (v1)",
+    "description": "Arcane Relic Duplicator Display Cage. by ALNStudios",
+    "uuid": "1390b986-3030-4eee-a94b-1bd5ea7f88dd",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "aa1eb528-6967-4135-b617-210291bde870",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "version": "1.0.0",
+    "authors": [
+      "ALNStudios"
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/models/blocks/loot_spawner.geo.json (224 lines, 7517 bytes)
+
+```
+{
+  "format_version": "1.12.0",
+  "minecraft:geometry": [
+    {
+      "description": {
+        "identifier": "geometry.aln_loot_spawner",
+        "texture_width": 16,
+        "texture_height": 16
+      },
+      "bones": [
+        {
+          "name": "base_plate",
+          "pivot": [0, 0, 0],
+          "cubes": [
+            {
+              "origin": [-8, 0, -8],
+              "size": [16, 2, 16],
+              "uv": {
+                "north": {"uv": [0, 0], "uv_size": [16, 2]},
+                "south": {"uv": [0, 0], "uv_size": [16, 2]},
+                "east":  {"uv": [0, 0], "uv_size": [16, 2]},
+                "west":  {"uv": [0, 0], "uv_size": [16, 2]},
+                "up":    {"uv": [0, 0], "uv_size": [16, 16]},
+                "down":  {"uv": [0, 0], "uv_size": [16, 16]}
+              },
+              "material_instance": "frame"
+            }
+          ]
+        },
+        {
+          "name": "cap_plate",
+          "pivot": [0, 0, 0],
+          "cubes": [
+            {
+              "origin": [-8, 14, -8],
+              "size": [16, 2, 16],
+              "uv": {
+                "north": {"uv": [0, 0], "uv_size": [16, 2]},
+                "south": {"uv": [0, 0], "uv_size": [16, 2]},
+                "east":  {"uv": [0, 0], "uv_size": [16, 2]},
+                "west":  {"uv": [0, 0], "uv_size": [16, 2]},
+                "up":    {"uv": [0, 0], "uv_size": [16, 16]},
+                "down":  {"uv": [0, 0], "uv_size": [16, 16]}
+              },
+              "material_instance": "frame"
+            }
+          ]
+        },
+        {
+          "name": "pillar_nw",
+          "pivot": [0, 0, 0],
+          "cubes": [
+            {
+              "origin": [-8, 2, -8],
+              "size": [2, 12, 2],
+              "uv": {
+                "north": {"uv": [0, 2], "uv_size": [2, 12]},
+                "south": {"uv": [0, 2], "uv_size": [2, 12]},
+                "east":  {"uv": [0, 2], "uv_size": [2, 12]},
+                "west":  {"uv": [0, 2], "uv_size": [2, 12]},
+                "up":    {"uv": [0, 0], "uv_size": [2, 2]},
+                "down":  {"uv": [0, 0], "uv_size": [2, 2]}
+              },
+              "material_instance": "frame"
+            }
+          ]
+        },
+        {
+          "name": "pillar_ne",
+          "pivot": [0, 0, 0],
+          "cubes": [
+            {
+              "origin": [6, 2, -8],
+              "size": [2, 12, 2],
+              "uv": {
+                "north": {"uv": [0, 2], "uv_size": [2, 12]},
+                "south": {"uv": [0, 2], "uv_size": [2, 12]},
+                "east":  {"uv": [0, 2], "uv_size": [2, 12]},
+                "west":  {"uv": [0, 2], "uv_size": [2, 12]},
+                "up":    {"uv": [0, 0], "uv_size": [2, 2]},
+                "down":  {"uv": [0, 0], "uv_size": [2, 2]}
+              },
+              "material_instance": "frame"
+            }
+          ]
+        },
+        {
+          "name": "pillar_sw",
+          "pivot": [0, 0, 0],
+          "cubes": [
+            {
+              "origin": [-8, 2, 6],
+              "size": [2, 12, 2],
+              "uv": {
+                "north": {"uv": [0, 2], "uv_size": [2, 12]},
+                "south": {"uv": [0, 2], "uv_size": [2, 12]},
+                "east":  {"uv": [0, 2], "uv_size": [2, 12]},
+                "west":  {"uv": [0, 2], "uv_size": [2, 12]},
+                "up":    {"uv": [0, 0], "uv_size": [2, 2]},
+                "down":  {"uv": [0, 0], "uv_size": [2, 2]}
+              },
+              "material_instance": "frame"
+            }
+          ]
+        },
+        {
+          "name": "pillar_se",
+          "pivot": [0, 0, 0],
+          "cubes": [
+            {
+              "origin": [6, 2, 6],
+              "size": [2, 12, 2],
+              "uv": {
+                "north": {"uv": [0, 2], "uv_size": [2, 12]},
+                "south": {"uv": [0, 2], "uv_size": [2, 12]},
+                "east":  {"uv": [0, 2], "uv_size": [2, 12]},
+                "west":  {"uv": [0, 2], "uv_size": [2, 12]},
+                "up":    {"uv": [0, 0], "uv_size": [2, 2]},
+                "down":  {"uv": [0, 0], "uv_size": [2, 2]}
+              },
+              "material_instance": "frame"
+            }
+          ]
+        },
+        {
+          "name": "glass_north",
+          "pivot": [0, 0, 0],
+          "cubes": [
+            {
+              "origin": [-6, 2, -8],
+              "size": [12, 12, 1],
+              "uv": {
+                "north": {"uv": [0, 0], "uv_size": [12, 12]},
+                "south": {"uv": [0, 0], "uv_size": [12, 12]},
+                "east":  {"uv": [0, 0], "uv_size": [1, 12]},
+                "west":  {"uv": [0, 0], "uv_size": [1, 12]},
+                "up":    {"uv": [0, 0], "uv_size": [12, 1]},
+                "down":  {"uv": [0, 0], "uv_size": [12, 1]}
+              },
+              "material_instance": "glass"
+            }
+          ]
+        },
+        {
+          "name": "glass_south",
+          "pivot": [0, 0, 0],
+          "cubes": [
+            {
+              "origin": [-6, 2, 7],
+              "size": [12, 12, 1],
+              "uv": {
+                "north": {"uv": [0, 0], "uv_size": [12, 12]},
+                "south": {"uv": [0, 0], "uv_size": [12, 12]},
+                "east":  {"uv": [0, 0], "uv_size": [1, 12]},
+                "west":  {"uv": [0, 0], "uv_size": [1, 12]},
+                "up":    {"uv": [0, 0], "uv_size": [12, 1]},
+                "down":  {"uv": [0, 0], "uv_size": [12, 1]}
+              },
+              "material_instance": "glass"
+            }
+          ]
+        },
+        {
+          "name": "glass_west",
+          "pivot": [0, 0, 0],
+          "cubes": [
+            {
+              "origin": [-8, 2, -6],
+              "size": [1, 12, 12],
+              "uv": {
+                "north": {"uv": [0, 0], "uv_size": [1, 12]},
+                "south": {"uv": [0, 0], "uv_size": [1, 12]},
+                "east":  {"uv": [0, 0], "uv_size": [12, 12]},
+                "west":  {"uv": [0, 0], "uv_size": [12, 12]},
+                "up":    {"uv": [0, 0], "uv_size": [1, 12]},
+                "down":  {"uv": [0, 0], "uv_size": [1, 12]}
+              },
+              "material_instance": "glass"
+            }
+          ]
+        },
+        {
+          "name": "glass_east",
+          "pivot": [0, 0, 0],
+          "cubes": [
+            {
+              "origin": [7, 2, -6],
+              "size": [1, 12, 12],
+              "uv": {
+                "north": {"uv": [0, 0], "uv_size": [1, 12]},
+                "south": {"uv": [0, 0], "uv_size": [1, 12]},
+                "east":  {"uv": [0, 0], "uv_size": [12, 12]},
+                "west":  {"uv": [0, 0], "uv_size": [12, 12]},
+                "up":    {"uv": [0, 0], "uv_size": [1, 12]},
+                "down":  {"uv": [0, 0], "uv_size": [1, 12]}
+              },
+              "material_instance": "glass"
+            }
+          ]
+        },
+        {
+          "name": "inner_core",
+          "pivot": [0, 0, 0],
+          "cubes": [
+            {
+              "origin": [-3, 2, -3],
+              "size": [6, 2, 6],
+              "uv": {
+                "north": {"uv": [0, 0], "uv_size": [6, 2]},
+                "south": {"uv": [0, 0], "uv_size": [6, 2]},
+                "east":  {"uv": [0, 0], "uv_size": [6, 2]},
+                "west":  {"uv": [0, 0], "uv_size": [6, 2]},
+                "up":    {"uv": [0, 0], "uv_size": [6, 6]},
+                "down":  {"uv": [0, 0], "uv_size": [6, 6]}
+              },
+              "material_instance": "core"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/texts/en_US.lang (2 lines, 40 bytes)
+
+```
+tile.aln:loot_spawner.name=Loot Spawner
+```
+
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/texts/languages.json (2 lines, 10 bytes)
+
+```
+["en_US"]
+```
+
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/textures/terrain_texture.json (16 lines, 398 bytes)
+
+```
+{
+  "resource_pack_name": "aln_loot_spawner",
+  "texture_name": "atlas.terrain",
+  "texture_data": {
+    "aln_loot_spawner_frame": {
+      "textures": "textures/blocks/aln_loot_spawner_frame"
+    },
+    "aln_loot_spawner_glass": {
+      "textures": "textures/blocks/aln_loot_spawner_glass"
+    },
+    "aln_loot_spawner_core": {
+      "textures": "textures/blocks/aln_loot_spawner_core"
+    }
+  }
+}
+```

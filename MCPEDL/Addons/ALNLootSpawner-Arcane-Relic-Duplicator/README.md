@@ -1,11 +1,11 @@
-# ALN:LootSpawner (Arcane Relic Duplicator)
+# ALNLootSpawner (Arcane Relic Duplicator)
 
-Download the current release of **ALN:LootSpawner (Arcane Relic Duplicator)** for Minecraft Bedrock Edition.
+Download the current release of **ALNLootSpawner (Arcane Relic Duplicator)** for Minecraft Bedrock Edition.
 
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN:LootSpawner (Arcane Relic Duplicator) (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/README.md)
+- **Direct download:** [Download ALNLootSpawner (Arcane Relic Duplicator) (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNLootSpawner-Arcane-Relic-Duplicator/ALNLootSpawnerArcaneRelicDuplicator%20V1.mcaddon)
 
 ## Installation
 
@@ -15,4 +15,4 @@ Download the current release of **ALN:LootSpawner (Arcane Relic Duplicator)** fo
 
 ## Pack Information
 
-For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-LootSpawner/DESCRIPTION.md).
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/DESCRIPTION.md).

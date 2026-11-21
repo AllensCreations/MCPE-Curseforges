@@ -4,7 +4,9 @@
     "description": {
       "identifier": "aln:recipe_loot_spawner"
     },
-    "tags": ["crafting_table"],
+    "tags": [
+      "crafting_table"
+    ],
     "pattern": [
       "GOG",
       "GCG",
@@ -25,10 +27,8 @@
       "item": "aln:loot_spawner",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
