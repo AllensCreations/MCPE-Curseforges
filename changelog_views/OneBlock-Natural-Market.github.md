@@ -1,11 +1,15 @@
 # Changelog — OneBlock Natural Market
 
-## [14.0.1] - 2026-11-21 - Startup Crash Fix
+## [15.0.0] - 2026-11-21 - Core Pool And Ledger Return Fix
 
 ### Fixed
 
 <details>
-<summary><b>14.0.x</b> (1 release)</summary>
+<summary><b>14.0.x</b> (2 releases)</summary>
+
+### [14.0.1] - 2026-11-21 - Startup Crash Fix
+
+#### Fixed
 
 ### [14.0.0] - 2026-11-21 - Inventory Icons And Core Height
 
