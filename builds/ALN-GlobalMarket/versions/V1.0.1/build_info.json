@@ -1,0 +1,8 @@
+{
+  "changelog_version": "1.0.1",
+  "manifest_version": "1.0.1",
+  "packages": {
+    "ALNGlobalMarket V1.0.1.mcaddon": "7113270e93b96bf49d38052b48f856c8ab2558aa35d1de182267ae4aab08d1bb"
+  },
+  "source_sha256": "a23267296c0b2ee8f91d596410ba7057156c28ce7c3da4482746811c8bd08f58"
+}

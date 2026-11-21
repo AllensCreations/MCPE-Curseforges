@@ -64,19 +64,19 @@ Output ONLY these three sections in order:
 
 ## File Contents
 
-## FILE: MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/manifest.json (48 lines, 857 bytes)
+## FILE: MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/manifest.json (48 lines, 861 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "ALN-GlobalMarket (v1)",
+    "name": "ALN-GlobalMarket (v1.0.1)",
     "description": "Player-to-player barter market with escrow and offline payouts, by ALNStudios.",
     "uuid": "58c2ca6d-59a3-451a-9506-4995a7e0d23e",
     "version": [
       1,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -93,7 +93,7 @@ Output ONLY these three sections in order:
       "version": [
         1,
         0,
-        0
+        1
       ]
     }
   ],
@@ -111,7 +111,7 @@ Output ONLY these three sections in order:
     "authors": [
       "ALNStudios"
     ],
-    "version": "1.0.0"
+    "version": "1.0.1"
   }
 }
 ```
@@ -140,7 +140,7 @@ world.afterEvents.worldLoad.subscribe(() => {
 });
 ```
 
-## FILE: MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/scripts/trade_catalog.js (65 lines, 3980 bytes)
+## FILE: MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/scripts/trade_catalog.js (85 lines, 5471 bytes)
 
 ```
 export const CATEGORIES = ["All Items", "Ores & Resources", "Tools & Weapons", "Armor", "Food", "Blocks", "Other"];
@@ -154,18 +154,37 @@ export const POPULAR_PAYMENTS = [
 
 const shortName = (typeId) => typeId.replace(/^[^:]*:/, "");
 
-const ITEM_ICON_OVERRIDES = {
-    redstone: "redstone_dust", beef: "beef_raw", cooked_beef: "beef_cooked",
-    porkchop: "porkchop_raw", cooked_porkchop: "porkchop_cooked",
-    chicken: "chicken_raw", cooked_chicken: "chicken_cooked",
-    mutton: "mutton_raw", cooked_mutton: "mutton_cooked",
-    rabbit: "rabbit_raw", cooked_rabbit: "rabbit_cooked",
-    cod: "fish_raw", cooked_cod: "fish_cooked",
-    salmon: "fish_salmon_raw", cooked_salmon: "fish_salmon_cooked",
-    golden_apple: "apple_golden", water_bucket: "bucket_water", lava_bucket: "bucket_lava",
-    milk_bucket: "bucket_milk", bow: "bow_standby", crossbow: "crossbow_standby",
-    wheat_seeds: "seeds_wheat", totem_of_undying: "totem", lapis_lazuli: "dye_powder_blue",
+const ITEM_ICONS = {};
+const addIcon = (id, texture = id) => { ITEM_ICONS[id] = texture; };
+
+["diamond", "emerald", "iron_ingot", "gold_ingot", "netherite_ingot", "copper_ingot", "coal", "charcoal",
+ "apple", "bread", "carrot", "potato", "baked_potato", "beetroot", "cookie", "stick", "string", "feather",
+ "bone", "leather", "flint", "gunpowder", "blaze_rod", "blaze_powder", "slime_ball", "ender_pearl",
+ "ender_eye", "quartz", "amethyst_shard", "netherite_scrap", "raw_iron", "raw_gold", "raw_copper",
+ "glowstone_dust", "clay_ball", "brick", "paper", "arrow", "shears", "flint_and_steel", "bucket", "sugar",
+ "egg", "wheat", "snowball", "nether_star", "pumpkin_pie", "mushroom_stew", "dried_kelp", "spider_eye",
+ "rotten_flesh", "name_tag", "trident", "elytra", "saddle", "lead"].forEach((n) => addIcon(n));
+
+const ALIASES = {
+    redstone: "redstone_dust", book: "book_normal", beef: "beef_raw", cooked_beef: "beef_cooked",
+    porkchop: "porkchop_raw", cooked_porkchop: "porkchop_cooked", chicken: "chicken_raw",
+    cooked_chicken: "chicken_cooked", mutton: "mutton_raw", cooked_mutton: "mutton_cooked",
+    rabbit: "rabbit_raw", cooked_rabbit: "rabbit_cooked", cod: "fish_raw", cooked_cod: "fish_cooked",
+    salmon: "fish_salmon_raw", cooked_salmon: "fish_salmon_cooked", golden_apple: "apple_golden",
+    golden_carrot: "carrot_golden", melon_slice: "melon", water_bucket: "bucket_water",
+    lava_bucket: "bucket_lava", milk_bucket: "bucket_milk", bow: "bow_standby", totem_of_undying: "totem",
 };
+for (const [id, tex] of Object.entries(ALIASES)) addIcon(id, tex);
+
+const TOOL_TIERS = { wooden: "wood", stone: "stone", iron: "iron", golden: "gold", diamond: "diamond", netherite: "netherite" };
+for (const [tier, tex] of Object.entries(TOOL_TIERS)) {
+    for (const kind of ["sword", "pickaxe", "axe", "shovel", "hoe"]) addIcon(`${tier}_${kind}`, `${tex}_${kind}`);
+}
+const ARMOR_TIERS = { leather: "leather", chainmail: "chainmail", iron: "iron", golden: "gold", diamond: "diamond", netherite: "netherite" };
+for (const [tier, tex] of Object.entries(ARMOR_TIERS)) {
+    for (const piece of ["helmet", "chestplate", "leggings", "boots"]) addIcon(`${tier}_${piece}`, `${tex}_${piece}`);
+}
+
 const BLOCK_ICONS = {
     stone: "stone", cobblestone: "cobblestone", dirt: "dirt", sand: "sand", gravel: "gravel",
     glass: "glass", obsidian: "obsidian", netherrack: "netherrack", bedrock: "bedrock",
@@ -181,7 +200,8 @@ export function iconFor(typeId) {
     if (!typeId.startsWith("minecraft:")) return undefined;
     const n = shortName(typeId);
     if (BLOCK_ICONS[n]) return `textures/blocks/${BLOCK_ICONS[n]}`;
-    return `textures/items/${ITEM_ICON_OVERRIDES[n] ?? n}`;
+    if (ITEM_ICONS[n]) return `textures/items/${ITEM_ICONS[n]}`;
+    return undefined;
 }
 
 const TOOLS = /(_sword|_pickaxe|_axe|_shovel|_hoe)$|^(bow|crossbow|trident|shears|fishing_rod|mace|flint_and_steel|shield|spyglass|brush)$/;
@@ -209,7 +229,7 @@ export function timeAgo(timestamp) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/scripts/trade_storage.js (181 lines, 5887 bytes)
+## FILE: MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/scripts/trade_storage.js (191 lines, 6158 bytes)
 
 ```
 import { world, ItemStack, ItemTypes } from "@minecraft/server";
@@ -266,11 +286,21 @@ export function normalizeItemId(raw) {
     return id;
 }
 
+export function maxStack(typeId) {
+    try {
+        return new ItemStack(typeId, 1).maxAmount;
+    } catch {
+        return undefined;
+    }
+}
+
 export function resolveItemId(raw) {
     const id = normalizeItemId(raw);
     if (!id) return undefined;
     try {
-        return ItemTypes.get(id)?.id;
+        const type = ItemTypes.get(id);
+        if (!type || type.id === "minecraft:air") return undefined;
+        return maxStack(type.id) ? type.id : undefined;
     } catch {
         return undefined;
     }
@@ -394,14 +424,14 @@ export function deliverPayouts(player) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/scripts/trade_ui.js (345 lines, 15074 bytes)
+## FILE: MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/scripts/trade_ui.js (347 lines, 15176 bytes)
 
 ```
 import { world, system } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 import {
     loadListings, saveListings, newListingId, resolveItemId, prettyName,
-    getSellableSummary, countItem, removeItem, giveItem,
+    getSellableSummary, countItem, removeItem, giveItem, maxStack,
     findOnlinePlayer, routePayment, tryQueuePayout,
 } from "./trade_storage.js";
 import { CATEGORIES, SORTS, POPULAR_PAYMENTS, iconFor, categoryOf, timeAgo } from "./trade_catalog.js";
@@ -409,6 +439,7 @@ import { CATEGORIES, SORTS, POPULAR_PAYMENTS, iconFor, categoryOf, timeAgo } fro
 const TRADE_BOOKS = new Set(["minecraft:book", "minecraft:writable_book"]);
 const BOOK_NAME = "player trade";
 const MAX_WANT = 2304;
+const INV_SLOTS = 36;
 const PAGE_SIZE = 8;
 const activeUsers = new Set();
 
@@ -512,8 +543,9 @@ async function showSell(player, prefill = {}) {
     const wantTypeId = custom ? resolveItemId(custom) : POPULAR_PAYMENTS[payIdx];
     if (!wantTypeId) return retry(`"${custom}" is not a valid item. Try diamond, emerald, iron_ingot...`);
 
-    const wantAmount = parseInt10(wantAmtRaw, 1, MAX_WANT);
-    if (wantAmount === undefined) return retry(`Payment quantity must be a whole number from 1 to ${MAX_WANT}.`);
+    const wantMax = Math.min(MAX_WANT, maxStack(wantTypeId) * INV_SLOTS);
+    const wantAmount = parseInt10(wantAmtRaw, 1, wantMax);
+    if (wantAmount === undefined) return retry(`Payment quantity must be a whole number from 1 to ${wantMax}.`);
 
     if (!removeItem(player, sellTypeId, sellAmount)) return retry("Could not take the items from your inventory.");
 
@@ -592,7 +624,7 @@ async function showPurchase(player) {
         const actions = [];
         const add = (text, icon, fn) => { form.button(text, icon); actions.push(fn); };
 
-        add("§l§9Filters & Search\n§r§7Category, sort, find items", "textures/items/compass", async () => {
+        add("§l§9Filters & Search\n§r§7Category, sort, find items", "textures/items/paper", async () => {
             await showFilters(player, st);
         });
         add(`§l§6My Listings\n§r§7${mineCount} active`, "textures/items/name_tag", async () => {
@@ -743,12 +775,23 @@ async function showAbout(player) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-GlobalMarket/CHANGELOG.md (17 lines, 700 bytes)
+## FILE: MCPEDL/Addons/ALN-GlobalMarket/CHANGELOG.md (28 lines, 1156 bytes)
 
 ```
 # Changelog — ALN-GlobalMarket
 
 ---
+
+## [1.0.1] - 2026-11-21 - Icon Fixes
+
+### Added
+- **Payment Item Checks**: Air and other items that cannot be held are now rejected as payment.
+
+### Improved & Balanced
+- **Payment Limits**: The payment amount is capped by how many of that item fit in an inventory, so unstackable items cannot flood the world.
+
+### Fixed
+- **Missing Icons**: Listings now show icons only for items with a known icon, so the purple and black placeholder squares are gone.
 
 ## [1.0.0] - 2026-11-19 - Initial Release
 
@@ -847,7 +890,7 @@ Minecraft Bedrock add-on, MCPEDL add-on, CurseForge Bedrock, ALNStudios, player 
 {"type": "addon", "name": "ALN-GlobalMarket"}
 ```
 
-## FILE: MCPEDL/Addons/ALN-GlobalMarket/README.md (19 lines, 804 bytes)
+## FILE: MCPEDL/Addons/ALN-GlobalMarket/README.md (19 lines, 808 bytes)
 
 ```
 # ALN-GlobalMarket
@@ -857,7 +900,7 @@ Download the current release of **ALN-GlobalMarket** for Minecraft Bedrock Editi
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN-GlobalMarket (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-GlobalMarket/ALNGlobalMarket%20V1.mcaddon)
+- **Direct download:** [Download ALN-GlobalMarket (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-GlobalMarket/ALNGlobalMarket%20V1.0.1.mcaddon)
 
 ## Installation
 
