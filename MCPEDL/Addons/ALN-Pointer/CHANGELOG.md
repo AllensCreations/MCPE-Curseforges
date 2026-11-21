@@ -2,6 +2,19 @@
 
 ---
 
+## [v20] - 2026-11-21 - Cleanup and Fixes
+
+### Fixed
+- **Menu Version**: The menu title and About screen showed v16. They now show the real pack version.
+- **Locked On Text**: The Locked on message now only updates when the target changes or about every second and a half, so it no longer flickers or hides other action bar messages.
+- **Aim Circle Timeout**: The aim circle is refreshed every 30 minutes so it no longer disappears after an hour of holding a bow.
+
+### Changed
+- **Description**: The page now matches the menus: Combat Settings with its groups, Quick Presets, the Tuning screen, and the Aura, Always Critical and Target Highlight cards.
+
+### Removed
+- **Unused Files**: The 10 old circle particle files from before the screen circle were deleted. Nothing in the add-on used them.
+
 ## [v19] - 2026-11-20 - Aimbot Mob Types
 
 ### Added

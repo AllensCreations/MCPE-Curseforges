@@ -20,10 +20,15 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 - **How It Works**: Hold the Combat Helper and use it, like right-clicking on PC or tapping on mobile. Sneak while you use it to switch all your toggles off or back on. To craft one, fill the top row of a crafting table with wool, then the left and middle squares of the middle row, then the left and right squares of the bottom row. This takes 7 wool of any color and the shape looks like a cursor.
 - **Good To Know**: With Give Starter Item on, a full inventory on first join means the Combat Helper is offered again on your next join.
 
-### Combat Toggles Menu
-- **What Happens**: The main menu has three buttons: Combat Menu, About and Exit. Combat Menu opens a screen with Combat Toggles, Friends, Tuning and Practice Dummy. Combat Toggles lists 13 switches with a one-line explanation under each, and Apply saves them and closes the menu.
+### Combat Menu
+- **What Happens**: The main menu has three buttons: Combat Menu, About and Exit. Combat Menu opens a screen with Combat Settings, Quick Presets, Friends, Tuning and Practice Dummy. Combat Settings lists the 13 switches in groups (Aura, Bow Aimbot, Offense, Totems and Defense) with a one-line explanation under each, and the sliders and choices for each group sit under its switches. Apply saves them and closes the menu.
 - **How It Works**: Flip the switches you want, then tap Apply. Closing the screen without Apply brings you back one screen.
 - **Good To Know**: Toggles are saved per player, so each person in a world picks their own.
+
+### Quick Presets
+- **What Happens**: Three presets switch a whole set of toggles on at once: PVP (Bow Aimbot, Target Highlight, Always Critical, Damage Display, Auto Totem, Shield Always Active, No Knockback and Auto Golden Apple), Safe (Auto Totem, Immortal, Shield Always Active, Auto Golden Apple, Always Water Clutch and Keep Gear On Death) and All off.
+- **How It Works**: Open the Combat Menu, tap Quick Presets and pick one.
+- **Good To Know**: A preset replaces your toggles, and your slider values stay the same.
 
 ### Auto Totem
 - **What Happens**: When a hit would kill you and you hold no Totem of Undying, one from your inventory moves into your off hand first, so the totem saves you.
@@ -36,12 +41,12 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 - **Good To Know**: An item that was in your off hand moves to your inventory, or drops at your feet if the inventory is full.
 
 ### Aura Mode
-- **What Happens**: Every half second, you hit up to 3 of the nearest hostile mobs and other players within 4 blocks for 5 damage (2.5 hearts), without clicking.
+- **What Happens**: Every half second, you hit the nearest hostile mobs and other players around you without clicking. By default that is up to 3 targets within 4 blocks for 5 damage (2.5 hearts). The range (2 to 6 blocks), damage (1 to 10), number of targets (1 to 5), who it hits and whether it turns you to face the target can be changed under Aura in Combat Settings.
 - **How It Works**: Stand near enemies with Aura Mode on and they take damage automatically.
 - **Good To Know**: Players in Creative or Spectator mode are never hit, and passive mobs are left alone.
 
 ### Always Critical
-- **What Happens**: Every melee hit you land deals 1.5 times damage and shows the critical hit sparks, the same bonus as a vanilla critical hit, without jumping first.
+- **What Happens**: Every melee hit you land deals extra damage, 1.5 times by default and adjustable from 110 to 300 percent in Combat Settings, and shows the critical hit sparks, the same bonus as a vanilla critical hit, without jumping first.
 - **How It Works**: Hit a mob or player with a sword or axe while Always Critical is on.
 - **Good To Know**: A hit made while you are already falling is left as vanilla, so the bonus never stacks.
 
@@ -89,7 +94,7 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 ### Target Highlight
 - **What Happens**: While you hold a bow or crossbow, a small target picture floats above the mob or player Bow Aimbot will pick, the action bar names it, and a circle picture sits on your crosshair on the screen to show the aim range, so it never lags behind when you turn. Only you see them.
 - **How It Works**: Switch on both Bow Aimbot and Target Highlight, hold a bow and aim near an enemy.
-- **Good To Know**: It does nothing when Bow Aimbot is off, and the target picture only shows when a target is inside the circle. The circle can be switched off in Tuning, and its size follows the Bow Aimbot angle.
+- **Good To Know**: It does nothing when Bow Aimbot is off, and the target picture only shows when a target is inside the circle. The circle can be switched off under Bow Aimbot in Combat Settings, and its size follows the Aim circle zoom and your Your game FOV setting value.
 
 ### Practice Dummy
 - **What Happens**: A zombie called Practice Dummy appears 3 blocks in front of you. It cannot move or hurt you and it heals fast, so you can test Aura Mode, Always Critical and Damage Display.
@@ -102,9 +107,9 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 - **Good To Know**: Friends stay on your list when they go offline. The list is yours alone, so a friend is only safe from your toggles, not the other way round.
 
 ### Tuning
-- **What Happens**: Seven sliders and three choices change how the toggles behave: Aura range (2 to 6 blocks), Aura damage (1 to 10), Aura targets (1 to 5), Bow Aimbot range (16 to 96 blocks), Aim circle zoom (50 to 300 percent), Your game FOV setting (30 to 110), Always Critical damage (110 to 300 percent), Knockback you deal (0 to 200 percent), Aura hits (mobs and players, mobs only or players only) whether Aura turns you to face the target, and whether Target Highlight draws the aim circle.
-- **How It Works**: Open the Combat Menu, tap Tuning, drag the sliders and tap Apply. A reset switch at the bottom puts everything back to the defaults.
-- **Good To Know**: The starting values match the old fixed numbers, so nothing changes until you move a slider.
+- **What Happens**: Tuning holds your Your game FOV setting, an exact list of values from 30 to 110, so the aim circle matches the Field of View you set in the game's video settings.
+- **How It Works**: Open the Combat Menu, tap Tuning, pick your FOV, turn on Confirm changes and tap Apply. Nothing saves unless Confirm changes is on. Turning on Reset all tuning to the defaults puts every slider and choice back to its starting value.
+- **Good To Know**: The other sliders and choices are in Combat Settings, under the toggle they belong to.
 
 ### Quick Toggle
 - **What Happens**: Sneaking while you use the Combat Helper switches every toggle off at once, and doing it again brings the same toggles back.
@@ -119,7 +124,7 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 ## How to Use
 
 1. Craft a Combat Helper from 7 wool in a cursor shape, take one from the Equipment tab of the Creative inventory, or turn on Give Starter Item to receive one when you first join.
-2. Hold the Combat Helper and use it to open the ALNStudios menu, then tap Combat Menu and Combat Toggles.
+2. Hold the Combat Helper and use it to open the ALNStudios menu, then tap Combat Menu and Combat Settings.
 3. Switch on the toggles you want and tap Apply. The action bar shows how many toggles are on.
 4. Use the Combat Helper again any time to change your toggles, or open Friends and Tuning from the Combat Menu.
 

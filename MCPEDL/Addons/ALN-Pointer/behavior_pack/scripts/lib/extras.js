@@ -70,17 +70,28 @@ function knock(event) {
 }
 
 const hud = new Map();
+const hudAt = new Map();
+const locks = new Map();
+const HUD_REFRESH = 36000;
+const LOCK_REFRESH = 30;
 
 function setCircle(p, name) {
-  if ((hud.get(p.id) ?? "") === name) return;
-  if (name) hud.set(p.id, name);
-  else hud.delete(p.id);
+  const same = (hud.get(p.id) ?? "") === name;
+  if (same && (!name || system.currentTick - (hudAt.get(p.id) ?? 0) < HUD_REFRESH)) return;
+  if (name) {
+    hud.set(p.id, name);
+    hudAt.set(p.id, system.currentTick);
+  } else {
+    hud.delete(p.id);
+    hudAt.delete(p.id);
+  }
   p.onScreenDisplay.setTitle(name, { fadeInDuration: 0, stayDuration: 72000, fadeOutDuration: 0 });
 }
 
 function mark(p) {
   const held = p.getComponent(EntityComponentTypes.Equippable)?.getEquipmentSlot(EquipmentSlot.Mainhand)?.getItem()?.typeId;
   if (!BOWS.has(held)) {
+    locks.delete(p.id);
     setCircle(p, "");
     return;
   }
@@ -88,10 +99,16 @@ function mark(p) {
   setCircle(p, tune(p, "aimCircle") === 1 ? `aln_z${zoom}` : "");
 
   const target = pickTarget(p);
-  if (!target) return;
+  if (!target) {
+    locks.delete(p.id);
+    return;
+  }
   const head = target.getHeadLocation();
   p.spawnParticle("allenscreations:aln_target", { x: head.x, y: head.y + 0.8, z: head.z });
   const name = target.typeId === PLAYER_ID ? target.name : target.typeId.replace("minecraft:", "");
+  const lock = locks.get(p.id);
+  if (lock?.name === name && system.currentTick - lock.tick < LOCK_REFRESH) return;
+  locks.set(p.id, { name, tick: system.currentTick });
   p.onScreenDisplay.setActionBar(`§cLocked on: ${name}`);
 }
 
@@ -142,5 +159,7 @@ export function initExtras() {
   world.afterEvents.playerLeave.subscribe(({ playerId }) => {
     last.delete(playerId);
     hud.delete(playerId);
+    hudAt.delete(playerId);
+    locks.delete(playerId);
   });
 }
