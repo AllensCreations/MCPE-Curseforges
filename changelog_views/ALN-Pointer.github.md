@@ -1,13 +1,31 @@
 # Changelog — ALN Pointer
 
-## [v19] - 2026-11-20 - Aimbot Mob Types
-
-### Added
-- **Aimbot Mob Types**: Bow Aimbot now has four On or Off choices under it: hostile mobs, neutral mobs, passive mobs and players. Hostile mobs and players stay on by default. Tamed pets are never targeted.
+## [v20] - 2026-11-21 - Cleanup and Fixes
 
 ### Fixed
+- **Menu Version**: The menu title and About screen showed v16. They now show the real pack version.
+- **Locked On Text**: The Locked on message now only updates when the target changes or about every second and a half, so it no longer flickers or hides other action bar messages.
+- **Aim Circle Timeout**: The aim circle is refreshed every 30 minutes so it no longer disappears after an hour of holding a bow.
+
+### Changed
+- **Description**: The page now matches the menus: Combat Settings with its groups, Quick Presets, the Tuning screen, and the Aura, Always Critical and Target Highlight cards.
+
+### Removed
+- **Unused Files**: The 10 old circle particle files from before the screen circle were deleted. Nothing in the add-on used them.
+
+<details>
+<summary><b>19.0.x</b> (1 release)</summary>
+
+### [v19] - 2026-11-20 - Aimbot Mob Types
+
+#### Added
+- **Aimbot Mob Types**: Bow Aimbot now has four On or Off choices under it: hostile mobs, neutral mobs, passive mobs and players. Hostile mobs and players stay on by default. Tamed pets are never targeted.
+
+#### Fixed
 - **Elder Guardian**: Arrows now aim at the middle of the body instead of the head point, so big mobs such as the Elder Guardian are no longer overshot.
 - **Underwater Targets**: Arrows aimed at a target in water no longer add the extra lift for gravity, since arrows fly differently in water.
+
+</details>
 
 <details>
 <summary><b>18.0.x</b> (1 release)</summary>

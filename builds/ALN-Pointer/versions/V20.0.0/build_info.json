@@ -1,0 +1,8 @@
+{
+  "changelog_version": "20.0.0",
+  "manifest_version": "20.0.0",
+  "packages": {
+    "ALNPointer V20.mcaddon": "0327075b1e61b70436dad75cc13f67cd172f4bd4bf671a5053163ac419f1a542"
+  },
+  "source_sha256": "da70327e9b55eb38479c50badef05a7f976d35860e696f199192f94990cbae46"
+}
