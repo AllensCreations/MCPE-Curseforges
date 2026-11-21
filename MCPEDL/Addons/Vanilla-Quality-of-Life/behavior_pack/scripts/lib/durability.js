@@ -1,4 +1,3 @@
-// Tool durability protection for chain mining.
 import { system } from "@minecraft/server";
 import { CONFIG } from "./config.js";
 import { pendingToolDamage } from "./state.js";

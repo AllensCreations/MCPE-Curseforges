@@ -1,4 +1,3 @@
-// Direct block removal and grouped item drops.
 import { ItemStack, BlockPermutation } from "@minecraft/server";
 import { CONFIG } from "./config.js";
 

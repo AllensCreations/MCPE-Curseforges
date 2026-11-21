@@ -1,4 +1,3 @@
-// Auto-switch event handlers and intervals.
 import { world, system } from "@minecraft/server";
 import { CONFIG } from "./config.js";
 import { clearPendingSwap, restoreSwappedItem, scheduleSwapRetry, switchPlayerSlot1Tool } from "./slot-switch.js";

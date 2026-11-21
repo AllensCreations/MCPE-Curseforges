@@ -1,4 +1,3 @@
-// Small helpers for items, containers and targets.
 import { world, EquipmentSlot, ItemStack } from "@minecraft/server";
 import { CONFIG } from "./config.js";
 

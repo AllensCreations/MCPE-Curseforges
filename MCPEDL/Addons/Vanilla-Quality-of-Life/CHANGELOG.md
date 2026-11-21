@@ -2,6 +2,12 @@
 
 ---
 
+## [v9] - 2026-11-21 - Spider Model Fix
+
+### Fixed
+
+- **Spider and Cave Spider**: They no longer replace the game's own models, which fixes the animation and model errors.
+
 ## [v8] - 2026-11-21 - Stained Glass Recycling and Spider Fixes
 
 ### Fixed

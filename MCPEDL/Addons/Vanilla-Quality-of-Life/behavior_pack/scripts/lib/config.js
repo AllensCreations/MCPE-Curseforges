@@ -1,4 +1,3 @@
-// Shared settings and item tables.
 import { MINING_OPTIONS } from "../mining-options.js";
 
 export const LOG_PREFIX = "[Vanilla QoL]";

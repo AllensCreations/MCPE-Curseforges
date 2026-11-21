@@ -1,4 +1,3 @@
-// Scoring of tools by tier, enchantments and durability.
 import { CONFIG } from "./config.js";
 import { ToolCategory } from "./tool-categories.js";
 import { normalizeId } from "./utils.js";

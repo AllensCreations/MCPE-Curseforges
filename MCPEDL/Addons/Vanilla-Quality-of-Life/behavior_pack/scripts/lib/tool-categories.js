@@ -1,4 +1,3 @@
-// Which tool type each block needs.
 import { normalizeId } from "./utils.js";
 
 export const ToolCategory = {

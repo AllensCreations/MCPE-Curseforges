@@ -1,4 +1,3 @@
-// Tree Capitator.
 import { addGroupedDrop, removeBlockAt, spawnGroupedDrops } from "./blocks.js";
 import { CONFIG } from "./config.js";
 import { applyToolDurabilityDamage, checkToolSafety, notifyToolProtection, notifyTreeTooLarge } from "./durability.js";

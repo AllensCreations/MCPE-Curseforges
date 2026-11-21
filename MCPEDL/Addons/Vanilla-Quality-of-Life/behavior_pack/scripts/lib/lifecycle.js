@@ -1,4 +1,3 @@
-// Player leave cleanup, startup tasks and the startup log.
 import { world, system, BlockPermutation } from "@minecraft/server";
 import { CONFIG, LOG_PREFIX } from "./config.js";
 import { clearPlacedLight, isLightBlock, markLightsCleaned, persistLights } from "./light.js";

@@ -1,4 +1,3 @@
-// Moving held light.
 import { world, EquipmentSlot, BlockPermutation } from "@minecraft/server";
 import { LIGHT_LEVELS } from "./config.js";
 import { getQolState, qolPlayerState } from "./state.js";

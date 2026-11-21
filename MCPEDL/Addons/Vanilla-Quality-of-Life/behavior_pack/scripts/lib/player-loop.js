@@ -1,4 +1,3 @@
-// Per-tick loop for double-sneak swap and held light.
 import { world, system } from "@minecraft/server";
 import { CONFIG } from "./config.js";
 import { updatePlayerLight } from "./light.js";

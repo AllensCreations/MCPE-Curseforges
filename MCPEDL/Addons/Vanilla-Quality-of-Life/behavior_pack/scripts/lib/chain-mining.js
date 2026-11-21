@@ -1,4 +1,3 @@
-// Break-block handler that starts Tree Capitator and Domino Ore Miner.
 import { world, system } from "@minecraft/server";
 import { MINING_OPTIONS } from "../mining-options.js";
 import { CONFIG } from "./config.js";

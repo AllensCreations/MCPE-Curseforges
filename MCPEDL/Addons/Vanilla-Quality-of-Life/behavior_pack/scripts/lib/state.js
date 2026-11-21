@@ -1,4 +1,3 @@
-// Per-player runtime state shared between modules.
 
 
 export const qolPlayerState = new Map();

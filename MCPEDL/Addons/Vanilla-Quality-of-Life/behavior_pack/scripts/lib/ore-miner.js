@@ -1,4 +1,3 @@
-// Domino Ore Miner.
 import { addGroupedDrop, removeBlockAt, spawnGroupedDrops } from "./blocks.js";
 import { CONFIG } from "./config.js";
 import { applyToolDurabilityDamage, checkToolSafety, notifyToolProtection } from "./durability.js";

@@ -1,4 +1,3 @@
-// Auto-switch: moving the best tool into Slot 1 and back.
 import { system } from "@minecraft/server";
 import { CONFIG } from "./config.js";
 import { chainPauseUntil, lastSwap, pendingSwaps, swapBack } from "./state.js";

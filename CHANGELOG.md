@@ -31,6 +31,12 @@
 
 ---
 
+## [v199] - 2026-11-21 - Spider Model Fix
+
+### Fixed
+
+- **Spider and Cave Spider**: They no longer replace the game's own models, which fixes the animation and model errors.
+
 ## 2026-11-21 - New Addon ALN PortalDoors
 
 ### Added

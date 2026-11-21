@@ -1,11 +1,9 @@
-// Leaf clearing after Tree Capitator.
 import { CONFIG } from "./config.js";
 import { addGroupedDrop, removeBlockAt, spawnGroupedDrops } from "./blocks.js";
 import { isGameMode } from "./utils.js";
 
 const NEIGHBORS = [[1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1]];
 
-// Chance per cleared leaf. Sticks are shared by every tree.
 const LEAF_LOOT = {
   oak: { sapling: 0.05, apple: 0.005 },
   dark_oak: { sapling: 0.05, apple: 0.005 },
@@ -85,7 +83,6 @@ export function clearTreeLeaves(player, dimension, logPositions, species, isTree
   }
   if (found.size === 0) return;
 
-  // Leaves that still hang on another log of the same wood stay, so neighbouring trees are safe.
   const keep = new Set();
   let seeds = [];
   for (const [key, pos] of found) {

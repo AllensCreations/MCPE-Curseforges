@@ -1,4 +1,3 @@
-// Offhand quick-swap (sneak + use in the air).
 import { world, system, EquipmentSlot } from "@minecraft/server";
 import { CONFIG, SUPPORTED_OFFHAND_ITEMS } from "./config.js";
 import { getQolState } from "./state.js";

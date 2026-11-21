@@ -1,4 +1,3 @@
-// Sapling replanting after Tree Capitator.
 import { BlockPermutation } from "@minecraft/server";
 import { CONFIG } from "./config.js";
 import { getContainer, isGameMode } from "./utils.js";
