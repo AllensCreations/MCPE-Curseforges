@@ -234,7 +234,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (700 lines, 38542 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (693 lines, 38105 bytes)
 
 ```
 import { world, system, ItemStack, ItemTypes } from "@minecraft/server";
@@ -679,19 +679,12 @@ function marketMain(player) {
     .button("Nether", CATEGORIES[8].icon)
     .button("Endgame", CATEGORIES[9].icon)
     .button("Sell Eligible Items", "textures/items/gold_ingot")
-    .button("Balance & Progress", "textures/items/emerald")
     .button("ℹ About", "textures/ui/icon_recipe_nature");
   showForm(form, player).then(r => {
     if (r.canceled) return;
     if (r.selection < CATEGORIES.length) return showCategory(player, CATEGORIES[r.selection].name);
     if (r.selection === CATEGORIES.length) return sellEligible(player);
-    if (r.selection === CATEGORIES.length + 1) {
-      const next = MILESTONES.find(m => m.unlock > personalBreaks(player));
-      player.onScreenDisplay.setActionBar("§6Coins: §e" + balance(player) + " §8| §7Breaks: §f" + personalBreaks(player) +
-        (next ? " §8| §7Next tier: §f" + next.unlock : " §8| §aAll tiers unlocked"));
-      showBalance(player);
-    }
-    if (r.selection === CATEGORIES.length + 2) return showAbout(player);
+    if (r.selection === CATEGORIES.length + 1) return showAbout(player);
   }).catch(e => { logError("marketMain", e); tell(player, "The market menu could not open. Try using the Ledger again."); });
 }
 
@@ -938,7 +931,7 @@ system.runInterval(() => {
 }, 20);
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (124 lines, 7768 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (125 lines, 7897 bytes)
 
 ```
 # Changelog — OneBlock Natural Market
@@ -952,6 +945,7 @@ system.runInterval(() => {
 - The Ledger now comes back when you free an inventory slot. Before, a dropped Ledger could be deleted while your inventory was full, and a Ledger that could not be given at join was only retried when you rejoined.
 - Fixed missing market icons for Magma Block and Conduit.
 - Fixed the missing Redstone category icon.
+- Removed the "Balance & Progress" button, which never displayed its message. Coins, breaks and tier are shown in the menu text.
 
 ## [14.0.1] - 2026-11-21 - Startup Crash Fix
 
