@@ -31,6 +31,14 @@
 
 ---
 
+## [v204] - 2026-11-21 - Overhaul: Duplicates, Stray Files, CI
+
+- Removed stray files from the repo root (three old update `.sh` files, `descriptions.zip`) and the duplicate `tests/test_crafting_template.py` (same file as `scripts/`).
+- CI now runs every `scripts/test_*.py` automatically and fails when `docs/` is out of date (`build_context7_docs.py --check`).
+- Context7 rules page no longer repeats the lines `PACK_GENERATOR_INSTRUCTIONS.md` copies from `INSTRUCTIONS.md` (about 13 KB smaller, no double answers).
+- Removed unused imports in three scripts; `tests/output/` is ignored by git.
+- Open: `MCPEDL/Maps/Oneblock-SM/DESCRIPTION.md` has no Overview and Features sections (needs real text).
+
 ## [v203] - 2026-11-21 - Forced Author and Add-on Type, MCicons Index
 
 - Every manifest now MUST have `metadata.authors` = `["ALNStudios"]` and `metadata.product_type` = `"addon"`: `manifest_tools.ensure_metadata` forces both during the build and `validate_manifest_titles.py` reports a miss. The rule notes that product_type does not guarantee achievements from game 26.50.

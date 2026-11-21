@@ -17,13 +17,10 @@ Images: drop files into <pack>/assets/snapshots (screenshots, GIFs), <pack>/asse
 
 Run: python3 scripts/build_listing_kits.py --all | --project MCPEDL/Addons/<n> [--check]
 """
-import argparse
 import hashlib
 import html
 import json
 import re
-import sys
-import zlib
 from pathlib import Path
 from urllib.parse import quote
 

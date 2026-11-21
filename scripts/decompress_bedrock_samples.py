@@ -9,7 +9,6 @@ Usage:
 import argparse
 import gzip
 import json
-import os
 import sys
 from pathlib import Path
 

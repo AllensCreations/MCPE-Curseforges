@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Test for scripts/lib/crafting_template.py and scripts/CRAFTING_TABLE.svg.
 
-Run: python tests/test_crafting_template.py
+Run: python scripts/test_crafting_template.py
 Writes sample images to tests/output/ (not committed; the workflow uploads them).
 """
 from pathlib import Path

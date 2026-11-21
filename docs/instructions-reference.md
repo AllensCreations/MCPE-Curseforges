@@ -1,5 +1,5 @@
 # Instructions Reference (copy)
-Copy of the repo's three rule files, text unchanged. Source of truth: the files in the repository root. Rebuilt by `python3 scripts/build_context7_docs.py`.
+Copy of the repo's three rule files. PACK_GENERATOR_INSTRUCTIONS.md repeats many INSTRUCTIONS.md lines word for word; those repeated lines are left out of its copy here (marked) so a lookup does not return the same rule twice. Source of truth: the files in the repository root. Rebuilt by `python3 scripts/build_context7_docs.py`.
 Context7 usage: `INSTRUCTIONS.md`, `DOCS_RULES.md`, `PACK_GENERATOR_INSTRUCTIONS.md` are all in this page; look here instead of the repository root.
 
 
@@ -550,114 +550,73 @@ Order of work: read Part 1 (incl. 1.16), `DOCS_RULES.md`, then Part 4 from 4.0. 
 ## Part 1 (excerpt): Core Policy
 
 ### 1.1 Accuracy
-- ALWAYS inspect source files before claims. Ask only if an unresolved choice affects gameplay, compatibility, distribution, data loss, or versioning. Else use defaults.
-- NEVER invent features, versions, links, assets, test results, compatibility, achievement support, performance, platform behavior. Separate verified facts from assumptions.
-- NEVER claim in-game test/function run/gameplay result unless tested in Minecraft. Archive/JSON/syntax checks prove structure only.
-- Source priority (report disagreements, NEVER choose silently). Read sources 2, 3 and 5 through Context7 (1.16): 1 add-on's own files; 1b MCicons release file `reference/mcicons/mcicons-<ver>.tgz` (NOT in Context7; vanilla item and block icons, use it first for any icon); 2 Mojang Bedrock Samples (`/mojang/bedrock-samples`; offline copy reference/bedrock-samples/bedrock-samples.min.json.gz): vanilla ids, textures, recipes, components, formats;
- 3 Minecraft Creator Docs (`/microsoftdocs/minecraft-creator`): stable versions, API; 4 Minecraft Wiki (https://minecraft.wiki/, not in Context7, only through a web tool when one exists): display names, edition, icon look; 5 Bedrock Wiki (`/websites/wiki_bedrock_dev`): formats, techniques. Sources 4-5 NEVER override 1-3 on ids, versions, API.
-- NEVER comments in shipped `.js`, `.mcfunction`, `.json`. Explanations go in docs or handoff.
+<!-- 6 line(s) identical to INSTRUCTIONS.md omitted -->
 - NEVER imply Mojang/Microsoft endorsement.
-- `.sh` names: `(Repofilename)_(Version)_(Rand).sh`. Repofilename = project/folder/file changed, no extension, no spaces (hyphens). Version = new `vX` (e.g. `v2`, or legacy `X.Y.Z`), instruction version (`v5`) or repo version (`v80`). Rand = >=5 random lowercase/digits, fresh each time (`head -c 200 /dev/urandom | tr -dc 'a-z0-9' | head -c 6`), NEVER reused. Example `Dirtbound_v2_k7q2x.sh`. Same name in reply and run command.
+<!-- 1 line(s) identical to INSTRUCTIONS.md omitted -->
 
 
 ### 1.2 Versions and Compatibility
 Latest stable:
-- ALWAYS look up latest stable Bedrock release and Script API module versions at time of work. Record date. NEVER trust numbers in this file or memory.
-- Refs: Context7 `/microsoftdocs/minecraft-creator` (Script API versioning, `@minecraft/server` and `@minecraft/server-ui` stable references, platform version guidance), queried per 1.16. Community wikis NEVER pick versions or confirm API.
-- Pick highest stable module version supported by target game and every dependency (check peers). NEVER preview/beta/RC unless a requested feature needs it; then disclose in docs and handoff.
+<!-- 3 line(s) identical to INSTRUCTIONS.md omitted -->
 - Game version and module version are separate. NEVER infer one from the other.
 
 Engine:
-- `min_engine_version` = lowest game version the pack needs. 3-integer array in the manifest form `[1, RELEASE, PATCH]`: game 26.60 = `[1, 26, 60]`, NEVER `[26, 60, 0]` (Minecraft rejects it and caps at the highest released version). Real looked-up value, NEVER `[0,0,0]`. NEVER hardcode a minimum in docs; a documented minimum uses the same form (`1.26.60`).
-- Manifest `format_version` = 2. Item/block `format_version` NEVER newer than `min_engine_version`.
+<!-- 2 line(s) identical to INSTRUCTIONS.md omitted -->
 - Compatibility line states only a verified minimum. NEVER "or newer" unverified.
-- Updating old pack: ALWAYS keep UUIDs, persistent ids, working behavior. Upgrade deps deliberately. Raising `min_engine_version` drops players: say so in CHANGELOG.
+<!-- 1 line(s) identical to INSTRUCTIONS.md omitted -->
 
 Achievements/experiments (every new pack, meaningful update):
-- ALWAYS inspect manifests, deps, stable-vs-preview imports, JSON, components, scripts, functions, world settings. Confirm experiment needs against current docs, NEVER keyword match. Stable Script API alone != experiment or achievements disabled.
+<!-- 1 line(s) identical to INSTRUCTIONS.md omitted -->
 - Pack files NEVER establish an existing world's settings.
 - Nothing found: write "No experiment requirement detected in the inspected files."
 - Prefer stable implementation. NEVER silently weaken a feature to dodge an experiment.
-- Status: Add-ons (`MCPEDL/Addons/`) = ALWAYS `Likely achievement-friendly` (add-ons are achievement-friendly by Mojang's rules; keep cheat/world caveats). Other types: Likely achievement-friendly | Not achievement-friendly / may disable achievements | Unknown / needs confirmation.
-- Admin commands (`give_controller`, `end_game`, setup functions) = optional recovery tools. Cheats disable achievements in that world: say so wherever documented.
+<!-- 2 line(s) identical to INSTRUCTIONS.md omitted -->
 - Handoff: achievement status, experiments (none/required name/unknown), evidence, scope.
 
 Implementation:
 1. ALWAYS inspect manifest, entry points, imports, structure first.
 2. Confirm each API member exists in the chosen stable module version.
-3. Prefer event-driven logic. NEVER per-tick polling, broad entity searches, expensive block scans without need.
+<!-- 1 line(s) identical to INSTRUCTIONS.md omitted -->
 4. Vanilla JSON components and `.mcfunction` when simpler. Script API when needed.
 5. Fix obvious malformed files.
-6. Handoff records: target game version, `min_engine_version`, module versions, preview/experimental needs, references + date, verification status (source created | package built | in-game tested, NEVER mixed).
+<!-- 1 line(s) identical to INSTRUCTIONS.md omitted -->
 
 ### 1.3 Version Format and Manifests
-- Version = `vX` format (single whole number, e.g. `v2`, `v3`; Bedrock `header.version` maps to `[X, 0, 0]`; legacy `X.Y.Z` supported). NEVER `X.Y.Z.A`. No fourth part, no Alpha. Same version in `metadata.version`, `(vX)` titles, changelog headings, package names, README links, snapshots.
-- Update: X+1 (v1 -> v2, v2 -> v3; legacy 1.2.3 converts to v2). Manifest title suffix equals version (e.g. `(v2)`).
-- Manifest title = `Add-on Name (vX)` (e.g. `Vanilla Quality of Life (v2)`). Exactly one terminal suffix, equals `header.version` (or major integer), BP/RP match. NEVER duplicate suffixes. `scripts/validate_manifest_titles.py [--project <path>]` fails the job on violation (also notes non-fail: format_version != 2, missing/zero `min_engine_version`, missing `metadata.authors`).
+<!-- 3 line(s) identical to INSTRUCTIONS.md omitted -->
 
 - `header.description` contains `by ALNStudios` exactly once. NEVER attribution in title.
-- NEVER change pack UUIDs or world storage keys to rename a title. NEVER regenerate header UUIDs (breaks worlds).
-- Build sync: every processed project aligns all source manifests to one highest `X.Y.Z`: `header.version`, `metadata.version`, title suffix, module versions, same-project BP/RP deps. FORCES `metadata.authors` = `["ALNStudios"]` and `metadata.product_type` = `"addon"` in EVERY BP and RP manifest (new packs, updates, builds; NEVER another author or type), optional `metadata.license`. `product_type` is metadata only: the Bedrock Wiki says worlds with `"addon"` packs stopped keeping achievements enabled in 26.50 (MCPE-242529), so NEVER claim it guarantees achievements.
-- Snapshots: `builds/<pack>/versions/V<X.Y.Z>/` (packages, `source.zip`, `source.sha256`, `build_info.json`). Refreshed when source/packages differ. Last 5 kept.
-- NOTHING auto-bumps. The new version is written in CHANGELOG.md AND, in the same update script, into every source manifest with `python3 scripts/manifest_tools.py --project <path> --set vX` (header.version, metadata.version, title suffix, module and dependency versions; UUIDs untouched; never lowers)
-, so every update changes the build. Publish to CurseForge uploads the newest changelog version as written and groups every entry since the last publish. The passive build (`Build Changed Packs & Sync Catalogs`) aligns each pack to its highest existing version and rebuilds. `--bump` / `AUTO_BUMP_MANIFEST=true` remain in `scripts/auto_bump_and_build.py` for manual use only.
-- Package name: **`(<Shortcut> VX.<ext>)`** (example **`(MiningHelmet V1.mcaddon)`**, or legacy **`(<Shortcut> VX.Y.Z.<ext>)`**). Always format name references in bold with parentheses. Shortcut = short, letters and digits only (NEVER `-`, `_`, spaces, `by ALNStudios`), close to the add-on name, kept in `scripts/pack_shortcuts.json` by project folder (fallback: folder name joined). Custom via `metadata.package_filename` or `PACK_FILENAME_TEMPLATE`; MUST contain `V{version}` and no parenthesis in the file name itself, else the default is used. CurseForge upload copy uses the same name. `python3 scripts/rename_packages.py --check|--apply` renames old packages and repairs references.
-- Creator name `ALNStudios`. `python3 scripts/rename_brand.py --apply` migrates old name. NEVER rename lowercase namespaces (`allenscreations:`).
-- Tools: `python3 scripts/manifest_tools.py --project <path> --check|--align|--bump` (`--all --check`). `sync_manifest_versions.py`: deps and `min_engine_version` maintenance; set `min_engine_version` by hand after lookup. `sync_project_docs.py` NOT in build: edit DESCRIPTION/CHANGELOG deliberately. `sync_readme_links.py [--check]` repairs README links (runs after every build).
-- LOCK: every `MCPEDL/Addons/` project has `LOCK` at root starting `ALNStudios Add-on Lock v1`. Importer creates it, build enforces it. Missing/invalid = release-blocking: report path, NEVER call build-ready. Safeguard only, not encryption.
+<!-- 9 line(s) identical to INSTRUCTIONS.md omitted -->
 
 ### 1.4 Recipe Unlock
-- ALWAYS unlock every custom crafting recipe by default. Shaped = object `"unlock": { "context": "AlwaysUnlocked" }`. Shapeless = array `"unlock": [{ "context": "AlwaysUnlocked" }]`. NEVER mix forms in one recipe. Validators accept either; generator writes these.
-- Covers `minecraft:recipe_shaped`, `minecraft:recipe_shapeless` only. NEVER add `unlock` to furnace/brewing/smithing/other unless Samples shows support.
+<!-- 2 line(s) identical to INSTRUCTIONS.md omitted -->
 - Validators parse JSON and check `unlock` key. NEVER text search for `AlwaysUnlocked`.
-- NEVER change ingredients, result, count, station/tags, shaped/shapeless structure. NEVER rely on recipe-book discovery unless asked.
+<!-- 1 line(s) identical to INSTRUCTIONS.md omitted -->
 - Applies to all new recipes and any recipe touched. Check type against Samples first.
 
 ### 1.6 Function Files
 Paths from repo root. A function file existing != it runs.
-- Functions: `<project>/behavior_pack/functions/<name>.mcfunction`. Tick: `functions/tick.json` `values` = names without suffix (`oneblock_tick`).
-- Before delivery: 1 inspect real manifest, functions, `tick.json`, install steps, report paths; 2 `tick.json` valid, right dir, names existing function; 3 check syntax, ids, coordinates, deps (scoreboards). NEVER make a score-dependent command the only initial-block path unless init guaranteed; 4 validate JSON and `node --check` JS directly (project scripts run in the `.sh`), state what passed; 5 custom item delivered but block missing: diagnose item delivery and function execution separately (pack activation, world links, tick registration, name/path, command errors) BEFORE fallbacks or version bump.
+<!-- 2 line(s) identical to INSTRUCTIONS.md omitted -->
 - NEVER claim `tick.json` missing without inspecting installed/packaged copy.
 
 ### 1.10 Review and Security
-AI payloads = untrusted until a person reviews. Human PR review is the real safeguard; checks reduce risk, NEVER prove safety.
-- ALWAYS review `behavior_pack/scripts/` and every `.mcfunction` in the PR before merge. `direct` commit only for a payload you made and checked. PR mode needs "Allow GitHub Actions to create and approve pull requests".
-- `build_payload.py` enforces: imports only `@minecraft/server`, `@minecraft/server-ui`, `@minecraft/vanilla-data`, relative files; `eval`/`Function` rejected; every `.js` passes `node --check`. Limits: eval test is a text pattern (misses `globalThis["ev"+"al"]`, aliasing, `import(variable)`). Reviewers MUST read scripts.
-- UUIDs unique across `MCPEDL/` (own folder excluded). `min_engine_version` = real looked-up version.
+<!-- 4 line(s) identical to INSTRUCTIONS.md omitted -->
 - NEVER `${{ inputs.* }}` or step outputs inside `run:`. Pass via `env:`, quote.
 - Docs MUST pass `build_payload.py` `DOC:` checks (failures, not warnings).
 
 ### 1.11 Known Untested Assumptions
 Open until confirmed in game. NEVER state as fact in docs.
-1. Void cleaner: Y=-64 fill succeeds for a player spawning in a fresh void world; conditional tag (Dirtbound `SPEC.md`) retries correctly.
-2. World host reports as Operator via `playerPermissionLevel` with cheats off (Controller reaches host on achievement-eligible world).
-3. `isOp()` absent in 2.x `@minecraft/server` (Controller uses a helper). Re-check on every module bump.
+<!-- 3 line(s) identical to INSTRUCTIONS.md omitted -->
 4. Controller behavior across rejoin, death, reload. Tested only with mocked modules.
-5. Shipped functions and Controller do not disable achievements unless an admin command is run.
+<!-- 1 line(s) identical to INSTRUCTIONS.md omitted -->
 6. Experiment/achievement state of each `Mcpeworlds/` foundation.
 
 ### 1.15 Bedrock Developer Role and Trusted Sources
-- Role: expert Minecraft Bedrock Add-on and Script API developer. Build and maintain complete Behavior Packs, Resource Packs and Script API modules. Official NPM packages first (`@minecraft/server`, `@minecraft/server-ui`, `@minecraft/math`); on any error, deprecated API or version mismatch verify through the Context7 libraries below (1.16).
-- Structure: valid `manifest.json` (1.3), fresh v4 UUIDs for new packs only (NEVER regenerate existing ones), accurate module dependencies, clean JavaScript. NEVER ship TypeScript (`build_payload.py` allows only `.js`). `@minecraft/math` is NOT in `ALLOWED_MODULES` of `build_payload.py` (1.10): NEVER import or depend on it in a payload until the allow-list lists it; use plain JavaScript vector math and say so in the handoff.
-- Assets: binary PNGs live in the Resource Pack `textures/` folder, registered by JSON (`textures/item_texture.json`, `textures/terrain_texture.json`), NEVER mixed with the registration files. Recipes reference vanilla item identifiers directly. NEVER duplicate vanilla PNGs unless needed as templates.
-- Trusted sources (rely strictly and exclusively on these four Context7 libraries, queried per 1.16; NEVER invent API methods, outdated syntax or item ids): `/microsoftdocs/minecraft-creator` (Script API, `@minecraft/server`, `@minecraft/server-ui`, JSON schemas, versions); `/mojang/bedrock-samples` (vanilla textures, recipes, entities, definitions, formats); `/websites/wiki_bedrock_dev` (manifest structure, techniques); `/allenscreations/mcpe-curseforges` (this repo's rules and scripts). No other library, site or package page is a source. Priority and disagreements follow 1.1: report, NEVER choose silently.
-- Failure (script does not load, texture does not render, syntax changed in a newer update): query the Context7 libraries above (1.16) for the exact updated syntax, manifest dependency versions, valid vanilla identifiers and working patterns BEFORE rewriting code.
-- Output: complete ready-to-use files with exact repo-root-relative paths, delivered ONLY as the single `.sh` and reply format above (Reply Format, Termux Script Rules).
+<!-- 6 line(s) identical to INSTRUCTIONS.md omitted -->
 
 ### 1.16 Documentation Lookup (Context7 MCP)
-Docs, API, vanilla data and repo files are read with the Context7 MCP tool `query-docs`. NEVER by pasted URL, NEVER from memory. Applies to every addon, map, script, minigame, update and docs task.
-- Libraries: ONLY these four, IDs passed exactly. NEVER call `resolve-library-id`, NEVER query any other library.
-  - `/mojang/bedrock-samples`: vanilla ids, textures, recipes, components, entities, formats, `version.json` (1.1 priority 2).
-  - `/microsoftdocs/minecraft-creator`: `@minecraft/server` and `@minecraft/server-ui` API, JSON schemas, stable and module versions (1.1 priority 3).
-  - `/websites/wiki_bedrock_dev`: manifest structure, scripting guides, techniques (1.1 priority 5).
-  - `/allenscreations/mcpe-curseforges`: this repo's rules, script summaries and Bedrock guide, indexed ONLY from `docs/` (`docs/instructions-reference.md`, `docs/scripts-and-workflows.md`, `docs/bedrock-guide.md`).
-- Before ANY code, manifest, JSON, `.mcfunction`, recipe, version or doc fact: query first, write second. Batch: at most ONE `query-docs` call per needed `libraryId` (several topics together in that call), all calls in one parallel turn. NEVER several calls to the same `libraryId`, NEVER sequential retry loops. Name the exact member, file, id or schema and the module or game version (e.g. `ItemStack constructor @minecraft/server`, `recipe_shaped format`).
-- Verify every import, class, method, property, event, enum, component and JSON field against the retrieved text before using it. NEVER guess. NEVER outdated syntax: the `mojang-minecraft` modules, `world.events`, 1.x-era imports.
-- Empty or doubtful result: do NOT query again. Say "not verified" (1.2), NEVER fill the gap from memory. Results that disagree with each other: report per 1.1.
-- Context7 is an index and can lag the game. Versions come from the retrieved text only, with the query date. A result that does not state the latest stable version = "not verified". Preview/beta members only as 1.2 allows.
-- Repo files: `/allenscreations/mcpe-curseforges` is the repo as last indexed. A file attached in the conversation (e.g. `tools.txt`) or read from a clone wins; tell the user about any difference. Scripts that must run (`build_payload.py`, `doc_template.py`, `import_project_payload.py`, `make_pack_script.py`, `pixel_json_to_png.py`) need the COMPLETE unchanged text: a snippet is not enough. Incomplete: ask the user to attach `tools.txt`, NEVER rewrite from memory.
+<!-- 11 line(s) identical to INSTRUCTIONS.md omitted -->
 - Handoff: one bullet `Docs queried (YYYY-MM-DD): <library IDs and topics>`.
-- NEVER put library IDs, query text or the word Context7 in shipped files or player-facing docs (2.2).
+<!-- 1 line(s) identical to INSTRUCTIONS.md omitted -->
 
 ---
 

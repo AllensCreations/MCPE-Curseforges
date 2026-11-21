@@ -6,7 +6,6 @@ It writes no files. scripts/build_listing_kits.py calls it and puts the prompts 
 
 Run: python3 scripts/build_listing_kits.py --all | --project MCPEDL/Addons/<n> [--check]
 """
-import argparse
 import hashlib
 import json
 import re

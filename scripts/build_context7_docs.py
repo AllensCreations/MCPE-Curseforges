@@ -2,7 +2,7 @@
 """Regenerate the generated Context7 pages in docs/ from the repo's own files.
 
 docs/ is the ONLY folder Context7 indexes (context7.json). Two pages are copies and are rebuilt here:
-  docs/instructions-reference.md   INSTRUCTIONS.md + DOCS_RULES.md + PACK_GENERATOR_INSTRUCTIONS.md, unchanged text
+  docs/instructions-reference.md   INSTRUCTIONS.md + DOCS_RULES.md + PACK_GENERATOR_INSTRUCTIONS.md (lines the generator repeats from INSTRUCTIONS.md are omitted)
   docs/scripts-and-workflows.md    one summary per script (module docstring) and per workflow, plus key snippets
 docs/bedrock-guide.md is written by hand and is never touched.
 
@@ -20,14 +20,35 @@ SOURCES = ["INSTRUCTIONS.md", "DOCS_RULES.md", "PACK_GENERATOR_INSTRUCTIONS.md"]
 SNIPPETS = ["apply_update.py", "make_update_script.py"]
 
 
+def drop_repeats(text, base):
+    """Replace each run of lines that appear word for word in INSTRUCTIONS.md with one marker line."""
+    out, run = [], 0
+    for line in text.split("\n"):
+        if len(line.strip()) > 90 and line.strip() in base:
+            run += 1
+            continue
+        if run:
+            out.append(f"<!-- {run} line(s) identical to INSTRUCTIONS.md omitted -->")
+            run = 0
+        out.append(line)
+    if run:
+        out.append(f"<!-- {run} line(s) identical to INSTRUCTIONS.md omitted -->")
+    return "\n".join(out)
+
+
 def instructions_page():
     out = ["# Instructions Reference (copy)\n",
-           "Copy of the repo's three rule files, text unchanged. Source of truth: the files in the repository root. "
+           "Copy of the repo's three rule files. PACK_GENERATOR_INSTRUCTIONS.md repeats many INSTRUCTIONS.md lines word for word; "
+           "those repeated lines are left out of its copy here (marked) so a lookup does not return the same rule twice. "
+           "Source of truth: the files in the repository root. "
            "Rebuilt by `python3 scripts/build_context7_docs.py`.\n",
            "Context7 usage: " + ", ".join(f"`{s}`" for s in SOURCES) + " are all in this page; "
            "look here instead of the repository root.\n"]
+    base = {l.strip() for l in (ROOT / "INSTRUCTIONS.md").read_text(encoding="utf-8").split("\n") if len(l.strip()) > 90}
     for s in SOURCES:
         text = (ROOT / s).read_text(encoding="utf-8").rstrip("\n")
+        if s == "PACK_GENERATOR_INSTRUCTIONS.md":
+            text = drop_repeats(text, base)
         out.append(f"\n\n<!-- BEGIN {s} -->\n\n{text}\n\n<!-- END {s} -->\n")
     return "".join(out)
 

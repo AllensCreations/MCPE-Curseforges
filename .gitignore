@@ -10,3 +10,4 @@ graphify-out/
 __pycache__/
 *.pyc
 
+tests/output/
