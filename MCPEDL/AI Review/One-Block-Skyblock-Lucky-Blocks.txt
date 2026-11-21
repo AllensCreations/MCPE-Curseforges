@@ -18,7 +18,7 @@
 - **Destination:** `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks`
 - **CURRENT VERSION: v7 / NEXT UPDATE: v8**  (`MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/CHANGELOG.md`)
 - **Text files:** 27
-- **Skipped binary:** 24
+- **Skipped binary:** 26
 - **Paths not found:** 0
 
 ### Files in this export
@@ -56,6 +56,8 @@
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/One Block Skyblock Lucky Blocks - Creative.mcworld`
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/One Block Skyblock Lucky Blocks - Hardcore.mcworld`
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/One Block Skyblock Lucky Blocks - Survival.mcworld`
+- `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/pack_icon.png`
+- `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/resource_pack/pack_icon.png`
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/resource_pack/textures/blocks/lucky_block_bottom.png`
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/resource_pack/textures/blocks/lucky_block_side.png`
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/resource_pack/textures/blocks/lucky_block_top.png`
