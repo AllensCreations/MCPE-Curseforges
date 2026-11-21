@@ -1253,7 +1253,7 @@ Download the current release of **OneBlock Natural Market** for Minecraft Bedroc
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Natural-Market/DESCRIPTION.md).
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/manifest.json (37 lines, 633 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/manifest.json (37 lines, 637 bytes)
 
 ```
 {
@@ -1286,7 +1286,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
   ],
   "metadata": {
     "authors": [
-      "ALNStudios"
+      "ALNStudios T-T"
     ],
     "product_type": "addon",
     "version": "16.0.1"
