@@ -2,7 +2,7 @@
   "changelog_version": "3.0.0",
   "manifest_version": "3.0.0",
   "packages": {
-    "ALNMobStacker V3.mcpack": "cf9544e646934aa44737f8d766819fbf6bf104079ae09e37bdf0eba01bc9a4ba"
+    "ALNMobStacker V3.mcpack": "e8aed206bfd8e07db756cd81e55753946fd210c5e828ee74fdedf2f2e4e69c88"
   },
-  "source_sha256": "d299aa02dad475aa5cf7795fc03a601b6c3db9c9135a6af963f7da08a1a0b840"
+  "source_sha256": "f23b1c4684ee83d7bf5d9a90667c855001f71acb74db9a57a98d13d929a38793"
 }
