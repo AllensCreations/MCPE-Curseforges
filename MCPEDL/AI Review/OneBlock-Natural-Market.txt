@@ -18,7 +18,7 @@
 - **Destination:** `MCPEDL/Maps/OneBlock-Natural-Market`
 - **CURRENT VERSION: v16 / NEXT UPDATE: v17**  (`MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md`)
 - **Text files:** 15
-- **Skipped binary:** 11
+- **Skipped binary:** 17
 - **Paths not found:** 0
 
 ### Files in this export
@@ -44,6 +44,12 @@
 - `MCPEDL/Maps/OneBlock-Natural-Market/OneBlock Natural Market - Creative.mcworld`
 - `MCPEDL/Maps/OneBlock-Natural-Market/OneBlock Natural Market - Hardcore.mcworld`
 - `MCPEDL/Maps/OneBlock-Natural-Market/OneBlock Natural Market - Survival.mcworld`
+- `MCPEDL/Maps/OneBlock-Natural-Market/assets/snapshots/BUILDING BLOCKS.jpg`
+- `MCPEDL/Maps/OneBlock-Natural-Market/assets/snapshots/COMBAT.jpg`
+- `MCPEDL/Maps/OneBlock-Natural-Market/assets/snapshots/FARMING.jpg`
+- `MCPEDL/Maps/OneBlock-Natural-Market/assets/snapshots/FOODS.jpg`
+- `MCPEDL/Maps/OneBlock-Natural-Market/assets/snapshots/MAIN MENU.jpg`
+- `MCPEDL/Maps/OneBlock-Natural-Market/assets/snapshots/TOOLS & GEARS.jpg`
 - `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/pack_icon.png`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/pack_icon.png`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/items/trader_ledger.png`
