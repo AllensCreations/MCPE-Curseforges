@@ -16,8 +16,8 @@
 
 - **Export request:** `MCPEDL/Addons/Vanilla-Quality-of-Life`
 - **Destination:** `MCPEDL/Addons/Vanilla-Quality-of-Life`
-- **CURRENT VERSION: v8 / NEXT UPDATE: v9**  (`MCPEDL/Addons/Vanilla-Quality-of-Life/CHANGELOG.md`)
-- **Text files:** 464
+- **CURRENT VERSION: v9 / NEXT UPDATE: v10**  (`MCPEDL/Addons/Vanilla-Quality-of-Life/CHANGELOG.md`)
+- **Text files:** 462
 - **Skipped binary:** 5
 - **Paths not found:** 0
 
@@ -482,8 +482,6 @@
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/DESCRIPTION.md`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/IMAGE_PROMPTS.md`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/README.md`
-- `MCPEDL/Addons/Vanilla-Quality-of-Life/resource_pack/entity/cave_spider.entity.json`
-- `MCPEDL/Addons/Vanilla-Quality-of-Life/resource_pack/entity/spider.entity.json`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/resource_pack/manifest.json`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/resource_pack/texts/en_US.lang`
 - `MCPEDL/Addons/Vanilla-Quality-of-Life/resource_pack/texts/languages.json`
@@ -505,7 +503,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v8 / NEXT UPDATE: v9).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v9 / NEXT UPDATE: v10).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -62385,11 +62383,11 @@ Output ONLY these three sections in order:
 {
   "format_version": 2,
   "header": {
-    "name": "Vanilla Quality of Life (v8)",
+    "name": "Vanilla Quality of Life (v9)",
     "description": "Comprehensive survival Quality of Life suite with dynamic light, offhand quick-swap, passive auto-switch tools, tree capitator, and domino ore miner. by ALNStudios",
     "uuid": "5461534c-a7c4-4c5b-9269-8be52d2b761b",
     "version": [
-      8,
+      9,
       0,
       0
     ],
@@ -62405,7 +62403,7 @@ Output ONLY these three sections in order:
       "type": "data",
       "uuid": "81382d42-b64c-4759-8c05-0e4e3e8436e8",
       "version": [
-        8,
+        9,
         0,
         0
       ]
@@ -62416,7 +62414,7 @@ Output ONLY these three sections in order:
       "language": "javascript",
       "uuid": "880944f5-3d04-401d-a5d5-011d89c969b6",
       "version": [
-        8,
+        9,
         0,
         0
       ],
@@ -62431,7 +62429,7 @@ Output ONLY these three sections in order:
     {
       "uuid": "fd036566-d0b1-4f92-9b28-9dd45a376d44",
       "version": [
-        8,
+        9,
         0,
         0
       ]
@@ -62442,7 +62440,7 @@ Output ONLY these three sections in order:
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "8.0.0"
+    "version": "9.0.0"
   },
   "subpacks": [
     {
@@ -72893,10 +72891,9 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/autoswitch.js (188 lines, 6252 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/autoswitch.js (187 lines, 6207 bytes)
 
 ```
-// Auto-switch event handlers and intervals.
 import { world, system } from "@minecraft/server";
 import { CONFIG } from "./config.js";
 import { clearPendingSwap, restoreSwappedItem, scheduleSwapRetry, switchPlayerSlot1Tool } from "./slot-switch.js";
@@ -73085,10 +73082,9 @@ system.runInterval(() => {
 }, 1);
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/blocks.js (53 lines, 1537 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/blocks.js (52 lines, 1489 bytes)
 
 ```
-// Direct block removal and grouped item drops.
 import { ItemStack, BlockPermutation } from "@minecraft/server";
 import { CONFIG } from "./config.js";
 
@@ -73142,10 +73138,9 @@ export function spawnGroupedDrops(dimension, drops) {
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/chain-mining.js (94 lines, 3334 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/chain-mining.js (93 lines, 3262 bytes)
 
 ```
-// Break-block handler that starts Tree Capitator and Domino Ore Miner.
 import { world, system } from "@minecraft/server";
 import { MINING_OPTIONS } from "../mining-options.js";
 import { CONFIG } from "./config.js";
@@ -73240,10 +73235,9 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
 });
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/config.js (88 lines, 2110 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/config.js (87 lines, 2074 bytes)
 
 ```
-// Shared settings and item tables.
 import { MINING_OPTIONS } from "../mining-options.js";
 
 export const LOG_PREFIX = "[Vanilla QoL]";
@@ -73332,10 +73326,9 @@ export const LIGHT_LEVELS = {
 };
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/durability.js (112 lines, 3603 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/durability.js (111 lines, 3555 bytes)
 
 ```
-// Tool durability protection for chain mining.
 import { system } from "@minecraft/server";
 import { CONFIG } from "./config.js";
 import { pendingToolDamage } from "./state.js";
@@ -73448,17 +73441,15 @@ export function notifyTreeTooLarge(player) {
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/leaves.js (121 lines, 3788 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/leaves.js (118 lines, 3590 bytes)
 
 ```
-// Leaf clearing after Tree Capitator.
 import { CONFIG } from "./config.js";
 import { addGroupedDrop, removeBlockAt, spawnGroupedDrops } from "./blocks.js";
 import { isGameMode } from "./utils.js";
 
 const NEIGHBORS = [[1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1]];
 
-// Chance per cleared leaf. Sticks are shared by every tree.
 const LEAF_LOOT = {
   oak: { sapling: 0.05, apple: 0.005 },
   dark_oak: { sapling: 0.05, apple: 0.005 },
@@ -73538,7 +73529,6 @@ export function clearTreeLeaves(player, dimension, logPositions, species, isTree
   }
   if (found.size === 0) return;
 
-  // Leaves that still hang on another log of the same wood stay, so neighbouring trees are safe.
   const keep = new Set();
   let seeds = [];
   for (const [key, pos] of found) {
@@ -73573,10 +73563,9 @@ export function clearTreeLeaves(player, dimension, logPositions, species, isTree
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/lifecycle.js (62 lines, 2434 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/lifecycle.js (61 lines, 2374 bytes)
 
 ```
-// Player leave cleanup, startup tasks and the startup log.
 import { world, system, BlockPermutation } from "@minecraft/server";
 import { CONFIG, LOG_PREFIX } from "./config.js";
 import { clearPlacedLight, isLightBlock, markLightsCleaned, persistLights } from "./light.js";
@@ -73639,10 +73628,9 @@ system.runTimeout(() => {
 console.warn(`${LOG_PREFIX} Initialized. Tree Capitator: ${CONFIG.TREE_CAPITATOR_ENABLED ? "ON" : "OFF"}; Vein Miner: ${CONFIG.DOMINO_ORE_MINER_ENABLED ? "ON" : "OFF"}.`);
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/light.js (170 lines, 4542 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/light.js (169 lines, 4520 bytes)
 
 ```
-// Moving held light.
 import { world, EquipmentSlot, BlockPermutation } from "@minecraft/server";
 import { LIGHT_LEVELS } from "./config.js";
 import { getQolState, qolPlayerState } from "./state.js";
@@ -73813,10 +73801,9 @@ export function markLightsCleaned() {
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/offhand.js (143 lines, 4260 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/offhand.js (142 lines, 4212 bytes)
 
 ```
-// Offhand quick-swap (sneak + use in the air).
 import { world, system, EquipmentSlot } from "@minecraft/server";
 import { CONFIG, SUPPORTED_OFFHAND_ITEMS } from "./config.js";
 import { getQolState } from "./state.js";
@@ -73960,10 +73947,9 @@ world.beforeEvents.itemUse.subscribe((event) => {
 });
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/ore-miner.js (248 lines, 9265 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/ore-miner.js (247 lines, 9244 bytes)
 
 ```
-// Domino Ore Miner.
 import { addGroupedDrop, removeBlockAt, spawnGroupedDrops } from "./blocks.js";
 import { CONFIG } from "./config.js";
 import { applyToolDurabilityDamage, checkToolSafety, notifyToolProtection } from "./durability.js";
@@ -74212,10 +74198,9 @@ export function executeDominoOreMiner(player, dimension, startLoc, startBlockId,
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/player-loop.js (60 lines, 1600 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/player-loop.js (59 lines, 1545 bytes)
 
 ```
-// Per-tick loop for double-sneak swap and held light.
 import { world, system } from "@minecraft/server";
 import { CONFIG } from "./config.js";
 import { updatePlayerLight } from "./light.js";
@@ -74301,10 +74286,9 @@ system.runInterval(() => {
 Useful switches in `config.js`: `REPLANT_SAPLINGS`, `REPLANT_REQUIRES_SAPLING`, `MAX_REPLANT_SPOTS`, `LEAF_CLEARING_ENABLED`, `LEAF_DROP_SCALE`, `APPLY_RANDOM_TICK_SPEED`, `RANDOM_TICK_SPEED`.
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/replant.js (83 lines, 2666 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/replant.js (82 lines, 2622 bytes)
 
 ```
-// Sapling replanting after Tree Capitator.
 import { BlockPermutation } from "@minecraft/server";
 import { CONFIG } from "./config.js";
 import { getContainer, isGameMode } from "./utils.js";
@@ -74388,10 +74372,9 @@ export function replantSaplings(player, dimension, startLoc, removed, species) {
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/slot-switch.js (116 lines, 4010 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/slot-switch.js (115 lines, 3951 bytes)
 
 ```
-// Auto-switch: moving the best tool into Slot 1 and back.
 import { system } from "@minecraft/server";
 import { CONFIG } from "./config.js";
 import { chainPauseUntil, lastSwap, pendingSwaps, swapBack } from "./state.js";
@@ -74508,10 +74491,9 @@ export function scheduleSwapRetry(player, category, blockTypeId) {
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/state.js (46 lines, 938 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/state.js (45 lines, 886 bytes)
 
 ```
-// Per-player runtime state shared between modules.
 
 export const qolPlayerState = new Map();
 
@@ -74557,10 +74539,9 @@ export const lastAutoSwitchKey = new Map();
 export const lastBreakTick = new Map();
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/tool-categories.js (125 lines, 5584 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/tool-categories.js (124 lines, 5547 bytes)
 
 ```
-// Which tool type each block needs.
 import { normalizeId } from "./utils.js";
 
 export const ToolCategory = {
@@ -74686,10 +74667,9 @@ export function getRequiredToolCategory(typeId) {
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/tool-scoring.js (142 lines, 4378 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/tool-scoring.js (141 lines, 4320 bytes)
 
 ```
-// Scoring of tools by tier, enchantments and durability.
 import { CONFIG } from "./config.js";
 import { ToolCategory } from "./tool-categories.js";
 import { normalizeId } from "./utils.js";
@@ -74832,10 +74812,9 @@ export function scoreItem(item, category, slot, blockId) {
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/tree-capitator.js (214 lines, 8216 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/tree-capitator.js (213 lines, 8197 bytes)
 
 ```
-// Tree Capitator.
 import { addGroupedDrop, removeBlockAt, spawnGroupedDrops } from "./blocks.js";
 import { CONFIG } from "./config.js";
 import { applyToolDurabilityDamage, checkToolSafety, notifyToolProtection, notifyTreeTooLarge } from "./durability.js";
@@ -75050,10 +75029,9 @@ export function executeTreeCapitator(player, dimension, startLoc, startBlockId, 
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/utils.js (86 lines, 2194 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/lib/utils.js (85 lines, 2142 bytes)
 
 ```
-// Small helpers for items, containers and targets.
 import { world, EquipmentSlot, ItemStack } from "@minecraft/server";
 import { CONFIG } from "./config.js";
 
@@ -75140,10 +75118,9 @@ export function getMainhandTool(player) {
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/main.js (8 lines, 244 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/scripts/main.js (7 lines, 174 bytes)
 
 ```
-// Vanilla Quality of Life: entry point. Each feature lives in ./lib.
 import "./lib/offhand.js";
 import "./lib/light.js";
 import "./lib/autoswitch.js";
@@ -87227,12 +87204,18 @@ export const MINING_OPTIONS = Object.freeze({
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/CHANGELOG.md (420 lines, 18849 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/CHANGELOG.md (426 lines, 19022 bytes)
 
 ```
 # Changelog — Vanilla Quality of Life
 
 ---
+
+## [v9] - 2026-11-21 - Spider Model Fix
+
+### Fixed
+
+- **Spider and Cave Spider**: They no longer replace the game's own models, which fixes the animation and model errors.
 
 ## [v8] - 2026-11-21 - Stained Glass Recycling and Spider Fixes
 
@@ -87732,7 +87715,7 @@ Download the current release of **Vanilla Quality of Life** for Minecraft Bedroc
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Vanilla Quality of Life (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/VanillaQoL%20V8.mcaddon)
+- **Direct download:** [Download Vanilla Quality of Life (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/VanillaQoL%20V9.mcaddon)
 
 ## Installation
 
@@ -87745,109 +87728,17 @@ Download the current release of **Vanilla Quality of Life** for Minecraft Bedroc
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/Vanilla-Quality-of-Life/DESCRIPTION.md).
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/resource_pack/entity/cave_spider.entity.json (41 lines, 1055 bytes)
-
-```
-{
-  "format_version": "1.10.0",
-  "minecraft:client_entity": {
-    "description": {
-      "identifier": "minecraft:cave_spider",
-      "min_engine_version": "1.8.0",
-      "materials": {
-        "default": "spider",
-        "invisible": "spider_invisible"
-      },
-      "textures": {
-        "default": "textures/entity/spider/cave_spider"
-      },
-      "geometry": {
-        "default": "geometry.spider"
-      },
-      "scripts": {
-        "scale": 0.5,
-        "animate": [
-          "walk_controller",
-          "look_at_target_controller"
-        ]
-      },
-      "animations": {
-        "walk": "animation.spider.walk",
-        "look_at_target": "animation.common.look_at_target",
-        "walk_controller": "controller.animation.spider.walk",
-        "look_at_target_controller": "controller.animation.spider.look_at_target"
-      },
-      "render_controllers": [
-        "controller.render.cave_spider"
-      ],
-      "spawn_egg": {
-        "texture": "spawn_egg",
-        "texture_index": 4
-      },
-      "enable_attachables": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/resource_pack/entity/spider.entity.json (43 lines, 1133 bytes)
-
-```
-{
-  "format_version": "1.10.0",
-  "minecraft:client_entity": {
-    "description": {
-      "identifier": "minecraft:spider",
-      "min_engine_version": "1.8.0",
-      "materials": {
-        "default": "spider",
-        "invisible": "spider_invisible"
-      },
-      "textures": {
-        "default": "textures/entity/spider/spider"
-      },
-      "geometry": {
-        "default": "geometry.spider"
-      },
-      "scripts": {
-        "pre_animation": [
-          "variable.is_blinking = Math.cos(query.life_time * 800.0) < -0.8;"
-        ],
-        "animate": [
-          "walk_controller",
-          "look_at_target_controller"
-        ]
-      },
-      "animations": {
-        "walk": "animation.spider.walk",
-        "look_at_target": "animation.common.look_at_target",
-        "walk_controller": "controller.animation.spider.walk",
-        "look_at_target_controller": "controller.animation.spider.look_at_target"
-      },
-      "render_controllers": [
-        "controller.render.spider"
-      ],
-      "spawn_egg": {
-        "texture": "spawn_egg",
-        "texture_index": 3
-      },
-      "enable_attachables": true
-    }
-  }
-}
-```
-
 ## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/resource_pack/manifest.json (38 lines, 710 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "Vanilla Quality of Life (v8)",
+    "name": "Vanilla Quality of Life (v9)",
     "description": "Client entity locators and visual fixes for Vanilla Quality of Life. by ALNStudios",
     "uuid": "fd036566-d0b1-4f92-9b28-9dd45a376d44",
     "version": [
-      8,
+      9,
       0,
       0
     ],
@@ -87863,7 +87754,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "340a271e-9aa3-4c12-bc1a-0254e887ec38",
       "version": [
-        8,
+        9,
         0,
         0
       ]
@@ -87874,7 +87765,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "8.0.0"
+    "version": "9.0.0"
   }
 }
 ```

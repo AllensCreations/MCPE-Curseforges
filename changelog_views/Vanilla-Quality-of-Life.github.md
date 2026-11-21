@@ -1,10 +1,20 @@
 # Changelog — Vanilla Quality of Life
 
-## [v8] - 2026-11-21 - Stained Glass Recycling and Spider Fixes
+## [v9] - 2026-11-21 - Spider Model Fix
 
 ### Fixed
+- **Spider and Cave Spider**: They no longer replace the game's own models, which fixes the animation and model errors.
+
+<details>
+<summary><b>8.0.x</b> (1 release)</summary>
+
+### [v8] - 2026-11-21 - Stained Glass Recycling and Spider Fixes
+
+#### Fixed
 - **Stained Glass Pane Recycling**: The recycle recipes for colored glass panes now give back the matching stained glass instead of failing to load.
 - **Spider and Cave Spider**: Their models now load without animation errors.
+
+</details>
 
 <details>
 <summary><b>7.0.x</b> (1 release)</summary>

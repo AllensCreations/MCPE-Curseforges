@@ -10,7 +10,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 
 | Pack Name | Type | Download Link | Build Folder |
 | :--- | :--- | :--- | :--- |
-| **Vanilla Quality of Life** | Add-on (.mcaddon) | [Download (.mcaddon)](Vanilla-Quality-of-Life/VanillaQoL%20V8.mcaddon) | [`Vanilla-Quality-of-Life/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Vanilla-Quality-of-Life) |
+| **Vanilla Quality of Life** | Add-on (.mcaddon) | [Download (.mcaddon)](Vanilla-Quality-of-Life/VanillaQoL%20V9.mcaddon) | [`Vanilla-Quality-of-Life/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Vanilla-Quality-of-Life) |
 | **Monster Companions** | Add-on (.mcaddon) | [Download (.mcaddon)](Monster-Companions/MonsterCompanions%20V12.mcaddon) | [`Monster-Companions/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Monster-Companions) |
 | **Mining Helmet** | Add-on (.mcaddon) | [Download (.mcaddon)](Mining-Helmet/MiningHelmet%20V2.mcaddon) | [`Mining-Helmet/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Mining-Helmet) |
 | **Passive Auto-Switch Tools** | Add-on (.mcaddon) | [Download (.mcaddon)](Passive-Auto-Switch-Tools/AutoSwitchTools%20V2.mcaddon) | [`Passive-Auto-Switch-Tools/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Passive-Auto-Switch-Tools) |
@@ -45,7 +45,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **ALN-GlobalMarket** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-GlobalMarket/ALNGlobalMarket%20V1.0.2.mcaddon) | [`ALN-GlobalMarket/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-GlobalMarket/) |
 | **ALN ChestLog** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-ChestLog/ALNChestLog%20V3.mcaddon) | [`ALN-ChestLog/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-ChestLog/) |
 | **ALNXRayVisor (Tactical Ore-Scanner Headgear) by ALNStudios** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios/ALNXRayVisorTacticalOreScannerHeadgearByALNStudios%20V1.mcaddon) | [`ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios/) |
-| **ALN PortalDoors** | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-PortalDoors/ALNPortalDoors%20V1.mcaddon) | [`ALN-PortalDoors/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-PortalDoors/) |
+| **ALN PortalDoors** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-PortalDoors/ALNPortalDoors%20V1.mcaddon) | [`ALN-PortalDoors/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-PortalDoors/) |
 
 ### Worlds and Maps
 
