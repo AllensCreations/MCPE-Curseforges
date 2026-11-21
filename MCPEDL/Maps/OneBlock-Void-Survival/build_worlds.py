@@ -25,7 +25,7 @@ def main():
             pack = os.path.join(world, "behavior_packs", "OneBlockVoid")
             shutil.rmtree(pack)
             shutil.copytree(os.path.join(HERE, "behavior_pack"), pack)
-            with open(os.path.join(pack, "scripts", "mode.js"), "w", encoding="utf-8") as f:
+            with open(os.path.join(pack, "scripts", "lib", "mode.js"), "w", encoding="utf-8") as f:
                 f.write('export const WORLD_MODE = "%s";\n' % mode)
             with open(os.path.join(world, "world_behavior_packs.json"), "w", encoding="utf-8") as f:
                 json.dump([{"pack_id": header["uuid"], "version": version}], f, indent=2)

@@ -31,6 +31,18 @@
 
 ---
 
+## [v212] - 2026-11-22 - Island Completion Fix And Script Split
+
+### Fixed
+
+- **Finished Islands Always Register**: When the last island core block is removed by anything other than a direct player hit (TNT, creepers, pistons), the island now still finishes properly: the core turns into the island floor, the reward chest appears and the "Island Core Conquered" message and the Islands completed count update. Before, the island could show 43/43 mined, stay unfinished and keep a mineable block in its core.
+- **Older Worlds Repair Themselves**: Islands finished by an earlier version that never got their floor, reward chest or message are detected when loaded and completed once. Islands that were already finished correctly are left alone.
+- **Retry Until Done**: An island is only marked finished after its floor, chest and message step has really run, so an unloaded chunk or a failed block placement can no longer leave it half finished.
+
+### Improved & Balanced
+
+- **Scripts Split Into Modules**: The script code is now split into small files inside the scripts/lib folder (islands, phases, rarities, admin tools, events and more). Only main.js stays in the scripts folder and wires everything together. Gameplay is unchanged.
+
 ## [v211] - 2026-11-22 - Thirty Discs
 
 ### Added
