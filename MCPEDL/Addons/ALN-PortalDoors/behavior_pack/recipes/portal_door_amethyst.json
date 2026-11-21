@@ -23,11 +23,9 @@
         "item": "minecraft:amethyst_shard"
       }
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "aln:portal_door"
     }

@@ -23,11 +23,9 @@
         "item": "minecraft:enchanted_book"
       }
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "aln:portal_door"
     }

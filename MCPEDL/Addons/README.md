@@ -42,6 +42,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | ALN ChestLog | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-ChestLog/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-ChestLog/ALNChestLog%20V3.mcaddon) |
 | ALNOneClickSort | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALNOneClickSort/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNOneClickSort/ALNOneClickSort%20V10.mcaddon) |
 | ALNXRayVisor (Tactical Ore-Scanner Headgear) by ALNStudios | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios/ALNXRayVisorTacticalOreScannerHeadgearByALNStudios%20V1.mcaddon) |
+| ALN PortalDoors | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-PortalDoors/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-PortalDoors/ALNPortalDoors%20V1.mcaddon) |
 
 Download links point to the currently published package files.
 

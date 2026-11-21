@@ -75,7 +75,7 @@ Output ONLY these three sections in order:
 
 ## File Contents
 
-## FILE: MCPEDL/Addons/ALN-PortalDoors/behavior_pack/blocks/portal_door.json (33 lines, 741 bytes)
+## FILE: MCPEDL/Addons/ALN-PortalDoors/behavior_pack/blocks/portal_door.json (35 lines, 791 bytes)
 
 ```
 {
@@ -106,13 +106,15 @@ Output ONLY these three sections in order:
         }
       },
       "minecraft:light_emission": 12,
-      "minecraft:destroy_time": 3.0
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 3.0
+      }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-PortalDoors/behavior_pack/blocks/portal_door_top.json (22 lines, 479 bytes)
+## FILE: MCPEDL/Addons/ALN-PortalDoors/behavior_pack/blocks/portal_door_top.json (24 lines, 529 bytes)
 
 ```
 {
@@ -132,7 +134,9 @@ Output ONLY these three sections in order:
         }
       },
       "minecraft:light_emission": 12,
-      "minecraft:destroy_time": 3.0
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 3.0
+      }
     }
   }
 }
