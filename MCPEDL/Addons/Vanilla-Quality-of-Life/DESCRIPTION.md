@@ -27,6 +27,10 @@ Hit a block and the best tool from your hotbar swaps into Slot 1, then returns a
 - **What Happens**: After a whole tree is felled from its base, a matching sapling is planted where the trunk stood, using one sapling from your inventory for each spot.
 - **Good To Know**: It works for Oak, Spruce, Birch, Jungle, Acacia, Dark Oak, Cherry, and Pale Oak on dirt, grass, podzol, coarse dirt, rooted dirt, moss, mud, or mycelium, plants up to 4 saplings for wide trunks, and costs nothing in Creative.
 
+### Leaf Clearing
+- **What Happens**: When Tree Capitator fells a whole tree, that tree's leaves are cleared too, and they still drop some saplings, sticks, and apples (Oak and Dark Oak only).
+- **Good To Know**: Leaves still holding on to another tree of the same wood stay in place, and nothing drops in Creative.
+
 ### Faster Crop Growth
 - **What Happens**: The first time the pack loads in a world, it sets the random tick speed to 4, so crops and saplings grow faster.
 - **Good To Know**: This is applied once per world, and you can change it afterward with the /gamerule command.
@@ -72,7 +76,7 @@ Hit a block and the best tool from your hotbar swaps into Slot 1, then returns a
 - Minecraft Bedrock Edition: 1.26.50 or newer.
 - Experimental features: Not verified.
 - Achievements: Likely achievement-friendly.
-- Verification: Source created, not tested in game.
+- Verification: Source created and tested in game.
 
 ## Creator and Permissions
 

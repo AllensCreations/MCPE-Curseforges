@@ -62,7 +62,7 @@ export function getRequiredToolCategory(typeId) {
   if (
     id === "hay_block" || id === "target" || id === "sponge" || id === "wet_sponge" ||
     id.includes("sculk") || id.includes("moss_block") || id.includes("moss_carpet") ||
-    id.includes("wart_block") || id === "shroomlight"
+    id.includes("wart_block") || id === "shroomlight" || id === "dried_kelp_block"
   ) {
     return ToolCategory.HOE;
   }
@@ -76,7 +76,8 @@ export function getRequiredToolCategory(typeId) {
     id.includes("melon") || id === "cocoa" || id.includes("beehive") || id === "bee_nest" ||
     id.includes("ladder") || id.includes("sign") || id.includes("mushroom_stem") ||
     id.includes("mushroom_block") || id === "jukebox" || id === "daylight_detector" ||
-    id === "note_block" || id.includes("bamboo_block") || id.includes("bamboo_mosaic") ||
+    id === "note_block" || id === "creaking_heart" || id === "cactus" ||
+    id.includes("bamboo_block") || id.includes("bamboo_mosaic") ||
     (id.endsWith("_fence") && !id.includes("nether_brick")) || id.endsWith("_fence_gate")
   ) {
     return ToolCategory.AXE;
@@ -113,7 +114,8 @@ export function getRequiredToolCategory(typeId) {
     id.includes("lantern") || id.includes("chain") || id.includes("spawner") ||
     id.includes("vault") || id.includes("crafter") || id.includes("quartz") ||
     id === "coal_block" || id === "bone_block" || id === "respawn_anchor" ||
-    id === "conduit" || id === "lightning_rod"
+    id === "conduit" || id === "lightning_rod" ||
+    id === "piston" || id === "sticky_piston" || id === "observer"
   ) {
     return ToolCategory.PICKAXE;
   }

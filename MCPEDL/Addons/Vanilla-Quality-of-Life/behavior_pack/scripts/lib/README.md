@@ -12,9 +12,9 @@
 | `tool-scoring.js`, `slot-switch.js`, `autoswitch.js` | Picking and swapping the best tool. |
 | `durability.js` | Stops chain mining before a tool breaks. |
 | `blocks.js` | Removes blocks and groups drops. |
-| `tree-capitator.js`, `replant.js` | Tree felling and sapling replanting. |
+| `tree-capitator.js`, `replant.js`, `leaves.js` | Tree felling, sapling replanting and leaf clearing. |
 | `ore-miner.js` | Domino Ore Miner, Fortune and experience. |
 | `chain-mining.js` | Starts Tree Capitator or Domino Ore Miner when a block breaks. |
 | `lifecycle.js` | Player-leave cleanup, startup tasks and the startup log. |
 
-Useful switches in `config.js`: `REPLANT_SAPLINGS`, `REPLANT_REQUIRES_SAPLING`, `MAX_REPLANT_SPOTS`, `APPLY_RANDOM_TICK_SPEED`, `RANDOM_TICK_SPEED`.
+Useful switches in `config.js`: `REPLANT_SAPLINGS`, `REPLANT_REQUIRES_SAPLING`, `MAX_REPLANT_SPOTS`, `LEAF_CLEARING_ENABLED`, `LEAF_DROP_SCALE`, `APPLY_RANDOM_TICK_SPEED`, `RANDOM_TICK_SPEED`.

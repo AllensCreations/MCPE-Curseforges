@@ -27,6 +27,16 @@
 
 ---
 
+## [v191] - 2026-11-21 - Leaf Clearing
+
+### Added
+
+- **Leaf Clearing**: Tree Capitator now clears the leaves of the tree it fells, and they still drop some saplings, sticks, and apples (Oak and Dark Oak only).
+
+### Improved & Balanced
+
+- **Auto-Switch Blocks**: Pistons, Sticky Pistons, and Observers now use a Pickaxe, Creaking Hearts and Cacti use an Axe, and Blocks of Dried Kelp use a Hoe.
+
 ## [v190] - 2026-11-21 - Kit Zips, Catalog Versions, OneBlock In Build And Sync
 
 - Three kit zips only: `New-Pack.zip`, `Update-Pack.zip`, `Maintenance.zip` in `MCPEDL/AI Review/` (map text + scripts under `files/`); the six old kit files are removed.

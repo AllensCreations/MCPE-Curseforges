@@ -2,6 +2,7 @@
 import { addGroupedDrop, removeBlockAt, spawnGroupedDrops } from "./blocks.js";
 import { CONFIG } from "./config.js";
 import { applyToolDurabilityDamage, checkToolSafety, notifyToolProtection, notifyTreeTooLarge } from "./durability.js";
+import { clearTreeLeaves } from "./leaves.js";
 import { replantSaplings } from "./replant.js";
 import { isGameMode, normalizeId } from "./utils.js";
 
@@ -204,6 +205,8 @@ export function executeTreeCapitator(player, dimension, startLoc, startBlockId, 
   if (capped) notifyTreeTooLarge(player);
   if (!capped && removedCount === blocksToBreak.length) {
     replantSaplings(player, dimension, startLoc, blocksToBreak, targetSpecies);
+    const isTreeLog = (id) => isEligibleLog(id) && getWoodSpecies(id) === targetSpecies;
+    clearTreeLeaves(player, dimension, [startLoc, ...blocksToBreak], targetSpecies, isTreeLog);
   }
 
   if (onComplete) onComplete();

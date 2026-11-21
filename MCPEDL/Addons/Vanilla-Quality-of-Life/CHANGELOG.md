@@ -2,6 +2,16 @@
 
 ---
 
+## [v7] - 2026-11-21 - Leaf Clearing
+
+### Added
+
+- **Leaf Clearing**: Tree Capitator now clears the leaves of the tree it fells, and they still drop some saplings, sticks, and apples (Oak and Dark Oak only).
+
+### Improved & Balanced
+
+- **Auto-Switch Blocks**: Pistons, Sticky Pistons, and Observers now use a Pickaxe, Creaking Hearts and Cacti use an Axe, and Blocks of Dried Kelp use a Hoe.
+
 ## [v6] - 2026-11-21 - Tree Replanting
 
 ### Added
