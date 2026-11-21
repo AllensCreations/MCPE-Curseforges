@@ -4,7 +4,7 @@
 Generated file. The Build Changed Packs & Sync Catalogs workflow runs this after the per-pack AI review
 files are refreshed. Output has no dates, so an unchanged repo gives an identical file.
 
-The AI review link is the pack's own file MCPEDL/<Type>/<Name>/ai-review/<Name>.txt. Only files that exist
+The AI review link is the pack's file MCPEDL/AI Review/<Name>.txt. Only files that exist
 are linked; a missing one shows "-".
 
 Usage: python3 scripts/build_mcpedl_readme.py [--check] [--root DIR]
@@ -34,13 +34,13 @@ def get_ai_kits(root: Path):
         bundle_label = "Complete Bedrock Reference Bundle (Samples, Schemas & Types Zip)"
 
     return (
-        ("New Pack Kit (map and skills)", "ai-review/New-Pack_tools.txt"),
-        ("New Pack Scripts (zip, unzip and run)", "ai-review/New-Pack_files.zip"),
-        ("Update Pack Kit (map and skills)", "ai-review/Update-Pack_tools.txt"),
-        ("Update Pack Scripts (zip, unzip and run)", "ai-review/Update-Pack_files.zip"),
-        ("Repo Maintenance Kit (map and skills)", "ai-review/tools.txt"),
-        ("Repo Maintenance Scripts (zip)", "ai-review/tools_files.zip"),
-        ("Bedrock Samples (AI Review)", "ai-review/bedrock-samples.txt"),
+        ("New Pack Kit (map and skills)", "MCPEDL/AI Review/New-Pack_tools.txt"),
+        ("New Pack Scripts (zip, unzip and run)", "MCPEDL/AI Review/New-Pack_files.zip"),
+        ("Update Pack Kit (map and skills)", "MCPEDL/AI Review/Update-Pack_tools.txt"),
+        ("Update Pack Scripts (zip, unzip and run)", "MCPEDL/AI Review/Update-Pack_files.zip"),
+        ("Repo Maintenance Kit (map and skills)", "MCPEDL/AI Review/tools.txt"),
+        ("Repo Maintenance Scripts (zip)", "MCPEDL/AI Review/tools_files.zip"),
+        ("Bedrock Samples (AI Review)", "MCPEDL/AI Review/bedrock-samples.txt"),
         ("Vanilla Bedrock Reference (JSON.gz)", "reference/bedrock-samples/bedrock-samples.min.json.gz"),
         (bundle_label, bundle_path),
         ("Minecraft Script API TypeScript Definitions (.d.ts Zip)", "reference/typescript-definitions/minecraft-bedrock-types.zip"),
@@ -90,7 +90,7 @@ def render(root):
     for kit_label, kit_rel in get_ai_kits(root):
         kit_path = root / kit_rel
         if kit_path.is_file():
-            kit_rows.append(f"| **{kit_label}** | [Download]({GITHUB_RAW}{kit_rel}) |")
+            kit_rows.append(f"| **{kit_label}** | [Download]({GITHUB_RAW}{quote(kit_rel)}) |")
         else:
             kit_rows.append(f"| **{kit_label}** | *(not yet built)* |")
     ai_kits_section = "## AI Review Kits\n\n" + "\n".join(kit_rows) + "\n"
@@ -105,7 +105,7 @@ def render(root):
         counts.append(f"{len(projects)} {label}")
         rows = ["| Pack | Version | Source | Package | AI review |", "| :-- | :-- | :-- | :-- | :-- |"]
         for p in projects:
-            review = p / "ai-review" / f"{p.name}.txt"
+            review = mcpedl / "AI Review" / f"{p.name}.txt"
             if not review.is_file():
                 warnings.append(f"no AI review file for {cat}/{p.name}")
             ai = f"[Download]({RAW}{quote(review.relative_to(root).as_posix())})" if review.is_file() else "-"

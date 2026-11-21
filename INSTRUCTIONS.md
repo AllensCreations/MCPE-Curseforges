@@ -1,4 +1,4 @@
-# Instructions: Core Repository Policy (v31)
+# Instructions: Core Repository Policy (v32)
 
 
 Repo policy, docs rules for AllensCreations/MCPE-Curseforges (creator name `ALNStudios`). Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
@@ -277,6 +277,7 @@ Docs, API, vanilla data and repo files are read with the Context7 MCP tool `quer
 - [ ] Changed JSON validated. Instruction file changed: `scripts/check_instruction_files.py` passes.
 
 ## Version History
+- **v32:** AI review files live in `MCPEDL/AI Review/` (`<Pack>.txt`, `<Pack>.zip`, shared kits), not in `ai-review/` folders. Every pack with a `main.js` also has `behavior_pack/scripts/lib/README.md` (rule in `PACK_GENERATOR_INSTRUCTIONS.md`, Script module).
 - **v31:** Optional `behavior_pack/scripts/lib/` folder for shared script helpers (see `PACK_GENERATOR_INSTRUCTIONS.md` Script module). Library-only Python modules moved to `scripts/lib/` (`crafting_template.py`, `build_description_views.py`, `build_image_prompts.py`).
 - **v30:** 1.16 batches Context7 lookups: at most one `query-docs` call per `libraryId`, all in one parallel turn, no retry loops. Repo rules and script summaries are read from `docs/` (the only folder Context7 indexes).
 - **v29:** New 1.16 (Documentation Lookup): docs, API, vanilla data and repo scripts are read with Context7 `query-docs` from four fixed libraries instead of pasted URLs. Source priority, 1.2 refs and 1.15 trusted sources point to those libraries.

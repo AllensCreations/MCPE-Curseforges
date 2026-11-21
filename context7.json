@@ -12,7 +12,7 @@
     "Target Minecraft Bedrock 1.21 and newer. Use @minecraft/server and @minecraft/server-ui 2.x stable only; take exact versions from retrieved text and say 'not verified' when a version is not in it. Never use mojang-minecraft, world.events or 1.x syntax.",
     "One Batch Query Per Needed Library (Parallel Only): group all required lookups for a library into at most ONE query-docs call per relevant libraryId (for example, one call for /microsoftdocs/minecraft-creator covering all needed APIs, plus one call for /allenscreations/mcpe-curseforges covering all needed repo rules). Execute those calls together in a single parallel turn. Never make multiple calls to the same libraryId and never run sequential retry loops.",
     "This repository is indexed from docs/ only: docs/bedrock-guide.md (architecture, folders, manifests, API versions), docs/instructions-reference.md (all coding rules and review standards), docs/scripts-and-workflows.md (scripts and workflows).",
-    "Never edit generated files: builds/, Package/, changelog_views/, ai-review/, MCPEDL/README.md.",
+    "Never edit generated files: builds/, Package/, changelog_views/, MCPEDL/AI Review/, MCPEDL/README.md.",
     "Scripts that must run need their complete file text from the kit zip; a documentation summary is not enough."
   ]
 }

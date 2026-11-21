@@ -5,7 +5,7 @@ Context7 usage: `INSTRUCTIONS.md`, `DOCS_RULES.md`, `PACK_GENERATOR_INSTRUCTIONS
 
 <!-- BEGIN INSTRUCTIONS.md -->
 
-# Instructions: Core Repository Policy (v31)
+# Instructions: Core Repository Policy (v32)
 
 
 Repo policy, docs rules for AllensCreations/MCPE-Curseforges (creator name `ALNStudios`). Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
@@ -284,6 +284,7 @@ Docs, API, vanilla data and repo files are read with the Context7 MCP tool `quer
 - [ ] Changed JSON validated. Instruction file changed: `scripts/check_instruction_files.py` passes.
 
 ## Version History
+- **v32:** AI review files live in `MCPEDL/AI Review/` (`<Pack>.txt`, `<Pack>.zip`, shared kits), not in `ai-review/` folders. Every pack with a `main.js` also has `behavior_pack/scripts/lib/README.md` (rule in `PACK_GENERATOR_INSTRUCTIONS.md`, Script module).
 - **v31:** Optional `behavior_pack/scripts/lib/` folder for shared script helpers (see `PACK_GENERATOR_INSTRUCTIONS.md` Script module). Library-only Python modules moved to `scripts/lib/` (`crafting_template.py`, `build_description_views.py`, `build_image_prompts.py`).
 - **v30:** 1.16 batches Context7 lookups: at most one `query-docs` call per `libraryId`, all in one parallel turn, no retry loops. Repo rules and script summaries are read from `docs/` (the only folder Context7 indexes).
 - **v29:** New 1.16 (Documentation Lookup): docs, API, vanilla data and repo scripts are read with Context7 `query-docs` from four fixed libraries instead of pasted URLs. Source priority, 1.2 refs and 1.15 trusted sources point to those libraries.
@@ -523,7 +524,7 @@ CHANGELOG.md. Newest first. Groups: Added, Improved & Balanced, Fixed (bugs as i
 
 <!-- BEGIN PACK_GENERATOR_INSTRUCTIONS.md -->
 
-# Pack Generator Instructions (AI Agent, v32)
+# Pack Generator Instructions (AI Agent, v33)
 
 
 Builds a complete **addon**, **map**, **script**, or **minigame** from the user's idea. Returns ONE Termux `.sh` pack script that carries the whole project inside it (as base64). No other file is delivered.
@@ -699,7 +700,7 @@ project.json          REQUIRED: {"type": "addon|map|script|minigame", "name": "D
 README.md  DESCRIPTION.md  CHANGELOG.md
 behavior_pack/manifest.json
 behavior_pack/...     functions/ items/ blocks/ entities/ recipes/ loot_tables/ texts/ scripts/main.js
-                      scripts/lib/ (optional)
+                      scripts/lib/README.md (REQUIRED with main.js), lib/*.js optional
 resource_pack/        map/minigame REQUIRED. addon optional. script FORBIDDEN.
 texture_sources/      optional pixel JSON for custom textures (4.13). NEVER inside resource_pack/.
 ```
@@ -717,7 +718,8 @@ texture_sources/      optional pixel JSON for custom textures (4.13). NEVER insi
 - Fresh unique v4 UUIDs for every header and module. NEVER reuse/copy from examples.
 - RP exists: BP `dependencies` include `{ "uuid": "<RP header.uuid>", "version": [x, y, z] }` matching.
 - Script module: `"type": "script"`, `"language": "javascript"`, `"entry": "scripts/main.js"`; deps `{ "module_name": "@minecraft/server", "version": "<latest stable string>" }`. Add `@minecraft/server-ui` for forms (always for Controller).
-- Script `lib/` folder (only when `main.js` grows past one readable file, e.g. shared helpers, constants, form builders): put the helpers in `behavior_pack/scripts/lib/<name>.js` and import them from `main.js` with a relative path and the `.js` extension (`import "./lib/<name>.js";`). `entry` stays `scripts/main.js`. Verified form (Context7 2026-11-21): relative `./file.js` import from the entry file; named exports from `lib/` files are not verified, query before using them. A small pack keeps everything in `main.js`: NEVER add `lib/` without a need.
+- Script `lib/` folder: EVERY pack that has a `behavior_pack/scripts/main.js` ALSO has `behavior_pack/scripts/lib/README.md` (create the folder together with `main.js`, never later). The README is for the AI review: what the pack's script code does, one line per file in `scripts/` and `scripts/lib/` (purpose, what it exports or registers, what it depends on), the script events and custom item/entity ids it uses, and known limits. When `lib/` holds no `.js` files yet, the README says so in one line. Never write library IDs, query text or the word Context7 in it (2.2). Update it whenever the scripts change.
+- Helper code in `lib/` (only when `main.js` grows past one readable file, e.g. shared helpers, constants, form builders): put the helpers in `behavior_pack/scripts/lib/<name>.js` and import them from `main.js` with a relative path and the `.js` extension (`import "./lib/<name>.js";`). `entry` stays `scripts/main.js`. Verified form (Context7 2026-11-21): relative `./file.js` import from the entry file; named exports from `lib/` files are not verified, query before using them. A small pack keeps everything in `main.js` and only the README in `lib/`.
 - NEVER experiments unless needed (name in docs). Deps/imports ONLY `@minecraft/server`, `@minecraft/server-ui`, `@minecraft/vanilla-data`.
 - RP template (replace every placeholder; run `python3 -m json.tool`):
 ```json
@@ -832,6 +834,7 @@ NEVER hand-write ZIP, base64 or the `.sh`. `scripts/make_pack_script.py` install
 
 ### 4.9 Final self-check before replying
 - [ ] Type asked/given before building.
+- [ ] `behavior_pack/scripts/lib/README.md` exists whenever `main.js` does.
 - [ ] Context7 queried (1.16) before code, manifests, JSON and version claims; four fixed libraries only; `Docs queried` bullet written.
 - [ ] SELF-TEST PASSED + PACK SCRIPT OK + BUILD OK printed; exactly one `.sh` delivered, no other file.
 - [ ] Module versions latest stable, date recorded. `min_engine_version` looked up in the form `[1, RELEASE, PATCH]`, docs state only a verified minimum.

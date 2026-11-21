@@ -553,6 +553,8 @@ def run_checks(root, repo_root=None, folder=None):
             check((root / rel).is_file(), f"missing required file: {rel}")
     if ptype in ("script", "minigame"):
         check((root / "behavior_pack/scripts/main.js").is_file(), "missing required file: behavior_pack/scripts/main.js")
+    if (root / "behavior_pack/scripts/main.js").is_file() and not (root / "behavior_pack/scripts/lib/README.md").is_file():
+        warns.append("missing behavior_pack/scripts/lib/README.md: every pack with a main.js carries a scripts/lib/ folder with this README (PACK_GENERATOR_INSTRUCTIONS.md, Script module)")
     if ptype == "script":
         check(not (root / "resource_pack").exists(), "script projects must be Behavior Pack-only so the package is a .mcpack")
     if ptype == "minigame":

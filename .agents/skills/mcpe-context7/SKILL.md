@@ -45,4 +45,4 @@ NEVER call `resolve-library-id`. NEVER query any other library.
 ## Reading the directory map
 
 - The map lists directories with file counts. Pick the folder, then query for the file. For exact file text of a pack, ask for a Collect Files export of that path.
-- NEVER edit generated folders and files: `builds/`, `Package/`, `changelog_views/`, `ai-review/`, `MCPEDL/README.md`, `builds/README.md`.
+- NEVER edit generated folders and files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`, `builds/README.md`.

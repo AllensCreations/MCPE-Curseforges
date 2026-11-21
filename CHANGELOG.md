@@ -27,6 +27,11 @@
 
 ---
 
+## [v189] - 2026-11-21 - AI Review Folder
+
+- AI review files, zips and kits now live in `MCPEDL/AI Review/` (links, workflow and scripts updated); the next build regenerates them and removes the old `ai-review/` folders.
+- Every pack with a `main.js` also has `behavior_pack/scripts/lib/README.md` for the AI review (rule, checklist and payload warning).
+
 ## [v188] - 2026-11-21 - Tree Replanting
 
 ### Added

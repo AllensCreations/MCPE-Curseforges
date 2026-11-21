@@ -5,13 +5,13 @@
 
 For each package folder MCPEDL/<Category>/<Name> it builds the same export as the manual
 "Collect Files for AI Review" run (scripts/collect_ai_review.py) and saves ONE file inside the package:
-  MCPEDL/<Category>/<Name>/ai-review/<Name>.txt
-  MCPEDL/<Category>/<Name>/ai-review/.source-hash     (what the file was built from; a package whose hash matches is skipped)
+  MCPEDL/AI Review/<Name>.txt  (+ <Name>.zip)
+  MCPEDL/AI Review/.<Name>.source-hash     (what the file was built from; a package whose hash matches is skipped)
 The kits are identical for every package, so they are saved once. Each is a directory map plus skills (no file
 contents) and, where the task has to run scripts, a zip with the complete scripts as real files:
-  ai-review/tools.txt          + tools_files.zip         (repo maintenance)
-  ai-review/New-Pack_tools.txt + New-Pack_files.zip      (new project)
-  ai-review/Update-Pack_tools.txt + Update-Pack_files.zip (update; also copied into every package zip)
+  MCPEDL/AI Review/tools.txt          + tools_files.zip         (repo maintenance)
+  MCPEDL/AI Review/New-Pack_tools.txt + New-Pack_files.zip      (new project)
+  MCPEDL/AI Review/Update-Pack_tools.txt + Update-Pack_files.zip (update; also copied into every package zip)
 Generated views (changelog_views/, Package/*.listing.md) are not part of an export and do not trigger a rebuild.
 The root README.md list is refreshed only when it holds the two marker lines
   <!-- AI-REVIEW:START -->  and  <!-- AI-REVIEW:END -->
@@ -35,9 +35,10 @@ ROOT = Path(__file__).resolve().parent.parent
 CATEGORIES = ("Addons", "Maps", "Script", "Minigame")
 GITHUB = "https://github.com/AllensCreations/MCPE-Curseforges"
 RAW = GITHUB + "/raw/main"
-OUT_DIR = "ai-review"
+OUT_DIR = "MCPEDL/AI Review"
+LEGACY_DIR = "ai-review"
 START, END = "<!-- AI-REVIEW:START -->", "<!-- AI-REVIEW:END -->"
-SKIP = {".git", "node_modules", "__pycache__", OUT_DIR, "db", "exports"}
+SKIP = {".git", "node_modules", "__pycache__", LEGACY_DIR, "db", "exports"}
 TOOL_INPUTS = [".agents/skills/*/SKILL.md", "scripts/collect_ai_review.py", "scripts/make_pack_script.py", "scripts/build_payload.py",
                "scripts/import_project_payload.py", "scripts/doc_template.py", "scripts/pixel_json_to_png.py", "scripts/make_update_script.py",
                "scripts/apply_update.py", "scripts/check_instruction_files.py", "assets/aln-ui-redesign"]
@@ -104,13 +105,20 @@ def main() -> int:
     only = {n.strip().lower() for n in args.only.split(",") if n.strip()}
 
     changed, built = [], 0
+    # One-time move of the old root file (too large to ship in an update script)
+    old_samples, new_samples = ROOT / LEGACY_DIR / "bedrock-samples.txt", ROOT / OUT_DIR / "bedrock-samples.txt"
+    if old_samples.is_file() and not new_samples.exists():
+        new_samples.parent.mkdir(parents=True, exist_ok=True)
+        shutil.move(str(old_samples), str(new_samples))
+        changed.append(new_samples.relative_to(ROOT).as_posix())
+        print(f"Moved {LEGACY_DIR}/bedrock-samples.txt to {new_samples.relative_to(ROOT)}")
     entries = []  # (category, name, version, rel path of the ai-review file)
     with tempfile.TemporaryDirectory() as tmp:
         for cat, pack in packages():
             name = pack.name
             rel_pack = pack.relative_to(ROOT).as_posix()
-            txt = pack / OUT_DIR / f"{name}.txt"
-            stamp = pack / OUT_DIR / ".source-hash"
+            txt = ROOT / OUT_DIR / f"{name}.txt"
+            stamp = ROOT / OUT_DIR / f".{name}.source-hash"
             if only and name.lower() not in only:
                 if txt.is_file():
                     entries.append((cat, name, top_version(pack), txt.relative_to(ROOT).as_posix()))
@@ -182,10 +190,10 @@ def main() -> int:
     update_files = tools_dir / "Update-Pack_files.zip"
     for cat, pack in packages():
         name = pack.name
-        txt = pack / OUT_DIR / f"{name}.txt"
+        txt = ROOT / OUT_DIR / f"{name}.txt"
         if not txt.is_file():
             continue
-        zpath = pack / OUT_DIR / f"{name}.zip"
+        zpath = ROOT / OUT_DIR / f"{name}.zip"
         newest = max([p.stat().st_mtime for p in (update_tools, update_files) if p.is_file()] or [0])
         if not zpath.is_file() or txt.stat().st_mtime > zpath.stat().st_mtime or newest > zpath.stat().st_mtime:
             with zipfile.ZipFile(zpath, "w", compression=zipfile.ZIP_DEFLATED) as zf:

@@ -40,7 +40,7 @@ KIT_FILES = {
 TREE_SKIP = {".git", "node_modules", "__pycache__", "db", "exports"}
 TREE_KEEP_HIDDEN = {".agents", ".github"}
 CATEGORIES = ("Addons", "Maps", "Script", "Minigame")
-OPAQUE = {"builds", "Package", "changelog_views", "graphify-out", "reference", "archive", "dashboard", "Mcpeworlds", "ai-review"}
+OPAQUE = {"builds", "Package", "changelog_views", "graphify-out", "reference", "archive", "dashboard", "Mcpeworlds", "ai-review", "AI Review"}
 DIR_NOTES = {
     ".agents/skills": "agent skills, one folder each",
     ".github/workflows": "CI and dispatch workflows",
@@ -53,6 +53,7 @@ DIR_NOTES = {
     "Package": "GENERATED listing kits, never edit",
     "changelog_views": "GENERATED changelog views, never edit",
     "ai-review": "GENERATED AI review exports, never edit",
+    "AI Review": "GENERATED AI review exports (MCPEDL/AI Review), never edit",
     "reference": "vanilla Bedrock reference data",
     "Mcpeworlds": "map templates and shared map assets",
     "tests": "tests",
@@ -174,7 +175,7 @@ __DEST__
 1. NEVER invent features, versions, links, assets, test results.
 2. Output only what changed. Smallest edits. No unrelated rewrites.
 3. No notes or summaries unless asked.
-4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `ai-review/`, `MCPEDL/README.md`.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
 
 ## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
 ```
@@ -220,7 +221,7 @@ label = ("New-Pack" if new_pack else
 
 
 root = pathlib.Path(".").resolve()
-SKIP_DIRS = {".git", "db", "node_modules", "__pycache__", "exports", "ai-review"}
+SKIP_DIRS = {".git", "db", "node_modules", "__pycache__", "exports", "ai-review", "AI Review"}
 SKIP_FILENAMES = {"LOCK", ".gitkeep"}
 selected, skipped, missing = {}, [], []
 dests = []

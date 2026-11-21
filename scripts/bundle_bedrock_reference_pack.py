@@ -8,7 +8,7 @@ Rules:
        server.txt       (@minecraft/server definitions)
        server-ui.txt    (@minecraft/server-ui definitions)
        server-admin.txt (@minecraft/server-admin definitions)
-2. Bedrock samples content goes into ai-review/bedrock-samples.txt (not in the zip).
+2. Bedrock samples content goes into MCPEDL/AI Review/bedrock-samples.txt (not in the zip).
 3. The extracted uncompressed payload is <= 30 MB.
 4. Zip is named bedrock-reference-pack-<MC_VERSION>.zip using real MC version from _meta.
 5. Strictly en_US only for any language text.
@@ -36,13 +36,13 @@ def get_mc_version(gz_sample: Path) -> str:
 
 
 def build_ai_review(repo_root: Path, gz_sample: Path, mc_version: str):
-    """Write ai-review/bedrock-samples.txt with en_US content from the samples JSON."""
-    ai_dir = repo_root / "ai-review"
+    """Write MCPEDL/AI Review/bedrock-samples.txt with en_US content from the samples JSON."""
+    ai_dir = repo_root / "MCPEDL" / "AI Review"
     ai_dir.mkdir(parents=True, exist_ok=True)
     out_file = ai_dir / "bedrock-samples.txt"
 
     if not gz_sample.is_file():
-        print(f"WARNING: {gz_sample} not found, skipping ai-review/bedrock-samples.txt")
+        print(f"WARNING: {gz_sample} not found, skipping MCPEDL/AI Review/bedrock-samples.txt")
         return
 
     with gzip.open(gz_sample, "rt", encoding="utf-8") as f:
@@ -86,7 +86,7 @@ def build_ai_review(repo_root: Path, gz_sample: Path, mc_version: str):
 
     out_file.write_text("\n".join(lines), encoding="utf-8")
     size_kb = out_file.stat().st_size / 1024
-    print(f"ai-review/bedrock-samples.txt written: {size_kb:.1f} KB")
+    print(f"MCPEDL/AI Review/bedrock-samples.txt written: {size_kb:.1f} KB")
 
 
 def create_bundle(repo_root: Path):
@@ -98,7 +98,7 @@ def create_bundle(repo_root: Path):
     mc_version = get_mc_version(gz_sample)
     print(f"Minecraft version: {mc_version}")
 
-    # 1. Write bedrock samples to ai-review/bedrock-samples.txt
+    # 1. Write bedrock samples to MCPEDL/AI Review/bedrock-samples.txt
     build_ai_review(repo_root, gz_sample, mc_version)
 
     # 2. Build the 3-file flat zip

@@ -13,13 +13,13 @@ Options:
 
 The script:
   1. Reads graphify-out/graph.json (runs scripts/graphify.py first if missing or stale).
-  2. For each pack's ai-review/<Pack>.txt, injects a small graph section at the top
+  2. For each pack's MCPEDL/AI Review/<Pack>.txt, injects a small graph section at the top
      (after the index / before "## AI Instructions") with:
        - Pack version, type (behavior/resource), API modules used
        - Cross-pack shared dependencies or patterns
        - Sibling packs in same category
      If the section already exists it is replaced, so re-running is safe.
-  The shared kits (ai-review/*_tools.txt) are NOT enriched: they carry a directory map built from the
+  The shared kits (MCPEDL/AI Review/*_tools.txt) are NOT enriched: they carry a directory map built from the
   working tree by scripts/collect_ai_review.py, which cannot go stale.
 """
 from __future__ import annotations
@@ -212,10 +212,9 @@ def main():
         if only_set and name not in only_set:
             continue
 
-        # Per-pack ai-review file (preferred) or root ai-review
-        per_pack_txt = pack_path / "ai-review" / f"{name}.txt"
-        root_txt = ROOT / "ai-review" / f"{name}.txt"
-        txt_path = per_pack_txt if per_pack_txt.exists() else (root_txt if root_txt.exists() else None)
+        # Per-pack AI review file: MCPEDL/AI Review/<Pack>.txt
+        review_txt = ROOT / "MCPEDL" / "AI Review" / f"{name}.txt"
+        txt_path = review_txt if review_txt.exists() else None
 
         if txt_path is None:
             missing_count += 1

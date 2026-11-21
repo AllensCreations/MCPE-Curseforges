@@ -206,12 +206,14 @@ jobs:
           fi
           changed="$( { git diff --name-only "$base"; git ls-files --others --exclude-standard; } 2>/dev/null )"
           for dir in MCPEDL/*/*; do
-            [ -d "$dir/ai-review" ] || continue
-            if printf '%s\n' "$changed" | grep -vF -- "$dir/ai-review/" | grep -qF -- "$dir/"; then
+            [ -d "$dir" ] || continue
+            [ "$(dirname "$dir")" = "MCPEDL/AI Review" ] && continue
+            name="$(basename "$dir")"
+            if printf '%s\n' "$changed" | grep -vF -- "MCPEDL/AI Review/" | grep -qF -- "$dir/"; then
               echo "Package changed, AI review updated: $dir"
               continue
             fi
-            git ls-files -z -- "$dir/ai-review" | xargs -0 -r git checkout HEAD --
+            git ls-files -z -- "MCPEDL/AI Review/$name.txt" "MCPEDL/AI Review/$name.zip" "MCPEDL/AI Review/.$name.source-hash" | xargs -0 -r git checkout HEAD --
           done
 
       - name: Upload AI Review Bundle Artifact
@@ -219,13 +221,13 @@ jobs:
         with:
           name: ai-review-bundle
           path: |
-            ai-review/tools.txt
-            ai-review/tools_files.zip
-            ai-review/New-Pack_tools.txt
-            ai-review/New-Pack_files.zip
-            ai-review/Update-Pack_tools.txt
-            ai-review/Update-Pack_files.zip
-            MCPEDL/**/ai-review/*.txt
+            MCPEDL/AI Review/tools.txt
+            MCPEDL/AI Review/tools_files.zip
+            MCPEDL/AI Review/New-Pack_tools.txt
+            MCPEDL/AI Review/New-Pack_files.zip
+            MCPEDL/AI Review/Update-Pack_tools.txt
+            MCPEDL/AI Review/Update-Pack_files.zip
+            MCPEDL/AI Review/*.txt
           if-no-files-found: ignore
 
       - name: Build MCPEDL catalog index
@@ -252,9 +254,10 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          for dir in MCPEDL builds changelog_views Package ai-review; do
+          for dir in MCPEDL builds changelog_views Package; do
             if [ -d "$dir" ]; then git add "$dir"; fi
           done
+          git add -A -- ai-review 2>/dev/null || true
           if [ -f README.md ]; then git add README.md; fi
           if [ -f MCPEDL/README.md ]; then git add MCPEDL/README.md; fi
           if [ -f scripts/CRAFTING_TABLE.png ]; then git add scripts/CRAFTING_TABLE.png; fi
