@@ -2,6 +2,17 @@
 
 ---
 
+## [16.0.1] - 2026-11-21 - Core Tier Reorder
+
+### Changed
+- The core block order is now Dirt, Wood, Stone, Ores, then Blocks across the 30 tiers, ending with Obsidian at tier 30.
+- Ancient Debris moved to tier 29.
+- Netherite Block can no longer enter the core pool, even if bought.
+- Mossy Cobblestone, Sandstone, Deepslate, Netherrack, Soul Sand, Blackstone, Basalt and End Stone are no longer part of the tier order.
+
+### Added
+- Clay, Coarse Dirt, Jungle Log, Acacia Log, Andesite, Diorite, Granite, Stone Bricks and Quartz Block join the tier order.
+
 ## [16.0.0] - 2026-11-21 - 30 Tiers And Spawn Eggs
 
 ### Added

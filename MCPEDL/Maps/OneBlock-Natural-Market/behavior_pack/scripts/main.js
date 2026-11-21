@@ -14,7 +14,7 @@ const UNSAFE_CORE = new Set([
   "minecraft:water", "minecraft:flowing_water", "minecraft:lava", "minecraft:flowing_lava",
   "minecraft:oak_door", "minecraft:torch", "minecraft:redstone_torch", "minecraft:soul_torch",
   "minecraft:lever", "minecraft:ladder", "minecraft:oak_sapling", "minecraft:sugar_cane",
-  "minecraft:bamboo", "minecraft:repeater", "minecraft:comparator", "minecraft:anvil"
+  "minecraft:bamboo", "minecraft:repeater", "minecraft:comparator", "minecraft:anvil", "minecraft:netherite_block"
 ]);
 const CATEGORIES = [
   { name: "Building Blocks", icon: "textures/blocks/stone" },
@@ -30,12 +30,14 @@ const CATEGORIES = [
   { name: "Endgame", icon: "textures/items/ender_pearl" }
 ];
 const TIER_BLOCKS = [
-  ["dirt"], ["oak_log"], ["cobblestone"], ["coal_ore", "copper_ore"], ["iron_ore"],
-  ["gold_ore"], ["spruce_log"], ["stone"], ["lapis_ore"], ["redstone_ore"],
-  ["birch_log"], ["mossy_cobblestone"], ["sandstone"], ["deepslate"], ["deepslate_iron_ore"],
-  ["deepslate_gold_ore"], ["diamond_ore"], ["emerald_ore"], ["netherrack"], ["soul_sand"],
-  ["nether_gold_ore"], ["quartz_ore"], ["blackstone"], ["basalt"], ["end_stone"],
-  ["purpur_block"], ["ancient_debris"], ["netherite_block"], ["crying_obsidian"], ["obsidian"]
+  ["dirt"], ["coarse_dirt"], ["clay"],
+  ["oak_log"], ["spruce_log"], ["birch_log"], ["jungle_log"], ["acacia_log"],
+  ["cobblestone"], ["stone"], ["andesite"], ["diorite"], ["granite"],
+  ["coal_ore", "copper_ore"], ["iron_ore"], ["gold_ore"], ["lapis_ore"], ["redstone_ore"],
+  ["deepslate_iron_ore"], ["deepslate_gold_ore"], ["diamond_ore"], ["emerald_ore"],
+  ["nether_gold_ore"], ["quartz_ore"],
+  ["stone_bricks"], ["quartz_block"], ["purpur_block"], ["crying_obsidian"],
+  ["ancient_debris"], ["obsidian"]
 ];
 const MILESTONES = TIER_BLOCKS.map((ids, i) => ({
   unlock: i === 0 ? 0 : Math.round(10000 * Math.pow(i / (TIER_BLOCKS.length - 1), 1.6) / 10) * 10,
@@ -246,7 +248,7 @@ const TIER_FIX = {
   wooden_pickaxe: 1, wooden_axe: 1, wooden_shovel: 1, wooden_sword: 1,
   furnace: 2, torch: 3, coal: 3, coal_ore: 3,
   gold_ore: 5, gold_ingot: 5, golden_pickaxe: 5, golden_axe: 5, golden_sword: 5,
-  lapis_lazuli: 8, crying_obsidian: 28, obsidian: 29
+  lapis_lazuli: 8, crying_obsidian: 27, ancient_debris: 28, obsidian: 29
 };
 for (const item of CATALOG) {
   let t = OLD_TIER_TO_NEW[item.tier] ?? 0;
