@@ -1,15 +1,31 @@
 # Changelog — One Block Skyblock Lucky Blocks
 
-## [v5] - 2026-11-21 - Lucky Block Types
+## [v6] - 2026-11-22 - 200 Equal Prizes
 
 ### Added
+- **200 equal prizes**: Every break now picks from a flat list of 200 prizes. In the All-Round block each prize has the same 0.5% chance, and each themed block picks equally from its own list.
+- **Falling Chest**: A loot chest falls next to the island and lightning strikes it 5 seconds after it lands.
+- **New prizes**: 40 more prizes across farming, building, combat, mining, mystic and treasure, plus a few small setbacks.
+
+### Improved & Balanced
+- **Flat odds**: Luck tiers, the 70/30 split and the step-by-step progression are gone, and the heaviest setbacks (large hordes, wardens and chain explosions) were removed.
+- **Luck Ledger removed**: The Luck Ledger item, its counters and its starter chest slot are gone.
+
+<details>
+<summary><b>5.0.x</b> (1 release)</summary>
+
+### [v5] - 2026-11-21 - Lucky Block Types
+
+#### Added
 - **Lucky block types**: The center block now comes back as one of 7 types: All-Round, Farming, Building, Combat, Mining, Mystic or Treasure. Each has its own texture and favors matching good results.
 - **14 new results**: Wooden Sword, Wooden Pickaxe, Experience Spark, Archer Starter, Coal Starter, Book Stack, Emerald Find, Stone Sword, Stone Pickaxe, Lapis Pinch, Lucky Coin, Iron Blade, Arrow Quiver and Spare Shield.
 - **Falling Anvil**: A warning shows on the action bar, then an anvil drops from above you.
 - **Thunder Pig and Thunder Villager**: A mob appears and lightning strikes it about a quarter of a second later.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **Action bar only**: Results, the first-join tip and the Luck Ledger now show on the action bar instead of in chat.
+
+</details>
 
 <details>
 <summary><b>4.0.x</b> (1 release)</summary>
