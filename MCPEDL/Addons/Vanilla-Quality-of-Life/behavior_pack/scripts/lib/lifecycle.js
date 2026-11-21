@@ -50,7 +50,7 @@ system.runTimeout(() => {
   persistLights();
 
   try {
-    if (!world.getDynamicProperty("qol:gamerules_set")) {
+    if (CONFIG.APPLY_RANDOM_TICK_SPEED && !world.getDynamicProperty("qol:gamerules_set")) {
       const dim = world.getDimension("overworld");
       dim.runCommand(`gamerule randomTickSpeed ${CONFIG.RANDOM_TICK_SPEED}`);
       world.setDynamicProperty("qol:gamerules_set", true);

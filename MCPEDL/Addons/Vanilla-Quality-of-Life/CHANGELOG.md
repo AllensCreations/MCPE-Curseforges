@@ -2,6 +2,16 @@
 
 ---
 
+## [v6] - 2026-11-21 - Tree Replanting
+
+### Added
+
+- **Tree Replanting**: After Tree Capitator fells a whole tree, a matching sapling is planted where the trunk stood, using one sapling from your inventory (free in Creative).
+
+### Improved & Balanced
+
+- **Crop Growth Setting**: The random tick speed the pack sets on first load is now listed in the description and can be turned off in the script settings.
+
 ## [v5] - 2026-11-20 - Offhand Torch, Grass, and Recipe Fixes
 
 ### Added

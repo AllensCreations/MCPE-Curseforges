@@ -23,6 +23,14 @@ Hit a block and the best tool from your hotbar swaps into Slot 1, then returns a
 - **What Happens**: Sneak while chopping a log with an Axe to fell the whole tree, up to 128 logs, with the drops merged into full stacks within 5-block areas.
 - **Good To Know**: Trees touching player-built blocks such as planks, doors, fences, glass, bricks, or storage are left standing, and logs more than 8 blocks sideways from the broken log are ignored.
 
+### Tree Replanting
+- **What Happens**: After a whole tree is felled from its base, a matching sapling is planted where the trunk stood, using one sapling from your inventory for each spot.
+- **Good To Know**: It works for Oak, Spruce, Birch, Jungle, Acacia, Dark Oak, Cherry, and Pale Oak on dirt, grass, podzol, coarse dirt, rooted dirt, moss, mud, or mycelium, plants up to 4 saplings for wide trunks, and costs nothing in Creative.
+
+### Faster Crop Growth
+- **What Happens**: The first time the pack loads in a world, it sets the random tick speed to 4, so crops and saplings grow faster.
+- **Good To Know**: This is applied once per world, and you can change it afterward with the /gamerule command.
+
 ### Domino Ore Miner
 - **What Happens**: Sneak while mining an ore with a Pickaxe to harvest the connected vein, up to 64 ore blocks, or 4 for Ancient Debris.
 - **Good To Know**: Ores give their normal experience without Silk Touch, as up to 10 orbs per chain with any extra going straight to you.
@@ -56,6 +64,7 @@ Hit a block and the best tool from your hotbar swaps into Slot 1, then returns a
 
 - **Why did a tree stay standing?**: Trees touching player-built blocks such as planks, doors, or fences are skipped, and a very large tree is cut off at 128 logs.
 - **Why did auto-switch ignore a tool in my backpack?**: Auto-switch only uses tools in your hotbar.
+- **Why was no sapling planted after I felled a tree?**: A sapling is planted only when the whole tree was felled, the trunk stood on a supported soil block, and you carry a matching sapling.
 - **What happens when a tool reaches 0 durability?**: Chain mining stops, and the next use of that tool breaks it.
 
 ## Compatibility

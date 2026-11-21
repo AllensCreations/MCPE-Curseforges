@@ -2,6 +2,7 @@
 import { addGroupedDrop, removeBlockAt, spawnGroupedDrops } from "./blocks.js";
 import { CONFIG } from "./config.js";
 import { applyToolDurabilityDamage, checkToolSafety, notifyToolProtection, notifyTreeTooLarge } from "./durability.js";
+import { replantSaplings } from "./replant.js";
 import { isGameMode, normalizeId } from "./utils.js";
 
 export const AXE_IDENTIFIERS = new Set([
@@ -182,6 +183,7 @@ export function executeTreeCapitator(player, dimension, startLoc, startBlockId, 
   const capped = blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS;
   const creative = isGameMode(player, "creative");
   const drops = new Map();
+  let removedCount = 0;
   for (const pos of blocksToBreak) {
     if (!player || !player.isValid) break;
 
@@ -193,12 +195,16 @@ export function executeTreeCapitator(player, dimension, startLoc, startBlockId, 
 
     try {
       const brokenId = removeBlockAt(dimension, pos);
+      if (brokenId) removedCount++;
       if (brokenId && !creative) addGroupedDrop(drops, pos, brokenId, 1);
       applyToolDurabilityDamage(player);
     } catch (err) {}
   }
   spawnGroupedDrops(dimension, drops);
   if (capped) notifyTreeTooLarge(player);
+  if (!capped && removedCount === blocksToBreak.length) {
+    replantSaplings(player, dimension, startLoc, blocksToBreak, targetSpecies);
+  }
 
   if (onComplete) onComplete();
 }
