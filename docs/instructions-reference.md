@@ -5,7 +5,7 @@ Context7 usage: `INSTRUCTIONS.md`, `DOCS_RULES.md`, `PACK_GENERATOR_INSTRUCTIONS
 
 <!-- BEGIN INSTRUCTIONS.md -->
 
-# Instructions: Core Repository Policy (v30)
+# Instructions: Core Repository Policy (v31)
 
 
 Repo policy, docs rules for AllensCreations/MCPE-Curseforges (creator name `ALNStudios`). Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
@@ -130,11 +130,11 @@ Implementation:
 - Applies to all new recipes and any recipe touched. Check type against Samples first.
 
 ### 1.5 Recipe Images, Sprites, and Platform Descriptions
-- ALWAYS: every custom crafting recipe gets a diagram and its custom result item gets a sprite. The build makes both with `scripts/generate_recipe_images.py --all --items-from-recipes` (PNGs in `<pack>/assets/recipes/` and `<pack>/assets/items/`, sprites 128x128 nearest-neighbor); agents NEVER run it, they keep the recipe JSON and the add-on textures correct. A custom item WITHOUT a recipe that the DESCRIPTION shows: the update script runs `scripts/generate_recipe_images.py --project <pack> --item <id>`. `<pack>/assets/snapshots/` holds screenshots and GIFs the user uploads: NEVER rename, edit or delete. The file name is the caption on the page (`01-Cursor-Light.png` -> "Cursor Light"; a leading number only sets the order). `scripts/build_description_views.py` shows all three folders automatically in responsive galleries (`Custom Items`, `Crafting Recipes`, `Screenshots`) on the CurseForge page; NEVER manually insert raw HTML `<img>` tags for asset files into `DESCRIPTION.md` (which blocks the automated gallery renderer from displaying them). Commit the images in the same task. ONLY for DESCRIPTION. AI image generation prompts for banners and logos belong solely in the generated Listing Kit (`Package/<Name>.listing.md`) under AI Image Prompts; NEVER use AI image generation for recipes or item sprites unless asked.
+- ALWAYS: every custom crafting recipe gets a diagram and its custom result item gets a sprite. The build makes both with `scripts/generate_recipe_images.py --all --items-from-recipes` (PNGs in `<pack>/assets/recipes/` and `<pack>/assets/items/`, sprites 128x128 nearest-neighbor); agents NEVER run it, they keep the recipe JSON and the add-on textures correct. A custom item WITHOUT a recipe that the DESCRIPTION shows: the update script runs `scripts/generate_recipe_images.py --project <pack> --item <id>`. `<pack>/assets/snapshots/` holds screenshots and GIFs the user uploads: NEVER rename, edit or delete. The file name is the caption on the page (`01-Cursor-Light.png` -> "Cursor Light"; a leading number only sets the order). `scripts/lib/build_description_views.py` shows all three folders automatically in responsive galleries (`Custom Items`, `Crafting Recipes`, `Screenshots`) on the CurseForge page; NEVER manually insert raw HTML `<img>` tags for asset files into `DESCRIPTION.md` (which blocks the automated gallery renderer from displaying them). Commit the images in the same task. ONLY for DESCRIPTION. AI image generation prompts for banners and logos belong solely in the generated Listing Kit (`Package/<Name>.listing.md`) under AI Image Prompts; NEVER use AI image generation for recipes or item sprites unless asked.
 - ALWAYS verified absolute raw GitHub URLs. Confirm image exists, committed, matches item/recipe. Remove outdated.
 - Sprites: real texture from add-on or authoritative vanilla source. Inventory-style, NEVER cropped world textures. Block-only: build small isometric cube from verified top+side faces, NEVER stretch one face.
 - Build diagrams by code from recipe JSON + add-on result texture + Samples vanilla textures (`BEDROCK_SAMPLES_ROOT`; workflow clones to `/tmp/bedrock-samples`). Recipe JSON authoritative. NEVER change a recipe to fit an image.
-- Board: ONLY `scripts/CRAFTING_TABLE.svg` via `scripts/crafting_template.py` (ids `slot-0`..`slot-8` row-major, `slot-N-fill`, `output`, `output-fill`, `arrow`). NEVER `CRAFTINGBOARD.PNG`, screenshots, hand-drawn boards. SVG missing: stop, report.
+- Board: ONLY `scripts/CRAFTING_TABLE.svg` via `scripts/lib/crafting_template.py` (ids `slot-0`..`slot-8` row-major, `slot-N-fill`, `output`, `output-fill`, `arrow`). NEVER `CRAFTINGBOARD.PNG`, screenshots, hand-drawn boards. SVG missing: stop, report.
 - ALWAYS full 3x3. Shaped keeps exact placement + empties. Shapeless fills row-major. NEVER flatten to list. Show quantities and output count. Colors from the SVG, background NEVER transparent. Vanilla gray UI, crisp nearest-neighbor, no frames/gradients/glow/labels/emojis. One diagram per row at 400x222.
 - Texture sources: 1 Samples; 2 Minecraft Wiki fallback ONLY if Samples has no usable inventory sprite; 3 NEVER third-party packs, guessed names, approximations.
 - Wiki images: CC BY-NC-SA, conflicts with monetized pages. ONLY with explicit user approval of that image. Names `Invicon_<Title_Case_Name>.png`, `ItemSprite_<lowercase-hyphenated-name>.png`. Open file page, confirm license. Record file page URL, license, date in generator header comment or `scripts/ASSET_SOURCES.md`; add attribution to DESCRIPTION. NEVER bulk-copy. Wiki blocked: report, fall back to Samples.
@@ -284,6 +284,7 @@ Docs, API, vanilla data and repo files are read with the Context7 MCP tool `quer
 - [ ] Changed JSON validated. Instruction file changed: `scripts/check_instruction_files.py` passes.
 
 ## Version History
+- **v31:** Optional `behavior_pack/scripts/lib/` folder for shared script helpers (see `PACK_GENERATOR_INSTRUCTIONS.md` Script module). Library-only Python modules moved to `scripts/lib/` (`crafting_template.py`, `build_description_views.py`, `build_image_prompts.py`).
 - **v30:** 1.16 batches Context7 lookups: at most one `query-docs` call per `libraryId`, all in one parallel turn, no retry loops. Repo rules and script summaries are read from `docs/` (the only folder Context7 indexes).
 - **v29:** New 1.16 (Documentation Lookup): docs, API, vanilla data and repo scripts are read with Context7 `query-docs` from four fixed libraries instead of pasted URLs. Source priority, 1.2 refs and 1.15 trusted sources point to those libraries.
 - **v28:** Required namespace prefix for all item and block `menu_category.group` definitions (e.g. `minecraft:itemGroup.name.<group>`).
@@ -346,7 +347,7 @@ Single source for every doc rule and template (2.1 to 2.5), the `/checkrm` audit
 - Repo links: relative. Published pages: full URLs `https://github.com/AllensCreations/MCPE-Curseforges/tree/main/<path>`, `.../raw/main/builds/<file>`.
 - Spoiler (CurseForge `</>`): `<h2>Title</h2><div class="spoiler">content</div>`. Preview first. HTML only for listing images and a verified spoiler.
 - Changelog views: `changelog_views/<Name>.github.md` + `.curseforge.html` generated by `scripts/build_changelog_views.py`. NEVER add HTML/folds/links to CHANGELOG.md. NEVER hand-edit views.
-- Description HTML: rendered from DESCRIPTION.md by `scripts/build_description_views.py` (a library, writes no file) into the Listing Kit below; NEVER recreate separate `Package/<Name>.curseforge.html` or `image_prompts/` files (one dark green accent (#15803d) on every page, minimal theme-following style only; hero with badges: lowest Minecraft version read from the manifests as `1.26+`, `Experimental: No` always, achievements; feature cards; Get Started steps; Commands box; NO changelog box and NO pack version; CurseForge-supported HTML only). Assets in `assets/items/`, `assets/recipes/`, and `assets/snapshots/` automatically build responsive galleries (`Custom Items`, `Crafting Recipes`, `Screenshots`); NEVER manually embed raw `<img>` tags for asset files into `DESCRIPTION.md`, as find_media skips files already present in the markdown. DESCRIPTION.md stays the source. NEVER hand-edit views.
+- Description HTML: rendered from DESCRIPTION.md by `scripts/lib/build_description_views.py` (a library, writes no file) into the Listing Kit below; NEVER recreate separate `Package/<Name>.curseforge.html` or `image_prompts/` files (one dark green accent (#15803d) on every page, minimal theme-following style only; hero with badges: lowest Minecraft version read from the manifests as `1.26+`, `Experimental: No` always, achievements; feature cards; Get Started steps; Commands box; NO changelog box and NO pack version; CurseForge-supported HTML only). Assets in `assets/items/`, `assets/recipes/`, and `assets/snapshots/` automatically build responsive galleries (`Custom Items`, `Crafting Recipes`, `Screenshots`); NEVER manually embed raw `<img>` tags for asset files into `DESCRIPTION.md`, as find_media skips files already present in the markdown. DESCRIPTION.md stays the source. NEVER hand-edit views.
 - Listing Kit: `Package/<Name>.listing.md` generated from DESCRIPTION.md by `scripts/build_listing_kits.py` (refreshed by Build Changed Packs & Sync Catalogs). One page with Package name, Summary (max 256, the DESCRIPTION tagline as plain text), the description HTML and the Logo/Banner AI image prompts, each in its own code block so GitHub shows a Copy button. AI image generation prompts for banners/logos are generated automatically here; recipes and sprites use pixel/vector generators, NEVER AI generation. The HTML has no pack logo. NEVER hand-edit.
 - Media: payloads contain no screenshots. Add them on the platform after publishing.
 
@@ -522,7 +523,7 @@ CHANGELOG.md. Newest first. Groups: Added, Improved & Balanced, Fixed (bugs as i
 
 <!-- BEGIN PACK_GENERATOR_INSTRUCTIONS.md -->
 
-# Pack Generator Instructions (AI Agent, v31)
+# Pack Generator Instructions (AI Agent, v32)
 
 
 Builds a complete **addon**, **map**, **script**, or **minigame** from the user's idea. Returns ONE Termux `.sh` pack script that carries the whole project inside it (as base64). No other file is delivered.
@@ -698,6 +699,7 @@ project.json          REQUIRED: {"type": "addon|map|script|minigame", "name": "D
 README.md  DESCRIPTION.md  CHANGELOG.md
 behavior_pack/manifest.json
 behavior_pack/...     functions/ items/ blocks/ entities/ recipes/ loot_tables/ texts/ scripts/main.js
+                      scripts/lib/ (optional)
 resource_pack/        map/minigame REQUIRED. addon optional. script FORBIDDEN.
 texture_sources/      optional pixel JSON for custom textures (4.13). NEVER inside resource_pack/.
 ```
@@ -715,6 +717,7 @@ texture_sources/      optional pixel JSON for custom textures (4.13). NEVER insi
 - Fresh unique v4 UUIDs for every header and module. NEVER reuse/copy from examples.
 - RP exists: BP `dependencies` include `{ "uuid": "<RP header.uuid>", "version": [x, y, z] }` matching.
 - Script module: `"type": "script"`, `"language": "javascript"`, `"entry": "scripts/main.js"`; deps `{ "module_name": "@minecraft/server", "version": "<latest stable string>" }`. Add `@minecraft/server-ui` for forms (always for Controller).
+- Script `lib/` folder (only when `main.js` grows past one readable file, e.g. shared helpers, constants, form builders): put the helpers in `behavior_pack/scripts/lib/<name>.js` and import them from `main.js` with a relative path and the `.js` extension (`import "./lib/<name>.js";`). `entry` stays `scripts/main.js`. Verified form (Context7 2026-11-21): relative `./file.js` import from the entry file; named exports from `lib/` files are not verified, query before using them. A small pack keeps everything in `main.js`: NEVER add `lib/` without a need.
 - NEVER experiments unless needed (name in docs). Deps/imports ONLY `@minecraft/server`, `@minecraft/server-ui`, `@minecraft/vanilla-data`.
 - RP template (replace every placeholder; run `python3 -m json.tool`):
 ```json

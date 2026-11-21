@@ -26,6 +26,7 @@ def environment(samples_root: Path) -> list[str]:
     if not rp.is_dir():
         notes.append(f"Bedrock Samples not found at {rp}: no vanilla ingredient can resolve.")
     try:
+        sys.path.insert(0, str(Path(__file__).resolve().parent / "lib"))
         import crafting_template as ct
         ct.render_crafting_table_svg()
     except Exception as exc:

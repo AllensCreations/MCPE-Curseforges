@@ -36,8 +36,6 @@ Generated from the module docstrings in `scripts/` and the files in `.github/wor
 - `scripts/build_bedrock_reference.py`: Turn a checkout of Mojang/bedrock-samples into ONE minimal JSON reference for add-on work.
 - `scripts/build_changelog_views.py`: Build folded changelog views from the plain CHANGELOG.md of each project.
 - `scripts/build_context7_docs.py`: Regenerate the generated Context7 pages in docs/ from the repo's own files.
-- `scripts/build_description_views.py`: Renderer library: the CurseForge description HTML built from a pack's DESCRIPTION.md.
-- `scripts/build_image_prompts.py`: Library: the Logo and Banner image prompt text built from a pack's DESCRIPTION.md.
 - `scripts/build_listing_kits.py`: Build one Listing Kit per pack: every text you paste into a CurseForge listing, in one Markdown page.
 - `scripts/build_mcpedl_readme.py`: Builds MCPEDL/README.md: every pack grouped by type, with Version, Source, Package and AI review.
 - `scripts/build_oneblock_variants_from_template.py`: Build database-free OneBlock void worlds from the authoritative Mcpeworlds foundations.
@@ -49,7 +47,6 @@ Generated from the module docstrings in `scripts/` and the files in `.github/wor
 - `scripts/check_readme_status.py`: Scanner and Updater for add-on README.md and DESCRIPTION.md documentation status across MCPE-Curseforges.
 - `scripts/collect_ai_review.py`: Build the AI review export of the given paths, or one of the three shared kits.
 - `scripts/convert_crafting_recipe_svgs_to_png.py`: Export SVG assets to PNG. Crafting-table PNG is a derivative of CRAFTING_TABLE.svg, never a separate reference.
-- `scripts/crafting_template.py`: Canonical renderer for the sole crafting-board source: scripts/CRAFTING_TABLE.svg.
 - `scripts/decompress_bedrock_samples.py`: Decompresses reference/bedrock-samples/bedrock-samples.min.json.gz into individual clean JSON and lang files inside a target directory (defaults to reference/bedrock-samples/decompressed/).
 - `scripts/delete_project.py`: Delete Package: remove one package from MCPEDL/ and everything that depends on it.
 - `scripts/doc_template.py`: Strict README, DESCRIPTION, and CHANGELOG template check (Part 2). Used by build_payload.py and as an audit tool.
@@ -82,6 +79,9 @@ Generated from the module docstrings in `scripts/` and the files in `.github/wor
 - `scripts/sync_project_docs.py`: Keep each project's DESCRIPTION.md heading version and CHANGELOG.md newest entry in step with its manifest version.
 - `scripts/sync_readme_links.py`: Make every README in the repository agree with the real builds: fix download links, versions, and report broken links.
 - `scripts/validate_manifest_titles.py`: Validate Minecraft Bedrock pack titles and three-part project versions.
+- `scripts/lib/build_description_views.py`: Renderer library: the CurseForge description HTML built from a pack's DESCRIPTION.md.
+- `scripts/lib/build_image_prompts.py`: Library: the Logo and Banner image prompt text built from a pack's DESCRIPTION.md.
+- `scripts/lib/crafting_template.py`: Canonical renderer for the sole crafting-board source: scripts/CRAFTING_TABLE.svg.
 
 ## Key snippets
 

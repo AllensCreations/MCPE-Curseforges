@@ -3,7 +3,7 @@
 
 For every pack under MCPEDL/*/* that has behavior_pack/recipes/*.json, each shaped or shapeless crafting-table
 recipe becomes a 400x222 diagram at <pack>/assets/recipes/<result>_recipe.png, drawn on scripts/CRAFTING_TABLE.svg by
-scripts/crafting_template.py. The description builder shows that folder automatically.
+scripts/lib/crafting_template.py. The description builder shows that folder automatically.
 
 Textures
   custom items  : the pack's own resource_pack (BP item icon -> item_texture.json, then textures/items/**/<name>.png)
@@ -372,6 +372,7 @@ def plan_pack(pack: Path, samples_root: Path = None):
 
 
 def write_pack(pack: Path, jobs: list, with_sheet: bool):
+    sys.path.insert(0, str(Path(__file__).resolve().parent / "lib"))
     from crafting_template import compose_recipe_diagram  # needs CairoSVG; imported only when writing
     out_dir = pack / "assets" / "recipes"
     out_dir.mkdir(parents=True, exist_ok=True)

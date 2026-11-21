@@ -1,4 +1,4 @@
-# Pack Generator Instructions (AI Agent, v31)
+# Pack Generator Instructions (AI Agent, v32)
 
 
 Builds a complete **addon**, **map**, **script**, or **minigame** from the user's idea. Returns ONE Termux `.sh` pack script that carries the whole project inside it (as base64). No other file is delivered.
@@ -174,6 +174,7 @@ project.json          REQUIRED: {"type": "addon|map|script|minigame", "name": "D
 README.md  DESCRIPTION.md  CHANGELOG.md
 behavior_pack/manifest.json
 behavior_pack/...     functions/ items/ blocks/ entities/ recipes/ loot_tables/ texts/ scripts/main.js
+                      scripts/lib/ (optional)
 resource_pack/        map/minigame REQUIRED. addon optional. script FORBIDDEN.
 texture_sources/      optional pixel JSON for custom textures (4.13). NEVER inside resource_pack/.
 ```
@@ -191,6 +192,7 @@ texture_sources/      optional pixel JSON for custom textures (4.13). NEVER insi
 - Fresh unique v4 UUIDs for every header and module. NEVER reuse/copy from examples.
 - RP exists: BP `dependencies` include `{ "uuid": "<RP header.uuid>", "version": [x, y, z] }` matching.
 - Script module: `"type": "script"`, `"language": "javascript"`, `"entry": "scripts/main.js"`; deps `{ "module_name": "@minecraft/server", "version": "<latest stable string>" }`. Add `@minecraft/server-ui` for forms (always for Controller).
+- Script `lib/` folder (only when `main.js` grows past one readable file, e.g. shared helpers, constants, form builders): put the helpers in `behavior_pack/scripts/lib/<name>.js` and import them from `main.js` with a relative path and the `.js` extension (`import "./lib/<name>.js";`). `entry` stays `scripts/main.js`. Verified form (Context7 2026-11-21): relative `./file.js` import from the entry file; named exports from `lib/` files are not verified, query before using them. A small pack keeps everything in `main.js`: NEVER add `lib/` without a need.
 - NEVER experiments unless needed (name in docs). Deps/imports ONLY `@minecraft/server`, `@minecraft/server-ui`, `@minecraft/vanilla-data`.
 - RP template (replace every placeholder; run `python3 -m json.tool`):
 ```json

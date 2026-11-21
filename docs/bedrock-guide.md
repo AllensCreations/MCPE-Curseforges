@@ -16,6 +16,7 @@ An add-on is a behavior pack (BP) and a resource pack (RP) that depend on each o
 - BP: gameplay. Items, blocks, entities, recipes, loot tables, functions, and the script module.
 - RP: visuals and text. Textures, models, sounds, UI, language files.
 - Script API: a BP module of `type` `script`, `language` `javascript`, `entry` `scripts/main.js`, using `@minecraft/server` and `@minecraft/server-ui`.
+- Optional `scripts/lib/` in the BP holds shared helpers; `main.js` imports them by relative path with the `.js` extension (`import "./lib/<name>.js";`, relative `./file.js` form verified 2026-11-21 on `/websites/wiki_bedrock_dev`; named exports from lib files not verified). Add it only when one file is too big.
 - Packs link by pack UUID in `dependencies`; script modules link by `module_name` and `version`.
 
 ## Manifest setup
@@ -34,7 +35,7 @@ Structure (`/websites/wiki_bedrock_dev`, 2026-11-21): `format_version`, `header`
 
 ```text
 MCPEDL/<Addons|Maps|Script|Minigame>/<Name>/
-  behavior_pack/   manifest.json, items/, recipes/, scripts/, subpacks/, LOCK
+  behavior_pack/   manifest.json, items/, recipes/, scripts/ (main.js, optional lib/), subpacks/, LOCK
   resource_pack/   manifest.json, textures/, texts/, ui/
   assets/          listing images
   ai-review/       GENERATED, never edit
@@ -42,7 +43,7 @@ MCPEDL/<Addons|Maps|Script|Minigame>/<Name>/
 builds/            GENERATED packages and snapshots
 Package/           GENERATED listing kits
 changelog_views/   GENERATED
-scripts/           build, validate, package and update tooling
+scripts/           build, validate, package and update tooling; lib/ holds import-only Python modules
 docs/              the only folder Context7 indexes
 .agents/skills/    agent skills
 .github/workflows/ CI and dispatch workflows

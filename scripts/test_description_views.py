@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 """Description views: valid CurseForge HTML from a template-compliant DESCRIPTION.md."""
+import sys
 import tempfile
 import unittest
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent / "lib"))
 import build_description_views as bdv
 import doc_template as dt
 

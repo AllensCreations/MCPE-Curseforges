@@ -27,6 +27,10 @@
 
 ---
 
+## [v184] - 2026-11-21 - Script Lib Folders
+
+- Import-only Python modules moved to `scripts/lib/`; optional `behavior_pack/scripts/lib/` rule for pack scripts.
+
 ## [v183] - 2026-11-21 - Context7 Docs Folder
 
 - Context7 now indexes only `docs/` (bedrock guide, instructions reference, scripts and workflows summary).

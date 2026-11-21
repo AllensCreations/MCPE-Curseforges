@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Test for scripts/crafting_template.py and scripts/CRAFTING_TABLE.svg.
+"""Test for scripts/lib/crafting_template.py and scripts/CRAFTING_TABLE.svg.
 
 Run: python tests/test_crafting_template.py
 Writes sample images to tests/output/ (not committed; the workflow uploads them).
@@ -11,6 +11,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
+sys.path.insert(0, str(ROOT / "scripts" / "lib"))
 import crafting_template as ct  # noqa: E402
 
 OUT = Path(__file__).resolve().parent / "output"

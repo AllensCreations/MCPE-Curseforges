@@ -3,7 +3,7 @@
 
 Output: Package/<n>.listing.md. GitHub shows each ```text block with a Copy button, so open the file on GitHub
 and tap Copy next to: Package name, Summary (max 256), the description HTML, and the Logo / Banner AI image prompts.
-Everything comes from DESCRIPTION.md (same code as build_description_views.py and build_image_prompts.py).
+Everything comes from DESCRIPTION.md (same code as lib/build_description_views.py and lib/build_image_prompts.py).
 
 Run: python3 scripts/build_listing_kits.py --all | --project MCPEDL/Addons/<n> [--check] [--out DIR]
 NEVER edit the generated files by hand.
@@ -14,6 +14,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent / "lib"))
 import build_description_views as bdv  # noqa: E402
 import build_image_prompts as bip  # noqa: E402
 

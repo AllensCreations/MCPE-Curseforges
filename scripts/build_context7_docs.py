@@ -68,11 +68,11 @@ def scripts_page():
              "- `auto_ai_review.py`: refreshes the per-pack export of every pack whose files changed (hash stamps).\n"
              "- `enrich_ai_review.py`: adds Graphify context.\n\n"
              "## Scripts\n\n")
-    for f in sorted((ROOT / "scripts").glob("*.py")):
+    for f in sorted((ROOT / "scripts").glob("*.py")) + sorted((ROOT / "scripts" / "lib").glob("*.py")):
         if f.name.startswith("test_"):
             continue
         d = ast.get_docstring(ast.parse(f.read_text(encoding="utf-8")))
-        o.append(f"- `scripts/{f.name}`: {first_para(d) or '(no description)'}\n")
+        o.append(f"- `{f.relative_to(ROOT).as_posix()}`: {first_para(d) or '(no description)'}\n")
     o.append("\n## Key snippets\n")
     for s in SNIPPETS:
         d = ast.get_docstring(ast.parse((ROOT / "scripts" / s).read_text(encoding="utf-8"))) or ""

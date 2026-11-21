@@ -20,7 +20,7 @@ import xml.etree.ElementTree as ET
 import cairosvg
 from PIL import Image
 
-CRAFTING_TABLE_SVG = Path(__file__).resolve().parent / "CRAFTING_TABLE.svg"
+CRAFTING_TABLE_SVG = Path(__file__).resolve().parent.parent / "CRAFTING_TABLE.svg"
 NATIVE_SIZE = (400, 222)
 
 SLOT_ICON_SIZE = 32

@@ -15,6 +15,7 @@ def sandbox():
     (tmp / "scripts").mkdir()
     for f in (ROOT / "scripts").glob("*.py"):
         shutil.copy(f, tmp / "scripts" / f.name)
+    shutil.copytree(ROOT / "scripts" / "lib", tmp / "scripts" / "lib", ignore=shutil.ignore_patterns("__pycache__"))
     for n in cif.FILES:
         shutil.copy(ROOT / n, tmp / n)
     wf = tmp / ".github" / "workflows"
