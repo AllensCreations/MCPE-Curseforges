@@ -22,8 +22,10 @@
       "item": "minecraft:paper",
       "count": 6
     },
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    }
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

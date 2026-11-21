@@ -40,8 +40,10 @@
       "item": "minecraft:gray_concrete",
       "count": 8
     },
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    }
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

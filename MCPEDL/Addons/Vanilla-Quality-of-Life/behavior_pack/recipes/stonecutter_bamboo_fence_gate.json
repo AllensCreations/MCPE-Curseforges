@@ -17,8 +17,10 @@
       "item": "minecraft:bamboo_fence_gate",
       "count": 1
     },
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    }
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

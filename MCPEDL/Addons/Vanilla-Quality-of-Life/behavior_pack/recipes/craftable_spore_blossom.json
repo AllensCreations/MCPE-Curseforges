@@ -22,8 +22,10 @@
       "item": "minecraft:spore_blossom",
       "count": 1
     },
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    }
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

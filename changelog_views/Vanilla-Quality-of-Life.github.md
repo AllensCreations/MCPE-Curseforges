@@ -1,9 +1,19 @@
 # Changelog — Vanilla Quality of Life
 
-## [v9] - 2026-11-21 - Spider Model Fix
+## [v10] - 2026-11-21 - Shapeless Recipe Unlock Fix
 
 ### Fixed
+- **Shapeless Recipes**: Uncrafting, recombining, recycling, stonecutter, and other shapeless recipes now use the unlock format the game expects, so they load without errors.
+
+<details>
+<summary><b>9.0.x</b> (1 release)</summary>
+
+### [v9] - 2026-11-21 - Spider Model Fix
+
+#### Fixed
 - **Spider and Cave Spider**: They no longer replace the game's own models, which fixes the animation and model errors.
+
+</details>
 
 <details>
 <summary><b>8.0.x</b> (1 release)</summary>

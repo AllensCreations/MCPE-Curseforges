@@ -19,8 +19,10 @@
       "item": "minecraft:warped_planks",
       "count": 1
     },
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    }
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

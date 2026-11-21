@@ -17,8 +17,10 @@
       "item": "minecraft:crimson_planks",
       "count": 4
     },
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    }
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

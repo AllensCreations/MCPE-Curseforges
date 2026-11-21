@@ -17,8 +17,10 @@
       "item": "minecraft:crimson_slab",
       "count": 2
     },
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    }
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

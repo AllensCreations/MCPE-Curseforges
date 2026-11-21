@@ -16,8 +16,10 @@
       "item": "minecraft:nether_wart",
       "count": 9
     },
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    }
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

@@ -17,8 +17,10 @@
       "item": "minecraft:birch_trapdoor",
       "count": 1
     },
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    }
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

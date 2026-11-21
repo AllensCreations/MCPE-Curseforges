@@ -16,8 +16,10 @@
       "item": "minecraft:ice",
       "count": 9
     },
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    }
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }
