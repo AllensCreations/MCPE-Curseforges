@@ -104,7 +104,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-ChestLog/behavior_pack/manifest.json (65 lines, 1144 bytes)
+## FILE: MCPEDL/Addons/ALN-ChestLog/behavior_pack/manifest.json (66 lines, 1173 bytes)
 
 ```
 {
@@ -168,7 +168,8 @@ Output ONLY these three sections in order:
     "version": "3.0.0",
     "authors": [
       "ALNStudios"
-    ]
+    ],
+    "product_type": "addon"
   }
 }
 ```
@@ -1339,7 +1340,7 @@ Download the current release of **ALN ChestLog** for Minecraft Bedrock Edition.
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALN-ChestLog/DESCRIPTION.md).
 ```
 
-## FILE: MCPEDL/Addons/ALN-ChestLog/resource_pack/manifest.json (36 lines, 596 bytes)
+## FILE: MCPEDL/Addons/ALN-ChestLog/resource_pack/manifest.json (37 lines, 625 bytes)
 
 ```
 {
@@ -1374,7 +1375,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
     "version": "3.0.0",
     "authors": [
       "ALNStudios"
-    ]
+    ],
+    "product_type": "addon"
   }
 }
 ```

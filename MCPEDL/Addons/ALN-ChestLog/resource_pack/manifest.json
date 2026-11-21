@@ -30,6 +30,7 @@
     "version": "3.0.0",
     "authors": [
       "ALNStudios"
-    ]
+    ],
+    "product_type": "addon"
   }
 }

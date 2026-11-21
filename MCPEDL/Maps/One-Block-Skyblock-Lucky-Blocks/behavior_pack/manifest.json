@@ -55,6 +55,7 @@
     "authors": [
       "ALNStudios"
     ],
-    "version": "5.0.0"
+    "version": "5.0.0",
+    "product_type": "addon"
   }
 }

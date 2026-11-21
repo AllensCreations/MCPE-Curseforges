@@ -42,6 +42,7 @@
     "authors": [
       "ALNStudios"
     ],
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "product_type": "addon"
   }
 }

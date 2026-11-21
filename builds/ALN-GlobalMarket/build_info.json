@@ -2,7 +2,7 @@
   "changelog_version": "1.0.2",
   "manifest_version": "1.0.2",
   "packages": {
-    "ALNGlobalMarket V1.0.2.mcaddon": "cf49a498048c5c222241778aab8ceb66b135fcc2769e49c6c1c32a50f0e790b1"
+    "ALNGlobalMarket V1.0.2.mcaddon": "202424af8e23c4a16dcc0d5e0615c04ffdbd4624f92b41deb9b80b4c610180e4"
   },
-  "source_sha256": "ed46238c57da40a2b9ceee687e67996e5611cada5ccb25d7f6b8a7efe7e6bd5e"
+  "source_sha256": "948dc9e7bff822f4b1435294fb758989dd240faf394451a355cbbfcbc4d22418"
 }

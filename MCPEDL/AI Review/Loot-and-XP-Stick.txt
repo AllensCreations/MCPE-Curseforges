@@ -79,7 +79,7 @@ Output ONLY these three sections in order:
 
 ## File Contents
 
-## FILE: MCPEDL/Script/Loot-and-XP-Stick/behavior_pack/manifest.json (48 lines, 851 bytes)
+## FILE: MCPEDL/Script/Loot-and-XP-Stick/behavior_pack/manifest.json (49 lines, 880 bytes)
 
 ```
 {
@@ -126,7 +126,8 @@ Output ONLY these three sections in order:
     "authors": [
       "ALNStudios"
     ],
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "product_type": "addon"
   }
 }
 ```

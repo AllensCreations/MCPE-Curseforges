@@ -453,7 +453,7 @@ execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cle
 }
 ```
 
-## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/manifest.json (61 lines, 1036 bytes)
+## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/manifest.json (62 lines, 1065 bytes)
 
 ```
 {
@@ -513,7 +513,8 @@ execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cle
     "authors": [
       "ALNStudios"
     ],
-    "version": "5.0.0"
+    "version": "5.0.0",
+    "product_type": "addon"
   }
 }
 ```
@@ -1626,7 +1627,7 @@ Download the current release of **One Block Skyblock Lucky Blocks** for Minecraf
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/DESCRIPTION.md).
 ```
 
-## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/resource_pack/manifest.json (36 lines, 577 bytes)
+## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/resource_pack/manifest.json (37 lines, 606 bytes)
 
 ```
 {
@@ -1661,7 +1662,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
     "authors": [
       "ALNStudios"
     ],
-    "version": "5.0.0"
+    "version": "5.0.0",
+    "product_type": "addon"
   }
 }
 ```

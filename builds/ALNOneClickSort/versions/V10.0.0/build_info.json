@@ -2,7 +2,7 @@
   "changelog_version": "10.0.0",
   "manifest_version": "10.0.0",
   "packages": {
-    "ALNOneClickSort V10.mcaddon": "482e375b5c3eb4aa6f5c6328cf53d6b8dc1e36e96f310446bc9c14e2a78e59ec"
+    "ALNOneClickSort V10.mcaddon": "d71958c4f6d2efd80d2ed9a2582e8c210fc914329615adae2a922e7304f558f6"
   },
-  "source_sha256": "e194fa484a5dd5f2e940aff2f7073f33232a6959c4376a48c3b375c08d132992"
+  "source_sha256": "cc703a91a65d0b93283229b7b1a7eece559ca356b0c6ab365a5dcf2268d0a7e1"
 }

@@ -79,7 +79,7 @@ Output ONLY these three sections in order:
 
 ## File Contents
 
-## FILE: MCPEDL/Script/Target-HUD-Entity-Inspector/behavior_pack/manifest.json (46 lines, 929 bytes)
+## FILE: MCPEDL/Script/Target-HUD-Entity-Inspector/behavior_pack/manifest.json (47 lines, 958 bytes)
 
 ```
 {
@@ -124,7 +124,8 @@ Output ONLY these three sections in order:
       "ALNStudios"
     ],
     "license": "All rights reserved",
-    "version": "2.0.0"
+    "version": "2.0.0",
+    "product_type": "addon"
   }
 }
 ```

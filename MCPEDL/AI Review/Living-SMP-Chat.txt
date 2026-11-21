@@ -93,7 +93,7 @@ Output ONLY these three sections in order:
 
 ## File Contents
 
-## FILE: MCPEDL/Script/Living-SMP-Chat/behavior_pack/manifest.json (66 lines, 1226 bytes)
+## FILE: MCPEDL/Script/Living-SMP-Chat/behavior_pack/manifest.json (67 lines, 1255 bytes)
 
 ```
 {
@@ -158,7 +158,8 @@ Output ONLY these three sections in order:
     "authors": [
       "ALNStudios"
     ],
-    "version": "2.0.0"
+    "version": "2.0.0",
+    "product_type": "addon"
   }
 }
 ```

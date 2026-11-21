@@ -40,6 +40,7 @@
       "ALNStudios"
     ],
     "license": "All rights reserved",
-    "version": "2.0.0"
+    "version": "2.0.0",
+    "product_type": "addon"
   }
 }

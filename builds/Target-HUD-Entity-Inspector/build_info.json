@@ -2,7 +2,7 @@
   "changelog_version": "2.0.0",
   "manifest_version": "2.0.0",
   "packages": {
-    "TargetHUD V2.mcpack": "4b27d9dea8398d7c0d1d6ddb7fc6b4585d74ac9b4101d487c4cdf4f059547bb9"
+    "TargetHUD V2.mcpack": "99254a361be901e0a71e246dbd9ece57c8ec581c83a27a6c5435ef857ff01cc5"
   },
-  "source_sha256": "35cce1702bc0b5fa0c6e246f4614f34f02c03c64e863a7fcf441edaf250d81c5"
+  "source_sha256": "629d297ef7ee50a0611826c6e60d3d6de25b4fafa134334ebee7221fe9662798"
 }

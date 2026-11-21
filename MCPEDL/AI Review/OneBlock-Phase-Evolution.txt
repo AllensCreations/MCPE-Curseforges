@@ -157,7 +157,7 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Phase-Evolution/behavior_pack/manifest.json (61 lines, 1085 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Phase-Evolution/behavior_pack/manifest.json (62 lines, 1114 bytes)
 
 ```
 {
@@ -217,7 +217,8 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
     "authors": [
       "ALNStudios"
     ],
-    "version": "2.0.0"
+    "version": "2.0.0",
+    "product_type": "addon"
   }
 }
 ```
@@ -787,7 +788,7 @@ Download the current release of **OneBlock Phase Evolution** for Minecraft Bedro
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Phase-Evolution/DESCRIPTION.md).
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Phase-Evolution/resource_pack/manifest.json (36 lines, 592 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Phase-Evolution/resource_pack/manifest.json (37 lines, 621 bytes)
 
 ```
 {
@@ -822,7 +823,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
     "authors": [
       "ALNStudios"
     ],
-    "version": "2.0.0"
+    "version": "2.0.0",
+    "product_type": "addon"
   }
 }
 ```

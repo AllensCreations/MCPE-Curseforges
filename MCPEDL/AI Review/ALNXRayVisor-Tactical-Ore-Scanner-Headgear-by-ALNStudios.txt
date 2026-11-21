@@ -137,7 +137,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios/behavior_pack/manifest.json (52 lines, 862 bytes)
+## FILE: MCPEDL/Addons/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios/behavior_pack/manifest.json (53 lines, 891 bytes)
 
 ```
 {
@@ -188,7 +188,8 @@ Output ONLY these three sections in order:
     "version": "1.0.0",
     "authors": [
       "ALNStudios"
-    ]
+    ],
+    "product_type": "addon"
   }
 }
 ```
@@ -763,7 +764,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios/resource_pack/manifest.json (36 lines, 568 bytes)
+## FILE: MCPEDL/Addons/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios/resource_pack/manifest.json (37 lines, 597 bytes)
 
 ```
 {
@@ -798,7 +799,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
     "version": "1.0.0",
     "authors": [
       "ALNStudios"
-    ]
+    ],
+    "product_type": "addon"
   }
 }
 ```

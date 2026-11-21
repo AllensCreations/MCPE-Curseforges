@@ -218,7 +218,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNOneClickSort/behavior_pack/manifest.json (77 lines, 1390 bytes)
+## FILE: MCPEDL/Addons/ALNOneClickSort/behavior_pack/manifest.json (78 lines, 1419 bytes)
 
 ```
 {
@@ -294,7 +294,8 @@ Output ONLY these three sections in order:
     "authors": [
       "ALNStudios"
     ],
-    "version": "10.0.0"
+    "version": "10.0.0",
+    "product_type": "addon"
   }
 }
 ```

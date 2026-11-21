@@ -764,7 +764,7 @@ Download the current release of **Fletching Table Arsenal** for Minecraft Bedroc
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/Fletching-Table-Arsenal/DESCRIPTION.md).
 ```
 
-## FILE: MCPEDL/Addons/Fletching-Table-Arsenal/resource_pack/manifest.json (36 lines, 600 bytes)
+## FILE: MCPEDL/Addons/Fletching-Table-Arsenal/resource_pack/manifest.json (37 lines, 629 bytes)
 
 ```
 {
@@ -799,7 +799,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
     "authors": [
       "ALNStudios"
     ],
-    "version": "2.0.0"
+    "version": "2.0.0",
+    "product_type": "addon"
   }
 }
 ```

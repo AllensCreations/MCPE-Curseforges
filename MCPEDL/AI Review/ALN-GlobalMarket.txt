@@ -66,7 +66,7 @@ Output ONLY these three sections in order:
 
 ## File Contents
 
-## FILE: MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/manifest.json (48 lines, 861 bytes)
+## FILE: MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/manifest.json (49 lines, 890 bytes)
 
 ```
 {
@@ -113,7 +113,8 @@ Output ONLY these three sections in order:
     "authors": [
       "ALNStudios"
     ],
-    "version": "1.0.2"
+    "version": "1.0.2",
+    "product_type": "addon"
   }
 }
 ```

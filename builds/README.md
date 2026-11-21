@@ -46,7 +46,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **ALN ChestLog** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-ChestLog/ALNChestLog%20V3.mcaddon) | [`ALN-ChestLog/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-ChestLog/) |
 | **ALNXRayVisor (Tactical Ore-Scanner Headgear) by ALNStudios** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios/ALNXRayVisorTacticalOreScannerHeadgearByALNStudios%20V1.mcaddon) | [`ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios/) |
 | **ALN PortalDoors** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-PortalDoors/ALNPortalDoors%20V1.mcaddon) | [`ALN-PortalDoors/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-PortalDoors/) |
-| **ALNLootSpawner (Arcane Relic Duplicator)** | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNLootSpawner-Arcane-Relic-Duplicator/ALNLootSpawnerArcaneRelicDuplicator%20V1.mcaddon) | [`ALNLootSpawner-Arcane-Relic-Duplicator/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNLootSpawner-Arcane-Relic-Duplicator/) |
+| **ALNLootSpawner (Arcane Relic Duplicator)** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNLootSpawner-Arcane-Relic-Duplicator/ALNLootSpawnerArcaneRelicDuplicator%20V1.mcaddon) | [`ALNLootSpawner-Arcane-Relic-Duplicator/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNLootSpawner-Arcane-Relic-Duplicator/) |
 
 ### Worlds and Maps
 

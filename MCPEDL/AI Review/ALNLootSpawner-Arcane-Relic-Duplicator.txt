@@ -158,7 +158,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/behavior_pack/manifest.json (65 lines, 1102 bytes)
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/behavior_pack/manifest.json (66 lines, 1131 bytes)
 
 ```
 {
@@ -222,7 +222,8 @@ Output ONLY these three sections in order:
     "version": "1.0.0",
     "authors": [
       "ALNStudios"
-    ]
+    ],
+    "product_type": "addon"
   }
 }
 ```
@@ -704,7 +705,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/manifest.json (36 lines, 577 bytes)
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/manifest.json (37 lines, 606 bytes)
 
 ```
 {
@@ -739,7 +740,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
     "version": "1.0.0",
     "authors": [
       "ALNStudios"
-    ]
+    ],
+    "product_type": "addon"
   }
 }
 ```

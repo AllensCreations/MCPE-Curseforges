@@ -76,7 +76,7 @@ Output ONLY these three sections in order:
 
 ## File Contents
 
-## FILE: MCPEDL/Script/Chrono-Bed/behavior_pack/manifest.json (44 lines, 765 bytes)
+## FILE: MCPEDL/Script/Chrono-Bed/behavior_pack/manifest.json (45 lines, 794 bytes)
 
 ```
 {
@@ -119,7 +119,8 @@ Output ONLY these three sections in order:
     "authors": [
       "ALNStudios"
     ],
-    "version": "2.0.0"
+    "version": "2.0.0",
+    "product_type": "addon"
   }
 }
 ```
