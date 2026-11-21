@@ -1,10 +1,23 @@
 # Changelog — OneBlock Natural Market
 
-## [15.0.0] - 2026-11-21 - Core Pool And Ledger Return Fix
+## [16.0.0] - 2026-11-21 - 30 Tiers And Spawn Eggs
+
+### Added
+
+### Changed
 
 ### Fixed
 
-### Changed
+<details>
+<summary><b>15.0.x</b> (1 release)</summary>
+
+### [15.0.0] - 2026-11-21 - Core Pool And Ledger Return Fix
+
+#### Fixed
+
+#### Changed
+
+</details>
 
 <details>
 <summary><b>14.0.x</b> (2 releases)</summary>

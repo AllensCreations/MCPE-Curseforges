@@ -16,7 +16,7 @@
 
 - **Export request:** `MCPEDL/Maps/OneBlock-Natural-Market`
 - **Destination:** `MCPEDL/Maps/OneBlock-Natural-Market`
-- **CURRENT VERSION: v15 / NEXT UPDATE: v16**  (`MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md`)
+- **CURRENT VERSION: v16 / NEXT UPDATE: v17**  (`MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md`)
 - **Text files:** 14
 - **Skipped binary:** 10
 - **Paths not found:** 0
@@ -60,7 +60,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v15 / NEXT UPDATE: v16).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v16 / NEXT UPDATE: v17).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -170,11 +170,11 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v15)",
+    "name": "OneBlock Natural Market (v16)",
     "description": "OneBlock survival with a progression market and regenerating core. by ALNStudios",
     "uuid": "77f07d1a-fa7a-437d-8fea-72068be05162",
     "version": [
-      15,
+      16,
       0,
       0
     ],
@@ -189,7 +189,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "type": "data",
       "uuid": "6382a3dd-3398-4ec5-851b-748d052c0e36",
       "version": [
-        15,
+        16,
         0,
         0
       ]
@@ -199,7 +199,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "language": "javascript",
       "uuid": "645e0490-52c0-4f43-b412-0f20375a92fc",
       "version": [
-        15,
+        16,
         0,
         0
       ],
@@ -210,7 +210,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
     {
       "uuid": "187333a6-4353-4003-b379-471f85ce9021",
       "version": [
-        15,
+        16,
         0,
         0
       ]
@@ -229,12 +229,12 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "15.0.0"
+    "version": "16.0.0"
   }
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (700 lines, 38484 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (730 lines, 40375 bytes)
 
 ```
 import { world, system, ItemStack, ItemTypes } from "@minecraft/server";
@@ -253,7 +253,7 @@ const UNSAFE_CORE = new Set([
   "minecraft:water", "minecraft:flowing_water", "minecraft:lava", "minecraft:flowing_lava",
   "minecraft:oak_door", "minecraft:torch", "minecraft:redstone_torch", "minecraft:soul_torch",
   "minecraft:lever", "minecraft:ladder", "minecraft:oak_sapling", "minecraft:sugar_cane",
-  "minecraft:bamboo", "minecraft:repeater", "minecraft:comparator"
+  "minecraft:bamboo", "minecraft:repeater", "minecraft:comparator", "minecraft:anvil"
 ]);
 const CATEGORIES = [
   { name: "Building Blocks", icon: "textures/blocks/stone" },
@@ -264,21 +264,23 @@ const CATEGORIES = [
   { name: "Ores & Minerals", icon: "textures/items/diamond" },
   { name: "Redstone", icon: "textures/items/redstone_dust" },
   { name: "Mob Drops", icon: "textures/items/bone" },
+  { name: "Spawn Eggs", icon: "textures/items/spawn_eggs/spawn_egg_cow" },
   { name: "Nether", icon: "textures/blocks/netherrack" },
   { name: "Endgame", icon: "textures/items/ender_pearl" }
 ];
-const MILESTONES = [
-  { unlock: 0, id: "minecraft:dirt", reward: 1 },
-  { unlock: 50, id: "minecraft:oak_log", reward: 1 },
-  { unlock: 150, id: "minecraft:cobblestone", reward: 2 },
-  { unlock: 350, id: "minecraft:coal_ore", reward: 2 },
-  { unlock: 700, id: "minecraft:iron_ore", reward: 3 },
-  { unlock: 1200, id: "minecraft:gold_ore", reward: 3 },
-  { unlock: 2000, id: "minecraft:diamond_ore", reward: 4 },
-  { unlock: 3000, id: "minecraft:obsidian", reward: 5 },
-  { unlock: 4500, id: "minecraft:ancient_debris", reward: 6 },
-  { unlock: 6000, id: "minecraft:netherite_block", reward: 8 }
+const TIER_BLOCKS = [
+  ["dirt"], ["oak_log"], ["cobblestone"], ["coal_ore", "copper_ore"], ["iron_ore"],
+  ["gold_ore"], ["spruce_log"], ["stone"], ["lapis_ore"], ["redstone_ore"],
+  ["birch_log"], ["mossy_cobblestone"], ["sandstone"], ["deepslate"], ["deepslate_iron_ore"],
+  ["deepslate_gold_ore"], ["diamond_ore"], ["emerald_ore"], ["netherrack"], ["soul_sand"],
+  ["nether_gold_ore"], ["quartz_ore"], ["blackstone"], ["basalt"], ["end_stone"],
+  ["purpur_block"], ["ancient_debris"], ["netherite_block"], ["crying_obsidian"], ["obsidian"]
 ];
+const MILESTONES = TIER_BLOCKS.map((ids, i) => ({
+  unlock: i === 0 ? 0 : Math.round(10000 * Math.pow(i / (TIER_BLOCKS.length - 1), 1.6) / 10) * 10,
+  ids: ids.map(id => "minecraft:" + id),
+  reward: Math.round(1 + i * 11 / (TIER_BLOCKS.length - 1))
+}));
 const CATALOG = [
   ["dirt", 2, 16, "Building Blocks", 0, true, "textures/blocks/dirt"],
   ["coarse_dirt", 2, 16, "Building Blocks", 0, true, "textures/blocks/coarse_dirt"],
@@ -476,13 +478,49 @@ const CATALOG = [
   name: raw.split("_").map(s => s[0].toUpperCase() + s.slice(1)).join(" ")
 }));
 
-const TIER_PRICE_MULT = [1, 1, 1, 1.5, 2, 2.5, 3, 4, 5, 6];
+const OLD_TIER_TO_NEW = [0, 2, 4, 7, 12, 18, 21, 24, 26, 28];
+const TIER_FIX = {
+  oak_log: 1, oak_planks: 1, spruce_log: 1, birch_log: 1, jungle_log: 1, acacia_log: 1, dark_oak_log: 1,
+  spruce_planks: 1, birch_planks: 1, stick: 1, crafting_table: 1, chest: 1,
+  wooden_pickaxe: 1, wooden_axe: 1, wooden_shovel: 1, wooden_sword: 1,
+  furnace: 2, torch: 3, coal: 3, coal_ore: 3,
+  gold_ore: 5, gold_ingot: 5, golden_pickaxe: 5, golden_axe: 5, golden_sword: 5,
+  lapis_lazuli: 8, crying_obsidian: 28, obsidian: 29
+};
+for (const item of CATALOG) {
+  let t = OLD_TIER_TO_NEW[item.tier] ?? 0;
+  if (item.category === "Redstone" && item.tier === 3) t = 9;
+  item.tier = TIER_FIX[item.raw] ?? t;
+}
+function makeEntry(raw, price, amount, category, tier, block, icon) {
+  return {
+    id: "minecraft:" + raw, raw, price, amount, category, tier, block, icon,
+    name: raw.split("_").map(w => w[0].toUpperCase() + w.slice(1)).join(" ")
+  };
+}
+CATALOG.push(
+  makeEntry("copper_ore", 14, 4, "Ores & Minerals", 3, true, "textures/blocks/copper_ore"),
+  makeEntry("copper_ingot", 12, 4, "Ores & Minerals", 3, false, "textures/items/copper_ingot")
+);
+const SPAWN_EGGS = [
+  ["chicken", 50, 9], ["pig", 60, 9], ["cow", 60, 10], ["sheep", 60, 10], ["rabbit", 70, 10],
+  ["cat", 90, 11], ["wolf", 110, 11], ["horse", 130, 12], ["donkey", 130, 12], ["llama", 140, 12],
+  ["fox", 120, 13], ["bee", 100, 13], ["zombie", 120, 13], ["skeleton", 150, 13],
+  ["mooshroom", 160, 14], ["goat", 130, 14], ["frog", 120, 14], ["spider", 130, 14],
+  ["turtle", 150, 15], ["axolotl", 150, 15], ["creeper", 200, 15],
+  ["slime", 180, 16], ["panda", 220, 16], ["witch", 260, 17], ["camel", 240, 17],
+  ["enderman", 320, 19], ["blaze", 350, 20], ["magma_cube", 260, 20]
+];
+for (const [mob, price, tier] of SPAWN_EGGS) {
+  CATALOG.push(makeEntry(mob + "_spawn_egg", price, 1, "Spawn Eggs", tier, false, "textures/items/spawn_eggs/spawn_egg_" + mob));
+}
 const BASE_PRICE_FIX = { iron_block: 100, hay_block: 20, redstone_block: 70, netherite_block: 4500 };
 const SELL_FIX = { netherite_block: 100, ancient_debris: 40, obsidian: 10 };
+const priceMult = tier => (tier <= 5 ? 1 : 1 + (tier - 5) * 0.2);
 for (const item of CATALOG) {
   const base = BASE_PRICE_FIX[item.raw] ?? item.price;
-  item.sell = SELL_FIX[item.raw] ?? Math.max(1, Math.floor(base / 2));
-  item.price = Math.max(1, Math.round(base * (TIER_PRICE_MULT[item.tier] ?? 1)));
+  item.sell = item.category === "Spawn Eggs" ? 0 : (SELL_FIX[item.raw] ?? Math.max(1, Math.floor(base / 2)));
+  item.price = Math.max(1, Math.round(base * priceMult(item.tier)));
 }
 const BUILDING_IDS = new Set(CATALOG.filter(i => i.category === "Building Blocks").map(i => i.id));
 const LEDGER_PENDING = "obm_ledger_pending";
@@ -604,7 +642,7 @@ function showForm(form, player, retries = 0) {
   });
 }
 function currentPool() {
-  const pool = new Set(MILESTONES.filter(m => totalBreaks() >= m.unlock).map(m => m.id));
+  const pool = new Set(MILESTONES.filter(m => totalBreaks() >= m.unlock).flatMap(m => m.ids));
   for (const id of storedPool()) pool.add(id);
   return [...pool];
 }
@@ -665,7 +703,7 @@ function showAbout(player) {
       "Break the core to earn §eCoins§r and grow your block pool.\n" +
       "Use the §bNatural Market Ledger§r to buy supplies.\n\n" +
       "The Ledger cannot be dropped. It always returns to you.\n\n" +
-      "Version: v15 | ALNStudios | CurseForge / MCPEDL"
+      "Version: v16 | ALNStudios | CurseForge / MCPEDL"
     )
     .button("Close");
   showForm(form, player).catch(e => { logError("showAbout", e); });
@@ -674,17 +712,9 @@ function marketMain(player) {
   const form = new ActionFormData()
     .title("NATURAL MARKET")
     .body("§6Coins: §e" + balance(player) + "§r\nPersonal breaks: " + personalBreaks(player) +
-      "\nShared breaks: " + totalBreaks() + "\nUnlocked tier: " + (unlockedTier(player) + 1) + " / 10\n\nChoose a market section.");
-  form.button("Building Blocks", CATEGORIES[0].icon)
-    .button("Tools & Gear", CATEGORIES[1].icon)
-    .button("Farming", CATEGORIES[2].icon)
-    .button("Food", CATEGORIES[3].icon)
-    .button("Combat", CATEGORIES[4].icon)
-    .button("Ores & Minerals", CATEGORIES[5].icon)
-    .button("Redstone", CATEGORIES[6].icon)
-    .button("Mob Drops", CATEGORIES[7].icon)
-    .button("Nether", CATEGORIES[8].icon)
-    .button("Endgame", CATEGORIES[9].icon)
+      "\nShared breaks: " + totalBreaks() + "\nUnlocked tier: " + (unlockedTier(player) + 1) + " / " + MILESTONES.length + "\n\nChoose a market section.");
+  for (const c of CATEGORIES) form.button(c.name, c.icon);
+  form
     .button("Sell Eligible Items", "textures/items/gold_ingot")
     .button("About", "textures/ui/icon_recipe_nature");
   showForm(form, player).then(r => {
@@ -938,12 +968,29 @@ system.runInterval(() => {
 }, 20);
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (133 lines, 8544 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (150 lines, 9414 bytes)
 
 ```
 # Changelog — OneBlock Natural Market
 
 ---
+
+## [16.0.0] - 2026-11-21 - 30 Tiers And Spawn Eggs
+
+### Added
+- 30 progression tiers. The core block pool and market supplies unlock across 30 tiers (10,000 breaks), ending with Obsidian at tier 30.
+- Spawn Eggs category with 28 mob eggs, unlocking at tiers 10 to 21. Eggs cannot be sold back.
+- Copper Ore and Copper Ingot in the market.
+
+### Changed
+- Coin reward per core break rises from 1 to 12 across the tiers.
+- Market prices scale with tier from tier 6 up.
+- Wood supplies unlock at tier 2, and gold, redstone, diamond, Nether and End supplies unlock at their own tiers.
+- Ancient Debris and Netherite Block now appear in the core at tiers 27 and 28, and Obsidian is last.
+- Your tier is recalculated from your mined blocks, so it can differ from before.
+
+### Fixed
+- Anvils bought in the market no longer enter the core pool, because they fall into the void.
 
 ## [15.0.0] - 2026-11-21 - Core Pool And Ledger Return Fix
 
@@ -1075,7 +1122,7 @@ system.runInterval(() => {
 - No experimental gameplay toggle was added. Source structure is updated; Minecraft in-game rendering has not been verified.
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/DESCRIPTION.md (82 lines, 4915 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/DESCRIPTION.md (82 lines, 4987 bytes)
 
 ```
 # OneBlock Natural Market — A OneBlock economy and supply shop
@@ -1104,7 +1151,7 @@ Start in the void on the central block at (0, 0, 0), with no bedrock beneath it.
 - Opens the market in the game's standard form screen: a button list with item icons for each category and supply bundle.
 - Tap a supply slot to purchase its displayed bundle directly; no separate purchase-confirmation screen.
 - Large categories use pages that reserve two slots for navigation controls.
-- The catalogue contains more than 180 configured supplies across ten categories. Entries unavailable in the current game version are hidden.
+- The catalogue contains more than 180 configured supplies across eleven categories, including mid-game Spawn Eggs. Entries unavailable in the current game version are hidden.
 - The market uses the standard server Action Form. It is **not a chest container screen** and does not support draggable slots or native container transfers.
 
 ### Coins and Selling
@@ -1113,7 +1160,7 @@ Start in the void on the central block at (0, 0, 0), with no bedrock beneath it.
 - The balance appears in menu text and action-bar messages, not a sidebar scoreboard.
 
 ### Progression and Supply Pool
-- Personal mining milestones unlock additional market supplies.
+- Personal mining milestones unlock additional market supplies across 30 tiers, ending with Obsidian.
 - Purchased eligible blocks can be added to the central block's regeneration pool.
 - Liquids and blocks that cannot stand on their own (such as torches, doors and saplings) are excluded from the purchased regeneration pool.
 
@@ -1198,11 +1245,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v15)",
+    "name": "OneBlock Natural Market (v16)",
     "description": "Trader Ledger icon for OneBlock Natural Market. by ALNStudios",
     "uuid": "187333a6-4353-4003-b379-471f85ce9021",
     "version": [
-      15,
+      16,
       0,
       0
     ],
@@ -1217,7 +1264,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "bdbf7c5c-5c34-4d6d-93c9-16a468f66b52",
       "version": [
-        15,
+        16,
         0,
         0
       ]
@@ -1228,7 +1275,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "15.0.0"
+    "version": "16.0.0"
   }
 }
 ```
