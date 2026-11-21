@@ -73,7 +73,9 @@
     "last_release_version": "1.0.0"
   },
   "MCPEDL/Maps/OneBlock-Natural-Market": {
-    "project_id": "1819420"
+    "project_id": "1819420",
+    "last_published_version": "13",
+    "last_release_version": "12"
   },
   "MCPEDL/Maps/OneBlock-Void-Survival": {
     "project_id": "1740769",
