@@ -16,7 +16,7 @@
 
 - **Export request:** `MCPEDL/Maps/OneBlock-Natural-Market`
 - **Destination:** `MCPEDL/Maps/OneBlock-Natural-Market`
-- **CURRENT VERSION: v13 / NEXT UPDATE: v14**  (`MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md`)
+- **CURRENT VERSION: v14 / NEXT UPDATE: v15**  (`MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md`)
 - **Text files:** 14
 - **Skipped binary:** 10
 - **Paths not found:** 0
@@ -60,7 +60,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v13 / NEXT UPDATE: v14).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v14 / NEXT UPDATE: v15).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -118,16 +118,16 @@ tag @a[tag=void_cleaned,tag=!oneblock_ready] add oneblock_ready
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/functions/void_cleaner.mcfunction (8 lines, 542 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/functions/void_cleaner.mcfunction (8 lines, 547 bytes)
 
 ```
 execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air
-execute as @a[tag=!void_cleaned] run tp @s 0 1 0
-execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run setblock 0 -1 0 air
-execute as @a[tag=!void_cleaned] if block 0 0 0 air run setblock 0 0 0 minecraft:grass_block
-execute as @a[tag=!void_cleaned] run setworldspawn 0 1 0
+execute as @a[tag=!void_cleaned] run tp @s 0 65 0
+execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run setblock 0 63 0 air
+execute as @a[tag=!void_cleaned] if block 0 64 0 air run setblock 0 64 0 minecraft:grass_block
+execute as @a[tag=!void_cleaned] run setworldspawn 0 65 0
 execute as @a[tag=!void_cleaned] run tellraw @s {"rawtext":[{"text":"§aOneBlock Natural Market is ready."}]}
-execute as @a[tag=!void_cleaned] unless block 0 0 0 air run tag @s add void_cleaned
+execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cleaned
 ```
 
 ## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/items/trader_ledger.json (30 lines, 640 bytes)
@@ -170,11 +170,11 @@ execute as @a[tag=!void_cleaned] unless block 0 0 0 air run tag @s add void_clea
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v13)",
+    "name": "OneBlock Natural Market (v14)",
     "description": "OneBlock survival with a progression market and regenerating core. by ALNStudios",
     "uuid": "77f07d1a-fa7a-437d-8fea-72068be05162",
     "version": [
-      13,
+      14,
       0,
       0
     ],
@@ -189,7 +189,7 @@ execute as @a[tag=!void_cleaned] unless block 0 0 0 air run tag @s add void_clea
       "type": "data",
       "uuid": "6382a3dd-3398-4ec5-851b-748d052c0e36",
       "version": [
-        13,
+        14,
         0,
         0
       ]
@@ -199,7 +199,7 @@ execute as @a[tag=!void_cleaned] unless block 0 0 0 air run tag @s add void_clea
       "language": "javascript",
       "uuid": "645e0490-52c0-4f43-b412-0f20375a92fc",
       "version": [
-        13,
+        14,
         0,
         0
       ],
@@ -210,7 +210,7 @@ execute as @a[tag=!void_cleaned] unless block 0 0 0 air run tag @s add void_clea
     {
       "uuid": "187333a6-4353-4003-b379-471f85ce9021",
       "version": [
-        13,
+        14,
         0,
         0
       ]
@@ -229,19 +229,19 @@ execute as @a[tag=!void_cleaned] unless block 0 0 0 air run tag @s add void_clea
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "13.0.0"
+    "version": "14.0.0"
   }
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (668 lines, 36684 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (668 lines, 36701 bytes)
 
 ```
 import { world, system, ItemStack, ItemTypes } from "@minecraft/server";
 import { ActionFormData, MessageFormData } from "@minecraft/server-ui";
 
-const CORE = { x: 0, y: 0, z: 0 };
-const BEDROCK = { x: 0, y: -1, z: 0 };
+const CORE = { x: 0, y: 64, z: 0 };
+const BEDROCK = { x: 0, y: 63, z: 0 };
 const LEDGER = "allenscreations:trader_ledger";
 const COINS = "obm_coins";
 const MINED = "obm_mined";
@@ -293,7 +293,7 @@ const CATALOG = [
   ["wheat_seeds", 2, 16, "Farming", 0, false, "textures/items/seeds_wheat"],
   ["oak_sapling", 4, 4, "Farming", 0, true, "textures/blocks/sapling_oak"],
   ["chest", 8, 1, "Building Blocks", 0, true, "textures/blocks/chest_front"],
-  ["furnace", 10, 1, "Building Blocks", 0, true, "textures/blocks/furnace_front"],
+  ["furnace", 10, 1, "Building Blocks", 0, true, "textures/blocks/furnace_front_off"],
   ["wooden_pickaxe", 8, 1, "Tools & Gear", 0, false, "textures/items/wood_pickaxe"],
   ["wooden_axe", 8, 1, "Tools & Gear", 0, false, "textures/items/wood_axe"],
   ["wooden_shovel", 5, 1, "Tools & Gear", 0, false, "textures/items/wood_shovel"],
@@ -302,8 +302,8 @@ const CATALOG = [
   ["stone", 5, 16, "Building Blocks", 1, true, "textures/blocks/stone"],
   ["glass", 6, 16, "Building Blocks", 1, true, "textures/blocks/glass"],
   ["bricks", 12, 8, "Building Blocks", 1, true, "textures/blocks/brick"],
-  ["oak_door", 6, 4, "Building Blocks", 1, true, "textures/blocks/door_oak_lower"],
-  ["oak_fence", 5, 8, "Building Blocks", 1, true, "textures/blocks/fence_oak"],
+  ["oak_door", 6, 4, "Building Blocks", 1, true, "textures/items/door_wood"],
+  ["oak_fence", 5, 8, "Building Blocks", 1, true, "textures/blocks/planks_oak"],
   ["ladder", 4, 8, "Building Blocks", 1, true, "textures/blocks/ladder"],
   ["stone_pickaxe", 16, 1, "Tools & Gear", 1, false, "textures/items/stone_pickaxe"],
   ["stone_axe", 15, 1, "Tools & Gear", 1, false, "textures/items/stone_axe"],
@@ -319,12 +319,12 @@ const CATALOG = [
   ["coal_ore", 12, 4, "Ores & Minerals", 2, true, "textures/blocks/coal_ore"],
   ["iron_ore", 22, 4, "Ores & Minerals", 2, true, "textures/blocks/iron_ore"],
   ["stone_bricks", 10, 16, "Building Blocks", 2, true, "textures/blocks/stonebrick"],
-  ["lantern", 12, 4, "Building Blocks", 2, true, "textures/blocks/lantern"],
+  ["lantern", 12, 4, "Building Blocks", 2, true, "textures/items/lantern"],
   ["iron_pickaxe", 45, 1, "Tools & Gear", 2, false, "textures/items/iron_pickaxe"],
   ["iron_axe", 40, 1, "Tools & Gear", 2, false, "textures/items/iron_axe"],
   ["iron_sword", 38, 1, "Combat", 2, false, "textures/items/iron_sword"],
   ["iron_shovel", 24, 1, "Tools & Gear", 2, false, "textures/items/iron_shovel"],
-  ["shield", 35, 1, "Combat", 2, false, "textures/items/shield"],
+  ["shield", 35, 1, "Combat", 2, false, ""],
   ["bow", 30, 1, "Combat", 2, false, "textures/items/bow_standby"],
   ["arrow", 3, 16, "Combat", 2, false, "textures/items/arrow"],
   ["pumpkin_seeds", 4, 8, "Farming", 2, false, "textures/items/seeds_pumpkin"],
@@ -332,10 +332,10 @@ const CATALOG = [
   ["hay_block", 10, 4, "Farming", 2, true, "textures/blocks/hay_block_side"],
   ["redstone", 14, 8, "Redstone", 3, false, "textures/items/redstone_dust"],
   ["redstone_torch", 12, 8, "Redstone", 3, true, "textures/blocks/redstone_torch_on"],
-  ["lever", 8, 4, "Redstone", 3, true, "textures/blocks/lever"],
-  ["piston", 25, 2, "Redstone", 3, true, "textures/blocks/piston_top"],
+  ["lever", 8, 4, "Redstone", 3, true, "textures/items/lever"],
+  ["piston", 25, 2, "Redstone", 3, true, "textures/blocks/piston_top_normal"],
   ["dispenser", 18, 1, "Redstone", 3, true, "textures/blocks/dispenser_front_horizontal"],
-  ["hopper", 30, 1, "Redstone", 3, true, "textures/blocks/hopper"],
+  ["hopper", 30, 1, "Redstone", 3, true, "textures/items/hopper"],
   ["iron_block", 90, 2, "Ores & Minerals", 3, true, "textures/blocks/iron_block"],
   ["gold_ingot", 35, 2, "Ores & Minerals", 3, false, "textures/items/gold_ingot"],
   ["gold_ore", 38, 4, "Ores & Minerals", 3, true, "textures/blocks/gold_ore"],
@@ -364,7 +364,7 @@ const CATALOG = [
   ["netherrack", 12, 16, "Nether", 5, true, "textures/blocks/netherrack"],
   ["soul_sand", 15, 8, "Nether", 5, true, "textures/blocks/soul_sand"],
   ["nether_brick", 18, 8, "Nether", 5, true, "textures/blocks/nether_brick"],
-  ["magma_block", 20, 8, "Nether", 5, true, "textures/blocks/magma"],
+  ["magma_block", 20, 8, "Nether", 5, true, ""],
   ["obsidian", 30, 4, "Nether", 6, true, "textures/blocks/obsidian"],
   ["crying_obsidian", 45, 4, "Nether", 6, true, "textures/blocks/crying_obsidian"],
   ["ghast_tear", 55, 1, "Mob Drops", 6, false, "textures/items/ghast_tear"],
@@ -377,7 +377,7 @@ const CATALOG = [
   ["chorus_fruit", 20, 4, "Endgame", 7, false, "textures/items/chorus_fruit"],
   ["shulker_shell", 75, 1, "Endgame", 7, false, "textures/items/shulker_shell"],
   ["elytra", 800, 1, "Endgame", 8, false, "textures/items/elytra"],
-  ["shulker_box", 150, 1, "Endgame", 8, true, "textures/blocks/shulker_top"],
+  ["shulker_box", 150, 1, "Endgame", 8, true, "textures/blocks/shulker_top_undyed"],
   ["nether_star", 600, 1, "Endgame", 8, false, "textures/items/nether_star"],
   ["beacon", 750, 1, "Endgame", 8, true, "textures/blocks/beacon"],
   ["ancient_debris", 250, 2, "Nether", 8, true, "textures/blocks/ancient_debris_side"],
@@ -390,8 +390,8 @@ const CATALOG = [
   ["jungle_log", 3, 8, "Building Blocks", 0, true, "textures/blocks/log_jungle"],
   ["acacia_log", 3, 8, "Building Blocks", 0, true, "textures/blocks/log_acacia"],
   ["dark_oak_log", 3, 8, "Building Blocks", 0, true, "textures/blocks/log_big_oak"],
-  ["mangrove_log", 4, 8, "Building Blocks", 1, true, "textures/blocks/mangrove_log"],
-  ["cherry_log", 4, 8, "Building Blocks", 1, true, "textures/blocks/cherry_log"],
+  ["mangrove_log", 4, 8, "Building Blocks", 1, true, "textures/blocks/mangrove_log_side"],
+  ["cherry_log", 4, 8, "Building Blocks", 1, true, "textures/blocks/cherry_log_top"],
   ["spruce_planks", 2, 16, "Building Blocks", 0, true, "textures/blocks/planks_spruce"],
   ["birch_planks", 2, 16, "Building Blocks", 0, true, "textures/blocks/planks_birch"],
   ["dark_oak_planks", 2, 16, "Building Blocks", 1, true, "textures/blocks/planks_big_oak"],
@@ -423,8 +423,8 @@ const CATALOG = [
   ["beetroot_seeds", 3, 8, "Farming", 1, false, "textures/items/seeds_beetroot"],
   ["melon_slice", 3, 8, "Food", 1, false, "textures/items/melon"],
   ["pumpkin", 4, 4, "Farming", 1, true, "textures/blocks/pumpkin_side"],
-  ["sugar_cane", 3, 8, "Farming", 1, true, "textures/blocks/reeds"],
-  ["bamboo", 4, 8, "Farming", 1, true, "textures/blocks/bamboo_stalk"],
+  ["sugar_cane", 3, 8, "Farming", 1, true, "textures/items/reeds"],
+  ["bamboo", 4, 8, "Farming", 1, true, "textures/blocks/bamboo_stem"],
   ["cocoa_beans", 4, 8, "Farming", 2, false, "textures/items/dye_powder_brown"],
   ["sweet_berries", 5, 8, "Farming", 2, false, "textures/items/sweet_berries"],
   ["cooked_chicken", 7, 8, "Food", 2, false, "textures/items/chicken_cooked"],
@@ -436,14 +436,14 @@ const CATALOG = [
   ["cookie", 4, 8, "Food", 1, false, "textures/items/cookie"],
   ["cake", 20, 1, "Food", 3, false, "textures/items/cake"],
   ["redstone_block", 60, 2, "Redstone", 4, true, "textures/blocks/redstone_block"],
-  ["repeater", 18, 4, "Redstone", 3, true, "textures/blocks/repeater"],
-  ["comparator", 24, 2, "Redstone", 4, true, "textures/blocks/comparator"],
-  ["observer", 28, 2, "Redstone", 4, true, "textures/blocks/observer"],
+  ["repeater", 18, 4, "Redstone", 3, true, "textures/items/repeater"],
+  ["comparator", 24, 2, "Redstone", 4, true, "textures/items/comparator"],
+  ["observer", 28, 2, "Redstone", 4, true, "textures/blocks/observer_front"],
   ["dropper", 18, 2, "Redstone", 3, true, "textures/blocks/dropper_front_horizontal"],
   ["sticky_piston", 32, 2, "Redstone", 4, true, "textures/blocks/piston_top_sticky"],
   ["daylight_detector", 26, 1, "Redstone", 4, true, "textures/blocks/daylight_detector_top"],
   ["target", 22, 2, "Redstone", 4, true, "textures/blocks/target_side"],
-  ["tripwire_hook", 8, 4, "Redstone", 3, false, "textures/items/tripwire_hook"],
+  ["tripwire_hook", 8, 4, "Redstone", 3, false, "textures/blocks/trip_wire_source"],
   ["spider_eye", 8, 8, "Mob Drops", 3, false, "textures/items/spider_eye"],
   ["gunpowder", 10, 8, "Mob Drops", 3, false, "textures/items/gunpowder"],
   ["slime_ball", 18, 4, "Mob Drops", 4, false, "textures/items/slimeball"],
@@ -453,24 +453,24 @@ const CATALOG = [
   ["prismarine_shard", 18, 4, "Mob Drops", 5, false, "textures/items/prismarine_shard"],
   ["prismarine_crystals", 20, 4, "Mob Drops", 5, false, "textures/items/prismarine_crystals"],
   ["rabbit_hide", 6, 8, "Mob Drops", 3, false, "textures/items/rabbit_hide"],
-  ["nautilus_shell", 45, 1, "Mob Drops", 6, false, "textures/items/nautilus_shell"],
+  ["nautilus_shell", 45, 1, "Mob Drops", 6, false, "textures/items/nautilus"],
 
   ["basalt", 10, 16, "Nether", 5, true, "textures/blocks/basalt_side"],
   ["blackstone", 10, 16, "Nether", 5, true, "textures/blocks/blackstone"],
   ["polished_blackstone", 12, 16, "Nether", 6, true, "textures/blocks/polished_blackstone"],
-  ["crimson_stem", 8, 8, "Nether", 5, true, "textures/blocks/crimson_stem_top"],
-  ["warped_stem", 8, 8, "Nether", 5, true, "textures/blocks/warped_stem_top"],
+  ["crimson_stem", 8, 8, "Nether", 5, true, "textures/blocks/huge_fungus/crimson_log_top"],
+  ["warped_stem", 8, 8, "Nether", 5, true, "textures/blocks/huge_fungus/warped_stem_top"],
 
   ["glowstone_dust", 15, 8, "Nether", 5, false, "textures/items/glowstone_dust"],
-  ["soul_torch", 5, 8, "Nether", 5, true, "textures/blocks/soul_torch_fire"],
+  ["soul_torch", 5, 8, "Nether", 5, true, "textures/blocks/soul_torch"],
 
-  ["ender_chest", 120, 1, "Endgame", 6, true, "textures/blocks/ender_chest"],
+  ["ender_chest", 120, 1, "Endgame", 6, true, "textures/blocks/ender_chest_front"],
 
   ["end_crystal", 120, 1, "Endgame", 8, false, "textures/items/end_crystal"],
-  ["dragon_breath", 90, 1, "Endgame", 8, false, "textures/items/dragon_breath"],
-  ["conduit", 350, 1, "Endgame", 8, true, "textures/items/lodestone_compass_item"],
+  ["dragon_breath", 90, 1, "Endgame", 8, false, "textures/items/dragons_breath"],
+  ["conduit", 350, 1, "Endgame", 8, true, "textures/blocks/conduit_closed"],
 
-  ["heart_of_the_sea", 160, 1, "Endgame", 7, false, "textures/items/heartofthesea"]
+  ["heart_of_the_sea", 160, 1, "Endgame", 7, false, "textures/items/heartofthesea_closed"]
 ].map(([raw, price, amount, category, tier, block, icon]) => ({
   id: "minecraft:" + raw, raw, price, amount, category, tier, block, icon,
   name: raw.split("_").map(s => s[0].toUpperCase() + s.slice(1)).join(" ")
@@ -622,7 +622,7 @@ function ensureCore() {
     const below = dimension.getBlock(BEDROCK);
     if (below && below.typeId === "minecraft:bedrock") below.setType("minecraft:air");
     const core = dimension.getBlock(CORE);
-    if (!core) log("WARN", "Core location 0 0 0 is not loaded.", "core_unloaded");
+    if (!core) log("WARN", "Core location 0 64 0 is not loaded.", "core_unloaded");
     if (core && (core.typeId === "minecraft:air" || core.typeId === "minecraft:grass_block")) {
       log("INFO", "Core was " + core.typeId + "; placing a new core.");
       placeCore(core);
@@ -690,7 +690,7 @@ function showCategory(player, category, page = 0) {
       "\nTap a supply slot to buy the listed bundle." +
       (locked.length ? "\nMore supplies unlock as you mine the core." : ""));
   for (const item of visible) {
-    form.button(item.name + "\n§e" + item.amount + "x · " + (item.price * item.amount) + " Coins", item.icon);
+    form.button(item.name + "\n§e" + item.amount + "x · " + (item.price * item.amount) + " Coins", item.icon || undefined);
   }
   if (safePage + 1 < pageCount) form.button("Next Page ▶", "textures/ui/arrow_dark_right");
   form.button("◀ Back to Market", "textures/items/book_normal");
@@ -906,12 +906,22 @@ system.runInterval(rescuePhased, 5);
 system.run(() => log("INFO", "Script started and handlers registered. Debug chat: /tag @s add obm_debug. Status: /scriptevent allenscreations:obm_status"));
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (101 lines, 5984 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (111 lines, 6840 bytes)
 
 ```
 # Changelog — OneBlock Natural Market
 
 ---
+
+## [14.0.0] - 2026-11-21 - Inventory Icons And Core Height
+
+### Fixed
+- **Inventory icons**: market slots now use each item's inventory icon (the flat item sprite) wherever the game has one, and the block's own texture for full blocks. 26 slots with missing or wrong textures were corrected, including Lever, Hopper, Repeater, Comparator, Nautilus Shell, Dragon's Breath, Heart of the Sea, Furnace, Oak Door, Piston, Shulker Box, Bamboo, Observer, Tripwire Hook, Warped and Crimson Stem, Ender Chest, Conduit, Lantern and Sugar Cane.
+- Shield and Magma Block have no flat icon in the game files, so they show text only instead of a broken picture.
+
+### Changed
+- **Core height**: the central block is now at 0, 64, 0 and the world spawn point is at 0, 65, 0 (on top of the block).
+- Existing worlds: a block left at the old height (0, 0, 0) is not moved.
 
 ## [13.0.0] - 2026-11-21 - Ledger Keep, Icon Fixes, Action Bar, About Button
 
@@ -1134,11 +1144,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v13)",
+    "name": "OneBlock Natural Market (v14)",
     "description": "Trader Ledger icon for OneBlock Natural Market. by ALNStudios",
     "uuid": "187333a6-4353-4003-b379-471f85ce9021",
     "version": [
-      13,
+      14,
       0,
       0
     ],
@@ -1153,7 +1163,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "bdbf7c5c-5c34-4d6d-93c9-16a468f66b52",
       "version": [
-        13,
+        14,
         0,
         0
       ]
@@ -1164,7 +1174,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "13.0.0"
+    "version": "14.0.0"
   }
 }
 ```
