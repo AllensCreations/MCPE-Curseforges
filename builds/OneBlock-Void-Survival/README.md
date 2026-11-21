@@ -8,7 +8,7 @@ This folder contains compiled release packages for **OneBlock Void Survival** by
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`VoidSurvival V4.mcworld`** | `.mcworld` | ~270 KB | Complete Survival World archive ready for one-click import. | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/VoidSurvival%20V4.mcworld) |
+| **`VoidSurvival V5.mcworld`** | `.mcworld` | ~315 KB | Complete Survival World archive ready for one-click import. | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/VoidSurvival%20V5.mcworld) |
 
 ---
 
