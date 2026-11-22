@@ -16,7 +16,7 @@
 
 - **Export request:** `MCPEDL/Addons/Padlock-and-Key`
 - **Destination:** `MCPEDL/Addons/Padlock-and-Key`
-- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/Padlock-and-Key/CHANGELOG.md`)
+- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Addons/Padlock-and-Key/CHANGELOG.md`)
 - **Text files:** 16
 - **Skipped binary:** 8
 - **Paths not found:** 0
@@ -60,7 +60,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v3 / NEXT UPDATE: v4).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -184,11 +184,11 @@ Output ONLY these three sections in order:
 {
   "format_version": 2,
   "header": {
-    "name": "Padlock & Key (v2)",
+    "name": "Padlock & Key (v3)",
     "description": "Password locks for chests, doors and more. by ALNStudios",
     "uuid": "1f5df9cb-a6fb-4490-9a2b-71d54e078955",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -203,7 +203,7 @@ Output ONLY these three sections in order:
       "type": "data",
       "uuid": "83ae2bde-46f2-4423-a729-979a1ba1b80e",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -213,7 +213,7 @@ Output ONLY these three sections in order:
       "language": "javascript",
       "uuid": "a8c47918-c2f6-4519-9dd6-ad4c947edb05",
       "version": [
-        2,
+        3,
         0,
         0
       ],
@@ -224,7 +224,7 @@ Output ONLY these three sections in order:
     {
       "uuid": "898a1a08-c06f-4deb-85ac-3c59298af3e4",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -239,12 +239,12 @@ Output ONLY these three sections in order:
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "3.0.0"
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Padlock-and-Key/behavior_pack/recipes/padlock.json (29 lines, 465 bytes)
+## FILE: MCPEDL/Addons/Padlock-and-Key/behavior_pack/recipes/padlock.json (27 lines, 447 bytes)
 
 ```
 {
@@ -264,11 +264,9 @@ Output ONLY these three sections in order:
         "item": "minecraft:amethyst_shard"
       }
     ],
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "pnk:padlock",
       "count": 1
@@ -1102,12 +1100,18 @@ system.runInterval(() => {
 }, 40);
 ```
 
-## FILE: MCPEDL/Addons/Padlock-and-Key/CHANGELOG.md (111 lines, 5361 bytes)
+## FILE: MCPEDL/Addons/Padlock-and-Key/CHANGELOG.md (117 lines, 5575 bytes)
 
 ```
 # Changelog — Padlock & Key
 
 ---
+
+## [v3] - 2026-11-22 - Shapeless Recipe Fix
+
+### Fixed
+
+- **Shapeless Recipes**: The shapeless crafting recipes now use the unlock format shown in the game's own recipe documentation, so they load without errors.
 
 ## [v2] - 2026-11-16
 
@@ -1309,7 +1313,7 @@ Download the current release of **Padlock & Key** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Padlock & Key (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Padlock-and-Key/PadlockKey%20V2.mcaddon)
+- **Direct download:** [Download Padlock & Key (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Padlock-and-Key/PadlockKey%20V3.mcaddon)
 
 ## Installation
 
@@ -1328,11 +1332,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "Padlock & Key (v2)",
+    "name": "Padlock & Key (v3)",
     "description": "Item icons for Padlock and Key. by ALNStudios",
     "uuid": "898a1a08-c06f-4deb-85ac-3c59298af3e4",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -1347,7 +1351,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "89ad6eb4-a938-4618-83da-41ed5ff90b55",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -1358,7 +1362,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "3.0.0"
   }
 }
 ```

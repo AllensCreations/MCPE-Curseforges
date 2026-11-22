@@ -1,0 +1,8 @@
+{
+  "changelog_version": "4.0.0",
+  "manifest_version": "4.0.0",
+  "packages": {
+    "ALNChestLog V4.mcaddon": "3dced692c10d12835c9a3affe7b618bdbde4cd2462253b95764c450143ebd06d"
+  },
+  "source_sha256": "efc914ca7fb077b83078ad9e755da84266fb5b12428c07150603fb2c1f3d2a2f"
+}

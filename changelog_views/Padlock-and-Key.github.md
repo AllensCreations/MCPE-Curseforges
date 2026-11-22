@@ -1,9 +1,19 @@
 # Changelog — Padlock & Key
 
-## [v2] - 2026-11-16
+## [v3] - 2026-11-22 - Shapeless Recipe Fix
 
-### Improved & Balanced
+### Fixed
+- **Shapeless Recipes**: The shapeless crafting recipes now use the unlock format shown in the game's own recipe documentation, so they load without errors.
+
+<details>
+<summary><b>2.0.x</b> (1 release)</summary>
+
+### [v2] - 2026-11-16
+
+#### Improved & Balanced
 - **Lighter Lock Checks**: Explosions, Pistons, Hopper Minecart checks and lock cleanup now do far less work. Worlds with many locks or large redstone farms run smoother.
+
+</details>
 
 <details>
 <summary><b>1.4.x</b> (2 releases)</summary>

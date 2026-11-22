@@ -16,7 +16,7 @@
 
 - **Export request:** `MCPEDL/Addons/ALN-Quiver`
 - **Destination:** `MCPEDL/Addons/ALN-Quiver`
-- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/ALN-Quiver/CHANGELOG.md`)
+- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Addons/ALN-Quiver/CHANGELOG.md`)
 - **Text files:** 16
 - **Skipped binary:** 0
 - **Paths not found:** 0
@@ -49,7 +49,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v3 / NEXT UPDATE: v4).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -170,11 +170,11 @@ Output ONLY these three sections in order:
 {
   "format_version": 2,
   "header": {
-    "name": "ALN Quiver (v2)",
+    "name": "ALN Quiver (v3)",
     "description": "Arrow-only quiver with auto-feed for bows and crossbows. by ALNStudios",
     "uuid": "76981595-191b-4d38-8be5-d5996d5b2a76",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -189,7 +189,7 @@ Output ONLY these three sections in order:
       "type": "data",
       "uuid": "de26f014-0c41-4ab0-9adb-4bfcb9259ca3",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -199,7 +199,7 @@ Output ONLY these three sections in order:
       "language": "javascript",
       "uuid": "959c8e81-3a0a-4679-b3b0-6345986d8118",
       "version": [
-        2,
+        3,
         0,
         0
       ],
@@ -210,7 +210,7 @@ Output ONLY these three sections in order:
     {
       "uuid": "98cdbf0a-099d-430d-8d69-3d9fd94e4533",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -229,12 +229,12 @@ Output ONLY these three sections in order:
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "3.0.0"
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Quiver/behavior_pack/recipes/quiver.json (37 lines, 592 bytes)
+## FILE: MCPEDL/Addons/ALN-Quiver/behavior_pack/recipes/quiver.json (35 lines, 574 bytes)
 
 ```
 {
@@ -266,11 +266,9 @@ Output ONLY these three sections in order:
     "result": {
       "item": "aln:quiver"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -609,12 +607,18 @@ export function registerStorage() {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Quiver/CHANGELOG.md (11 lines, 401 bytes)
+## FILE: MCPEDL/Addons/ALN-Quiver/CHANGELOG.md (17 lines, 615 bytes)
 
 ```
 # Changelog — ALN Quiver
 
 ---
+
+## [v3] - 2026-11-22 - Shapeless Recipe Fix
+
+### Fixed
+
+- **Shapeless Recipes**: The shapeless crafting recipes now use the unlock format shown in the game's own recipe documentation, so they load without errors.
 
 ## [v2] - 2026-11-14 - Quiver Release
 
@@ -721,7 +725,7 @@ Download the current release of **ALN Quiver** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN Quiver (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Quiver/ALNQuiver%20V2.mcaddon)
+- **Direct download:** [Download ALN Quiver (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Quiver/ALNQuiver%20V3.mcaddon)
 
 ## Installation
 
@@ -740,11 +744,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN Quiver (v2)",
+    "name": "ALN Quiver (v3)",
     "description": "Textures for the add-on. by ALNStudios",
     "uuid": "98cdbf0a-099d-430d-8d69-3d9fd94e4533",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -759,7 +763,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "554b7da5-384e-48cc-a20f-ff0d4b400d22",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -770,7 +774,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "3.0.0"
   }
 }
 ```

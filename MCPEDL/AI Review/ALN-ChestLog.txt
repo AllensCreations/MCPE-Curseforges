@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Addons/ALN-ChestLog`
 - **Destination:** `MCPEDL/Addons/ALN-ChestLog`
-- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Addons/ALN-ChestLog/CHANGELOG.md`)
+- **CURRENT VERSION: v4 / NEXT UPDATE: v5**  (`MCPEDL/Addons/ALN-ChestLog/CHANGELOG.md`)
 - **Text files:** 14
 - **Skipped binary:** 5
 - **Paths not found:** 0
@@ -43,7 +43,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v3 / NEXT UPDATE: v4).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v4 / NEXT UPDATE: v5).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -110,11 +110,11 @@ Output ONLY these three sections in order:
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:ChestLog (v3)",
+    "name": "ALN:ChestLog (v4)",
     "description": "Wireless remote chest deposit with an unloaded-chunk buffer. by ALNStudios. Not tested in game.",
     "uuid": "508375a5-6723-4177-a6f3-14cadb14c44d",
     "version": [
-      3,
+      4,
       0,
       0
     ],
@@ -129,7 +129,7 @@ Output ONLY these three sections in order:
       "type": "data",
       "uuid": "6d472727-d893-43be-826d-1234f7fc1ec3",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -139,7 +139,7 @@ Output ONLY these three sections in order:
       "language": "javascript",
       "uuid": "d3fc3875-f45e-4b37-8448-c512868ef912",
       "version": [
-        3,
+        4,
         0,
         0
       ],
@@ -158,14 +158,14 @@ Output ONLY these three sections in order:
     {
       "uuid": "a1e6b4d9-74db-40e9-bd2e-0531e0c02b3e",
       "version": [
-        3,
+        4,
         0,
         0
       ]
     }
   ],
   "metadata": {
-    "version": "3.0.0",
+    "version": "4.0.0",
     "authors": [
       "ALNStudios"
     ],
@@ -174,7 +174,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-ChestLog/behavior_pack/recipes/chest_log.json (31 lines, 510 bytes)
+## FILE: MCPEDL/Addons/ALN-ChestLog/behavior_pack/recipes/chest_log.json (29 lines, 492 bytes)
 
 ```
 {
@@ -201,11 +201,9 @@ Output ONLY these three sections in order:
       "item": "aln:chest_log",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -1174,12 +1172,18 @@ world.afterEvents.worldLoad.subscribe(() => {
 });
 ```
 
-## FILE: MCPEDL/Addons/ALN-ChestLog/CHANGELOG.md (44 lines, 2372 bytes)
+## FILE: MCPEDL/Addons/ALN-ChestLog/CHANGELOG.md (50 lines, 2586 bytes)
 
 ```
 # Changelog — ALN ChestLog
 
 ---
+
+## [v4] - 2026-11-22 - Shapeless Recipe Fix
+
+### Fixed
+
+- **Shapeless Recipes**: The shapeless crafting recipes now use the unlock format shown in the game's own recipe documentation, so they load without errors.
 
 ## [3.0.0] - 2026-11-20 - Menu Icons Fix
 
@@ -1327,7 +1331,7 @@ Download the current release of **ALN ChestLog** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN ChestLog (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-ChestLog/ALNChestLog%20V3.mcaddon)
+- **Direct download:** [Download ALN ChestLog (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-ChestLog/ALNChestLog%20V4.mcaddon)
 
 ## Installation
 
@@ -1346,11 +1350,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:ChestLog Resources (v3)",
+    "name": "ALN:ChestLog Resources (v4)",
     "description": "Icon for the ChestLog item. by ALNStudios. Not tested in game.",
     "uuid": "a1e6b4d9-74db-40e9-bd2e-0531e0c02b3e",
     "version": [
-      3,
+      4,
       0,
       0
     ],
@@ -1365,14 +1369,14 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "da1580c2-a85f-49b3-856c-3a96252ed9a3",
       "version": [
-        3,
+        4,
         0,
         0
       ]
     }
   ],
   "metadata": {
-    "version": "3.0.0",
+    "version": "4.0.0",
     "authors": [
       "ALNStudios"
     ],

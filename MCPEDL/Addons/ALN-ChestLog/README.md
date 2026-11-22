@@ -5,7 +5,7 @@ Download the current release of **ALN ChestLog** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN ChestLog (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-ChestLog/ALNChestLog%20V3.mcaddon)
+- **Direct download:** [Download ALN ChestLog (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-ChestLog/ALNChestLog%20V4.mcaddon)
 
 ## Installation
 
