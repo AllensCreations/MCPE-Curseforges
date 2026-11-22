@@ -16,7 +16,7 @@
 
 - **Export request:** `MCPEDL/Addons/OP-Sponge`
 - **Destination:** `MCPEDL/Addons/OP-Sponge`
-- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/OP-Sponge/CHANGELOG.md`)
+- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Addons/OP-Sponge/CHANGELOG.md`)
 - **Text files:** 116
 - **Skipped binary:** 0
 - **Paths not found:** 0
@@ -149,7 +149,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v3 / NEXT UPDATE: v4).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -4887,11 +4887,11 @@ Output ONLY these three sections in order:
 {
   "format_version": 2,
   "header": {
-    "name": "OP Sponge (v2)",
+    "name": "OP Sponge (v3)",
     "description": "A sponge that absorbs water. by ALNStudios",
     "uuid": "894911ae-ab32-43ea-8ab7-88823bcaab2a",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -4906,7 +4906,7 @@ Output ONLY these three sections in order:
       "type": "data",
       "uuid": "ae723a26-8b15-4781-956c-81d53a3021fd",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -4917,7 +4917,7 @@ Output ONLY these three sections in order:
       "uuid": "aa3774bf-f2b9-498d-aed8-1b816f595257",
       "entry": "scripts/main.js",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -4927,7 +4927,7 @@ Output ONLY these three sections in order:
     {
       "uuid": "67a33773-ea19-4d9c-a50c-0de79e1cf7aa",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -4942,7 +4942,7 @@ Output ONLY these three sections in order:
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "3.0.0"
   }
 }
 ```
@@ -5159,7 +5159,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/extreme_sponge_1_from_book.json (28 lines, 517 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/extreme_sponge_1_from_book.json (26 lines, 499 bytes)
 
 ```
 {
@@ -5179,11 +5179,9 @@ Output ONLY these three sections in order:
         "item": "allenscreations:extreme_sponge_book_1"
       }
     ],
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "allenscreations:extreme_sponge_1"
     }
@@ -5191,7 +5189,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/extreme_sponge_book_1_from_books.json (28 lines, 538 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/extreme_sponge_book_1_from_books.json (26 lines, 520 bytes)
 
 ```
 {
@@ -5211,11 +5209,9 @@ Output ONLY these three sections in order:
         "item": "allenscreations:super_sponge_book_10"
       }
     ],
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "allenscreations:extreme_sponge_book_1"
     }
@@ -5223,7 +5219,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/op_sponge_from_sponge.json (14 lines, 402 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/op_sponge_from_sponge.json (14 lines, 400 bytes)
 
 ```
 {
@@ -5235,13 +5231,13 @@ Output ONLY these three sections in order:
       { "item": "minecraft:sponge" },
       { "item": "minecraft:prismarine_crystals" }
     ],
-    "unlock": [{ "context": "AlwaysUnlocked" }],
+    "unlock": { "context": "AlwaysUnlocked" },
     "result": { "item": "allenscreations:op_sponge" }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_10_from_book.json (28 lines, 514 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_10_from_book.json (26 lines, 496 bytes)
 
 ```
 {
@@ -5261,11 +5257,9 @@ Output ONLY these three sections in order:
         "item": "allenscreations:super_sponge_book_10"
       }
     ],
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "allenscreations:super_sponge_10"
     }
@@ -5273,7 +5267,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_1_from_book.json (28 lines, 511 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_1_from_book.json (26 lines, 493 bytes)
 
 ```
 {
@@ -5293,11 +5287,9 @@ Output ONLY these three sections in order:
         "item": "allenscreations:super_sponge_book_1"
       }
     ],
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "allenscreations:super_sponge_1"
     }
@@ -5305,7 +5297,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_2_from_book.json (28 lines, 511 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_2_from_book.json (26 lines, 493 bytes)
 
 ```
 {
@@ -5325,11 +5317,9 @@ Output ONLY these three sections in order:
         "item": "allenscreations:super_sponge_book_2"
       }
     ],
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "allenscreations:super_sponge_2"
     }
@@ -5337,7 +5327,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_3_from_book.json (28 lines, 511 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_3_from_book.json (26 lines, 493 bytes)
 
 ```
 {
@@ -5357,11 +5347,9 @@ Output ONLY these three sections in order:
         "item": "allenscreations:super_sponge_book_3"
       }
     ],
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "allenscreations:super_sponge_3"
     }
@@ -5369,7 +5357,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_4_from_book.json (28 lines, 511 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_4_from_book.json (26 lines, 493 bytes)
 
 ```
 {
@@ -5389,11 +5377,9 @@ Output ONLY these three sections in order:
         "item": "allenscreations:super_sponge_book_4"
       }
     ],
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "allenscreations:super_sponge_4"
     }
@@ -5401,7 +5387,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_5_from_book.json (28 lines, 511 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_5_from_book.json (26 lines, 493 bytes)
 
 ```
 {
@@ -5421,11 +5407,9 @@ Output ONLY these three sections in order:
         "item": "allenscreations:super_sponge_book_5"
       }
     ],
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "allenscreations:super_sponge_5"
     }
@@ -5433,7 +5417,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_6_from_book.json (28 lines, 511 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_6_from_book.json (26 lines, 493 bytes)
 
 ```
 {
@@ -5453,11 +5437,9 @@ Output ONLY these three sections in order:
         "item": "allenscreations:super_sponge_book_6"
       }
     ],
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "allenscreations:super_sponge_6"
     }
@@ -5465,7 +5447,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_7_from_book.json (28 lines, 511 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_7_from_book.json (26 lines, 493 bytes)
 
 ```
 {
@@ -5485,11 +5467,9 @@ Output ONLY these three sections in order:
         "item": "allenscreations:super_sponge_book_7"
       }
     ],
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "allenscreations:super_sponge_7"
     }
@@ -5497,7 +5477,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_8_from_book.json (28 lines, 511 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_8_from_book.json (26 lines, 493 bytes)
 
 ```
 {
@@ -5517,11 +5497,9 @@ Output ONLY these three sections in order:
         "item": "allenscreations:super_sponge_book_8"
       }
     ],
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "allenscreations:super_sponge_8"
     }
@@ -5529,7 +5507,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_9_from_book.json (28 lines, 511 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_9_from_book.json (26 lines, 493 bytes)
 
 ```
 {
@@ -5549,11 +5527,9 @@ Output ONLY these three sections in order:
         "item": "allenscreations:super_sponge_book_9"
       }
     ],
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "allenscreations:super_sponge_9"
     }
@@ -5561,7 +5537,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_10_from_books.json (28 lines, 534 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_10_from_books.json (26 lines, 516 bytes)
 
 ```
 {
@@ -5581,11 +5557,9 @@ Output ONLY these three sections in order:
         "item": "allenscreations:super_sponge_book_9"
       }
     ],
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "allenscreations:super_sponge_book_10"
     }
@@ -5593,7 +5567,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_2_from_books.json (28 lines, 532 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_2_from_books.json (26 lines, 514 bytes)
 
 ```
 {
@@ -5613,11 +5587,9 @@ Output ONLY these three sections in order:
         "item": "allenscreations:super_sponge_book_1"
       }
     ],
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "allenscreations:super_sponge_book_2"
     }
@@ -5625,7 +5597,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_3_from_books.json (28 lines, 532 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_3_from_books.json (26 lines, 514 bytes)
 
 ```
 {
@@ -5645,11 +5617,9 @@ Output ONLY these three sections in order:
         "item": "allenscreations:super_sponge_book_2"
       }
     ],
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "allenscreations:super_sponge_book_3"
     }
@@ -5657,7 +5627,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_4_from_books.json (28 lines, 532 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_4_from_books.json (26 lines, 514 bytes)
 
 ```
 {
@@ -5677,11 +5647,9 @@ Output ONLY these three sections in order:
         "item": "allenscreations:super_sponge_book_3"
       }
     ],
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "allenscreations:super_sponge_book_4"
     }
@@ -5689,7 +5657,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_5_from_books.json (28 lines, 532 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_5_from_books.json (26 lines, 514 bytes)
 
 ```
 {
@@ -5709,11 +5677,9 @@ Output ONLY these three sections in order:
         "item": "allenscreations:super_sponge_book_4"
       }
     ],
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "allenscreations:super_sponge_book_5"
     }
@@ -5721,7 +5687,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_6_from_books.json (28 lines, 532 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_6_from_books.json (26 lines, 514 bytes)
 
 ```
 {
@@ -5741,11 +5707,9 @@ Output ONLY these three sections in order:
         "item": "allenscreations:super_sponge_book_5"
       }
     ],
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "allenscreations:super_sponge_book_6"
     }
@@ -5753,7 +5717,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_7_from_books.json (28 lines, 532 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_7_from_books.json (26 lines, 514 bytes)
 
 ```
 {
@@ -5773,11 +5737,9 @@ Output ONLY these three sections in order:
         "item": "allenscreations:super_sponge_book_6"
       }
     ],
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "allenscreations:super_sponge_book_7"
     }
@@ -5785,7 +5747,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_8_from_books.json (28 lines, 532 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_8_from_books.json (26 lines, 514 bytes)
 
 ```
 {
@@ -5805,11 +5767,9 @@ Output ONLY these three sections in order:
         "item": "allenscreations:super_sponge_book_7"
       }
     ],
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "allenscreations:super_sponge_book_8"
     }
@@ -5817,7 +5777,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_9_from_books.json (28 lines, 532 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_9_from_books.json (26 lines, 514 bytes)
 
 ```
 {
@@ -5837,11 +5797,9 @@ Output ONLY these three sections in order:
         "item": "allenscreations:super_sponge_book_8"
       }
     ],
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "allenscreations:super_sponge_book_9"
     }
@@ -6855,12 +6813,18 @@ item.allenscreations:extreme_sponge_book_1.name=Extreme Sponge I Book
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/CHANGELOG.md (20 lines, 1363 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/CHANGELOG.md (26 lines, 1577 bytes)
 
 ```
 # Changelog — OP Sponge
 
 ---
+
+## [v3] - 2026-11-22 - Shapeless Recipe Fix
+
+### Fixed
+
+- **Shapeless Recipes**: The shapeless crafting recipes now use the unlock format shown in the game's own recipe documentation, so they load without errors.
 
 ## [v2] - 2026-11-11
 
@@ -6981,7 +6945,7 @@ Download the current release of **OP Sponge** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download OP Sponge (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OP-Sponge/OPSponge%20V2.mcaddon)
+- **Direct download:** [Download OP Sponge (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OP-Sponge/OPSponge%20V3.mcaddon)
 
 ## Installation
 
@@ -7000,11 +6964,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "OP Sponge (v2)",
+    "name": "OP Sponge (v3)",
     "description": "Textures for the add-on. by ALNStudios",
     "uuid": "67a33773-ea19-4d9c-a50c-0de79e1cf7aa",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -7019,7 +6983,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "f8d35b1f-a27a-457d-a97c-2d29d3b0c5a8",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -7030,7 +6994,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "3.0.0"
   }
 }
 ```

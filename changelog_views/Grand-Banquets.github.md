@@ -1,6 +1,16 @@
 # Changelog — Grand Banquets
 
-## [v2] - 2026-10-29
+## [v3] - 2026-11-22 - Shapeless Recipe Fix
 
-### Improved & Balanced
+### Fixed
+- **Shapeless Recipes**: The shapeless crafting recipes now use the unlock format shown in the game's own recipe documentation, so they load without errors.
+
+<details>
+<summary><b>2.0.x</b> (1 release)</summary>
+
+### [v2] - 2026-10-29
+
+#### Improved & Balanced
 - **Changelog started**: Version history is recorded from this release onward.
+
+</details>

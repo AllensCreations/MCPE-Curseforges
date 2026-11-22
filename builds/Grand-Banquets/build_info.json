@@ -1,8 +1,8 @@
 {
-  "changelog_version": "2.0.0",
-  "manifest_version": "2.0.0",
+  "changelog_version": "3.0.0",
+  "manifest_version": "3.0.0",
   "packages": {
-    "GrandBanquets V2.mcaddon": "b5e32099ba92220f7bd867f45de18056df35157928c66899866000595d524dae"
+    "GrandBanquets V3.mcaddon": "886ba357c80f33eee2abb5b153c963aa9c7e36d1a7435a87ebb46538ef8ac993"
   },
-  "source_sha256": "eef295ff08abf87bf0dc1cca056fb465eb01417ba4ff373185839d8e73a05cd3"
+  "source_sha256": "db923d3a2884d2b09de5aa0a5b93180025ac5a35c5fef560571c763b545dba90"
 }

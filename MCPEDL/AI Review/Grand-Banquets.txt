@@ -16,7 +16,7 @@
 
 - **Export request:** `MCPEDL/Addons/Grand-Banquets`
 - **Destination:** `MCPEDL/Addons/Grand-Banquets`
-- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/Grand-Banquets/CHANGELOG.md`)
+- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Addons/Grand-Banquets/CHANGELOG.md`)
 - **Text files:** 73
 - **Skipped binary:** 101
 - **Paths not found:** 0
@@ -210,7 +210,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v3 / NEXT UPDATE: v4).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -442,11 +442,11 @@ Output ONLY these three sections in order:
 {
   "format_version": 2,
   "header": {
-    "name": "Grand Banquets (v2)",
+    "name": "Grand Banquets (v3)",
     "description": "Adds 32 craftable custom food dishes across four tiers, including meals with special status effects. by ALNStudios",
     "uuid": "485dca7d-bdc8-4fce-bc51-6b7d459907d1",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -461,7 +461,7 @@ Output ONLY these three sections in order:
       "type": "data",
       "uuid": "4fd39a00-2f96-462e-9725-50d7a583769c",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -471,7 +471,7 @@ Output ONLY these three sections in order:
       "language": "javascript",
       "uuid": "2ba52d2e-6b8d-4dea-9b19-e2b8e1eda59d",
       "version": [
-        2,
+        3,
         0,
         0
       ],
@@ -482,7 +482,7 @@ Output ONLY these three sections in order:
     {
       "uuid": "77eb5486-758d-4a9f-9949-4eba0b900d30",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -497,12 +497,12 @@ Output ONLY these three sections in order:
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "3.0.0"
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/bacon_and_eggs.json (37 lines, 611 bytes)
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/bacon_and_eggs.json (35 lines, 593 bytes)
 
 ```
 {
@@ -534,16 +534,14 @@ Output ONLY these three sections in order:
     "result": {
       "item": "custom:bacon_and_eggs"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/braised_ribs.json (37 lines, 631 bytes)
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/braised_ribs.json (35 lines, 613 bytes)
 
 ```
 {
@@ -575,11 +573,9 @@ Output ONLY these three sections in order:
     "result": {
       "item": "custom:braised_ribs"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -624,7 +620,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/cheese_bread_pot.json (34 lines, 571 bytes)
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/cheese_bread_pot.json (32 lines, 553 bytes)
 
 ```
 {
@@ -653,11 +649,9 @@ Output ONLY these three sections in order:
     "result": {
       "item": "custom:cheese_bread_pot"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -745,7 +739,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/fishermans_platter.json (37 lines, 633 bytes)
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/fishermans_platter.json (35 lines, 615 bytes)
 
 ```
 {
@@ -777,16 +771,14 @@ Output ONLY these three sections in order:
     "result": {
       "item": "custom:fishermans_platter"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/glazed_ham.json (37 lines, 621 bytes)
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/glazed_ham.json (35 lines, 603 bytes)
 
 ```
 {
@@ -818,16 +810,14 @@ Output ONLY these three sections in order:
     "result": {
       "item": "custom:glazed_ham"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/glazed_wings.json (37 lines, 640 bytes)
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/glazed_wings.json (35 lines, 622 bytes)
 
 ```
 {
@@ -859,16 +849,14 @@ Output ONLY these three sections in order:
     "result": {
       "item": "custom:glazed_wings"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/harvest_loaf.json (37 lines, 609 bytes)
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/harvest_loaf.json (35 lines, 591 bytes)
 
 ```
 {
@@ -900,16 +888,14 @@ Output ONLY these three sections in order:
     "result": {
       "item": "custom:harvest_loaf"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/highland_venison.json (37 lines, 647 bytes)
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/highland_venison.json (35 lines, 629 bytes)
 
 ```
 {
@@ -941,16 +927,14 @@ Output ONLY these three sections in order:
     "result": {
       "item": "custom:highland_venison"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/honey_berry_tart.json (37 lines, 630 bytes)
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/honey_berry_tart.json (35 lines, 612 bytes)
 
 ```
 {
@@ -982,16 +966,14 @@ Output ONLY these three sections in order:
     "result": {
       "item": "custom:honey_berry_tart"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/hunters_stew.json (37 lines, 624 bytes)
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/hunters_stew.json (35 lines, 606 bytes)
 
 ```
 {
@@ -1023,11 +1005,9 @@ Output ONLY these three sections in order:
     "result": {
       "item": "custom:hunters_stew"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -1075,7 +1055,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/kelp_fish_broth.json (37 lines, 625 bytes)
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/kelp_fish_broth.json (35 lines, 607 bytes)
 
 ```
 {
@@ -1107,16 +1087,14 @@ Output ONLY these three sections in order:
     "result": {
       "item": "custom:kelp_fish_broth"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/lumberjacks_ham.json (37 lines, 641 bytes)
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/lumberjacks_ham.json (35 lines, 623 bytes)
 
 ```
 {
@@ -1148,16 +1126,14 @@ Output ONLY these three sections in order:
     "result": {
       "item": "custom:lumberjacks_ham"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/mariners_pot.json (37 lines, 627 bytes)
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/mariners_pot.json (35 lines, 609 bytes)
 
 ```
 {
@@ -1189,16 +1165,14 @@ Output ONLY these three sections in order:
     "result": {
       "item": "custom:mariners_pot"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/miners_roast.json (37 lines, 635 bytes)
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/miners_roast.json (35 lines, 617 bytes)
 
 ```
 {
@@ -1230,16 +1204,14 @@ Output ONLY these three sections in order:
     "result": {
       "item": "custom:miners_roast"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/mushroom_casserole.json (37 lines, 627 bytes)
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/mushroom_casserole.json (35 lines, 609 bytes)
 
 ```
 {
@@ -1271,11 +1243,9 @@ Output ONLY these three sections in order:
     "result": {
       "item": "custom:mushroom_casserole"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -1320,7 +1290,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/potato_loaf.json (37 lines, 611 bytes)
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/potato_loaf.json (35 lines, 593 bytes)
 
 ```
 {
@@ -1352,16 +1322,14 @@ Output ONLY these three sections in order:
     "result": {
       "item": "custom:potato_loaf"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/pumpkin_casserole.json (37 lines, 619 bytes)
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/pumpkin_casserole.json (35 lines, 601 bytes)
 
 ```
 {
@@ -1393,16 +1361,14 @@ Output ONLY these three sections in order:
     "result": {
       "item": "custom:pumpkin_casserole"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/roast_turkey.json (37 lines, 626 bytes)
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/roast_turkey.json (35 lines, 608 bytes)
 
 ```
 {
@@ -1434,16 +1400,14 @@ Output ONLY these three sections in order:
     "result": {
       "item": "custom:roast_turkey"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/roasted_roots.json (37 lines, 614 bytes)
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/roasted_roots.json (35 lines, 596 bytes)
 
 ```
 {
@@ -1475,16 +1439,14 @@ Output ONLY these three sections in order:
     "result": {
       "item": "custom:roasted_roots"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/sausage_pan.json (37 lines, 614 bytes)
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/sausage_pan.json (35 lines, 596 bytes)
 
 ```
 {
@@ -1516,16 +1478,14 @@ Output ONLY these three sections in order:
     "result": {
       "item": "custom:sausage_pan"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/scholars_dumplings.json (37 lines, 643 bytes)
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/scholars_dumplings.json (35 lines, 625 bytes)
 
 ```
 {
@@ -1557,16 +1517,14 @@ Output ONLY these three sections in order:
     "result": {
       "item": "custom:scholars_dumplings"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/shepherds_pie.json (34 lines, 568 bytes)
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/shepherds_pie.json (32 lines, 550 bytes)
 
 ```
 {
@@ -1595,11 +1553,9 @@ Output ONLY these three sections in order:
     "result": {
       "item": "custom:shepherds_pie"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -1644,7 +1600,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/strider_gumbo.json (37 lines, 636 bytes)
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/strider_gumbo.json (35 lines, 618 bytes)
 
 ```
 {
@@ -1676,16 +1632,14 @@ Output ONLY these three sections in order:
     "result": {
       "item": "custom:strider_gumbo"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/veggie_skillet.json (37 lines, 623 bytes)
+## FILE: MCPEDL/Addons/Grand-Banquets/behavior_pack/recipes/veggie_skillet.json (35 lines, 605 bytes)
 
 ```
 {
@@ -1717,11 +1671,9 @@ Output ONLY these three sections in order:
     "result": {
       "item": "custom:veggie_skillet"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -1895,12 +1847,18 @@ world.afterEvents.itemCompleteUse.subscribe((event) => {
 });
 ```
 
-## FILE: MCPEDL/Addons/Grand-Banquets/CHANGELOG.md (10 lines, 163 bytes)
+## FILE: MCPEDL/Addons/Grand-Banquets/CHANGELOG.md (16 lines, 377 bytes)
 
 ```
 # Changelog — Grand Banquets
 
 ---
+
+## [v3] - 2026-11-22 - Shapeless Recipe Fix
+
+### Fixed
+
+- **Shapeless Recipes**: The shapeless crafting recipes now use the unlock format shown in the game's own recipe documentation, so they load without errors.
 
 ## [v2] - 2026-10-29
 
@@ -2000,7 +1958,7 @@ Download the current release of **Grand Banquets** for Minecraft Bedrock Edition
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Grand Banquets (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grand-Banquets/GrandBanquets%20V2.mcaddon)
+- **Direct download:** [Download Grand Banquets (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grand-Banquets/GrandBanquets%20V3.mcaddon)
 
 ## Installation
 
@@ -2019,11 +1977,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "Grand Banquets (v2)",
+    "name": "Grand Banquets (v3)",
     "description": "Provides item icons and display names for the 32 custom banquet dishes. by ALNStudios",
     "uuid": "77eb5486-758d-4a9f-9949-4eba0b900d30",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -2038,7 +1996,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "e2a0c21d-77d1-4633-8182-5c7434844b14",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -2048,7 +2006,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
     {
       "uuid": "485dca7d-bdc8-4fce-bc51-6b7d459907d1",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -2059,7 +2017,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "3.0.0"
   }
 }
 ```

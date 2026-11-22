@@ -5,7 +5,7 @@ Download the current release of **Grand Banquets** for Minecraft Bedrock Edition
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Grand Banquets (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grand-Banquets/GrandBanquets%20V2.mcaddon)
+- **Direct download:** [Download Grand Banquets (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grand-Banquets/GrandBanquets%20V3.mcaddon)
 
 ## Installation
 
