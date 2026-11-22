@@ -4,6 +4,13 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v242] - 2026-11-23 - Restock Get Everything
+
+**Spec**: spec_v242.txt | **Target**: MCPEDL/Addons/ALNOneClickSort | **Files edited**: 4
+
+### Added
+- **Get Everything**: A new toggle in the Sort Settings Book makes the Restock Feather pull every matching item from nearby chests, not just one full stack, until your inventory is full. It is off by default.
+
 ## [v241] - 2026-11-23 - Repo Tester progress
 
 **Spec**: spec_v241.txt | **Target**: repo | **Files edited**: 2
