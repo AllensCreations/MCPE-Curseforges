@@ -139,21 +139,39 @@ function aimPoint(from, target, speed) {
   return point;
 }
 
+// Points the arrow at the target from where it is now. Returns false when the arrow has stopped.
+function aim(arrow, projectile, target) {
+  const speed = length(arrow.getVelocity());
+  if (speed < MIN_SPEED) return false;
+  const from = arrow.location;
+  const direction = minus(aimPoint(from, target, speed), from);
+  const size = length(direction);
+  if (size < 0.001) return false;
+  projectile.shoot({ x: (direction.x / size) * speed, y: (direction.y / size) * speed, z: (direction.z / size) * speed });
+  return true;
+}
+
+// The arrow is aimed once, then corrected every 2 ticks for up to FOLLOW_TICKS, so drag and
+// a moving target are corrected in flight and no drag number has to be guessed.
+const FOLLOW_TICKS = 80;
+
 function steer(arrow) {
   try {
     if (!arrow.isValid) return;
     const projectile = arrow.getComponent(EntityComponentTypes.Projectile);
     const owner = projectile?.owner;
     if (!owner || owner.typeId !== PLAYER_ID || !isOn(owner, "bowAimbot")) return;
-    const speed = length(arrow.getVelocity());
-    if (speed < MIN_SPEED) return;
     const target = pickTarget(owner);
-    if (!target) return;
-    const from = arrow.location;
-    const direction = minus(aimPoint(from, target, speed), from);
-    const size = length(direction);
-    if (size < 0.001) return;
-    projectile.shoot({ x: (direction.x / size) * speed, y: (direction.y / size) * speed, z: (direction.z / size) * speed });
+    if (!target || !aim(arrow, projectile, target)) return;
+    let age = 0;
+    const id = system.runInterval(() => {
+      age += 2;
+      try {
+        if (age > FOLLOW_TICKS || !arrow.isValid || !target.isValid || !aim(arrow, projectile, target)) system.clearRun(id);
+      } catch (e) {
+        system.clearRun(id);
+      }
+    }, 2);
   } catch (e) {}
 }
 

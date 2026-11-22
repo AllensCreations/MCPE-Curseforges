@@ -69,6 +69,20 @@ function knock(event) {
   });
 }
 
+const drawn = new Map();
+
+// While you draw a bow the game zooms in, so the circle is drawn larger to cover the same area.
+// Bow zoom is how many percent your field of view shrinks at full draw (20 ticks). 0 turns it off.
+function drawZoom(p) {
+  const base = tune(p, "aimZoom");
+  const cut = tune(p, "bowZoom");
+  const start = drawn.get(p.id);
+  if (!cut || start === undefined) return base;
+  const pull = Math.min(1, (system.currentTick - start) / 20);
+  const fov = (tune(p, "screenFov") * Math.PI) / 180;
+  return (base * Math.tan(fov / 2)) / Math.tan((fov * (1 - (cut / 100) * pull)) / 2);
+}
+
 const hud = new Map();
 const hudAt = new Map();
 const locks = new Map();
@@ -95,7 +109,7 @@ function mark(p) {
     setCircle(p, "");
     return;
   }
-  const zoom = Math.min(300, Math.max(50, Math.round(tune(p, "aimZoom") / 10) * 10));
+  const zoom = Math.min(300, Math.max(50, Math.round(drawZoom(p) / 10) * 10));
   setCircle(p, tune(p, "aimCircle") === 1 ? `aln_z${zoom}` : "");
 
   const target = pickTarget(p);
@@ -144,6 +158,10 @@ export function initExtras() {
       } catch (e) {}
     }
   }, 10);
+  world.afterEvents.itemStartUse.subscribe(({ source, itemStack }) => {
+    if (BOWS.has(itemStack?.typeId)) drawn.set(source.id, system.currentTick);
+  });
+  world.afterEvents.itemStopUse.subscribe(({ source }) => drawn.delete(source.id));
   world.afterEvents.entityHurt.subscribe(show);
   world.afterEvents.entityHurt.subscribe(knock);
   system.runInterval(() => {
@@ -158,6 +176,7 @@ export function initExtras() {
   }, 1);
   world.afterEvents.playerLeave.subscribe(({ playerId }) => {
     last.delete(playerId);
+    drawn.delete(playerId);
     hud.delete(playerId);
     hudAt.delete(playerId);
     locks.delete(playerId);

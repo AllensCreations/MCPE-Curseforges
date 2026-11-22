@@ -53,8 +53,8 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 ### Bow Aimbot
 - **Mob Types**: Four On or Off choices under Bow Aimbot pick what it hits: hostile mobs, neutral mobs, passive mobs and players. Hostile mobs and players are on by default, and tamed pets are never targeted.
 - **What Happens**: Arrows you shoot from a bow or crossbow steer toward the hostile mob or player closest to your crosshair within 48 blocks and inside the aim circle on your screen.
-- **How It Works**: Aim roughly at a target and release. The arrow leads a moving target and allows for arrow drop.
-- **Good To Know**: If nothing is near your crosshair, the arrow flies as normal. A mob or player hidden behind blocks is never chosen.
+- **How It Works**: Aim roughly at a target and release. The arrow leads a moving target and allows for arrow drop, and it keeps correcting its aim for up to 4 seconds in flight, so long shots and moving targets are hit more often.
+- **Good To Know**: If nothing is near your crosshair, the arrow flies as normal. A mob or player hidden behind blocks is never chosen. Bow zoom while drawing, under Bow Aimbot in Combat Settings, makes the aim circle grow as you draw to match the game's zoom. It is 0 percent by default, and you can raise it until the circle matches what you see.
 
 ### Always Water Clutch
 - **What Happens**: When you fall 3 blocks or more and the ground is close, a water block appears in the space you land in, so the fall does no damage, and it is removed as soon as you stop falling, together with any water that spread from it.

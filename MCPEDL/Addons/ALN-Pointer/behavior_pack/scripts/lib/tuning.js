@@ -8,6 +8,7 @@ export const TUNING = [
   { id: "auraTargets", name: "Aura targets per hit", min: 1, max: 5, step: 1, def: 3 },
   { id: "aimRange", name: "Bow Aimbot range (blocks)", min: 16, max: 96, step: 8, def: 48 },
   { id: "aimZoom", name: "Aim circle zoom (percent)", min: 50, max: 300, step: 10, def: 100 },
+  { id: "bowZoom", name: "Bow zoom while drawing (percent)", min: 0, max: 30, step: 5, def: 0 },
   { id: "screenFov", name: "Your game FOV setting", min: 30, max: 110, step: 1, def: 70 },
   { id: "critPercent", name: "Always Critical damage (percent)", min: 110, max: 300, step: 10, def: 150 },
   { id: "knockback", name: "Knockback you deal (percent)", min: 0, max: 200, step: 25, def: 100 },

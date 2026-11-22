@@ -31,6 +31,12 @@
 
 ---
 
+## [v222] - 2026-11-22 - Arrow Guidance
+
+### Added
+- **Arrow Guidance**: After you release a Bow Aimbot arrow it is aimed again every tenth of a second for up to 4 seconds, so it corrects for arrow drag and for a target that moves, and long shots land more often.
+- **Bow Zoom**: A new setting under Bow Aimbot in Combat Settings, Bow zoom while drawing (0 to 30 percent). While you draw a bow the aim circle grows to match the game's zoom. It is 0 by default, so the circle stays as it was until you set it.
+
 ## [v221] - 2026-11-22 - Update Spec Delivery
 
 ### Improved & Balanced

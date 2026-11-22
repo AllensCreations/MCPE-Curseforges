@@ -55,7 +55,7 @@ async function openAbout(player) {
 
 const LAYOUT = [
   { title: "Aura", items: [["f", "aura"], ["t", "auraRange"], ["t", "auraDamage"], ["t", "auraTargets"], ["t", "auraTarget"], ["t", "auraFace"]] },
-  { title: "Bow Aimbot", items: [["f", "bowAimbot"], ["t", "aimRange"], ["t", "aimZoom"], ["f", "targetHighlight"], ["t", "aimCircle"], ["t", "aimHostile"], ["t", "aimNeutral"], ["t", "aimPassive"], ["t", "aimPlayers"]] },
+  { title: "Bow Aimbot", items: [["f", "bowAimbot"], ["t", "aimRange"], ["t", "aimZoom"], ["t", "bowZoom"], ["f", "targetHighlight"], ["t", "aimCircle"], ["t", "aimHostile"], ["t", "aimNeutral"], ["t", "aimPassive"], ["t", "aimPlayers"]] },
   { title: "Offense", items: [["f", "alwaysCritical"], ["t", "critPercent"], ["t", "knockback"], ["f", "damageDisplay"]] },
   { title: "Totems", items: [["f", "autoTotem"], ["f", "infiniteTotem"]] },
   { title: "Defense", items: [["f", "immortal"], ["f", "shield"], ["f", "noKnockback"], ["f", "autoGapple"], ["f", "waterClutch"], ["f", "keepGear"]] },
