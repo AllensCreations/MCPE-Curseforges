@@ -18,7 +18,7 @@ description: Create a NEW addon, map, script or minigame for the MCPE-Curseforge
 2. **Type.** If the user did not say addon, map, script or minigame, ask the exact question in 4.0 and wait. NEVER guess.
 3. **Look up** with Context7 `query-docs` (`/microsoftdocs/minecraft-creator`, `/mojang/bedrock-samples`, `/websites/wiki_bedrock_dev`) the latest stable Bedrock release and `@minecraft/server` / `@minecraft/server-ui` versions now, and verify every API member and JSON field before using it. Record the date. NEVER use numbers from memory or from this repo's old packs.
 4. **Build** the project in scratch `build/<Name>/` using the 4.2 layout. Fresh v4 UUIDs for every header and module. Write the BP manifest (with the looked-up `min_engine_version`) BEFORE running the script.
-   Icons: vanilla item and block icons from MCicons first (`mcpe-context7` skill, Icons section), then Samples; custom textures only as pixel JSON.
+   Icons: vanilla item and block icons from MCicons only (`mcpe-context7` skill, Icons section; no fallback); custom textures only as pixel JSON.
 5. **Run `scripts/make_pack_script.py build/<Name>`.** Fix every failure, including every `DOC:` line, and rerun until SELF-TEST PASSED, PACK SCRIPT OK and BUILD OK print. Then `python3 doc_template.py --style build/<Name>`, rewrite every STYLE hint with a specific fact, rebuild.
 6. **Deliver** exactly ONE file: `<Name>_<Version>_<Rand>.sh`. Reply in the three sections of 4.11 and nothing else.
 

@@ -81,6 +81,7 @@ def packages():
 
 def run_collector(paths: str, out: Path, skip_tools: bool) -> None:
     env = dict(os.environ, PATHS=paths, AI_OUT=str(out), AI_SKIP_TOOLS="1" if skip_tools else "0")
+    env.setdefault("AI_MAX_BYTES", "150000")
     env.pop("GITHUB_OUTPUT", None)
     subprocess.run([sys.executable, str(ROOT / "scripts" / "collect_ai_review.py")], cwd=ROOT, env=env, check=True)
 
@@ -235,19 +236,6 @@ def main() -> int:
                 print("Updated README.md AI review list")
 
     print(f"{built} package file(s) rebuilt; {len(changed)} path(s) changed.")
-
-    # --- Enrich rebuilt files with Graphify graph context ---
-    enrich = ROOT / "scripts" / "enrich_ai_review.py"
-    if enrich.exists():
-        enrich_args = [sys.executable, str(enrich)]
-        if args.all:
-            enrich_args.append("--all")
-        elif getattr(args, "only", ""):
-            enrich_args += ["--only", args.only]
-        try:
-            subprocess.run(enrich_args, cwd=ROOT, check=True)
-        except subprocess.CalledProcessError as exc:
-            print(f"WARNING: enrich_ai_review.py failed ({exc}); continuing.")
 
     gh = os.environ.get("GITHUB_OUTPUT")
     if gh:

@@ -23,7 +23,6 @@ Generated from the module docstrings in `scripts/` and the files in `.github/wor
 
 - `collect_ai_review.py`: builds one export, or a shared kit zip (`New-Pack.zip`, `Update-Pack.zip`, `Maintenance.zip`: map text + scripts under `files/`).
 - `auto_ai_review.py`: refreshes the per-pack export of every pack whose files changed (hash stamps).
-- `enrich_ai_review.py`: adds Graphify context.
 
 ## Scripts
 
@@ -48,7 +47,6 @@ Generated from the module docstrings in `scripts/` and the files in `.github/wor
 - `scripts/decompress_bedrock_samples.py`: Decompresses reference/bedrock-samples/bedrock-samples.min.json.gz into individual clean JSON and lang files inside a target directory (defaults to reference/bedrock-samples/decompressed/).
 - `scripts/delete_project.py`: Delete Package: remove one package from MCPEDL/ and everything that depends on it.
 - `scripts/doc_template.py`: Strict README, DESCRIPTION, and CHANGELOG template check (Part 2). Used by build_payload.py and as an audit tool.
-- `scripts/enrich_ai_review.py`: Enrich AI review files with Graphify graph context.
 - `scripts/ensure_recipe_unlocks.py`: Ensure every custom shaped/shapeless crafting recipe is always unlocked.
 - `scripts/fetch_curseforge_logo.py`: Use a project's CurseForge logo as pack_icon.png for packs that have none.
 - `scripts/generate_recipe_images.py`: Generate crafting recipe diagrams for ANY add-on pack (general generator, not tied to one pack).

@@ -86,5 +86,24 @@ class KitTests(unittest.TestCase):
         self.assertEqual(len(re.findall(r"(?m)^## Reply Format", txt)), 1)
 
 
+class BudgetTests(unittest.TestCase):
+    def test_budget_keeps_essentials_and_lists_the_rest(self):
+        packs = sorted((REPO / "MCPEDL" / "Addons").iterdir(), key=lambda p: -sum(f.stat().st_size for f in p.rglob("*") if f.is_file()))
+        rel = packs[0].relative_to(REPO).as_posix()
+        with tempfile.TemporaryDirectory() as t:
+            out = Path(t)
+            rc, log = collect(rel, out / "full")
+            self.assertEqual(rc, 0, log)
+            rc, log = collect(rel, out / "slim", AI_MAX_BYTES="1000")
+            self.assertEqual(rc, 0, log)
+            full = next((out / "full").glob("*.txt")).read_text(encoding="utf-8")
+            slim = next((out / "slim").glob("*.txt")).read_text(encoding="utf-8")
+            self.assertLess(len(slim), len(full))
+            self.assertIn("### Not inlined", slim)
+            self.assertNotIn("### Not inlined", full)
+            self.assertIn("manifest.json", slim.split("## File Contents", 1)[1])
+            self.assertNotIn("GRAPH-CONTEXT", slim)
+
+
 if __name__ == "__main__":
     unittest.main()

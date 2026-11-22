@@ -22,9 +22,15 @@ import generate_recipe_images as g  # noqa: E402
 
 def environment(samples_root: Path) -> list[str]:
     notes = []
-    rp = g._samples_rp(samples_root)
-    if not rp.is_dir():
-        notes.append(f"Bedrock Samples not found at {rp}: no vanilla ingredient can resolve.")
+    if samples_root is not None and not g._samples_rp(samples_root).is_dir():
+        notes.append(f"Bedrock Samples not found at {g._samples_rp(samples_root)}: no vanilla ingredient can resolve.")
+    try:
+        sys.path.insert(0, str(Path(__file__).resolve().parent / "lib"))
+        import mcicons
+        if samples_root is None and not mcicons.tgz_path():
+            notes.append("MCicons release file not found in reference/mcicons: no vanilla ingredient can resolve (run scripts/sync_mcicons.py).")
+    except Exception as exc:
+        notes.append(f"MCicons cannot be read ({type(exc).__name__}: {exc}).")
     try:
         sys.path.insert(0, str(Path(__file__).resolve().parent / "lib"))
         import crafting_template as ct
@@ -76,7 +82,7 @@ def status(info: dict) -> str:
 
 
 def build_report(root: Path, samples: Path | None) -> tuple[str, list[str], int]:
-    env = environment(samples or g.SAMPLES_ROOT)
+    env = environment(samples)
     infos = [inspect(p, samples) for p in g.find_packs(root, None)]
     lines = ["# Recipe image report", ""]
     if env:

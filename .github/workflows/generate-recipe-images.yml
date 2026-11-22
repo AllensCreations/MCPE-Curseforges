@@ -35,12 +35,8 @@ jobs:
         run: python scripts/convert_crafting_recipe_svgs_to_png.py
 
       - name: Get MCicons (Minecraft item and block icons)
-        run: python scripts/sync_mcicons.py || echo "::warning::MCicons could not be downloaded; Samples textures are used."
+        run: python scripts/sync_mcicons.py || echo "::warning::MCicons could not be downloaded; vanilla icons cannot be drawn this run."
 
-      - name: Get official Mojang Bedrock Samples textures
-        run: |
-          git clone --depth 1 https://github.com/Mojang/bedrock-samples.git /tmp/bedrock-samples
-          echo "BEDROCK_SAMPLES_ROOT=/tmp/bedrock-samples" >> "$GITHUB_ENV"
 
       - name: Generate recipe images for every pack
         run: python scripts/generate_recipe_images.py --all --items-from-recipes

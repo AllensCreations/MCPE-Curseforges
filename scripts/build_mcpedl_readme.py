@@ -38,7 +38,6 @@ def get_ai_kits(root: Path):
         ("New Pack Kit (zip: map and scripts)", "MCPEDL/AI Review/New-Pack.zip"),
         ("Update Pack Kit (zip: map and scripts)", "MCPEDL/AI Review/Update-Pack.zip"),
         ("Repo Maintenance Kit (zip: map and scripts)", "MCPEDL/AI Review/Maintenance.zip"),
-        ("Bedrock Samples (AI Review)", "MCPEDL/AI Review/bedrock-samples.txt"),
         ("Vanilla Bedrock Reference (JSON.gz)", "reference/bedrock-samples/bedrock-samples.min.json.gz"),
         (bundle_label, bundle_path),
         ("Minecraft Script API TypeScript Definitions (.d.ts Zip)", "reference/typescript-definitions/minecraft-bedrock-types.zip"),

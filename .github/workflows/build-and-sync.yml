@@ -244,12 +244,6 @@ jobs:
         if: steps.recipes.outputs.needed == 'true'
         run: python3 scripts/convert_crafting_recipe_svgs_to_png.py || echo "::warning::Recipe SVG export failed (see log)."
 
-      - name: Get official Mojang Bedrock Samples textures
-        if: steps.recipes.outputs.needed == 'true'
-        run: |
-          set -euo pipefail
-          git clone --depth 1 https://github.com/Mojang/bedrock-samples.git /tmp/bedrock-samples
-          echo "BEDROCK_SAMPLES_ROOT=/tmp/bedrock-samples" >> "$GITHUB_ENV"
 
       - name: Generate crafting recipe images (every pack)
         if: steps.recipes.outputs.needed == 'true'

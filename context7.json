@@ -14,5 +14,14 @@
     "This repository is indexed from docs/ only: docs/bedrock-guide.md (architecture, folders, manifests, API versions), docs/instructions-reference.md (all coding rules and review standards), docs/scripts-and-workflows.md (scripts and workflows), docs/mcicons-index.md (Minecraft icon ids in MCicons).",
     "Never edit generated files: builds/, Package/, changelog_views/, MCPEDL/AI Review/, MCPEDL/README.md.",
     "Scripts that must run need their complete file text from the kit zip; a documentation summary is not enough."
+  ],
+  "excludeFolders": [
+    "MCPEDL/AI Review",
+    "builds",
+    "Package",
+    "changelog_views",
+    "reference",
+    "graphify-out",
+    "archive"
   ]
 }

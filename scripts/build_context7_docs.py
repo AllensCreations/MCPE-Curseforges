@@ -87,7 +87,7 @@ def scripts_page():
              "- `collect_ai_review.py`: builds one export, or a shared kit zip (`New-Pack.zip`, `Update-Pack.zip`, "
              "`Maintenance.zip`: map text + scripts under `files/`).\n"
              "- `auto_ai_review.py`: refreshes the per-pack export of every pack whose files changed (hash stamps).\n"
-             "- `enrich_ai_review.py`: adds Graphify context.\n\n"
+             "\n"
              "## Scripts\n\n")
     for f in sorted((ROOT / "scripts").glob("*.py")) + sorted((ROOT / "scripts" / "lib").glob("*.py")):
         if f.name.startswith("test_"):
@@ -121,7 +121,7 @@ def mcicons_page():
          "The icon images are inside that release file (binary, so Context7 cannot index them). This page lists which ids exist: use it to check an id BEFORE using an icon.\n\n",
          "- File inside the release: `package/dist/icons/minecraft_<id>.png`, 64x64 RGBA. Only `minecraft:` ids exist; custom ids and newer items may have no icon.\n",
          "- Read it in code with `scripts/lib/mcicons.py`: `has_icon(item_id)` and `icon_image(item_id)` (PIL RGBA).\n",
-         "- Id in the list: use MCicons. Id missing: fall back to Samples, then the Wiki (INSTRUCTIONS.md 1.5).\n",
+         "- Id in the list: use MCicons. Id missing: report it; there is no fallback (INSTRUCTIONS.md 1.5).\n",
          "- Keep `ASSET-NOTICE.md` with any redistributed icon.\n\n",
          "## Icon ids (without the `minecraft_` prefix)\n\n```text\n", "\n".join(ids), "\n```\n"]
     return "".join(o)

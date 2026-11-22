@@ -6,7 +6,7 @@ The icon images are inside that release file (binary, so Context7 cannot index t
 
 - File inside the release: `package/dist/icons/minecraft_<id>.png`, 64x64 RGBA. Only `minecraft:` ids exist; custom ids and newer items may have no icon.
 - Read it in code with `scripts/lib/mcicons.py`: `has_icon(item_id)` and `icon_image(item_id)` (PIL RGBA).
-- Id in the list: use MCicons. Id missing: fall back to Samples, then the Wiki (INSTRUCTIONS.md 1.5).
+- Id in the list: use MCicons. Id missing: report it; there is no fallback (INSTRUCTIONS.md 1.5).
 - Keep `ASSET-NOTICE.md` with any redistributed icon.
 
 ## Icon ids (without the `minecraft_` prefix)

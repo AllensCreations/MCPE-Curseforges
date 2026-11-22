@@ -1,36 +1,3 @@
-## [v8] - 2026-11-21 - [Apply Sounds]
-
-- 2-in-1 Loot & XP Booster: Apply now plays a higher sound when the boosters are on and a lower sound when they are off.
-
-## [v19] - 2026-11-20 - ALN-Pointer Aimbot Mob Types
-
-- ALN-Pointer: Bow Aimbot mob type choices and Elder Guardian aim fix.
-
-## [v18] - 2026-11-20 - ALN-Pointer Grouped Menu and Immortal
-
-- ALN-Pointer: Grouped Combat Settings, Quick Presets, Immortal replaces Never Die, FOV moved to Tuning.
-
-## [v7] - 2026-11-20 - [No Booster Limit]
-
-- 2-in-1 Loot & XP Booster: Removed the drop and XP orb limits and all Action Bar messages.
-
-## [v17] - 2026-11-20 - ALN-Pointer Circle Zoom
-
-- ALN-Pointer: Aim circle now uses zoom and Bow Aimbot only targets inside it.
-
-## [v144] - 2026-11-19 - Context7 Full Support, Build Pruning & AI Review Token Optimization
-
-### Added
-- **Context7 Configuration**: Added root `context7.json` and `llms.txt` with optimized exclusions and high-density Bedrock add-on development rules.
-- **Build Snapshot Pruning**: Added `scripts/prune_old_builds.py` to prune builds while retaining at least 1 current and 1 old version snapshot per project, freeing 240+ MB.
-
-### Improved & Balanced
-- **Token-Efficient AI Review**: Streamlined `scripts/collect_ai_review.py` and `scripts/auto_ai_review.py` to use dynamic Action Notes (Update/Creation/Maintenance) and delegate instruction schemas and script formats to Context7 querying.
-- **Cleaned Review Exports**: Excluded redundant upstream category READMEs and non-code marker files (`LOCK`, `.gitkeep`) from AI review bundles.
-- **Build Retention Policy**: Updated `scripts/auto_bump_and_build.py` default `KEEP_VERSIONS` to 2.
-
----
-
 ## [v222] - 2026-11-22 - Arrow Guidance
 
 ### Added
@@ -681,6 +648,28 @@
 - Removed all 54 per-pack `ai-review/*.zip` files from `MCPEDL/*/ai-review/`.
 - `scripts/auto_ai_review.py` no longer generates per-pack zip bundles.
 - `scripts/build_mcpedl_readme.py` links `.txt` files directly in the AI Review column.
+
+---
+
+## [v223] - 2026-11-22 - MCicons Only, Smaller AI Reviews, Changelog Cleanup
+
+### Improved & Balanced
+- **MCicons only**: icons come only from MCicons, no Samples or Wiki fallback; recipe workflows no longer clone Samples.
+- **Smaller AI reviews**: pack review files are size-budgeted (`AI_MAX_BYTES`, 150000 in the auto build), list the larger files with sizes, and carry no graph header (`enrich_ai_review.py` removed). `bedrock-samples.txt` is no longer linked from the catalog.
+- **Skills and Context7**: `checkrm` is shorter; `context7.json` excludes generated folders.
+### Fixed
+- **Root changelog**: removed five pack-versioned entries that had landed at the top and moved v144 to its place.
+
+## [v144] - 2026-11-19 - Context7 Full Support, Build Pruning & AI Review Token Optimization
+
+### Added
+- **Context7 Configuration**: Added root `context7.json` and `llms.txt` with optimized exclusions and high-density Bedrock add-on development rules.
+- **Build Snapshot Pruning**: Added `scripts/prune_old_builds.py` to prune builds while retaining at least 1 current and 1 old version snapshot per project, freeing 240+ MB.
+
+### Improved & Balanced
+- **Token-Efficient AI Review**: Streamlined `scripts/collect_ai_review.py` and `scripts/auto_ai_review.py` to use dynamic Action Notes (Update/Creation/Maintenance) and delegate instruction schemas and script formats to Context7 querying.
+- **Cleaned Review Exports**: Excluded redundant upstream category READMEs and non-code marker files (`LOCK`, `.gitkeep`) from AI review bundles.
+- **Build Retention Policy**: Updated `scripts/auto_bump_and_build.py` default `KEEP_VERSIONS` to 2.
 
 ---
 

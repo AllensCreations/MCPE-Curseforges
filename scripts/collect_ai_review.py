@@ -9,6 +9,10 @@ The same code serves the manual run and the automatic per-package run (scripts/a
                                           update_pack (default): pack .txt only, no kit
                                           new_pack / repo_maintenance: also write that kit next to the pack .txt
   AI_SKIP_TOOLS=1                         never write a kit (overrides EXPORT_MODE)
+  AI_MAX_BYTES=<n>                        pack export size budget (0 or unset = everything). Over budget, only the
+                                          essential files (manifests, recipes, README, DESCRIPTION, project.json and the
+                                          newest CHANGELOG entries) plus the smallest other files are inlined; the rest is
+                                          listed with its size so the AI asks for exactly the paths it needs.
 
 A kit is two files:
   <label>_tools.txt   directory map (directories only, with file counts) + the skills of that task. No file contents.
@@ -315,9 +319,33 @@ for rel in files:
             version_lines.append(f"CURRENT VERSION: v{v_num} / NEXT UPDATE: v{v_num + 1}  ({rel})")
             top_versions.append(f"v{v_num}")
 
+MAX_BYTES = int(os.environ.get("AI_MAX_BYTES", "0") or 0)
+ESSENTIAL_NAMES = {"manifest.json", "README.md", "DESCRIPTION.md", "project.json", "CHANGELOG.md"}
+CHANGELOG_LINES = 60
+
+
+def essential(rel):
+    return pathlib.PurePosixPath(rel).name in ESSENTIAL_NAMES or "/recipes/" in rel
+
+
+inline, not_inlined = list(files), []
+if MAX_BYTES and sum(selected[r].stat().st_size for r in files) > MAX_BYTES:
+    used = sum(min(selected[r].stat().st_size, 8000) for r in files if essential(r))
+    inline = [r for r in files if essential(r)]
+    for r in sorted((r for r in files if not essential(r)), key=lambda r: (selected[r].stat().st_size, r.lower())):
+        size = selected[r].stat().st_size
+        if used + size <= MAX_BYTES:
+            inline.append(r)
+            used += size
+        else:
+            not_inlined.append((r, size))
+    inline.sort(key=str.lower)
+
 blocks = []
-for rel in files:
+for rel in inline:
     data = selected[rel].read_bytes().decode("utf-8", errors="replace")
+    if not_inlined and pathlib.PurePosixPath(rel).name == "CHANGELOG.md" and data.count("\n") > CHANGELOG_LINES:
+        data = "\n".join(data.split("\n")[:CHANGELOG_LINES]) + "\n\n(older entries omitted; ask for the full file if needed)"
     runs = re.findall(r"`+", data)
     fence = "`" * max(3, max((len(r) for r in runs), default=0) + 1)
     head = f"## FILE: {rel} ({data.count(chr(10)) + 1} lines, {len(data.encode('utf-8'))} bytes)"
@@ -340,11 +368,16 @@ index = ["- **Export request:** " + ", ".join(f"`{r}`" for r in raw_paths),
          "- **Destination:** " + ", ".join(f"`{d}`" for d in dests)]
 index += [f"- **{v.split('  (')[0]}**  (`{v.split('  (')[1].rstrip(')')}`)" for v in version_lines]
 index += [f"- **Text files:** {len(files)}", f"- **Skipped binary:** {len(skipped)}", f"- **Paths not found:** {len(missing)}", "", "### Files in this export", ""]
-index += [f"- `{r}`" for r in files]
+index += [f"- `{r}`" for r in inline]
+if not_inlined:
+    index += ["", f"### Not inlined: {len(not_inlined)} larger file(s), ask the user for the exact paths you need", ""]
+    index += [f"- `{r}` ({s} bytes)" for r, s in sorted(not_inlined, key=lambda x: x[0].lower())]
 if missing:
     index += ["", "### Not found", ""] + [f"- `{m}`" for m in missing]
 if skipped:
-    index += ["", "### Skipped (binary)", ""] + [f"- `{x}`" for x in skipped[:1000]]
+    index += ["", f"### Skipped (binary): {len(skipped)} file(s)", ""] + [f"- `{x}`" for x in skipped[:40]]
+    if len(skipped) > 40:
+        index.append(f"- ... and {len(skipped) - 40} more")
 if new_pack:
     action_type = "Package Creation Notes"
     action_notes = (
