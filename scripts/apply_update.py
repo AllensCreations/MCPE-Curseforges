@@ -176,7 +176,12 @@ def current_highest(proj):
 def add_entry(t, heading, body):
     if heading in t:
         return t, False
-    i = t.index("---\n") + 4 if "---\n" in t else len(t)
+    h = re.search(r"(?m)^## \[", t)
+    d = t.find("---\n")
+    if d != -1 and (h is None or d < h.start()):
+        i = d + 4  # a header with a "---" rule: entries go right under it
+    else:
+        i = h.start() if h else len(t)  # no rule before the first entry (root CHANGELOG.md): newest goes on top
     return t[:i] + "\n" + heading + "\n\n" + body.strip("\n") + "\n" + t[i:], True
 
 
@@ -269,7 +274,9 @@ def run(spec, root, date, dry=False):
             else:
                 cur = "1"
             files[vp] = cur + "\n"
-            rt, ch = add_entry(rt, f"## [v{cur}] - {date} - {name}", body)
+            edited = len([q for q in files if q.suffix and q != rc and q != vp])
+            ledger = f"**Spec**: spec_v{cur}.txt | **Target**: {'repo' if repo_level else project} | **Files edited**: {edited}"
+            rt, ch = add_entry(rt, f"## [v{cur}] - {date} - {name}", ledger + "\n\n" + body.strip("\n"))
             files[rc] = rt
         notes.append(f"{'added   ' if ch else 'skipped '} CHANGELOG.md (root) entry")
     for p, t in files.items():

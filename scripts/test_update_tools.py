@@ -101,6 +101,14 @@ class UpdateTests(unittest.TestCase):
         self.assertNotEqual(bad.returncode, 0)
 
 
+    def test_root_entry_goes_on_top_even_with_a_rule_further_down(self):
+        (self.root / "REPO_VERSION").write_text("5\n")
+        (self.root / "CHANGELOG.md").write_text("## [v5] - 2026-11-12 - Old\n\n- old\n\n---\n\n## [v4] - 2026-11-11 - Older\n\n- older\n", encoding="utf-8")
+        self.run_spec("\n".join(["@@ version 6", "@@ project .", "@@ file note.txt", "@@ create", "hi", "@@ root-changelog Note", "### Fixed", "- **Fix**: x."]))
+        text = (self.root / "CHANGELOG.md").read_text()
+        self.assertTrue(text.startswith("\n## [v6] - 2026-11-13 - Note") or text.startswith("## [v6]"), text[:60])
+        self.assertLess(text.index("## [v6]"), text.index("## [v5]"))
+
     def test_repo_level_version_must_be_the_next_repo_version(self):
         (self.root / "REPO_VERSION").write_text("5\n")
         body = ["@@ project .", "@@ file note.txt", "@@ create", "hi", "@@ root-changelog Note", "### Fixed", "- **Fix**: x."]
@@ -112,6 +120,7 @@ class UpdateTests(unittest.TestCase):
         self.run_spec("\n".join(["@@ version 6"] + body))
         self.assertEqual((self.root / "REPO_VERSION").read_text().strip(), "6")
         self.assertIn("## [v6] - 2026-11-13 - Note", (self.root / "CHANGELOG.md").read_text())
+        self.assertIn("**Spec**: spec_v6.txt | **Target**: repo | **Files edited**: 1", (self.root / "CHANGELOG.md").read_text())
 
     def test_old_three_part_repo_version_continues_as_a_single_number(self):
         (self.root / "REPO_VERSION").write_text("1.0.79\n")

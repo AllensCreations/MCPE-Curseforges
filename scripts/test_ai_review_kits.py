@@ -44,6 +44,13 @@ class KitTests(unittest.TestCase):
             self.assertIn("## Skill: .agents/skills/mcpe-context7/SKILL.md", txt)
             self.assertNotIn("Not found", txt, label)
 
+    def test_kit_shows_where_we_left_off(self):
+        n = int((REPO / "REPO_VERSION").read_text().strip())
+        txt = (self.kit("UPDATE") / "Update-Pack_tools.txt").read_text(encoding="utf-8")
+        self.assertIn("## Where we left off (spec ledger)", txt)
+        self.assertIn(f"REPO_VERSION: {n}", txt)
+        self.assertIn(f"spec_v{n + 1}.txt", txt)
+
     def test_directory_map_lists_directories_only(self):
         txt = (self.kit("UPDATE") / "Update-Pack_tools.txt").read_text(encoding="utf-8")
         block = txt.split("## Directories", 1)[1].split("## Skill:", 1)[0]

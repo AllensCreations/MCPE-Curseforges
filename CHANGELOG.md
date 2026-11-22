@@ -1,3 +1,45 @@
+# Repo Changelog (spec ledger)
+
+One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_vN.txt`); the next spec is `REPO_VERSION` + 1. Pack release notes live in each pack's own `CHANGELOG.md`, never here.
+
+---
+
+## [v227] - 2026-11-22 - Spec Ledger Changelog
+
+### Added
+- **Spec ledger**: the root `CHANGELOG.md` is now only the log of delivered specs. Each entry names its `spec_vN.txt`, target and file count. AI kits and pack reviews open with "Where we left off" (REPO_VERSION, next spec, newest entries), so any agent knows where the last spec ended.
+### Fixed
+- **Entries landing in the middle**: new root entries went under the first `---` found anywhere in the file, which buried v223 to v226 around line 650. They now go on top, and the file has a header with a rule. v223 to v226 were moved to the top.
+- **Review prompt**: pack reviews now tell the AI to deliver a `spec_vN.txt`, not a `.sh`.
+
+## [v226] - 2026-11-22 - OneBlock Locked Survival and Hardcore
+
+### Added
+- **World lock**: Survival and Hardcore OneBlock worlds are built with `isFromLockedTemplate`, `hasLockedBehaviorPack` and (with a resource pack) `hasLockedResourcePack` set in `level.dat`; Creative stays unlocked. `immutableWorld` is never set. Per map override: `"lock_settings"` in `oneblock.json`.
+- **Safety check**: the archive check fails if the flags do not match the mode. New `test_oneblock_lock.py`.
+- Not tested in game: the effect of these flags is not in the Bedrock docs.
+
+## [v225] - 2026-11-22 - Survival Mode Lock
+
+### Improved & Balanced
+
+- **Survival Mode Lock**: In the Survival world the game mode is now locked. Anyone who switches to Creative, Adventure or Spectator is put back into Survival within a second. The Creative world is not affected.
+
+## [v224] - 2026-11-22 - Brand Name Update
+
+### Improved & Balanced
+
+- **ALNStudios Branding**: The in-game credit messages (creator line and the phase reached message) now say ALNStudios instead of AllensCreations.
+
+## [v223] - 2026-11-22 - MCicons Only, Smaller AI Reviews, Changelog Cleanup
+
+### Improved & Balanced
+- **MCicons only**: icons come only from MCicons, no Samples or Wiki fallback; recipe workflows no longer clone Samples.
+- **Smaller AI reviews**: pack review files are size-budgeted (`AI_MAX_BYTES`, 150000 in the auto build), list the larger files with sizes, and carry no graph header (`enrich_ai_review.py` removed). `bedrock-samples.txt` is no longer linked from the catalog.
+- **Skills and Context7**: `checkrm` is shorter; `context7.json` excludes generated folders.
+### Fixed
+- **Root changelog**: removed five pack-versioned entries that had landed at the top and moved v144 to its place.
+
 ## [v222] - 2026-11-22 - Arrow Guidance
 
 ### Added
@@ -650,34 +692,6 @@
 - `scripts/build_mcpedl_readme.py` links `.txt` files directly in the AI Review column.
 
 ---
-
-## [v226] - 2026-11-22 - OneBlock Locked Survival and Hardcore
-
-### Added
-- **World lock**: Survival and Hardcore OneBlock worlds are built with `isFromLockedTemplate`, `hasLockedBehaviorPack` and (with a resource pack) `hasLockedResourcePack` set in `level.dat`; Creative stays unlocked. `immutableWorld` is never set. Per map override: `"lock_settings"` in `oneblock.json`.
-- **Safety check**: the archive check fails if the flags do not match the mode. New `test_oneblock_lock.py`.
-- Not tested in game: the effect of these flags is not in the Bedrock docs.
-
-## [v225] - 2026-11-22 - Survival Mode Lock
-
-### Improved & Balanced
-
-- **Survival Mode Lock**: In the Survival world the game mode is now locked. Anyone who switches to Creative, Adventure or Spectator is put back into Survival within a second. The Creative world is not affected.
-
-## [v224] - 2026-11-22 - Brand Name Update
-
-### Improved & Balanced
-
-- **ALNStudios Branding**: The in-game credit messages (creator line and the phase reached message) now say ALNStudios instead of AllensCreations.
-
-## [v223] - 2026-11-22 - MCicons Only, Smaller AI Reviews, Changelog Cleanup
-
-### Improved & Balanced
-- **MCicons only**: icons come only from MCicons, no Samples or Wiki fallback; recipe workflows no longer clone Samples.
-- **Smaller AI reviews**: pack review files are size-budgeted (`AI_MAX_BYTES`, 150000 in the auto build), list the larger files with sizes, and carry no graph header (`enrich_ai_review.py` removed). `bedrock-samples.txt` is no longer linked from the catalog.
-- **Skills and Context7**: `checkrm` is shorter; `context7.json` excludes generated folders.
-### Fixed
-- **Root changelog**: removed five pack-versioned entries that had landed at the top and moved v144 to its place.
 
 ## [v144] - 2026-11-19 - Context7 Full Support, Build Pruning & AI Review Token Optimization
 
