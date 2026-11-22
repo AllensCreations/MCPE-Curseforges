@@ -5,7 +5,7 @@ Download the current release of **ALNPirateTokens** for Minecraft Bedrock Editio
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNPirateTokens (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNPirateTokens/ALNPirateTokens%20V1.mcaddon)
+- **Direct download:** [Download ALNPirateTokens (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNPirateTokens/ALNPirateTokens%20V1.0.1.mcaddon)
 
 ## Installation
 

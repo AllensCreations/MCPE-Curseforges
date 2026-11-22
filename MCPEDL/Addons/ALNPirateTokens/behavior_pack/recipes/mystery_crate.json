@@ -23,11 +23,9 @@
         "item": "aln:gold_doubloon"
       }
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "aln:mystery_crate"
     }
