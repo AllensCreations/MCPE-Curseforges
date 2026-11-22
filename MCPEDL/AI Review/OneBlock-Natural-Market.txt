@@ -17,8 +17,8 @@
 - **Export request:** `MCPEDL/Maps/OneBlock-Natural-Market`
 - **Destination:** `MCPEDL/Maps/OneBlock-Natural-Market`
 - **CURRENT VERSION: v16 / NEXT UPDATE: v17**  (`MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md`)
-- **Text files:** 16
-- **Skipped binary:** 15
+- **Text files:** 17
+- **Skipped binary:** 230
 - **Paths not found:** 0
 
 ### Files in this export
@@ -38,6 +38,7 @@
 - `MCPEDL/Maps/OneBlock-Natural-Market/README.md`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/manifest.json`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/item_texture.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/ASSET-NOTICE.md`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/ui_chest_disabled/server_form.json`
 
 ### Skipped (binary)
@@ -53,6 +54,221 @@
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/pack_icon.png`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/items/trader_ledger.png`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/chest_panel.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/acacia_log.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/ancient_debris.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/andesite.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/anvil.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/apple.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/arrow.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/axolotl_spawn_egg.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/baked_potato.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/bamboo.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/basalt.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/beacon.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/bee_spawn_egg.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/beetroot.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/beetroot_seeds.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/birch_log.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/birch_planks.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/blackstone.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/blaze_powder.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/blaze_rod.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/blaze_spawn_egg.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/blue_wool.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/bone.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/bow.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/bread.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/bricks.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/bucket.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/cake.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/calcite.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/camel_spawn_egg.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/carrot.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/cat_spawn_egg.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/cherry_log.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/chest.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/chicken_spawn_egg.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/chorus_fruit.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/coal.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/coal_ore.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/coarse_dirt.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/cobblestone.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/cocoa_beans.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/comparator.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/composter.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/conduit.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/cooked_beef.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/cooked_chicken.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/cooked_mutton.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/cooked_porkchop.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/cookie.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/copper_ingot.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/copper_ore.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/cow_spawn_egg.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/crafting_table.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/creeper_spawn_egg.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/crimson_stem.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/crossbow.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/crying_obsidian.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/dark_oak_log.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/dark_oak_planks.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/daylight_detector.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/deepslate.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/diamond.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/diamond_axe.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/diamond_hoe.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/diamond_ore.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/diamond_pickaxe.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/diamond_sword.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/diorite.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/dirt.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/dispenser.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/donkey_spawn_egg.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/dragon_breath.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/dropper.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/elytra.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/emerald.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/emerald_ore.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/enchanted_golden_apple.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/enchanting_table.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/end_crystal.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/end_stone.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/ender_chest.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/ender_eye.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/ender_pearl.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/enderman_spawn_egg.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/experience_bottle.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/feather.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/fishing_rod.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/fox_spawn_egg.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/frog_spawn_egg.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/furnace.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/ghast_tear.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/glass.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/glowstone_dust.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/goat_spawn_egg.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/gold_ingot.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/gold_ore.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/golden_apple.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/golden_axe.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/golden_carrot.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/golden_pickaxe.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/golden_sword.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/granite.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/gravel.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/gunpowder.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/hay_block.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/heart_of_the_sea.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/hopper.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/horse_spawn_egg.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/ink_sac.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/iron_axe.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/iron_block.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/iron_hoe.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/iron_ingot.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/iron_ore.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/iron_pickaxe.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/iron_shovel.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/iron_sword.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/jungle_log.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/ladder.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/lantern.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/lapis_lazuli.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/leather.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/lever.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/llama_spawn_egg.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/magma_block.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/magma_cube_spawn_egg.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/mangrove_log.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/melon_seeds.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/melon_slice.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/mooshroom_spawn_egg.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/moss_block.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/mossy_cobblestone.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/nautilus_shell.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/nether_brick.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/nether_star.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/nether_wart.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/netherite_block.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/netherite_ingot.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/netherrack.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/oak_door.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/oak_fence.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/oak_log.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/oak_planks.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/oak_sapling.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/observer.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/obsidian.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/packed_ice.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/panda_spawn_egg.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/pig_spawn_egg.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/piston.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/polished_blackstone.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/potato.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/prismarine_crystals.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/prismarine_shard.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/pumpkin.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/pumpkin_pie.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/pumpkin_seeds.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/purpur_block.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/quartz.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/quartz_block.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/rabbit_hide.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/rabbit_spawn_egg.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/red_sandstone.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/redstone.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/redstone_block.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/redstone_torch.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/repeater.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/rotten_flesh.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/sand.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/sandstone.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/shears.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/sheep_spawn_egg.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/shield.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/shulker_box.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/shulker_shell.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/skeleton_spawn_egg.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/slime_ball.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/slime_spawn_egg.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/snow_block.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/soul_sand.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/soul_torch.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/spider_eye.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/spider_spawn_egg.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/spruce_log.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/spruce_planks.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/stick.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/sticky_piston.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/stone.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/stone_axe.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/stone_bricks.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/stone_hoe.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/stone_pickaxe.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/stone_shovel.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/stone_sword.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/string.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/sugar_cane.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/sweet_berries.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/target.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/terracotta.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/torch.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/totem_of_undying.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/trident.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/tripwire_hook.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/tuff.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/turtle_spawn_egg.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/warped_stem.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/wheat.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/wheat_seeds.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/white_wool.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/witch_spawn_egg.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/wolf_spawn_egg.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/wooden_axe.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/wooden_pickaxe.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/wooden_shovel.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/wooden_sword.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/zombie_spawn_egg.png`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/slot.png`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/slot_hover.png`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/slot_pressed.png`
@@ -183,13 +399,13 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v16.0.1)",
+    "name": "OneBlock Natural Market (v16.0.2)",
     "description": "OneBlock survival with a progression market and regenerating core. by ALNStudios",
     "uuid": "77f07d1a-fa7a-437d-8fea-72068be05162",
     "version": [
       16,
       0,
-      1
+      2
     ],
     "min_engine_version": [
       1,
@@ -204,7 +420,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "version": [
         16,
         0,
-        1
+        2
       ]
     },
     {
@@ -214,7 +430,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "version": [
         16,
         0,
-        1
+        2
       ],
       "entry": "scripts/main.js"
     }
@@ -225,7 +441,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "version": [
         16,
         0,
-        1
+        2
       ]
     },
     {
@@ -242,7 +458,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "16.0.1"
+    "version": "16.0.2"
   }
 }
 ```
@@ -295,7 +511,7 @@ Extracted from the script files; nothing here was run in game.
 Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (732 lines, 40415 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (735 lines, 40542 bytes)
 
 ```
 import { world, system, ItemStack, ItemTypes } from "@minecraft/server";
@@ -316,18 +532,20 @@ const UNSAFE_CORE = new Set([
   "minecraft:lever", "minecraft:ladder", "minecraft:oak_sapling", "minecraft:sugar_cane",
   "minecraft:bamboo", "minecraft:repeater", "minecraft:comparator", "minecraft:anvil", "minecraft:netherite_block"
 ]);
+const MCICON_DIR = "textures/ui/natural_market/icons/";
+const NO_MCICON = new Set(["brick_block"]);
 const CATEGORIES = [
-  { name: "Building Blocks", icon: "textures/blocks/stone" },
-  { name: "Tools & Gear", icon: "textures/items/iron_pickaxe" },
-  { name: "Farming", icon: "textures/items/wheat" },
-  { name: "Food", icon: "textures/items/bread" },
-  { name: "Combat", icon: "textures/items/iron_sword" },
-  { name: "Ores & Minerals", icon: "textures/items/diamond" },
-  { name: "Redstone", icon: "textures/items/redstone_dust" },
-  { name: "Mob Drops", icon: "textures/items/bone" },
-  { name: "Spawn Eggs", icon: "textures/items/spawn_eggs/spawn_egg_cow" },
-  { name: "Nether", icon: "textures/blocks/netherrack" },
-  { name: "Endgame", icon: "textures/items/ender_pearl" }
+  { name: "Building Blocks", icon: MCICON_DIR + "stone" },
+  { name: "Tools & Gear", icon: MCICON_DIR + "iron_pickaxe" },
+  { name: "Farming", icon: MCICON_DIR + "wheat" },
+  { name: "Food", icon: MCICON_DIR + "bread" },
+  { name: "Combat", icon: MCICON_DIR + "iron_sword" },
+  { name: "Ores & Minerals", icon: MCICON_DIR + "diamond" },
+  { name: "Redstone", icon: MCICON_DIR + "redstone" },
+  { name: "Mob Drops", icon: MCICON_DIR + "bone" },
+  { name: "Spawn Eggs", icon: MCICON_DIR + "cow_spawn_egg" },
+  { name: "Nether", icon: MCICON_DIR + "netherrack" },
+  { name: "Endgame", icon: MCICON_DIR + "ender_pearl" }
 ];
 const TIER_BLOCKS = [
   ["dirt"], ["coarse_dirt"], ["clay"],
@@ -584,6 +802,7 @@ for (const item of CATALOG) {
   const base = BASE_PRICE_FIX[item.raw] ?? item.price;
   item.sell = item.category === "Spawn Eggs" ? 0 : (SELL_FIX[item.raw] ?? Math.max(1, Math.floor(base / 2)));
   item.price = Math.max(1, Math.round(base * priceMult(item.tier)));
+  if (!NO_MCICON.has(item.raw)) item.icon = MCICON_DIR + item.raw;
 }
 const BUILDING_IDS = new Set(CATALOG.filter(i => i.category === "Building Blocks").map(i => i.id));
 const LEDGER_PENDING = "obm_ledger_pending";
@@ -1031,12 +1250,23 @@ system.runInterval(() => {
 }, 20);
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (161 lines, 9970 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (172 lines, 10457 bytes)
 
 ```
 # Changelog — OneBlock Natural Market
 
 ---
+
+## [16.0.2] - 2026-11-22 - MCicons Market Icons
+
+### Changed
+- Market icons now use the MCicons set (Minecraft item and block icons), shipped in the resource pack, instead of the game's own texture paths. This covers the 11 category buttons and every market item except Brick Block, which has no MCicons icon and keeps its old one.
+
+### Added
+- The MCicons notice file (`ASSET-NOTICE.md`) sits beside the icons in the resource pack.
+
+### Fixed
+- Shield now shows an icon in the market.
 
 ## [16.0.1] - 2026-11-21 - Core Tier Reorder
 
@@ -1319,13 +1549,13 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v16.0.1)",
+    "name": "OneBlock Natural Market (v16.0.2)",
     "description": "Trader Ledger icon for OneBlock Natural Market. by ALNStudios",
     "uuid": "187333a6-4353-4003-b379-471f85ce9021",
     "version": [
       16,
       0,
-      1
+      2
     ],
     "min_engine_version": [
       1,
@@ -1340,7 +1570,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "version": [
         16,
         0,
-        1
+        2
       ]
     }
   ],
@@ -1349,7 +1579,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "16.0.1"
+    "version": "16.0.2"
   }
 }
 ```
@@ -1366,6 +1596,35 @@ For gameplay features, usage details, compatibility notes, and other project inf
     }
   }
 }
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/ASSET-NOTICE.md (25 lines, 1392 bytes)
+
+```
+# Artwork and attribution
+
+Minecraft is a trademark of Mojang Studios. Minecraft textures, models and
+associated artwork belong to Mojang Studios / Microsoft. MCicons is an
+independent community project, not an official Minecraft product and not
+approved by or associated with Mojang or Microsoft.
+
+The MIT license covers this project's software, tools and documentation. It
+does **not** relicense Minecraft artwork or grant rights to Minecraft assets.
+Use of the included artwork remains subject to the rights holder's terms,
+[Minecraft Usage Guidelines](https://www.minecraft.net/en-us/usage-guidelines)
+and applicable law. Do not describe the artwork as MIT-licensed or exclusively
+owned by MCicons. This notice is not a legal clearance or a rights guarantee.
+
+Version 2 retains the original 1,396 PNG files from MCicons 1.0.0 and adds
+263 software-rendered previews derived from the SHA-verified official Java 26.3
+client. `data/minecraft-source.json` records the archive URL/hashes, identifiers,
+definition paths and new PNG hashes. The game archive itself is not distributed.
+Legacy images were retained, not claimed to have been independently authored
+or freshly extracted from 26.3. Software previews are not guaranteed to be
+pixel-identical to the game's inventory renderer.
+
+Keep this notice with redistributed packages or subsets. Questions about the
+MCicons project: hi@mumd.dev.
 ```
 
 ## FILE: MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/ui_chest_disabled/server_form.json (302 lines, 6912 bytes)

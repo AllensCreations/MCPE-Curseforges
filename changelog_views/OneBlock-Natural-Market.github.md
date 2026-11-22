@@ -1,13 +1,21 @@
 # Changelog — OneBlock Natural Market
 
-## [16.0.1] - 2026-11-21 - Core Tier Reorder
+## [16.0.2] - 2026-11-22 - MCicons Market Icons
 
 ### Changed
 
 ### Added
 
+### Fixed
+
 <details>
-<summary><b>16.0.x</b> (1 release)</summary>
+<summary><b>16.0.x</b> (2 releases)</summary>
+
+### [16.0.1] - 2026-11-21 - Core Tier Reorder
+
+#### Changed
+
+#### Added
 
 ### [16.0.0] - 2026-11-21 - 30 Tiers And Spawn Eggs
 
