@@ -4,6 +4,15 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v230] - 2026-11-22 - Repo Tester and publish variants
+
+**Spec**: spec_v230.txt | **Target**: repo | **Files edited**: 4
+
+- Publish to CurseForge: with a pack that is not a map, the map variant dropdown is now ignored and the pack publishes normally. Publish ALL with the variant set to all uploads Creative, Survival and Hardcore for every map and publishes every other pack once. A map without variant packages falls back to its default package. The rule follows the MCPEDL/Maps path, so new packs need no workflow change.
+- Added scripts/run_repo_tests.py: one command that runs every scripts/test_*.py, the self-test and check scripts with a time limit and a ci.yml audit, lints every pack in MCPEDL/ for failures seen in real Minecraft ContentLog files, and with --logs groups the errors of ContentLog files.
+- Added scripts/test_run_repo_tests.py: unit tests for every rule of the tester.
+- CI runs the pack lint as an advisory step after the project pipeline self-test.
+
 ## [v229] - 2026-11-22 - Particle Removal
 
 **Spec**: spec_v229.txt | **Target**: MCPEDL/Addons/ALN-MoreDiscs | **Files edited**: 5

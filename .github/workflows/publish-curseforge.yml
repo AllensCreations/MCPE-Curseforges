@@ -56,7 +56,7 @@ on:
           - "MCPEDL/Minigame/Tethered-Breaker-And-Builder"
           # END registered
       publish_map_variant:
-        description: "Maps only (default = auto, all = Creative + Survival + Hardcore)"
+        description: "Maps only (default = auto, all = Creative + Survival + Hardcore). Other pack types ignore it and publish normally"
         required: true
         default: default
         type: choice
@@ -162,10 +162,24 @@ jobs:
           PACK_FILENAME_TEMPLATE: ${{ vars.PACK_FILENAME_TEMPLATE }}
         run: |
           set -euo pipefail
+          variant_for() {
+            case "$1" in
+              MCPEDL/Maps/*)
+                if [ "$MAP_VARIANT" = "all" ] && [ ! -f "$1/oneblock.json" ] && ! compgen -G "$1/*- Creative.mcworld" > /dev/null; then
+                  echo "default"
+                else
+                  echo "$MAP_VARIANT"
+                fi
+                ;;
+              *)
+                echo "default"
+                ;;
+            esac
+          }
           if [ "$PROJECT_PATH" != "ALL" ]; then
             python3 scripts/auto_publish_curseforge.py \
               --project "$PROJECT_PATH" \
-              --map-variant "$MAP_VARIANT" \
+              --map-variant "$(variant_for "$PROJECT_PATH")" \
               --release-type "$RELEASE_TYPE"
             exit 0
           fi
@@ -190,7 +204,9 @@ jobs:
           FAILED=()
           for P in "${PENDING[@]}"; do
             echo "::group::$P"
-            if python3 scripts/auto_publish_curseforge.py --project "$P" --map-variant "$MAP_VARIANT" --release-type "$RELEASE_TYPE"; then
+            PACK_VARIANT="$(variant_for "$P")"
+            echo "Map variant for $P: $PACK_VARIANT"
+            if python3 scripts/auto_publish_curseforge.py --project "$P" --map-variant "$PACK_VARIANT" --release-type "$RELEASE_TYPE"; then
               DONE=$((DONE + 1))
               git add -A
               if ! git diff --cached --quiet; then
