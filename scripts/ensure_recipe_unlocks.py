@@ -23,9 +23,9 @@ for search_root in SEARCH_ROOTS:
             skipped += 1
             continue
         recipe = data[recipe_type]
-        # Bedrock uses a single unlock object for shaped recipes and an array for shapeless recipes.
-        desired = {"context": "AlwaysUnlocked"} if recipe_type == "minecraft:recipe_shaped" else [{"context": "AlwaysUnlocked"}]
-        if recipe.get("unlock") == desired:
+        desired = {"context": "AlwaysUnlocked"}
+        accepted = [desired] if recipe_type == "minecraft:recipe_shaped" else [desired, [desired]]
+        if recipe.get("unlock") in accepted:
             already_correct += 1
             continue
         recipe["unlock"] = desired
