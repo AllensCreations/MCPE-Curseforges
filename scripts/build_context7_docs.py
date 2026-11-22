@@ -4,6 +4,7 @@
 docs/ is the ONLY folder Context7 indexes (context7.json). Two pages are copies and are rebuilt here:
   docs/instructions-reference.md   INSTRUCTIONS.md + DOCS_RULES.md + PACK_GENERATOR_INSTRUCTIONS.md (lines the generator repeats from INSTRUCTIONS.md are omitted)
   docs/scripts-and-workflows.md    one summary per script (module docstring) and per workflow, plus key snippets
+  docs/where-we-left-off.md        REPO_VERSION, next spec number, newest spec ledger entries and each project's latest version
 docs/bedrock-guide.md is written by hand and is never touched.
 
 Usage: python3 scripts/build_context7_docs.py [--check]
@@ -101,6 +102,35 @@ def scripts_page():
     return "".join(o)
 
 
+def ledger_page():
+    """Where we left off: REPO_VERSION, next spec, newest ledger entries, each project's latest version."""
+    vf = ROOT / "REPO_VERSION"
+    ver = vf.read_text(encoding="utf-8").strip() if vf.is_file() else "?"
+    nxt = f"spec_v{int(ver) + 1}.txt (`@@ version {int(ver) + 1}`)" if ver.isdigit() else "unknown"
+    entries, cur = [], None
+    cl = ROOT / "CHANGELOG.md"
+    if cl.is_file():
+        for line in cl.read_text(encoding="utf-8").split("\n"):
+            if line.startswith("## ["):
+                cur = [line]
+                entries.append(cur)
+            elif cur is not None and line.startswith("**Spec**"):
+                cur.append(line)
+    o = ["# Where we left off (spec ledger)\n\n",
+         "Snapshot written by `python3 scripts/build_context7_docs.py` after the last spec. "
+         "The files in the repository win over this page.\n\n",
+         f"- REPO_VERSION: {ver}. The next repo-level spec is {nxt}.\n",
+         "- A spec that is not listed below or in the root `CHANGELOG.md` is NOT applied.\n",
+         "- A project spec uses `@@ version` = the project's latest version below + 0.0.1.\n\n",
+         "## Newest specs (root CHANGELOG.md)\n\n"]
+    for e in entries[:10]:
+        o.append("- " + " | ".join(x.lstrip("# ").strip() for x in e) + "\n")
+    o.append("\n## Projects (latest heading in each project CHANGELOG.md)\n\n")
+    for f in sorted((ROOT / "MCPEDL").glob("*/*/CHANGELOG.md")):
+        head = next((l for l in f.read_text(encoding="utf-8").split("\n") if l.startswith("## [")), None)
+        o.append(f"- `{f.parent.relative_to(ROOT).as_posix()}`: {head.lstrip('# ').strip() if head else '(no entry)'}\n")
+    return "".join(o)
+
 def mcicons_page():
     """Text index of the MCicons ids (the .tgz itself is binary and cannot be indexed). None when the file is absent."""
     sys.path.insert(0, str(ROOT / "scripts" / "lib"))
@@ -128,7 +158,7 @@ def mcicons_page():
 
 
 def main():
-    pages = {"instructions-reference.md": instructions_page(), "scripts-and-workflows.md": scripts_page()}
+    pages = {"instructions-reference.md": instructions_page(), "scripts-and-workflows.md": scripts_page(), "where-we-left-off.md": ledger_page()}
     mc = mcicons_page()
     if mc:
         pages["mcicons-index.md"] = mc

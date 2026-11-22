@@ -4,6 +4,13 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v246] - 2026-11-23 - Where We Left Off Page
+
+**Spec**: spec_v246.txt | **Target**: repo | **Files edited**: 1
+
+### Added
+- **Ledger page for Context7**: `scripts/build_context7_docs.py` writes `docs/where-we-left-off.md` (REPO_VERSION, next spec number, newest ledger entries, each project's latest version) so an update no longer needs a fresh kit upload to learn the current state.
+
 ## [v245] - 2026-11-23 - Existing Boat Clutch
 
 **Spec**: spec_v245.txt | **Target**: MCPEDL/Script/Universal-Clutch | **Files edited**: 6
