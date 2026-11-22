@@ -15,11 +15,9 @@
         "item": "allenscreations:super_sponge_book_6"
       }
     ],
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "allenscreations:super_sponge_book_7"
     }

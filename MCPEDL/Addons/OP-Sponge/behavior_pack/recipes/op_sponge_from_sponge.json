@@ -7,7 +7,7 @@
       { "item": "minecraft:sponge" },
       { "item": "minecraft:prismarine_crystals" }
     ],
-    "unlock": [{ "context": "AlwaysUnlocked" }],
+    "unlock": { "context": "AlwaysUnlocked" },
     "result": { "item": "allenscreations:op_sponge" }
   }
 }
