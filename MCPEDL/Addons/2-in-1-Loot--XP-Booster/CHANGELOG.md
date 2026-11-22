@@ -2,6 +2,12 @@
 
 ---
 
+## [v10] - 2026-11-22 - Up To Loot Levels
+
+### Improved & Balanced
+
+- **Up to Loot levels**: The Booster menu, the status line and the About screen now say that Loot gives a random bonus up to the chosen level, instead of suggesting a fixed multiplier.
+
 ## [v9] - 2026-11-22 - Stack Merging and Creative Fix
 
 ### Added

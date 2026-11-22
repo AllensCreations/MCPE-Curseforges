@@ -2,7 +2,7 @@ import { world, system, EntityComponentTypes, CommandPermissionLevel, CustomComm
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
 const PACK_NAME = "2-in-1 Loot & XP Booster";
-const VERSION = "9";
+const VERSION = "10";
 const TITLE = `§l§6@ALNStudios §e${PACK_NAME}§r (v${VERSION})`;
 const ABOUT_TITLE = "About ALNStudios";
 const ICON_MAIN = "textures/items/experience_bottle";
@@ -125,8 +125,8 @@ function statusLine(player) {
   const xp = XP_LEVELS[boost.xp];
   const skipped = CATEGORIES.filter((category) => !boost[category]).map((category) => CATEGORY_NAMES[category]);
   const skipText = skipped.length > 0 ? `\nLoot skips: ${skipped.join(", ")}` : "";
-  if (!boost.on) return `Boosters are off. Saved: Loot ${loot}x | XP ${xp}x${skipText}`;
-  return `Loot Booster: ${loot}x | XP Booster: ${xp}x${skipText}`;
+  if (!boost.on) return `Boosters are off. Saved: Loot up to ${loot}x | XP ${xp}x${skipText}`;
+  return `Loot Booster: up to ${loot}x | XP Booster: ${xp}x${skipText}`;
 }
 
 function bold(text) {
@@ -184,7 +184,7 @@ async function boosterScreen(player) {
   addIfSupported(form, "divider");
   form.toggle(bold("Boosters On"), { defaultValue: boost.on });
   addIfSupported(form, "divider");
-  addIfSupported(form, "label", `Loot slider 1 to ${LOOT_LEVELS.length} = ${levelText(LOOT_LEVELS)}`);
+  addIfSupported(form, "label", `Loot slider 1 to ${LOOT_LEVELS.length} = random bonus up to ${levelText(LOOT_LEVELS)}`);
   form.slider(bold("Loot Booster"), 1, LOOT_LEVELS.length, { defaultValue: boost.loot + 1, valueStep: 1 });
   addIfSupported(form, "label", "Loot applies to:");
   form.toggle(bold("Ores"), { defaultValue: boost.ores });
@@ -222,7 +222,7 @@ async function aboutScreen(player) {
   const lines = [
     "Creator: ALNStudios",
     `${PACK_NAME} v${VERSION}`,
-    "Adds Loot multipliers up to 32x and XP multipliers up to 64x, with a Behavior Pack for the multipliers and a Redesigned UI Resource Pack for the menu look.",
+    "Adds a random Loot bonus up to 32x and XP multipliers up to 64x, with a Behavior Pack for the boosters and a Redesigned UI Resource Pack for the menu look.",
     "",
     "CurseForge profile: curseforge.com/members/allenscreations/projects",
     "MCPEDL profile: mcpedl.com/user/alnstudios",
