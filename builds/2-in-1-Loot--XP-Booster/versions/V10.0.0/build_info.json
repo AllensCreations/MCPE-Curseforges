@@ -1,0 +1,8 @@
+{
+  "changelog_version": "10.0.0",
+  "manifest_version": "10.0.0",
+  "packages": {
+    "LootXPBooster V10.mcaddon": "9d9dbe417791fbb88400b457c3b911a184b22ec6697103935297e1ab61539205"
+  },
+  "source_sha256": "dfee7276e33dd82d6e54ae92a4cd044f7059f07d5ff87b7bdeb9a6ee59984a63"
+}

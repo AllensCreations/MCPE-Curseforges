@@ -1,12 +1,22 @@
 # Changelog — 2-in-1 Loot & XP Booster
 
-## [v9] - 2026-11-22 - Stack Merging and Creative Fix
+## [v10] - 2026-11-22 - Up To Loot Levels
 
-### Added
+### Improved & Balanced
+- **Up to Loot levels**: The Booster menu, the status line and the About screen now say that Loot gives a random bonus up to the chosen level, instead of suggesting a fixed multiplier.
+
+<details>
+<summary><b>9.0.x</b> (1 release)</summary>
+
+### [v9] - 2026-11-22 - Stack Merging and Creative Fix
+
+#### Added
 - **Merged extra drops**: Extra Loot drops from blocks and mobs are now combined into full stacks, so high Loot levels create far fewer items on the ground.
 
-### Fixed
+#### Fixed
 - **Creative mode**: Breaking ores and crops in Creative mode no longer gives extra loot, because those blocks drop nothing in Creative mode.
+
+</details>
 
 <details>
 <summary><b>8.0.x</b> (1 release)</summary>

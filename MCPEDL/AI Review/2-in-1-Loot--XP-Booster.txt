@@ -16,7 +16,7 @@
 
 - **Export request:** `MCPEDL/Addons/2-in-1-Loot--XP-Booster`
 - **Destination:** `MCPEDL/Addons/2-in-1-Loot--XP-Booster`
-- **CURRENT VERSION: v9 / NEXT UPDATE: v10**  (`MCPEDL/Addons/2-in-1-Loot--XP-Booster/CHANGELOG.md`)
+- **CURRENT VERSION: v10 / NEXT UPDATE: v11**  (`MCPEDL/Addons/2-in-1-Loot--XP-Booster/CHANGELOG.md`)
 - **Text files:** 13
 - **Skipped binary:** 15
 - **Paths not found:** 0
@@ -64,7 +64,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v9 / NEXT UPDATE: v10).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v10 / NEXT UPDATE: v11).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -98,17 +98,17 @@ Output ONLY these three sections in order:
 
 ## File Contents
 
-## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/behavior_pack/manifest.json (57 lines, 1011 bytes)
+## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/behavior_pack/manifest.json (57 lines, 1016 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "2-in-1 Loot & XP Booster (v9)",
+    "name": "2-in-1 Loot & XP Booster (v10)",
     "description": "Loot and XP multipliers controlled from a renamed Book. by ALNStudios",
     "uuid": "ac428a01-d829-4779-aeb1-52bbb3d37e0d",
     "version": [
-      9,
+      10,
       0,
       0
     ],
@@ -124,7 +124,7 @@ Output ONLY these three sections in order:
       "language": "javascript",
       "uuid": "7234ab02-50fd-43f5-b082-493403c5aaa4",
       "version": [
-        9,
+        10,
         0,
         0
       ],
@@ -135,7 +135,7 @@ Output ONLY these three sections in order:
     {
       "uuid": "c36706a8-ddfe-419f-bd1b-69d929186543",
       "version": [
-        9,
+        10,
         0,
         0
       ]
@@ -154,7 +154,7 @@ Output ONLY these three sections in order:
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "9.0.0"
+    "version": "10.0.0"
   }
 }
 ```
@@ -210,14 +210,14 @@ Extracted from the script files; nothing here was run in game.
 - Nothing here was run in game.
 ```
 
-## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/behavior_pack/scripts/main.js (497 lines, 16492 bytes)
+## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/behavior_pack/scripts/main.js (497 lines, 16524 bytes)
 
 ```
 import { world, system, EntityComponentTypes, CommandPermissionLevel, CustomCommandStatus } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
 const PACK_NAME = "2-in-1 Loot & XP Booster";
-const VERSION = "9";
+const VERSION = "10";
 const TITLE = `§l§6@ALNStudios §e${PACK_NAME}§r (v${VERSION})`;
 const ABOUT_TITLE = "About ALNStudios";
 const ICON_MAIN = "textures/items/experience_bottle";
@@ -340,8 +340,8 @@ function statusLine(player) {
   const xp = XP_LEVELS[boost.xp];
   const skipped = CATEGORIES.filter((category) => !boost[category]).map((category) => CATEGORY_NAMES[category]);
   const skipText = skipped.length > 0 ? `\nLoot skips: ${skipped.join(", ")}` : "";
-  if (!boost.on) return `Boosters are off. Saved: Loot ${loot}x | XP ${xp}x${skipText}`;
-  return `Loot Booster: ${loot}x | XP Booster: ${xp}x${skipText}`;
+  if (!boost.on) return `Boosters are off. Saved: Loot up to ${loot}x | XP ${xp}x${skipText}`;
+  return `Loot Booster: up to ${loot}x | XP Booster: ${xp}x${skipText}`;
 }
 
 function bold(text) {
@@ -399,7 +399,7 @@ async function boosterScreen(player) {
   addIfSupported(form, "divider");
   form.toggle(bold("Boosters On"), { defaultValue: boost.on });
   addIfSupported(form, "divider");
-  addIfSupported(form, "label", `Loot slider 1 to ${LOOT_LEVELS.length} = ${levelText(LOOT_LEVELS)}`);
+  addIfSupported(form, "label", `Loot slider 1 to ${LOOT_LEVELS.length} = random bonus up to ${levelText(LOOT_LEVELS)}`);
   form.slider(bold("Loot Booster"), 1, LOOT_LEVELS.length, { defaultValue: boost.loot + 1, valueStep: 1 });
   addIfSupported(form, "label", "Loot applies to:");
   form.toggle(bold("Ores"), { defaultValue: boost.ores });
@@ -437,7 +437,7 @@ async function aboutScreen(player) {
   const lines = [
     "Creator: ALNStudios",
     `${PACK_NAME} v${VERSION}`,
-    "Adds Loot multipliers up to 32x and XP multipliers up to 64x, with a Behavior Pack for the multipliers and a Redesigned UI Resource Pack for the menu look.",
+    "Adds a random Loot bonus up to 32x and XP multipliers up to 64x, with a Behavior Pack for the boosters and a Redesigned UI Resource Pack for the menu look.",
     "",
     "CurseForge profile: curseforge.com/members/allenscreations/projects",
     "MCPEDL profile: mcpedl.com/user/alnstudios",
@@ -711,12 +711,18 @@ system.runInterval(() => {
 }, XP_INTERVAL_TICKS);
 ```
 
-## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/CHANGELOG.md (253 lines, 10170 bytes)
+## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/CHANGELOG.md (259 lines, 10424 bytes)
 
 ```
 # Changelog — 2-in-1 Loot & XP Booster
 
 ---
+
+## [v10] - 2026-11-22 - Up To Loot Levels
+
+### Improved & Balanced
+
+- **Up to Loot levels**: The Booster menu, the status line and the About screen now say that Loot gives a random bonus up to the chosen level, instead of suggesting a fixed multiplier.
 
 ## [v9] - 2026-11-22 - Stack Merging and Creative Fix
 
@@ -896,7 +902,7 @@ system.runInterval(() => {
 - **Redesigned UI**: A Resource Pack with the Cheatstick menu textures.
 ```
 
-## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/DESCRIPTION.md (88 lines, 6591 bytes)
+## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/DESCRIPTION.md (88 lines, 6626 bytes)
 
 ```
 # 2-in-1 Loot & XP Booster — Renamed Book Menu for Loot and XP Multipliers
@@ -929,7 +935,7 @@ You rename a Book to Booster on an anvil and right-click with it. A menu opens w
 - **Good To Know**: Each player keeps their own settings, which are saved between sessions. You can also open the menu with the /aln:booster command.
 
 ### Loot Drop Booster
-- **What Happens**: Drag the Loot slider across six levels, 1x, 2x, 4x, 8x, 16x and 32x, for ores, crops and other Fortune-style blocks you break and for mobs you kill.
+- **What Happens**: Drag the Loot slider across six levels, each giving a random bonus of up to 1x, 2x, 4x, 8x, 16x or 32x, for ores, crops and other Fortune-style blocks you break and for mobs you kill.
 - **Good To Know**: Each drop rolls a random bonus up to the level you pick. It works like a Fortune and Looting bonus, but with its own random roll. Ores, gilded blackstone, amethyst clusters, nether wart, sweet berries, wheat, carrots, potatoes, beetroot and mob loot are multiplied, so normal blocks such as dirt, stone and wood drop as usual, and unstackable items such as tools are left alone. Mining with Silk Touch drops the block once and is never multiplied, and blocks broken in Creative mode are not multiplied because they drop nothing. Blocks are boosted by rolling their loot again, so only items that block can really drop are multiplied, and mobs are boosted the same way, using the weapon you killed with, so rare drops stay rare but get more chances to appear. The Ores, Crops and Mobs switches let you choose which kinds of loot are boosted. Crops, nether wart and sweet berries are multiplied only when fully grown, and crops sped up with bone meal are not multiplied. Blocks that drop themselves or can be crafted back from their drops, such as ancient debris, melons, glowstone and sea lanterns, are never multiplied, so they cannot be farmed by placing and breaking. Fortune still works, and the booster multiplies on top of it. Extra drops are combined into full stacks, so large boosts create fewer items on the ground. Only real mobs count, so armor stands, boats, minecarts and mobs that carry items, such as donkeys, mules, llamas, allays, foxes and villagers, are not multiplied, and only mobs you kill yourself are boosted. Only drops that appear the instant you break a block or kill a mob are multiplied, so items thrown or dropped nearby are left alone.
 
 ### XP Gain Booster
@@ -996,7 +1002,7 @@ Minecraft Bedrock add-on, 2-in-1 Loot & XP Booster Bedrock mod, loot multiplier,
 }
 ```
 
-## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/README.md (19 lines, 840 bytes)
+## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/README.md (19 lines, 841 bytes)
 
 ```
 # 2-in-1 Loot & XP Booster
@@ -1006,7 +1012,7 @@ Download the current release of **2-in-1 Loot & XP Booster** for Minecraft Bedro
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download 2-in-1 Loot & XP Booster (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/2-in-1-Loot--XP-Booster/LootXPBooster%20V9.mcaddon)
+- **Direct download:** [Download 2-in-1 Loot & XP Booster (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/2-in-1-Loot--XP-Booster/LootXPBooster%20V10.mcaddon)
 
 ## Installation
 
@@ -1019,17 +1025,17 @@ Download the current release of **2-in-1 Loot & XP Booster** for Minecraft Bedro
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/DESCRIPTION.md).
 ```
 
-## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/resource_pack/manifest.json (37 lines, 620 bytes)
+## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/resource_pack/manifest.json (37 lines, 624 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "Redesigned UI (v9)",
+    "name": "Redesigned UI (v10)",
     "description": "ALNStudios Redesigned UI skin for the Booster menus. by ALNStudios",
     "uuid": "c36706a8-ddfe-419f-bd1b-69d929186543",
     "version": [
-      9,
+      10,
       0,
       0
     ],
@@ -1044,7 +1050,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "a22e0559-f882-4b93-b587-b17de35134a7",
       "version": [
-        9,
+        10,
         0,
         0
       ]
@@ -1055,7 +1061,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "9.0.0"
+    "version": "10.0.0"
   }
 }
 ```
