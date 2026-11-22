@@ -2,6 +2,12 @@
 
 ---
 
+## [v7] - 2026-11-22 - Brand Name Update
+
+### Improved & Balanced
+
+- **ALNStudios Branding**: The in-game credit messages (creator line and the phase reached message) now say ALNStudios instead of AllensCreations.
+
 ## [v6] - 2026-11-22 - Cleanup And Lighter Background Checks
 
 ### Improved & Balanced
