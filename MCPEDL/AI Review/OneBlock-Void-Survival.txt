@@ -4,8 +4,8 @@
 
 - **Export request:** `MCPEDL/Maps/OneBlock-Void-Survival`
 - **Destination:** `MCPEDL/Maps/OneBlock-Void-Survival`
-- **CURRENT VERSION: v9 / NEXT UPDATE: v10**  (`MCPEDL/Maps/OneBlock-Void-Survival/CHANGELOG.md`)
-- **Spec ledger:** REPO_VERSION 234; the next spec is `spec_v235.txt` (newest specs are listed in the root `CHANGELOG.md`)
+- **CURRENT VERSION: v10 / NEXT UPDATE: v11**  (`MCPEDL/Maps/OneBlock-Void-Survival/CHANGELOG.md`)
+- **Spec ledger:** REPO_VERSION 235; the next spec is `spec_v236.txt` (newest specs are listed in the root `CHANGELOG.md`)
 - **Text files:** 89
 - **Skipped binary:** 22
 - **Paths not found:** 0
@@ -107,7 +107,7 @@
 
 ### Skipped (binary): 22 file(s)
 
-- `MCPEDL/Maps/OneBlock-Void-Survival/VoidSurvival V9.mcworld`
+- `MCPEDL/Maps/OneBlock-Void-Survival/VoidSurvival V10.mcworld`
 - `MCPEDL/Maps/OneBlock-Void-Survival/assets/recipes/bell_recipe.png`
 - `MCPEDL/Maps/OneBlock-Void-Survival/assets/recipes/calcite_recipe.png`
 - `MCPEDL/Maps/OneBlock-Void-Survival/assets/recipes/deepslate_deepslate_coal_recipe.png`
@@ -139,7 +139,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v9 / NEXT UPDATE: v10).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v10 / NEXT UPDATE: v11).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
@@ -231,23 +231,23 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Void-Survival/behavior_pack/manifest.json (60 lines, 1208 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Void-Survival/behavior_pack/manifest.json (60 lines, 1213 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
     "description": "Void survival map featuring progressive block mining, 43 procedural theme islands, and vanilla survival compatibility. by ALNStudios",
-    "name": "OneBlock Void Survival (v9)",
+    "name": "OneBlock Void Survival (v10)",
     "uuid": "6f42a0f9-6c11-4974-9bb5-075b3447d2d9",
     "version": [
-      9,
+      10,
       0,
       0
     ],
     "min_engine_version": [
       1,
-      21,
+      26,
       50
     ]
   },
@@ -257,7 +257,7 @@ Output ONLY these three sections in order:
       "type": "data",
       "uuid": "2c9d7c28-b4b1-4719-9983-13324e2aaad2",
       "version": [
-        9,
+        10,
         0,
         0
       ]
@@ -268,7 +268,7 @@ Output ONLY these three sections in order:
       "language": "javascript",
       "uuid": "f1351b45-2285-40d1-8e52-14ee221313d3",
       "version": [
-        9,
+        10,
         0,
         0
       ],
@@ -278,11 +278,11 @@ Output ONLY these three sections in order:
   "dependencies": [
     {
       "module_name": "@minecraft/server",
-      "version": "1.15.0"
+      "version": "2.10.0"
     },
     {
       "module_name": "@minecraft/server-ui",
-      "version": "1.3.0"
+      "version": "2.2.0"
     }
   ],
   "metadata": {
@@ -290,7 +290,7 @@ Output ONLY these three sections in order:
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "9.0.0"
+    "version": "10.0.0"
   }
 }
 ```
@@ -2116,12 +2116,18 @@ def main():
 main()
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Void-Survival/CHANGELOG.md (62 lines, 4513 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Void-Survival/CHANGELOG.md (62 lines, 4792 bytes)
 
 ```
 # Changelog
 
 ---
+
+## [v10] - 2026-11-23 - Latest Minecraft Update Support
+
+### Improved & Balanced
+
+- **Updated For Minecraft 1.26.50**: The pack now asks for Minecraft Bedrock 1.26.50 or newer and uses the current stable script modules (`@minecraft/server` 2.10.0 and `@minecraft/server-ui` 2.2.0) instead of the old 1.15.0 and 1.3.0 modules. The scripts were checked against the changes listed for the 2.0 script modules and nothing in the pack uses a removed feature.
 
 ## [v9] - 2026-11-22 - Pack Stays Active Fix
 
@@ -2173,12 +2179,6 @@ main()
 - **No Stray Trees**: The Elytra Hangar no longer grows an oak tree on End stone, and second trees keep their distance from the first.
 - **Effects Log Errors**: A few special effects no longer cause particle errors in the game log.
 - **World Pack Reference**: The world's pack reference now matches the pack version, and map builds keep it in sync automatically.
-- **Void End Dimension**: The End is now a void in every build of the map, matching the Overworld and Nether.
-
-## [v4] - 2026-11-20 - Island Trees And Effects Fix
-
-### Fixed
-
 
 (older entries omitted; ask for the full file if needed)
 ```
@@ -2229,7 +2229,7 @@ The central block provides resources as you progress through increasingly advanc
 
 ## Compatibility and Limitations
 
-- Minecraft Bedrock Edition 1.21.50 or newer. Check the current world listing and package details before importing.
+- Minecraft Bedrock Edition 1.26.50 or newer. Check the current world listing and package details before importing.
 - Each world is a separate file. Choose the Creative or Survival world that matches your intended play style.
 - Experimental features: Not verified.
 - Achievements: Yes, achievement-friendly.
@@ -2313,7 +2313,7 @@ crowded, flat lighting, earth terrain, no void, distorted hands, illegible typog
 ```
 ````
 
-## FILE: MCPEDL/Maps/OneBlock-Void-Survival/README.md (19 lines, 784 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Void-Survival/README.md (19 lines, 785 bytes)
 
 ```
 # OneBlock Void Survival
@@ -2323,7 +2323,7 @@ Download the current release of **OneBlock Void Survival** for Minecraft Bedrock
 ## Download
 
 - **Package format:** `.mcworld`
-- **Direct download:** [Download OneBlock Void Survival (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/VoidSurvival%20V9.mcworld)
+- **Direct download:** [Download OneBlock Void Survival (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/VoidSurvival%20V10.mcworld)
 
 ## Installation
 
@@ -2394,23 +2394,23 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Void-Survival/world/behavior_packs/OneBlockVoid/manifest.json (60 lines, 1208 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Void-Survival/world/behavior_packs/OneBlockVoid/manifest.json (60 lines, 1213 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
     "description": "Void survival map featuring progressive block mining, 43 procedural theme islands, and vanilla survival compatibility. by ALNStudios",
-    "name": "OneBlock Void Survival (v9)",
+    "name": "OneBlock Void Survival (v10)",
     "uuid": "6f42a0f9-6c11-4974-9bb5-075b3447d2d9",
     "version": [
-      9,
+      10,
       0,
       0
     ],
     "min_engine_version": [
       1,
-      21,
+      26,
       50
     ]
   },
@@ -2420,7 +2420,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "data",
       "uuid": "2c9d7c28-b4b1-4719-9983-13324e2aaad2",
       "version": [
-        9,
+        10,
         0,
         0
       ]
@@ -2431,7 +2431,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "language": "javascript",
       "uuid": "f1351b45-2285-40d1-8e52-14ee221313d3",
       "version": [
-        9,
+        10,
         0,
         0
       ],
@@ -2441,11 +2441,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
   "dependencies": [
     {
       "module_name": "@minecraft/server",
-      "version": "1.15.0"
+      "version": "2.10.0"
     },
     {
       "module_name": "@minecraft/server-ui",
-      "version": "1.3.0"
+      "version": "2.2.0"
     }
   ],
   "metadata": {
@@ -2453,7 +2453,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "9.0.0"
+    "version": "10.0.0"
   }
 }
 ```
@@ -4233,14 +4233,14 @@ system.runInterval(islandArrivalTick, 10);
 OneBlock Void Survival v1.2 [ALNStudios]
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Void-Survival/world/world_behavior_packs.json (11 lines, 116 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Void-Survival/world/world_behavior_packs.json (11 lines, 117 bytes)
 
 ```
 [
   {
     "pack_id": "6f42a0f9-6c11-4974-9bb5-075b3447d2d9",
     "version": [
-      9,
+      10,
       0,
       0
     ]
