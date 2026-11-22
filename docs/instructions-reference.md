@@ -5,7 +5,7 @@ Context7 usage: `INSTRUCTIONS.md`, `DOCS_RULES.md`, `PACK_GENERATOR_INSTRUCTIONS
 
 <!-- BEGIN INSTRUCTIONS.md -->
 
-# Instructions: Core Repository Policy (v37)
+# Instructions: Core Repository Policy (v38)
 
 
 Repo policy, docs rules for AllensCreations/MCPE-Curseforges (creator name `ALNStudios`). Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
@@ -27,20 +27,20 @@ Read only the files and sections the task needs. Changing an instruction file: r
 `[SYSTEM_CONFIG] Direct Execution. Maximum token efficiency. No greeting, intro, outro, offers, restating. High technical accuracy.`
 Questions, reviews, discussion: free-form.
 Output ONLY, in order, exact headings:
-1. **File Needed:** repo-root-relative path of each file created/edited.
+1. **File Needed:** repo-root-relative path of each file created/edited. Update to an existing project or the repo: the attached `spec_vN.txt` only.
 2. **Changelog:** bullets, brief.
-3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands (`bash ~/storage/downloads/<file>.sh`). The `.sh` is attached as the file, NEVER pasted here or in the reply. Commands live in this block only. NEVER a Summary section.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands. Update: the pull line, `python3 scripts/make_update_script.py ~/storage/downloads/spec_vN.txt --out-dir ~/storage/downloads --verify ~/MCPE-Curseforges` and `bash ~/storage/downloads/<Name>_vN_*.sh` (add `python3 scripts/pixel_json_to_png.py <project>`, `git add` and the commit lines only when textures changed); the spec is attached, NEVER pasted. New pack: `bash ~/storage/downloads/<file>.sh`, the pack `.sh` attached. Commands live in this block only. NEVER a Summary section.
 - NEVER text before, between, after. NEVER rename/merge/reorder/skip a section. Nothing to report: `- None`.
 - Ask only when 1.1 allows, one line; else proceed with defaults.
 - `/checkrm` audit report goes under **Changelog**: projects audited or updated, checks run and results, gaps.
 - New-pack build: same three sections, File Needed = the pack `.sh` (`PACK_GENERATOR_INSTRUCTIONS.md` 4.11).
 
 ## Termux Script Rules
-`.sh` named per 1.1, attached as a downloadable file. Order:
+Update to an existing project or the repo: the agent delivers ONE `spec_vN.txt` (rule 4) and the user builds the `.sh` on the phone with `scripts/make_update_script.py`; the rules below describe what that `.sh` does. New pack: the pack `.sh` named per 1.1, attached as a downloadable file. Order:
 1. `#!/data/data/com.termux/files/usr/bin/bash` + `set -e`
 2. `cd "$HOME/MCPE-Curseforges"` (clone first if missing)
 3. Discard the generated folders (`git checkout -- Package changelog_views`, CI rebuilds them), then `git pull --rebase --autostash`.
-4. Apply ALL changes inside the script. PROJECT UPDATE = search and replace: write a spec and run `python3 scripts/make_update_script.py spec.txt` (format in `scripts/apply_update.py`: `@@ replace`/`replace-all`/`insert-after`/`insert-before`/`delete`/`append`/`create`, exact match, atomic, idempotent; `--verify <clone>` dry-runs it). Size decides the method. SMALL update (a few edits, under about 60% of any file touched): search and replace only. LARGE update (most of a file, many new files, a redesign): use the best method, `@@ create`/`@@ overwrite` in the same spec, never many fragile edits. Either way ONE `.sh`. The tool also sets the manifest version, validates JSON/JS, writes both changelogs. Deliver ONLY the `.sh`: NEVER a separate `.zip`, pack file (`.mcaddon`/`.mcworld`/`.mcpack`), `.json`, `.js` or `.b64`. A NEW project is one pack `.sh` from `scripts/make_pack_script.py` (`PACK_GENERATOR_INSTRUCTIONS.md` Part 4).
+4. Apply ALL changes inside the script. PROJECT UPDATE = search and replace: write a spec and run `python3 scripts/make_update_script.py spec.txt` (format in `scripts/apply_update.py`: `@@ replace`/`replace-all`/`insert-after`/`insert-before`/`delete`/`append`/`create`, exact match, atomic, idempotent; `--verify <clone>` dry-runs it). Size decides the method. SMALL update (a few edits, under about 60% of any file touched): search and replace only. LARGE update (most of a file, many new files, a redesign): use the best method, `@@ create`/`@@ overwrite` in the same spec, never many fragile edits. Either way ONE `spec_vN.txt` (N = the current version + 1 read from the repo export, never guessed; a repo-level spec is `@@ version <REPO_VERSION + 1>`, just the number), which the user turns into ONE `.sh`. A new pixel texture: `@@ create` its pixel JSON under `texture_sources/`, then `python3 scripts/pixel_json_to_png.py <project>` after the `.sh`. The tool also sets the manifest version, validates JSON/JS, writes both changelogs. Deliver ONLY the spec: NEVER a separate `.zip`, pack file (`.mcaddon`/`.mcworld`/`.mcpack`), `.json`, `.js` or `.b64`. A NEW project is one pack `.sh` from `scripts/make_pack_script.py` (`PACK_GENERATOR_INSTRUCTIONS.md` Part 4).
 5. Validate every changed `.json` with python3. Stop on error.
 6. Run `python3 scripts/check_instruction_files.py` when an instruction file changed.
 6b. Project update: after the CHANGELOG entry, run `python3 scripts/manifest_tools.py --project "$DEST" --set vX` (or `X.0.0`), then `--check`
@@ -251,7 +251,7 @@ Placeholders `<PackName>`, `<MainAction>`, `<version>`. NEVER hardcode one pack.
 - Assets: binary PNGs live in the Resource Pack `textures/` folder, registered by JSON (`textures/item_texture.json`, `textures/terrain_texture.json`), NEVER mixed with the registration files. Recipes reference vanilla item identifiers directly. NEVER duplicate vanilla PNGs unless needed as templates.
 - Trusted sources (rely strictly and exclusively on these four Context7 libraries, queried per 1.16; NEVER invent API methods, outdated syntax or item ids): `/microsoftdocs/minecraft-creator` (Script API, `@minecraft/server`, `@minecraft/server-ui`, JSON schemas, versions); `/mojang/bedrock-samples` (vanilla textures, recipes, entities, definitions, formats); `/websites/wiki_bedrock_dev` (manifest structure, techniques); `/allenscreations/mcpe-curseforges` (this repo's rules and scripts). No other library, site or package page is a source. Priority and disagreements follow 1.1: report, NEVER choose silently.
 - Failure (script does not load, texture does not render, syntax changed in a newer update): query the Context7 libraries above (1.16) for the exact updated syntax, manifest dependency versions, valid vanilla identifiers and working patterns BEFORE rewriting code.
-- Output: complete ready-to-use files with exact repo-root-relative paths, delivered ONLY as the single `.sh` and reply format above (Reply Format, Termux Script Rules).
+- Output: complete ready-to-use files with exact repo-root-relative paths, delivered ONLY as one `spec_vN.txt` (updates) or the single pack `.sh` (new packs) and reply format above (Reply Format, Termux Script Rules).
 - Item/Block menu_category: When defining `menu_category` in custom items or blocks, `group` MUST start with a namespace (e.g. `minecraft:itemGroup.name.<group>` or `<pack_namespace>:itemGroup.name.<group>`). Unnamespaced group strings (such as `itemGroup.name.helmet`) fail Bedrock parsing (`Failed to parse field ' -> description -> menu_category -> group: string must be prefixed with a namespace (eg. namespace:value)'`). When no specific vanilla group applies, omit `group` and specify only `category` (`items`, `equipment`, `construction`, `nature`).
 
 ### 1.16 Documentation Lookup (Context7 MCP)
@@ -285,6 +285,7 @@ Docs, API, vanilla data and repo files are read with the Context7 MCP tool `quer
 - [ ] Changed JSON validated. Instruction file changed: `scripts/check_instruction_files.py` passes.
 
 ## Version History
+- **v38:** Updates to an existing project or the repo are delivered as ONE `spec_vN.txt` (format in `scripts/apply_update.py`), not a `.sh`. The user builds the `.sh` on the phone with `scripts/make_update_script.py`. New packs still deliver the pack `.sh`.
 - **v37:** The Achievements line is ALWAYS `Yes, achievement-friendly.` for every project type (owner confirmed in game that an add-on-type pack keeps achievements allowed). The doc template, validators and all `DESCRIPTION.md` files use it.
 - **v36:** Every manifest MUST carry `metadata.authors` = `["ALNStudios"]` and `metadata.product_type` = `"addon"` (`manifest_tools.ensure_metadata` forces both in the build; the title validator reports a miss). MCicons ids are indexed in `docs/mcicons-index.md` for Context7.
 - **v35:** Source priority lists MCicons (1b) for vanilla icons; the AI skills (`mcpe-context7`, `mcpe-new-pack`, `checkrm`) and the generator file now say to use MCicons first for any icon.
@@ -530,7 +531,7 @@ CHANGELOG.md. Newest first. Groups: Added, Improved & Balanced, Fixed (bugs as i
 
 <!-- BEGIN PACK_GENERATOR_INSTRUCTIONS.md -->
 
-# Pack Generator Instructions (AI Agent, v36)
+# Pack Generator Instructions (AI Agent, v37)
 
 
 Builds a complete **addon**, **map**, **script**, or **minigame** from the user's idea. Returns ONE Termux `.sh` pack script that carries the whole project inside it (as base64). No other file is delivered.
