@@ -4,6 +4,12 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v241] - 2026-11-23 - Repo Tester progress
+
+**Spec**: spec_v241.txt | **Target**: repo | **Files edited**: 2
+
+- Repo tester: the tools stage prints each script as it finishes (with its time), a still-running line every 15 seconds, and the three slowest scripts at the end; --match TEXT runs only the scripts whose name contains TEXT.
+
 ## [v240] - 2026-11-23 - Self-test single-number versions
 
 **Spec**: spec_v240.txt | **Target**: repo | **Files edited**: 1

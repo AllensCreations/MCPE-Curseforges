@@ -275,6 +275,29 @@ class RunnerTests(unittest.TestCase):
             self.assertIn("T-CI-MISSING", rules(f, "WARN"))
             self.assertIn("T-NOTEST", rules(f, "INFO"))
 
+    def test_tools_stage_prints_progress_heartbeat_and_match_filter(self):
+        import contextlib
+        import io
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "scripts").mkdir()
+            write(root / "scripts" / "test_fast.py", "print('ok')\n")
+            write(root / "scripts" / "test_slowish.py", "import time\ntime.sleep(1.5)\n")
+            old = rrt.HEARTBEAT
+            rrt.HEARTBEAT = 0.4
+            buf = io.StringIO()
+            try:
+                with contextlib.redirect_stdout(buf):
+                    f = rrt.stage_tools(root, 2, 20, False)
+                    only = rrt.stage_tools(root, 2, 20, False, ["fast"])
+            finally:
+                rrt.HEARTBEAT = old
+            text = buf.getvalue()
+            self.assertIn("[1/2]", text)
+            self.assertIn("still running: test_slowish.py", text)
+            self.assertEqual(f.count("FAIL"), 0, f.items)
+            self.assertEqual([i["where"] for i in only.items if i["rule"] == "T-RUN"], ["scripts/test_fast.py"])
+
     def test_failure_summary_prefers_error_lines(self):
         out = "ok one\nERROR: the real cause\n" + "\n".join(f"warning pad {i}" for i in range(12))
         self.assertIn("the real cause", rrt.tail(out))

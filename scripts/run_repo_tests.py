@@ -17,7 +17,7 @@ One command runs everything that can be tested without Minecraft:
            The same file also holds the known pack-lint findings (default scripts/tester_baseline.json).
 
 Usage: python3 scripts/run_repo_tests.py [--only tools,checks,content,logs] [--logs PATH] [--project PATH]
-         [--jobs N] [--timeout SECONDS] [--strict] [--real-foundation] [--events-file FILE]
+         [--jobs N] [--timeout SECONDS] [--match TEXT] [--strict] [--real-foundation] [--events-file FILE]
          [--ignore REGEX] [--baseline FILE] [--write-baseline FILE] [--json FILE] [--verbose]
 Exit: 0 all good, 1 at least one FAIL (or a WARN with --strict), 2 bad arguments.
 Read-only: it never writes inside the repo (--json and --write-baseline write only where you point them).
@@ -37,6 +37,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 STAGES = ("tools", "checks", "content", "logs")
+HEARTBEAT = 15
 READ_ONLY_CHECKS = (
     ("check_manifest_versions.py", []),
     ("validate_manifest_titles.py", []),
@@ -281,7 +282,11 @@ def discover_tools(root):
     return names
 
 
-def stage_tools(root, jobs, timeout, fake_foundation):
+def say(text):
+    print(text, flush=True)
+
+
+def stage_tools(root, jobs, timeout, fake_foundation, match=()):
     f = Findings()
     scripts = root / "scripts"
     if not scripts.is_dir():
@@ -295,18 +300,44 @@ def stage_tools(root, jobs, timeout, fake_foundation):
         except (SyntaxError, ValueError, OSError) as err:
             f.add("FAIL", "T-SYNTAX", rel(path, root), f"does not compile: {err}")
     names = discover_tools(root)
+    if match:
+        names = [n for n in names if any(m in n for m in match)]
     extra = {"selftest_project_types.py": ["--fake-foundation"] if fake_foundation else []}
+    started = {}
+    results = {}
+
+    def timed(name):
+        started[name] = time.time()
+        return run_script(root, name, extra.get(name, []), timeout)
+
+    say(f"  running {len(names)} scripts, {max(1, jobs)} at a time, {timeout}s limit each")
     with concurrent.futures.ThreadPoolExecutor(max_workers=max(1, jobs)) as pool:
-        futures = [pool.submit(run_script, root, n, extra.get(n, []), timeout) for n in names]
-        for fut in futures:
-            name, code, out, secs = fut.result()
-            where = f"scripts/{name}"
-            if code is None:
-                f.add("FAIL", "T-HANG", where, f"no result after {timeout}s (hang). Last output: {tail(out)}")
-            elif code != 0:
-                f.add("FAIL", "T-RUN", where, f"exit {code} in {secs:.1f}s. {tail(out)}")
-            else:
-                f.add("PASS", "T-RUN", where, f"ok in {secs:.1f}s")
+        pending = {pool.submit(timed, n) for n in names}
+        while pending:
+            done, pending = concurrent.futures.wait(
+                pending, timeout=HEARTBEAT, return_when=concurrent.futures.FIRST_COMPLETED)
+            for fut in done:
+                name, code, out, secs = fut.result()
+                results[name] = (code, out, secs)
+                word = "TIMEOUT" if code is None else ("ok" if code == 0 else f"FAIL exit {code}")
+                say(f"  [{len(results)}/{len(names)}] {word:<10} {name}  {secs:.1f}s")
+            if not done:
+                now = time.time()
+                running = sorted(((n, now - t) for n, t in started.items() if n not in results), key=lambda x: -x[1])
+                label = ", ".join(f"{n} ({sec:.0f}s)" for n, sec in running[:4]) or "starting"
+                say(f"  ... {len(results)}/{len(names)} done, still running: {label}")
+    for name in names:
+        code, out, secs = results[name]
+        where = f"scripts/{name}"
+        if code is None:
+            f.add("FAIL", "T-HANG", where, f"no result after {timeout}s (hang). Last output: {tail(out)}")
+        elif code != 0:
+            f.add("FAIL", "T-RUN", where, f"exit {code} in {secs:.1f}s. {tail(out)}")
+        else:
+            f.add("PASS", "T-RUN", where, f"ok in {secs:.1f}s")
+    slow = sorted(((results[n][2], n) for n in names), reverse=True)[:3]
+    if slow and slow[0][0] >= 5:
+        f.add("INFO", "T-SLOW", "scripts/", "slowest: " + ", ".join(f"{n} {sec:.0f}s" for sec, n in slow))
     tests = [n for n in names if n.startswith("test_")]
     ci = root / ".github" / "workflows" / "ci.yml"
     if ci.is_file():
@@ -719,7 +750,8 @@ def main(argv=None):
     ap.add_argument("--logs", help="ContentLog folder or .zip (adds the logs stage)")
     ap.add_argument("--project", action="append", help="limit the content lint to this project folder (repeatable)")
     ap.add_argument("--jobs", type=int, default=4)
-    ap.add_argument("--timeout", type=int, default=300)
+    ap.add_argument("--timeout", type=int, default=300, help="seconds each script may run before it counts as a hang")
+    ap.add_argument("--match", action="append", help="tools stage: only run scripts whose name contains this text (repeatable)")
     ap.add_argument("--strict", action="store_true")
     ap.add_argument("--real-foundation", action="store_true", help="run selftest_project_types.py without --fake-foundation (CI always uses it)")
     ap.add_argument("--events-file", help="file with extra verified event names, one per line")
@@ -749,7 +781,7 @@ def main(argv=None):
             continue
         print(f"== {stage} ==")
         if stage == "tools":
-            f = stage_tools(root, a.jobs, a.timeout, not a.real_foundation)
+            f = stage_tools(root, a.jobs, a.timeout, not a.real_foundation, a.match or ())
         elif stage == "checks":
             f = stage_checks(root, a.timeout)
         elif stage == "content":
