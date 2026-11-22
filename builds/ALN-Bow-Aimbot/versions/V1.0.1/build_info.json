@@ -2,7 +2,7 @@
   "changelog_version": "1.0.1",
   "manifest_version": "1.0.1",
   "packages": {
-    "ALNBowAimbot V1.0.1.mcaddon": "258dc4517c3001d3538143bf0fe8e2e4080990fbbc1bdabe1990b3ce444ab1ec"
+    "ALNBowAimbot V1.0.1.mcaddon": "d2cc1d5886cd831041500b022c14913e747e736b9482c6dfd82b705e72791e2a"
   },
-  "source_sha256": "07462e785dd8091024db8746bfbc23b075d33f44d0d34a7fc208790273863b32"
+  "source_sha256": "cc70a9200c538cbab79e6f6498e4ad02055379f9aed4e2df4b1ba80d9575e1b5"
 }

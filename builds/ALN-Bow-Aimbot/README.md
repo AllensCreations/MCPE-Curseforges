@@ -8,7 +8,7 @@ This folder contains compiled release packages for **ALN Bow Aimbot** by ALNStud
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`ALNBowAimbot V1.0.1.mcaddon`** | `.mcaddon` | ~17 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Bow-Aimbot/ALNBowAimbot%20V1.0.1.mcaddon) |
+| **`ALNBowAimbot V1.0.1.mcaddon`** | `.mcaddon` | ~292 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Bow-Aimbot/ALNBowAimbot%20V1.0.1.mcaddon) |
 
 ---
 
