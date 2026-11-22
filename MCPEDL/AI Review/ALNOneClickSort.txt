@@ -5,6 +5,7 @@
 - **Export request:** `MCPEDL/Addons/ALNOneClickSort`
 - **Destination:** `MCPEDL/Addons/ALNOneClickSort`
 - **CURRENT VERSION: v10 / NEXT UPDATE: v11**  (`MCPEDL/Addons/ALNOneClickSort/CHANGELOG.md`)
+- **Spec ledger:** REPO_VERSION 241; the next spec is `spec_v242.txt` (newest specs are listed in the root `CHANGELOG.md`)
 - **Text files:** 25
 - **Skipped binary:** 11
 - **Paths not found:** 0
@@ -37,7 +38,7 @@
 - `MCPEDL/Addons/ALNOneClickSort/resource_pack/textures/item_texture.json`
 - `MCPEDL/Addons/ALNOneClickSort/resource_pack/textures/items/.giitkeep`
 
-### Skipped (binary)
+### Skipped (binary): 11 file(s)
 
 - `MCPEDL/Addons/ALNOneClickSort/assets/items/auto_sort_feather.png`
 - `MCPEDL/Addons/ALNOneClickSort/assets/items/restock_feather.png`
@@ -63,7 +64,7 @@ Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 - **Mode**: UPDATE existing package (CURRENT VERSION: v10 / NEXT UPDATE: v11).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
-- Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
+- Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
 - Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
 
 ## Destination
@@ -88,7 +89,7 @@ Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
 Output ONLY these three sections in order:
 1. **File Needed:** repo-root-relative path of each file created/edited.
 2. **Changelog:** bullets, brief summary of changes.
-3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands. Update to an existing project or the repo: deliver ONE attached `spec_v<N>.txt` (N = REPO_VERSION + 1, see "Spec ledger" above) and the commands that build and run it (`python3 scripts/make_update_script.py ~/storage/downloads/spec_v<N>.txt --out-dir ~/storage/downloads --verify ~/MCPE-Curseforges`, then `bash ~/storage/downloads/<Name>_v<N>_*.sh`). New pack: the pack `.sh`.
 
 ---
 
@@ -962,12 +963,17 @@ export const PARTICLES = true;
 export const PARTICLES = false;
 ```
 
-## FILE: MCPEDL/Addons/ALNOneClickSort/CHANGELOG.md (69 lines, 3650 bytes)
+## FILE: MCPEDL/Addons/ALNOneClickSort/CHANGELOG.md (74 lines, 3918 bytes)
 
 ```
 # Changelog — ALN:OneClickSort
 
 ---
+
+## [v10] - 2026-11-23 - Restock Get Everything
+
+### Added
+- **Get Everything**: A new toggle in the Sort Settings Book makes the Restock Feather pull every matching item from nearby chests, not just one full stack, until your inventory is full. It is off by default.
 
 ## [v10] - 2026-11-20 - Restock Get Everything
 
