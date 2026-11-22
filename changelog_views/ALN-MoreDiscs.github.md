@@ -1,14 +1,29 @@
 # Changelog — ALN MoreDiscs
 
-## [v4] - 2026-11-22 - Thirty Discs
+## [v5] - 2026-11-22 - Jukebox Rework
 
-### Added
+### Fixed
+- **Discs Now Load**: The discs failed to load in the game because the Jukebox sound setting only accepts vanilla names without an experiment. The pack now plays and stops the tracks itself, so no experiments are needed.
+
+### Improved & Balanced
+- **Jukebox Handling**: Use a disc on a Jukebox to play it, use the Jukebox again to get the disc back, and breaking the Jukebox drops the disc.
+- **Known Differences**: The Jukebox shows no spinning disc and gives no Comparator signal for these discs.
+- **Pack Description**: The behavior pack description now says 30 discs.
+
+<details>
+<summary><b>4.0.x</b> (1 release)</summary>
+
+### [v4] - 2026-11-22 - Thirty Discs
+
+#### Added
 - **Twenty New Discs**: Track 11 First Night, Track 12 Cobblestone Dawn, Track 13 Crafting Table Memories, Track 14 Alpha Sunrise, Track 15 Beta Lullaby, Track 16 Village Dusk, Track 17 Wooden Pickaxe, Track 18 Torchlight, Track 19 Dirt House Blues, Track 20 Bedtime Beacon, Track 21 Rainy Window, Track 22 Old World Seed, Track 23 Minecart Lullaby, Track 24 Lava Lamp Nights, Track 25 Sheep Counting, Track 26 Snowy Taiga Walk, Track 27 Floppy Disk Summer, Track 28 Creeper Waltz, Track 29 Pixel Postcards, Track 30 Sunset Hotbar, each an original track in a soft piano, music box and chiptune style.
 - **New Recipes**: Tracks 11 to 20 use the earlier layout with the accent item in both bottom corners, and Tracks 21 to 30 use two different accent items there.
 - **Disc Icons**: Each new disc has a tilted vanilla-style disc icon with a label color of its own.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **Headphones Announcements**: The new discs announce their track number, name and length the same way as Tracks 1 to 10.
+
+</details>
 
 <details>
 <summary><b>3.0.x</b> (1 release)</summary>
