@@ -8,7 +8,7 @@ import { islandArrivalTick } from "./lib/island-spawn.js";
 import { handleAutomatedBlockDestruction, oneBlockRenewTick } from "./lib/oneblock.js";
 import { openShifterTradeModal } from "./lib/shifter.js";
 
-system.runInterval(autoBreakTick, 2);
+if (IS_ADMIN_BUILD) system.runInterval(autoBreakTick, 2);
 
 // Player interaction with entities
 try {

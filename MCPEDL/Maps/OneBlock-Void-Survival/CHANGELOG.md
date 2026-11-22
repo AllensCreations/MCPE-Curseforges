@@ -2,6 +2,15 @@
 
 ---
 
+## [v6] - 2026-11-22 - Cleanup And Lighter Background Checks
+
+### Improved & Balanced
+
+- **Lighter Background Checks**: The checks that keep the OneBlock and the island cores healthy now skip dimensions nobody is in, remember island core positions and finished islands, and only look at finished islands every few seconds. In a test with all 43 islands set up, script data reads dropped by about 89% and block lookups by about 54%. Mining a block no longer reads every island's data first.
+- **Quieter Nether And End**: The portal-side particles in the Nether and the End are only spawned while a player is in that dimension.
+- **Admin Timer Off In Survival**: The admin auto-break timer is no longer started in this build, where it did nothing.
+- **World Folder Cleanup**: The four old script files left in the bundled world pack (islands.js, mode.js, phases.js and rarities.js) are removed, and the bundled world pack reference now matches this version.
+
 ## [v5] - 2026-11-22 - Island Completion Fix And Script Split
 
 ### Fixed
