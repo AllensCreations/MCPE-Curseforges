@@ -15,11 +15,9 @@
         "item": "minecraft:amethyst_shard"
       }
     ],
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "pnk:padlock",
       "count": 1

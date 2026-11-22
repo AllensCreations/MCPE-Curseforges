@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Padlock & Key (v2)",
+    "name": "Padlock & Key (v3)",
     "description": "Item icons for Padlock and Key. by ALNStudios",
     "uuid": "898a1a08-c06f-4deb-85ac-3c59298af3e4",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -20,7 +20,7 @@
       "type": "resources",
       "uuid": "89ad6eb4-a938-4618-83da-41ed5ff90b55",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -31,6 +31,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "3.0.0"
   }
 }
