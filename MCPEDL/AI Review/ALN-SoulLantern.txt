@@ -1,0 +1,1622 @@
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Addons/ALN-SoulLantern`
+- **Destination:** `MCPEDL/Addons/ALN-SoulLantern`
+- **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALN-SoulLantern/CHANGELOG.md`)
+- **Spec ledger:** REPO_VERSION 233; the next spec is `spec_v234.txt` (newest specs are listed in the root `CHANGELOG.md`)
+- **Text files:** 14
+- **Skipped binary:** 5
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Addons/ALN-SoulLantern/behavior_pack/items/soul_lantern.json`
+- `MCPEDL/Addons/ALN-SoulLantern/behavior_pack/items/soul_lantern_filled.json`
+- `MCPEDL/Addons/ALN-SoulLantern/behavior_pack/manifest.json`
+- `MCPEDL/Addons/ALN-SoulLantern/behavior_pack/recipes/soul_lantern_sand.json`
+- `MCPEDL/Addons/ALN-SoulLantern/behavior_pack/recipes/soul_lantern_soil.json`
+- `MCPEDL/Addons/ALN-SoulLantern/behavior_pack/scripts/lib/README.md`
+- `MCPEDL/Addons/ALN-SoulLantern/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/ALN-SoulLantern/CHANGELOG.md`
+- `MCPEDL/Addons/ALN-SoulLantern/DESCRIPTION.md`
+- `MCPEDL/Addons/ALN-SoulLantern/project.json`
+- `MCPEDL/Addons/ALN-SoulLantern/README.md`
+- `MCPEDL/Addons/ALN-SoulLantern/resource_pack/manifest.json`
+- `MCPEDL/Addons/ALN-SoulLantern/resource_pack/textures/item_texture.json`
+- `MCPEDL/Addons/ALN-SoulLantern/texture_sources/soul_lantern.json`
+
+### Skipped (binary): 5 file(s)
+
+- `MCPEDL/Addons/ALN-SoulLantern/assets/items/soul_lantern.png`
+- `MCPEDL/Addons/ALN-SoulLantern/assets/recipes/soul_lantern_recipe.png`
+- `MCPEDL/Addons/ALN-SoulLantern/assets/recipes/soul_lantern_soul_lantern_soil_recipe.png`
+- `MCPEDL/Addons/ALN-SoulLantern/resource_pack/textures/items/aln_soul_lantern.png`
+- `MCPEDL/Addons/ALN-SoulLantern/resource_pack/textures/items/aln_soul_lantern_filled.png`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v1 / NEXT UPDATE: v2).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Addons/ALN-SoulLantern
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands. Update to an existing project or the repo: deliver ONE attached `spec_v<N>.txt` (N = REPO_VERSION + 1, see "Spec ledger" above) and the commands that build and run it (`python3 scripts/make_update_script.py ~/storage/downloads/spec_v<N>.txt --out-dir ~/storage/downloads --verify ~/MCPE-Curseforges`, then `bash ~/storage/downloads/<Name>_v<N>_*.sh`). New pack: the pack `.sh`.
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Addons/ALN-SoulLantern/behavior_pack/items/soul_lantern.json (28 lines, 586 bytes)
+
+```
+{
+  "format_version": "1.26.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:soul_lantern",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "textures": {
+          "default": "aln_soul_lantern"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "§bSoul Lantern"
+      },
+      "minecraft:use_animation": "spyglass",
+      "minecraft:use_modifiers": {
+        "use_duration": 0.1,
+        "movement_modifier": 1
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-SoulLantern/behavior_pack/items/soul_lantern_filled.json (25 lines, 554 bytes)
+
+```
+{
+  "format_version": "1.26.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:soul_lantern_filled"
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "textures": {
+          "default": "aln_soul_lantern_filled"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "§bSoul Lantern §3(Soul-Bound)"
+      },
+      "minecraft:use_animation": "spyglass",
+      "minecraft:use_modifiers": {
+        "use_duration": 0.1,
+        "movement_modifier": 1
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-SoulLantern/behavior_pack/manifest.json (66 lines, 1147 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN SoulLantern (v1)",
+    "description": "Seals mobs in a Soul Lantern and releases them later. by ALNStudios",
+    "uuid": "b5d340b3-4ec2-4dec-ae4e-3896132a4d52",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "6e2de770-ab34-4ad4-aeed-a6ea90fee3de",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "entry": "scripts/main.js",
+      "uuid": "7c3a897f-6e90-4778-a591-1307249b4057",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "76644133-f7e5-4b13-ab5c-c0bb2eab30b6",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.7.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.0.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-SoulLantern/behavior_pack/recipes/soul_lantern_sand.json (38 lines, 642 bytes)
+
+```
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:soul_lantern_sand"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "NGN",
+      "GAG",
+      "NSN"
+    ],
+    "key": {
+      "N": {
+        "item": "minecraft:iron_nugget"
+      },
+      "G": {
+        "item": "minecraft:glass_pane"
+      },
+      "A": {
+        "item": "minecraft:amethyst_shard"
+      },
+      "S": {
+        "item": "minecraft:soul_sand"
+      }
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
+    "result": {
+      "item": "aln:soul_lantern",
+      "count": 1
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-SoulLantern/behavior_pack/recipes/soul_lantern_soil.json (38 lines, 642 bytes)
+
+```
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:soul_lantern_soil"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "NGN",
+      "GAG",
+      "NSN"
+    ],
+    "key": {
+      "N": {
+        "item": "minecraft:iron_nugget"
+      },
+      "G": {
+        "item": "minecraft:glass_pane"
+      },
+      "A": {
+        "item": "minecraft:amethyst_shard"
+      },
+      "S": {
+        "item": "minecraft:soul_soil"
+      }
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
+    "result": {
+      "item": "aln:soul_lantern",
+      "count": 1
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-SoulLantern/behavior_pack/scripts/lib/README.md (32 lines, 1837 bytes)
+
+```
+# scripts/lib
+
+scripts/lib/ holds no .js files yet. Everything lives in scripts/main.js.
+
+## Files
+
+- scripts/main.js: registers all Soul Lantern behavior. Depends on @minecraft/server and @minecraft/server-ui.
+- scripts/lib/README.md: this file.
+
+## What main.js does
+
+- Before-event on player interaction with an entity: a sneaking player holding aln:soul_lantern seals the target mob. The mob is saved with a world structure (entities only), its id and display facts are stored on the item as dynamic properties, and the item becomes aln:soul_lantern_filled.
+- Before-event on player interaction with a block: aln:soul_lantern_filled places the saved structure on top of the clicked block, renames the mob if a lantern name was set, deletes the structure, and returns an aln:soul_lantern.
+- After-event on item use: aln:soul_lantern_filled opens the Spirit menu (details, Project Spectral Ally, Rename Captured Mob). aln:soul_lantern shows a hint.
+- Repeating timer every 5 ticks: ends spectral allies after 400 ticks, keeps them near the owner, spawns the particle trail, and damages one nearby monster every 15 ticks.
+- World load: removes leftover entities tagged aln_spirit.
+
+## Ids
+
+- Items: aln:soul_lantern, aln:soul_lantern_filled.
+- Recipes: aln:soul_lantern_soil, aln:soul_lantern_sand.
+- Dynamic properties on the filled item: aln_sid, aln_type, aln_name, aln_hp, aln_max_hp, aln_baby, aln_details, aln_rename.
+- Entity tag: aln_spirit. Structure ids: aln:soul_<random>.
+
+## Known limits
+
+- Bosses (Ender Dragon, Wither, Warden, Elder Guardian), players, armor stands, NPCs and agents cannot be sealed.
+- Hostile mobs cannot be projected as a Spectral Ally.
+- Villager profession is kept by the saved structure but is not shown in the menu.
+- Cooldowns and active allies reset when the world reloads.
+- Not tested in game.
+```
+
+## FILE: MCPEDL/Addons/ALN-SoulLantern/behavior_pack/scripts/main.js (474 lines, 15730 bytes)
+
+```
+import { world, system, ItemStack, EntityComponentTypes, EntityDamageCause, StructureSaveMode } from "@minecraft/server";
+import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
+
+const EMPTY_ID = "aln:soul_lantern";
+const FILLED_ID = "aln:soul_lantern_filled";
+const SPIRIT_TAG = "aln_spirit";
+const SPIRIT_TICKS = 400;
+const COOLDOWN_TICKS = 1200;
+const DEBOUNCE_TICKS = 8;
+const VERSION = "1.0.0";
+
+const BOSSES = new Set(["minecraft:ender_dragon", "minecraft:wither", "minecraft:warden", "minecraft:elder_guardian"]);
+const NOT_SEALABLE = new Set(["minecraft:player", "minecraft:armor_stand", "minecraft:npc", "minecraft:agent"]);
+const DYES = ["White", "Orange", "Magenta", "Light Blue", "Yellow", "Lime", "Pink", "Gray", "Light Gray", "Cyan", "Purple", "Blue", "Brown", "Green", "Red", "Black"];
+const AXOLOTLS = ["Lucy", "Wild", "Gold", "Cyan", "Blue"];
+
+const KEY = {
+  sid: "aln_sid",
+  type: "aln_type",
+  name: "aln_name",
+  hp: "aln_hp",
+  maxHp: "aln_max_hp",
+  baby: "aln_baby",
+  details: "aln_details",
+  rename: "aln_rename",
+};
+
+const spirits = new Map();
+const cooldowns = new Map();
+const lastAction = new Map();
+
+const tell = (player, color, text) => {
+  try {
+    player.onScreenDisplay.setActionBar(`${color}${text}`);
+  } catch (e) {}
+};
+
+const play = (player, id) => {
+  try {
+    player.playSound(id);
+  } catch (e) {}
+};
+
+const containerOf = (player) => player.getComponent(EntityComponentTypes.Inventory)?.container;
+
+const component = (entity, id) => {
+  try {
+    return entity.getComponent(id);
+  } catch (e) {
+    return undefined;
+  }
+};
+
+const prettyType = (typeId) =>
+  String(typeId)
+    .replace(/^[^:]*:/, "")
+    .split("_")
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
+
+const newStructureId = () => `aln:soul_${system.currentTick.toString(36)}${Math.floor(Math.random() * 1679616).toString(36)}`;
+
+const busy = (player) => {
+  const last = lastAction.get(player.id);
+  return last !== undefined && system.currentTick - last < DEBOUNCE_TICKS;
+};
+const mark = (player) => lastAction.set(player.id, system.currentTick);
+
+function colorLabel(typeId, value) {
+  if (typeId === "minecraft:axolotl") return `Variant ${AXOLOTLS[value] ?? value}`;
+  if (typeId === "minecraft:sheep") return `Wool ${DYES[value] ?? value}`;
+  if (typeId === "minecraft:wolf" || typeId === "minecraft:cat") return `Collar ${DYES[value] ?? value}`;
+  return `Color ${DYES[value] ?? value}`;
+}
+
+function readInfo(entity) {
+  const health = component(entity, "minecraft:health");
+  const details = [];
+  const color = component(entity, "minecraft:color")?.value;
+  if (color !== undefined) details.push(colorLabel(entity.typeId, color));
+  const variant = component(entity, "minecraft:variant")?.value;
+  if (variant !== undefined && entity.typeId !== "minecraft:axolotl") details.push(`Variant ${variant}`);
+  const mark2 = component(entity, "minecraft:mark_variant")?.value;
+  if (mark2 !== undefined) details.push(`Pattern ${mark2}`);
+  if (component(entity, "minecraft:is_tamed")) details.push("Tamed");
+  return {
+    type: entity.typeId,
+    name: entity.nameTag ?? "",
+    hp: health ? Math.round(health.currentValue * 10) / 10 : 0,
+    maxHp: health ? Math.round(health.effectiveMax * 10) / 10 : 0,
+    baby: component(entity, "minecraft:is_baby") !== undefined,
+    details: details.join(", "),
+  };
+}
+
+function readStack(stack) {
+  const get = (k, fallback) => {
+    const v = stack.getDynamicProperty(k);
+    return v === undefined ? fallback : v;
+  };
+  const type = get(KEY.type, "minecraft:unknown");
+  const rename = get(KEY.rename, "");
+  return {
+    sid: get(KEY.sid, ""),
+    species: prettyType(type) + (get(KEY.baby, false) ? " (Baby)" : ""),
+    name: rename || get(KEY.name, ""),
+    hp: get(KEY.hp, 0),
+    maxHp: get(KEY.maxHp, 0),
+    details: get(KEY.details, ""),
+    rename,
+  };
+}
+
+function refreshDisplay(stack) {
+  const d = readStack(stack);
+  stack.nameTag = `§b§lSoul Lantern§r §3- §b${d.name || d.species}`;
+  stack.setLore([
+    `§7Species: §f${d.species}`,
+    `§7Name: §f${d.name || "None"}`,
+    `§7Health: §f${d.hp}/${d.maxHp}`,
+    `§7Details: §f${d.details || "None"}`,
+  ]);
+}
+
+function swirl(dim, center) {
+  for (let step = 0; step < 10; step++) {
+    system.runTimeout(() => {
+      const radius = 1.4 - step * 0.13;
+      for (let k = 0; k < 4; k++) {
+        const angle = step * 0.7 + (k * Math.PI) / 2;
+        try {
+          dim.spawnParticle("minecraft:soul_particle", {
+            x: center.x + Math.cos(angle) * radius,
+            y: center.y + step * 0.05,
+            z: center.z + Math.sin(angle) * radius,
+          });
+        } catch (e) {}
+      }
+    }, step * 2);
+  }
+}
+
+function burst(dim, center) {
+  for (let k = 0; k < 12; k++) {
+    const angle = (k * Math.PI) / 6;
+    try {
+      dim.spawnParticle("minecraft:soul_particle", {
+        x: center.x + Math.cos(angle) * 0.6,
+        y: center.y + 0.3 + (k % 3) * 0.3,
+        z: center.z + Math.sin(angle) * 0.6,
+      });
+    } catch (e) {}
+  }
+}
+
+function nearbyIds(dim, center) {
+  try {
+    return new Set(dim.getEntities({ location: center, maxDistance: 8 }).map((e) => e.id));
+  } catch (e) {
+    return new Set();
+  }
+}
+
+function freshEntities(dim, center, before) {
+  try {
+    return dim.getEntities({ location: center, maxDistance: 8 }).filter((e) => !before.has(e.id));
+  } catch (e) {
+    return [];
+  }
+}
+
+function tryCapture(player, target, slot) {
+  const container = containerOf(player);
+  const held = container?.getItem(slot);
+  if (!container || held?.typeId !== EMPTY_ID) return;
+  if (target.isValid === false) return;
+  if (BOSSES.has(target.typeId)) {
+    play(player, "random.break");
+    tell(player, "§c", "The Soul Lantern trembles. This soul is too powerful to seal.");
+    return;
+  }
+  if (NOT_SEALABLE.has(target.typeId) || target.hasTag(SPIRIT_TAG) || !component(target, "minecraft:health")) {
+    tell(player, "§e", "The Soul Lantern cannot seal this.");
+    return;
+  }
+  const info = readInfo(target);
+  const loc = target.location;
+  const dim = target.dimension;
+  const cell = { x: Math.floor(loc.x), y: Math.floor(loc.y), z: Math.floor(loc.z) };
+  const sid = newStructureId();
+  try {
+    world.structureManager.createFromWorld(sid, dim, cell, cell, {
+      includeBlocks: false,
+      includeEntities: true,
+      saveMode: StructureSaveMode.World,
+    });
+  } catch (e) {
+    tell(player, "§c", "The soul slipped away. Try again.");
+    return;
+  }
+  const stack = new ItemStack(FILLED_ID, 1);
+  stack.setDynamicProperty(KEY.sid, sid);
+  stack.setDynamicProperty(KEY.type, info.type);
+  stack.setDynamicProperty(KEY.name, info.name);
+  stack.setDynamicProperty(KEY.hp, info.hp);
+  stack.setDynamicProperty(KEY.maxHp, info.maxHp);
+  stack.setDynamicProperty(KEY.baby, info.baby);
+  stack.setDynamicProperty(KEY.details, info.details);
+  refreshDisplay(stack);
+  target.remove();
+  container.setItem(slot, stack);
+  swirl(dim, { x: loc.x, y: loc.y + 0.8, z: loc.z });
+  play(player, "block.amethyst_block.chime");
+  tell(player, "§b", `Sealed: ${info.name || prettyType(info.type)}`);
+}
+
+function tryRelease(player, dim, blockLoc, slot) {
+  const container = containerOf(player);
+  const held = container?.getItem(slot);
+  if (!container || held?.typeId !== FILLED_ID) return;
+  const d = readStack(held);
+  if (typeof d.sid !== "string" || !d.sid) {
+    tell(player, "§c", "This lantern holds no soul.");
+    return;
+  }
+  let cell;
+  for (let up = 1; up <= 4 && !cell; up++) {
+    const c = { x: blockLoc.x, y: blockLoc.y + up, z: blockLoc.z };
+    const low = dim.getBlock(c);
+    const high = dim.getBlock({ x: c.x, y: c.y + 1, z: c.z });
+    if (low?.isAir && high?.isAir) cell = c;
+  }
+  if (!cell) {
+    tell(player, "§e", "There is no free space to release the soul here.");
+    return;
+  }
+  const center = { x: cell.x + 0.5, y: cell.y + 0.5, z: cell.z + 0.5 };
+  const before = nearbyIds(dim, center);
+  try {
+    world.structureManager.place(d.sid, dim, cell, { includeBlocks: false, includeEntities: true });
+  } catch (e) {
+    tell(player, "§c", "The soul could not be released.");
+    return;
+  }
+  container.setItem(slot, new ItemStack(EMPTY_ID, 1));
+  burst(dim, center);
+  play(player, "random.orb");
+  tell(player, "§b", `Released: ${d.name || d.species}`);
+  system.runTimeout(() => {
+    if (d.rename) {
+      for (const e of freshEntities(dim, center, before)) {
+        try {
+          e.nameTag = d.rename;
+        } catch (err) {}
+      }
+    }
+    try {
+      world.structureManager.delete(d.sid);
+    } catch (err) {}
+  }, 4);
+}
+
+function cooldownLeft(player) {
+  const until = cooldowns.get(player.id);
+  return until === undefined ? 0 : Math.max(0, until - system.currentTick);
+}
+
+function endSpirit(id, message) {
+  const s = spirits.get(id);
+  if (!s) return;
+  spirits.delete(id);
+  try {
+    if (s.entity.isValid !== false) {
+      burst(s.entity.dimension, s.entity.location);
+      s.entity.remove();
+    }
+  } catch (e) {}
+  if (message && s.owner) tell(s.owner, "§b", message);
+}
+
+function summon(player, slot) {
+  const container = containerOf(player);
+  const held = container?.getItem(slot);
+  if (held?.typeId !== FILLED_ID) return;
+  const left = cooldownLeft(player);
+  if (left > 0) {
+    tell(player, "§e", `The lantern is recharging: ${Math.ceil(left / 20)}s`);
+    return;
+  }
+  for (const [id, s] of spirits) {
+    if (s.owner.id === player.id) endSpirit(id, undefined);
+  }
+  const d = readStack(held);
+  const dim = player.dimension;
+  const p = player.location;
+  const cell = { x: Math.floor(p.x) + 1, y: Math.floor(p.y), z: Math.floor(p.z) };
+  const center = { x: cell.x + 0.5, y: cell.y + 0.5, z: cell.z + 0.5 };
+  const before = nearbyIds(dim, center);
+  try {
+    world.structureManager.place(d.sid, dim, cell, { includeBlocks: false, includeEntities: true });
+  } catch (e) {
+    tell(player, "§c", "The spirit could not take shape.");
+    return;
+  }
+  system.runTimeout(() => {
+    const made = freshEntities(dim, center, before);
+    if (made.length === 0) {
+      tell(player, "§c", "The spirit could not take shape.");
+      return;
+    }
+    const hostile = made.some((e) => {
+      try {
+        return e.matches({ families: ["monster"] });
+      } catch (err) {
+        return false;
+      }
+    });
+    if (hostile) {
+      for (const e of made) {
+        try {
+          e.remove();
+        } catch (err) {}
+      }
+      tell(player, "§e", "A hostile soul cannot be projected.");
+      return;
+    }
+    const spirit = made[0];
+    for (const extra of made.slice(1)) {
+      try {
+        extra.remove();
+      } catch (err) {}
+    }
+    try {
+      spirit.addTag(SPIRIT_TAG);
+      spirit.nameTag = `§b${d.name || d.species} §3(Spirit)`;
+      spirit.addEffect("resistance", SPIRIT_TICKS + 40, { amplifier: 4, showParticles: false });
+    } catch (err) {}
+    spirits.set(spirit.id, { entity: spirit, owner: player, end: system.currentTick + SPIRIT_TICKS, nextHit: 0 });
+    cooldowns.set(player.id, system.currentTick + COOLDOWN_TICKS);
+    burst(dim, center);
+    play(player, "block.amethyst_block.chime");
+    tell(player, "§b", "Spectral Ally projected for 20 seconds.");
+  }, 3);
+}
+
+async function renameCaptured(player, slot) {
+  const container = containerOf(player);
+  const held = container?.getItem(slot);
+  if (held?.typeId !== FILLED_ID) return;
+  const d = readStack(held);
+  const form = new ModalFormData()
+    .title("§bRename Captured Mob")
+    .textField("New name (leave empty to clear)", "Soul name", { defaultValue: d.rename || "" });
+  let res;
+  try {
+    res = await form.show(player);
+  } catch (e) {
+    return;
+  }
+  if (!res || res.canceled) return;
+  const value = String(res.formValues?.[0] ?? "").trim().slice(0, 32);
+  const fresh = container.getItem(slot);
+  if (fresh?.typeId !== FILLED_ID) return;
+  fresh.setDynamicProperty(KEY.rename, value === "" ? undefined : value);
+  refreshDisplay(fresh);
+  container.setItem(slot, fresh);
+  tell(player, "§b", value === "" ? "The soul's name was cleared." : `The soul is now named ${value}.`);
+}
+
+async function openMenu(player) {
+  const slot = player.selectedSlotIndex;
+  const held = containerOf(player)?.getItem(slot);
+  if (held?.typeId !== FILLED_ID) return;
+  const d = readStack(held);
+  const left = cooldownLeft(player);
+  const body = [
+    `§7Species: §f${d.species}`,
+    `§7Name: §f${d.name || "None"}`,
+    `§7Health: §f${d.hp}/${d.maxHp}`,
+    `§7Details: §f${d.details || "None"}`,
+    `§7Spectral Ally: §f${left > 0 ? `recharging ${Math.ceil(left / 20)}s` : "ready"}`,
+  ].join("\n");
+  const form = new ActionFormData()
+    .title(`§l§6@ALNStudios §eSoul Lantern §r§7(v${VERSION})`)
+    .body(body)
+    .button("§bProject Spectral Ally (20s)")
+    .button("§bRename Captured Mob")
+    .button("Close");
+  let res;
+  try {
+    res = await form.show(player);
+  } catch (e) {
+    return;
+  }
+  if (!res || res.canceled) return;
+  if (res.selection === 0) summon(player, slot);
+  else if (res.selection === 1) renameCaptured(player, slot);
+}
+
+world.beforeEvents.playerInteractWithEntity.subscribe((ev) => {
+  const { player, target, itemStack } = ev;
+  if (itemStack?.typeId !== EMPTY_ID || !player.isSneaking) return;
+  ev.cancel = true;
+  if (busy(player)) return;
+  mark(player);
+  const slot = player.selectedSlotIndex;
+  system.run(() => tryCapture(player, target, slot));
+});
+
+world.beforeEvents.playerInteractWithBlock.subscribe((ev) => {
+  const { player, block, itemStack, isFirstEvent } = ev;
+  if (itemStack?.typeId !== FILLED_ID) return;
+  ev.cancel = true;
+  if (!isFirstEvent || busy(player)) return;
+  mark(player);
+  const slot = player.selectedSlotIndex;
+  const dim = block.dimension;
+  const loc = { x: block.location.x, y: block.location.y, z: block.location.z };
+  system.run(() => tryRelease(player, dim, loc, slot));
+});
+
+world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
+  if (itemStack?.typeId === FILLED_ID) {
+    if (busy(source)) return;
+    mark(source);
+    openMenu(source);
+  } else if (itemStack?.typeId === EMPTY_ID) {
+    tell(source, "§7", "Sneak and interact with a mob to seal it.");
+  }
+});
+
+system.runInterval(() => {
+  const now = system.currentTick;
+  for (const [id, s] of spirits) {
+    let gone = s.entity.isValid === false || now >= s.end;
+    if (!gone) {
+      try {
+        gone = s.owner.isValid === false;
+      } catch (e) {
+        gone = true;
+      }
+    }
+    if (gone) {
+      endSpirit(id, "Your Spectral Ally fades back into the lantern.");
+      continue;
+    }
+    try {
+      const dim = s.entity.dimension;
+      const at = s.entity.location;
+      dim.spawnParticle("minecraft:soul_particle", { x: at.x, y: at.y + 0.6, z: at.z });
+      const p = s.owner.location;
+      const far = s.owner.dimension.id !== dim.id || Math.hypot(p.x - at.x, p.z - at.z) > 8;
+      if (far) s.entity.teleport({ x: p.x + 1, y: p.y, z: p.z + 1 }, { dimension: s.owner.dimension });
+      if (now >= s.nextHit) {
+        const foes = dim.getEntities({ location: at, maxDistance: 6, families: ["monster"] });
+        const foe = foes.find((e) => e.id !== s.entity.id && !e.hasTag(SPIRIT_TAG));
+        if (foe) {
+          foe.applyDamage(3, { cause: EntityDamageCause.entityAttack, damagingEntity: s.owner });
+          dim.spawnParticle("minecraft:soul_particle", { x: foe.location.x, y: foe.location.y + 1, z: foe.location.z });
+          s.nextHit = now + 15;
+        }
+      }
+    } catch (e) {}
+  }
+}, 5);
+
+world.afterEvents.worldLoad.subscribe(() => {
+  for (const name of ["overworld", "nether", "the_end"]) {
+    try {
+      for (const e of world.getDimension(name).getEntities({ tags: [SPIRIT_TAG] })) e.remove();
+    } catch (e) {}
+  }
+});
+```
+
+## FILE: MCPEDL/Addons/ALN-SoulLantern/CHANGELOG.md (13 lines, 567 bytes)
+
+```
+# Changelog — ALN SoulLantern
+
+---
+
+## [1.0.0] - 2026-11-22 - First Release
+
+### Added
+- **Soul Lantern**: A craftable relic with an Empty look and a glowing Soul-Bound look.
+- **Mob capture**: Sneak and interact with a mob to seal it, with soul particles and a chime.
+- **Boss protection**: The Ender Dragon, Wither, Warden, and Elder Guardian cannot be sealed.
+- **Block release**: Interact with a block to release the saved mob on top of it.
+- **Spirit menu**: Inspect the trapped soul, rename it, or project a 20-second Spectral Ally with a 60-second cooldown.
+```
+
+## FILE: MCPEDL/Addons/ALN-SoulLantern/DESCRIPTION.md (84 lines, 4373 bytes)
+
+```
+# ALN SoulLantern — Seal mobs in a relic and release them anywhere
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**Seal any mob in a Soul Lantern, then release it or project a 20-second Spectral Ally.**
+
+> Craft the lantern from glass panes, iron nuggets, soul soil or soul sand, and an amethyst shard, then carry a trapped creature with you.
+
+## Overview
+
+ALN SoulLantern adds one relic with two looks. The Empty Soul Lantern holds a faint pale-blue mist, and the Soul-Bound Soul Lantern glows with turquoise soul fire and floating embers.
+
+Sneak and interact with a mob to seal it inside. The lantern shows the creature's name, health, and variant, and you can release it later on any block.
+
+## Key Features
+
+### Soul Lantern Crafting
+- **What Happens**: Craft the lantern with 2 glass panes, 4 iron nuggets, 1 amethyst shard, and 1 soul soil or soul sand.
+
+### Mob Capture
+- **What Happens**: Sneak and interact with a mob while holding an Empty lantern. The mob vanishes in a swirl of soul particles and the lantern turns turquoise.
+
+### Boss Protection
+- **What Happens**: The Ender Dragon, Wither, Warden, and Elder Guardian cannot be sealed. The lantern trembles and a warning appears above the hotbar.
+
+### Saved Mob State
+- **What Happens**: The lantern keeps the mob's health, custom name, age, color, tamed state, equipment, and villager trades, and updates its own name and lore to match.
+
+### Block Release
+- **What Happens**: Interact with a block while holding a Soul-Bound lantern to place the saved mob on top of it. The lantern returns to the Empty state.
+
+### Spirit Menu
+- **What Happens**: Use a Soul-Bound lantern in the air to open a menu with the species, name, health, and variant of the trapped soul.
+
+### Spectral Ally
+- **What Happens**: The menu can project a glowing, particle-trailed copy of the trapped mob for 20 seconds. It strikes nearby hostile mobs, then fades back into the lantern, with a 60-second cooldown.
+
+### Rename Captured Mob
+- **What Happens**: Give the trapped creature a custom name from the menu without using a Name Tag.
+
+## How to Use
+
+1. Craft a Soul Lantern at a crafting table.
+2. Hold the Soul Lantern, sneak, and interact with a mob to seal it.
+3. Use the Soul-Bound lantern in the air to open the Spirit menu.
+4. Choose Project Spectral Ally to summon a temporary helper, or Rename Captured Mob to rename the soul.
+5. Interact with a block while holding the Soul-Bound lantern to release the mob on top of it.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.26.60 or newer.
+- Experimental features: No experiment requirement detected in the inspected files.
+- Achievements: Yes, achievement-friendly.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, ALN SoulLantern Bedrock mod, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+```
+
+## FILE: MCPEDL/Addons/ALN-SoulLantern/project.json (5 lines, 51 bytes)
+
+```
+{
+  "type": "addon",
+  "name": "ALN SoulLantern"
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-SoulLantern/README.md (19 lines, 798 bytes)
+
+```
+# ALN SoulLantern
+
+Download the current release of **ALN SoulLantern** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download ALN SoulLantern (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-SoulLantern/ALNSoulLantern%20V1.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALN-SoulLantern/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Addons/ALN-SoulLantern/resource_pack/manifest.json (37 lines, 608 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN SoulLantern (v1)",
+    "description": "Empty and Soul-Bound lantern textures. by ALNStudios",
+    "uuid": "76644133-f7e5-4b13-ab5c-c0bb2eab30b6",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "aff7d06d-a034-4ef1-a3f0-f6c2b4c7a825",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-SoulLantern/resource_pack/textures/item_texture.json (13 lines, 288 bytes)
+
+```
+{
+  "resource_pack_name": "aln_soul_lantern",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "aln_soul_lantern": {
+      "textures": "textures/items/aln_soul_lantern"
+    },
+    "aln_soul_lantern_filled": {
+      "textures": "textures/items/aln_soul_lantern_filled"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-SoulLantern/texture_sources/soul_lantern.json (616 lines, 8051 bytes)
+
+```
+{
+  "textures": [
+    {
+      "name": "aln_soul_lantern",
+      "size": 16,
+      "folder": "items",
+      "palette": {
+        "0": "#00000000",
+        "1": "#23232b",
+        "2": "#4a4a57",
+        "3": "#7a7a8a",
+        "4": "#c9e8f3cc",
+        "5": "#9cc7da",
+        "6": "#e3f7ff",
+        "7": "#aee4ff"
+      },
+      "pixels": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          2,
+          0,
+          0,
+          2,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          4,
+          4,
+          6,
+          6,
+          4,
+          4,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          4,
+          6,
+          7,
+          4,
+          4,
+          4,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          4,
+          4,
+          6,
+          7,
+          6,
+          4,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          4,
+          4,
+          4,
+          6,
+          4,
+          4,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          5,
+          4,
+          4,
+          4,
+          4,
+          5,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          5,
+          5,
+          4,
+          4,
+          4,
+          5,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          3,
+          3,
+          3,
+          3,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "aln_soul_lantern_filled",
+      "size": 16,
+      "folder": "items",
+      "palette": {
+        "0": "#00000000",
+        "1": "#23232b",
+        "2": "#4a4a57",
+        "3": "#7a7a8a",
+        "8": "#19d9c0",
+        "9": "#6bfff0",
+        "10": "#eaffff",
+        "11": "#0b8f86",
+        "12": "#7ff0e6"
+      },
+      "pixels": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          2,
+          0,
+          0,
+          2,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          12,
+          12,
+          12,
+          10,
+          12,
+          12,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          12,
+          8,
+          9,
+          9,
+          8,
+          12,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          8,
+          9,
+          9,
+          10,
+          11,
+          8,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          11,
+          8,
+          9,
+          9,
+          8,
+          11,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          12,
+          11,
+          8,
+          9,
+          8,
+          12,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          12,
+          8,
+          11,
+          11,
+          8,
+          12,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          12,
+          10,
+          12,
+          11,
+          8,
+          12,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          3,
+          3,
+          3,
+          3,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    }
+  ]
+}
+```

@@ -26,11 +26,9 @@
         "item": "minecraft:soul_sand"
       }
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "aln:soul_lantern",
       "count": 1

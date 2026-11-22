@@ -2,7 +2,7 @@
 
 Generated file. Do not edit by hand: it is rebuilt with every build.
 
-39 Add-ons · 5 Maps · 10 Scripts · 6 Minigames
+40 Add-ons · 5 Maps · 10 Scripts · 6 Minigames
 
 ## AI Review Kits
 
@@ -25,6 +25,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | **ALN MoreDiscs** | v7 | [Source](Addons/ALN-MoreDiscs) | [Package](../Package/ALN-MoreDiscs.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-MoreDiscs.txt) |
 | **ALN PortalDoors** | 1.0.0 | [Source](Addons/ALN-PortalDoors) | [Package](../Package/ALN-PortalDoors.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-PortalDoors.txt) |
 | **ALN Quiver** | v3 | [Source](Addons/ALN-Quiver) | [Package](../Package/ALN-Quiver.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-Quiver.txt) |
+| **ALN SoulLantern** | 1.0.0 | [Source](Addons/ALN-SoulLantern) | [Package](../Package/ALN-SoulLantern.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-SoulLantern.txt) |
 | **ALN Wireless Headphones** | v11 | [Source](Addons/ALN-Wireless-Headphones) | [Package](../Package/ALN-Wireless-Headphones.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-Wireless-Headphones.txt) |
 | **ALN-GlobalMarket** | 1.0.2 | [Source](Addons/ALN-GlobalMarket) | [Package](../Package/ALN-GlobalMarket.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-GlobalMarket.txt) |
 | **ALN:LootSpawner (Arcane Relic Duplicator)** | 1.0.3 | [Source](Addons/ALNLootSpawner-Arcane-Relic-Duplicator) | [Package](../Package/ALNLootSpawner-Arcane-Relic-Duplicator.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNLootSpawner-Arcane-Relic-Duplicator.txt) |

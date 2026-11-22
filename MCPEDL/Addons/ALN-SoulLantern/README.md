@@ -5,7 +5,7 @@ Download the current release of **ALN SoulLantern** for Minecraft Bedrock Editio
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN SoulLantern (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/README.md)
+- **Direct download:** [Download ALN SoulLantern (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-SoulLantern/ALNSoulLantern%20V1.mcaddon)
 
 ## Installation
 
@@ -15,4 +15,4 @@ Download the current release of **ALN SoulLantern** for Minecraft Bedrock Editio
 
 ## Pack Information
 
-For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-SoulLantern/DESCRIPTION.md).
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALN-SoulLantern/DESCRIPTION.md).

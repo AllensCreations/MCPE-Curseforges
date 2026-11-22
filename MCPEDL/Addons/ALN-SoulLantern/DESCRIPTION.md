@@ -80,3 +80,4 @@ Sneak and interact with a mob to seal it inside. The lantern shows the creature'
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, ALN SoulLantern Bedrock mod, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+
