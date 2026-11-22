@@ -1,0 +1,8 @@
+{
+  "changelog_version": "11.0.0",
+  "manifest_version": "11.0.0",
+  "packages": {
+    "ALNOneClickSort V11.mcaddon": "eb849e8d585342cfb9507097a907b3d11ca313054513960efc27370765389abd"
+  },
+  "source_sha256": "652851401dc8db5ce13f2e6b61893431e3e65a776095340caa0442df47c52762"
+}

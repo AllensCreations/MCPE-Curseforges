@@ -1,12 +1,18 @@
 # Changelog — ALN:OneClickSort
 
-## [v10] - 2026-11-23 - Restock Get Everything
+## [v11] - 2026-11-23 - Auto Restock and Chest Lock
 
 ### Added
-- **Get Everything**: A new toggle in the Sort Settings Book makes the Restock Feather pull every matching item from nearby chests, not just one full stack, until your inventory is full. It is off by default.
+- **Automatic Restock**: A new toggle in the Sort Settings Book tops up your partial stacks from nearby containers every 5 seconds while the Restock Feather is in your inventory. It is off by default.
+- **Lock Chest**: Sneak and right-click a container with the Sort Settings Book to lock or unlock it. Restock, including Automatic Restock and Get Everything, no longer takes items from a locked container.
 
 <details>
-<summary><b>10.0.x</b> (1 release)</summary>
+<summary><b>10.0.x</b> (2 releases)</summary>
+
+### [v10] - 2026-11-23 - Restock Get Everything
+
+#### Added
+- **Get Everything**: A new toggle in the Sort Settings Book makes the Restock Feather pull every matching item from nearby chests, not just one full stack, until your inventory is full. It is off by default.
 
 ### [v10] - 2026-11-20 - Restock Get Everything
 
