@@ -2,6 +2,13 @@
 
 ---
 
+## [v7] - 2026-11-22 - Particle Removal
+
+### Fixed
+- **Log Errors**: The Jukebox no longer spawns note particles, which removes the color errors that filled the game log.
+### Improved & Balanced
+- **Note Particles Removed**: Note particles no longer rise from the Jukebox while a track plays. The music, ejecting and headphones events work the same.
+
 ## [v6] - 2026-11-22 - Particle Fix
 
 ### Fixed

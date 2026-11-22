@@ -51,7 +51,7 @@ All thirty discs are craftable and their recipes are unlocked from the start.
 - Tracks 21 to 30: same top and middle rows; bottom row is one accent item, Paper, a second accent item: Redstone Dust and Lapis Lazuli for Track 21, Lapis Lazuli and Amethyst Shard for Track 22, Amethyst Shard and Glowstone Dust for Track 23, Glowstone Dust and Copper Ingot for Track 24, Copper Ingot and Iron Ingot for Track 25, Iron Ingot and Gold Ingot for Track 26, Gold Ingot and Emerald for Track 27, Emerald and Nether Quartz for Track 28, Nether Quartz and Blaze Powder for Track 29, Blaze Powder and Redstone Dust for Track 30
 
 ### Jukebox Playback
-Hold a disc and right-click a Jukebox to play it. Right-click again to take the disc out. Note particles rise from the Jukebox while a track plays. The pack handles these discs itself, so no experiments are needed, but the Jukebox shows no spinning disc, gives no Comparator signal, and has to be emptied of a vanilla disc first.
+Hold a disc and right-click a Jukebox to play it. Right-click again to take the disc out. The pack handles these discs itself, so no experiments are needed, but the Jukebox shows no spinning disc, gives no Comparator signal, and has to be emptied of a vanilla disc first.
 
 ## Compatibility
 

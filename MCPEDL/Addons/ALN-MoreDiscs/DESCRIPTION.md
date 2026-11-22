@@ -56,7 +56,7 @@ Craft a disc at a Crafting Table, put it in a Jukebox and the matching track pla
 - **Good To Know**: All thirty recipes are unlocked from the start, so no cheats and no recipe discovery are needed.
 
 ### Jukebox Playback
-- **What Happens**: Use a disc on a Jukebox to play it, and use the Jukebox again to take the disc back out. Note particles rise from the Jukebox while a track plays.
+- **What Happens**: Use a disc on a Jukebox to play it, and use the Jukebox again to take the disc back out.
 - **Good To Know**: Breaking the Jukebox or taking the disc out ends the track and gives the disc back. The pack handles these discs itself, so no experiments are needed, but the Jukebox shows no spinning disc, gives no Comparator signal, and has to be emptied of a vanilla disc first.
 
 ### ALN Wireless Headphones Support
@@ -71,7 +71,7 @@ Craft a disc at a Crafting Table, put it in a Jukebox and the matching track pla
 
 1. Open the Crafting Table and craft a disc with the recipe above.
 2. Right-click a Jukebox while holding the disc.
-3. Listen for the track and watch the note particles rise from the Jukebox.
+3. Listen for the track.
 4. Right-click the Jukebox again to take the disc out and stop the track.
 
 ## Common Questions

@@ -82,14 +82,6 @@ function send(eventId, payload) {
   } catch (error) {}
 }
 
-function spawnNotes(dimension, x, y, z) {
-  try {
-    const molang = new mc.MolangVariableMap();
-    molang.setColorRGB("variable.color", { red: Math.random(), green: Math.random(), blue: Math.random() });
-    dimension.spawnParticle("minecraft:note_particle", { x: x + 0.5, y: y + 1.2, z: z + 0.5 }, molang);
-  } catch (error) {}
-}
-
 function stopSound(disc) {
   for (const other of stored.values()) {
     if (other.playing && other.disc === disc) return;
@@ -124,7 +116,6 @@ function startTrack(dimension, entry) {
   try {
     dimension.playSound(DISCS[entry.disc].sound, { x: entry.x + 0.5, y: entry.y + 1, z: entry.z + 0.5 }, { volume: SOUND_VOLUME, pitch: 1 });
   } catch (error) {}
-  spawnNotes(dimension, entry.x, entry.y, entry.z);
 }
 
 function heldSlot(player) {
@@ -223,7 +214,6 @@ function tick() {
       stopPlaying(entry, "ended");
       continue;
     }
-    spawnNotes(dimension, entry.x, entry.y, entry.z);
   }
 }
 
