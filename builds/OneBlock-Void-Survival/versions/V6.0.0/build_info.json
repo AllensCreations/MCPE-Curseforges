@@ -1,8 +1,0 @@
-{
-  "changelog_version": "6.0.0",
-  "manifest_version": "6.0.0",
-  "packages": {
-    "VoidSurvival V6.mcworld": "78720db32d45876088a51c707ceaacdd5e7290498ea46e0254d07b6f4cd81b9a"
-  },
-  "source_sha256": "e090386884c1216be12327cd242221e2572ff869efc87996c98d2ff6a1f0af2e"
-}

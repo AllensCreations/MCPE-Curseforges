@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Maps/OneBlock-Void-Survival`
 - **Destination:** `MCPEDL/Maps/OneBlock-Void-Survival`
-- **CURRENT VERSION: v7 / NEXT UPDATE: v8**  (`MCPEDL/Maps/OneBlock-Void-Survival/CHANGELOG.md`)
+- **CURRENT VERSION: v8 / NEXT UPDATE: v9**  (`MCPEDL/Maps/OneBlock-Void-Survival/CHANGELOG.md`)
 - **Text files:** 89
 - **Skipped binary:** 22
 - **Paths not found:** 0
@@ -80,7 +80,7 @@
 ### Not inlined: 24 larger file(s), ask the user for the exact paths you need
 
 - `MCPEDL/Maps/OneBlock-Void-Survival/behavior_pack/scripts/lib/admin.js` (19051 bytes)
-- `MCPEDL/Maps/OneBlock-Void-Survival/behavior_pack/scripts/lib/handlers.js` (21029 bytes)
+- `MCPEDL/Maps/OneBlock-Void-Survival/behavior_pack/scripts/lib/handlers.js` (21362 bytes)
 - `MCPEDL/Maps/OneBlock-Void-Survival/behavior_pack/scripts/lib/island-blocks.js` (30707 bytes)
 - `MCPEDL/Maps/OneBlock-Void-Survival/behavior_pack/scripts/lib/island-builder.js` (22529 bytes)
 - `MCPEDL/Maps/OneBlock-Void-Survival/behavior_pack/scripts/lib/island-core.js` (18958 bytes)
@@ -92,7 +92,7 @@
 - `MCPEDL/Maps/OneBlock-Void-Survival/behavior_pack/scripts/lib/phases.js` (17585 bytes)
 - `MCPEDL/Maps/OneBlock-Void-Survival/behavior_pack/trading/economy_trades/wandering_trader_trades.json` (16119 bytes)
 - `MCPEDL/Maps/OneBlock-Void-Survival/world/behavior_packs/OneBlockVoid/scripts/lib/admin.js` (19051 bytes)
-- `MCPEDL/Maps/OneBlock-Void-Survival/world/behavior_packs/OneBlockVoid/scripts/lib/handlers.js` (21029 bytes)
+- `MCPEDL/Maps/OneBlock-Void-Survival/world/behavior_packs/OneBlockVoid/scripts/lib/handlers.js` (21362 bytes)
 - `MCPEDL/Maps/OneBlock-Void-Survival/world/behavior_packs/OneBlockVoid/scripts/lib/island-blocks.js` (30707 bytes)
 - `MCPEDL/Maps/OneBlock-Void-Survival/world/behavior_packs/OneBlockVoid/scripts/lib/island-builder.js` (22529 bytes)
 - `MCPEDL/Maps/OneBlock-Void-Survival/world/behavior_packs/OneBlockVoid/scripts/lib/island-core.js` (18958 bytes)
@@ -106,7 +106,7 @@
 
 ### Skipped (binary): 22 file(s)
 
-- `MCPEDL/Maps/OneBlock-Void-Survival/VoidSurvival V7.mcworld`
+- `MCPEDL/Maps/OneBlock-Void-Survival/VoidSurvival V8.mcworld`
 - `MCPEDL/Maps/OneBlock-Void-Survival/assets/recipes/bell_recipe.png`
 - `MCPEDL/Maps/OneBlock-Void-Survival/assets/recipes/calcite_recipe.png`
 - `MCPEDL/Maps/OneBlock-Void-Survival/assets/recipes/deepslate_deepslate_coal_recipe.png`
@@ -138,7 +138,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v7 / NEXT UPDATE: v8).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v8 / NEXT UPDATE: v9).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -237,10 +237,10 @@ Output ONLY these three sections in order:
   "format_version": 2,
   "header": {
     "description": "Void survival map featuring progressive block mining, 43 procedural theme islands, and vanilla survival compatibility. by ALNStudios",
-    "name": "OneBlock Void Survival (v7)",
+    "name": "OneBlock Void Survival (v8)",
     "uuid": "6f42a0f9-6c11-4974-9bb5-075b3447d2d9",
     "version": [
-      7,
+      8,
       0,
       0
     ],
@@ -256,7 +256,7 @@ Output ONLY these three sections in order:
       "type": "data",
       "uuid": "2c9d7c28-b4b1-4719-9983-13324e2aaad2",
       "version": [
-        7,
+        8,
         0,
         0
       ]
@@ -267,7 +267,7 @@ Output ONLY these three sections in order:
       "language": "javascript",
       "uuid": "f1351b45-2285-40d1-8e52-14ee221313d3",
       "version": [
-        7,
+        8,
         0,
         0
       ],
@@ -289,7 +289,7 @@ Output ONLY these three sections in order:
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "7.0.0"
+    "version": "8.0.0"
   }
 }
 ```
@@ -2115,12 +2115,18 @@ def main():
 main()
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Void-Survival/CHANGELOG.md (62 lines, 4936 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Void-Survival/CHANGELOG.md (62 lines, 5032 bytes)
 
 ```
 # Changelog
 
 ---
+
+## [v8] - 2026-11-22 - Survival Mode Lock
+
+### Improved & Balanced
+
+- **Survival Mode Lock**: In the Survival world the game mode is now locked. Anyone who switches to Creative, Adventure or Spectator is put back into Survival within a second. The Creative world is not affected.
 
 ## [v7] - 2026-11-22 - Brand Name Update
 
@@ -2173,16 +2179,10 @@ main()
 - **World Pack Reference**: The world's pack reference now matches the pack version, and map builds keep it in sync automatically.
 - **Void End Dimension**: The End is now a void in every build of the map, matching the Overworld and Nether.
 
-## [v4] - 2026-11-20 - World Loading Fix
-
-### Fixed
-
-- **World Pack Reference**: The world's pack reference now matches the pack version, and map builds keep it in sync automatically.
-
 (older entries omitted; ask for the full file if needed)
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Void-Survival/DESCRIPTION.md (75 lines, 5101 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Void-Survival/DESCRIPTION.md (75 lines, 5154 bytes)
 
 ```
 # OneBlock Void Survival — Progressive Void World
@@ -2217,7 +2217,7 @@ The central block provides resources as you progress through increasingly advanc
 
 ### Two Worlds
 - **Creative:** Every player starts in Creative mode and nothing is locked.
-- **Survival:** Every player starts in Survival mode. Difficulty and game mode are not locked, and normal respawning applies.
+- **Survival:** Every player is kept in Survival mode, because the pack switches anyone back to Survival within a second. Difficulty is not locked, and normal respawning applies.
 
 ## How to Play
 
@@ -2322,7 +2322,7 @@ Download the current release of **OneBlock Void Survival** for Minecraft Bedrock
 ## Download
 
 - **Package format:** `.mcworld`
-- **Direct download:** [Download OneBlock Void Survival (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/VoidSurvival%20V7.mcworld)
+- **Direct download:** [Download OneBlock Void Survival (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/VoidSurvival%20V8.mcworld)
 
 ## Installation
 
@@ -2400,10 +2400,10 @@ For gameplay features, usage details, compatibility notes, and other project inf
   "format_version": 2,
   "header": {
     "description": "Void survival map featuring progressive block mining, 43 procedural theme islands, and vanilla survival compatibility. by ALNStudios",
-    "name": "OneBlock Void Survival (v7)",
+    "name": "OneBlock Void Survival (v8)",
     "uuid": "6f42a0f9-6c11-4974-9bb5-075b3447d2d9",
     "version": [
-      7,
+      8,
       0,
       0
     ],
@@ -2419,7 +2419,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "data",
       "uuid": "2c9d7c28-b4b1-4719-9983-13324e2aaad2",
       "version": [
-        7,
+        8,
         0,
         0
       ]
@@ -2430,7 +2430,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "language": "javascript",
       "uuid": "f1351b45-2285-40d1-8e52-14ee221313d3",
       "version": [
-        7,
+        8,
         0,
         0
       ],
@@ -2452,7 +2452,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "7.0.0"
+    "version": "8.0.0"
   }
 }
 ```
