@@ -1,7 +1,7 @@
 import { ItemStack, system, world } from "@minecraft/server";
 import { setupAdminStation, summonAllIslandsAdmin, toggleAdminAutoBreak, openAdminIslandMenu, summonNextIslandAdmin, isAutoBreakRunning } from "./admin.js";
 import { ONEBLOCK_POS, activeCountdowns, SURROUNDING_OFFSETS, TUTORIAL_BLOCKS, activeLuckyRush, lastKnownOneBlockType, CHEST_CHANCE, MOB_CHANCE, LUCKY_RUSH_CHANCE, VOID_SURGE_CHANCE, JACKPOT_CHANCE, isAdmin, BASE_MODE, IS_ADMIN_BUILD, advanceTick, tickCounter } from "./config.js";
-import { getDimKey, getDimensionState, spawnOneBlockChest, pickWeighted } from "./helpers.js";
+import { getDimKey, getDimensionState, spawnOneBlockChest, pickWeighted, getPlayerDims } from "./helpers.js";
 import { handleIslandOneBlockBreak } from "./island-core.js";
 import { materializeIsland } from "./island-spawn.js";
 import { ISLAND_THEMES } from "./island-themes.js";
@@ -463,14 +463,19 @@ export function maintenanceTick() {
     }
 
     if (tickCounter % 2 === 0) {
-      try {
-        const nether = world.getDimension("nether");
-        if (nether) nether.spawnParticle("minecraft:endrod", { x: 0.5, y: 65.5, z: 0.5 });
-      } catch (e) {}
-      try {
-        const end = world.getDimension("the_end");
-        if (end) end.spawnParticle("minecraft:endrod", { x: 0.5, y: 65.5, z: 0.5 });
-      } catch (e) {}
+      const active = getPlayerDims();
+      if (active.nether) {
+        try {
+          const nether = world.getDimension("nether");
+          if (nether) nether.spawnParticle("minecraft:endrod", { x: 0.5, y: 65.5, z: 0.5 });
+        } catch (e) {}
+      }
+      if (active.end) {
+        try {
+          const end = world.getDimension("the_end");
+          if (end) end.spawnParticle("minecraft:endrod", { x: 0.5, y: 65.5, z: 0.5 });
+        } catch (e) {}
+      }
     }
   } catch (err) {}
 }

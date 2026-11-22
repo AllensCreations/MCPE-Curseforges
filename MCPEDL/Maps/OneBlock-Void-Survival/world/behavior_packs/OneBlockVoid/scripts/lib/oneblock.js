@@ -1,6 +1,6 @@
 import { BlockPermutation, ItemStack, system, world } from "@minecraft/server";
 import { activeCountdowns, ONEBLOCK_POS, TUTORIAL_BLOCKS, SURROUNDING_OFFSETS, lastKnownOneBlockType, activeLuckyRush, mainPending, lastProgressTick } from "./config.js";
-import { getDimKey, getDimensionState, pickWeighted, spawnOneBlockChest } from "./helpers.js";
+import { getDimKey, getDimensionState, pickWeighted, spawnOneBlockChest, getPlayerDims } from "./helpers.js";
 import { incrementDimensionCount } from "./phase-events.js";
 
 // Handles automated block destruction/removal by Pistons, TNT, Creepers, or Environmental causes
@@ -221,13 +221,15 @@ export function ensureOneBlock(dimension) {
     if (activeCountdowns.get(dimKey)) return;
 
     // Bedrock foundation guarantee at (0, 63, 0)
-    const bedrockPos = { x: ONEBLOCK_POS.x, y: ONEBLOCK_POS.y - 1, z: ONEBLOCK_POS.z };
-    try {
-      const bFloor = dimension.getBlock(bedrockPos);
-      if (bFloor && bFloor.typeId !== "minecraft:bedrock") {
-        bFloor.setType("minecraft:bedrock");
-      }
-    } catch (bfe) {}
+    if (system.currentTick % 20 === 0) {
+      const bedrockPos = { x: ONEBLOCK_POS.x, y: ONEBLOCK_POS.y - 1, z: ONEBLOCK_POS.z };
+      try {
+        const bFloor = dimension.getBlock(bedrockPos);
+        if (bFloor && bFloor.typeId !== "minecraft:bedrock") {
+          bFloor.setType("minecraft:bedrock");
+        }
+      } catch (bfe) {}
+    }
 
     const block = dimension.getBlock(ONEBLOCK_POS);
     const isLiquid = block && (block.typeId === "minecraft:water" || block.typeId === "minecraft:flowing_water" || block.typeId === "minecraft:lava" || block.typeId === "minecraft:flowing_lava");
@@ -266,18 +268,12 @@ export function clearScoreboardObjective() {
 
 // Ultra-Fast Auto-Renewal Loop (runs every 1 tick / 0.05s) to guarantee OneBlock NEVER stays air!
 export function oneBlockRenewTick() {
-  try {
-    const ow = world.getDimension("overworld");
-    if (ow) ensureOneBlock(ow);
-  } catch (e) {}
-
-  try {
-    const nether = world.getDimension("nether");
-    if (nether) ensureOneBlock(nether);
-  } catch (e) {}
-
-  try {
-    const end = world.getDimension("the_end");
-    if (end) ensureOneBlock(end);
-  } catch (e) {}
+  const active = getPlayerDims();
+  for (const [key, dimId] of [["overworld", "overworld"], ["nether", "nether"], ["end", "the_end"]]) {
+    if (!active[key]) continue;
+    try {
+      const dimension = world.getDimension(dimId);
+      if (dimension) ensureOneBlock(dimension);
+    } catch (e) {}
+  }
 }

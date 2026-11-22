@@ -1,12 +1,27 @@
 import { ItemStack, system, world } from "@minecraft/server";
 import { recentIslandBreaks, islandPending } from "./config.js";
-import { spawnScatteredLootInChest, getNearbyIslandPlayers, getDimKey } from "./helpers.js";
+import { spawnScatteredLootInChest, getNearbyIslandPlayers, getDimKey, getPlayerDims } from "./helpers.js";
 import { getIslandBlockPool } from "./island-blocks.js";
 import { ISLAND_THEMES } from "./island-themes.js";
 
 // Finalizes a fully mined island core (removes the bedrock -> natural floor + reward chest).
 // Safe to call repeatedly: retried by ensureIslandOneBlocks if the chunk was unloaded or the world was closed.
 const islandRepairCheck = new Map();
+const coreCache = new Map();
+const doneNext = new Map();
+const healChecked = new Set();
+
+function getCoreCoords(id) {
+  let core = coreCache.get(id);
+  if (core) return core;
+  const x = world.getDynamicProperty(`island_ob_x_${id}`);
+  const y = world.getDynamicProperty(`island_ob_y_${id}`);
+  const z = world.getDynamicProperty(`island_ob_z_${id}`);
+  if (x === undefined || y === undefined || z === undefined) return undefined;
+  core = { x, y, z };
+  coreCache.set(id, core);
+  return core;
+}
 
 // True when a completed island still has bedrock at its core, directly under it, or in its collar.
 function islandNeedsRepair(dimension, x, y, z) {
@@ -145,16 +160,11 @@ export function handleIslandOneBlockBreak(dimension, loc, player) {
     let matchedTheme = null;
     for (const theme of ISLAND_THEMES) {
       if ((theme.dimension || "overworld") !== targetDim) continue;
-      const completed = world.getDynamicProperty(`island_ob_completed_${theme.id}`);
-      if (completed) continue;
-      const obX = world.getDynamicProperty(`island_ob_x_${theme.id}`);
-      if (obX === undefined) continue;
-      const obY = world.getDynamicProperty(`island_ob_y_${theme.id}`);
-      const obZ = world.getDynamicProperty(`island_ob_z_${theme.id}`);
-      if (loc.x === obX && loc.y === obY && loc.z === obZ) {
-        matchedTheme = theme;
-        break;
-      }
+      const core = getCoreCoords(theme.id);
+      if (!core || loc.x !== core.x || loc.y !== core.y || loc.z !== core.z) continue;
+      if (world.getDynamicProperty(`island_ob_completed_${theme.id}`)) continue;
+      matchedTheme = theme;
+      break;
     }
     if (!matchedTheme) return;
     recentIslandBreaks.set(matchedTheme.id, system.currentTick);
@@ -274,8 +284,11 @@ function ensureIslandOneBlocks(dimension) {
   for (const theme of ISLAND_THEMES) {
     if ((theme.dimension || "overworld") !== targetDim) continue;
     try {
+      const nextRepair = doneNext.get(theme.id);
+      if (nextRepair !== undefined && system.currentTick < nextRepair) continue;
       let completed = world.getDynamicProperty(`island_ob_completed_${theme.id}`);
-      if (!completed) {
+      if (!completed && !healChecked.has(theme.id)) {
+        healChecked.add(theme.id);
         // Self-heal: every block was mined but the completion step never ran
         const minedAll = world.getDynamicProperty(`island_ob_mined_${theme.id}`);
         const maxAll = world.getDynamicProperty(`island_ob_max_${theme.id}`);
@@ -286,10 +299,9 @@ function ensureIslandOneBlocks(dimension) {
         }
       }
       if (completed) {
-        const fx = world.getDynamicProperty(`island_ob_x_${theme.id}`);
-        const fy = world.getDynamicProperty(`island_ob_y_${theme.id}`);
-        const fz = world.getDynamicProperty(`island_ob_z_${theme.id}`);
-        if (fx !== undefined && fy !== undefined && fz !== undefined) {
+        const fcore = getCoreCoords(theme.id);
+        if (fcore) {
+          const { x: fx, y: fy, z: fz } = fcore;
           if (!world.getDynamicProperty(`island_ob_done_${theme.id}`)) {
             if (world.getDynamicProperty(`island_ob_final_${theme.id}`)) {
               migrateLegacyIsland(dimension, theme, { x: fx, y: fy, z: fz });
@@ -303,15 +315,17 @@ function ensureIslandOneBlocks(dimension) {
             const lastCheck = islandRepairCheck.get(theme.id) ?? -999;
             if (system.currentTick < lastCheck || system.currentTick - lastCheck >= 100) {
               islandRepairCheck.set(theme.id, system.currentTick);
+              doneNext.set(theme.id, system.currentTick + 100);
               if (islandNeedsRepair(dimension, fx, fy, fz)) finalizeIslandCore(dimension, theme, { x: fx, y: fy, z: fz }, null, "repair");
             }
           }
         }
         continue;
       }
-      let obX = world.getDynamicProperty(`island_ob_x_${theme.id}`);
-      let obY = world.getDynamicProperty(`island_ob_y_${theme.id}`);
-      let obZ = world.getDynamicProperty(`island_ob_z_${theme.id}`);
+      const ocore = getCoreCoords(theme.id);
+      let obX = ocore ? ocore.x : undefined;
+      let obY = ocore ? ocore.y : undefined;
+      let obZ = ocore ? ocore.z : undefined;
 
       const hadCore = obX !== undefined;
       if (obX === undefined) {
@@ -395,18 +409,12 @@ function ensureIslandOneBlocks(dimension) {
 
 // Island OneBlocks Health-Check (runs every 5 ticks / 0.25s)
 export function islandHealthTick() {
-  try {
-    const ow = world.getDimension("overworld");
-    if (ow) ensureIslandOneBlocks(ow);
-  } catch (e) {}
-
-  try {
-    const nether = world.getDimension("nether");
-    if (nether) ensureIslandOneBlocks(nether);
-  } catch (e) {}
-
-  try {
-    const end = world.getDimension("the_end");
-    if (end) ensureIslandOneBlocks(end);
-  } catch (e) {}
+  const active = getPlayerDims();
+  for (const [key, dimId] of [["overworld", "overworld"], ["nether", "nether"], ["end", "the_end"]]) {
+    if (!active[key]) continue;
+    try {
+      const dimension = world.getDimension(dimId);
+      if (dimension) ensureIslandOneBlocks(dimension);
+    } catch (e) {}
+  }
 }

@@ -1,8 +1,8 @@
 {
-  "changelog_version": "5.0.0",
-  "manifest_version": "5.0.0",
+  "changelog_version": "6.0.0",
+  "manifest_version": "6.0.0",
   "packages": {
-    "VoidSurvival V5.mcworld": "1cead715523beb4e38dbb9ae420087c32730631839506e3049d80d3a8b948255"
+    "VoidSurvival V6.mcworld": "78720db32d45876088a51c707ceaacdd5e7290498ea46e0254d07b6f4cd81b9a"
   },
-  "source_sha256": "9b9d6b04b8d056eaf6f9f77e4a8498d07356e7cc7e75e878bb782cc1ab54405c"
+  "source_sha256": "e090386884c1216be12327cd242221e2572ff869efc87996c98d2ff6a1f0af2e"
 }

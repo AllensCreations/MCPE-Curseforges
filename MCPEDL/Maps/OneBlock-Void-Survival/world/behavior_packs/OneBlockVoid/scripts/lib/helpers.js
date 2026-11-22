@@ -237,3 +237,20 @@ export function getNearbyIslandPlayers(dimension, loc, maxDistance = 48, breaker
   } catch (e) {}
   return Array.from(nearby);
 }
+
+let playerDimsTick = -1;
+let playerDimsCache = null;
+
+export function getPlayerDims() {
+  const now = system.currentTick;
+  if (playerDimsCache && now >= playerDimsTick && now - playerDimsTick < 5) return playerDimsCache;
+  const active = { overworld: false, nether: false, end: false };
+  try {
+    for (const p of world.getAllPlayers()) {
+      try { active[getDimKey(p.dimension.id)] = true; } catch (e) {}
+    }
+  } catch (e) {}
+  playerDimsTick = now;
+  playerDimsCache = active;
+  return active;
+}
