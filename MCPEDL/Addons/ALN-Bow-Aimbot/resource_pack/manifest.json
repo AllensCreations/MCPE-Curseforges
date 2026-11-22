@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN Bow Aimbot (v1)",
+    "name": "ALN Bow Aimbot (v1.0.1)",
     "description": "Item texture and aim circle for ALN Bow Aimbot. by ALNStudios",
     "uuid": "88d3c399-fe2a-44bb-809e-af2798c48f75",
     "version": [
       1,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         0,
-        0
+        1
       ]
     }
   ],
@@ -31,6 +31,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "1.0.1"
   }
 }

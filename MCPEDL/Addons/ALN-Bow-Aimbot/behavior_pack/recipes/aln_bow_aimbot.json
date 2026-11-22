@@ -5,11 +5,12 @@
       "identifier": "allenscreations:aln_bow_aimbot"
     },
     "tags": ["crafting_table"],
-    "pattern": ["###", "## ", "# #"],
+    "pattern": [" E ", "ABA", " S "],
     "key": {
-      "#": {
-        "tag": "minecraft:wool"
-      }
+      "E": { "item": "minecraft:ender_eye" },
+      "A": { "item": "minecraft:arrow" },
+      "B": { "item": "minecraft:bow" },
+      "S": { "item": "minecraft:string" }
     },
     "unlock": {
       "context": "AlwaysUnlocked"

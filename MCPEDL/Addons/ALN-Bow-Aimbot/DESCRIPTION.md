@@ -1,4 +1,4 @@
-# ALN Bow Aimbot — A cursor-shaped item that steers your arrows to the target in the aim circle
+# ALN Bow Aimbot — A bow-and-arrow item that steers your arrows to the target in the aim circle
 
 **By ALNStudios**
 
@@ -7,7 +7,7 @@
 
 **Use the ALN: Bow Aimbot item to steer bow and crossbow arrows to the target in your aim circle, up to 48 blocks away.**
 
-> ALN Bow Aimbot is a cursor-shaped item that opens a menu with the Bow Aimbot, a target highlight, a friends list and tuning options, saved separately for every player. It suits friends who practice archery in a world they own and want to pick their own settings.
+> ALN Bow Aimbot is a bow-and-arrow item that opens a menu with the Bow Aimbot, a target highlight, a friends list and tuning options, saved separately for every player. It suits friends who practice archery in a world they own and want to pick their own settings.
 
 ## Overview
 
@@ -16,8 +16,8 @@ You get an ALN: Bow Aimbot item, use it, and switch on Bow Aimbot in the ALNStud
 ## Key Features
 
 ### ALN: Bow Aimbot Item
-- **What Happens**: A cursor-shaped item that opens the menu when you use it. You craft one from wool or take one from the Equipment tab of the Creative inventory.
-- **How It Works**: Hold the item and use it, like right-clicking on PC or tapping on mobile. To craft one, fill the top row of a crafting table with wool, then the left and middle squares of the middle row, then the left and right squares of the bottom row. This takes 7 wool of any color and the shape looks like a cursor.
+- **What Happens**: A bow-and-arrow item that opens the menu when you use it. You craft one from a Bow, 2 Arrows, an Eye of Ender and a String, or take one from the Equipment tab of the Creative inventory.
+- **How It Works**: Hold the item and use it, like right-clicking on PC or tapping on mobile. To craft one, put the Eye of Ender in the top middle square of a crafting table, the Bow in the center with an Arrow on each side of it, and the String in the bottom middle square.
 - **Good To Know**: Use the command /give @s allenscreations:aln_bow_aimbot to get another one, which needs cheats.
 
 ### Bow Aimbot
@@ -52,14 +52,14 @@ You get an ALN: Bow Aimbot item, use it, and switch on Bow Aimbot in the ALNStud
 
 ## How to Use
 
-1. Craft an ALN: Bow Aimbot from 7 wool in a cursor shape, or take one from the Equipment tab of the Creative inventory.
+1. Craft an ALN: Bow Aimbot from a Bow, 2 Arrows, an Eye of Ender and a String, or take one from the Equipment tab of the Creative inventory.
 2. Hold the item and use it to open the ALNStudios menu, then tap Bow Aimbot Menu and Bow Aimbot Settings.
 3. Switch on Bow Aimbot and Target Highlight, then tap Apply.
 4. Hold a bow, aim near a target inside the circle and release.
 
 ## Common Questions
 
-- **How do I get another ALN: Bow Aimbot?**: Craft one from 7 wool on a crafting table, or take one from the Equipment tab of the Creative inventory.
+- **How do I get another ALN: Bow Aimbot?**: Craft one from a Bow, 2 Arrows, an Eye of Ender and a String on a crafting table, or take one from the Equipment tab of the Creative inventory.
 - **Do my settings affect other players?**: No. Each player has their own saved settings, and a toggle only changes what that player does.
 - **Can I use it on a server?**: This acts like a cheat. Many servers ban it, so use it only where the owner and the other players agree.
 
@@ -93,5 +93,5 @@ You get an ALN: Bow Aimbot item, use it, and switch on Bow Aimbot in the ALNStud
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, ALN Bow Aimbot Bedrock mod, Bow Aimbot, aim circle, Target Highlight, friends list, crossbow, Minecraft PE mouse pointer item, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+Minecraft Bedrock add-on, ALN Bow Aimbot Bedrock mod, Bow Aimbot, aim circle, Target Highlight, friends list, crossbow, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
 

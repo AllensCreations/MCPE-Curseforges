@@ -4,6 +4,14 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v233] - 2026-11-22 - Bow and Arrow Recipe
+
+**Spec**: spec_v233.txt | **Target**: MCPEDL/Addons/ALN-Bow-Aimbot | **Files edited**: 6
+
+### Improved & Balanced
+- **Crafting Recipe**: The ALN: Bow Aimbot is now crafted from a Bow, 2 Arrows, an Eye of Ender and a String instead of 7 wool. Put the Eye of Ender in the top middle square, the Bow in the center with an Arrow on each side, and the String in the bottom middle square.
+- **New Item Look**: The item is now drawn as a bow with a nocked arrow instead of a cursor, and its description says so.
+
 ## 2026-11-22 - New Addon ALN Bow Aimbot
 
 ### Added

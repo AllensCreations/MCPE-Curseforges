@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN Bow Aimbot (v1)",
-    "description": "A cursor-shaped item that opens the Bow Aimbot menu. by ALNStudios",
+    "name": "ALN Bow Aimbot (v1.0.1)",
+    "description": "A bow-and-arrow item that opens the Bow Aimbot menu. by ALNStudios",
     "uuid": "afe27565-4519-483f-bee2-af6fa41a11c2",
     "version": [
       1,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         0,
-        0
+        1
       ]
     },
     {
@@ -33,7 +33,7 @@
       "version": [
         1,
         0,
-        0
+        1
       ]
     }
   ],
@@ -43,7 +43,7 @@
       "version": [
         1,
         0,
-        0
+        1
       ]
     },
     {
@@ -60,6 +60,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "1.0.1"
   }
 }

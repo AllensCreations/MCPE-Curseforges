@@ -42,7 +42,7 @@ async function openAbout(player) {
   const body = [
     "Creator: ALNStudios",
     `${PACK_NAME} v${PACK_VERSION}`,
-    "A cursor-shaped item that opens the Bow Aimbot menu.",
+    "A bow-and-arrow item that opens the Bow Aimbot menu.",
     "CurseForge: allenscreations",
     "MCPEDL: alnstudios",
     "Not affiliated with Mojang.",

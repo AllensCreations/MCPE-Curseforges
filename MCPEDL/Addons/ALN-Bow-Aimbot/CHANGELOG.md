@@ -2,6 +2,12 @@
 
 ---
 
+## [1.0.1] - 2026-11-22 - Bow and Arrow Recipe
+
+### Improved & Balanced
+- **Crafting Recipe**: The ALN: Bow Aimbot is now crafted from a Bow, 2 Arrows, an Eye of Ender and a String instead of 7 wool. Put the Eye of Ender in the top middle square, the Bow in the center with an Arrow on each side, and the String in the bottom middle square.
+- **New Item Look**: The item is now drawn as a bow with a nocked arrow instead of a cursor, and its description says so.
+
 ## [1.0.0] - 2026-11-22 - First Release
 
 ### Added
