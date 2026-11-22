@@ -201,3 +201,8 @@ export async function openLedger(player) {
     }
   } catch (e) {}
 }
+export async function openCrates(player) {
+  try {
+    await crateMenu(player);
+  } catch (e) {}
+}

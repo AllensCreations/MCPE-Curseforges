@@ -2,9 +2,11 @@ import { world, system } from "@minecraft/server";
 import { IDS, COMPASS_NAME, BREEZE_NAME } from "./config.js";
 import { inventoryOf } from "./vault.js";
 import { registerDrops, holdsCutlass } from "./drops.js";
-import { openLedger } from "./ui.js";
+import { openLedger, openCrates } from "./ui.js";
 
 const compassCooldown = new Map();
+const crateCooldown = new Map();
+const CRATE_BLOCK = "aln:mystery_crate";
 
 function locate(player) {
   const now = system.currentTick;
@@ -48,6 +50,17 @@ world.afterEvents.itemUse.subscribe((ev) => {
       drinkBreeze(player);
     }
   } catch (e) {}
+});
+
+world.beforeEvents.playerInteractWithBlock.subscribe((ev) => {
+  if (ev.block.typeId !== CRATE_BLOCK) return;
+  const player = ev.player;
+  if (player.isSneaking) return;
+  ev.cancel = true;
+  const now = system.currentTick;
+  if (now - (crateCooldown.get(player.id) ?? -20) < 10) return;
+  crateCooldown.set(player.id, now);
+  system.run(() => openCrates(player));
 });
 
 system.runInterval(() => {

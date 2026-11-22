@@ -1,0 +1,35 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:mystery_crate"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "NPN",
+      "PCP",
+      "NPN"
+    ],
+    "key": {
+      "N": {
+        "item": "minecraft:gold_nugget"
+      },
+      "P": {
+        "item": "minecraft:dark_oak_planks"
+      },
+      "C": {
+        "item": "aln:gold_doubloon"
+      }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ],
+    "result": {
+      "item": "aln:mystery_crate"
+    }
+  }
+}

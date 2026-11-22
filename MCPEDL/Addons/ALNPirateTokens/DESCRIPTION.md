@@ -36,6 +36,9 @@ ALN:PirateTokens adds a three-coin pirate economy built around the Captain's Led
 ### Black Market
 - **What Happens**: Spend vault savings on the Treasure Hunter's Compass, the Sea-Dog's Cutlass, Bottled Sea Breeze or three bundles of prismarine, dark oak and treasure materials.
 
+### Mystery Crate Block
+- **What Happens**: Craft a dark-wood crate with gold corners from 4 Gold Nuggets, 4 Dark Oak Planks and 1 Gold Pirate Doubloon. Place it anywhere and tap it to open the crate menu. Sneak to build against it.
+
 ### Mystery Buccaneer Crates
 - **What Happens**: Pay 3 Gold Doubloons or 1 Cursed Captain's Coin from the vault. The prize ticks across the screen with note sounds, then bursts with gold particles and a jackpot title.
 
@@ -45,7 +48,7 @@ ALN:PirateTokens adds a three-coin pirate economy built around the Captain's Led
 2. Hunt ocean and raider mobs, fish, or open shipwreck and buried treasure chests to collect coins.
 3. Use the ledger and choose Pirate Vault, then Deposit All Coins to bank them.
 4. Open Pirate Bounties each day and press Claim Doubloons on finished bounties.
-5. Spend vault savings in the Black Market or on a Mystery Crate.
+5. Spend vault savings in the Black Market or on a Mystery Crate. Place a Mystery Crate block to open the crate menu without the ledger.
 6. Use the Treasure Hunter's Compass to find buried treasure, or sneak and use it to find a shipwreck. Coordinates appear in chat when command feedback is enabled.
 
 ## Compatibility

@@ -1,0 +1,13 @@
+{
+  "texture_data": {
+    "aln_mystery_crate_top": {
+      "textures": "textures/blocks/aln_mystery_crate_top"
+    },
+    "aln_mystery_crate_side": {
+      "textures": "textures/blocks/aln_mystery_crate_side"
+    },
+    "aln_mystery_crate_bottom": {
+      "textures": "textures/blocks/aln_mystery_crate_bottom"
+    }
+  }
+}

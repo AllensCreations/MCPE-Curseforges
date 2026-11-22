@@ -2,6 +2,12 @@
 
 ---
 
+## [1.0.1] - 2026-11-23 - Mystery Crate Block
+
+### Added
+- **Mystery Crate block**: Craftable gold-cornered crate block that opens the Mystery Crate menu when tapped.
+- **Crate recipe**: 4 Gold Nuggets, 4 Dark Oak Planks and 1 Gold Pirate Doubloon.
+
 ## [1.0.0] - 2026-11-23 - First Release
 
 ### Added

@@ -1,0 +1,47 @@
+{
+  "format_version": "1.26.60",
+  "minecraft:block": {
+    "description": {
+      "identifier": "aln:mystery_crate",
+      "menu_category": {
+        "category": "construction"
+      }
+    },
+    "components": {
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "down": {
+          "texture": "aln_mystery_crate_bottom",
+          "render_method": "opaque"
+        },
+        "up": {
+          "texture": "aln_mystery_crate_top",
+          "render_method": "opaque"
+        },
+        "north": {
+          "texture": "aln_mystery_crate_side",
+          "render_method": "opaque"
+        },
+        "east": {
+          "texture": "aln_mystery_crate_side",
+          "render_method": "opaque"
+        },
+        "south": {
+          "texture": "aln_mystery_crate_side",
+          "render_method": "opaque"
+        },
+        "west": {
+          "texture": "aln_mystery_crate_side",
+          "render_method": "opaque"
+        }
+      },
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 2.0
+      },
+      "minecraft:destructible_by_explosion": {
+        "explosion_resistance": 6
+      },
+      "minecraft:map_color": "#6B4526"
+    }
+  }
+}

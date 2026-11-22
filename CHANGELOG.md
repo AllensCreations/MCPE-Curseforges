@@ -4,6 +4,14 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v236] - 2026-11-23 - Mystery Crate Block
+
+**Spec**: spec_v236.txt | **Target**: MCPEDL/Addons/ALNPirateTokens | **Files edited**: 9
+
+### Added
+- **Mystery Crate block**: Craftable gold-cornered crate block that opens the Mystery Crate menu when tapped.
+- **Crate recipe**: 4 Gold Nuggets, 4 Dark Oak Planks and 1 Gold Pirate Doubloon.
+
 ## 2026-11-23 - New Addon ALNPirateTokens
 
 ### Added
