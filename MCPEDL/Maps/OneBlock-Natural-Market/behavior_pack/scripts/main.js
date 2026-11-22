@@ -16,18 +16,20 @@ const UNSAFE_CORE = new Set([
   "minecraft:lever", "minecraft:ladder", "minecraft:oak_sapling", "minecraft:sugar_cane",
   "minecraft:bamboo", "minecraft:repeater", "minecraft:comparator", "minecraft:anvil", "minecraft:netherite_block"
 ]);
+const MCICON_DIR = "textures/ui/natural_market/icons/";
+const NO_MCICON = new Set(["brick_block"]);
 const CATEGORIES = [
-  { name: "Building Blocks", icon: "textures/blocks/stone" },
-  { name: "Tools & Gear", icon: "textures/items/iron_pickaxe" },
-  { name: "Farming", icon: "textures/items/wheat" },
-  { name: "Food", icon: "textures/items/bread" },
-  { name: "Combat", icon: "textures/items/iron_sword" },
-  { name: "Ores & Minerals", icon: "textures/items/diamond" },
-  { name: "Redstone", icon: "textures/items/redstone_dust" },
-  { name: "Mob Drops", icon: "textures/items/bone" },
-  { name: "Spawn Eggs", icon: "textures/items/spawn_eggs/spawn_egg_cow" },
-  { name: "Nether", icon: "textures/blocks/netherrack" },
-  { name: "Endgame", icon: "textures/items/ender_pearl" }
+  { name: "Building Blocks", icon: MCICON_DIR + "stone" },
+  { name: "Tools & Gear", icon: MCICON_DIR + "iron_pickaxe" },
+  { name: "Farming", icon: MCICON_DIR + "wheat" },
+  { name: "Food", icon: MCICON_DIR + "bread" },
+  { name: "Combat", icon: MCICON_DIR + "iron_sword" },
+  { name: "Ores & Minerals", icon: MCICON_DIR + "diamond" },
+  { name: "Redstone", icon: MCICON_DIR + "redstone" },
+  { name: "Mob Drops", icon: MCICON_DIR + "bone" },
+  { name: "Spawn Eggs", icon: MCICON_DIR + "cow_spawn_egg" },
+  { name: "Nether", icon: MCICON_DIR + "netherrack" },
+  { name: "Endgame", icon: MCICON_DIR + "ender_pearl" }
 ];
 const TIER_BLOCKS = [
   ["dirt"], ["coarse_dirt"], ["clay"],
@@ -284,6 +286,7 @@ for (const item of CATALOG) {
   const base = BASE_PRICE_FIX[item.raw] ?? item.price;
   item.sell = item.category === "Spawn Eggs" ? 0 : (SELL_FIX[item.raw] ?? Math.max(1, Math.floor(base / 2)));
   item.price = Math.max(1, Math.round(base * priceMult(item.tier)));
+  if (!NO_MCICON.has(item.raw)) item.icon = MCICON_DIR + item.raw;
 }
 const BUILDING_IDS = new Set(CATALOG.filter(i => i.category === "Building Blocks").map(i => i.id));
 const LEDGER_PENDING = "obm_ledger_pending";

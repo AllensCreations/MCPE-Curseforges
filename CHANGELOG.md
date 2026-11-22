@@ -31,6 +31,17 @@
 
 ---
 
+## [v219] - 2026-11-22 - MCicons Market Icons
+
+### Changed
+- Market icons now use the MCicons set (Minecraft item and block icons), shipped in the resource pack, instead of the game's own texture paths. This covers the 11 category buttons and every market item except Brick Block, which has no MCicons icon and keeps its old one.
+
+### Added
+- The MCicons notice file (`ASSET-NOTICE.md`) sits beside the icons in the resource pack.
+
+### Fixed
+- Shield now shows an icon in the market.
+
 ## [v218] - 2026-11-22 - ALN:LootSpawner v1.0.3 Render Fix
 
 ### Fixed
