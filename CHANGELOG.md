@@ -4,6 +4,11 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## 2026-11-23 - New Addon Homes Warps and Back
+
+### Added
+- **Homes Warps and Back**: New addon project created from a pack script.
+
 ## [v235] - 2026-11-23 - Latest Minecraft Update Support
 
 **Spec**: spec_v235.txt | **Target**: MCPEDL/Maps/OneBlock-Void-Survival | **Files edited**: 5
