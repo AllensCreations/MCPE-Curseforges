@@ -84,7 +84,9 @@ function send(eventId, payload) {
 
 function spawnNotes(dimension, x, y, z) {
   try {
-    dimension.spawnParticle("minecraft:note_particle", { x: x + 0.5, y: y + 1.2, z: z + 0.5 });
+    const molang = new mc.MolangVariableMap();
+    molang.setColorRGB("variable.color", { red: Math.random(), green: Math.random(), blue: Math.random() });
+    dimension.spawnParticle("minecraft:note_particle", { x: x + 0.5, y: y + 1.2, z: z + 0.5 }, molang);
   } catch (error) {}
 }
 

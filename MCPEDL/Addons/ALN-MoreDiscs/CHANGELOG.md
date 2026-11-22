@@ -2,6 +2,12 @@
 
 ---
 
+## [v6] - 2026-11-22 - Particle Fix
+
+### Fixed
+- **Note Particles**: The Jukebox note particles now get the color they need, so they no longer fill the game log with color errors.
+- **Menu Group**: The disc group entry now only names the existing Music Discs group instead of redefining it with an icon.
+
 ## [v5] - 2026-11-22 - Jukebox Rework
 
 ### Fixed

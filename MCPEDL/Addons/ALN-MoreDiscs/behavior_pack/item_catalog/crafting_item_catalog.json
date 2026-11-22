@@ -7,7 +7,6 @@
         "groups": [
           {
             "group_identifier": {
-              "icon": "aln:music_disc_neon_horizon",
               "name": "minecraft:itemGroup.name.record"
             },
             "items": [

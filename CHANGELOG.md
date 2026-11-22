@@ -4,6 +4,14 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v228] - 2026-11-22 - Particle Fix
+
+**Spec**: spec_v228.txt | **Target**: MCPEDL/Addons/ALN-MoreDiscs | **Files edited**: 4
+
+### Fixed
+- **Note Particles**: The Jukebox note particles now get the color they need, so they no longer fill the game log with color errors.
+- **Menu Group**: The disc group entry now only names the existing Music Discs group instead of redefining it with an icon.
+
 ## [v227] - 2026-11-22 - Spec Ledger Changelog
 
 ### Added
