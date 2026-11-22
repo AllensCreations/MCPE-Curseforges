@@ -8,7 +8,7 @@ This folder contains compiled release packages for **ALN SoulLantern** by ALNStu
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`ALNSoulLantern V1.mcaddon`** | `.mcaddon` | ~10 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-SoulLantern/ALNSoulLantern%20V1.mcaddon) |
+| **`ALNSoulLantern V1.0.1.mcaddon`** | `.mcaddon` | ~12 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-SoulLantern/ALNSoulLantern%20V1.0.1.mcaddon) |
 
 ---
 
