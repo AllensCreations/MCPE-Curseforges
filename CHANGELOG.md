@@ -4,6 +4,12 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v239] - 2026-11-23 - Self-test immutableWorld flag
+
+**Spec**: spec_v239.txt | **Target**: repo | **Files edited**: 1
+
+- Project pipeline self-test: the fabricated level.dat also carries the immutableWorld byte tag set to 0, which the OneBlock variant builder requires and must never turn on. Not tested in game.
+
 ## [v238] - 2026-11-23 - Self-test world lock flags
 
 **Spec**: spec_v238.txt | **Target**: repo | **Files edited**: 1
