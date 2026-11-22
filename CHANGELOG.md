@@ -4,6 +4,14 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v243] - 2026-11-23 - Auto Restock and Chest Lock
+
+**Spec**: spec_v243.txt | **Target**: MCPEDL/Addons/ALNOneClickSort | **Files edited**: 4
+
+### Added
+- **Automatic Restock**: A new toggle in the Sort Settings Book tops up your partial stacks from nearby containers every 5 seconds while the Restock Feather is in your inventory. It is off by default.
+- **Lock Chest**: Sneak and right-click a container with the Sort Settings Book to lock or unlock it. Restock, including Automatic Restock and Get Everything, no longer takes items from a locked container.
+
 ## [v242] - 2026-11-23 - Restock Get Everything
 
 **Spec**: spec_v242.txt | **Target**: MCPEDL/Addons/ALNOneClickSort | **Files edited**: 4

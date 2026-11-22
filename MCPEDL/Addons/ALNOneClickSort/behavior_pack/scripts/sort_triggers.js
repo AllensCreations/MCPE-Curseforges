@@ -6,6 +6,8 @@ import { PARTICLES } from "./feedback_profile.js";
 const CONTAINER_IDS = new Set(["minecraft:chest", "minecraft:trapped_chest", "minecraft:barrel"]);
 
 const QUICK_STACK_RADIUS = 6;
+const AUTO_RESTOCK_TICKS = 100;
+const LOCK_KEY = "aln_locked_chests";
 const lastContainerSort = new Map();
 
 function isSortableContainer(typeId) {
@@ -67,6 +69,86 @@ function sortBlockContainer(player, block) {
   }
 }
 
+let lockedSet = null;
+
+function loadLocks() {
+  if (lockedSet) return lockedSet;
+  lockedSet = new Set();
+  try {
+    const raw = world.getDynamicProperty(LOCK_KEY);
+    if (typeof raw === "string") for (const k of JSON.parse(raw)) lockedSet.add(k);
+  } catch {
+  }
+  return lockedSet;
+}
+
+function saveLocks() {
+  try {
+    world.setDynamicProperty(LOCK_KEY, JSON.stringify([...loadLocks()]));
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function lockKey(block) {
+  return `${block.dimension.id}:${block.x},${block.y},${block.z}`;
+}
+
+function chestHalves(block, container) {
+  const halves = [block];
+  if (container.size !== 54) return halves;
+  for (const [dx, dz] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+    try {
+      const n = block.dimension.getBlock({ x: block.x + dx, y: block.y, z: block.z + dz });
+      if (n && n.typeId === block.typeId && n.getComponent("minecraft:inventory")?.container?.size === 54) {
+        halves.push(n);
+      }
+    } catch {
+    }
+  }
+  return halves;
+}
+
+function isLockedContainer(block, container) {
+  const locks = loadLocks();
+  if (locks.size === 0) return false;
+  return chestHalves(block, container).some((b) => locks.has(lockKey(b)));
+}
+
+function toggleChestLock(player, block) {
+  try {
+    const container = block.getComponent("minecraft:inventory")?.container;
+    if (!container) return;
+    const prefs = getPrefs(player);
+    const locks = loadLocks();
+    const keys = chestHalves(block, container).map(lockKey);
+    const lock = !keys.some((k) => locks.has(k));
+    for (const k of keys) {
+      if (lock) locks.add(k);
+      else locks.delete(k);
+    }
+    if (!saveLocks()) {
+      for (const k of keys) {
+        if (lock) locks.delete(k);
+        else locks.add(k);
+      }
+      player.onScreenDisplay.setActionBar("§c[Lock] §fCould not save the lock. Too many locked chests.");
+      return;
+    }
+    feedback(
+      player,
+      prefs,
+      lock
+        ? "§c[Lock] §fChest locked. Restock will not take items from it."
+        : "§a[Lock] §fChest unlocked. Restock can take items from it.",
+      { block }
+    );
+  } catch (e) {
+    console.warn(`[ALN:OneClickSort] Chest lock failed: ${e}`);
+  }
+}
+
 function contentSignature(container) {
   let s = "";
   for (let i = 0; i < container.size; i++) {
@@ -94,6 +176,7 @@ function findNearbyContainers(player) {
         if (!block || !isSortableContainer(block.typeId)) continue;
         const container = block.getComponent("minecraft:inventory")?.container;
         if (!container) continue;
+        if (isLockedContainer(block, container)) continue;
 
         if (container.size === 54) {
           const sig = contentSignature(container);
@@ -211,9 +294,19 @@ function pullEverything(backpack, targets, prefs, touched) {
   return pulled;
 }
 
-function restock(player) {
+function hasPartialStack(backpack) {
+  for (let i = 0; i <= 35; i++) {
+    const it = backpack.getItem(i);
+    if (!it || isAutoSortFeather(it) || isRestockFeather(it)) continue;
+    if (it.maxAmount > 1 && it.amount < it.maxAmount) return true;
+  }
+  return false;
+}
+
+function restock(player, auto = false) {
   const prefs = getPrefs(player);
   const backpack = getBackpack(player);
+  if (auto && !hasPartialStack(backpack)) return;
   const targets = findNearbyContainers(player);
   const slots = [];
   for (let i = 0; i <= 35; i++) slots.push(i);
@@ -250,7 +343,9 @@ function restock(player) {
     backpack.setItem(slot, held);
   }
 
-  if (prefs.getEverything) pulledItems += pullEverything(backpack, targets, prefs, touched);
+  if (prefs.getEverything && !auto) pulledItems += pullEverything(backpack, targets, prefs, touched);
+
+  if (auto && pulledItems === 0) return;
 
   feedback(
     player,
@@ -265,15 +360,15 @@ export function registerTriggers() {
     const item = event.itemStack;
     if (!player || !item) return;
 
+    const last = lastContainerSort.get(player.id);
+    if (last !== undefined && system.currentTick - last < 5) return;
+
     if (isSettingsBook(item)) {
       openSettings(player);
       return;
     }
     if (!isAutoSortFeather(item) && !isRestockFeather(item)) return;
     if (player.isSneaking) return;
-
-    const last = lastContainerSort.get(player.id);
-    if (last !== undefined && system.currentTick - last < 5) return;
 
     if (isRestockFeather(item)) restock(player);
     else sortBackpack(player);
@@ -285,12 +380,38 @@ export function registerTriggers() {
     if (!player.isSneaking) return;
     if (!isSortableContainer(block.typeId)) return;
     const sortChest = isAutoSortFeather(itemStack);
-    if (!sortChest && !isRestockFeather(itemStack)) return;
+    const lockChest = isSettingsBook(itemStack);
+    if (!sortChest && !lockChest && !isRestockFeather(itemStack)) return;
 
     event.cancel = true;
     lastContainerSort.set(player.id, system.currentTick);
-    system.run(() => (sortChest ? sortBlockContainer(player, block) : stockChest(player, block)));
+    system.run(() => {
+      if (lockChest) toggleChestLock(player, block);
+      else if (sortChest) sortBlockContainer(player, block);
+      else stockChest(player, block);
+    });
   });
 
   world.afterEvents.playerLeave.subscribe((e) => lastContainerSort.delete(e.playerId));
+
+  world.afterEvents.playerPlaceBlock.subscribe((event) => {
+    try {
+      const locks = loadLocks();
+      if (locks.size > 0 && locks.delete(lockKey(event.block))) saveLocks();
+    } catch {
+    }
+  });
+
+  system.runInterval(() => {
+    for (const player of world.getAllPlayers()) {
+      try {
+        if (!getPrefs(player).autoRestock) continue;
+        const inv = getBackpack(player);
+        let hasFeather = false;
+        for (let i = 0; i <= 35 && !hasFeather; i++) hasFeather = isRestockFeather(inv.getItem(i));
+        if (hasFeather) restock(player, true);
+      } catch {
+      }
+    }
+  }, AUTO_RESTOCK_TICKS);
 }

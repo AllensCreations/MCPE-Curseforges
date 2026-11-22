@@ -35,8 +35,18 @@ Hold the Auto-Sort Feather in your hand. Right-click to sort your backpack, or s
 - **How It Works**: Run low on blocks, step next to your storage, right-click the Restock Feather, and a message shows how many items came from how many chests.
 - **Good To Know**: Restock only tops up stacks you already hold and never fills empty slots, unless you turn on Get Everything in Sort Settings, which pulls every matching item the chests hold until your inventory is full. Sneak and right-click a chest with the Restock Feather to stock it from your backpack. Turn on Leave 1 Item in Chest in Sort Settings to keep one item of each type in a chest when restocking, so stocking that chest still works.
 
+### Lock Chest
+- **What Happens**: Sneak and right-click a chest, barrel or shulker box with the Sort Settings Book to lock it, and do the same again to unlock it. A locked container is skipped by Restock, so nothing is taken from it.
+- **How It Works**: Both halves of a double chest lock together, and a message tells you whether the container is now locked or unlocked.
+- **Good To Know**: A lock only stops Restock from taking items. You can still open, sort and stock the container, and any player can unlock it.
+
+### Automatic Restock
+- **What Happens**: Turn on Automatic Restock in Sort Settings and your partial stacks are topped up from nearby containers every 5 seconds without a click.
+- **How It Works**: Keep the Restock Feather anywhere in your inventory and stay within 6 blocks of your containers. A message appears only when items were moved.
+- **Good To Know**: It only tops up stacks you already hold, ignores Get Everything, skips locked containers and is off by default.
+
 ### Sort Settings
-- **What Happens**: Right-click the Sort Settings Book to open a menu with five options: Sort Order, Sort Hotbar Slots, Audio and Particle Feedback, Leave 1 Item in Chest and Get Everything.
+- **What Happens**: Right-click the Sort Settings Book to open a menu with six options: Sort Order, Sort Hotbar Slots, Audio and Particle Feedback, Leave 1 Item in Chest, Get Everything and Automatic Restock.
 - **How It Works**: Choose Smart Category, Alphabetical (A-Z) or Stack Quantity (Highest First), then confirm.
 - **Good To Know**: Each player keeps their own settings, which stay saved between sessions.
 
@@ -56,7 +66,7 @@ Hold the Auto-Sort Feather in your hand. Right-click to sort your backpack, or s
 1. Craft the Auto-Sort Feather, Restock Feather and Sort Settings Book with the recipes below, or take them from the Creative inventory under Items.
 2. Right-click in the air to sort your backpack, or sneak and right-click a chest to sort it.
 3. Right-click the Restock Feather next to your chests to refill your stacks, or sneak and right-click a chest with it to stock that chest.
-4. Right-click the Sort Settings Book to change your options.
+4. Right-click the Sort Settings Book to change your options, or sneak and right-click a container with it to lock it against Restock.
 
 ## Common Questions
 
