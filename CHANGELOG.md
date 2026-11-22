@@ -4,6 +4,11 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## 2026-11-22 - New Addon ALN SoulLantern
+
+### Added
+- **ALN SoulLantern**: New addon project created from a pack script.
+
 ## [v233] - 2026-11-22 - Bow and Arrow Recipe
 
 **Spec**: spec_v233.txt | **Target**: MCPEDL/Addons/ALN-Bow-Aimbot | **Files edited**: 6

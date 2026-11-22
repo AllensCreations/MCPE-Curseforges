@@ -1,0 +1,65 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN SoulLantern (v1)",
+    "description": "Seals mobs in a Soul Lantern and releases them later. by ALNStudios",
+    "uuid": "b5d340b3-4ec2-4dec-ae4e-3896132a4d52",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "6e2de770-ab34-4ad4-aeed-a6ea90fee3de",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "entry": "scripts/main.js",
+      "uuid": "7c3a897f-6e90-4778-a591-1307249b4057",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "76644133-f7e5-4b13-ab5c-c0bb2eab30b6",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.7.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.0.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}

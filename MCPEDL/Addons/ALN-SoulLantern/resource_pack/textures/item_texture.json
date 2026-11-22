@@ -1,0 +1,12 @@
+{
+  "resource_pack_name": "aln_soul_lantern",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "aln_soul_lantern": {
+      "textures": "textures/items/aln_soul_lantern"
+    },
+    "aln_soul_lantern_filled": {
+      "textures": "textures/items/aln_soul_lantern_filled"
+    }
+  }
+}
