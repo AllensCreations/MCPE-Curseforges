@@ -2,6 +2,11 @@
 
 ---
 
+## [1.0.3] - 2026-11-22 - Fix Black Rendering: Unify Render Method
+
+### Fixed
+- **Block rendering as solid black**: The glass and core material instances carried render_method "alpha_test" with a texture using partial-alpha pixels; alpha_test only supports fully transparent or fully opaque pixels, so every partial-alpha pixel in the glass texture was discarded outright, leaving the chamber faces unrendered. All four material instances (frame, glass, core, *) now use render_method "opaque", which draws the texture's RGB color regardless of alpha. This trades true see-through glass for a solid tinted glass look, but renders correctly and reliably.
+
 ## [1.0.2] - 2026-11-22 - Bug Fixes: Render Method and Script Crash
 
 ### Fixed

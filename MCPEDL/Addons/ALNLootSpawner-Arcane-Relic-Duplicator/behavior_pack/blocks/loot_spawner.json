@@ -25,22 +25,19 @@
       "minecraft:material_instances": {
         "frame": {
           "texture": "aln_loot_spawner_frame",
-          "render_method": "alpha_test"
+          "render_method": "opaque"
         },
         "glass": {
           "texture": "aln_loot_spawner_glass",
-          "render_method": "alpha_test",
-          "face_dimming": false,
-          "ambient_occlusion": false
+          "render_method": "opaque"
         },
         "core": {
           "texture": "aln_loot_spawner_core",
-          "render_method": "alpha_test",
-          "face_dimming": false
+          "render_method": "opaque"
         },
         "*": {
           "texture": "aln_loot_spawner_frame",
-          "render_method": "alpha_test"
+          "render_method": "opaque"
         }
       },
       "minecraft:collision_box": {
