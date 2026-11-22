@@ -1,0 +1,2248 @@
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Addons/ALN-Bow-Aimbot`
+- **Destination:** `MCPEDL/Addons/ALN-Bow-Aimbot`
+- **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALN-Bow-Aimbot/CHANGELOG.md`)
+- **Spec ledger:** REPO_VERSION 232; the next spec is `spec_v233.txt` (newest specs are listed in the root `CHANGELOG.md`)
+- **Text files:** 22
+- **Skipped binary:** 3
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Addons/ALN-Bow-Aimbot/behavior_pack/items/aln_bow_aimbot.json`
+- `MCPEDL/Addons/ALN-Bow-Aimbot/behavior_pack/manifest.json`
+- `MCPEDL/Addons/ALN-Bow-Aimbot/behavior_pack/recipes/aln_bow_aimbot.json`
+- `MCPEDL/Addons/ALN-Bow-Aimbot/behavior_pack/scripts/lib/bowaim.js`
+- `MCPEDL/Addons/ALN-Bow-Aimbot/behavior_pack/scripts/lib/friends.js`
+- `MCPEDL/Addons/ALN-Bow-Aimbot/behavior_pack/scripts/lib/hud.js`
+- `MCPEDL/Addons/ALN-Bow-Aimbot/behavior_pack/scripts/lib/info.js`
+- `MCPEDL/Addons/ALN-Bow-Aimbot/behavior_pack/scripts/lib/menu.js`
+- `MCPEDL/Addons/ALN-Bow-Aimbot/behavior_pack/scripts/lib/README.md`
+- `MCPEDL/Addons/ALN-Bow-Aimbot/behavior_pack/scripts/lib/saved.js`
+- `MCPEDL/Addons/ALN-Bow-Aimbot/behavior_pack/scripts/lib/store.js`
+- `MCPEDL/Addons/ALN-Bow-Aimbot/behavior_pack/scripts/lib/tuning.js`
+- `MCPEDL/Addons/ALN-Bow-Aimbot/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/ALN-Bow-Aimbot/CHANGELOG.md`
+- `MCPEDL/Addons/ALN-Bow-Aimbot/DESCRIPTION.md`
+- `MCPEDL/Addons/ALN-Bow-Aimbot/project.json`
+- `MCPEDL/Addons/ALN-Bow-Aimbot/README.md`
+- `MCPEDL/Addons/ALN-Bow-Aimbot/resource_pack/manifest.json`
+- `MCPEDL/Addons/ALN-Bow-Aimbot/resource_pack/particles/aln_bow_target.json`
+- `MCPEDL/Addons/ALN-Bow-Aimbot/resource_pack/textures/item_texture.json`
+- `MCPEDL/Addons/ALN-Bow-Aimbot/resource_pack/ui/hud_screen.json`
+- `MCPEDL/Addons/ALN-Bow-Aimbot/texture_sources/aln_bow_aimbot.json`
+
+### Skipped (binary): 3 file(s)
+
+- `MCPEDL/Addons/ALN-Bow-Aimbot/resource_pack/textures/items/aln_bow_aimbot.png`
+- `MCPEDL/Addons/ALN-Bow-Aimbot/resource_pack/textures/particle/alnb_circle.png`
+- `MCPEDL/Addons/ALN-Bow-Aimbot/resource_pack/textures/particle/alnb_target.png`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v1 / NEXT UPDATE: v2).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Addons/ALN-Bow-Aimbot
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands. Update to an existing project or the repo: deliver ONE attached `spec_v<N>.txt` (N = REPO_VERSION + 1, see "Spec ledger" above) and the commands that build and run it (`python3 scripts/make_update_script.py ~/storage/downloads/spec_v<N>.txt --out-dir ~/storage/downloads --verify ~/MCPE-Curseforges`, then `bash ~/storage/downloads/<Name>_v<N>_*.sh`). New pack: the pack `.sh`.
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/behavior_pack/items/aln_bow_aimbot.json (23 lines, 462 bytes)
+
+```
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "allenscreations:aln_bow_aimbot",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "textures": {
+          "default": "aln_bow_aimbot"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "§l§6ALN: §eBow Aimbot"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/behavior_pack/manifest.json (66 lines, 1146 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN Bow Aimbot (v1)",
+    "description": "A cursor-shaped item that opens the Bow Aimbot menu. by ALNStudios",
+    "uuid": "afe27565-4519-483f-bee2-af6fa41a11c2",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "024bbbe0-a849-4f35-b3e0-47ed9d1dd386",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "9331dd02-58bd-440c-b007-306e10c26e82",
+      "entry": "scripts/main.js",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "88d3c399-fe2a-44bb-809e-af2798c48f75",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.3.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/behavior_pack/recipes/aln_bow_aimbot.json (23 lines, 438 bytes)
+
+```
+{
+  "format_version": "1.21.60",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "allenscreations:aln_bow_aimbot"
+    },
+    "tags": ["crafting_table"],
+    "pattern": ["###", "## ", "# #"],
+    "key": {
+      "#": {
+        "tag": "minecraft:wool"
+      }
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
+    "result": {
+      "item": "allenscreations:aln_bow_aimbot",
+      "count": 1
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/behavior_pack/scripts/lib/bowaim.js (175 lines, 5569 bytes)
+
+```
+import { world, system, EntityComponentTypes, GameMode } from "@minecraft/server";
+import { PLAYER_ID } from "./info.js";
+import { isOn } from "./store.js";
+import { tune } from "./tuning.js";
+import { isFriend } from "./friends.js";
+
+const ARROW = "minecraft:arrow";
+
+const GRAVITY = 0.05;
+const MIN_SPEED = 0.8;
+
+const minus = (a, b) => ({ x: a.x - b.x, y: a.y - b.y, z: a.z - b.z });
+const length = (v) => Math.hypot(v.x, v.y, v.z);
+
+const NEUTRAL = new Set([
+  "minecraft:wolf",
+  "minecraft:enderman",
+  "minecraft:zombie_pigman",
+  "minecraft:piglin",
+  "minecraft:iron_golem",
+  "minecraft:bee",
+  "minecraft:llama",
+  "minecraft:trader_llama",
+  "minecraft:polar_bear",
+  "minecraft:dolphin",
+  "minecraft:panda",
+  "minecraft:goat",
+]);
+const IGNORED = new Set(["minecraft:armor_stand"]);
+
+function kindOf(entity) {
+  if (NEUTRAL.has(entity.typeId)) return "aimNeutral";
+  return entity.matches({ families: ["monster"] }) ? "aimHostile" : "aimPassive";
+}
+
+function candidates(owner) {
+  const options = { location: owner.location, maxDistance: tune(owner, "aimRange") };
+  const found = [];
+  if (tune(owner, "aimPlayers") === 1) {
+    found.push(...owner.dimension.getPlayers({ ...options, excludeGameModes: [GameMode.Creative, GameMode.Spectator] }));
+  }
+  for (const entity of owner.dimension.getEntities(options)) {
+    if (entity.id === owner.id || entity.typeId === PLAYER_ID || IGNORED.has(entity.typeId)) continue;
+    if (!entity.getComponent(EntityComponentTypes.Health)) continue;
+    const kind = kindOf(entity);
+    if (tune(owner, kind) !== 1) continue;
+    if (kind !== "aimHostile" && entity.getComponent(EntityComponentTypes.IsTamed)) continue;
+    found.push(entity);
+  }
+  return found.filter((e) => e.id !== owner.id && !isFriend(owner, e));
+}
+
+function bodyPoint(entity) {
+  const base = entity.location;
+  const head = entity.getHeadLocation();
+  return { x: base.x, y: (base.y + head.y) / 2, z: base.z };
+}
+
+function seen(owner, entity) {
+  const eye = owner.getHeadLocation();
+  const points = [entity.getHeadLocation(), bodyPoint(entity)];
+  for (const point of points) {
+    const offset = minus(point, eye);
+    const distance = length(offset);
+    if (distance < 0.5) return true;
+    const direction = { x: offset.x / distance, y: offset.y / distance, z: offset.z / distance };
+    const hit = owner.dimension.getBlockFromRay(eye, direction, {
+      maxDistance: distance - 0.3,
+      includeLiquidBlocks: false,
+      includePassableBlocks: false,
+    });
+    if (!hit) return true;
+  }
+  return false;
+}
+
+const CIRCLE_HEIGHT = 0.2;
+
+const dot = (a, b) => a.x * b.x + a.y * b.y + a.z * b.z;
+
+function circleRadius(owner) {
+  const diameter = CIRCLE_HEIGHT * (tune(owner, "aimZoom") / 100);
+  return diameter * Math.tan((tune(owner, "screenFov") * Math.PI) / 360);
+}
+
+export function pickTarget(owner) {
+  const eye = owner.getHeadLocation();
+  const view = owner.getViewDirection();
+  const flat = Math.hypot(view.x, view.z);
+  const right = flat < 1e-6 ? { x: 1, y: 0, z: 0 } : { x: -view.z / flat, y: 0, z: view.x / flat };
+  const up = {
+    x: right.y * view.z - right.z * view.y,
+    y: right.z * view.x - right.x * view.z,
+    z: right.x * view.y - right.y * view.x,
+  };
+  const radius = circleRadius(owner);
+  let best;
+  let bestDist = radius;
+  for (const entity of candidates(owner)) {
+    const points = [entity.getHeadLocation(), bodyPoint(entity)];
+    let dist = Infinity;
+    for (const point of points) {
+      const offset = minus(point, eye);
+      const depth = dot(offset, view);
+      if (depth < 1) continue;
+      dist = Math.min(dist, Math.hypot(dot(offset, right) / depth, dot(offset, up) / depth));
+    }
+    if (dist <= bestDist && seen(owner, entity)) {
+      bestDist = dist;
+      best = entity;
+    }
+  }
+  return best;
+}
+
+function aimPoint(from, target, speed) {
+  const body = bodyPoint(target);
+  const motion = target.getVelocity();
+  let wet = false;
+  try {
+    wet = target.isInWater;
+  } catch (e) {}
+  const drop = wet ? 0 : 0.5 * GRAVITY;
+  let point = body;
+  for (let i = 0; i < 2; i++) {
+    const t = length(minus(point, from)) / speed;
+    point = {
+      x: body.x + motion.x * t,
+      y: body.y + motion.y * t + drop * t * t,
+      z: body.z + motion.z * t,
+    };
+  }
+  return point;
+}
+
+function aim(arrow, projectile, target) {
+  const speed = length(arrow.getVelocity());
+  if (speed < MIN_SPEED) return false;
+  const from = arrow.location;
+  const direction = minus(aimPoint(from, target, speed), from);
+  const size = length(direction);
+  if (size < 0.001) return false;
+  projectile.shoot({ x: (direction.x / size) * speed, y: (direction.y / size) * speed, z: (direction.z / size) * speed });
+  return true;
+}
+
+const FOLLOW_TICKS = 80;
+
+function steer(arrow) {
+  try {
+    if (!arrow.isValid) return;
+    const projectile = arrow.getComponent(EntityComponentTypes.Projectile);
+    const owner = projectile?.owner;
+    if (!owner || owner.typeId !== PLAYER_ID || !isOn(owner, "bowAimbot")) return;
+    const target = pickTarget(owner);
+    if (!target || !aim(arrow, projectile, target)) return;
+    let age = 0;
+    const id = system.runInterval(() => {
+      age += 2;
+      try {
+        if (age > FOLLOW_TICKS || !arrow.isValid || !target.isValid || !aim(arrow, projectile, target)) system.clearRun(id);
+      } catch (e) {
+        system.clearRun(id);
+      }
+    }, 2);
+  } catch (e) {}
+}
+
+export function initBowAim() {
+  world.afterEvents.entitySpawn.subscribe(({ entity }) => {
+    if (entity.typeId !== ARROW) return;
+    system.run(() => steer(entity));
+  });
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/behavior_pack/scripts/lib/friends.js (19 lines, 699 bytes)
+
+```
+import { world } from "@minecraft/server";
+import { PLAYER_ID } from "./info.js";
+import { readSaved, writeSaved } from "./saved.js";
+
+const KEY = "alnb_friends";
+
+export const isFriend = (owner, other) => other.typeId === PLAYER_ID && readSaved(owner, KEY)[other.id] !== undefined;
+export const friendNames = (player) => Object.values(readSaved(player, KEY));
+export const others = (player) => world.getAllPlayers().filter((p) => p.id !== player.id);
+
+export function applyFriends(player, shown, values) {
+  const data = { ...readSaved(player, KEY) };
+  shown.forEach((p, i) => {
+    if (values[i] === true) data[p.id] = p.name;
+    else delete data[p.id];
+  });
+  writeSaved(player, KEY, data);
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/behavior_pack/scripts/lib/hud.js (84 lines, 2973 bytes)
+
+```
+import { world, system, EntityComponentTypes, EquipmentSlot } from "@minecraft/server";
+import { PLAYER_ID } from "./info.js";
+import { isOn, anyOn } from "./store.js";
+import { tune } from "./tuning.js";
+import { pickTarget } from "./bowaim.js";
+
+const BOWS = new Set(["minecraft:bow", "minecraft:crossbow"]);
+const drawn = new Map();
+const hud = new Map();
+const hudAt = new Map();
+const locks = new Map();
+const HUD_REFRESH = 36000;
+const LOCK_REFRESH = 30;
+
+function drawZoom(p) {
+  const base = tune(p, "aimZoom");
+  const cut = tune(p, "bowZoom");
+  const start = drawn.get(p.id);
+  if (!cut || start === undefined) return base;
+  const pull = Math.min(1, (system.currentTick - start) / 20);
+  const fov = (tune(p, "screenFov") * Math.PI) / 180;
+  return (base * Math.tan(fov / 2)) / Math.tan((fov * (1 - (cut / 100) * pull)) / 2);
+}
+
+function setCircle(p, name) {
+  const same = (hud.get(p.id) ?? "") === name;
+  if (same && (!name || system.currentTick - (hudAt.get(p.id) ?? 0) < HUD_REFRESH)) return;
+  if (name) {
+    hud.set(p.id, name);
+    hudAt.set(p.id, system.currentTick);
+  } else {
+    hud.delete(p.id);
+    hudAt.delete(p.id);
+  }
+  p.onScreenDisplay.setTitle(name, { fadeInDuration: 0, stayDuration: 72000, fadeOutDuration: 0 });
+}
+
+function mark(p) {
+  const held = p.getComponent(EntityComponentTypes.Equippable)?.getEquipmentSlot(EquipmentSlot.Mainhand)?.getItem()?.typeId;
+  if (!BOWS.has(held)) {
+    locks.delete(p.id);
+    setCircle(p, "");
+    return;
+  }
+  const zoom = Math.min(300, Math.max(50, Math.round(drawZoom(p) / 10) * 10));
+  setCircle(p, tune(p, "aimCircle") === 1 ? `alnb_z${zoom}` : "");
+
+  const target = pickTarget(p);
+  if (!target) {
+    locks.delete(p.id);
+    return;
+  }
+  const head = target.getHeadLocation();
+  p.spawnParticle("allenscreations:aln_bow_target", { x: head.x, y: head.y + 0.8, z: head.z });
+  const name = target.typeId === PLAYER_ID ? target.name : target.typeId.replace("minecraft:", "");
+  const lock = locks.get(p.id);
+  if (lock?.name === name && system.currentTick - lock.tick < LOCK_REFRESH) return;
+  locks.set(p.id, { name, tick: system.currentTick });
+  p.onScreenDisplay.setActionBar(`§cLocked on: ${name}`);
+}
+
+export function initHud() {
+  world.afterEvents.itemStartUse.subscribe(({ source, itemStack }) => {
+    if (BOWS.has(itemStack?.typeId)) drawn.set(source.id, system.currentTick);
+  });
+  world.afterEvents.itemStopUse.subscribe(({ source }) => drawn.delete(source.id));
+  system.runInterval(() => {
+    if (!anyOn("targetHighlight") && !hud.size) return;
+    for (const p of world.getAllPlayers()) {
+      if (!p.isValid) continue;
+      try {
+        if (isOn(p, "targetHighlight") && isOn(p, "bowAimbot")) mark(p);
+        else if (hud.has(p.id)) setCircle(p, "");
+      } catch (e) {}
+    }
+  }, 1);
+  world.afterEvents.playerLeave.subscribe(({ playerId }) => {
+    drawn.delete(playerId);
+    hud.delete(playerId);
+    hudAt.delete(playerId);
+    locks.delete(playerId);
+  });
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/behavior_pack/scripts/lib/info.js (5 lines, 186 bytes)
+
+```
+export const PACK_NAME = "ALN: Bow Aimbot";
+export const PACK_VERSION = "1.0.0";
+export const POINTER_ID = "allenscreations:aln_bow_aimbot";
+export const PLAYER_ID = "minecraft:player";
+```
+
+## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/behavior_pack/scripts/lib/menu.js (206 lines, 8007 bytes)
+
+```
+import { system } from "@minecraft/server";
+import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
+import { PACK_NAME, PACK_VERSION } from "./info.js";
+import { FEATURES, isOn, applyValues, activeNames } from "./store.js";
+import { others, isFriend, applyFriends, friendNames } from "./friends.js";
+import { TUNING, tune, applyTuning, resetTuning } from "./tuning.js";
+
+const ABOUT_ICON = "textures/items/name_tag";
+const EXIT_ICON = "textures/items/door_wood";
+
+const plain = (s) => String(s ?? "").replace(/§./g, "");
+const bold = (s) => `§l${plain(s)}§r`;
+const mainTitle = () => `§l§6@ALNStudios §e${PACK_NAME}§r (v${PACK_VERSION})`;
+const note = (s) => `§7${plain(s)}§r`;
+const wait = (ticks) => new Promise((resolve) => system.runTimeout(resolve, ticks));
+const opt = (form, name, ...args) => (typeof form[name] === "function" ? form[name](...args) : form);
+
+export function tell(player, color, text) {
+  try {
+    player.onScreenDisplay.setActionBar(`${color}${text}`);
+  } catch (e) {}
+}
+
+async function present(form, player) {
+  for (let attempt = 0; attempt < 6; attempt++) {
+    let res;
+    try {
+      res = await form.show(player);
+    } catch (e) {
+      return undefined;
+    }
+    if (res.canceled && res.cancelationReason === FormCancelationReason.UserBusy) {
+      await wait(10);
+      continue;
+    }
+    return res;
+  }
+  return undefined;
+}
+
+async function openAbout(player) {
+  const body = [
+    "Creator: ALNStudios",
+    `${PACK_NAME} v${PACK_VERSION}`,
+    "A cursor-shaped item that opens the Bow Aimbot menu.",
+    "CurseForge: allenscreations",
+    "MCPEDL: alnstudios",
+    "Not affiliated with Mojang.",
+  ].join("\n");
+  const form = new ActionFormData().title(bold("About ALNStudios")).body(bold(body)).button(bold("Back"));
+  const res = await present(form, player);
+  if (res && !res.canceled) openMain(player);
+}
+
+const LAYOUT = [
+  {
+    title: "Bow Aimbot",
+    items: [["f", "bowAimbot"], ["t", "aimRange"], ["t", "aimZoom"], ["t", "bowZoom"], ["f", "targetHighlight"], ["t", "aimCircle"], ["t", "aimHostile"], ["t", "aimNeutral"], ["t", "aimPassive"], ["t", "aimPlayers"]],
+  },
+];
+
+async function openSettings(player) {
+  let form = new ModalFormData().title(bold("Bow Aimbot Settings"));
+  form = opt(form, "header", bold(PACK_NAME));
+  form = opt(form, "label", bold(`${activeNames(player).length} of ${FEATURES.length} on`));
+  const schema = [];
+  for (const group of LAYOUT) {
+    form = opt(form, "divider");
+    form = opt(form, "header", bold(group.title));
+    for (const [kind, id] of group.items) {
+      if (kind === "f") {
+        const f = FEATURES.find((x) => x.id === id);
+        form = form.toggle(bold(f.name), { defaultValue: isOn(player, id) });
+        form = opt(form, "label", note(f.info));
+      } else {
+        const t = TUNING.find((x) => x.id === id);
+        form = t.choices
+          ? form.dropdown(bold(t.name), t.choices.map((c) => bold(c)), { defaultValueIndex: tune(player, id) })
+          : form.slider(bold(t.name), t.min, t.max, { defaultValue: tune(player, id), valueStep: t.step });
+      }
+      schema.push([kind, id]);
+    }
+  }
+  form = opt(form, "divider");
+  form = opt(form, "submitButton", bold("Apply"));
+  const res = await present(form, player);
+  if (!res) return;
+  if (res.canceled) {
+    openHub(player);
+    return;
+  }
+  const values = (res.formValues ?? []).filter((v) => typeof v === "boolean" || typeof v === "number");
+  if (values.length !== schema.length) {
+    tell(player, "§c", "The settings could not be read.");
+    return;
+  }
+  const flags = new Map();
+  const nums = new Map();
+  schema.forEach(([kind, id], i) => (kind === "f" ? flags : nums).set(id, values[i]));
+  applyValues(player, FEATURES.map((f) => (flags.has(f.id) ? flags.get(f.id) === true : isOn(player, f.id))));
+  applyTuning(player, TUNING.map((t) => (nums.has(t.id) ? nums.get(t.id) : tune(player, t.id))));
+  tell(player, "§a", `${activeNames(player).length} of ${FEATURES.length} on. Settings saved.`);
+}
+
+async function openFriends(player) {
+  const shown = others(player).slice(0, 30);
+  if (!shown.length) {
+    tell(player, "§e", "No other players are online.");
+    openHub(player);
+    return;
+  }
+  const saved = friendNames(player);
+  let form = new ModalFormData().title(bold("Friends"));
+  form = opt(form, "header", bold(PACK_NAME));
+  form = opt(form, "label", bold("Tick a player to make them a friend. Bow Aimbot skips your friends."));
+  form = opt(form, "label", bold(saved.length ? `Saved friends: ${saved.join(", ")}` : "No friends saved yet."));
+  form = opt(form, "divider");
+  for (const other of shown) form = form.toggle(bold(other.name), { defaultValue: isFriend(player, other) });
+  form = opt(form, "submitButton", bold("Apply"));
+  const res = await present(form, player);
+  if (!res) return;
+  if (res.canceled) {
+    openHub(player);
+    return;
+  }
+  const values = (res.formValues ?? []).filter((v) => typeof v === "boolean");
+  if (values.length !== shown.length) {
+    tell(player, "§c", "The friends could not be read.");
+    return;
+  }
+  applyFriends(player, shown, values);
+  tell(player, "§a", `${friendNames(player).length} friends saved.`);
+}
+
+const FOVS = Array.from({ length: 81 }, (_, i) => 30 + i);
+
+async function openTuning(player) {
+  const fov = TUNING.find((t) => t.id === "screenFov");
+  let form = new ModalFormData().title(bold("Tuning"));
+  form = opt(form, "header", bold(PACK_NAME));
+  form = opt(form, "label", bold("Set your FOV to the Field of View in Settings > Video so the aim circle matches. Nothing saves unless Confirm changes is on."));
+  form = opt(form, "divider");
+  form = form.dropdown(bold(fov.name), FOVS.map((n) => bold(String(n))), { defaultValueIndex: tune(player, "screenFov") - 30 });
+  form = opt(form, "divider");
+  form = form.toggle(bold("Confirm changes"), { defaultValue: false });
+  form = form.toggle(bold("Reset all tuning to the defaults"), { defaultValue: false });
+  form = opt(form, "submitButton", bold("Apply"));
+  const res = await present(form, player);
+  if (!res) return;
+  if (res.canceled) {
+    openHub(player);
+    return;
+  }
+  const values = res.formValues ?? [];
+  const numbers = values.filter((v) => typeof v === "number");
+  const flags = values.filter((v) => typeof v === "boolean");
+  if (numbers.length !== 1 || flags.length !== 2) {
+    tell(player, "§c", "The tuning could not be read.");
+    return;
+  }
+  if (flags[0] !== true) {
+    tell(player, "§e", "Nothing changed. Turn on Confirm changes to save.");
+    return;
+  }
+  if (flags[1] === true) {
+    resetTuning(player);
+    tell(player, "§a", "Tuning reset to the defaults.");
+    return;
+  }
+  applyTuning(player, TUNING.map((t) => (t.id === "screenFov" ? FOVS[numbers[0]] : tune(player, t.id))));
+  tell(player, "§a", `FOV set to ${FOVS[numbers[0]]}.`);
+}
+
+async function openHub(player) {
+  const body = `${activeNames(player).length} of ${FEATURES.length} toggles on. ${friendNames(player).length} friends saved.`;
+  const form = new ActionFormData()
+    .title(bold("Bow Aimbot Menu"))
+    .body(bold(body))
+    .button(bold("Bow Aimbot Settings"))
+    .button(bold("Friends"))
+    .button(bold("Tuning"))
+    .button(bold("Back"), EXIT_ICON);
+  const res = await present(form, player);
+  if (!res) return;
+  if (res.canceled || res.selection === 3) {
+    openMain(player);
+    return;
+  }
+  [openSettings, openFriends, openTuning][res.selection](player);
+}
+
+export async function openMain(player) {
+  const active = activeNames(player);
+  const body = active.length ? `On: ${active.join(", ")}` : "No toggles are on.";
+  const form = new ActionFormData()
+    .title(mainTitle())
+    .body(bold(body))
+    .button(bold("Bow Aimbot Menu"))
+    .button(bold("About"), ABOUT_ICON)
+    .button(bold("Exit"), EXIT_ICON);
+  const res = await present(form, player);
+  if (!res || res.canceled) return;
+  if (res.selection === 0) openHub(player);
+  else if (res.selection === 1) openAbout(player);
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/behavior_pack/scripts/lib/README.md (40 lines, 2751 bytes)
+
+```
+# ALN: Bow Aimbot: script notes (scripts/lib)
+
+For the AI review. Keep this file in step with the scripts: update it whenever a file in `scripts/` changes.
+Nothing here was run in game. The code was taken from the Combat Helper add-on (v21) and cut down to the Bow Aimbot parts.
+
+## Files
+
+| File | Purpose |
+| :-- | :-- |
+| `scripts/main.js` | Opens the menu when the item is used and starts the aimbot and the circle loop. |
+| `scripts/lib/info.js` | Pack name, version and ids. `PACK_VERSION` must be bumped in every update. |
+| `scripts/lib/bowaim.js` | Picks the target inside the aim circle and steers arrows toward it. Exports `pickTarget` and `initBowAim`. |
+| `scripts/lib/hud.js` | Target picture, `Locked on` text and the on-screen aim circle. Exports `initHud`. |
+| `scripts/lib/menu.js` | Main menu, Bow Aimbot Settings, Friends, Tuning and About. Exports `openMain` and `tell`. |
+| `scripts/lib/store.js` | The two toggles (Bow Aimbot, Target Highlight), saved per player. |
+| `scripts/lib/tuning.js` | Slider and choice values, saved per player. |
+| `scripts/lib/friends.js` | Friends list, saved per player. |
+| `scripts/lib/saved.js` | Cached read and write of per player saved data. |
+
+## Events
+
+- `world.afterEvents.entitySpawn`
+- `world.afterEvents.itemUse`
+- `world.afterEvents.itemStartUse`
+- `world.afterEvents.itemStopUse`
+- `world.afterEvents.playerLeave`
+
+## Custom ids
+
+- `allenscreations:aln_bow_aimbot` (item, `lib/info.js`)
+- `allenscreations:aln_bow_target` (particle, `lib/hud.js`)
+
+## Notes (AI review)
+
+- The aim circle is `resource_pack/ui/hud_screen.json`, shown by a title `alnb_z<zoom>` (zoom 50 to 300, step 10). `CIRCLE_HEIGHT` in `lib/bowaim.js` must equal the circle size in that file (20% at zoom 100). `lib/hud.js` resends the title every 30 minutes. Any other title shown to the player clears the circle.
+- Bow zoom while drawing (`bowZoom`) is how many percent the game's field of view shrinks at full draw, 0 by default. The real amount was not confirmed from the docs. Draw time is assumed to be 20 ticks.
+- Bow Aimbot aims the arrow once, then calls `projectile.shoot` again every 2 ticks for up to 4 seconds. Arrow drag and gravity numbers were not confirmed, and re-shooting in flight was not confirmed in game. All arrows of a crossbow multishot aim at the same target. Edit `NEUTRAL` and `IGNORED` in `lib/bowaim.js` to change which mobs count as neutral or are never targeted.
+- Module versions were reused from the Combat Helper add-on. `@minecraft/server-ui` 2.3.0 was confirmed as the latest in the docs; `@minecraft/server` 2.11.0 was not re-checked.
+- `LAYOUT` in `lib/menu.js` must list every id in `FEATURES` (`lib/store.js`) and every id in `TUNING` (`lib/tuning.js`) except `screenFov`.
+```
+
+## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/behavior_pack/scripts/lib/saved.js (28 lines, 763 bytes)
+
+```
+import { world } from "@minecraft/server";
+
+const cache = new Map();
+
+export function readSaved(player, key) {
+  const id = `${key}|${player.id}`;
+  if (cache.has(id)) return cache.get(id);
+  let data = {};
+  const raw = player.getDynamicProperty(key);
+  if (typeof raw === "string") {
+    try {
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed === "object") data = parsed;
+    } catch (e) {}
+  }
+  cache.set(id, data);
+  return data;
+}
+
+export function writeSaved(player, key, data) {
+  cache.set(`${key}|${player.id}`, data);
+  player.setDynamicProperty(key, JSON.stringify(data));
+}
+
+world.afterEvents.playerLeave.subscribe(({ playerId }) => {
+  for (const id of [...cache.keys()]) if (id.endsWith(`|${playerId}`)) cache.delete(id);
+});
+```
+
+## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/behavior_pack/scripts/lib/store.js (53 lines, 1384 bytes)
+
+```
+import { world } from "@minecraft/server";
+
+export const FEATURES = [
+  { id: "bowAimbot", name: "Bow Aimbot", info: "Arrows you shoot steer toward the target inside the aim circle." },
+  { id: "targetHighlight", name: "Target Highlight", info: "Shows a target image over who Bow Aimbot picks and the aim circle." },
+];
+
+const KEY = "alnb_toggles";
+const cache = new Map();
+
+function load(player) {
+  const raw = player.getDynamicProperty(KEY);
+  let data = {};
+  if (typeof raw === "string") {
+    try {
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed === "object") data = parsed;
+    } catch (e) {}
+  }
+  cache.set(player.id, data);
+  return data;
+}
+
+const read = (player) => cache.get(player.id) ?? load(player);
+
+export function isOn(player, id) {
+  return read(player)[id] === true;
+}
+
+export function activeNames(player) {
+  return FEATURES.filter((f) => isOn(player, f.id)).map((f) => f.name);
+}
+
+export function applyValues(player, values) {
+  const data = {};
+  FEATURES.forEach((f, i) => {
+    data[f.id] = values[i] === true;
+  });
+  cache.set(player.id, data);
+  player.setDynamicProperty(KEY, JSON.stringify(data));
+}
+
+export function anyOn(id) {
+  for (const player of world.getAllPlayers()) {
+    if (isOn(player, id)) return true;
+  }
+  return false;
+}
+
+world.afterEvents.playerLeave.subscribe(({ playerId }) => {
+  cache.delete(playerId);
+});
+```
+
+## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/behavior_pack/scripts/lib/tuning.js (31 lines, 1522 bytes)
+
+```
+import { readSaved, writeSaved } from "./saved.js";
+
+const KEY = "alnb_tuning";
+
+export const TUNING = [
+  { id: "aimRange", name: "Bow Aimbot range (blocks)", min: 16, max: 96, step: 8, def: 48 },
+  { id: "aimZoom", name: "Aim circle zoom (percent)", min: 50, max: 300, step: 10, def: 100 },
+  { id: "bowZoom", name: "Bow zoom while drawing (percent)", min: 0, max: 30, step: 5, def: 0 },
+  { id: "screenFov", name: "Your game FOV setting", min: 30, max: 110, step: 1, def: 70 },
+  { id: "aimCircle", name: "Target Highlight aim circle", min: 0, max: 1, step: 1, def: 1, choices: ["Off", "On"] },
+  { id: "aimHostile", name: "Aimbot hits hostile mobs", min: 0, max: 1, step: 1, def: 1, choices: ["Off", "On"] },
+  { id: "aimNeutral", name: "Aimbot hits neutral mobs", min: 0, max: 1, step: 1, def: 0, choices: ["Off", "On"] },
+  { id: "aimPassive", name: "Aimbot hits passive mobs", min: 0, max: 1, step: 1, def: 0, choices: ["Off", "On"] },
+  { id: "aimPlayers", name: "Aimbot hits players", min: 0, max: 1, step: 1, def: 1, choices: ["Off", "On"] },
+];
+
+export function tune(player, id) {
+  const value = readSaved(player, KEY)[id];
+  return typeof value === "number" ? value : TUNING.find((t) => t.id === id).def;
+}
+
+export function applyTuning(player, values) {
+  const data = {};
+  TUNING.forEach((t, i) => {
+    if (typeof values[i] === "number") data[t.id] = Math.min(t.max, Math.max(t.min, values[i]));
+  });
+  writeSaved(player, KEY, data);
+}
+
+export const resetTuning = (player) => writeSaved(player, KEY, {});
+```
+
+## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/behavior_pack/scripts/main.js (13 lines, 369 bytes)
+
+```
+import { world } from "@minecraft/server";
+import { POINTER_ID } from "./lib/info.js";
+import { openMain } from "./lib/menu.js";
+import { initBowAim } from "./lib/bowaim.js";
+import { initHud } from "./lib/hud.js";
+
+world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
+  if (itemStack?.typeId === POINTER_ID) openMain(source);
+});
+
+initBowAim();
+initHud();
+```
+
+## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/CHANGELOG.md (15 lines, 1214 bytes)
+
+```
+# Changelog — ALN Bow Aimbot
+
+---
+
+## [1.0.0] - 2026-11-22 - First Release
+
+### Added
+- **ALN: Bow Aimbot Item**: A cursor-shaped item that opens the Bow Aimbot menu. Craft it from 7 wool of any color in a cursor shape, or take it from the Equipment tab of the Creative inventory.
+- **Bow Aimbot**: Arrows from a bow or crossbow steer toward the target closest to your crosshair inside the aim circle, within 48 blocks by default. The arrow leads a moving target and is corrected again every tenth of a second for up to 4 seconds.
+- **Aimbot Mob Types**: Four On or Off choices pick what it hits: hostile mobs, neutral mobs, passive mobs and players. Hostile mobs and players are on by default, and tamed pets are never targeted.
+- **Target Highlight**: A target picture floats over the target Bow Aimbot picks, the action bar names it, and an aim circle sits on your crosshair. Only you see them.
+- **Bow Zoom**: A setting from 0 to 30 percent that grows the aim circle while you draw a bow to match the game's zoom. It is 0 by default.
+- **Friends**: Pick online players as friends and Bow Aimbot skips them.
+- **Tuning**: Set your game FOV from 30 to 110 so the aim circle matches your Field of View setting.
+```
+
+## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/DESCRIPTION.md (98 lines, 7348 bytes)
+
+```
+# ALN Bow Aimbot — A cursor-shaped item that steers your arrows to the target in the aim circle
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**Use the ALN: Bow Aimbot item to steer bow and crossbow arrows to the target in your aim circle, up to 48 blocks away.**
+
+> ALN Bow Aimbot is a cursor-shaped item that opens a menu with the Bow Aimbot, a target highlight, a friends list and tuning options, saved separately for every player. It suits friends who practice archery in a world they own and want to pick their own settings.
+
+## Overview
+
+You get an ALN: Bow Aimbot item, use it, and switch on Bow Aimbot in the ALNStudios menu. From then on, arrows you shoot turn toward the mob or player closest to your crosshair inside the aim circle. Vanilla Minecraft has no switch like it. This is a cheat-style helper, so use it only on worlds where everyone agrees.
+
+## Key Features
+
+### ALN: Bow Aimbot Item
+- **What Happens**: A cursor-shaped item that opens the menu when you use it. You craft one from wool or take one from the Equipment tab of the Creative inventory.
+- **How It Works**: Hold the item and use it, like right-clicking on PC or tapping on mobile. To craft one, fill the top row of a crafting table with wool, then the left and middle squares of the middle row, then the left and right squares of the bottom row. This takes 7 wool of any color and the shape looks like a cursor.
+- **Good To Know**: Use the command /give @s allenscreations:aln_bow_aimbot to get another one, which needs cheats.
+
+### Bow Aimbot
+- **What Happens**: Arrows you shoot from a bow or crossbow steer toward the mob or player closest to your crosshair within 48 blocks and inside the aim circle on your screen.
+- **How It Works**: Aim roughly at a target and release. The arrow leads a moving target and allows for arrow drop, and it keeps correcting its aim for up to 4 seconds in flight, so long shots and moving targets are hit more often.
+- **Good To Know**: If nothing is near your crosshair, the arrow flies as normal. A mob or player hidden behind blocks is never chosen, and players in Creative or Spectator mode are never chosen. Every arrow of a crossbow with Multishot aims at the same target.
+
+### Mob Types
+- **What Happens**: Four On or Off choices under Bow Aimbot in Bow Aimbot Settings pick what it hits: hostile mobs, neutral mobs, passive mobs and players.
+- **How It Works**: Open Bow Aimbot Settings and set each choice. Hostile mobs and players are on by default.
+- **Good To Know**: Tamed pets are never targeted. Neutral mobs include wolves, endermen, piglins, iron golems, bees, llamas, polar bears, dolphins, pandas and goats.
+
+### Target Highlight
+- **What Happens**: While you hold a bow or crossbow, a small target picture floats above the mob or player Bow Aimbot will pick, the action bar names it, and a circle picture sits on your crosshair on the screen to show the aim range. Only you see them.
+- **How It Works**: Switch on both Bow Aimbot and Target Highlight, hold a bow and aim near an enemy.
+- **Good To Know**: It does nothing when Bow Aimbot is off, and the target picture only shows when a target is inside the circle. The circle can be switched off in Bow Aimbot Settings, and its size follows the Aim circle zoom and your Your game FOV setting value.
+
+### Bow Zoom
+- **What Happens**: While you draw a bow the game zooms in, so the aim circle grows to cover the same area.
+- **How It Works**: Raise Bow zoom while drawing, from 0 to 30 percent, until the circle matches what you see.
+- **Good To Know**: It is 0 percent by default, so the circle stays the same size until you set it.
+
+### Friends
+- **What Happens**: You pick online players as friends, and Bow Aimbot skips them.
+- **How It Works**: Open the Bow Aimbot Menu, tap Friends, tick the players you want and tap Apply.
+- **Good To Know**: Friends stay on your list when they go offline. The list is yours alone, so a friend is only safe from your aimbot, not the other way round.
+
+### Tuning
+- **What Happens**: Tuning holds your Your game FOV setting, an exact list of values from 30 to 110, so the aim circle matches the Field of View you set in the game's video settings.
+- **How It Works**: Open the Bow Aimbot Menu, tap Tuning, pick your FOV, turn on Confirm changes and tap Apply. Nothing saves unless Confirm changes is on. Turning on Reset all tuning to the defaults puts every slider and choice back to its starting value.
+- **Good To Know**: The range, zoom and mob type choices are in Bow Aimbot Settings.
+
+## How to Use
+
+1. Craft an ALN: Bow Aimbot from 7 wool in a cursor shape, or take one from the Equipment tab of the Creative inventory.
+2. Hold the item and use it to open the ALNStudios menu, then tap Bow Aimbot Menu and Bow Aimbot Settings.
+3. Switch on Bow Aimbot and Target Highlight, then tap Apply.
+4. Hold a bow, aim near a target inside the circle and release.
+
+## Common Questions
+
+- **How do I get another ALN: Bow Aimbot?**: Craft one from 7 wool on a crafting table, or take one from the Equipment tab of the Creative inventory.
+- **Do my settings affect other players?**: No. Each player has their own saved settings, and a toggle only changes what that player does.
+- **Can I use it on a server?**: This acts like a cheat. Many servers ban it, so use it only where the owner and the other players agree.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.26.60
+- Experimental features: No experiment requirement detected in the inspected files.
+- Achievements: Yes, achievement-friendly.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, ALN Bow Aimbot Bedrock mod, Bow Aimbot, aim circle, Target Highlight, friends list, crossbow, Minecraft PE mouse pointer item, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+```
+
+## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/project.json (5 lines, 50 bytes)
+
+```
+{
+  "type": "addon",
+  "name": "ALN Bow Aimbot"
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/README.md (19 lines, 791 bytes)
+
+```
+# ALN Bow Aimbot
+
+Download the current release of **ALN Bow Aimbot** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download ALN Bow Aimbot (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Bow-Aimbot/ALNBowAimbot%20V1.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALN-Bow-Aimbot/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/resource_pack/manifest.json (37 lines, 616 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN Bow Aimbot (v1)",
+    "description": "Item texture and aim circle for ALN Bow Aimbot. by ALNStudios",
+    "uuid": "88d3c399-fe2a-44bb-809e-af2798c48f75",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "6ead5f99-61f1-45f2-bbd3-34deb0394610",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/resource_pack/particles/aln_bow_target.json (35 lines, 861 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "allenscreations:aln_bow_target",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/alnb_target"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.1
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [0.4, 0.4],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 16,
+          "texture_height": 16,
+          "uv": [0, 0],
+          "uv_size": [16, 16]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/resource_pack/textures/item_texture.json (10 lines, 183 bytes)
+
+```
+{
+  "resource_pack_name": "aln_bow_aimbot",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "aln_bow_aimbot": {
+      "textures": "textures/items/aln_bow_aimbot"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/resource_pack/ui/hud_screen.json (788 lines, 16423 bytes)
+
+```
+{
+  "namespace": "hud",
+  "alnb_circle_50": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "10%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z50')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_60": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "12%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z60')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_70": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "14%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z70')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_80": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "16%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z80')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_90": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "18%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z90')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_100": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "20%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z100')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_110": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "22%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z110')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_120": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "24%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z120')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_130": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "26%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z130')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_140": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "28%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z140')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_150": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "30%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z150')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_160": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "32%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z160')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_170": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "34%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z170')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_180": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "36%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z180')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_190": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "38%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z190')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_200": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "40%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z200')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_210": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "42%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z210')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_220": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "44%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z220')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_230": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "46%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z230')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_240": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "48%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z240')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_250": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "50%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z250')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_260": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "52%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z260')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_270": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "54%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z270')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_280": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "56%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z280')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_290": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "58%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z290')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_300": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "60%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z300')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_panel": {
+    "type": "panel",
+    "controls": [
+      {
+        "alnb_circle_50@hud.alnb_circle_50": {}
+      },
+      {
+        "alnb_circle_60@hud.alnb_circle_60": {}
+      },
+      {
+        "alnb_circle_70@hud.alnb_circle_70": {}
+      },
+      {
+        "alnb_circle_80@hud.alnb_circle_80": {}
+      },
+      {
+        "alnb_circle_90@hud.alnb_circle_90": {}
+      },
+      {
+        "alnb_circle_100@hud.alnb_circle_100": {}
+      },
+      {
+        "alnb_circle_110@hud.alnb_circle_110": {}
+      },
+      {
+        "alnb_circle_120@hud.alnb_circle_120": {}
+      },
+      {
+        "alnb_circle_130@hud.alnb_circle_130": {}
+      },
+      {
+        "alnb_circle_140@hud.alnb_circle_140": {}
+      },
+      {
+        "alnb_circle_150@hud.alnb_circle_150": {}
+      },
+      {
+        "alnb_circle_160@hud.alnb_circle_160": {}
+      },
+      {
+        "alnb_circle_170@hud.alnb_circle_170": {}
+      },
+      {
+        "alnb_circle_180@hud.alnb_circle_180": {}
+      },
+      {
+        "alnb_circle_190@hud.alnb_circle_190": {}
+      },
+      {
+        "alnb_circle_200@hud.alnb_circle_200": {}
+      },
+      {
+        "alnb_circle_210@hud.alnb_circle_210": {}
+      },
+      {
+        "alnb_circle_220@hud.alnb_circle_220": {}
+      },
+      {
+        "alnb_circle_230@hud.alnb_circle_230": {}
+      },
+      {
+        "alnb_circle_240@hud.alnb_circle_240": {}
+      },
+      {
+        "alnb_circle_250@hud.alnb_circle_250": {}
+      },
+      {
+        "alnb_circle_260@hud.alnb_circle_260": {}
+      },
+      {
+        "alnb_circle_270@hud.alnb_circle_270": {}
+      },
+      {
+        "alnb_circle_280@hud.alnb_circle_280": {}
+      },
+      {
+        "alnb_circle_290@hud.alnb_circle_290": {}
+      },
+      {
+        "alnb_circle_300@hud.alnb_circle_300": {}
+      }
+    ]
+  },
+  "alnb_circle_factory": {
+    "type": "panel",
+    "factory": {
+      "name": "hud_title_text_factory",
+      "control_ids": {
+        "hud_title_text": "alnb_circle_panel@hud.alnb_circle_panel"
+      }
+    }
+  },
+  "hud_title_text/title_frame/title": {
+    "modifications": [
+      {
+        "array_name": "bindings",
+        "operation": "insert_back",
+        "value": {
+          "binding_type": "view",
+          "source_property_name": "((#text - 'alnb_z') = #text)",
+          "target_property_name": "#visible"
+        }
+      }
+    ]
+  },
+  "hud_title_text/title_frame/title_background": {
+    "modifications": [
+      {
+        "array_name": "bindings",
+        "operation": "insert_back",
+        "value": [
+          {
+            "binding_name": "#hud_title_text_string"
+          },
+          {
+            "binding_type": "view",
+            "source_property_name": "((#hud_title_text_string - 'alnb_z') = #hud_title_text_string)",
+            "target_property_name": "#visible"
+          }
+        ]
+      }
+    ]
+  },
+  "root_panel": {
+    "modifications": [
+      {
+        "array_name": "controls",
+        "operation": "insert_front",
+        "value": {
+          "alnb_circle_factory@hud.alnb_circle_factory": {}
+        }
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/texture_sources/aln_bow_aimbot.json (303 lines, 3264 bytes)
+
+```
+[
+  {
+    "name": "aln_bow_aimbot",
+    "size": 16,
+    "palette": {
+      "0": "#00000000",
+      "1": "#161616",
+      "2": "#ffffff",
+      "3": "#bdbdbd"
+    },
+    "pixels": [
+      [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        2,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        1,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        1,
+        0,
+        1,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  }
+]
+```

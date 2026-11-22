@@ -94,3 +94,4 @@ You get an ALN: Bow Aimbot item, use it, and switch on Bow Aimbot in the ALNStud
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, ALN Bow Aimbot Bedrock mod, Bow Aimbot, aim circle, Target Highlight, friends list, crossbow, Minecraft PE mouse pointer item, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+
