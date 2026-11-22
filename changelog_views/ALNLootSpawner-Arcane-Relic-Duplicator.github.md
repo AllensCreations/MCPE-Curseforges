@@ -1,12 +1,23 @@
 # Changelog — ALN:LootSpawner (Arcane Relic Duplicator)
 
-## [1.0.3] - 2026-11-22 - Fix Black Rendering: Unify Render Method
+## [1.0.4] - 2026-11-23 - Fix Duplication Timer and Add Break Drops
+
+### Added
+- **Template drop on break**: Breaking a Loot Spawner now drops its template item, so the attuned relic is never lost.
+- **Sparks and chime**: Gold sparks appear around the chamber and grow more frequent as the timer fills, with a burst and a chime each time a duplicate is produced.
 
 ### Fixed
-- **Block rendering as solid black**: The glass and core material instances carried render_method "alpha_test" with a texture using partial-alpha pixels; alpha_test only supports fully transparent or fully opaque pixels, so every partial-alpha pixel in the glass texture was discarded outright, leaving the chamber faces unrendered. All four material instances (frame, glass, core, *) now use render_method "opaque", which draws the texture's RGB color regardless of alpha. This trades true see-through glass for a solid tinted glass look, but renders correctly and reliably.
+- **Duplication timer**: The old timer loop searched a 64-block volume every tick through a call whose signature could not be verified. Spawners are now tracked in a saved list and checked once per second, and they keep counting after the world is reloaded.
+- **Container output**: Duplicates now go into a chest, barrel, or hopper below through the container's own add-item routine, and pop out on top of the block when the container is full.
+- **Description accuracy**: The block renders as solid tinted glass, so the description no longer promises see-through panels.
 
 <details>
-<summary><b>1.0.x</b> (3 releases)</summary>
+<summary><b>1.0.x</b> (4 releases)</summary>
+
+### [1.0.3] - 2026-11-22 - Fix Black Rendering: Unify Render Method
+
+#### Fixed
+- **Block rendering as solid black**: The glass and core material instances carried render_method "alpha_test" with a texture using partial-alpha pixels; alpha_test only supports fully transparent or fully opaque pixels, so every partial-alpha pixel in the glass texture was discarded outright, leaving the chamber faces unrendered. All four material instances (frame, glass, core, *) now use render_method "opaque", which draws the texture's RGB color regardless of alpha. This trades true see-through glass for a solid tinted glass look, but renders correctly and reliably.
 
 ### [1.0.2] - 2026-11-22 - Bug Fixes: Render Method and Script Crash
 

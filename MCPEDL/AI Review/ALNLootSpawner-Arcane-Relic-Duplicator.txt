@@ -5,6 +5,7 @@
 - **Export request:** `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator`
 - **Destination:** `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator`
 - **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/CHANGELOG.md`)
+- **Spec ledger:** REPO_VERSION 244; the next spec is `spec_v245.txt` (newest specs are listed in the root `CHANGELOG.md`)
 - **Text files:** 16
 - **Skipped binary:** 3
 - **Paths not found:** 0
@@ -28,7 +29,7 @@
 - `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/texts/languages.json`
 - `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/textures/terrain_texture.json`
 
-### Skipped (binary)
+### Skipped (binary): 3 file(s)
 
 - `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/textures/blocks/aln_loot_spawner_core.png`
 - `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/textures/blocks/aln_loot_spawner_frame.png`
@@ -46,7 +47,7 @@ Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 - **Mode**: UPDATE existing package (CURRENT VERSION: v1 / NEXT UPDATE: v2).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
-- Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
+- Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
 - Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
 
 ## Destination
@@ -71,7 +72,7 @@ Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
 Output ONLY these three sections in order:
 1. **File Needed:** repo-root-relative path of each file created/edited.
 2. **Changelog:** bullets, brief summary of changes.
-3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands. Update to an existing project or the repo: deliver ONE attached `spec_v<N>.txt` (N = REPO_VERSION + 1, see "Spec ledger" above) and the commands that build and run it (`python3 scripts/make_update_script.py ~/storage/downloads/spec_v<N>.txt --out-dir ~/storage/downloads --verify ~/MCPE-Curseforges`, then `bash ~/storage/downloads/<Name>_v<N>_*.sh`). New pack: the pack `.sh`.
 
 ---
 
@@ -161,13 +162,13 @@ Output ONLY these three sections in order:
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:LootSpawner (v1.0.3)",
+    "name": "ALN:LootSpawner (v1.0.4)",
     "description": "Arcane Relic Duplicator Display Cage. by ALNStudios",
     "uuid": "168d9162-4f4a-4dda-a2c8-a550e2b9ad41",
     "version": [
       1,
       0,
-      3
+      4
     ],
     "min_engine_version": [
       1,
@@ -182,7 +183,7 @@ Output ONLY these three sections in order:
       "version": [
         1,
         0,
-        3
+        4
       ]
     },
     {
@@ -192,7 +193,7 @@ Output ONLY these three sections in order:
       "version": [
         1,
         0,
-        3
+        4
       ],
       "entry": "scripts/main.js"
     }
@@ -203,7 +204,7 @@ Output ONLY these three sections in order:
       "version": [
         1,
         0,
-        3
+        4
       ]
     },
     {
@@ -216,7 +217,7 @@ Output ONLY these three sections in order:
     }
   ],
   "metadata": {
-    "version": "1.0.3",
+    "version": "1.0.4",
     "authors": [
       "ALNStudios"
     ],
@@ -272,17 +273,21 @@ Output ONLY these three sections in order:
 Shared helper modules used by this pack's scripts.
 ```
 
-## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/behavior_pack/scripts/main.js (272 lines, 10023 bytes)
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/behavior_pack/scripts/main.js (332 lines, 11301 bytes)
 
 ```
-import { world, system, ItemStack, BlockInventoryComponent } from "@minecraft/server";
+import { world, system, ItemStack } from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui";
 
 const BLOCK_ID = "aln:loot_spawner";
-const PROP_ITEM = "aln:spawner_item";
-const PROP_TYPE = "aln:spawner_type";
-const PROP_TICK = "aln:spawner_tick";
-const PROP_ACTIVE = "aln:spawner_active";
+const REGISTRY_PROP = "aln:spawners";
+const LEGACY_ITEM = "aln:spawner_item";
+const LEGACY_TYPE = "aln:spawner_type";
+const LEGACY_TICK = "aln:spawner_tick";
+const STEP_TICKS = 20;
+const SAVE_EVERY_STEPS = 5;
+const SPARK_RANGE = 24;
+const OUTPUT_CONTAINERS = new Set(["minecraft:chest", "minecraft:trapped_chest", "minecraft:barrel", "minecraft:hopper"]);
 
 const RARITY = {
   common:   { label: "Common",   color: "§f", ticks: 160  },
@@ -335,88 +340,66 @@ function getRarity(typeId) {
   return "common";
 }
 
-function blockKey(block) {
-  const loc = block.location;
-  return `${loc.x}:${loc.y}:${loc.z}:${block.dimension.id}`;
+let spawners = null;
+let dirty = false;
+let steps = 0;
+
+function keyOf(dimId, x, y, z) {
+  return `${dimId}|${x}|${y}|${z}`;
 }
 
-function getSpawnerData(block) {
-  const key = blockKey(block);
+function loadSpawners() {
+  if (spawners) return spawners;
+  spawners = new Map();
   try {
-    const raw = world.getDynamicProperty(`${PROP_ITEM}_${key}`);
-    if (typeof raw !== "string" || !raw) return null;
-    return {
-      itemId:   raw,
-      rarity:   typeof world.getDynamicProperty(`${PROP_TYPE}_${key}`) === "string"
-                  ? world.getDynamicProperty(`${PROP_TYPE}_${key}`) : "common",
-      ticksLeft: typeof world.getDynamicProperty(`${PROP_TICK}_${key}`) === "number"
-                  ? world.getDynamicProperty(`${PROP_TICK}_${key}`) : RARITY["common"].ticks
-    };
-  } catch (e) {
-    return null;
-  }
-}
-
-function setSpawnerData(block, itemId, rarity, ticksLeft) {
-  const key = blockKey(block);
-  try {
-    world.setDynamicProperty(`${PROP_ITEM}_${key}`, itemId);
-    world.setDynamicProperty(`${PROP_TYPE}_${key}`, rarity);
-    world.setDynamicProperty(`${PROP_TICK}_${key}`, ticksLeft);
-  } catch (e) {}
-}
-
-function clearSpawnerData(block) {
-  const key = blockKey(block);
-  try {
-    world.setDynamicProperty(`${PROP_ITEM}_${key}`, "");
-    world.setDynamicProperty(`${PROP_TYPE}_${key}`, "");
-    world.setDynamicProperty(`${PROP_TICK}_${key}`, 0);
-  } catch (e) {}
-}
-
-function tryInsertIntoContainer(block, item) {
-  const loc = block.location;
-  const dim = block.dimension;
-  const below = dim.getBlock({ x: loc.x, y: loc.y - 1, z: loc.z });
-  if (!below) return false;
-  const tid = below.typeId;
-  const isContainer = tid === "minecraft:chest" || tid === "minecraft:trapped_chest"
-                   || tid === "minecraft:barrel" || tid === "minecraft:hopper";
-  if (!isContainer) return false;
-  try {
-    const inv = below.getComponent("minecraft:inventory");
-    if (!inv || !inv.container) return false;
-    const container = inv.container;
-    for (let i = 0; i < container.size; i++) {
-      const slot = container.getItem(i);
-      if (!slot) {
-        container.setItem(i, new ItemStack(item, 1));
-        return true;
-      }
-      if (slot.typeId === item && slot.amount < slot.maxAmount) {
-        container.setItem(i, new ItemStack(item, slot.amount + 1));
-        return true;
+    const raw = world.getDynamicProperty(REGISTRY_PROP);
+    if (typeof raw === "string" && raw) {
+      for (const s of JSON.parse(raw)) {
+        if (s && typeof s.item === "string" && typeof s.d === "string") {
+          spawners.set(keyOf(s.d, s.x, s.y, s.z), s);
+        }
       }
     }
   } catch (e) {}
-  return false;
+  return spawners;
 }
 
-function ejectItem(block, itemId) {
-  if (tryInsertIntoContainer(block, itemId)) return;
+function saveSpawners() {
   try {
-    const loc = block.location;
-    block.dimension.spawnItem(new ItemStack(itemId, 1), {
-      x: loc.x + 0.5,
-      y: loc.y + 1.1,
-      z: loc.z + 0.5
-    });
+    world.setDynamicProperty(REGISTRY_PROP, JSON.stringify([...loadSpawners().values()]));
+    dirty = false;
   } catch (e) {}
 }
 
+function importLegacy(block) {
+  const loc = block.location;
+  const legacyKey = `${loc.x}:${loc.y}:${loc.z}:${block.dimension.id}`;
+  try {
+    const item = world.getDynamicProperty(`${LEGACY_ITEM}_${legacyKey}`);
+    if (typeof item !== "string" || !item) return undefined;
+    const rarityProp = world.getDynamicProperty(`${LEGACY_TYPE}_${legacyKey}`);
+    const tickProp = world.getDynamicProperty(`${LEGACY_TICK}_${legacyKey}`);
+    const rarity = typeof rarityProp === "string" && RARITY[rarityProp] ? rarityProp : getRarity(item);
+    const entry = {
+      d: block.dimension.id, x: loc.x, y: loc.y, z: loc.z,
+      item, rarity,
+      left: typeof tickProp === "number" && tickProp > 0 ? tickProp : RARITY[rarity].ticks
+    };
+    loadSpawners().set(keyOf(entry.d, entry.x, entry.y, entry.z), entry);
+    world.setDynamicProperty(`${LEGACY_ITEM}_${legacyKey}`, "");
+    saveSpawners();
+    return entry;
+  } catch (e) {
+    return undefined;
+  }
+}
+
+function prettyName(typeId) {
+  return typeId.replace("minecraft:", "").split("_").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+}
+
 function ticksToTime(ticks) {
-  const secs = Math.ceil(ticks / 20);
+  const secs = Math.max(0, Math.ceil(ticks / 20));
   if (secs >= 60) {
     const m = Math.floor(secs / 60);
     const s = secs % 60;
@@ -425,135 +408,223 @@ function ticksToTime(ticks) {
   return `${secs}s`;
 }
 
-async function openSpawnerUI(player, block) {
-  const data = getSpawnerData(block);
-  if (!data) return;
-  const rar = RARITY[data.rarity] || RARITY.common;
-  const totalTicks = rar.ticks;
-  const elapsed = totalTicks - data.ticksLeft;
-  const pct = Math.max(0, Math.min(100, Math.floor((elapsed / totalTicks) * 100)));
-  const timeLeft = ticksToTime(data.ticksLeft);
+function nearbyPlayers(entry, range) {
+  const out = [];
+  try {
+    for (const p of world.getAllPlayers()) {
+      if (p.dimension.id !== entry.d) continue;
+      const dx = p.location.x - entry.x;
+      const dy = p.location.y - entry.y;
+      const dz = p.location.z - entry.z;
+      if (dx * dx + dy * dy + dz * dz <= range * range) out.push(p);
+    }
+  } catch (e) {}
+  return out;
+}
+
+function sparks(dimension, entry, count) {
+  for (let i = 0; i < count; i++) {
+    try {
+      dimension.spawnParticle("minecraft:basic_flame_particle", {
+        x: entry.x + 0.15 + Math.random() * 0.7,
+        y: entry.y + 0.2 + Math.random() * 0.7,
+        z: entry.z + 0.15 + Math.random() * 0.7
+      });
+    } catch (e) {}
+  }
+}
+
+function ejectDuplicate(dimension, entry) {
+  let placed = false;
+  try {
+    const below = dimension.getBlock({ x: entry.x, y: entry.y - 1, z: entry.z });
+    if (below && OUTPUT_CONTAINERS.has(below.typeId)) {
+      const inv = below.getComponent("minecraft:inventory");
+      if (inv && inv.container) {
+        const leftover = inv.container.addItem(new ItemStack(entry.item, 1));
+        placed = !leftover;
+      }
+    }
+  } catch (e) {}
+  if (!placed) {
+    try {
+      dimension.spawnItem(new ItemStack(entry.item, 1), { x: entry.x + 0.5, y: entry.y + 1.1, z: entry.z + 0.5 });
+    } catch (e) {}
+  }
+  sparks(dimension, entry, 14);
+  for (const p of nearbyPlayers(entry, SPARK_RANGE)) {
+    try { p.playSound("random.orb"); } catch (e) {}
+  }
+}
+
+function dropTemplate(dimension, entry) {
+  try {
+    dimension.spawnItem(new ItemStack(entry.item, 1), { x: entry.x + 0.5, y: entry.y + 0.5, z: entry.z + 0.5 });
+  } catch (e) {}
+}
+
+function giveToPlayer(player, itemId) {
+  let leftover = true;
+  try {
+    const inv = player.getComponent("minecraft:inventory");
+    if (inv && inv.container) leftover = inv.container.addItem(new ItemStack(itemId, 1));
+  } catch (e) {}
+  if (leftover) {
+    try {
+      player.dimension.spawnItem(new ItemStack(itemId, 1), player.location);
+    } catch (e) {}
+  }
+}
+
+async function openSpawnerUI(player, key) {
+  const entry = loadSpawners().get(key);
+  if (!entry) return;
+  const rar = RARITY[entry.rarity] || RARITY.common;
+  const pct = Math.max(0, Math.min(100, Math.floor(((rar.ticks - entry.left) / rar.ticks) * 100)));
 
   const form = new ActionFormData()
     .title("Loot Spawner")
     .body(
-      `Item: ${data.itemId.replace("minecraft:", "")}\n` +
+      `Item: ${prettyName(entry.item)}\n` +
       `Rarity: ${rar.color}${rar.label}§r\n\n` +
       `Progress: ${pct}%\n` +
-      `Next duplicate in: ${timeLeft}`
+      `Next duplicate in: ${ticksToTime(entry.left)}`
     )
     .button("Retrieve Template Item")
     .button("Exit");
 
   let res;
   try { res = await form.show(player); } catch (e) { return; }
-  if (!res || res.canceled) return;
-  if (res.selection === 0) {
-    try {
-      player.getComponent("minecraft:inventory")?.container?.addItem(new ItemStack(data.itemId, 1));
-    } catch (e) {}
-    clearSpawnerData(block);
-    player.playSound("random.orb");
-    player.onScreenDisplay.setActionBar("§aTemplate retrieved.");
-  }
+  if (!res || res.canceled || res.selection !== 0) return;
+
+  const current = loadSpawners().get(key);
+  if (!current) return;
+  loadSpawners().delete(key);
+  saveSpawners();
+  giveToPlayer(player, current.item);
+  try { player.playSound("random.orb"); } catch (e) {}
+  player.onScreenDisplay.setActionBar("§aTemplate retrieved.");
 }
 
-world.afterEvents.playerInteractWithBlock.subscribe(({ player, block, beforeItemStack }) => {
-  if (block.typeId !== BLOCK_ID) return;
-  const existing = getSpawnerData(block);
-
-  if (existing) {
-    system.run(() => openSpawnerUI(player, block));
-    return;
-  }
-
-  const held = beforeItemStack;
-  if (!held) {
-    player.onScreenDisplay.setActionBar("§eHold an item and interact to attune it.");
-    return;
-  }
-
-  const typeId = held.typeId;
-  if (BLOCKED_CONTAINERS.has(typeId)) {
-    player.onScreenDisplay.setActionBar("§cFilled containers cannot be attuned.");
-    return;
-  }
-  if (typeId === "minecraft:air" || typeId === BLOCK_ID) {
-    player.onScreenDisplay.setActionBar("§eHold an item and interact to attune it.");
-    return;
-  }
-
-  const rarity = getRarity(typeId);
-  const ticks = RARITY[rarity].ticks;
-
+function takeOneFromPlayer(player, typeId) {
   try {
     const inv = player.getComponent("minecraft:inventory");
-    if (!inv || !inv.container) return;
+    if (!inv || !inv.container) return false;
     const container = inv.container;
     for (let i = 0; i < container.size; i++) {
       const slot = container.getItem(i);
       if (slot && slot.typeId === typeId) {
         if (slot.amount > 1) {
-          container.setItem(i, new ItemStack(typeId, slot.amount - 1));
+          slot.amount -= 1;
+          container.setItem(i, slot);
         } else {
           container.setItem(i, undefined);
         }
-        break;
+        return true;
       }
     }
   } catch (e) {}
+  return false;
+}
 
-  setSpawnerData(block, typeId, rarity, ticks);
-  player.playSound("beacon.activate");
+world.afterEvents.playerInteractWithBlock.subscribe(({ player, block, beforeItemStack }) => {
+  if (block.typeId !== BLOCK_ID) return;
+  const loc = block.location;
+  const key = keyOf(block.dimension.id, loc.x, loc.y, loc.z);
+
+  if (loadSpawners().has(key) || importLegacy(block)) {
+    system.run(() => openSpawnerUI(player, key));
+    return;
+  }
+
+  const held = beforeItemStack;
+  if (!held || held.typeId === "minecraft:air" || held.typeId === BLOCK_ID) {
+    player.onScreenDisplay.setActionBar("§eHold an item and interact to attune it.");
+    return;
+  }
+  const typeId = held.typeId;
+  if (BLOCKED_CONTAINERS.has(typeId)) {
+    player.onScreenDisplay.setActionBar("§cFilled containers cannot be attuned.");
+    return;
+  }
+  if (!takeOneFromPlayer(player, typeId)) return;
+
+  const rarity = getRarity(typeId);
+  loadSpawners().set(key, {
+    d: block.dimension.id, x: loc.x, y: loc.y, z: loc.z,
+    item: typeId, rarity, left: RARITY[rarity].ticks
+  });
+  saveSpawners();
+  try { player.playSound("beacon.activate"); } catch (e) {}
   const rar = RARITY[rarity];
-  player.onScreenDisplay.setActionBar(`§bAttuned: §r${typeId.replace("minecraft:", "")} §8[${rar.color}${rar.label}§8]`);
+  player.onScreenDisplay.setActionBar(`§bAttuned: §r${prettyName(typeId)} §8[${rar.color}${rar.label}§8]`);
 });
 
-const activeBlocks = new Map();
+const misses = new Map();
 
 system.runInterval(() => {
-  for (const dim of ["minecraft:overworld","minecraft:nether","minecraft:the_end"]) {
+  const reg = loadSpawners();
+  if (reg.size === 0) return;
+  steps++;
+
+  for (const [key, entry] of [...reg.entries()]) {
     let dimension;
-    try { dimension = world.getDimension(dim); } catch (e) { continue; }
-    for (const player of world.getAllPlayers()) {
-      if (player.dimension.id !== dim) continue;
-      const origin = player.location;
-      const range = 32;
-      try {
-        const blocks = dimension.getBlocks(
-          { x: origin.x - range, y: origin.y - range, z: origin.z - range },
-          { x: origin.x + range, y: origin.y + range, z: origin.z + range },
-          { type: BLOCK_ID }
-        );
-        if (!blocks) continue;
-        for (const block of blocks) {
-          if (!block || block.typeId !== BLOCK_ID) continue;
-          const key = blockKey(block);
-          const data = getSpawnerData(block);
-          if (!data || !data.itemId) { activeBlocks.delete(key); continue; }
-          let ticksLeft = data.ticksLeft - 1;
-          if (ticksLeft <= 0) {
-            ticksLeft = RARITY[data.rarity]?.ticks ?? RARITY.common.ticks;
-            ejectItem(block, data.itemId);
-            try {
-              dimension.spawnParticle("minecraft:basic_flame_particle",
-                { x: block.location.x + 0.5, y: block.location.y + 1.0, z: block.location.z + 0.5 });
-            } catch (pe) {}
-          }
-          setSpawnerData(block, data.itemId, data.rarity, ticksLeft);
-        }
-      } catch (e) {}
+    let block;
+    try {
+      dimension = world.getDimension(entry.d);
+      block = dimension.getBlock({ x: entry.x, y: entry.y, z: entry.z });
+    } catch (e) {
+      continue;
+    }
+    if (!block) continue;
+
+    if (block.typeId !== BLOCK_ID) {
+      const count = (misses.get(key) || 0) + 1;
+      if (count >= 2) {
+        dropTemplate(dimension, entry);
+        reg.delete(key);
+        misses.delete(key);
+        dirty = true;
+      } else {
+        misses.set(key, count);
+      }
+      continue;
+    }
+    misses.delete(key);
+
+    const total = (RARITY[entry.rarity] || RARITY.common).ticks;
+    entry.left -= STEP_TICKS;
+    dirty = true;
+
+    if (entry.left <= 0) {
+      entry.left = total;
+      ejectDuplicate(dimension, entry);
+    } else if (nearbyPlayers(entry, SPARK_RANGE).length > 0) {
+      const progress = 1 - entry.left / total;
+      sparks(dimension, entry, 1 + Math.floor(progress * 5));
     }
   }
-}, 1);
+
+  if (dirty && steps % SAVE_EVERY_STEPS === 0) saveSpawners();
+}, STEP_TICKS);
 ```
 
-## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/CHANGELOG.md (37 lines, 3197 bytes)
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/CHANGELOG.md (47 lines, 4142 bytes)
 
 ```
 # Changelog — ALN:LootSpawner (Arcane Relic Duplicator)
 
 ---
+
+## [1.0.4] - 2026-11-23 - Fix Duplication Timer and Add Break Drops
+
+### Added
+- **Template drop on break**: Breaking a Loot Spawner now drops its template item, so the attuned relic is never lost.
+- **Sparks and chime**: Gold sparks appear around the chamber and grow more frequent as the timer fills, with a burst and a chime each time a duplicate is produced.
+### Fixed
+- **Duplication timer**: The old timer loop searched a 64-block volume every tick through a call whose signature could not be verified. Spawners are now tracked in a saved list and checked once per second, and they keep counting after the world is reloaded.
+- **Container output**: Duplicates now go into a chest, barrel, or hopper below through the container's own add-item routine, and pop out on top of the block when the container is full.
+- **Description accuracy**: The block renders as solid tinted glass, so the description no longer promises see-through panels.
 
 ## [1.0.3] - 2026-11-22 - Fix Black Rendering: Unify Render Method
 
@@ -589,7 +660,7 @@ system.runInterval(() => {
 - **Light emission**: The placed block emits light level 10 from its core.
 ```
 
-## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/DESCRIPTION.md (82 lines, 5477 bytes)
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/DESCRIPTION.md (82 lines, 5476 bytes)
 
 ```
 # ALN:LootSpawner (Arcane Relic Duplicator) — Rarity-scaled item duplication in a Beacon-style glass display cage
@@ -601,7 +672,7 @@ system.runInterval(() => {
 
 **Place one Loot Spawner, insert any item, and receive periodic duplicates scaled to 4 rarity tiers from 8 seconds to 240 seconds.**
 
-> A 1x1 ornate display block with gilded obsidian framing and translucent glass panels lets players attune any item and collect automatic duplicates into a chest or hopper below.
+> A 1x1 ornate display block with gilded obsidian framing and tinted glass panels lets players attune any item and collect automatic duplicates into a chest or hopper below.
 
 ## Overview
 
@@ -610,7 +681,7 @@ The Loot Spawner is a craftable 1x1 block that accepts any single item as a temp
 ## Key Features
 
 ### Beacon-Style Glass Display Block
-- **What Happens**: Players place the Loot Spawner block, which renders as a gilded obsidian pedestal with four corner pillars and translucent glass panels on all four sides, letting players see inside the chamber.
+- **What Happens**: Players place the Loot Spawner block, which renders as a gilded obsidian pedestal with four corner pillars and tinted glass panels on all four sides.
 
 ### Rarity-Based Duplication Engine
 - **What Happens**: Players insert an item and the block classifies it into one of four tiers: Common (8-second cycle), Uncommon (20-second cycle), Rare (60-second cycle), or Epic (240-second cycle), then counts down and produces one copy on each completion.
@@ -619,7 +690,7 @@ The Loot Spawner is a craftable 1x1 block that accepts any single item as a temp
 - **What Happens**: Players interact with an active Loot Spawner to open a form showing the attuned item name, its rarity tier with a color code, the live progress percentage, and the countdown until the next duplicate.
 
 ### Template Retrieval
-- **What Happens**: Players press Retrieve Template Item in the inspection UI to stop duplication and return the original item to their inventory, resetting the block to empty.
+- **What Happens**: Players press Retrieve Template Item in the inspection UI to stop duplication and return the original item to their inventory, resetting the block to empty. Breaking the block also drops the template item.
 
 ### Automatic Container Output
 - **What Happens**: When a duplication cycle completes, the block checks the space directly below for a chest, barrel, or hopper and inserts the duplicate there; if no container is present the item appears on top of the block instead.
@@ -693,7 +764,7 @@ Download the current release of **ALNLootSpawner (Arcane Relic Duplicator)** for
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNLootSpawner (Arcane Relic Duplicator) (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNLootSpawner-Arcane-Relic-Duplicator/ALNLootSpawnerArcaneRelicDuplicator%20V1.0.3.mcaddon)
+- **Direct download:** [Download ALNLootSpawner (Arcane Relic Duplicator) (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNLootSpawner-Arcane-Relic-Duplicator/ALNLootSpawnerArcaneRelicDuplicator%20V1.0.4.mcaddon)
 
 ## Installation
 
@@ -720,13 +791,13 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:LootSpawner (v1.0.3)",
+    "name": "ALN:LootSpawner (v1.0.4)",
     "description": "Arcane Relic Duplicator Display Cage. by ALNStudios",
     "uuid": "1390b986-3030-4eee-a94b-1bd5ea7f88dd",
     "version": [
       1,
       0,
-      3
+      4
     ],
     "min_engine_version": [
       1,
@@ -741,12 +812,12 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "version": [
         1,
         0,
-        3
+        4
       ]
     }
   ],
   "metadata": {
-    "version": "1.0.3",
+    "version": "1.0.4",
     "authors": [
       "ALNStudios"
     ],
