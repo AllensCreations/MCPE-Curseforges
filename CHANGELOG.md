@@ -4,6 +4,16 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v237] - 2026-11-23 - Spirit Ally and Particle Fix
+
+**Spec**: spec_v237.txt | **Target**: MCPEDL/Addons/ALN-SoulLantern | **Files edited**: 9
+
+### Improved & Balanced
+- **Spectral Ally**: The ally is now a light-blue, slightly transparent spirit that never attacks you, and every captured mob can be projected, including hostile ones.
+
+### Fixed
+- **Soul effects**: The swirl, burst and ally trail no longer flood the content log with errors.
+
 ## 2026-11-23 - New Addon ALN FarmerGolem
 
 ### Added

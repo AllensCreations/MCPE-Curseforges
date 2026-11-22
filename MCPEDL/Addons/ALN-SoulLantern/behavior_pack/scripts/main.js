@@ -3,11 +3,12 @@ import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
 
 const EMPTY_ID = "aln:soul_lantern";
 const FILLED_ID = "aln:soul_lantern_filled";
+const SPIRIT_ID = "aln:spirit";
 const SPIRIT_TAG = "aln_spirit";
 const SPIRIT_TICKS = 400;
 const COOLDOWN_TICKS = 1200;
 const DEBOUNCE_TICKS = 8;
-const VERSION = "1.0.0";
+const VERSION = "1.0.1";
 
 const BOSSES = new Set(["minecraft:ender_dragon", "minecraft:wither", "minecraft:warden", "minecraft:elder_guardian"]);
 const NOT_SEALABLE = new Set(["minecraft:player", "minecraft:armor_stand", "minecraft:npc", "minecraft:agent"]);
@@ -129,7 +130,7 @@ function swirl(dim, center) {
       for (let k = 0; k < 4; k++) {
         const angle = step * 0.7 + (k * Math.PI) / 2;
         try {
-          dim.spawnParticle("minecraft:soul_particle", {
+          dim.spawnParticle("minecraft:blue_flame_particle", {
             x: center.x + Math.cos(angle) * radius,
             y: center.y + step * 0.05,
             z: center.z + Math.sin(angle) * radius,
@@ -144,7 +145,7 @@ function burst(dim, center) {
   for (let k = 0; k < 12; k++) {
     const angle = (k * Math.PI) / 6;
     try {
-      dim.spawnParticle("minecraft:soul_particle", {
+      dim.spawnParticle("minecraft:endrod", {
         x: center.x + Math.cos(angle) * 0.6,
         y: center.y + 0.3 + (k % 3) * 0.3,
         z: center.z + Math.sin(angle) * 0.6,
@@ -293,54 +294,23 @@ function summon(player, slot) {
   const d = readStack(held);
   const dim = player.dimension;
   const p = player.location;
-  const cell = { x: Math.floor(p.x) + 1, y: Math.floor(p.y), z: Math.floor(p.z) };
-  const center = { x: cell.x + 0.5, y: cell.y + 0.5, z: cell.z + 0.5 };
-  const before = nearbyIds(dim, center);
+  let spirit;
   try {
-    world.structureManager.place(d.sid, dim, cell, { includeBlocks: false, includeEntities: true });
+    spirit = dim.spawnEntity(SPIRIT_ID, { x: p.x + 1.5, y: p.y + 0.8, z: p.z });
   } catch (e) {
     tell(player, "§c", "The spirit could not take shape.");
     return;
   }
-  system.runTimeout(() => {
-    const made = freshEntities(dim, center, before);
-    if (made.length === 0) {
-      tell(player, "§c", "The spirit could not take shape.");
-      return;
-    }
-    const hostile = made.some((e) => {
-      try {
-        return e.matches({ families: ["monster"] });
-      } catch (err) {
-        return false;
-      }
-    });
-    if (hostile) {
-      for (const e of made) {
-        try {
-          e.remove();
-        } catch (err) {}
-      }
-      tell(player, "§e", "A hostile soul cannot be projected.");
-      return;
-    }
-    const spirit = made[0];
-    for (const extra of made.slice(1)) {
-      try {
-        extra.remove();
-      } catch (err) {}
-    }
-    try {
-      spirit.addTag(SPIRIT_TAG);
-      spirit.nameTag = `§b${d.name || d.species} §3(Spirit)`;
-      spirit.addEffect("resistance", SPIRIT_TICKS + 40, { amplifier: 4, showParticles: false });
-    } catch (err) {}
-    spirits.set(spirit.id, { entity: spirit, owner: player, end: system.currentTick + SPIRIT_TICKS, nextHit: 0 });
-    cooldowns.set(player.id, system.currentTick + COOLDOWN_TICKS);
-    burst(dim, center);
-    play(player, "block.amethyst_block.chime");
-    tell(player, "§b", "Spectral Ally projected for 20 seconds.");
-  }, 3);
+  try {
+    spirit.addTag(SPIRIT_TAG);
+    spirit.nameTag = `§b${d.name || d.species} §3(Spirit)`;
+    spirit.addEffect("resistance", SPIRIT_TICKS + 40, { amplifier: 4, showParticles: false });
+  } catch (e) {}
+  spirits.set(spirit.id, { entity: spirit, owner: player, end: system.currentTick + SPIRIT_TICKS, nextHit: 0 });
+  cooldowns.set(player.id, system.currentTick + COOLDOWN_TICKS);
+  burst(dim, spirit.location);
+  play(player, "block.amethyst_block.chime");
+  tell(player, "§b", "Spectral Ally projected for 20 seconds.");
 }
 
 async function renameCaptured(player, slot) {
@@ -445,24 +415,28 @@ system.runInterval(() => {
       continue;
     }
     try {
-      const dim = s.entity.dimension;
-      const at = s.entity.location;
-      dim.spawnParticle("minecraft:soul_particle", { x: at.x, y: at.y + 0.6, z: at.z });
+      const dim = s.owner.dimension;
       const p = s.owner.location;
-      const far = s.owner.dimension.id !== dim.id || Math.hypot(p.x - at.x, p.z - at.z) > 8;
-      if (far) s.entity.teleport({ x: p.x + 1, y: p.y, z: p.z + 1 }, { dimension: s.owner.dimension });
+      const angle = now * 0.08;
+      const target = {
+        x: p.x + Math.cos(angle) * 1.7,
+        y: p.y + 0.8 + Math.sin(now * 0.15) * 0.25,
+        z: p.z + Math.sin(angle) * 1.7,
+      };
+      s.entity.teleport(target, { dimension: dim, facingLocation: { x: p.x, y: p.y + 1.2, z: p.z } });
+      dim.spawnParticle("minecraft:endrod", { x: target.x, y: target.y + 0.5, z: target.z });
       if (now >= s.nextHit) {
-        const foes = dim.getEntities({ location: at, maxDistance: 6, families: ["monster"] });
+        const foes = dim.getEntities({ location: target, maxDistance: 6, families: ["monster"] });
         const foe = foes.find((e) => e.id !== s.entity.id && !e.hasTag(SPIRIT_TAG));
         if (foe) {
           foe.applyDamage(3, { cause: EntityDamageCause.entityAttack, damagingEntity: s.owner });
-          dim.spawnParticle("minecraft:soul_particle", { x: foe.location.x, y: foe.location.y + 1, z: foe.location.z });
+          dim.spawnParticle("minecraft:blue_flame_particle", { x: foe.location.x, y: foe.location.y + 1, z: foe.location.z });
           s.nextHit = now + 15;
         }
       }
     } catch (e) {}
   }
-}, 5);
+}, 2);
 
 world.afterEvents.worldLoad.subscribe(() => {
   for (const name of ["overworld", "nether", "the_end"]) {

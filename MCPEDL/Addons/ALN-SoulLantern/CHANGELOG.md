@@ -2,6 +2,14 @@
 
 ---
 
+## [1.0.1] - 2026-11-23 - Spirit Ally and Particle Fix
+
+### Improved & Balanced
+- **Spectral Ally**: The ally is now a light-blue, slightly transparent spirit that never attacks you, and every captured mob can be projected, including hostile ones.
+
+### Fixed
+- **Soul effects**: The swirl, burst and ally trail no longer flood the content log with errors.
+
 ## [1.0.0] - 2026-11-22 - First Release
 
 ### Added
