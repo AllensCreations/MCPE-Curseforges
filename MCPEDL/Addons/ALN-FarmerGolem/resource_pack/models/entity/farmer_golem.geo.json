@@ -1,0 +1,238 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:geometry": [
+    {
+      "description": {
+        "identifier": "geometry.aln_farmer_golem",
+        "texture_width": 64,
+        "texture_height": 64,
+        "visible_bounds_width": 3,
+        "visible_bounds_height": 3,
+        "visible_bounds_offset": [
+          0,
+          1.25,
+          0
+        ]
+      },
+      "bones": [
+        {
+          "name": "body",
+          "pivot": [
+            0,
+            12,
+            0
+          ],
+          "cubes": [
+            {
+              "origin": [
+                -6,
+                12,
+                -4
+              ],
+              "size": [
+                12,
+                14,
+                8
+              ],
+              "uv": [
+                0,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "name": "head",
+          "pivot": [
+            0,
+            26,
+            0
+          ],
+          "cubes": [
+            {
+              "origin": [
+                -4,
+                26,
+                -4
+              ],
+              "size": [
+                8,
+                8,
+                8
+              ],
+              "uv": [
+                0,
+                22
+              ]
+            },
+            {
+              "origin": [
+                -1,
+                27,
+                -6
+              ],
+              "size": [
+                2,
+                3,
+                2
+              ],
+              "uv": [
+                56,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "name": "hat",
+          "parent": "head",
+          "pivot": [
+            0,
+            34,
+            0
+          ],
+          "cubes": [
+            {
+              "origin": [
+                -6,
+                34,
+                -6
+              ],
+              "size": [
+                12,
+                1,
+                12
+              ],
+              "uv": [
+                0,
+                50
+              ]
+            },
+            {
+              "origin": [
+                -4,
+                35,
+                -4
+              ],
+              "size": [
+                8,
+                4,
+                8
+              ],
+              "uv": [
+                0,
+                38
+              ]
+            }
+          ]
+        },
+        {
+          "name": "arm0",
+          "pivot": [
+            -8,
+            25,
+            0
+          ],
+          "cubes": [
+            {
+              "origin": [
+                -10,
+                10,
+                -2
+              ],
+              "size": [
+                4,
+                16,
+                4
+              ],
+              "uv": [
+                40,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "name": "arm1",
+          "pivot": [
+            8,
+            25,
+            0
+          ],
+          "cubes": [
+            {
+              "origin": [
+                6,
+                10,
+                -2
+              ],
+              "size": [
+                4,
+                16,
+                4
+              ],
+              "uv": [
+                40,
+                0
+              ],
+              "mirror": true
+            }
+          ]
+        },
+        {
+          "name": "leg0",
+          "pivot": [
+            -3,
+            12,
+            0
+          ],
+          "cubes": [
+            {
+              "origin": [
+                -5,
+                0,
+                -2
+              ],
+              "size": [
+                4,
+                12,
+                4
+              ],
+              "uv": [
+                40,
+                20
+              ]
+            }
+          ]
+        },
+        {
+          "name": "leg1",
+          "pivot": [
+            3,
+            12,
+            0
+          ],
+          "cubes": [
+            {
+              "origin": [
+                1,
+                0,
+                -2
+              ],
+              "size": [
+                4,
+                12,
+                4
+              ],
+              "uv": [
+                40,
+                20
+              ],
+              "mirror": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

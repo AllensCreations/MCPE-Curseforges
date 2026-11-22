@@ -4,6 +4,11 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## 2026-11-23 - New Addon ALN FarmerGolem
+
+### Added
+- **ALN FarmerGolem**: New addon project created from a pack script.
+
 ## [v236] - 2026-11-23 - Mystery Crate Block
 
 **Spec**: spec_v236.txt | **Target**: MCPEDL/Addons/ALNPirateTokens | **Files edited**: 9

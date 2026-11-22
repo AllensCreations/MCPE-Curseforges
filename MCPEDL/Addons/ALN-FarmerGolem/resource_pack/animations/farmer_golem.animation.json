@@ -1,0 +1,38 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.aln_farmer_golem.walk": {
+      "loop": true,
+      "bones": {
+        "arm0": {
+          "rotation": [
+            "Math.cos(query.modified_distance_moved * 38.17) * 60.0 * query.modified_move_speed",
+            0,
+            0
+          ]
+        },
+        "arm1": {
+          "rotation": [
+            "Math.cos(query.modified_distance_moved * 38.17 + 180) * 60.0 * query.modified_move_speed",
+            0,
+            0
+          ]
+        },
+        "leg0": {
+          "rotation": [
+            "Math.cos(query.modified_distance_moved * 38.17 + 180) * 70.0 * query.modified_move_speed",
+            0,
+            0
+          ]
+        },
+        "leg1": {
+          "rotation": [
+            "Math.cos(query.modified_distance_moved * 38.17) * 70.0 * query.modified_move_speed",
+            0,
+            0
+          ]
+        }
+      }
+    }
+  }
+}

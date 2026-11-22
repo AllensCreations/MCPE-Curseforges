@@ -1,0 +1,61 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN FarmerGolem (v1)",
+    "description": "Build a Farmer Golem from a Hay Bale and a Carved Pumpkin. by ALNStudios",
+    "uuid": "5a70a6e7-747b-4211-9ffa-97d72c239477",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "622db399-764f-49ce-93c3-dc8cc30f88db",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "fe3a64f9-f0a1-4864-96ad-53bd87eeb19f",
+      "version": [
+        1,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "178855c5-79bc-4284-b3a7-780bef7ccaee",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "aln:farmer_golem",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/items/farmer_golem/skin"
+      },
+      "geometry": {
+        "default": "geometry.aln_farmer_golem"
+      },
+      "animations": {
+        "walk": "animation.aln_farmer_golem.walk",
+        "look_at_target": "animation.common.look_at_target"
+      },
+      "scripts": {
+        "animate": [
+          "walk",
+          "look_at_target"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.aln_farmer_golem"
+      ]
+    }
+  }
+}
