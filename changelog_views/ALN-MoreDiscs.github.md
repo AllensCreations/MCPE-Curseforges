@@ -1,14 +1,25 @@
 # Changelog — ALN MoreDiscs
 
-## [v5] - 2026-11-22 - Jukebox Rework
+## [v6] - 2026-11-22 - Particle Fix
 
 ### Fixed
+- **Note Particles**: The Jukebox note particles now get the color they need, so they no longer fill the game log with color errors.
+- **Menu Group**: The disc group entry now only names the existing Music Discs group instead of redefining it with an icon.
+
+<details>
+<summary><b>5.0.x</b> (1 release)</summary>
+
+### [v5] - 2026-11-22 - Jukebox Rework
+
+#### Fixed
 - **Discs Now Load**: The discs failed to load in the game because the Jukebox sound setting only accepts vanilla names without an experiment. The pack now plays and stops the tracks itself, so no experiments are needed.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **Jukebox Handling**: Use a disc on a Jukebox to play it, use the Jukebox again to get the disc back, and breaking the Jukebox drops the disc.
 - **Known Differences**: The Jukebox shows no spinning disc and gives no Comparator signal for these discs.
 - **Pack Description**: The behavior pack description now says 30 discs.
+
+</details>
 
 <details>
 <summary><b>4.0.x</b> (1 release)</summary>
