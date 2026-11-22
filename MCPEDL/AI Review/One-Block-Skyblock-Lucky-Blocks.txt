@@ -1,15 +1,3 @@
-<!-- GRAPH-CONTEXT:START -->
-## Graph Context
-
-- **Project:** `One-Block-Skyblock-Lucky-Blocks` | Category: `Maps` | Version: `v2`
-- **Pack Types:** behavior_pack, resource_pack
-- **Siblings in Maps:** `Category: Maps`, `OneBlock-Dirtbound-Kingdom-Beta (v1)` (v1), `OneBlock-Natural-Market (v2)` (v2), `OneBlock-Phase-Evolution (v2)` (v2), `OneBlock-Void-Survival (v3)` (v3), `Oneblock-SM (v2)` (v2)
-
-> _Auto-generated from graphify-out/graph.json — do not edit manually._
-<!-- GRAPH-CONTEXT:END -->
-
----
-
 # Repo Export
 
 ## Index
@@ -58,7 +46,7 @@
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/texture_sources/lucky_block.json`
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/texture_sources/lucky_types.json`
 
-### Skipped (binary)
+### Skipped (binary): 27 file(s)
 
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/One Block Skyblock Lucky Blocks - Creative.mcworld`
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/One Block Skyblock Lucky Blocks - Hardcore.mcworld`
@@ -1351,6 +1339,8 @@ registerIsland();
 ### Improved & Balanced
 - **Building materials first**: Early Common and Uncommon results now lean toward saplings, logs, planks, dirt, seeds and stone, with 8 more good results in total.
 
+
+
 ### Added
 - **Silent progression**: Results now follow a natural playthrough from Plains to the End and beyond, moving up one step every 30 breaks without any announcement.
 - **20 tiers per side**: Twenty good tiers and twenty bad tiers, with 112 good results and 81 bad results, each tier with its own results.
@@ -1360,6 +1350,8 @@ registerIsland();
 - **Tier odds**: The current tier comes up 50% of the time, with the next tiers up at 25%, 12.5%, 6.25% and 6.25%.
 - **Luck changes**: Rabbit's Foot, Four-Leaf Fortune, Golden Horseshoe and Jinx now work on the 70/30 odds.
 - **No guaranteed streak**: The first 30 breaks are no longer always good luck.
+
+
 
 ### Added
 - **Lucky block island**: A 3x3 grass island in the void with one central lucky block that returns after every break.

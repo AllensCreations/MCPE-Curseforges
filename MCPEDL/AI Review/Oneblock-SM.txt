@@ -1,15 +1,3 @@
-<!-- GRAPH-CONTEXT:START -->
-## Graph Context
-
-- **Project:** `Oneblock-SM` | Category: `Maps` | Version: `v2`
-- **Pack Types:** behavior_pack, resource_pack
-- **Siblings in Maps:** `Category: Maps`, `One-Block-Skyblock-Lucky-Blocks (v2)` (v2), `OneBlock-Dirtbound-Kingdom-Beta (v1)` (v1), `OneBlock-Natural-Market (v2)` (v2), `OneBlock-Phase-Evolution (v2)` (v2), `OneBlock-Void-Survival (v3)` (v3)
-
-> _Auto-generated from graphify-out/graph.json — do not edit manually._
-<!-- GRAPH-CONTEXT:END -->
-
----
-
 # Repo Export
 
 ## Index
@@ -43,7 +31,7 @@
 - `MCPEDL/Maps/Oneblock-SM/resource_pack/manifest.json`
 - `MCPEDL/Maps/Oneblock-SM/resource_pack/textures/item_texture.json`
 
-### Skipped (binary)
+### Skipped (binary): 4 file(s)
 
 - `MCPEDL/Maps/Oneblock-SM/OneBlock Sovereign Market - Creative.mcworld`
 - `MCPEDL/Maps/Oneblock-SM/OneBlock Sovereign Market - Hardcore.mcworld`
@@ -538,6 +526,7 @@ export function coreWatch() {
     });
   }
 }
+
 
 // ---- Auto-Miner (permanent levels, 2 minutes per Minecraft day) ----
 const currentDay = () => world.getDay();
