@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN Quiver (v2)",
+    "name": "ALN Quiver (v3)",
     "description": "Arrow-only quiver with auto-feed for bows and crossbows. by ALNStudios",
     "uuid": "76981595-191b-4d38-8be5-d5996d5b2a76",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -20,7 +20,7 @@
       "type": "data",
       "uuid": "de26f014-0c41-4ab0-9adb-4bfcb9259ca3",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -30,7 +30,7 @@
       "language": "javascript",
       "uuid": "959c8e81-3a0a-4679-b3b0-6345986d8118",
       "version": [
-        2,
+        3,
         0,
         0
       ],
@@ -41,7 +41,7 @@
     {
       "uuid": "98cdbf0a-099d-430d-8d69-3d9fd94e4533",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -60,6 +60,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "3.0.0"
   }
 }
