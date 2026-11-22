@@ -4,6 +4,14 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v231] - 2026-11-22 - Repo Tester accuracy
+
+**Spec**: spec_v231.txt | **Target**: repo | **Files edited**: 2
+
+- Repo tester: comments are found with a scanner that understands strings, template literals and regular expressions, so URLs and regex text are no longer reported; each comment finding now shows the line and the comment text.
+- Repo tester: an unbounded loop is only reported when its body has no break, return or throw.
+- Repo tester: unverified events are summarised in one line, and vanilla ids missing from the incomplete reference are information only.
+
 ## [v230] - 2026-11-22 - Repo Tester and publish variants
 
 **Spec**: spec_v230.txt | **Target**: repo | **Files edited**: 4

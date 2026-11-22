@@ -126,38 +126,130 @@ def load_json(path):
         return None, first
 
 
-def js_comment_lines(text):
-    found, i, n, line = [], 0, len(text), 1
-    while i < n:
-        c = text[i]
-        if c == "\n":
-            line += 1
-            i += 1
-        elif c in "'\"`":
-            quote = c
-            i += 1
-            while i < n and text[i] != quote:
-                if text[i] == "\\":
-                    i += 1
-                if i < n and text[i] == "\n":
-                    line += 1
-                    if quote != "`":
+def mask_js(text):
+    out = list(text)
+    comments = []
+    n = len(text)
+    state = {"line": 1}
+    regex_after_word = {"return", "typeof", "case", "in", "of", "delete", "void", "throw", "else", "do", "yield", "await"}
+
+    def blank(a, b):
+        for k in range(a, min(b, n)):
+            if out[k] != "\n":
+                out[k] = " "
+
+    def template(i):
+        j = i + 1
+        while j < n:
+            c = text[j]
+            if c == "\\":
+                blank(j, j + 2)
+                j += 2
+            elif text.startswith("${", j):
+                j = code(j + 2, True) + 1
+            elif c == "`":
+                return j + 1
+            else:
+                if c == "\n":
+                    state["line"] += 1
+                else:
+                    out[j] = " "
+                j += 1
+        return n
+
+    def code(i, nested):
+        depth = 0
+        prev, word = "", ""
+        while i < n:
+            c = text[i]
+            if c == "\n":
+                state["line"] += 1
+                i += 1
+            elif c in " \t\r":
+                i += 1
+            elif text.startswith("//", i):
+                j = text.find("\n", i)
+                j = n if j == -1 else j
+                comments.append((state["line"], text[i:j].strip()[:60]))
+                blank(i, j)
+                i = j
+            elif text.startswith("/*", i):
+                j = text.find("*/", i + 2)
+                j = n if j == -1 else j + 2
+                comments.append((state["line"], text[i:j].strip().split("\n")[0][:60]))
+                state["line"] += text.count("\n", i, j)
+                blank(i, j)
+                i = j
+            elif c in "'\"":
+                j = i + 1
+                while j < n and text[j] != c and text[j] != "\n":
+                    j += 2 if text[j] == "\\" else 1
+                blank(i + 1, j)
+                i = j + 1
+                prev, word = "a", ""
+            elif c == "`":
+                i = template(i)
+                prev, word = "a", ""
+            elif c == "/" and (prev == "" or prev in "(,=:[!&|?{};+-*%<>~^" or word in regex_after_word):
+                j, in_class = i + 1, False
+                while j < n and text[j] != "\n":
+                    if text[j] == "\\":
+                        j += 2
+                        continue
+                    if text[j] == "[":
+                        in_class = True
+                    elif text[j] == "]":
+                        in_class = False
+                    elif text[j] == "/" and not in_class:
                         break
+                    j += 1
+                blank(i, j + 1)
+                i = j + 1
+                while i < n and text[i].isalpha():
+                    i += 1
+                prev, word = "a", ""
+            elif c.isalnum() or c in "_$":
+                j = i
+                while j < n and (text[j].isalnum() or text[j] in "_$"):
+                    j += 1
+                word = text[i:j]
+                prev = "a"
+                i = j
+            else:
+                if c == "{":
+                    depth += 1
+                elif c == "}":
+                    if nested and depth == 0:
+                        return i
+                    depth -= 1
+                prev, word = c, ""
                 i += 1
-            i += 1
-        elif text.startswith("//", i):
-            found.append(line)
-            while i < n and text[i] != "\n":
-                i += 1
-        elif text.startswith("/*", i):
-            found.append(line)
-            end = text.find("*/", i + 2)
-            segment = text[i:n if end == -1 else end]
-            line += segment.count("\n")
-            i = n if end == -1 else end + 2
-        else:
-            i += 1
-    return found
+        return n
+
+    code(0, False)
+    return "".join(out), comments
+
+
+def js_comment_lines(text):
+    return [line for line, _ in mask_js(text)[1]]
+
+
+def loop_body(masked, pos):
+    i = pos
+    n = len(masked)
+    while i < n and masked[i] in " \t\r\n":
+        i += 1
+    if i >= n or masked[i] != "{":
+        return ""
+    depth = 0
+    for j in range(i, n):
+        if masked[j] == "{":
+            depth += 1
+        elif masked[j] == "}":
+            depth -= 1
+            if depth == 0:
+                return masked[i:j + 1]
+    return masked[i:]
 
 
 def run_script(root, name, args, timeout):
@@ -298,7 +390,7 @@ def check_ingredient(ing, where, vanilla, custom, f, role):
         f.add("FAIL", "R-ING", where, f"{role} item name is malformed: {name}")
     elif name.startswith("minecraft:"):
         if vanilla is not None and name not in vanilla:
-            f.add("WARN", "R-VANILLA", where, f"{role} {name} not found in the vanilla reference")
+            f.add("INFO", "R-VANILLA", where, f"{role} {name} not in the vanilla reference (the reference is incomplete, check by hand)")
     elif name not in custom:
         f.add("WARN", "R-CUSTOM", where, f"{role} {name} is not defined by this project")
 
@@ -334,34 +426,35 @@ def lint_recipe(path, root, data, vanilla, custom, f):
                 check_ingredient(one, where, vanilla, custom, f, "unlock")
 
 
-def lint_js(path, root, text, events, f, project_js):
+def lint_js(path, root, text, events, f, project_js, seen):
     where = rel(path, root)
     for bad in ("mojang-minecraft", "world.events"):
         if bad in text:
             f.add("FAIL", "S-LEGACY", where, f"uses {bad}, which is outdated")
-    lines = js_comment_lines(text)
-    if lines:
-        f.add("FAIL", "S-COMMENT", where, f"comments in a shipped .js (repo rule): lines {lines[:8]}")
-    unverified = defaultdict(set)
-    for m in EVENT_CALL.finditer(text):
+    masked, comments = mask_js(text)
+    if comments:
+        shown = "; ".join(f"{ln}: {snip}" for ln, snip in comments[:5])
+        f.add("FAIL", "S-COMMENT", where, f"{len(comments)} comment(s) in a shipped .js (repo rule): {shown}")
+    for m in EVENT_CALL.finditer(masked):
         owner, _, group, _, name, guarded = m.groups()
-        line = text.count("\n", 0, m.start()) + 1
+        line = masked.count("\n", 0, m.start()) + 1
         is_guarded = bool(guarded) or re.search(
-            r"if\s*\(\s*(?:typeof\s+)?%s\.%s\.%s\b" % (owner, group, name), text) is not None
+            r"if\s*\(\s*(?:typeof\s+)?%s\.%s\.%s\b" % (owner, group, name), masked) is not None
         if name in MISSING_EVENTS and not is_guarded:
             f.add("FAIL", "S-EVENT", f"{where}:{line}",
                   f"{owner}.{group}.{name}.subscribe is unguarded; the game logs show this event is not available "
                   f"(TypeError: cannot read property 'subscribe' of undefined). Use ?. or an if guard")
         elif name not in VERIFIED_EVENTS.get((owner, group), set()) | events and not is_guarded:
-            unverified[f"{owner}.{group}"].add(name)
-    for group, names in unverified.items():
-        f.add("INFO", "S-EVENT-UNVERIFIED", where, f"{group} events not in the verified list: {', '.join(sorted(names))}")
-    for m in re.finditer(r"\bwhile\s*\(\s*(?:true|1)\s*\)|\bfor\s*\(\s*;\s*;\s*\)", text):
-        line = text.count("\n", 0, m.start()) + 1
-        f.add("WARN", "S-LOOP", f"{where}:{line}", "unbounded loop: can freeze the server and trigger the Watchdog")
-    for m in re.finditer(r"\bfor\s*\([^;)]*;[^;)]*<=?\s*(\d[\d_]*)\s*;", text):
+            seen[f"{owner}.{group}.{name}"].add(where)
+    for m in re.finditer(r"\bwhile\s*\(\s*(?:true|1)\s*\)|\bfor\s*\(\s*;\s*;\s*\)", masked):
+        body = loop_body(masked, m.end())
+        if re.search(r"\b(break|return|throw)\b", body):
+            continue
+        line = masked.count("\n", 0, m.start()) + 1
+        f.add("WARN", "S-LOOP", f"{where}:{line}", "unbounded loop with no break, return or throw: can freeze the server (Watchdog)")
+    for m in re.finditer(r"\bfor\s*\([^;)]*;[^;)]*<=?\s*(\d[\d_]*)\s*;", masked):
         if int(m.group(1).replace("_", "")) >= 100000:
-            line = text.count("\n", 0, m.start()) + 1
+            line = masked.count("\n", 0, m.start()) + 1
             f.add("WARN", "S-LOOP", f"{where}:{line}", f"loop with {m.group(1)} iterations in one tick: Watchdog risk")
     project_js.append(text)
 
@@ -383,7 +476,7 @@ def lint_manifest(path, root, f):
                 f.add("FAIL", "M-ENTRY", where, f"script module entry not found: {entry}")
 
 
-def lint_pack(root, pack, kind, vanilla, events, f, project_js, custom):
+def lint_pack(root, pack, kind, vanilla, events, f, project_js, custom, seen):
     for path in sorted(pack.rglob("*.json")):
         data, err = load_json(path)
         where = rel(path, root)
@@ -414,12 +507,12 @@ def lint_pack(root, pack, kind, vanilla, events, f, project_js, custom):
         lint_manifest(pack / "manifest.json", root, f)
     if kind == "behavior_pack":
         for path in sorted((pack / "functions").rglob("*.mcfunction")) if (pack / "functions").is_dir() else []:
-            rows = [n for n, ln in enumerate(path.read_text(encoding="utf-8", errors="replace").split("\n"), 1)
+            rows = [f"{n}: {ln.strip()[:60]}" for n, ln in enumerate(path.read_text(encoding="utf-8", errors="replace").split("\n"), 1)
                     if ln.lstrip().startswith("#")]
             if rows:
-                f.add("FAIL", "F-COMMENT", rel(path, root), f"comments in a shipped .mcfunction (repo rule): lines {rows[:8]}")
+                f.add("FAIL", "F-COMMENT", rel(path, root), f"{len(rows)} comment(s) in a shipped .mcfunction (repo rule): {'; '.join(rows[:5])}")
         for path in sorted((pack / "scripts").rglob("*.js")) if (pack / "scripts").is_dir() else []:
-            lint_js(path, root, path.read_text(encoding="utf-8", errors="replace"), events, f, project_js)
+            lint_js(path, root, path.read_text(encoding="utf-8", errors="replace"), events, f, project_js, seen)
 
 
 def lint_particles(root, project, project_js, f):
@@ -444,6 +537,7 @@ def stage_content(root, only, events):
     vanilla = load_vanilla_ids(root)
     if vanilla is None:
         f.add("INFO", "R-NOREF", "reference/bedrock-samples", "vanilla reference not found: vanilla ids are not checked")
+    seen = defaultdict(set)
     projects = project_dirs(root, only)
     if not projects:
         f.add("INFO", "X-NOPROJECTS", "MCPEDL/", "no projects found")
@@ -457,8 +551,12 @@ def stage_content(root, only, events):
         for kind in ("behavior_pack", "resource_pack"):
             pack = project / kind
             if pack.is_dir():
-                lint_pack(root, pack, kind, vanilla, events, f, project_js, custom)
+                lint_pack(root, pack, kind, vanilla, events, f, project_js, custom, seen)
         lint_particles(root, project, project_js, f)
+    if seen:
+        listing = ", ".join(f"{k} ({len(v)})" for k, v in sorted(seen.items()))
+        f.add("INFO", "S-EVENT-UNVERIFIED", "all scripts",
+              f"{len(seen)} events not in the verified list (files in brackets); confirm they exist in your API version: {listing}")
     f.add("PASS", "X-SCANNED", "MCPEDL/", f"{len(projects)} projects scanned")
     return f
 

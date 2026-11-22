@@ -87,7 +87,7 @@ class ContentLintTests(unittest.TestCase):
             "ingredients": [{"item": "minecraft:dirt"}, {"item": "minecraft:not_real"}, {"item": "demo:ghost"}],
             "result": {"item": "minecraft:dirt"}}})
         f = self.lint()
-        self.assertIn("R-VANILLA", rules(f, "WARN"))
+        self.assertIn("R-VANILLA", rules(f, "INFO"))
         self.assertIn("R-CUSTOM", rules(f, "WARN"))
 
     def test_vanilla_item_override(self):
@@ -141,8 +141,10 @@ class ContentLintTests(unittest.TestCase):
     def test_legacy_api_comments_and_loops(self):
         write(self.bp / "manifest.json", MANIFEST)
         write(self.bp / "scripts" / "main.js",
-              "import { world } from 'mojang-minecraft';\n// note\nwhile (true) { }\nfor (let i = 0; i < 500000; i++) { }\n")
+              "import { world } from 'mojang-minecraft';\n// note\nwhile (true) { }\nfor (let i = 0; i < 500000; i++) { }\n"
+              "while (true) { if (x) { break; } }\nfor (;;) { return; }\n")
         f = self.lint()
+        self.assertEqual(sum(1 for i in f.items if i["rule"] == "S-LOOP" and "while" not in i["msg"] and "unbounded" in i["msg"]), 1)
         self.assertIn("S-LEGACY", rules(f, "FAIL"))
         self.assertIn("S-COMMENT", rules(f, "FAIL"))
         self.assertIn("S-LOOP", rules(f, "WARN"))
@@ -157,6 +159,22 @@ class ContentLintTests(unittest.TestCase):
     def test_comment_finder_ignores_strings_and_regex_quotes(self):
         text = "const u = 'https://x.y';\nconst r = a.replace(/'/g, \"\");\nconst t = `//no`;\n// yes\n/* also\nyes */\n"
         self.assertEqual(rrt.js_comment_lines(text), [4, 5])
+
+    def test_comment_finder_handles_templates_regex_and_division(self):
+        text = (
+            "const a = `x ${ \"a//b\" } // y ${ `n ${ 1 } //z` }`;\n"
+            "const r = /\\/\\/|\"[/]/.test(s) ? 1 : 2;\n"
+            "const d = a / b / c;\n"
+            "const u = 'it\\'s // fine';\n"
+            "return /abc/g.test(x); // real\n"
+        )
+        self.assertEqual(rrt.js_comment_lines(text), [5])
+
+    def test_loop_with_break_or_return_is_fine_without_is_warned(self):
+        masked_ok = "while (true) { const r = 1; if (r) break; }"
+        masked_bad = "while (true) { const r = 1; }"
+        self.assertIn("break", rrt.loop_body(masked_ok, len("while (true)")))
+        self.assertNotIn("break", rrt.loop_body(masked_bad, len("while (true)")))
 
 
 class LogTests(unittest.TestCase):
