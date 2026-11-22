@@ -18,7 +18,7 @@
 - **Destination:** `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks`
 - **CURRENT VERSION: v8 / NEXT UPDATE: v9**  (`MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/CHANGELOG.md`)
 - **Text files:** 34
-- **Skipped binary:** 26
+- **Skipped binary:** 27
 - **Paths not found:** 0
 
 ### Files in this export
@@ -86,6 +86,7 @@
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/resource_pack/textures/blocks/lucky_treasure_bottom.png`
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/resource_pack/textures/blocks/lucky_treasure_side.png`
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/resource_pack/textures/blocks/lucky_treasure_top.png`
+- `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/world_icon.jpeg`
 
 ---
 
