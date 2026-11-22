@@ -4,6 +4,12 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v238] - 2026-11-23 - Self-test world lock flags
+
+**Spec**: spec_v238.txt | **Target**: repo | **Files edited**: 1
+
+- Project pipeline self-test: the fabricated Creative, Survival and Hardcore level.dat files now carry the isFromLockedTemplate, hasLockedBehaviorPack and hasLockedResourcePack byte tags, so the OneBlock variant builder can lock the settings of the sample map like it does for real maps. Not tested in game.
+
 ## [v237] - 2026-11-23 - Spirit Ally and Particle Fix
 
 **Spec**: spec_v237.txt | **Target**: MCPEDL/Addons/ALN-SoulLantern | **Files edited**: 9

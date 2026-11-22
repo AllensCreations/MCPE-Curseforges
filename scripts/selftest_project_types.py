@@ -46,7 +46,9 @@ def run(args, cwd, env=None, expect=0):
 
 def fake_level_dat(path: Path, name: str) -> None:
     tag = b"\x08" + struct.pack("<H", 9) + b"LevelName" + struct.pack("<H", len(name)) + name.encode()
-    body = b"\x0a\x00\x00" + tag + b"\x00"
+    flags = b"".join(b"\x01" + struct.pack("<H", len(n)) + n.encode() + b"\x00"
+                     for n in ("isFromLockedTemplate", "hasLockedBehaviorPack", "hasLockedResourcePack"))
+    body = b"\x0a\x00\x00" + tag + flags + b"\x00"
     path.write_bytes(struct.pack("<II", 10, len(body)) + body)
 
 
