@@ -57,7 +57,7 @@ Craft a disc at a Crafting Table, put it in a Jukebox and the matching track pla
 
 ### Jukebox Playback
 - **What Happens**: Use a disc on a Jukebox to play it, and use the Jukebox again to take the disc back out. Note particles rise from the Jukebox while a track plays.
-- **Good To Know**: Breaking the Jukebox or taking the disc out ends the track.
+- **Good To Know**: Breaking the Jukebox or taking the disc out ends the track and gives the disc back. The pack handles these discs itself, so no experiments are needed, but the Jukebox shows no spinning disc, gives no Comparator signal, and has to be emptied of a vanilla disc first.
 
 ### ALN Wireless Headphones Support
 - **What Happens**: When a disc starts or stops, the pack announces the track number, the track name and its length so ALN Wireless Headphones can show them.

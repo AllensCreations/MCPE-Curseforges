@@ -17,12 +17,7 @@
       "minecraft:display_name": {
         "value": "item.aln:music_disc_golden_hour"
       },
-      "minecraft:max_stack_size": 1,
-      "minecraft:record": {
-        "comparator_signal": 12,
-        "duration": 84,
-        "sound_event": "record.golden_hour"
-      }
+      "minecraft:max_stack_size": 1
     }
   }
 }

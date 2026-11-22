@@ -1,4 +1,6 @@
-import { world, system } from "@minecraft/server";
+import * as mc from "@minecraft/server";
+
+const { world, system } = mc;
 
 const DISCS = {
   "aln:music_disc_neon_horizon": { track: 1, title: "Neon Horizon", seconds: 76, sound: "record.neon_horizon" },
@@ -35,15 +37,16 @@ const DISCS = {
 
 const JUKEBOX = "minecraft:jukebox";
 const STATE_KEY = "aln_morediscs:active";
+const STATE_VERSION = 2;
 const EVENT_STARTED = "aln:disc_started";
 const EVENT_STOPPED = "aln:disc_stopped";
 const EVENT_QUERY = "aln:disc_query";
-const PLAY_FROM_SCRIPT = false;
 const CHECK_INTERVAL = 40;
-const SETTLE_DELAY = 3;
 const SOUND_VOLUME = 4;
+const MAINHAND = (mc.EquipmentSlot && mc.EquipmentSlot.Mainhand) || "Mainhand";
 
-const active = new Map();
+// Every disc that sits in a Jukebox, playing or finished, keyed by dimension and position.
+const stored = new Map();
 let loaded = false;
 
 function keyOf(dimensionId, x, y, z) {
@@ -57,16 +60,19 @@ function load() {
     const raw = world.getDynamicProperty(STATE_KEY);
     if (typeof raw !== "string") return;
     for (const entry of JSON.parse(raw)) {
-      if (entry && typeof entry.id === "string" && DISCS[entry.disc]) active.set(entry.id, entry);
+      if (entry && entry.v === STATE_VERSION && typeof entry.id === "string" && DISCS[entry.disc]) {
+        entry.playing = false;
+        stored.set(entry.id, entry);
+      }
     }
   } catch (error) {
-    active.clear();
+    stored.clear();
   }
 }
 
 function save() {
   try {
-    world.setDynamicProperty(STATE_KEY, JSON.stringify([...active.values()]));
+    world.setDynamicProperty(STATE_KEY, JSON.stringify([...stored.values()]));
   } catch (error) {}
 }
 
@@ -83,116 +89,145 @@ function spawnNotes(dimension, x, y, z) {
 }
 
 function stopSound(disc) {
-  if (!PLAY_FROM_SCRIPT) return;
-  for (const other of active.values()) {
-    if (other.disc === disc) return;
+  for (const other of stored.values()) {
+    if (other.playing && other.disc === disc) return;
   }
   try {
     world.getDimension("overworld").runCommand(`stopsound @a ${DISCS[disc].sound}`);
   } catch (error) {}
 }
 
-function stopTrack(id, reason) {
-  const entry = active.get(id);
-  if (!entry) return;
-  active.delete(id);
+function stopPlaying(entry, reason) {
+  if (!entry.playing) return;
+  entry.playing = false;
   save();
-  send(EVENT_STOPPED, { id, disc: entry.disc, track: entry.track, reason });
-  stopSound(entry.disc);
+  send(EVENT_STOPPED, { id: entry.id, disc: entry.disc, track: entry.track, reason });
+  if (reason !== "ended") stopSound(entry.disc);
 }
 
-function startTrack(dimension, x, y, z, discId) {
-  const disc = DISCS[discId];
-  if (!disc) return;
-  const id = keyOf(dimension.id, x, y, z);
-  const previous = active.get(id);
-  if (previous && previous.disc === discId) return;
-  if (previous) stopTrack(id, "replaced");
-  const entry = {
-    id,
-    dim: dimension.id,
-    x,
-    y,
-    z,
-    disc: discId,
-    track: disc.track,
-    title: disc.title,
-    seconds: disc.seconds,
-    startedAt: Date.now(),
-  };
-  active.set(id, entry);
+function removeDisc(entry, reason, dimension, dropHeight) {
+  stopPlaying(entry, reason);
+  stored.delete(entry.id);
+  save();
+  try {
+    dimension.spawnItem(new mc.ItemStack(entry.disc, 1), { x: entry.x + 0.5, y: entry.y + dropHeight, z: entry.z + 0.5 });
+  } catch (error) {}
+}
+
+function startTrack(dimension, entry) {
+  entry.playing = true;
+  entry.startedAt = Date.now();
   save();
   send(EVENT_STARTED, entry);
-  if (PLAY_FROM_SCRIPT) {
-    try {
-      dimension.playSound(disc.sound, { x: x + 0.5, y: y + 1, z: z + 0.5 }, { volume: SOUND_VOLUME, pitch: 1 });
-    } catch (error) {}
-  }
-  spawnNotes(dimension, x, y, z);
+  try {
+    dimension.playSound(DISCS[entry.disc].sound, { x: entry.x + 0.5, y: entry.y + 1, z: entry.z + 0.5 }, { volume: SOUND_VOLUME, pitch: 1 });
+  } catch (error) {}
+  spawnNotes(dimension, entry.x, entry.y, entry.z);
 }
 
-function settle(dimensionId, location, heldTypeId) {
+function heldSlot(player) {
+  try {
+    return player.getComponent("minecraft:equippable").getEquipmentSlot(MAINHAND);
+  } catch (error) {}
+  try {
+    return player.getComponent("minecraft:inventory").container.getSlot(player.selectedSlotIndex);
+  } catch (error) {}
+  return undefined;
+}
+
+function takeHeldDisc(player, discId) {
+  try {
+    const slot = heldSlot(player);
+    if (!slot) return false;
+    const item = slot.getItem();
+    if (!item || item.typeId !== discId) return false;
+    if (item.amount > 1) slot.amount = item.amount - 1;
+    else slot.setItem(undefined);
+    const after = slot.getItem();
+    return !(after && after.typeId === discId && after.amount >= item.amount);
+  } catch (error) {
+    return false;
+  }
+}
+
+function insertDisc(player, dimensionId, location, discId) {
   load();
+  const disc = DISCS[discId];
   const dimension = world.getDimension(dimensionId);
-  const { x, y, z } = location;
-  const id = keyOf(dimensionId, x, y, z);
+  const id = keyOf(dimensionId, location.x, location.y, location.z);
+  if (stored.has(id)) return;
   let block;
   try {
     block = dimension.getBlock(location);
   } catch (error) {
     return;
   }
-  if (!block) return;
-  if (block.typeId !== JUKEBOX) {
-    stopTrack(id, "broken");
-    return;
-  }
-  let known = false;
-  let recordId;
+  if (!block || block.typeId !== JUKEBOX) return;
+  if (!takeHeldDisc(player, discId)) return;
+  const entry = {
+    v: STATE_VERSION,
+    id,
+    dim: dimensionId,
+    x: location.x,
+    y: location.y,
+    z: location.z,
+    disc: discId,
+    track: disc.track,
+    title: disc.title,
+    seconds: disc.seconds,
+    startedAt: 0,
+    playing: false,
+  };
+  stored.set(id, entry);
+  startTrack(dimension, entry);
+}
+
+function ejectDisc(id) {
+  load();
+  const entry = stored.get(id);
+  if (!entry) return;
+  removeDisc(entry, "ejected", world.getDimension(entry.dim), 1.1);
+}
+
+function vanillaRecordInside(block) {
   try {
-    const player = block.getComponent("minecraft:record_player");
-    if (player) {
-      const record = player.getRecord();
-      recordId = record ? record.typeId : undefined;
-      known = true;
-    }
-  } catch (error) {}
-  if (known) {
-    if (recordId && DISCS[recordId]) startTrack(dimension, x, y, z, recordId);
-    else stopTrack(id, "ejected");
-    return;
+    const recordPlayer = block.getComponent("minecraft:record_player");
+    return !!(recordPlayer && recordPlayer.getRecord());
+  } catch (error) {
+    return false;
   }
-  if (active.has(id)) stopTrack(id, "ejected");
-  else if (heldTypeId && DISCS[heldTypeId]) startTrack(dimension, x, y, z, heldTypeId);
 }
 
 function tick() {
   load();
-  if (active.size === 0) return;
+  if (stored.size === 0) return;
   const now = Date.now();
-  for (const [id, entry] of [...active]) {
+  for (const entry of [...stored.values()]) {
+    let dimension;
     let block;
     try {
-      block = world.getDimension(entry.dim).getBlock({ x: entry.x, y: entry.y, z: entry.z });
+      dimension = world.getDimension(entry.dim);
+      block = dimension.getBlock({ x: entry.x, y: entry.y, z: entry.z });
     } catch (error) {
       continue;
     }
     if (!block) continue;
     if (block.typeId !== JUKEBOX) {
-      stopTrack(id, "broken");
+      removeDisc(entry, "broken", dimension, 0.5);
       continue;
     }
+    if (!entry.playing) continue;
     if (now - entry.startedAt >= entry.seconds * 1000 + 2000) {
-      stopTrack(id, "ended");
+      stopPlaying(entry, "ended");
       continue;
     }
-    spawnNotes(block.dimension, entry.x, entry.y, entry.z);
+    spawnNotes(dimension, entry.x, entry.y, entry.z);
   }
 }
 
 export function getActiveDiscs() {
   load();
-  return [...active.values()];
+  return [...stored.values()].filter((entry) => entry.playing);
 }
 
 export function initDiscJukebox() {
@@ -200,10 +235,19 @@ export function initDiscJukebox() {
     const { block, player, itemStack, isFirstEvent } = event;
     if (!isFirstEvent || block.typeId !== JUKEBOX) return;
     if (player.isSneaking && itemStack) return;
+    load();
     const dimensionId = block.dimension.id;
     const location = { x: block.location.x, y: block.location.y, z: block.location.z };
+    const id = keyOf(dimensionId, location.x, location.y, location.z);
+    if (stored.has(id)) {
+      event.cancel = true;
+      system.run(() => ejectDisc(id));
+      return;
+    }
     const held = itemStack ? itemStack.typeId : undefined;
-    system.runTimeout(() => settle(dimensionId, location, held), SETTLE_DELAY);
+    if (!held || !DISCS[held] || vanillaRecordInside(block)) return;
+    event.cancel = true;
+    system.run(() => insertDisc(player, dimensionId, location, held));
   });
 
   world.afterEvents.playerBreakBlock.subscribe((event) => {
@@ -212,7 +256,8 @@ export function initDiscJukebox() {
     const id = keyOf(event.block.dimension.id, x, y, z);
     system.run(() => {
       load();
-      stopTrack(id, "broken");
+      const entry = stored.get(id);
+      if (entry) removeDisc(entry, "broken", world.getDimension(entry.dim), 0.5);
     });
   });
 
@@ -220,7 +265,9 @@ export function initDiscJukebox() {
     (event) => {
       if (event.id !== EVENT_QUERY) return;
       load();
-      for (const entry of active.values()) send(EVENT_STARTED, entry);
+      for (const entry of stored.values()) {
+        if (entry.playing) send(EVENT_STARTED, entry);
+      }
     },
     { namespaces: ["aln"] }
   );

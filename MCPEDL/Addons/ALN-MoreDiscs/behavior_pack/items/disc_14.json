@@ -17,12 +17,7 @@
       "minecraft:display_name": {
         "value": "item.aln:music_disc_alpha_sunrise"
       },
-      "minecraft:max_stack_size": 1,
-      "minecraft:record": {
-        "comparator_signal": 1,
-        "duration": 76,
-        "sound_event": "record.alpha_sunrise"
-      }
+      "minecraft:max_stack_size": 1
     }
   }
 }

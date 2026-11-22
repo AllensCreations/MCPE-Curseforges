@@ -2,6 +2,15 @@
 
 ---
 
+## [v5] - 2026-11-22 - Jukebox Rework
+
+### Fixed
+- **Discs Now Load**: The discs failed to load in the game because the Jukebox sound setting only accepts vanilla names without an experiment. The pack now plays and stops the tracks itself, so no experiments are needed.
+### Improved & Balanced
+- **Jukebox Handling**: Use a disc on a Jukebox to play it, use the Jukebox again to get the disc back, and breaking the Jukebox drops the disc.
+- **Known Differences**: The Jukebox shows no spinning disc and gives no Comparator signal for these discs.
+- **Pack Description**: The behavior pack description now says 30 discs.
+
 ## [v4] - 2026-11-22 - Thirty Discs
 
 ### Added

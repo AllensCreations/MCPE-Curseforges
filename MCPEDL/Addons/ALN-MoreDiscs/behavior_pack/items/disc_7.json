@@ -17,12 +17,7 @@
       "minecraft:display_name": {
         "value": "item.aln:music_disc_sunlit_meadow"
       },
-      "minecraft:max_stack_size": 1,
-      "minecraft:record": {
-        "comparator_signal": 9,
-        "duration": 55,
-        "sound_event": "record.sunlit_meadow"
-      }
+      "minecraft:max_stack_size": 1
     }
   }
 }

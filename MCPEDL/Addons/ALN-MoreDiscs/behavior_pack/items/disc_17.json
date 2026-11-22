@@ -17,12 +17,7 @@
       "minecraft:display_name": {
         "value": "item.aln:music_disc_wooden_pickaxe"
       },
-      "minecraft:max_stack_size": 1,
-      "minecraft:record": {
-        "comparator_signal": 4,
-        "duration": 73,
-        "sound_event": "record.wooden_pickaxe"
-      }
+      "minecraft:max_stack_size": 1
     }
   }
 }

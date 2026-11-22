@@ -17,12 +17,7 @@
       "minecraft:display_name": {
         "value": "item.aln:music_disc_crystal_caverns"
       },
-      "minecraft:max_stack_size": 1,
-      "minecraft:record": {
-        "comparator_signal": 6,
-        "duration": 58,
-        "sound_event": "record.crystal_caverns"
-      }
+      "minecraft:max_stack_size": 1
     }
   }
 }
