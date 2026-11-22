@@ -4,6 +4,14 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v235] - 2026-11-23 - Latest Minecraft Update Support
+
+**Spec**: spec_v235.txt | **Target**: MCPEDL/Maps/OneBlock-Void-Survival | **Files edited**: 5
+
+### Improved & Balanced
+
+- **Updated For Minecraft 1.26.50**: The pack now asks for Minecraft Bedrock 1.26.50 or newer and uses the current stable script modules (`@minecraft/server` 2.10.0 and `@minecraft/server-ui` 2.2.0) instead of the old 1.15.0 and 1.3.0 modules. The scripts were checked against the changes listed for the 2.0 script modules and nothing in the pack uses a removed feature.
+
 ## [v234] - 2026-11-22 - Pack Stays Active Fix
 
 **Spec**: spec_v234.txt | **Target**: MCPEDL/Maps/OneBlock-Void-Survival | **Files edited**: 2

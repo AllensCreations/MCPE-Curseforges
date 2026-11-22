@@ -2,6 +2,12 @@
 
 ---
 
+## [v10] - 2026-11-23 - Latest Minecraft Update Support
+
+### Improved & Balanced
+
+- **Updated For Minecraft 1.26.50**: The pack now asks for Minecraft Bedrock 1.26.50 or newer and uses the current stable script modules (`@minecraft/server` 2.10.0 and `@minecraft/server-ui` 2.2.0) instead of the old 1.15.0 and 1.3.0 modules. The scripts were checked against the changes listed for the 2.0 script modules and nothing in the pack uses a removed feature.
+
 ## [v9] - 2026-11-22 - Pack Stays Active Fix
 
 ### Fixed
