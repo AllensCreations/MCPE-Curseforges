@@ -18,7 +18,7 @@
 - **Destination:** `MCPEDL/Maps/OneBlock-Natural-Market`
 - **CURRENT VERSION: v16 / NEXT UPDATE: v17**  (`MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md`)
 - **Text files:** 17
-- **Skipped binary:** 230
+- **Skipped binary:** 231
 - **Paths not found:** 0
 
 ### Files in this export
@@ -78,6 +78,7 @@
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/bone.png`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/bow.png`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/bread.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/brick_block.png`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/bricks.png`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/bucket.png`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/cake.png`
@@ -399,13 +400,13 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v16.0.2)",
+    "name": "OneBlock Natural Market (v16.0.3)",
     "description": "OneBlock survival with a progression market and regenerating core. by ALNStudios",
     "uuid": "77f07d1a-fa7a-437d-8fea-72068be05162",
     "version": [
       16,
       0,
-      2
+      3
     ],
     "min_engine_version": [
       1,
@@ -420,7 +421,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "version": [
         16,
         0,
-        2
+        3
       ]
     },
     {
@@ -430,7 +431,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "version": [
         16,
         0,
-        2
+        3
       ],
       "entry": "scripts/main.js"
     }
@@ -441,7 +442,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "version": [
         16,
         0,
-        2
+        3
       ]
     },
     {
@@ -458,7 +459,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "16.0.2"
+    "version": "16.0.3"
   }
 }
 ```
@@ -511,7 +512,7 @@ Extracted from the script files; nothing here was run in game.
 Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (735 lines, 40542 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (734 lines, 40468 bytes)
 
 ```
 import { world, system, ItemStack, ItemTypes } from "@minecraft/server";
@@ -533,7 +534,6 @@ const UNSAFE_CORE = new Set([
   "minecraft:bamboo", "minecraft:repeater", "minecraft:comparator", "minecraft:anvil", "minecraft:netherite_block"
 ]);
 const MCICON_DIR = "textures/ui/natural_market/icons/";
-const NO_MCICON = new Set(["brick_block"]);
 const CATEGORIES = [
   { name: "Building Blocks", icon: MCICON_DIR + "stone" },
   { name: "Tools & Gear", icon: MCICON_DIR + "iron_pickaxe" },
@@ -802,7 +802,7 @@ for (const item of CATALOG) {
   const base = BASE_PRICE_FIX[item.raw] ?? item.price;
   item.sell = item.category === "Spawn Eggs" ? 0 : (SELL_FIX[item.raw] ?? Math.max(1, Math.floor(base / 2)));
   item.price = Math.max(1, Math.round(base * priceMult(item.tier)));
-  if (!NO_MCICON.has(item.raw)) item.icon = MCICON_DIR + item.raw;
+  item.icon = MCICON_DIR + item.raw;
 }
 const BUILDING_IDS = new Set(CATALOG.filter(i => i.category === "Building Blocks").map(i => i.id));
 const LEDGER_PENDING = "obm_ledger_pending";
@@ -1250,12 +1250,17 @@ system.runInterval(() => {
 }, 20);
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (172 lines, 10457 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (177 lines, 10615 bytes)
 
 ```
 # Changelog — OneBlock Natural Market
 
 ---
+
+## [16.0.3] - 2026-11-22 - Brick Block MCicons Icon
+
+### Changed
+- Brick Block now uses its MCicons icon (the Bricks icon), so all market items use MCicons.
 
 ## [16.0.2] - 2026-11-22 - MCicons Market Icons
 
@@ -1549,13 +1554,13 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v16.0.2)",
+    "name": "OneBlock Natural Market (v16.0.3)",
     "description": "Trader Ledger icon for OneBlock Natural Market. by ALNStudios",
     "uuid": "187333a6-4353-4003-b379-471f85ce9021",
     "version": [
       16,
       0,
-      2
+      3
     ],
     "min_engine_version": [
       1,
@@ -1570,7 +1575,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "version": [
         16,
         0,
-        2
+        3
       ]
     }
   ],
@@ -1579,7 +1584,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "16.0.2"
+    "version": "16.0.3"
   }
 }
 ```

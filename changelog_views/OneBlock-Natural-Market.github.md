@@ -1,15 +1,19 @@
 # Changelog — OneBlock Natural Market
 
-## [16.0.2] - 2026-11-22 - MCicons Market Icons
+## [16.0.3] - 2026-11-22 - Brick Block MCicons Icon
 
 ### Changed
 
-### Added
-
-### Fixed
-
 <details>
-<summary><b>16.0.x</b> (2 releases)</summary>
+<summary><b>16.0.x</b> (3 releases)</summary>
+
+### [16.0.2] - 2026-11-22 - MCicons Market Icons
+
+#### Changed
+
+#### Added
+
+#### Fixed
 
 ### [16.0.1] - 2026-11-21 - Core Tier Reorder
 
