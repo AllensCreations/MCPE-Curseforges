@@ -1,0 +1,22 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "allenscreations:aln_bow_aimbot",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "textures": {
+          "default": "aln_bow_aimbot"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "§l§6ALN: §eBow Aimbot"
+      }
+    }
+  }
+}

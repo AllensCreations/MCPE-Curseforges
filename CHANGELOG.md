@@ -4,6 +4,11 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## 2026-11-22 - New Addon ALN Bow Aimbot
+
+### Added
+- **ALN Bow Aimbot**: New addon project created from a pack script.
+
 ## [v232] - 2026-11-22 - Repo Tester baseline
 
 **Spec**: spec_v232.txt | **Target**: repo | **Files edited**: 2

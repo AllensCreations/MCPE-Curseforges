@@ -1,0 +1,22 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "allenscreations:aln_bow_aimbot"
+    },
+    "tags": ["crafting_table"],
+    "pattern": ["###", "## ", "# #"],
+    "key": {
+      "#": {
+        "tag": "minecraft:wool"
+      }
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
+    "result": {
+      "item": "allenscreations:aln_bow_aimbot",
+      "count": 1
+    }
+  }
+}

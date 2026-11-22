@@ -1,0 +1,787 @@
+{
+  "namespace": "hud",
+  "alnb_circle_50": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "10%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z50')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_60": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "12%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z60')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_70": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "14%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z70')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_80": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "16%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z80')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_90": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "18%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z90')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_100": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "20%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z100')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_110": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "22%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z110')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_120": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "24%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z120')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_130": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "26%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z130')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_140": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "28%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z140')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_150": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "30%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z150')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_160": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "32%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z160')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_170": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "34%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z170')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_180": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "36%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z180')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_190": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "38%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z190')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_200": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "40%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z200')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_210": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "42%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z210')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_220": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "44%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z220')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_230": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "46%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z230')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_240": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "48%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z240')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_250": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "50%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z250')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_260": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "52%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z260')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_270": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "54%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z270')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_280": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "56%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z280')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_290": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "58%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z290')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_300": {
+    "type": "image",
+    "texture": "textures/particle/alnb_circle",
+    "size": [
+      "100%y",
+      "60%"
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "offset": [
+      0,
+      0
+    ],
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'alnb_z300')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "alnb_circle_panel": {
+    "type": "panel",
+    "controls": [
+      {
+        "alnb_circle_50@hud.alnb_circle_50": {}
+      },
+      {
+        "alnb_circle_60@hud.alnb_circle_60": {}
+      },
+      {
+        "alnb_circle_70@hud.alnb_circle_70": {}
+      },
+      {
+        "alnb_circle_80@hud.alnb_circle_80": {}
+      },
+      {
+        "alnb_circle_90@hud.alnb_circle_90": {}
+      },
+      {
+        "alnb_circle_100@hud.alnb_circle_100": {}
+      },
+      {
+        "alnb_circle_110@hud.alnb_circle_110": {}
+      },
+      {
+        "alnb_circle_120@hud.alnb_circle_120": {}
+      },
+      {
+        "alnb_circle_130@hud.alnb_circle_130": {}
+      },
+      {
+        "alnb_circle_140@hud.alnb_circle_140": {}
+      },
+      {
+        "alnb_circle_150@hud.alnb_circle_150": {}
+      },
+      {
+        "alnb_circle_160@hud.alnb_circle_160": {}
+      },
+      {
+        "alnb_circle_170@hud.alnb_circle_170": {}
+      },
+      {
+        "alnb_circle_180@hud.alnb_circle_180": {}
+      },
+      {
+        "alnb_circle_190@hud.alnb_circle_190": {}
+      },
+      {
+        "alnb_circle_200@hud.alnb_circle_200": {}
+      },
+      {
+        "alnb_circle_210@hud.alnb_circle_210": {}
+      },
+      {
+        "alnb_circle_220@hud.alnb_circle_220": {}
+      },
+      {
+        "alnb_circle_230@hud.alnb_circle_230": {}
+      },
+      {
+        "alnb_circle_240@hud.alnb_circle_240": {}
+      },
+      {
+        "alnb_circle_250@hud.alnb_circle_250": {}
+      },
+      {
+        "alnb_circle_260@hud.alnb_circle_260": {}
+      },
+      {
+        "alnb_circle_270@hud.alnb_circle_270": {}
+      },
+      {
+        "alnb_circle_280@hud.alnb_circle_280": {}
+      },
+      {
+        "alnb_circle_290@hud.alnb_circle_290": {}
+      },
+      {
+        "alnb_circle_300@hud.alnb_circle_300": {}
+      }
+    ]
+  },
+  "alnb_circle_factory": {
+    "type": "panel",
+    "factory": {
+      "name": "hud_title_text_factory",
+      "control_ids": {
+        "hud_title_text": "alnb_circle_panel@hud.alnb_circle_panel"
+      }
+    }
+  },
+  "hud_title_text/title_frame/title": {
+    "modifications": [
+      {
+        "array_name": "bindings",
+        "operation": "insert_back",
+        "value": {
+          "binding_type": "view",
+          "source_property_name": "((#text - 'alnb_z') = #text)",
+          "target_property_name": "#visible"
+        }
+      }
+    ]
+  },
+  "hud_title_text/title_frame/title_background": {
+    "modifications": [
+      {
+        "array_name": "bindings",
+        "operation": "insert_back",
+        "value": [
+          {
+            "binding_name": "#hud_title_text_string"
+          },
+          {
+            "binding_type": "view",
+            "source_property_name": "((#hud_title_text_string - 'alnb_z') = #hud_title_text_string)",
+            "target_property_name": "#visible"
+          }
+        ]
+      }
+    ]
+  },
+  "root_panel": {
+    "modifications": [
+      {
+        "array_name": "controls",
+        "operation": "insert_front",
+        "value": {
+          "alnb_circle_factory@hud.alnb_circle_factory": {}
+        }
+      }
+    ]
+  }
+}
