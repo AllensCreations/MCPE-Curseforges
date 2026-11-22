@@ -4,7 +4,8 @@
 
 - **Export request:** `MCPEDL/Maps/OneBlock-Void-Survival`
 - **Destination:** `MCPEDL/Maps/OneBlock-Void-Survival`
-- **CURRENT VERSION: v8 / NEXT UPDATE: v9**  (`MCPEDL/Maps/OneBlock-Void-Survival/CHANGELOG.md`)
+- **CURRENT VERSION: v9 / NEXT UPDATE: v10**  (`MCPEDL/Maps/OneBlock-Void-Survival/CHANGELOG.md`)
+- **Spec ledger:** REPO_VERSION 234; the next spec is `spec_v235.txt` (newest specs are listed in the root `CHANGELOG.md`)
 - **Text files:** 89
 - **Skipped binary:** 22
 - **Paths not found:** 0
@@ -106,7 +107,7 @@
 
 ### Skipped (binary): 22 file(s)
 
-- `MCPEDL/Maps/OneBlock-Void-Survival/VoidSurvival V8.mcworld`
+- `MCPEDL/Maps/OneBlock-Void-Survival/VoidSurvival V9.mcworld`
 - `MCPEDL/Maps/OneBlock-Void-Survival/assets/recipes/bell_recipe.png`
 - `MCPEDL/Maps/OneBlock-Void-Survival/assets/recipes/calcite_recipe.png`
 - `MCPEDL/Maps/OneBlock-Void-Survival/assets/recipes/deepslate_deepslate_coal_recipe.png`
@@ -138,10 +139,10 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v8 / NEXT UPDATE: v9).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v9 / NEXT UPDATE: v10).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
-- Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
+- Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
 - Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
 
 ## Destination
@@ -166,7 +167,7 @@ Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
 Output ONLY these three sections in order:
 1. **File Needed:** repo-root-relative path of each file created/edited.
 2. **Changelog:** bullets, brief summary of changes.
-3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands. Update to an existing project or the repo: deliver ONE attached `spec_v<N>.txt` (N = REPO_VERSION + 1, see "Spec ledger" above) and the commands that build and run it (`python3 scripts/make_update_script.py ~/storage/downloads/spec_v<N>.txt --out-dir ~/storage/downloads --verify ~/MCPE-Curseforges`, then `bash ~/storage/downloads/<Name>_v<N>_*.sh`). New pack: the pack `.sh`.
 
 ---
 
@@ -237,10 +238,10 @@ Output ONLY these three sections in order:
   "format_version": 2,
   "header": {
     "description": "Void survival map featuring progressive block mining, 43 procedural theme islands, and vanilla survival compatibility. by ALNStudios",
-    "name": "OneBlock Void Survival (v8)",
+    "name": "OneBlock Void Survival (v9)",
     "uuid": "6f42a0f9-6c11-4974-9bb5-075b3447d2d9",
     "version": [
-      8,
+      9,
       0,
       0
     ],
@@ -256,7 +257,7 @@ Output ONLY these three sections in order:
       "type": "data",
       "uuid": "2c9d7c28-b4b1-4719-9983-13324e2aaad2",
       "version": [
-        8,
+        9,
         0,
         0
       ]
@@ -267,7 +268,7 @@ Output ONLY these three sections in order:
       "language": "javascript",
       "uuid": "f1351b45-2285-40d1-8e52-14ee221313d3",
       "version": [
-        8,
+        9,
         0,
         0
       ],
@@ -289,7 +290,7 @@ Output ONLY these three sections in order:
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "8.0.0"
+    "version": "9.0.0"
   }
 }
 ```
@@ -2115,12 +2116,18 @@ def main():
 main()
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Void-Survival/CHANGELOG.md (62 lines, 5032 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Void-Survival/CHANGELOG.md (62 lines, 4513 bytes)
 
 ```
 # Changelog
 
 ---
+
+## [v9] - 2026-11-22 - Pack Stays Active Fix
+
+### Fixed
+
+- **Behavior Pack Active In The World**: The world's pack reference was still on an older version than the pack itself, so the game listed the behavior pack under Available instead of Active and the scripts did not run. The reference now matches the pack version.
 
 ## [v8] - 2026-11-22 - Survival Mode Lock
 
@@ -2172,12 +2179,6 @@ main()
 
 ### Fixed
 
-- **Island Trees On Real Ground**: Trees now grow only on solid island ground. They no longer float at island edges or stand in empty space.
-- **Right Soil For Every Tree**: Trees now stand on soil that suits them: grass, podzol, mud, moss, mycelium or nylium. A small soil patch is laid under a tree when the island floor is something else, but never over buildings.
-- **No Stray Trees**: The Elytra Hangar no longer grows an oak tree on End stone, and second trees keep their distance from the first.
-- **Effects Log Errors**: A few special effects no longer cause particle errors in the game log.
-- **World Pack Reference**: The world's pack reference now matches the pack version, and map builds keep it in sync automatically.
-- **Void End Dimension**: The End is now a void in every build of the map, matching the Overworld and Nether.
 
 (older entries omitted; ask for the full file if needed)
 ```
@@ -2322,7 +2323,7 @@ Download the current release of **OneBlock Void Survival** for Minecraft Bedrock
 ## Download
 
 - **Package format:** `.mcworld`
-- **Direct download:** [Download OneBlock Void Survival (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/VoidSurvival%20V8.mcworld)
+- **Direct download:** [Download OneBlock Void Survival (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/VoidSurvival%20V9.mcworld)
 
 ## Installation
 
@@ -2400,10 +2401,10 @@ For gameplay features, usage details, compatibility notes, and other project inf
   "format_version": 2,
   "header": {
     "description": "Void survival map featuring progressive block mining, 43 procedural theme islands, and vanilla survival compatibility. by ALNStudios",
-    "name": "OneBlock Void Survival (v8)",
+    "name": "OneBlock Void Survival (v9)",
     "uuid": "6f42a0f9-6c11-4974-9bb5-075b3447d2d9",
     "version": [
-      8,
+      9,
       0,
       0
     ],
@@ -2419,7 +2420,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "data",
       "uuid": "2c9d7c28-b4b1-4719-9983-13324e2aaad2",
       "version": [
-        8,
+        9,
         0,
         0
       ]
@@ -2430,7 +2431,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "language": "javascript",
       "uuid": "f1351b45-2285-40d1-8e52-14ee221313d3",
       "version": [
-        8,
+        9,
         0,
         0
       ],
@@ -2452,7 +2453,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "8.0.0"
+    "version": "9.0.0"
   }
 }
 ```
@@ -4239,7 +4240,7 @@ OneBlock Void Survival v1.2 [ALNStudios]
   {
     "pack_id": "6f42a0f9-6c11-4974-9bb5-075b3447d2d9",
     "version": [
-      6,
+      9,
       0,
       0
     ]
