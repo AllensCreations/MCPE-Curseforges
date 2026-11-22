@@ -1,0 +1,65 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN:PirateTokens (v1)",
+    "description": "Pirate token currency, vault, bounties, Black Market and crates. by ALNStudios",
+    "uuid": "3778fb45-910e-41e8-8cd8-b62ed8171ace",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "9e82aa8b-ff60-4fe5-b4b0-f290adcd9bbf",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "entry": "scripts/main.js",
+      "uuid": "124613dc-0082-47a4-a796-2a343ab5ba14",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "a41f7a92-d81d-4d76-b9f9-dd1950dce440",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.7.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.0.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}

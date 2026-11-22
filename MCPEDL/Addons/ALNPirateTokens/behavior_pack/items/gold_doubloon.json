@@ -1,0 +1,18 @@
+{
+  "format_version": "1.26.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:gold_doubloon",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:icon": "aln_gold_doubloon",
+      "minecraft:display_name": {
+        "value": "§6Gold Pirate Doubloon"
+      },
+      "minecraft:max_stack_size": 64
+    }
+  }
+}

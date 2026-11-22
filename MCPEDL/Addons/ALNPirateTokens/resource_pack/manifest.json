@@ -1,0 +1,36 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN:PirateTokens Textures (v1)",
+    "description": "Pirate token and ledger textures. by ALNStudios",
+    "uuid": "a41f7a92-d81d-4d76-b9f9-dd1950dce440",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "2dd033e4-1449-4d97-9105-01748308edc1",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}

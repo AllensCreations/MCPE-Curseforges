@@ -1,0 +1,23 @@
+{
+  "format_version": "1.26.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:captains_ledger",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:icon": "aln_captains_ledger",
+      "minecraft:display_name": {
+        "value": "§6Captain's Ledger"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:use_animation": "spyglass",
+      "minecraft:use_modifiers": {
+        "use_duration": 0.1,
+        "movement_modifier": 1
+      }
+    }
+  }
+}

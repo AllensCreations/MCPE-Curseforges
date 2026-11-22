@@ -1,0 +1,18 @@
+{
+  "resource_pack_name": "aln_pirate_tokens",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "aln_silver_token": {
+      "textures": "textures/items/aln_silver_token"
+    },
+    "aln_gold_doubloon": {
+      "textures": "textures/items/aln_gold_doubloon"
+    },
+    "aln_cursed_coin": {
+      "textures": "textures/items/aln_cursed_coin"
+    },
+    "aln_captains_ledger": {
+      "textures": "textures/items/aln_captains_ledger"
+    }
+  }
+}
