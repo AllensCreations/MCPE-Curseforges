@@ -7,7 +7,7 @@
 - **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALN-Bow-Aimbot/CHANGELOG.md`)
 - **Spec ledger:** REPO_VERSION 233; the next spec is `spec_v234.txt` (newest specs are listed in the root `CHANGELOG.md`)
 - **Text files:** 22
-- **Skipped binary:** 5
+- **Skipped binary:** 8
 - **Paths not found:** 0
 
 ### Files in this export
@@ -35,10 +35,13 @@
 - `MCPEDL/Addons/ALN-Bow-Aimbot/resource_pack/ui/hud_screen.json`
 - `MCPEDL/Addons/ALN-Bow-Aimbot/texture_sources/aln_bow_aimbot.json`
 
-### Skipped (binary): 5 file(s)
+### Skipped (binary): 8 file(s)
 
 - `MCPEDL/Addons/ALN-Bow-Aimbot/assets/items/aln_bow_aimbot.png`
 - `MCPEDL/Addons/ALN-Bow-Aimbot/assets/recipes/aln_bow_aimbot_recipe.png`
+- `MCPEDL/Addons/ALN-Bow-Aimbot/assets/snapshots/lv_0_20261122151635.gif`
+- `MCPEDL/Addons/ALN-Bow-Aimbot/behavior_pack/pack_icon.png`
+- `MCPEDL/Addons/ALN-Bow-Aimbot/resource_pack/pack_icon.png`
 - `MCPEDL/Addons/ALN-Bow-Aimbot/resource_pack/textures/items/aln_bow_aimbot.png`
 - `MCPEDL/Addons/ALN-Bow-Aimbot/resource_pack/textures/particle/alnb_circle.png`
 - `MCPEDL/Addons/ALN-Bow-Aimbot/resource_pack/textures/particle/alnb_target.png`
