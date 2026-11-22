@@ -7,7 +7,7 @@
 
 **Place one Loot Spawner, insert any item, and receive periodic duplicates scaled to 4 rarity tiers from 8 seconds to 240 seconds.**
 
-> A 1x1 ornate display block with gilded obsidian framing and translucent glass panels lets players attune any item and collect automatic duplicates into a chest or hopper below.
+> A 1x1 ornate display block with gilded obsidian framing and tinted glass panels lets players attune any item and collect automatic duplicates into a chest or hopper below.
 
 ## Overview
 
@@ -16,7 +16,7 @@ The Loot Spawner is a craftable 1x1 block that accepts any single item as a temp
 ## Key Features
 
 ### Beacon-Style Glass Display Block
-- **What Happens**: Players place the Loot Spawner block, which renders as a gilded obsidian pedestal with four corner pillars and translucent glass panels on all four sides, letting players see inside the chamber.
+- **What Happens**: Players place the Loot Spawner block, which renders as a gilded obsidian pedestal with four corner pillars and tinted glass panels on all four sides.
 
 ### Rarity-Based Duplication Engine
 - **What Happens**: Players insert an item and the block classifies it into one of four tiers: Common (8-second cycle), Uncommon (20-second cycle), Rare (60-second cycle), or Epic (240-second cycle), then counts down and produces one copy on each completion.
@@ -25,7 +25,7 @@ The Loot Spawner is a craftable 1x1 block that accepts any single item as a temp
 - **What Happens**: Players interact with an active Loot Spawner to open a form showing the attuned item name, its rarity tier with a color code, the live progress percentage, and the countdown until the next duplicate.
 
 ### Template Retrieval
-- **What Happens**: Players press Retrieve Template Item in the inspection UI to stop duplication and return the original item to their inventory, resetting the block to empty.
+- **What Happens**: Players press Retrieve Template Item in the inspection UI to stop duplication and return the original item to their inventory, resetting the block to empty. Breaking the block also drops the template item.
 
 ### Automatic Container Output
 - **What Happens**: When a duplication cycle completes, the block checks the space directly below for a chest, barrel, or hopper and inserts the duplicate there; if no container is present the item appears on top of the block instead.

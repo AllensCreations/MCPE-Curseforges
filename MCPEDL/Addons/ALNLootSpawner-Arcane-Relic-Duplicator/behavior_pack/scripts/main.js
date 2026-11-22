@@ -1,11 +1,15 @@
-import { world, system, ItemStack, BlockInventoryComponent } from "@minecraft/server";
+import { world, system, ItemStack } from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui";
 
 const BLOCK_ID = "aln:loot_spawner";
-const PROP_ITEM = "aln:spawner_item";
-const PROP_TYPE = "aln:spawner_type";
-const PROP_TICK = "aln:spawner_tick";
-const PROP_ACTIVE = "aln:spawner_active";
+const REGISTRY_PROP = "aln:spawners";
+const LEGACY_ITEM = "aln:spawner_item";
+const LEGACY_TYPE = "aln:spawner_type";
+const LEGACY_TICK = "aln:spawner_tick";
+const STEP_TICKS = 20;
+const SAVE_EVERY_STEPS = 5;
+const SPARK_RANGE = 24;
+const OUTPUT_CONTAINERS = new Set(["minecraft:chest", "minecraft:trapped_chest", "minecraft:barrel", "minecraft:hopper"]);
 
 const RARITY = {
   common:   { label: "Common",   color: "§f", ticks: 160  },
@@ -58,88 +62,66 @@ function getRarity(typeId) {
   return "common";
 }
 
-function blockKey(block) {
-  const loc = block.location;
-  return `${loc.x}:${loc.y}:${loc.z}:${block.dimension.id}`;
+let spawners = null;
+let dirty = false;
+let steps = 0;
+
+function keyOf(dimId, x, y, z) {
+  return `${dimId}|${x}|${y}|${z}`;
 }
 
-function getSpawnerData(block) {
-  const key = blockKey(block);
+function loadSpawners() {
+  if (spawners) return spawners;
+  spawners = new Map();
   try {
-    const raw = world.getDynamicProperty(`${PROP_ITEM}_${key}`);
-    if (typeof raw !== "string" || !raw) return null;
-    return {
-      itemId:   raw,
-      rarity:   typeof world.getDynamicProperty(`${PROP_TYPE}_${key}`) === "string"
-                  ? world.getDynamicProperty(`${PROP_TYPE}_${key}`) : "common",
-      ticksLeft: typeof world.getDynamicProperty(`${PROP_TICK}_${key}`) === "number"
-                  ? world.getDynamicProperty(`${PROP_TICK}_${key}`) : RARITY["common"].ticks
-    };
-  } catch (e) {
-    return null;
-  }
-}
-
-function setSpawnerData(block, itemId, rarity, ticksLeft) {
-  const key = blockKey(block);
-  try {
-    world.setDynamicProperty(`${PROP_ITEM}_${key}`, itemId);
-    world.setDynamicProperty(`${PROP_TYPE}_${key}`, rarity);
-    world.setDynamicProperty(`${PROP_TICK}_${key}`, ticksLeft);
-  } catch (e) {}
-}
-
-function clearSpawnerData(block) {
-  const key = blockKey(block);
-  try {
-    world.setDynamicProperty(`${PROP_ITEM}_${key}`, "");
-    world.setDynamicProperty(`${PROP_TYPE}_${key}`, "");
-    world.setDynamicProperty(`${PROP_TICK}_${key}`, 0);
-  } catch (e) {}
-}
-
-function tryInsertIntoContainer(block, item) {
-  const loc = block.location;
-  const dim = block.dimension;
-  const below = dim.getBlock({ x: loc.x, y: loc.y - 1, z: loc.z });
-  if (!below) return false;
-  const tid = below.typeId;
-  const isContainer = tid === "minecraft:chest" || tid === "minecraft:trapped_chest"
-                   || tid === "minecraft:barrel" || tid === "minecraft:hopper";
-  if (!isContainer) return false;
-  try {
-    const inv = below.getComponent("minecraft:inventory");
-    if (!inv || !inv.container) return false;
-    const container = inv.container;
-    for (let i = 0; i < container.size; i++) {
-      const slot = container.getItem(i);
-      if (!slot) {
-        container.setItem(i, new ItemStack(item, 1));
-        return true;
-      }
-      if (slot.typeId === item && slot.amount < slot.maxAmount) {
-        container.setItem(i, new ItemStack(item, slot.amount + 1));
-        return true;
+    const raw = world.getDynamicProperty(REGISTRY_PROP);
+    if (typeof raw === "string" && raw) {
+      for (const s of JSON.parse(raw)) {
+        if (s && typeof s.item === "string" && typeof s.d === "string") {
+          spawners.set(keyOf(s.d, s.x, s.y, s.z), s);
+        }
       }
     }
   } catch (e) {}
-  return false;
+  return spawners;
 }
 
-function ejectItem(block, itemId) {
-  if (tryInsertIntoContainer(block, itemId)) return;
+function saveSpawners() {
   try {
-    const loc = block.location;
-    block.dimension.spawnItem(new ItemStack(itemId, 1), {
-      x: loc.x + 0.5,
-      y: loc.y + 1.1,
-      z: loc.z + 0.5
-    });
+    world.setDynamicProperty(REGISTRY_PROP, JSON.stringify([...loadSpawners().values()]));
+    dirty = false;
   } catch (e) {}
 }
 
+function importLegacy(block) {
+  const loc = block.location;
+  const legacyKey = `${loc.x}:${loc.y}:${loc.z}:${block.dimension.id}`;
+  try {
+    const item = world.getDynamicProperty(`${LEGACY_ITEM}_${legacyKey}`);
+    if (typeof item !== "string" || !item) return undefined;
+    const rarityProp = world.getDynamicProperty(`${LEGACY_TYPE}_${legacyKey}`);
+    const tickProp = world.getDynamicProperty(`${LEGACY_TICK}_${legacyKey}`);
+    const rarity = typeof rarityProp === "string" && RARITY[rarityProp] ? rarityProp : getRarity(item);
+    const entry = {
+      d: block.dimension.id, x: loc.x, y: loc.y, z: loc.z,
+      item, rarity,
+      left: typeof tickProp === "number" && tickProp > 0 ? tickProp : RARITY[rarity].ticks
+    };
+    loadSpawners().set(keyOf(entry.d, entry.x, entry.y, entry.z), entry);
+    world.setDynamicProperty(`${LEGACY_ITEM}_${legacyKey}`, "");
+    saveSpawners();
+    return entry;
+  } catch (e) {
+    return undefined;
+  }
+}
+
+function prettyName(typeId) {
+  return typeId.replace("minecraft:", "").split("_").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+}
+
 function ticksToTime(ticks) {
-  const secs = Math.ceil(ticks / 20);
+  const secs = Math.max(0, Math.ceil(ticks / 20));
   if (secs >= 60) {
     const m = Math.floor(secs / 60);
     const s = secs % 60;
@@ -148,124 +130,202 @@ function ticksToTime(ticks) {
   return `${secs}s`;
 }
 
-async function openSpawnerUI(player, block) {
-  const data = getSpawnerData(block);
-  if (!data) return;
-  const rar = RARITY[data.rarity] || RARITY.common;
-  const totalTicks = rar.ticks;
-  const elapsed = totalTicks - data.ticksLeft;
-  const pct = Math.max(0, Math.min(100, Math.floor((elapsed / totalTicks) * 100)));
-  const timeLeft = ticksToTime(data.ticksLeft);
+function nearbyPlayers(entry, range) {
+  const out = [];
+  try {
+    for (const p of world.getAllPlayers()) {
+      if (p.dimension.id !== entry.d) continue;
+      const dx = p.location.x - entry.x;
+      const dy = p.location.y - entry.y;
+      const dz = p.location.z - entry.z;
+      if (dx * dx + dy * dy + dz * dz <= range * range) out.push(p);
+    }
+  } catch (e) {}
+  return out;
+}
+
+function sparks(dimension, entry, count) {
+  for (let i = 0; i < count; i++) {
+    try {
+      dimension.spawnParticle("minecraft:basic_flame_particle", {
+        x: entry.x + 0.15 + Math.random() * 0.7,
+        y: entry.y + 0.2 + Math.random() * 0.7,
+        z: entry.z + 0.15 + Math.random() * 0.7
+      });
+    } catch (e) {}
+  }
+}
+
+function ejectDuplicate(dimension, entry) {
+  let placed = false;
+  try {
+    const below = dimension.getBlock({ x: entry.x, y: entry.y - 1, z: entry.z });
+    if (below && OUTPUT_CONTAINERS.has(below.typeId)) {
+      const inv = below.getComponent("minecraft:inventory");
+      if (inv && inv.container) {
+        const leftover = inv.container.addItem(new ItemStack(entry.item, 1));
+        placed = !leftover;
+      }
+    }
+  } catch (e) {}
+  if (!placed) {
+    try {
+      dimension.spawnItem(new ItemStack(entry.item, 1), { x: entry.x + 0.5, y: entry.y + 1.1, z: entry.z + 0.5 });
+    } catch (e) {}
+  }
+  sparks(dimension, entry, 14);
+  for (const p of nearbyPlayers(entry, SPARK_RANGE)) {
+    try { p.playSound("random.orb"); } catch (e) {}
+  }
+}
+
+function dropTemplate(dimension, entry) {
+  try {
+    dimension.spawnItem(new ItemStack(entry.item, 1), { x: entry.x + 0.5, y: entry.y + 0.5, z: entry.z + 0.5 });
+  } catch (e) {}
+}
+
+function giveToPlayer(player, itemId) {
+  let leftover = true;
+  try {
+    const inv = player.getComponent("minecraft:inventory");
+    if (inv && inv.container) leftover = inv.container.addItem(new ItemStack(itemId, 1));
+  } catch (e) {}
+  if (leftover) {
+    try {
+      player.dimension.spawnItem(new ItemStack(itemId, 1), player.location);
+    } catch (e) {}
+  }
+}
+
+async function openSpawnerUI(player, key) {
+  const entry = loadSpawners().get(key);
+  if (!entry) return;
+  const rar = RARITY[entry.rarity] || RARITY.common;
+  const pct = Math.max(0, Math.min(100, Math.floor(((rar.ticks - entry.left) / rar.ticks) * 100)));
 
   const form = new ActionFormData()
     .title("Loot Spawner")
     .body(
-      `Item: ${data.itemId.replace("minecraft:", "")}\n` +
+      `Item: ${prettyName(entry.item)}\n` +
       `Rarity: ${rar.color}${rar.label}§r\n\n` +
       `Progress: ${pct}%\n` +
-      `Next duplicate in: ${timeLeft}`
+      `Next duplicate in: ${ticksToTime(entry.left)}`
     )
     .button("Retrieve Template Item")
     .button("Exit");
 
   let res;
   try { res = await form.show(player); } catch (e) { return; }
-  if (!res || res.canceled) return;
-  if (res.selection === 0) {
-    try {
-      player.getComponent("minecraft:inventory")?.container?.addItem(new ItemStack(data.itemId, 1));
-    } catch (e) {}
-    clearSpawnerData(block);
-    player.playSound("random.orb");
-    player.onScreenDisplay.setActionBar("§aTemplate retrieved.");
-  }
+  if (!res || res.canceled || res.selection !== 0) return;
+
+  const current = loadSpawners().get(key);
+  if (!current) return;
+  loadSpawners().delete(key);
+  saveSpawners();
+  giveToPlayer(player, current.item);
+  try { player.playSound("random.orb"); } catch (e) {}
+  player.onScreenDisplay.setActionBar("§aTemplate retrieved.");
 }
 
-world.afterEvents.playerInteractWithBlock.subscribe(({ player, block, beforeItemStack }) => {
-  if (block.typeId !== BLOCK_ID) return;
-  const existing = getSpawnerData(block);
-
-  if (existing) {
-    system.run(() => openSpawnerUI(player, block));
-    return;
-  }
-
-  const held = beforeItemStack;
-  if (!held) {
-    player.onScreenDisplay.setActionBar("§eHold an item and interact to attune it.");
-    return;
-  }
-
-  const typeId = held.typeId;
-  if (BLOCKED_CONTAINERS.has(typeId)) {
-    player.onScreenDisplay.setActionBar("§cFilled containers cannot be attuned.");
-    return;
-  }
-  if (typeId === "minecraft:air" || typeId === BLOCK_ID) {
-    player.onScreenDisplay.setActionBar("§eHold an item and interact to attune it.");
-    return;
-  }
-
-  const rarity = getRarity(typeId);
-  const ticks = RARITY[rarity].ticks;
-
+function takeOneFromPlayer(player, typeId) {
   try {
     const inv = player.getComponent("minecraft:inventory");
-    if (!inv || !inv.container) return;
+    if (!inv || !inv.container) return false;
     const container = inv.container;
     for (let i = 0; i < container.size; i++) {
       const slot = container.getItem(i);
       if (slot && slot.typeId === typeId) {
         if (slot.amount > 1) {
-          container.setItem(i, new ItemStack(typeId, slot.amount - 1));
+          slot.amount -= 1;
+          container.setItem(i, slot);
         } else {
           container.setItem(i, undefined);
         }
-        break;
+        return true;
       }
     }
   } catch (e) {}
+  return false;
+}
 
-  setSpawnerData(block, typeId, rarity, ticks);
-  player.playSound("beacon.activate");
+world.afterEvents.playerInteractWithBlock.subscribe(({ player, block, beforeItemStack }) => {
+  if (block.typeId !== BLOCK_ID) return;
+  const loc = block.location;
+  const key = keyOf(block.dimension.id, loc.x, loc.y, loc.z);
+
+  if (loadSpawners().has(key) || importLegacy(block)) {
+    system.run(() => openSpawnerUI(player, key));
+    return;
+  }
+
+  const held = beforeItemStack;
+  if (!held || held.typeId === "minecraft:air" || held.typeId === BLOCK_ID) {
+    player.onScreenDisplay.setActionBar("§eHold an item and interact to attune it.");
+    return;
+  }
+  const typeId = held.typeId;
+  if (BLOCKED_CONTAINERS.has(typeId)) {
+    player.onScreenDisplay.setActionBar("§cFilled containers cannot be attuned.");
+    return;
+  }
+  if (!takeOneFromPlayer(player, typeId)) return;
+
+  const rarity = getRarity(typeId);
+  loadSpawners().set(key, {
+    d: block.dimension.id, x: loc.x, y: loc.y, z: loc.z,
+    item: typeId, rarity, left: RARITY[rarity].ticks
+  });
+  saveSpawners();
+  try { player.playSound("beacon.activate"); } catch (e) {}
   const rar = RARITY[rarity];
-  player.onScreenDisplay.setActionBar(`§bAttuned: §r${typeId.replace("minecraft:", "")} §8[${rar.color}${rar.label}§8]`);
+  player.onScreenDisplay.setActionBar(`§bAttuned: §r${prettyName(typeId)} §8[${rar.color}${rar.label}§8]`);
 });
 
-const activeBlocks = new Map();
+const misses = new Map();
 
 system.runInterval(() => {
-  for (const dim of ["minecraft:overworld","minecraft:nether","minecraft:the_end"]) {
+  const reg = loadSpawners();
+  if (reg.size === 0) return;
+  steps++;
+
+  for (const [key, entry] of [...reg.entries()]) {
     let dimension;
-    try { dimension = world.getDimension(dim); } catch (e) { continue; }
-    for (const player of world.getAllPlayers()) {
-      if (player.dimension.id !== dim) continue;
-      const origin = player.location;
-      const range = 32;
-      try {
-        const blocks = dimension.getBlocks(
-          { x: origin.x - range, y: origin.y - range, z: origin.z - range },
-          { x: origin.x + range, y: origin.y + range, z: origin.z + range },
-          { type: BLOCK_ID }
-        );
-        if (!blocks) continue;
-        for (const block of blocks) {
-          if (!block || block.typeId !== BLOCK_ID) continue;
-          const key = blockKey(block);
-          const data = getSpawnerData(block);
-          if (!data || !data.itemId) { activeBlocks.delete(key); continue; }
-          let ticksLeft = data.ticksLeft - 1;
-          if (ticksLeft <= 0) {
-            ticksLeft = RARITY[data.rarity]?.ticks ?? RARITY.common.ticks;
-            ejectItem(block, data.itemId);
-            try {
-              dimension.spawnParticle("minecraft:basic_flame_particle",
-                { x: block.location.x + 0.5, y: block.location.y + 1.0, z: block.location.z + 0.5 });
-            } catch (pe) {}
-          }
-          setSpawnerData(block, data.itemId, data.rarity, ticksLeft);
-        }
-      } catch (e) {}
+    let block;
+    try {
+      dimension = world.getDimension(entry.d);
+      block = dimension.getBlock({ x: entry.x, y: entry.y, z: entry.z });
+    } catch (e) {
+      continue;
+    }
+    if (!block) continue;
+
+    if (block.typeId !== BLOCK_ID) {
+      const count = (misses.get(key) || 0) + 1;
+      if (count >= 2) {
+        dropTemplate(dimension, entry);
+        reg.delete(key);
+        misses.delete(key);
+        dirty = true;
+      } else {
+        misses.set(key, count);
+      }
+      continue;
+    }
+    misses.delete(key);
+
+    const total = (RARITY[entry.rarity] || RARITY.common).ticks;
+    entry.left -= STEP_TICKS;
+    dirty = true;
+
+    if (entry.left <= 0) {
+      entry.left = total;
+      ejectDuplicate(dimension, entry);
+    } else if (nearbyPlayers(entry, SPARK_RANGE).length > 0) {
+      const progress = 1 - entry.left / total;
+      sparks(dimension, entry, 1 + Math.floor(progress * 5));
     }
   }
-}, 1);
+
+  if (dirty && steps % SAVE_EVERY_STEPS === 0) saveSpawners();
+}, STEP_TICKS);

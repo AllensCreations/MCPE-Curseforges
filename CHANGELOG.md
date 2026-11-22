@@ -4,6 +4,18 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v244] - 2026-11-23 - Fix Duplication Timer and Add Break Drops
+
+**Spec**: spec_v244.txt | **Target**: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator | **Files edited**: 3
+
+### Added
+- **Template drop on break**: Breaking a Loot Spawner now drops its template item, so the attuned relic is never lost.
+- **Sparks and chime**: Gold sparks appear around the chamber and grow more frequent as the timer fills, with a burst and a chime each time a duplicate is produced.
+### Fixed
+- **Duplication timer**: The old timer loop searched a 64-block volume every tick through a call whose signature could not be verified. Spawners are now tracked in a saved list and checked once per second, and they keep counting after the world is reloaded.
+- **Container output**: Duplicates now go into a chest, barrel, or hopper below through the container's own add-item routine, and pop out on top of the block when the container is full.
+- **Description accuracy**: The block renders as solid tinted glass, so the description no longer promises see-through panels.
+
 ## [v243] - 2026-11-23 - Auto Restock and Chest Lock
 
 **Spec**: spec_v243.txt | **Target**: MCPEDL/Addons/ALNOneClickSort | **Files edited**: 4
