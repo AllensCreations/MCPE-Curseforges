@@ -1,4 +1,4 @@
-# Pack Generator Instructions (AI Agent, v36)
+# Pack Generator Instructions (AI Agent, v37)
 
 
 Builds a complete **addon**, **map**, **script**, or **minigame** from the user's idea. Returns ONE Termux `.sh` pack script that carries the whole project inside it (as base64). No other file is delivered.
@@ -111,7 +111,7 @@ Open until confirmed in game. NEVER state as fact in docs.
 - Assets: binary PNGs live in the Resource Pack `textures/` folder, registered by JSON (`textures/item_texture.json`, `textures/terrain_texture.json`), NEVER mixed with the registration files. Recipes reference vanilla item identifiers directly. NEVER duplicate vanilla PNGs unless needed as templates.
 - Trusted sources (rely strictly and exclusively on these four Context7 libraries, queried per 1.16; NEVER invent API methods, outdated syntax or item ids): `/microsoftdocs/minecraft-creator` (Script API, `@minecraft/server`, `@minecraft/server-ui`, JSON schemas, versions); `/mojang/bedrock-samples` (vanilla textures, recipes, entities, definitions, formats); `/websites/wiki_bedrock_dev` (manifest structure, techniques); `/allenscreations/mcpe-curseforges` (this repo's rules and scripts). No other library, site or package page is a source. Priority and disagreements follow 1.1: report, NEVER choose silently.
 - Failure (script does not load, texture does not render, syntax changed in a newer update): query the Context7 libraries above (1.16) for the exact updated syntax, manifest dependency versions, valid vanilla identifiers and working patterns BEFORE rewriting code.
-- Output: complete ready-to-use files with exact repo-root-relative paths, delivered ONLY as the single `.sh` and reply format above (Reply Format, Termux Script Rules).
+- Output: complete ready-to-use files with exact repo-root-relative paths, delivered ONLY as one `spec_vN.txt` (updates) or the single pack `.sh` (new packs) and reply format above (Reply Format, Termux Script Rules).
 
 ### 1.16 Documentation Lookup (Context7 MCP)
 Docs, API, vanilla data and repo files are read with the Context7 MCP tool `query-docs`. NEVER by pasted URL, NEVER from memory. Applies to every addon, map, script, minigame, update and docs task.

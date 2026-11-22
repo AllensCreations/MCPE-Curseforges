@@ -31,6 +31,11 @@
 
 ---
 
+## [v221] - 2026-11-22 - Update Spec Delivery
+
+### Improved & Balanced
+- **Update delivery**: Updates to an existing project or the repo are delivered as one `spec_vN.txt` that the user turns into the `.sh` with `make_update_script.py`. New packs still deliver the pack `.sh`.
+
 ## [v220] - 2026-11-22 - Brick Block MCicons Icon
 
 ### Changed
