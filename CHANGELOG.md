@@ -4,6 +4,14 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v234] - 2026-11-22 - Pack Stays Active Fix
+
+**Spec**: spec_v234.txt | **Target**: MCPEDL/Maps/OneBlock-Void-Survival | **Files edited**: 2
+
+### Fixed
+
+- **Behavior Pack Active In The World**: The world's pack reference was still on an older version than the pack itself, so the game listed the behavior pack under Available instead of Active and the scripts did not run. The reference now matches the pack version.
+
 ## 2026-11-22 - New Addon ALN SoulLantern
 
 ### Added

@@ -2,6 +2,12 @@
 
 ---
 
+## [v9] - 2026-11-22 - Pack Stays Active Fix
+
+### Fixed
+
+- **Behavior Pack Active In The World**: The world's pack reference was still on an older version than the pack itself, so the game listed the behavior pack under Available instead of Active and the scripts did not run. The reference now matches the pack version.
+
 ## [v8] - 2026-11-22 - Survival Mode Lock
 
 ### Improved & Balanced
