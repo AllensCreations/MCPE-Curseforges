@@ -651,6 +651,12 @@
 
 ---
 
+## [v225] - 2026-11-22 - Survival Mode Lock
+
+### Improved & Balanced
+
+- **Survival Mode Lock**: In the Survival world the game mode is now locked. Anyone who switches to Creative, Adventure or Spectator is put back into Survival within a second. The Creative world is not affected.
+
 ## [v224] - 2026-11-22 - Brand Name Update
 
 ### Improved & Balanced

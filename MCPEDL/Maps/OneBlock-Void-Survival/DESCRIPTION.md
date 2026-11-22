@@ -30,7 +30,7 @@ The central block provides resources as you progress through increasingly advanc
 
 ### Two Worlds
 - **Creative:** Every player starts in Creative mode and nothing is locked.
-- **Survival:** Every player starts in Survival mode. Difficulty and game mode are not locked, and normal respawning applies.
+- **Survival:** Every player is kept in Survival mode, because the pack switches anyone back to Survival within a second. Difficulty is not locked, and normal respawning applies.
 
 ## How to Play
 

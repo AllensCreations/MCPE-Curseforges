@@ -438,6 +438,13 @@ export function onScriptEvent(event) {
   } catch (e) {}
 }
 
+function lockSurvivalMode(player) {
+  try {
+    if (typeof player.getGameMode === "function" && String(player.getGameMode()).toLowerCase() === "survival") return;
+  } catch (e) {}
+  try { player.runCommand("gamemode survival @s"); } catch (e) {}
+}
+
 export function maintenanceTick() {
   try {
     advanceTick();
@@ -447,6 +454,7 @@ export function maintenanceTick() {
     // Actionbar HUD & Gamemode Enforcement
     for (const player of world.getAllPlayers()) {
       try {
+        if (BASE_MODE === "survival" && !isAdmin(player)) lockSurvivalMode(player);
         // Actionbar HUD: Exclusively for Admin testing / when enabled
         if (isAdmin(player) && !player.hasTag("hide_hud") && !isAutoBreakRunning) {
           const dimKey = getDimKey(player.dimension.id);
