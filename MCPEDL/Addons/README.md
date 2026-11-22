@@ -46,6 +46,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | ALNLootSpawner (Arcane Relic Duplicator) | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNLootSpawner-Arcane-Relic-Duplicator/ALNLootSpawnerArcaneRelicDuplicator%20V1.0.3.mcaddon) |
 | ALN Bow Aimbot | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Bow-Aimbot/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Bow-Aimbot/ALNBowAimbot%20V1.0.1.mcaddon) |
 | ALN SoulLantern | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-SoulLantern/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-SoulLantern/ALNSoulLantern%20V1.mcaddon) |
+| Homes Warps and Back | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Homes-Warps-and-Back/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Homes-Warps-and-Back/HomesWarpsBack%20V1.mcaddon) |
 
 Download links point to the currently published package files.
 

@@ -2,7 +2,7 @@
 
 Generated file. Do not edit by hand: it is rebuilt with every build.
 
-40 Add-ons · 5 Maps · 10 Scripts · 6 Minigames
+41 Add-ons · 5 Maps · 10 Scripts · 6 Minigames
 
 ## AI Review Kits
 
@@ -41,6 +41,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | **Grand Banquets** | v3 | [Source](Addons/Grand-Banquets) | [Package](../Package/Grand-Banquets.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Grand-Banquets.txt) |
 | **Grimoire Relics V2** | v3 | [Source](Addons/Grimoire-Relics-V2) | [Package](../Package/Grimoire-Relics-V2.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Grimoire-Relics-V2.txt) |
 | **Harvest Intelligence** | v2 | [Source](Addons/Harvest-Intelligence) | [Package](../Package/Harvest-Intelligence.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Harvest-Intelligence.txt) |
+| **Homes Warps and Back** | 1.0.0 | [Source](Addons/Homes-Warps-and-Back) | [Package](../Package/Homes-Warps-and-Back.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Homes-Warps-and-Back.txt) |
 | **Immortal Pets** | v2 | [Source](Addons/Immortal-Pets) | [Package](../Package/Immortal-Pets.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Immortal-Pets.txt) |
 | **Magnetic Satchel** | v2 | [Source](Addons/Magnetic-Satchel) | [Package](../Package/Magnetic-Satchel.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Magnetic-Satchel.txt) |
 | **Melody Figurine** | v2 | [Source](Addons/Melody-Figurine) | [Package](../Package/Melody-Figurine.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Melody-Figurine.txt) |

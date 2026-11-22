@@ -1,0 +1,512 @@
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Addons/Homes-Warps-and-Back`
+- **Destination:** `MCPEDL/Addons/Homes-Warps-and-Back`
+- **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/Homes-Warps-and-Back/CHANGELOG.md`)
+- **Spec ledger:** REPO_VERSION 235; the next spec is `spec_v236.txt` (newest specs are listed in the root `CHANGELOG.md`)
+- **Text files:** 7
+- **Skipped binary:** 0
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Addons/Homes-Warps-and-Back/behavior_pack/manifest.json`
+- `MCPEDL/Addons/Homes-Warps-and-Back/behavior_pack/scripts/lib/README.md`
+- `MCPEDL/Addons/Homes-Warps-and-Back/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/Homes-Warps-and-Back/CHANGELOG.md`
+- `MCPEDL/Addons/Homes-Warps-and-Back/DESCRIPTION.md`
+- `MCPEDL/Addons/Homes-Warps-and-Back/project.json`
+- `MCPEDL/Addons/Homes-Warps-and-Back/README.md`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v1 / NEXT UPDATE: v2).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Addons/Homes-Warps-and-Back
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands. Update to an existing project or the repo: deliver ONE attached `spec_v<N>.txt` (N = REPO_VERSION + 1, see "Spec ledger" above) and the commands that build and run it (`python3 scripts/make_update_script.py ~/storage/downloads/spec_v<N>.txt --out-dir ~/storage/downloads --verify ~/MCPE-Curseforges`, then `bash ~/storage/downloads/<Name>_v<N>_*.sh`). New pack: the pack `.sh`.
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Addons/Homes-Warps-and-Back/behavior_pack/manifest.json (50 lines, 964 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Homes Warps and Back (v1)",
+    "description": "Save homes and public warps, and return to your last death point from one compass menu. by ALNStudios",
+    "uuid": "a2ecfc0c-3a8d-43a5-80f0-5512e6aed923",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      50
+    ]
+  },
+  "modules": [
+    {
+      "description": "Homes, warps and back menu",
+      "type": "script",
+      "language": "javascript",
+      "uuid": "1ac83c7e-5aa6-4132-bbd3-77acc35ea5fb",
+      "version": [
+        1,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.10.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.2.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Homes-Warps-and-Back/behavior_pack/scripts/lib/README.md (4 lines, 136 bytes)
+
+```
+# lib
+
+Shared helper modules for this pack go in this folder. Version 1.0.0 keeps all logic in main.js, so no helper modules exist yet.
+```
+
+## FILE: MCPEDL/Addons/Homes-Warps-and-Back/behavior_pack/scripts/main.js (248 lines, 7713 bytes)
+
+```
+import { world, system, Player } from "@minecraft/server";
+import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
+
+const MENU_ITEM = "minecraft:compass";
+const HOMES_KEY = "aln_hwb:homes";
+const WARPS_KEY = "aln_hwb:warps";
+const BACK_KEY = "aln_hwb:back";
+const TITLE = "Homes, Warps and Back";
+const MAX_HOMES = 5;
+const MAX_WARPS_EACH = 3;
+const MAX_WARPS = 30;
+const MAX_NAME = 16;
+
+function readList(owner, key) {
+  try {
+    const raw = owner.getDynamicProperty(key);
+    const data = typeof raw === "string" ? JSON.parse(raw) : [];
+    return Array.isArray(data) ? data : [];
+  } catch (error) {
+    return [];
+  }
+}
+
+function readMap(owner, key) {
+  try {
+    const raw = owner.getDynamicProperty(key);
+    const data = typeof raw === "string" ? JSON.parse(raw) : {};
+    return data && typeof data === "object" && !Array.isArray(data) ? data : {};
+  } catch (error) {
+    return {};
+  }
+}
+
+function save(owner, key, value) {
+  try {
+    owner.setDynamicProperty(key, JSON.stringify(value));
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+function round(value) {
+  return Math.round(value * 100) / 100;
+}
+
+function spotOf(entity) {
+  const at = entity.location;
+  return { x: round(at.x), y: round(at.y), z: round(at.z), d: entity.dimension.id };
+}
+
+function validSpot(spot) {
+  return Boolean(spot) && Number.isFinite(spot.x) && Number.isFinite(spot.y) && Number.isFinite(spot.z) && typeof spot.d === "string";
+}
+
+function cleanName(value) {
+  if (typeof value !== "string") return "";
+  return value.replace(/[^A-Za-z0-9 _'-]/g, "").replace(/\s+/g, " ").trim().slice(0, MAX_NAME);
+}
+
+function sameName(a, b) {
+  return a.toLowerCase() === b.toLowerCase();
+}
+
+function travel(player, spot, label) {
+  if (!validSpot(spot)) {
+    player.sendMessage("That saved place is damaged and cannot be used.");
+    return;
+  }
+  system.run(() => {
+    try {
+      player.teleport({ x: spot.x, y: spot.y, z: spot.z }, { dimension: world.getDimension(spot.d) });
+      player.sendMessage(`Teleported to ${label}.`);
+    } catch (error) {
+      player.sendMessage("That place could not be reached.");
+    }
+  });
+}
+
+function present(player, form, onPick) {
+  form
+    .show(player)
+    .then((response) => {
+      if (response.canceled) return;
+      onPick(response);
+    })
+    .catch(() => {});
+}
+
+function mainMenu(player) {
+  const form = new ActionFormData()
+    .title(TITLE)
+    .body("Choose an option.")
+    .button("My Homes")
+    .button("Set Home")
+    .button("Warps")
+    .button("Set Warp")
+    .button("Back to Death Point");
+  const actions = [
+    () => homesMenu(player, false),
+    () => setHomeForm(player),
+    () => warpsMenu(player, false),
+    () => setWarpForm(player),
+    () => goBack(player),
+  ];
+  present(player, form, (response) => {
+    const run = actions[response.selection];
+    if (run) run();
+  });
+}
+
+function homesMenu(player, removing) {
+  const homes = readList(player, HOMES_KEY);
+  if (homes.length === 0) {
+    player.sendMessage("You have no homes yet. Use Set Home first.");
+    return;
+  }
+  const form = new ActionFormData()
+    .title(removing ? "Delete a Home" : "My Homes")
+    .body(removing ? "Choose a home to delete." : "Choose a home to travel to.");
+  for (const home of homes) form.button(home.name);
+  if (!removing) form.button("Delete a Home");
+  present(player, form, (response) => {
+    if (!removing && response.selection === homes.length) {
+      homesMenu(player, true);
+      return;
+    }
+    const home = homes[response.selection];
+    if (!home) return;
+    if (removing) {
+      homes.splice(response.selection, 1);
+      save(player, HOMES_KEY, homes);
+      player.sendMessage(`Deleted home ${home.name}.`);
+      return;
+    }
+    travel(player, home, `home ${home.name}`);
+  });
+}
+
+function setHomeForm(player) {
+  const form = new ModalFormData().title("Set Home").textField("Home name", "home", "Home");
+  present(player, form, (response) => {
+    const name = cleanName(response.formValues[0]);
+    if (!name) {
+      player.sendMessage("Use 1 to 16 letters, numbers or spaces.");
+      return;
+    }
+    const homes = readList(player, HOMES_KEY);
+    const index = homes.findIndex((home) => sameName(home.name, name));
+    if (index === -1 && homes.length >= MAX_HOMES) {
+      player.sendMessage(`You can keep up to ${MAX_HOMES} homes. Delete one first.`);
+      return;
+    }
+    const entry = { name, ...spotOf(player) };
+    if (index === -1) homes.push(entry);
+    else homes[index] = entry;
+    player.sendMessage(save(player, HOMES_KEY, homes) ? `Home ${name} saved.` : "The home could not be saved.");
+  });
+}
+
+function warpsMenu(player, removing) {
+  const all = readList(world, WARPS_KEY);
+  const shown = removing ? all.filter((warp) => warp.owner === player.name) : all;
+  if (shown.length === 0) {
+    player.sendMessage(removing ? "You have no warps to delete." : "No warps have been set yet.");
+    return;
+  }
+  const form = new ActionFormData()
+    .title(removing ? "Delete a Warp" : "Warps")
+    .body(removing ? "Choose one of your warps to delete." : "Choose a warp to travel to.");
+  for (const warp of shown) form.button(`${warp.name}\nby ${warp.owner}`);
+  if (!removing) form.button("Delete My Warp");
+  present(player, form, (response) => {
+    if (!removing && response.selection === shown.length) {
+      warpsMenu(player, true);
+      return;
+    }
+    const warp = shown[response.selection];
+    if (!warp) return;
+    if (removing) {
+      const index = all.indexOf(warp);
+      if (index !== -1) all.splice(index, 1);
+      save(world, WARPS_KEY, all);
+      player.sendMessage(`Deleted warp ${warp.name}.`);
+      return;
+    }
+    travel(player, warp, `warp ${warp.name}`);
+  });
+}
+
+function setWarpForm(player) {
+  const form = new ModalFormData().title("Set Warp").textField("Warp name", "spawn", "Warp");
+  present(player, form, (response) => {
+    const name = cleanName(response.formValues[0]);
+    if (!name) {
+      player.sendMessage("Use 1 to 16 letters, numbers or spaces.");
+      return;
+    }
+    const all = readList(world, WARPS_KEY);
+    const taken = all.findIndex((warp) => sameName(warp.name, name));
+    if (taken !== -1 && all[taken].owner !== player.name) {
+      player.sendMessage(`The warp ${all[taken].name} belongs to ${all[taken].owner}.`);
+      return;
+    }
+    const owned = all.filter((warp) => warp.owner === player.name).length;
+    if (taken === -1 && owned >= MAX_WARPS_EACH) {
+      player.sendMessage(`You can keep up to ${MAX_WARPS_EACH} warps. Delete one first.`);
+      return;
+    }
+    if (taken === -1 && all.length >= MAX_WARPS) {
+      player.sendMessage("The warp list is full.");
+      return;
+    }
+    const entry = { name, owner: player.name, ...spotOf(player) };
+    if (taken === -1) all.push(entry);
+    else all[taken] = entry;
+    player.sendMessage(save(world, WARPS_KEY, all) ? `Warp ${name} saved.` : "The warp could not be saved.");
+  });
+}
+
+function goBack(player) {
+  const spot = readMap(world, BACK_KEY)[player.name];
+  if (!spot) {
+    player.sendMessage("No death point has been saved yet.");
+    return;
+  }
+  travel(player, spot, "your last death point");
+}
+
+world.afterEvents.entityDie.subscribe((event) => {
+  const dead = event.deadEntity;
+  if (!(dead instanceof Player)) return;
+  try {
+    const all = readMap(world, BACK_KEY);
+    all[dead.name] = spotOf(dead);
+    save(world, BACK_KEY, all);
+    dead.sendMessage("Death point saved. Use a compass to open the menu and return.");
+  } catch (error) {
+    return;
+  }
+});
+
+world.afterEvents.itemUse.subscribe((event) => {
+  if (event.itemStack.typeId !== MENU_ITEM) return;
+  const player = event.source;
+  system.run(() => mainMenu(player));
+});
+```
+
+## FILE: MCPEDL/Addons/Homes-Warps-and-Back/CHANGELOG.md (12 lines, 473 bytes)
+
+```
+# Changelog — Homes Warps and Back
+
+---
+
+## [1.0.0] - 2026-11-23 - First Release
+
+### Added
+- **Compass menu**: Using a compass opens one menu for homes, warps and the death point.
+- **Named homes**: Players save up to 5 homes, travel to them and delete them.
+- **Public warps**: Players publish up to 3 warps each, with 30 in total, and anyone can travel to them.
+- **Back to death point**: The last death location is saved and the menu teleports the player back to it.
+```
+
+## FILE: MCPEDL/Addons/Homes-Warps-and-Back/DESCRIPTION.md (83 lines, 3991 bytes)
+
+```
+# Homes Warps and Back — Save homes, public warps and your last death point
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**One compass menu for 5 named homes, 3 public warps each and a way back after dying.**
+
+> Use a compass to open a single menu. Save named homes, publish warps for other players, and return to the spot where you last died.
+
+## Overview
+
+Homes, Warps and Back puts travel tools on the compass. Using a compass opens a menu where players save and delete homes, set and use public warps, and teleport to their last death point. Everything is saved with the world, and travel works between dimensions.
+
+## Key Features
+
+### Compass Menu
+- **What Happens**: Using a compass opens the menu with homes, warps and the death point button.
+
+### Named Homes
+- **What Happens**: Each player saves up to 5 homes with their own names. Saving an existing name replaces that home.
+
+### Home Deletion
+- **What Happens**: The home list has a delete option, so a full list can be cleaned up without leaving the menu.
+
+### Public Warps
+- **What Happens**: Every player can publish up to 3 warps, with 30 warps in total. Anyone can travel to any warp from the list.
+
+### Warp Ownership
+- **What Happens**: A warp shows the name of the player who set it. Only that player can replace or delete it.
+
+### Back to Death Point
+- **What Happens**: The place where a player last died is saved, and the menu teleports them back to it.
+
+### Dimension Memory
+- **What Happens**: Homes, warps and death points remember their dimension, so travel works between the Overworld, Nether and End.
+
+### World Saved Data
+- **What Happens**: Homes, warps and death points stay saved when players leave and when the world restarts.
+
+## How to Use
+
+1. Hold a compass and use it to open the menu.
+2. Choose Set Home or Set Warp, type a name of up to 16 characters, and confirm.
+3. Choose My Homes or Warps to pick a place and teleport.
+4. Use Delete a Home or Delete My Warp in each list to remove an entry.
+5. After dying, open the menu and choose Back to Death Point.
+6. Names accept letters, numbers, spaces, hyphens, apostrophes and underscores.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.26.50 or newer.
+- Experimental features: Not verified.
+- Achievements: Yes, achievement-friendly.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, Homes Warps and Back Bedrock mod, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+```
+
+## FILE: MCPEDL/Addons/Homes-Warps-and-Back/project.json (5 lines, 56 bytes)
+
+```
+{
+  "type": "addon",
+  "name": "Homes Warps and Back"
+}
+```
+
+## FILE: MCPEDL/Addons/Homes-Warps-and-Back/README.md (19 lines, 823 bytes)
+
+```
+# Homes Warps and Back
+
+Download the current release of **Homes Warps and Back** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download Homes Warps and Back (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Homes-Warps-and-Back/HomesWarpsBack%20V1.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/Homes-Warps-and-Back/DESCRIPTION.md).
+```

@@ -1,0 +1,8 @@
+{
+  "changelog_version": "1.0.0",
+  "manifest_version": "1.0.0",
+  "packages": {
+    "HomesWarpsBack V1.mcaddon": "28f7bce470a40ed5442ba680dab3b2c6c26d5ec49d608371a14d608f6e9c29dc"
+  },
+  "source_sha256": "ce1fcca1f955157831df912e0c40834d4d2b5c0c7f2054d22408056cf6ee33bb"
+}

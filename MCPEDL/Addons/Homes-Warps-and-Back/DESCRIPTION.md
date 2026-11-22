@@ -79,3 +79,4 @@ Homes, Warps and Back puts travel tools on the compass. Using a compass opens a 
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, Homes Warps and Back Bedrock mod, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+
