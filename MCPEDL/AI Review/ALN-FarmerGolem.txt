@@ -1,0 +1,1435 @@
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Addons/ALN-FarmerGolem`
+- **Destination:** `MCPEDL/Addons/ALN-FarmerGolem`
+- **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALN-FarmerGolem/CHANGELOG.md`)
+- **Spec ledger:** REPO_VERSION 236; the next spec is `spec_v237.txt` (newest specs are listed in the root `CHANGELOG.md`)
+- **Text files:** 24
+- **Skipped binary:** 3
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Addons/ALN-FarmerGolem/behavior_pack/blocks/farmer_chest.json`
+- `MCPEDL/Addons/ALN-FarmerGolem/behavior_pack/entities/farmer_chest_storage.json`
+- `MCPEDL/Addons/ALN-FarmerGolem/behavior_pack/entities/farmer_golem.json`
+- `MCPEDL/Addons/ALN-FarmerGolem/behavior_pack/loot_tables/aln/farmer_chest.json`
+- `MCPEDL/Addons/ALN-FarmerGolem/behavior_pack/manifest.json`
+- `MCPEDL/Addons/ALN-FarmerGolem/behavior_pack/scripts/lib/README.md`
+- `MCPEDL/Addons/ALN-FarmerGolem/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/ALN-FarmerGolem/behavior_pack/texts/en_US.lang`
+- `MCPEDL/Addons/ALN-FarmerGolem/behavior_pack/texts/languages.json`
+- `MCPEDL/Addons/ALN-FarmerGolem/CHANGELOG.md`
+- `MCPEDL/Addons/ALN-FarmerGolem/DESCRIPTION.md`
+- `MCPEDL/Addons/ALN-FarmerGolem/project.json`
+- `MCPEDL/Addons/ALN-FarmerGolem/README.md`
+- `MCPEDL/Addons/ALN-FarmerGolem/resource_pack/animations/farmer_golem.animation.json`
+- `MCPEDL/Addons/ALN-FarmerGolem/resource_pack/blocks.json`
+- `MCPEDL/Addons/ALN-FarmerGolem/resource_pack/entity/farmer_golem.entity.json`
+- `MCPEDL/Addons/ALN-FarmerGolem/resource_pack/manifest.json`
+- `MCPEDL/Addons/ALN-FarmerGolem/resource_pack/models/entity/farmer_golem.geo.json`
+- `MCPEDL/Addons/ALN-FarmerGolem/resource_pack/render_controllers/farmer_golem.render.json`
+- `MCPEDL/Addons/ALN-FarmerGolem/resource_pack/texts/en_US.lang`
+- `MCPEDL/Addons/ALN-FarmerGolem/resource_pack/texts/languages.json`
+- `MCPEDL/Addons/ALN-FarmerGolem/resource_pack/textures/terrain_texture.json`
+- `MCPEDL/Addons/ALN-FarmerGolem/texture_sources/farmer_chest_blocks.json`
+- `MCPEDL/Addons/ALN-FarmerGolem/texture_sources/farmer_golem_skin.json`
+
+### Skipped (binary): 3 file(s)
+
+- `MCPEDL/Addons/ALN-FarmerGolem/resource_pack/textures/blocks/aln_farmer_chest_side.png`
+- `MCPEDL/Addons/ALN-FarmerGolem/resource_pack/textures/blocks/aln_farmer_chest_top.png`
+- `MCPEDL/Addons/ALN-FarmerGolem/resource_pack/textures/items/farmer_golem/skin.png`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v1 / NEXT UPDATE: v2).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Addons/ALN-FarmerGolem
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands. Update to an existing project or the repo: deliver ONE attached `spec_v<N>.txt` (N = REPO_VERSION + 1, see "Spec ledger" above) and the commands that build and run it (`python3 scripts/make_update_script.py ~/storage/downloads/spec_v<N>.txt --out-dir ~/storage/downloads --verify ~/MCPE-Curseforges`, then `bash ~/storage/downloads/<Name>_v<N>_*.sh`). New pack: the pack `.sh`.
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Addons/ALN-FarmerGolem/behavior_pack/blocks/farmer_chest.json (35 lines, 865 bytes)
+
+```
+{
+  "format_version": "1.26.20",
+  "minecraft:block": {
+    "description": {
+      "identifier": "aln:farmer_chest",
+      "menu_category": {
+        "category": "none"
+      }
+    },
+    "components": {
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "aln_farmer_chest_side",
+          "render_method": "opaque"
+        },
+        "top": {
+          "texture": "aln_farmer_chest_top",
+          "render_method": "opaque"
+        },
+        "up": "top",
+        "down": "top"
+      },
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 2.0
+      },
+      "minecraft:destructible_by_explosion": {
+        "explosion_resistance": 6.0
+      },
+      "minecraft:map_color": "#9a6b35",
+      "minecraft:loot": "loot_tables/aln/farmer_chest.json"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-FarmerGolem/behavior_pack/entities/farmer_chest_storage.json (47 lines, 1066 bytes)
+
+```
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "aln:farmer_chest_storage",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "aln_storage"
+        ]
+      },
+      "minecraft:collision_box": {
+        "width": 1.1,
+        "height": 1.1
+      },
+      "minecraft:health": {
+        "value": 8,
+        "max": 8
+      },
+      "minecraft:inventory": {
+        "container_type": "container",
+        "inventory_size": 27,
+        "private": false,
+        "restrict_to_owner": false,
+        "can_be_siphoned_from": true
+      },
+      "minecraft:physics": {
+        "has_gravity": false,
+        "has_collision": false
+      },
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
+      },
+      "minecraft:knockback_resistance": {
+        "value": 1.0
+      },
+      "minecraft:fire_immune": {},
+      "minecraft:persistent": {}
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-FarmerGolem/behavior_pack/entities/farmer_golem.json (98 lines, 2355 bytes)
+
+```
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "aln:farmer_golem",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "aln_farmer_golem",
+          "golem"
+        ]
+      },
+      "minecraft:collision_box": {
+        "width": 1.2,
+        "height": 2.5
+      },
+      "minecraft:health": {
+        "value": 60,
+        "max": 60
+      },
+      "minecraft:movement": {
+        "value": 0.25
+      },
+      "minecraft:navigation.walk": {
+        "can_path_over_water": false,
+        "avoid_water": true,
+        "can_pass_doors": true
+      },
+      "minecraft:movement.basic": {},
+      "minecraft:jump.static": {},
+      "minecraft:knockback_resistance": {
+        "value": 0.6
+      },
+      "minecraft:attack": {
+        "damage": 7
+      },
+      "minecraft:nameable": {},
+      "minecraft:persistent": {},
+      "minecraft:physics": {},
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:breathable": {
+        "total_supply": 15,
+        "suffocate_time": 0
+      },
+      "minecraft:behavior.float": {
+        "priority": 0
+      },
+      "minecraft:behavior.hurt_by_target": {
+        "priority": 1
+      },
+      "minecraft:behavior.melee_attack": {
+        "priority": 2,
+        "speed_multiplier": 1.0,
+        "track_target": true
+      },
+      "minecraft:behavior.nearest_attackable_target": {
+        "priority": 3,
+        "must_see": true,
+        "reselect_targets": true,
+        "entity_types": [
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "monster"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "operator": "!=",
+                  "value": "creeper"
+                }
+              ]
+            },
+            "max_dist": 10
+          }
+        ]
+      },
+      "minecraft:behavior.look_at_player": {
+        "priority": 7,
+        "look_distance": 6.0
+      },
+      "minecraft:behavior.random_look_around": {
+        "priority": 8
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-FarmerGolem/behavior_pack/loot_tables/aln/farmer_chest.json (25 lines, 359 bytes)
+
+```
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:hay_block",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:carved_pumpkin",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-FarmerGolem/behavior_pack/manifest.json (62 lines, 1070 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN FarmerGolem (v1)",
+    "description": "Build a Farmer Golem from a Hay Bale and a Carved Pumpkin. by ALNStudios",
+    "uuid": "5a70a6e7-747b-4211-9ffa-97d72c239477",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "622db399-764f-49ce-93c3-dc8cc30f88db",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "fe3a64f9-f0a1-4864-96ad-53bd87eeb19f",
+      "version": [
+        1,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "178855c5-79bc-4284-b3a7-780bef7ccaee",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-FarmerGolem/behavior_pack/scripts/lib/README.md (24 lines, 1276 bytes)
+
+```
+# Scripts and lib
+
+This folder holds no helper files yet. All logic lives in scripts/main.js.
+
+## Files
+
+- scripts/main.js: builds the Farmer Golem when a Carved Pumpkin is placed on a Hay Bale, then runs the golem loops (harvest, breeding, healing, movement, dismantling). Registers one block placement event and two repeating timers (every 10 ticks for decisions, every 4 ticks for movement). Depends on the server module only.
+
+## Custom ids used
+
+- Block aln:farmer_chest (visual chest, drops a Hay Bale and a Carved Pumpkin when broken).
+- Entity aln:farmer_chest_storage (invisible 27-slot container sitting on the chest block, slightly larger than the block so players hit it first).
+- Entity aln:farmer_golem (the worker; its home chest position is stored as a tag named aln_home:x,y,z).
+
+## Events
+
+- World player block placement: starts the build when the placed block is a Carved Pumpkin on top of a Hay Bale.
+
+## Known limits
+
+- The golem moves in short teleport steps toward its goal and only walks through air and plant blocks, so walls and fences stop it.
+- Breeding spawns a baby animal and consumes one item per pair; it does not use the vanilla love mode.
+- Crop growth values, particle ids, sound ids and the container interaction were not checked in game.
+```
+
+## FILE: MCPEDL/Addons/ALN-FarmerGolem/behavior_pack/scripts/main.js (435 lines, 13987 bytes)
+
+```
+import { world, system, ItemStack, EntityComponentTypes } from "@minecraft/server";
+
+const GOLEM_ID = "aln:farmer_golem";
+const STORAGE_ID = "aln:farmer_chest_storage";
+const CHEST_ID = "aln:farmer_chest";
+const HOME_PREFIX = "aln_home:";
+const STORAGE_TAG = "aln_storage";
+const GOLEM_NAME = "§e§lFarmer Golem";
+const DIMENSION_IDS = ["overworld", "nether", "the_end"];
+
+const BRAIN_INTERVAL = 10;
+const MOVE_INTERVAL = 4;
+const SCAN_RADIUS = 4;
+const STEP_LENGTH = 0.8;
+const HARVEST_REACH = 1.8;
+const BREED_REACH = 3.2;
+const IDLE_RADIUS = 6;
+const PATROL_RADIUS = 10;
+const LEASH_RADIUS = 16;
+const BREED_COOLDOWN = 6000;
+const BLOCKED_COOLDOWN = 1200;
+const HEAL_COOLDOWN = 60;
+const HEAL_THRESHOLD = 4;
+const HERD_LIMIT = 14;
+const HERD_RADIUS = 10;
+const MATURE_GROWTH = 7;
+const MISS_LIMIT = 3;
+
+const roll = (min, max) => min + Math.floor(Math.random() * (max - min + 1));
+const center = (p) => ({ x: p.x + 0.5, y: p.y + 0.5, z: p.z + 0.5 });
+const flat = (a, b) => Math.hypot(a.x - b.x, a.z - b.z);
+const keyOf = (p) => `${p.x},${p.y},${p.z}`;
+const attempt = (fn) => {
+  try {
+    return fn();
+  } catch (e) {
+    return undefined;
+  }
+};
+
+const CROPS = {
+  "minecraft:wheat": () => [["minecraft:wheat", 1], ["minecraft:wheat_seeds", roll(0, 3)]],
+  "minecraft:carrots": () => [["minecraft:carrot", roll(1, 4)]],
+  "minecraft:potatoes": () => [["minecraft:potato", roll(1, 4)]],
+  "minecraft:beetroot": () => [["minecraft:beetroot", 1], ["minecraft:beetroot_seeds", roll(0, 3)]],
+};
+
+const FREE_BLOCKS = new Set([
+  "minecraft:short_grass",
+  "minecraft:tallgrass",
+  "minecraft:fern",
+  ...Object.keys(CROPS),
+]);
+
+const LIVESTOCK = {
+  "minecraft:cow": ["minecraft:wheat"],
+  "minecraft:sheep": ["minecraft:wheat"],
+  "minecraft:pig": ["minecraft:carrot", "minecraft:potato", "minecraft:beetroot"],
+  "minecraft:chicken": ["minecraft:wheat_seeds", "minecraft:beetroot_seeds", "minecraft:pumpkin_seeds", "minecraft:melon_seeds"],
+};
+
+const HEAL_FOODS = [
+  ["minecraft:apple", 8],
+  ["minecraft:bread", 10],
+  ["minecraft:baked_potato", 10],
+  ["minecraft:cooked_beef", 14],
+  ["minecraft:cooked_porkchop", 14],
+  ["minecraft:cooked_chicken", 12],
+  ["minecraft:cooked_mutton", 12],
+  ["minecraft:carrot", 6],
+];
+
+const known = new Map();
+const goals = new Map();
+const homes = new Map();
+const misses = new Map();
+const healAt = new Map();
+const cooldowns = new Map();
+const blocked = new Map();
+
+function forget(id) {
+  known.delete(id);
+  goals.delete(id);
+  homes.delete(id);
+  misses.delete(id);
+  healAt.delete(id);
+}
+
+function burst(dim, at, particle, count, spread) {
+  for (let i = 0; i < count; i++) {
+    attempt(() =>
+      dim.spawnParticle(particle, {
+        x: at.x + (Math.random() - 0.5) * spread,
+        y: at.y + Math.random() * spread,
+        z: at.z + (Math.random() - 0.5) * spread,
+      })
+    );
+  }
+}
+
+const sound = (dim, id, at) => attempt(() => dim.playSound(id, at));
+
+const containerOf = (storage) => storage.getComponent(EntityComponentTypes.Inventory)?.container;
+
+function countOf(container, id) {
+  let total = 0;
+  for (let i = 0; i < container.size; i++) {
+    const item = container.getItem(i);
+    if (item && item.typeId === id) total += item.amount;
+  }
+  return total;
+}
+
+function takeOne(container, id) {
+  for (let i = 0; i < container.size; i++) {
+    const item = container.getItem(i);
+    if (!item || item.typeId !== id) continue;
+    if (item.amount > 1) {
+      item.amount -= 1;
+      container.setItem(i, item);
+    } else {
+      container.setItem(i, undefined);
+    }
+    return true;
+  }
+  return false;
+}
+
+function deposit(container, dim, at, id, amount) {
+  if (amount <= 0) return;
+  const left = container.addItem(new ItemStack(id, amount));
+  if (left) dim.spawnItem(left, at);
+}
+
+function homeOf(golem) {
+  const cached = homes.get(golem.id);
+  if (cached) return cached;
+  for (const tag of golem.getTags()) {
+    if (!tag.startsWith(HOME_PREFIX)) continue;
+    const [x, y, z] = tag.slice(HOME_PREFIX.length).split(",").map(Number);
+    if ([x, y, z].every(Number.isFinite)) {
+      const home = { x, y, z };
+      homes.set(golem.id, home);
+      return home;
+    }
+  }
+  return undefined;
+}
+
+function findStorage(dim, home) {
+  return dim.getEntities({ type: STORAGE_ID, location: center(home), maxDistance: 1.5 })[0];
+}
+
+function isFree(dim, x, y, z) {
+  const block = dim.getBlock({ x, y, z });
+  return !!block && (block.isAir || FREE_BLOCKS.has(block.typeId));
+}
+
+function roomAt(dim, x, y, z) {
+  return isFree(dim, x, y, z) && isFree(dim, x, y + 1, z) && isFree(dim, x, y + 2, z);
+}
+
+function stepToward(golem, from, goal) {
+  const dim = golem.dimension;
+  const dist = flat(from, goal);
+  if (dist <= 0.5) return "arrived";
+  const length = Math.min(STEP_LENGTH, dist);
+  const nx = from.x + ((goal.x - from.x) / dist) * length;
+  const nz = from.z + ((goal.z - from.z) / dist) * length;
+  const bx = Math.floor(nx);
+  const bz = Math.floor(nz);
+  const by = Math.floor(from.y + 0.05);
+  let ny;
+  if (roomAt(dim, bx, by, bz)) ny = by;
+  else if (roomAt(dim, bx, by + 1, bz)) ny = by + 1;
+  else return "blocked";
+  const target = { x: nx, y: ny, z: nz };
+  try {
+    golem.teleport(target, { facingLocation: { x: goal.x, y: ny + 1.6, z: goal.z } });
+  } catch (e) {
+    golem.teleport(target);
+  }
+  return "moving";
+}
+
+function move() {
+  for (const [id, goal] of goals) {
+    const golem = known.get(id);
+    const from = golem ? attempt(() => golem.location) : undefined;
+    if (!from) {
+      forget(id);
+      continue;
+    }
+    const result = attempt(() => stepToward(golem, from, goal));
+    if (result === "moving") continue;
+    if (result !== "arrived" && goal.key) blocked.set(goal.key, system.currentTick + BLOCKED_COOLDOWN);
+    goals.delete(id);
+  }
+}
+
+function tryHeal(golem, dim, container) {
+  const health = golem.getComponent(EntityComponentTypes.Health);
+  if (!health || health.currentValue > health.effectiveMax - HEAL_THRESHOLD) return false;
+  const now = system.currentTick;
+  if ((healAt.get(golem.id) ?? 0) > now) return false;
+  for (const [id, amount] of HEAL_FOODS) {
+    if (!takeOne(container, id)) continue;
+    health.setCurrentValue(Math.min(health.effectiveMax, health.currentValue + amount));
+    healAt.set(golem.id, now + HEAL_COOLDOWN);
+    const at = golem.location;
+    burst(dim, { x: at.x, y: at.y + 1.2, z: at.z }, "minecraft:heart_particle", 4, 1.2);
+    burst(dim, { x: at.x, y: at.y + 0.5, z: at.z }, "minecraft:totem_particle", 8, 1.2);
+    sound(dim, "random.eat", at);
+    return true;
+  }
+  return false;
+}
+
+function findCrop(dim, golem, home) {
+  const p = golem.location;
+  const bx = Math.floor(p.x);
+  const by = Math.floor(p.y + 0.05);
+  const bz = Math.floor(p.z);
+  const now = system.currentTick;
+  const origin = center(home);
+  let best;
+  let bestDist = Infinity;
+  for (let dx = -SCAN_RADIUS; dx <= SCAN_RADIUS; dx++) {
+    for (let dz = -SCAN_RADIUS; dz <= SCAN_RADIUS; dz++) {
+      for (let dy = -1; dy <= 1; dy++) {
+        const pos = { x: bx + dx, y: by + dy, z: bz + dz };
+        const block = dim.getBlock(pos);
+        if (!block || !CROPS[block.typeId]) continue;
+        if (block.permutation.getState("growth") !== MATURE_GROWTH) continue;
+        if ((blocked.get(keyOf(pos)) ?? 0) > now) continue;
+        const spot = center(pos);
+        if (flat(spot, origin) > LEASH_RADIUS) continue;
+        const d = flat(p, spot);
+        if (d < bestDist) {
+          best = block;
+          bestDist = d;
+        }
+      }
+    }
+  }
+  return best;
+}
+
+function harvest(dim, block, container, home) {
+  const drops = CROPS[block.typeId]();
+  const at = center(block.location);
+  block.setPermutation(block.permutation.withState("growth", 0));
+  const dropAt = { x: home.x + 0.5, y: home.y + 1.2, z: home.z + 0.5 };
+  for (const [id, amount] of drops) deposit(container, dim, dropAt, id, amount);
+  burst(dim, at, "minecraft:villager_happy", 6, 0.8);
+  sound(dim, "random.pop", at);
+}
+
+function findPair(dim, golem, container) {
+  const now = system.currentTick;
+  for (const [type, foods] of Object.entries(LIVESTOCK)) {
+    if (!foods.some((id) => countOf(container, id) > 0)) continue;
+    const herd = dim.getEntities({ type, location: golem.location, maxDistance: HERD_RADIUS });
+    if (herd.length >= HERD_LIMIT) continue;
+    const ready = herd.filter(
+      (a) =>
+        !a.getComponent(EntityComponentTypes.IsBaby) &&
+        (cooldowns.get(a.id) ?? 0) <= now &&
+        (blocked.get(a.id) ?? 0) <= now
+    );
+    if (ready.length < 2) continue;
+    const from = golem.location;
+    ready.sort((a, b) => flat(from, a.location) - flat(from, b.location));
+    const first = ready[0];
+    const second = ready
+      .slice(1)
+      .sort((a, b) => flat(first.location, a.location) - flat(first.location, b.location))[0];
+    return { type, foods, first, second };
+  }
+  return undefined;
+}
+
+function breed(dim, container, pair) {
+  const food = pair.foods.find((id) => countOf(container, id) > 0);
+  if (!food) return;
+  const a = pair.first.location;
+  const b = pair.second.location;
+  const mid = { x: (a.x + b.x) / 2, y: Math.max(a.y, b.y), z: (a.z + b.z) / 2 };
+  try {
+    dim.spawnEntity(`${pair.type}<minecraft:entity_born>`, mid);
+  } catch (e) {
+    return;
+  }
+  takeOne(container, food);
+  const until = system.currentTick + BREED_COOLDOWN;
+  cooldowns.set(pair.first.id, until);
+  cooldowns.set(pair.second.id, until);
+  burst(dim, { x: a.x, y: a.y + 0.8, z: a.z }, "minecraft:heart_particle", 5, 1);
+  burst(dim, { x: b.x, y: b.y + 0.8, z: b.z }, "minecraft:heart_particle", 5, 1);
+}
+
+function dismantle(golem, dim, home, storage, chestStillThere) {
+  if (storage) attempt(() => storage.kill());
+  const at = center(home);
+  if (chestStillThere) {
+    const block = dim.getBlock(home);
+    if (block) block.setType("minecraft:air");
+    dim.spawnItem(new ItemStack("minecraft:hay_block", 1), at);
+    dim.spawnItem(new ItemStack("minecraft:carved_pumpkin", 1), at);
+  }
+  burst(dim, at, "minecraft:villager_happy", 12, 1.2);
+  forget(golem.id);
+  golem.remove();
+}
+
+function brain(golem) {
+  const home = homeOf(golem);
+  if (!home) return;
+  const dim = golem.dimension;
+  const chest = dim.getBlock(home);
+  if (!chest) return;
+  const chestOk = chest.typeId === CHEST_ID;
+  const storage = chestOk ? findStorage(dim, home) : undefined;
+  if (!chestOk || !storage) {
+    const count = (misses.get(golem.id) ?? 0) + 1;
+    misses.set(golem.id, count);
+    if (count >= MISS_LIMIT) {
+      dismantle(golem, dim, home, chestOk ? undefined : findStorage(dim, home), chestOk);
+    }
+    return;
+  }
+  misses.set(golem.id, 0);
+  const container = containerOf(storage);
+  if (!container) return;
+
+  if (tryHeal(golem, dim, container)) {
+    goals.delete(golem.id);
+    return;
+  }
+
+  const here = golem.location;
+  const homeSpot = center(home);
+
+  if (flat(here, homeSpot) > LEASH_RADIUS) {
+    goals.set(golem.id, { x: homeSpot.x, z: homeSpot.z + 1.5 });
+    return;
+  }
+
+  const crop = findCrop(dim, golem, home);
+  if (crop) {
+    const spot = center(crop.location);
+    if (flat(here, spot) <= HARVEST_REACH) {
+      harvest(dim, crop, container, home);
+      goals.delete(golem.id);
+    } else {
+      goals.set(golem.id, { x: spot.x, z: spot.z, key: keyOf(crop.location) });
+    }
+    return;
+  }
+
+  const pair = findPair(dim, golem, container);
+  if (pair) {
+    const target = pair.first.location;
+    if (flat(here, target) <= BREED_REACH) {
+      breed(dim, container, pair);
+      goals.delete(golem.id);
+    } else {
+      goals.set(golem.id, { x: target.x, z: target.z, key: pair.first.id });
+    }
+    return;
+  }
+
+  if (goals.has(golem.id)) return;
+  if (flat(here, homeSpot) > IDLE_RADIUS) {
+    goals.set(golem.id, { x: homeSpot.x, z: homeSpot.z + 1.5 });
+  } else if (Math.random() < 0.3) {
+    const angle = Math.random() * Math.PI * 2;
+    const radius = 3 + Math.random() * (PATROL_RADIUS - 3);
+    goals.set(golem.id, { x: homeSpot.x + Math.cos(angle) * radius, z: homeSpot.z + Math.sin(angle) * radius });
+  }
+}
+
+function purge() {
+  const now = system.currentTick;
+  for (const [id, until] of cooldowns) if (until <= now) cooldowns.delete(id);
+  for (const [id, until] of blocked) if (until <= now) blocked.delete(id);
+}
+
+function build(player, dim, top, base) {
+  const spot = base.location;
+  const cx = spot.x + 0.5;
+  const cz = spot.z + 0.5;
+  top.setType("minecraft:air");
+  base.setType(CHEST_ID);
+  const storage = dim.spawnEntity(STORAGE_ID, { x: cx, y: spot.y - 0.05, z: cz });
+  storage.addTag(STORAGE_TAG);
+  const golem = dim.spawnEntity(GOLEM_ID, { x: cx, y: spot.y + 1, z: cz });
+  golem.nameTag = GOLEM_NAME;
+  golem.addTag(`${HOME_PREFIX}${spot.x},${spot.y},${spot.z}`);
+  homes.set(golem.id, { x: spot.x, y: spot.y, z: spot.z });
+  known.set(golem.id, golem);
+  const at = { x: cx, y: spot.y + 1, z: cz };
+  attempt(() => player.playSound("pumpkin.carve"));
+  sound(dim, "pumpkin.carve", at);
+  burst(dim, at, "minecraft:totem_particle", 24, 1.6);
+  burst(dim, at, "minecraft:villager_happy", 16, 1.6);
+  player.onScreenDisplay.setActionBar(
+    "§6§lFarmer Golem§r§e awakens. Open the Farmer Chest to store seeds, wheat, carrots and food."
+  );
+}
+
+world.afterEvents.playerPlaceBlock.subscribe((event) => {
+  const { block, player } = event;
+  if (block.typeId !== "minecraft:carved_pumpkin") return;
+  const dim = block.dimension;
+  const base = dim.getBlock({ x: block.x, y: block.y - 1, z: block.z });
+  if (!base || base.typeId !== "minecraft:hay_block") return;
+  build(player, dim, block, base);
+});
+
+system.runInterval(() => {
+  if (system.currentTick % 1200 < BRAIN_INTERVAL) purge();
+  for (const id of DIMENSION_IDS) {
+    const dim = attempt(() => world.getDimension(id));
+    if (!dim) continue;
+    const golems = attempt(() => dim.getEntities({ type: GOLEM_ID })) ?? [];
+    for (const golem of golems) {
+      known.set(golem.id, golem);
+      attempt(() => brain(golem));
+    }
+  }
+}, BRAIN_INTERVAL);
+
+system.runInterval(move, MOVE_INTERVAL);
+```
+
+## FILE: MCPEDL/Addons/ALN-FarmerGolem/behavior_pack/texts/en_US.lang (4 lines, 132 bytes)
+
+```
+tile.aln:farmer_chest.name=Farmer Chest
+entity.aln:farmer_golem.name=Farmer Golem
+entity.aln:farmer_chest_storage.name=Farmer Chest
+```
+
+## FILE: MCPEDL/Addons/ALN-FarmerGolem/behavior_pack/texts/languages.json (4 lines, 14 bytes)
+
+```
+[
+  "en_US"
+]
+```
+
+## FILE: MCPEDL/Addons/ALN-FarmerGolem/CHANGELOG.md (13 lines, 603 bytes)
+
+```
+# Changelog — ALN FarmerGolem
+
+---
+
+## [1.0.0] - 2026-11-23 - First Release
+
+### Added
+- **Farmer Golem**: Build a Farmer Golem by placing a Carved Pumpkin on top of a Hay Bale.
+- **Farmer Chest**: A 27-slot storage chest replaces the Hay Bale and is linked to its golem.
+- **Crop Harvesting**: The golem harvests and replants fully grown crops in a 9 by 9 area and stores the harvest in the chest.
+- **Animal Breeding**: The golem feeds cows, sheep, pigs and chickens with items from the chest to produce babies.
+- **Self-Healing**: The golem eats food from the chest to recover health after fights.
+```
+
+## FILE: MCPEDL/Addons/ALN-FarmerGolem/DESCRIPTION.md (81 lines, 5053 bytes)
+
+```
+# ALN FarmerGolem — A farmhand golem with its own storage chest
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**Place a Carved Pumpkin on a Hay Bale to raise a Farmer Golem that harvests crops, breeds livestock and heals from its chest.**
+
+> Build the golem anywhere near a farm and keep its Farmer Chest stocked. It harvests, feeds animals and looks after itself.
+
+## Overview
+
+ALN FarmerGolem adds a Farmer Golem that you build from a Hay Bale and a Carved Pumpkin. The Hay Bale becomes a Farmer Chest and the golem stands on top of it wearing a straw hat.
+
+The golem harvests grown crops around it and stores the harvest in the chest. It feeds nearby farm animals with items from the chest and eats food from the chest when it is hurt.
+
+## Key Features
+
+### Carved Pumpkin on Hay Bale
+- **What Happens**: Placing a Carved Pumpkin directly on top of a Hay Bale removes both blocks, places a Farmer Chest where the Hay Bale was and summons a Farmer Golem named Farmer Golem with a straw hat. The builder hears a carving sound, sees sparkle particles and gets an action bar message.
+
+### Farmer Chest
+- **What Happens**: The Farmer Chest is a 27-slot storage container for seeds, wheat, carrots and food. Players and the golem use the same inventory. Each golem remembers the chest it was built on as its home.
+
+### Crop Harvesting
+- **What Happens**: The golem checks a 9 by 9 area around itself for fully grown wheat, carrots, potatoes and beetroots, walks to the nearest one, harvests it and replants it. The harvest goes straight into the Farmer Chest, and drops next to the chest if the chest is full.
+
+### Animal Breeding
+- **What Happens**: When the chest holds the right food, the golem walks to nearby cows, sheep, pigs and chickens. Cows and sheep use Wheat, pigs use Carrots, Potatoes or Beetroots, and chickens use Wheat Seeds, Beetroot Seeds, Pumpkin Seeds or Melon Seeds. Each pair of adult animals costs one item from the chest, shows hearts and produces a baby. Fed animals wait five minutes before breeding again, and breeding stops while 14 or more of that animal are nearby.
+
+### Self-Healing
+- **What Happens**: When the golem has lost at least 4 health, it eats one food item from the chest about every three seconds and plays healing particles. It prefers Apples, Bread, Baked Potatoes, Steak, Cooked Porkchops, Cooked Chicken and Cooked Mutton, and uses Carrots last.
+
+### Guard Duty
+- **What Happens**: The golem has 60 health and attacks hostile mobs that come within 10 blocks, except Creepers. It never attacks players.
+
+### Dismantling
+- **What Happens**: Breaking the Farmer Chest removes the Farmer Golem and drops a Hay Bale and a Carved Pumpkin. The stored items spill out of the chest.
+
+## How to Use
+
+1. Place a Hay Bale on the ground near your farm.
+2. Place a Carved Pumpkin on top of the Hay Bale.
+3. Open the Farmer Chest and add wheat, seeds, carrots and food.
+4. Plant wheat, carrots, potatoes or beetroots within a few blocks of the chest and wait for them to grow.
+5. Break the Farmer Chest when you want to dismantle the golem.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.26.60 or newer.
+- Experimental features: No experiment requirement detected in the inspected files.
+- Achievements: Yes, achievement-friendly.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, ALN FarmerGolem Bedrock mod, MCPEDL add-on, CurseForge Bedrock, ALNStudios, farmer golem, automatic farming, custom storage chest, animal breeding helper.
+```
+
+## FILE: MCPEDL/Addons/ALN-FarmerGolem/project.json (5 lines, 51 bytes)
+
+```
+{
+  "type": "addon",
+  "name": "ALN FarmerGolem"
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-FarmerGolem/README.md (19 lines, 798 bytes)
+
+```
+# ALN FarmerGolem
+
+Download the current release of **ALN FarmerGolem** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download ALN FarmerGolem (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-FarmerGolem/ALNFarmerGolem%20V1.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALN-FarmerGolem/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Addons/ALN-FarmerGolem/resource_pack/animations/farmer_golem.animation.json (39 lines, 926 bytes)
+
+```
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.aln_farmer_golem.walk": {
+      "loop": true,
+      "bones": {
+        "arm0": {
+          "rotation": [
+            "Math.cos(query.modified_distance_moved * 38.17) * 60.0 * query.modified_move_speed",
+            0,
+            0
+          ]
+        },
+        "arm1": {
+          "rotation": [
+            "Math.cos(query.modified_distance_moved * 38.17 + 180) * 60.0 * query.modified_move_speed",
+            0,
+            0
+          ]
+        },
+        "leg0": {
+          "rotation": [
+            "Math.cos(query.modified_distance_moved * 38.17 + 180) * 70.0 * query.modified_move_speed",
+            0,
+            0
+          ]
+        },
+        "leg1": {
+          "rotation": [
+            "Math.cos(query.modified_distance_moved * 38.17) * 70.0 * query.modified_move_speed",
+            0,
+            0
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-FarmerGolem/resource_pack/blocks.json (11 lines, 99 bytes)
+
+```
+{
+  "format_version": [
+    1,
+    1,
+    0
+  ],
+  "aln:farmer_chest": {
+    "sound": "wood"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-FarmerGolem/resource_pack/entity/farmer_golem.entity.json (31 lines, 692 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "aln:farmer_golem",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/items/farmer_golem/skin"
+      },
+      "geometry": {
+        "default": "geometry.aln_farmer_golem"
+      },
+      "animations": {
+        "walk": "animation.aln_farmer_golem.walk",
+        "look_at_target": "animation.common.look_at_target"
+      },
+      "scripts": {
+        "animate": [
+          "walk",
+          "look_at_target"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.aln_farmer_golem"
+      ]
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-FarmerGolem/resource_pack/manifest.json (37 lines, 639 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN FarmerGolem (v1)",
+    "description": "Textures, model and animations for the Farmer Golem and Farmer Chest. by ALNStudios",
+    "uuid": "178855c5-79bc-4284-b3a7-780bef7ccaee",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "bf244715-fe71-46c7-a37f-39edb3a485de",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-FarmerGolem/resource_pack/models/entity/farmer_golem.geo.json (239 lines, 4336 bytes)
+
+```
+{
+  "format_version": "1.12.0",
+  "minecraft:geometry": [
+    {
+      "description": {
+        "identifier": "geometry.aln_farmer_golem",
+        "texture_width": 64,
+        "texture_height": 64,
+        "visible_bounds_width": 3,
+        "visible_bounds_height": 3,
+        "visible_bounds_offset": [
+          0,
+          1.25,
+          0
+        ]
+      },
+      "bones": [
+        {
+          "name": "body",
+          "pivot": [
+            0,
+            12,
+            0
+          ],
+          "cubes": [
+            {
+              "origin": [
+                -6,
+                12,
+                -4
+              ],
+              "size": [
+                12,
+                14,
+                8
+              ],
+              "uv": [
+                0,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "name": "head",
+          "pivot": [
+            0,
+            26,
+            0
+          ],
+          "cubes": [
+            {
+              "origin": [
+                -4,
+                26,
+                -4
+              ],
+              "size": [
+                8,
+                8,
+                8
+              ],
+              "uv": [
+                0,
+                22
+              ]
+            },
+            {
+              "origin": [
+                -1,
+                27,
+                -6
+              ],
+              "size": [
+                2,
+                3,
+                2
+              ],
+              "uv": [
+                56,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "name": "hat",
+          "parent": "head",
+          "pivot": [
+            0,
+            34,
+            0
+          ],
+          "cubes": [
+            {
+              "origin": [
+                -6,
+                34,
+                -6
+              ],
+              "size": [
+                12,
+                1,
+                12
+              ],
+              "uv": [
+                0,
+                50
+              ]
+            },
+            {
+              "origin": [
+                -4,
+                35,
+                -4
+              ],
+              "size": [
+                8,
+                4,
+                8
+              ],
+              "uv": [
+                0,
+                38
+              ]
+            }
+          ]
+        },
+        {
+          "name": "arm0",
+          "pivot": [
+            -8,
+            25,
+            0
+          ],
+          "cubes": [
+            {
+              "origin": [
+                -10,
+                10,
+                -2
+              ],
+              "size": [
+                4,
+                16,
+                4
+              ],
+              "uv": [
+                40,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "name": "arm1",
+          "pivot": [
+            8,
+            25,
+            0
+          ],
+          "cubes": [
+            {
+              "origin": [
+                6,
+                10,
+                -2
+              ],
+              "size": [
+                4,
+                16,
+                4
+              ],
+              "uv": [
+                40,
+                0
+              ],
+              "mirror": true
+            }
+          ]
+        },
+        {
+          "name": "leg0",
+          "pivot": [
+            -3,
+            12,
+            0
+          ],
+          "cubes": [
+            {
+              "origin": [
+                -5,
+                0,
+                -2
+              ],
+              "size": [
+                4,
+                12,
+                4
+              ],
+              "uv": [
+                40,
+                20
+              ]
+            }
+          ]
+        },
+        {
+          "name": "leg1",
+          "pivot": [
+            3,
+            12,
+            0
+          ],
+          "cubes": [
+            {
+              "origin": [
+                1,
+                0,
+                -2
+              ],
+              "size": [
+                4,
+                12,
+                4
+              ],
+              "uv": [
+                40,
+                20
+              ],
+              "mirror": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-FarmerGolem/resource_pack/render_controllers/farmer_golem.render.json (17 lines, 289 bytes)
+
+```
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.aln_farmer_golem": {
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ]
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-FarmerGolem/resource_pack/texts/en_US.lang (4 lines, 132 bytes)
+
+```
+tile.aln:farmer_chest.name=Farmer Chest
+entity.aln:farmer_golem.name=Farmer Golem
+entity.aln:farmer_chest_storage.name=Farmer Chest
+```
+
+## FILE: MCPEDL/Addons/ALN-FarmerGolem/resource_pack/texts/languages.json (4 lines, 14 bytes)
+
+```
+[
+  "en_US"
+]
+```
+
+## FILE: MCPEDL/Addons/ALN-FarmerGolem/resource_pack/textures/terrain_texture.json (15 lines, 335 bytes)
+
+```
+{
+  "resource_pack_name": "aln_farmer_golem",
+  "texture_name": "atlas.terrain",
+  "padding": 8,
+  "num_mip_levels": 4,
+  "texture_data": {
+    "aln_farmer_chest_side": {
+      "textures": "textures/blocks/aln_farmer_chest_side"
+    },
+    "aln_farmer_chest_top": {
+      "textures": "textures/blocks/aln_farmer_chest_top"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-FarmerGolem/texture_sources/farmer_chest_blocks.json (2 lines, 1530 bytes)
+
+```
+[{"name":"aln_farmer_chest_side","size":16,"folder":"blocks","palette":{"0":"#00000000","1":"#4a2f14","2":"#9a6b35","3":"#8a8f98","4":"#6c717b","5":"#a97a40","6":"#8c5f2d","7":"#6b4520","8":"#e0b020","9":"#1d1209","10":"#a67c10"},"pixels":[[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[1,2,2,3,4,2,2,2,5,2,2,3,4,6,2,1],[1,7,7,3,4,7,7,7,7,7,7,3,4,7,7,1],[1,5,6,3,4,6,6,6,6,6,5,3,4,6,6,1],[1,6,5,3,4,6,6,6,6,6,6,3,4,6,6,1],[1,6,6,3,4,6,5,8,8,6,6,3,4,6,6,1],[1,2,2,3,4,2,6,9,9,2,2,3,4,5,2,1],[1,6,2,3,4,5,2,8,8,2,6,3,4,2,5,1],[1,7,7,3,4,7,7,10,10,7,7,3,4,7,7,1],[1,6,6,3,4,6,6,5,6,6,6,3,4,6,6,1],[1,6,6,3,4,6,6,6,5,6,6,3,4,6,6,1],[1,6,6,3,4,6,6,6,6,6,6,3,4,6,6,1],[1,5,2,3,4,2,2,2,2,2,5,3,4,2,2,1],[1,2,5,3,4,2,2,6,2,2,2,3,4,2,2,1],[1,7,7,3,4,7,7,7,7,7,7,3,4,7,7,1],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]]},{"name":"aln_farmer_chest_top","size":16,"folder":"blocks","palette":{"0":"#00000000","1":"#4a2f14","2":"#7a5226","3":"#8a8f98","4":"#6c717b","5":"#e6c458","6":"#f3dc82","7":"#c9a23a"},"pixels":[[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[1,2,2,3,4,2,2,2,2,2,2,3,4,2,2,1],[1,2,5,3,4,5,6,5,5,7,5,3,4,5,2,1],[1,2,7,3,4,5,5,7,5,6,5,3,4,5,2,1],[1,2,6,3,4,7,5,6,5,5,7,3,4,5,2,1],[1,2,5,3,4,6,5,5,7,5,6,3,4,7,2,1],[1,2,5,3,4,5,7,5,6,5,5,3,4,6,2,1],[1,2,5,3,4,5,6,5,5,7,5,3,4,5,2,1],[1,2,7,3,4,5,5,7,5,6,5,3,4,5,2,1],[1,2,6,3,4,7,5,6,5,5,7,3,4,5,2,1],[1,2,5,3,4,6,5,5,7,5,6,3,4,7,2,1],[1,2,5,3,4,5,7,5,6,5,5,3,4,6,2,1],[1,2,5,3,4,5,6,5,5,7,5,3,4,5,2,1],[1,2,7,3,4,5,5,7,5,6,5,3,4,5,2,1],[1,2,2,3,4,2,2,2,2,2,2,3,4,2,2,1],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]]}]
+```
+
+## FILE: MCPEDL/Addons/ALN-FarmerGolem/texture_sources/farmer_golem_skin.json (2 lines, 8919 bytes)
+
+```
+[{"name":"skin","size":64,"folder":"items/farmer_golem","palette":{"0":"#00000000","1":"#c9a66b","2":"#b38f55","3":"#d8b97e","4":"#e6c458","5":"#e8801a","6":"#c4600c","7":"#c9a23a","8":"#f3dc82","9":"#3f63a8","10":"#334f87","11":"#5176bd","12":"#e0b020","13":"#5b3a1e","14":"#44290f","15":"#1d1209","16":"#b3352b","17":"#8c2820"},"pixels":[[0,0,0,0,0,0,0,0,1,2,1,1,1,1,1,1,3,1,2,1,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,1,2,1,1,4,4,4,4,0,0,0,0,0,0,5,5,6,6,0,0],[0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,3,1,1,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,4,7,4,4,0,0,0,0,0,0,5,5,6,6,0,0],[0,0,0,0,0,0,0,0,1,1,1,2,3,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,2,8,4,4,4,0,0,0,0,5,6,5,6,5,6,5,6],[0,0,0,0,0,0,0,0,1,1,3,1,2,1,1,1,1,1,1,3,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3,1,7,4,4,4,0,0,0,0,6,5,6,5,6,5,6,5],[0,0,0,0,0,0,0,0,1,1,1,3,1,1,1,1,2,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,1,1,1,2,1,1,1,3,1,1,1,1,2,1,1,1,5,6,5,6,5,6,5,6],[0,0,0,0,0,0,0,0,1,1,1,1,1,1,2,3,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,1,2,3,1,1,1,1,1,1,1,2,3,1,1,1,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,1,1,1,1,1,3,1,2,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,3,1,2,1,1,1,1,1,1,3,1,2,1,1,1,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,1,1,2,1,1,1,3,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,1,3,1,1,1,1,2,1,1,1,3,1,1,1,1,2,0,0,0,0,0,0,0,0],[3,1,1,1,1,1,1,1,2,3,9,9,1,1,1,1,9,10,3,1,1,1,1,1,1,1,2,3,1,1,9,9,1,1,1,2,11,9,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0],[2,1,1,1,1,1,1,3,1,2,9,9,1,1,1,1,11,9,2,1,1,1,1,1,1,3,1,2,1,1,9,9,1,1,3,1,10,9,1,1,1,1,1,3,1,2,1,1,1,1,1,1,3,1,2,1,0,0,0,0,0,0,0,0],[1,1,1,1,2,1,1,1,3,1,9,9,1,2,1,1,9,11,1,1,1,1,2,1,1,1,3,1,1,1,9,10,1,1,1,3,9,9,1,1,2,1,1,1,3,1,1,1,1,2,1,1,1,3,1,1,0,0,0,0,0,0,0,0],[1,1,2,3,1,1,1,1,1,1,9,10,3,1,1,1,9,9,1,1,2,3,1,1,1,1,1,1,1,2,11,9,1,1,1,1,9,9,2,3,1,1,1,1,1,1,1,2,3,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0],[1,3,1,2,1,1,1,1,1,1,12,9,10,9,9,9,9,12,1,3,1,2,1,1,1,1,1,1,3,1,10,9,1,1,1,1,9,11,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0],[1,1,3,1,1,1,1,2,1,1,9,11,9,9,9,9,10,9,1,1,3,1,1,1,1,2,1,1,1,3,9,9,1,1,2,1,9,9,3,1,1,1,1,2,1,1,1,3,1,1,1,1,2,1,1,1,0,0,0,0,0,0,0,0],[1,1,1,1,1,2,3,1,1,1,9,9,9,9,10,11,9,9,1,1,1,1,1,2,3,1,1,1,1,1,9,9,2,3,1,1,9,9,1,1,1,2,3,1,1,1,1,1,1,1,2,3,1,1,1,1,0,0,0,0,0,0,0,0],[9,9,9,9,11,9,10,9,1,1,9,9,9,11,9,10,9,9,1,1,9,9,11,9,10,9,9,9,9,9,9,11,9,10,9,9,9,9,9,9,3,1,2,1,1,1,1,1,1,3,1,2,1,1,1,1,0,0,0,0,0,0,0,0],[9,10,9,9,9,11,9,9,1,1,10,9,10,11,11,10,9,9,1,2,9,9,9,11,9,9,9,9,10,9,9,9,11,9,9,9,9,10,9,9,1,3,1,1,1,1,2,1,1,1,3,1,1,1,1,2,0,0,0,0,0,0,0,0],[11,9,9,9,9,9,9,9,2,2,9,9,11,11,11,11,9,10,3,1,9,9,9,9,9,9,10,11,9,9,9,9,9,9,9,10,11,9,9,9,4,4,4,4,7,8,4,4,4,4,4,4,4,7,8,4,0,0,0,0,0,0,0,0],[10,9,9,9,9,9,9,11,1,2,9,9,10,11,11,10,11,9,2,1,9,9,9,9,9,11,9,10,9,9,9,9,9,9,11,9,10,9,9,9,4,4,4,8,4,7,4,4,4,4,4,4,8,4,7,4,0,0,0,0,0,0,0,0],[9,9,9,9,10,9,9,9,3,1,9,9,9,10,9,9,9,11,1,1,9,9,10,9,9,9,11,9,9,9,9,10,9,9,9,11,9,9,9,9,7,4,4,4,8,4,4,4,4,7,4,4,4,8,4,4,0,0,0,0,0,0,0,0],[9,9,10,11,9,9,9,9,1,1,9,10,11,9,9,9,9,9,1,1,10,11,9,9,9,9,9,9,9,10,11,9,9,9,9,9,9,9,10,11,0,0,0,0,9,9,9,10,13,13,13,13,0,0,0,0,0,0,0,0,0,0,0,0],[9,11,9,10,9,9,9,9,1,1,11,9,10,9,9,9,9,9,1,3,9,10,9,9,9,9,9,9,11,9,10,9,9,9,9,9,9,11,9,10,0,0,0,0,9,9,11,9,14,13,13,13,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,1,1,1,3,1,1,1,1,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,11,13,13,13,13,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,1,1,1,1,1,1,2,3,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,13,13,14,13,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,1,1,1,1,1,3,1,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11,9,10,9,9,9,9,9,9,11,9,10,9,9,9,9,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,1,1,2,1,1,1,3,1,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,11,9,9,9,9,10,9,9,9,11,9,9,9,9,10,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,2,3,1,1,1,1,1,1,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,10,11,9,9,9,9,9,9,9,10,11,9,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,1,2,1,1,1,1,1,1,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,11,9,10,9,9,9,9,9,9,11,9,10,9,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,9,9,9,11,9,9,9,9,10,9,9,9,11,9,9,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,1,1,1,2,3,1,1,1,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,10,11,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0],[4,8,4,7,4,4,4,4,4,4,8,4,7,4,4,4,4,4,4,8,4,7,4,4,4,4,4,4,8,4,7,4,0,0,0,0,0,0,0,0,9,9,9,9,9,9,11,9,10,9,9,9,9,9,9,11,0,0,0,0,0,0,0,0],[4,4,8,4,4,4,4,7,4,4,4,8,4,4,4,4,7,4,4,4,8,4,4,4,4,7,4,4,4,8,4,4,0,0,0,0,0,0,0,0,9,9,9,10,9,9,9,11,9,9,9,9,10,9,9,9,0,0,0,0,0,0,0,0],[1,1,1,1,1,2,3,1,1,1,1,1,1,1,2,3,1,1,1,1,1,1,1,2,3,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,9,10,11,9,9,9,9,9,9,9,10,11,9,9,9,9,0,0,0,0,0,0,0,0],[1,1,1,1,3,1,2,1,1,1,15,1,1,15,1,2,1,1,1,1,1,1,3,1,2,1,1,1,1,1,1,3,0,0,0,0,0,0,0,0,13,13,14,13,13,13,13,13,13,13,13,14,13,13,13,13,0,0,0,0,0,0,0,0],[1,2,1,1,1,3,1,1,1,1,15,1,1,15,3,1,1,1,1,2,1,1,1,3,1,1,1,1,2,1,1,1,0,0,0,0,0,0,0,0,13,13,13,13,13,13,14,13,13,13,13,13,13,13,13,14,0,0,0,0,0,0,0,0],[3,1,1,1,1,1,1,1,2,15,1,1,1,1,15,1,1,2,3,1,1,1,1,1,1,1,2,3,1,1,1,1,0,0,0,0,0,0,0,0,13,13,13,13,14,13,13,13,13,13,13,13,13,14,13,13,0,0,0,0,0,0,0,0],[2,1,1,1,1,1,1,3,1,2,15,15,15,15,1,1,3,1,2,1,1,1,1,1,1,3,1,2,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[1,1,1,1,2,1,1,1,3,1,1,1,1,2,1,1,1,3,1,1,1,1,2,1,1,1,3,1,1,1,1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,4,4,4,7,8,4,4,4,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,4,4,8,4,7,4,4,4,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,4,4,4,8,4,4,4,4,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,4,4,4,4,4,4,7,8,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,4,4,4,4,4,8,4,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,4,4,7,4,4,4,8,4,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,7,8,4,4,4,4,4,4,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,4,7,4,4,4,4,4,4,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[4,4,4,4,7,4,4,4,8,4,4,4,4,7,4,4,4,8,4,4,4,4,7,4,4,4,8,4,4,4,4,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[4,4,7,8,4,4,4,4,4,4,4,7,8,4,4,4,4,4,4,4,7,8,4,4,4,4,4,4,4,7,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[16,17,16,16,16,16,16,16,17,16,16,16,16,16,16,17,16,16,16,16,16,16,17,16,16,16,16,16,16,17,16,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[17,16,16,16,16,16,16,17,16,16,16,16,16,16,17,16,16,16,16,16,16,17,16,16,16,16,16,16,17,16,16,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,7,4,8,4,8,4,8,4,8,4,8,7,7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,7,8,4,8,4,8,4,8,4,8,4,7,7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,7,4,8,4,8,4,8,4,8,4,8,7,7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,7,8,4,8,4,8,4,8,4,8,4,7,7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,7,4,8,4,8,4,8,4,8,4,8,7,7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,7,8,4,8,4,8,4,8,4,8,4,7,7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,7,4,8,4,8,4,8,4,8,4,8,7,7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,7,8,4,8,4,8,4,8,4,8,4,7,7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,7,4,8,4,8,4,8,4,8,4,8,7,7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,7,8,4,8,4,8,4,8,4,8,4,7,7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]}]
+```

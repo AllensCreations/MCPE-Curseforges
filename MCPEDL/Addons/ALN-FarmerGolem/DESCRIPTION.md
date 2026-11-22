@@ -77,3 +77,4 @@ The golem harvests grown crops around it and stores the harvest in the chest. It
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, ALN FarmerGolem Bedrock mod, MCPEDL add-on, CurseForge Bedrock, ALNStudios, farmer golem, automatic farming, custom storage chest, animal breeding helper.
+
