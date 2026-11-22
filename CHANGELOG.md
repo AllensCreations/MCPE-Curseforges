@@ -31,6 +31,12 @@
 
 ---
 
+## [v217] - 2026-11-22 - Repo Tester
+
+- Added scripts/run_repo_tests.py: one command that runs every scripts/test_*.py, the self-test and check scripts with a time limit and a ci.yml audit, lints every pack in MCPEDL/ for failures seen in real Minecraft ContentLog files (invalid recipes, vanilla item overrides, geometry comments, tick.json entries without a function, unguarded events that do not exist, loops that can trip the Watchdog, comments in shipped files, manifest metadata), and with --logs groups the errors of ContentLog files.
+- Added scripts/test_run_repo_tests.py: unit tests for every rule of the tester.
+- CI runs the pack lint as an advisory step after the project pipeline self-test.
+
 ## [v216] - 2026-11-22 - Shapeless Recipe Fix
 
 ### Fixed
