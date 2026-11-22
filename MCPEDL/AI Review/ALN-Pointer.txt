@@ -1,15 +1,3 @@
-<!-- GRAPH-CONTEXT:START -->
-## Graph Context
-
-- **Project:** `ALN-Pointer` | Category: `Addons` | Version: `v2`
-- **Pack Types:** behavior_pack, resource_pack
-- **Siblings in Addons:** `2-in-1-Loot--XP-Booster (v2)` (v2), `ALN-MoreDiscs (v2)` (v2), `ALN-Quiver (v2)` (v2), `ALN-Wireless-Headphones (v2)` (v2), `Category: Addons`, `Cheat-Stick (v4)` (v4), `Copper-Carrier-Logistics (v2)` (v2), `Enchanter (v2)` (v2) …
-
-> _Auto-generated from graphify-out/graph.json — do not edit manually._
-<!-- GRAPH-CONTEXT:END -->
-
----
-
 # Repo Export
 
 ## Index
@@ -17,6 +5,7 @@
 - **Export request:** `MCPEDL/Addons/ALN-Pointer`
 - **Destination:** `MCPEDL/Addons/ALN-Pointer`
 - **CURRENT VERSION: v21 / NEXT UPDATE: v22**  (`MCPEDL/Addons/ALN-Pointer/CHANGELOG.md`)
+- **Spec ledger:** REPO_VERSION 230; the next spec is `spec_v231.txt` (newest specs are listed in the root `CHANGELOG.md`)
 - **Text files:** 27
 - **Skipped binary:** 16
 - **Paths not found:** 0
@@ -51,7 +40,7 @@
 - `MCPEDL/Addons/ALN-Pointer/resource_pack/ui/hud_screen.json`
 - `MCPEDL/Addons/ALN-Pointer/texture_sources/aln_pointer.json`
 
-### Skipped (binary)
+### Skipped (binary): 16 file(s)
 
 - `MCPEDL/Addons/ALN-Pointer/assets/items/aln_pointer.png`
 - `MCPEDL/Addons/ALN-Pointer/assets/snapshots/HOW TO CRAFT.jpg`
@@ -82,7 +71,7 @@ Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 - **Mode**: UPDATE existing package (CURRENT VERSION: v21 / NEXT UPDATE: v22).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
-- Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
+- Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
 - Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
 
 ## Destination
@@ -107,7 +96,7 @@ Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
 Output ONLY these three sections in order:
 1. **File Needed:** repo-root-relative path of each file created/edited.
 2. **Changelog:** bullets, brief summary of changes.
-3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands. Update to an existing project or the repo: deliver ONE attached `spec_v<N>.txt` (N = REPO_VERSION + 1, see "Spec ledger" above) and the commands that build and run it (`python3 scripts/make_update_script.py ~/storage/downloads/spec_v<N>.txt --out-dir ~/storage/downloads --verify ~/MCPE-Curseforges`, then `bash ~/storage/downloads/<Name>_v<N>_*.sh`). New pack: the pack `.sh`.
 
 ---
 
