@@ -1,11 +1,11 @@
-# ALN:PirateTokens
+# ALNPirateTokens
 
-Download the current release of **ALN:PirateTokens** for Minecraft Bedrock Edition.
+Download the current release of **ALNPirateTokens** for Minecraft Bedrock Edition.
 
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN:PirateTokens (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/README.md)
+- **Direct download:** [Download ALNPirateTokens (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNPirateTokens/ALNPirateTokens%20V1.mcaddon)
 
 ## Installation
 
@@ -15,4 +15,4 @@ Download the current release of **ALN:PirateTokens** for Minecraft Bedrock Editi
 
 ## Pack Information
 
-For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALNPirateTokens/DESCRIPTION.md).
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALNPirateTokens/DESCRIPTION.md).

@@ -1,0 +1,2689 @@
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Addons/ALNPirateTokens`
+- **Destination:** `MCPEDL/Addons/ALNPirateTokens`
+- **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALNPirateTokens/CHANGELOG.md`)
+- **Spec ledger:** REPO_VERSION 235; the next spec is `spec_v236.txt` (newest specs are listed in the root `CHANGELOG.md`)
+- **Text files:** 22
+- **Skipped binary:** 6
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Addons/ALNPirateTokens/behavior_pack/items/captains_ledger.json`
+- `MCPEDL/Addons/ALNPirateTokens/behavior_pack/items/cursed_coin.json`
+- `MCPEDL/Addons/ALNPirateTokens/behavior_pack/items/gold_doubloon.json`
+- `MCPEDL/Addons/ALNPirateTokens/behavior_pack/items/silver_token.json`
+- `MCPEDL/Addons/ALNPirateTokens/behavior_pack/manifest.json`
+- `MCPEDL/Addons/ALNPirateTokens/behavior_pack/recipes/captains_ledger.json`
+- `MCPEDL/Addons/ALNPirateTokens/behavior_pack/scripts/bounties.js`
+- `MCPEDL/Addons/ALNPirateTokens/behavior_pack/scripts/config.js`
+- `MCPEDL/Addons/ALNPirateTokens/behavior_pack/scripts/crates.js`
+- `MCPEDL/Addons/ALNPirateTokens/behavior_pack/scripts/drops.js`
+- `MCPEDL/Addons/ALNPirateTokens/behavior_pack/scripts/lib/README.md`
+- `MCPEDL/Addons/ALNPirateTokens/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/ALNPirateTokens/behavior_pack/scripts/shop.js`
+- `MCPEDL/Addons/ALNPirateTokens/behavior_pack/scripts/ui.js`
+- `MCPEDL/Addons/ALNPirateTokens/behavior_pack/scripts/vault.js`
+- `MCPEDL/Addons/ALNPirateTokens/CHANGELOG.md`
+- `MCPEDL/Addons/ALNPirateTokens/DESCRIPTION.md`
+- `MCPEDL/Addons/ALNPirateTokens/project.json`
+- `MCPEDL/Addons/ALNPirateTokens/README.md`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/manifest.json`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/item_texture.json`
+- `MCPEDL/Addons/ALNPirateTokens/texture_sources/pirate_icons.json`
+
+### Skipped (binary): 6 file(s)
+
+- `MCPEDL/Addons/ALNPirateTokens/assets/items/captains_ledger.png`
+- `MCPEDL/Addons/ALNPirateTokens/assets/recipes/captains_ledger_recipe.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/items/aln_captains_ledger.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/items/aln_cursed_coin.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/items/aln_gold_doubloon.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/items/aln_silver_token.png`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v1 / NEXT UPDATE: v2).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Addons/ALNPirateTokens
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands. Update to an existing project or the repo: deliver ONE attached `spec_v<N>.txt` (N = REPO_VERSION + 1, see "Spec ledger" above) and the commands that build and run it (`python3 scripts/make_update_script.py ~/storage/downloads/spec_v<N>.txt --out-dir ~/storage/downloads --verify ~/MCPE-Curseforges`, then `bash ~/storage/downloads/<Name>_v<N>_*.sh`). New pack: the pack `.sh`.
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Addons/ALNPirateTokens/behavior_pack/items/captains_ledger.json (24 lines, 533 bytes)
+
+```
+{
+  "format_version": "1.26.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:captains_ledger",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:icon": "aln_captains_ledger",
+      "minecraft:display_name": {
+        "value": "§6Captain's Ledger"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:use_animation": "spyglass",
+      "minecraft:use_modifiers": {
+        "use_duration": 0.1,
+        "movement_modifier": 1
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNPirateTokens/behavior_pack/items/cursed_coin.json (19 lines, 382 bytes)
+
+```
+{
+  "format_version": "1.26.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:cursed_coin",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:icon": "aln_cursed_coin",
+      "minecraft:display_name": {
+        "value": "§aCursed Captain's Coin"
+      },
+      "minecraft:max_stack_size": 64
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNPirateTokens/behavior_pack/items/gold_doubloon.json (19 lines, 385 bytes)
+
+```
+{
+  "format_version": "1.26.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:gold_doubloon",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:icon": "aln_gold_doubloon",
+      "minecraft:display_name": {
+        "value": "§6Gold Pirate Doubloon"
+      },
+      "minecraft:max_stack_size": 64
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNPirateTokens/behavior_pack/items/silver_token.json (19 lines, 382 bytes)
+
+```
+{
+  "format_version": "1.26.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:silver_token",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:icon": "aln_silver_token",
+      "minecraft:display_name": {
+        "value": "§fSilver Pirate Token"
+      },
+      "minecraft:max_stack_size": 64
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNPirateTokens/behavior_pack/manifest.json (66 lines, 1159 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN:PirateTokens (v1)",
+    "description": "Pirate token currency, vault, bounties, Black Market and crates. by ALNStudios",
+    "uuid": "3778fb45-910e-41e8-8cd8-b62ed8171ace",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "9e82aa8b-ff60-4fe5-b4b0-f290adcd9bbf",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "entry": "scripts/main.js",
+      "uuid": "124613dc-0082-47a4-a796-2a343ab5ba14",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "a41f7a92-d81d-4d76-b9f9-dd1950dce440",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.7.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.0.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNPirateTokens/behavior_pack/recipes/captains_ledger.json (31 lines, 504 bytes)
+
+```
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "aln:captains_ledger"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:book"
+      },
+      {
+        "item": "minecraft:gold_nugget"
+      },
+      {
+        "item": "minecraft:compass"
+      }
+    ],
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ],
+    "result": {
+      "item": "aln:captains_ledger"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNPirateTokens/behavior_pack/scripts/bounties.js (64 lines, 1936 bytes)
+
+```
+import { KEYS, BOUNTY_POOL } from "./config.js";
+import { getBalance, setBalance } from "./vault.js";
+
+const DAY_MS = 86400000;
+export const today = () => Math.floor(Date.now() / DAY_MS);
+export const msLeft = () => (today() + 1) * DAY_MS - Date.now();
+
+function fresh(day) {
+  const list = [];
+  for (let k = 0; k < 3; k++) list.push({ i: ((day + k) * 3) % BOUNTY_POOL.length, p: 0, c: false });
+  return { d: day, b: list };
+}
+
+export function getBounties(player) {
+  const day = today();
+  let state = null;
+  try {
+    const raw = player.getDynamicProperty(KEYS.bounties);
+    if (typeof raw === "string") state = JSON.parse(raw);
+  } catch (e) {
+    state = null;
+  }
+  if (!state || state.d !== day || !Array.isArray(state.b)) {
+    state = fresh(day);
+    player.setDynamicProperty(KEYS.bounties, JSON.stringify(state));
+  }
+  return state;
+}
+
+function save(player, state) {
+  player.setDynamicProperty(KEYS.bounties, JSON.stringify(state));
+}
+
+export function addProgress(player, kind, typeId) {
+  const state = getBounties(player);
+  let changed = false;
+  for (const entry of state.b) {
+    const def = BOUNTY_POOL[entry.i];
+    if (entry.c || entry.p >= def.goal || def.kind !== kind) continue;
+    if (kind === "kill" && !def.targets.includes(typeId)) continue;
+    entry.p += 1;
+    changed = true;
+    if (entry.p >= def.goal) {
+      try {
+        player.onScreenDisplay.setActionBar(`§a§lBounty complete: §e${def.title}§r §f- claim it in the Captain's Ledger`);
+        player.playSound("random.levelup");
+      } catch (e) {}
+    }
+  }
+  if (changed) save(player, state);
+}
+
+export function claim(player, index) {
+  const state = getBounties(player);
+  const entry = state.b[index];
+  if (!entry) return 0;
+  const def = BOUNTY_POOL[entry.i];
+  if (entry.c || entry.p < def.goal) return 0;
+  entry.c = true;
+  save(player, state);
+  setBalance(player, getBalance(player) + def.reward * 10);
+  return def.reward;
+}
+```
+
+## FILE: MCPEDL/Addons/ALNPirateTokens/behavior_pack/scripts/config.js (141 lines, 6487 bytes)
+
+```
+export const IDS = {
+  silver: "aln:silver_token",
+  gold: "aln:gold_doubloon",
+  cursed: "aln:cursed_coin",
+  ledger: "aln:captains_ledger"
+};
+
+export const VALUE = {
+  "aln:silver_token": 1,
+  "aln:gold_doubloon": 10,
+  "aln:cursed_coin": 100
+};
+
+export const COIN_NAME = {
+  "aln:silver_token": "Silver Pirate Token",
+  "aln:gold_doubloon": "Gold Pirate Doubloon",
+  "aln:cursed_coin": "Cursed Captain's Coin"
+};
+
+export const COIN_ICON = {
+  "aln:silver_token": "textures/items/aln_silver_token",
+  "aln:gold_doubloon": "textures/items/aln_gold_doubloon",
+  "aln:cursed_coin": "textures/items/aln_cursed_coin",
+  "aln:captains_ledger": "textures/items/aln_captains_ledger"
+};
+
+export const KEYS = {
+  vault: "aln_pt:vault",
+  bounties: "aln_pt:bounties",
+  kept: "aln_pt:kept",
+  chests: "aln_pt:chests"
+};
+
+export const TITLE = "§l§6@ALNStudios §ePirate Ledger§r §f(v1.0.0)";
+
+export const MOB_DROPS = {
+  "minecraft:drowned": [{ id: IDS.silver, chance: 0.25, min: 1, max: 2 }],
+  "minecraft:guardian": [{ id: IDS.silver, chance: 0.35, min: 1, max: 3 }],
+  "minecraft:elder_guardian": [{ id: IDS.gold, chance: 1, min: 1, max: 2 }],
+  "minecraft:pillager": [{ id: IDS.silver, chance: 0.25, min: 1, max: 2 }],
+  "minecraft:ravager": [
+    { id: IDS.silver, chance: 1, min: 2, max: 4 },
+    { id: IDS.gold, chance: 0.15, min: 1, max: 1 }
+  ],
+  "minecraft:wither": [
+    { id: IDS.gold, chance: 1, min: 3, max: 5 },
+    { id: IDS.cursed, chance: 0.35, min: 1, max: 1 }
+  ]
+};
+
+export const FISHING_TREASURE = [
+  "minecraft:bow",
+  "minecraft:enchanted_book",
+  "minecraft:fishing_rod",
+  "minecraft:name_tag",
+  "minecraft:nautilus_shell",
+  "minecraft:saddle"
+];
+
+export const SHIPWRECK_SIGNS = [
+  "minecraft:paper",
+  "minecraft:wheat",
+  "minecraft:carrot",
+  "minecraft:potato",
+  "minecraft:coal",
+  "minecraft:rotten_flesh",
+  "minecraft:pumpkin",
+  "minecraft:bamboo",
+  "minecraft:gunpowder",
+  "minecraft:tnt",
+  "minecraft:iron_nugget",
+  "minecraft:gold_nugget",
+  "minecraft:experience_bottle"
+];
+
+export const CUTLASS_NAME = "Sea-Dog's Cutlass";
+export const COMPASS_NAME = "Treasure Hunter's Compass";
+export const BREEZE_NAME = "Bottled Sea Breeze";
+
+export const SHOP = [
+  { key: "compass", label: "Treasure Hunter's Compass", price: 80, icon: "textures/items/compass_item", note: "Use it to locate buried treasure. Sneak and use it to locate shipwrecks." },
+  { key: "cutlass", label: "Sea-Dog's Cutlass", price: 200, icon: "textures/items/iron_sword", note: "Speed while swimming and extra token drops." },
+  { key: "breeze", label: "Bottled Sea Breeze", price: 40, icon: "textures/items/bottle_empty", note: "Dolphin's Grace and Water Breathing for 5 minutes." },
+  { key: "prismarine", label: "Prismarine Mason Bundle", price: 60, icon: "textures/items/prismarine_shard", note: "32 Prismarine, 16 Prismarine Bricks, 8 Sea Lanterns." },
+  { key: "shipwright", label: "Shipwright Bundle", price: 50, icon: "textures/items/boat", note: "64 Dark Oak Planks, 32 Dark Oak Logs, 16 Iron Nuggets." },
+  { key: "treasure", label: "Treasure Hoarder Bundle", price: 120, icon: "textures/items/gold_ingot", note: "4 Chests, 2 Gold Blocks, 8 Emeralds." }
+];
+
+export const CRATES = [
+  {
+    key: "buccaneer",
+    label: "Mystery Buccaneer Crate",
+    price: 30,
+    priceText: "3 Gold Doubloons",
+    icon: "textures/items/aln_gold_doubloon",
+    pool: [
+      { w: 30, id: IDS.silver, amount: 12, label: "12 Silver Pirate Tokens" },
+      { w: 18, id: IDS.gold, amount: 2, label: "2 Gold Pirate Doubloons" },
+      { w: 16, id: "minecraft:emerald", amount: 10, label: "10 Emeralds" },
+      { w: 10, id: "minecraft:diamond", amount: 2, label: "2 Diamonds" },
+      { w: 10, id: "minecraft:gold_ingot", amount: 16, label: "16 Gold Ingots" },
+      { w: 6, id: "minecraft:ender_pearl", amount: 4, label: "4 Ender Pearls" },
+      { w: 5, id: "minecraft:golden_apple", amount: 2, label: "2 Golden Apples" },
+      { w: 3, id: "minecraft:nautilus_shell", amount: 1, label: "Nautilus Shell", jackpot: true },
+      { w: 2, id: "minecraft:heart_of_the_sea", amount: 1, label: "Heart of the Sea", jackpot: true },
+      { w: 2, id: "minecraft:netherite_scrap", amount: 2, label: "2 Netherite Scrap", jackpot: true },
+      { w: 1, id: "minecraft:enchanted_golden_apple", amount: 1, label: "Enchanted Golden Apple", jackpot: true }
+    ]
+  },
+  {
+    key: "cursed",
+    label: "Cursed Captain's Crate",
+    price: 100,
+    priceText: "1 Cursed Captain's Coin",
+    icon: "textures/items/aln_cursed_coin",
+    pool: [
+      { w: 25, id: IDS.gold, amount: 6, label: "6 Gold Pirate Doubloons" },
+      { w: 20, id: "minecraft:diamond", amount: 6, label: "6 Diamonds" },
+      { w: 10, id: IDS.cursed, amount: 1, label: "Cursed Captain's Coin" },
+      { w: 10, id: "minecraft:totem_of_undying", amount: 1, label: "Totem of Undying" },
+      { w: 8, id: "minecraft:netherite_ingot", amount: 1, label: "Netherite Ingot", jackpot: true },
+      { w: 8, id: "minecraft:enchanted_golden_apple", amount: 2, label: "2 Enchanted Golden Apples", jackpot: true },
+      { w: 8, id: "minecraft:heart_of_the_sea", amount: 1, label: "Heart of the Sea", jackpot: true },
+      { w: 6, id: "minecraft:trident", amount: 1, label: "Trident", jackpot: true },
+      { w: 3, id: "minecraft:beacon", amount: 1, label: "Beacon", jackpot: true },
+      { w: 2, id: "minecraft:elytra", amount: 1, label: "Elytra", jackpot: true }
+    ]
+  }
+];
+
+export const BOUNTY_POOL = [
+  { title: "Drowned Hunter", text: "Defeat 10 Drowned", kind: "kill", targets: ["minecraft:drowned"], goal: 10, reward: 3 },
+  { title: "Deep Sea Angler", text: "Reel in 8 catches while fishing", kind: "fish", targets: [], goal: 8, reward: 2 },
+  { title: "Treasure Seeker", text: "Open 1 shipwreck or buried treasure chest", kind: "chest", targets: [], goal: 1, reward: 3 },
+  { title: "Monument Raider", text: "Defeat 4 Guardians", kind: "kill", targets: ["minecraft:guardian", "minecraft:elder_guardian"], goal: 4, reward: 4 },
+  { title: "Raider Slayer", text: "Defeat 6 Pillagers", kind: "kill", targets: ["minecraft:pillager"], goal: 6, reward: 3 },
+  { title: "Beast Breaker", text: "Defeat 1 Ravager", kind: "kill", targets: ["minecraft:ravager"], goal: 1, reward: 5 },
+  { title: "Tide Reaper", text: "Defeat 20 Drowned", kind: "kill", targets: ["minecraft:drowned"], goal: 20, reward: 5 },
+  { title: "Dread Captain Duel", text: "Defeat the Wither", kind: "kill", targets: ["minecraft:wither"], goal: 1, reward: 20 }
+];
+```
+
+## FILE: MCPEDL/Addons/ALNPirateTokens/behavior_pack/scripts/crates.js (55 lines, 1863 bytes)
+
+```
+import { system, ItemStack } from "@minecraft/server";
+import { giveStack } from "./vault.js";
+
+const sleep = (ticks) => new Promise((resolve) => system.runTimeout(resolve, ticks));
+
+export function rollCrate(crate) {
+  const total = crate.pool.reduce((s, p) => s + p.w, 0);
+  let r = Math.random() * total;
+  for (const prize of crate.pool) {
+    r -= prize.w;
+    if (r < 0) return prize;
+  }
+  return crate.pool[0];
+}
+
+const run = (player, cmd) => {
+  try {
+    player.runCommand(cmd);
+  } catch (e) {}
+};
+
+export async function animateCrate(player, crate, prize) {
+  const delays = [2, 2, 2, 2, 3, 3, 4, 4, 5, 6, 7, 8, 10, 12];
+  let pitch = 0.6;
+  for (let i = 0; i < delays.length; i++) {
+    const shown = i === delays.length - 1 ? prize : crate.pool[Math.floor(Math.random() * crate.pool.length)];
+    try {
+      player.onScreenDisplay.setActionBar(`§l§e>> §f${shown.label} §e<<`);
+    } catch (e) {}
+    run(player, `playsound note.hat @s ~ ~ ~ 1 ${pitch.toFixed(2)}`);
+    run(player, `playsound note.bd @s ~ ~ ~ 0.6 ${(pitch * 0.8).toFixed(2)}`);
+    pitch = Math.min(2, pitch + 0.1);
+    await sleep(delays[i]);
+  }
+  run(player, "playsound note.pling @s ~ ~ ~ 1.5 2");
+  run(player, "playsound random.levelup @s ~ ~ ~ 1 1");
+  for (let k = 0; k < 8; k++) {
+    const dx = (Math.random() * 2 - 1) * 1.5;
+    const dz = (Math.random() * 2 - 1) * 1.5;
+    const dy = 0.5 + Math.random() * 1.8;
+    run(player, `particle minecraft:totem_particle ~${dx.toFixed(2)} ~${dy.toFixed(2)} ~${dz.toFixed(2)}`);
+  }
+  run(player, `title @s title ${prize.jackpot ? "§6§lJACKPOT" : "§e§lTreasure"}`);
+  run(player, `title @s subtitle §f${prize.label}`);
+}
+
+export function grantPrize(player, prize) {
+  let left = prize.amount;
+  while (left > 0) {
+    const n = Math.min(64, left);
+    giveStack(player, new ItemStack(prize.id, n));
+    left -= n;
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNPirateTokens/behavior_pack/scripts/drops.js (242 lines, 7379 bytes)
+
+```
+import { world, system, ItemStack } from "@minecraft/server";
+import { IDS, VALUE, KEYS, MOB_DROPS, FISHING_TREASURE, SHIPWRECK_SIGNS, CUTLASS_NAME } from "./config.js";
+import { inventoryOf, looseCounts, takeLoose, giveAmount } from "./vault.js";
+import { addProgress } from "./bounties.js";
+
+const rand = (min, max) => min + Math.floor(Math.random() * (max - min + 1));
+const lastFish = new Map();
+
+export function holdsCutlass(player) {
+  try {
+    const it = inventoryOf(player)?.getItem(player.selectedSlotIndex);
+    return !!it && it.typeId === "minecraft:iron_sword" && !!it.nameTag && it.nameTag.includes(CUTLASS_NAME);
+  } catch (e) {
+    return false;
+  }
+}
+
+function spawnCoins(dim, loc, typeId, amount) {
+  let left = amount;
+  while (left > 0) {
+    const n = Math.min(64, left);
+    dim.spawnItem(new ItemStack(typeId, n), loc);
+    left -= n;
+  }
+}
+
+function scatterFx(dim, loc) {
+  const at = `${loc.x.toFixed(1)} ${loc.y.toFixed(1)} ${loc.z.toFixed(1)}`;
+  try {
+    dim.runCommand(`playsound armor.equip_gold @a ${at} 1.5 1`);
+    dim.runCommand(`playsound random.orb @a ${at} 1 1.4`);
+    dim.runCommand(`particle minecraft:totem_particle ${at}`);
+  } catch (e) {}
+}
+
+function rollDrops(rules, bonus) {
+  const out = [];
+  for (const rule of rules) {
+    if (Math.random() < Math.min(1, rule.chance + (bonus ? 0.15 : 0))) {
+      out.push({ id: rule.id, amount: rand(rule.min, rule.max) + (bonus ? 1 : 0) });
+    }
+  }
+  return out;
+}
+
+function readKept() {
+  try {
+    const raw = world.getDynamicProperty(KEYS.kept);
+    return typeof raw === "string" ? JSON.parse(raw) : {};
+  } catch (e) {
+    return {};
+  }
+}
+
+function writeKept(data) {
+  world.setDynamicProperty(KEYS.kept, JSON.stringify(data));
+}
+
+function onPlayerDeath(dead) {
+  let dim;
+  let loc;
+  let pid;
+  try {
+    dim = dead.dimension;
+    loc = { x: dead.location.x, y: dead.location.y, z: dead.location.z };
+    pid = dead.id;
+  } catch (e) {
+    return;
+  }
+  let handled = false;
+  try {
+    const counts = looseCounts(dead);
+    const total = Object.keys(counts).reduce((s, k) => s + counts[k], 0);
+    if (total > 0) {
+      handled = true;
+      for (const typeId of Object.keys(counts)) {
+        const n = counts[typeId];
+        if (!n) continue;
+        const drop = Math.ceil(n / 2);
+        takeLoose(dead, typeId, drop);
+        spawnCoins(dim, loc, typeId, drop);
+      }
+      scatterFx(dim, loc);
+    }
+  } catch (e) {}
+  if (handled) return;
+  system.runTimeout(() => {
+    try {
+      const found = {};
+      for (const e of dim.getEntities({ type: "minecraft:item", location: loc, maxDistance: 8 })) {
+        const st = e.getComponent("item")?.itemStack;
+        if (!st || !(st.typeId in VALUE)) continue;
+        found[st.typeId] = (found[st.typeId] || 0) + st.amount;
+        e.remove();
+      }
+      const kept = {};
+      let any = false;
+      for (const typeId of Object.keys(found)) {
+        const n = found[typeId];
+        const drop = Math.ceil(n / 2);
+        spawnCoins(dim, loc, typeId, drop);
+        if (n - drop > 0) kept[typeId] = n - drop;
+        any = true;
+      }
+      if (!any) return;
+      scatterFx(dim, loc);
+      if (Object.keys(kept).length) {
+        const all = readKept();
+        all[pid] = kept;
+        writeKept(all);
+      }
+    } catch (e) {}
+  }, 2);
+}
+
+function giveKept(player) {
+  const all = readKept();
+  const mine = all[player.id];
+  if (!mine) return;
+  delete all[player.id];
+  writeKept(all);
+  for (const typeId of Object.keys(mine)) giveAmount(player, typeId, mine[typeId]);
+  player.onScreenDisplay.setActionBar("§6Your remaining pirate coins were returned.");
+}
+
+function readChests() {
+  const raw = world.getDynamicProperty(KEYS.chests);
+  return typeof raw === "string" && raw.length ? raw.split(";") : [];
+}
+
+function isTreasureChest(block, container) {
+  if (block.location.y > 64) return false;
+  let signs = 0;
+  for (let i = 0; i < container.size; i++) {
+    const it = container.getItem(i);
+    if (!it) continue;
+    if (it.typeId === "minecraft:heart_of_the_sea") return true;
+    if (SHIPWRECK_SIGNS.includes(it.typeId)) signs += 1;
+  }
+  return signs >= 3;
+}
+
+function onChestOpen(player, block) {
+  const container = block.getComponent("inventory")?.container;
+  if (!container) return;
+  const key = `${block.dimension.id}@${block.location.x},${block.location.y},${block.location.z}`;
+  const seen = readChests();
+  if (seen.includes(key)) return;
+  if (!isTreasureChest(block, container)) return;
+  seen.push(key);
+  while (seen.length > 300) seen.shift();
+  world.setDynamicProperty(KEYS.chests, seen.join(";"));
+  const gold = rand(1, 2);
+  const silver = rand(4, 8);
+  giveAmount(player, IDS.gold, gold);
+  giveAmount(player, IDS.silver, silver);
+  player.onScreenDisplay.setActionBar(`§6Treasure found: §e${gold} Gold Doubloons §f+ §f${silver} Silver Tokens`);
+  scatterFx(player.dimension, player.location);
+  addProgress(player, "chest", "");
+}
+
+function onItemSpawn(entity) {
+  if (entity.typeId !== "minecraft:item") return;
+  let dim;
+  let loc;
+  try {
+    dim = entity.dimension;
+    loc = entity.location;
+  } catch (e) {
+    return;
+  }
+  if (dim.getEntities({ type: "minecraft:fishing_hook", location: loc, maxDistance: 3 }).length === 0) return;
+  const anglers = dim.getPlayers({ location: loc, maxDistance: 40 }).filter((p) => {
+    const it = inventoryOf(p)?.getItem(p.selectedSlotIndex);
+    return it && it.typeId === "minecraft:fishing_rod";
+  });
+  if (!anglers.length) return;
+  const player = anglers[0];
+  const now = system.currentTick;
+  if (now - (lastFish.get(player.id) ?? -100) < 20) return;
+  lastFish.set(player.id, now);
+  const st = entity.getComponent("item")?.itemStack;
+  const treasure = !!st && FISHING_TREASURE.includes(st.typeId);
+  if (treasure) {
+    giveAmount(player, IDS.gold, rand(1, 2));
+    player.onScreenDisplay.setActionBar("§6Treasure catch: §eGold Pirate Doubloons");
+    scatterFx(dim, player.location);
+  } else if (Math.random() < 0.18) {
+    giveAmount(player, IDS.silver, rand(1, 3));
+    player.onScreenDisplay.setActionBar("§fYou fished up Silver Pirate Tokens");
+  }
+  addProgress(player, "fish", "");
+}
+
+export function registerDrops() {
+  world.afterEvents.entityDie.subscribe((ev) => {
+    const dead = ev.deadEntity;
+    if (dead.typeId === "minecraft:player") {
+      onPlayerDeath(dead);
+      return;
+    }
+    const killer = ev.damageSource?.damagingEntity;
+    if (!killer || killer.typeId !== "minecraft:player") return;
+    let typeId;
+    let loc;
+    let dim;
+    try {
+      typeId = dead.typeId;
+      loc = dead.location;
+      dim = dead.dimension;
+    } catch (e) {
+      return;
+    }
+    addProgress(killer, "kill", typeId);
+    const rules = MOB_DROPS[typeId];
+    if (!rules) return;
+    for (const drop of rollDrops(rules, holdsCutlass(killer))) spawnCoins(dim, loc, drop.id, drop.amount);
+  });
+
+  world.afterEvents.playerInteractWithBlock.subscribe((ev) => {
+    if (ev.block.typeId !== "minecraft:chest") return;
+    try {
+      onChestOpen(ev.player, ev.block);
+    } catch (e) {}
+  });
+
+  world.afterEvents.entitySpawn.subscribe((ev) => {
+    try {
+      onItemSpawn(ev.entity);
+    } catch (e) {}
+  });
+
+  world.afterEvents.playerSpawn.subscribe((ev) => {
+    const player = ev.player;
+    system.runTimeout(() => {
+      try {
+        giveKept(player);
+      } catch (e) {}
+    }, 20);
+  });
+}
+```
+
+## FILE: MCPEDL/Addons/ALNPirateTokens/behavior_pack/scripts/lib/README.md (4 lines, 110 bytes)
+
+```
+# scripts/lib
+
+Shared helper modules for ALN:PirateTokens go in this folder. The add-on currently needs none.
+```
+
+## FILE: MCPEDL/Addons/ALNPirateTokens/behavior_pack/scripts/main.js (65 lines, 2233 bytes)
+
+```
+import { world, system } from "@minecraft/server";
+import { IDS, COMPASS_NAME, BREEZE_NAME } from "./config.js";
+import { inventoryOf } from "./vault.js";
+import { registerDrops, holdsCutlass } from "./drops.js";
+import { openLedger } from "./ui.js";
+
+const compassCooldown = new Map();
+
+function locate(player) {
+  const now = system.currentTick;
+  if (now - (compassCooldown.get(player.id) ?? -200) < 100) return;
+  compassCooldown.set(player.id, now);
+  const structure = player.isSneaking ? "shipwreck" : "buriedtreasure";
+  player.onScreenDisplay.setActionBar("§bThe compass needle spins... check the chat for coordinates.");
+  player.playSound("random.orb");
+  try {
+    player.runCommand(`locate structure ${structure}`);
+  } catch (e) {}
+}
+
+function drinkBreeze(player) {
+  const c = inventoryOf(player);
+  const slot = player.selectedSlotIndex;
+  const it = c?.getItem(slot);
+  if (!it) return;
+  if (it.amount > 1) {
+    it.amount -= 1;
+    c.setItem(slot, it);
+  } else {
+    c.setItem(slot, undefined);
+  }
+  player.addEffect("dolphins_grace", 6000, { amplifier: 0, showParticles: true });
+  player.addEffect("water_breathing", 6000, { amplifier: 0, showParticles: true });
+  player.playSound("random.drink");
+  player.onScreenDisplay.setActionBar("§bSea Breeze: Dolphin's Grace and Water Breathing for 5 minutes");
+}
+
+world.afterEvents.itemUse.subscribe((ev) => {
+  const player = ev.source;
+  if (!player || player.typeId !== "minecraft:player") return;
+  const item = ev.itemStack;
+  try {
+    if (item.typeId === IDS.ledger) {
+      openLedger(player);
+    } else if (item.typeId === "minecraft:compass" && item.nameTag && item.nameTag.includes(COMPASS_NAME)) {
+      locate(player);
+    } else if (item.typeId === "minecraft:glass_bottle" && item.nameTag && item.nameTag.includes(BREEZE_NAME)) {
+      drinkBreeze(player);
+    }
+  } catch (e) {}
+});
+
+system.runInterval(() => {
+  for (const player of world.getAllPlayers()) {
+    try {
+      if (player.isInWater && holdsCutlass(player)) {
+        player.addEffect("speed", 60, { amplifier: 1, showParticles: false });
+        player.addEffect("dolphins_grace", 60, { amplifier: 0, showParticles: false });
+      }
+    } catch (e) {}
+  }
+}, 20);
+
+registerDrops();
+```
+
+## FILE: MCPEDL/Addons/ALNPirateTokens/behavior_pack/scripts/shop.js (33 lines, 1451 bytes)
+
+```
+import { ItemStack } from "@minecraft/server";
+import { COMPASS_NAME, CUTLASS_NAME, BREEZE_NAME } from "./config.js";
+import { giveAmount, giveStack } from "./vault.js";
+
+const named = (typeId, name, lore) => {
+  const stack = new ItemStack(typeId, 1);
+  stack.nameTag = name;
+  stack.setLore(lore);
+  return stack;
+};
+
+export function deliver(player, key) {
+  if (key === "compass") {
+    giveStack(player, named("minecraft:compass", `§6${COMPASS_NAME}`, ["§bUse: locate buried treasure", "§bSneak and use: locate a shipwreck"]));
+  } else if (key === "cutlass") {
+    giveStack(player, named("minecraft:iron_sword", `§6${CUTLASS_NAME}`, ["§bSpeed while swimming", "§bExtra Pirate Token drops"]));
+  } else if (key === "breeze") {
+    giveStack(player, named("minecraft:glass_bottle", `§b${BREEZE_NAME}`, ["§bUse: Dolphin's Grace and Water Breathing"]));
+  } else if (key === "prismarine") {
+    giveAmount(player, "minecraft:prismarine", 32);
+    giveAmount(player, "minecraft:prismarine_bricks", 16);
+    giveAmount(player, "minecraft:sea_lantern", 8);
+  } else if (key === "shipwright") {
+    giveAmount(player, "minecraft:dark_oak_planks", 64);
+    giveAmount(player, "minecraft:dark_oak_log", 32);
+    giveAmount(player, "minecraft:iron_nugget", 16);
+  } else if (key === "treasure") {
+    giveAmount(player, "minecraft:chest", 4);
+    giveAmount(player, "minecraft:gold_block", 2);
+    giveAmount(player, "minecraft:emerald", 8);
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNPirateTokens/behavior_pack/scripts/ui.js (204 lines, 8020 bytes)
+
+```
+import { system } from "@minecraft/server";
+import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
+import { IDS, COIN_ICON, TITLE, SHOP, CRATES, BOUNTY_POOL } from "./config.js";
+import {
+  getBalance, setBalance, describeValue, looseCounts, countsValue, depositAll,
+  withdrawCoin, withdrawAll, compressLoose
+} from "./vault.js";
+import { getBounties, claim, msLeft } from "./bounties.js";
+import { deliver } from "./shop.js";
+import { rollCrate, animateCrate, grantPrize } from "./crates.js";
+
+const sleep = (ticks) => new Promise((resolve) => system.runTimeout(resolve, ticks));
+
+async function show(form, player) {
+  for (let i = 0; i < 40; i++) {
+    let res;
+    try {
+      res = await form.show(player);
+    } catch (e) {
+      return undefined;
+    }
+    if (res.canceled && res.cancelationReason === FormCancelationReason.UserBusy) {
+      await sleep(10);
+      continue;
+    }
+    return res;
+  }
+  return undefined;
+}
+
+const pick = (res) => (res && res.selection !== undefined ? res.selection : -1);
+
+const header = (player) => {
+  const loose = countsValue(looseCounts(player));
+  return `§eVault: §f${describeValue(getBalance(player))}§r\n§eCarried: §f${describeValue(loose)}§r\n`;
+};
+
+async function vaultMenu(player) {
+  let note = "";
+  for (;;) {
+    const form = new ActionFormData()
+      .title(`${TITLE}`)
+      .body(`§l§6Pirate Vault§r\n${header(player)}\n${note}`)
+      .button("§l§aDeposit All Coins\n§r§fMove carried coins into the vault", COIN_ICON[IDS.gold])
+      .button("§l§bWithdraw Coins\n§r§fTake coins out of the vault", COIN_ICON[IDS.silver])
+      .button("§l§eCompress Carried Coins\n§r§f10 Silver = 1 Gold, 10 Gold = 1 Cursed", COIN_ICON[IDS.cursed])
+      .button("§l§cBack");
+    const sel = pick(await show(form, player));
+    if (sel === -1) return false;
+    if (sel === 3) return true;
+    if (sel === 0) {
+      const total = depositAll(player);
+      note = total > 0 ? `§aDeposited ${describeValue(total)}§r\n` : "§cYou carry no pirate coins.\n";
+    } else if (sel === 1) {
+      const out = await withdrawMenu(player);
+      if (out === false) return false;
+      note = "";
+    } else if (sel === 2) {
+      note = compressLoose(player) ? "§aCoins compressed into higher coins.\n" : "§eNothing to compress yet.\n";
+    }
+  }
+}
+
+const WITHDRAW = [
+  { label: "1 Silver Token", id: IDS.silver, n: 1 },
+  { label: "10 Silver Tokens", id: IDS.silver, n: 10 },
+  { label: "1 Gold Doubloon", id: IDS.gold, n: 1 },
+  { label: "10 Gold Doubloons", id: IDS.gold, n: 10 },
+  { label: "1 Cursed Captain's Coin", id: IDS.cursed, n: 1 }
+];
+
+async function withdrawMenu(player) {
+  let note = "";
+  for (;;) {
+    const form = new ActionFormData().title(`${TITLE}`).body(`§l§6Withdraw§r\n${header(player)}\n${note}`);
+    for (const w of WITHDRAW) form.button(`§l§f${w.label}`, COIN_ICON[w.id]);
+    form.button("§l§aWithdraw Everything\n§r§fBest coins, auto-converted", COIN_ICON[IDS.cursed]);
+    form.button("§l§cBack");
+    const sel = pick(await show(form, player));
+    if (sel === -1) return false;
+    if (sel === WITHDRAW.length + 1) return true;
+    if (sel === WITHDRAW.length) {
+      const v = withdrawAll(player);
+      note = v > 0 ? `§aWithdrew ${describeValue(v)}§r\n` : "§cThe vault is empty.\n";
+    } else {
+      const w = WITHDRAW[sel];
+      note = withdrawCoin(player, w.id, w.n) ? `§aWithdrew ${w.label}\n` : "§cNot enough in the vault.\n";
+    }
+  }
+}
+
+const bar = (p, goal) => {
+  const n = Math.min(10, Math.floor((p / goal) * 10));
+  return `§a${"|".repeat(n)}§c${"|".repeat(10 - n)}`;
+};
+
+async function bountyMenu(player) {
+  let note = "";
+  for (;;) {
+    const state = getBounties(player);
+    const hours = Math.floor(msLeft() / 3600000);
+    const mins = Math.floor((msLeft() % 3600000) / 60000);
+    let body = `§l§6Pirate Bounties§r\n§eNew bounties in §f${hours}h ${mins}m§r\n\n${note}`;
+    const claimable = [];
+    state.b.forEach((entry, idx) => {
+      const def = BOUNTY_POOL[entry.i];
+      const done = entry.p >= def.goal;
+      const status = entry.c ? "§aClaimed" : done ? "§6Ready to claim" : `§f${entry.p}/${def.goal}`;
+      body += `§l§b${def.title}§r\n§f${def.text}\n${bar(entry.p, def.goal)} ${status}§r §e(Reward: ${def.reward} Doubloons)§r\n\n`;
+      if (done && !entry.c) claimable.push(idx);
+    });
+    const form = new ActionFormData().title(`${TITLE}`).body(body);
+    for (const idx of claimable) {
+      const def = BOUNTY_POOL[state.b[idx].i];
+      form.button(`§l§6[ Claim Doubloons ]\n§r§f${def.title} (+${def.reward})`, COIN_ICON[IDS.gold]);
+    }
+    form.button("§l§cBack");
+    const sel = pick(await show(form, player));
+    if (sel === -1) return false;
+    if (sel === claimable.length) return true;
+    const reward = claim(player, claimable[sel]);
+    note = reward > 0 ? `§aClaimed ${reward} Gold Doubloons into your vault.§r\n\n` : "";
+  }
+}
+
+const priceText = (value) => describeValue(value);
+
+async function marketMenu(player) {
+  let note = "";
+  for (;;) {
+    const form = new ActionFormData().title(`${TITLE}`).body(`§l§6Black Market§r\n${header(player)}\n${note}`);
+    for (const item of SHOP) form.button(`§l§f${item.label}\n§r§e${priceText(item.price)}`, item.icon);
+    form.button("§l§cBack");
+    const sel = pick(await show(form, player));
+    if (sel === -1) return false;
+    if (sel === SHOP.length) return true;
+    const item = SHOP[sel];
+    if (getBalance(player) < item.price) {
+      note = `§cNot enough in the vault for ${item.label}.\n`;
+      continue;
+    }
+    setBalance(player, getBalance(player) - item.price);
+    deliver(player, item.key);
+    player.playSound("random.orb");
+    note = `§aPurchased ${item.label}. §f${item.note}\n`;
+  }
+}
+
+async function previewCrate(player, crate) {
+  const total = crate.pool.reduce((s, p) => s + p.w, 0);
+  let body = `§l§6${crate.label}§r\n§ePrice: §f${crate.priceText}\n\n`;
+  for (const p of crate.pool) {
+    body += `${p.jackpot ? "§6" : "§f"}${p.label} §e${((p.w / total) * 100).toFixed(1)}%§r\n`;
+  }
+  const form = new ActionFormData().title(`${TITLE}`).body(body).button("§l§cBack");
+  await show(form, player);
+}
+
+async function crateMenu(player) {
+  let note = "";
+  for (;;) {
+    const form = new ActionFormData().title(`${TITLE}`).body(`§l§6Mystery Crates§r\n${header(player)}\n${note}`);
+    for (const c of CRATES) form.button(`§l§f${c.label}\n§r§e${c.priceText}`, c.icon);
+    form.button("§l§bView Prizes");
+    form.button("§l§cBack");
+    const sel = pick(await show(form, player));
+    if (sel === -1) return false;
+    if (sel === CRATES.length + 1) return true;
+    if (sel === CRATES.length) {
+      for (const c of CRATES) await previewCrate(player, c);
+      continue;
+    }
+    const crate = CRATES[sel];
+    if (getBalance(player) < crate.price) {
+      note = `§cYou need ${crate.priceText} in your vault.\n`;
+      continue;
+    }
+    setBalance(player, getBalance(player) - crate.price);
+    const prize = rollCrate(crate);
+    await animateCrate(player, crate, prize);
+    grantPrize(player, prize);
+    note = `§aYou won §f${prize.label}§a. Open another?\n`;
+  }
+}
+
+export async function openLedger(player) {
+  try {
+    for (;;) {
+      const form = new ActionFormData()
+        .title(`${TITLE}`)
+        .body(`§bWelcome aboard, Captain.§r\n${header(player)}`)
+        .button("§l§6Pirate Vault\n§r§fBank your coins", COIN_ICON[IDS.gold])
+        .button("§l§bPirate Bounties\n§r§fDaily challenges", COIN_ICON[IDS.ledger])
+        .button("§l§aBlack Market\n§r§fGear and bundles", COIN_ICON[IDS.silver])
+        .button("§l§dMystery Crates\n§r§fSpin for treasure", COIN_ICON[IDS.cursed]);
+      const sel = pick(await show(form, player));
+      if (sel === -1) return;
+      const fn = [vaultMenu, bountyMenu, marketMenu, crateMenu][sel];
+      const keepOpen = await fn(player);
+      if (keepOpen === false) return;
+    }
+  } catch (e) {}
+}
+```
+
+## FILE: MCPEDL/Addons/ALNPirateTokens/behavior_pack/scripts/vault.js (128 lines, 3798 bytes)
+
+```
+import { ItemStack } from "@minecraft/server";
+import { IDS, VALUE, KEYS } from "./config.js";
+
+export const inventoryOf = (player) => player.getComponent("inventory")?.container;
+
+export function getBalance(player) {
+  const v = player.getDynamicProperty(KEYS.vault);
+  return typeof v === "number" && v > 0 ? Math.floor(v) : 0;
+}
+
+export function setBalance(player, value) {
+  player.setDynamicProperty(KEYS.vault, Math.max(0, Math.floor(value)));
+}
+
+export function breakdown(value) {
+  const c = Math.floor(value / 100);
+  const rest = value - c * 100;
+  const g = Math.floor(rest / 10);
+  return { c, g, s: rest - g * 10 };
+}
+
+export function describeValue(value) {
+  const b = breakdown(value);
+  const parts = [];
+  if (b.c) parts.push(`§a${b.c} Cursed`);
+  if (b.g) parts.push(`§6${b.g} Gold`);
+  if (b.s || !parts.length) parts.push(`§f${b.s} Silver`);
+  return parts.join("§r§f, ");
+}
+
+export function looseCounts(player) {
+  const counts = { [IDS.silver]: 0, [IDS.gold]: 0, [IDS.cursed]: 0 };
+  const c = inventoryOf(player);
+  if (!c) return counts;
+  for (let i = 0; i < c.size; i++) {
+    const it = c.getItem(i);
+    if (it && it.typeId in counts) counts[it.typeId] += it.amount;
+  }
+  return counts;
+}
+
+export const countsValue = (counts) =>
+  Object.keys(counts).reduce((sum, k) => sum + VALUE[k] * counts[k], 0);
+
+export function takeLoose(player, typeId, amount) {
+  const c = inventoryOf(player);
+  if (!c) return 0;
+  let left = amount;
+  for (let i = 0; i < c.size && left > 0; i++) {
+    const it = c.getItem(i);
+    if (!it || it.typeId !== typeId) continue;
+    if (it.amount <= left) {
+      left -= it.amount;
+      c.setItem(i, undefined);
+    } else {
+      it.amount -= left;
+      c.setItem(i, it);
+      left = 0;
+    }
+  }
+  return amount - left;
+}
+
+export function giveStack(player, stack) {
+  const c = inventoryOf(player);
+  const rest = c ? c.addItem(stack) : stack;
+  if (rest) player.dimension.spawnItem(rest, player.location);
+}
+
+export function giveAmount(player, typeId, amount, decorate) {
+  let left = amount;
+  while (left > 0) {
+    const n = Math.min(64, left);
+    const stack = new ItemStack(typeId, n);
+    if (decorate) decorate(stack);
+    giveStack(player, stack);
+    left -= n;
+  }
+}
+
+export function depositAll(player) {
+  const counts = looseCounts(player);
+  let total = 0;
+  for (const typeId of Object.keys(counts)) {
+    if (!counts[typeId]) continue;
+    const taken = takeLoose(player, typeId, counts[typeId]);
+    total += taken * VALUE[typeId];
+  }
+  if (total > 0) setBalance(player, getBalance(player) + total);
+  return total;
+}
+
+export function withdrawCoin(player, typeId, count) {
+  const cost = VALUE[typeId] * count;
+  if (getBalance(player) < cost) return false;
+  setBalance(player, getBalance(player) - cost);
+  giveAmount(player, typeId, count);
+  return true;
+}
+
+export function withdrawAll(player) {
+  const value = getBalance(player);
+  if (value <= 0) return 0;
+  const b = breakdown(value);
+  setBalance(player, 0);
+  if (b.c) giveAmount(player, IDS.cursed, b.c);
+  if (b.g) giveAmount(player, IDS.gold, b.g);
+  if (b.s) giveAmount(player, IDS.silver, b.s);
+  return value;
+}
+
+export function compressLoose(player) {
+  const counts = looseCounts(player);
+  let s = counts[IDS.silver];
+  let g = counts[IDS.gold] + Math.floor(s / 10);
+  s %= 10;
+  const c = counts[IDS.cursed] + Math.floor(g / 10);
+  g %= 10;
+  if (s === counts[IDS.silver] && g === counts[IDS.gold] && c === counts[IDS.cursed]) return false;
+  takeLoose(player, IDS.silver, counts[IDS.silver]);
+  takeLoose(player, IDS.gold, counts[IDS.gold]);
+  takeLoose(player, IDS.cursed, counts[IDS.cursed]);
+  if (c) giveAmount(player, IDS.cursed, c);
+  if (g) giveAmount(player, IDS.gold, g);
+  if (s) giveAmount(player, IDS.silver, s);
+  return true;
+}
+```
+
+## FILE: MCPEDL/Addons/ALNPirateTokens/CHANGELOG.md (13 lines, 653 bytes)
+
+```
+# Changelog — ALN:PirateTokens
+
+---
+
+## [1.0.0] - 2026-11-23 - First Release
+
+### Added
+- **Pirate tokens**: Silver Pirate Token, Gold Pirate Doubloon and Cursed Captain's Coin with 16x16 pixel art icons.
+- **Captain's Ledger**: Craftable item that opens the Pirate Vault, Pirate Bounties, Black Market and Mystery Crates menus.
+- **Loot and death drops**: Ocean and raider mob drops, fishing treasure, chest rewards and a half-stack drop when a player dies.
+- **Daily bounties**: Three rotating bounties with live progress and a Claim Doubloons button.
+- **Mystery Crates**: Animated crate rolls with note sounds, gold particles and a jackpot title.
+```
+
+## FILE: MCPEDL/Addons/ALNPirateTokens/DESCRIPTION.md (83 lines, 4780 bytes)
+
+```
+# ALN:PirateTokens — A clear factual subtitle
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**Earn 3 pirate coins at sea, bank them in a vault and spend them on gear and 2 mystery crates.**
+
+> Hunt Drowned and Guardians, fish up treasure and open shipwreck chests to collect physical pirate coins. Store them safely, finish daily bounties and trade at the Black Market.
+
+## Overview
+
+ALN:PirateTokens adds a three-coin pirate economy built around the Captain's Ledger item. Coins you carry can be lost in a fight with other players, while coins in your Pirate Vault stay safe. Everything is spent through the ledger menus.
+
+## Key Features
+
+### Pirate Token Currency
+- **What Happens**: Silver Pirate Tokens, Gold Pirate Doubloons and Cursed Captain's Coins are real stackable items. 10 Silver convert to 1 Gold Doubloon and 10 Gold Doubloons convert to 1 Cursed Captain's Coin.
+
+### Captain's Ledger
+- **What Happens**: Craft the ledger from a Book, a Gold Nugget and a Compass, then use it to open a four-option menu: Pirate Vault, Pirate Bounties, Black Market and Mystery Crates.
+
+### Pirate Vault
+- **What Happens**: Deposit every carried coin into your personal vault, withdraw 1 or 10 Silver, 1 or 10 Gold, 1 Cursed Coin or everything as the best coins, and compress carried coins upward.
+
+### Ocean and Raider Loot
+- **What Happens**: Drowned, Guardians, Elder Guardians, Pillagers, Ravagers and Withers drop tokens. Fishing treasure catches and the first opening of a shipwreck or buried treasure chest also pay out.
+
+### Loose Coin Death Drop
+- **What Happens**: If you die carrying coins, half of each coin type (rounded up) drops at your death spot with a coin-scatter sound. Vault savings are never touched.
+
+### Pirate Bounties
+- **What Happens**: Three daily bounties such as Drowned Hunter, Deep Sea Angler and Treasure Seeker show live progress. Press Claim Doubloons when one is finished to bank the reward.
+
+### Black Market
+- **What Happens**: Spend vault savings on the Treasure Hunter's Compass, the Sea-Dog's Cutlass, Bottled Sea Breeze or three bundles of prismarine, dark oak and treasure materials.
+
+### Mystery Buccaneer Crates
+- **What Happens**: Pay 3 Gold Doubloons or 1 Cursed Captain's Coin from the vault. The prize ticks across the screen with note sounds, then bursts with gold particles and a jackpot title.
+
+## How to Use
+
+1. Craft a Captain's Ledger with a Book, a Gold Nugget and a Compass.
+2. Hunt ocean and raider mobs, fish, or open shipwreck and buried treasure chests to collect coins.
+3. Use the ledger and choose Pirate Vault, then Deposit All Coins to bank them.
+4. Open Pirate Bounties each day and press Claim Doubloons on finished bounties.
+5. Spend vault savings in the Black Market or on a Mystery Crate.
+6. Use the Treasure Hunter's Compass to find buried treasure, or sneak and use it to find a shipwreck. Coordinates appear in chat when command feedback is enabled.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.26.60 or newer.
+- Experimental features: Not verified.
+- Achievements: Yes, achievement-friendly.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, ALN:PirateTokens Bedrock mod, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+```
+
+## FILE: MCPEDL/Addons/ALNPirateTokens/project.json (5 lines, 52 bytes)
+
+```
+{
+  "type": "addon",
+  "name": "ALN:PirateTokens"
+}
+```
+
+## FILE: MCPEDL/Addons/ALNPirateTokens/README.md (19 lines, 799 bytes)
+
+```
+# ALNPirateTokens
+
+Download the current release of **ALNPirateTokens** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download ALNPirateTokens (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNPirateTokens/ALNPirateTokens%20V1.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALNPirateTokens/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Addons/ALNPirateTokens/resource_pack/manifest.json (37 lines, 613 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN:PirateTokens Textures (v1)",
+    "description": "Pirate token and ledger textures. by ALNStudios",
+    "uuid": "a41f7a92-d81d-4d76-b9f9-dd1950dce440",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "2dd033e4-1449-4d97-9105-01748308edc1",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/item_texture.json (19 lines, 451 bytes)
+
+```
+{
+  "resource_pack_name": "aln_pirate_tokens",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "aln_silver_token": {
+      "textures": "textures/items/aln_silver_token"
+    },
+    "aln_gold_doubloon": {
+      "textures": "textures/items/aln_gold_doubloon"
+    },
+    "aln_cursed_coin": {
+      "textures": "textures/items/aln_cursed_coin"
+    },
+    "aln_captains_ledger": {
+      "textures": "textures/items/aln_captains_ledger"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNPirateTokens/texture_sources/pirate_icons.json (1224 lines, 15940 bytes)
+
+```
+{
+  "textures": [
+    {
+      "name": "aln_silver_token",
+      "size": 16,
+      "folder": "items",
+      "palette": {
+        "0": "#00000000",
+        "1": "#4d5663",
+        "2": "#c4ccd6",
+        "3": "#8791a0",
+        "4": "#f4f8fc",
+        "5": "#7f8996",
+        "6": "#21262e"
+      },
+      "pixels": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          4,
+          4,
+          2,
+          2,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          1,
+          4,
+          4,
+          6,
+          6,
+          6,
+          6,
+          2,
+          2,
+          1,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          4,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          2,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1,
+          4,
+          4,
+          6,
+          4,
+          6,
+          6,
+          4,
+          6,
+          2,
+          2,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          4,
+          4,
+          2,
+          6,
+          4,
+          6,
+          6,
+          4,
+          6,
+          2,
+          2,
+          3,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          4,
+          2,
+          2,
+          2,
+          6,
+          6,
+          6,
+          6,
+          2,
+          2,
+          3,
+          3,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          2,
+          2,
+          2,
+          2,
+          6,
+          4,
+          6,
+          4,
+          2,
+          2,
+          3,
+          3,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          2,
+          2,
+          2,
+          2,
+          6,
+          2,
+          2,
+          6,
+          2,
+          2,
+          3,
+          3,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          1,
+          2,
+          2,
+          6,
+          2,
+          2,
+          2,
+          2,
+          6,
+          3,
+          3,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          2,
+          6,
+          2,
+          2,
+          2,
+          2,
+          2,
+          3,
+          6,
+          3,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          1,
+          2,
+          2,
+          2,
+          3,
+          3,
+          3,
+          3,
+          3,
+          1,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          3,
+          3,
+          3,
+          3,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "aln_gold_doubloon",
+      "size": 16,
+      "folder": "items",
+      "palette": {
+        "0": "#00000000",
+        "1": "#8a5a05",
+        "2": "#f2c01e",
+        "3": "#cf9112",
+        "4": "#fff0a0",
+        "5": "#7a4d00",
+        "6": "#fffdea"
+      },
+      "pixels": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          4,
+          4,
+          2,
+          2,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          1,
+          6,
+          4,
+          5,
+          5,
+          5,
+          5,
+          2,
+          2,
+          1,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          6,
+          6,
+          6,
+          5,
+          2,
+          2,
+          5,
+          2,
+          2,
+          2,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1,
+          4,
+          6,
+          2,
+          2,
+          5,
+          5,
+          2,
+          2,
+          2,
+          2,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          4,
+          4,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          2,
+          3,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          4,
+          2,
+          2,
+          2,
+          2,
+          5,
+          5,
+          2,
+          2,
+          2,
+          3,
+          3,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          5,
+          5,
+          2,
+          2,
+          2,
+          3,
+          3,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          5,
+          5,
+          2,
+          2,
+          2,
+          3,
+          3,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          1,
+          5,
+          2,
+          2,
+          2,
+          5,
+          5,
+          2,
+          2,
+          3,
+          5,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          5,
+          5,
+          2,
+          2,
+          5,
+          5,
+          2,
+          3,
+          5,
+          5,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          1,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          1,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          3,
+          3,
+          3,
+          3,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "aln_cursed_coin",
+      "size": 16,
+      "folder": "items",
+      "palette": {
+        "0": "#00000000",
+        "1": "#0b0816",
+        "2": "#21183b",
+        "3": "#33265a",
+        "4": "#1fe08c",
+        "5": "#9dffd2",
+        "6": "#1fe08c66",
+        "7": "#c9ffe8"
+      },
+      "pixels": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          6,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          6,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          6,
+          1,
+          7,
+          3,
+          3,
+          2,
+          2,
+          2,
+          2,
+          2,
+          1,
+          6,
+          0,
+          0
+        ],
+        [
+          0,
+          6,
+          1,
+          7,
+          4,
+          3,
+          4,
+          4,
+          4,
+          2,
+          4,
+          4,
+          2,
+          1,
+          6,
+          0
+        ],
+        [
+          0,
+          6,
+          1,
+          3,
+          3,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          2,
+          1,
+          6,
+          0
+        ],
+        [
+          0,
+          6,
+          1,
+          3,
+          4,
+          2,
+          4,
+          5,
+          5,
+          4,
+          2,
+          2,
+          2,
+          1,
+          6,
+          0
+        ],
+        [
+          0,
+          6,
+          1,
+          2,
+          4,
+          2,
+          4,
+          5,
+          5,
+          4,
+          2,
+          4,
+          2,
+          1,
+          6,
+          0
+        ],
+        [
+          0,
+          6,
+          1,
+          2,
+          4,
+          2,
+          4,
+          4,
+          4,
+          4,
+          2,
+          4,
+          2,
+          1,
+          6,
+          0
+        ],
+        [
+          0,
+          6,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          4,
+          2,
+          1,
+          6,
+          0
+        ],
+        [
+          0,
+          6,
+          1,
+          2,
+          4,
+          4,
+          2,
+          2,
+          2,
+          2,
+          4,
+          2,
+          2,
+          1,
+          6,
+          0
+        ],
+        [
+          0,
+          6,
+          1,
+          2,
+          4,
+          4,
+          2,
+          4,
+          4,
+          4,
+          2,
+          4,
+          2,
+          1,
+          6,
+          0
+        ],
+        [
+          0,
+          0,
+          6,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          1,
+          6,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          6,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          6,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "aln_captains_ledger",
+      "size": 16,
+      "folder": "items",
+      "palette": {
+        "0": "#00000000",
+        "1": "#4a2a10",
+        "2": "#7b4a22",
+        "3": "#9a6330",
+        "4": "#f5c518",
+        "5": "#b8860b",
+        "7": "#f1e4b8",
+        "8": "#cdbd8a",
+        "9": "#5e3716"
+      },
+      "pixels": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4,
+          4,
+          3,
+          2,
+          2,
+          2,
+          2,
+          2,
+          4,
+          4,
+          8,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4,
+          5,
+          3,
+          2,
+          2,
+          2,
+          2,
+          2,
+          5,
+          4,
+          7,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          3,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          9,
+          8,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          7,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          3,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          9,
+          8,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          3,
+          2,
+          4,
+          4,
+          2,
+          2,
+          2,
+          9,
+          7,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          3,
+          4,
+          5,
+          5,
+          4,
+          2,
+          2,
+          9,
+          8,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          3,
+          4,
+          5,
+          5,
+          4,
+          2,
+          2,
+          9,
+          7,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          3,
+          2,
+          4,
+          4,
+          2,
+          2,
+          2,
+          9,
+          8,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          3,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          9,
+          7,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          8,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          3,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          9,
+          7,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4,
+          5,
+          3,
+          2,
+          2,
+          2,
+          2,
+          2,
+          5,
+          4,
+          8,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4,
+          4,
+          9,
+          9,
+          9,
+          9,
+          9,
+          9,
+          4,
+          4,
+          7,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    }
+  ]
+}
+```

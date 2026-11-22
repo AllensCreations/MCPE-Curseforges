@@ -2,7 +2,7 @@
 
 Generated file. Do not edit by hand: it is rebuilt with every build.
 
-41 Add-ons · 5 Maps · 10 Scripts · 6 Minigames
+42 Add-ons · 5 Maps · 10 Scripts · 6 Minigames
 
 ## AI Review Kits
 
@@ -30,6 +30,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | **ALN-GlobalMarket** | 1.0.2 | [Source](Addons/ALN-GlobalMarket) | [Package](../Package/ALN-GlobalMarket.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-GlobalMarket.txt) |
 | **ALN:LootSpawner (Arcane Relic Duplicator)** | 1.0.3 | [Source](Addons/ALNLootSpawner-Arcane-Relic-Duplicator) | [Package](../Package/ALNLootSpawner-Arcane-Relic-Duplicator.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNLootSpawner-Arcane-Relic-Duplicator.txt) |
 | **ALN:OneClickSort** | v10 | [Source](Addons/ALNOneClickSort) | [Package](../Package/ALNOneClickSort.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNOneClickSort.txt) |
+| **ALN:PirateTokens** | 1.0.0 | [Source](Addons/ALNPirateTokens) | [Package](../Package/ALNPirateTokens.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNPirateTokens.txt) |
 | **ALN:XRayVisor (Tactical Ore-Scanner Headgear) by ALNStudios** | 1.0.0 | [Source](Addons/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios) | [Package](../Package/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios.txt) |
 | **Cheat Stick** | v4 | [Source](Addons/Cheat-Stick) | [Package](../Package/Cheat-Stick.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Cheat-Stick.txt) |
 | **Combat Helper** | v21 | [Source](Addons/ALN-Pointer) | [Package](../Package/ALN-Pointer.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-Pointer.txt) |

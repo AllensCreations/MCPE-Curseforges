@@ -49,7 +49,8 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **ALNLootSpawner (Arcane Relic Duplicator)** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNLootSpawner-Arcane-Relic-Duplicator/ALNLootSpawnerArcaneRelicDuplicator%20V1.0.3.mcaddon) | [`ALNLootSpawner-Arcane-Relic-Duplicator/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNLootSpawner-Arcane-Relic-Duplicator/) |
 | **ALN Bow Aimbot** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-Bow-Aimbot/ALNBowAimbot%20V1.0.1.mcaddon) | [`ALN-Bow-Aimbot/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-Bow-Aimbot/) |
 | **ALN SoulLantern** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-SoulLantern/ALNSoulLantern%20V1.mcaddon) | [`ALN-SoulLantern/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-SoulLantern/) |
-| **Homes Warps and Back** | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Homes-Warps-and-Back/HomesWarpsBack%20V1.mcaddon) | [`Homes-Warps-and-Back/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Homes-Warps-and-Back/) |
+| **Homes Warps and Back** | Add-on (.mcaddon) | [Download (.mcaddon)](Homes-Warps-and-Back/HomesWarpsBack%20V1.mcaddon) | [`Homes-Warps-and-Back/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Homes-Warps-and-Back/) |
+| **ALNPirateTokens** | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNPirateTokens/ALNPirateTokens%20V1.mcaddon) | [`ALNPirateTokens/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNPirateTokens/) |
 
 ### Worlds and Maps
 

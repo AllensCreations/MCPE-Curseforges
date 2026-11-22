@@ -79,3 +79,4 @@ ALN:PirateTokens adds a three-coin pirate economy built around the Captain's Led
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, ALN:PirateTokens Bedrock mod, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+
