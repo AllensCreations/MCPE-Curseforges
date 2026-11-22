@@ -2,6 +2,12 @@
 
 ---
 
+## [v4] - 2026-11-22 - Shapeless Recipe Fix
+
+### Fixed
+
+- **Shapeless Recipes**: The shapeless crafting recipes now use the unlock format shown in the game's own recipe documentation, so they load without errors.
+
 ## [3.0.0] - 2026-11-20 - Menu Icons Fix
 
 ### Added
