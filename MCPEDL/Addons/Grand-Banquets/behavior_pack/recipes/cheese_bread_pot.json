@@ -24,10 +24,8 @@
     "result": {
       "item": "custom:cheese_bread_pot"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

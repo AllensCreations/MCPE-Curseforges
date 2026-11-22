@@ -27,10 +27,8 @@
     "result": {
       "item": "custom:sausage_pan"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

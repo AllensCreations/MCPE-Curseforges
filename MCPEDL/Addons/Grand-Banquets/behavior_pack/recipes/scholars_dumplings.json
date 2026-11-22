@@ -27,10 +27,8 @@
     "result": {
       "item": "custom:scholars_dumplings"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

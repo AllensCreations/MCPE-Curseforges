@@ -27,10 +27,8 @@
     "result": {
       "item": "custom:pumpkin_casserole"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

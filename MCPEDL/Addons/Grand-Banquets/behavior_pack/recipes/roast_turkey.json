@@ -27,10 +27,8 @@
     "result": {
       "item": "custom:roast_turkey"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

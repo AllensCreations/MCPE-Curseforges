@@ -27,10 +27,8 @@
     "result": {
       "item": "custom:kelp_fish_broth"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

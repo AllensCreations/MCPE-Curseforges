@@ -27,10 +27,8 @@
     "result": {
       "item": "custom:highland_venison"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

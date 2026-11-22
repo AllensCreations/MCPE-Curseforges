@@ -27,10 +27,8 @@
     "result": {
       "item": "custom:braised_ribs"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

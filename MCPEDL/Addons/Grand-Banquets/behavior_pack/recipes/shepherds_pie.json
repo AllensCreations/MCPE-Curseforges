@@ -24,10 +24,8 @@
     "result": {
       "item": "custom:shepherds_pie"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

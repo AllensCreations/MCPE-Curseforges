@@ -27,10 +27,8 @@
     "result": {
       "item": "custom:fishermans_platter"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

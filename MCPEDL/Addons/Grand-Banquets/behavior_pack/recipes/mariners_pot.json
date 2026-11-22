@@ -27,10 +27,8 @@
     "result": {
       "item": "custom:mariners_pot"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

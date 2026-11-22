@@ -27,10 +27,8 @@
     "result": {
       "item": "custom:glazed_wings"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

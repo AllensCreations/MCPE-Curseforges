@@ -27,10 +27,8 @@
     "result": {
       "item": "custom:honey_berry_tart"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

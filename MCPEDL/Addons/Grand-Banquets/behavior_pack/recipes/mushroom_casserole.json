@@ -27,10 +27,8 @@
     "result": {
       "item": "custom:mushroom_casserole"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

@@ -27,10 +27,8 @@
     "result": {
       "item": "custom:bacon_and_eggs"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

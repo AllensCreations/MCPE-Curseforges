@@ -27,10 +27,8 @@
     "result": {
       "item": "custom:veggie_skillet"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

@@ -27,10 +27,8 @@
     "result": {
       "item": "custom:hunters_stew"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

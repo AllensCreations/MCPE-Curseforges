@@ -27,10 +27,8 @@
     "result": {
       "item": "custom:potato_loaf"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
