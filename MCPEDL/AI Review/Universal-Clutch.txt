@@ -1,22 +1,11 @@
-<!-- GRAPH-CONTEXT:START -->
-## Graph Context
-
-- **Project:** `Universal-Clutch` | Category: `Script` | Version: `v2`
-- **Pack Types:** behavior_pack
-- **Siblings in Script:** `ALN-MobStacker (v2)` (v2), `ALNSpawnControl (v2)` (v2), `Always-Critical (v2)` (v2), `Category: Script`, `Chrono-Bed (v2)` (v2), `Command-Vault (v3)` (v3), `Gameplay-Optimizer (v2)` (v2), `Living-SMP-Chat (v2)` (v2) …
-
-> _Auto-generated from graphify-out/graph.json — do not edit manually._
-<!-- GRAPH-CONTEXT:END -->
-
----
-
 # Repo Export
 
 ## Index
 
 - **Export request:** `MCPEDL/Script/Universal-Clutch`
 - **Destination:** `MCPEDL/Script/Universal-Clutch`
-- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Script/Universal-Clutch/CHANGELOG.md`)
+- **CURRENT VERSION: v4 / NEXT UPDATE: v5**  (`MCPEDL/Script/Universal-Clutch/CHANGELOG.md`)
+- **Spec ledger:** REPO_VERSION 245; the next spec is `spec_v246.txt` (newest specs are listed in the root `CHANGELOG.md`)
 - **Text files:** 11
 - **Skipped binary:** 4
 - **Paths not found:** 0
@@ -35,7 +24,7 @@
 - `MCPEDL/Script/Universal-Clutch/README.md`
 - `MCPEDL/Script/Universal-Clutch/sync_modes.py`
 
-### Skipped (binary)
+### Skipped (binary): 4 file(s)
 
 - `MCPEDL/Script/Universal-Clutch/assets/snapshots/Images/universal-clutch-2-curseforge.jpg`
 - `MCPEDL/Script/Universal-Clutch/assets/snapshots/Images/universal-clutch-curseforge.jpg`
@@ -51,10 +40,10 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v3 / NEXT UPDATE: v4).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v4 / NEXT UPDATE: v5).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
-- Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
+- Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
 - Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
 
 ## Destination
@@ -79,7 +68,7 @@ Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
 Output ONLY these three sections in order:
 1. **File Needed:** repo-root-relative path of each file created/edited.
 2. **Changelog:** bullets, brief summary of changes.
-3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands. Update to an existing project or the repo: deliver ONE attached `spec_v<N>.txt` (N = REPO_VERSION + 1, see "Spec ledger" above) and the commands that build and run it (`python3 scripts/make_update_script.py ~/storage/downloads/spec_v<N>.txt --out-dir ~/storage/downloads --verify ~/MCPE-Curseforges`, then `bash ~/storage/downloads/<Name>_v<N>_*.sh`). New pack: the pack `.sh`.
 
 ---
 
@@ -91,11 +80,11 @@ Output ONLY these three sections in order:
 {
   "format_version": 2,
   "header": {
-    "name": "Universal Clutch (v3)",
+    "name": "Universal Clutch (v4)",
     "description": "Vanilla-faithful automatic clutch placements when falling from dangerous heights. Choose between Full Mode, Simple Mode, and Extreme Mode in subpack settings. by ALNStudios",
     "uuid": "a452fcb1-dd72-41b0-aed0-273201968225",
     "version": [
-      3,
+      4,
       0,
       0
     ],
@@ -111,7 +100,7 @@ Output ONLY these three sections in order:
       "type": "data",
       "uuid": "4b007efc-0319-422a-b56e-3abcfbb0d82e",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -122,7 +111,7 @@ Output ONLY these three sections in order:
       "language": "javascript",
       "uuid": "95d7461f-8e92-498c-8748-6952e4266dcd",
       "version": [
-        3,
+        4,
         0,
         0
       ],
@@ -157,7 +146,7 @@ Output ONLY these three sections in order:
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "3.0.0"
+    "version": "4.0.0"
   }
 }
 ```
@@ -208,7 +197,7 @@ Extracted from the script files; nothing here was run in game.
 Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
-## FILE: MCPEDL/Script/Universal-Clutch/behavior_pack/scripts/main.js (727 lines, 23831 bytes)
+## FILE: MCPEDL/Script/Universal-Clutch/behavior_pack/scripts/main.js (753 lines, 24786 bytes)
 
 ```
 import { world, system, ItemStack } from "@minecraft/server";
@@ -636,6 +625,27 @@ function consumeClutchItem(player, clutchData, replacementTypeId) {
   } catch {}
 }
 
+const EXISTING_BOAT_TYPES = ["minecraft:boat", "minecraft:chest_boat"];
+
+function tryRideExistingBoat(player, ground) {
+  try {
+    const loc = player.location;
+    const rideSurfaceY = ground.surfaceY + 1;
+    for (const type of EXISTING_BOAT_TYPES) {
+      const boats = player.dimension.getEntities({ type, location: loc, maxDistance: 9 });
+      for (const boat of boats) {
+        const bl = boat.location;
+        if (Math.abs(bl.x - loc.x) > 0.95 || Math.abs(bl.z - loc.z) > 0.95) continue;
+        if (loc.y - bl.y < 0.1 || Math.abs(bl.y - rideSurfaceY) > 1) continue;
+        const rideable = boat.getComponent("minecraft:rideable");
+        if (!rideable || rideable.getRiders().length >= rideable.seatCount) continue;
+        if (rideable.addRider(player)) return true;
+      }
+    }
+  } catch {}
+  return false;
+}
+
 function placeBoatClutch(dimension, airBlock, entityType, player) {
   try {
     const boat = dimension.spawnEntity(entityType, {
@@ -865,6 +875,19 @@ system.runInterval(() => {
       const mode = tracker?.mode ?? getPlayerMode(player);
       const fallSpeed = Math.abs(vel.y);
 
+      if (currentTick - (lastClutchTick.get(player.id) ?? -100) < 25) continue;
+
+      const rot = player.getRotation();
+      if (mode !== "extreme" && rot.x < 55) continue;
+
+      const triggerDist = Math.min(7, Math.max(4, fallSpeed * 2.6 + 1.5));
+      if (distToSurface > triggerDist) continue;
+
+      if (tryRideExistingBoat(player, ground)) {
+        lastClutchTick.set(player.id, currentTick);
+        continue;
+      }
+
       if (mode === "extreme") {
         if (tracker) {
           if (tracker.itemTick === undefined || currentTick - tracker.itemTick >= 10) {
@@ -874,14 +897,6 @@ system.runInterval(() => {
           if (!tracker.hasItems) continue;
         } else if (!hasAnyClutchItem(player) && !hasTotemOfUndying(player)) continue;
       }
-
-      if (currentTick - (lastClutchTick.get(player.id) ?? -100) < 25) continue;
-
-      const rot = player.getRotation();
-      if (mode !== "extreme" && rot.x < 55) continue;
-
-      const triggerDist = Math.min(7, Math.max(4, fallSpeed * 2.6 + 1.5));
-      if (distToSurface > triggerDist) continue;
 
       const clutchData = acquireClutchItem(player, mode);
 
@@ -939,7 +954,7 @@ system.afterEvents.scriptEventReceive.subscribe((event) => {
 });
 ```
 
-## FILE: MCPEDL/Script/Universal-Clutch/behavior_pack/subpacks/extreme_mode/scripts/main.js (727 lines, 23834 bytes)
+## FILE: MCPEDL/Script/Universal-Clutch/behavior_pack/subpacks/extreme_mode/scripts/main.js (753 lines, 24789 bytes)
 
 ```
 import { world, system, ItemStack } from "@minecraft/server";
@@ -1367,6 +1382,27 @@ function consumeClutchItem(player, clutchData, replacementTypeId) {
   } catch {}
 }
 
+const EXISTING_BOAT_TYPES = ["minecraft:boat", "minecraft:chest_boat"];
+
+function tryRideExistingBoat(player, ground) {
+  try {
+    const loc = player.location;
+    const rideSurfaceY = ground.surfaceY + 1;
+    for (const type of EXISTING_BOAT_TYPES) {
+      const boats = player.dimension.getEntities({ type, location: loc, maxDistance: 9 });
+      for (const boat of boats) {
+        const bl = boat.location;
+        if (Math.abs(bl.x - loc.x) > 0.95 || Math.abs(bl.z - loc.z) > 0.95) continue;
+        if (loc.y - bl.y < 0.1 || Math.abs(bl.y - rideSurfaceY) > 1) continue;
+        const rideable = boat.getComponent("minecraft:rideable");
+        if (!rideable || rideable.getRiders().length >= rideable.seatCount) continue;
+        if (rideable.addRider(player)) return true;
+      }
+    }
+  } catch {}
+  return false;
+}
+
 function placeBoatClutch(dimension, airBlock, entityType, player) {
   try {
     const boat = dimension.spawnEntity(entityType, {
@@ -1596,6 +1632,19 @@ system.runInterval(() => {
       const mode = tracker?.mode ?? getPlayerMode(player);
       const fallSpeed = Math.abs(vel.y);
 
+      if (currentTick - (lastClutchTick.get(player.id) ?? -100) < 25) continue;
+
+      const rot = player.getRotation();
+      if (mode !== "extreme" && rot.x < 55) continue;
+
+      const triggerDist = Math.min(7, Math.max(4, fallSpeed * 2.6 + 1.5));
+      if (distToSurface > triggerDist) continue;
+
+      if (tryRideExistingBoat(player, ground)) {
+        lastClutchTick.set(player.id, currentTick);
+        continue;
+      }
+
       if (mode === "extreme") {
         if (tracker) {
           if (tracker.itemTick === undefined || currentTick - tracker.itemTick >= 10) {
@@ -1605,14 +1654,6 @@ system.runInterval(() => {
           if (!tracker.hasItems) continue;
         } else if (!hasAnyClutchItem(player) && !hasTotemOfUndying(player)) continue;
       }
-
-      if (currentTick - (lastClutchTick.get(player.id) ?? -100) < 25) continue;
-
-      const rot = player.getRotation();
-      if (mode !== "extreme" && rot.x < 55) continue;
-
-      const triggerDist = Math.min(7, Math.max(4, fallSpeed * 2.6 + 1.5));
-      if (distToSurface > triggerDist) continue;
 
       const clutchData = acquireClutchItem(player, mode);
 
@@ -1670,7 +1711,7 @@ system.afterEvents.scriptEventReceive.subscribe((event) => {
 });
 ```
 
-## FILE: MCPEDL/Script/Universal-Clutch/behavior_pack/subpacks/full_mode/scripts/main.js (727 lines, 23831 bytes)
+## FILE: MCPEDL/Script/Universal-Clutch/behavior_pack/subpacks/full_mode/scripts/main.js (753 lines, 24786 bytes)
 
 ```
 import { world, system, ItemStack } from "@minecraft/server";
@@ -2098,6 +2139,27 @@ function consumeClutchItem(player, clutchData, replacementTypeId) {
   } catch {}
 }
 
+const EXISTING_BOAT_TYPES = ["minecraft:boat", "minecraft:chest_boat"];
+
+function tryRideExistingBoat(player, ground) {
+  try {
+    const loc = player.location;
+    const rideSurfaceY = ground.surfaceY + 1;
+    for (const type of EXISTING_BOAT_TYPES) {
+      const boats = player.dimension.getEntities({ type, location: loc, maxDistance: 9 });
+      for (const boat of boats) {
+        const bl = boat.location;
+        if (Math.abs(bl.x - loc.x) > 0.95 || Math.abs(bl.z - loc.z) > 0.95) continue;
+        if (loc.y - bl.y < 0.1 || Math.abs(bl.y - rideSurfaceY) > 1) continue;
+        const rideable = boat.getComponent("minecraft:rideable");
+        if (!rideable || rideable.getRiders().length >= rideable.seatCount) continue;
+        if (rideable.addRider(player)) return true;
+      }
+    }
+  } catch {}
+  return false;
+}
+
 function placeBoatClutch(dimension, airBlock, entityType, player) {
   try {
     const boat = dimension.spawnEntity(entityType, {
@@ -2327,6 +2389,19 @@ system.runInterval(() => {
       const mode = tracker?.mode ?? getPlayerMode(player);
       const fallSpeed = Math.abs(vel.y);
 
+      if (currentTick - (lastClutchTick.get(player.id) ?? -100) < 25) continue;
+
+      const rot = player.getRotation();
+      if (mode !== "extreme" && rot.x < 55) continue;
+
+      const triggerDist = Math.min(7, Math.max(4, fallSpeed * 2.6 + 1.5));
+      if (distToSurface > triggerDist) continue;
+
+      if (tryRideExistingBoat(player, ground)) {
+        lastClutchTick.set(player.id, currentTick);
+        continue;
+      }
+
       if (mode === "extreme") {
         if (tracker) {
           if (tracker.itemTick === undefined || currentTick - tracker.itemTick >= 10) {
@@ -2336,14 +2411,6 @@ system.runInterval(() => {
           if (!tracker.hasItems) continue;
         } else if (!hasAnyClutchItem(player) && !hasTotemOfUndying(player)) continue;
       }
-
-      if (currentTick - (lastClutchTick.get(player.id) ?? -100) < 25) continue;
-
-      const rot = player.getRotation();
-      if (mode !== "extreme" && rot.x < 55) continue;
-
-      const triggerDist = Math.min(7, Math.max(4, fallSpeed * 2.6 + 1.5));
-      if (distToSurface > triggerDist) continue;
 
       const clutchData = acquireClutchItem(player, mode);
 
@@ -2401,7 +2468,7 @@ system.afterEvents.scriptEventReceive.subscribe((event) => {
 });
 ```
 
-## FILE: MCPEDL/Script/Universal-Clutch/behavior_pack/subpacks/simple_mode/scripts/main.js (727 lines, 23833 bytes)
+## FILE: MCPEDL/Script/Universal-Clutch/behavior_pack/subpacks/simple_mode/scripts/main.js (753 lines, 24788 bytes)
 
 ```
 import { world, system, ItemStack } from "@minecraft/server";
@@ -2829,6 +2896,27 @@ function consumeClutchItem(player, clutchData, replacementTypeId) {
   } catch {}
 }
 
+const EXISTING_BOAT_TYPES = ["minecraft:boat", "minecraft:chest_boat"];
+
+function tryRideExistingBoat(player, ground) {
+  try {
+    const loc = player.location;
+    const rideSurfaceY = ground.surfaceY + 1;
+    for (const type of EXISTING_BOAT_TYPES) {
+      const boats = player.dimension.getEntities({ type, location: loc, maxDistance: 9 });
+      for (const boat of boats) {
+        const bl = boat.location;
+        if (Math.abs(bl.x - loc.x) > 0.95 || Math.abs(bl.z - loc.z) > 0.95) continue;
+        if (loc.y - bl.y < 0.1 || Math.abs(bl.y - rideSurfaceY) > 1) continue;
+        const rideable = boat.getComponent("minecraft:rideable");
+        if (!rideable || rideable.getRiders().length >= rideable.seatCount) continue;
+        if (rideable.addRider(player)) return true;
+      }
+    }
+  } catch {}
+  return false;
+}
+
 function placeBoatClutch(dimension, airBlock, entityType, player) {
   try {
     const boat = dimension.spawnEntity(entityType, {
@@ -3058,6 +3146,19 @@ system.runInterval(() => {
       const mode = tracker?.mode ?? getPlayerMode(player);
       const fallSpeed = Math.abs(vel.y);
 
+      if (currentTick - (lastClutchTick.get(player.id) ?? -100) < 25) continue;
+
+      const rot = player.getRotation();
+      if (mode !== "extreme" && rot.x < 55) continue;
+
+      const triggerDist = Math.min(7, Math.max(4, fallSpeed * 2.6 + 1.5));
+      if (distToSurface > triggerDist) continue;
+
+      if (tryRideExistingBoat(player, ground)) {
+        lastClutchTick.set(player.id, currentTick);
+        continue;
+      }
+
       if (mode === "extreme") {
         if (tracker) {
           if (tracker.itemTick === undefined || currentTick - tracker.itemTick >= 10) {
@@ -3067,14 +3168,6 @@ system.runInterval(() => {
           if (!tracker.hasItems) continue;
         } else if (!hasAnyClutchItem(player) && !hasTotemOfUndying(player)) continue;
       }
-
-      if (currentTick - (lastClutchTick.get(player.id) ?? -100) < 25) continue;
-
-      const rot = player.getRotation();
-      if (mode !== "extreme" && rot.x < 55) continue;
-
-      const triggerDist = Math.min(7, Math.max(4, fallSpeed * 2.6 + 1.5));
-      if (distToSurface > triggerDist) continue;
 
       const clutchData = acquireClutchItem(player, mode);
 
@@ -3132,12 +3225,18 @@ system.afterEvents.scriptEventReceive.subscribe((event) => {
 });
 ```
 
-## FILE: MCPEDL/Script/Universal-Clutch/CHANGELOG.md (94 lines, 3249 bytes)
+## FILE: MCPEDL/Script/Universal-Clutch/CHANGELOG.md (100 lines, 3466 bytes)
 
 ```
 # Changelog — Universal Clutch
 
 ---
+
+## [v4] - 2026-11-23 - Existing Boat Clutch
+
+### Added
+
+- **Existing Boats**: If a boat with a free seat is already right below you, you now ride it instead of placing a new one, even with no boat in your inventory.
 
 ## [v3] - 2026-11-19 - Boat and Switching Fixes
 
@@ -3180,6 +3279,8 @@ system.afterEvents.scriptEventReceive.subscribe((event) => {
 - **Late Placement**: Fixed falls that ended before the clutch item was placed.
 - **Landing Inside Blocks**: Fixed landing inside a placed block instead of on top of it.
 
+
+
 ## [1.5.2] - 2026-11-14
 
 **What's new in v1.5.2:** Packed with the v1.5.2 update.
@@ -3192,6 +3293,10 @@ system.afterEvents.scriptEventReceive.subscribe((event) => {
 
 - **Natural Falling**: The camera is never moved or forced, and your falling speed is no longer reset.
 - **Extreme Mode**: Now works without looking down.
+
+
+
+
 
 ## [1.5.1] - 2026-11-14
 
@@ -3211,6 +3316,12 @@ system.afterEvents.scriptEventReceive.subscribe((event) => {
 - **Water Recovery**: Fixed an error when a player left within a moment of landing.
 - **Minimum Version**: The Behavior Pack now requires Minecraft 1.21.20 or newer.
 
+
+
+
+
+
+
 ## [1.5.0] - 2026-10-29
 
 ### Improved & Balanced
@@ -3218,7 +3329,7 @@ system.afterEvents.scriptEventReceive.subscribe((event) => {
 - **Changelog started**: Version history is recorded from this release onward.
 ```
 
-## FILE: MCPEDL/Script/Universal-Clutch/DESCRIPTION.md (168 lines, 8642 bytes)
+## FILE: MCPEDL/Script/Universal-Clutch/DESCRIPTION.md (168 lines, 8765 bytes)
 
 ```
 # Universal Clutch — Intelligent Fall Mitigation Script
@@ -3257,7 +3368,7 @@ When aiming down and falling beyond the configured block height threshold, the a
 - **Description**: When falling to certain death with no clutch item, automatically searches inventory and equips a Totem of Undying into the offhand slot before impact.
 
 ### Authentic Boat Placement
-- **Description**: Places the boat on the ground below and seats the player in it at the same moment, from about 7 blocks up. The boat is removed if the player dies within a few seconds of the clutch.
+- **Description**: Places the boat on the ground below and seats the player in it at the same moment, from about 7 blocks up. The boat is removed if the player dies within a few seconds of the clutch. If a boat with a free seat is already right below the player, the player rides that boat instead and no boat item is used.
 
 ### Timed Placement
 - **Description**: Checks the blocks below you and triggers placements shortly before impact rather than snapping prematurely.
@@ -3408,7 +3519,7 @@ Download the current release of **Universal Clutch** for Minecraft Bedrock Editi
 ## Download
 
 - **Package format:** `.mcpack`
-- **Direct download:** [Download Universal Clutch (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/UniversalClutch%20V3.mcpack)
+- **Direct download:** [Download Universal Clutch (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/UniversalClutch%20V4.mcpack)
 
 ## Installation
 

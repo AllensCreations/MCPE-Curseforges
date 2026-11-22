@@ -86,7 +86,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | **Living SMP Chat** | v2 | [Source](Script/Living-SMP-Chat) | [Package](../Package/Living-SMP-Chat.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Living-SMP-Chat.txt) |
 | **Loot and XP Stick** | v1 | [Source](Script/Loot-and-XP-Stick) | [Package](../Package/Loot-and-XP-Stick.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Loot-and-XP-Stick.txt) |
 | **Target HUD Entity Inspector** | v2 | [Source](Script/Target-HUD-Entity-Inspector) | [Package](../Package/Target-HUD-Entity-Inspector.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Target-HUD-Entity-Inspector.txt) |
-| **Universal Clutch** | v3 | [Source](Script/Universal-Clutch) | [Package](../Package/Universal-Clutch.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Universal-Clutch.txt) |
+| **Universal Clutch** | v4 | [Source](Script/Universal-Clutch) | [Package](../Package/Universal-Clutch.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Universal-Clutch.txt) |
 
 ## Minigames
 

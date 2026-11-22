@@ -1,13 +1,23 @@
 # Changelog — Universal Clutch
 
-## [v3] - 2026-11-19 - Boat and Switching Fixes
+## [v4] - 2026-11-23 - Existing Boat Clutch
 
-### Improved & Balanced
+### Added
+- **Existing Boats**: If a boat with a free seat is already right below you, you now ride it instead of placing a new one, even with no boat in your inventory.
+
+<details>
+<summary><b>3.0.x</b> (1 release)</summary>
+
+### [v3] - 2026-11-19 - Boat and Switching Fixes
+
+#### Improved & Balanced
 - **Item Switching**: Your held item is no longer switched until it is time to place it.
 - **Lighter Performance**: Less ground checking while falling.
 
-### Fixed
+#### Fixed
 - **Old Boats**: Fixed an old boat being removed when you die long after a boat clutch.
+
+</details>
 
 <details>
 <summary><b>2.0.x</b> (1 release)</summary>
