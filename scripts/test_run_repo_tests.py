@@ -47,6 +47,29 @@ class ContentLintTests(unittest.TestCase):
         write(self.bp / "manifest.json", MANIFEST)
         write(self.bp / "scripts" / "main.js", "import { world } from '@minecraft/server';\nworld.afterEvents.itemUse.subscribe(() => {});\n")
 
+    def test_content_baseline_hides_known_and_shows_new(self):
+        self.good_project()
+        write(self.bp / "functions" / "a.mcfunction", "# note\nsay hi\n")
+        base = self.root / "base.json"
+        first = rrt.stage_content(self.root, None, set(), None, base)
+        self.assertIn("F-COMMENT", rules(first, "FAIL"))
+        second = rrt.stage_content(self.root, None, set(), base, None)
+        self.assertEqual(second.count("FAIL"), 0, second.items)
+        self.assertIn("F-COMMENT", rules(second, "INFO"))
+        write(self.bp / "functions" / "b.mcfunction", "# another\nsay hi\n")
+        third = rrt.stage_content(self.root, None, set(), base, None)
+        self.assertEqual([i["where"] for i in third.items if i["level"] == "FAIL"],
+                         ["MCPEDL/Addons/Demo/behavior_pack/functions/b.mcfunction"])
+
+    def test_baseline_file_keeps_both_sections(self):
+        self.good_project()
+        write(self.bp / "functions" / "a.mcfunction", "# note\n")
+        base = self.root / "base.json"
+        rrt.stage_content(self.root, None, set(), None, base)
+        rrt.write_baseline_section(base, "logs", {"L-X|y"})
+        data = json.loads(base.read_text())
+        self.assertTrue(data["content"] and data["logs"] == ["L-X|y"])
+
     def test_clean_project_has_no_failures(self):
         self.good_project()
         f = self.lint()
@@ -251,6 +274,10 @@ class RunnerTests(unittest.TestCase):
             self.assertEqual(rules(f, "FAIL"), {"T-RUN", "T-HANG", "T-SYNTAX", "T-CI-STALE"})
             self.assertIn("T-CI-MISSING", rules(f, "WARN"))
             self.assertIn("T-NOTEST", rules(f, "INFO"))
+
+    def test_failure_summary_prefers_error_lines(self):
+        out = "ok one\nERROR: the real cause\n" + "\n".join(f"warning pad {i}" for i in range(12))
+        self.assertIn("the real cause", rrt.tail(out))
 
     def test_ci_glob_loop_counts_every_test_as_listed(self):
         with tempfile.TemporaryDirectory() as tmp:

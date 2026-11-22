@@ -14,9 +14,10 @@ One command runs everything that can be tested without Minecraft:
            the Watchdog, particle variables no script sets, repo-rule violations (comments, manifest metadata).
   logs     (only with --logs) groups the errors of Minecraft ContentLog files (a folder or a .zip) and fails on
            every error class. --baseline hides known problems so only NEW ones fail.
+           The same file also holds the known pack-lint findings (default scripts/tester_baseline.json).
 
 Usage: python3 scripts/run_repo_tests.py [--only tools,checks,content,logs] [--logs PATH] [--project PATH]
-         [--jobs N] [--timeout SECONDS] [--strict] [--fake-foundation] [--events-file FILE]
+         [--jobs N] [--timeout SECONDS] [--strict] [--real-foundation] [--events-file FILE]
          [--ignore REGEX] [--baseline FILE] [--write-baseline FILE] [--json FILE] [--verbose]
 Exit: 0 all good, 1 at least one FAIL (or a WARN with --strict), 2 bad arguments.
 Read-only: it never writes inside the repo (--json and --write-baseline write only where you point them).
@@ -266,7 +267,9 @@ def run_script(root, name, args, timeout):
 
 def tail(text, lines=8):
     rows = [r for r in text.replace("\r", "").split("\n") if r.strip()]
-    return " | ".join(rows[-lines:])[:900]
+    key = [r for r in rows if re.search(r"(?i)\b(error|fail(ed|ure)?|traceback|assert\w*|exception)\b", r)]
+    chosen = key[-lines:] if key else rows[-lines:]
+    return " | ".join(r.strip() for r in chosen)[:900]
 
 
 def discover_tools(root):
@@ -532,7 +535,7 @@ def lint_particles(root, project, project_js, f):
                   "'unable to find member variable' errors for particle variables)")
 
 
-def stage_content(root, only, events):
+def stage_content(root, only, events, baseline=None, write_baseline=None):
     f = Findings()
     vanilla = load_vanilla_ids(root)
     if vanilla is None:
@@ -557,6 +560,7 @@ def stage_content(root, only, events):
         listing = ", ".join(f"{k} ({len(v)})" for k, v in sorted(seen.items()))
         f.add("INFO", "S-EVENT-UNVERIFIED", "all scripts",
               f"{len(seen)} events not in the verified list (files in brackets); confirm they exist in your API version: {listing}")
+    apply_content_baseline(f, read_baseline(baseline)["content"], write_baseline)
     f.add("PASS", "X-SCANNED", "MCPEDL/", f"{len(projects)} projects scanned")
     return f
 
@@ -632,9 +636,7 @@ def stage_logs(path, baseline, write_baseline, ignore=()):
     if not sessions:
         f.add("FAIL", "L-NOLOGS", str(path), "no ContentLog files found")
         return f
-    known = set()
-    if baseline and Path(baseline).is_file():
-        known = set(json.loads(Path(baseline).read_text(encoding="utf-8")))
+    known = read_baseline(baseline)["logs"]
     for (level, rule, key), g in sorted(groups.items(), key=lambda kv: (-kv[1]["count"], kv[0])):
         tag = f"{rule}|{key}"
         where = f"{g['count']}x in {len(g['sessions'])} session(s)"
@@ -643,10 +645,51 @@ def stage_logs(path, baseline, write_baseline, ignore=()):
         else:
             f.add(level, rule, where, f"{key} | e.g. {g['example']}")
     if write_baseline:
-        Path(write_baseline).write_text(
-            json.dumps(sorted(f"{r}|{k}" for (_, r, k) in groups), indent=2) + "\n", encoding="utf-8")
+        write_baseline_section(write_baseline, "logs", {f"{r}|{k}" for (_, r, k) in groups})
     f.add("PASS", "L-READ", str(path), f"{sessions} logs, {total_lines} lines, {len(groups)} distinct problem types")
     return f
+
+
+DEFAULT_BASELINE = Path("scripts") / "tester_baseline.json"
+
+
+def read_baseline(path):
+    out = {"logs": set(), "content": set()}
+    if path and Path(path).is_file():
+        try:
+            data = json.loads(Path(path).read_text(encoding="utf-8"))
+        except ValueError:
+            return out
+        if isinstance(data, list):
+            out["logs"] = set(data)
+        elif isinstance(data, dict):
+            for k in out:
+                out[k] = set(data.get(k, []))
+    return out
+
+
+def write_baseline_section(path, section, keys):
+    data = {k: sorted(v) for k, v in read_baseline(path).items()}
+    data[section] = sorted(keys)
+    Path(path).write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+
+
+def content_key(item):
+    where = re.sub(r":\d+$", "", item["where"])
+    return f"{item['rule']}|{where}"
+
+
+def apply_content_baseline(f, known, write_path):
+    keys = set()
+    for item in f.items:
+        if item["level"] in ("FAIL", "WARN"):
+            key = content_key(item)
+            keys.add(key)
+            if key in known:
+                item["msg"] = f"known ({item['level']}): " + item["msg"]
+                item["level"] = "INFO"
+    if write_path:
+        write_baseline_section(write_path, "content", keys)
 
 
 def print_report(f, verbose, cap_rows=12):
@@ -678,11 +721,11 @@ def main(argv=None):
     ap.add_argument("--jobs", type=int, default=4)
     ap.add_argument("--timeout", type=int, default=300)
     ap.add_argument("--strict", action="store_true")
-    ap.add_argument("--fake-foundation", action="store_true", help="pass --fake-foundation to selftest_project_types.py")
+    ap.add_argument("--real-foundation", action="store_true", help="run selftest_project_types.py without --fake-foundation (CI always uses it)")
     ap.add_argument("--events-file", help="file with extra verified event names, one per line")
     ap.add_argument("--ignore", action="append", help="regex; log lines matching it are skipped (repeatable), e.g. third-party packs")
-    ap.add_argument("--baseline")
-    ap.add_argument("--write-baseline")
+    ap.add_argument("--baseline", help="known-problems file; default scripts/tester_baseline.json when it exists")
+    ap.add_argument("--write-baseline", help="record the current content and log problems as known in this file")
     ap.add_argument("--json")
     ap.add_argument("--verbose", action="store_true")
     try:
@@ -699,19 +742,20 @@ def main(argv=None):
     events = set()
     if a.events_file:
         events = {ln.strip() for ln in Path(a.events_file).read_text(encoding="utf-8").split("\n") if ln.strip()}
+    baseline = a.baseline or (str(root / DEFAULT_BASELINE) if (root / DEFAULT_BASELINE).is_file() else None)
     total = Findings()
     for stage in STAGES:
         if stage not in stages:
             continue
         print(f"== {stage} ==")
         if stage == "tools":
-            f = stage_tools(root, a.jobs, a.timeout, a.fake_foundation)
+            f = stage_tools(root, a.jobs, a.timeout, not a.real_foundation)
         elif stage == "checks":
             f = stage_checks(root, a.timeout)
         elif stage == "content":
-            f = stage_content(root, a.project, events)
+            f = stage_content(root, a.project, events, baseline, a.write_baseline)
         else:
-            f = stage_logs(a.logs, a.baseline, a.write_baseline, a.ignore or ())
+            f = stage_logs(a.logs, baseline, a.write_baseline, a.ignore or ())
         print_report(f, a.verbose, 6 if stage == "logs" else 12)
         print()
         for i in f.items:

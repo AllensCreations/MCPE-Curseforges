@@ -4,6 +4,13 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v232] - 2026-11-22 - Repo Tester baseline
+
+**Spec**: spec_v232.txt | **Target**: repo | **Files edited**: 2
+
+- Repo tester: the pack lint supports a known-problems file (scripts/tester_baseline.json, written with --write-baseline), so existing findings such as old comments stay visible as information and only new problems fail.
+- Repo tester: the project pipeline self-test runs with --fake-foundation by default, like CI (use --real-foundation to turn it off); a failing script now shows its error lines first.
+
 ## [v231] - 2026-11-22 - Repo Tester accuracy
 
 **Spec**: spec_v231.txt | **Target**: repo | **Files edited**: 2
