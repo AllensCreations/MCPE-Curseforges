@@ -1,8 +1,0 @@
-{
-  "changelog_version": "10.0.0",
-  "manifest_version": "10.0.0",
-  "packages": {
-    "VanillaQoL V10.mcaddon": "d55c7cd665b7fd9e21d7edddecbed6d43d7251525b05735964c9d306e6d83279"
-  },
-  "source_sha256": "25206d0e20870646a241dc0230f5a7ee1089e8ae742fcaf286e706fb2b346804"
-}

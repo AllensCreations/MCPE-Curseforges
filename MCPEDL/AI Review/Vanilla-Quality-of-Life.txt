@@ -16,7 +16,7 @@
 
 - **Export request:** `MCPEDL/Addons/Vanilla-Quality-of-Life`
 - **Destination:** `MCPEDL/Addons/Vanilla-Quality-of-Life`
-- **CURRENT VERSION: v11 / NEXT UPDATE: v12**  (`MCPEDL/Addons/Vanilla-Quality-of-Life/CHANGELOG.md`)
+- **CURRENT VERSION: v12 / NEXT UPDATE: v13**  (`MCPEDL/Addons/Vanilla-Quality-of-Life/CHANGELOG.md`)
 - **Text files:** 450
 - **Skipped binary:** 5
 - **Paths not found:** 0
@@ -491,7 +491,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v11 / NEXT UPDATE: v12).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v12 / NEXT UPDATE: v13).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -62535,11 +62535,11 @@ Output ONLY these three sections in order:
 {
   "format_version": 2,
   "header": {
-    "name": "Vanilla Quality of Life (v11)",
+    "name": "Vanilla Quality of Life (v12)",
     "description": "Comprehensive survival Quality of Life suite with dynamic light, offhand quick-swap, passive auto-switch tools, tree capitator, and domino ore miner. by ALNStudios",
     "uuid": "5461534c-a7c4-4c5b-9269-8be52d2b761b",
     "version": [
-      11,
+      12,
       0,
       0
     ],
@@ -62555,7 +62555,7 @@ Output ONLY these three sections in order:
       "type": "data",
       "uuid": "81382d42-b64c-4759-8c05-0e4e3e8436e8",
       "version": [
-        11,
+        12,
         0,
         0
       ]
@@ -62566,7 +62566,7 @@ Output ONLY these three sections in order:
       "language": "javascript",
       "uuid": "880944f5-3d04-401d-a5d5-011d89c969b6",
       "version": [
-        11,
+        12,
         0,
         0
       ],
@@ -62581,7 +62581,7 @@ Output ONLY these three sections in order:
     {
       "uuid": "fd036566-d0b1-4f92-9b28-9dd45a376d44",
       "version": [
-        11,
+        12,
         0,
         0
       ]
@@ -62592,7 +62592,7 @@ Output ONLY these three sections in order:
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "11.0.0"
+    "version": "12.0.0"
   },
   "subpacks": [
     {
@@ -62915,7 +62915,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/blue_ice_to_packed_ice.json (26 lines, 439 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/blue_ice_to_packed_ice.json (24 lines, 421 bytes)
 
 ```
 {
@@ -62936,11 +62936,9 @@ Output ONLY these three sections in order:
       "item": "minecraft:packed_ice",
       "count": 9
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -63213,7 +63211,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/coarse_dirt_sifting.json (35 lines, 604 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/coarse_dirt_sifting.json (33 lines, 586 bytes)
 
 ```
 {
@@ -63243,11 +63241,9 @@ Output ONLY these three sections in order:
       "item": "minecraft:dirt",
       "count": 2
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -63511,7 +63507,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/craftable_cobweb.json (38 lines, 636 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/craftable_cobweb.json (36 lines, 618 bytes)
 
 ```
 {
@@ -63544,11 +63540,9 @@ Output ONLY these three sections in order:
       "item": "minecraft:web",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -63733,7 +63727,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/craftable_spore_blossom.json (32 lines, 557 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/craftable_spore_blossom.json (30 lines, 539 bytes)
 
 ```
 {
@@ -63760,11 +63754,9 @@ Output ONLY these three sections in order:
       "item": "minecraft:spore_blossom",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -64371,7 +64363,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/gilded_blackstone.json (38 lines, 671 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/gilded_blackstone.json (36 lines, 653 bytes)
 
 ```
 {
@@ -64404,16 +64396,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:gilded_blackstone",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/glow_ink_sac_synthesis.json (29 lines, 500 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/glow_ink_sac_synthesis.json (27 lines, 482 bytes)
 
 ```
 {
@@ -64437,11 +64427,9 @@ Output ONLY these three sections in order:
       "item": "minecraft:glow_ink_sac",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -64479,7 +64467,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/grass_block_from_beetroot_seeds.json (29 lines, 505 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/grass_block_from_beetroot_seeds.json (27 lines, 487 bytes)
 
 ```
 {
@@ -64503,16 +64491,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:grass_block",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/grass_block_from_melon_seeds.json (29 lines, 499 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/grass_block_from_melon_seeds.json (27 lines, 481 bytes)
 
 ```
 {
@@ -64536,16 +64522,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:grass_block",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/grass_block_from_pitcher_pod.json (29 lines, 499 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/grass_block_from_pitcher_pod.json (27 lines, 481 bytes)
 
 ```
 {
@@ -64569,16 +64553,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:grass_block",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/grass_block_from_pumpkin_seeds.json (29 lines, 503 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/grass_block_from_pumpkin_seeds.json (27 lines, 485 bytes)
 
 ```
 {
@@ -64602,16 +64584,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:grass_block",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/grass_block_from_torchflower_seeds.json (29 lines, 511 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/grass_block_from_torchflower_seeds.json (27 lines, 493 bytes)
 
 ```
 {
@@ -64635,16 +64615,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:grass_block",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/grass_block_from_wheat_seeds.json (29 lines, 499 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/grass_block_from_wheat_seeds.json (27 lines, 481 bytes)
 
 ```
 {
@@ -64668,16 +64646,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:grass_block",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/gravel_to_flint.json (32 lines, 529 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/gravel_to_flint.json (30 lines, 511 bytes)
 
 ```
 {
@@ -64704,11 +64680,9 @@ Output ONLY these three sections in order:
       "item": "minecraft:flint",
       "count": 3
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -64845,7 +64819,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_black_concrete.json (50 lines, 977 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_black_concrete.json (48 lines, 959 bytes)
 
 ```
 {
@@ -64890,16 +64864,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:black_concrete",
       "count": 8
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_blue_concrete.json (50 lines, 967 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_blue_concrete.json (48 lines, 949 bytes)
 
 ```
 {
@@ -64944,16 +64916,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:blue_concrete",
       "count": 8
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_brown_concrete.json (50 lines, 977 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_brown_concrete.json (48 lines, 959 bytes)
 
 ```
 {
@@ -64998,16 +64968,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:brown_concrete",
       "count": 8
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_cyan_concrete.json (50 lines, 967 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_cyan_concrete.json (48 lines, 949 bytes)
 
 ```
 {
@@ -65052,16 +65020,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:cyan_concrete",
       "count": 8
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_gray_concrete.json (50 lines, 967 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_gray_concrete.json (48 lines, 949 bytes)
 
 ```
 {
@@ -65106,16 +65072,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:gray_concrete",
       "count": 8
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_green_concrete.json (50 lines, 977 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_green_concrete.json (48 lines, 959 bytes)
 
 ```
 {
@@ -65160,16 +65124,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:green_concrete",
       "count": 8
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_light_blue_concrete.json (50 lines, 1027 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_light_blue_concrete.json (48 lines, 1009 bytes)
 
 ```
 {
@@ -65214,16 +65176,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:light_blue_concrete",
       "count": 8
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_light_gray_concrete.json (50 lines, 1027 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_light_gray_concrete.json (48 lines, 1009 bytes)
 
 ```
 {
@@ -65268,16 +65228,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:light_gray_concrete",
       "count": 8
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_lime_concrete.json (50 lines, 967 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_lime_concrete.json (48 lines, 949 bytes)
 
 ```
 {
@@ -65322,16 +65280,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:lime_concrete",
       "count": 8
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_magenta_concrete.json (50 lines, 997 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_magenta_concrete.json (48 lines, 979 bytes)
 
 ```
 {
@@ -65376,16 +65332,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:magenta_concrete",
       "count": 8
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_orange_concrete.json (50 lines, 987 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_orange_concrete.json (48 lines, 969 bytes)
 
 ```
 {
@@ -65430,16 +65384,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:orange_concrete",
       "count": 8
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_pink_concrete.json (50 lines, 967 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_pink_concrete.json (48 lines, 949 bytes)
 
 ```
 {
@@ -65484,16 +65436,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:pink_concrete",
       "count": 8
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_purple_concrete.json (50 lines, 987 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_purple_concrete.json (48 lines, 969 bytes)
 
 ```
 {
@@ -65538,16 +65488,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:purple_concrete",
       "count": 8
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_red_concrete.json (50 lines, 957 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_red_concrete.json (48 lines, 939 bytes)
 
 ```
 {
@@ -65592,16 +65540,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:red_concrete",
       "count": 8
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_white_concrete.json (50 lines, 977 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_white_concrete.json (48 lines, 959 bytes)
 
 ```
 {
@@ -65646,16 +65592,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:white_concrete",
       "count": 8
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_yellow_concrete.json (50 lines, 987 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/hydrate_yellow_concrete.json (48 lines, 969 bytes)
 
 ```
 {
@@ -65700,11 +65644,9 @@ Output ONLY these three sections in order:
       "item": "minecraft:yellow_concrete",
       "count": 8
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -66041,7 +65983,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/mossy_cobblestone_from_moss.json (29 lines, 510 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/mossy_cobblestone_from_moss.json (27 lines, 492 bytes)
 
 ```
 {
@@ -66065,16 +66007,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:mossy_cobblestone",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/mossy_cobblestone_from_vine.json (29 lines, 504 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/mossy_cobblestone_from_vine.json (27 lines, 486 bytes)
 
 ```
 {
@@ -66098,11 +66038,9 @@ Output ONLY these three sections in order:
       "item": "minecraft:mossy_cobblestone",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -66173,7 +66111,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/mossy_stone_bricks_from_moss.json (29 lines, 513 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/mossy_stone_bricks_from_moss.json (27 lines, 495 bytes)
 
 ```
 {
@@ -66197,16 +66135,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:mossy_stone_bricks",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/mossy_stone_bricks_from_vine.json (29 lines, 507 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/mossy_stone_bricks_from_vine.json (27 lines, 489 bytes)
 
 ```
 {
@@ -66230,11 +66166,9 @@ Output ONLY these three sections in order:
       "item": "minecraft:mossy_stone_bricks",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -66272,7 +66206,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/nether_brick_block_to_bricks.json (26 lines, 450 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/nether_brick_block_to_bricks.json (24 lines, 432 bytes)
 
 ```
 {
@@ -66293,11 +66227,9 @@ Output ONLY these three sections in order:
       "item": "minecraft:netherbrick",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -66435,7 +66367,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/packed_ice_to_ice.json (26 lines, 429 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/packed_ice_to_ice.json (24 lines, 411 bytes)
 
 ```
 {
@@ -66456,11 +66388,9 @@ Output ONLY these three sections in order:
       "item": "minecraft:ice",
       "count": 9
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -66499,7 +66429,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/paper.json (32 lines, 525 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/paper.json (30 lines, 507 bytes)
 
 ```
 {
@@ -66526,11 +66456,9 @@ Output ONLY these three sections in order:
       "item": "minecraft:paper",
       "count": 6
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -66934,7 +66862,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/prismarine_shard_synthesis.json (35 lines, 605 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/prismarine_shard_synthesis.json (33 lines, 587 bytes)
 
 ```
 {
@@ -66964,11 +66892,9 @@ Output ONLY these three sections in order:
       "item": "minecraft:prismarine_shard",
       "count": 2
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -67140,7 +67066,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_acacia_slab.json (29 lines, 501 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_acacia_slab.json (27 lines, 483 bytes)
 
 ```
 {
@@ -67164,16 +67090,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:acacia_planks",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_bamboo_slab.json (29 lines, 501 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_bamboo_slab.json (27 lines, 483 bytes)
 
 ```
 {
@@ -67197,16 +67121,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:bamboo_planks",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_birch_slab.json (29 lines, 497 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_birch_slab.json (27 lines, 479 bytes)
 
 ```
 {
@@ -67230,16 +67152,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:birch_planks",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_blackstone_slab.json (29 lines, 510 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_blackstone_slab.json (27 lines, 492 bytes)
 
 ```
 {
@@ -67263,16 +67183,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:blackstone",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_cherry_slab.json (29 lines, 501 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_cherry_slab.json (27 lines, 483 bytes)
 
 ```
 {
@@ -67296,16 +67214,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:cherry_planks",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_cobbled_deepslate_slab.json (29 lines, 538 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_cobbled_deepslate_slab.json (27 lines, 520 bytes)
 
 ```
 {
@@ -67329,16 +67245,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:cobbled_deepslate",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_cobblestone_slab.json (29 lines, 514 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_cobblestone_slab.json (27 lines, 496 bytes)
 
 ```
 {
@@ -67362,16 +67276,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:cobblestone",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_crimson_slab.json (29 lines, 505 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_crimson_slab.json (27 lines, 487 bytes)
 
 ```
 {
@@ -67395,16 +67307,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:crimson_planks",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_dark_oak_slab.json (29 lines, 509 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_dark_oak_slab.json (27 lines, 491 bytes)
 
 ```
 {
@@ -67428,16 +67338,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:dark_oak_planks",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_deepslate_brick_slab.json (29 lines, 531 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_deepslate_brick_slab.json (27 lines, 513 bytes)
 
 ```
 {
@@ -67461,16 +67369,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:deepslate_bricks",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_deepslate_tile_slab.json (29 lines, 527 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_deepslate_tile_slab.json (27 lines, 509 bytes)
 
 ```
 {
@@ -67494,16 +67400,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:deepslate_tiles",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_jungle_slab.json (29 lines, 501 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_jungle_slab.json (27 lines, 483 bytes)
 
 ```
 {
@@ -67527,16 +67431,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:jungle_planks",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_mangrove_slab.json (29 lines, 509 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_mangrove_slab.json (27 lines, 491 bytes)
 
 ```
 {
@@ -67560,16 +67462,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:mangrove_planks",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_oak_slab.json (29 lines, 489 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_oak_slab.json (27 lines, 471 bytes)
 
 ```
 {
@@ -67593,16 +67493,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:oak_planks",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_quartz_slab.json (29 lines, 500 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_quartz_slab.json (27 lines, 482 bytes)
 
 ```
 {
@@ -67626,16 +67524,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:quartz_block",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_red_sandstone_slab.json (29 lines, 522 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_red_sandstone_slab.json (27 lines, 504 bytes)
 
 ```
 {
@@ -67659,16 +67555,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:red_sandstone",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_sandstone_slab.json (29 lines, 506 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_sandstone_slab.json (27 lines, 488 bytes)
 
 ```
 {
@@ -67692,16 +67586,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:sandstone",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_spruce_slab.json (29 lines, 501 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_spruce_slab.json (27 lines, 483 bytes)
 
 ```
 {
@@ -67725,16 +67617,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:spruce_planks",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_stone_brick_slab.json (29 lines, 515 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_stone_brick_slab.json (27 lines, 497 bytes)
 
 ```
 {
@@ -67758,16 +67648,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:stone_bricks",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_warped_slab.json (29 lines, 501 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recombine_warped_slab.json (27 lines, 483 bytes)
 
 ```
 {
@@ -67791,16 +67679,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:warped_planks",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_acacia_stairs.json (35 lines, 623 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_acacia_stairs.json (33 lines, 605 bytes)
 
 ```
 {
@@ -67830,16 +67716,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:acacia_planks",
       "count": 3
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_bamboo_stairs.json (35 lines, 623 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_bamboo_stairs.json (33 lines, 605 bytes)
 
 ```
 {
@@ -67869,16 +67753,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:bamboo_planks",
       "count": 3
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_birch_stairs.json (35 lines, 617 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_birch_stairs.json (33 lines, 599 bytes)
 
 ```
 {
@@ -67908,11 +67790,9 @@ Output ONLY these three sections in order:
       "item": "minecraft:birch_planks",
       "count": 3
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -67949,7 +67829,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_blackstone_stairs.json (35 lines, 640 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_blackstone_stairs.json (33 lines, 622 bytes)
 
 ```
 {
@@ -67979,16 +67859,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:blackstone",
       "count": 3
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_blast_furnace.json (26 lines, 440 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_blast_furnace.json (24 lines, 422 bytes)
 
 ```
 {
@@ -68009,11 +67887,9 @@ Output ONLY these three sections in order:
       "item": "minecraft:furnace",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -68082,7 +67958,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_cherry_stairs.json (35 lines, 623 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_cherry_stairs.json (33 lines, 605 bytes)
 
 ```
 {
@@ -68112,16 +67988,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:cherry_planks",
       "count": 3
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_cobbled_deepslate_stairs.json (35 lines, 682 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_cobbled_deepslate_stairs.json (33 lines, 664 bytes)
 
 ```
 {
@@ -68151,16 +68025,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:cobbled_deepslate",
       "count": 3
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_cobblestone_stairs.json (35 lines, 622 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_cobblestone_stairs.json (33 lines, 604 bytes)
 
 ```
 {
@@ -68190,16 +68062,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:cobblestone",
       "count": 3
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_crimson_stairs.json (35 lines, 629 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_crimson_stairs.json (33 lines, 611 bytes)
 
 ```
 {
@@ -68229,11 +68099,9 @@ Output ONLY these three sections in order:
       "item": "minecraft:crimson_planks",
       "count": 3
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -68270,7 +68138,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_dark_oak_stairs.json (35 lines, 635 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_dark_oak_stairs.json (33 lines, 617 bytes)
 
 ```
 {
@@ -68300,16 +68168,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:dark_oak_planks",
       "count": 3
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_deepslate_brick_stairs.json (35 lines, 671 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_deepslate_brick_stairs.json (33 lines, 653 bytes)
 
 ```
 {
@@ -68339,16 +68205,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:deepslate_bricks",
       "count": 3
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_deepslate_tile_stairs.json (35 lines, 665 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_deepslate_tile_stairs.json (33 lines, 647 bytes)
 
 ```
 {
@@ -68378,11 +68242,9 @@ Output ONLY these three sections in order:
       "item": "minecraft:deepslate_tiles",
       "count": 3
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -68483,7 +68345,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_jungle_stairs.json (35 lines, 623 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_jungle_stairs.json (33 lines, 605 bytes)
 
 ```
 {
@@ -68513,11 +68375,9 @@ Output ONLY these three sections in order:
       "item": "minecraft:jungle_planks",
       "count": 3
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -68650,7 +68510,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_mangrove_stairs.json (35 lines, 635 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_mangrove_stairs.json (33 lines, 617 bytes)
 
 ```
 {
@@ -68680,16 +68540,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:mangrove_planks",
       "count": 3
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_oak_stairs.json (35 lines, 605 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_oak_stairs.json (33 lines, 587 bytes)
 
 ```
 {
@@ -68719,11 +68577,9 @@ Output ONLY these three sections in order:
       "item": "minecraft:oak_planks",
       "count": 3
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -68824,7 +68680,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_quartz_stairs.json (35 lines, 622 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_quartz_stairs.json (33 lines, 604 bytes)
 
 ```
 {
@@ -68854,11 +68710,9 @@ Output ONLY these three sections in order:
       "item": "minecraft:quartz_block",
       "count": 3
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -68895,7 +68749,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_red_sandstone_stairs.json (35 lines, 658 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_red_sandstone_stairs.json (33 lines, 640 bytes)
 
 ```
 {
@@ -68925,16 +68779,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:red_sandstone",
       "count": 3
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_sandstone_stairs.json (35 lines, 634 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_sandstone_stairs.json (33 lines, 616 bytes)
 
 ```
 {
@@ -68964,16 +68816,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:sandstone",
       "count": 3
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_smoker.json (26 lines, 426 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_smoker.json (24 lines, 408 bytes)
 
 ```
 {
@@ -68994,16 +68844,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:furnace",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_spruce_stairs.json (35 lines, 623 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_spruce_stairs.json (33 lines, 605 bytes)
 
 ```
 {
@@ -69033,16 +68881,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:spruce_planks",
       "count": 3
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_stone_brick_stairs.json (35 lines, 647 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_stone_brick_stairs.json (33 lines, 629 bytes)
 
 ```
 {
@@ -69072,16 +68918,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:stone_bricks",
       "count": 3
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_warped_stairs.json (35 lines, 623 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/recycle_warped_stairs.json (33 lines, 605 bytes)
 
 ```
 {
@@ -69111,11 +68955,9 @@ Output ONLY these three sections in order:
       "item": "minecraft:warped_planks",
       "count": 3
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -69284,7 +69126,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/red_sandstone_to_red_sand.json (26 lines, 445 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/red_sandstone_to_red_sand.json (24 lines, 427 bytes)
 
 ```
 {
@@ -69305,11 +69147,9 @@ Output ONLY these three sections in order:
       "item": "minecraft:red_sand",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -69347,7 +69187,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/renewable_calcite.json (29 lines, 485 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/renewable_calcite.json (27 lines, 467 bytes)
 
 ```
 {
@@ -69371,11 +69211,9 @@ Output ONLY these three sections in order:
       "item": "minecraft:calcite",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -69561,7 +69399,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/sandstone_to_sand.json (26 lines, 429 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/sandstone_to_sand.json (24 lines, 411 bytes)
 
 ```
 {
@@ -69582,11 +69420,9 @@ Output ONLY these three sections in order:
       "item": "minecraft:sand",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -69791,7 +69627,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_acacia_fence.json (27 lines, 464 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_acacia_fence.json (25 lines, 446 bytes)
 
 ```
 {
@@ -69813,16 +69649,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:acacia_fence",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_acacia_fence_gate.json (27 lines, 474 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_acacia_fence_gate.json (25 lines, 456 bytes)
 
 ```
 {
@@ -69844,16 +69678,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:acacia_fence_gate",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_acacia_log_to_planks.json (27 lines, 470 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_acacia_log_to_planks.json (25 lines, 452 bytes)
 
 ```
 {
@@ -69875,16 +69707,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:acacia_planks",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_acacia_slab.json (27 lines, 462 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_acacia_slab.json (25 lines, 444 bytes)
 
 ```
 {
@@ -69906,16 +69736,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:acacia_slab",
       "count": 2
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_acacia_stairs.json (27 lines, 466 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_acacia_stairs.json (25 lines, 448 bytes)
 
 ```
 {
@@ -69937,16 +69765,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:acacia_stairs",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_acacia_trapdoor.json (27 lines, 470 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_acacia_trapdoor.json (25 lines, 452 bytes)
 
 ```
 {
@@ -69968,16 +69794,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:acacia_trapdoor",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_bamboo_fence.json (27 lines, 464 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_bamboo_fence.json (25 lines, 446 bytes)
 
 ```
 {
@@ -69999,16 +69823,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:bamboo_fence",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_bamboo_fence_gate.json (27 lines, 474 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_bamboo_fence_gate.json (25 lines, 456 bytes)
 
 ```
 {
@@ -70030,16 +69852,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:bamboo_fence_gate",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_bamboo_log_to_planks.json (27 lines, 472 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_bamboo_log_to_planks.json (25 lines, 454 bytes)
 
 ```
 {
@@ -70061,16 +69881,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:bamboo_planks",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_bamboo_slab.json (27 lines, 462 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_bamboo_slab.json (25 lines, 444 bytes)
 
 ```
 {
@@ -70092,16 +69910,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:bamboo_slab",
       "count": 2
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_bamboo_stairs.json (27 lines, 466 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_bamboo_stairs.json (25 lines, 448 bytes)
 
 ```
 {
@@ -70123,16 +69939,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:bamboo_stairs",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_bamboo_trapdoor.json (27 lines, 470 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_bamboo_trapdoor.json (25 lines, 452 bytes)
 
 ```
 {
@@ -70154,16 +69968,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:bamboo_trapdoor",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_birch_fence.json (27 lines, 461 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_birch_fence.json (25 lines, 443 bytes)
 
 ```
 {
@@ -70185,16 +69997,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:birch_fence",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_birch_fence_gate.json (27 lines, 471 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_birch_fence_gate.json (25 lines, 453 bytes)
 
 ```
 {
@@ -70216,16 +70026,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:birch_fence_gate",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_birch_log_to_planks.json (27 lines, 467 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_birch_log_to_planks.json (25 lines, 449 bytes)
 
 ```
 {
@@ -70247,16 +70055,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:birch_planks",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_birch_slab.json (27 lines, 459 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_birch_slab.json (25 lines, 441 bytes)
 
 ```
 {
@@ -70278,16 +70084,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:birch_slab",
       "count": 2
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_birch_stairs.json (27 lines, 463 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_birch_stairs.json (25 lines, 445 bytes)
 
 ```
 {
@@ -70309,16 +70113,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:birch_stairs",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_birch_trapdoor.json (27 lines, 467 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_birch_trapdoor.json (25 lines, 449 bytes)
 
 ```
 {
@@ -70340,16 +70142,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:birch_trapdoor",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_cherry_fence.json (27 lines, 464 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_cherry_fence.json (25 lines, 446 bytes)
 
 ```
 {
@@ -70371,16 +70171,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:cherry_fence",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_cherry_fence_gate.json (27 lines, 474 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_cherry_fence_gate.json (25 lines, 456 bytes)
 
 ```
 {
@@ -70402,16 +70200,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:cherry_fence_gate",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_cherry_log_to_planks.json (27 lines, 470 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_cherry_log_to_planks.json (25 lines, 452 bytes)
 
 ```
 {
@@ -70433,16 +70229,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:cherry_planks",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_cherry_slab.json (27 lines, 462 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_cherry_slab.json (25 lines, 444 bytes)
 
 ```
 {
@@ -70464,16 +70258,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:cherry_slab",
       "count": 2
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_cherry_stairs.json (27 lines, 466 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_cherry_stairs.json (25 lines, 448 bytes)
 
 ```
 {
@@ -70495,16 +70287,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:cherry_stairs",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_cherry_trapdoor.json (27 lines, 470 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_cherry_trapdoor.json (25 lines, 452 bytes)
 
 ```
 {
@@ -70526,16 +70316,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:cherry_trapdoor",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_crimson_fence.json (27 lines, 467 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_crimson_fence.json (25 lines, 449 bytes)
 
 ```
 {
@@ -70557,16 +70345,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:crimson_fence",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_crimson_fence_gate.json (27 lines, 477 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_crimson_fence_gate.json (25 lines, 459 bytes)
 
 ```
 {
@@ -70588,16 +70374,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:crimson_fence_gate",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_crimson_log_to_planks.json (27 lines, 474 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_crimson_log_to_planks.json (25 lines, 456 bytes)
 
 ```
 {
@@ -70619,16 +70403,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:crimson_planks",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_crimson_slab.json (27 lines, 465 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_crimson_slab.json (25 lines, 447 bytes)
 
 ```
 {
@@ -70650,16 +70432,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:crimson_slab",
       "count": 2
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_crimson_stairs.json (27 lines, 469 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_crimson_stairs.json (25 lines, 451 bytes)
 
 ```
 {
@@ -70681,16 +70461,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:crimson_stairs",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_crimson_trapdoor.json (27 lines, 473 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_crimson_trapdoor.json (25 lines, 455 bytes)
 
 ```
 {
@@ -70712,16 +70490,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:crimson_trapdoor",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_dark_oak_fence.json (27 lines, 470 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_dark_oak_fence.json (25 lines, 452 bytes)
 
 ```
 {
@@ -70743,16 +70519,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:dark_oak_fence",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_dark_oak_fence_gate.json (27 lines, 480 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_dark_oak_fence_gate.json (25 lines, 462 bytes)
 
 ```
 {
@@ -70774,16 +70548,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:dark_oak_fence_gate",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_dark_oak_log_to_planks.json (27 lines, 476 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_dark_oak_log_to_planks.json (25 lines, 458 bytes)
 
 ```
 {
@@ -70805,16 +70577,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:dark_oak_planks",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_dark_oak_slab.json (27 lines, 468 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_dark_oak_slab.json (25 lines, 450 bytes)
 
 ```
 {
@@ -70836,16 +70606,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:dark_oak_slab",
       "count": 2
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_dark_oak_stairs.json (27 lines, 472 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_dark_oak_stairs.json (25 lines, 454 bytes)
 
 ```
 {
@@ -70867,16 +70635,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:dark_oak_stairs",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_dark_oak_trapdoor.json (27 lines, 476 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_dark_oak_trapdoor.json (25 lines, 458 bytes)
 
 ```
 {
@@ -70898,16 +70664,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:dark_oak_trapdoor",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_jungle_fence.json (27 lines, 464 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_jungle_fence.json (25 lines, 446 bytes)
 
 ```
 {
@@ -70929,16 +70693,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:jungle_fence",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_jungle_fence_gate.json (27 lines, 474 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_jungle_fence_gate.json (25 lines, 456 bytes)
 
 ```
 {
@@ -70960,16 +70722,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:jungle_fence_gate",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_jungle_log_to_planks.json (27 lines, 470 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_jungle_log_to_planks.json (25 lines, 452 bytes)
 
 ```
 {
@@ -70991,16 +70751,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:jungle_planks",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_jungle_slab.json (27 lines, 462 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_jungle_slab.json (25 lines, 444 bytes)
 
 ```
 {
@@ -71022,16 +70780,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:jungle_slab",
       "count": 2
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_jungle_stairs.json (27 lines, 466 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_jungle_stairs.json (25 lines, 448 bytes)
 
 ```
 {
@@ -71053,16 +70809,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:jungle_stairs",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_jungle_trapdoor.json (27 lines, 470 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_jungle_trapdoor.json (25 lines, 452 bytes)
 
 ```
 {
@@ -71084,16 +70838,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:jungle_trapdoor",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_mangrove_fence.json (27 lines, 470 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_mangrove_fence.json (25 lines, 452 bytes)
 
 ```
 {
@@ -71115,16 +70867,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:mangrove_fence",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_mangrove_fence_gate.json (27 lines, 480 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_mangrove_fence_gate.json (25 lines, 462 bytes)
 
 ```
 {
@@ -71146,16 +70896,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:mangrove_fence_gate",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_mangrove_log_to_planks.json (27 lines, 476 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_mangrove_log_to_planks.json (25 lines, 458 bytes)
 
 ```
 {
@@ -71177,16 +70925,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:mangrove_planks",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_mangrove_slab.json (27 lines, 468 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_mangrove_slab.json (25 lines, 450 bytes)
 
 ```
 {
@@ -71208,16 +70954,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:mangrove_slab",
       "count": 2
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_mangrove_stairs.json (27 lines, 472 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_mangrove_stairs.json (25 lines, 454 bytes)
 
 ```
 {
@@ -71239,16 +70983,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:mangrove_stairs",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_mangrove_trapdoor.json (27 lines, 476 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_mangrove_trapdoor.json (25 lines, 458 bytes)
 
 ```
 {
@@ -71270,16 +71012,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:mangrove_trapdoor",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_oak_fence.json (27 lines, 455 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_oak_fence.json (25 lines, 437 bytes)
 
 ```
 {
@@ -71301,16 +71041,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:oak_fence",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_oak_fence_gate.json (27 lines, 465 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_oak_fence_gate.json (25 lines, 443 bytes)
 
 ```
 {
@@ -71329,19 +71067,17 @@ Output ONLY these three sections in order:
       }
     ],
     "result": {
-      "item": "minecraft:oak_fence_gate",
+      "item": "minecraft:fence_gate",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_oak_log_to_planks.json (27 lines, 461 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_oak_log_to_planks.json (25 lines, 443 bytes)
 
 ```
 {
@@ -71363,16 +71099,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:oak_planks",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_oak_slab.json (27 lines, 453 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_oak_slab.json (25 lines, 435 bytes)
 
 ```
 {
@@ -71394,16 +71128,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:oak_slab",
       "count": 2
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_oak_stairs.json (27 lines, 457 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_oak_stairs.json (25 lines, 439 bytes)
 
 ```
 {
@@ -71425,16 +71157,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:oak_stairs",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_oak_trapdoor.json (27 lines, 461 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_oak_trapdoor.json (25 lines, 439 bytes)
 
 ```
 {
@@ -71453,19 +71183,17 @@ Output ONLY these three sections in order:
       }
     ],
     "result": {
-      "item": "minecraft:oak_trapdoor",
+      "item": "minecraft:trapdoor",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_pale_oak_fence.json (27 lines, 470 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_pale_oak_fence.json (25 lines, 452 bytes)
 
 ```
 {
@@ -71487,16 +71215,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:pale_oak_fence",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_pale_oak_fence_gate.json (27 lines, 480 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_pale_oak_fence_gate.json (25 lines, 462 bytes)
 
 ```
 {
@@ -71518,16 +71244,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:pale_oak_fence_gate",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_pale_oak_log_to_planks.json (27 lines, 476 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_pale_oak_log_to_planks.json (25 lines, 458 bytes)
 
 ```
 {
@@ -71549,16 +71273,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:pale_oak_planks",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_pale_oak_slab.json (27 lines, 468 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_pale_oak_slab.json (25 lines, 450 bytes)
 
 ```
 {
@@ -71580,16 +71302,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:pale_oak_slab",
       "count": 2
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_pale_oak_stairs.json (27 lines, 472 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_pale_oak_stairs.json (25 lines, 454 bytes)
 
 ```
 {
@@ -71611,16 +71331,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:pale_oak_stairs",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_pale_oak_trapdoor.json (27 lines, 476 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_pale_oak_trapdoor.json (25 lines, 458 bytes)
 
 ```
 {
@@ -71642,16 +71360,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:pale_oak_trapdoor",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_spruce_fence.json (27 lines, 464 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_spruce_fence.json (25 lines, 446 bytes)
 
 ```
 {
@@ -71673,16 +71389,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:spruce_fence",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_spruce_fence_gate.json (27 lines, 474 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_spruce_fence_gate.json (25 lines, 456 bytes)
 
 ```
 {
@@ -71704,16 +71418,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:spruce_fence_gate",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_spruce_log_to_planks.json (27 lines, 470 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_spruce_log_to_planks.json (25 lines, 452 bytes)
 
 ```
 {
@@ -71735,16 +71447,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:spruce_planks",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_spruce_slab.json (27 lines, 462 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_spruce_slab.json (25 lines, 444 bytes)
 
 ```
 {
@@ -71766,16 +71476,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:spruce_slab",
       "count": 2
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_spruce_stairs.json (27 lines, 466 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_spruce_stairs.json (25 lines, 448 bytes)
 
 ```
 {
@@ -71797,16 +71505,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:spruce_stairs",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_spruce_trapdoor.json (27 lines, 470 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_spruce_trapdoor.json (25 lines, 452 bytes)
 
 ```
 {
@@ -71828,16 +71534,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:spruce_trapdoor",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_warped_fence.json (27 lines, 464 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_warped_fence.json (25 lines, 446 bytes)
 
 ```
 {
@@ -71859,16 +71563,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:warped_fence",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_warped_fence_gate.json (27 lines, 474 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_warped_fence_gate.json (25 lines, 456 bytes)
 
 ```
 {
@@ -71890,16 +71592,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:warped_fence_gate",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_warped_log_to_planks.json (27 lines, 471 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_warped_log_to_planks.json (25 lines, 453 bytes)
 
 ```
 {
@@ -71921,16 +71621,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:warped_planks",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_warped_slab.json (27 lines, 462 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_warped_slab.json (25 lines, 444 bytes)
 
 ```
 {
@@ -71952,16 +71650,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:warped_slab",
       "count": 2
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_warped_stairs.json (27 lines, 466 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_warped_stairs.json (25 lines, 448 bytes)
 
 ```
 {
@@ -71983,16 +71679,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:warped_stairs",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_warped_trapdoor.json (27 lines, 470 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/stonecutter_warped_trapdoor.json (25 lines, 452 bytes)
 
 ```
 {
@@ -72014,11 +71708,9 @@ Output ONLY these three sections in order:
       "item": "minecraft:warped_trapdoor",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -72157,7 +71849,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_amethyst_block.json (26 lines, 449 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_amethyst_block.json (24 lines, 431 bytes)
 
 ```
 {
@@ -72178,16 +71870,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:amethyst_shard",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_black_wool.json (26 lines, 433 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_black_wool.json (24 lines, 415 bytes)
 
 ```
 {
@@ -72208,16 +71898,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:string",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_blue_wool.json (26 lines, 431 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_blue_wool.json (24 lines, 413 bytes)
 
 ```
 {
@@ -72238,16 +71926,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:string",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_brown_wool.json (26 lines, 433 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_brown_wool.json (24 lines, 415 bytes)
 
 ```
 {
@@ -72268,16 +71954,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:string",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_clay.json (26 lines, 424 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_clay.json (24 lines, 406 bytes)
 
 ```
 {
@@ -72298,16 +71982,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:clay_ball",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_cyan_wool.json (26 lines, 431 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_cyan_wool.json (24 lines, 413 bytes)
 
 ```
 {
@@ -72328,16 +72010,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:string",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_glowstone.json (26 lines, 439 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_glowstone.json (24 lines, 421 bytes)
 
 ```
 {
@@ -72358,16 +72038,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:glowstone_dust",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_gray_wool.json (26 lines, 431 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_gray_wool.json (24 lines, 413 bytes)
 
 ```
 {
@@ -72388,16 +72066,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:string",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_green_wool.json (26 lines, 433 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_green_wool.json (24 lines, 415 bytes)
 
 ```
 {
@@ -72418,16 +72094,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:string",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_honeycomb_block.json (26 lines, 446 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_honeycomb_block.json (24 lines, 428 bytes)
 
 ```
 {
@@ -72448,16 +72122,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:honeycomb",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_light_blue_wool.json (26 lines, 443 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_light_blue_wool.json (24 lines, 425 bytes)
 
 ```
 {
@@ -72478,16 +72150,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:string",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_light_gray_wool.json (26 lines, 443 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_light_gray_wool.json (24 lines, 425 bytes)
 
 ```
 {
@@ -72508,16 +72178,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:string",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_lime_wool.json (26 lines, 431 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_lime_wool.json (24 lines, 413 bytes)
 
 ```
 {
@@ -72538,16 +72206,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:string",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_magenta_wool.json (26 lines, 437 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_magenta_wool.json (24 lines, 419 bytes)
 
 ```
 {
@@ -72568,16 +72234,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:string",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_magma.json (26 lines, 428 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_magma.json (24 lines, 410 bytes)
 
 ```
 {
@@ -72598,16 +72262,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:magma_cream",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_melon_block.json (26 lines, 440 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_melon_block.json (24 lines, 422 bytes)
 
 ```
 {
@@ -72628,16 +72290,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:melon_slice",
       "count": 9
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_nether_wart_block.json (26 lines, 452 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_nether_wart_block.json (24 lines, 434 bytes)
 
 ```
 {
@@ -72658,16 +72318,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:nether_wart",
       "count": 9
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_orange_wool.json (26 lines, 435 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_orange_wool.json (24 lines, 417 bytes)
 
 ```
 {
@@ -72688,16 +72346,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:string",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_pink_wool.json (26 lines, 431 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_pink_wool.json (24 lines, 413 bytes)
 
 ```
 {
@@ -72718,16 +72374,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:string",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_purple_wool.json (26 lines, 435 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_purple_wool.json (24 lines, 417 bytes)
 
 ```
 {
@@ -72748,16 +72402,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:string",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_quartz_block.json (26 lines, 437 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_quartz_block.json (24 lines, 419 bytes)
 
 ```
 {
@@ -72778,16 +72430,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:quartz",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_red_wool.json (26 lines, 429 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_red_wool.json (24 lines, 411 bytes)
 
 ```
 {
@@ -72808,16 +72458,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:string",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_white_wool.json (26 lines, 433 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_white_wool.json (24 lines, 415 bytes)
 
 ```
 {
@@ -72838,16 +72486,14 @@ Output ONLY these three sections in order:
       "item": "minecraft:string",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_yellow_wool.json (26 lines, 435 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/behavior_pack/recipes/uncraft_yellow_wool.json (24 lines, 417 bytes)
 
 ```
 {
@@ -72868,11 +72514,9 @@ Output ONLY these three sections in order:
       "item": "minecraft:string",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -87356,12 +87000,19 @@ export const MINING_OPTIONS = Object.freeze({
 }
 ```
 
-## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/CHANGELOG.md (444 lines, 20002 bytes)
+## FILE: MCPEDL/Addons/Vanilla-Quality-of-Life/CHANGELOG.md (451 lines, 20393 bytes)
 
 ```
 # Changelog — Vanilla Quality of Life
 
 ---
+
+## [v12] - 2026-11-22 - Shapeless Recipe Fix
+
+### Fixed
+
+- **Shapeless Recipes**: Uncrafting, recombining, recycling, stonecutter, and other shapeless recipes now use the unlock format shown in the game's own recipe documentation, so they load without errors.
+- **Oak Trapdoor and Fence Gate**: The stonecutter recipes now use the Oak Trapdoor and Oak Fence Gate item names the game knows.
 
 ## [v11] - 2026-11-22 - Entity and Item Fixes
 
@@ -87885,7 +87536,7 @@ Download the current release of **Vanilla Quality of Life** for Minecraft Bedroc
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Vanilla Quality of Life (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/VanillaQoL%20V11.mcaddon)
+- **Direct download:** [Download Vanilla Quality of Life (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/VanillaQoL%20V12.mcaddon)
 
 ## Installation
 
@@ -87904,11 +87555,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "Vanilla Quality of Life (v11)",
+    "name": "Vanilla Quality of Life (v12)",
     "description": "Client entity locators and visual fixes for Vanilla Quality of Life. by ALNStudios",
     "uuid": "fd036566-d0b1-4f92-9b28-9dd45a376d44",
     "version": [
-      11,
+      12,
       0,
       0
     ],
@@ -87924,7 +87575,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "340a271e-9aa3-4c12-bc1a-0254e887ec38",
       "version": [
-        11,
+        12,
         0,
         0
       ]
@@ -87935,7 +87586,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "11.0.0"
+    "version": "12.0.0"
   }
 }
 ```
