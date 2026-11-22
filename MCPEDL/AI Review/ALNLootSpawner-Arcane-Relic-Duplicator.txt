@@ -77,7 +77,7 @@ Output ONLY these three sections in order:
 
 ## File Contents
 
-## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/behavior_pack/blocks/loot_spawner.json (57 lines, 1537 bytes)
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/behavior_pack/blocks/loot_spawner.json (54 lines, 1417 bytes)
 
 ```
 {
@@ -107,22 +107,19 @@ Output ONLY these three sections in order:
       "minecraft:material_instances": {
         "frame": {
           "texture": "aln_loot_spawner_frame",
-          "render_method": "alpha_test"
+          "render_method": "opaque"
         },
         "glass": {
           "texture": "aln_loot_spawner_glass",
-          "render_method": "alpha_test",
-          "face_dimming": false,
-          "ambient_occlusion": false
+          "render_method": "opaque"
         },
         "core": {
           "texture": "aln_loot_spawner_core",
-          "render_method": "alpha_test",
-          "face_dimming": false
+          "render_method": "opaque"
         },
         "*": {
           "texture": "aln_loot_spawner_frame",
-          "render_method": "alpha_test"
+          "render_method": "opaque"
         }
       },
       "minecraft:collision_box": {
@@ -164,13 +161,13 @@ Output ONLY these three sections in order:
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:LootSpawner (v1.0.2)",
+    "name": "ALN:LootSpawner (v1.0.3)",
     "description": "Arcane Relic Duplicator Display Cage. by ALNStudios",
     "uuid": "168d9162-4f4a-4dda-a2c8-a550e2b9ad41",
     "version": [
       1,
       0,
-      2
+      3
     ],
     "min_engine_version": [
       1,
@@ -185,7 +182,7 @@ Output ONLY these three sections in order:
       "version": [
         1,
         0,
-        2
+        3
       ]
     },
     {
@@ -195,7 +192,7 @@ Output ONLY these three sections in order:
       "version": [
         1,
         0,
-        2
+        3
       ],
       "entry": "scripts/main.js"
     }
@@ -206,7 +203,7 @@ Output ONLY these three sections in order:
       "version": [
         1,
         0,
-        2
+        3
       ]
     },
     {
@@ -219,7 +216,7 @@ Output ONLY these three sections in order:
     }
   ],
   "metadata": {
-    "version": "1.0.2",
+    "version": "1.0.3",
     "authors": [
       "ALNStudios"
     ],
@@ -551,12 +548,17 @@ system.runInterval(() => {
 }, 1);
 ```
 
-## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/CHANGELOG.md (32 lines, 2542 bytes)
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/CHANGELOG.md (37 lines, 3197 bytes)
 
 ```
 # Changelog — ALN:LootSpawner (Arcane Relic Duplicator)
 
 ---
+
+## [1.0.3] - 2026-11-22 - Fix Black Rendering: Unify Render Method
+
+### Fixed
+- **Block rendering as solid black**: The glass and core material instances carried render_method "alpha_test" with a texture using partial-alpha pixels; alpha_test only supports fully transparent or fully opaque pixels, so every partial-alpha pixel in the glass texture was discarded outright, leaving the chamber faces unrendered. All four material instances (frame, glass, core, *) now use render_method "opaque", which draws the texture's RGB color regardless of alpha. This trades true see-through glass for a solid tinted glass look, but renders correctly and reliably.
 
 ## [1.0.2] - 2026-11-22 - Bug Fixes: Render Method and Script Crash
 
@@ -691,7 +693,7 @@ Download the current release of **ALNLootSpawner (Arcane Relic Duplicator)** for
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNLootSpawner (Arcane Relic Duplicator) (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNLootSpawner-Arcane-Relic-Duplicator/ALNLootSpawnerArcaneRelicDuplicator%20V1.0.2.mcaddon)
+- **Direct download:** [Download ALNLootSpawner (Arcane Relic Duplicator) (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNLootSpawner-Arcane-Relic-Duplicator/ALNLootSpawnerArcaneRelicDuplicator%20V1.0.3.mcaddon)
 
 ## Installation
 
@@ -718,13 +720,13 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:LootSpawner (v1.0.2)",
+    "name": "ALN:LootSpawner (v1.0.3)",
     "description": "Arcane Relic Duplicator Display Cage. by ALNStudios",
     "uuid": "1390b986-3030-4eee-a94b-1bd5ea7f88dd",
     "version": [
       1,
       0,
-      2
+      3
     ],
     "min_engine_version": [
       1,
@@ -739,12 +741,12 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "version": [
         1,
         0,
-        2
+        3
       ]
     }
   ],
   "metadata": {
-    "version": "1.0.2",
+    "version": "1.0.3",
     "authors": [
       "ALNStudios"
     ],

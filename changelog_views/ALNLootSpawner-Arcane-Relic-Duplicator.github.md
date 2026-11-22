@@ -1,13 +1,18 @@
 # Changelog — ALN:LootSpawner (Arcane Relic Duplicator)
 
-## [1.0.2] - 2026-11-22 - Bug Fixes: Render Method and Script Crash
+## [1.0.3] - 2026-11-22 - Fix Black Rendering: Unify Render Method
 
 ### Fixed
-- **MaterialInstances render conflict**: All material instances now use "alpha_test" uniformly. Bedrock rejects any block where named instances mix opaque and alpha_test, causing a component error and warning on load.
-- **Script crash in tick loop**: blockKey received block.location (a plain Vector3 with no dimension property) instead of the Block object. All four call sites now pass the Block directly so dimension.id resolves correctly.
+- **Block rendering as solid black**: The glass and core material instances carried render_method "alpha_test" with a texture using partial-alpha pixels; alpha_test only supports fully transparent or fully opaque pixels, so every partial-alpha pixel in the glass texture was discarded outright, leaving the chamber faces unrendered. All four material instances (frame, glass, core, *) now use render_method "opaque", which draws the texture's RGB color regardless of alpha. This trades true see-through glass for a solid tinted glass look, but renders correctly and reliably.
 
 <details>
-<summary><b>1.0.x</b> (2 releases)</summary>
+<summary><b>1.0.x</b> (3 releases)</summary>
+
+### [1.0.2] - 2026-11-22 - Bug Fixes: Render Method and Script Crash
+
+#### Fixed
+- **MaterialInstances render conflict**: All material instances now use "alpha_test" uniformly. Bedrock rejects any block where named instances mix opaque and alpha_test, causing a component error and warning on load.
+- **Script crash in tick loop**: blockKey received block.location (a plain Vector3 with no dimension property) instead of the Block object. All four call sites now pass the Block directly so dimension.id resolves correctly.
 
 ### [1.0.1] - 2026-11-22 - Bug Fixes: Block Definition and Render Method
 
