@@ -4,6 +4,14 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v245] - 2026-11-23 - Existing Boat Clutch
+
+**Spec**: spec_v245.txt | **Target**: MCPEDL/Script/Universal-Clutch | **Files edited**: 6
+
+### Added
+
+- **Existing Boats**: If a boat with a free seat is already right below you, you now ride it instead of placing a new one, even with no boat in your inventory.
+
 ## [v244] - 2026-11-23 - Fix Duplication Timer and Add Break Drops
 
 **Spec**: spec_v244.txt | **Target**: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator | **Files edited**: 3

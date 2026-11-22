@@ -2,6 +2,12 @@
 
 ---
 
+## [v4] - 2026-11-23 - Existing Boat Clutch
+
+### Added
+
+- **Existing Boats**: If a boat with a free seat is already right below you, you now ride it instead of placing a new one, even with no boat in your inventory.
+
 ## [v3] - 2026-11-19 - Boat and Switching Fixes
 
 ### Improved & Balanced

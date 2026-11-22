@@ -423,6 +423,27 @@ function consumeClutchItem(player, clutchData, replacementTypeId) {
   } catch {}
 }
 
+const EXISTING_BOAT_TYPES = ["minecraft:boat", "minecraft:chest_boat"];
+
+function tryRideExistingBoat(player, ground) {
+  try {
+    const loc = player.location;
+    const rideSurfaceY = ground.surfaceY + 1;
+    for (const type of EXISTING_BOAT_TYPES) {
+      const boats = player.dimension.getEntities({ type, location: loc, maxDistance: 9 });
+      for (const boat of boats) {
+        const bl = boat.location;
+        if (Math.abs(bl.x - loc.x) > 0.95 || Math.abs(bl.z - loc.z) > 0.95) continue;
+        if (loc.y - bl.y < 0.1 || Math.abs(bl.y - rideSurfaceY) > 1) continue;
+        const rideable = boat.getComponent("minecraft:rideable");
+        if (!rideable || rideable.getRiders().length >= rideable.seatCount) continue;
+        if (rideable.addRider(player)) return true;
+      }
+    }
+  } catch {}
+  return false;
+}
+
 function placeBoatClutch(dimension, airBlock, entityType, player) {
   try {
     const boat = dimension.spawnEntity(entityType, {
@@ -652,6 +673,19 @@ system.runInterval(() => {
       const mode = tracker?.mode ?? getPlayerMode(player);
       const fallSpeed = Math.abs(vel.y);
 
+      if (currentTick - (lastClutchTick.get(player.id) ?? -100) < 25) continue;
+
+      const rot = player.getRotation();
+      if (mode !== "extreme" && rot.x < 55) continue;
+
+      const triggerDist = Math.min(7, Math.max(4, fallSpeed * 2.6 + 1.5));
+      if (distToSurface > triggerDist) continue;
+
+      if (tryRideExistingBoat(player, ground)) {
+        lastClutchTick.set(player.id, currentTick);
+        continue;
+      }
+
       if (mode === "extreme") {
         if (tracker) {
           if (tracker.itemTick === undefined || currentTick - tracker.itemTick >= 10) {
@@ -661,14 +695,6 @@ system.runInterval(() => {
           if (!tracker.hasItems) continue;
         } else if (!hasAnyClutchItem(player) && !hasTotemOfUndying(player)) continue;
       }
-
-      if (currentTick - (lastClutchTick.get(player.id) ?? -100) < 25) continue;
-
-      const rot = player.getRotation();
-      if (mode !== "extreme" && rot.x < 55) continue;
-
-      const triggerDist = Math.min(7, Math.max(4, fallSpeed * 2.6 + 1.5));
-      if (distToSurface > triggerDist) continue;
 
       const clutchData = acquireClutchItem(player, mode);
 

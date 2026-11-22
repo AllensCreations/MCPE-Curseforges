@@ -34,7 +34,7 @@ When aiming down and falling beyond the configured block height threshold, the a
 - **Description**: When falling to certain death with no clutch item, automatically searches inventory and equips a Totem of Undying into the offhand slot before impact.
 
 ### Authentic Boat Placement
-- **Description**: Places the boat on the ground below and seats the player in it at the same moment, from about 7 blocks up. The boat is removed if the player dies within a few seconds of the clutch.
+- **Description**: Places the boat on the ground below and seats the player in it at the same moment, from about 7 blocks up. The boat is removed if the player dies within a few seconds of the clutch. If a boat with a free seat is already right below the player, the player rides that boat instead and no boat item is used.
 
 ### Timed Placement
 - **Description**: Checks the blocks below you and triggers placements shortly before impact rather than snapping prematurely.
