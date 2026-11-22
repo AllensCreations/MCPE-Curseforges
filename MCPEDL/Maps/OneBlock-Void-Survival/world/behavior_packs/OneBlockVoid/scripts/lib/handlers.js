@@ -409,7 +409,7 @@ export function onPlayerSpawn(event) {
         player.sendMessage("\n§6==================================================");
         player.sendMessage("§e★ §6§lWELCOME TO ONEBLOCK VOID SURVIVAL! §e★");
         player.sendMessage("§fThank you so much for playing my game!");
-        player.sendMessage("§bCreated by: §eAllensCreations");
+        player.sendMessage("§bCreated by: §eALNStudios");
         player.sendMessage("§aMore features & biomes to be updated soon!");
         player.sendMessage("§eLook at the floating holographic guide above the block to start!");
         player.sendMessage("§6==================================================\n");

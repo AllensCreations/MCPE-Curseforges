@@ -219,7 +219,7 @@ function startPhaseTransition(dimKey, dimension, newPhaseIdx, isGameComplete) {
             p.sendMessage("§e★ §6§lCONGRATULATIONS! YOU HAVE CONQUERED ALL PHASES! §e★");
             p.sendMessage("§fThank you so much for playing this map!");
             p.sendMessage("§aYou have earned the permanent prestige title: §6[Void Champion]§a!");
-            p.sendMessage("§bCreator: §eAllensCreations");
+            p.sendMessage("§bCreator: §eALNStudios");
             p.sendMessage("§aPlease support the game by downloading & rating on §6MCPEDL.COM§a!");
             p.sendMessage("§6==================================================\n");
             p.playSound("ui.toast.challenge_complete", { pitch: 1.0, volume: 1.0 });
@@ -234,7 +234,7 @@ function startPhaseTransition(dimKey, dimension, newPhaseIdx, isGameComplete) {
               fadeOutDuration: 15,
               subtitle: `§6${nextPhase.name}`
             });
-            p.sendMessage(`§d§l[OneBlocked] §eCongratulations! Reached §aPhase ${newPhaseIdx + 1}: ${nextPhase.name}§e! §7(by §bAllensCreations§7)`);
+            p.sendMessage(`§d§l[OneBlocked] §eCongratulations! Reached §aPhase ${newPhaseIdx + 1}: ${nextPhase.name}§e! §7(by §bALNStudios§7)`);
             p.playSound("random.levelup", { pitch: 1.0, volume: 1.0 });
           } catch (e) {}
         }
