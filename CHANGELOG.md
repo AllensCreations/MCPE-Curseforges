@@ -651,6 +651,13 @@
 
 ---
 
+## [v226] - 2026-11-22 - OneBlock Locked Survival and Hardcore
+
+### Added
+- **World lock**: Survival and Hardcore OneBlock worlds are built with `isFromLockedTemplate`, `hasLockedBehaviorPack` and (with a resource pack) `hasLockedResourcePack` set in `level.dat`; Creative stays unlocked. `immutableWorld` is never set. Per map override: `"lock_settings"` in `oneblock.json`.
+- **Safety check**: the archive check fails if the flags do not match the mode. New `test_oneblock_lock.py`.
+- Not tested in game: the effect of these flags is not in the Bedrock docs.
+
 ## [v225] - 2026-11-22 - Survival Mode Lock
 
 ### Improved & Balanced

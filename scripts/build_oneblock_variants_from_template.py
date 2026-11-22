@@ -4,7 +4,7 @@
 Each mode must contain its own valid level.dat. A LevelDB database is deliberately
 not required: these foundations are database-free void worlds. The builder copies
 the selected foundation, preserves its metadata, integrates the map's current
-packs, validates the archive, and only then replaces the published archive.
+packs, locks the world settings of Survival and Hardcore (level.dat flags, see LOCK_FLAGS), validates the archive, and only then replaces the published archive.
 """
 from __future__ import annotations
 
@@ -26,6 +26,13 @@ SOURCE_WORLDS = {
     "Hardcore": ROOT / "Mcpeworlds" / "Hardcore",
 }
 MODES = ("Creative", "Survival", "Hardcore")
+# Modes whose world settings are locked (default). A map can override it in oneblock.json: "lock_settings": ["Survival"].
+DEFAULT_LOCKED_MODES = ("Survival", "Hardcore")
+# level.dat byte flags that lock a world. immutableWorld is NEVER set: it makes the world read-only, so no block could be
+# broken or placed. The effect of these flags is not covered by the Bedrock docs: test the locked worlds in game.
+LOCK_FLAGS = ("isFromLockedTemplate", "hasLockedBehaviorPack")
+LOCK_FLAG_RESOURCE_PACK = "hasLockedResourcePack"
+NEVER_SET_FLAGS = ("immutableWorld",)
 
 
 def safe_name(value: str) -> str:
@@ -121,12 +128,48 @@ def patch_string_tag(raw: bytes, name: str, value: str) -> bytes:
     return raw[:4] + struct.pack("<I", len(payload)) + payload
 
 
-def patch_level_dat(path: Path, world_name: str) -> None:
-    """Rename a template world without overriding its selected mode/settings."""
+def read_byte_tag(raw: bytes, name: str) -> int:
+    prefix = tag_prefix(1, name)
+    index = raw.find(prefix, 8)
+    if index < 0:
+        raise ValueError(f"Missing required NBT byte tag {name!r} in level.dat")
+    return raw[index + len(prefix)]
+
+
+def patch_byte_tag(raw: bytes, name: str, value: int) -> bytes:
+    """Set one existing NBT byte tag. The length never changes, so the header stays valid."""
+    prefix = tag_prefix(1, name)
+    index = raw.find(prefix, 8)
+    if index < 0:
+        raise ValueError(f"Missing required NBT byte tag {name!r} in level.dat")
+    at = index + len(prefix)
+    if at >= len(raw):
+        raise ValueError(f"Truncated NBT byte value for {name!r}")
+    return raw[:at] + bytes([1 if value else 0]) + raw[at + 1:]
+
+
+def locked_modes(config: dict[str, Any]) -> tuple[str, ...]:
+    """Modes whose settings are locked: oneblock.json 'lock_settings' (list, may be empty) or the default."""
+    value = config.get("lock_settings", list(DEFAULT_LOCKED_MODES))
+    if not isinstance(value, list) or any(m not in MODES for m in value):
+        raise ValueError(f"oneblock.json lock_settings must be a list of {list(MODES)}, got {value!r}")
+    return tuple(value)
+
+
+def lock_flag_names(has_resource_pack: bool) -> tuple[str, ...]:
+    return LOCK_FLAGS + ((LOCK_FLAG_RESOURCE_PACK,) if has_resource_pack else ())
+
+
+def patch_level_dat(path: Path, world_name: str, lock: bool = False, has_resource_pack: bool = False) -> None:
+    """Rename a template world without overriding its selected mode/settings; optionally lock its settings."""
     raw = path.read_bytes()
     if len(raw) < 8:
         raise ValueError(f"{path.name} is too short to be a Bedrock level.dat")
     raw = patch_string_tag(raw, "LevelName", world_name)
+    for flag in lock_flag_names(has_resource_pack):
+        raw = patch_byte_tag(raw, flag, 1 if lock else 0)
+    for flag in NEVER_SET_FLAGS:
+        raw = patch_byte_tag(raw, flag, 0)
     path.write_bytes(raw)
 
 
@@ -138,7 +181,7 @@ def read_manifest(path: Path) -> dict[str, Any]:
     return data
 
 
-def build_variant(project: Path, map_name: str, mode: str) -> Path:
+def build_variant(project: Path, map_name: str, mode: str, lock: bool = False) -> Path:
     source_world = SOURCE_WORLDS[mode]
     if not source_world.is_dir() or not (source_world / "level.dat").is_file():
         raise FileNotFoundError(
@@ -176,7 +219,7 @@ def build_variant(project: Path, map_name: str, mode: str) -> Path:
         for metadata_name in ("level.dat", "level.dat_old"):
             metadata = world / metadata_name
             if metadata.is_file():
-                patch_level_dat(metadata, world_name)
+                patch_level_dat(metadata, world_name, lock, rp_manifest is not None)
         (world / "levelname.txt").write_text(world_name, encoding="utf-8")
 
         icon_source = next((project / n for n in ("world_icon.jpeg", "world_icon.jpg") if (project / n).is_file()), None)
@@ -237,13 +280,13 @@ def build_variant(project: Path, map_name: str, mode: str) -> Path:
                     info.external_attr = 0o644 << 16
                     archive.writestr(info, path.read_bytes())
 
-    verify_archive(staged_output, bp_uuid, bp_version, rp_uuid, rp_version, bp_folder, rp_folder, icon_source is not None)
+    verify_archive(staged_output, bp_uuid, bp_version, rp_uuid, rp_version, bp_folder, rp_folder, icon_source is not None, lock)
     staged_output.replace(output)
     return output
 
 
 def verify_archive(path: Path, bp_uuid: str, bp_version: list[int], rp_uuid: str | None,
-                   rp_version: list[int] | None, bp_folder: str, rp_folder: str, icon: bool = False) -> None:
+                   rp_version: list[int] | None, bp_folder: str, rp_folder: str, icon: bool = False, lock: bool = False) -> None:
     with zipfile.ZipFile(path) as archive:
         names = set(archive.namelist())
         required = {
@@ -273,6 +316,13 @@ def verify_archive(path: Path, bp_uuid: str, bp_version: list[int], rp_uuid: str
             raise RuntimeError(
                 f"{path.name} contains unexpected LevelDB data files: {', '.join(sorted(database_files)[:10])}"
             )
+        level = archive.read("level.dat")
+        for flag in lock_flag_names(rp_uuid is not None):
+            if read_byte_tag(level, flag) != (1 if lock else 0):
+                raise RuntimeError(f"{path.name}: level.dat {flag} must be {'locked' if lock else 'unlocked'}.")
+        for flag in NEVER_SET_FLAGS:
+            if read_byte_tag(level, flag) != 0:
+                raise RuntimeError(f"{path.name}: level.dat {flag} must stay 0 (the world would become read-only).")
         tick_path = f"behavior_packs/{bp_folder}/functions/tick.json"
         tick_data = json.loads(archive.read(tick_path).decode("utf-8"))
         if not tick_data.get("values") or tick_data["values"][0] != "void_cleaner":
@@ -310,9 +360,11 @@ def main() -> int:
             print(f"Skipping disabled OneBlock project: {project.relative_to(ROOT)}")
             continue
         map_name = str(config.get("name") or project.name.replace("-", " "))
+        locked = locked_modes(config)
         for mode in MODES:
-            output = build_variant(project, map_name, mode)
-            print(f"Built from valid source world and structurally verified: {output.relative_to(ROOT)} ({output.stat().st_size} bytes)")
+            output = build_variant(project, map_name, mode, mode in locked)
+            print(f"Built from valid source world and structurally verified: {output.relative_to(ROOT)} ({output.stat().st_size} bytes)"
+                  + (" [settings locked]" if mode in locked else ""))
             built.append(output)
     print(f"Successfully built {len(built)} world variants.")
     return 0

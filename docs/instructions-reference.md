@@ -5,7 +5,7 @@ Context7 usage: `INSTRUCTIONS.md`, `DOCS_RULES.md`, `PACK_GENERATOR_INSTRUCTIONS
 
 <!-- BEGIN INSTRUCTIONS.md -->
 
-# Instructions: Core Repository Policy (v39)
+# Instructions: Core Repository Policy (v40)
 
 
 Repo policy, docs rules for AllensCreations/MCPE-Curseforges (creator name `ALNStudios`). Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
@@ -158,6 +158,7 @@ General:
 - Build: `build-and-sync.yml` (OneBlock steps) copies each foundation to staging, keeps its `level.dat`, adds map BP + RP, packages `.mcworld` into `MCPEDL/Maps/<Map-Name>/`. Source: `MCPEDL/Maps/<Map-Name>/behavior_pack/`, `resource_pack/`.
 - Maps ship Creative+Survival+Hardcore worlds. Add-ons/Scripts/Minigames ship no world: the Test World was removed. NEVER `test_world.json`, `<Name> - Test.mcworld`, a separate tester package or `Tester Build/`. Add-on workflows NEVER misclassify a Map.
 - One OneBlock gameplay pack per world (maps only). Installing a different one: remove the old pack folders + link entries from all 3 modes first. NEVER touch unrelated packs.
+- World lock: the build locks the settings of Survival and Hardcore (`level.dat` flags `isFromLockedTemplate`, `hasLockedBehaviorPack`, and `hasLockedResourcePack` when the map has a resource pack). Creative stays unlocked. `immutableWorld` is NEVER set (the world would become read-only). Override per map with `"lock_settings": ["Survival"]` in `oneblock.json` (a list, may be empty). The effect of these flags is not in the Bedrock docs: mark it "not tested in game" until the owner opens the locked worlds.
 - Install per mode (identical in all three): `behavior_pack/` -> `<mode>/behavior_packs/<Map-Name>_BP/`, `resource_pack/` -> `<mode>/resource_packs/<Map-Name>_RP/`. Update = replace whole folder. Link files at world root `world_behavior_packs.json` / `world_resource_packs.json`: `[{ "pack_id": "<manifest header uuid>", "version": [1, 0, 0] }]`, replace same `pack_id` on update. NEVER invent UUID/version. Unresolved deps: stop, report path.
 - Map README: download-focused. Link only compiled `.mcworld` that exist. NEVER claim an archive matches source unless checked. Same for `MCPEDL/Maps/README.md`.
 
@@ -285,6 +286,7 @@ Docs, API, vanilla data and repo files are read with the Context7 MCP tool `quer
 - [ ] Changed JSON validated. Instruction file changed: `scripts/check_instruction_files.py` passes.
 
 ## Version History
+- **v40:** OneBlock Survival and Hardcore worlds are built with locked settings (`level.dat` flags, optional `lock_settings` in `oneblock.json`); `immutableWorld` is never set.
 - **v39:** Icons come ONLY from MCicons, no Samples or Wiki fallback (an id without an icon is reported); the recipe workflows no longer clone Samples. Pack AI review files are size-budgeted (`AI_MAX_BYTES`, default 150000 in the auto build: manifests, recipes, README, DESCRIPTION, project.json, newest CHANGELOG entries and the smallest files are inlined, the rest is listed with sizes) and carry no graph header. The pasted `bedrock-samples.txt` is no longer linked from the catalog (use Context7 `/mojang/bedrock-samples`).
 - **v38:** Updates to an existing project or the repo are delivered as ONE `spec_vN.txt` (format in `scripts/apply_update.py`), not a `.sh`. The user builds the `.sh` on the phone with `scripts/make_update_script.py`. New packs still deliver the pack `.sh`.
 - **v37:** The Achievements line is ALWAYS `Yes, achievement-friendly.` for every project type (owner confirmed in game that an add-on-type pack keeps achievements allowed). The doc template, validators and all `DESCRIPTION.md` files use it.
