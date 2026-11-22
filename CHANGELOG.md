@@ -4,6 +4,12 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v240] - 2026-11-23 - Self-test single-number versions
+
+**Spec**: spec_v240.txt | **Target**: repo | **Files edited**: 1
+
+- Project pipeline self-test: the two CurseForge map and add-on checks that still expected X.Y.Z versions ([1, 1, 0]) and the old " - Survival v(X.Y.Z)" file name now follow the single-number version format (vX, manifests [X, 0, 0]) and only require a Survival .mcworld for the map. Not tested in game.
+
 ## [v239] - 2026-11-23 - Self-test immutableWorld flag
 
 **Spec**: spec_v239.txt | **Target**: repo | **Files edited**: 1

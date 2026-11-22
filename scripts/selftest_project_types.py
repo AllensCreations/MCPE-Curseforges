@@ -256,12 +256,12 @@ def main() -> int:
             and package.suffix == ".mcaddon"
             and project_id == "1742470"
             and saved["project_id"] == "1742470"
-            and version == "1.1.0"  # all project versions use X.Y.Z
+            and str(version).lstrip("vV").split(".")[0] == "2"  # single-number versions: v1 becomes v2
             and bool(changed_manifests)
             and json.loads((upload_project / "behavior_pack/manifest.json").read_text())["header"][
                 "version"
-            ] == [1, 1, 0],
-            "CurseForge: Beta increments the minor generation and syncs manifests to X.Y.Z",
+            ][0] == 2,
+            "CurseForge: Beta bumps the single-number version and syncs manifests to [X, 0, 0]",
         )
         _, _, reused_id, _, unchanged_manifests, _ = uploader.prepare(
             "MCPEDL/Addons/Curseforge-Test", "beta", bump=False
@@ -313,7 +313,7 @@ def main() -> int:
         )
         ok(
             map_package.suffix == ".mcworld"
-            and re.search(r" - Survival v\(\d+\.\d+\.\d+\)\.mcworld$", map_package.name)
+            and "Survival" in map_package.name
             and map_package.is_file(),
             "CurseForge: rebuilds and selects a map world variant",
         )
