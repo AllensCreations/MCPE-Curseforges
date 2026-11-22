@@ -2,6 +2,11 @@
 
 ---
 
+## [16.0.3] - 2026-11-22 - Brick Block MCicons Icon
+
+### Changed
+- Brick Block now uses its MCicons icon (the Bricks icon), so all market items use MCicons.
+
 ## [16.0.2] - 2026-11-22 - MCicons Market Icons
 
 ### Changed

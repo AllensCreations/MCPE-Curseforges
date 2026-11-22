@@ -17,7 +17,6 @@ const UNSAFE_CORE = new Set([
   "minecraft:bamboo", "minecraft:repeater", "minecraft:comparator", "minecraft:anvil", "minecraft:netherite_block"
 ]);
 const MCICON_DIR = "textures/ui/natural_market/icons/";
-const NO_MCICON = new Set(["brick_block"]);
 const CATEGORIES = [
   { name: "Building Blocks", icon: MCICON_DIR + "stone" },
   { name: "Tools & Gear", icon: MCICON_DIR + "iron_pickaxe" },
@@ -286,7 +285,7 @@ for (const item of CATALOG) {
   const base = BASE_PRICE_FIX[item.raw] ?? item.price;
   item.sell = item.category === "Spawn Eggs" ? 0 : (SELL_FIX[item.raw] ?? Math.max(1, Math.floor(base / 2)));
   item.price = Math.max(1, Math.round(base * priceMult(item.tier)));
-  if (!NO_MCICON.has(item.raw)) item.icon = MCICON_DIR + item.raw;
+  item.icon = MCICON_DIR + item.raw;
 }
 const BUILDING_IDS = new Set(CATALOG.filter(i => i.category === "Building Blocks").map(i => i.id));
 const LEDGER_PENDING = "obm_ledger_pending";
