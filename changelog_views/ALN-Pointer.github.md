@@ -1,17 +1,28 @@
 # Changelog — ALN Pointer
 
-## [v20] - 2026-11-21 - Cleanup and Fixes
+## [v21] - 2026-11-22 - Arrow Guidance
 
-### Fixed
+### Added
+- **Arrow Guidance**: After you release a Bow Aimbot arrow it is aimed again every tenth of a second for up to 4 seconds, so it corrects for arrow drag and for a target that moves, and long shots land more often.
+- **Bow Zoom**: A new setting under Bow Aimbot in Combat Settings, Bow zoom while drawing (0 to 30 percent). While you draw a bow the aim circle grows to match the game's zoom. It is 0 by default, so the circle stays as it was until you set it.
+
+<details>
+<summary><b>20.0.x</b> (1 release)</summary>
+
+### [v20] - 2026-11-21 - Cleanup and Fixes
+
+#### Fixed
 - **Menu Version**: The menu title and About screen showed v16. They now show the real pack version.
 - **Locked On Text**: The Locked on message now only updates when the target changes or about every second and a half, so it no longer flickers or hides other action bar messages.
 - **Aim Circle Timeout**: The aim circle is refreshed every 30 minutes so it no longer disappears after an hour of holding a bow.
 
-### Changed
+#### Changed
 - **Description**: The page now matches the menus: Combat Settings with its groups, Quick Presets, the Tuning screen, and the Aura, Always Critical and Target Highlight cards.
 
-### Removed
+#### Removed
 - **Unused Files**: The 10 old circle particle files from before the screen circle were deleted. Nothing in the add-on used them.
+
+</details>
 
 <details>
 <summary><b>19.0.x</b> (1 release)</summary>

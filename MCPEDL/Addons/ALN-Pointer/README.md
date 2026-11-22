@@ -5,7 +5,7 @@ Download the current release of **Combat Helper** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Combat Helper (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V20.mcaddon)
+- **Direct download:** [Download Combat Helper (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V21.mcaddon)
 
 ## Installation
 

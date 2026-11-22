@@ -16,7 +16,7 @@
 
 - **Export request:** `MCPEDL/Addons/ALN-Pointer`
 - **Destination:** `MCPEDL/Addons/ALN-Pointer`
-- **CURRENT VERSION: v20 / NEXT UPDATE: v21**  (`MCPEDL/Addons/ALN-Pointer/CHANGELOG.md`)
+- **CURRENT VERSION: v21 / NEXT UPDATE: v22**  (`MCPEDL/Addons/ALN-Pointer/CHANGELOG.md`)
 - **Text files:** 27
 - **Skipped binary:** 16
 - **Paths not found:** 0
@@ -79,7 +79,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v20 / NEXT UPDATE: v21).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v21 / NEXT UPDATE: v22).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -146,11 +146,11 @@ Output ONLY these three sections in order:
 {
   "format_version": 2,
   "header": {
-    "name": "Combat Helper (v20)",
+    "name": "Combat Helper (v21)",
     "description": "A cursor-shaped item that opens a menu of PVP toggles. by ALNStudios",
     "uuid": "eec0404f-e785-480e-839e-0da27c699c31",
     "version": [
-      20,
+      21,
       0,
       0
     ],
@@ -165,7 +165,7 @@ Output ONLY these three sections in order:
       "type": "data",
       "uuid": "13407ddf-e15f-4d9c-90ec-eaa908a586a1",
       "version": [
-        20,
+        21,
         0,
         0
       ]
@@ -176,7 +176,7 @@ Output ONLY these three sections in order:
       "uuid": "63e54d22-75a9-41f8-9e7e-67b0553aace3",
       "entry": "scripts/main.js",
       "version": [
-        20,
+        21,
         0,
         0
       ]
@@ -198,7 +198,7 @@ Output ONLY these three sections in order:
     {
       "uuid": "8232add1-8bcd-4f9b-92e8-59dfc483f35f",
       "version": [
-        20,
+        21,
         0,
         0
       ]
@@ -217,7 +217,7 @@ Output ONLY these three sections in order:
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "20.0.0"
+    "version": "21.0.0"
   }
 }
 ```
@@ -255,7 +255,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/bowaim.js (166 lines, 5684 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/bowaim.js (184 lines, 6355 bytes)
 
 ```
 import { world, system, EntityComponentTypes, GameMode } from "@minecraft/server";
@@ -399,21 +399,39 @@ function aimPoint(from, target, speed) {
   return point;
 }
 
+// Points the arrow at the target from where it is now. Returns false when the arrow has stopped.
+function aim(arrow, projectile, target) {
+  const speed = length(arrow.getVelocity());
+  if (speed < MIN_SPEED) return false;
+  const from = arrow.location;
+  const direction = minus(aimPoint(from, target, speed), from);
+  const size = length(direction);
+  if (size < 0.001) return false;
+  projectile.shoot({ x: (direction.x / size) * speed, y: (direction.y / size) * speed, z: (direction.z / size) * speed });
+  return true;
+}
+
+// The arrow is aimed once, then corrected every 2 ticks for up to FOLLOW_TICKS, so drag and
+// a moving target are corrected in flight and no drag number has to be guessed.
+const FOLLOW_TICKS = 80;
+
 function steer(arrow) {
   try {
     if (!arrow.isValid) return;
     const projectile = arrow.getComponent(EntityComponentTypes.Projectile);
     const owner = projectile?.owner;
     if (!owner || owner.typeId !== PLAYER_ID || !isOn(owner, "bowAimbot")) return;
-    const speed = length(arrow.getVelocity());
-    if (speed < MIN_SPEED) return;
     const target = pickTarget(owner);
-    if (!target) return;
-    const from = arrow.location;
-    const direction = minus(aimPoint(from, target, speed), from);
-    const size = length(direction);
-    if (size < 0.001) return;
-    projectile.shoot({ x: (direction.x / size) * speed, y: (direction.y / size) * speed, z: (direction.z / size) * speed });
+    if (!target || !aim(arrow, projectile, target)) return;
+    let age = 0;
+    const id = system.runInterval(() => {
+      age += 2;
+      try {
+        if (age > FOLLOW_TICKS || !arrow.isValid || !target.isValid || !aim(arrow, projectile, target)) system.clearRun(id);
+      } catch (e) {
+        system.clearRun(id);
+      }
+    }, 2);
   } catch (e) {}
 }
 
@@ -569,7 +587,7 @@ export function initCombat() {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/extras.js (166 lines, 5735 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/extras.js (185 lines, 6599 bytes)
 
 ```
 import { world, system, EntityComponentTypes, EntityDamageCause, EquipmentSlot, GameMode } from "@minecraft/server";
@@ -643,6 +661,20 @@ function knock(event) {
   });
 }
 
+const drawn = new Map();
+
+// While you draw a bow the game zooms in, so the circle is drawn larger to cover the same area.
+// Bow zoom is how many percent your field of view shrinks at full draw (20 ticks). 0 turns it off.
+function drawZoom(p) {
+  const base = tune(p, "aimZoom");
+  const cut = tune(p, "bowZoom");
+  const start = drawn.get(p.id);
+  if (!cut || start === undefined) return base;
+  const pull = Math.min(1, (system.currentTick - start) / 20);
+  const fov = (tune(p, "screenFov") * Math.PI) / 180;
+  return (base * Math.tan(fov / 2)) / Math.tan((fov * (1 - (cut / 100) * pull)) / 2);
+}
+
 const hud = new Map();
 const hudAt = new Map();
 const locks = new Map();
@@ -669,7 +701,7 @@ function mark(p) {
     setCircle(p, "");
     return;
   }
-  const zoom = Math.min(300, Math.max(50, Math.round(tune(p, "aimZoom") / 10) * 10));
+  const zoom = Math.min(300, Math.max(50, Math.round(drawZoom(p) / 10) * 10));
   setCircle(p, tune(p, "aimCircle") === 1 ? `aln_z${zoom}` : "");
 
   const target = pickTarget(p);
@@ -718,6 +750,10 @@ export function initExtras() {
       } catch (e) {}
     }
   }, 10);
+  world.afterEvents.itemStartUse.subscribe(({ source, itemStack }) => {
+    if (BOWS.has(itemStack?.typeId)) drawn.set(source.id, system.currentTick);
+  });
+  world.afterEvents.itemStopUse.subscribe(({ source }) => drawn.delete(source.id));
   world.afterEvents.entityHurt.subscribe(show);
   world.afterEvents.entityHurt.subscribe(knock);
   system.runInterval(() => {
@@ -732,6 +768,7 @@ export function initExtras() {
   }, 1);
   world.afterEvents.playerLeave.subscribe(({ playerId }) => {
     last.delete(playerId);
+    drawn.delete(playerId);
     hud.delete(playerId);
     hudAt.delete(playerId);
     locks.delete(playerId);
@@ -825,7 +862,7 @@ export function initGear() {
 
 ```
 export const PACK_NAME = "Combat Helper";
-export const PACK_VERSION = "20";
+export const PACK_VERSION = "21";
 export const POINTER_ID = "allenscreations:aln_pointer";
 export const PLAYER_ID = "minecraft:player";
 ```
@@ -958,7 +995,7 @@ export function initLoops() {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/menu.js (236 lines, 9739 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/menu.js (236 lines, 9757 bytes)
 
 ```
 import { system } from "@minecraft/server";
@@ -1018,7 +1055,7 @@ async function openAbout(player) {
 
 const LAYOUT = [
   { title: "Aura", items: [["f", "aura"], ["t", "auraRange"], ["t", "auraDamage"], ["t", "auraTargets"], ["t", "auraTarget"], ["t", "auraFace"]] },
-  { title: "Bow Aimbot", items: [["f", "bowAimbot"], ["t", "aimRange"], ["t", "aimZoom"], ["f", "targetHighlight"], ["t", "aimCircle"], ["t", "aimHostile"], ["t", "aimNeutral"], ["t", "aimPassive"], ["t", "aimPlayers"]] },
+  { title: "Bow Aimbot", items: [["f", "bowAimbot"], ["t", "aimRange"], ["t", "aimZoom"], ["t", "bowZoom"], ["f", "targetHighlight"], ["t", "aimCircle"], ["t", "aimHostile"], ["t", "aimNeutral"], ["t", "aimPassive"], ["t", "aimPlayers"]] },
   { title: "Offense", items: [["f", "alwaysCritical"], ["t", "critPercent"], ["t", "knockback"], ["f", "damageDisplay"]] },
   { title: "Totems", items: [["f", "autoTotem"], ["f", "infiniteTotem"]] },
   { title: "Defense", items: [["f", "immortal"], ["f", "shield"], ["f", "noKnockback"], ["f", "autoGapple"], ["f", "waterClutch"], ["f", "keepGear"]] },
@@ -1198,7 +1235,7 @@ export async function openMain(player) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/README.md (80 lines, 4045 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/README.md (83 lines, 4571 bytes)
 
 ```
 # Combat Helper: script notes (scripts/lib)
@@ -1210,9 +1247,9 @@ Extracted from the script files; nothing here was run in game.
 
 | File | Lines | Purpose |
 | :-- | --: | :-- |
-| `scripts/lib/bowaim.js` | 166 | (no header comment) |
+| `scripts/lib/bowaim.js` | 184 | (no header comment) |
 | `scripts/lib/combat.js` | 140 | (no header comment) |
-| `scripts/lib/extras.js` | 166 | (no header comment) |
+| `scripts/lib/extras.js` | 185 | (no header comment) |
 | `scripts/lib/friends.js` | 19 | (no header comment) |
 | `scripts/lib/gear.js` | 55 | (no header comment) |
 | `scripts/lib/info.js` | 5 | (no header comment) |
@@ -1220,7 +1257,7 @@ Extracted from the script files; nothing here was run in game.
 | `scripts/lib/menu.js` | 236 | (no header comment) |
 | `scripts/lib/saved.js` | 28 | (no header comment) |
 | `scripts/lib/store.js` | 81 | (no header comment) |
-| `scripts/lib/tuning.js` | 37 | (no header comment) |
+| `scripts/lib/tuning.js` | 38 | (no header comment) |
 | `scripts/main.js` | 33 | (no header comment) |
 
 ## Imports
@@ -1248,6 +1285,8 @@ Extracted from the script files; nothing here was run in game.
 
 - `world.afterEvents.entityHurt`
 - `world.afterEvents.entitySpawn`
+- `world.afterEvents.itemStartUse`
+- `world.afterEvents.itemStopUse`
 - `world.afterEvents.itemUse`
 - `world.afterEvents.playerLeave`
 - `world.afterEvents.playerSpawn`
@@ -1276,8 +1315,9 @@ Known limits and things to check. Nothing here was run in game.
 - `lib/combat.js` works on `world.beforeEvents.entityHurt` and `event.damage`. It is not confirmed whether armor is already applied to that number, which matters for Keep Gear, Immortal and the totem toggles.
 - `lib/gear.js` (Keep Gear On Death) keeps items in memory only. They are lost if the world closes before the player respawns.
 - The aim circle is `resource_pack/ui/hud_screen.json`, shown by a title `aln_z<zoom>` (zoom 50 to 300, step 10). `CIRCLE_HEIGHT` in `lib/bowaim.js` must equal the circle size in that file (20% at zoom 100). `lib/extras.js` resends the title every 30 minutes because the title stay time is 72000 ticks. Any other title shown to the player clears the circle.
+- Bow zoom while drawing (`bowZoom` in Tuning) is how many percent the game's field of view shrinks at full draw, 0 by default. The real amount was not confirmed from the docs, so match it by eye with the Practice Dummy. Draw time is assumed to be 20 ticks.
 - The starter item is given only when the item `allenscreations:aln_gift_on` exists, which only the `gift` subpack defines. Not confirmed in game.
-- Bow Aimbot does not model arrow drag, so long shots may land short. All arrows of a crossbow multishot aim at the same target. Edit `NEUTRAL` and `IGNORED` in `lib/bowaim.js` to change which mobs count as neutral or are never targeted.
+- Bow Aimbot aims the arrow once, then calls `projectile.shoot` again every 2 ticks for up to 4 seconds to correct for drag and a moving target. The arrow's drag and gravity numbers were not confirmed from the docs, and re-shooting in flight was not confirmed in game. All arrows of a crossbow multishot aim at the same target. Edit `NEUTRAL` and `IGNORED` in `lib/bowaim.js` to change which mobs count as neutral or are never targeted.
 - Aura Mode has no line of sight check, so it can hit through walls.
 - `LAYOUT` in `lib/menu.js` must list every id in `FEATURES` (`lib/store.js`). Every id in `TUNING` (`lib/tuning.js`) except `screenFov` must appear in `LAYOUT`.
 ```
@@ -1399,7 +1439,7 @@ world.afterEvents.playerLeave.subscribe(({ playerId }) => {
 });
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/tuning.js (37 lines, 2162 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/tuning.js (38 lines, 2259 bytes)
 
 ```
 import { readSaved, writeSaved } from "./saved.js";
@@ -1412,6 +1452,7 @@ export const TUNING = [
   { id: "auraTargets", name: "Aura targets per hit", min: 1, max: 5, step: 1, def: 3 },
   { id: "aimRange", name: "Bow Aimbot range (blocks)", min: 16, max: 96, step: 8, def: 48 },
   { id: "aimZoom", name: "Aim circle zoom (percent)", min: 50, max: 300, step: 10, def: 100 },
+  { id: "bowZoom", name: "Bow zoom while drawing (percent)", min: 0, max: 30, step: 5, def: 0 },
   { id: "screenFov", name: "Your game FOV setting", min: 30, max: 110, step: 1, def: 70 },
   { id: "critPercent", name: "Always Critical damage (percent)", min: 110, max: 300, step: 10, def: 150 },
   { id: "knockback", name: "Knockback you deal (percent)", min: 0, max: 200, step: 25, def: 100 },
@@ -1515,12 +1556,18 @@ initGear();
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/CHANGELOG.md (157 lines, 11170 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/CHANGELOG.md (163 lines, 11679 bytes)
 
 ```
 # Changelog — ALN Pointer
 
 ---
+
+## [v21] - 2026-11-22 - Arrow Guidance
+
+### Added
+- **Arrow Guidance**: After you release a Bow Aimbot arrow it is aimed again every tenth of a second for up to 4 seconds, so it corrects for arrow drag and for a target that moves, and long shots land more often.
+- **Bow Zoom**: A new setting under Bow Aimbot in Combat Settings, Bow zoom while drawing (0 to 30 percent). While you draw a bow the aim circle grows to match the game's zoom. It is 0 by default, so the circle stays as it was until you set it.
 
 ## [v20] - 2026-11-21 - Cleanup and Fixes
 
@@ -1676,7 +1723,7 @@ initGear();
 - **Shield Always Active**: Blocks melee hits and arrows from the front whenever you carry a shield.
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/DESCRIPTION.md (169 lines, 14464 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/DESCRIPTION.md (169 lines, 14793 bytes)
 
 ```
 # Combat Helper — A cursor-shaped item that opens a menu of 13 PVP toggles
@@ -1734,8 +1781,8 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 ### Bow Aimbot
 - **Mob Types**: Four On or Off choices under Bow Aimbot pick what it hits: hostile mobs, neutral mobs, passive mobs and players. Hostile mobs and players are on by default, and tamed pets are never targeted.
 - **What Happens**: Arrows you shoot from a bow or crossbow steer toward the hostile mob or player closest to your crosshair within 48 blocks and inside the aim circle on your screen.
-- **How It Works**: Aim roughly at a target and release. The arrow leads a moving target and allows for arrow drop.
-- **Good To Know**: If nothing is near your crosshair, the arrow flies as normal. A mob or player hidden behind blocks is never chosen.
+- **How It Works**: Aim roughly at a target and release. The arrow leads a moving target and allows for arrow drop, and it keeps correcting its aim for up to 4 seconds in flight, so long shots and moving targets are hit more often.
+- **Good To Know**: If nothing is near your crosshair, the arrow flies as normal. A mob or player hidden behind blocks is never chosen. Bow zoom while drawing, under Bow Aimbot in Combat Settings, makes the aim circle grow as you draw to match the game's zoom. It is 0 percent by default, and you can raise it until the circle matches what you see.
 
 ### Always Water Clutch
 - **What Happens**: When you fall 3 blocks or more and the ground is close, a water block appears in the space you land in, so the fall does no damage, and it is removed as soon as you stop falling, together with any water that spread from it.
@@ -1867,7 +1914,7 @@ Download the current release of **Combat Helper** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Combat Helper (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V20.mcaddon)
+- **Direct download:** [Download Combat Helper (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V21.mcaddon)
 
 ## Installation
 
@@ -1886,11 +1933,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "Combat Helper (v20)",
+    "name": "Combat Helper (v21)",
     "description": "Combat Helper item texture. by ALNStudios",
     "uuid": "8232add1-8bcd-4f9b-92e8-59dfc483f35f",
     "version": [
-      20,
+      21,
       0,
       0
     ],
@@ -1905,7 +1952,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "83f195c6-92d3-428a-b707-06188b6a5f8d",
       "version": [
-        20,
+        21,
         0,
         0
       ]
@@ -1916,7 +1963,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "20.0.0"
+    "version": "21.0.0"
   }
 }
 ```
