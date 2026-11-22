@@ -5,7 +5,7 @@ Download the current release of **ALN Bow Aimbot** for Minecraft Bedrock Edition
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN Bow Aimbot (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Bow-Aimbot/ALNBowAimbot%20V1.mcaddon)
+- **Direct download:** [Download ALN Bow Aimbot (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Bow-Aimbot/ALNBowAimbot%20V1.0.1.mcaddon)
 
 ## Installation
 

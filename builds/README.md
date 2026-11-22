@@ -47,7 +47,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **ALNXRayVisor (Tactical Ore-Scanner Headgear) by ALNStudios** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios/ALNXRayVisorTacticalOreScannerHeadgearByALNStudios%20V1.mcaddon) | [`ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios/) |
 | **ALN PortalDoors** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-PortalDoors/ALNPortalDoors%20V1.mcaddon) | [`ALN-PortalDoors/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-PortalDoors/) |
 | **ALNLootSpawner (Arcane Relic Duplicator)** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNLootSpawner-Arcane-Relic-Duplicator/ALNLootSpawnerArcaneRelicDuplicator%20V1.0.3.mcaddon) | [`ALNLootSpawner-Arcane-Relic-Duplicator/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNLootSpawner-Arcane-Relic-Duplicator/) |
-| **ALN Bow Aimbot** | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Bow-Aimbot/ALNBowAimbot%20V1.mcaddon) | [`ALN-Bow-Aimbot/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-Bow-Aimbot/) |
+| **ALN Bow Aimbot** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-Bow-Aimbot/ALNBowAimbot%20V1.0.1.mcaddon) | [`ALN-Bow-Aimbot/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-Bow-Aimbot/) |
 
 ### Worlds and Maps
 

@@ -5,9 +5,9 @@
 - **Export request:** `MCPEDL/Addons/ALN-Bow-Aimbot`
 - **Destination:** `MCPEDL/Addons/ALN-Bow-Aimbot`
 - **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALN-Bow-Aimbot/CHANGELOG.md`)
-- **Spec ledger:** REPO_VERSION 232; the next spec is `spec_v233.txt` (newest specs are listed in the root `CHANGELOG.md`)
+- **Spec ledger:** REPO_VERSION 233; the next spec is `spec_v234.txt` (newest specs are listed in the root `CHANGELOG.md`)
 - **Text files:** 22
-- **Skipped binary:** 3
+- **Skipped binary:** 5
 - **Paths not found:** 0
 
 ### Files in this export
@@ -35,8 +35,10 @@
 - `MCPEDL/Addons/ALN-Bow-Aimbot/resource_pack/ui/hud_screen.json`
 - `MCPEDL/Addons/ALN-Bow-Aimbot/texture_sources/aln_bow_aimbot.json`
 
-### Skipped (binary): 3 file(s)
+### Skipped (binary): 5 file(s)
 
+- `MCPEDL/Addons/ALN-Bow-Aimbot/assets/items/aln_bow_aimbot.png`
+- `MCPEDL/Addons/ALN-Bow-Aimbot/assets/recipes/aln_bow_aimbot_recipe.png`
 - `MCPEDL/Addons/ALN-Bow-Aimbot/resource_pack/textures/items/aln_bow_aimbot.png`
 - `MCPEDL/Addons/ALN-Bow-Aimbot/resource_pack/textures/particle/alnb_circle.png`
 - `MCPEDL/Addons/ALN-Bow-Aimbot/resource_pack/textures/particle/alnb_target.png`
@@ -111,19 +113,19 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/behavior_pack/manifest.json (66 lines, 1146 bytes)
+## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/behavior_pack/manifest.json (66 lines, 1150 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "ALN Bow Aimbot (v1)",
-    "description": "A cursor-shaped item that opens the Bow Aimbot menu. by ALNStudios",
+    "name": "ALN Bow Aimbot (v1.0.1)",
+    "description": "A bow-and-arrow item that opens the Bow Aimbot menu. by ALNStudios",
     "uuid": "afe27565-4519-483f-bee2-af6fa41a11c2",
     "version": [
       1,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -138,7 +140,7 @@ Output ONLY these three sections in order:
       "version": [
         1,
         0,
-        0
+        1
       ]
     },
     {
@@ -149,7 +151,7 @@ Output ONLY these three sections in order:
       "version": [
         1,
         0,
-        0
+        1
       ]
     }
   ],
@@ -159,7 +161,7 @@ Output ONLY these three sections in order:
       "version": [
         1,
         0,
-        0
+        1
       ]
     },
     {
@@ -176,12 +178,12 @@ Output ONLY these three sections in order:
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "1.0.1"
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/behavior_pack/recipes/aln_bow_aimbot.json (23 lines, 438 bytes)
+## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/behavior_pack/recipes/aln_bow_aimbot.json (24 lines, 555 bytes)
 
 ```
 {
@@ -191,11 +193,12 @@ Output ONLY these three sections in order:
       "identifier": "allenscreations:aln_bow_aimbot"
     },
     "tags": ["crafting_table"],
-    "pattern": ["###", "## ", "# #"],
+    "pattern": [" E ", "ABA", " S "],
     "key": {
-      "#": {
-        "tag": "minecraft:wool"
-      }
+      "E": { "item": "minecraft:ender_eye" },
+      "A": { "item": "minecraft:arrow" },
+      "B": { "item": "minecraft:bow" },
+      "S": { "item": "minecraft:string" }
     },
     "unlock": {
       "context": "AlwaysUnlocked"
@@ -554,7 +557,7 @@ async function openAbout(player) {
   const body = [
     "Creator: ALNStudios",
     `${PACK_NAME} v${PACK_VERSION}`,
-    "A cursor-shaped item that opens the Bow Aimbot menu.",
+    "A bow-and-arrow item that opens the Bow Aimbot menu.",
     "CurseForge: allenscreations",
     "MCPEDL: alnstudios",
     "Not affiliated with Mojang.",
@@ -902,12 +905,18 @@ initBowAim();
 initHud();
 ```
 
-## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/CHANGELOG.md (15 lines, 1214 bytes)
+## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/CHANGELOG.md (21 lines, 1678 bytes)
 
 ```
 # Changelog — ALN Bow Aimbot
 
 ---
+
+## [1.0.1] - 2026-11-22 - Bow and Arrow Recipe
+
+### Improved & Balanced
+- **Crafting Recipe**: The ALN: Bow Aimbot is now crafted from a Bow, 2 Arrows, an Eye of Ender and a String instead of 7 wool. Put the Eye of Ender in the top middle square, the Bow in the center with an Arrow on each side, and the String in the bottom middle square.
+- **New Item Look**: The item is now drawn as a bow with a nocked arrow instead of a cursor, and its description says so.
 
 ## [1.0.0] - 2026-11-22 - First Release
 
@@ -921,10 +930,10 @@ initHud();
 - **Tuning**: Set your game FOV from 30 to 110 so the aim circle matches your Field of View setting.
 ```
 
-## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/DESCRIPTION.md (98 lines, 7348 bytes)
+## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/DESCRIPTION.md (98 lines, 7367 bytes)
 
 ```
-# ALN Bow Aimbot — A cursor-shaped item that steers your arrows to the target in the aim circle
+# ALN Bow Aimbot — A bow-and-arrow item that steers your arrows to the target in the aim circle
 
 **By ALNStudios**
 
@@ -933,7 +942,7 @@ initHud();
 
 **Use the ALN: Bow Aimbot item to steer bow and crossbow arrows to the target in your aim circle, up to 48 blocks away.**
 
-> ALN Bow Aimbot is a cursor-shaped item that opens a menu with the Bow Aimbot, a target highlight, a friends list and tuning options, saved separately for every player. It suits friends who practice archery in a world they own and want to pick their own settings.
+> ALN Bow Aimbot is a bow-and-arrow item that opens a menu with the Bow Aimbot, a target highlight, a friends list and tuning options, saved separately for every player. It suits friends who practice archery in a world they own and want to pick their own settings.
 
 ## Overview
 
@@ -942,8 +951,8 @@ You get an ALN: Bow Aimbot item, use it, and switch on Bow Aimbot in the ALNStud
 ## Key Features
 
 ### ALN: Bow Aimbot Item
-- **What Happens**: A cursor-shaped item that opens the menu when you use it. You craft one from wool or take one from the Equipment tab of the Creative inventory.
-- **How It Works**: Hold the item and use it, like right-clicking on PC or tapping on mobile. To craft one, fill the top row of a crafting table with wool, then the left and middle squares of the middle row, then the left and right squares of the bottom row. This takes 7 wool of any color and the shape looks like a cursor.
+- **What Happens**: A bow-and-arrow item that opens the menu when you use it. You craft one from a Bow, 2 Arrows, an Eye of Ender and a String, or take one from the Equipment tab of the Creative inventory.
+- **How It Works**: Hold the item and use it, like right-clicking on PC or tapping on mobile. To craft one, put the Eye of Ender in the top middle square of a crafting table, the Bow in the center with an Arrow on each side of it, and the String in the bottom middle square.
 - **Good To Know**: Use the command /give @s allenscreations:aln_bow_aimbot to get another one, which needs cheats.
 
 ### Bow Aimbot
@@ -978,14 +987,14 @@ You get an ALN: Bow Aimbot item, use it, and switch on Bow Aimbot in the ALNStud
 
 ## How to Use
 
-1. Craft an ALN: Bow Aimbot from 7 wool in a cursor shape, or take one from the Equipment tab of the Creative inventory.
+1. Craft an ALN: Bow Aimbot from a Bow, 2 Arrows, an Eye of Ender and a String, or take one from the Equipment tab of the Creative inventory.
 2. Hold the item and use it to open the ALNStudios menu, then tap Bow Aimbot Menu and Bow Aimbot Settings.
 3. Switch on Bow Aimbot and Target Highlight, then tap Apply.
 4. Hold a bow, aim near a target inside the circle and release.
 
 ## Common Questions
 
-- **How do I get another ALN: Bow Aimbot?**: Craft one from 7 wool on a crafting table, or take one from the Equipment tab of the Creative inventory.
+- **How do I get another ALN: Bow Aimbot?**: Craft one from a Bow, 2 Arrows, an Eye of Ender and a String on a crafting table, or take one from the Equipment tab of the Creative inventory.
 - **Do my settings affect other players?**: No. Each player has their own saved settings, and a toggle only changes what that player does.
 - **Can I use it on a server?**: This acts like a cheat. Many servers ban it, so use it only where the owner and the other players agree.
 
@@ -1019,7 +1028,7 @@ You get an ALN: Bow Aimbot item, use it, and switch on Bow Aimbot in the ALNStud
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, ALN Bow Aimbot Bedrock mod, Bow Aimbot, aim circle, Target Highlight, friends list, crossbow, Minecraft PE mouse pointer item, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+Minecraft Bedrock add-on, ALN Bow Aimbot Bedrock mod, Bow Aimbot, aim circle, Target Highlight, friends list, crossbow, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
 ```
 
 ## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/project.json (5 lines, 50 bytes)
@@ -1031,7 +1040,7 @@ Minecraft Bedrock add-on, ALN Bow Aimbot Bedrock mod, Bow Aimbot, aim circle, Ta
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/README.md (19 lines, 791 bytes)
+## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/README.md (19 lines, 795 bytes)
 
 ```
 # ALN Bow Aimbot
@@ -1041,7 +1050,7 @@ Download the current release of **ALN Bow Aimbot** for Minecraft Bedrock Edition
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN Bow Aimbot (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Bow-Aimbot/ALNBowAimbot%20V1.mcaddon)
+- **Direct download:** [Download ALN Bow Aimbot (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Bow-Aimbot/ALNBowAimbot%20V1.0.1.mcaddon)
 
 ## Installation
 
@@ -1054,19 +1063,19 @@ Download the current release of **ALN Bow Aimbot** for Minecraft Bedrock Edition
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALN-Bow-Aimbot/DESCRIPTION.md).
 ```
 
-## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/resource_pack/manifest.json (37 lines, 616 bytes)
+## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/resource_pack/manifest.json (37 lines, 620 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "ALN Bow Aimbot (v1)",
+    "name": "ALN Bow Aimbot (v1.0.1)",
     "description": "Item texture and aim circle for ALN Bow Aimbot. by ALNStudios",
     "uuid": "88d3c399-fe2a-44bb-809e-af2798c48f75",
     "version": [
       1,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -1081,7 +1090,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "version": [
         1,
         0,
-        0
+        1
       ]
     }
   ],
@@ -1090,7 +1099,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "1.0.1"
   }
 }
 ```
@@ -1940,7 +1949,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/texture_sources/aln_bow_aimbot.json (303 lines, 3264 bytes)
+## FILE: MCPEDL/Addons/ALN-Bow-Aimbot/texture_sources/aln_bow_aimbot.json (311 lines, 3446 bytes)
 
 ```
 [
@@ -1949,18 +1958,26 @@ For gameplay features, usage details, compatibility notes, and other project inf
     "size": 16,
     "palette": {
       "0": "#00000000",
-      "1": "#161616",
-      "2": "#ffffff",
-      "3": "#bdbdbd"
+      "1": "#1b1209",
+      "2": "#6b4423",
+      "3": "#9a6a35",
+      "4": "#c8924f",
+      "5": "#e6e6e6",
+      "6": "#b88a55",
+      "7": "#8f98a3",
+      "8": "#d0d6dc",
+      "9": "#c9342b",
+      "10": "#ff6a55",
+      "11": "#f4f4f4"
     },
     "pixels": [
       [
+        0,
+        0,
+        0,
+        0,
+        0,
         1,
-        0,
-        0,
-        0,
-        0,
-        0,
         0,
         0,
         0,
@@ -1973,13 +1990,13 @@ For gameplay features, usage details, compatibility notes, and other project inf
         0
       ],
       [
+        0,
+        0,
+        0,
+        0,
         1,
+        4,
         1,
-        0,
-        0,
-        0,
-        0,
-        0,
         0,
         0,
         0,
@@ -1991,14 +2008,14 @@ For gameplay features, usage details, compatibility notes, and other project inf
         0
       ],
       [
+        0,
+        0,
+        0,
         1,
-        2,
+        4,
         1,
-        0,
-        0,
-        0,
-        0,
-        0,
+        5,
+        1,
         0,
         0,
         0,
@@ -2009,14 +2026,14 @@ For gameplay features, usage details, compatibility notes, and other project inf
         0
       ],
       [
+        0,
+        0,
         1,
-        2,
+        4,
         3,
         1,
-        0,
-        0,
-        0,
-        0,
+        5,
+        1,
         0,
         0,
         0,
@@ -2027,175 +2044,157 @@ For gameplay features, usage details, compatibility notes, and other project inf
         0
       ],
       [
+        0,
+        0,
         1,
-        2,
-        2,
+        4,
         3,
         1,
+        5,
+        1,
         0,
         0,
         0,
-        0,
-        0,
-        0,
-        0,
+        1,
         0,
         0,
         0,
         0
       ],
       [
+        0,
         1,
-        2,
-        2,
-        2,
+        3,
         3,
         1,
+        1,
+        5,
+        1,
         0,
         0,
-        0,
-        0,
-        0,
-        0,
-        0,
+        1,
+        8,
+        1,
         0,
         0,
         0
       ],
       [
+        0,
         1,
-        2,
-        2,
-        2,
-        2,
         3,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      [
-        1,
-        2,
-        2,
-        2,
-        2,
-        2,
         3,
+        9,
+        9,
+        9,
         1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
+        1,
+        1,
+        1,
+        7,
+        8,
+        1,
+        1,
         0
       ],
       [
+        0,
         1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
         3,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      [
-        1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
         3,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
+        11,
+        10,
+        11,
+        6,
+        6,
+        6,
+        6,
+        7,
+        7,
+        8,
+        7,
+        1
       ],
       [
+        0,
         1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
         3,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      [
-        1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        1,
-        1,
-        1,
-        1,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      [
-        1,
-        2,
-        2,
-        1,
-        2,
         3,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
+        11,
+        9,
+        9,
+        6,
+        6,
+        6,
+        6,
+        7,
+        7,
+        7,
+        7,
+        1
       ],
       [
-        1,
-        2,
-        1,
         0,
         1,
-        2,
         3,
+        3,
+        9,
+        9,
+        9,
+        1,
+        1,
+        1,
+        1,
+        7,
+        7,
+        1,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        2,
+        2,
+        1,
+        1,
+        5,
+        1,
+        0,
+        0,
+        1,
+        7,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        2,
+        2,
+        1,
+        5,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        2,
+        2,
+        1,
+        5,
         1,
         0,
         0,
@@ -2207,15 +2206,33 @@ For gameplay features, usage details, compatibility notes, and other project inf
         0
       ],
       [
-        1,
-        1,
         0,
         0,
         0,
         1,
         2,
-        3,
         1,
+        5,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        1,
+        2,
+        1,
+        0,
+        0,
         0,
         0,
         0,
@@ -2230,9 +2247,9 @@ For gameplay features, usage details, compatibility notes, and other project inf
         0,
         0,
         0,
+        1,
         0,
-        1,
-        1,
+        0,
         0,
         0,
         0,

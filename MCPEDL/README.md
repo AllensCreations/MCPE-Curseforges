@@ -20,7 +20,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | Pack | Version | Source | Package | AI review |
 | :-- | :-- | :-- | :-- | :-- |
 | **2-in-1 Loot & XP Booster** | v10 | [Source](Addons/2-in-1-Loot--XP-Booster) | [Package](../Package/2-in-1-Loot--XP-Booster.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/2-in-1-Loot--XP-Booster.txt) |
-| **ALN Bow Aimbot** | 1.0.0 | [Source](Addons/ALN-Bow-Aimbot) | [Package](../Package/ALN-Bow-Aimbot.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-Bow-Aimbot.txt) |
+| **ALN Bow Aimbot** | 1.0.1 | [Source](Addons/ALN-Bow-Aimbot) | [Package](../Package/ALN-Bow-Aimbot.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-Bow-Aimbot.txt) |
 | **ALN ChestLog** | v4 | [Source](Addons/ALN-ChestLog) | [Package](../Package/ALN-ChestLog.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-ChestLog.txt) |
 | **ALN MoreDiscs** | v7 | [Source](Addons/ALN-MoreDiscs) | [Package](../Package/ALN-MoreDiscs.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-MoreDiscs.txt) |
 | **ALN PortalDoors** | 1.0.0 | [Source](Addons/ALN-PortalDoors) | [Package](../Package/ALN-PortalDoors.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-PortalDoors.txt) |
