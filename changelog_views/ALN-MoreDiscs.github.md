@@ -1,10 +1,23 @@
 # Changelog — ALN MoreDiscs
 
-## [v6] - 2026-11-22 - Particle Fix
+## [v7] - 2026-11-22 - Particle Removal
 
 ### Fixed
+- **Log Errors**: The Jukebox no longer spawns note particles, which removes the color errors that filled the game log.
+
+### Improved & Balanced
+- **Note Particles Removed**: Note particles no longer rise from the Jukebox while a track plays. The music, ejecting and headphones events work the same.
+
+<details>
+<summary><b>6.0.x</b> (1 release)</summary>
+
+### [v6] - 2026-11-22 - Particle Fix
+
+#### Fixed
 - **Note Particles**: The Jukebox note particles now get the color they need, so they no longer fill the game log with color errors.
 - **Menu Group**: The disc group entry now only names the existing Music Discs group instead of redefining it with an icon.
+
+</details>
 
 <details>
 <summary><b>5.0.x</b> (1 release)</summary>

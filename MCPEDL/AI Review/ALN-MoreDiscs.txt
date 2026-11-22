@@ -4,8 +4,8 @@
 
 - **Export request:** `MCPEDL/Addons/ALN-MoreDiscs`
 - **Destination:** `MCPEDL/Addons/ALN-MoreDiscs`
-- **CURRENT VERSION: v6 / NEXT UPDATE: v7**  (`MCPEDL/Addons/ALN-MoreDiscs/CHANGELOG.md`)
-- **Spec ledger:** REPO_VERSION 228; the next spec is `spec_v229.txt` (newest specs are listed in the root `CHANGELOG.md`)
+- **CURRENT VERSION: v7 / NEXT UPDATE: v8**  (`MCPEDL/Addons/ALN-MoreDiscs/CHANGELOG.md`)
+- **Spec ledger:** REPO_VERSION 229; the next spec is `spec_v230.txt` (newest specs are listed in the root `CHANGELOG.md`)
 - **Text files:** 76
 - **Skipped binary:** 92
 - **Paths not found:** 0
@@ -145,7 +145,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v6 / NEXT UPDATE: v7).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v7 / NEXT UPDATE: v8).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
@@ -1079,11 +1079,11 @@ Output ONLY these three sections in order:
 {
   "format_version": 2,
   "header": {
-    "name": "ALN MoreDiscs (v6)",
+    "name": "ALN MoreDiscs (v7)",
     "description": "ALN:MoreDiscs by ALNStudios: Adds 30 custom music discs for Jukeboxes & Wireless Headphones. Create custom personal packs at: https://alnstudios-more-discs.vercel.app",
     "uuid": "96a63a52-ef96-468f-ae36-b6d52dd57ac2",
     "version": [
-      6,
+      7,
       0,
       0
     ],
@@ -1100,7 +1100,7 @@ Output ONLY these three sections in order:
       "uuid": "9bea39e7-1e66-4072-9b33-cb0a6338ba6c",
       "entry": "scripts/main.js",
       "version": [
-        6,
+        7,
         0,
         0
       ]
@@ -1110,7 +1110,7 @@ Output ONLY these three sections in order:
     {
       "uuid": "428fa8bb-b2df-4222-a02f-609c97cc967e",
       "version": [
-        6,
+        7,
         0,
         0
       ]
@@ -1125,7 +1125,7 @@ Output ONLY these three sections in order:
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "6.0.0"
+    "version": "7.0.0"
   }
 }
 ```
@@ -2510,7 +2510,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/scripts/disc_jukebox.js (279 lines, 10706 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/scripts/disc_jukebox.js (269 lines, 10266 bytes)
 
 ```
 import * as mc from "@minecraft/server";
@@ -2597,14 +2597,6 @@ function send(eventId, payload) {
   } catch (error) {}
 }
 
-function spawnNotes(dimension, x, y, z) {
-  try {
-    const molang = new mc.MolangVariableMap();
-    molang.setColorRGB("variable.color", { red: Math.random(), green: Math.random(), blue: Math.random() });
-    dimension.spawnParticle("minecraft:note_particle", { x: x + 0.5, y: y + 1.2, z: z + 0.5 }, molang);
-  } catch (error) {}
-}
-
 function stopSound(disc) {
   for (const other of stored.values()) {
     if (other.playing && other.disc === disc) return;
@@ -2639,7 +2631,6 @@ function startTrack(dimension, entry) {
   try {
     dimension.playSound(DISCS[entry.disc].sound, { x: entry.x + 0.5, y: entry.y + 1, z: entry.z + 0.5 }, { volume: SOUND_VOLUME, pitch: 1 });
   } catch (error) {}
-  spawnNotes(dimension, entry.x, entry.y, entry.z);
 }
 
 function heldSlot(player) {
@@ -2738,7 +2729,6 @@ function tick() {
       stopPlaying(entry, "ended");
       continue;
     }
-    spawnNotes(dimension, entry.x, entry.y, entry.z);
   }
 }
 
@@ -2793,7 +2783,7 @@ export function initDiscJukebox() {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/scripts/lib/README.md (46 lines, 3000 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/scripts/lib/README.md (46 lines, 2877 bytes)
 
 ```
 # ALN MoreDiscs: script notes (scripts/lib)
@@ -2805,7 +2795,7 @@ Nothing here was run in game.
 
 | File | Lines | Purpose |
 | :-- | --: | :-- |
-| `scripts/disc_jukebox.js` | 278 | Own Jukebox handling for the 30 discs: insert, play, eject, end, break, headphones events |
+| `scripts/disc_jukebox.js` | 268 | Own Jukebox handling for the 30 discs: insert, play, eject, end, break, headphones events |
 | `scripts/main.js` | 4 | Entry point, calls `initDiscJukebox()` |
 
 ## Imports
@@ -2818,7 +2808,7 @@ Nothing here was run in game.
 - `world.beforeEvents.playerInteractWithBlock`: a disc used on a Jukebox is cancelled and handled by the script; any use on a Jukebox that holds one of the discs ejects it
 - `world.afterEvents.playerBreakBlock`: breaking a Jukebox that holds a disc ends the track and drops the disc
 - `system.afterEvents.scriptEventReceive`: `aln:disc_query` resends `aln:disc_started` for every track that is playing
-- `system.runInterval`: every 40 ticks ends finished tracks, drops the disc if the Jukebox is gone, spawns note particles
+- `system.runInterval`: every 40 ticks ends finished tracks, drops the disc if the Jukebox is gone
 
 ## Custom ids
 
@@ -2830,7 +2820,7 @@ Nothing here was run in game.
 ## Features found
 
 - cancel an interaction (beforeEvents) and finish the work in `system.run`
-- dimension.playSound, `stopsound` through runCommand, spawnItem, spawnParticle with a MolangVariableMap color
+- dimension.playSound, `stopsound` through runCommand, spawnItem
 - dynamic properties (saved data)
 - repeating timer (system.runInterval)
 
@@ -2839,7 +2829,7 @@ Nothing here was run in game.
 - The discs have no `minecraft:record` component: its `sound_event` only accepts vanilla names (13, cat, blocks, chirp, far, mall, mellohi, stal, strad, ward, 11, wait, pigstep, otherside, 5, relic) unless the Beta APIs experiment is on (checked in the docs on 2026-11-22). The game log showed all 30 items failing on it. The script therefore plays the tracks itself, so no experiment is needed.
 - Differences from a vanilla record: no spinning disc, no comparator signal, a Jukebox that already holds a vanilla record has to be emptied first, and a track does not resume after the world reloads (the disc stays inside).
 - Not verified in the docs: `ContainerSlot.setItem`/`amount`, the `minecraft:equippable` and `minecraft:inventory` component ids, `minecraft:record_player` `getRecord()`, the `volume` and `pitch` fields of the sound options, and the `stopsound` command with a custom sound. Each use is wrapped so a failure does nothing instead of breaking the pack.
-- The note particle needs a color: the game log asked for `.r`, `.g` and `.b`, and the docs (checked 2026-11-22) say `setColorRGB("variable.color", ...)` adds exactly those. That `minecraft:note_particle` reads the name `variable.color` is not verified.
+- Note particles were removed in v7: the vanilla note particle asked for color variables (`.r`, `.g`, `.b`) that the game log reported as missing, and its definition could not be checked in the docs.
 - Not tested in game.
 ```
 
@@ -2851,12 +2841,19 @@ import { initDiscJukebox } from "./disc_jukebox.js";
 initDiscJukebox();
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/CHANGELOG.md (59 lines, 3726 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/CHANGELOG.md (62 lines, 3538 bytes)
 
 ```
 # Changelog — ALN MoreDiscs
 
 ---
+
+## [v7] - 2026-11-22 - Particle Removal
+
+### Fixed
+- **Log Errors**: The Jukebox no longer spawns note particles, which removes the color errors that filled the game log.
+### Improved & Balanced
+- **Note Particles Removed**: Note particles no longer rise from the Jukebox while a track plays. The music, ejecting and headphones events work the same.
 
 ## [v6] - 2026-11-22 - Particle Fix
 
@@ -2907,14 +2904,11 @@ initDiscJukebox();
 
 ## [1.0.0] - 2026-11-16 - First Release
 
-### Added
-- **Five Music Discs**: Track 1 Neon Horizon, Track 2 Ember Lantern, Track 3 Quiet Tides, Track 4 Crystal Caverns and Track 5 Starlight Express, each an original track.
-- **Survival Recipes**: Each disc is crafted from Paper, Coal, Flint, a Note Block and one accent item, and all recipes are unlocked from the start.
-- **Jukebox Playback**: Use a disc on a Jukebox to play it, use it again to take the disc out, and see note particles while it plays.
-- **Headphones Announcements**: Starting and stopping a disc announces the track number, name and length for ALN Wireless Headphones.
+
+(older entries omitted; ask for the full file if needed)
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/CURSEFORGE_DESCRIPTION.md (77 lines, 4573 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/CURSEFORGE_DESCRIPTION.md (77 lines, 4515 bytes)
 
 ```
 # ALN:MoreDiscs by ALNStudios
@@ -2970,7 +2964,7 @@ All thirty discs are craftable and their recipes are unlocked from the start.
 - Tracks 21 to 30: same top and middle rows; bottom row is one accent item, Paper, a second accent item: Redstone Dust and Lapis Lazuli for Track 21, Lapis Lazuli and Amethyst Shard for Track 22, Amethyst Shard and Glowstone Dust for Track 23, Glowstone Dust and Copper Ingot for Track 24, Copper Ingot and Iron Ingot for Track 25, Iron Ingot and Gold Ingot for Track 26, Gold Ingot and Emerald for Track 27, Emerald and Nether Quartz for Track 28, Nether Quartz and Blaze Powder for Track 29, Blaze Powder and Redstone Dust for Track 30
 
 ### Jukebox Playback
-Hold a disc and right-click a Jukebox to play it. Right-click again to take the disc out. Note particles rise from the Jukebox while a track plays. The pack handles these discs itself, so no experiments are needed, but the Jukebox shows no spinning disc, gives no Comparator signal, and has to be emptied of a vanilla disc first.
+Hold a disc and right-click a Jukebox to play it. Right-click again to take the disc out. The pack handles these discs itself, so no experiments are needed, but the Jukebox shows no spinning disc, gives no Comparator signal, and has to be emptied of a vanilla disc first.
 
 ## Compatibility
 
@@ -2995,7 +2989,7 @@ ALNStudios distributes only the thirty original default tracks included in this 
 Verification: source created, package built, not tested in game.
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/DESCRIPTION.md (114 lines, 7285 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/DESCRIPTION.md (114 lines, 7176 bytes)
 
 ```
 # ALN MoreDiscs — Thirty Craftable Music Discs With Original Tracks
@@ -3056,7 +3050,7 @@ Craft a disc at a Crafting Table, put it in a Jukebox and the matching track pla
 - **Good To Know**: All thirty recipes are unlocked from the start, so no cheats and no recipe discovery are needed.
 
 ### Jukebox Playback
-- **What Happens**: Use a disc on a Jukebox to play it, and use the Jukebox again to take the disc back out. Note particles rise from the Jukebox while a track plays.
+- **What Happens**: Use a disc on a Jukebox to play it, and use the Jukebox again to take the disc back out.
 - **Good To Know**: Breaking the Jukebox or taking the disc out ends the track and gives the disc back. The pack handles these discs itself, so no experiments are needed, but the Jukebox shows no spinning disc, gives no Comparator signal, and has to be emptied of a vanilla disc first.
 
 ### ALN Wireless Headphones Support
@@ -3071,7 +3065,7 @@ Craft a disc at a Crafting Table, put it in a Jukebox and the matching track pla
 
 1. Open the Crafting Table and craft a disc with the recipe above.
 2. Right-click a Jukebox while holding the disc.
-3. Listen for the track and watch the note particles rise from the Jukebox.
+3. Listen for the track.
 4. Right-click the Jukebox again to take the disc out and stop the track.
 
 ## Common Questions
@@ -3131,7 +3125,7 @@ Download the current release of **ALN MoreDiscs** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN MoreDiscs (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V6.mcaddon)
+- **Direct download:** [Download ALN MoreDiscs (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V7.mcaddon)
 
 ## Installation
 
@@ -3150,11 +3144,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN MoreDiscs (v6)",
+    "name": "ALN MoreDiscs (v7)",
     "description": "Disc textures, names and music tracks for ALN MoreDiscs. by ALNStudios",
     "uuid": "428fa8bb-b2df-4222-a02f-609c97cc967e",
     "version": [
-      6,
+      7,
       0,
       0
     ],
@@ -3169,7 +3163,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "084c6d11-2f61-4186-9b73-fbaa8f293328",
       "version": [
-        6,
+        7,
         0,
         0
       ]
@@ -3180,7 +3174,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "6.0.0"
+    "version": "7.0.0"
   }
 }
 ```
