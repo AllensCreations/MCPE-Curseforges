@@ -17,10 +17,8 @@
       "item": "minecraft:warped_trapdoor",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

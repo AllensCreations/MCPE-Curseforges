@@ -16,10 +16,8 @@
       "item": "minecraft:magma_cream",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

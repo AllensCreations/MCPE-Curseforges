@@ -2,6 +2,13 @@
 
 ---
 
+## [v12] - 2026-11-22 - Shapeless Recipe Fix
+
+### Fixed
+
+- **Shapeless Recipes**: Uncrafting, recombining, recycling, stonecutter, and other shapeless recipes now use the unlock format shown in the game's own recipe documentation, so they load without errors.
+- **Oak Trapdoor and Fence Gate**: The stonecutter recipes now use the Oak Trapdoor and Oak Fence Gate item names the game knows.
+
 ## [v11] - 2026-11-22 - Entity and Item Fixes
 
 ### Improved & Balanced

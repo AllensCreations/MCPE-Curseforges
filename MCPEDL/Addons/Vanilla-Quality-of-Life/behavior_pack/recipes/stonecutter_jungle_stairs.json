@@ -17,10 +17,8 @@
       "item": "minecraft:jungle_stairs",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

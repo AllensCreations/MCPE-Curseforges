@@ -14,13 +14,11 @@
       }
     ],
     "result": {
-      "item": "minecraft:oak_fence_gate",
+      "item": "minecraft:fence_gate",
       "count": 1
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
