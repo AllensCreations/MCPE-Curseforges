@@ -69,6 +69,7 @@ Generated from the module docstrings in `scripts/` and the files in `.github/wor
 - `scripts/remake_docs.py`: Remake README.md, DESCRIPTION.md, and CHANGELOG.md for every project (or one) to the Part 2 standard.
 - `scripts/rename_brand.py`: One-time migration: rename the creator brand across the whole repository.
 - `scripts/rename_packages.py`: Rename every package to '<Shortcut> VX.Y.Z.<ext>' and repair every text reference to the old names.
+- `scripts/run_repo_tests.py`: Whole-repo test runner for ALNStudios/MCPE-Curseforges.
 - `scripts/selftest_project_types.py`: End-to-end self-test of the addon / map / script pipeline, in a throwaway copy of the repo.
 - `scripts/step_summary.py`: Run a command, show its output in the log and add it to the GitHub step summary.
 - `scripts/sync_dispatch_choices.py`: Keep the "Registered pack" dropdown of Publish to CurseForge in sync with the saved CurseForge IDs.
