@@ -1,12 +1,22 @@
 # Changelog — ALN:PirateTokens
 
-## [1.0.3] - 2026-11-23 - Shorter Menu Text
+## [1.0.4] - 2026-11-23 - Tiered Crate Prizes
 
-### Fixed
-- **Cut-off text**: The ledger title and the Hunter's Compass button no longer end in "..." or lose their price line.
+### Added
+- **54 crate prizes**: Prizes now come in 5 tiers (Common, Uncommon, Rare, Epic, Legendary), from cooked fish and arrows up to a Dragon Egg and 5 Cursed Captain's Coins.
+- **Tier odds**: The Buccaneer Crate rolls all 54 prizes. The Cursed Captain's Crate skips Common prizes and rolls 40 with better odds for Rare, Epic and Legendary.
+- **Prize lists**: View Prizes has a list for each crate, sorted from Legendary down, with each prize's tier and exact chance.
+
+### Changed
+- **Win titles**: The roll ends with the prize tier as the title, and Legendary prizes show JACKPOT.
 
 <details>
-<summary><b>1.0.x</b> (3 releases)</summary>
+<summary><b>1.0.x</b> (4 releases)</summary>
+
+### [1.0.3] - 2026-11-23 - Shorter Menu Text
+
+#### Fixed
+- **Cut-off text**: The ledger title and the Hunter's Compass button no longer end in "..." or lose their price line.
 
 ### [1.0.2] - 2026-11-23 - Crate Rewards and MC Icons
 

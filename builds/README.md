@@ -50,7 +50,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **ALN Bow Aimbot** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-Bow-Aimbot/ALNBowAimbot%20V1.0.1.mcaddon) | [`ALN-Bow-Aimbot/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-Bow-Aimbot/) |
 | **ALN SoulLantern** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-SoulLantern/ALNSoulLantern%20V1.0.1.mcaddon) | [`ALN-SoulLantern/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-SoulLantern/) |
 | **Homes Warps and Back** | Add-on (.mcaddon) | [Download (.mcaddon)](Homes-Warps-and-Back/HomesWarpsBack%20V1.mcaddon) | [`Homes-Warps-and-Back/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Homes-Warps-and-Back/) |
-| **ALNPirateTokens** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNPirateTokens/ALNPirateTokens%20V1.0.3.mcaddon) | [`ALNPirateTokens/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNPirateTokens/) |
+| **ALNPirateTokens** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNPirateTokens/ALNPirateTokens%20V1.0.4.mcaddon) | [`ALNPirateTokens/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNPirateTokens/) |
 | **ALN FarmerGolem** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-FarmerGolem/ALNFarmerGolem%20V2.mcaddon) | [`ALN-FarmerGolem/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-FarmerGolem/) |
 
 ### Worlds and Maps

@@ -1,8 +1,8 @@
 {
-  "changelog_version": "1.0.3",
-  "manifest_version": "1.0.3",
+  "changelog_version": "1.0.4",
+  "manifest_version": "1.0.4",
   "packages": {
-    "ALNPirateTokens V1.0.3.mcaddon": "c715ca5fe5283e506d8494082f8bb77d02b1386c502fc2271be33af908ffd5a1"
+    "ALNPirateTokens V1.0.4.mcaddon": "c1564ceb360bb480c566841912db4664ab93a912fc89c956cea3a5af7145728e"
   },
-  "source_sha256": "1ba6b17b99a4ed9f6a9008435dfdc0b85248dc0f92318a5c095fc39be5ddeadf"
+  "source_sha256": "c27a39b3da694a81bff67a832d1e81bf55565411d9c6d8aa0aeb9e401701e262"
 }
