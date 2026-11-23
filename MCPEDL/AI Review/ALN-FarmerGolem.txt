@@ -4,8 +4,8 @@
 
 - **Export request:** `MCPEDL/Addons/ALN-FarmerGolem`
 - **Destination:** `MCPEDL/Addons/ALN-FarmerGolem`
-- **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALN-FarmerGolem/CHANGELOG.md`)
-- **Spec ledger:** REPO_VERSION 236; the next spec is `spec_v237.txt` (newest specs are listed in the root `CHANGELOG.md`)
+- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/ALN-FarmerGolem/CHANGELOG.md`)
+- **Spec ledger:** REPO_VERSION 247; the next spec is `spec_v248.txt` (newest specs are listed in the root `CHANGELOG.md`)
 - **Text files:** 24
 - **Skipped binary:** 3
 - **Paths not found:** 0
@@ -52,7 +52,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v1 / NEXT UPDATE: v2).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
@@ -125,7 +125,7 @@ Output ONLY these three sections in order:
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-FarmerGolem/behavior_pack/entities/farmer_chest_storage.json (47 lines, 1066 bytes)
+## FILE: MCPEDL/Addons/ALN-FarmerGolem/behavior_pack/entities/farmer_chest_storage.json (48 lines, 1168 bytes)
 
 ```
 {
@@ -148,8 +148,8 @@ Output ONLY these three sections in order:
         "height": 1.1
       },
       "minecraft:health": {
-        "value": 8,
-        "max": 8
+        "value": 40,
+        "max": 40
       },
       "minecraft:inventory": {
         "container_type": "container",
@@ -170,6 +170,7 @@ Output ONLY these three sections in order:
         "value": 1.0
       },
       "minecraft:fire_immune": {},
+        "minecraft:breathable": {"total_supply": 15, "suffocate_time": 0, "breathes_solids": true},
       "minecraft:persistent": {}
     }
   }
@@ -196,8 +197,8 @@ Output ONLY these three sections in order:
         ]
       },
       "minecraft:collision_box": {
-        "width": 1.2,
-        "height": 2.5
+        "width": 0.7,
+        "height": 1.0
       },
       "minecraft:health": {
         "value": 60,
@@ -313,11 +314,11 @@ Output ONLY these three sections in order:
 {
   "format_version": 2,
   "header": {
-    "name": "ALN FarmerGolem (v1)",
+    "name": "ALN FarmerGolem (v2)",
     "description": "Build a Farmer Golem from a Hay Bale and a Carved Pumpkin. by ALNStudios",
     "uuid": "5a70a6e7-747b-4211-9ffa-97d72c239477",
     "version": [
-      1,
+      2,
       0,
       0
     ],
@@ -332,7 +333,7 @@ Output ONLY these three sections in order:
       "type": "data",
       "uuid": "622db399-764f-49ce-93c3-dc8cc30f88db",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -342,7 +343,7 @@ Output ONLY these three sections in order:
       "language": "javascript",
       "uuid": "fe3a64f9-f0a1-4864-96ad-53bd87eeb19f",
       "version": [
-        1,
+        2,
         0,
         0
       ],
@@ -353,7 +354,7 @@ Output ONLY these three sections in order:
     {
       "uuid": "178855c5-79bc-4284-b3a7-780bef7ccaee",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -368,12 +369,12 @@ Output ONLY these three sections in order:
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "2.0.0"
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-FarmerGolem/behavior_pack/scripts/lib/README.md (24 lines, 1276 bytes)
+## FILE: MCPEDL/Addons/ALN-FarmerGolem/behavior_pack/scripts/lib/README.md (24 lines, 1368 bytes)
 
 ```
 # Scripts and lib
@@ -387,8 +388,8 @@ This folder holds no helper files yet. All logic lives in scripts/main.js.
 ## Custom ids used
 
 - Block aln:farmer_chest (visual chest, drops a Hay Bale and a Carved Pumpkin when broken).
-- Entity aln:farmer_chest_storage (invisible 27-slot container sitting on the chest block, slightly larger than the block so players hit it first).
-- Entity aln:farmer_golem (the worker; its home chest position is stored as a tag named aln_home:x,y,z).
+- Entity aln:farmer_chest_storage (invisible 27-slot container sitting on the chest block, slightly larger than the block so players hit it first, 40 health, rebuilt empty when it goes missing without having been hit).
+- Entity aln:farmer_golem (the one block tall dwarf worker; its home chest position is stored as a tag named aln_home:x,y,z).
 
 ## Events
 
@@ -401,7 +402,7 @@ This folder holds no helper files yet. All logic lives in scripts/main.js.
 - Crop growth values, particle ids, sound ids and the container interaction were not checked in game.
 ```
 
-## FILE: MCPEDL/Addons/ALN-FarmerGolem/behavior_pack/scripts/main.js (435 lines, 13987 bytes)
+## FILE: MCPEDL/Addons/ALN-FarmerGolem/behavior_pack/scripts/main.js (458 lines, 14965 bytes)
 
 ```
 import { world, system, ItemStack, EntityComponentTypes } from "@minecraft/server";
@@ -431,6 +432,7 @@ const HERD_LIMIT = 14;
 const HERD_RADIUS = 10;
 const MATURE_GROWTH = 7;
 const MISS_LIMIT = 3;
+const STORAGE_HEALTH = 40;
 
 const roll = (min, max) => min + Math.floor(Math.random() * (max - min + 1));
 const center = (p) => ({ x: p.x + 0.5, y: p.y + 0.5, z: p.z + 0.5 });
@@ -483,6 +485,7 @@ const misses = new Map();
 const healAt = new Map();
 const cooldowns = new Map();
 const blocked = new Map();
+const storageHealth = new Map();
 
 function forget(id) {
   known.delete(id);
@@ -490,6 +493,7 @@ function forget(id) {
   homes.delete(id);
   misses.delete(id);
   healAt.delete(id);
+  storageHealth.delete(id);
 }
 
 function burst(dim, at, particle, count, spread) {
@@ -554,7 +558,7 @@ function homeOf(golem) {
 }
 
 function findStorage(dim, home) {
-  return dim.getEntities({ type: STORAGE_ID, location: center(home), maxDistance: 1.5 })[0];
+  return dim.getEntities({ type: STORAGE_ID, location: center(home), maxDistance: 2.5 })[0];
 }
 
 function isFree(dim, x, y, z) {
@@ -563,7 +567,7 @@ function isFree(dim, x, y, z) {
 }
 
 function roomAt(dim, x, y, z) {
-  return isFree(dim, x, y, z) && isFree(dim, x, y + 1, z) && isFree(dim, x, y + 2, z);
+  return isFree(dim, x, y, z);
 }
 
 function stepToward(golem, from, goal) {
@@ -615,7 +619,7 @@ function tryHeal(golem, dim, container) {
     healAt.set(golem.id, now + HEAL_COOLDOWN);
     const at = golem.location;
     burst(dim, { x: at.x, y: at.y + 1.2, z: at.z }, "minecraft:heart_particle", 4, 1.2);
-    burst(dim, { x: at.x, y: at.y + 0.5, z: at.z }, "minecraft:totem_particle", 8, 1.2);
+    burst(dim, { x: at.x, y: at.y + 0.5, z: at.z }, "minecraft:villager_happy", 8, 1.2);
     sound(dim, "random.eat", at);
     return true;
   }
@@ -705,6 +709,17 @@ function breed(dim, container, pair) {
   burst(dim, { x: b.x, y: b.y + 0.8, z: b.z }, "minecraft:heart_particle", 5, 1);
 }
 
+function restoreStorage(golem, dim, home) {
+  const at = center(home);
+  if (dim.getEntities({ tags: [STORAGE_TAG], location: at, maxDistance: 3 }).length > 0) return;
+  const storage = dim.spawnEntity(STORAGE_ID, { x: at.x, y: home.y - 0.05, z: at.z });
+  storage.addTag(STORAGE_TAG);
+  storageHealth.set(golem.id, STORAGE_HEALTH);
+  for (const player of dim.getEntities({ type: "minecraft:player", location: at, maxDistance: 16 })) {
+    attempt(() => player.onScreenDisplay.setActionBar("§eThe Farmer Chest storage was rebuilt."));
+  }
+}
+
 function dismantle(golem, dim, home, storage, chestStillThere) {
   if (storage) attempt(() => storage.kill());
   const at = center(home);
@@ -730,12 +745,20 @@ function brain(golem) {
   if (!chestOk || !storage) {
     const count = (misses.get(golem.id) ?? 0) + 1;
     misses.set(golem.id, count);
-    if (count >= MISS_LIMIT) {
-      dismantle(golem, dim, home, chestOk ? undefined : findStorage(dim, home), chestOk);
+    if (count < MISS_LIMIT) return;
+    misses.set(golem.id, 0);
+    if (!chestOk) {
+      dismantle(golem, dim, home, findStorage(dim, home), false);
+    } else if ((storageHealth.get(golem.id) ?? Infinity) < STORAGE_HEALTH - 0.5) {
+      dismantle(golem, dim, home, undefined, true);
+    } else {
+      restoreStorage(golem, dim, home);
     }
     return;
   }
   misses.set(golem.id, 0);
+  const vitals = storage.getComponent(EntityComponentTypes.Health);
+  if (vitals) storageHealth.set(golem.id, vitals.currentValue);
   const container = containerOf(storage);
   if (!container) return;
 
@@ -804,11 +827,12 @@ function build(player, dim, top, base) {
   golem.nameTag = GOLEM_NAME;
   golem.addTag(`${HOME_PREFIX}${spot.x},${spot.y},${spot.z}`);
   homes.set(golem.id, { x: spot.x, y: spot.y, z: spot.z });
+  storageHealth.set(golem.id, STORAGE_HEALTH);
   known.set(golem.id, golem);
   const at = { x: cx, y: spot.y + 1, z: cz };
   attempt(() => player.playSound("pumpkin.carve"));
   sound(dim, "pumpkin.carve", at);
-  burst(dim, at, "minecraft:totem_particle", 24, 1.6);
+  burst(dim, at, "minecraft:basic_flame_particle", 24, 1.6);
   burst(dim, at, "minecraft:villager_happy", 16, 1.6);
   player.onScreenDisplay.setActionBar(
     "§6§lFarmer Golem§r§e awakens. Open the Farmer Chest to store seeds, wheat, carrots and food."
@@ -856,12 +880,21 @@ entity.aln:farmer_chest_storage.name=Farmer Chest
 ]
 ```
 
-## FILE: MCPEDL/Addons/ALN-FarmerGolem/CHANGELOG.md (13 lines, 603 bytes)
+## FILE: MCPEDL/Addons/ALN-FarmerGolem/CHANGELOG.md (22 lines, 1073 bytes)
 
 ```
 # Changelog — ALN FarmerGolem
 
 ---
+
+## [v2] - 2026-11-23 - Dwarf Golem Update
+
+### Added
+- **Dwarf Farmer Golem**: The Farmer Golem is now a one block tall bearded dwarf wearing a straw hat and overalls.
+
+### Fixed
+- **Chest storage**: When the Farmer Chest storage goes missing without being hit, it is rebuilt empty instead of removing the golem and dropping a Hay Bale and a Carved Pumpkin.
+- **Chest breaking**: The Farmer Chest storage now has 40 health, so it takes several hits to break the chest.
 
 ## [1.0.0] - 2026-11-23 - First Release
 
@@ -873,7 +906,7 @@ entity.aln:farmer_chest_storage.name=Farmer Chest
 - **Self-Healing**: The golem eats food from the chest to recover health after fights.
 ```
 
-## FILE: MCPEDL/Addons/ALN-FarmerGolem/DESCRIPTION.md (81 lines, 5053 bytes)
+## FILE: MCPEDL/Addons/ALN-FarmerGolem/DESCRIPTION.md (81 lines, 5195 bytes)
 
 ```
 # ALN FarmerGolem — A farmhand golem with its own storage chest
@@ -889,17 +922,17 @@ entity.aln:farmer_chest_storage.name=Farmer Chest
 
 ## Overview
 
-ALN FarmerGolem adds a Farmer Golem that you build from a Hay Bale and a Carved Pumpkin. The Hay Bale becomes a Farmer Chest and the golem stands on top of it wearing a straw hat.
+ALN FarmerGolem adds a Farmer Golem that you build from a Hay Bale and a Carved Pumpkin. The Hay Bale becomes a Farmer Chest and the golem, a bearded dwarf one block tall in a straw hat, stands on top of it.
 
 The golem harvests grown crops around it and stores the harvest in the chest. It feeds nearby farm animals with items from the chest and eats food from the chest when it is hurt.
 
 ## Key Features
 
 ### Carved Pumpkin on Hay Bale
-- **What Happens**: Placing a Carved Pumpkin directly on top of a Hay Bale removes both blocks, places a Farmer Chest where the Hay Bale was and summons a Farmer Golem named Farmer Golem with a straw hat. The builder hears a carving sound, sees sparkle particles and gets an action bar message.
+- **What Happens**: Placing a Carved Pumpkin directly on top of a Hay Bale removes both blocks, places a Farmer Chest where the Hay Bale was and summons a Farmer Golem, a one block tall bearded dwarf in a straw hat. The builder hears a carving sound, sees sparkle particles and gets an action bar message.
 
 ### Farmer Chest
-- **What Happens**: The Farmer Chest is a 27-slot storage container for seeds, wheat, carrots and food. Players and the golem use the same inventory. Each golem remembers the chest it was built on as its home.
+- **What Happens**: The Farmer Chest is a 27-slot storage container for seeds, wheat, carrots and food. Players and the golem use the same inventory. Each golem remembers the chest it was built on as its home. If the chest storage goes missing without being hit, it is rebuilt empty.
 
 ### Crop Harvesting
 - **What Happens**: The golem checks a 9 by 9 area around itself for fully grown wheat, carrots, potatoes and beetroots, walks to the nearest one, harvests it and replants it. The harvest goes straight into the Farmer Chest, and drops next to the chest if the chest is full.
@@ -914,7 +947,7 @@ The golem harvests grown crops around it and stores the harvest in the chest. It
 - **What Happens**: The golem has 60 health and attacks hostile mobs that come within 10 blocks, except Creepers. It never attacks players.
 
 ### Dismantling
-- **What Happens**: Breaking the Farmer Chest removes the Farmer Golem and drops a Hay Bale and a Carved Pumpkin. The stored items spill out of the chest.
+- **What Happens**: Hitting the Farmer Chest until it breaks removes the Farmer Golem and drops a Hay Bale and a Carved Pumpkin. The stored items spill out of the chest.
 
 ## How to Use
 
@@ -922,7 +955,7 @@ The golem harvests grown crops around it and stores the harvest in the chest. It
 2. Place a Carved Pumpkin on top of the Hay Bale.
 3. Open the Farmer Chest and add wheat, seeds, carrots and food.
 4. Plant wheat, carrots, potatoes or beetroots within a few blocks of the chest and wait for them to grow.
-5. Break the Farmer Chest when you want to dismantle the golem.
+5. Hit the Farmer Chest until it breaks when you want to dismantle the golem.
 
 ## Compatibility
 
@@ -976,7 +1009,7 @@ Download the current release of **ALN FarmerGolem** for Minecraft Bedrock Editio
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN FarmerGolem (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-FarmerGolem/ALNFarmerGolem%20V1.mcaddon)
+- **Direct download:** [Download ALN FarmerGolem (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-FarmerGolem/ALNFarmerGolem%20V2.mcaddon)
 
 ## Installation
 
@@ -1088,11 +1121,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN FarmerGolem (v1)",
+    "name": "ALN FarmerGolem (v2)",
     "description": "Textures, model and animations for the Farmer Golem and Farmer Chest. by ALNStudios",
     "uuid": "178855c5-79bc-4284-b3a7-780bef7ccaee",
     "version": [
-      1,
+      2,
       0,
       0
     ],
@@ -1107,7 +1140,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "bf244715-fe71-46c7-a37f-39edb3a485de",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -1118,12 +1151,12 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "2.0.0"
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-FarmerGolem/resource_pack/models/entity/farmer_golem.geo.json (239 lines, 4336 bytes)
+## FILE: MCPEDL/Addons/ALN-FarmerGolem/resource_pack/models/entity/farmer_golem.geo.json (255 lines, 4634 bytes)
 
 ```
 {
@@ -1134,11 +1167,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
         "identifier": "geometry.aln_farmer_golem",
         "texture_width": 64,
         "texture_height": 64,
-        "visible_bounds_width": 3,
-        "visible_bounds_height": 3,
+        "visible_bounds_width": 2,
+        "visible_bounds_height": 2,
         "visible_bounds_offset": [
           0,
-          1.25,
+          0.5,
           0
         ]
       },
@@ -1147,20 +1180,20 @@ For gameplay features, usage details, compatibility notes, and other project inf
           "name": "body",
           "pivot": [
             0,
-            12,
+            3,
             0
           ],
           "cubes": [
             {
               "origin": [
-                -6,
-                12,
-                -4
+                -4,
+                3,
+                -2.5
               ],
               "size": [
-                12,
-                14,
-                8
+                8,
+                5,
+                5
               ],
               "uv": [
                 0,
@@ -1173,39 +1206,55 @@ For gameplay features, usage details, compatibility notes, and other project inf
           "name": "head",
           "pivot": [
             0,
-            26,
+            8,
             0
           ],
           "cubes": [
             {
               "origin": [
-                -4,
-                26,
-                -4
+                -3,
+                8,
+                -3
               ],
               "size": [
-                8,
-                8,
-                8
+                6,
+                5,
+                6
               ],
               "uv": [
                 0,
-                22
+                10
               ]
             },
             {
               "origin": [
                 -1,
-                27,
-                -6
+                9,
+                -5
               ],
               "size": [
                 2,
-                3,
+                2,
                 2
               ],
               "uv": [
-                56,
+                42,
+                0
+              ]
+            },
+            {
+              "origin": [
+                -3,
+                6,
+                -4
+              ],
+              "size": [
+                6,
+                4,
+                2
+              ],
+              "uv": [
+                26,
                 0
               ]
             }
@@ -1216,40 +1265,40 @@ For gameplay features, usage details, compatibility notes, and other project inf
           "parent": "head",
           "pivot": [
             0,
-            34,
+            13,
             0
           ],
           "cubes": [
             {
               "origin": [
-                -6,
-                34,
-                -6
+                -4.5,
+                13,
+                -4.5
               ],
               "size": [
-                12,
+                9,
                 1,
-                12
+                9
               ],
               "uv": [
                 0,
-                50
+                21
               ]
             },
             {
               "origin": [
-                -4,
-                35,
-                -4
+                -2.5,
+                14,
+                -2.5
               ],
               "size": [
-                8,
-                4,
-                8
+                5,
+                2,
+                5
               ],
               "uv": [
                 0,
-                38
+                31
               ]
             }
           ]
@@ -1257,24 +1306,24 @@ For gameplay features, usage details, compatibility notes, and other project inf
         {
           "name": "arm0",
           "pivot": [
-            -8,
-            25,
+            -5,
+            8,
             0
           ],
           "cubes": [
             {
               "origin": [
-                -10,
-                10,
-                -2
+                -6,
+                3,
+                -1
               ],
               "size": [
-                4,
-                16,
-                4
+                2,
+                5,
+                2
               ],
               "uv": [
-                40,
+                50,
                 0
               ]
             }
@@ -1283,24 +1332,24 @@ For gameplay features, usage details, compatibility notes, and other project inf
         {
           "name": "arm1",
           "pivot": [
+            5,
             8,
-            25,
             0
           ],
           "cubes": [
             {
               "origin": [
-                6,
-                10,
-                -2
+                4,
+                3,
+                -1
               ],
               "size": [
-                4,
-                16,
-                4
+                2,
+                5,
+                2
               ],
               "uv": [
-                40,
+                50,
                 0
               ],
               "mirror": true
@@ -1310,25 +1359,25 @@ For gameplay features, usage details, compatibility notes, and other project inf
         {
           "name": "leg0",
           "pivot": [
-            -3,
-            12,
+            -2.5,
+            3,
             0
           ],
           "cubes": [
             {
               "origin": [
-                -5,
+                -4,
                 0,
-                -2
+                -1.5
               ],
               "size": [
-                4,
-                12,
-                4
+                3,
+                3,
+                3
               ],
               "uv": [
-                40,
-                20
+                26,
+                7
               ]
             }
           ]
@@ -1336,8 +1385,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
         {
           "name": "leg1",
           "pivot": [
+            2.5,
             3,
-            12,
             0
           ],
           "cubes": [
@@ -1345,16 +1394,16 @@ For gameplay features, usage details, compatibility notes, and other project inf
               "origin": [
                 1,
                 0,
-                -2
+                -1.5
               ],
               "size": [
-                4,
-                12,
-                4
+                3,
+                3,
+                3
               ],
               "uv": [
-                40,
-                20
+                26,
+                7
               ],
               "mirror": true
             }
@@ -1428,8 +1477,8 @@ entity.aln:farmer_chest_storage.name=Farmer Chest
 [{"name":"aln_farmer_chest_side","size":16,"folder":"blocks","palette":{"0":"#00000000","1":"#4a2f14","2":"#9a6b35","3":"#8a8f98","4":"#6c717b","5":"#a97a40","6":"#8c5f2d","7":"#6b4520","8":"#e0b020","9":"#1d1209","10":"#a67c10"},"pixels":[[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[1,2,2,3,4,2,2,2,5,2,2,3,4,6,2,1],[1,7,7,3,4,7,7,7,7,7,7,3,4,7,7,1],[1,5,6,3,4,6,6,6,6,6,5,3,4,6,6,1],[1,6,5,3,4,6,6,6,6,6,6,3,4,6,6,1],[1,6,6,3,4,6,5,8,8,6,6,3,4,6,6,1],[1,2,2,3,4,2,6,9,9,2,2,3,4,5,2,1],[1,6,2,3,4,5,2,8,8,2,6,3,4,2,5,1],[1,7,7,3,4,7,7,10,10,7,7,3,4,7,7,1],[1,6,6,3,4,6,6,5,6,6,6,3,4,6,6,1],[1,6,6,3,4,6,6,6,5,6,6,3,4,6,6,1],[1,6,6,3,4,6,6,6,6,6,6,3,4,6,6,1],[1,5,2,3,4,2,2,2,2,2,5,3,4,2,2,1],[1,2,5,3,4,2,2,6,2,2,2,3,4,2,2,1],[1,7,7,3,4,7,7,7,7,7,7,3,4,7,7,1],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]]},{"name":"aln_farmer_chest_top","size":16,"folder":"blocks","palette":{"0":"#00000000","1":"#4a2f14","2":"#7a5226","3":"#8a8f98","4":"#6c717b","5":"#e6c458","6":"#f3dc82","7":"#c9a23a"},"pixels":[[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[1,2,2,3,4,2,2,2,2,2,2,3,4,2,2,1],[1,2,5,3,4,5,6,5,5,7,5,3,4,5,2,1],[1,2,7,3,4,5,5,7,5,6,5,3,4,5,2,1],[1,2,6,3,4,7,5,6,5,5,7,3,4,5,2,1],[1,2,5,3,4,6,5,5,7,5,6,3,4,7,2,1],[1,2,5,3,4,5,7,5,6,5,5,3,4,6,2,1],[1,2,5,3,4,5,6,5,5,7,5,3,4,5,2,1],[1,2,7,3,4,5,5,7,5,6,5,3,4,5,2,1],[1,2,6,3,4,7,5,6,5,5,7,3,4,5,2,1],[1,2,5,3,4,6,5,5,7,5,6,3,4,7,2,1],[1,2,5,3,4,5,7,5,6,5,5,3,4,6,2,1],[1,2,5,3,4,5,6,5,5,7,5,3,4,5,2,1],[1,2,7,3,4,5,5,7,5,6,5,3,4,5,2,1],[1,2,2,3,4,2,2,2,2,2,2,3,4,2,2,1],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]]}]
 ```
 
-## FILE: MCPEDL/Addons/ALN-FarmerGolem/texture_sources/farmer_golem_skin.json (2 lines, 8919 bytes)
+## FILE: MCPEDL/Addons/ALN-FarmerGolem/texture_sources/farmer_golem_skin.json (2 lines, 9228 bytes)
 
 ```
-[{"name":"skin","size":64,"folder":"items/farmer_golem","palette":{"0":"#00000000","1":"#c9a66b","2":"#b38f55","3":"#d8b97e","4":"#e6c458","5":"#e8801a","6":"#c4600c","7":"#c9a23a","8":"#f3dc82","9":"#3f63a8","10":"#334f87","11":"#5176bd","12":"#e0b020","13":"#5b3a1e","14":"#44290f","15":"#1d1209","16":"#b3352b","17":"#8c2820"},"pixels":[[0,0,0,0,0,0,0,0,1,2,1,1,1,1,1,1,3,1,2,1,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,1,2,1,1,4,4,4,4,0,0,0,0,0,0,5,5,6,6,0,0],[0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,3,1,1,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,4,7,4,4,0,0,0,0,0,0,5,5,6,6,0,0],[0,0,0,0,0,0,0,0,1,1,1,2,3,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,2,8,4,4,4,0,0,0,0,5,6,5,6,5,6,5,6],[0,0,0,0,0,0,0,0,1,1,3,1,2,1,1,1,1,1,1,3,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3,1,7,4,4,4,0,0,0,0,6,5,6,5,6,5,6,5],[0,0,0,0,0,0,0,0,1,1,1,3,1,1,1,1,2,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,1,1,1,2,1,1,1,3,1,1,1,1,2,1,1,1,5,6,5,6,5,6,5,6],[0,0,0,0,0,0,0,0,1,1,1,1,1,1,2,3,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,1,2,3,1,1,1,1,1,1,1,2,3,1,1,1,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,1,1,1,1,1,3,1,2,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,3,1,2,1,1,1,1,1,1,3,1,2,1,1,1,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,1,1,2,1,1,1,3,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,1,3,1,1,1,1,2,1,1,1,3,1,1,1,1,2,0,0,0,0,0,0,0,0],[3,1,1,1,1,1,1,1,2,3,9,9,1,1,1,1,9,10,3,1,1,1,1,1,1,1,2,3,1,1,9,9,1,1,1,2,11,9,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0],[2,1,1,1,1,1,1,3,1,2,9,9,1,1,1,1,11,9,2,1,1,1,1,1,1,3,1,2,1,1,9,9,1,1,3,1,10,9,1,1,1,1,1,3,1,2,1,1,1,1,1,1,3,1,2,1,0,0,0,0,0,0,0,0],[1,1,1,1,2,1,1,1,3,1,9,9,1,2,1,1,9,11,1,1,1,1,2,1,1,1,3,1,1,1,9,10,1,1,1,3,9,9,1,1,2,1,1,1,3,1,1,1,1,2,1,1,1,3,1,1,0,0,0,0,0,0,0,0],[1,1,2,3,1,1,1,1,1,1,9,10,3,1,1,1,9,9,1,1,2,3,1,1,1,1,1,1,1,2,11,9,1,1,1,1,9,9,2,3,1,1,1,1,1,1,1,2,3,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0],[1,3,1,2,1,1,1,1,1,1,12,9,10,9,9,9,9,12,1,3,1,2,1,1,1,1,1,1,3,1,10,9,1,1,1,1,9,11,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0],[1,1,3,1,1,1,1,2,1,1,9,11,9,9,9,9,10,9,1,1,3,1,1,1,1,2,1,1,1,3,9,9,1,1,2,1,9,9,3,1,1,1,1,2,1,1,1,3,1,1,1,1,2,1,1,1,0,0,0,0,0,0,0,0],[1,1,1,1,1,2,3,1,1,1,9,9,9,9,10,11,9,9,1,1,1,1,1,2,3,1,1,1,1,1,9,9,2,3,1,1,9,9,1,1,1,2,3,1,1,1,1,1,1,1,2,3,1,1,1,1,0,0,0,0,0,0,0,0],[9,9,9,9,11,9,10,9,1,1,9,9,9,11,9,10,9,9,1,1,9,9,11,9,10,9,9,9,9,9,9,11,9,10,9,9,9,9,9,9,3,1,2,1,1,1,1,1,1,3,1,2,1,1,1,1,0,0,0,0,0,0,0,0],[9,10,9,9,9,11,9,9,1,1,10,9,10,11,11,10,9,9,1,2,9,9,9,11,9,9,9,9,10,9,9,9,11,9,9,9,9,10,9,9,1,3,1,1,1,1,2,1,1,1,3,1,1,1,1,2,0,0,0,0,0,0,0,0],[11,9,9,9,9,9,9,9,2,2,9,9,11,11,11,11,9,10,3,1,9,9,9,9,9,9,10,11,9,9,9,9,9,9,9,10,11,9,9,9,4,4,4,4,7,8,4,4,4,4,4,4,4,7,8,4,0,0,0,0,0,0,0,0],[10,9,9,9,9,9,9,11,1,2,9,9,10,11,11,10,11,9,2,1,9,9,9,9,9,11,9,10,9,9,9,9,9,9,11,9,10,9,9,9,4,4,4,8,4,7,4,4,4,4,4,4,8,4,7,4,0,0,0,0,0,0,0,0],[9,9,9,9,10,9,9,9,3,1,9,9,9,10,9,9,9,11,1,1,9,9,10,9,9,9,11,9,9,9,9,10,9,9,9,11,9,9,9,9,7,4,4,4,8,4,4,4,4,7,4,4,4,8,4,4,0,0,0,0,0,0,0,0],[9,9,10,11,9,9,9,9,1,1,9,10,11,9,9,9,9,9,1,1,10,11,9,9,9,9,9,9,9,10,11,9,9,9,9,9,9,9,10,11,0,0,0,0,9,9,9,10,13,13,13,13,0,0,0,0,0,0,0,0,0,0,0,0],[9,11,9,10,9,9,9,9,1,1,11,9,10,9,9,9,9,9,1,3,9,10,9,9,9,9,9,9,11,9,10,9,9,9,9,9,9,11,9,10,0,0,0,0,9,9,11,9,14,13,13,13,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,1,1,1,3,1,1,1,1,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,11,13,13,13,13,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,1,1,1,1,1,1,2,3,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,13,13,14,13,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,1,1,1,1,1,3,1,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11,9,10,9,9,9,9,9,9,11,9,10,9,9,9,9,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,1,1,2,1,1,1,3,1,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,11,9,9,9,9,10,9,9,9,11,9,9,9,9,10,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,2,3,1,1,1,1,1,1,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,10,11,9,9,9,9,9,9,9,10,11,9,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,1,2,1,1,1,1,1,1,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,11,9,10,9,9,9,9,9,9,11,9,10,9,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,9,9,9,11,9,9,9,9,10,9,9,9,11,9,9,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,1,1,1,2,3,1,1,1,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,9,9,9,9,9,10,11,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0],[4,8,4,7,4,4,4,4,4,4,8,4,7,4,4,4,4,4,4,8,4,7,4,4,4,4,4,4,8,4,7,4,0,0,0,0,0,0,0,0,9,9,9,9,9,9,11,9,10,9,9,9,9,9,9,11,0,0,0,0,0,0,0,0],[4,4,8,4,4,4,4,7,4,4,4,8,4,4,4,4,7,4,4,4,8,4,4,4,4,7,4,4,4,8,4,4,0,0,0,0,0,0,0,0,9,9,9,10,9,9,9,11,9,9,9,9,10,9,9,9,0,0,0,0,0,0,0,0],[1,1,1,1,1,2,3,1,1,1,1,1,1,1,2,3,1,1,1,1,1,1,1,2,3,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,9,10,11,9,9,9,9,9,9,9,10,11,9,9,9,9,0,0,0,0,0,0,0,0],[1,1,1,1,3,1,2,1,1,1,15,1,1,15,1,2,1,1,1,1,1,1,3,1,2,1,1,1,1,1,1,3,0,0,0,0,0,0,0,0,13,13,14,13,13,13,13,13,13,13,13,14,13,13,13,13,0,0,0,0,0,0,0,0],[1,2,1,1,1,3,1,1,1,1,15,1,1,15,3,1,1,1,1,2,1,1,1,3,1,1,1,1,2,1,1,1,0,0,0,0,0,0,0,0,13,13,13,13,13,13,14,13,13,13,13,13,13,13,13,14,0,0,0,0,0,0,0,0],[3,1,1,1,1,1,1,1,2,15,1,1,1,1,15,1,1,2,3,1,1,1,1,1,1,1,2,3,1,1,1,1,0,0,0,0,0,0,0,0,13,13,13,13,14,13,13,13,13,13,13,13,13,14,13,13,0,0,0,0,0,0,0,0],[2,1,1,1,1,1,1,3,1,2,15,15,15,15,1,1,3,1,2,1,1,1,1,1,1,3,1,2,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[1,1,1,1,2,1,1,1,3,1,1,1,1,2,1,1,1,3,1,1,1,1,2,1,1,1,3,1,1,1,1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,4,4,4,7,8,4,4,4,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,4,4,8,4,7,4,4,4,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,4,4,4,8,4,4,4,4,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,4,4,4,4,4,4,7,8,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,4,4,4,4,4,8,4,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,4,4,7,4,4,4,8,4,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,7,8,4,4,4,4,4,4,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,4,7,4,4,4,4,4,4,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[4,4,4,4,7,4,4,4,8,4,4,4,4,7,4,4,4,8,4,4,4,4,7,4,4,4,8,4,4,4,4,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[4,4,7,8,4,4,4,4,4,4,4,7,8,4,4,4,4,4,4,4,7,8,4,4,4,4,4,4,4,7,8,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[16,17,16,16,16,16,16,16,17,16,16,16,16,16,16,17,16,16,16,16,16,16,17,16,16,16,16,16,16,17,16,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[17,16,16,16,16,16,16,17,16,16,16,16,16,16,17,16,16,16,16,16,16,17,16,16,16,16,16,16,17,16,16,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,7,4,8,4,8,4,8,4,8,4,8,7,7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,7,8,4,8,4,8,4,8,4,8,4,7,7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,7,4,8,4,8,4,8,4,8,4,8,7,7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,7,8,4,8,4,8,4,8,4,8,4,7,7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,7,4,8,4,8,4,8,4,8,4,8,7,7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,7,8,4,8,4,8,4,8,4,8,4,7,7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,7,4,8,4,8,4,8,4,8,4,8,7,7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,7,8,4,8,4,8,4,8,4,8,4,7,7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,7,4,8,4,8,4,8,4,8,4,8,7,7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,7,8,4,8,4,8,4,8,4,8,4,7,7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,4,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]}]
+[{"name":"skin","size":64,"folder":"items/farmer_golem","palette":{"0":"#00000000","1":"#c9a66b","2":"#d8b97e","3":"#b38f55","4":"#c4551a","5":"#d9702c","6":"#a3410f","7":"#e09070","8":"#c4875a","9":"#d99a66","10":"#3f63a8","11":"#334f87","12":"#e0b020","13":"#5176bd","14":"#5b3a1e","15":"#e6ae7c","16":"#6b4520","17":"#54351a","18":"#1d1209","19":"#c9a23a","20":"#e6c458","21":"#f3dc82","22":"#b3352b","23":"#8c2820"},"pixels":[[0,0,0,0,0,1,1,2,1,3,1,1,1,3,3,3,3,3,3,3,3,0,0,0,0,0,0,0,4,4,4,4,4,4,5,4,6,4,4,4,0,0,0,0,7,7,7,7,0,0,0,0,2,1,8,9,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,1,1,2,1,1,1,1,3,3,3,3,3,3,3,3,0,0,0,0,0,0,0,4,4,4,6,4,4,4,5,4,4,4,4,0,0,0,0,7,7,7,7,0,0,0,0,1,2,9,9,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,1,1,1,1,1,3,2,3,3,3,3,3,3,3,3,0,0,0,0,0,4,4,4,6,5,4,4,4,4,4,4,4,6,5,4,4,7,7,7,7,7,7,7,7,1,1,1,1,1,1,3,2,0,0,0,0,0,0],[0,0,0,0,0,1,1,1,1,1,2,1,3,3,3,3,3,3,3,3,3,0,0,0,0,0,4,4,5,4,6,4,4,4,4,4,4,5,4,6,4,4,7,7,7,7,7,7,7,7,1,1,1,1,1,2,1,3,0,0,0,0,0,0],[0,0,0,0,0,1,1,3,1,1,1,2,1,3,3,3,3,3,3,3,3,0,0,0,0,0,4,4,4,5,4,4,4,4,6,4,4,4,5,4,4,4,0,0,0,0,0,0,0,0,1,1,3,1,1,1,2,1,0,0,0,0,0,0],[1,1,1,1,1,3,2,10,1,1,10,1,1,1,3,2,1,1,1,1,10,1,1,11,2,1,4,4,4,4,4,4,6,5,4,4,4,4,4,4,4,6,0,0,0,0,0,0,0,0,3,2,1,1,1,1,1,1,0,0,0,0,0,0],[1,1,1,1,2,1,3,10,1,1,10,1,1,2,1,3,1,1,1,1,10,1,2,10,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,8,9,9,9,9,9,9,0,0,0,0,0,0],[1,3,1,1,1,2,1,12,10,10,12,1,1,1,2,1,1,1,10,11,10,10,10,13,10,10,0,0,0,10,10,10,14,14,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[13,10,10,10,10,1,1,10,11,13,10,1,1,10,10,10,10,11,13,10,10,10,10,10,10,10,0,0,0,10,10,10,14,14,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[11,10,10,10,10,1,1,13,10,11,10,1,1,10,10,10,13,10,11,10,10,10,10,10,10,13,0,0,0,10,10,10,14,14,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,9,9,15,9,9,9,8,8,8,8,8,8,0,0,0,0,0,0,0,0,13,10,10,10,10,11,10,10,10,13,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,9,9,9,9,9,8,8,8,8,8,8,8,0,0,0,0,0,0,0,0,10,10,10,11,13,10,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,9,9,9,9,15,9,8,8,8,8,8,8,0,0,0,0,0,0,0,0,14,14,14,14,14,14,14,14,14,14,14,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,9,8,9,9,9,15,8,8,8,8,8,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,15,9,9,9,9,9,8,8,8,8,8,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,8,9,9,9,9,9,8,8,8,8,8,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[16,17,16,16,16,16,16,16,16,16,17,16,16,16,16,16,16,16,16,17,16,16,16,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[16,16,16,16,16,16,9,16,8,15,16,9,16,16,16,16,16,17,16,16,16,16,16,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[8,9,9,9,9,9,9,18,9,8,18,9,9,9,9,9,15,9,17,16,16,16,16,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[9,9,9,9,8,9,9,9,15,9,9,9,9,8,9,9,9,15,16,16,16,16,17,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[9,9,8,15,9,9,9,9,9,9,9,8,15,9,9,9,9,9,9,9,8,15,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,19,20,21,20,21,20,21,20,19,19,19,19,19,19,19,19,19,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,19,21,20,21,20,21,20,21,19,19,19,19,19,19,19,19,19,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,19,20,21,20,21,20,21,20,19,19,19,19,19,19,19,19,19,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,19,21,20,21,20,21,20,21,19,19,19,19,19,19,19,19,19,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,19,20,21,20,21,20,21,20,19,19,19,19,19,19,19,19,19,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,19,21,20,21,20,21,20,21,19,19,19,19,19,19,19,19,19,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,19,20,21,20,21,20,21,20,19,19,19,19,19,19,19,19,19,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[20,19,20,19,20,19,20,19,20,19,20,19,20,19,20,19,20,19,20,19,20,19,20,19,20,19,20,19,20,19,20,19,20,19,20,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,20,20,19,20,20,19,19,19,19,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,19,21,20,20,20,19,19,19,19,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,20,19,20,20,20,19,19,19,19,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,21,20,20,20,20,19,19,19,19,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,20,20,20,19,21,19,19,19,19,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[19,20,20,20,20,20,20,21,20,19,20,20,20,20,20,20,21,20,19,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[22,22,22,23,22,22,22,22,23,22,22,22,22,23,22,22,22,22,23,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]}]
 ```
