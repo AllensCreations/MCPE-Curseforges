@@ -2,12 +2,15 @@
 
 Snapshot written by `python3 scripts/build_context7_docs.py` after the last spec. The files in the repository win over this page.
 
-- REPO_VERSION: 246. The next repo-level spec is spec_v247.txt (`@@ version 247`).
+- REPO_VERSION: 249. The next repo-level spec is spec_v250.txt (`@@ version 250`).
 - A spec that is not listed below or in the root `CHANGELOG.md` is NOT applied.
 - A project spec uses `@@ version` = the project's latest version below + 0.0.1.
 
 ## Newest specs (root CHANGELOG.md)
 
+- [v249] - 2026-11-23 - Sell Form Toggles | **Spec**: spec_v249.txt | **Target**: MCPEDL/Maps/OneBlock-Natural-Market | **Files edited**: 2
+- [v248] - 2026-11-23 - Sell Lock List | **Spec**: spec_v248.txt | **Target**: MCPEDL/Maps/OneBlock-Natural-Market | **Files edited**: 3
+- [v247] - 2026-11-23 - Dwarf Golem Update | **Spec**: spec_v247.txt | **Target**: MCPEDL/Addons/ALN-FarmerGolem | **Files edited**: 8
 - [v246] - 2026-11-23 - Where We Left Off Page | **Spec**: spec_v246.txt | **Target**: repo | **Files edited**: 1
 - [v245] - 2026-11-23 - Existing Boat Clutch | **Spec**: spec_v245.txt | **Target**: MCPEDL/Script/Universal-Clutch | **Files edited**: 6
 - [v244] - 2026-11-23 - Fix Duplication Timer and Add Break Drops | **Spec**: spec_v244.txt | **Target**: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator | **Files edited**: 3
@@ -15,16 +18,13 @@ Snapshot written by `python3 scripts/build_context7_docs.py` after the last spec
 - [v242] - 2026-11-23 - Restock Get Everything | **Spec**: spec_v242.txt | **Target**: MCPEDL/Addons/ALNOneClickSort | **Files edited**: 4
 - [v241] - 2026-11-23 - Repo Tester progress | **Spec**: spec_v241.txt | **Target**: repo | **Files edited**: 2
 - [v240] - 2026-11-23 - Self-test single-number versions | **Spec**: spec_v240.txt | **Target**: repo | **Files edited**: 1
-- [v239] - 2026-11-23 - Self-test immutableWorld flag | **Spec**: spec_v239.txt | **Target**: repo | **Files edited**: 1
-- [v238] - 2026-11-23 - Self-test world lock flags | **Spec**: spec_v238.txt | **Target**: repo | **Files edited**: 1
-- [v237] - 2026-11-23 - Spirit Ally and Particle Fix | **Spec**: spec_v237.txt | **Target**: MCPEDL/Addons/ALN-SoulLantern | **Files edited**: 9
 
 ## Projects (latest heading in each project CHANGELOG.md)
 
 - `MCPEDL/Addons/2-in-1-Loot--XP-Booster`: [v10] - 2026-11-22 - Up To Loot Levels
 - `MCPEDL/Addons/ALN-Bow-Aimbot`: [1.0.1] - 2026-11-22 - Bow and Arrow Recipe
 - `MCPEDL/Addons/ALN-ChestLog`: [v4] - 2026-11-22 - Shapeless Recipe Fix
-- `MCPEDL/Addons/ALN-FarmerGolem`: [1.0.0] - 2026-11-23 - First Release
+- `MCPEDL/Addons/ALN-FarmerGolem`: [v2] - 2026-11-23 - Dwarf Golem Update
 - `MCPEDL/Addons/ALN-GlobalMarket`: [1.0.2] - 2026-11-21 - Verified Icons
 - `MCPEDL/Addons/ALN-MoreDiscs`: [v7] - 2026-11-22 - Particle Removal
 - `MCPEDL/Addons/ALN-Pointer`: [v21] - 2026-11-22 - Arrow Guidance
@@ -65,7 +65,7 @@ Snapshot written by `python3 scripts/build_context7_docs.py` after the last spec
 - `MCPEDL/Addons/Vanilla-Quality-of-Life`: [v12] - 2026-11-22 - Shapeless Recipe Fix
 - `MCPEDL/Addons/Waypoint-Helper`: [v2] - 2026-11-14
 - `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks`: [v8] - 2026-11-22 - Baby Shower and Split Scripts
-- `MCPEDL/Maps/OneBlock-Natural-Market`: [16.0.3] - 2026-11-22 - Brick Block MCicons Icon
+- `MCPEDL/Maps/OneBlock-Natural-Market`: [16.0.5] - 2026-11-23 - Sell Form Toggles
 - `MCPEDL/Maps/OneBlock-Phase-Evolution`: [v2] - 2026-11-03
 - `MCPEDL/Maps/OneBlock-Void-Survival`: [v10] - 2026-11-23 - Latest Minecraft Update Support
 - `MCPEDL/Maps/Oneblock-SM`: [v2] - 2026-10-29
