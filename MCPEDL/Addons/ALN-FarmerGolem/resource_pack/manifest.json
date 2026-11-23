@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN FarmerGolem (v1)",
+    "name": "ALN FarmerGolem (v2)",
     "description": "Textures, model and animations for the Farmer Golem and Farmer Chest. by ALNStudios",
     "uuid": "178855c5-79bc-4284-b3a7-780bef7ccaee",
     "version": [
-      1,
+      2,
       0,
       0
     ],
@@ -20,7 +20,7 @@
       "type": "resources",
       "uuid": "bf244715-fe71-46c7-a37f-39edb3a485de",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -31,6 +31,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "2.0.0"
   }
 }

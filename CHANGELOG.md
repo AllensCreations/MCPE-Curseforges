@@ -4,6 +4,17 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v247] - 2026-11-23 - Dwarf Golem Update
+
+**Spec**: spec_v247.txt | **Target**: MCPEDL/Addons/ALN-FarmerGolem | **Files edited**: 8
+
+### Added
+- **Dwarf Farmer Golem**: The Farmer Golem is now a one block tall bearded dwarf wearing a straw hat and overalls.
+
+### Fixed
+- **Chest storage**: When the Farmer Chest storage goes missing without being hit, it is rebuilt empty instead of removing the golem and dropping a Hay Bale and a Carved Pumpkin.
+- **Chest breaking**: The Farmer Chest storage now has 40 health, so it takes several hits to break the chest.
+
 ## [v246] - 2026-11-23 - Where We Left Off Page
 
 **Spec**: spec_v246.txt | **Target**: repo | **Files edited**: 1

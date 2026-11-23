@@ -18,8 +18,8 @@
         "height": 1.1
       },
       "minecraft:health": {
-        "value": 8,
-        "max": 8
+        "value": 40,
+        "max": 40
       },
       "minecraft:inventory": {
         "container_type": "container",
@@ -40,6 +40,7 @@
         "value": 1.0
       },
       "minecraft:fire_immune": {},
+        "minecraft:breathable": {"total_supply": 15, "suffocate_time": 0, "breathes_solids": true},
       "minecraft:persistent": {}
     }
   }

@@ -9,8 +9,8 @@ This folder holds no helper files yet. All logic lives in scripts/main.js.
 ## Custom ids used
 
 - Block aln:farmer_chest (visual chest, drops a Hay Bale and a Carved Pumpkin when broken).
-- Entity aln:farmer_chest_storage (invisible 27-slot container sitting on the chest block, slightly larger than the block so players hit it first).
-- Entity aln:farmer_golem (the worker; its home chest position is stored as a tag named aln_home:x,y,z).
+- Entity aln:farmer_chest_storage (invisible 27-slot container sitting on the chest block, slightly larger than the block so players hit it first, 40 health, rebuilt empty when it goes missing without having been hit).
+- Entity aln:farmer_golem (the one block tall dwarf worker; its home chest position is stored as a tag named aln_home:x,y,z).
 
 ## Events
 

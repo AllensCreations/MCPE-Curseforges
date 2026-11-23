@@ -11,17 +11,17 @@
 
 ## Overview
 
-ALN FarmerGolem adds a Farmer Golem that you build from a Hay Bale and a Carved Pumpkin. The Hay Bale becomes a Farmer Chest and the golem stands on top of it wearing a straw hat.
+ALN FarmerGolem adds a Farmer Golem that you build from a Hay Bale and a Carved Pumpkin. The Hay Bale becomes a Farmer Chest and the golem, a bearded dwarf one block tall in a straw hat, stands on top of it.
 
 The golem harvests grown crops around it and stores the harvest in the chest. It feeds nearby farm animals with items from the chest and eats food from the chest when it is hurt.
 
 ## Key Features
 
 ### Carved Pumpkin on Hay Bale
-- **What Happens**: Placing a Carved Pumpkin directly on top of a Hay Bale removes both blocks, places a Farmer Chest where the Hay Bale was and summons a Farmer Golem named Farmer Golem with a straw hat. The builder hears a carving sound, sees sparkle particles and gets an action bar message.
+- **What Happens**: Placing a Carved Pumpkin directly on top of a Hay Bale removes both blocks, places a Farmer Chest where the Hay Bale was and summons a Farmer Golem, a one block tall bearded dwarf in a straw hat. The builder hears a carving sound, sees sparkle particles and gets an action bar message.
 
 ### Farmer Chest
-- **What Happens**: The Farmer Chest is a 27-slot storage container for seeds, wheat, carrots and food. Players and the golem use the same inventory. Each golem remembers the chest it was built on as its home.
+- **What Happens**: The Farmer Chest is a 27-slot storage container for seeds, wheat, carrots and food. Players and the golem use the same inventory. Each golem remembers the chest it was built on as its home. If the chest storage goes missing without being hit, it is rebuilt empty.
 
 ### Crop Harvesting
 - **What Happens**: The golem checks a 9 by 9 area around itself for fully grown wheat, carrots, potatoes and beetroots, walks to the nearest one, harvests it and replants it. The harvest goes straight into the Farmer Chest, and drops next to the chest if the chest is full.
@@ -36,7 +36,7 @@ The golem harvests grown crops around it and stores the harvest in the chest. It
 - **What Happens**: The golem has 60 health and attacks hostile mobs that come within 10 blocks, except Creepers. It never attacks players.
 
 ### Dismantling
-- **What Happens**: Breaking the Farmer Chest removes the Farmer Golem and drops a Hay Bale and a Carved Pumpkin. The stored items spill out of the chest.
+- **What Happens**: Hitting the Farmer Chest until it breaks removes the Farmer Golem and drops a Hay Bale and a Carved Pumpkin. The stored items spill out of the chest.
 
 ## How to Use
 
@@ -44,7 +44,7 @@ The golem harvests grown crops around it and stores the harvest in the chest. It
 2. Place a Carved Pumpkin on top of the Hay Bale.
 3. Open the Farmer Chest and add wheat, seeds, carrots and food.
 4. Plant wheat, carrots, potatoes or beetroots within a few blocks of the chest and wait for them to grow.
-5. Break the Farmer Chest when you want to dismantle the golem.
+5. Hit the Farmer Chest until it breaks when you want to dismantle the golem.
 
 ## Compatibility
 

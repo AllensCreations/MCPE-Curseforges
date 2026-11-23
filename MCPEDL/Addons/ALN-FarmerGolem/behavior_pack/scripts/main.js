@@ -25,6 +25,7 @@ const HERD_LIMIT = 14;
 const HERD_RADIUS = 10;
 const MATURE_GROWTH = 7;
 const MISS_LIMIT = 3;
+const STORAGE_HEALTH = 40;
 
 const roll = (min, max) => min + Math.floor(Math.random() * (max - min + 1));
 const center = (p) => ({ x: p.x + 0.5, y: p.y + 0.5, z: p.z + 0.5 });
@@ -77,6 +78,7 @@ const misses = new Map();
 const healAt = new Map();
 const cooldowns = new Map();
 const blocked = new Map();
+const storageHealth = new Map();
 
 function forget(id) {
   known.delete(id);
@@ -84,6 +86,7 @@ function forget(id) {
   homes.delete(id);
   misses.delete(id);
   healAt.delete(id);
+  storageHealth.delete(id);
 }
 
 function burst(dim, at, particle, count, spread) {
@@ -148,7 +151,7 @@ function homeOf(golem) {
 }
 
 function findStorage(dim, home) {
-  return dim.getEntities({ type: STORAGE_ID, location: center(home), maxDistance: 1.5 })[0];
+  return dim.getEntities({ type: STORAGE_ID, location: center(home), maxDistance: 2.5 })[0];
 }
 
 function isFree(dim, x, y, z) {
@@ -157,7 +160,7 @@ function isFree(dim, x, y, z) {
 }
 
 function roomAt(dim, x, y, z) {
-  return isFree(dim, x, y, z) && isFree(dim, x, y + 1, z) && isFree(dim, x, y + 2, z);
+  return isFree(dim, x, y, z);
 }
 
 function stepToward(golem, from, goal) {
@@ -209,7 +212,7 @@ function tryHeal(golem, dim, container) {
     healAt.set(golem.id, now + HEAL_COOLDOWN);
     const at = golem.location;
     burst(dim, { x: at.x, y: at.y + 1.2, z: at.z }, "minecraft:heart_particle", 4, 1.2);
-    burst(dim, { x: at.x, y: at.y + 0.5, z: at.z }, "minecraft:totem_particle", 8, 1.2);
+    burst(dim, { x: at.x, y: at.y + 0.5, z: at.z }, "minecraft:villager_happy", 8, 1.2);
     sound(dim, "random.eat", at);
     return true;
   }
@@ -299,6 +302,17 @@ function breed(dim, container, pair) {
   burst(dim, { x: b.x, y: b.y + 0.8, z: b.z }, "minecraft:heart_particle", 5, 1);
 }
 
+function restoreStorage(golem, dim, home) {
+  const at = center(home);
+  if (dim.getEntities({ tags: [STORAGE_TAG], location: at, maxDistance: 3 }).length > 0) return;
+  const storage = dim.spawnEntity(STORAGE_ID, { x: at.x, y: home.y - 0.05, z: at.z });
+  storage.addTag(STORAGE_TAG);
+  storageHealth.set(golem.id, STORAGE_HEALTH);
+  for (const player of dim.getEntities({ type: "minecraft:player", location: at, maxDistance: 16 })) {
+    attempt(() => player.onScreenDisplay.setActionBar("§eThe Farmer Chest storage was rebuilt."));
+  }
+}
+
 function dismantle(golem, dim, home, storage, chestStillThere) {
   if (storage) attempt(() => storage.kill());
   const at = center(home);
@@ -324,12 +338,20 @@ function brain(golem) {
   if (!chestOk || !storage) {
     const count = (misses.get(golem.id) ?? 0) + 1;
     misses.set(golem.id, count);
-    if (count >= MISS_LIMIT) {
-      dismantle(golem, dim, home, chestOk ? undefined : findStorage(dim, home), chestOk);
+    if (count < MISS_LIMIT) return;
+    misses.set(golem.id, 0);
+    if (!chestOk) {
+      dismantle(golem, dim, home, findStorage(dim, home), false);
+    } else if ((storageHealth.get(golem.id) ?? Infinity) < STORAGE_HEALTH - 0.5) {
+      dismantle(golem, dim, home, undefined, true);
+    } else {
+      restoreStorage(golem, dim, home);
     }
     return;
   }
   misses.set(golem.id, 0);
+  const vitals = storage.getComponent(EntityComponentTypes.Health);
+  if (vitals) storageHealth.set(golem.id, vitals.currentValue);
   const container = containerOf(storage);
   if (!container) return;
 
@@ -398,11 +420,12 @@ function build(player, dim, top, base) {
   golem.nameTag = GOLEM_NAME;
   golem.addTag(`${HOME_PREFIX}${spot.x},${spot.y},${spot.z}`);
   homes.set(golem.id, { x: spot.x, y: spot.y, z: spot.z });
+  storageHealth.set(golem.id, STORAGE_HEALTH);
   known.set(golem.id, golem);
   const at = { x: cx, y: spot.y + 1, z: cz };
   attempt(() => player.playSound("pumpkin.carve"));
   sound(dim, "pumpkin.carve", at);
-  burst(dim, at, "minecraft:totem_particle", 24, 1.6);
+  burst(dim, at, "minecraft:basic_flame_particle", 24, 1.6);
   burst(dim, at, "minecraft:villager_happy", 16, 1.6);
   player.onScreenDisplay.setActionBar(
     "§6§lFarmer Golem§r§e awakens. Open the Farmer Chest to store seeds, wheat, carrots and food."
