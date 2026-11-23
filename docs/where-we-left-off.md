@@ -2,7 +2,7 @@
 
 Snapshot written by `python3 scripts/build_context7_docs.py` after the last spec. The files in the repository win over this page.
 
-- REPO_VERSION: 253. The next repo-level spec is spec_v254.txt (`@@ version 254`).
+- REPO_VERSION: 254. The next repo-level spec is spec_v255.txt (`@@ version 255`).
 - A spec that is not listed below or in the root `CHANGELOG.md` is NOT applied.
 - A project spec uses `@@ version` = the project's latest version below + 0.0.1.
 
