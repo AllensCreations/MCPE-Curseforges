@@ -79,3 +79,4 @@ Sneaking while using the item switches between five elements, each with its own 
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, ALN:SpiritSphere Bedrock mod, Spirit Focus, charge projectile, elemental orb, Ghast fireball, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+

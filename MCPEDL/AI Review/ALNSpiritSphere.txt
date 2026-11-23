@@ -1,0 +1,1379 @@
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Addons/ALNSpiritSphere`
+- **Destination:** `MCPEDL/Addons/ALNSpiritSphere`
+- **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALNSpiritSphere/CHANGELOG.md`)
+- **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
+- **Text files:** 25
+- **Skipped binary:** 7
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Addons/ALNSpiritSphere/behavior_pack/entities/spirit_orb.json`
+- `MCPEDL/Addons/ALNSpiritSphere/behavior_pack/items/spirit_focus.json`
+- `MCPEDL/Addons/ALNSpiritSphere/behavior_pack/manifest.json`
+- `MCPEDL/Addons/ALNSpiritSphere/behavior_pack/recipes/spirit_focus_feather.json`
+- `MCPEDL/Addons/ALNSpiritSphere/behavior_pack/recipes/spirit_focus_wind_charge.json`
+- `MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/elements.js`
+- `MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/lib/README.md`
+- `MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/orbs.js`
+- `MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/visuals.js`
+- `MCPEDL/Addons/ALNSpiritSphere/CHANGELOG.md`
+- `MCPEDL/Addons/ALNSpiritSphere/DESCRIPTION.md`
+- `MCPEDL/Addons/ALNSpiritSphere/project.json`
+- `MCPEDL/Addons/ALNSpiritSphere/README.md`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/entity/spirit_orb.entity.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/manifest.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/models/entity/spirit_orb.geo.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ss_big.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ss_mid.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ss_small.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/render_controllers/spirit_orb.rc.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/texts/en_US.lang`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/texts/languages.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/textures/item_texture.json`
+- `MCPEDL/Addons/ALNSpiritSphere/texture_sources/spirit_sphere.json`
+
+### Skipped (binary): 7 file(s)
+
+- `MCPEDL/Addons/ALNSpiritSphere/assets/items/aln_orb_core.png`
+- `MCPEDL/Addons/ALNSpiritSphere/assets/items/aln_spirit_focus.png`
+- `MCPEDL/Addons/ALNSpiritSphere/assets/items/spirit_focus.png`
+- `MCPEDL/Addons/ALNSpiritSphere/assets/recipes/spirit_focus_recipe.png`
+- `MCPEDL/Addons/ALNSpiritSphere/assets/recipes/spirit_focus_spirit_focus_wind_charge_recipe.png`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/textures/items/aln_orb_core.png`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/textures/items/aln_spirit_focus.png`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v1 / NEXT UPDATE: v2).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Addons/ALNSpiritSphere
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding the ready-to-run commands, and ONE generated self-contained `<Pack>_v<Version>_<rand>.sh` update script (built with `make_update_script.py`). The script contains the full UI, automatically pulls, applies edits safely, commits, and pushes.
+---
+
+## Skills
+
+## Skill: .agents/skills/mcpe-context7/SKILL.md
+
+```markdown
+---
+name: mcpe-context7
+description: Use before looking up ANY repo rule, repo script, Bedrock API member, vanilla id, texture, recipe, component, manifest field or version for the MCPE-Curseforges repo. Routes each need to one of the four Context7 libraries and says when a script must come from the kit zip instead.
+---
+
+# mcpe-context7: Where to Look Things Up
+
+## Authority
+
+- `INSTRUCTIONS.md` 1.16 (copy in `docs/instructions-reference.md`) is the policy. This skill is only its routing table and never overrides it.
+- An AI review kit (`*_tools.txt` inside the kit zip) holds a directory map and skills, no file contents. That is on purpose: read what the task needs through Context7, not from a pasted dump.
+
+## Libraries (ONLY these four, IDs exactly, `query-docs` only)
+
+- `/microsoftdocs/minecraft-creator`: `@minecraft/server` and `@minecraft/server-ui` API, JSON schemas, stable and module versions.
+- `/mojang/bedrock-samples`: vanilla ids, textures, recipes, components, entities, formats, `version.json`.
+- `/websites/wiki_bedrock_dev`: manifest structure, scripting guides, techniques.
+- `/allenscreations/mcpe-curseforges`: this repo's rules, script summaries and Bedrock guide. Context7 indexes ONLY `docs/`.
+
+NEVER call `resolve-library-id`. NEVER query any other library.
+
+## Repo lookups (`/allenscreations/mcpe-curseforges`, `docs/` only)
+
+- `docs/instructions-reference.md`: `INSTRUCTIONS.md`, `DOCS_RULES.md`, `PACK_GENERATOR_INSTRUCTIONS.md` (Reply Format, Termux Script Rules, versions 1.3, recipes 1.4 and 1.5, templates 2.5, new packs Part 4).
+- `docs/scripts-and-workflows.md`: summary of every script and workflow, update spec syntax (`apply_update.py`, `make_update_script.py`).
+- `docs/mcicons-index.md`: every Minecraft icon id in MCicons (generated).
+- `docs/bedrock-guide.md`: add-on architecture, folder structure, manifest setup, target API versions.
+- Meaning of a build or doc check message: query the exact message text with the script name.
+
+## Rules
+
+1. Query first, write second. Batch: at most ONE `query-docs` call per needed `libraryId`, covering every topic needed from it, all calls in one parallel turn. NEVER two calls to the same `libraryId`. Name the exact member, file, id or schema and the game or module version.
+2. Verify every import, class, method, property and JSON field against the retrieved text. NEVER `mojang-minecraft`, `world.events` or 1.x syntax.
+3. Empty or doubtful result: no sequential retry loop. Say "not verified". NEVER fill the gap from memory.
+4. Versions come only from retrieved text. State the exact version used and the query date.
+5. Handoff bullet: `Docs queried (YYYY-MM-DD): <library IDs and topics>`.
+6. Library IDs, query text and the word Context7 NEVER go into shipped files or player-facing docs.
+
+## Scripts that must run
+
+- `make_pack_script.py`, `build_payload.py`, `import_project_payload.py`, `doc_template.py`, `pixel_json_to_png.py`, `make_update_script.py` and `apply_update.py` need their COMPLETE unchanged text. A Context7 snippet is not enough.
+- The complete files are in the kit zip (`New-Pack.zip`, `Maintenance.zip` or the pack's review zip `<Pack>.zip`) under `files/`. Specifically, `make_update_script.py`, `apply_update.py`, `pixel_json_to_png.py`, and `docs/mcicons-index.md` are packaged under `files/`. Unzip, run from there, NEVER retype or edit them.
+- No zip and only partial text from a query: stop and ask the user to attach the zip. NEVER rewrite a script from memory.
+- A file attached in the conversation or read from a clone wins over the Context7 index. Context7 shows the repo as last indexed. Tell the user about any difference.
+
+## Icons (MCicons)
+
+- Any vanilla item or block icon (recipe diagrams, sprites, README or listing images, UI art): use MCicons ONLY. It is the release file `reference/mcicons/mcicons-<ver>.tgz` in the repo (`package/dist/icons/minecraft_<id>.png`, 64x64, only `minecraft:` ids). It is NOT in Context7: read it with `scripts/lib/mcicons.py` (`has_icon(id)`, `icon_image(id)`), never retype or guess a PNG.
+- No icon for the id (custom ids, newer items): report it. NO fallback to Samples, the Wiki, another icon site or a third-party pack.
+- Context7 cannot index the binary `.tgz`, but `docs/mcicons-index.md` (`/allenscreations/mcpe-curseforges`) lists every icon id it holds: query it to check an id before using an icon.
+- The `.tgz` itself is not in the kit zips. To run code that reads the pixels it must be in the clone; if it is missing, ask the user to attach it. NEVER substitute a lookalike.
+- Every manifest (BP and RP) carries `metadata.authors` = `["ALNStudios"]` and `metadata.product_type` = `"addon"`, always.
+- Keep its `ASSET-NOTICE.md` with any redistributed icon.
+
+## Reading the directory map
+
+- The map lists directories with file counts. Pick the folder, then query for the file. For exact file text of a pack, ask for a Collect Files export of that path.
+- NEVER edit generated folders and files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`, `builds/README.md`.
+```
+
+## Skill: .agents/skills/mcpe-pack-update/SKILL.md
+
+````markdown
+---
+name: mcpe-pack-update
+description: Use for any change to an existing project, workflow, script or doc in the MCPE-Curseforges repository (update, fix, add, rename). Delivers every change as ONE self-contained Termux update script (<Pack>_v<Version>_<rand>.sh) containing the spec and rich UI.
+---
+
+# mcpe-pack-update: Update Delivery
+
+## Authority
+
+- `INSTRUCTIONS.md` is the policy source. `PACK_GENERATOR_INSTRUCTIONS.md` is its standalone copy for generation. The script flow is `INSTRUCTIONS.md` "Termux Script Rules", built with `scripts/make_update_script.py`. Where to look each rule up: the `mcpe-context7` skill. This skill is a short working checklist and never restates or overrides them.
+- **Precedence** (as in `PACK_GENERATOR_INSTRUCTIONS.md`): factual accuracy and the user's requested scope, then Part 1, then Part 2, then this skill. Part 4 of the generator file never overrides Parts 1 and 2.
+- If these files disagree with each other or with a script in `scripts/`, tell the user exactly what differs instead of choosing silently. If `INSTRUCTIONS.md` cannot be read, stop and report it instead of working from memory.
+- Achievements line (every project type): always `Yes, achievement-friendly.` Keep any cheats or world-setting caveat as a following sentence.
+
+## Scope
+
+- Use for changes to an existing project (`MCPEDL/Addons|Maps|Script|Minigame/<Name>/`), a workflow, a script, a catalog or any repo doc.
+- Read-only audit or report: use `checkrm`.
+- New project from an idea: follow `PACK_GENERATOR_INSTRUCTIONS.md` Part 4 (ask the type first, base64 payload).
+
+## Procedure
+
+1. Read `INSTRUCTIONS.md` Parts 1 and 2 before writing anything, through Context7 as the `mcpe-context7` skill says. `make_update_script.py`, `apply_update.py`, and `pixel_json_to_png.py` are complete in the pack's review zip (`<Pack>.zip`) under `files/`; run them from there.
+2. Find the destination folder: the path the user named, otherwise the matching project folder. Do not substitute a similar name; report ambiguity or a missing target.
+3. Read the real source (manifests, scripts, items, recipes, loot tables, functions, lang files) before writing any claim. Source priority when sources disagree: the project's own files, Mojang Bedrock Samples, official Minecraft Creator Documentation, Minecraft Wiki, Bedrock Wiki.
+4. Make the smallest possible change. No unrelated rewrites. Never invent features, versions, links, assets, test results or compatibility. Never write comments in shipped `.js`, `.mcfunction` or `.json` files.
+5. Generate the spec, convert it with `make_update_script.py` into a single self-contained `<Pack>_v<Version>_<rand>.sh` file, and provide the one-line run command for the user.
+
+## The update script
+
+Generate the spec with `apply_update.py` directives (replace, replace-all, insert-after, insert-before, create, overwrite, delete, changelog).
+Then build the single `.sh` using:
+```bash
+python3 files/scripts/make_update_script.py spec.txt --out-dir .
+```
+This produces ONE single `.sh` file (`<PackName>_v<Version>_<rand>.sh`) that contains the embedded update payload, ANSI colored status UI, automated git rebase, validation checks, commit, and push.
+
+## Reply
+
+1. Attach or output the single `.sh` file (`<PackName>_v<Version>_<rand>.sh`).
+2. Give the single Termux command:
+```bash
+bash ~/storage/downloads/<PackName>_v<Version>_*.sh
+```
+3. Brief summary of what changed and what checks ran.
+4. **Save in AI memory**: Every finished output, applied change summary, and spec version must be retained in AI memory/scratch notes so context is preserved across turns without relying on session replay.
+````
+
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/entities/spirit_orb.json (36 lines, 852 bytes)
+
+```
+{
+  "format_version": "1.16.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "aln:spirit_orb",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "runtime_identifier": "minecraft:snowball"
+    },
+    "components": {
+      "minecraft:collision_box": {
+        "width": 0.4,
+        "height": 0.4
+      },
+      "minecraft:projectile": {
+        "power": 1.0,
+        "gravity": 0.0,
+        "inertia": 1.0,
+        "liquid_inertia": 1.0
+      },
+      "minecraft:physics": {},
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
+      },
+      "minecraft:conditional_bandwidth_optimization": {
+        "default_values": {
+          "max_optimized_distance": 80,
+          "max_dropped_ticks": 10,
+          "use_motion_prediction_hints": true
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/items/spirit_focus.json (28 lines, 595 bytes)
+
+```
+{
+  "format_version": "1.26.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:spirit_focus",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "textures": {
+          "default": "aln_spirit_focus"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "§l§bSpirit §dFocus"
+      },
+      "minecraft:use_animation": "spyglass",
+      "minecraft:use_modifiers": {
+        "use_duration": 3600,
+        "movement_modifier": 0.7
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/manifest.json (62 lines, 1117 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN:SpiritSphere Behavior Pack (v1)",
+    "description": "Charge the Spirit Focus, release a Ghast-style energy orb, and switch between five elements by ALNStudios",
+    "uuid": "951ab0f1-53a7-45a3-80fc-a610ec8e217b",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      50
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "d58017bb-894b-4fd8-a26a-d2ab81d83a4e",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "ad6704ec-178d-4dd3-b3eb-1a719bd5b2f0",
+      "version": [
+        1,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "c05699f5-364c-44cb-9978-490a4bc716e4",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.7.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/recipes/spirit_focus_feather.json (34 lines, 577 bytes)
+
+```
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "aln:spirit_focus_feather"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:ender_pearl"
+      },
+      {
+        "item": "minecraft:blaze_powder"
+      },
+      {
+        "item": "minecraft:feather"
+      },
+      {
+        "item": "minecraft:amethyst_shard"
+      }
+    ],
+    "result": {
+      "item": "aln:spirit_focus"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/recipes/spirit_focus_wind_charge.json (34 lines, 585 bytes)
+
+```
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "aln:spirit_focus_wind_charge"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:ender_pearl"
+      },
+      {
+        "item": "minecraft:blaze_powder"
+      },
+      {
+        "item": "minecraft:wind_charge"
+      },
+      {
+        "item": "minecraft:amethyst_shard"
+      }
+    ],
+    "result": {
+      "item": "aln:spirit_focus"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/elements.js (61 lines, 1442 bytes)
+
+```
+export const FOCUS_ID = "aln:spirit_focus";
+export const ORB_ID = "aln:spirit_orb";
+
+export const FULL_TICKS = 50;
+export const BURST_TICK = 50;
+export const OVER_TICKS = 70;
+export const MIN_HOLD = 4;
+export const MAX_ORB_AGE = 120;
+
+export const MODES = [
+  {
+    id: "aero",
+    name: "Aero Vortex",
+    code: "§b",
+    color: { red: 0.45, green: 1.0, blue: 1.0 },
+    speed: 1.0,
+    lore: "Wind spirals. Heavy knockback and a clean blast without fire.",
+  },
+  {
+    id: "blaze",
+    name: "Blaze Solar",
+    code: "§6",
+    color: { red: 1.0, green: 0.6, blue: 0.1 },
+    speed: 1.0,
+    lore: "Orange-gold plasma. Ghast-style blast that sets the area on fire.",
+  },
+  {
+    id: "frost",
+    name: "Frost Nova",
+    code: "§9",
+    color: { red: 0.55, green: 0.85, blue: 1.0 },
+    speed: 1.0,
+    lore: "Ice crystals. Freezes nearby water and applies heavy Slowness.",
+  },
+  {
+    id: "storm",
+    name: "Storm Surge",
+    code: "§5",
+    color: { red: 0.7, green: 0.25, blue: 1.0 },
+    speed: 1.4,
+    lore: "Purple lightning. Fastest orb, strikes lightning on impact.",
+  },
+  {
+    id: "void",
+    name: "Void Singularity",
+    code: "§d",
+    color: { red: 0.65, green: 0.05, blue: 0.5 },
+    speed: 0.9,
+    lore: "Dark magenta core. Pulls nearby mobs in while it flies.",
+  },
+];
+
+export const state = {
+  tick: 0,
+  modes: new Map(),
+};
+
+export function modeIndexOf(player) {
+  return state.modes.get(player.id) ?? 0;
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/lib/README.md (4 lines, 273 bytes)
+
+```
+# scripts/lib
+
+Reserved for shared helper modules of this pack. The gameplay modules sit next to main.js: elements.js holds the five element definitions and shared state, visuals.js draws the charge phases and impact effects, orbs.js launches and detonates the Spirit Orb.
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/main.js (88 lines, 2817 bytes)
+
+```
+import { world, system, EntityComponentTypes } from "@minecraft/server";
+import { FOCUS_ID, MODES, MIN_HOLD, OVER_TICKS, state, modeIndexOf } from "./elements.js";
+import { renderCharge, phaseOf } from "./visuals.js";
+import { launchOrb, tickOrbs, registerHits } from "./orbs.js";
+
+const chargers = new Map();
+const PHASES = ["", "Gathering", "Compressing", "Max Charge", "Overcharged"];
+
+function syncLore(player, index) {
+  const mode = MODES[index];
+  const lore = [`${mode.code}Mode: ${mode.name}`, `§7${mode.lore}`, "§8Sneak + use to switch element"];
+  try {
+    const inv = player.getComponent(EntityComponentTypes.Inventory)?.container;
+    if (!inv) return;
+    for (let i = 0; i < inv.size; i++) {
+      const item = inv.getItem(i);
+      if (item?.typeId === FOCUS_ID) {
+        item.setLore(lore);
+        inv.setItem(i, item);
+      }
+    }
+  } catch (e) {}
+}
+
+function cycleMode(player) {
+  const next = (modeIndexOf(player) + 1) % MODES.length;
+  state.modes.set(player.id, next);
+  syncLore(player, next);
+  const mode = MODES[next];
+  try {
+    player.onScreenDisplay.setActionBar(`${mode.code}Element: ${mode.name}`);
+    player.playSound("random.orb");
+  } catch (e) {}
+}
+
+function finish(source, itemStack) {
+  if (!itemStack || itemStack.typeId !== FOCUS_ID) return;
+  const entry = chargers.get(source.id);
+  if (!entry || entry.fired) return;
+  entry.fired = true;
+  entry.doneTick = state.tick;
+  const held = state.tick - entry.start;
+  if (held >= MIN_HOLD) {
+    try {
+      launchOrb(source, modeIndexOf(source), held);
+    } catch (e) {}
+  }
+}
+
+world.afterEvents.itemStartUse.subscribe((ev) => {
+  const player = ev.source;
+  if (!ev.itemStack || ev.itemStack.typeId !== FOCUS_ID) return;
+  if (player.isSneaking) {
+    cycleMode(player);
+    chargers.set(player.id, { player, start: state.tick, fired: true, doneTick: state.tick });
+    return;
+  }
+  chargers.set(player.id, { player, start: state.tick, fired: false, doneTick: -1 });
+});
+
+world.afterEvents.itemReleaseUse.subscribe((ev) => finish(ev.source, ev.itemStack));
+world.afterEvents.itemStopUse.subscribe((ev) => finish(ev.source, ev.itemStack));
+
+registerHits();
+
+system.runInterval(() => {
+  state.tick++;
+  for (const [id, entry] of chargers) {
+    if (entry.fired) {
+      if (state.tick - entry.doneTick > 3) chargers.delete(id);
+      continue;
+    }
+    try {
+      const held = state.tick - entry.start;
+      const mode = MODES[modeIndexOf(entry.player)];
+      renderCharge(entry.player, held, mode);
+      if (held % 5 === 0) {
+        const phase = phaseOf(held);
+        const tail = held >= OVER_TICKS ? "§c" : "§f";
+        entry.player.onScreenDisplay.setActionBar(`${mode.code}${mode.name} §7| ${tail}${PHASES[phase]}`);
+      }
+    } catch (e) {
+      chargers.delete(id);
+    }
+  }
+  tickOrbs();
+}, 1);
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/orbs.js (184 lines, 5462 bytes)
+
+```
+import { world } from "@minecraft/server";
+import { MODES, ORB_ID, FULL_TICKS, OVER_TICKS, MAX_ORB_AGE } from "./elements.js";
+import { sound, impactBurst, orbTrail, handPoint } from "./visuals.js";
+
+const orbs = new Map();
+const PLAYER_ID = "minecraft:player";
+
+function nearby(dimension, at, distance) {
+  try {
+    return dimension.getEntities({ location: at, maxDistance: distance });
+  } catch (e) {
+    return [];
+  }
+}
+
+function explode(dimension, at, radius, breaks, fire) {
+  try {
+    dimension.createExplosion(at, radius, { breaksBlocks: breaks, causesFire: fire, allowUnderwater: true });
+  } catch (e) {}
+}
+
+function shove(entity, from, strength, lift) {
+  try {
+    const l = entity.location;
+    const dx = l.x - from.x;
+    const dz = l.z - from.z;
+    const d = Math.hypot(dx, dz) || 1;
+    entity.applyKnockback({ x: (dx / d) * strength, z: (dz / d) * strength }, lift);
+  } catch (e) {}
+}
+
+function shoveAll(dimension, at, reach, strength, lift) {
+  for (const e of nearby(dimension, at, reach)) {
+    if (e.typeId === ORB_ID) continue;
+    try {
+      const l = e.location;
+      const d = Math.hypot(l.x - at.x, l.y - at.y, l.z - at.z);
+      const falloff = Math.max(0.15, 1 - d / reach);
+      shove(e, at, strength * falloff, lift * falloff);
+    } catch (err) {}
+  }
+}
+
+function freeze(dimension, at, radius) {
+  const R = Math.min(7, Math.ceil(radius));
+  const bx = Math.floor(at.x);
+  const by = Math.floor(at.y);
+  const bz = Math.floor(at.z);
+  for (let dx = -R; dx <= R; dx++) {
+    for (let dy = -R; dy <= R; dy++) {
+      for (let dz = -R; dz <= R; dz++) {
+        if (dx * dx + dy * dy + dz * dz > R * R) continue;
+        const p = { x: bx + dx, y: by + dy, z: bz + dz };
+        try {
+          const b = dimension.getBlock(p);
+          if (b && (b.typeId === "minecraft:water" || b.typeId === "minecraft:flowing_water")) {
+            dimension.setBlockType(p, "minecraft:ice");
+          }
+        } catch (e) {}
+      }
+    }
+  }
+}
+
+function detonate(s, at) {
+  const d = s.dimension;
+  const f = s.f;
+  const r = (1.6 + 4.4 * f) * (s.over ? 1.25 : 1);
+  const reach = r * 2.2;
+  const strength = 0.8 + 2.6 * f;
+  const lift = 0.35 + 0.8 * f;
+  impactBurst(d, at, r, s.mode.color);
+  sound(d, "random.explode", at);
+  if (s.mode.id === "aero") {
+    explode(d, at, r, true, false);
+    shoveAll(d, at, reach, strength * 1.6, lift * 1.3);
+  } else if (s.mode.id === "blaze") {
+    explode(d, at, r * 0.9, true, true);
+    for (const e of nearby(d, at, r * 1.5)) {
+      try {
+        if (e.typeId !== ORB_ID) e.setOnFire(6, true);
+      } catch (err) {}
+    }
+    shoveAll(d, at, reach, strength * 0.8, lift);
+  } else if (s.mode.id === "frost") {
+    explode(d, at, r * 0.6, false, false);
+    freeze(d, at, r * 1.2);
+    for (const e of nearby(d, at, r * 1.6)) {
+      try {
+        if (e.typeId !== ORB_ID) e.addEffect("slowness", 160 + Math.round(160 * f), { amplifier: 3 });
+      } catch (err) {}
+    }
+    shoveAll(d, at, reach, strength * 0.5, lift * 0.5);
+  } else if (s.mode.id === "storm") {
+    explode(d, at, r * 0.7, true, false);
+    try {
+      d.spawnEntity("minecraft:lightning_bolt", at);
+    } catch (e) {}
+    shoveAll(d, at, reach, strength, lift);
+  } else {
+    explode(d, at, r * 0.8, true, false);
+    shoveAll(d, at, reach, strength * 0.6, lift * 0.6);
+  }
+}
+
+function pull(s, at) {
+  for (const e of nearby(s.dimension, at, 12)) {
+    if (e.id === s.owner || e.id === s.orb.id || e.typeId === PLAYER_ID || e.typeId === ORB_ID) continue;
+    try {
+      const l = e.location;
+      const dx = at.x - l.x;
+      const dy = at.y - l.y;
+      const dz = at.z - l.z;
+      const d = Math.hypot(dx, dy, dz) || 1;
+      const k = 0.1 + 0.12 * s.f;
+      e.applyImpulse({ x: (dx / d) * k, y: (dy / d) * k + 0.02, z: (dz / d) * k });
+    } catch (err) {}
+  }
+}
+
+export function launchOrb(player, modeIndex, held) {
+  const mode = MODES[modeIndex];
+  const f = Math.min(1, held / FULL_TICKS);
+  const dimension = player.dimension;
+  const view = player.getViewDirection();
+  const start = handPoint(player, view);
+  const orb = dimension.spawnEntity(ORB_ID, start);
+  const speed = (0.55 + 2.45 * f) * mode.speed;
+  orb.applyImpulse({ x: view.x * speed, y: view.y * speed, z: view.z * speed });
+  orbs.set(orb.id, {
+    orb,
+    dimension,
+    mode,
+    f,
+    over: held >= OVER_TICKS,
+    owner: player.id,
+    age: 0,
+    last: start,
+    lob: f < 0.35 ? 0.035 * (1 - f / 0.35) : 0,
+  });
+  sound(dimension, "mob.ghast.fireball", start);
+}
+
+export function tickOrbs() {
+  for (const [id, s] of orbs) {
+    try {
+      const loc = s.orb.location;
+      s.last = loc;
+      s.age++;
+      orbTrail(s.dimension, loc, s.mode.color, s.age);
+      if (s.lob > 0) s.orb.applyImpulse({ x: 0, y: -s.lob, z: 0 });
+      if (s.mode.id === "void") pull(s, loc);
+      if (s.age > MAX_ORB_AGE) {
+        orbs.delete(id);
+        detonate(s, loc);
+        s.orb.kill();
+      }
+    } catch (e) {
+      orbs.delete(id);
+    }
+  }
+}
+
+function onHit(projectile, location) {
+  let id;
+  try {
+    id = projectile.id;
+  } catch (e) {
+    return;
+  }
+  const s = orbs.get(id);
+  if (!s) return;
+  orbs.delete(id);
+  detonate(s, location ?? s.last);
+  try {
+    projectile.kill();
+  } catch (e) {}
+}
+
+export function registerHits() {
+  world.afterEvents.projectileHitBlock.subscribe((ev) => onHit(ev.projectile, ev.location));
+  world.afterEvents.projectileHitEntity.subscribe((ev) => onHit(ev.projectile, ev.location));
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/visuals.js (121 lines, 3951 bytes)
+
+```
+import { MolangVariableMap } from "@minecraft/server";
+import { BURST_TICK, FULL_TICKS, OVER_TICKS } from "./elements.js";
+
+const SMALL = "aln:ss_small";
+const MID = "aln:ss_mid";
+const BIG = "aln:ss_big";
+
+export function puff(dimension, id, location, color) {
+  try {
+    const vars = new MolangVariableMap();
+    vars.setColorRGB("variable.color", color);
+    dimension.spawnParticle(id, location, vars);
+  } catch (e) {}
+}
+
+export function sound(dimension, id, location) {
+  try {
+    dimension.playSound(id, location);
+  } catch (e) {}
+}
+
+function cross(a, b) {
+  return { x: a.y * b.z - a.z * b.y, y: a.z * b.x - a.x * b.z, z: a.x * b.y - a.y * b.x };
+}
+
+export function basisOf(view) {
+  const rl = Math.hypot(view.z, view.x) || 1;
+  const right = { x: -view.z / rl, y: 0, z: view.x / rl };
+  const up = cross(right, view);
+  return { right, up };
+}
+
+export function handPoint(player, view) {
+  const loc = player.location;
+  const { right } = basisOf(view);
+  return {
+    x: loc.x + view.x * 0.9 + right.x * 0.4,
+    y: loc.y + 1.2 + view.y * 0.9,
+    z: loc.z + view.z * 0.9 + right.z * 0.4,
+  };
+}
+
+function ring(dimension, center, view, radius, count, spin, id, color) {
+  const { right, up } = basisOf(view);
+  for (let i = 0; i < count; i++) {
+    const a = spin + (i * Math.PI * 2) / count;
+    const c = Math.cos(a) * radius;
+    const s = Math.sin(a) * radius;
+    puff(
+      dimension,
+      id,
+      {
+        x: center.x + right.x * c + up.x * s,
+        y: center.y + right.y * c + up.y * s,
+        z: center.z + right.z * c + up.z * s,
+      },
+      color
+    );
+  }
+}
+
+export function shell(dimension, center, radius, count, id, color) {
+  for (let i = 0; i < count; i++) {
+    const u = Math.random() * 2 - 1;
+    const t = Math.random() * Math.PI * 2;
+    const r = Math.sqrt(1 - u * u);
+    puff(
+      dimension,
+      id,
+      { x: center.x + Math.cos(t) * r * radius, y: center.y + u * radius, z: center.z + Math.sin(t) * r * radius },
+      color
+    );
+  }
+}
+
+export function phaseOf(held) {
+  if (held >= OVER_TICKS) return 4;
+  if (held >= BURST_TICK) return 3;
+  if (held >= 24) return 2;
+  return 1;
+}
+
+export function renderCharge(player, held, mode) {
+  const dimension = player.dimension;
+  const view = player.getViewDirection();
+  const center = handPoint(player, view);
+  const phase = phaseOf(held);
+  if (phase === 1) {
+    if (held % 2 === 0) ring(dimension, center, view, 0.55, 8, held * 0.25, SMALL, mode.color);
+  } else if (phase === 2) {
+    const k = (held - 24) / (FULL_TICKS - 24);
+    ring(dimension, center, view, 0.55 * (1 - k) + 0.04, 6, held * (0.5 + k * 1.5), SMALL, mode.color);
+    puff(dimension, MID, center, { red: 1, green: 1, blue: 1 });
+  } else {
+    if (held === BURST_TICK) {
+      shell(dimension, center, 0.9, 30, MID, mode.color);
+      ring(dimension, center, view, 0.9, 16, 0, BIG, mode.color);
+      sound(dimension, "mob.warden.sonic_boom", center);
+    }
+    puff(dimension, BIG, center, mode.color);
+    shell(dimension, center, 0.55, 8, SMALL, mode.color);
+    if (phase === 4 && held % 3 === 0) shell(dimension, center, 0.8, 4, MID, { red: 1, green: 1, blue: 1 });
+  }
+}
+
+export function impactBurst(dimension, center, radius, color) {
+  shell(dimension, center, radius * 0.6, 40, MID, color);
+  shell(dimension, center, radius * 0.3, 12, BIG, color);
+  for (let i = 0; i < 24; i++) {
+    const a = (i * Math.PI * 2) / 24;
+    puff(dimension, SMALL, { x: center.x + Math.cos(a) * radius, y: center.y + 0.2, z: center.z + Math.sin(a) * radius }, color);
+  }
+}
+
+export function orbTrail(dimension, center, color, age) {
+  puff(dimension, BIG, center, color);
+  const a = age * 0.9;
+  puff(dimension, SMALL, { x: center.x + Math.cos(a) * 0.5, y: center.y + Math.sin(a * 1.3) * 0.5, z: center.z + Math.sin(a) * 0.5 }, color);
+  puff(dimension, SMALL, { x: center.x - Math.cos(a) * 0.5, y: center.y - Math.sin(a * 1.3) * 0.5, z: center.z - Math.sin(a) * 0.5 }, color);
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/CHANGELOG.md (12 lines, 631 bytes)
+
+```
+# Changelog — ALN:SpiritSphere
+
+---
+
+## [1.0.0] - 2026-11-24 - First Release
+
+### Added
+- **Spirit Focus**: Players can craft a chargeable focus item with two recipes, one using a Wind Charge and one using a Feather.
+- **Charge phases**: Players see a loose ring, a compressed core and a burst into a glowing sphere with a sonic pulse while charging.
+- **Spirit Orb**: Releasing fires an orb whose speed and blast size grow with the hold time, with an overcharge bonus at 70 ticks.
+- **Five elements**: Players can sneak and use the focus to switch between Aero Vortex, Blaze Solar, Frost Nova, Storm Surge and Void Singularity.
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/DESCRIPTION.md (83 lines, 4873 bytes)
+
+```
+# ALN:SpiritSphere — Chargeable Elemental Energy Orbs
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**Charge the Spirit Focus for 50 ticks, then fire 1 of 5 elemental orbs that fly faster and blast harder the longer you hold.**
+
+> Craft one item, charge it in your hand, and throw an energy sphere that behaves like an enhanced Ghast fireball.
+
+## Overview
+
+ALN:SpiritSphere adds the Spirit Focus, a craftable item that charges like a bow. While you hold use, energy swirls in your hand through three visual phases. On release it launches the Spirit Orb, a projectile whose speed and explosion size depend on how long you charged.
+
+Sneaking while using the item switches between five elements, each with its own color and impact behavior.
+
+## Key Features
+
+### Spirit Focus Item
+- **What Happens**: Craft the Spirit Focus with an Ender Pearl, Blaze Powder, a Wind Charge (or a Feather) and an Amethyst Shard in any order on the crafting grid. Two recipes are included, one for each of the Wind Charge and Feather versions.
+
+### Hold to Charge
+- **What Happens**: Hold use with the Spirit Focus like a bow. The longer you hold, the faster the orb flies and the larger its blast.
+
+### Phase 1: Loose Ring
+- **What Happens**: For the first 24 ticks (about 1.2 seconds) a wide ring of energy particles swirls around your hand in the color of the active element.
+
+### Phase 2: Compression
+- **What Happens**: From tick 24 the ring tightens and spins faster until it is a dense point of light in your palm.
+
+### Phase 3: Expansion
+- **What Happens**: At 50 ticks (2.5 seconds) the core bursts into a large glowing sphere with a sonic pulse. Holding to 70 ticks overcharges the shot for a 25 percent larger blast.
+
+### Charge-Scaled Orb
+- **What Happens**: Releasing fires the Spirit Orb along your aim. A quick release lobs a slow orb with a small blast, a medium charge flies steadily, and a full charge flies almost straight and fast with a cratering explosion.
+
+### Five Elements
+- **What Happens**: Sneak and use the Spirit Focus to cycle Aero Vortex, Blaze Solar, Frost Nova, Storm Surge and Void Singularity. The item lore, particle colors and impact effect change with the element.
+
+### Element Impacts
+- **What Happens**: Aero Vortex adds heavy knockback and a fire-free blast. Blaze Solar ignites the area. Frost Nova freezes nearby water and applies Slowness IV. Storm Surge flies 40 percent faster and calls lightning. Void Singularity pulls mobs toward the orb while it flies.
+
+## How to Use
+
+1. Craft the Spirit Focus with an Ender Pearl, Blaze Powder, a Wind Charge or Feather, and an Amethyst Shard.
+2. Hold use and watch the three charge phases build in your hand.
+3. Release to fire the orb along your aim. Release early for a slow lob, hold to 50 ticks or more for a fast, large blast.
+4. Sneak and use the item to switch the element. The item lore and the action bar show the active element.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.26.50 or newer.
+- Experimental features: No experiment requirement detected in the inspected files.
+- Achievements: Yes, achievement-friendly.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, ALN:SpiritSphere Bedrock mod, Spirit Focus, charge projectile, elemental orb, Ghast fireball, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/project.json (5 lines, 52 bytes)
+
+```
+{
+  "type": "addon",
+  "name": "ALN:SpiritSphere"
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/README.md (19 lines, 799 bytes)
+
+```
+# ALNSpiritSphere
+
+Download the current release of **ALNSpiritSphere** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download ALNSpiritSphere (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpiritSphere/ALNSpiritSphere%20V1.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALNSpiritSphere/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/entity/spirit_orb.entity.json (21 lines, 431 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "aln:spirit_orb",
+      "materials": {
+        "default": "entity_alpha"
+      },
+      "textures": {
+        "default": "textures/items/aln_orb_core"
+      },
+      "geometry": {
+        "default": "geometry.aln_spirit_orb"
+      },
+      "render_controllers": [
+        "controller.render.aln_spirit_orb"
+      ]
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/manifest.json (37 lines, 676 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN:SpiritSphere Resource Pack (v1)",
+    "description": "Charge the Spirit Focus, release a Ghast-style energy orb, and switch between five elements by ALNStudios",
+    "uuid": "c05699f5-364c-44cb-9978-490a4bc716e4",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      50
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "6ef1070d-ea7a-4d3f-8c1b-02834809e5e6",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/models/entity/spirit_orb.geo.json (48 lines, 854 bytes)
+
+```
+{
+  "format_version": "1.12.0",
+  "minecraft:geometry": [
+    {
+      "description": {
+        "identifier": "geometry.aln_spirit_orb",
+        "texture_width": 16,
+        "texture_height": 16,
+        "visible_bounds_width": 2,
+        "visible_bounds_height": 2,
+        "visible_bounds_offset": [
+          0,
+          0.5,
+          0
+        ]
+      },
+      "bones": [
+        {
+          "name": "orb",
+          "pivot": [
+            0,
+            4,
+            0
+          ],
+          "cubes": [
+            {
+              "origin": [
+                -2,
+                2,
+                -2
+              ],
+              "size": [
+                4,
+                4,
+                4
+              ],
+              "uv": [
+                0,
+                0
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ss_big.json (52 lines, 1131 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:ss_big",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/particles"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.35
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.5,
+          0.5
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 128,
+          "texture_height": 128,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            8,
+            8
+          ]
+        }
+      },
+      "minecraft:particle_appearance_tinting": {
+        "color": [
+          "variable.color.r",
+          "variable.color.g",
+          "variable.color.b",
+          1
+        ]
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ss_mid.json (52 lines, 1133 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:ss_mid",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/particles"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.45
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.16,
+          0.16
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 128,
+          "texture_height": 128,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            8,
+            8
+          ]
+        }
+      },
+      "minecraft:particle_appearance_tinting": {
+        "color": [
+          "variable.color.r",
+          "variable.color.g",
+          "variable.color.b",
+          1
+        ]
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ss_small.json (52 lines, 1134 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:ss_small",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/particles"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.4
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.07,
+          0.07
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 128,
+          "texture_height": 128,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            8,
+            8
+          ]
+        }
+      },
+      "minecraft:particle_appearance_tinting": {
+        "color": [
+          "variable.color.r",
+          "variable.color.g",
+          "variable.color.b",
+          1
+        ]
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/render_controllers/spirit_orb.rc.json (17 lines, 288 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "render_controllers": {
+    "controller.render.aln_spirit_orb": {
+      "geometry": "geometry.default",
+      "materials": [
+        {
+          "*": "material.default"
+        }
+      ],
+      "textures": [
+        "texture.default"
+      ]
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/texts/en_US.lang (3 lines, 73 bytes)
+
+```
+item.aln:spirit_focus=Spirit Focus
+entity.aln:spirit_orb.name=Spirit Orb
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/texts/languages.json (2 lines, 10 bytes)
+
+```
+["en_US"]
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/textures/item_texture.json (13 lines, 266 bytes)
+
+```
+{
+  "resource_pack_name": "aln_spiritsphere",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "aln_spirit_focus": {
+      "textures": "textures/items/aln_spirit_focus"
+    },
+    "aln_orb_core": {
+      "textures": "textures/items/aln_orb_core"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/texture_sources/spirit_sphere.json (2 lines, 1961 bytes)
+
+```
+{"textures": [{"name": "aln_spirit_focus", "size": 16, "folder": "items", "palette": {"0": "#00000000", "1": "#2b1648", "2": "#e9b949", "3": "#7a2fd6", "4": "#4de0ff", "5": "#bff6ff", "6": "#ffffff"}, "pixels": [[0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0], [0, 0, 0, 2, 2, 1, 1, 3, 3, 1, 1, 2, 2, 0, 0, 0], [0, 0, 2, 1, 1, 3, 3, 3, 3, 3, 3, 1, 1, 2, 0, 0], [0, 0, 2, 1, 3, 3, 4, 4, 4, 4, 3, 3, 1, 2, 0, 0], [0, 2, 1, 3, 3, 4, 4, 5, 5, 4, 4, 3, 3, 1, 2, 0], [0, 2, 1, 3, 4, 4, 5, 5, 5, 5, 4, 4, 3, 1, 2, 0], [2, 2, 3, 3, 4, 5, 5, 6, 6, 5, 5, 4, 3, 3, 2, 2], [2, 2, 3, 3, 4, 5, 5, 6, 6, 5, 5, 4, 3, 3, 2, 2], [0, 2, 1, 3, 4, 4, 5, 5, 5, 5, 4, 4, 3, 1, 2, 0], [0, 2, 1, 3, 3, 4, 4, 5, 5, 4, 4, 3, 3, 1, 2, 0], [0, 0, 2, 1, 3, 3, 4, 4, 4, 4, 3, 3, 1, 2, 0, 0], [0, 0, 2, 1, 1, 3, 3, 3, 3, 3, 3, 1, 1, 2, 0, 0], [0, 0, 0, 2, 2, 1, 1, 3, 3, 1, 1, 2, 2, 0, 0, 0], [0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0]]}, {"name": "aln_orb_core", "size": 16, "folder": "items", "palette": {"0": "#6fe6ff", "1": "#bff6ff", "2": "#ffffff", "3": "#a85cff"}, "pixels": [[3, 0, 0, 0, 1, 0, 0, 2, 1, 0, 0, 3, 1, 0, 2, 0], [0, 0, 0, 2, 0, 0, 0, 1, 0, 3, 2, 1, 0, 0, 0, 1], [0, 0, 1, 0, 0, 0, 2, 3, 0, 0, 1, 0, 0, 2, 1, 0], [0, 1, 2, 0, 0, 3, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0], [1, 0, 0, 3, 1, 2, 0, 0, 1, 0, 0, 0, 2, 0, 3, 0], [0, 3, 0, 1, 0, 0, 0, 1, 2, 0, 0, 1, 3, 0, 0, 2], [0, 0, 1, 0, 2, 0, 1, 0, 0, 0, 3, 2, 0, 0, 1, 0], [2, 1, 0, 0, 0, 1, 0, 2, 3, 1, 0, 0, 0, 1, 2, 0], [1, 0, 0, 2, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 0, 0], [0, 0, 0, 1, 3, 0, 2, 1, 0, 0, 0, 1, 0, 2, 0, 3], [0, 0, 3, 0, 0, 0, 1, 0, 0, 2, 1, 0, 0, 3, 1, 0], [3, 1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 3, 2, 1, 0, 0], [1, 2, 0, 0, 1, 0, 0, 0, 2, 3, 0, 0, 1, 0, 0, 2], [0, 0, 0, 1, 2, 0, 0, 3, 0, 0, 0, 2, 0, 0, 0, 1], [2, 0, 1, 0, 0, 3, 1, 2, 0, 0, 1, 0, 0, 0, 2, 0], [0, 1, 0, 3, 0, 1, 0, 0, 0, 1, 2, 0, 0, 1, 3, 0]]}]}
+```
