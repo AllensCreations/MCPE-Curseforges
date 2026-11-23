@@ -1,0 +1,12 @@
+{
+  "resource_pack_name": "aln_spiritsphere",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "aln_spirit_focus": {
+      "textures": "textures/items/aln_spirit_focus"
+    },
+    "aln_orb_core": {
+      "textures": "textures/items/aln_orb_core"
+    }
+  }
+}

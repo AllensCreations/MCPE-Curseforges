@@ -4,6 +4,11 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## 2026-11-24 - New Addon ALNSpiritSphere
+
+### Added
+- **ALNSpiritSphere**: New addon project created from a pack script.
+
 ## [v260] - 2026-11-23 - ALN Coins
 
 **Spec**: spec_v260.txt | **Target**: MCPEDL/Maps/OneBlock-Natural-Market | **Files edited**: 3

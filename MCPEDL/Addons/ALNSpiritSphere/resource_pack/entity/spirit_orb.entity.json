@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "aln:spirit_orb",
+      "materials": {
+        "default": "entity_alpha"
+      },
+      "textures": {
+        "default": "textures/items/aln_orb_core"
+      },
+      "geometry": {
+        "default": "geometry.aln_spirit_orb"
+      },
+      "render_controllers": [
+        "controller.render.aln_spirit_orb"
+      ]
+    }
+  }
+}
