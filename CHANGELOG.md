@@ -4,6 +4,14 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v254] - 2026-11-23 - Include Pixel To PNG and MCIcons Index in Kits
+
+**Spec**: spec_v254.txt | **Target**: repo | **Files edited**: 3
+
+### Added
+- **`pixel_json_to_png.py`**: Added to update kits and pack review packages so AI agents can render custom pixel-art item textures during pack updates.
+- **`docs/mcicons-index.md`**: Packaged into all review and update kits as a lightweight reference for vanilla icon names and item identifiers, avoiding heavy image archives.
+
 ## [v253] - 2026-11-23 - Tiered Crate Prizes
 
 **Spec**: spec_v253.txt | **Target**: MCPEDL/Addons/ALNPirateTokens | **Files edited**: 5

@@ -8,6 +8,7 @@ Snapshot written by `python3 scripts/build_context7_docs.py` after the last spec
 
 ## Newest specs (root CHANGELOG.md)
 
+- [v254] - 2026-11-23 - Include Pixel To PNG and MCIcons Index in Kits | **Spec**: spec_v254.txt | **Target**: repo | **Files edited**: 3
 - [v253] - 2026-11-23 - Tiered Crate Prizes | **Spec**: spec_v253.txt | **Target**: MCPEDL/Addons/ALNPirateTokens | **Files edited**: 5
 - [v252] - 2026-11-23 - Shorter Menu Text | **Spec**: spec_v252.txt | **Target**: MCPEDL/Addons/ALNPirateTokens | **Files edited**: 2
 - [v251] - 2026-11-23 - Crate Rewards and MC Icons | **Spec**: spec_v251.txt | **Target**: MCPEDL/Addons/ALNPirateTokens | **Files edited**: 5
@@ -17,7 +18,6 @@ Snapshot written by `python3 scripts/build_context7_docs.py` after the last spec
 - [v247] - 2026-11-23 - Dwarf Golem Update | **Spec**: spec_v247.txt | **Target**: MCPEDL/Addons/ALN-FarmerGolem | **Files edited**: 8
 - [v246] - 2026-11-23 - Where We Left Off Page | **Spec**: spec_v246.txt | **Target**: repo | **Files edited**: 1
 - [v245] - 2026-11-23 - Existing Boat Clutch | **Spec**: spec_v245.txt | **Target**: MCPEDL/Script/Universal-Clutch | **Files edited**: 6
-- [v244] - 2026-11-23 - Fix Duplication Timer and Add Break Drops | **Spec**: spec_v244.txt | **Target**: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator | **Files edited**: 3
 
 ## Projects (latest heading in each project CHANGELOG.md)
 

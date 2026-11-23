@@ -199,6 +199,8 @@ def main() -> int:
     update_scripts = [
         ("files/scripts/make_update_script.py", ROOT / "scripts" / "make_update_script.py"),
         ("files/scripts/apply_update.py", ROOT / "scripts" / "apply_update.py"),
+        ("files/scripts/pixel_json_to_png.py", ROOT / "scripts" / "pixel_json_to_png.py"),
+        ("files/docs/mcicons-index.md", ROOT / "docs" / "mcicons-index.md"),
     ]
     for cat, pack in packages():
         name = pack.name

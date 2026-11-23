@@ -34,11 +34,12 @@ KIT_FILES = {
     "NEW": [
         "scripts/make_pack_script.py", "scripts/build_payload.py", "scripts/import_project_payload.py",
         "scripts/doc_template.py", "scripts/pixel_json_to_png.py",
+        "docs/mcicons-index.md",
         "assets/aln-ui-redesign/README.txt", "assets/aln-ui-redesign/design.json",
         "assets/aln-ui-redesign/font/README.txt", "assets/aln-ui-redesign/font/pixelify.js",
     ],
-    "UPDATE": ["scripts/make_update_script.py", "scripts/apply_update.py"],
-    "REPO": ["scripts/make_update_script.py", "scripts/apply_update.py", "scripts/check_instruction_files.py"],
+    "UPDATE": ["scripts/make_update_script.py", "scripts/apply_update.py", "scripts/pixel_json_to_png.py", "docs/mcicons-index.md"],
+    "REPO": ["scripts/make_update_script.py", "scripts/apply_update.py", "scripts/check_instruction_files.py", "docs/mcicons-index.md"],
 }
 
 TREE_SKIP = {".git", "node_modules", "__pycache__", "db", "exports"}
