@@ -1,11 +1,11 @@
-# ALN:MultiIslandOneBlock
+# ALNMultiIslandOneBlock
 
-Download the current release of **ALN:MultiIslandOneBlock** for Minecraft Bedrock Edition.
+Download the current release of **ALNMultiIslandOneBlock** for Minecraft Bedrock Edition.
 
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN:MultiIslandOneBlock (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/README.md)
+- **Direct download:** [Download ALNMultiIslandOneBlock (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNMultiIslandOneBlock/ALNMultiIslandOneBlock%20V1.mcaddon)
 
 ## Installation
 
@@ -15,4 +15,4 @@ Download the current release of **ALN:MultiIslandOneBlock** for Minecraft Bedroc
 
 ## Pack Information
 
-For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALNMultiIslandOneBlock/DESCRIPTION.md).
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALNMultiIslandOneBlock/DESCRIPTION.md).

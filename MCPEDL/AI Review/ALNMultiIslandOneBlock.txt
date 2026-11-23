@@ -1,0 +1,2537 @@
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Addons/ALNMultiIslandOneBlock`
+- **Destination:** `MCPEDL/Addons/ALNMultiIslandOneBlock`
+- **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALNMultiIslandOneBlock/CHANGELOG.md`)
+- **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
+- **Text files:** 26
+- **Skipped binary:** 5
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/items/pirate_ledger.json`
+- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/manifest.json`
+- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/recipes/pirate_ledger.json`
+- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/claim.js`
+- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/config.js`
+- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/island.js`
+- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/ledger.js`
+- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/lobby.js`
+- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/market.js`
+- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/oneblock.js`
+- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/phases.js`
+- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/README.md`
+- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/slots.js`
+- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/traits.js`
+- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/util.js`
+- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/welcome.js`
+- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/ALNMultiIslandOneBlock/CHANGELOG.md`
+- `MCPEDL/Addons/ALNMultiIslandOneBlock/DESCRIPTION.md`
+- `MCPEDL/Addons/ALNMultiIslandOneBlock/project.json`
+- `MCPEDL/Addons/ALNMultiIslandOneBlock/README.md`
+- `MCPEDL/Addons/ALNMultiIslandOneBlock/resource_pack/manifest.json`
+- `MCPEDL/Addons/ALNMultiIslandOneBlock/resource_pack/texts/en_US.lang`
+- `MCPEDL/Addons/ALNMultiIslandOneBlock/resource_pack/texts/languages.json`
+- `MCPEDL/Addons/ALNMultiIslandOneBlock/resource_pack/textures/item_texture.json`
+- `MCPEDL/Addons/ALNMultiIslandOneBlock/texture_sources/pirate_ledger.json`
+
+### Skipped (binary): 5 file(s)
+
+- `MCPEDL/Addons/ALNMultiIslandOneBlock/assets/items/pirate_ledger.png`
+- `MCPEDL/Addons/ALNMultiIslandOneBlock/assets/recipes/pirate_ledger_recipe.png`
+- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/pack_icon.png`
+- `MCPEDL/Addons/ALNMultiIslandOneBlock/resource_pack/pack_icon.png`
+- `MCPEDL/Addons/ALNMultiIslandOneBlock/resource_pack/textures/items/pirate_ledger.png`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v1 / NEXT UPDATE: v2).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Addons/ALNMultiIslandOneBlock
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding the ready-to-run commands, and ONE generated self-contained `<Pack>_v<Version>_<rand>.sh` update script (built with `make_update_script.py`). The script contains the full UI, automatically pulls, applies edits safely, commits, and pushes.
+---
+
+## Skills
+
+## Skill: .agents/skills/mcpe-context7/SKILL.md
+
+```markdown
+---
+name: mcpe-context7
+description: Use before looking up ANY repo rule, repo script, Bedrock API member, vanilla id, texture, recipe, component, manifest field or version for the MCPE-Curseforges repo. Routes each need to one of the four Context7 libraries and says when a script must come from the kit zip instead.
+---
+
+# mcpe-context7: Where to Look Things Up
+
+## Authority
+
+- `INSTRUCTIONS.md` 1.16 (copy in `docs/instructions-reference.md`) is the policy. This skill is only its routing table and never overrides it.
+- An AI review kit (`*_tools.txt` inside the kit zip) holds a directory map and skills, no file contents. That is on purpose: read what the task needs through Context7, not from a pasted dump.
+
+## Libraries (ONLY these four, IDs exactly, `query-docs` only)
+
+- `/microsoftdocs/minecraft-creator`: `@minecraft/server` and `@minecraft/server-ui` API, JSON schemas, stable and module versions.
+- `/mojang/bedrock-samples`: vanilla ids, textures, recipes, components, entities, formats, `version.json`.
+- `/websites/wiki_bedrock_dev`: manifest structure, scripting guides, techniques.
+- `/allenscreations/mcpe-curseforges`: this repo's rules, script summaries and Bedrock guide. Context7 indexes ONLY `docs/`.
+
+NEVER call `resolve-library-id`. NEVER query any other library.
+
+## Repo lookups (`/allenscreations/mcpe-curseforges`, `docs/` only)
+
+- `docs/instructions-reference.md`: `INSTRUCTIONS.md`, `DOCS_RULES.md`, `PACK_GENERATOR_INSTRUCTIONS.md` (Reply Format, Termux Script Rules, versions 1.3, recipes 1.4 and 1.5, templates 2.5, new packs Part 4).
+- `docs/scripts-and-workflows.md`: summary of every script and workflow, update spec syntax (`apply_update.py`, `make_update_script.py`).
+- `docs/mcicons-index.md`: every Minecraft icon id in MCicons (generated).
+- `docs/bedrock-guide.md`: add-on architecture, folder structure, manifest setup, target API versions.
+- Meaning of a build or doc check message: query the exact message text with the script name.
+
+## Rules
+
+1. Query first, write second. Batch: at most ONE `query-docs` call per needed `libraryId`, covering every topic needed from it, all calls in one parallel turn. NEVER two calls to the same `libraryId`. Name the exact member, file, id or schema and the game or module version.
+2. Verify every import, class, method, property and JSON field against the retrieved text. NEVER `mojang-minecraft`, `world.events` or 1.x syntax.
+3. Empty or doubtful result: no sequential retry loop. Say "not verified". NEVER fill the gap from memory.
+4. Versions come only from retrieved text. State the exact version used and the query date.
+5. Handoff bullet: `Docs queried (YYYY-MM-DD): <library IDs and topics>`.
+6. Library IDs, query text and the word Context7 NEVER go into shipped files or player-facing docs.
+
+## Scripts that must run
+
+- `make_pack_script.py`, `build_payload.py`, `import_project_payload.py`, `doc_template.py`, `pixel_json_to_png.py`, `make_update_script.py` and `apply_update.py` need their COMPLETE unchanged text. A Context7 snippet is not enough.
+- The complete files are in the kit zip (`New-Pack.zip`, `Maintenance.zip` or the pack's review zip `<Pack>.zip`) under `files/`. Specifically, `make_update_script.py`, `apply_update.py`, `pixel_json_to_png.py`, and `docs/mcicons-index.md` are packaged under `files/`. Unzip, run from there, NEVER retype or edit them.
+- No zip and only partial text from a query: stop and ask the user to attach the zip. NEVER rewrite a script from memory.
+- A file attached in the conversation or read from a clone wins over the Context7 index. Context7 shows the repo as last indexed. Tell the user about any difference.
+
+## Icons (MCicons)
+
+- Any vanilla item or block icon (recipe diagrams, sprites, README or listing images, UI art): use MCicons ONLY. It is the release file `reference/mcicons/mcicons-<ver>.tgz` in the repo (`package/dist/icons/minecraft_<id>.png`, 64x64, only `minecraft:` ids). It is NOT in Context7: read it with `scripts/lib/mcicons.py` (`has_icon(id)`, `icon_image(id)`), never retype or guess a PNG.
+- No icon for the id (custom ids, newer items): report it. NO fallback to Samples, the Wiki, another icon site or a third-party pack.
+- Context7 cannot index the binary `.tgz`, but `docs/mcicons-index.md` (`/allenscreations/mcpe-curseforges`) lists every icon id it holds: query it to check an id before using an icon.
+- The `.tgz` itself is not in the kit zips. To run code that reads the pixels it must be in the clone; if it is missing, ask the user to attach it. NEVER substitute a lookalike.
+- Every manifest (BP and RP) carries `metadata.authors` = `["ALNStudios"]` and `metadata.product_type` = `"addon"`, always.
+- Keep its `ASSET-NOTICE.md` with any redistributed icon.
+
+## Reading the directory map
+
+- The map lists directories with file counts. Pick the folder, then query for the file. For exact file text of a pack, ask for a Collect Files export of that path.
+- NEVER edit generated folders and files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`, `builds/README.md`.
+```
+
+## Skill: .agents/skills/mcpe-pack-update/SKILL.md
+
+````markdown
+---
+name: mcpe-pack-update
+description: Use for any change to an existing project, workflow, script or doc in the MCPE-Curseforges repository (update, fix, add, rename). Delivers every change as ONE self-contained Termux update script (<Pack>_v<Version>_<rand>.sh) containing the spec and rich UI.
+---
+
+# mcpe-pack-update: Update Delivery
+
+## Authority
+
+- `INSTRUCTIONS.md` is the policy source. `PACK_GENERATOR_INSTRUCTIONS.md` is its standalone copy for generation. The script flow is `INSTRUCTIONS.md` "Termux Script Rules", built with `scripts/make_update_script.py`. Where to look each rule up: the `mcpe-context7` skill. This skill is a short working checklist and never restates or overrides them.
+- **Precedence** (as in `PACK_GENERATOR_INSTRUCTIONS.md`): factual accuracy and the user's requested scope, then Part 1, then Part 2, then this skill. Part 4 of the generator file never overrides Parts 1 and 2.
+- If these files disagree with each other or with a script in `scripts/`, tell the user exactly what differs instead of choosing silently. If `INSTRUCTIONS.md` cannot be read, stop and report it instead of working from memory.
+- Achievements line (every project type): always `Yes, achievement-friendly.` Keep any cheats or world-setting caveat as a following sentence.
+
+## Scope
+
+- Use for changes to an existing project (`MCPEDL/Addons|Maps|Script|Minigame/<Name>/`), a workflow, a script, a catalog or any repo doc.
+- Read-only audit or report: use `checkrm`.
+- New project from an idea: follow `PACK_GENERATOR_INSTRUCTIONS.md` Part 4 (ask the type first, base64 payload).
+
+## Procedure
+
+1. Read `INSTRUCTIONS.md` Parts 1 and 2 before writing anything, through Context7 as the `mcpe-context7` skill says. `make_update_script.py`, `apply_update.py`, and `pixel_json_to_png.py` are complete in the pack's review zip (`<Pack>.zip`) under `files/`; run them from there.
+2. Find the destination folder: the path the user named, otherwise the matching project folder. Do not substitute a similar name; report ambiguity or a missing target.
+3. Read the real source (manifests, scripts, items, recipes, loot tables, functions, lang files) before writing any claim. Source priority when sources disagree: the project's own files, Mojang Bedrock Samples, official Minecraft Creator Documentation, Minecraft Wiki, Bedrock Wiki.
+4. Make the smallest possible change. No unrelated rewrites. Never invent features, versions, links, assets, test results or compatibility. Never write comments in shipped `.js`, `.mcfunction` or `.json` files.
+5. Generate the spec, convert it with `make_update_script.py` into a single self-contained `<Pack>_v<Version>_<rand>.sh` file, and provide the one-line run command for the user.
+
+## The update script
+
+Generate the spec with `apply_update.py` directives (replace, replace-all, insert-after, insert-before, create, overwrite, delete, changelog).
+Then build the single `.sh` using:
+```bash
+python3 files/scripts/make_update_script.py spec.txt --out-dir .
+```
+This produces ONE single `.sh` file (`<PackName>_v<Version>_<rand>.sh`) that contains the embedded update payload, ANSI colored status UI, automated git rebase, validation checks, commit, and push.
+
+## Reply
+
+1. Attach or output the single `.sh` file (`<PackName>_v<Version>_<rand>.sh`).
+2. Give the single Termux command:
+```bash
+bash ~/storage/downloads/<PackName>_v<Version>_*.sh
+```
+3. Brief summary of what changed and what checks ran.
+4. **Save in AI memory**: Every finished output, applied change summary, and spec version must be retained in AI memory/scratch notes so context is preserved across turns without relying on session replay.
+````
+
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/items/pirate_ledger.json (28 lines, 592 bytes)
+
+```
+{
+  "format_version": "1.26.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:pirate_ledger",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "textures": {
+          "default": "pirate_ledger"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "§6Global Pirate Ledger"
+      },
+      "minecraft:use_animation": "spyglass",
+      "minecraft:use_modifiers": {
+        "use_duration": 0.1,
+        "movement_modifier": 1
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/manifest.json (66 lines, 1177 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN:MultiIslandOneBlock (v1)",
+    "description": "Multi-island OneBlock grid with a central lobby and a global trade ledger. by ALNStudios",
+    "uuid": "0886e248-abae-466f-85fe-a01de46396cf",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "76888f9d-5edf-4308-b1ab-1c176dbe38e9",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "fd4c32c2-7e0a-4bfe-8633-e30171567364",
+      "entry": "scripts/main.js",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "2cf90b7d-4b0f-44d5-b726-41f3e756f95f",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.3.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/recipes/pirate_ledger.json (31 lines, 510 bytes)
+
+```
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "aln:pirate_ledger_recipe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:book"
+      },
+      {
+        "item": "minecraft:gold_nugget"
+      },
+      {
+        "item": "minecraft:emerald"
+      }
+    ],
+    "result": {
+      "item": "aln:pirate_ledger"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/claim.js (77 lines, 2746 bytes)
+
+```
+import { world } from "@minecraft/server";
+import { LEDGER_ID, SPAWN_Y, STARTER_LEDGER } from "./config.js";
+import { firstFreeSlot, assignSlot, slotCoords, slotOf, readSlots, recordOf } from "./slots.js";
+import { pickTrait, traitInfo, traitLabel } from "./traits.js";
+import { ensureIsland, currentPhase } from "./island.js";
+import { phaseLabel } from "./phases.js";
+import { overworld, giveItem, findPlayer } from "./util.js";
+
+const claiming = new Set();
+
+export function hasIsland(player) {
+  return slotOf(player) !== undefined;
+}
+
+export function goHome(player, slot, islandReady) {
+  const c = slotCoords(slot);
+  const dim = overworld();
+  try {
+    player.teleport({ x: c.x + 0.5, y: SPAWN_Y, z: c.z + 0.5 }, { dimension: dim });
+  } catch (e) {}
+  try {
+    player.setSpawnPoint({ dimension: dim, x: c.x, y: SPAWN_Y, z: c.z });
+  } catch (e) {}
+  if (!islandReady) {
+    try {
+      player.addEffect("slow_falling", 600, { amplifier: 0, showParticles: false });
+    } catch (e) {}
+  }
+}
+
+function welcomeToIsland(player, slot, islandReady) {
+  const record = recordOf(slot);
+  const info = traitInfo(record.trait);
+  const c = slotCoords(slot);
+  goHome(player, slot, islandReady);
+  if (STARTER_LEDGER) giveItem(player, LEDGER_ID, 1);
+  try {
+    player.onScreenDisplay.setTitle(`§6Island #${slot}`);
+  } catch (e) {}
+  player.sendMessage(`§6[ALN] §eIsland #${slot} claimed at X: ${c.x}, Z: ${c.z}.`);
+  player.sendMessage(`§6[ALN] §fRichness: ${traitLabel(record.trait)} §7- ${info.blurb}`);
+  player.sendMessage(`§6[ALN] §fWorld phase: ${phaseLabel(currentPhase())}§f. Break your OneBlock to begin.`);
+  if (STARTER_LEDGER) player.sendMessage("§6[ALN] §7You received a Global Pirate Ledger. Right-click it to trade with other islands.");
+}
+
+export function claimIsland(player) {
+  const id = player.id;
+  if (claiming.has(id)) return;
+  const owned = slotOf(player);
+  if (owned !== undefined) {
+    goHome(player, owned, true);
+    return;
+  }
+  const slot = firstFreeSlot();
+  if (slot === undefined) {
+    player.sendMessage("§c[ALN] Every island spot on this world is taken.");
+    return;
+  }
+  const trait = pickTrait(readSlots());
+  assignSlot(player, slot, trait);
+  claiming.add(id);
+  player.sendMessage(`§6[ALN] §7Preparing island #${slot}...`);
+  world.sendMessage(`§6[ALN] §f${player.name} §7claimed island #${slot} (${traitLabel(trait)}§7).`);
+  ensureIsland(slot, trait, (ready) => {
+    claiming.delete(id);
+    const p = findPlayer(id);
+    if (p) welcomeToIsland(p, slot, ready);
+  });
+}
+
+export function returnToIsland(player) {
+  const slot = slotOf(player);
+  if (slot === undefined) return;
+  const record = recordOf(slot);
+  if (!record.built) ensureIsland(slot, record.trait, () => {});
+}
+```
+
+## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/config.js (49 lines, 1950 bytes)
+
+```
+export const LOBBY = { x: 0, y: 65, z: 0 };
+export const PILLAR_TOP_Y = 64;
+export const PILLAR_BOTTOM_Y = -64;
+export const ONE_BLOCK_Y = 64;
+export const SPAWN_Y = 65;
+export const GRID_STEP = 2000;
+export const LEDGER_ID = "aln:pirate_ledger";
+export const STARTER_LEDGER = true;
+
+export const PROP = {
+  SLOT: "aln:slot",
+  TRAIT: "aln:trait",
+  BREAKS: "aln:breaks",
+  SLOTS: "aln:slots",
+  GLOBAL: "aln:global_breaks",
+  LOBBY_BUILT: "aln:lobby_built",
+  LISTING_IDS: "aln:ledger_ids",
+  LISTING_SEQ: "aln:ledger_seq",
+  LISTING_PREFIX: "aln:listing_",
+  PAYOUT_PREFIX: "aln:payout_",
+};
+
+export const BONUS_CHANCE = 0.3;
+export const MAX_LISTINGS_PER_PLAYER = 8;
+export const MAX_LISTINGS_TOTAL = 250;
+export const MAX_TRADE_AMOUNT = 2304;
+export const PAGE_SIZE = 6;
+export const WELCOME_RETRY_LIMIT = 12;
+
+export const TITLE = "§6§lALN:MultiIslandOneBlock";
+export const WELCOME_BODY =
+  "§eWelcome to the Multi-Island OneBlock Grid!\n\n§c⚠ Warning: Selecting your island spot is permanent and cannot be undone.\n\n§7Each player gets a private island separated by 2,000 blocks with unique resource affinities to encourage global trading.";
+
+export const RULES_BODY = [
+  "§eHow the grid works",
+  "§7- Every player claims one private island. Islands sit 2,000 blocks apart in a square grid around the lobby.",
+  "§7- Your island spot is permanent once you press Start.",
+  "",
+  "§eOneBlock phases",
+  "§7- All islands share the same phase. Every OneBlock broken on any island moves the whole world closer to the next phase.",
+  "",
+  "§eIsland Richness",
+  "§7- Each island has one Richness trait that boosts its block mix and adds bonus drops. No island has everything, so trade.",
+  "",
+  "§eGlobal Pirate Ledger",
+  "§7- Right-click the ledger anywhere to list items, browse offers and collect earnings from other islands.",
+  "§7- Listed items are held safely until they sell or you cancel the listing.",
+].join("\n");
+```
+
+## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/island.js (64 lines, 2039 bytes)
+
+```
+import { world } from "@minecraft/server";
+import { ONE_BLOCK_Y, PROP } from "./config.js";
+import { overworld, isLoaded, blockIdAt, runCmd, addArea, dropArea, later } from "./util.js";
+import { slotCoords, markBuilt } from "./slots.js";
+import { phaseIndexFor, nextBlockId } from "./phases.js";
+
+export function globalBreaks() {
+  const v = world.getDynamicProperty(PROP.GLOBAL);
+  return typeof v === "number" ? v : 0;
+}
+
+export function currentPhase() {
+  return phaseIndexFor(globalBreaks());
+}
+
+function placeIsland(dim, x, z, trait) {
+  const first = nextBlockId(currentPhase(), trait);
+  runCmd(dim, `fill ${x - 3} 63 ${z - 3} ${x + 3} 63 ${z + 3} grass_block`);
+  runCmd(dim, `fill ${x - 2} 62 ${z - 2} ${x + 2} 62 ${z + 2} dirt`);
+  runCmd(dim, `fill ${x - 1} 61 ${z - 1} ${x + 1} 61 ${z + 1} dirt`);
+  runCmd(dim, `setblock ${x} 60 ${z} dirt`);
+  runCmd(dim, `setblock ${x} ${ONE_BLOCK_Y} ${z} ${first}`);
+  const top = blockIdAt(dim, x, ONE_BLOCK_Y, z);
+  const base = blockIdAt(dim, x, ONE_BLOCK_Y - 1, z);
+  return Boolean(top) && top !== "minecraft:air" && base === "minecraft:grass_block";
+}
+
+export function ensureIsland(slot, trait, onResult) {
+  const c = slotCoords(slot);
+  const dim = overworld();
+  const area = `aln_i${slot}`;
+  const hasArea = addArea(dim, area, c.x, ONE_BLOCK_Y, c.z);
+  let tries = 0;
+  let reported = false;
+  const report = (ok) => {
+    if (reported) return;
+    reported = true;
+    onResult(ok);
+  };
+  const step = () => {
+    tries++;
+    if (isLoaded(dim, c.x, ONE_BLOCK_Y, c.z) && placeIsland(dim, c.x, c.z, trait)) {
+      markBuilt(slot);
+      if (hasArea) dropArea(dim, area);
+      report(true);
+      return;
+    }
+    if (tries === 40) report(false);
+    if (tries < 400) {
+      later(step, 10);
+    } else if (hasArea) {
+      dropArea(dim, area);
+    }
+  };
+  step();
+}
+
+export function regenerate(dim, x, z, trait, phaseIndex) {
+  try {
+    const block = dim.getBlock({ x, y: ONE_BLOCK_Y, z });
+    if (block) block.setType(nextBlockId(phaseIndex, trait));
+  } catch (e) {}
+}
+```
+
+## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/ledger.js (316 lines, 11399 bytes)
+
+```
+import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
+import { PAGE_SIZE, MAX_LISTINGS_PER_PLAYER, PROP } from "./config.js";
+import { slotOf, slotCoords, recordOf, recordOfPlayerId } from "./slots.js";
+import { traitInfo, traitLabel } from "./traits.js";
+import { phaseIndexFor, phaseLabel, breaksToNextPhase } from "./phases.js";
+import { globalBreaks } from "./island.js";
+import {
+  allListings,
+  listingsOf,
+  getListing,
+  createListing,
+  cancelListing,
+  buyListing,
+  payoutSummary,
+  collectPayout,
+} from "./market.js";
+import { findPlayer, wait, niceName, normalizeId, plainInventory, countPlain } from "./util.js";
+import { promptWelcome } from "./welcome.js";
+
+const GOODS = [
+  "minecraft:iron_ingot",
+  "minecraft:raw_iron",
+  "minecraft:copper_ingot",
+  "minecraft:gold_ingot",
+  "minecraft:coal",
+  "minecraft:redstone",
+  "minecraft:lapis_lazuli",
+  "minecraft:diamond",
+  "minecraft:emerald",
+  "minecraft:wheat",
+  "minecraft:carrot",
+  "minecraft:potato",
+  "minecraft:beetroot",
+  "minecraft:pumpkin",
+  "minecraft:melon_slice",
+  "minecraft:sweet_berries",
+  "minecraft:sugar_cane",
+  "minecraft:oak_log",
+  "minecraft:birch_log",
+  "minecraft:spruce_log",
+  "minecraft:stick",
+  "minecraft:apple",
+  "minecraft:cod",
+  "minecraft:salmon",
+  "minecraft:ink_sac",
+  "minecraft:nautilus_shell",
+  "minecraft:name_tag",
+  "minecraft:leather",
+  "minecraft:beef",
+  "minecraft:porkchop",
+  "minecraft:white_wool",
+  "minecraft:feather",
+  "minecraft:egg",
+  "minecraft:bone",
+  "minecraft:glowstone_dust",
+  "minecraft:nether_wart",
+  "minecraft:quartz",
+  "minecraft:blaze_rod",
+  "minecraft:obsidian",
+];
+
+const HUB_TITLE = "§6§lGlobal Trade Hub";
+
+async function show(form, player) {
+  for (let i = 0; i < 6; i++) {
+    let res;
+    try {
+      res = await form.show(player);
+    } catch (e) {
+      return undefined;
+    }
+    if (res.canceled && res.cancelationReason === FormCancelationReason.UserBusy) {
+      await wait(10);
+      continue;
+    }
+    return res;
+  }
+  return undefined;
+}
+
+function sellerTrait(sellerId) {
+  const found = recordOfPlayerId(sellerId);
+  return found ? traitLabel(found.record.trait) : "§7Unknown";
+}
+
+function offerText(l) {
+  return `${l.give.amount}x ${niceName(l.give.id)}  §8for§r  ${l.want.amount}x ${niceName(l.want.id)}`;
+}
+
+function matches(listing, filter) {
+  if (!filter) return true;
+  const f = filter.toLowerCase();
+  return (
+    niceName(listing.give.id).toLowerCase().includes(f) ||
+    niceName(listing.want.id).toLowerCase().includes(f) ||
+    listing.sellerName.toLowerCase().includes(f)
+  );
+}
+
+async function screenMain(player) {
+  const slot = slotOf(player);
+  const record = recordOf(slot);
+  const offers = allListings().filter((l) => l.seller !== player.id).length;
+  const mine = listingsOf(player.id).length;
+  const owed = payoutSummary(player.id).reduce((sum, e) => sum + e.amount, 0);
+  const phase = phaseIndexFor(globalBreaks());
+  const form = new ActionFormData()
+    .title(HUB_TITLE)
+    .body(
+      `§7Island #${slot} §8| ${traitLabel(record.trait)}\n§7World phase: ${phaseLabel(phase)}\n\n§fTrade surplus items with every island on the grid, no market building needed.`
+    )
+    .button(`Browse Offers\n§8${offers} open`)
+    .button("Create Offer")
+    .button(`My Offers\n§8${mine} / ${MAX_LISTINGS_PER_PLAYER}`)
+    .button(`Collect Earnings\n§8${owed} items waiting`)
+    .button("My Island")
+    .button("Close");
+  const res = await show(form, player);
+  if (!res || res.canceled) return undefined;
+  const next = ["browse", "create", "mine", "collect", "island"][res.selection];
+  return next ? { name: next, page: 0, filter: "" } : undefined;
+}
+
+async function screenBrowse(player, state) {
+  const all = allListings().filter((l) => l.seller !== player.id && matches(l, state.filter));
+  const pages = Math.max(1, Math.ceil(all.length / PAGE_SIZE));
+  const page = Math.min(state.page, pages - 1);
+  const slice = all.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
+  const filterNote = state.filter ? `\n§7Search: §f${state.filter}` : "";
+  const form = new ActionFormData()
+    .title(HUB_TITLE)
+    .body(`§7Page ${page + 1} of ${pages} §8| §7${all.length} offers${filterNote}`);
+  for (const l of slice) form.button(`${offerText(l)}\n§8${l.sellerName} ${sellerTrait(l.seller)}`);
+  const extras = [{ label: "Search", next: () => ({ name: "search", page: 0, filter: state.filter }) }];
+  if (page > 0) extras.push({ label: "Previous Page", next: () => ({ name: "browse", page: page - 1, filter: state.filter }) });
+  if (page < pages - 1) extras.push({ label: "Next Page", next: () => ({ name: "browse", page: page + 1, filter: state.filter }) });
+  if (state.filter) extras.push({ label: "Clear Search", next: () => ({ name: "browse", page: 0, filter: "" }) });
+  extras.push({ label: "Back", next: () => ({ name: "main", page: 0, filter: "" }) });
+  for (const e of extras) form.button(e.label);
+  const res = await show(form, player);
+  if (!res || res.canceled) return undefined;
+  if (res.selection < slice.length) {
+    return { name: "confirm", id: slice[res.selection].id, page, filter: state.filter };
+  }
+  return extras[res.selection - slice.length].next();
+}
+
+async function screenSearch(player, state) {
+  const form = new ModalFormData().title(HUB_TITLE).textField("Item or seller name", "e.g. pumpkin");
+  const res = await show(form, player);
+  if (!res || res.canceled) return { name: "browse", page: 0, filter: state.filter };
+  const text = String(res.formValues?.[0] ?? "").trim();
+  return { name: "browse", page: 0, filter: text };
+}
+
+async function screenConfirm(player, state) {
+  const listing = getListing(state.id);
+  if (!listing) {
+    player.sendMessage("§6[ALN] §cThat offer is no longer available.");
+    return { name: "browse", page: state.page, filter: state.filter };
+  }
+  const have = countPlain(player, listing.want.id);
+  const form = new ActionFormData()
+    .title(HUB_TITLE)
+    .body(
+      `§fYou receive: §a${listing.give.amount}x ${niceName(listing.give.id)}\n§fYou pay: §e${listing.want.amount}x ${niceName(listing.want.id)}\n§7You carry: ${have}x\n\n§7Seller: ${listing.sellerName} ${sellerTrait(listing.seller)}`
+    )
+    .button("Buy Now")
+    .button("Back");
+  const res = await show(form, player);
+  if (!res || res.canceled) return undefined;
+  if (res.selection === 0) {
+    const result = buyListing(player, state.id);
+    player.sendMessage(`§6[ALN] ${result.ok ? "§a" : "§c"}${result.message}`);
+  }
+  return { name: "browse", page: state.page, filter: state.filter };
+}
+
+async function screenCreate(player) {
+  const inventory = plainInventory(player);
+  if (inventory.length === 0) {
+    player.sendMessage("§6[ALN] §cYou carry no plain items to sell.");
+    return { name: "main", page: 0, filter: "" };
+  }
+  const form = new ModalFormData()
+    .title(HUB_TITLE)
+    .dropdown("Item to sell", inventory.map((e) => `${niceName(e.id)} (have ${e.amount})`))
+    .textField("Amount to sell", "e.g. 32")
+    .dropdown("Item you want", GOODS.map((id) => niceName(id)))
+    .textField("Or type any other item name (optional)", "e.g. golden apple")
+    .textField("Amount you want", "e.g. 16");
+  const res = await show(form, player);
+  if (!res || res.canceled || !res.formValues) return { name: "main", page: 0, filter: "" };
+  const [giveIndex, giveText, wantIndex, wantCustom, wantText] = res.formValues;
+  const give = inventory[giveIndex];
+  const wantId = String(wantCustom ?? "").trim() ? normalizeId(wantCustom) : GOODS[wantIndex];
+  const result = createListing(
+    player,
+    give.id,
+    Number.parseInt(String(giveText).trim(), 10),
+    wantId,
+    Number.parseInt(String(wantText).trim(), 10)
+  );
+  player.sendMessage(`§6[ALN] ${result.ok ? "§a" : "§c"}${result.message}`);
+  return { name: "main", page: 0, filter: "" };
+}
+
+async function screenMine(player, state) {
+  const mine = listingsOf(player.id);
+  const form = new ActionFormData()
+    .title(HUB_TITLE)
+    .body(mine.length ? "§7Select an offer to cancel it and get your items back." : "§7You have no open offers.");
+  for (const l of mine) form.button(offerText(l));
+  form.button("Back");
+  const res = await show(form, player);
+  if (!res || res.canceled) return undefined;
+  if (res.selection >= mine.length) return { name: "main", page: 0, filter: "" };
+  return { name: "cancel", id: mine[res.selection].id, page: 0, filter: "" };
+}
+
+async function screenCancel(player, state) {
+  const listing = getListing(state.id);
+  if (!listing) return { name: "mine", page: 0, filter: "" };
+  const form = new ActionFormData()
+    .title(HUB_TITLE)
+    .body(`§fCancel this offer?\n§7${offerText(listing)}`)
+    .button("Cancel Offer")
+    .button("Keep It");
+  const res = await show(form, player);
+  if (!res || res.canceled) return undefined;
+  if (res.selection === 0) {
+    const result = cancelListing(player, state.id);
+    player.sendMessage(`§6[ALN] ${result.ok ? "§a" : "§c"}${result.message}`);
+  }
+  return { name: "mine", page: 0, filter: "" };
+}
+
+function screenCollect(player) {
+  const total = collectPayout(player);
+  player.sendMessage(
+    total > 0 ? `§6[ALN] §aCollected ${total} items from your sales.` : "§6[ALN] §7You have no earnings waiting."
+  );
+  return { name: "main", page: 0, filter: "" };
+}
+
+async function screenIsland(player) {
+  const slot = slotOf(player);
+  const record = recordOf(slot);
+  const info = traitInfo(record.trait);
+  const c = slotCoords(slot);
+  const total = globalBreaks();
+  const left = breaksToNextPhase(total);
+  const mine = player.getDynamicProperty(PROP.BREAKS) ?? 0;
+  const form = new ActionFormData()
+    .title("§6§lMy Island")
+    .body(
+      [
+        `§7Island #${slot} at X: ${c.x}, Z: ${c.z}`,
+        `§fRichness: ${traitLabel(record.trait)}`,
+        `§7${info.blurb}`,
+        `§fBest goods to export: §7${info.goods}`,
+        "",
+        `§fWorld phase: ${phaseLabel(phaseIndexFor(total))}`,
+        left > 0 ? `§7Next phase in ${left} OneBlock breaks.` : "§7The world is in its final phase.",
+        `§7Your breaks: ${mine} §8| §7World breaks: ${total}`,
+      ].join("\n")
+    )
+    .button("Back");
+  const res = await show(form, player);
+  if (!res || res.canceled) return undefined;
+  return { name: "main", page: 0, filter: "" };
+}
+
+export async function openLedger(player) {
+  if (slotOf(player) === undefined) {
+    promptWelcome(player);
+    return;
+  }
+  let state = { name: "main", page: 0, filter: "" };
+  while (state) {
+    const p = findPlayer(player.id);
+    if (!p) return;
+    switch (state.name) {
+      case "main":
+        state = await screenMain(p);
+        break;
+      case "browse":
+        state = await screenBrowse(p, state);
+        break;
+      case "search":
+        state = await screenSearch(p, state);
+        break;
+      case "confirm":
+        state = await screenConfirm(p, state);
+        break;
+      case "create":
+        state = await screenCreate(p);
+        break;
+      case "mine":
+        state = await screenMine(p, state);
+        break;
+      case "cancel":
+        state = await screenCancel(p, state);
+        break;
+      case "collect":
+        state = screenCollect(p);
+        break;
+      case "island":
+        state = await screenIsland(p);
+        break;
+      default:
+        state = undefined;
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/lobby.js (33 lines, 1041 bytes)
+
+```
+import { world } from "@minecraft/server";
+import { LOBBY, PILLAR_TOP_Y, PILLAR_BOTTOM_Y } from "./config.js";
+import { overworld, isLoaded, blockIdAt, runCmd, addArea, later } from "./util.js";
+
+export function setupLobby() {
+  try {
+    world.setDefaultSpawnLocation({ x: LOBBY.x, y: LOBBY.y, z: LOBBY.z });
+  } catch (e) {}
+  try {
+    world.gameRules.spawnRadius = 0;
+  } catch (e) {}
+  const dim = overworld();
+  addArea(dim, "aln_lobby", LOBBY.x, PILLAR_TOP_Y, LOBBY.z);
+  let tries = 0;
+  const step = () => {
+    tries++;
+    if (isLoaded(dim, LOBBY.x, PILLAR_TOP_Y, LOBBY.z)) {
+      if (blockIdAt(dim, LOBBY.x, PILLAR_TOP_Y, LOBBY.z) !== "minecraft:bedrock") {
+        runCmd(dim, `fill ${LOBBY.x} ${PILLAR_BOTTOM_Y} ${LOBBY.z} ${LOBBY.x} ${PILLAR_TOP_Y} ${LOBBY.z} bedrock`);
+      }
+      return;
+    }
+    if (tries < 120) later(step, 10);
+  };
+  step();
+}
+
+export function teleportToLobby(player) {
+  try {
+    player.teleport({ x: LOBBY.x + 0.5, y: LOBBY.y, z: LOBBY.z + 0.5 }, { dimension: overworld() });
+  } catch (e) {}
+}
+```
+
+## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/market.js (148 lines, 5459 bytes)
+
+```
+import { world } from "@minecraft/server";
+import { PROP, MAX_LISTINGS_PER_PLAYER, MAX_LISTINGS_TOTAL, MAX_TRADE_AMOUNT } from "./config.js";
+import {
+  readJson,
+  writeJson,
+  countPlain,
+  removePlain,
+  giveItem,
+  findPlayer,
+  isValidItem,
+  niceName,
+} from "./util.js";
+
+const listingKey = (id) => PROP.LISTING_PREFIX + id;
+const payoutKey = (playerId) => PROP.PAYOUT_PREFIX + playerId;
+
+function readIds() {
+  return readJson(world, PROP.LISTING_IDS, []);
+}
+
+function writeIds(list) {
+  writeJson(world, PROP.LISTING_IDS, list);
+}
+
+export function getListing(id) {
+  return readJson(world, listingKey(id), undefined);
+}
+
+export function allListings() {
+  const ids = readIds();
+  const found = [];
+  const keep = [];
+  for (const id of ids) {
+    const listing = getListing(id);
+    if (!listing) continue;
+    found.push(listing);
+    keep.push(id);
+  }
+  if (keep.length !== ids.length) writeIds(keep);
+  return found.sort((a, b) => b.id - a.id);
+}
+
+export function listingsOf(playerId) {
+  return allListings().filter((l) => l.seller === playerId);
+}
+
+function dropListing(id) {
+  world.setDynamicProperty(listingKey(id), undefined);
+  writeIds(readIds().filter((x) => x !== id));
+}
+
+function nextId() {
+  const current = world.getDynamicProperty(PROP.LISTING_SEQ);
+  const id = (typeof current === "number" ? current : 0) + 1;
+  world.setDynamicProperty(PROP.LISTING_SEQ, id);
+  return id;
+}
+
+const fail = (message) => ({ ok: false, message });
+const done = (message) => ({ ok: true, message });
+
+export function createListing(player, giveId, giveAmount, wantId, wantAmount) {
+  if (!Number.isInteger(giveAmount) || giveAmount < 1 || giveAmount > MAX_TRADE_AMOUNT) {
+    return fail(`The amount you sell must be a whole number from 1 to ${MAX_TRADE_AMOUNT}.`);
+  }
+  if (!Number.isInteger(wantAmount) || wantAmount < 1 || wantAmount > MAX_TRADE_AMOUNT) {
+    return fail(`The amount you want must be a whole number from 1 to ${MAX_TRADE_AMOUNT}.`);
+  }
+  if (!isValidItem(giveId)) return fail("The item you want to sell is not valid.");
+  if (!isValidItem(wantId)) return fail("The item you asked for does not exist. Check the name.");
+  if (giveId === wantId) return fail("Sell and ask for two different items.");
+  const all = allListings();
+  if (all.length >= MAX_LISTINGS_TOTAL) return fail("The Global Trade Hub is full. Try again later.");
+  if (all.filter((l) => l.seller === player.id).length >= MAX_LISTINGS_PER_PLAYER) {
+    return fail(`You can have at most ${MAX_LISTINGS_PER_PLAYER} offers open at once.`);
+  }
+  if (countPlain(player, giveId) < giveAmount) {
+    return fail(`You only carry ${countPlain(player, giveId)}x ${niceName(giveId)} without custom changes.`);
+  }
+  if (!removePlain(player, giveId, giveAmount)) return fail("Could not take the items from your inventory.");
+  const id = nextId();
+  writeJson(world, listingKey(id), {
+    id,
+    seller: player.id,
+    sellerName: player.name,
+    give: { id: giveId, amount: giveAmount },
+    want: { id: wantId, amount: wantAmount },
+  });
+  writeIds([...readIds(), id]);
+  return done(
+    `Offer posted: ${giveAmount}x ${niceName(giveId)} for ${wantAmount}x ${niceName(wantId)}. Your items are held safely until it sells.`
+  );
+}
+
+export function cancelListing(player, id) {
+  const listing = getListing(id);
+  if (!listing) return fail("That offer is already gone.");
+  if (listing.seller !== player.id) return fail("That offer is not yours.");
+  dropListing(id);
+  giveItem(player, listing.give.id, listing.give.amount);
+  return done(`Offer cancelled. ${listing.give.amount}x ${niceName(listing.give.id)} returned to you.`);
+}
+
+function addPayout(playerId, itemId, amount) {
+  const owed = readJson(world, payoutKey(playerId), {});
+  owed[itemId] = (owed[itemId] ?? 0) + amount;
+  writeJson(world, payoutKey(playerId), owed);
+}
+
+export function payoutSummary(playerId) {
+  const owed = readJson(world, payoutKey(playerId), {});
+  return Object.keys(owed).map((id) => ({ id, amount: owed[id] }));
+}
+
+export function collectPayout(player) {
+  const list = payoutSummary(player.id);
+  if (list.length === 0) return 0;
+  world.setDynamicProperty(payoutKey(player.id), undefined);
+  let total = 0;
+  for (const entry of list) {
+    giveItem(player, entry.id, entry.amount);
+    total += entry.amount;
+  }
+  return total;
+}
+
+export function buyListing(buyer, id) {
+  const listing = getListing(id);
+  if (!listing) return fail("That offer is no longer available.");
+  if (listing.seller === buyer.id) return fail("You cannot buy your own offer. Cancel it from My Listings.");
+  const owned = countPlain(buyer, listing.want.id);
+  if (owned < listing.want.amount) {
+    return fail(`You need ${listing.want.amount}x ${niceName(listing.want.id)} (you have ${owned}).`);
+  }
+  if (!removePlain(buyer, listing.want.id, listing.want.amount)) return fail("Could not take the payment from your inventory.");
+  dropListing(id);
+  giveItem(buyer, listing.give.id, listing.give.amount);
+  const seller = findPlayer(listing.seller);
+  const summary = `${listing.want.amount}x ${niceName(listing.want.id)}`;
+  if (seller) {
+    giveItem(seller, listing.want.id, listing.want.amount);
+    seller.sendMessage(`§6[ALN] §a${buyer.name} bought your offer. You received ${summary}.`);
+  } else {
+    addPayout(listing.seller, listing.want.id, listing.want.amount);
+  }
+  return done(`Trade complete: you received ${listing.give.amount}x ${niceName(listing.give.id)} for ${summary}.`);
+}
+```
+
+## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/oneblock.js (93 lines, 3102 bytes)
+
+```
+import { world, system, ItemStack } from "@minecraft/server";
+import { ONE_BLOCK_Y, PROP, BONUS_CHANCE } from "./config.js";
+import { slotAt, recordOf, slotOf, slotCoords } from "./slots.js";
+import { phaseIndexFor, rollBonus, PHASES, phaseLabel, breaksToNextPhase } from "./phases.js";
+import { globalBreaks, regenerate } from "./island.js";
+import { traitLabel } from "./traits.js";
+import { blockIdAt, isLoaded, isValidItem, overworld } from "./util.js";
+
+function announcePhase(index) {
+  const p = PHASES[index];
+  world.sendMessage(`§6§l[ALN] §r§eThe whole world advances to phase ${index + 1}: ${p.color}${p.name}§e.`);
+  for (const player of world.getAllPlayers()) {
+    try {
+      player.onScreenDisplay.setTitle(`${p.color}${p.name}`);
+      player.playSound("random.levelup");
+    } catch (e) {}
+  }
+}
+
+function dropBonus(dim, x, z, trait, phaseIndex) {
+  if (Math.random() >= BONUS_CHANCE) return;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const bonus = rollBonus(phaseIndex, trait);
+    if (!bonus || !isValidItem(bonus.id)) continue;
+    try {
+      dim.spawnItem(new ItemStack(bonus.id, bonus.amount), { x: x + 0.5, y: ONE_BLOCK_Y + 1.2, z: z + 0.5 });
+    } catch (e) {}
+    return;
+  }
+}
+
+function handleBreak(event) {
+  const block = event.block;
+  if (block.y !== ONE_BLOCK_Y || block.dimension.id !== "minecraft:overworld") return;
+  const slot = slotAt(block.x, block.z);
+  if (slot === undefined) return;
+  const record = recordOf(slot);
+  if (!record) return;
+
+  const before = phaseIndexFor(globalBreaks());
+  const total = globalBreaks() + 1;
+  world.setDynamicProperty(PROP.GLOBAL, total);
+  const after = phaseIndexFor(total);
+
+  const breaker = event.player;
+  const mine = (breaker.getDynamicProperty(PROP.BREAKS) ?? 0) + 1;
+  breaker.setDynamicProperty(PROP.BREAKS, mine);
+
+  const dim = block.dimension;
+  const x = block.x;
+  const z = block.z;
+  system.run(() => {
+    regenerate(dim, x, z, record.trait, after);
+    dropBonus(dim, x, z, record.trait, after);
+  });
+
+  if (after !== before) announcePhase(after);
+  const left = breaksToNextPhase(total);
+  const tail = left > 0 ? `§7Next phase in §f${left}` : "§7Final phase";
+  try {
+    breaker.onScreenDisplay.setActionBar(`${phaseLabel(after)} §8| §7Island: ${traitLabel(record.trait)} §8| ${tail}`);
+  } catch (e) {}
+}
+
+function guardIslands() {
+  const dim = overworld();
+  const phase = phaseIndexFor(globalBreaks());
+  for (const player of world.getAllPlayers()) {
+    const slot = slotOf(player);
+    if (slot === undefined) continue;
+    const record = recordOf(slot);
+    if (!record || !record.built) continue;
+    const c = slotCoords(slot);
+    if (!isLoaded(dim, c.x, ONE_BLOCK_Y, c.z)) continue;
+    if (blockIdAt(dim, c.x, ONE_BLOCK_Y, c.z) === "minecraft:air") {
+      regenerate(dim, c.x, c.z, record.trait, phase);
+    }
+  }
+}
+
+export function startOneBlock() {
+  world.afterEvents.playerBreakBlock.subscribe((event) => {
+    try {
+      handleBreak(event);
+    } catch (e) {}
+  });
+  system.runInterval(() => {
+    try {
+      guardIslands();
+    } catch (e) {}
+  }, 40);
+}
+```
+
+## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/phases.js (190 lines, 5935 bytes)
+
+```
+import { TRAITS } from "./traits.js";
+import { pickWeighted } from "./util.js";
+
+export const PHASES = [
+  {
+    name: "Forest",
+    color: "§a",
+    from: 0,
+    blocks: [
+      ["minecraft:grass_block", 18, "soil"],
+      ["minecraft:dirt", 14, "soil"],
+      ["minecraft:oak_log", 14, "wood"],
+      ["minecraft:birch_log", 10, "wood"],
+      ["minecraft:spruce_log", 5, "wood"],
+      ["minecraft:oak_leaves", 12, "leaf"],
+      ["minecraft:birch_leaves", 6, "leaf"],
+      ["minecraft:pumpkin", 4, "crop"],
+      ["minecraft:melon_block", 3, "crop"],
+      ["minecraft:hay_block", 2, "crop"],
+      ["minecraft:moss_block", 2, "crop"],
+      ["minecraft:white_wool", 3, "fauna"],
+      ["minecraft:brown_wool", 2, "fauna"],
+    ],
+  },
+  {
+    name: "Underground",
+    color: "§7",
+    from: 150,
+    blocks: [
+      ["minecraft:stone", 22, "stone"],
+      ["minecraft:cobblestone", 18, "stone"],
+      ["minecraft:andesite", 8, "stone"],
+      ["minecraft:granite", 8, "stone"],
+      ["minecraft:diorite", 8, "stone"],
+      ["minecraft:gravel", 8, "soil"],
+      ["minecraft:dirt", 4, "soil"],
+      ["minecraft:oak_log", 3, "wood"],
+      ["minecraft:coal_ore", 10, "ore"],
+      ["minecraft:iron_ore", 8, "ore"],
+      ["minecraft:copper_ore", 8, "ore"],
+      ["minecraft:lapis_ore", 3, "ore"],
+      ["minecraft:redstone_ore", 4, "ore"],
+      ["minecraft:bone_block", 2, "fauna"],
+    ],
+  },
+  {
+    name: "Desert",
+    color: "§e",
+    from: 400,
+    blocks: [
+      ["minecraft:sand", 24, "soil"],
+      ["minecraft:sandstone", 18, "stone"],
+      ["minecraft:red_sand", 8, "soil"],
+      ["minecraft:red_sandstone", 8, "stone"],
+      ["minecraft:terracotta", 6, "stone"],
+      ["minecraft:gravel", 4, "soil"],
+      ["minecraft:acacia_log", 6, "wood"],
+      ["minecraft:gold_ore", 3, "ore"],
+      ["minecraft:iron_ore", 3, "ore"],
+      ["minecraft:hay_block", 4, "crop"],
+      ["minecraft:melon_block", 5, "crop"],
+      ["minecraft:pumpkin", 4, "crop"],
+      ["minecraft:white_wool", 3, "fauna"],
+      ["minecraft:bone_block", 3, "fauna"],
+    ],
+  },
+  {
+    name: "Frozen Tundra",
+    color: "§b",
+    from: 750,
+    blocks: [
+      ["minecraft:snow", 18, "soil"],
+      ["minecraft:packed_ice", 8, "soil"],
+      ["minecraft:blue_ice", 2, "soil"],
+      ["minecraft:spruce_log", 14, "wood"],
+      ["minecraft:spruce_leaves", 8, "leaf"],
+      ["minecraft:stone", 8, "stone"],
+      ["minecraft:coal_ore", 6, "ore"],
+      ["minecraft:iron_ore", 6, "ore"],
+      ["minecraft:lapis_ore", 3, "ore"],
+      ["minecraft:emerald_ore", 2, "ore"],
+      ["minecraft:white_wool", 4, "fauna"],
+    ],
+  },
+  {
+    name: "Ocean Monument",
+    color: "§3",
+    from: 1200,
+    blocks: [
+      ["minecraft:prismarine", 16, "aquatic"],
+      ["minecraft:prismarine_bricks", 10, "aquatic"],
+      ["minecraft:dark_prismarine", 6, "aquatic"],
+      ["minecraft:sponge", 6, "aquatic"],
+      ["minecraft:sea_lantern", 3, "aquatic"],
+      ["minecraft:clay", 12, "soil"],
+      ["minecraft:gravel", 8, "soil"],
+      ["minecraft:sand", 8, "soil"],
+    ],
+  },
+  {
+    name: "Nether",
+    color: "§c",
+    from: 1800,
+    blocks: [
+      ["minecraft:netherrack", 24, "nether"],
+      ["minecraft:soul_sand", 8, "nether"],
+      ["minecraft:soul_soil", 6, "nether"],
+      ["minecraft:blackstone", 10, "stone"],
+      ["minecraft:basalt", 8, "stone"],
+      ["minecraft:glowstone", 6, "nether"],
+      ["minecraft:nether_wart_block", 6, "nether"],
+      ["minecraft:crimson_stem", 6, "wood"],
+      ["minecraft:warped_stem", 6, "wood"],
+      ["minecraft:quartz_ore", 9, "ore"],
+      ["minecraft:nether_gold_ore", 8, "ore"],
+      ["minecraft:ancient_debris", 1, "ore"],
+      ["minecraft:bone_block", 3, "fauna"],
+    ],
+  },
+  {
+    name: "Deepslate Depths",
+    color: "§8",
+    from: 2600,
+    blocks: [
+      ["minecraft:deepslate", 24, "stone"],
+      ["minecraft:tuff", 10, "stone"],
+      ["minecraft:calcite", 6, "stone"],
+      ["minecraft:amethyst_block", 3, "stone"],
+      ["minecraft:deepslate_coal_ore", 8, "ore"],
+      ["minecraft:deepslate_iron_ore", 8, "ore"],
+      ["minecraft:deepslate_copper_ore", 7, "ore"],
+      ["minecraft:deepslate_gold_ore", 6, "ore"],
+      ["minecraft:deepslate_redstone_ore", 6, "ore"],
+      ["minecraft:deepslate_lapis_ore", 5, "ore"],
+      ["minecraft:deepslate_diamond_ore", 4, "ore"],
+      ["minecraft:deepslate_emerald_ore", 3, "ore"],
+    ],
+  },
+  {
+    name: "The End",
+    color: "§5",
+    from: 3600,
+    blocks: [
+      ["minecraft:end_stone", 26, "stone"],
+      ["minecraft:end_stone_bricks", 10, "stone"],
+      ["minecraft:purpur_block", 10, "stone"],
+      ["minecraft:purpur_pillar", 4, "stone"],
+      ["minecraft:obsidian", 8, "stone"],
+      ["minecraft:amethyst_block", 3, "stone"],
+      ["minecraft:deepslate_diamond_ore", 4, "ore"],
+      ["minecraft:deepslate_emerald_ore", 3, "ore"],
+      ["minecraft:ancient_debris", 2, "ore"],
+    ],
+  },
+];
+
+export function phaseIndexFor(count) {
+  let index = 0;
+  for (let i = 0; i < PHASES.length; i++) {
+    if (count >= PHASES[i].from) index = i;
+  }
+  return index;
+}
+
+export function phaseLabel(index) {
+  const p = PHASES[index];
+  return `${p.color}${p.name}`;
+}
+
+export function breaksToNextPhase(count) {
+  const next = PHASES[phaseIndexFor(count) + 1];
+  return next ? next.from - count : 0;
+}
+
+export function nextBlockId(phaseIndex, traitId) {
+  const boost = TRAITS[traitId]?.boost ?? {};
+  const entry = pickWeighted(PHASES[phaseIndex].blocks, (b) => b[1] * (boost[b[2]] ?? 1));
+  return entry[0];
+}
+
+export function rollBonus(phaseIndex, traitId) {
+  const trait = TRAITS[traitId];
+  if (!trait) return undefined;
+  const pool = trait.bonus.filter((b) => b[4] <= phaseIndex);
+  if (pool.length === 0) return undefined;
+  const pick = pickWeighted(pool, (b) => b[3]);
+  const amount = pick[1] + Math.floor(Math.random() * (pick[2] - pick[1] + 1));
+  return { id: pick[0], amount };
+}
+```
+
+## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/README.md (22 lines, 1889 bytes)
+
+```
+# Script library
+
+Scripts for ALN:MultiIslandOneBlock. All helper files live in this folder and are imported by relative path from scripts/main.js.
+
+- scripts/main.js: entry point. Subscribes to player join, player spawn, item use, script events and world load, then starts the lobby and OneBlock logic.
+- lib/config.js: constants (lobby coordinates, property names, limits, startup window text).
+- lib/util.js: shared helpers for JSON properties, item counting and moving, chunk-loaded checks, ticking areas and commands.
+- lib/slots.js: island slot allocator. Slots 1 to 8 are the square around the lobby, 9 to 24 the second ring, 25 to 120 the outer rings. Stores ownership in a world property.
+- lib/traits.js: the six Richness traits, their block boosts and bonus drop tables, and balanced trait picking.
+- lib/phases.js: the eight shared OneBlock phases, their thresholds and weighted block pools.
+- lib/island.js: builds a new island after loading its chunks and regenerates the OneBlock.
+- lib/lobby.js: sets the world spawn, keeps the lobby loaded and builds the bedrock pillar.
+- lib/claim.js: assigns a slot and trait, builds the island, teleports the player and sets the personal spawn point.
+- lib/welcome.js: the Start / About startup window for players without an island.
+- lib/oneblock.js: handles broken OneBlocks, global phase counting, bonus drops and the island self-repair check.
+- lib/market.js: global listing storage, purchases, cancellations and offline earnings.
+- lib/ledger.js: the Global Trade Hub forms opened by the Global Pirate Ledger.
+
+Script events: aln:menu opens the startup window for a player who has no island yet.
+Custom item: aln:pirate_ledger.
+Known limits: listings only accept items without custom names, lore, enchantments or damage. Ticking areas are used briefly while an island is built, and the world allows only a limited number of them.
+```
+
+## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/slots.js (154 lines, 3732 bytes)
+
+```
+import { world } from "@minecraft/server";
+import { PROP, GRID_STEP } from "./config.js";
+import { readJson, writeJson } from "./util.js";
+
+const CORE = [
+  [-1, -1],
+  [0, -1],
+  [1, -1],
+  [-1, 0],
+  [1, 0],
+  [-1, 1],
+  [0, 1],
+  [1, 1],
+];
+
+const RING_TWO = [
+  [0, -2],
+  [0, 2],
+  [-2, 0],
+  [2, 0],
+  [-2, -2],
+  [2, 2],
+  [2, -2],
+  [-2, 2],
+  [-1, -2],
+  [1, 2],
+  [2, -1],
+  [-2, 1],
+  [1, -2],
+  [-1, 2],
+  [2, 1],
+  [-2, -1],
+];
+
+const LAST_RING = 5;
+export const MAX_SLOTS = 8 + 16 + 24 + 32 + 40;
+
+const cache = { slots: undefined, coords: undefined, rings: {} };
+
+function gcd(a, b) {
+  return b === 0 ? a : gcd(b, a % b);
+}
+
+function spreadRing(ring) {
+  if (cache.rings[ring]) return cache.rings[ring];
+  const cells = [];
+  for (let i = -ring; i <= ring; i++) {
+    for (let j = -ring; j <= ring; j++) {
+      if (Math.max(Math.abs(i), Math.abs(j)) === ring) cells.push([i, j]);
+    }
+  }
+  cells.sort((a, b) => Math.atan2(a[1], a[0]) - Math.atan2(b[1], b[0]));
+  const n = cells.length;
+  let stride = Math.max(1, Math.round(n * 0.618));
+  while (gcd(stride, n) !== 1) stride++;
+  const ordered = [];
+  for (let idx = 0; idx < n; idx++) ordered.push(cells[(idx * stride) % n]);
+  cache.rings[ring] = ordered;
+  return ordered;
+}
+
+function cellOf(slot) {
+  if (!Number.isInteger(slot) || slot < 1) return undefined;
+  if (slot <= 8) return CORE[slot - 1];
+  if (slot <= 24) return RING_TWO[slot - 9];
+  let offset = slot - 25;
+  for (let ring = 3; ring <= LAST_RING; ring++) {
+    const size = ring * 8;
+    if (offset < size) return spreadRing(ring)[offset];
+    offset -= size;
+  }
+  return undefined;
+}
+
+export function slotCoords(slot) {
+  const cell = cellOf(slot);
+  if (!cell) return undefined;
+  return { x: cell[0] * GRID_STEP, z: cell[1] * GRID_STEP };
+}
+
+export function slotAt(x, z) {
+  if (!cache.coords) {
+    cache.coords = new Map();
+    for (let s = 1; s <= MAX_SLOTS; s++) {
+      const c = slotCoords(s);
+      cache.coords.set(`${c.x},${c.z}`, s);
+    }
+  }
+  return cache.coords.get(`${x},${z}`);
+}
+
+export function readSlots() {
+  if (!cache.slots) cache.slots = readJson(world, PROP.SLOTS, {});
+  return cache.slots;
+}
+
+function saveSlots() {
+  writeJson(world, PROP.SLOTS, readSlots());
+}
+
+export function recordOf(slot) {
+  return readSlots()[String(slot)];
+}
+
+export function recordOfPlayerId(id) {
+  const slots = readSlots();
+  for (const key of Object.keys(slots)) {
+    if (slots[key].id === id) return { slot: Number(key), record: slots[key] };
+  }
+  return undefined;
+}
+
+export function firstFreeSlot() {
+  const slots = readSlots();
+  for (let s = 1; s <= MAX_SLOTS; s++) {
+    if (!slots[String(s)]) return s;
+  }
+  return undefined;
+}
+
+export function assignSlot(player, slot, trait) {
+  readSlots()[String(slot)] = { id: player.id, name: player.name, trait, built: false };
+  saveSlots();
+  player.setDynamicProperty(PROP.SLOT, slot);
+  player.setDynamicProperty(PROP.TRAIT, trait);
+  player.setDynamicProperty(PROP.BREAKS, 0);
+}
+
+export function markBuilt(slot) {
+  const record = recordOf(slot);
+  if (!record || record.built) return;
+  record.built = true;
+  saveSlots();
+}
+
+export function slotOf(player) {
+  const stored = player.getDynamicProperty(PROP.SLOT);
+  if (typeof stored === "number" && recordOf(stored)?.id === player.id) return stored;
+  const found = recordOfPlayerId(player.id);
+  if (!found) return undefined;
+  player.setDynamicProperty(PROP.SLOT, found.slot);
+  player.setDynamicProperty(PROP.TRAIT, found.record.trait);
+  return found.slot;
+}
+
+export function traitOf(player) {
+  const slot = slotOf(player);
+  return slot === undefined ? undefined : recordOf(slot)?.trait;
+}
+
+export function usedSlotCount() {
+  return Object.keys(readSlots()).length;
+}
+```
+
+## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/traits.js (136 lines, 4678 bytes)
+
+```
+export const TRAITS = {
+  ore_bounty: {
+    name: "Ore Bounty",
+    color: "§b",
+    blurb: "Ore-heavy block mix and bonus raw metals, coal, redstone and gems.",
+    goods: "Iron, copper, gold, coal, redstone, lapis, diamonds, emeralds",
+    boost: { ore: 3 },
+    bonus: [
+      ["minecraft:coal", 2, 5, 10, 0],
+      ["minecraft:raw_copper", 1, 4, 8, 1],
+      ["minecraft:raw_iron", 1, 4, 8, 1],
+      ["minecraft:lapis_lazuli", 2, 6, 5, 1],
+      ["minecraft:redstone", 2, 6, 5, 1],
+      ["minecraft:raw_gold", 1, 3, 4, 2],
+      ["minecraft:emerald", 1, 2, 2, 3],
+      ["minecraft:diamond", 1, 1, 2, 5],
+    ],
+  },
+  crop_master: {
+    name: "Crop Master",
+    color: "§a",
+    blurb: "Crop-heavy block mix and bonus harvests, seeds and farm goods.",
+    goods: "Wheat, carrots, potatoes, beetroot, pumpkins, melons, berries, sugar cane",
+    boost: { crop: 4, soil: 1.5 },
+    bonus: [
+      ["minecraft:wheat", 2, 6, 10, 0],
+      ["minecraft:carrot", 2, 6, 8, 0],
+      ["minecraft:potato", 2, 6, 8, 0],
+      ["minecraft:beetroot", 2, 5, 6, 0],
+      ["minecraft:pumpkin", 1, 3, 6, 0],
+      ["minecraft:melon_slice", 2, 6, 6, 0],
+      ["minecraft:sweet_berries", 2, 5, 5, 0],
+      ["minecraft:sugar_cane", 2, 5, 5, 0],
+      ["minecraft:cocoa_beans", 1, 4, 3, 1],
+    ],
+  },
+  treasure_angler: {
+    name: "Treasure Angler",
+    color: "§3",
+    blurb: "Sea-themed block mix and bonus catches, shells and rare treasure.",
+    goods: "Fish, ink, nautilus shells, name tags, saddles, lily pads",
+    boost: { aquatic: 4 },
+    bonus: [
+      ["minecraft:cod", 1, 4, 10, 0],
+      ["minecraft:salmon", 1, 4, 8, 0],
+      ["minecraft:tropical_fish", 1, 2, 3, 0],
+      ["minecraft:pufferfish", 1, 2, 3, 0],
+      ["minecraft:ink_sac", 1, 3, 6, 0],
+      ["minecraft:waterlily", 1, 3, 5, 0],
+      ["minecraft:nautilus_shell", 1, 1, 2, 2],
+      ["minecraft:name_tag", 1, 1, 2, 2],
+      ["minecraft:saddle", 1, 1, 1, 3],
+      ["minecraft:emerald", 1, 2, 2, 3],
+    ],
+  },
+  timber_baron: {
+    name: "Timber Baron",
+    color: "§6",
+    blurb: "Wood-heavy block mix and bonus logs, saplings and apples.",
+    goods: "Logs of every wood type, saplings, sticks, apples",
+    boost: { wood: 3, leaf: 2 },
+    bonus: [
+      ["minecraft:oak_log", 2, 6, 8, 0],
+      ["minecraft:birch_log", 2, 6, 6, 0],
+      ["minecraft:spruce_log", 2, 6, 6, 0],
+      ["minecraft:acacia_log", 2, 5, 5, 0],
+      ["minecraft:dark_oak_log", 2, 5, 5, 0],
+      ["minecraft:jungle_log", 2, 5, 4, 0],
+      ["minecraft:stick", 3, 8, 6, 0],
+      ["minecraft:apple", 1, 3, 4, 0],
+      ["minecraft:oak_sapling", 1, 2, 4, 0],
+      ["minecraft:cherry_log", 1, 4, 2, 2],
+    ],
+  },
+  beast_herder: {
+    name: "Beast Herder",
+    color: "§d",
+    blurb: "Wool-heavy block mix and bonus meat, leather, feathers and eggs.",
+    goods: "Beef, pork, chicken, mutton, leather, wool, feathers, eggs, bones",
+    boost: { fauna: 4 },
+    bonus: [
+      ["minecraft:beef", 1, 4, 8, 0],
+      ["minecraft:porkchop", 1, 4, 8, 0],
+      ["minecraft:chicken", 1, 3, 6, 0],
+      ["minecraft:mutton", 1, 3, 6, 0],
+      ["minecraft:leather", 1, 4, 8, 0],
+      ["minecraft:white_wool", 1, 4, 6, 0],
+      ["minecraft:feather", 2, 5, 6, 0],
+      ["minecraft:egg", 2, 6, 5, 0],
+      ["minecraft:bone", 1, 4, 6, 0],
+      ["minecraft:rabbit_hide", 1, 3, 2, 1],
+    ],
+  },
+  ember_forager: {
+    name: "Ember Forager",
+    color: "§c",
+    blurb: "Nether-heavy block mix and bonus coal, quartz, glowstone and blaze goods.",
+    goods: "Coal, flint, nether wart, quartz, glowstone, gold nuggets, blaze rods",
+    boost: { nether: 3 },
+    bonus: [
+      ["minecraft:coal", 2, 5, 8, 0],
+      ["minecraft:flint", 1, 4, 8, 0],
+      ["minecraft:gold_nugget", 2, 7, 8, 0],
+      ["minecraft:nether_wart", 1, 4, 6, 2],
+      ["minecraft:quartz", 1, 4, 6, 2],
+      ["minecraft:glowstone_dust", 1, 4, 6, 2],
+      ["minecraft:blaze_rod", 1, 2, 3, 4],
+      ["minecraft:magma_cream", 1, 2, 3, 4],
+      ["minecraft:netherite_scrap", 1, 1, 1, 6],
+    ],
+  },
+};
+
+export const TRAIT_IDS = Object.keys(TRAITS);
+
+export function traitInfo(id) {
+  return TRAITS[id];
+}
+
+export function traitLabel(id) {
+  const t = TRAITS[id];
+  return t ? `${t.color}${t.name}` : "§7Unknown";
+}
+
+export function pickTrait(slotRecords) {
+  const counts = {};
+  for (const id of TRAIT_IDS) counts[id] = 0;
+  for (const key of Object.keys(slotRecords)) {
+    const t = slotRecords[key].trait;
+    if (counts[t] !== undefined) counts[t]++;
+  }
+  const least = Math.min(...TRAIT_IDS.map((id) => counts[id]));
+  const pool = TRAIT_IDS.filter((id) => counts[id] === least);
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+```
+
+## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/util.js (201 lines, 5182 bytes)
+
+```
+import { world, system, ItemStack, EntityComponentTypes } from "@minecraft/server";
+
+export function overworld() {
+  return world.getDimension("overworld");
+}
+
+export function readJson(holder, key, fallback) {
+  const raw = holder.getDynamicProperty(key);
+  if (typeof raw !== "string") return fallback;
+  try {
+    const parsed = JSON.parse(raw);
+    return parsed === null || parsed === undefined ? fallback : parsed;
+  } catch (e) {
+    return fallback;
+  }
+}
+
+export function writeJson(holder, key, value) {
+  holder.setDynamicProperty(key, JSON.stringify(value));
+}
+
+export function findPlayer(id) {
+  for (const p of world.getAllPlayers()) {
+    if (p.id === id) return p;
+  }
+  return undefined;
+}
+
+export function later(fn, ticks) {
+  return system.runTimeout(() => {
+    try {
+      fn();
+    } catch (e) {}
+  }, ticks);
+}
+
+export function wait(ticks) {
+  return new Promise((resolve) => system.runTimeout(resolve, ticks));
+}
+
+export function niceName(typeId) {
+  const raw = String(typeId).replace(/^[a-z0-9_.-]+:/, "");
+  return raw
+    .split("_")
+    .map((w) => (w.length ? w[0].toUpperCase() + w.slice(1) : w))
+    .join(" ");
+}
+
+export function normalizeId(text) {
+  let t = String(text ?? "")
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, "_");
+  if (!t) return "";
+  if (!t.includes(":")) t = "minecraft:" + t;
+  return t;
+}
+
+export function isValidItem(typeId) {
+  if (typeof typeId !== "string" || typeId === "minecraft:air") return false;
+  try {
+    const stack = new ItemStack(typeId, 1);
+    return stack.typeId === typeId;
+  } catch (e) {
+    return false;
+  }
+}
+
+export function stackLimit(typeId) {
+  try {
+    return new ItemStack(typeId, 1).maxAmount;
+  } catch (e) {
+    return 64;
+  }
+}
+
+export function containerOf(player) {
+  return player.getComponent(EntityComponentTypes.Inventory)?.container;
+}
+
+function quiet(fn, fallback) {
+  try {
+    return fn();
+  } catch (e) {
+    return fallback;
+  }
+}
+
+export function isPlain(item) {
+  if (!item) return false;
+  if (quiet(() => item.nameTag, undefined)) return false;
+  if (quiet(() => item.getLore().length, 0) > 0) return false;
+  const enchantable = quiet(() => item.getComponent("minecraft:enchantable"), undefined);
+  if (enchantable && quiet(() => enchantable.getEnchantments().length, 0) > 0) return false;
+  const durability = quiet(() => item.getComponent("minecraft:durability"), undefined);
+  if (durability && quiet(() => durability.damage, 0) > 0) return false;
+  return true;
+}
+
+export function plainInventory(player) {
+  const totals = new Map();
+  const inv = containerOf(player);
+  if (!inv) return [];
+  for (let i = 0; i < inv.size; i++) {
+    const item = inv.getItem(i);
+    if (!item || !isPlain(item)) continue;
+    totals.set(item.typeId, (totals.get(item.typeId) ?? 0) + item.amount);
+  }
+  return [...totals.entries()]
+    .map(([id, amount]) => ({ id, amount }))
+    .sort((a, b) => niceName(a.id).localeCompare(niceName(b.id)));
+}
+
+export function countPlain(player, typeId) {
+  const inv = containerOf(player);
+  if (!inv) return 0;
+  let total = 0;
+  for (let i = 0; i < inv.size; i++) {
+    const item = inv.getItem(i);
+    if (item && item.typeId === typeId && isPlain(item)) total += item.amount;
+  }
+  return total;
+}
+
+export function removePlain(player, typeId, amount) {
+  if (countPlain(player, typeId) < amount) return false;
+  const inv = containerOf(player);
+  let left = amount;
+  for (let i = 0; i < inv.size && left > 0; i++) {
+    const item = inv.getItem(i);
+    if (!item || item.typeId !== typeId || !isPlain(item)) continue;
+    const take = Math.min(left, item.amount);
+    if (take === item.amount) {
+      inv.setItem(i, undefined);
+    } else {
+      item.amount -= take;
+      inv.setItem(i, item);
+    }
+    left -= take;
+  }
+  return left === 0;
+}
+
+export function giveItem(player, typeId, amount) {
+  const inv = containerOf(player);
+  const limit = stackLimit(typeId);
+  let left = amount;
+  while (left > 0) {
+    const n = Math.min(left, limit);
+    left -= n;
+    const stack = new ItemStack(typeId, n);
+    const rest = inv ? inv.addItem(stack) : stack;
+    if (rest) player.dimension.spawnItem(rest, player.location);
+  }
+}
+
+export function pickWeighted(list, weightOf) {
+  let total = 0;
+  for (const entry of list) total += weightOf(entry);
+  if (total <= 0) return list[0];
+  let roll = Math.random() * total;
+  for (const entry of list) {
+    roll -= weightOf(entry);
+    if (roll < 0) return entry;
+  }
+  return list[list.length - 1];
+}
+
+export function isLoaded(dim, x, y, z) {
+  try {
+    return dim.getBlock({ x, y, z }) !== undefined;
+  } catch (e) {
+    return false;
+  }
+}
+
+export function blockIdAt(dim, x, y, z) {
+  try {
+    return dim.getBlock({ x, y, z })?.typeId;
+  } catch (e) {
+    return undefined;
+  }
+}
+
+export function runCmd(dim, command) {
+  try {
+    const result = dim.runCommand(command);
+    return Boolean(result) && result.successCount > 0;
+  } catch (e) {
+    return false;
+  }
+}
+
+export function addArea(dim, name, x, y, z) {
+  return runCmd(dim, `tickingarea add circle ${x} ${y} ${z} 2 ${name} true`);
+}
+
+export function dropArea(dim, name) {
+  return runCmd(dim, `tickingarea remove ${name}`);
+}
+```
+
+## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/welcome.js (54 lines, 1477 bytes)
+
+```
+import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
+import { TITLE, WELCOME_BODY, RULES_BODY, WELCOME_RETRY_LIMIT } from "./config.js";
+import { findPlayer, wait } from "./util.js";
+import { hasIsland, claimIsland } from "./claim.js";
+
+const open = new Set();
+
+async function showRules(player) {
+  const form = new ActionFormData().title("§6§lAbout / Rules").body(RULES_BODY).button("Back");
+  try {
+    await form.show(player);
+  } catch (e) {}
+}
+
+export async function promptWelcome(player, attempt = 0) {
+  const id = player.id;
+  if (open.has(id)) return;
+  open.add(id);
+  let tries = attempt;
+  try {
+    while (true) {
+      const p = findPlayer(id);
+      if (!p || hasIsland(p)) return;
+      const form = new ActionFormData()
+        .title(TITLE)
+        .body(WELCOME_BODY)
+        .button("Start / Claim Island")
+        .button("About / Rules");
+      let res;
+      try {
+        res = await form.show(p);
+      } catch (e) {
+        return;
+      }
+      if (res.canceled) {
+        tries++;
+        if (tries > WELCOME_RETRY_LIMIT) {
+          p.sendMessage("§6[ALN] §7Rejoin the world or respawn to see the startup window again.");
+          return;
+        }
+        await wait(res.cancelationReason === FormCancelationReason.UserBusy ? 10 : 100);
+        continue;
+      }
+      if (res.selection === 0) {
+        claimIsland(p);
+        return;
+      }
+      await showRules(p);
+    }
+  } finally {
+    open.delete(id);
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/main.js (66 lines, 1901 bytes)
+
+```
+import { world, system } from "@minecraft/server";
+import { LEDGER_ID } from "./lib/config.js";
+import { setupLobby, teleportToLobby } from "./lib/lobby.js";
+import { hasIsland, returnToIsland } from "./lib/claim.js";
+import { promptWelcome } from "./lib/welcome.js";
+import { startOneBlock } from "./lib/oneblock.js";
+import { openLedger } from "./lib/ledger.js";
+import { collectPayout, payoutSummary } from "./lib/market.js";
+import { later } from "./lib/util.js";
+
+const joining = new Set();
+
+function readyPlayer(player) {
+  if (!hasIsland(player)) {
+    teleportToLobby(player);
+    later(() => promptWelcome(player), 20);
+    return;
+  }
+  returnToIsland(player);
+  if (payoutSummary(player.id).length > 0) {
+    later(() => {
+      const total = collectPayout(player);
+      if (total > 0) player.sendMessage(`§6[ALN] §aWhile you were away, ${total} items from your sales were delivered.`);
+    }, 40);
+  }
+}
+
+world.afterEvents.playerJoin.subscribe((event) => {
+  joining.add(event.playerId);
+});
+
+world.afterEvents.playerSpawn.subscribe((event) => {
+  const player = event.player;
+  if (event.initialSpawn) {
+    joining.delete(player.id);
+    readyPlayer(player);
+    return;
+  }
+  if (!hasIsland(player)) {
+    teleportToLobby(player);
+    later(() => promptWelcome(player), 20);
+  }
+});
+
+world.afterEvents.itemUse.subscribe((event) => {
+  if (event.itemStack?.typeId !== LEDGER_ID) return;
+  const player = event.source;
+  system.run(() => {
+    openLedger(player);
+  });
+});
+
+system.afterEvents.scriptEventReceive.subscribe((event) => {
+  if (event.id !== "aln:menu") return;
+  const player = event.sourceEntity;
+  if (player && player.typeId === "minecraft:player") promptWelcome(player);
+});
+
+world.afterEvents.worldLoad.subscribe(() => {
+  setupLobby();
+  startOneBlock();
+  for (const player of world.getAllPlayers()) {
+    if (!joining.has(player.id)) readyPlayer(player);
+  }
+});
+```
+
+## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/CHANGELOG.md (15 lines, 1009 bytes)
+
+```
+# Changelog — ALN:MultiIslandOneBlock
+
+---
+
+## [1.0.0] - 2026-11-23 - First Release
+
+### Added
+- **Central Lobby**: The world spawn sits on a single bedrock pillar at the center of the grid.
+- **Startup Window**: First-time players see a welcome window with Start / Claim Island and About / Rules buttons, plus a warning that the island choice is permanent.
+- **Island Grid**: Each player claims a private island on a square grid with 2,000 blocks between islands, with extra outer rings for more than eight players.
+- **Shared OneBlock Phases**: All islands progress through eight phases together, from Forest to The End.
+- **Island Richness Traits**: Every island has one of six traits that change its block mix and add bonus drops.
+- **Global Pirate Ledger**: A craftable item, made from a Book, a Gold Nugget and an Emerald, that opens the Global Trade Hub from anywhere.
+- **Global Trade Hub**: Players can post, browse, search, buy, cancel and collect earnings from item offers made by other islands.
+```
+
+## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/DESCRIPTION.md (93 lines, 6330 bytes)
+
+```
+# ALN:MultiIslandOneBlock — Multi-player OneBlock islands on a 2,000-block grid with a global trade ledger
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**Claim a private OneBlock island on a 2,000-block grid and trade surplus goods through the Global Pirate Ledger.**
+
+> Every player gets a floating island, every island shares the same OneBlock phase, and no island has everything. Trading is how the world grows.
+
+## Overview
+
+ALN:MultiIslandOneBlock turns an empty world into a shared OneBlock server for ten or more players. New players arrive on a lone bedrock pillar at the world spawn, read a short startup window and claim a personal island. Islands sit 2,000 blocks apart in a square grid around the central lobby.
+
+All islands share one progression, and each island carries a Richness trait that shapes its blocks and bonus drops. Because the traits differ, players end up with surplus goods that other islands need. The Global Pirate Ledger lets them swap those goods from anywhere in the world.
+
+The add-on is designed for a world with no terrain, such as a void flat world, so the islands float in empty space.
+
+## Key Features
+
+### Central Lobby
+- **What Happens**: New players arrive on a single bedrock pillar at the world spawn, standing at the center of the grid. The lobby stays loaded so the spawn is always ready.
+
+### Startup Window
+- **What Happens**: A first-time player sees the ALN:MultiIslandOneBlock window with Start / Claim Island and About / Rules buttons. The window warns that the island spot cannot be undone, and it reopens if it is closed before a choice is made.
+
+### Permanent Island Claim
+- **What Happens**: Pressing Start assigns the next free island spot, builds a small grass island with the starting OneBlock, sets the personal respawn point on top of it, and teleports the player there. The spot belongs to that player for good.
+
+### 2,000-Block Square Grid
+- **What Happens**: The first eight islands sit at the corners and edges of a square around the lobby, from X: -2000, Z: -2000 to X: 2000, Z: 2000. Spots nine and up fill outer perimeter rings, up to 120 islands in total.
+
+### Shared OneBlock Phases
+- **What Happens**: Every OneBlock broken on any island moves the whole world forward through eight phases: Forest, Underground, Desert, Frozen Tundra, Ocean Monument, Nether, Deepslate Depths and The End. All islands always draw blocks from the same phase.
+
+### Island Richness Traits
+- **What Happens**: Each island receives one trait: Ore Bounty, Crop Master, Treasure Angler, Timber Baron, Beast Herder or Ember Forager. Traits are handed out evenly, and each one changes which blocks appear most often on that island.
+
+### Bonus Drops
+- **What Happens**: Roughly three out of ten OneBlock breaks drop an extra item that matches the island's trait and the current phase. Ore Bounty islands earn metals and gems, Crop Master islands earn harvests, and the other traits earn their own goods.
+
+### Global Pirate Ledger
+- **What Happens**: A portable item crafted from a Book, a Gold Nugget and an Emerald in a crafting table. Every player also receives one when claiming an island, and right-clicking it opens the Global Trade Hub from anywhere.
+
+### Global Trade Hub
+- **What Happens**: Players post offers such as 32 Iron Ingots for 16 Pumpkins, browse and search offers from every island, and buy with a single confirmation. Offered items are held safely until the offer sells or is cancelled.
+
+### Earnings Collection
+- **What Happens**: Payment for a sold offer goes straight to the seller when online. Sellers who are offline receive their earnings the next time they join, or when they choose Collect Earnings in the hub.
+
+## How to Use
+
+1. Create a world with no terrain, then turn on the Behavior Pack and the Resource Pack.
+2. Join the world. First-time players appear on the bedrock pillar and see the startup window.
+3. Read About / Rules if you like, then choose Start / Claim Island. This choice cannot be undone.
+4. Break the OneBlock under your feet. It regenerates every time, and the whole world advances through its phases as islands keep breaking blocks.
+5. Right-click the Global Pirate Ledger to create offers, browse other islands' offers and collect earnings.
+6. Craft a new ledger with a Book, a Gold Nugget and an Emerald if you ever lose yours.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.26.60 or newer.
+- Experimental features: No experiment requirement detected in the inspected files.
+- Achievements: Yes, achievement-friendly.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, ALN:MultiIslandOneBlock Bedrock mod, MCPEDL add-on, CurseForge Bedrock, ALNStudios, OneBlock add-on, multiplayer OneBlock, island grid, trading ledger, Bedrock economy add-on.
+```
+
+## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/project.json (5 lines, 59 bytes)
+
+```
+{
+  "type": "addon",
+  "name": "ALN:MultiIslandOneBlock"
+}
+```
+
+## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/README.md (19 lines, 841 bytes)
+
+```
+# ALNMultiIslandOneBlock
+
+Download the current release of **ALNMultiIslandOneBlock** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download ALNMultiIslandOneBlock (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNMultiIslandOneBlock/ALNMultiIslandOneBlock%20V1.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALNMultiIslandOneBlock/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/resource_pack/manifest.json (37 lines, 636 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN:MultiIslandOneBlock Resources (v1)",
+    "description": "Textures and names for the Global Pirate Ledger. by ALNStudios",
+    "uuid": "2cf90b7d-4b0f-44d5-b726-41f3e756f95f",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "02c6ed61-2e06-499b-b6d3-1c6afa51beb6",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/resource_pack/texts/en_US.lang (4 lines, 168 bytes)
+
+```
+item.aln:pirate_ledger=Global Pirate Ledger
+pack.name=ALN:MultiIslandOneBlock Resources
+pack.description=Textures and names for the Global Pirate Ledger. by ALNStudios
+```
+
+## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/resource_pack/texts/languages.json (4 lines, 14 bytes)
+
+```
+[
+  "en_US"
+]
+```
+
+## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/resource_pack/textures/item_texture.json (10 lines, 182 bytes)
+
+```
+{
+  "resource_pack_name": "aln_multiisland",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "pirate_ledger": {
+      "textures": "textures/items/pirate_ledger"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/texture_sources/pirate_ledger.json (310 lines, 2872 bytes)
+
+```
+{
+  "name": "pirate_ledger",
+  "size": 16,
+  "folder": "items",
+  "palette": {
+    "0": "#00000000",
+    "1": "#2a1608",
+    "2": "#8a4f1f",
+    "3": "#a8662b",
+    "4": "#5e3414",
+    "5": "#f4c430",
+    "6": "#b8860b",
+    "9": "#f1e6c3",
+    "10": "#cdbf94",
+    "11": "#19d46a",
+    "12": "#0a7a3a",
+    "13": "#b6ffd2"
+  },
+  "pixels": [
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      4,
+      4,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      4,
+      4,
+      5,
+      3,
+      3,
+      3,
+      3,
+      5,
+      3,
+      9,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      4,
+      4,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      10,
+      9,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      4,
+      4,
+      2,
+      2,
+      2,
+      13,
+      2,
+      2,
+      10,
+      9,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      4,
+      4,
+      5,
+      5,
+      13,
+      11,
+      12,
+      5,
+      10,
+      9,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      4,
+      4,
+      6,
+      11,
+      11,
+      11,
+      12,
+      12,
+      10,
+      9,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      4,
+      4,
+      2,
+      2,
+      11,
+      12,
+      12,
+      2,
+      10,
+      9,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      4,
+      4,
+      2,
+      2,
+      2,
+      12,
+      2,
+      2,
+      10,
+      9,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      4,
+      4,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      10,
+      9,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      4,
+      4,
+      5,
+      2,
+      2,
+      2,
+      2,
+      5,
+      10,
+      9,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      4,
+      4,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      9,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      4,
+      4,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  ]
+}
+```
