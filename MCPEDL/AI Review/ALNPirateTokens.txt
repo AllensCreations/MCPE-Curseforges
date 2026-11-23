@@ -6,8 +6,8 @@
 - **Destination:** `MCPEDL/Addons/ALNPirateTokens`
 - **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALNPirateTokens/CHANGELOG.md`)
 - **Current version:** Current REPO_VERSION, the next spec number and the newest specs: Context7 `docs/where-we-left-off.md` (library `/allenscreations/mcpe-curseforges`). The `REPO_VERSION` file and the root `CHANGELOG.md` in the repo win over it.
-- **Text files:** 27
-- **Skipped binary:** 11
+- **Text files:** 28
+- **Skipped binary:** 43
 - **Paths not found:** 0
 
 ### Files in this export
@@ -37,10 +37,11 @@
 - `MCPEDL/Addons/ALNPirateTokens/resource_pack/texts/en_US.lang`
 - `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/item_texture.json`
 - `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/terrain_texture.json`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/ASSET-NOTICE.md`
 - `MCPEDL/Addons/ALNPirateTokens/texture_sources/mystery_crate.json`
 - `MCPEDL/Addons/ALNPirateTokens/texture_sources/pirate_icons.json`
 
-### Skipped (binary): 11 file(s)
+### Skipped (binary): 43 file(s)
 
 - `MCPEDL/Addons/ALNPirateTokens/assets/items/captains_ledger.png`
 - `MCPEDL/Addons/ALNPirateTokens/assets/recipes/captains_ledger_recipe.png`
@@ -53,6 +54,36 @@
 - `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/items/aln_cursed_coin.png`
 - `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/items/aln_gold_doubloon.png`
 - `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/items/aln_silver_token.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/ancient_debris.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/beacon.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/chest.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/compass.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/conduit.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/cooked_salmon.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/dark_oak_boat.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/diamond.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/diamond_block.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/elytra.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/emerald.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/emerald_block.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/enchanted_golden_apple.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/ender_pearl.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/experience_bottle.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/glass_bottle.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/gold_ingot.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/golden_apple.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/heart_of_the_sea.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/iron_sword.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/name_tag.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/nautilus_shell.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/nether_star.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/netherite_ingot.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/netherite_scrap.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/netherite_sword.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/prismarine.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/prismarine_crystals.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/saddle.png`
+- ... and 3 more
 
 ---
 
@@ -1645,6 +1676,35 @@ tile.aln:mystery_crate.name=§6Mystery Buccaneer Crate
     }
   }
 }
+```
+
+## FILE: MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/ASSET-NOTICE.md (25 lines, 1392 bytes)
+
+```
+# Artwork and attribution
+
+Minecraft is a trademark of Mojang Studios. Minecraft textures, models and
+associated artwork belong to Mojang Studios / Microsoft. MCicons is an
+independent community project, not an official Minecraft product and not
+approved by or associated with Mojang or Microsoft.
+
+The MIT license covers this project's software, tools and documentation. It
+does **not** relicense Minecraft artwork or grant rights to Minecraft assets.
+Use of the included artwork remains subject to the rights holder's terms,
+[Minecraft Usage Guidelines](https://www.minecraft.net/en-us/usage-guidelines)
+and applicable law. Do not describe the artwork as MIT-licensed or exclusively
+owned by MCicons. This notice is not a legal clearance or a rights guarantee.
+
+Version 2 retains the original 1,396 PNG files from MCicons 1.0.0 and adds
+263 software-rendered previews derived from the SHA-verified official Java 26.3
+client. `data/minecraft-source.json` records the archive URL/hashes, identifiers,
+definition paths and new PNG hashes. The game archive itself is not distributed.
+Legacy images were retained, not claimed to have been independently authored
+or freshly extracted from 26.3. Software previews are not guaranteed to be
+pixel-identical to the game's inventory renderer.
+
+Keep this notice with redistributed packages or subsets. Questions about the
+MCicons project: hi@mumd.dev.
 ```
 
 ## FILE: MCPEDL/Addons/ALNPirateTokens/texture_sources/mystery_crate.json (77 lines, 3717 bytes)

@@ -8,7 +8,7 @@ This folder contains compiled release packages for **ALNPirateTokens** by ALNStu
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`ALNPirateTokens V1.0.2.mcaddon`** | `.mcaddon` | ~330 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNPirateTokens/ALNPirateTokens%20V1.0.2.mcaddon) |
+| **`ALNPirateTokens V1.0.2.mcaddon`** | `.mcaddon` | ~378 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNPirateTokens/ALNPirateTokens%20V1.0.2.mcaddon) |
 
 ---
 
