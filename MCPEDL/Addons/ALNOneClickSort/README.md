@@ -5,7 +5,7 @@ Download the current release of **ALNOneClickSort** for Minecraft Bedrock Editio
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNOneClickSort (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNOneClickSort/ALNOneClickSort%20V11.mcaddon)
+- **Direct download:** [Download ALNOneClickSort (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNOneClickSort/ALNOneClickSort%20V12.mcaddon)
 
 ## Installation
 

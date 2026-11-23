@@ -1,10 +1,23 @@
 # Changelog — ALN:OneClickSort
 
-## [v11] - 2026-11-23 - Auto Restock and Chest Lock
+## [v12] - 2026-11-23 - Automation List
 
 ### Added
+- **Auto Stock**: While the Restock Feather is in your inventory, your backpack items are sent every 5 seconds into nearby containers that already hold the same item. The hotbar and the feathers are never moved.
+
+### Improved & Balanced
+- **Automation List**: The Automatic Restock toggle in the Sort Settings Book is now an Automation list with Off, Auto Stock and Auto Restock. Players who had Automatic Restock on are moved to Auto Restock.
+
+<details>
+<summary><b>11.0.x</b> (1 release)</summary>
+
+### [v11] - 2026-11-23 - Auto Restock and Chest Lock
+
+#### Added
 - **Automatic Restock**: A new toggle in the Sort Settings Book tops up your partial stacks from nearby containers every 5 seconds while the Restock Feather is in your inventory. It is off by default.
 - **Lock Chest**: Sneak and right-click a container with the Sort Settings Book to lock or unlock it. Restock, including Automatic Restock and Get Everything, no longer takes items from a locked container.
+
+</details>
 
 <details>
 <summary><b>10.0.x</b> (2 releases)</summary>

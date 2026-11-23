@@ -1,8 +1,0 @@
-{
-  "changelog_version": "10.0.0",
-  "manifest_version": "10.0.0",
-  "packages": {
-    "ALNOneClickSort V10.mcaddon": "d71958c4f6d2efd80d2ed9a2582e8c210fc914329615adae2a922e7304f558f6"
-  },
-  "source_sha256": "cc703a91a65d0b93283229b7b1a7eece559ca356b0c6ab365a5dcf2268d0a7e1"
-}

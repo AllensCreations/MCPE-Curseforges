@@ -4,8 +4,8 @@
 
 - **Export request:** `MCPEDL/Addons/ALNOneClickSort`
 - **Destination:** `MCPEDL/Addons/ALNOneClickSort`
-- **CURRENT VERSION: v11 / NEXT UPDATE: v12**  (`MCPEDL/Addons/ALNOneClickSort/CHANGELOG.md`)
-- **Current version:** Current REPO_VERSION, the next spec number and the newest specs: Context7 `docs/where-we-left-off.md` (library `/allenscreations/mcpe-curseforges`). The `REPO_VERSION` file and the root `CHANGELOG.md` in the repo win over it.
+- **CURRENT VERSION: v12 / NEXT UPDATE: v13**  (`MCPEDL/Addons/ALNOneClickSort/CHANGELOG.md`)
+- **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 25
 - **Skipped binary:** 11
 - **Paths not found:** 0
@@ -61,7 +61,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v11 / NEXT UPDATE: v12).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v12 / NEXT UPDATE: v13).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
@@ -89,7 +89,7 @@ Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
 Output ONLY these three sections in order:
 1. **File Needed:** repo-root-relative path of each file created/edited.
 2. **Changelog:** bullets, brief summary of changes.
-3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands. Update to an existing project or the repo: deliver ONE attached `spec_v<N>.txt` (N = REPO_VERSION + 1, from Context7 `docs/where-we-left-off.md`) and the commands that build and run it (`python3 scripts/make_update_script.py ~/storage/downloads/spec_v<N>.txt --out-dir ~/storage/downloads --verify ~/MCPE-Curseforges`, then `bash ~/storage/downloads/<Name>_v<N>_*.sh`). New pack: the pack `.sh`.
+3. **Termux Script:** ONE fenced `bash` block holding the ready-to-run commands, and ONE generated self-contained `<Pack>_v<Version>_<rand>.sh` update script (built with `make_update_script.py`). The script contains the full UI, automatically pulls, applies edits safely, commits, and pushes.
 ---
 
 ## Skills
@@ -138,7 +138,7 @@ NEVER call `resolve-library-id`. NEVER query any other library.
 ## Scripts that must run
 
 - `make_pack_script.py`, `build_payload.py`, `import_project_payload.py`, `doc_template.py`, `pixel_json_to_png.py`, `make_update_script.py` and `apply_update.py` need their COMPLETE unchanged text. A Context7 snippet is not enough.
-- The complete files are in the kit zip (`New-Pack.zip`, `Maintenance.zip` or the pack's review zip `<Pack>.zip`) under `files/`. Unzip, run from there, NEVER retype or edit them.
+- The complete files are in the kit zip (`New-Pack.zip`, `Maintenance.zip` or the pack's review zip `<Pack>.zip`) under `files/`. Specifically, `make_update_script.py`, `apply_update.py`, `pixel_json_to_png.py`, and `docs/mcicons-index.md` are packaged under `files/`. Unzip, run from there, NEVER retype or edit them.
 - No zip and only partial text from a query: stop and ask the user to attach the zip. NEVER rewrite a script from memory.
 - A file attached in the conversation or read from a clone wins over the Context7 index. Context7 shows the repo as last indexed. Tell the user about any difference.
 
@@ -162,10 +162,10 @@ NEVER call `resolve-library-id`. NEVER query any other library.
 ````markdown
 ---
 name: mcpe-pack-update
-description: Use for any change to an existing project, workflow, script or doc in the MCPE-Curseforges repository (update, fix, add, rename). Delivers every change as ONE update spec file (spec_vN.txt) that the user turns into a Termux .sh with scripts/make_update_script.py. Not for read-only audits (use checkrm) and not for building a new project from an idea (use PACK_GENERATOR_INSTRUCTIONS.md Part 4).
+description: Use for any change to an existing project, workflow, script or doc in the MCPE-Curseforges repository (update, fix, add, rename). Delivers every change as ONE self-contained Termux update script (<Pack>_v<Version>_<rand>.sh) containing the spec and rich UI.
 ---
 
-# mcpe-pack-update: Update Spec Delivery
+# mcpe-pack-update: Update Delivery
 
 ## Authority
 
@@ -182,61 +182,30 @@ description: Use for any change to an existing project, workflow, script or doc 
 
 ## Procedure
 
-1. Read `INSTRUCTIONS.md` Parts 1 and 2 before writing anything, through Context7 as the `mcpe-context7` skill says. `make_update_script.py` and `apply_update.py` are complete in the pack's review zip (`<Pack>.zip`) under `files/`; run them from there.
-2. Find the destination folder: the path the user named, otherwise the matching project folder. Do not substitute a similar name; report ambiguity or a missing target. Ask at most one question, and only if the answer changes gameplay, compatibility, distribution, data loss or versioning.
-3. Read the real source (manifests, scripts, items, recipes, loot tables, functions, lang files) before writing any claim. Source priority when sources disagree, and report the disagreement: the project's own files, Mojang Bedrock Samples, official Minecraft Creator Documentation, Minecraft Wiki, Bedrock Wiki.
+1. Read `INSTRUCTIONS.md` Parts 1 and 2 before writing anything, through Context7 as the `mcpe-context7` skill says. `make_update_script.py`, `apply_update.py`, and `pixel_json_to_png.py` are complete in the pack's review zip (`<Pack>.zip`) under `files/`; run them from there.
+2. Find the destination folder: the path the user named, otherwise the matching project folder. Do not substitute a similar name; report ambiguity or a missing target.
+3. Read the real source (manifests, scripts, items, recipes, loot tables, functions, lang files) before writing any claim. Source priority when sources disagree: the project's own files, Mojang Bedrock Samples, official Minecraft Creator Documentation, Minecraft Wiki, Bedrock Wiki.
 4. Make the smallest possible change. No unrelated rewrites. Never invent features, versions, links, assets, test results or compatibility. Never write comments in shipped `.js`, `.mcfunction` or `.json` files.
-5. Write the spec (below), test it (below), then reply (below). For changes to an existing project, never deliver a .sh: this overrides any older "deliver the .sh" wording. A NEW pack still follows `mcpe-new-pack` and delivers its generated .sh.
+5. Generate the spec, convert it with `make_update_script.py` into a single self-contained `<Pack>_v<Version>_<rand>.sh` file, and provide the one-line run command for the user.
 
-## The spec
+## The update script
 
-File name: `spec_vN.txt`, a downloadable file. N = CURRENT VERSION + 1, read from the attached repo export, never guessed. The user builds the .sh on their phone with `scripts/make_update_script.py`.
-
-Format (`scripts/apply_update.py`):
-
-- Start: `@@ version vN`, then `@@ project MCPEDL/<Category>/<Name>`, then one `@@ file <path relative to the project>` block per file.
-- Directives: replace/with, replace-all, insert-after, insert-before, delete, append, create, overwrite, changelog. Remove files with `@@ delete-file <repo-root path>`.
-- Small change: replace/insert only. Anchors are copied from the attached export, never from memory, and must occur exactly once. Do not end an anchor with a newline.
-- Large redesign: `@@ overwrite` (new content must exceed 60% of the old file) or `@@ create` for new files. Never many fragile edits.
-- A content line that starts with `@@` is written `@@@`.
-- End with `@@ changelog <Update Name>` using `### Added`, `### Improved & Balanced`, `### Fixed` and `- **Title**: text`. Never touch manifest versions or README links.
-- New pixel textures: `@@ create` the pixel JSON under `texture_sources/`, then add the PNG step to the Termux commands.
-- Keep README.md and DESCRIPTION.md accurate (INSTRUCTIONS Part 2 template). Never claim an in-game test.
-
-**Test before delivering.** Apply the spec to the export text in the sandbox with `apply_update.py` (`--dry-run`, then a real run on a copy). Check every anchor, validate each changed JSON, run `node --check` on JS. Report every check not run.
-
-## Versions
-
-- N is the current version from the attached export plus one. `apply_update.py` rejects a stale version, so a stale spec cannot run on a newer repo.
-- Never edit manifest versions or the README version or download link. The auto-version-bump workflow does that on push.
-
-## Docs
-
-- The changelog entry is mandatory on every update and is written with the final `@@ changelog <Update Name>` directive. Never edit or delete older entries; correct them in the new entry.
-- After the change, check the README.md and DESCRIPTION.md in the destination. Edit them only if the change makes them inaccurate or incomplete. Never remove verified content.
-- Follow the Part 2 templates in `INSTRUCTIONS.md` exactly (`scripts/doc_template.py` fails the build on deviation): same headings, same heading text, same order, same labels, no added sections, no boilerplate, no placeholders. README is version-free and DESCRIPTION has no release version in its title.
-- Writing, layout, attribution, keywords and the README and DESCRIPTION templates are defined in `INSTRUCTIONS.md` Part 2. Read them there; do not copy them into the script from memory.
+Generate the spec with `apply_update.py` directives (replace, replace-all, insert-after, insert-before, create, overwrite, delete, changelog).
+Then build the single `.sh` using:
+```bash
+python3 files/scripts/make_update_script.py spec.txt --out-dir .
+```
+This produces ONE single `.sh` file (`<PackName>_v<Version>_<rand>.sh`) that contains the embedded update payload, ANSI colored status UI, automated git rebase, validation checks, commit, and push.
 
 ## Reply
 
-1. `spec_vN.txt` as a downloadable file.
-2. These Termux commands, with N and the project filled in:
-
+1. Attach or output the single `.sh` file (`<PackName>_v<Version>_<rand>.sh`).
+2. Give the single Termux command:
+```bash
+bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 ```
-cd ~/MCPE-Curseforges && git checkout -- Package changelog_views && git pull --rebase --autostash
-python3 scripts/make_update_script.py ~/storage/downloads/spec_vN.txt --out-dir ~/storage/downloads --verify ~/MCPE-Curseforges
-bash ~/storage/downloads/<Name>_vN_*.sh
-```
-
-Only when textures changed, then:
-
-```
-python3 scripts/pixel_json_to_png.py MCPEDL/<Category>/<Name>
-git add MCPEDL/<Category>/<Name>/resource_pack/textures
-git commit -m "<short>" && git pull --rebase --autostash && git push
-```
-
-3. Two or three sentences: what changed, which checks ran, what is unverified. Add `Docs queried (YYYY-MM-DD): <library IDs and topics>`.
+3. Brief summary of what changed and what checks ran.
+4. **Save in AI memory**: Every finished output, applied change summary, and spec version must be retained in AI memory/scratch notes so context is preserved across turns without relying on session replay.
 ````
 
 
@@ -374,11 +343,11 @@ git commit -m "<short>" && git pull --rebase --autostash && git push
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:OneClickSort (v11)",
+    "name": "ALN:OneClickSort (v12)",
     "description": "One-click backpack, chest and restock sorter with Simple and Normal modes. by ALNStudios",
     "uuid": "ff3a44de-a0eb-4371-9793-5cdeb9badd4f",
     "version": [
-      11,
+      12,
       0,
       0
     ],
@@ -393,7 +362,7 @@ git commit -m "<short>" && git pull --rebase --autostash && git push
       "type": "data",
       "uuid": "7770015e-c2a3-4282-836e-6ce599501f14",
       "version": [
-        11,
+        12,
         0,
         0
       ]
@@ -404,7 +373,7 @@ git commit -m "<short>" && git pull --rebase --autostash && git push
       "entry": "scripts/main.js",
       "uuid": "7b755805-62d5-4728-a4f2-c71f48050a6f",
       "version": [
-        11,
+        12,
         0,
         0
       ]
@@ -414,7 +383,7 @@ git commit -m "<short>" && git pull --rebase --autostash && git push
     {
       "uuid": "6b8237f8-7fb8-4611-b5d0-3da9864e4671",
       "version": [
-        11,
+        12,
         0,
         0
       ]
@@ -444,7 +413,7 @@ git commit -m "<short>" && git pull --rebase --autostash && git push
     "authors": [
       "ALNStudios"
     ],
-    "version": "11.0.0",
+    "version": "12.0.0",
     "product_type": "addon"
   }
 }
@@ -723,7 +692,7 @@ export function sortContainer(container, startSlot, endSlot, sortMode = 0) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNOneClickSort/behavior_pack/scripts/sort_triggers.js (418 lines, 12827 bytes)
+## FILE: MCPEDL/Addons/ALNOneClickSort/behavior_pack/scripts/sort_triggers.js (485 lines, 14690 bytes)
 
 ```
 import { world, system } from "@minecraft/server";
@@ -886,7 +855,7 @@ function contentSignature(container) {
   return s;
 }
 
-function findNearbyContainers(player) {
+function findNearbyContainers(player, includeLocked = false) {
   const dim = player.dimension;
   const o = player.location;
   const cx = Math.floor(o.x), cy = Math.floor(o.y), cz = Math.floor(o.z);
@@ -904,7 +873,7 @@ function findNearbyContainers(player) {
         if (!block || !isSortableContainer(block.typeId)) continue;
         const container = block.getComponent("minecraft:inventory")?.container;
         if (!container) continue;
-        if (isLockedContainer(block, container)) continue;
+        if (!includeLocked && isLockedContainer(block, container)) continue;
 
         if (container.size === 54) {
           const sig = contentSignature(container);
@@ -924,6 +893,70 @@ function findNearbyContainers(player) {
     }
   }
   return found;
+}
+
+function hasStockableItem(backpack) {
+  for (let i = 9; i <= 35; i++) {
+    const it = backpack.getItem(i);
+    if (it && !isAutoSortFeather(it) && !isRestockFeather(it)) return true;
+  }
+  return false;
+}
+
+function autoStock(player) {
+  const prefs = getPrefs(player);
+  const backpack = getBackpack(player);
+  if (!hasStockableItem(backpack)) return;
+  const targets = findNearbyContainers(player, true);
+  if (targets.length === 0) return;
+
+  const typeSets = targets.map((t) => {
+    const set = new Set();
+    for (let i = 0; i < t.container.size; i++) {
+      const it = t.container.getItem(i);
+      if (it) set.add(it.typeId);
+    }
+    return set;
+  });
+
+  let movedItems = 0;
+  const touched = new Set();
+
+  for (let slot = 9; slot <= 35; slot++) {
+    let item = backpack.getItem(slot);
+    if (!item || isAutoSortFeather(item) || isRestockFeather(item)) continue;
+    let changed = false;
+
+    for (let t = 0; t < targets.length && item; t++) {
+      if (!typeSets[t].has(item.typeId)) continue;
+      const before = item.amount;
+      let leftover;
+      try {
+        leftover = targets[t].container.addItem(item);
+      } catch {
+        continue;
+      }
+      const after = leftover ? leftover.amount : 0;
+      if (after < before) {
+        movedItems += before - after;
+        touched.add(t);
+        changed = true;
+      }
+      item = leftover;
+    }
+    if (changed) backpack.setItem(slot, item);
+  }
+
+  if (movedItems === 0) return;
+  for (const t of touched) {
+    const c = targets[t].container;
+    sortContainer(c, 0, c.size - 1, prefs.sortMode);
+  }
+  feedback(
+    player,
+    prefs,
+    `§b[Stock] §fAuto-stocked §e${movedItems} §fitems into §a${touched.size} §fnearby chests!`
+  );
 }
 
 function stockChest(player, block) {
@@ -1133,11 +1166,14 @@ export function registerTriggers() {
   system.runInterval(() => {
     for (const player of world.getAllPlayers()) {
       try {
-        if (!getPrefs(player).autoRestock) continue;
+        const mode = getPrefs(player).automation;
+        if (mode === 0) continue;
         const inv = getBackpack(player);
         let hasFeather = false;
         for (let i = 0; i <= 35 && !hasFeather; i++) hasFeather = isRestockFeather(inv.getItem(i));
-        if (hasFeather) restock(player, true);
+        if (!hasFeather) continue;
+        if (mode === 1) autoStock(player);
+        else restock(player, true);
       } catch {
       }
     }
@@ -1145,7 +1181,7 @@ export function registerTriggers() {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNOneClickSort/behavior_pack/scripts/sort_ui.js (75 lines, 2705 bytes)
+## FILE: MCPEDL/Addons/ALNOneClickSort/behavior_pack/scripts/sort_ui.js (81 lines, 2938 bytes)
 
 ```
 import { system } from "@minecraft/server";
@@ -1157,7 +1193,8 @@ const SORT_MODES = [
   "Alphabetical (A-Z)",
   "Stack Quantity (Highest First)",
 ];
-const DEFAULTS = { sortMode: 0, includeHotbar: false, soundFeedback: true, keepOneInChest: false, getEverything: false, autoRestock: false };
+const AUTOMATION_MODES = ["Off", "Auto Stock", "Auto Restock"];
+const DEFAULTS = { sortMode: 0, includeHotbar: false, soundFeedback: true, keepOneInChest: false, getEverything: false, automation: 0 };
 
 export function getPrefs(player) {
   try {
@@ -1170,7 +1207,12 @@ export function getPrefs(player) {
         soundFeedback: p.soundFeedback !== false,
         keepOneInChest: p.keepOneInChest === true,
         getEverything: p.getEverything === true,
-        autoRestock: p.autoRestock === true,
+        automation:
+          Number.isInteger(p.automation) && p.automation >= 0 && p.automation < 3
+            ? p.automation
+            : p.autoRestock === true
+              ? 2
+              : 0,
       };
     }
   } catch {
@@ -1198,7 +1240,7 @@ export function openSettings(player, attempt = 0) {
     .toggle("Audio & Particle Feedback", { defaultValue: prefs.soundFeedback })
     .toggle("Leave 1 Item in Chest When Restocking", { defaultValue: prefs.keepOneInChest })
     .toggle("Get Everything When Restocking (Not Just One Stack)", { defaultValue: prefs.getEverything })
-    .toggle("Automatic Restock (Needs Restock Feather in Inventory)", { defaultValue: prefs.autoRestock });
+    .dropdown("Automation (Needs Restock Feather in Inventory)", AUTOMATION_MODES, { defaultValueIndex: prefs.automation });
 
   form
     .show(player)
@@ -1209,14 +1251,14 @@ export function openSettings(player, attempt = 0) {
         }
         return;
       }
-      const [mode, hotbar, sound, keepOne, getAll, autoRst] = res.formValues;
+      const [mode, hotbar, sound, keepOne, getAll, auto] = res.formValues;
       savePrefs(player, {
         sortMode: Number(mode),
         includeHotbar: !!hotbar,
         soundFeedback: !!sound,
         keepOneInChest: !!keepOne,
         getEverything: !!getAll,
-        autoRestock: !!autoRst,
+        automation: Number(auto),
       });
       player.onScreenDisplay.setActionBar("§a[OneClickSort] §fSettings saved!");
     })
@@ -1236,12 +1278,20 @@ export const PARTICLES = true;
 export const PARTICLES = false;
 ```
 
-## FILE: MCPEDL/Addons/ALNOneClickSort/CHANGELOG.md (80 lines, 4389 bytes)
+## FILE: MCPEDL/Addons/ALNOneClickSort/CHANGELOG.md (88 lines, 4885 bytes)
 
 ```
 # Changelog — ALN:OneClickSort
 
 ---
+
+## [v12] - 2026-11-23 - Automation List
+
+### Added
+- **Auto Stock**: While the Restock Feather is in your inventory, your backpack items are sent every 5 seconds into nearby containers that already hold the same item. The hotbar and the feathers are never moved.
+
+### Improved & Balanced
+- **Automation List**: The Automatic Restock toggle in the Sort Settings Book is now an Automation list with Off, Auto Stock and Auto Restock. Players who had Automatic Restock on are moved to Auto Restock.
 
 ## [v11] - 2026-11-23 - Auto Restock and Chest Lock
 
@@ -1320,7 +1370,7 @@ export const PARTICLES = false;
 - **Sort Settings**: Right-click a Book renamed Sort Settings to choose the sort order, hotbar sorting and feedback.
 ```
 
-## FILE: MCPEDL/Addons/ALNOneClickSort/DESCRIPTION.md (111 lines, 8856 bytes)
+## FILE: MCPEDL/Addons/ALNOneClickSort/DESCRIPTION.md (111 lines, 9017 bytes)
 
 ```
 # ALN:OneClickSort — One-Click Backpack, Chest and Restock Sorter
@@ -1365,13 +1415,13 @@ Hold the Auto-Sort Feather in your hand. Right-click to sort your backpack, or s
 - **How It Works**: Both halves of a double chest lock together, and a message tells you whether the container is now locked or unlocked.
 - **Good To Know**: A lock only stops Restock from taking items. You can still open, sort and stock the container, and any player can unlock it.
 
-### Automatic Restock
-- **What Happens**: Turn on Automatic Restock in Sort Settings and your partial stacks are topped up from nearby containers every 5 seconds without a click.
+### Automation
+- **What Happens**: Pick Off, Auto Stock or Auto Restock from the Automation list in Sort Settings. Auto Restock tops up your partial stacks from nearby containers every 5 seconds, and Auto Stock sends your backpack items into nearby containers that already hold them.
 - **How It Works**: Keep the Restock Feather anywhere in your inventory and stay within 6 blocks of your containers. A message appears only when items were moved.
-- **Good To Know**: It only tops up stacks you already hold, ignores Get Everything, skips locked containers and is off by default.
+- **Good To Know**: Only one mode runs at a time and it is off by default. Auto Restock ignores Get Everything and skips locked containers, and Auto Stock never moves the hotbar or the feathers.
 
 ### Sort Settings
-- **What Happens**: Right-click the Sort Settings Book to open a menu with six options: Sort Order, Sort Hotbar Slots, Audio and Particle Feedback, Leave 1 Item in Chest, Get Everything and Automatic Restock.
+- **What Happens**: Right-click the Sort Settings Book to open a menu with six options: Sort Order, Sort Hotbar Slots, Audio and Particle Feedback, Leave 1 Item in Chest, Get Everything and Automation.
 - **How It Works**: Choose Smart Category, Alphabetical (A-Z) or Stack Quantity (Highest First), then confirm.
 - **Good To Know**: Each player keeps their own settings, which stay saved between sessions.
 
@@ -1450,7 +1500,7 @@ Download the current release of **ALNOneClickSort** for Minecraft Bedrock Editio
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNOneClickSort (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNOneClickSort/ALNOneClickSort%20V11.mcaddon)
+- **Direct download:** [Download ALNOneClickSort (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNOneClickSort/ALNOneClickSort%20V12.mcaddon)
 
 ## Installation
 
@@ -1469,11 +1519,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:OneClickSort (v11)",
+    "name": "ALN:OneClickSort (v12)",
     "description": "Item icons for ALN:OneClickSort. by ALNStudios",
     "uuid": "6b8237f8-7fb8-4611-b5d0-3da9864e4671",
     "version": [
-      11,
+      12,
       0,
       0
     ],
@@ -1488,7 +1538,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "fd5fdd68-b056-4700-b1d2-9dd9bb9d980c",
       "version": [
-        11,
+        12,
         0,
         0
       ]
@@ -1499,7 +1549,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "11.0.0"
+    "version": "12.0.0"
   }
 }
 ```
