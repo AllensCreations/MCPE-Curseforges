@@ -4,9 +4,9 @@
 
 - **Export request:** `MCPEDL/Maps/ALNMultiIslandOneBlock`
 - **Destination:** `MCPEDL/Maps/ALNMultiIslandOneBlock`
-- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md`)
+- **CURRENT VERSION: v4 / NEXT UPDATE: v5**  (`MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
-- **Text files:** 33
+- **Text files:** 34
 - **Skipped binary:** 8
 - **Paths not found:** 0
 
@@ -29,6 +29,7 @@
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/oneblock.js`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/Oneblock_Progression.js`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/phases.js`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/prices.js`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/README.md`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/slots.js`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/traits.js`
@@ -66,7 +67,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v3 / NEXT UPDATE: v4).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v4 / NEXT UPDATE: v5).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
@@ -287,11 +288,11 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:MultiIslandOneBlock (v3)",
+    "name": "ALN:MultiIslandOneBlock (v4)",
     "description": "Multi-island OneBlock grid with a central lobby and a global trade ledger. by ALNStudios",
     "uuid": "0886e248-abae-466f-85fe-a01de46396cf",
     "version": [
-      3,
+      4,
       0,
       0
     ],
@@ -306,7 +307,7 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
       "type": "data",
       "uuid": "76888f9d-5edf-4308-b1ab-1c176dbe38e9",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -317,7 +318,7 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
       "uuid": "fd4c32c2-7e0a-4bfe-8633-e30171567364",
       "entry": "scripts/main.js",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -327,7 +328,7 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
     {
       "uuid": "2cf90b7d-4b0f-44d5-b726-41f3e756f95f",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -346,7 +347,7 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "3.0.0"
+    "version": "4.0.0"
   }
 }
 ```
@@ -386,12 +387,12 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
 }
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/claim.js (77 lines, 2740 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/claim.js (77 lines, 2720 bytes)
 
 ```
 import { world } from "@minecraft/server";
 import { LEDGER_ID, SPAWN_Y, STARTER_LEDGER } from "./config.js";
-import { firstFreeSlot, assignSlot, slotCoords, slotOf, readSlots, recordOf } from "./slots.js";
+import { randomFreeSlot, assignSlot, slotCoords, slotOf, recordOf } from "./slots.js";
 import { pickTrait, traitInfo, traitLabel } from "./traits.js";
 import { ensureIsland, currentPhase } from "./island.js";
 import { phaseLabel } from "./phases.js";
@@ -442,12 +443,12 @@ export function claimIsland(player) {
     goHome(player, owned, true);
     return;
   }
-  const slot = firstFreeSlot();
+  const slot = randomFreeSlot();
   if (slot === undefined) {
     player.sendMessage("§c[ALN] Every island spot on this world is taken.");
     return;
   }
-  const trait = pickTrait(readSlots());
+  const trait = pickTrait();
   assignSlot(player, slot, trait);
   claiming.add(id);
   player.sendMessage(`§6[ALN] §7Preparing island #${slot}...`);
@@ -467,7 +468,7 @@ export function returnToIsland(player) {
 }
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/config.js (50 lines, 2095 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/config.js (58 lines, 2498 bytes)
 
 ```
 export const LOBBY = { x: 0, y: 65, z: 0 };
@@ -490,12 +491,16 @@ export const PROP = {
   LISTING_PREFIX: "aln:listing_",
   PAYOUT_PREFIX: "aln:payout_",
   LEDGER_OWED: "aln:ledger_owed",
+  COIN_PREFIX: "aln:coins_",
 };
 
 export const BONUS_CHANCE = 0.3;
 export const MAX_LISTINGS_PER_PLAYER = 8;
 export const MAX_LISTINGS_TOTAL = 250;
 export const MAX_TRADE_AMOUNT = 2304;
+export const COIN_NAME = "ALN Coins";
+export const STARTER_COINS = 500;
+export const MAX_PRICE = 1000000;
 export const PAGE_SIZE = 6;
 export const WELCOME_RETRY_LIMIT = 12;
 
@@ -515,9 +520,13 @@ export const RULES_BODY = [
   "§7- Each island has one Richness trait that boosts its block mix and adds bonus drops. No island has everything, so trade.",
   "",
   "§eTRADERS Item",
-  "§7- Right-click the TRADERS Item anywhere to list items, browse offers and collect earnings from other islands.",
+  "§7- Right-click the TRADERS Item anywhere to sell items for ALN Coins, browse offers and buy with your coins.",
   "§7- Listed items are held safely until they sell or you cancel the listing.",
   "§7- The TRADERS Item is permanent. If you throw it away it returns to you, and if your inventory is full it returns as soon as a slot is free.",
+  "",
+  "§eALN Coins",
+  `§7- Trading uses ${COIN_NAME}. Every player starts with ${STARTER_COINS} ${COIN_NAME} and earns more by selling items.`,
+  "§7- When you create an offer, every item shows a recommended price and amount. Leave the fields empty to use them.",
 ].join("\n");
 ```
 
@@ -739,11 +748,11 @@ export function startLedgerKeeper() {
 }
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/ledger.js (316 lines, 11399 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/ledger.js (271 lines, 10761 bytes)
 
 ```
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
-import { PAGE_SIZE, MAX_LISTINGS_PER_PLAYER, PROP } from "./config.js";
+import { PAGE_SIZE, MAX_LISTINGS_PER_PLAYER, COIN_NAME, PROP } from "./config.js";
 import { slotOf, slotCoords, recordOf, recordOfPlayerId } from "./slots.js";
 import { traitInfo, traitLabel } from "./traits.js";
 import { phaseIndexFor, phaseLabel, breaksToNextPhase } from "./phases.js";
@@ -757,51 +766,11 @@ import {
   buyListing,
   payoutSummary,
   collectPayout,
+  coinsOf,
 } from "./market.js";
-import { findPlayer, wait, niceName, normalizeId, plainInventory, countPlain } from "./util.js";
+import { priceInfo, recommendedTotal } from "./prices.js";
+import { findPlayer, wait, niceName, plainInventory } from "./util.js";
 import { promptWelcome } from "./welcome.js";
-
-const GOODS = [
-  "minecraft:iron_ingot",
-  "minecraft:raw_iron",
-  "minecraft:copper_ingot",
-  "minecraft:gold_ingot",
-  "minecraft:coal",
-  "minecraft:redstone",
-  "minecraft:lapis_lazuli",
-  "minecraft:diamond",
-  "minecraft:emerald",
-  "minecraft:wheat",
-  "minecraft:carrot",
-  "minecraft:potato",
-  "minecraft:beetroot",
-  "minecraft:pumpkin",
-  "minecraft:melon_slice",
-  "minecraft:sweet_berries",
-  "minecraft:sugar_cane",
-  "minecraft:oak_log",
-  "minecraft:birch_log",
-  "minecraft:spruce_log",
-  "minecraft:stick",
-  "minecraft:apple",
-  "minecraft:cod",
-  "minecraft:salmon",
-  "minecraft:ink_sac",
-  "minecraft:nautilus_shell",
-  "minecraft:name_tag",
-  "minecraft:leather",
-  "minecraft:beef",
-  "minecraft:porkchop",
-  "minecraft:white_wool",
-  "minecraft:feather",
-  "minecraft:egg",
-  "minecraft:bone",
-  "minecraft:glowstone_dust",
-  "minecraft:nether_wart",
-  "minecraft:quartz",
-  "minecraft:blaze_rod",
-  "minecraft:obsidian",
-];
 
 const HUB_TITLE = "§6§lGlobal Trade Hub";
 
@@ -828,17 +797,13 @@ function sellerTrait(sellerId) {
 }
 
 function offerText(l) {
-  return `${l.give.amount}x ${niceName(l.give.id)}  §8for§r  ${l.want.amount}x ${niceName(l.want.id)}`;
+  return `${l.give.amount}x ${niceName(l.give.id)}  §8for§r  §e${l.price} ${COIN_NAME}`;
 }
 
 function matches(listing, filter) {
   if (!filter) return true;
   const f = filter.toLowerCase();
-  return (
-    niceName(listing.give.id).toLowerCase().includes(f) ||
-    niceName(listing.want.id).toLowerCase().includes(f) ||
-    listing.sellerName.toLowerCase().includes(f)
-  );
+  return niceName(listing.give.id).toLowerCase().includes(f) || listing.sellerName.toLowerCase().includes(f);
 }
 
 async function screenMain(player) {
@@ -846,17 +811,17 @@ async function screenMain(player) {
   const record = recordOf(slot);
   const offers = allListings().filter((l) => l.seller !== player.id).length;
   const mine = listingsOf(player.id).length;
-  const owed = payoutSummary(player.id).reduce((sum, e) => sum + e.amount, 0);
+  const returned = payoutSummary(player.id).reduce((sum, e) => sum + e.amount, 0);
   const phase = phaseIndexFor(globalBreaks());
   const form = new ActionFormData()
     .title(HUB_TITLE)
     .body(
-      `§7Island #${slot} §8| ${traitLabel(record.trait)}\n§7World phase: ${phaseLabel(phase)}\n\n§fTrade surplus items with every island on the grid, no market building needed.`
+      `§7Island #${slot} §8| ${traitLabel(record.trait)}\n§7World phase: ${phaseLabel(phase)}\n§fBalance: §e${coinsOf(player.id)} ${COIN_NAME}\n\n§fSell your surplus items for ${COIN_NAME} and buy what your island lacks. Every item shows a recommended price and amount when you create an offer.`
     )
     .button(`Browse Offers\n§8${offers} open`)
     .button("Create Offer")
     .button(`My Offers\n§8${mine} / ${MAX_LISTINGS_PER_PLAYER}`)
-    .button(`Collect Earnings\n§8${owed} items waiting`)
+    .button(`Collect Returned Items\n§8${returned} items waiting`)
     .button("My Island")
     .button("Close");
   const res = await show(form, player);
@@ -903,11 +868,11 @@ async function screenConfirm(player, state) {
     player.sendMessage("§6[ALN] §cThat offer is no longer available.");
     return { name: "browse", page: state.page, filter: state.filter };
   }
-  const have = countPlain(player, listing.want.id);
+  const rec = recommendedTotal(listing.give.id, listing.give.amount);
   const form = new ActionFormData()
     .title(HUB_TITLE)
     .body(
-      `§fYou receive: §a${listing.give.amount}x ${niceName(listing.give.id)}\n§fYou pay: §e${listing.want.amount}x ${niceName(listing.want.id)}\n§7You carry: ${have}x\n\n§7Seller: ${listing.sellerName} ${sellerTrait(listing.seller)}`
+      `§fYou receive: §a${listing.give.amount}x ${niceName(listing.give.id)}\n§fYou pay: §e${listing.price} ${COIN_NAME}\n§7Your balance: ${coinsOf(player.id)} ${COIN_NAME}\n§7Recommended price: ${rec} ${COIN_NAME}\n\n§7Seller: ${listing.sellerName} ${sellerTrait(listing.seller)}`
     )
     .button("Buy Now")
     .button("Back");
@@ -926,25 +891,24 @@ async function screenCreate(player) {
     player.sendMessage("§6[ALN] §cYou carry no plain items to sell.");
     return { name: "main", page: 0, filter: "" };
   }
+  const labels = inventory.map((e) => {
+    const p = priceInfo(e.id);
+    return `${niceName(e.id)} (have ${e.amount}) §8rec. ${p.unit} each, ${p.amount} per offer`;
+  });
   const form = new ModalFormData()
     .title(HUB_TITLE)
-    .dropdown("Item to sell", inventory.map((e) => `${niceName(e.id)} (have ${e.amount})`))
-    .textField("Amount to sell", "e.g. 32")
-    .dropdown("Item you want", GOODS.map((id) => niceName(id)))
-    .textField("Or type any other item name (optional)", "e.g. golden apple")
-    .textField("Amount you want", "e.g. 16");
+    .dropdown("Item to sell", labels)
+    .textField("Amount to sell (empty = recommended amount)", "e.g. 32")
+    .textField(`Total price in ${COIN_NAME} (empty = recommended price)`, "e.g. 160");
   const res = await show(form, player);
   if (!res || res.canceled || !res.formValues) return { name: "main", page: 0, filter: "" };
-  const [giveIndex, giveText, wantIndex, wantCustom, wantText] = res.formValues;
-  const give = inventory[giveIndex];
-  const wantId = String(wantCustom ?? "").trim() ? normalizeId(wantCustom) : GOODS[wantIndex];
-  const result = createListing(
-    player,
-    give.id,
-    Number.parseInt(String(giveText).trim(), 10),
-    wantId,
-    Number.parseInt(String(wantText).trim(), 10)
-  );
+  const [itemIndex, amountText, priceText] = res.formValues;
+  const item = inventory[itemIndex];
+  const typedAmount = String(amountText ?? "").trim();
+  const amount = typedAmount ? Number.parseInt(typedAmount, 10) : Math.min(priceInfo(item.id).amount, item.amount);
+  const typedPrice = String(priceText ?? "").trim();
+  const price = typedPrice ? Number.parseInt(typedPrice, 10) : recommendedTotal(item.id, amount);
+  const result = createListing(player, item.id, amount, price);
   player.sendMessage(`§6[ALN] ${result.ok ? "§a" : "§c"}${result.message}`);
   return { name: "main", page: 0, filter: "" };
 }
@@ -982,7 +946,7 @@ async function screenCancel(player, state) {
 function screenCollect(player) {
   const total = collectPayout(player);
   player.sendMessage(
-    total > 0 ? `§6[ALN] §aCollected ${total} items from your sales.` : "§6[ALN] §7You have no earnings waiting."
+    total > 0 ? `§6[ALN] §aCollected ${total} returned items.` : "§6[ALN] §7You have no returned items waiting."
   );
   return { name: "main", page: 0, filter: "" };
 }
@@ -1080,11 +1044,19 @@ export function teleportToLobby(player) {
 }
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/market.js (148 lines, 5459 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/market.js (169 lines, 5603 bytes)
 
 ```
 import { world } from "@minecraft/server";
-import { PROP, MAX_LISTINGS_PER_PLAYER, MAX_LISTINGS_TOTAL, MAX_TRADE_AMOUNT } from "./config.js";
+import {
+  PROP,
+  MAX_LISTINGS_PER_PLAYER,
+  MAX_LISTINGS_TOTAL,
+  MAX_TRADE_AMOUNT,
+  MAX_PRICE,
+  STARTER_COINS,
+  COIN_NAME,
+} from "./config.js";
 import {
   readJson,
   writeJson,
@@ -1098,6 +1070,16 @@ import {
 
 const listingKey = (id) => PROP.LISTING_PREFIX + id;
 const payoutKey = (playerId) => PROP.PAYOUT_PREFIX + playerId;
+const coinKey = (playerId) => PROP.COIN_PREFIX + playerId;
+
+export function coinsOf(playerId) {
+  const stored = world.getDynamicProperty(coinKey(playerId));
+  return typeof stored === "number" ? stored : STARTER_COINS;
+}
+
+function addCoins(playerId, amount) {
+  world.setDynamicProperty(coinKey(playerId), coinsOf(playerId) + amount);
+}
 
 function readIds() {
   return readJson(world, PROP.LISTING_IDS, []);
@@ -1107,8 +1089,15 @@ function writeIds(list) {
   writeJson(world, PROP.LISTING_IDS, list);
 }
 
+function addPayout(playerId, itemId, amount) {
+  const owed = readJson(world, payoutKey(playerId), {});
+  owed[itemId] = (owed[itemId] ?? 0) + amount;
+  writeJson(world, payoutKey(playerId), owed);
+}
+
 export function getListing(id) {
-  return readJson(world, listingKey(id), undefined);
+  const listing = readJson(world, listingKey(id), undefined);
+  return listing && typeof listing.price === "number" ? listing : undefined;
 }
 
 export function allListings() {
@@ -1116,8 +1105,13 @@ export function allListings() {
   const found = [];
   const keep = [];
   for (const id of ids) {
-    const listing = getListing(id);
+    const listing = readJson(world, listingKey(id), undefined);
     if (!listing) continue;
+    if (typeof listing.price !== "number") {
+      addPayout(listing.seller, listing.give.id, listing.give.amount);
+      world.setDynamicProperty(listingKey(id), undefined);
+      continue;
+    }
     found.push(listing);
     keep.push(id);
   }
@@ -1144,36 +1138,34 @@ function nextId() {
 const fail = (message) => ({ ok: false, message });
 const done = (message) => ({ ok: true, message });
 
-export function createListing(player, giveId, giveAmount, wantId, wantAmount) {
-  if (!Number.isInteger(giveAmount) || giveAmount < 1 || giveAmount > MAX_TRADE_AMOUNT) {
+export function createListing(player, itemId, amount, price) {
+  if (!Number.isInteger(amount) || amount < 1 || amount > MAX_TRADE_AMOUNT) {
     return fail(`The amount you sell must be a whole number from 1 to ${MAX_TRADE_AMOUNT}.`);
   }
-  if (!Number.isInteger(wantAmount) || wantAmount < 1 || wantAmount > MAX_TRADE_AMOUNT) {
-    return fail(`The amount you want must be a whole number from 1 to ${MAX_TRADE_AMOUNT}.`);
+  if (!Number.isInteger(price) || price < 1 || price > MAX_PRICE) {
+    return fail(`The price must be a whole number of ${COIN_NAME} from 1 to ${MAX_PRICE}.`);
   }
-  if (!isValidItem(giveId)) return fail("The item you want to sell is not valid.");
-  if (!isValidItem(wantId)) return fail("The item you asked for does not exist. Check the name.");
-  if (giveId === wantId) return fail("Sell and ask for two different items.");
+  if (!isValidItem(itemId)) return fail("The item you want to sell is not valid.");
   const all = allListings();
   if (all.length >= MAX_LISTINGS_TOTAL) return fail("The Global Trade Hub is full. Try again later.");
   if (all.filter((l) => l.seller === player.id).length >= MAX_LISTINGS_PER_PLAYER) {
     return fail(`You can have at most ${MAX_LISTINGS_PER_PLAYER} offers open at once.`);
   }
-  if (countPlain(player, giveId) < giveAmount) {
-    return fail(`You only carry ${countPlain(player, giveId)}x ${niceName(giveId)} without custom changes.`);
+  if (countPlain(player, itemId) < amount) {
+    return fail(`You only carry ${countPlain(player, itemId)}x ${niceName(itemId)} without custom changes.`);
   }
-  if (!removePlain(player, giveId, giveAmount)) return fail("Could not take the items from your inventory.");
+  if (!removePlain(player, itemId, amount)) return fail("Could not take the items from your inventory.");
   const id = nextId();
   writeJson(world, listingKey(id), {
     id,
     seller: player.id,
     sellerName: player.name,
-    give: { id: giveId, amount: giveAmount },
-    want: { id: wantId, amount: wantAmount },
+    give: { id: itemId, amount },
+    price,
   });
   writeIds([...readIds(), id]);
   return done(
-    `Offer posted: ${giveAmount}x ${niceName(giveId)} for ${wantAmount}x ${niceName(wantId)}. Your items are held safely until it sells.`
+    `Offer posted: ${amount}x ${niceName(itemId)} for ${price} ${COIN_NAME}. Your items are held safely until it sells.`
   );
 }
 
@@ -1184,12 +1176,6 @@ export function cancelListing(player, id) {
   dropListing(id);
   giveItem(player, listing.give.id, listing.give.amount);
   return done(`Offer cancelled. ${listing.give.amount}x ${niceName(listing.give.id)} returned to you.`);
-}
-
-function addPayout(playerId, itemId, amount) {
-  const owed = readJson(world, payoutKey(playerId), {});
-  owed[itemId] = (owed[itemId] ?? 0) + amount;
-  writeJson(world, payoutKey(playerId), owed);
 }
 
 export function payoutSummary(playerId) {
@@ -1212,23 +1198,22 @@ export function collectPayout(player) {
 export function buyListing(buyer, id) {
   const listing = getListing(id);
   if (!listing) return fail("That offer is no longer available.");
-  if (listing.seller === buyer.id) return fail("You cannot buy your own offer. Cancel it from My Listings.");
-  const owned = countPlain(buyer, listing.want.id);
-  if (owned < listing.want.amount) {
-    return fail(`You need ${listing.want.amount}x ${niceName(listing.want.id)} (you have ${owned}).`);
+  if (listing.seller === buyer.id) return fail("You cannot buy your own offer. Cancel it from My Offers.");
+  const balance = coinsOf(buyer.id);
+  if (balance < listing.price) {
+    return fail(`You need ${listing.price} ${COIN_NAME} (you have ${balance}).`);
   }
-  if (!removePlain(buyer, listing.want.id, listing.want.amount)) return fail("Could not take the payment from your inventory.");
   dropListing(id);
+  addCoins(buyer.id, -listing.price);
+  addCoins(listing.seller, listing.price);
   giveItem(buyer, listing.give.id, listing.give.amount);
   const seller = findPlayer(listing.seller);
-  const summary = `${listing.want.amount}x ${niceName(listing.want.id)}`;
   if (seller) {
-    giveItem(seller, listing.want.id, listing.want.amount);
-    seller.sendMessage(`§6[ALN] §a${buyer.name} bought your offer. You received ${summary}.`);
-  } else {
-    addPayout(listing.seller, listing.want.id, listing.want.amount);
+    seller.sendMessage(`§6[ALN] §a${buyer.name} bought your offer. You received ${listing.price} ${COIN_NAME}.`);
   }
-  return done(`Trade complete: you received ${listing.give.amount}x ${niceName(listing.give.id)} for ${summary}.`);
+  return done(
+    `Purchase complete: you received ${listing.give.amount}x ${niceName(listing.give.id)} for ${listing.price} ${COIN_NAME}.`
+  );
 }
 ```
 
@@ -2396,7 +2381,84 @@ export function rollBonus(phaseIndex, traitId) {
 }
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/README.md (23 lines, 2224 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/prices.js (73 lines, 2279 bytes)
+
+```
+const PRICES = {
+  "minecraft:coal": [2, 32],
+  "minecraft:flint": [1, 32],
+  "minecraft:raw_copper": [2, 32],
+  "minecraft:copper_ingot": [3, 32],
+  "minecraft:raw_iron": [3, 32],
+  "minecraft:iron_ingot": [5, 32],
+  "minecraft:raw_gold": [5, 16],
+  "minecraft:gold_ingot": [9, 16],
+  "minecraft:gold_nugget": [1, 32],
+  "minecraft:lapis_lazuli": [3, 32],
+  "minecraft:redstone": [2, 32],
+  "minecraft:quartz": [3, 32],
+  "minecraft:glowstone_dust": [3, 32],
+  "minecraft:obsidian": [6, 16],
+  "minecraft:diamond": [60, 4],
+  "minecraft:emerald": [40, 4],
+  "minecraft:netherite_scrap": [300, 1],
+  "minecraft:wheat": [1, 64],
+  "minecraft:carrot": [1, 64],
+  "minecraft:potato": [1, 64],
+  "minecraft:beetroot": [1, 64],
+  "minecraft:pumpkin": [3, 16],
+  "minecraft:melon_slice": [1, 64],
+  "minecraft:sweet_berries": [1, 32],
+  "minecraft:sugar_cane": [1, 64],
+  "minecraft:cocoa_beans": [2, 32],
+  "minecraft:apple": [3, 16],
+  "minecraft:cod": [1, 32],
+  "minecraft:salmon": [2, 32],
+  "minecraft:tropical_fish": [5, 8],
+  "minecraft:pufferfish": [5, 8],
+  "minecraft:ink_sac": [2, 32],
+  "minecraft:waterlily": [2, 16],
+  "minecraft:nautilus_shell": [80, 1],
+  "minecraft:name_tag": [40, 1],
+  "minecraft:saddle": [120, 1],
+  "minecraft:oak_log": [2, 64],
+  "minecraft:birch_log": [2, 64],
+  "minecraft:spruce_log": [2, 64],
+  "minecraft:acacia_log": [2, 64],
+  "minecraft:dark_oak_log": [2, 64],
+  "minecraft:jungle_log": [2, 64],
+  "minecraft:cherry_log": [3, 32],
+  "minecraft:stick": [1, 64],
+  "minecraft:oak_sapling": [2, 16],
+  "minecraft:beef": [2, 32],
+  "minecraft:porkchop": [2, 32],
+  "minecraft:chicken": [2, 32],
+  "minecraft:mutton": [2, 32],
+  "minecraft:leather": [3, 32],
+  "minecraft:white_wool": [3, 32],
+  "minecraft:feather": [1, 64],
+  "minecraft:egg": [1, 32],
+  "minecraft:bone": [1, 32],
+  "minecraft:rabbit_hide": [3, 16],
+  "minecraft:nether_wart": [3, 32],
+  "minecraft:blaze_rod": [20, 8],
+  "minecraft:magma_cream": [15, 8],
+};
+
+const FALLBACK = [1, 16];
+
+export function priceInfo(typeId) {
+  const entry = PRICES[typeId];
+  const [unit, amount] = entry ?? FALLBACK;
+  return { unit, amount, listed: Boolean(entry) };
+}
+
+export function recommendedTotal(typeId, amount) {
+  return Math.max(1, Math.round(priceInfo(typeId).unit * amount));
+}
+```
+
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/README.md (24 lines, 2285 bytes)
 
 ```
 # Script library
@@ -2407,14 +2469,15 @@ Scripts for ALN:MultiIslandOneBlock. All helper files live in this folder and ar
 - lib/config.js: constants (lobby coordinates, property names, limits, startup window text).
 - lib/util.js: shared helpers for JSON properties, item counting and moving, chunk-loaded checks, ticking areas and commands.
 - lib/slots.js: island slot allocator. Slots 1 to 8 are the square around the lobby, 9 to 24 the second ring, 25 to 120 the outer rings. Stores ownership in a world property.
-- lib/traits.js: the six Richness traits, their block boosts and bonus drop tables, and balanced trait picking.
+- lib/traits.js: the six Richness traits, their block boosts and bonus drop tables, and random trait picking.
 - lib/phases.js: the eight shared OneBlock phases, their thresholds and weighted block pools.
 - lib/island.js: builds a new island after loading its chunks and regenerates the OneBlock.
 - lib/lobby.js: sets the default spawn location, keeps the lobby chunk loaded and teleports unassigned players to the lobby. The bedrock pillar, world spawn and first teleport are done by the Behavior Pack functions, not by scripts.
 - lib/claim.js: assigns a slot and trait, builds the island, teleports the player and sets the personal spawn point.
 - lib/welcome.js: the Start / About startup window for players without an island.
 - lib/oneblock.js: handles broken OneBlocks, global phase counting, bonus drops and the island self-repair check.
-- lib/market.js: global listing storage, purchases, cancellations and offline earnings.
+- lib/market.js: global listing storage, ALN Coins balances, purchases and cancellations.
+- lib/prices.js: recommended price and amount for each item.
 - lib/ledger.js: the Global Trade Hub forms opened by the TRADERS Item.
 - lib/keeper.js: keeps the TRADERS Item permanent. A thrown copy returns to the player, and a copy owed to a player with a full inventory is delivered as soon as a slot is free.
 
@@ -2423,7 +2486,7 @@ Custom item: aln:pirate_ledger (shown as TRADERS Item).
 Known limits: listings only accept items without custom names, lore, enchantments or damage. Ticking areas are used briefly while an island is built, and the world allows only a limited number of them.
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/slots.js (154 lines, 3732 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/slots.js (170 lines, 4125 bytes)
 
 ```
 import { world } from "@minecraft/server";
@@ -2546,6 +2609,22 @@ export function firstFreeSlot() {
   return undefined;
 }
 
+const TIER_ENDS = [8, 24, 48, 80, 120];
+
+export function randomFreeSlot() {
+  const slots = readSlots();
+  let start = 1;
+  for (const end of TIER_ENDS) {
+    const free = [];
+    for (let s = start; s <= end; s++) {
+      if (!slots[String(s)]) free.push(s);
+    }
+    if (free.length > 0) return free[Math.floor(Math.random() * free.length)];
+    start = end + 1;
+  }
+  return undefined;
+}
+
 export function assignSlot(player, slot, trait) {
   readSlots()[String(slot)] = { id: player.id, name: player.name, trait, built: false };
   saveSlots();
@@ -2581,7 +2660,7 @@ export function usedSlotCount() {
 }
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/traits.js (136 lines, 4678 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/traits.js (128 lines, 4347 bytes)
 
 ```
 export const TRAITS = {
@@ -2708,16 +2787,8 @@ export function traitLabel(id) {
   return t ? `${t.color}${t.name}` : "§7Unknown";
 }
 
-export function pickTrait(slotRecords) {
-  const counts = {};
-  for (const id of TRAIT_IDS) counts[id] = 0;
-  for (const key of Object.keys(slotRecords)) {
-    const t = slotRecords[key].trait;
-    if (counts[t] !== undefined) counts[t]++;
-  }
-  const least = Math.min(...TRAIT_IDS.map((id) => counts[id]));
-  const pool = TRAIT_IDS.filter((id) => counts[id] === least);
-  return pool[Math.floor(Math.random() * pool.length)];
+export function pickTrait() {
+  return TRAIT_IDS[Math.floor(Math.random() * TRAIT_IDS.length)];
 }
 ```
 
@@ -2984,7 +3055,7 @@ export async function promptWelcome(player, attempt = 0) {
 }
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/main.js (71 lines, 2064 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/main.js (71 lines, 2078 bytes)
 
 ```
 import { world, system } from "@minecraft/server";
@@ -3010,7 +3081,7 @@ function readyPlayer(player) {
   if (payoutSummary(player.id).length > 0) {
     later(() => {
       const total = collectPayout(player);
-      if (total > 0) player.sendMessage(`§6[ALN] §aWhile you were away, ${total} items from your sales were delivered.`);
+      if (total > 0) player.sendMessage(`§6[ALN] §aWhile you were away, ${total} items returned from your old offers were delivered.`);
     }, 40);
   }
 }
@@ -3059,12 +3130,22 @@ world.afterEvents.worldLoad.subscribe(() => {
 });
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md (30 lines, 2156 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md (40 lines, 2971 bytes)
 
 ```
 # Changelog — ALN:MultiIslandOneBlock
 
 ---
+
+## [v4] - 2026-11-23 - ALN Coins and Random Islands
+
+### Added
+- **ALN Coins**: The Global Trade Hub now uses ALN Coins instead of item-for-item swaps. Every player starts with 500 ALN Coins, offers are priced in coins, and a sale pays the seller right away, even when offline.
+- **Recommended Prices**: Every item shows a recommended price and amount when you create an offer, and empty fields use them.
+### Improved & Balanced
+- **Random Richness**: Each new island now gets a random Richness trait instead of an evenly balanced one.
+- **Random Island Spots**: Each new island now takes a random free spot of the innermost ring that still has room instead of the next spot in order.
+- **Old Offers**: Open item-for-item offers from the previous version are cancelled and the items are returned to their sellers.
 
 ## [v3] - 2026-11-23 - TRADERS Item Return Fix
 
@@ -3093,7 +3174,7 @@ world.afterEvents.worldLoad.subscribe(() => {
 - **Global Trade Hub**: Players can post, browse, search, buy, cancel and collect earnings from item offers made by other islands.
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/DESCRIPTION.md (95 lines, 6732 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/DESCRIPTION.md (95 lines, 6959 bytes)
 
 ```
 # ALN:MultiIslandOneBlock — A OneBlock world map with private islands on a 2,000-block grid and a global trade ledger
@@ -3103,7 +3184,7 @@ world.afterEvents.worldLoad.subscribe(() => {
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Claim a private OneBlock island on a 2,000-block grid and trade surplus goods through the TRADERS Item.**
+**Claim a private OneBlock island on a 2,000-block grid and trade surplus goods for ALN Coins through the TRADERS Item.**
 
 > Every player gets a floating island, every island shares the same OneBlock phase, and no island has everything. Trading is how the world grows.
 
@@ -3124,16 +3205,16 @@ The map is a void world and includes Creative, Survival and Hardcore versions.
 - **What Happens**: A first-time player sees the ALN:MultiIslandOneBlock window with Start / Claim Island and About / Rules buttons. The window warns that the island spot cannot be undone, and it reopens if it is closed before a choice is made.
 
 ### Permanent Island Claim
-- **What Happens**: Pressing Start assigns the next free island spot, builds a small grass island with the starting OneBlock, sets the personal respawn point on top of it, and teleports the player there. The spot belongs to that player for good.
+- **What Happens**: Pressing Start assigns a random free island spot, builds a small grass island with the starting OneBlock, sets the personal respawn point on top of it, and teleports the player there. The spot belongs to that player for good.
 
 ### 2,000-Block Square Grid
-- **What Happens**: The first eight islands sit at the corners and edges of a square around the lobby, from X: -2000, Z: -2000 to X: 2000, Z: 2000. Spots nine and up fill outer perimeter rings, up to 120 islands in total.
+- **What Happens**: Islands are placed on a random free spot of the innermost ring that still has room. The first eight spots sit at the corners and edges of a square around the lobby, from X: -2000, Z: -2000 to X: 2000, Z: 2000. Spots nine and up fill outer perimeter rings, up to 120 islands in total.
 
 ### Shared OneBlock Phases
 - **What Happens**: Every OneBlock broken on any island moves the whole world forward through eight phases: Forest, Underground, Desert, Frozen Tundra, Ocean Monument, Nether, Deepslate Depths and The End. All islands always draw blocks from the same phase.
 
 ### Island Richness Traits
-- **What Happens**: Each island receives one trait: Ore Bounty, Crop Master, Treasure Angler, Timber Baron, Beast Herder or Ember Forager. Traits are handed out evenly, and each one changes which blocks appear most often on that island.
+- **What Happens**: Each island receives one trait: Ore Bounty, Crop Master, Treasure Angler, Timber Baron, Beast Herder or Ember Forager. Traits are picked at random, and each one changes which blocks appear most often on that island.
 
 ### Bonus Drops
 - **What Happens**: Roughly three out of ten OneBlock breaks drop an extra item that matches the island's trait and the current phase. Ore Bounty islands earn metals and gems, Crop Master islands earn harvests, and the other traits earn their own goods.
@@ -3142,10 +3223,10 @@ The map is a void world and includes Creative, Survival and Hardcore versions.
 - **What Happens**: A portable item crafted from a Book, a Gold Nugget and an Emerald in a crafting table. Every player also receives one when claiming an island, and right-clicking it opens the Global Trade Hub from anywhere. It is permanent: if you throw it away it returns to you, and if your inventory is full it returns as soon as a slot is free.
 
 ### Global Trade Hub
-- **What Happens**: Players post offers such as 32 Iron Ingots for 16 Pumpkins, browse and search offers from every island, and buy with a single confirmation. Offered items are held safely until the offer sells or is cancelled.
+- **What Happens**: Players post offers priced in ALN Coins, such as 32 Iron Ingots for 160 ALN Coins, browse and search offers from every island, and buy with a single confirmation. Every item shows a recommended price and amount, and leaving the fields empty uses them. Offered items are held safely until the offer sells or is cancelled.
 
-### Earnings Collection
-- **What Happens**: Payment for a sold offer goes straight to the seller when online. Sellers who are offline receive their earnings the next time they join, or when they choose Collect Earnings in the hub.
+### ALN Coins
+- **What Happens**: ALN Coins are the currency of the Global Trade Hub. Every player starts with 500 ALN Coins, and the balance is shown in the hub. A sold offer pays the seller right away, even when the seller is offline.
 
 ## How to Use
 
@@ -3154,7 +3235,7 @@ The map is a void world and includes Creative, Survival and Hardcore versions.
 3. First-time players appear on the bedrock pillar and see the startup window.
 4. Read About / Rules if you like, then choose Start / Claim Island. This choice cannot be undone.
 5. Break the OneBlock under your feet. It regenerates every time, and the whole world advances through its phases as islands keep breaking blocks.
-6. Right-click the TRADERS Item to create offers, browse other islands' offers and collect earnings.
+6. Right-click the TRADERS Item to sell items for ALN Coins, browse other islands' offers and buy with your coins.
 7. Craft a new TRADERS Item with a Book, a Gold Nugget and an Emerald if you ever lose yours.
 8. Optional: the map includes a setup command that rebuilds the spawn pillar and resets the world spawn. It needs cheats, and cheats disable achievements in that world.
 
@@ -3238,11 +3319,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:MultiIslandOneBlock Resources (v3)",
+    "name": "ALN:MultiIslandOneBlock Resources (v4)",
     "description": "Textures and names for the TRADERS Item. by ALNStudios",
     "uuid": "2cf90b7d-4b0f-44d5-b726-41f3e756f95f",
     "version": [
-      3,
+      4,
       0,
       0
     ],
@@ -3257,7 +3338,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "02c6ed61-2e06-499b-b6d3-1c6afa51beb6",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -3268,7 +3349,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "3.0.0"
+    "version": "4.0.0"
   }
 }
 ```
