@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Builds MCPEDL/README.md: every pack grouped by type, with Version, Source, Package and AI review.
+"""Builds MCPEDL/README.md: every pack grouped by type, with Version, Status, Source, Package and AI review.
 
 Generated file. The Build Changed Packs & Sync Catalogs workflow runs this after the per-pack AI review
 files are refreshed. Output has no dates, so an unchanged repo gives an identical file.
@@ -47,7 +47,6 @@ HEADER = (
     "# MCPEDL Catalog\n\n"
     "Generated file. Do not edit by hand: it is rebuilt with every build.\n"
 )
-
 
 
 def link(base, target):
@@ -106,9 +105,29 @@ def version_mismatch(project):
     return None if _tuple(v) == tuple(mv) else f"version mismatch {project.parent.name}/{project.name}: changelog {v}, manifest {'.'.join(map(str, mv))}"
 
 
+def pack_status(root: Path, cat: str, project_name: str, current_ver: str, registry: dict):
+    key = f"MCPEDL/{cat}/{project_name}"
+    entry = registry.get(key)
+    if not entry or not entry.get("last_published_version"):
+        return "⚪ Not Published"
+
+    pub_v = _norm(str(entry["last_published_version"]))
+    if current_ver != "-" and _tuple(current_ver) > _tuple(pub_v):
+        return f"🟡 Update Ready ({pub_v} → {current_ver})"
+    return f"🟢 Published ({pub_v})"
+
+
 def render(root):
     mcpedl = root / "MCPEDL"
     sections, counts, warnings = [], [], []
+
+    registry_path = root / "builds" / "Curseforge_IDs.json"
+    registry = {}
+    if registry_path.is_file():
+        try:
+            registry = json.loads(registry_path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            registry = {}
 
     # AI Review Kits section
     kit_rows = ["| Kit | Download |", "| :-- | :-- |"]
@@ -121,15 +140,16 @@ def render(root):
     ai_kits_section = "## AI Review Kits\n\n" + "\n".join(kit_rows) + "\n"
 
     for cat, label in CATEGORIES:
-
         base = mcpedl / cat
         projects = sorted((p for p in base.iterdir() if p.is_dir() and not p.name.startswith(".")),
                           key=lambda p: pack_title(p).lower()) if base.is_dir() else []
         if not projects:
             continue
         counts.append(f"{len(projects)} {label}")
-        rows = ["| Pack | Version | Source | Package | AI review |", "| :-- | :-- | :-- | :-- | :-- |"]
+        rows = ["| Pack | Version | Status | Source | Package | AI review |", "| :-- | :-- | :-- | :-- | :-- | :-- |"]
         for p in projects:
+            ver = pack_version(p)
+            status = pack_status(root, cat, p.name, ver, registry)
             review = mcpedl / "AI Review" / f"{p.name}.txt"
             if not review.is_file():
                 warnings.append(f"no AI review file for {cat}/{p.name}")
@@ -140,14 +160,13 @@ def render(root):
             if mismatch:
                 warnings.append(mismatch)
             title = pack_title(p).replace("|", "/")
-            rows.append(f"| **{title}** | {pack_version(p)} | [Source]({link(mcpedl, p)}) | {pkg} | {ai} |")
+            rows.append(f"| **{title}** | {ver} | {status} | [Source]({link(mcpedl, p)}) | {pkg} | {ai} |")
         sections.append(f"## {label}\n\n" + "\n".join(rows) + "\n")
     body = HEADER + ("\n" + " · ".join(counts) + "\n" if counts else "\nNo packs yet.\n")
     body += "\n" + ai_kits_section
     if sections:
         body += "\n" + "\n".join(sections)
     return body, warnings
-
 
 
 def main():
