@@ -86,6 +86,7 @@ PERMISSIONS = (
     "<li>Rights: All rights reserved for ALNStudios.</li>"
     "<li>Content creators: You may feature this creation in videos and streams with credit to ALNStudios.</li>"
     "<li>Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link to this page.</li>"
+    "<li>Visual: Promotional/cover imagery used on this page is AI-generated to illustrate the concept and purpose of the pack.</li>"
     "<li>Unofficial community creation. Not an official Minecraft product and not approved by or associated with "
     "Mojang or Microsoft.</li>")
 BYLINE = "by ALNStudios"
