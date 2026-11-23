@@ -24,6 +24,10 @@ export const COIN_ICON = {
   "aln:captains_ledger": "textures/items/aln_captains_ledger"
 };
 
+export const mc = (typeId) => `textures/ui/aln_icons/${typeId.replace("minecraft:", "")}`;
+
+export const iconOf = (typeId) => COIN_ICON[typeId] ?? mc(typeId);
+
 export const KEYS = {
   vault: "aln_pt:vault",
   bounties: "aln_pt:bounties",
@@ -78,12 +82,12 @@ export const COMPASS_NAME = "Treasure Hunter's Compass";
 export const BREEZE_NAME = "Bottled Sea Breeze";
 
 export const SHOP = [
-  { key: "compass", label: "Treasure Hunter's Compass", price: 80, icon: "textures/items/compass_item", note: "Use it to locate buried treasure. Sneak and use it to locate shipwrecks." },
-  { key: "cutlass", label: "Sea-Dog's Cutlass", price: 200, icon: "textures/items/iron_sword", note: "Speed while swimming and extra token drops." },
-  { key: "breeze", label: "Bottled Sea Breeze", price: 40, icon: "textures/items/bottle_empty", note: "Dolphin's Grace and Water Breathing for 5 minutes." },
-  { key: "prismarine", label: "Prismarine Mason Bundle", price: 60, icon: "textures/items/prismarine_shard", note: "32 Prismarine, 16 Prismarine Bricks, 8 Sea Lanterns." },
-  { key: "shipwright", label: "Shipwright Bundle", price: 50, icon: "textures/items/boat", note: "64 Dark Oak Planks, 32 Dark Oak Logs, 16 Iron Nuggets." },
-  { key: "treasure", label: "Treasure Hoarder Bundle", price: 120, icon: "textures/items/gold_ingot", note: "4 Chests, 2 Gold Blocks, 8 Emeralds." }
+  { key: "compass", label: "Treasure Hunter's Compass", price: 80, icon: mc("minecraft:compass"), note: "Use it to locate buried treasure. Sneak and use it to locate shipwrecks." },
+  { key: "cutlass", label: "Sea-Dog's Cutlass", price: 200, icon: mc("minecraft:iron_sword"), note: "Speed while swimming and extra token drops." },
+  { key: "breeze", label: "Bottled Sea Breeze", price: 40, icon: mc("minecraft:glass_bottle"), note: "Dolphin's Grace and Water Breathing for 5 minutes." },
+  { key: "prismarine", label: "Prismarine Mason Bundle", price: 60, icon: mc("minecraft:prismarine"), note: "32 Prismarine, 16 Prismarine Bricks, 8 Sea Lanterns." },
+  { key: "shipwright", label: "Shipwright Bundle", price: 50, icon: mc("minecraft:dark_oak_boat"), note: "64 Dark Oak Planks, 32 Dark Oak Logs, 16 Iron Nuggets." },
+  { key: "treasure", label: "Treasure Hoarder Bundle", price: 120, icon: mc("minecraft:chest"), note: "4 Chests, 2 Gold Blocks, 8 Emeralds." }
 ];
 
 export const CRATES = [
@@ -92,18 +96,25 @@ export const CRATES = [
     label: "Mystery Buccaneer Crate",
     price: 30,
     priceText: "3 Gold Doubloons",
-    icon: "textures/items/aln_gold_doubloon",
+    icon: COIN_ICON[IDS.gold],
     pool: [
-      { w: 30, id: IDS.silver, amount: 12, label: "12 Silver Pirate Tokens" },
-      { w: 18, id: IDS.gold, amount: 2, label: "2 Gold Pirate Doubloons" },
-      { w: 16, id: "minecraft:emerald", amount: 10, label: "10 Emeralds" },
-      { w: 10, id: "minecraft:diamond", amount: 2, label: "2 Diamonds" },
+      { w: 28, id: IDS.silver, amount: 12, label: "12 Silver Pirate Tokens" },
+      { w: 16, id: IDS.gold, amount: 2, label: "2 Gold Pirate Doubloons" },
+      { w: 14, id: "minecraft:emerald", amount: 10, label: "10 Emeralds" },
+      { w: 12, id: "minecraft:cooked_salmon", amount: 16, label: "16 Cooked Salmon" },
       { w: 10, id: "minecraft:gold_ingot", amount: 16, label: "16 Gold Ingots" },
+      { w: 9, id: "minecraft:diamond", amount: 2, label: "2 Diamonds" },
+      { w: 8, id: "minecraft:prismarine_crystals", amount: 12, label: "12 Prismarine Crystals" },
+      { w: 8, id: "minecraft:sea_lantern", amount: 6, label: "6 Sea Lanterns" },
+      { w: 7, id: "minecraft:experience_bottle", amount: 12, label: "12 Bottles o' Enchanting" },
       { w: 6, id: "minecraft:ender_pearl", amount: 4, label: "4 Ender Pearls" },
       { w: 5, id: "minecraft:golden_apple", amount: 2, label: "2 Golden Apples" },
+      { w: 4, id: "minecraft:name_tag", amount: 2, label: "2 Name Tags" },
+      { w: 3, id: "minecraft:saddle", amount: 1, label: "Saddle" },
       { w: 3, id: "minecraft:nautilus_shell", amount: 1, label: "Nautilus Shell", jackpot: true },
       { w: 2, id: "minecraft:heart_of_the_sea", amount: 1, label: "Heart of the Sea", jackpot: true },
       { w: 2, id: "minecraft:netherite_scrap", amount: 2, label: "2 Netherite Scrap", jackpot: true },
+      { w: 1, id: "minecraft:conduit", amount: 1, label: "Conduit", jackpot: true },
       { w: 1, id: "minecraft:enchanted_golden_apple", amount: 1, label: "Enchanted Golden Apple", jackpot: true }
     ]
   },
@@ -112,18 +123,23 @@ export const CRATES = [
     label: "Cursed Captain's Crate",
     price: 100,
     priceText: "1 Cursed Captain's Coin",
-    icon: "textures/items/aln_cursed_coin",
+    icon: COIN_ICON[IDS.cursed],
     pool: [
-      { w: 25, id: IDS.gold, amount: 6, label: "6 Gold Pirate Doubloons" },
-      { w: 20, id: "minecraft:diamond", amount: 6, label: "6 Diamonds" },
+      { w: 22, id: IDS.gold, amount: 6, label: "6 Gold Pirate Doubloons" },
+      { w: 18, id: "minecraft:diamond", amount: 6, label: "6 Diamonds" },
+      { w: 12, id: "minecraft:emerald_block", amount: 4, label: "4 Emerald Blocks" },
       { w: 10, id: IDS.cursed, amount: 1, label: "Cursed Captain's Coin" },
       { w: 10, id: "minecraft:totem_of_undying", amount: 1, label: "Totem of Undying" },
-      { w: 8, id: "minecraft:netherite_ingot", amount: 1, label: "Netherite Ingot", jackpot: true },
-      { w: 8, id: "minecraft:enchanted_golden_apple", amount: 2, label: "2 Enchanted Golden Apples", jackpot: true },
-      { w: 8, id: "minecraft:heart_of_the_sea", amount: 1, label: "Heart of the Sea", jackpot: true },
-      { w: 6, id: "minecraft:trident", amount: 1, label: "Trident", jackpot: true },
+      { w: 8, id: "minecraft:diamond_block", amount: 2, label: "2 Diamond Blocks" },
+      { w: 7, id: "minecraft:ancient_debris", amount: 2, label: "2 Ancient Debris" },
+      { w: 7, id: "minecraft:netherite_ingot", amount: 1, label: "Netherite Ingot", jackpot: true },
+      { w: 6, id: "minecraft:enchanted_golden_apple", amount: 2, label: "2 Enchanted Golden Apples", jackpot: true },
+      { w: 6, id: "minecraft:heart_of_the_sea", amount: 1, label: "Heart of the Sea", jackpot: true },
+      { w: 5, id: "minecraft:trident", amount: 1, label: "Trident", jackpot: true },
       { w: 3, id: "minecraft:beacon", amount: 1, label: "Beacon", jackpot: true },
-      { w: 2, id: "minecraft:elytra", amount: 1, label: "Elytra", jackpot: true }
+      { w: 2, id: "minecraft:elytra", amount: 1, label: "Elytra", jackpot: true },
+      { w: 2, id: "minecraft:nether_star", amount: 1, label: "Nether Star", jackpot: true },
+      { w: 1, id: "minecraft:netherite_sword", amount: 1, label: "Netherite Sword", jackpot: true }
     ]
   }
 ];

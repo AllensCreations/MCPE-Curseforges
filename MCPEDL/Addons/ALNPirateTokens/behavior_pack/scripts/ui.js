@@ -1,6 +1,6 @@
 import { system } from "@minecraft/server";
 import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
-import { IDS, COIN_ICON, TITLE, SHOP, CRATES, BOUNTY_POOL } from "./config.js";
+import { IDS, COIN_ICON, TITLE, SHOP, CRATES, BOUNTY_POOL, iconOf } from "./config.js";
 import {
   getBalance, setBalance, describeValue, looseCounts, countsValue, depositAll,
   withdrawCoin, withdrawAll, compressLoose
@@ -148,11 +148,14 @@ async function marketMenu(player) {
 
 async function previewCrate(player, crate) {
   const total = crate.pool.reduce((s, p) => s + p.w, 0);
-  let body = `§l§6${crate.label}§r\n§ePrice: §f${crate.priceText}\n\n`;
+  const form = new ActionFormData()
+    .title(`${TITLE}`)
+    .body(`§l§6${crate.label}§r\n§ePrice: §f${crate.priceText}\n§eGold names are jackpot prizes.`);
   for (const p of crate.pool) {
-    body += `${p.jackpot ? "§6" : "§f"}${p.label} §e${((p.w / total) * 100).toFixed(1)}%§r\n`;
+    const chance = ((p.w / total) * 100).toFixed(1);
+    form.button(`${p.jackpot ? "§l§6" : "§l§f"}${p.label}\n§r§e${chance}%`, iconOf(p.id));
   }
-  const form = new ActionFormData().title(`${TITLE}`).body(body).button("§l§cBack");
+  form.button("§l§cBack");
   await show(form, player);
 }
 
@@ -179,7 +182,10 @@ async function crateMenu(player) {
     const prize = rollCrate(crate);
     await animateCrate(player, crate, prize);
     grantPrize(player, prize);
-    note = `§aYou won §f${prize.label}§a. Open another?\n`;
+    try {
+      player.onScreenDisplay.setActionBar(`§a§lYou won §f${prize.label}`);
+    } catch (e) {}
+    return false;
   }
 }
 
@@ -201,6 +207,7 @@ export async function openLedger(player) {
     }
   } catch (e) {}
 }
+
 export async function openCrates(player) {
   try {
     await crateMenu(player);

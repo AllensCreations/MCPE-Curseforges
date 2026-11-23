@@ -40,7 +40,7 @@ ALN:PirateTokens adds a three-coin pirate economy built around the Captain's Led
 - **What Happens**: Craft a dark-wood crate with gold corners from 4 Gold Nuggets, 4 Dark Oak Planks and 1 Gold Pirate Doubloon. Place it anywhere and tap it to open the crate menu. Sneak to build against it.
 
 ### Mystery Buccaneer Crates
-- **What Happens**: Pay 3 Gold Doubloons or 1 Cursed Captain's Coin from the vault. The prize ticks across the screen with note sounds, then bursts with gold particles and a jackpot title.
+- **What Happens**: Pay 3 Gold Doubloons or 1 Cursed Captain's Coin from the vault. The prize ticks across the screen with note sounds, then bursts with gold particles and a jackpot title. The menu closes after a win, and 33 prizes across both crates run from emeralds and cooked salmon to a Conduit, Elytra and Nether Star.
 
 ## How to Use
 

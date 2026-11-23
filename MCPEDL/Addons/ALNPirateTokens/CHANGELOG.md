@@ -2,6 +2,19 @@
 
 ---
 
+## [1.0.2] - 2026-11-23 - Crate Rewards and MC Icons
+
+### Added
+- **More crate prizes**: The Buccaneer Crate and Cursed Captain's Crate now share 33 prizes, including cooked salmon, sea lanterns, prismarine crystals, a Conduit, a Nether Star and a Netherite Sword.
+- **Prize list icons**: View Prizes shows every prize with its icon and chance.
+
+### Changed
+- **MC icons**: Black Market and prize icons now use the MCicons set shipped in the resource pack instead of the game's own texture paths.
+- **After a win**: The menu closes once the prize is awarded, so the loot title stays on screen.
+
+### Fixed
+- **Missing icons**: Shop buttons that showed a missing-texture square now show their item icon.
+
 ## [1.0.1] - 2026-11-23 - Mystery Crate Block
 
 ### Added
