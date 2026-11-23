@@ -4,6 +4,13 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v259] - 2026-11-23 - Starter Chest Fix
+
+**Spec**: spec_v259.txt | **Target**: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks | **Files edited**: 2
+
+### Fixed
+- **Starter chest**: The island function now fills the starter chest with the command Bedrock accepts, so the function loads without errors.
+
 ## [v258] - 2026-11-23 - Price Guard and Weighted Richness
 
 **Spec**: spec_v258.txt | **Target**: MCPEDL/Maps/ALNMultiIslandOneBlock | **Files edited**: 6

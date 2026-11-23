@@ -2,6 +2,11 @@
 
 ---
 
+## [9.0.0] - 2026-11-23 - Starter Chest Fix
+
+### Fixed
+- **Starter chest**: The island function now fills the starter chest with the command Bedrock accepts, so the function loads without errors.
+
 ## [v8] - 2026-11-22 - Baby Shower and Split Scripts
 
 ### Added
