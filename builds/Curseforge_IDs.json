@@ -90,7 +90,9 @@
     "last_release_version": "1.0.0"
   },
   "MCPEDL/Maps/ALNMultiIslandOneBlock": {
-    "project_id": "1825799"
+    "project_id": "1825799",
+    "last_published_version": "5",
+    "last_release_version": "4"
   },
   "MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks": {
     "project_id": "1821677",
