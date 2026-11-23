@@ -2,6 +2,14 @@
 
 ---
 
+## [v2] - 2026-11-23 - TRADERS Item
+
+### Added
+- **Permanent TRADERS Item**: If you throw the TRADERS Item away it returns to you. If your inventory is full and you hold none, it is delivered as soon as a slot is free, and you get it back after respawning.
+### Improved & Balanced
+- **TRADERS Item**: The Global Pirate Ledger is now named TRADERS Item and is the only trade item in the map.
+- **Removed Unused Item**: The OneBlock Trader item that had no role in this map was removed.
+
 ## [1.0.0] - 2026-11-23 - First Release
 
 ### Added

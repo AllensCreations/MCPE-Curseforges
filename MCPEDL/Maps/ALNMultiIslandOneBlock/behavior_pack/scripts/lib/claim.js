@@ -40,7 +40,7 @@ function welcomeToIsland(player, slot, islandReady) {
   player.sendMessage(`§6[ALN] §eIsland #${slot} claimed at X: ${c.x}, Z: ${c.z}.`);
   player.sendMessage(`§6[ALN] §fRichness: ${traitLabel(record.trait)} §7- ${info.blurb}`);
   player.sendMessage(`§6[ALN] §fWorld phase: ${phaseLabel(currentPhase())}§f. Break your OneBlock to begin.`);
-  if (STARTER_LEDGER) player.sendMessage("§6[ALN] §7You received a Global Pirate Ledger. Right-click it to trade with other islands.");
+  if (STARTER_LEDGER) player.sendMessage("§6[ALN] §7You received the TRADERS Item. Right-click it to trade with other islands.");
 }
 
 export function claimIsland(player) {

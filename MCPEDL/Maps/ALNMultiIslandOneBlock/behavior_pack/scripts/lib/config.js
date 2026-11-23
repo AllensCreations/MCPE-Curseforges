@@ -17,6 +17,7 @@ export const PROP = {
   LISTING_SEQ: "aln:ledger_seq",
   LISTING_PREFIX: "aln:listing_",
   PAYOUT_PREFIX: "aln:payout_",
+  LEDGER_OWED: "aln:ledger_owed",
 };
 
 export const BONUS_CHANCE = 0.3;
@@ -41,7 +42,8 @@ export const RULES_BODY = [
   "§eIsland Richness",
   "§7- Each island has one Richness trait that boosts its block mix and adds bonus drops. No island has everything, so trade.",
   "",
-  "§eGlobal Pirate Ledger",
-  "§7- Right-click the ledger anywhere to list items, browse offers and collect earnings from other islands.",
+  "§eTRADERS Item",
+  "§7- Right-click the TRADERS Item anywhere to list items, browse offers and collect earnings from other islands.",
   "§7- Listed items are held safely until they sell or you cancel the listing.",
+  "§7- The TRADERS Item is permanent. If you throw it away it returns to you, and if your inventory is full it returns as soon as a slot is free.",
 ].join("\n");

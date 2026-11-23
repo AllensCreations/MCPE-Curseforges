@@ -5,6 +5,7 @@ import { hasIsland, returnToIsland } from "./lib/claim.js";
 import { promptWelcome } from "./lib/welcome.js";
 import { startOneBlock } from "./lib/oneblock.js";
 import { openLedger } from "./lib/ledger.js";
+import { startLedgerKeeper, ensureLedger } from "./lib/keeper.js";
 import { collectPayout, payoutSummary } from "./lib/market.js";
 import { later } from "./lib/util.js";
 
@@ -39,7 +40,9 @@ world.afterEvents.playerSpawn.subscribe((event) => {
   if (!hasIsland(player)) {
     teleportToLobby(player);
     later(() => promptWelcome(player), 20);
+    return;
   }
+  later(() => ensureLedger(player), 20);
 });
 
 world.afterEvents.itemUse.subscribe((event) => {
@@ -59,6 +62,7 @@ system.afterEvents.scriptEventReceive.subscribe((event) => {
 world.afterEvents.worldLoad.subscribe(() => {
   setupLobby();
   startOneBlock();
+  startLedgerKeeper();
   for (const player of world.getAllPlayers()) {
     if (!joining.has(player.id)) readyPlayer(player);
   }

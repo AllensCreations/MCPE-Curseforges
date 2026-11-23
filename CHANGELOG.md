@@ -4,6 +4,16 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v255] - 2026-11-23 - TRADERS Item
+
+**Spec**: spec_v255.txt | **Target**: MCPEDL/Maps/ALNMultiIslandOneBlock | **Files edited**: 11
+
+### Added
+- **Permanent TRADERS Item**: If you throw the TRADERS Item away it returns to you. If your inventory is full and you hold none, it is delivered as soon as a slot is free, and you get it back after respawning.
+### Improved & Balanced
+- **TRADERS Item**: The Global Pirate Ledger is now named TRADERS Item and is the only trade item in the map.
+- **Removed Unused Item**: The OneBlock Trader item that had no role in this map was removed.
+
 ## 2026-11-23 - New Map ALNMultiIslandOneBlock
 
 ### Added

@@ -14,8 +14,9 @@ Scripts for ALN:MultiIslandOneBlock. All helper files live in this folder and ar
 - lib/welcome.js: the Start / About startup window for players without an island.
 - lib/oneblock.js: handles broken OneBlocks, global phase counting, bonus drops and the island self-repair check.
 - lib/market.js: global listing storage, purchases, cancellations and offline earnings.
-- lib/ledger.js: the Global Trade Hub forms opened by the Global Pirate Ledger.
+- lib/ledger.js: the Global Trade Hub forms opened by the TRADERS Item.
+- lib/keeper.js: keeps the TRADERS Item permanent. A thrown copy returns to the player, and a copy owed to a player with a full inventory is delivered as soon as a slot is free.
 
 Script events: aln:menu opens the startup window for a player who has no island yet.
-Custom item: aln:pirate_ledger.
+Custom item: aln:pirate_ledger (shown as TRADERS Item).
 Known limits: listings only accept items without custom names, lore, enchantments or damage. Ticking areas are used briefly while an island is built, and the world allows only a limited number of them.
