@@ -1,8 +1,0 @@
-{
-  "changelog_version": "1.0.0",
-  "manifest_version": "1.0.0",
-  "packages": {
-    "ALNPirateTokens V1.mcaddon": "a8f429a54d398af4e6b54ed97262045e3410aa38eed54ca9dc7f50af82fbd685"
-  },
-  "source_sha256": "e5b53bf1ccbc0e71009509f81dfd442ba01d9ab8d664ae5bbef07bf75b0122e3"
-}
