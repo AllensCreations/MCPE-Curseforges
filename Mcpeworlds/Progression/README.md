@@ -1,6 +1,7 @@
 # OneBlock Progression Data Pool
 
 Centralized, authoritative **Data Pool** for Minecraft Bedrock (MCPE) OneBlock worlds, add-ons, and minigames.
+Targets **Minecraft Bedrock 1.26.50**. All ids are Bedrock ids (for example `minecraft:magma`, `minecraft:quartz_ore`, `minecraft:hardened_clay`).
 
 ---
 
@@ -17,11 +18,50 @@ Centralized, authoritative **Data Pool** for Minecraft Bedrock (MCPE) OneBlock w
 
 ## What `Oneblock_Progression.js` Contains
 
-- **Blocks Pool**: Weighted list of block IDs available in each phase.
-- **Chests Pool**: Weighted loot tables and item counts for each phase.
-- **Mobs Pool**: Weighted entity spawn list for each phase.
-- **Milestones**: Target `blocksRequired` per phase and base fallback blocks.
+- **Blocks Pool**: Weighted list of full solid block ids per phase (no plants or fluids).
+- **Chests Pool**: Weighted loot with item counts per phase (no buckets, fluids, powders, spawn eggs, spawners, or shulker items).
+- **Mobs Pool**: Weighted entity spawn list per phase.
+- **Milestones**: Per-phase `blocksRequired` and a fallback `bedrockReplacement` block.
 - **Pool Provider**: `OneblockPoolProvider` helper for clean sampling without hardcoding rates.
+
+---
+
+## Progression Order (17 phases)
+
+Classic OneBlock flow: Overworld biomes, then caves, then the Nether, then the End.
+
+| # | Phase | Blocks to finish | Theme |
+|---|-------|------------------|-------|
+| 1 | Plains & Early Roots | 150 | Dirt, oak, farm basics |
+| 2 | Underground Cavern | 250 | Stone, coal, iron, copper |
+| 3 | Snowy Taiga & Tundra | 300 | Spruce, snow, ice |
+| 4 | Ocean Floor | 350 | Prismarine, coral, sand |
+| 5 | Jungle Canopy | 400 | Jungle, bamboo, moss |
+| 6 | Desert Dunes | 400 | Sandstone, gold |
+| 7 | Badlands Mesa | 450 | Red sand, clay, gold |
+| 8 | Mangrove Swamp | 450 | Mud, mangrove roots |
+| 9 | Cherry Grove | 500 | Cherry wood, petals |
+| 10 | Pale Garden | 500 | Pale oak, resin, creaking |
+| 11 | Deepslate Depths | 600 | Deepslate ores, tuff |
+| 12 | Deep Dark | 600 | Sculk, echo shards |
+| 13 | Nether Wastes | 700 | Netherrack, quartz, ghasts |
+| 14 | Crimson & Warped Forests | 700 | Nylium, stems, hoglins |
+| 15 | Bastion & Basalt Deltas | 800 | Blackstone, ancient debris |
+| 16 | The End | 800 | End stone, obsidian |
+| 17 | End City & Void Horizon | endless | Purpur, elytra, final phase |
+
+`blocksRequired` is per phase, not cumulative. The last phase never ends. Total to reach phase 17: 7,950 blocks.
+
+### Unlock model
+
+Each phase lists only what it **unlocks**. Nothing is removed when you advance.
+
+- `sampleBlock(phase)`, `sampleChestItem(phase)`, and `sampleMob(phase)` sample from phases 1 to the current phase.
+- The newest phase gets 40% of the weight. Older phases share the other 60% evenly, so new content feels fresh.
+- At phase 17 the full pool (115 blocks) stays active forever, with phase 17 still weighted highest.
+- Duplicate ids are merged. Chest counts use the lowest min and highest max.
+- Options: `{ exclusive: true }` samples the current phase only. `{ currentShare: 0.6 }` changes the newest-phase share.
+- `getUnlockedPool(phase, "blocks" | "chests" | "mobs")` returns the merged weighted list if your pack wants to apply its own rules.
 
 ---
 
@@ -36,10 +76,12 @@ I have updated or need to modify the OneBlock progression pools in `Mcpeworlds/P
 
 ### Architecture Rules:
 1. `Oneblock_Progression.js` must ONLY contain Data Pools (blocks, chests, mobs, phase milestones). Do NOT embed map-specific game logic or hardcoded spawn rates here; packs implement their own rules.
-2. All block, item, and entity identifiers must be valid Minecraft Bedrock IDs (e.g., `minecraft:grass_block`, `minecraft:oak_log`).
-3. Maintain ES Module exports: `ONEBLOCK_PROGRESSION_POOLS`, `ONEBLOCK_PROGRESSION`, and `OneblockPoolProvider`.
-4. Validate that weights and min/max counts are balanced across phases.
-5. Verify syntax using `node --input-type=module --check`.
+2. All block, item, and entity identifiers must be valid Minecraft Bedrock IDs (e.g., `minecraft:grass_block`, `minecraft:oak_log`). Use Bedrock names, not Java names (`minecraft:magma`, `minecraft:quartz_ore`, `minecraft:hardened_clay`).
+3. Keep the classic order: Overworld biomes, caves, Nether, End. The final phase is endless. Each phase lists only what it unlocks; the provider merges earlier phases (unlock model).
+4. Block pools: full solid blocks only (no plants, fluids, portals, spawners). Chest pools: no buckets, fluids, powders, spawn eggs, spawners, or shulker items.
+5. Maintain ES Module exports: `ONEBLOCK_PROGRESSION_POOLS`, `ONEBLOCK_PROGRESSION`, `OneblockPoolProvider`, and `OneBlockProgressionManager`.
+6. Validate that weights and min/max counts are balanced across phases (each pool sums to 100).
+7. Verify syntax using `node --input-type=module --check`.
 
 ### My Changes / Pool Requirements:
 [INSERT YOUR NEW PHASES, BLOCKS, CHEST ITEMS, OR MOBS HERE]
