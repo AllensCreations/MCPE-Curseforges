@@ -2,7 +2,7 @@
   "changelog_version": "2.0.0",
   "manifest_version": "2.0.0",
   "packages": {
-    "PirateParrots V2.mcaddon": "b5fb301b2865655b684a6bd4547950afd6b56da51ca7700ce8d1bf421855cbe6"
+    "PirateParrots V2.mcaddon": "111c86dc877878ce57f07a6612e9853ca9164b8e618b7d00ed92bd924e466bae"
   },
-  "source_sha256": "fb98619bdf7fe830555f83a4bf0a0037cefd4eb1a8c8b2d383a06a6ffd980507"
+  "source_sha256": "f88d206645b71da09b0b873f65b30526c9cea91c93a6fd2df4cb11ca1f66ddd9"
 }

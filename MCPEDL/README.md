@@ -2,7 +2,7 @@
 
 Generated file. Do not edit by hand: it is rebuilt with every build.
 
-42 Add-ons · 5 Maps · 10 Scripts · 6 Minigames
+40 Add-ons · 5 Maps · 10 Scripts · 6 Minigames
 
 ## AI Review Kits
 
@@ -35,7 +35,6 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | **Combat Helper** | v21 | 🟢 Published (v21) | [Source](Addons/ALN-Pointer) | [Package](../Package/ALN-Pointer.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-Pointer.txt) |
 | **Copper-Carrier Logistics** | v2 | ⚪ Not Published | [Source](Addons/Copper-Carrier-Logistics) | [Package](../Package/Copper-Carrier-Logistics.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Copper-Carrier-Logistics.txt) |
 | **Enchanter** | v2 | 🟢 Published (v2) | [Source](Addons/Enchanter) | [Package](../Package/Enchanter.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Enchanter.txt) |
-| **Expanded Basic Arsenal** | v2 | ⚪ Not Published | [Source](Addons/Expanded-Basic-Arsenal) | [Package](../Package/Expanded-Basic-Arsenal.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Expanded-Basic-Arsenal.txt) |
 | **Fletching Table Arsenal** | v2 | ⚪ Not Published | [Source](Addons/Fletching-Table-Arsenal) | [Package](../Package/Fletching-Table-Arsenal.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Fletching-Table-Arsenal.txt) |
 | **Ghast Mob Head Transformers** | v2 | 🟢 Published (v2) | [Source](Addons/Ghast-Mob-Head-Transformers) | [Package](../Package/Ghast-Mob-Head-Transformers.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Ghast-Mob-Head-Transformers.txt) |
 | **Grand Banquets** | v3 | ⚪ Not Published | [Source](Addons/Grand-Banquets) | [Package](../Package/Grand-Banquets.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Grand-Banquets.txt) |
@@ -47,7 +46,6 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | **Melody Figurine** | v2 | ⚪ Not Published | [Source](Addons/Melody-Figurine) | [Package](../Package/Melody-Figurine.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Melody-Figurine.txt) |
 | **Mining Helmet** | v2 | 🟢 Published (v2) | [Source](Addons/Mining-Helmet) | [Package](../Package/Mining-Helmet.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Mining-Helmet.txt) |
 | **Monster Companions** | v12 | 🟢 Published (v12) | [Source](Addons/Monster-Companions) | [Package](../Package/Monster-Companions.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Monster-Companions.txt) |
-| **One-Block Hardcore Survival Economy** | v2 | ⚪ Not Published | [Source](Addons/One-Block-Economy) | [Package](../Package/One-Block-Economy.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/One-Block-Economy.txt) |
 | **OP Sponge** | v3 | ⚪ Not Published | [Source](Addons/OP-Sponge) | [Package](../Package/OP-Sponge.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/OP-Sponge.txt) |
 | **Padlock & Key** | v3 | 🟢 Published (v3) | [Source](Addons/Padlock-and-Key) | [Package](../Package/Padlock-and-Key.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Padlock-and-Key.txt) |
 | **Passive Auto-Switch Tools** | v2 | ⚪ Not Published | [Source](Addons/Passive-Auto-Switch-Tools) | [Package](../Package/Passive-Auto-Switch-Tools.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Passive-Auto-Switch-Tools.txt) |
