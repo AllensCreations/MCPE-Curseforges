@@ -419,6 +419,39 @@ def export_items(pack: Path, item_ids: list[str], samples_root: Path = None):
     return written, problems
 
 
+def discover_custom_item_ids(pack: Path) -> list[str]:
+    """Discover all custom items (from behavior_pack/items/*.json and resource_pack item_texture.json)."""
+    seen_ids = set()
+    seen_names = set()
+    out = []
+    bp_items = pack / "behavior_pack" / "items"
+    if bp_items.is_dir():
+        for f in sorted(bp_items.rglob("*.json")):
+            try:
+                d = load_json(f)
+                ident = d.get("minecraft:item", {}).get("description", {}).get("identifier")
+                if ident and ident not in seen_ids:
+                    seen_ids.add(ident)
+                    seen_names.add(short(ident))
+                    out.append(ident)
+            except Exception:
+                pass
+    rp_tex = pack / "resource_pack" / "textures" / "item_texture.json"
+    if rp_tex.is_file():
+        try:
+            d = load_json(rp_tex)
+            for k in d.get("texture_data", {}):
+                short_k = short(k)
+                if short_k not in seen_names and k not in seen_ids:
+                    candidate = k if ":" in k else f"custom:{k}"
+                    seen_ids.add(candidate)
+                    seen_names.add(short_k)
+                    out.append(candidate)
+        except Exception:
+            pass
+    return out
+
+
 def custom_result_ids(jobs: list) -> list[str]:
     """Custom (non-vanilla) result items of the planned recipes, in order, without duplicates."""
     seen, out = set(), []
@@ -446,6 +479,7 @@ def main(argv=None):
     ap.add_argument("--sheet", action="store_true", help="also write assets/all_recipes_sheet.png")
     ap.add_argument("--item", action="append", default=[], metavar="ID", help="export this custom item's sprite (repeatable)")
     ap.add_argument("--items-from-recipes", action="store_true", help="also export the sprite of every custom item that has a recipe")
+    ap.add_argument("--all-items", action="store_true", help="export the sprite of all custom items in the pack (not just craftable)")
     ap.add_argument("--root", default=str(ROOT), help="repo root")
     ap.add_argument("--samples", help="Bedrock Samples folder (default: env BEDROCK_SAMPLES_ROOT or /tmp/bedrock-samples)")
     a = ap.parse_args(argv)
@@ -480,8 +514,9 @@ def main(argv=None):
         print(f"{pack.name}: {len(jobs)} recipe image(s)" + (f", {len(skipped)} other recipe(s) skipped" if skipped else ""))
         for w in written:
             print(f"  wrote {w.relative_to(root)}")
-        if a.items_from_recipes and jobs:
-            sprites, sprite_problems = export_items(pack, custom_result_ids(jobs), samples)
+        if (a.items_from_recipes or a.all_items) and (jobs or a.all_items):
+            target_ids = discover_custom_item_ids(pack) if a.all_items else custom_result_ids(jobs)
+            sprites, sprite_problems = export_items(pack, target_ids, samples)
             for p in sprite_problems:
                 print(f"FAIL {pack.name}: {p}")
             bad += len(sprite_problems)

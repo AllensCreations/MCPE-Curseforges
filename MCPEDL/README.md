@@ -9,11 +9,10 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | Kit | Download |
 | :-- | :-- |
 | **New Pack Kit (zip: map and scripts)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/New-Pack.zip) |
-| **Update Pack Kit (zip: map and scripts)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Update-Pack.zip) |
 | **Repo Maintenance Kit (zip: map and scripts)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Maintenance.zip) |
-| **Vanilla Bedrock Reference (JSON.gz)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/bedrock-samples/bedrock-samples.min.json.gz) |
-| **Bedrock Reference Bundle (v1.26.60)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/bedrock-samples/bedrock-reference-pack-1.26.60.zip) |
-| **Minecraft Script API TypeScript Definitions (.d.ts Zip)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/typescript-definitions/minecraft-bedrock-types.zip) |
+| **Vanilla Bedrock Reference (JSON.gz)** | *(not yet built)* |
+| **Complete Bedrock Reference Bundle (Samples, Schemas & Types Zip)** | *(not yet built)* |
+| **Minecraft Script API TypeScript Definitions (.d.ts Zip)** | *(not yet built)* |
 
 ## Add-ons
 

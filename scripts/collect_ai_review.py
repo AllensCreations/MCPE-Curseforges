@@ -411,8 +411,22 @@ instructions = (
     .replace("__ACTION_NOTES__", action_notes)
     .replace("__DEST__", "\n".join("- " + d for d in dests) or "- .")
 )
+
+skill_blocks = []
+if not new_pack and not repo_kit:
+    # Always embed the core skills into the pack AI review so any agent has them immediately
+    for s_rel in [".agents/skills/mcpe-context7/SKILL.md", ".agents/skills/mcpe-pack-update/SKILL.md"]:
+        s_path = root / s_rel
+        if s_path.is_file():
+            s_text = s_path.read_text(encoding="utf-8", errors="replace").rstrip("\n")
+            f = _fence(s_text)
+            skill_blocks.append(f"\n## Skill: {s_rel}\n\n{f}markdown\n{s_text}\n{f}\n")
+
+skills_section = "\n---\n\n## Skills\n" + "".join(skill_blocks) if skill_blocks else ""
+
 content = ("# Repo Export\n\n## Index\n\n" + "\n".join(index) + "\n\n---\n\n"
-           + instructions.strip() + "\n\n---\n\n"
+           + instructions.strip()
+           + skills_section + "\n\n---\n\n"
            + "## File Contents\n" + "".join(b for _, b in blocks))
 (out / name).write_text(content, encoding="utf-8")
 

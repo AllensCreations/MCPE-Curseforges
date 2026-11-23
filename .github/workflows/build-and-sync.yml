@@ -250,7 +250,7 @@ jobs:
         run: |
           set -uo pipefail
           status=0
-          python3 scripts/generate_recipe_images.py --all --items-from-recipes || status=1
+          python3 scripts/generate_recipe_images.py --all --all-items || status=1
           if [ "$status" != "0" ]; then
             echo "::warning::Some recipe images could not be generated (see log). The rest of the build continues."
           fi
@@ -349,7 +349,7 @@ jobs:
           path: |
             MCPEDL/AI Review/Maintenance.zip
             MCPEDL/AI Review/New-Pack.zip
-            MCPEDL/AI Review/Update-Pack.zip
+            MCPEDL/AI Review/*.zip
             MCPEDL/AI Review/*.txt
           if-no-files-found: ignore
 

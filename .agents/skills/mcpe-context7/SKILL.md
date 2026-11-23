@@ -39,7 +39,7 @@ NEVER call `resolve-library-id`. NEVER query any other library.
 ## Scripts that must run
 
 - `make_pack_script.py`, `build_payload.py`, `import_project_payload.py`, `doc_template.py`, `pixel_json_to_png.py`, `make_update_script.py` and `apply_update.py` need their COMPLETE unchanged text. A Context7 snippet is not enough.
-- The complete files are in the kit zip (`New-Pack.zip`, `Update-Pack.zip` or `Maintenance.zip`) under `files/`. Unzip, run from there, NEVER retype or edit them.
+- The complete files are in the kit zip (`New-Pack.zip`, `Maintenance.zip` or the pack's review zip `<Pack>.zip`) under `files/`. Unzip, run from there, NEVER retype or edit them.
 - No zip and only partial text from a query: stop and ask the user to attach the zip. NEVER rewrite a script from memory.
 - A file attached in the conversation or read from a clone wins over the Context7 index. Context7 shows the repo as last indexed. Tell the user about any difference.
 

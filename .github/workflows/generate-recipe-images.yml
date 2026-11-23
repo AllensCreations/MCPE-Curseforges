@@ -39,7 +39,7 @@ jobs:
 
 
       - name: Generate recipe images for every pack
-        run: python scripts/generate_recipe_images.py --all --items-from-recipes
+        run: python scripts/generate_recipe_images.py --all --all-items
 
       - name: Commit generated images
         run: |

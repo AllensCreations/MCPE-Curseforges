@@ -1,17 +1,3 @@
-<!-- GRAPH-CONTEXT:START -->
-## Graph Context
-
-- **Project:** `Grand-Banquets` | Category: `Addons` | Version: `v2`
-- **Pack Types:** behavior_pack, resource_pack
-- **Siblings in Addons:** `2-in-1-Loot--XP-Booster (v2)` (v2), `ALN-MoreDiscs (v2)` (v2), `ALN-Pointer (v2)` (v2), `ALN-Quiver (v2)` (v2), `ALN-Wireless-Headphones (v2)` (v2), `Category: Addons`, `Cheat-Stick (v4)` (v4), `Copper-Carrier-Logistics (v2)` (v2) …
-
-> _Auto-generated from graphify-out/graph.json — do not edit manually._
-<!-- GRAPH-CONTEXT:END -->
-
----
-
----
-
 # Repo Export
 
 ## Index
@@ -19,6 +5,7 @@
 - **Export request:** `MCPEDL/Addons/Grand-Banquets`
 - **Destination:** `MCPEDL/Addons/Grand-Banquets`
 - **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Addons/Grand-Banquets/CHANGELOG.md`)
+- **Current version:** Current REPO_VERSION, the next spec number and the newest specs: Context7 `docs/where-we-left-off.md` (library `/allenscreations/mcpe-curseforges`). The `REPO_VERSION` file and the root `CHANGELOG.md` in the repo win over it.
 - **Text files:** 73
 - **Skipped binary:** 101
 - **Paths not found:** 0
@@ -99,7 +86,7 @@
 - `MCPEDL/Addons/Grand-Banquets/resource_pack/texts/en_US.lang`
 - `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/item_texture.json`
 
-### Skipped (binary)
+### Skipped (binary): 101 file(s)
 
 - `MCPEDL/Addons/Grand-Banquets/assets/items/bacon_and_eggs.png`
 - `MCPEDL/Addons/Grand-Banquets/assets/items/braised_ribs.png`
@@ -141,67 +128,7 @@
 - `MCPEDL/Addons/Grand-Banquets/assets/recipes/dragonlords_galantine_recipe.png`
 - `MCPEDL/Addons/Grand-Banquets/assets/recipes/fishermans_platter_recipe.png`
 - `MCPEDL/Addons/Grand-Banquets/assets/recipes/glazed_ham_recipe.png`
-- `MCPEDL/Addons/Grand-Banquets/assets/recipes/glazed_wings_recipe.png`
-- `MCPEDL/Addons/Grand-Banquets/assets/recipes/harvest_loaf_recipe.png`
-- `MCPEDL/Addons/Grand-Banquets/assets/recipes/highland_venison_recipe.png`
-- `MCPEDL/Addons/Grand-Banquets/assets/recipes/honey_berry_tart_recipe.png`
-- `MCPEDL/Addons/Grand-Banquets/assets/recipes/hunters_stew_recipe.png`
-- `MCPEDL/Addons/Grand-Banquets/assets/recipes/imperial_feast_recipe.png`
-- `MCPEDL/Addons/Grand-Banquets/assets/recipes/item_previews.png`
-- `MCPEDL/Addons/Grand-Banquets/assets/recipes/kelp_fish_broth_recipe.png`
-- `MCPEDL/Addons/Grand-Banquets/assets/recipes/lumberjacks_ham_recipe.png`
-- `MCPEDL/Addons/Grand-Banquets/assets/recipes/mariners_pot_recipe.png`
-- `MCPEDL/Addons/Grand-Banquets/assets/recipes/miners_roast_recipe.png`
-- `MCPEDL/Addons/Grand-Banquets/assets/recipes/mushroom_casserole_recipe.png`
-- `MCPEDL/Addons/Grand-Banquets/assets/recipes/phoenix_roast_recipe.png`
-- `MCPEDL/Addons/Grand-Banquets/assets/recipes/potato_loaf_recipe.png`
-- `MCPEDL/Addons/Grand-Banquets/assets/recipes/pumpkin_casserole_recipe.png`
-- `MCPEDL/Addons/Grand-Banquets/assets/recipes/roast_turkey_recipe.png`
-- `MCPEDL/Addons/Grand-Banquets/assets/recipes/roasted_roots_recipe.png`
-- `MCPEDL/Addons/Grand-Banquets/assets/recipes/sausage_pan_recipe.png`
-- `MCPEDL/Addons/Grand-Banquets/assets/recipes/scholars_dumplings_recipe.png`
-- `MCPEDL/Addons/Grand-Banquets/assets/recipes/shepherds_pie_recipe.png`
-- `MCPEDL/Addons/Grand-Banquets/assets/recipes/sovereign_platter_recipe.png`
-- `MCPEDL/Addons/Grand-Banquets/assets/recipes/strider_gumbo_recipe.png`
-- `MCPEDL/Addons/Grand-Banquets/assets/recipes/tier_1_recipes.png`
-- `MCPEDL/Addons/Grand-Banquets/assets/recipes/tier_2_recipes.png`
-- `MCPEDL/Addons/Grand-Banquets/assets/recipes/tier_3_recipes.png`
-- `MCPEDL/Addons/Grand-Banquets/assets/recipes/tier_4_recipes.png`
-- `MCPEDL/Addons/Grand-Banquets/assets/recipes/veggie_skillet_recipe.png`
-- `MCPEDL/Addons/Grand-Banquets/assets/recipes/verdant_ambrosia_recipe.png`
-- `MCPEDL/Addons/Grand-Banquets/assets/recipes/warlords_steak_recipe.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/bacon_and_eggs.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/braised_ribs.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/celestial_roast.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/cheese_bread_pot.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/citadel_ham.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/dragonlords_galantine.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/fishermans_platter.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/glazed_ham.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/glazed_wings.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/harvest_loaf.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/highland_venison.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/honey_berry_tart.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/hunters_stew.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/imperial_feast.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/kelp_fish_broth.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/lumberjacks_ham.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/mariners_pot.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/miners_roast.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/mushroom_casserole.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/phoenix_roast.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/potato_loaf.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/pumpkin_casserole.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/roast_turkey.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/roasted_roots.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/sausage_pan.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/scholars_dumplings.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/shepherds_pie.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/sovereign_platter.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/strider_gumbo.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/veggie_skillet.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/verdant_ambrosia.png`
-- `MCPEDL/Addons/Grand-Banquets/resource_pack/textures/items/banquet/warlords_steak.png`
+- ... and 61 more
 
 ---
 
@@ -215,7 +142,7 @@ Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 - **Mode**: UPDATE existing package (CURRENT VERSION: v3 / NEXT UPDATE: v4).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
-- Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
+- Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
 - Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
 
 ## Destination
@@ -240,7 +167,156 @@ Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
 Output ONLY these three sections in order:
 1. **File Needed:** repo-root-relative path of each file created/edited.
 2. **Changelog:** bullets, brief summary of changes.
-3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands. Update to an existing project or the repo: deliver ONE attached `spec_v<N>.txt` (N = REPO_VERSION + 1, from Context7 `docs/where-we-left-off.md`) and the commands that build and run it (`python3 scripts/make_update_script.py ~/storage/downloads/spec_v<N>.txt --out-dir ~/storage/downloads --verify ~/MCPE-Curseforges`, then `bash ~/storage/downloads/<Name>_v<N>_*.sh`). New pack: the pack `.sh`.
+---
+
+## Skills
+
+## Skill: .agents/skills/mcpe-context7/SKILL.md
+
+```markdown
+---
+name: mcpe-context7
+description: Use before looking up ANY repo rule, repo script, Bedrock API member, vanilla id, texture, recipe, component, manifest field or version for the MCPE-Curseforges repo. Routes each need to one of the four Context7 libraries and says when a script must come from the kit zip instead.
+---
+
+# mcpe-context7: Where to Look Things Up
+
+## Authority
+
+- `INSTRUCTIONS.md` 1.16 (copy in `docs/instructions-reference.md`) is the policy. This skill is only its routing table and never overrides it.
+- An AI review kit (`*_tools.txt` inside the kit zip) holds a directory map and skills, no file contents. That is on purpose: read what the task needs through Context7, not from a pasted dump.
+
+## Libraries (ONLY these four, IDs exactly, `query-docs` only)
+
+- `/microsoftdocs/minecraft-creator`: `@minecraft/server` and `@minecraft/server-ui` API, JSON schemas, stable and module versions.
+- `/mojang/bedrock-samples`: vanilla ids, textures, recipes, components, entities, formats, `version.json`.
+- `/websites/wiki_bedrock_dev`: manifest structure, scripting guides, techniques.
+- `/allenscreations/mcpe-curseforges`: this repo's rules, script summaries and Bedrock guide. Context7 indexes ONLY `docs/`.
+
+NEVER call `resolve-library-id`. NEVER query any other library.
+
+## Repo lookups (`/allenscreations/mcpe-curseforges`, `docs/` only)
+
+- `docs/instructions-reference.md`: `INSTRUCTIONS.md`, `DOCS_RULES.md`, `PACK_GENERATOR_INSTRUCTIONS.md` (Reply Format, Termux Script Rules, versions 1.3, recipes 1.4 and 1.5, templates 2.5, new packs Part 4).
+- `docs/scripts-and-workflows.md`: summary of every script and workflow, update spec syntax (`apply_update.py`, `make_update_script.py`).
+- `docs/mcicons-index.md`: every Minecraft icon id in MCicons (generated).
+- `docs/bedrock-guide.md`: add-on architecture, folder structure, manifest setup, target API versions.
+- Meaning of a build or doc check message: query the exact message text with the script name.
+
+## Rules
+
+1. Query first, write second. Batch: at most ONE `query-docs` call per needed `libraryId`, covering every topic needed from it, all calls in one parallel turn. NEVER two calls to the same `libraryId`. Name the exact member, file, id or schema and the game or module version.
+2. Verify every import, class, method, property and JSON field against the retrieved text. NEVER `mojang-minecraft`, `world.events` or 1.x syntax.
+3. Empty or doubtful result: no sequential retry loop. Say "not verified". NEVER fill the gap from memory.
+4. Versions come only from retrieved text. State the exact version used and the query date.
+5. Handoff bullet: `Docs queried (YYYY-MM-DD): <library IDs and topics>`.
+6. Library IDs, query text and the word Context7 NEVER go into shipped files or player-facing docs.
+
+## Scripts that must run
+
+- `make_pack_script.py`, `build_payload.py`, `import_project_payload.py`, `doc_template.py`, `pixel_json_to_png.py`, `make_update_script.py` and `apply_update.py` need their COMPLETE unchanged text. A Context7 snippet is not enough.
+- The complete files are in the kit zip (`New-Pack.zip`, `Maintenance.zip` or the pack's review zip `<Pack>.zip`) under `files/`. Unzip, run from there, NEVER retype or edit them.
+- No zip and only partial text from a query: stop and ask the user to attach the zip. NEVER rewrite a script from memory.
+- A file attached in the conversation or read from a clone wins over the Context7 index. Context7 shows the repo as last indexed. Tell the user about any difference.
+
+## Icons (MCicons)
+
+- Any vanilla item or block icon (recipe diagrams, sprites, README or listing images, UI art): use MCicons ONLY. It is the release file `reference/mcicons/mcicons-<ver>.tgz` in the repo (`package/dist/icons/minecraft_<id>.png`, 64x64, only `minecraft:` ids). It is NOT in Context7: read it with `scripts/lib/mcicons.py` (`has_icon(id)`, `icon_image(id)`), never retype or guess a PNG.
+- No icon for the id (custom ids, newer items): report it. NO fallback to Samples, the Wiki, another icon site or a third-party pack.
+- Context7 cannot index the binary `.tgz`, but `docs/mcicons-index.md` (`/allenscreations/mcpe-curseforges`) lists every icon id it holds: query it to check an id before using an icon.
+- The `.tgz` itself is not in the kit zips. To run code that reads the pixels it must be in the clone; if it is missing, ask the user to attach it. NEVER substitute a lookalike.
+- Every manifest (BP and RP) carries `metadata.authors` = `["ALNStudios"]` and `metadata.product_type` = `"addon"`, always.
+- Keep its `ASSET-NOTICE.md` with any redistributed icon.
+
+## Reading the directory map
+
+- The map lists directories with file counts. Pick the folder, then query for the file. For exact file text of a pack, ask for a Collect Files export of that path.
+- NEVER edit generated folders and files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`, `builds/README.md`.
+```
+
+## Skill: .agents/skills/mcpe-pack-update/SKILL.md
+
+````markdown
+---
+name: mcpe-pack-update
+description: Use for any change to an existing project, workflow, script or doc in the MCPE-Curseforges repository (update, fix, add, rename). Delivers every change as ONE update spec file (spec_vN.txt) that the user turns into a Termux .sh with scripts/make_update_script.py. Not for read-only audits (use checkrm) and not for building a new project from an idea (use PACK_GENERATOR_INSTRUCTIONS.md Part 4).
+---
+
+# mcpe-pack-update: Update Spec Delivery
+
+## Authority
+
+- `INSTRUCTIONS.md` is the policy source. `PACK_GENERATOR_INSTRUCTIONS.md` is its standalone copy for generation. The script flow is `INSTRUCTIONS.md` "Termux Script Rules", built with `scripts/make_update_script.py`. Where to look each rule up: the `mcpe-context7` skill. This skill is a short working checklist and never restates or overrides them.
+- **Precedence** (as in `PACK_GENERATOR_INSTRUCTIONS.md`): factual accuracy and the user's requested scope, then Part 1, then Part 2, then this skill. Part 4 of the generator file never overrides Parts 1 and 2.
+- If these files disagree with each other or with a script in `scripts/`, tell the user exactly what differs instead of choosing silently. If `INSTRUCTIONS.md` cannot be read, stop and report it instead of working from memory.
+- Achievements line (every project type): always `Yes, achievement-friendly.` Keep any cheats or world-setting caveat as a following sentence.
+
+## Scope
+
+- Use for changes to an existing project (`MCPEDL/Addons|Maps|Script|Minigame/<Name>/`), a workflow, a script, a catalog or any repo doc.
+- Read-only audit or report: use `checkrm`.
+- New project from an idea: follow `PACK_GENERATOR_INSTRUCTIONS.md` Part 4 (ask the type first, base64 payload).
+
+## Procedure
+
+1. Read `INSTRUCTIONS.md` Parts 1 and 2 before writing anything, through Context7 as the `mcpe-context7` skill says. `make_update_script.py` and `apply_update.py` are complete in the pack's review zip (`<Pack>.zip`) under `files/`; run them from there.
+2. Find the destination folder: the path the user named, otherwise the matching project folder. Do not substitute a similar name; report ambiguity or a missing target. Ask at most one question, and only if the answer changes gameplay, compatibility, distribution, data loss or versioning.
+3. Read the real source (manifests, scripts, items, recipes, loot tables, functions, lang files) before writing any claim. Source priority when sources disagree, and report the disagreement: the project's own files, Mojang Bedrock Samples, official Minecraft Creator Documentation, Minecraft Wiki, Bedrock Wiki.
+4. Make the smallest possible change. No unrelated rewrites. Never invent features, versions, links, assets, test results or compatibility. Never write comments in shipped `.js`, `.mcfunction` or `.json` files.
+5. Write the spec (below), test it (below), then reply (below). For changes to an existing project, never deliver a .sh: this overrides any older "deliver the .sh" wording. A NEW pack still follows `mcpe-new-pack` and delivers its generated .sh.
+
+## The spec
+
+File name: `spec_vN.txt`, a downloadable file. N = CURRENT VERSION + 1, read from the attached repo export, never guessed. The user builds the .sh on their phone with `scripts/make_update_script.py`.
+
+Format (`scripts/apply_update.py`):
+
+- Start: `@@ version vN`, then `@@ project MCPEDL/<Category>/<Name>`, then one `@@ file <path relative to the project>` block per file.
+- Directives: replace/with, replace-all, insert-after, insert-before, delete, append, create, overwrite, changelog. Remove files with `@@ delete-file <repo-root path>`.
+- Small change: replace/insert only. Anchors are copied from the attached export, never from memory, and must occur exactly once. Do not end an anchor with a newline.
+- Large redesign: `@@ overwrite` (new content must exceed 60% of the old file) or `@@ create` for new files. Never many fragile edits.
+- A content line that starts with `@@` is written `@@@`.
+- End with `@@ changelog <Update Name>` using `### Added`, `### Improved & Balanced`, `### Fixed` and `- **Title**: text`. Never touch manifest versions or README links.
+- New pixel textures: `@@ create` the pixel JSON under `texture_sources/`, then add the PNG step to the Termux commands.
+- Keep README.md and DESCRIPTION.md accurate (INSTRUCTIONS Part 2 template). Never claim an in-game test.
+
+**Test before delivering.** Apply the spec to the export text in the sandbox with `apply_update.py` (`--dry-run`, then a real run on a copy). Check every anchor, validate each changed JSON, run `node --check` on JS. Report every check not run.
+
+## Versions
+
+- N is the current version from the attached export plus one. `apply_update.py` rejects a stale version, so a stale spec cannot run on a newer repo.
+- Never edit manifest versions or the README version or download link. The auto-version-bump workflow does that on push.
+
+## Docs
+
+- The changelog entry is mandatory on every update and is written with the final `@@ changelog <Update Name>` directive. Never edit or delete older entries; correct them in the new entry.
+- After the change, check the README.md and DESCRIPTION.md in the destination. Edit them only if the change makes them inaccurate or incomplete. Never remove verified content.
+- Follow the Part 2 templates in `INSTRUCTIONS.md` exactly (`scripts/doc_template.py` fails the build on deviation): same headings, same heading text, same order, same labels, no added sections, no boilerplate, no placeholders. README is version-free and DESCRIPTION has no release version in its title.
+- Writing, layout, attribution, keywords and the README and DESCRIPTION templates are defined in `INSTRUCTIONS.md` Part 2. Read them there; do not copy them into the script from memory.
+
+## Reply
+
+1. `spec_vN.txt` as a downloadable file.
+2. These Termux commands, with N and the project filled in:
+
+```
+cd ~/MCPE-Curseforges && git checkout -- Package changelog_views && git pull --rebase --autostash
+python3 scripts/make_update_script.py ~/storage/downloads/spec_vN.txt --out-dir ~/storage/downloads --verify ~/MCPE-Curseforges
+bash ~/storage/downloads/<Name>_vN_*.sh
+```
+
+Only when textures changed, then:
+
+```
+python3 scripts/pixel_json_to_png.py MCPEDL/<Category>/<Name>
+git add MCPEDL/<Category>/<Name>/resource_pack/textures
+git commit -m "<short>" && git pull --rebase --autostash && git push
+```
+
+3. Two or three sentences: what changed, which checks ran, what is unverified. Add `Docs queried (YYYY-MM-DD): <library IDs and topics>`.
+````
+
 
 ---
 

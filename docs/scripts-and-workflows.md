@@ -21,7 +21,7 @@ Generated from the module docstrings in `scripts/` and the files in `.github/wor
 
 `build-and-sync.yml` runs `python3 scripts/auto_ai_review.py` and uploads the `ai-review-bundle` artifact. It ignores pushes that only touch `docs/**` or `context7.json`. The review prompt (`AI_PROMPT` in `scripts/collect_ai_review.py`) holds no rules: it tells the reviewer to query this documentation once.
 
-- `collect_ai_review.py`: builds one export, or a shared kit zip (`New-Pack.zip`, `Update-Pack.zip`, `Maintenance.zip`: map text + scripts under `files/`).
+- `collect_ai_review.py`: builds one export, or a shared kit zip (`New-Pack.zip`, `Maintenance.zip`: map text + scripts under `files/`; update scripts are packaged per-pack).
 - `auto_ai_review.py`: refreshes the per-pack export of every pack whose files changed (hash stamps).
 
 ## Scripts

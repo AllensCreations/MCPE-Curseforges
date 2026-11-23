@@ -442,15 +442,17 @@ def find_media(root, project, md_text=""):
 
 
 def gallery(kind, entries):
-    """Responsive image grid. Each image links to the full-size file; the caption sits under it."""
+    """Responsive image grid. Each image links to the full-size file; snapshots omit text caption."""
     basis = {"snapshots": "1 1 300px", "recipes": "0 1 400px", "items": "0 1 120px"}[kind]
     width = {"snapshots": "100%", "recipes": "100%", "items": "64px"}[kind]
     cells = []
     for url, cap in entries:
-        img = f'<img src="{url}" alt="{html.escape(cap)}" style="width:{width}">'
+        alt_text = "" if kind == "snapshots" else html.escape(cap)
+        img = f'<img src="{url}" alt="{alt_text}" style="width:{width}">'
+        caption_html = "" if kind == "snapshots" else f'<p style="color:{MUTED};font-size:13px">{esc(cap)}</p>'
         cells.append(f'<div style="flex:{basis};background-color:{PANEL};border:1px solid {LINE};border-radius:{RADIUS};'
                      f'text-align:center"><p><a href="{url}">{img}</a></p>'
-                     f'<p style="color:{MUTED};font-size:13px">{esc(cap)}</p></div>')
+                     f'{caption_html}</div>')
     return '<div style="display:flex;flex-wrap:wrap;gap:10px">' + "".join(cells) + "</div>"
 
 

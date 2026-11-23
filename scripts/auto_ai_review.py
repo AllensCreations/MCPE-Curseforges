@@ -11,8 +11,8 @@ The kits are identical for every package, so they are saved once. Each is a dire
 contents) and, where the task has to run scripts, a zip with the complete scripts as real files:
   MCPEDL/AI Review/Maintenance.zip  (repo maintenance)
   MCPEDL/AI Review/New-Pack.zip     (new project)
-  MCPEDL/AI Review/Update-Pack.zip  (update; also copied into every package zip)
 Each kit zip holds <Kit>_tools.txt (directory map + skills) and the runnable scripts under files/.
+Each package review zip holds <Name>.txt (including embedded skills) and runnable update scripts under files/.
 Generated views (changelog_views/, Package/*.listing.md) are not part of an export and do not trigger a rebuild.
 The root README.md list is refreshed only when it holds the two marker lines
   <!-- AI-REVIEW:START -->  and  <!-- AI-REVIEW:END -->
@@ -130,6 +130,7 @@ def main() -> int:
         changed.append(new_samples.relative_to(ROOT).as_posix())
         print(f"Moved {LEGACY_DIR}/bedrock-samples.txt to {new_samples.relative_to(ROOT)}")
     entries = []  # (category, name, version, rel path of the ai-review file)
+    rebuilt_packs = set()
     with tempfile.TemporaryDirectory() as tmp:
         for cat, pack in packages():
             name = pack.name
@@ -140,7 +141,7 @@ def main() -> int:
                 if txt.is_file():
                     entries.append((cat, name, top_version(pack), txt.relative_to(ROOT).as_posix()))
                 continue
-            src_hash = digest(list(files_under(pack)) + [ROOT / "scripts" / "collect_ai_review.py"])
+            src_hash = digest(list(files_under(pack)))
             fresh = txt.is_file() and stamp.is_file() and stamp.read_text().strip() == src_hash
             if fresh and not args.all:
                 entries.append((cat, name, top_version(pack), txt.relative_to(ROOT).as_posix()))
@@ -159,6 +160,7 @@ def main() -> int:
             shutil.copyfile(made[0], txt)
             stamp.write_text(src_hash + "\n", encoding="utf-8")
             built += 1
+            rebuilt_packs.add(name.lower())
             changed.append(txt.relative_to(ROOT).as_posix())
             entries.append((cat, name, top_version(pack), txt.relative_to(ROOT).as_posix()))
             print(f"Built {txt.relative_to(ROOT)}")
@@ -175,7 +177,7 @@ def main() -> int:
                 tool_paths.append(target)
         tools_dir = ROOT / OUT_DIR
         tools_hash = digest(tool_paths)
-        for zip_name, paths_kw in (("Maintenance.zip", "REPO"), ("New-Pack.zip", "NEW"), ("Update-Pack.zip", "UPDATE")):
+        for zip_name, paths_kw in (("Maintenance.zip", "REPO"), ("New-Pack.zip", "NEW")):
             kit_path = tools_dir / zip_name
             kit_stamp = tools_dir / f".{zip_name[:-4]}-hash"
             if args.all or not kit_path.is_file() or not kit_stamp.is_file() or kit_stamp.read_text().strip() != tools_hash:
@@ -193,22 +195,30 @@ def main() -> int:
                     print(f"::warning::{zip_name} could not be built; skipped.")
 
 
-    # Package AI review zips: <Pack>.txt + everything in the Update-Pack kit zip
-    update_kit = tools_dir / "Update-Pack.zip"
+    # Package AI review zips: <Pack>.txt + update scripts under files/
+    update_scripts = [
+        ("files/scripts/make_update_script.py", ROOT / "scripts" / "make_update_script.py"),
+        ("files/scripts/apply_update.py", ROOT / "scripts" / "apply_update.py"),
+    ]
     for cat, pack in packages():
         name = pack.name
+        if only and name.lower() not in only:
+            continue
+        if not args.all and not only and name.lower() not in rebuilt_packs:
+            continue
         txt = ROOT / OUT_DIR / f"{name}.txt"
         if not txt.is_file():
             continue
         zpath = ROOT / OUT_DIR / f"{name}.zip"
-        newest = update_kit.stat().st_mtime if update_kit.is_file() else 0
-        if not zpath.is_file() or txt.stat().st_mtime > zpath.stat().st_mtime or newest > zpath.stat().st_mtime:
+        if args.all or name.lower() in rebuilt_packs or not zpath.is_file() or txt.stat().st_mtime > zpath.stat().st_mtime:
             with zipfile.ZipFile(zpath, "w", compression=zipfile.ZIP_DEFLATED) as zf:
                 zf.write(txt, arcname=f"{name}.txt")
-                if update_kit.is_file():
-                    with zipfile.ZipFile(update_kit) as src:
-                        for member in src.namelist():
-                            zf.writestr(member, src.read(member))
+                for arcname, script_file in update_scripts:
+                    if script_file.is_file():
+                        info = zipfile.ZipInfo(arcname, date_time=(2020, 1, 1, 0, 0, 0))
+                        info.compress_type = zipfile.ZIP_DEFLATED
+                        info.external_attr = 0o644 << 16
+                        zf.writestr(info, script_file.read_bytes(), compresslevel=9)
             changed.append(zpath.relative_to(ROOT).as_posix())
             print(f"Bundled {zpath.relative_to(ROOT)}")
 
