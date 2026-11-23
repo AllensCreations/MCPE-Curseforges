@@ -1,20 +1,25 @@
 # Changelog — ALN:PirateTokens
 
-## [1.0.2] - 2026-11-23 - Crate Rewards and MC Icons
+## [1.0.3] - 2026-11-23 - Shorter Menu Text
 
-### Added
+### Fixed
+- **Cut-off text**: The ledger title and the Hunter's Compass button no longer end in "..." or lose their price line.
+
+<details>
+<summary><b>1.0.x</b> (3 releases)</summary>
+
+### [1.0.2] - 2026-11-23 - Crate Rewards and MC Icons
+
+#### Added
 - **More crate prizes**: The Buccaneer Crate and Cursed Captain's Crate now share 33 prizes, including cooked salmon, sea lanterns, prismarine crystals, a Conduit, a Nether Star and a Netherite Sword.
 - **Prize list icons**: View Prizes shows every prize with its icon and chance.
 
-### Changed
+#### Changed
 - **MC icons**: Black Market and prize icons now use the MCicons set shipped in the resource pack instead of the game's own texture paths.
 - **After a win**: The menu closes once the prize is awarded, so the loot title stays on screen.
 
-### Fixed
+#### Fixed
 - **Missing icons**: Shop buttons that showed a missing-texture square now show their item icon.
-
-<details>
-<summary><b>1.0.x</b> (2 releases)</summary>
 
 ### [1.0.1] - 2026-11-23 - Mystery Crate Block
 
