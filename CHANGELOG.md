@@ -4,6 +4,14 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v249] - 2026-11-23 - Sell Form Toggles
+
+**Spec**: spec_v249.txt | **Target**: MCPEDL/Maps/OneBlock-Natural-Market | **Files edited**: 2
+
+### Improved & Balanced
+- **Sell form**: Sell Items now has three buttons: Lock / Unlock Items, Sell All and Exit. Sell All keeps locked items.
+- **Lock editor**: Lock / Unlock Items opens a form with one toggle per item. Switch an item on to lock it, then press Save.
+
 ## [v248] - 2026-11-23 - Sell Lock List
 
 **Spec**: spec_v248.txt | **Target**: MCPEDL/Maps/OneBlock-Natural-Market | **Files edited**: 3

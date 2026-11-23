@@ -2,6 +2,12 @@
 
 ---
 
+## [16.0.5] - 2026-11-23 - Sell Form Toggles
+
+### Improved & Balanced
+- **Sell form**: Sell Items now has three buttons: Lock / Unlock Items, Sell All and Exit. Sell All keeps locked items.
+- **Lock editor**: Lock / Unlock Items opens a form with one toggle per item. Switch an item on to lock it, then press Save.
+
 ## [16.0.4] - 2026-11-23 - Sell Lock List
 
 ### Added

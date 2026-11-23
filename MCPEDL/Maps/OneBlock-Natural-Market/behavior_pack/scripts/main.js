@@ -1,5 +1,5 @@
 import { world, system, ItemStack, ItemTypes } from "@minecraft/server";
-import { ActionFormData, MessageFormData } from "@minecraft/server-ui";
+import { ActionFormData, MessageFormData, ModalFormData } from "@minecraft/server-ui";
 
 const CORE = { x: 0, y: 64, z: 0 };
 const BEDROCK = { x: 0, y: 63, z: 0 };
@@ -580,6 +580,30 @@ function setLocked(player, items, locked) {
     return false;
   }
 }
+const addOptional = (form, method, ...args) => (typeof form[method] === "function" ? form[method](...args) : form);
+function showLockForm(player, owned) {
+  const locks = lockOverrides(player);
+  let form = new ModalFormData().title("LOCK ITEMS");
+  form = addOptional(form, "header", "Locked Items");
+  form = addOptional(form, "label", "Switch an item on to lock it. Locked items are never sold.");
+  for (const [item, amount] of owned) {
+    form = form.toggle(item.name + " - " + amount + "x - " + item.sell + " Coins each", { defaultValue: isLocked(locks, item) });
+  }
+  form = form.submitButton("Save");
+  showForm(form, player).then(r => {
+    if (r.canceled) return showSellMenu(player);
+    const values = (r.formValues ?? []).filter(v => typeof v === "boolean");
+    if (values.length !== owned.length) {
+      tell(player, "The lock list could not be read.");
+      return showSellMenu(player);
+    }
+    const toLock = [], toUnlock = [];
+    owned.forEach(([item], i) => (values[i] ? toLock : toUnlock).push(item));
+    setLocked(player, toLock, true);
+    setLocked(player, toUnlock, false);
+    return showSellMenu(player);
+  }).catch(e => { logError("showLockForm", e); tell(player, "The lock list could not open."); });
+}
 function showSellMenu(player) {
   const inv = inventoryOf(player);
   if (!inv) return tell(player, "Your inventory is unavailable.");
@@ -599,28 +623,14 @@ function showSellMenu(player) {
     else { payout += item.sell * amount; sellCount += amount; }
   }
   const form = new ActionFormData().title("SELL ITEMS")
-    .body("Tap an item to lock or unlock it. Locked items are never sold.\nWill sell: " + sellCount + " item(s) for " + payout +
-      " Coins\nLocked: " + lockedCount + " item(s)");
-  for (const [item, amount] of owned) {
-    form.button("§l" + item.name + "§r\n" + (isLocked(locks, item) ? "LOCKED" : "Will sell") + " - " + amount + "x - " + item.sell + " Coins each", item.icon || undefined);
-  }
-  form
-    .button("§lSell Unlocked Items§r", MCICON_DIR + "gold_ingot")
-    .button("§lLock All§r", MCICON_DIR + "iron_door")
-    .button("§lUnlock All§r", MCICON_DIR + "oak_door")
-    .button("§lBack§r", "textures/ui/arrow_left");
-  const items = owned.map(entry => entry[0]);
+    .body("Will sell: " + sellCount + " item(s) for " + payout + " Coins\nLocked: " + lockedCount + " item(s)")
+    .button("§lLock / Unlock Items§r", MCICON_DIR + "iron_door")
+    .button("§lSell All§r\nLocked items are kept", MCICON_DIR + "gold_ingot")
+    .button("§lExit§r", MCICON_DIR + "oak_door");
   showForm(form, player).then(r => {
     if (r.canceled) return;
-    const n = items.length;
-    if (r.selection < n) {
-      setLocked(player, [items[r.selection]], !isLocked(locks, items[r.selection]));
-      return showSellMenu(player);
-    }
-    if (r.selection === n) return sellUnlocked(player);
-    if (r.selection === n + 1) { setLocked(player, items, true); return showSellMenu(player); }
-    if (r.selection === n + 2) { setLocked(player, items, false); return showSellMenu(player); }
-    return marketMain(player);
+    if (r.selection === 0) return showLockForm(player, owned);
+    if (r.selection === 1) return sellUnlocked(player);
   }).catch(e => { logError("showSellMenu", e); tell(player, "The sell menu could not open."); });
 }
 function sellUnlocked(player) {
