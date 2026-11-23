@@ -45,6 +45,7 @@ on:
           - "MCPEDL/Addons/Mining-Helmet"
           - "MCPEDL/Addons/Monster-Companions"
           - "MCPEDL/Addons/Padlock-and-Key"
+          - "MCPEDL/Addons/Talking-Pirate-Parrots_payload"
           - "MCPEDL/Addons/Tameable-Companion-Fox"
           - "MCPEDL/Addons/Universal-Leash"
           - "MCPEDL/Addons/Vanilla-Quality-of-Life"
@@ -53,7 +54,6 @@ on:
           - "MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks"
           - "MCPEDL/Maps/OneBlock-Natural-Market"
           - "MCPEDL/Maps/OneBlock-Void-Survival"
-          - "MCPEDL/Minigame/Alphabet-Scavenger-Hunt"
           # END registered
       publish_map_variant:
         description: "Maps only (default = auto, all = Creative + Survival + Hardcore). Other pack types ignore it and publish normally"
