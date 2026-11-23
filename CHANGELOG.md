@@ -4,6 +4,11 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## 2026-11-23 - New Addon ALNMultiIslandOneBlock
+
+### Added
+- **ALNMultiIslandOneBlock**: New addon project created from a pack script.
+
 ## [v255] - 2026-11-23 - Automation List
 
 **Spec**: spec_v255.txt | **Target**: MCPEDL/Addons/ALNOneClickSort | **Files edited**: 4

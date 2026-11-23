@@ -1,0 +1,21 @@
+# Script library
+
+Scripts for ALN:MultiIslandOneBlock. All helper files live in this folder and are imported by relative path from scripts/main.js.
+
+- scripts/main.js: entry point. Subscribes to player join, player spawn, item use, script events and world load, then starts the lobby and OneBlock logic.
+- lib/config.js: constants (lobby coordinates, property names, limits, startup window text).
+- lib/util.js: shared helpers for JSON properties, item counting and moving, chunk-loaded checks, ticking areas and commands.
+- lib/slots.js: island slot allocator. Slots 1 to 8 are the square around the lobby, 9 to 24 the second ring, 25 to 120 the outer rings. Stores ownership in a world property.
+- lib/traits.js: the six Richness traits, their block boosts and bonus drop tables, and balanced trait picking.
+- lib/phases.js: the eight shared OneBlock phases, their thresholds and weighted block pools.
+- lib/island.js: builds a new island after loading its chunks and regenerates the OneBlock.
+- lib/lobby.js: sets the world spawn, keeps the lobby loaded and builds the bedrock pillar.
+- lib/claim.js: assigns a slot and trait, builds the island, teleports the player and sets the personal spawn point.
+- lib/welcome.js: the Start / About startup window for players without an island.
+- lib/oneblock.js: handles broken OneBlocks, global phase counting, bonus drops and the island self-repair check.
+- lib/market.js: global listing storage, purchases, cancellations and offline earnings.
+- lib/ledger.js: the Global Trade Hub forms opened by the Global Pirate Ledger.
+
+Script events: aln:menu opens the startup window for a player who has no island yet.
+Custom item: aln:pirate_ledger.
+Known limits: listings only accept items without custom names, lore, enchantments or damage. Ticking areas are used briefly while an island is built, and the world allows only a limited number of them.
