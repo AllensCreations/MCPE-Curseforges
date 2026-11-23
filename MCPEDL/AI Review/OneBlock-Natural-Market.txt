@@ -382,81 +382,21 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/lib/Oneblock_Progression.js (991 lines, 41979 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/lib/Oneblock_Progression.js (895 lines, 36327 bytes)
 
 ```
-/**
- * Oneblock_Progression.js
- * Pure Data Pool Foundation for OneBlock Maps, Add-ons, and Minigames.
- * Target: Minecraft Bedrock 1.26.50 (all ids are Bedrock ids, not Java ids).
- *
- * ARCHITECTURE PRINCIPLE:
- * - This file ONLY holds the DATA POOLS (Blocks, Chest Loot, Mobs, Phase Milestones & Themes).
- * - Pack-specific gameplay logic, spawn mechanics, triggers, chest roll rates, custom events,
- *   cooldowns, and island systems belong inside the individual pack's scripts.
- * - Packs import or read from this progression pool without mutating the shared definitions.
- *
- * PROGRESSION ORDER (classic OneBlock):
- *   Overworld biomes -> Caves & Deep Dark -> Nether -> The End.
- *   1 Plains, 2 Underground, 3 Snowy Taiga, 4 Ocean, 5 Jungle, 6 Desert, 7 Badlands,
- *   8 Savanna Plains, 9 Dark Forest & Mushroom Fields, 10 Mangrove Swamp, 11 Cherry Grove,
- *   12 Pale Garden, 13 Windswept Highlands, 14 Craftsman's Workshop, 15 Deepslate Depths,
- *   16 Deep Dark, 17 Nether Wastes, 18 Crimson & Warped Forests, 19 Bastion & Basalt Deltas,
- *   20 The End, 21 End City & Void Horizon (final, endless).
- *
- * UNLOCK MODEL:
- * - Each phase lists only what it UNLOCKS. Earlier content is never removed.
- * - OneblockPoolProvider.sampleBlock/sampleChestItem/sampleMob(phase) sample from every
- *   phase up to the current one. The newest phase gets 40% of the weight, older phases share the rest.
- * - Pass { exclusive: true } to sample the current phase only, or { currentShare: 0.6 } to tune.
- * - The last phase keeps unlocking nothing new: the full pool stays active forever.
- *
- * POOL NOTES:
- * - Block pools hold full solid blocks only (no plants or fluids), so they survive on the OneBlock.
- * - Chest pools hold no buckets, fluids, powders, spawn eggs, spawners or shulker items.
- * - Mob pools may include water mobs (ocean) or very strong mobs (warden); packs may filter them.
- * - `blocksRequired` is per phase (not cumulative). The last phase never ends.
- */
 
-/**
- * @typedef {Object} BlockPoolEntry
- * @property {string} id - Minecraft block identifier (e.g. "minecraft:grass_block")
- * @property {number} weight - Relative probability weight in the pool
- * @property {Record<string, any>} [states] - Optional block state permutations
- */
 
-/**
- * @typedef {Object} ChestPoolEntry
- * @property {string} id - Minecraft item identifier (e.g. "minecraft:oak_sapling")
- * @property {number} min - Minimum stack count
- * @property {number} max - Maximum stack count
- * @property {number} weight - Relative weight in the pool
- */
 
-/**
- * @typedef {Object} MobPoolEntry
- * @property {string} id - Entity identifier (e.g. "minecraft:cow")
- * @property {number} weight - Relative spawn weight in the pool
- */
 
-/**
- * @typedef {Object} PhaseDataPool
- * @property {number} phase - Phase index (1-based)
- * @property {string} name - Phase title
- * @property {string} description - Lore / theme description
- * @property {number} blocksRequired - Base block break milestone to finish phase
- * @property {string} bedrockReplacement - Safe fallback block when breaking
- * @property {BlockPoolEntry[]} blocks - Block pool
- * @property {ChestPoolEntry[]} chests - Chest item loot pool
- * @property {MobPoolEntry[]} mobs - Entity spawn pool
- */
 
-/**
- * Foundation Phase Pools
- * @type {PhaseDataPool[]}
- */
+
+
+
+
+
+
 export const ONEBLOCK_PROGRESSION_POOLS = [
-  // ───────────────────────── OVERWORLD ─────────────────────────
   {
     phase: 1,
     name: "Plains & Early Roots",
@@ -978,7 +918,6 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     ]
   },
 
-  // ─────────────────────── DEEP CAVES ───────────────────────
   {
     phase: 15,
     name: "Deepslate Depths",
@@ -1058,7 +997,6 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     ]
   },
 
-  // ───────────────────────── NETHER ─────────────────────────
   {
     phase: 17,
     name: "Nether Wastes",
@@ -1169,7 +1107,6 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     ]
   },
 
-  // ───────────────────────── THE END ─────────────────────────
   {
     phase: 20,
     name: "The End",
@@ -1234,41 +1171,26 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
   }
 ];
 
-// Alias for backward compatibility
 export const ONEBLOCK_PROGRESSION = ONEBLOCK_PROGRESSION_POOLS;
 
-/** Share of total weight given to the newest phase in unlock mode (0..1). */
+
 const DEFAULT_CURRENT_SHARE = 0.4;
 
-/**
- * Pure Data Pool Accessor
- * Only provides sampling and lookup against the pools.
- * Pack rules (spawn rates, mechanics) are implemented by the pack.
- */
+
 export class OneblockPoolProvider {
-  /**
-   * @param {PhaseDataPool[]} [pools]
-   */
+
   constructor(pools = ONEBLOCK_PROGRESSION_POOLS) {
     this.pools = pools;
     this._unlockCache = new Map();
   }
 
-  /**
-   * Get phase data pool by 1-based number
-   * @param {number} phaseNumber
-   * @returns {PhaseDataPool}
-   */
+
   getPhasePool(phaseNumber) {
     const clampedIndex = Math.max(1, Math.min(phaseNumber, this.pools.length)) - 1;
     return this.pools[clampedIndex];
   }
 
-  /**
-   * Calculate milestone phase from broken block count
-   * @param {number} totalBreaks
-   * @returns {{ phase: PhaseDataPool, phaseIndex: number, phaseBreaks: number, isLastPhase: boolean }}
-   */
+
   getPhaseFromBreaks(totalBreaks) {
     let accumulated = 0;
     for (let i = 0; i < this.pools.length; i++) {
@@ -1292,12 +1214,7 @@ export class OneblockPoolProvider {
     };
   }
 
-  /**
-   * Pick random item from a weighted pool
-   * @template {{ weight: number }} T
-   * @param {T[]} pool
-   * @returns {T}
-   */
+
   static sampleWeighted(pool) {
     const totalWeight = pool.reduce((sum, item) => sum + item.weight, 0);
     let rand = Math.random() * totalWeight;
@@ -1308,16 +1225,7 @@ export class OneblockPoolProvider {
     return pool[pool.length - 1];
   }
 
-  /**
-   * Cumulative "unlock" pool: everything introduced in phases 1..phaseNumber.
-   * The current phase gets `currentShare` of the total weight so new content
-   * feels fresh; the remainder is split evenly across earlier phases.
-   * Duplicate ids are merged. Returns new objects; shared pools are never mutated.
-   * @param {number} phaseNumber - 1-based phase (clamped; also valid past the last phase)
-   * @param {"blocks"|"chests"|"mobs"} kind
-   * @param {number} [currentShare] - 0..1 share for the current phase
-   * @returns {Array<{ id: string, weight: number, min?: number, max?: number }>}
-   */
+
   getUnlockedPool(phaseNumber, kind, currentShare = DEFAULT_CURRENT_SHARE) {
     const upto = Math.max(1, Math.min(Math.floor(phaseNumber) || 1, this.pools.length));
     const key = `${kind}:${upto}:${currentShare}`;
@@ -1348,32 +1256,28 @@ export class OneblockPoolProvider {
     return out;
   }
 
-  /**
-   * Resolve the pool to sample from.
-   * Default = unlock mode (earlier phases stay available). `exclusive: true` = this phase only.
-   */
+
   _resolvePool(phaseNumber, kind, options = {}) {
     if (options.exclusive) return this.getPhasePool(phaseNumber)[kind];
     return this.getUnlockedPool(phaseNumber, kind, options.currentShare);
   }
 
-  /** Sample a block (unlock mode by default) */
+
   sampleBlock(phaseNumber, options) {
     return OneblockPoolProvider.sampleWeighted(this._resolvePool(phaseNumber, "blocks", options));
   }
 
-  /** Sample a chest item (unlock mode by default) */
+
   sampleChestItem(phaseNumber, options) {
     return OneblockPoolProvider.sampleWeighted(this._resolvePool(phaseNumber, "chests", options));
   }
 
-  /** Sample a mob (unlock mode by default) */
+
   sampleMob(phaseNumber, options) {
     return OneblockPoolProvider.sampleWeighted(this._resolvePool(phaseNumber, "mobs", options));
   }
 }
 
-// Backward-compatible alias
 export const OneBlockProgressionManager = OneblockPoolProvider;
 ```
 
