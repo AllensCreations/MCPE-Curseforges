@@ -383,6 +383,14 @@ def main() -> None:
         if ptype == "map":
             (stage / "oneblock.json").write_text(
                 json.dumps({"enabled": True, "name": pj["name"]}, indent=2) + "\n", encoding="utf-8")
+            prog_src = root / "Mcpeworlds" / "Progression" / "Oneblock_Progression.js"
+            if prog_src.is_file():
+                bp_lib = stage / "behavior_pack" / "scripts" / "lib"
+                bp_lib.mkdir(parents=True, exist_ok=True)
+                target = bp_lib / "Oneblock_Progression.js"
+                if not target.exists():
+                    target.write_bytes(prog_src.read_bytes())
+                    print("installed  behavior_pack/scripts/lib/Oneblock_Progression.js from Mcpeworlds/Progression/")
         if ptype == "addon":
             (stage / "LOCK").write_text(LOCK_ROOT, encoding="utf-8", newline="\n")
             for pack in PACKS:

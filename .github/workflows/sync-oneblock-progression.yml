@@ -1,0 +1,44 @@
+name: Sync OneBlock Progression Data Pools
+
+# Syncs Mcpeworlds/Progression/Oneblock_Progression.js into behavior_pack/scripts/lib/Oneblock_Progression.js
+# across all OneBlock map packages in the repository.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-oneblock-progression-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@a2696eed923e8484107e0503f1eed81a3d922bc9 # v6.1.0
+        with:
+          python-version: "3.11"
+
+      - name: Sync Oneblock_Progression.js into all OneBlock map packages
+        run: python3 scripts/sync_oneblock_progression.py
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No OneBlock script files were modified."
+          else
+            git commit -m "chore(oneblock): sync Oneblock_Progression.js data pool into map packages [skip ci]"
+            git push origin HEAD:${{ github.ref }}
+          fi
