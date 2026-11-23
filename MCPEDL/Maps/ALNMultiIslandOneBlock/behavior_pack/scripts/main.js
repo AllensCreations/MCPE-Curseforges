@@ -6,7 +6,7 @@ import { promptWelcome } from "./lib/welcome.js";
 import { startOneBlock } from "./lib/oneblock.js";
 import { openLedger } from "./lib/ledger.js";
 import { startLedgerKeeper, ensureLedger } from "./lib/keeper.js";
-import { collectPayout, payoutSummary } from "./lib/market.js";
+import { collectPayout, payoutSummary, takeEarned } from "./lib/market.js";
 import { later } from "./lib/util.js";
 
 const joining = new Set();
@@ -18,6 +18,10 @@ function readyPlayer(player) {
     return;
   }
   returnToIsland(player);
+  later(() => {
+    const earned = takeEarned(player.id);
+    if (earned > 0) player.sendMessage(`§6[ALN] §aWhile you were away you earned ${earned} ALN Coins from your sales.`);
+  }, 60);
   if (payoutSummary(player.id).length > 0) {
     later(() => {
       const total = collectPayout(player);

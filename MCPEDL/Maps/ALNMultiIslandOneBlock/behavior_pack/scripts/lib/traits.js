@@ -1,3 +1,5 @@
+import { readSlots } from "./slots.js";
+
 export const TRAITS = {
   ore_bounty: {
     name: "Ore Bounty",
@@ -123,5 +125,18 @@ export function traitLabel(id) {
 }
 
 export function pickTrait() {
-  return TRAIT_IDS[Math.floor(Math.random() * TRAIT_IDS.length)];
+  const slots = readSlots();
+  const counts = {};
+  for (const id of TRAIT_IDS) counts[id] = 0;
+  for (const key of Object.keys(slots)) {
+    const t = slots[key].trait;
+    if (counts[t] !== undefined) counts[t]++;
+  }
+  const weights = TRAIT_IDS.map((id) => 1 / (1 + counts[id]));
+  let roll = Math.random() * weights.reduce((a, b) => a + b, 0);
+  for (let i = 0; i < TRAIT_IDS.length; i++) {
+    roll -= weights[i];
+    if (roll < 0) return TRAIT_IDS[i];
+  }
+  return TRAIT_IDS[TRAIT_IDS.length - 1];
 }

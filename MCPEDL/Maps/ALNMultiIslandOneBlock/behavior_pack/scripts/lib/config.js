@@ -19,6 +19,7 @@ export const PROP = {
   PAYOUT_PREFIX: "aln:payout_",
   LEDGER_OWED: "aln:ledger_owed",
   COIN_PREFIX: "aln:coins_",
+  EARNED_PREFIX: "aln:earned_",
 };
 
 export const BONUS_CHANCE = 0.3;
@@ -28,6 +29,8 @@ export const MAX_TRADE_AMOUNT = 2304;
 export const COIN_NAME = "ALN Coins";
 export const STARTER_COINS = 500;
 export const MAX_PRICE = 1000000;
+export const PRICE_MIN_RATIO = 0.25;
+export const PRICE_MAX_RATIO = 4;
 export const PAGE_SIZE = 6;
 export const WELCOME_RETRY_LIMIT = 12;
 

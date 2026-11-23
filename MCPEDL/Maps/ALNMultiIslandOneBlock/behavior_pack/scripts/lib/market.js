@@ -5,6 +5,8 @@ import {
   MAX_LISTINGS_TOTAL,
   MAX_TRADE_AMOUNT,
   MAX_PRICE,
+  PRICE_MIN_RATIO,
+  PRICE_MAX_RATIO,
   STARTER_COINS,
   COIN_NAME,
 } from "./config.js";
@@ -18,6 +20,7 @@ import {
   isValidItem,
   niceName,
 } from "./util.js";
+import { priceInfo, recommendedTotal } from "./prices.js";
 
 const listingKey = (id) => PROP.LISTING_PREFIX + id;
 const payoutKey = (playerId) => PROP.PAYOUT_PREFIX + playerId;
@@ -30,6 +33,20 @@ export function coinsOf(playerId) {
 
 function addCoins(playerId, amount) {
   world.setDynamicProperty(coinKey(playerId), coinsOf(playerId) + amount);
+}
+
+const earnedKey = (playerId) => PROP.EARNED_PREFIX + playerId;
+
+function addEarned(playerId, amount) {
+  const current = world.getDynamicProperty(earnedKey(playerId));
+  world.setDynamicProperty(earnedKey(playerId), (typeof current === "number" ? current : 0) + amount);
+}
+
+export function takeEarned(playerId) {
+  const current = world.getDynamicProperty(earnedKey(playerId));
+  if (typeof current !== "number" || current <= 0) return 0;
+  world.setDynamicProperty(earnedKey(playerId), undefined);
+  return current;
 }
 
 function readIds() {
@@ -97,6 +114,16 @@ export function createListing(player, itemId, amount, price) {
     return fail(`The price must be a whole number of ${COIN_NAME} from 1 to ${MAX_PRICE}.`);
   }
   if (!isValidItem(itemId)) return fail("The item you want to sell is not valid.");
+  if (priceInfo(itemId).listed) {
+    const rec = recommendedTotal(itemId, amount);
+    const low = Math.max(1, Math.ceil(rec * PRICE_MIN_RATIO));
+    const high = Math.floor(rec * PRICE_MAX_RATIO);
+    if (price < low || price > high) {
+      return fail(
+        `For ${amount}x ${niceName(itemId)} the price must be between ${low} and ${high} ${COIN_NAME} (recommended ${rec}).`
+      );
+    }
+  }
   const all = allListings();
   if (all.length >= MAX_LISTINGS_TOTAL) return fail("The Global Trade Hub is full. Try again later.");
   if (all.filter((l) => l.seller === player.id).length >= MAX_LISTINGS_PER_PLAYER) {
@@ -161,6 +188,8 @@ export function buyListing(buyer, id) {
   const seller = findPlayer(listing.seller);
   if (seller) {
     seller.sendMessage(`§6[ALN] §a${buyer.name} bought your offer. You received ${listing.price} ${COIN_NAME}.`);
+  } else {
+    addEarned(listing.seller, listing.price);
   }
   return done(
     `Purchase complete: you received ${listing.give.amount}x ${niceName(listing.give.id)} for ${listing.price} ${COIN_NAME}.`

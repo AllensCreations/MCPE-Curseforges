@@ -4,6 +4,18 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v258] - 2026-11-23 - Price Guard and Weighted Richness
+
+**Spec**: spec_v258.txt | **Target**: MCPEDL/Maps/ALNMultiIslandOneBlock | **Files edited**: 6
+
+### Added
+- **Offline Earnings Message**: Sellers who were offline when an offer sold are told how many ALN Coins they earned when they join.
+### Improved & Balanced
+- **Price Guard**: For items with a recommended price, an offer must stay between one quarter and four times the recommended price, which blocks typo and scam prices.
+- **Weighted Richness**: New islands still get a random Richness trait, but traits that many islands already have are less likely.
+### Fixed
+- **Recipe Errors**: The TRADERS Item crafting recipe was removed, which also removes its recipe errors from the content log. The item is now only given when an island is claimed and returns to you if thrown.
+
 ## [v257] - 2026-11-23 - ALN Coins and Random Islands
 
 **Spec**: spec_v257.txt | **Target**: MCPEDL/Maps/ALNMultiIslandOneBlock | **Files edited**: 11
