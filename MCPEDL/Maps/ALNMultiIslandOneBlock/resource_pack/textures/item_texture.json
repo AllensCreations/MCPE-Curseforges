@@ -1,0 +1,12 @@
+{
+  "resource_pack_name": "aln_multiisland",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "pirate_ledger": {
+      "textures": "textures/items/pirate_ledger"
+    },
+    "trader_ledger": {
+      "textures": "textures/items/trader_ledger"
+    }
+  }
+}

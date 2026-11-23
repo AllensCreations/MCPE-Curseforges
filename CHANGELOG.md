@@ -4,6 +4,11 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## 2026-11-23 - New Map ALNMultiIslandOneBlock
+
+### Added
+- **ALNMultiIslandOneBlock**: New map project created from a pack script.
+
 ## 2026-11-23 - New Addon ALNMultiIslandOneBlock
 
 ### Added
