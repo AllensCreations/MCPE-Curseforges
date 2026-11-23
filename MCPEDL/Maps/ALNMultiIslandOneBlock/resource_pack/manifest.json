@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:MultiIslandOneBlock Resources (v2)",
+    "name": "ALN:MultiIslandOneBlock Resources (v3)",
     "description": "Textures and names for the TRADERS Item. by ALNStudios",
     "uuid": "2cf90b7d-4b0f-44d5-b726-41f3e756f95f",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -20,7 +20,7 @@
       "type": "resources",
       "uuid": "02c6ed61-2e06-499b-b6d3-1c6afa51beb6",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -31,6 +31,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "3.0.0"
   }
 }

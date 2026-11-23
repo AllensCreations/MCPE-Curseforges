@@ -42,7 +42,8 @@ world.afterEvents.playerSpawn.subscribe((event) => {
     later(() => promptWelcome(player), 20);
     return;
   }
-  later(() => ensureLedger(player), 20);
+  const id = player.id;
+  later(() => ensureLedger(id), 20);
 });
 
 world.afterEvents.itemUse.subscribe((event) => {

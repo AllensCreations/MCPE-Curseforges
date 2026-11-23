@@ -2,6 +2,12 @@
 
 ---
 
+## [v3] - 2026-11-23 - TRADERS Item Return Fix
+
+### Fixed
+- **TRADERS Item Return**: A thrown TRADERS Item is now returned even when the game has not finished creating the dropped item yet. A second check every few ticks finds and removes a dropped copy and returns it, and it is delivered as soon as a slot is free when the inventory is full.
+- **TRADERS Item on Death**: After dying, the dropped copy is removed and a new TRADERS Item is delivered when you respawn, using the player's current entity instead of the one from before death.
+
 ## [v2] - 2026-11-23 - TRADERS Item
 
 ### Added

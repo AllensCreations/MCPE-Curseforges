@@ -1,10 +1,12 @@
 import { world, system, ItemStack, EntityComponentTypes } from "@minecraft/server";
 import { LEDGER_ID, PROP } from "./config.js";
-import { containerOf } from "./util.js";
+import { containerOf, findPlayer } from "./util.js";
 import { slotOf } from "./slots.js";
 
 const CATCH_RADIUS = 4;
-const CHECK_TICKS = 20;
+const SWEEP_RADIUS = 10;
+const CHECK_TICKS = 5;
+const seen = new Map();
 
 function isOwed(player) {
   return player.getDynamicProperty(PROP.LEDGER_OWED) === 1;
@@ -41,8 +43,35 @@ export function settleLedger(player) {
   if (!rest) setOwed(player, false);
 }
 
-export function ensureLedger(player) {
-  if (slotOf(player) === undefined) return;
+function ledgerStackOf(entity) {
+  if (entity.typeId !== "minecraft:item") return undefined;
+  const stack = entity.getComponent(EntityComponentTypes.Item)?.itemStack;
+  return stack && stack.typeId === LEDGER_ID ? stack : undefined;
+}
+
+function sweepDrops(dim, at) {
+  let found = false;
+  let list;
+  try {
+    list = dim.getEntities({ location: at, maxDistance: SWEEP_RADIUS });
+  } catch (e) {
+    return false;
+  }
+  for (const entity of list) {
+    try {
+      if (!ledgerStackOf(entity)) continue;
+      entity.remove();
+      found = true;
+    } catch (e) {}
+  }
+  return found;
+}
+
+export function ensureLedger(id) {
+  const player = findPlayer(id);
+  if (!player || slotOf(player) === undefined) return;
+  const before = seen.get(id);
+  if (before) sweepDrops(before.dim, before.at);
   if (!holdsLedger(player)) setOwed(player, true);
   settleLedger(player);
 }
@@ -66,12 +95,15 @@ function catchDrop(entity, attempt) {
   let stack;
   try {
     if (entity.typeId !== "minecraft:item") return;
-    stack = entity.getComponent(EntityComponentTypes.Item)?.itemStack;
+    stack = ledgerStackOf(entity);
+    if (!stack) {
+      if (attempt === 0) system.run(() => catchDrop(entity, 1));
+      return;
+    }
   } catch (e) {
     if (attempt === 0) system.run(() => catchDrop(entity, 1));
     return;
   }
-  if (!stack || stack.typeId !== LEDGER_ID) return;
   const owner = nearestPlayer(entity);
   try {
     entity.remove();
@@ -85,15 +117,29 @@ function catchDrop(entity, attempt) {
   });
 }
 
+function watch() {
+  for (const player of world.getAllPlayers()) {
+    try {
+      if (slotOf(player) === undefined) continue;
+      const has = holdsLedger(player);
+      const before = seen.get(player.id);
+      if (before && before.had && !has) {
+        if (sweepDrops(before.dim, before.at)) setOwed(player, true);
+      }
+      if (has) {
+        const l = player.location;
+        seen.set(player.id, { had: true, dim: player.dimension, at: { x: l.x, y: l.y, z: l.z } });
+      } else if (before) {
+        seen.set(player.id, { had: false, dim: before.dim, at: before.at });
+      }
+      settleLedger(player);
+    } catch (e) {}
+  }
+}
+
 export function startLedgerKeeper() {
   world.afterEvents.entitySpawn.subscribe((event) => {
     catchDrop(event.entity, 0);
   });
-  system.runInterval(() => {
-    for (const player of world.getAllPlayers()) {
-      try {
-        settleLedger(player);
-      } catch (e) {}
-    }
-  }, CHECK_TICKS);
+  system.runInterval(watch, CHECK_TICKS);
 }

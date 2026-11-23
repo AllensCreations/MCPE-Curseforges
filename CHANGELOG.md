@@ -4,6 +4,14 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v256] - 2026-11-23 - TRADERS Item Return Fix
+
+**Spec**: spec_v256.txt | **Target**: MCPEDL/Maps/ALNMultiIslandOneBlock | **Files edited**: 3
+
+### Fixed
+- **TRADERS Item Return**: A thrown TRADERS Item is now returned even when the game has not finished creating the dropped item yet. A second check every few ticks finds and removes a dropped copy and returns it, and it is delivered as soon as a slot is free when the inventory is full.
+- **TRADERS Item on Death**: After dying, the dropped copy is removed and a new TRADERS Item is delivered when you respawn, using the player's current entity instead of the one from before death.
+
 ## [v255] - 2026-11-23 - TRADERS Item
 
 **Spec**: spec_v255.txt | **Target**: MCPEDL/Maps/ALNMultiIslandOneBlock | **Files edited**: 11
