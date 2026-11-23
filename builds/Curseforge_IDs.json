@@ -144,6 +144,9 @@
     "last_published_version": "3.0.3",
     "last_release_version": "0.0.0"
   },
+  "MCPEDL/Script/Always-Critical": {
+    "project_id": "1804718"
+  },
   "MCPEDL/Script/Command-Vault": {
     "project_id": "1813175",
     "last_published_version": "3",
