@@ -2,50 +2,61 @@
 
 ## Index
 
-- **Export request:** `MCPEDL/Addons/ALNMultiIslandOneBlock`
-- **Destination:** `MCPEDL/Addons/ALNMultiIslandOneBlock`
-- **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALNMultiIslandOneBlock/CHANGELOG.md`)
+- **Export request:** `MCPEDL/Maps/ALNMultiIslandOneBlock`
+- **Destination:** `MCPEDL/Maps/ALNMultiIslandOneBlock`
+- **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
-- **Text files:** 26
-- **Skipped binary:** 5
+- **Text files:** 32
+- **Skipped binary:** 10
 - **Paths not found:** 0
 
 ### Files in this export
 
-- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/items/pirate_ledger.json`
-- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/manifest.json`
-- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/recipes/pirate_ledger.json`
-- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/claim.js`
-- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/config.js`
-- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/island.js`
-- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/ledger.js`
-- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/lobby.js`
-- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/market.js`
-- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/oneblock.js`
-- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/phases.js`
-- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/README.md`
-- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/slots.js`
-- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/traits.js`
-- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/util.js`
-- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/welcome.js`
-- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/main.js`
-- `MCPEDL/Addons/ALNMultiIslandOneBlock/CHANGELOG.md`
-- `MCPEDL/Addons/ALNMultiIslandOneBlock/DESCRIPTION.md`
-- `MCPEDL/Addons/ALNMultiIslandOneBlock/project.json`
-- `MCPEDL/Addons/ALNMultiIslandOneBlock/README.md`
-- `MCPEDL/Addons/ALNMultiIslandOneBlock/resource_pack/manifest.json`
-- `MCPEDL/Addons/ALNMultiIslandOneBlock/resource_pack/texts/en_US.lang`
-- `MCPEDL/Addons/ALNMultiIslandOneBlock/resource_pack/texts/languages.json`
-- `MCPEDL/Addons/ALNMultiIslandOneBlock/resource_pack/textures/item_texture.json`
-- `MCPEDL/Addons/ALNMultiIslandOneBlock/texture_sources/pirate_ledger.json`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/functions/oneblock_setup.mcfunction`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/functions/oneblock_tick.mcfunction`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/functions/tick.json`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/functions/void_cleaner.mcfunction`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/items/pirate_ledger.json`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/items/trader_ledger.json`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/manifest.json`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/recipes/pirate_ledger.json`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/claim.js`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/config.js`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/island.js`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/ledger.js`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/lobby.js`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/market.js`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/oneblock.js`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/phases.js`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/README.md`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/slots.js`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/traits.js`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/util.js`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/welcome.js`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/main.js`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/DESCRIPTION.md`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/oneblock.json`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/project.json`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/README.md`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/resource_pack/manifest.json`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/resource_pack/texts/en_US.lang`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/resource_pack/texts/languages.json`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/resource_pack/textures/item_texture.json`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/texture_sources/pirate_ledger.json`
 
-### Skipped (binary): 5 file(s)
+### Skipped (binary): 10 file(s)
 
-- `MCPEDL/Addons/ALNMultiIslandOneBlock/assets/items/pirate_ledger.png`
-- `MCPEDL/Addons/ALNMultiIslandOneBlock/assets/recipes/pirate_ledger_recipe.png`
-- `MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/pack_icon.png`
-- `MCPEDL/Addons/ALNMultiIslandOneBlock/resource_pack/pack_icon.png`
-- `MCPEDL/Addons/ALNMultiIslandOneBlock/resource_pack/textures/items/pirate_ledger.png`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/ALNMultiIslandOneBlock - Creative.mcworld`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/ALNMultiIslandOneBlock - Hardcore.mcworld`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/ALNMultiIslandOneBlock - Survival.mcworld`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/assets/items/pirate_ledger.png`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/assets/items/trader_ledger.png`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/assets/recipes/pirate_ledger_recipe.png`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/pack_icon.png`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/resource_pack/pack_icon.png`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/resource_pack/textures/items/pirate_ledger.png`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/resource_pack/textures/items/trader_ledger.png`
 
 ---
 
@@ -64,7 +75,7 @@ Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Destination
 Repo-root-relative folders for this work:
-- MCPEDL/Addons/ALNMultiIslandOneBlock
+- MCPEDL/Maps/ALNMultiIslandOneBlock
 - .sh paths start at repo root, stay inside these folders. New files go here too.
 - First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
 
@@ -208,7 +219,38 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 
 ## File Contents
 
-## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/items/pirate_ledger.json (28 lines, 592 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/functions/oneblock_setup.mcfunction (3 lines, 54 bytes)
+
+```
+fill 0 -64 0 0 64 0 bedrock keep
+setworldspawn 0 65 0
+```
+
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/functions/oneblock_tick.mcfunction (2 lines, 104 bytes)
+
+```
+execute if entity @a[tag=void_cleaned] unless block 0 64 0 bedrock run fill 0 -64 0 0 64 0 bedrock keep
+```
+
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/functions/tick.json (4 lines, 50 bytes)
+
+```
+{
+  "values": ["void_cleaner", "oneblock_tick"]
+}
+```
+
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/functions/void_cleaner.mcfunction (6 lines, 335 bytes)
+
+```
+execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air
+execute as @a[tag=!void_cleaned] run tp @s 0.5 65 0.5
+execute as @a[tag=!void_cleaned] run fill 0 -64 0 0 64 0 bedrock keep
+execute as @a[tag=!void_cleaned] run setworldspawn 0 65 0
+execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cleaned
+```
+
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/items/pirate_ledger.json (28 lines, 592 bytes)
 
 ```
 {
@@ -240,7 +282,39 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/manifest.json (66 lines, 1177 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/items/trader_ledger.json (28 lines, 596 bytes)
+
+```
+{
+  "format_version": "1.26.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "allenscreations:trader_ledger",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "textures": {
+          "default": "trader_ledger"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "OneBlock Trader"
+      },
+      "minecraft:use_animation": "spyglass",
+      "minecraft:use_modifiers": {
+        "use_duration": 0.1,
+        "movement_modifier": 1
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/manifest.json (66 lines, 1177 bytes)
 
 ```
 {
@@ -310,7 +384,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/recipes/pirate_ledger.json (31 lines, 510 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/recipes/pirate_ledger.json (31 lines, 510 bytes)
 
 ```
 {
@@ -345,7 +419,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/claim.js (77 lines, 2746 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/claim.js (77 lines, 2746 bytes)
 
 ```
 import { world } from "@minecraft/server";
@@ -426,12 +500,11 @@ export function returnToIsland(player) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/config.js (49 lines, 1950 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/config.js (48 lines, 1914 bytes)
 
 ```
 export const LOBBY = { x: 0, y: 65, z: 0 };
 export const PILLAR_TOP_Y = 64;
-export const PILLAR_BOTTOM_Y = -64;
 export const ONE_BLOCK_Y = 64;
 export const SPAWN_Y = 65;
 export const GRID_STEP = 2000;
@@ -479,7 +552,7 @@ export const RULES_BODY = [
 ].join("\n");
 ```
 
-## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/island.js (64 lines, 2039 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/island.js (64 lines, 2039 bytes)
 
 ```
 import { world } from "@minecraft/server";
@@ -547,7 +620,7 @@ export function regenerate(dim, x, z, trait, phaseIndex) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/ledger.js (316 lines, 11399 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/ledger.js (316 lines, 11399 bytes)
 
 ```
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
@@ -867,34 +940,18 @@ export async function openLedger(player) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/lobby.js (33 lines, 1041 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/lobby.js (17 lines, 516 bytes)
 
 ```
 import { world } from "@minecraft/server";
-import { LOBBY, PILLAR_TOP_Y, PILLAR_BOTTOM_Y } from "./config.js";
-import { overworld, isLoaded, blockIdAt, runCmd, addArea, later } from "./util.js";
+import { LOBBY, PILLAR_TOP_Y } from "./config.js";
+import { overworld, addArea } from "./util.js";
 
 export function setupLobby() {
   try {
     world.setDefaultSpawnLocation({ x: LOBBY.x, y: LOBBY.y, z: LOBBY.z });
   } catch (e) {}
-  try {
-    world.gameRules.spawnRadius = 0;
-  } catch (e) {}
-  const dim = overworld();
-  addArea(dim, "aln_lobby", LOBBY.x, PILLAR_TOP_Y, LOBBY.z);
-  let tries = 0;
-  const step = () => {
-    tries++;
-    if (isLoaded(dim, LOBBY.x, PILLAR_TOP_Y, LOBBY.z)) {
-      if (blockIdAt(dim, LOBBY.x, PILLAR_TOP_Y, LOBBY.z) !== "minecraft:bedrock") {
-        runCmd(dim, `fill ${LOBBY.x} ${PILLAR_BOTTOM_Y} ${LOBBY.z} ${LOBBY.x} ${PILLAR_TOP_Y} ${LOBBY.z} bedrock`);
-      }
-      return;
-    }
-    if (tries < 120) later(step, 10);
-  };
-  step();
+  addArea(overworld(), "aln_lobby", LOBBY.x, PILLAR_TOP_Y, LOBBY.z);
 }
 
 export function teleportToLobby(player) {
@@ -904,7 +961,7 @@ export function teleportToLobby(player) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/market.js (148 lines, 5459 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/market.js (148 lines, 5459 bytes)
 
 ```
 import { world } from "@minecraft/server";
@@ -1056,7 +1113,7 @@ export function buyListing(buyer, id) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/oneblock.js (93 lines, 3102 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/oneblock.js (93 lines, 3102 bytes)
 
 ```
 import { world, system, ItemStack } from "@minecraft/server";
@@ -1153,7 +1210,7 @@ export function startOneBlock() {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/phases.js (190 lines, 5935 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/phases.js (190 lines, 5935 bytes)
 
 ```
 import { TRAITS } from "./traits.js";
@@ -1347,7 +1404,7 @@ export function rollBonus(phaseIndex, traitId) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/README.md (22 lines, 1889 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/README.md (22 lines, 2030 bytes)
 
 ```
 # Script library
@@ -1361,7 +1418,7 @@ Scripts for ALN:MultiIslandOneBlock. All helper files live in this folder and ar
 - lib/traits.js: the six Richness traits, their block boosts and bonus drop tables, and balanced trait picking.
 - lib/phases.js: the eight shared OneBlock phases, their thresholds and weighted block pools.
 - lib/island.js: builds a new island after loading its chunks and regenerates the OneBlock.
-- lib/lobby.js: sets the world spawn, keeps the lobby loaded and builds the bedrock pillar.
+- lib/lobby.js: sets the default spawn location, keeps the lobby chunk loaded and teleports unassigned players to the lobby. The bedrock pillar, world spawn and first teleport are done by the Behavior Pack functions, not by scripts.
 - lib/claim.js: assigns a slot and trait, builds the island, teleports the player and sets the personal spawn point.
 - lib/welcome.js: the Start / About startup window for players without an island.
 - lib/oneblock.js: handles broken OneBlocks, global phase counting, bonus drops and the island self-repair check.
@@ -1373,7 +1430,7 @@ Custom item: aln:pirate_ledger.
 Known limits: listings only accept items without custom names, lore, enchantments or damage. Ticking areas are used briefly while an island is built, and the world allows only a limited number of them.
 ```
 
-## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/slots.js (154 lines, 3732 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/slots.js (154 lines, 3732 bytes)
 
 ```
 import { world } from "@minecraft/server";
@@ -1531,7 +1588,7 @@ export function usedSlotCount() {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/traits.js (136 lines, 4678 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/traits.js (136 lines, 4678 bytes)
 
 ```
 export const TRAITS = {
@@ -1671,7 +1728,7 @@ export function pickTrait(slotRecords) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/util.js (201 lines, 5182 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/util.js (201 lines, 5182 bytes)
 
 ```
 import { world, system, ItemStack, EntityComponentTypes } from "@minecraft/server";
@@ -1876,7 +1933,7 @@ export function dropArea(dim, name) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/welcome.js (54 lines, 1477 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/welcome.js (54 lines, 1477 bytes)
 
 ```
 import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
@@ -1934,7 +1991,7 @@ export async function promptWelcome(player, attempt = 0) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/behavior_pack/scripts/main.js (66 lines, 1901 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/main.js (66 lines, 1901 bytes)
 
 ```
 import { world, system } from "@minecraft/server";
@@ -2004,7 +2061,7 @@ world.afterEvents.worldLoad.subscribe(() => {
 });
 ```
 
-## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/CHANGELOG.md (15 lines, 1009 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md (16 lines, 1129 bytes)
 
 ```
 # Changelog — ALN:MultiIslandOneBlock
@@ -2014,6 +2071,7 @@ world.afterEvents.worldLoad.subscribe(() => {
 ## [1.0.0] - 2026-11-23 - First Release
 
 ### Added
+- **OneBlock World Map**: A void OneBlock world for ten or more players, with Creative, Survival and Hardcore versions.
 - **Central Lobby**: The world spawn sits on a single bedrock pillar at the center of the grid.
 - **Startup Window**: First-time players see a welcome window with Start / Claim Island and About / Rules buttons, plus a warning that the island choice is permanent.
 - **Island Grid**: Each player claims a private island on a square grid with 2,000 blocks between islands, with extra outer rings for more than eight players.
@@ -2023,10 +2081,10 @@ world.afterEvents.worldLoad.subscribe(() => {
 - **Global Trade Hub**: Players can post, browse, search, buy, cancel and collect earnings from item offers made by other islands.
 ```
 
-## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/DESCRIPTION.md (93 lines, 6330 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/DESCRIPTION.md (95 lines, 6756 bytes)
 
 ```
-# ALN:MultiIslandOneBlock — Multi-player OneBlock islands on a 2,000-block grid with a global trade ledger
+# ALN:MultiIslandOneBlock — A OneBlock world map with private islands on a 2,000-block grid and a global trade ledger
 
 **By ALNStudios**
 
@@ -2039,16 +2097,16 @@ world.afterEvents.worldLoad.subscribe(() => {
 
 ## Overview
 
-ALN:MultiIslandOneBlock turns an empty world into a shared OneBlock server for ten or more players. New players arrive on a lone bedrock pillar at the world spawn, read a short startup window and claim a personal island. Islands sit 2,000 blocks apart in a square grid around the central lobby.
+ALN:MultiIslandOneBlock is a OneBlock world map for ten or more players. New players arrive on a lone bedrock pillar at the world spawn, read a short startup window and claim a personal island. Islands sit 2,000 blocks apart in a square grid around the central lobby.
 
 All islands share one progression, and each island carries a Richness trait that shapes its blocks and bonus drops. Because the traits differ, players end up with surplus goods that other islands need. The Global Pirate Ledger lets them swap those goods from anywhere in the world.
 
-The add-on is designed for a world with no terrain, such as a void flat world, so the islands float in empty space.
+The map is a void world and includes Creative, Survival and Hardcore versions. The OneBlock Trader item used by other ALNStudios OneBlock maps is included for compatibility and has no role in this map.
 
 ## Key Features
 
 ### Central Lobby
-- **What Happens**: New players arrive on a single bedrock pillar at the world spawn, standing at the center of the grid. The lobby stays loaded so the spawn is always ready.
+- **What Happens**: New players arrive on a single bedrock pillar at the world spawn, standing at the center of the grid. The map builds the pillar and sets the world spawn on its own when the first player enters.
 
 ### Startup Window
 - **What Happens**: A first-time player sees the ALN:MultiIslandOneBlock window with Start / Claim Island and About / Rules buttons. The window warns that the island spot cannot be undone, and it reopens if it is closed before a choice is made.
@@ -2079,18 +2137,20 @@ The add-on is designed for a world with no terrain, such as a void flat world, s
 
 ## How to Use
 
-1. Create a world with no terrain, then turn on the Behavior Pack and the Resource Pack.
-2. Join the world. First-time players appear on the bedrock pillar and see the startup window.
-3. Read About / Rules if you like, then choose Start / Claim Island. This choice cannot be undone.
-4. Break the OneBlock under your feet. It regenerates every time, and the whole world advances through its phases as islands keep breaking blocks.
-5. Right-click the Global Pirate Ledger to create offers, browse other islands' offers and collect earnings.
-6. Craft a new ledger with a Book, a Gold Nugget and an Emerald if you ever lose yours.
+1. Download the map and open the file with Minecraft to import it.
+2. Open the imported world in the Creative, Survival or Hardcore version.
+3. First-time players appear on the bedrock pillar and see the startup window.
+4. Read About / Rules if you like, then choose Start / Claim Island. This choice cannot be undone.
+5. Break the OneBlock under your feet. It regenerates every time, and the whole world advances through its phases as islands keep breaking blocks.
+6. Right-click the Global Pirate Ledger to create offers, browse other islands' offers and collect earnings.
+7. Craft a new ledger with a Book, a Gold Nugget and an Emerald if you ever lose yours.
+8. Optional: the map includes a setup command that rebuilds the spawn pillar and resets the world spawn. It needs cheats, and cheats disable achievements in that world.
 
 ## Compatibility
 
 - Minecraft Bedrock Edition: 1.26.60 or newer.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Yes, achievement-friendly.
+- Achievements: Yes, achievement-friendly. The optional setup command needs cheats, and cheats disable achievements in that world.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions
@@ -2116,42 +2176,51 @@ The add-on is designed for a world with no terrain, such as a void flat world, s
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, ALN:MultiIslandOneBlock Bedrock mod, MCPEDL add-on, CurseForge Bedrock, ALNStudios, OneBlock add-on, multiplayer OneBlock, island grid, trading ledger, Bedrock economy add-on.
+Minecraft Bedrock add-on, ALN:MultiIslandOneBlock Bedrock map, MCPEDL add-on, CurseForge Bedrock, ALNStudios, Minecraft Bedrock OneBlock map, multiplayer OneBlock, void world, island grid, trading ledger, Bedrock economy map.
 ```
 
-## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/project.json (5 lines, 59 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/oneblock.json (5 lines, 59 bytes)
 
 ```
 {
-  "type": "addon",
+  "enabled": true,
   "name": "ALN:MultiIslandOneBlock"
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/README.md (19 lines, 841 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/project.json (5 lines, 57 bytes)
 
 ```
-# ALNMultiIslandOneBlock
+{
+  "type": "map",
+  "name": "ALN:MultiIslandOneBlock"
+}
+```
 
-Download the current release of **ALNMultiIslandOneBlock** for Minecraft Bedrock Edition.
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/README.md (19 lines, 754 bytes)
+
+```
+# ALN:MultiIslandOneBlock
+
+Download the current release of **ALN:MultiIslandOneBlock** for Minecraft Bedrock Edition.
 
 ## Download
 
-- **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNMultiIslandOneBlock (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNMultiIslandOneBlock/ALNMultiIslandOneBlock%20V1.mcaddon)
+- **Package format:** `.mcworld`
+- **Direct download:** [Download ALN:MultiIslandOneBlock (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/README.md)
 
 ## Installation
 
 1. Download the package using the link above.
 2. Open the downloaded file with Minecraft to import it.
-3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+3. Find the imported world in your Worlds list and open it.
 
 ## Pack Information
 
-For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALNMultiIslandOneBlock/DESCRIPTION.md).
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/ALNMultiIslandOneBlock/DESCRIPTION.md).
 ```
 
-## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/resource_pack/manifest.json (37 lines, 636 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/resource_pack/manifest.json (37 lines, 636 bytes)
 
 ```
 {
@@ -2192,7 +2261,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/resource_pack/texts/en_US.lang (4 lines, 168 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/resource_pack/texts/en_US.lang (4 lines, 168 bytes)
 
 ```
 item.aln:pirate_ledger=Global Pirate Ledger
@@ -2200,7 +2269,7 @@ pack.name=ALN:MultiIslandOneBlock Resources
 pack.description=Textures and names for the Global Pirate Ledger. by ALNStudios
 ```
 
-## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/resource_pack/texts/languages.json (4 lines, 14 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/resource_pack/texts/languages.json (4 lines, 14 bytes)
 
 ```
 [
@@ -2208,7 +2277,7 @@ pack.description=Textures and names for the Global Pirate Ledger. by ALNStudios
 ]
 ```
 
-## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/resource_pack/textures/item_texture.json (10 lines, 182 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/resource_pack/textures/item_texture.json (13 lines, 261 bytes)
 
 ```
 {
@@ -2217,12 +2286,15 @@ pack.description=Textures and names for the Global Pirate Ledger. by ALNStudios
   "texture_data": {
     "pirate_ledger": {
       "textures": "textures/items/pirate_ledger"
+    },
+    "trader_ledger": {
+      "textures": "textures/items/trader_ledger"
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNMultiIslandOneBlock/texture_sources/pirate_ledger.json (310 lines, 2872 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/texture_sources/pirate_ledger.json (310 lines, 2872 bytes)
 
 ```
 {
