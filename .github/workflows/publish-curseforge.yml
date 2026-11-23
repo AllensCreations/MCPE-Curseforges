@@ -49,11 +49,11 @@ on:
           - "MCPEDL/Addons/Universal-Leash"
           - "MCPEDL/Addons/Vanilla-Quality-of-Life"
           - "MCPEDL/Addons/Waypoint-Helper"
+          - "MCPEDL/Maps/ALNMultiIslandOneBlock"
           - "MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks"
           - "MCPEDL/Maps/OneBlock-Natural-Market"
           - "MCPEDL/Maps/OneBlock-Void-Survival"
           - "MCPEDL/Minigame/Alphabet-Scavenger-Hunt"
-          - "MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition"
           # END registered
       publish_map_variant:
         description: "Maps only (default = auto, all = Creative + Survival + Hardcore). Other pack types ignore it and publish normally"
