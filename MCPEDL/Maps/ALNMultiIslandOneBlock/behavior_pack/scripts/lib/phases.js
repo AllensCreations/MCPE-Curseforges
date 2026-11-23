@@ -1,158 +1,115 @@
 import { TRAITS } from "./traits.js";
-import { pickWeighted } from "./util.js";
+import { ONEBLOCK_PROGRESSION_POOLS, OneblockPoolProvider } from "./Oneblock_Progression.js";
 
-export const PHASES = [
-  {
-    name: "Forest",
-    color: "§a",
-    from: 0,
-    blocks: [
-      ["minecraft:grass_block", 18, "soil"],
-      ["minecraft:dirt", 14, "soil"],
-      ["minecraft:oak_log", 14, "wood"],
-      ["minecraft:birch_log", 10, "wood"],
-      ["minecraft:spruce_log", 5, "wood"],
-      ["minecraft:oak_leaves", 12, "leaf"],
-      ["minecraft:birch_leaves", 6, "leaf"],
-      ["minecraft:pumpkin", 4, "crop"],
-      ["minecraft:melon_block", 3, "crop"],
-      ["minecraft:hay_block", 2, "crop"],
-      ["minecraft:moss_block", 2, "crop"],
-      ["minecraft:white_wool", 3, "fauna"],
-      ["minecraft:brown_wool", 2, "fauna"],
-    ],
-  },
-  {
-    name: "Underground",
-    color: "§7",
-    from: 150,
-    blocks: [
-      ["minecraft:stone", 22, "stone"],
-      ["minecraft:cobblestone", 18, "stone"],
-      ["minecraft:andesite", 8, "stone"],
-      ["minecraft:granite", 8, "stone"],
-      ["minecraft:diorite", 8, "stone"],
-      ["minecraft:gravel", 8, "soil"],
-      ["minecraft:dirt", 4, "soil"],
-      ["minecraft:oak_log", 3, "wood"],
-      ["minecraft:coal_ore", 10, "ore"],
-      ["minecraft:iron_ore", 8, "ore"],
-      ["minecraft:copper_ore", 8, "ore"],
-      ["minecraft:lapis_ore", 3, "ore"],
-      ["minecraft:redstone_ore", 4, "ore"],
-      ["minecraft:bone_block", 2, "fauna"],
-    ],
-  },
-  {
-    name: "Desert",
-    color: "§e",
-    from: 400,
-    blocks: [
-      ["minecraft:sand", 24, "soil"],
-      ["minecraft:sandstone", 18, "stone"],
-      ["minecraft:red_sand", 8, "soil"],
-      ["minecraft:red_sandstone", 8, "stone"],
-      ["minecraft:terracotta", 6, "stone"],
-      ["minecraft:gravel", 4, "soil"],
-      ["minecraft:acacia_log", 6, "wood"],
-      ["minecraft:gold_ore", 3, "ore"],
-      ["minecraft:iron_ore", 3, "ore"],
-      ["minecraft:hay_block", 4, "crop"],
-      ["minecraft:melon_block", 5, "crop"],
-      ["minecraft:pumpkin", 4, "crop"],
-      ["minecraft:white_wool", 3, "fauna"],
-      ["minecraft:bone_block", 3, "fauna"],
-    ],
-  },
-  {
-    name: "Frozen Tundra",
-    color: "§b",
-    from: 750,
-    blocks: [
-      ["minecraft:snow", 18, "soil"],
-      ["minecraft:packed_ice", 8, "soil"],
-      ["minecraft:blue_ice", 2, "soil"],
-      ["minecraft:spruce_log", 14, "wood"],
-      ["minecraft:spruce_leaves", 8, "leaf"],
-      ["minecraft:stone", 8, "stone"],
-      ["minecraft:coal_ore", 6, "ore"],
-      ["minecraft:iron_ore", 6, "ore"],
-      ["minecraft:lapis_ore", 3, "ore"],
-      ["minecraft:emerald_ore", 2, "ore"],
-      ["minecraft:white_wool", 4, "fauna"],
-    ],
-  },
-  {
-    name: "Ocean Monument",
-    color: "§3",
-    from: 1200,
-    blocks: [
-      ["minecraft:prismarine", 16, "aquatic"],
-      ["minecraft:prismarine_bricks", 10, "aquatic"],
-      ["minecraft:dark_prismarine", 6, "aquatic"],
-      ["minecraft:sponge", 6, "aquatic"],
-      ["minecraft:sea_lantern", 3, "aquatic"],
-      ["minecraft:clay", 12, "soil"],
-      ["minecraft:gravel", 8, "soil"],
-      ["minecraft:sand", 8, "soil"],
-    ],
-  },
-  {
-    name: "Nether",
-    color: "§c",
-    from: 1800,
-    blocks: [
-      ["minecraft:netherrack", 24, "nether"],
-      ["minecraft:soul_sand", 8, "nether"],
-      ["minecraft:soul_soil", 6, "nether"],
-      ["minecraft:blackstone", 10, "stone"],
-      ["minecraft:basalt", 8, "stone"],
-      ["minecraft:glowstone", 6, "nether"],
-      ["minecraft:nether_wart_block", 6, "nether"],
-      ["minecraft:crimson_stem", 6, "wood"],
-      ["minecraft:warped_stem", 6, "wood"],
-      ["minecraft:quartz_ore", 9, "ore"],
-      ["minecraft:nether_gold_ore", 8, "ore"],
-      ["minecraft:ancient_debris", 1, "ore"],
-      ["minecraft:bone_block", 3, "fauna"],
-    ],
-  },
-  {
-    name: "Deepslate Depths",
-    color: "§8",
-    from: 2600,
-    blocks: [
-      ["minecraft:deepslate", 24, "stone"],
-      ["minecraft:tuff", 10, "stone"],
-      ["minecraft:calcite", 6, "stone"],
-      ["minecraft:amethyst_block", 3, "stone"],
-      ["minecraft:deepslate_coal_ore", 8, "ore"],
-      ["minecraft:deepslate_iron_ore", 8, "ore"],
-      ["minecraft:deepslate_copper_ore", 7, "ore"],
-      ["minecraft:deepslate_gold_ore", 6, "ore"],
-      ["minecraft:deepslate_redstone_ore", 6, "ore"],
-      ["minecraft:deepslate_lapis_ore", 5, "ore"],
-      ["minecraft:deepslate_diamond_ore", 4, "ore"],
-      ["minecraft:deepslate_emerald_ore", 3, "ore"],
-    ],
-  },
-  {
-    name: "The End",
-    color: "§5",
-    from: 3600,
-    blocks: [
-      ["minecraft:end_stone", 26, "stone"],
-      ["minecraft:end_stone_bricks", 10, "stone"],
-      ["minecraft:purpur_block", 10, "stone"],
-      ["minecraft:purpur_pillar", 4, "stone"],
-      ["minecraft:obsidian", 8, "stone"],
-      ["minecraft:amethyst_block", 3, "stone"],
-      ["minecraft:deepslate_diamond_ore", 4, "ore"],
-      ["minecraft:deepslate_emerald_ore", 3, "ore"],
-      ["minecraft:ancient_debris", 2, "ore"],
-    ],
-  },
+// Helper for weighted pick without relying on server-bound util.js
+function pickWeighted(list, weightOf) {
+  let total = 0;
+  for (const entry of list) total += weightOf(entry);
+  if (total <= 0) return list[0];
+  let roll = Math.random() * total;
+  for (const entry of list) {
+    roll -= weightOf(entry);
+    if (roll < 0) return entry;
+  }
+  return list[list.length - 1];
+}
+
+// Color palette for each phase title/actionbar
+const PHASE_COLORS = [
+  "§a", // 1 Plains & Early Roots
+  "§7", // 2 Underground Cavern
+  "§b", // 3 Snowy Taiga & Tundra
+  "§3", // 4 Ocean Floor
+  "§2", // 5 Jungle Canopy
+  "§e", // 6 Desert Dunes
+  "§6", // 7 Badlands Mesa
+  "§g", // 8 Savanna Plains
+  "§d", // 9 Dark Forest & Mushroom Fields
+  "§2", // 10 Mangrove Swamp
+  "§d", // 11 Cherry Grove
+  "§f", // 12 Pale Garden
+  "§9", // 13 Windswept Highlands
+  "§6", // 14 Craftsman's Workshop
+  "§8", // 15 Deepslate Depths
+  "§1", // 16 Deep Dark
+  "§c", // 17 Nether Wastes
+  "§4", // 18 Crimson & Warped Forests
+  "§5", // 19 Bastion & Basalt Deltas
+  "§5", // 20 The End
+  "§d", // 21 End City & Void Horizon
 ];
+
+/**
+ * Classifies blocks into trait categories:
+ * - ore, wood, crop, aquatic, nether, fauna, soil, leaf, stone
+ */
+export function classifyBlock(blockId) {
+  const id = blockId.replace(/^minecraft:/, "");
+  if (id.includes("ore") || id === "ancient_debris" || id.startsWith("raw_")) return "ore";
+  if (id.includes("log") || id.includes("stem") || id.includes("wood") || id.includes("planks") || id === "bamboo_block") return "wood";
+  if (id.includes("leaves") || id.includes("vine") || id.includes("creaking_heart")) return "leaf";
+  if (
+    id.includes("pumpkin") ||
+    id.includes("melon") ||
+    id.includes("hay_block") ||
+    id.includes("moss_block") ||
+    id.includes("mushroom_block") ||
+    id.includes("honeycomb_block") ||
+    id.includes("cactus") ||
+    id.includes("shroomlight")
+  ) {
+    return "crop";
+  }
+  if (id.includes("prismarine") || id.includes("sponge") || id.includes("sea_lantern") || id.includes("coral")) return "aquatic";
+  if (
+    id.includes("netherrack") ||
+    id.includes("soul_sand") ||
+    id.includes("soul_soil") ||
+    id.includes("glowstone") ||
+    id.includes("magma") ||
+    id.includes("nether_wart_block") ||
+    id.includes("warped_wart_block") ||
+    id.includes("blackstone") ||
+    id.includes("basalt") ||
+    id.includes("crying_obsidian") ||
+    id.includes("gilded_blackstone") ||
+    id.includes("respawn_anchor")
+  ) {
+    return "nether";
+  }
+  if (id.includes("wool") || id.includes("bone_block") || id.includes("sculk") || id.includes("honey_block")) return "fauna";
+  if (
+    id.includes("dirt") ||
+    id.includes("grass_block") ||
+    id.includes("mud") ||
+    id.includes("sand") ||
+    id.includes("gravel") ||
+    id.includes("clay") ||
+    id.includes("snow") ||
+    id.includes("ice")
+  ) {
+    return "soil";
+  }
+  return "stone";
+}
+
+// Build cumulative starting break counts for each phase
+let cumulativeBreaks = 0;
+export const PHASES = ONEBLOCK_PROGRESSION_POOLS.map((pool, idx) => {
+  const from = cumulativeBreaks;
+  cumulativeBreaks += pool.blocksRequired;
+  return {
+    name: pool.name,
+    color: PHASE_COLORS[idx] || "§f",
+    from,
+    blocksRequired: pool.blocksRequired,
+    blocks: pool.blocks,
+    chests: pool.chests,
+    mobs: pool.mobs,
+  };
+});
+
+export const poolProvider = new OneblockPoolProvider();
 
 export function phaseIndexFor(count) {
   let index = 0;
@@ -164,20 +121,41 @@ export function phaseIndexFor(count) {
 
 export function phaseLabel(index) {
   const p = PHASES[index];
-  return `${p.color}${p.name}`;
+  return p ? `${p.color}${p.name}` : "§fUnknown";
 }
 
 export function breaksToNextPhase(count) {
-  const next = PHASES[phaseIndexFor(count) + 1];
+  const currentIndex = phaseIndexFor(count);
+  const next = PHASES[currentIndex + 1];
   return next ? next.from - count : 0;
 }
 
+/**
+ * Returns the next block ID for a player's island core block.
+ * Uses OneblockPoolProvider unlocked pool with the player's island trait boost applied!
+ */
 export function nextBlockId(phaseIndex, traitId) {
-  const boost = TRAITS[traitId]?.boost ?? {};
-  const entry = pickWeighted(PHASES[phaseIndex].blocks, (b) => b[1] * (boost[b[2]] ?? 1));
-  return entry[0];
+  const trait = TRAITS[traitId];
+  const boost = trait?.boost ?? {};
+
+  // phaseIndex is 0-based in ALN, 1-based in OneblockPoolProvider
+  const poolPhase = phaseIndex + 1;
+  const unlocked = poolProvider.getUnlockedPool(poolPhase, "blocks");
+
+  if (!unlocked || unlocked.length === 0) return "minecraft:grass_block";
+
+  const entry = pickWeighted(unlocked, (item) => {
+    const category = classifyBlock(item.id);
+    const multiplier = boost[category] ?? 1;
+    return item.weight * multiplier;
+  });
+
+  return entry?.id ?? "minecraft:grass_block";
 }
 
+/**
+ * Rolls bonus rewards tailored to the player's island trait and progress.
+ */
 export function rollBonus(phaseIndex, traitId) {
   const trait = TRAITS[traitId];
   if (!trait) return undefined;
