@@ -2,7 +2,7 @@
 
 Generated file. Do not edit by hand: it is rebuilt with every build.
 
-44 Add-ons · 5 Maps · 10 Scripts · 6 Minigames
+43 Add-ons · 5 Maps · 10 Scripts · 6 Minigames
 
 ## AI Review Kits
 
@@ -10,9 +10,9 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | :-- | :-- |
 | **New Pack Kit (zip: map and scripts)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/New-Pack.zip) |
 | **Repo Maintenance Kit (zip: map and scripts)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Maintenance.zip) |
-| **Vanilla Bedrock Reference (JSON.gz)** | *(not yet built)* |
-| **Complete Bedrock Reference Bundle (Samples, Schemas & Types Zip)** | *(not yet built)* |
-| **Minecraft Script API TypeScript Definitions (.d.ts Zip)** | *(not yet built)* |
+| **Vanilla Bedrock Reference (JSON.gz)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/bedrock-samples/bedrock-samples.min.json.gz) |
+| **Bedrock Reference Bundle (v1.26.60)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/bedrock-samples/bedrock-reference-pack-1.26.60.zip) |
+| **Minecraft Script API TypeScript Definitions (.d.ts Zip)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/typescript-definitions/minecraft-bedrock-types.zip) |
 
 ## Add-ons
 
@@ -29,7 +29,6 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | **ALN Wireless Headphones** | v11 | [Source](Addons/ALN-Wireless-Headphones) | [Package](../Package/ALN-Wireless-Headphones.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-Wireless-Headphones.txt) |
 | **ALN-GlobalMarket** | 1.0.2 | [Source](Addons/ALN-GlobalMarket) | [Package](../Package/ALN-GlobalMarket.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-GlobalMarket.txt) |
 | **ALN:LootSpawner (Arcane Relic Duplicator)** | 1.0.4 | [Source](Addons/ALNLootSpawner-Arcane-Relic-Duplicator) | [Package](../Package/ALNLootSpawner-Arcane-Relic-Duplicator.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNLootSpawner-Arcane-Relic-Duplicator.txt) |
-| **ALN:MultiIslandOneBlock** | 1.0.0 | [Source](Addons/ALNMultiIslandOneBlock) | [Package](../Package/ALNMultiIslandOneBlock.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNMultiIslandOneBlock.txt) |
 | **ALN:OneClickSort** | v12 | [Source](Addons/ALNOneClickSort) | [Package](../Package/ALNOneClickSort.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNOneClickSort.txt) |
 | **ALN:PirateTokens** | 1.0.4 | [Source](Addons/ALNPirateTokens) | [Package](../Package/ALNPirateTokens.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNPirateTokens.txt) |
 | **ALN:XRayVisor (Tactical Ore-Scanner Headgear) by ALNStudios** | 1.0.0 | [Source](Addons/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios) | [Package](../Package/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios.txt) |

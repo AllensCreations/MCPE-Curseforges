@@ -7,7 +7,7 @@
 - **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALNPirateTokens/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 28
-- **Skipped binary:** 71
+- **Skipped binary:** 77
 - **Paths not found:** 0
 
 ### Files in this export
@@ -41,7 +41,7 @@
 - `MCPEDL/Addons/ALNPirateTokens/texture_sources/mystery_crate.json`
 - `MCPEDL/Addons/ALNPirateTokens/texture_sources/pirate_icons.json`
 
-### Skipped (binary): 71 file(s)
+### Skipped (binary): 77 file(s)
 
 - `MCPEDL/Addons/ALNPirateTokens/assets/items/aln_captains_ledger.png`
 - `MCPEDL/Addons/ALNPirateTokens/assets/items/aln_cursed_coin.png`
@@ -52,6 +52,12 @@
 - `MCPEDL/Addons/ALNPirateTokens/assets/items/gold_doubloon.png`
 - `MCPEDL/Addons/ALNPirateTokens/assets/items/silver_token.png`
 - `MCPEDL/Addons/ALNPirateTokens/assets/recipes/captains_ledger_recipe.png`
+- `MCPEDL/Addons/ALNPirateTokens/assets/snapshots/01d36ff5-3f4b-4a40-a763-1f76ec399cb6.jpeg`
+- `MCPEDL/Addons/ALNPirateTokens/assets/snapshots/Screenshot_20261123_014332_com.mojang.v126661xxxx.jpg`
+- `MCPEDL/Addons/ALNPirateTokens/assets/snapshots/Screenshot_20261123_014355_com.mojang.v126661xxxx.jpg`
+- `MCPEDL/Addons/ALNPirateTokens/assets/snapshots/Screenshot_20261123_014427_com.mojang.v126661xxxx.jpg`
+- `MCPEDL/Addons/ALNPirateTokens/assets/snapshots/Screenshot_20261123_014505_com.mojang.v126661xxxx.jpg`
+- `MCPEDL/Addons/ALNPirateTokens/assets/snapshots/Screenshot_20261123_123735_com.mojang.v126661xxxx.jpg`
 - `MCPEDL/Addons/ALNPirateTokens/behavior_pack/pack_icon.png`
 - `MCPEDL/Addons/ALNPirateTokens/resource_pack/pack_icon.png`
 - `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/blocks/aln_mystery_crate_bottom.png`
@@ -77,13 +83,7 @@
 - `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/diamond_block.png`
 - `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/diamond_horse_armor.png`
 - `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/diamond_pickaxe.png`
-- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/diamond_sword.png`
-- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/dragon_egg.png`
-- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/dried_kelp.png`
-- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/elytra.png`
-- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/emerald.png`
-- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/emerald_block.png`
-- ... and 31 more
+- ... and 37 more
 
 ---
 
