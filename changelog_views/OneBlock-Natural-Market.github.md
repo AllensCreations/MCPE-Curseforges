@@ -1,13 +1,18 @@
 # Changelog — OneBlock Natural Market
 
-## [16.0.5] - 2026-11-23 - Sell Form Toggles
+## [16.0.6] - 2026-11-23 - ALN Coins
 
-### Improved & Balanced
-- **Sell form**: Sell Items now has three buttons: Lock / Unlock Items, Sell All and Exit. Sell All keeps locked items.
-- **Lock editor**: Lock / Unlock Items opens a form with one toggle per item. Switch an item on to lock it, then press Save.
+### Added
+- **ALN Coins**: every central-block break now also gives 1 ALN Coin, a separate currency kept on the `aln_coins` scoreboard. It shows in the market menu and in the action bar. The market still uses Coins.
 
 <details>
-<summary><b>16.0.x</b> (5 releases)</summary>
+<summary><b>16.0.x</b> (6 releases)</summary>
+
+### [16.0.5] - 2026-11-23 - Sell Form Toggles
+
+#### Improved & Balanced
+- **Sell form**: Sell Items now has three buttons: Lock / Unlock Items, Sell All and Exit. Sell All keeps locked items.
+- **Lock editor**: Lock / Unlock Items opens a form with one toggle per item. Switch an item on to lock it, then press Save.
 
 ### [16.0.4] - 2026-11-23 - Sell Lock List
 
