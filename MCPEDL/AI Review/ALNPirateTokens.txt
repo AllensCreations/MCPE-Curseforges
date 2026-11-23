@@ -6,8 +6,8 @@
 - **Destination:** `MCPEDL/Addons/ALNPirateTokens`
 - **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALNPirateTokens/CHANGELOG.md`)
 - **Current version:** Current REPO_VERSION, the next spec number and the newest specs: Context7 `docs/where-we-left-off.md` (library `/allenscreations/mcpe-curseforges`). The `REPO_VERSION` file and the root `CHANGELOG.md` in the repo win over it.
-- **Text files:** 27
-- **Skipped binary:** 18
+- **Text files:** 28
+- **Skipped binary:** 50
 - **Paths not found:** 0
 
 ### Files in this export
@@ -37,10 +37,11 @@
 - `MCPEDL/Addons/ALNPirateTokens/resource_pack/texts/en_US.lang`
 - `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/item_texture.json`
 - `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/terrain_texture.json`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/ASSET-NOTICE.md`
 - `MCPEDL/Addons/ALNPirateTokens/texture_sources/mystery_crate.json`
 - `MCPEDL/Addons/ALNPirateTokens/texture_sources/pirate_icons.json`
 
-### Skipped (binary): 18 file(s)
+### Skipped (binary): 50 file(s)
 
 - `MCPEDL/Addons/ALNPirateTokens/assets/items/aln_captains_ledger.png`
 - `MCPEDL/Addons/ALNPirateTokens/assets/items/aln_cursed_coin.png`
@@ -60,6 +61,29 @@
 - `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/items/aln_cursed_coin.png`
 - `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/items/aln_gold_doubloon.png`
 - `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/items/aln_silver_token.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/ancient_debris.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/beacon.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/chest.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/compass.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/conduit.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/cooked_salmon.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/dark_oak_boat.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/diamond.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/diamond_block.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/elytra.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/emerald.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/emerald_block.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/enchanted_golden_apple.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/ender_pearl.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/experience_bottle.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/glass_bottle.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/gold_ingot.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/golden_apple.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/heart_of_the_sea.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/iron_sword.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/name_tag.png`
+- `MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/nautilus_shell.png`
+- ... and 10 more
 
 ---
 
@@ -408,13 +432,13 @@ git commit -m "<short>" && git pull --rebase --autostash && git push
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:PirateTokens (v1.0.1)",
+    "name": "ALN:PirateTokens (v1.0.3)",
     "description": "Pirate token currency, vault, bounties, Black Market and crates. by ALNStudios",
     "uuid": "3778fb45-910e-41e8-8cd8-b62ed8171ace",
     "version": [
       1,
       0,
-      1
+      3
     ],
     "min_engine_version": [
       1,
@@ -429,7 +453,7 @@ git commit -m "<short>" && git pull --rebase --autostash && git push
       "version": [
         1,
         0,
-        1
+        3
       ]
     },
     {
@@ -440,7 +464,7 @@ git commit -m "<short>" && git pull --rebase --autostash && git push
       "version": [
         1,
         0,
-        1
+        3
       ]
     }
   ],
@@ -450,7 +474,7 @@ git commit -m "<short>" && git pull --rebase --autostash && git push
       "version": [
         1,
         0,
-        1
+        3
       ]
     },
     {
@@ -467,7 +491,7 @@ git commit -m "<short>" && git pull --rebase --autostash && git push
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.1"
+    "version": "1.0.3"
   }
 }
 ```
@@ -613,7 +637,7 @@ export function claim(player, index) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNPirateTokens/behavior_pack/scripts/config.js (141 lines, 6487 bytes)
+## FILE: MCPEDL/Addons/ALNPirateTokens/behavior_pack/scripts/config.js (157 lines, 7615 bytes)
 
 ```
 export const IDS = {
@@ -642,6 +666,10 @@ export const COIN_ICON = {
   "aln:captains_ledger": "textures/items/aln_captains_ledger"
 };
 
+export const mc = (typeId) => `textures/ui/aln_icons/${typeId.replace("minecraft:", "")}`;
+
+export const iconOf = (typeId) => COIN_ICON[typeId] ?? mc(typeId);
+
 export const KEYS = {
   vault: "aln_pt:vault",
   bounties: "aln_pt:bounties",
@@ -649,7 +677,7 @@ export const KEYS = {
   chests: "aln_pt:chests"
 };
 
-export const TITLE = "§l§6@ALNStudios §ePirate Ledger§r §f(v1.0.0)";
+export const TITLE = "§l§6@ALNStudios §ePirate Ledger";
 
 export const MOB_DROPS = {
   "minecraft:drowned": [{ id: IDS.silver, chance: 0.25, min: 1, max: 2 }],
@@ -696,12 +724,12 @@ export const COMPASS_NAME = "Treasure Hunter's Compass";
 export const BREEZE_NAME = "Bottled Sea Breeze";
 
 export const SHOP = [
-  { key: "compass", label: "Treasure Hunter's Compass", price: 80, icon: "textures/items/compass_item", note: "Use it to locate buried treasure. Sneak and use it to locate shipwrecks." },
-  { key: "cutlass", label: "Sea-Dog's Cutlass", price: 200, icon: "textures/items/iron_sword", note: "Speed while swimming and extra token drops." },
-  { key: "breeze", label: "Bottled Sea Breeze", price: 40, icon: "textures/items/bottle_empty", note: "Dolphin's Grace and Water Breathing for 5 minutes." },
-  { key: "prismarine", label: "Prismarine Mason Bundle", price: 60, icon: "textures/items/prismarine_shard", note: "32 Prismarine, 16 Prismarine Bricks, 8 Sea Lanterns." },
-  { key: "shipwright", label: "Shipwright Bundle", price: 50, icon: "textures/items/boat", note: "64 Dark Oak Planks, 32 Dark Oak Logs, 16 Iron Nuggets." },
-  { key: "treasure", label: "Treasure Hoarder Bundle", price: 120, icon: "textures/items/gold_ingot", note: "4 Chests, 2 Gold Blocks, 8 Emeralds." }
+  { key: "compass", label: "Hunter's Compass", price: 80, icon: mc("minecraft:compass"), note: "Use it to locate buried treasure. Sneak and use it to locate shipwrecks." },
+  { key: "cutlass", label: "Sea-Dog's Cutlass", price: 200, icon: mc("minecraft:iron_sword"), note: "Speed while swimming and extra token drops." },
+  { key: "breeze", label: "Bottled Sea Breeze", price: 40, icon: mc("minecraft:glass_bottle"), note: "Dolphin's Grace and Water Breathing for 5 minutes." },
+  { key: "prismarine", label: "Prismarine Mason Bundle", price: 60, icon: mc("minecraft:prismarine"), note: "32 Prismarine, 16 Prismarine Bricks, 8 Sea Lanterns." },
+  { key: "shipwright", label: "Shipwright Bundle", price: 50, icon: mc("minecraft:dark_oak_boat"), note: "64 Dark Oak Planks, 32 Dark Oak Logs, 16 Iron Nuggets." },
+  { key: "treasure", label: "Treasure Hoarder Bundle", price: 120, icon: mc("minecraft:chest"), note: "4 Chests, 2 Gold Blocks, 8 Emeralds." }
 ];
 
 export const CRATES = [
@@ -710,18 +738,25 @@ export const CRATES = [
     label: "Mystery Buccaneer Crate",
     price: 30,
     priceText: "3 Gold Doubloons",
-    icon: "textures/items/aln_gold_doubloon",
+    icon: COIN_ICON[IDS.gold],
     pool: [
-      { w: 30, id: IDS.silver, amount: 12, label: "12 Silver Pirate Tokens" },
-      { w: 18, id: IDS.gold, amount: 2, label: "2 Gold Pirate Doubloons" },
-      { w: 16, id: "minecraft:emerald", amount: 10, label: "10 Emeralds" },
-      { w: 10, id: "minecraft:diamond", amount: 2, label: "2 Diamonds" },
+      { w: 28, id: IDS.silver, amount: 12, label: "12 Silver Pirate Tokens" },
+      { w: 16, id: IDS.gold, amount: 2, label: "2 Gold Pirate Doubloons" },
+      { w: 14, id: "minecraft:emerald", amount: 10, label: "10 Emeralds" },
+      { w: 12, id: "minecraft:cooked_salmon", amount: 16, label: "16 Cooked Salmon" },
       { w: 10, id: "minecraft:gold_ingot", amount: 16, label: "16 Gold Ingots" },
+      { w: 9, id: "minecraft:diamond", amount: 2, label: "2 Diamonds" },
+      { w: 8, id: "minecraft:prismarine_crystals", amount: 12, label: "12 Prismarine Crystals" },
+      { w: 8, id: "minecraft:sea_lantern", amount: 6, label: "6 Sea Lanterns" },
+      { w: 7, id: "minecraft:experience_bottle", amount: 12, label: "12 XP Bottles" },
       { w: 6, id: "minecraft:ender_pearl", amount: 4, label: "4 Ender Pearls" },
       { w: 5, id: "minecraft:golden_apple", amount: 2, label: "2 Golden Apples" },
+      { w: 4, id: "minecraft:name_tag", amount: 2, label: "2 Name Tags" },
+      { w: 3, id: "minecraft:saddle", amount: 1, label: "Saddle" },
       { w: 3, id: "minecraft:nautilus_shell", amount: 1, label: "Nautilus Shell", jackpot: true },
       { w: 2, id: "minecraft:heart_of_the_sea", amount: 1, label: "Heart of the Sea", jackpot: true },
       { w: 2, id: "minecraft:netherite_scrap", amount: 2, label: "2 Netherite Scrap", jackpot: true },
+      { w: 1, id: "minecraft:conduit", amount: 1, label: "Conduit", jackpot: true },
       { w: 1, id: "minecraft:enchanted_golden_apple", amount: 1, label: "Enchanted Golden Apple", jackpot: true }
     ]
   },
@@ -730,18 +765,23 @@ export const CRATES = [
     label: "Cursed Captain's Crate",
     price: 100,
     priceText: "1 Cursed Captain's Coin",
-    icon: "textures/items/aln_cursed_coin",
+    icon: COIN_ICON[IDS.cursed],
     pool: [
-      { w: 25, id: IDS.gold, amount: 6, label: "6 Gold Pirate Doubloons" },
-      { w: 20, id: "minecraft:diamond", amount: 6, label: "6 Diamonds" },
+      { w: 22, id: IDS.gold, amount: 6, label: "6 Gold Pirate Doubloons" },
+      { w: 18, id: "minecraft:diamond", amount: 6, label: "6 Diamonds" },
+      { w: 12, id: "minecraft:emerald_block", amount: 4, label: "4 Emerald Blocks" },
       { w: 10, id: IDS.cursed, amount: 1, label: "Cursed Captain's Coin" },
       { w: 10, id: "minecraft:totem_of_undying", amount: 1, label: "Totem of Undying" },
-      { w: 8, id: "minecraft:netherite_ingot", amount: 1, label: "Netherite Ingot", jackpot: true },
-      { w: 8, id: "minecraft:enchanted_golden_apple", amount: 2, label: "2 Enchanted Golden Apples", jackpot: true },
-      { w: 8, id: "minecraft:heart_of_the_sea", amount: 1, label: "Heart of the Sea", jackpot: true },
-      { w: 6, id: "minecraft:trident", amount: 1, label: "Trident", jackpot: true },
+      { w: 8, id: "minecraft:diamond_block", amount: 2, label: "2 Diamond Blocks" },
+      { w: 7, id: "minecraft:ancient_debris", amount: 2, label: "2 Ancient Debris" },
+      { w: 7, id: "minecraft:netherite_ingot", amount: 1, label: "Netherite Ingot", jackpot: true },
+      { w: 6, id: "minecraft:enchanted_golden_apple", amount: 2, label: "2 Enchanted Golden Apples", jackpot: true },
+      { w: 6, id: "minecraft:heart_of_the_sea", amount: 1, label: "Heart of the Sea", jackpot: true },
+      { w: 5, id: "minecraft:trident", amount: 1, label: "Trident", jackpot: true },
       { w: 3, id: "minecraft:beacon", amount: 1, label: "Beacon", jackpot: true },
-      { w: 2, id: "minecraft:elytra", amount: 1, label: "Elytra", jackpot: true }
+      { w: 2, id: "minecraft:elytra", amount: 1, label: "Elytra", jackpot: true },
+      { w: 2, id: "minecraft:nether_star", amount: 1, label: "Nether Star", jackpot: true },
+      { w: 1, id: "minecraft:netherite_sword", amount: 1, label: "Netherite Sword", jackpot: true }
     ]
   }
 ];
@@ -1190,12 +1230,12 @@ export function deliver(player, key) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNPirateTokens/behavior_pack/scripts/ui.js (209 lines, 8119 bytes)
+## FILE: MCPEDL/Addons/ALNPirateTokens/behavior_pack/scripts/ui.js (216 lines, 8271 bytes)
 
 ```
 import { system } from "@minecraft/server";
 import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
-import { IDS, COIN_ICON, TITLE, SHOP, CRATES, BOUNTY_POOL } from "./config.js";
+import { IDS, COIN_ICON, TITLE, SHOP, CRATES, BOUNTY_POOL, iconOf } from "./config.js";
 import {
   getBalance, setBalance, describeValue, looseCounts, countsValue, depositAll,
   withdrawCoin, withdrawAll, compressLoose
@@ -1343,11 +1383,14 @@ async function marketMenu(player) {
 
 async function previewCrate(player, crate) {
   const total = crate.pool.reduce((s, p) => s + p.w, 0);
-  let body = `§l§6${crate.label}§r\n§ePrice: §f${crate.priceText}\n\n`;
+  const form = new ActionFormData()
+    .title(`${TITLE}`)
+    .body(`§l§6${crate.label}§r\n§ePrice: §f${crate.priceText}\n§eGold names are jackpot prizes.`);
   for (const p of crate.pool) {
-    body += `${p.jackpot ? "§6" : "§f"}${p.label} §e${((p.w / total) * 100).toFixed(1)}%§r\n`;
+    const chance = ((p.w / total) * 100).toFixed(1);
+    form.button(`${p.jackpot ? "§l§6" : "§l§f"}${p.label}\n§r§e${chance}%`, iconOf(p.id));
   }
-  const form = new ActionFormData().title(`${TITLE}`).body(body).button("§l§cBack");
+  form.button("§l§cBack");
   await show(form, player);
 }
 
@@ -1374,7 +1417,10 @@ async function crateMenu(player) {
     const prize = rollCrate(crate);
     await animateCrate(player, crate, prize);
     grantPrize(player, prize);
-    note = `§aYou won §f${prize.label}§a. Open another?\n`;
+    try {
+      player.onScreenDisplay.setActionBar(`§a§lYou won §f${prize.label}`);
+    } catch (e) {}
+    return false;
   }
 }
 
@@ -1396,6 +1442,7 @@ export async function openLedger(player) {
     }
   } catch (e) {}
 }
+
 export async function openCrates(player) {
   try {
     await crateMenu(player);
@@ -1535,12 +1582,30 @@ export function compressLoose(player) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNPirateTokens/CHANGELOG.md (19 lines, 903 bytes)
+## FILE: MCPEDL/Addons/ALNPirateTokens/CHANGELOG.md (37 lines, 1780 bytes)
 
 ```
 # Changelog — ALN:PirateTokens
 
 ---
+
+## [1.0.3] - 2026-11-23 - Shorter Menu Text
+
+### Fixed
+- **Cut-off text**: The ledger title and the Hunter's Compass button no longer end in "..." or lose their price line.
+
+## [1.0.2] - 2026-11-23 - Crate Rewards and MC Icons
+
+### Added
+- **More crate prizes**: The Buccaneer Crate and Cursed Captain's Crate now share 33 prizes, including cooked salmon, sea lanterns, prismarine crystals, a Conduit, a Nether Star and a Netherite Sword.
+- **Prize list icons**: View Prizes shows every prize with its icon and chance.
+
+### Changed
+- **MC icons**: Black Market and prize icons now use the MCicons set shipped in the resource pack instead of the game's own texture paths.
+- **After a win**: The menu closes once the prize is awarded, so the loot title stays on screen.
+
+### Fixed
+- **Missing icons**: Shop buttons that showed a missing-texture square now show their item icon.
 
 ## [1.0.1] - 2026-11-23 - Mystery Crate Block
 
@@ -1558,7 +1623,7 @@ export function compressLoose(player) {
 - **Mystery Crates**: Animated crate rolls with note sounds, gold particles and a jackpot title.
 ```
 
-## FILE: MCPEDL/Addons/ALNPirateTokens/DESCRIPTION.md (86 lines, 5085 bytes)
+## FILE: MCPEDL/Addons/ALNPirateTokens/DESCRIPTION.md (86 lines, 5221 bytes)
 
 ```
 # ALN:PirateTokens — A clear factual subtitle
@@ -1603,7 +1668,7 @@ ALN:PirateTokens adds a three-coin pirate economy built around the Captain's Led
 - **What Happens**: Craft a dark-wood crate with gold corners from 4 Gold Nuggets, 4 Dark Oak Planks and 1 Gold Pirate Doubloon. Place it anywhere and tap it to open the crate menu. Sneak to build against it.
 
 ### Mystery Buccaneer Crates
-- **What Happens**: Pay 3 Gold Doubloons or 1 Cursed Captain's Coin from the vault. The prize ticks across the screen with note sounds, then bursts with gold particles and a jackpot title.
+- **What Happens**: Pay 3 Gold Doubloons or 1 Cursed Captain's Coin from the vault. The prize ticks across the screen with note sounds, then bursts with gold particles and a jackpot title. The menu closes after a win, and 33 prizes across both crates run from emeralds and cooked salmon to a Conduit, Elytra and Nether Star.
 
 ## How to Use
 
@@ -1666,7 +1731,7 @@ Download the current release of **ALNPirateTokens** for Minecraft Bedrock Editio
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNPirateTokens (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNPirateTokens/ALNPirateTokens%20V1.0.1.mcaddon)
+- **Direct download:** [Download ALNPirateTokens (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNPirateTokens/ALNPirateTokens%20V1.0.3.mcaddon)
 
 ## Installation
 
@@ -1685,13 +1750,13 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:PirateTokens Textures (v1.0.1)",
+    "name": "ALN:PirateTokens Textures (v1.0.3)",
     "description": "Pirate token and ledger textures. by ALNStudios",
     "uuid": "a41f7a92-d81d-4d76-b9f9-dd1950dce440",
     "version": [
       1,
       0,
-      1
+      3
     ],
     "min_engine_version": [
       1,
@@ -1706,7 +1771,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "version": [
         1,
         0,
-        1
+        3
       ]
     }
   ],
@@ -1715,7 +1780,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.1"
+    "version": "1.0.3"
   }
 }
 ```
@@ -1765,6 +1830,35 @@ tile.aln:mystery_crate.name=§6Mystery Buccaneer Crate
     }
   }
 }
+```
+
+## FILE: MCPEDL/Addons/ALNPirateTokens/resource_pack/textures/ui/aln_icons/ASSET-NOTICE.md (25 lines, 1392 bytes)
+
+```
+# Artwork and attribution
+
+Minecraft is a trademark of Mojang Studios. Minecraft textures, models and
+associated artwork belong to Mojang Studios / Microsoft. MCicons is an
+independent community project, not an official Minecraft product and not
+approved by or associated with Mojang or Microsoft.
+
+The MIT license covers this project's software, tools and documentation. It
+does **not** relicense Minecraft artwork or grant rights to Minecraft assets.
+Use of the included artwork remains subject to the rights holder's terms,
+[Minecraft Usage Guidelines](https://www.minecraft.net/en-us/usage-guidelines)
+and applicable law. Do not describe the artwork as MIT-licensed or exclusively
+owned by MCicons. This notice is not a legal clearance or a rights guarantee.
+
+Version 2 retains the original 1,396 PNG files from MCicons 1.0.0 and adds
+263 software-rendered previews derived from the SHA-verified official Java 26.3
+client. `data/minecraft-source.json` records the archive URL/hashes, identifiers,
+definition paths and new PNG hashes. The game archive itself is not distributed.
+Legacy images were retained, not claimed to have been independently authored
+or freshly extracted from 26.3. Software previews are not guaranteed to be
+pixel-identical to the game's inventory renderer.
+
+Keep this notice with redistributed packages or subsets. Questions about the
+MCicons project: hi@mumd.dev.
 ```
 
 ## FILE: MCPEDL/Addons/ALNPirateTokens/texture_sources/mystery_crate.json (77 lines, 3717 bytes)
