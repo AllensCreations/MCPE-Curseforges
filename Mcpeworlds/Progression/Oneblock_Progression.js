@@ -12,9 +12,10 @@
  * PROGRESSION ORDER (classic OneBlock):
  *   Overworld biomes -> Caves & Deep Dark -> Nether -> The End.
  *   1 Plains, 2 Underground, 3 Snowy Taiga, 4 Ocean, 5 Jungle, 6 Desert, 7 Badlands,
- *   8 Mangrove Swamp, 9 Cherry Grove, 10 Pale Garden, 11 Deepslate Depths, 12 Deep Dark,
- *   13 Nether Wastes, 14 Crimson & Warped Forests, 15 Bastion & Basalt Deltas,
- *   16 The End, 17 End City & Void Horizon (final, endless).
+ *   8 Savanna Plains, 9 Dark Forest & Mushroom Fields, 10 Mangrove Swamp, 11 Cherry Grove,
+ *   12 Pale Garden, 13 Windswept Highlands, 14 Craftsman's Workshop, 15 Deepslate Depths,
+ *   16 Deep Dark, 17 Nether Wastes, 18 Crimson & Warped Forests, 19 Bastion & Basalt Deltas,
+ *   20 The End, 21 End City & Void Horizon (final, endless).
  *
  * UNLOCK MODEL:
  * - Each phase lists only what it UNLOCKS. Earlier content is never removed.
@@ -312,6 +313,79 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
   },
   {
     phase: 8,
+    name: "Savanna Plains",
+    description: "Flat-topped acacia trees, golden hay, and wandering herds across the dry grassland.",
+    blocksRequired: 450,
+    bedrockReplacement: "minecraft:coarse_dirt",
+    blocks: [
+      { id: "minecraft:acacia_log", weight: 28 },
+      { id: "minecraft:acacia_leaves", weight: 22 },
+      { id: "minecraft:acacia_planks", weight: 10 },
+      { id: "minecraft:stripped_acacia_log", weight: 8 },
+      { id: "minecraft:hay_block", weight: 6 },
+      { id: "minecraft:coarse_dirt", weight: 14 },
+      { id: "minecraft:grass_block", weight: 12 }
+    ],
+    chests: [
+      { id: "minecraft:acacia_sapling", min: 1, max: 3, weight: 22 },
+      { id: "minecraft:wheat", min: 2, max: 5, weight: 16 },
+      { id: "minecraft:leather", min: 1, max: 3, weight: 14 },
+      { id: "minecraft:bread", min: 2, max: 4, weight: 12 },
+      { id: "minecraft:lead", min: 1, max: 1, weight: 10 },
+      { id: "minecraft:hay_block", min: 1, max: 2, weight: 8 },
+      { id: "minecraft:saddle", min: 1, max: 1, weight: 6 },
+      { id: "minecraft:golden_carrot", min: 1, max: 2, weight: 6 },
+      { id: "minecraft:name_tag", min: 1, max: 1, weight: 6 }
+    ],
+    mobs: [
+      { id: "minecraft:horse", weight: 28 },
+      { id: "minecraft:donkey", weight: 18 },
+      { id: "minecraft:llama", weight: 18 },
+      { id: "minecraft:sheep", weight: 16 },
+      { id: "minecraft:zombie", weight: 10 },
+      { id: "minecraft:skeleton", weight: 10 }
+    ]
+  },
+  {
+    phase: 9,
+    name: "Dark Forest & Mushroom Fields",
+    description: "Towering dark oaks and giant glowing mushrooms growing from rich mycelium.",
+    blocksRequired: 500,
+    bedrockReplacement: "minecraft:dark_oak_planks",
+    blocks: [
+      { id: "minecraft:dark_oak_log", weight: 20 },
+      { id: "minecraft:dark_oak_leaves", weight: 18 },
+      { id: "minecraft:dark_oak_planks", weight: 6 },
+      { id: "minecraft:stripped_dark_oak_log", weight: 6 },
+      { id: "minecraft:mycelium", weight: 14 },
+      { id: "minecraft:brown_mushroom_block", weight: 12 },
+      { id: "minecraft:red_mushroom_block", weight: 12 },
+      { id: "minecraft:mushroom_stem", weight: 8 },
+      { id: "minecraft:grass_block", weight: 4 }
+    ],
+    chests: [
+      { id: "minecraft:dark_oak_sapling", min: 1, max: 3, weight: 20 },
+      { id: "minecraft:brown_mushroom", min: 2, max: 5, weight: 16 },
+      { id: "minecraft:red_mushroom", min: 2, max: 5, weight: 16 },
+      { id: "minecraft:mushroom_stew", min: 1, max: 1, weight: 10 },
+      { id: "minecraft:bone_meal", min: 2, max: 5, weight: 10 },
+      { id: "minecraft:bowl", min: 1, max: 3, weight: 8 },
+      { id: "minecraft:glass_bottle", min: 1, max: 3, weight: 8 },
+      { id: "minecraft:emerald", min: 1, max: 3, weight: 8 },
+      { id: "minecraft:totem_of_undying", min: 1, max: 1, weight: 4 }
+    ],
+    mobs: [
+      { id: "minecraft:mooshroom", weight: 30 },
+      { id: "minecraft:witch", weight: 15 },
+      { id: "minecraft:zombie", weight: 15 },
+      { id: "minecraft:skeleton", weight: 15 },
+      { id: "minecraft:vindicator", weight: 10 },
+      { id: "minecraft:spider", weight: 10 },
+      { id: "minecraft:evoker", weight: 5 }
+    ]
+  },
+  {
+    phase: 10,
     name: "Mangrove Swamp",
     description: "Muddy roots, mangrove trees, and murky swamp life.",
     blocksRequired: 450,
@@ -348,7 +422,7 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     ]
   },
   {
-    phase: 9,
+    phase: 11,
     name: "Cherry Grove",
     description: "A peaceful pink-blossom meadow on the mountainside.",
     blocksRequired: 500,
@@ -380,7 +454,7 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     ]
   },
   {
-    phase: 10,
+    phase: 12,
     name: "Pale Garden",
     description: "A silent, grey forest of pale oak, pale moss, and resin. The creaking stir at night.",
     blocksRequired: 500,
@@ -412,9 +486,114 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     ]
   },
 
+  {
+    phase: 13,
+    name: "Windswept Highlands",
+    description: "Rocky peaks, old spruce taiga, and emerald veins high above the valleys.",
+    blocksRequired: 550,
+    bedrockReplacement: "minecraft:stone",
+    blocks: [
+      { id: "minecraft:stone", weight: 18 },
+      { id: "minecraft:gravel", weight: 8 },
+      { id: "minecraft:andesite", weight: 6 },
+      { id: "minecraft:cobblestone", weight: 6 },
+      { id: "minecraft:spruce_log", weight: 14 },
+      { id: "minecraft:spruce_leaves", weight: 10 },
+      { id: "minecraft:spruce_planks", weight: 6 },
+      { id: "minecraft:stripped_spruce_log", weight: 4 },
+      { id: "minecraft:podzol", weight: 8 },
+      { id: "minecraft:mossy_cobblestone", weight: 8 },
+      { id: "minecraft:coarse_dirt", weight: 6 },
+      { id: "minecraft:emerald_ore", weight: 6 }
+    ],
+    chests: [
+      { id: "minecraft:emerald", min: 1, max: 3, weight: 20 },
+      { id: "minecraft:spruce_sapling", min: 1, max: 3, weight: 14 },
+      { id: "minecraft:iron_ingot", min: 2, max: 4, weight: 14 },
+      { id: "minecraft:cooked_mutton", min: 1, max: 3, weight: 12 },
+      { id: "minecraft:coal", min: 2, max: 6, weight: 10 },
+      { id: "minecraft:leather", min: 1, max: 3, weight: 10 },
+      { id: "minecraft:copper_ingot", min: 2, max: 5, weight: 8 },
+      { id: "minecraft:bone", min: 1, max: 3, weight: 8 },
+      { id: "minecraft:diamond", min: 1, max: 1, weight: 4 }
+    ],
+    mobs: [
+      { id: "minecraft:goat", weight: 25 },
+      { id: "minecraft:llama", weight: 20 },
+      { id: "minecraft:wolf", weight: 15 },
+      { id: "minecraft:skeleton", weight: 15 },
+      { id: "minecraft:zombie", weight: 10 },
+      { id: "minecraft:creeper", weight: 10 },
+      { id: "minecraft:spider", weight: 5 }
+    ]
+  },
+  {
+    phase: 14,
+    name: "Craftsman's Workshop",
+    description: "A village of builders: wool, glass, concrete, bookshelves, colored clay, and copper.",
+    blocksRequired: 600,
+    bedrockReplacement: "minecraft:cobblestone",
+    blocks: [
+      { id: "minecraft:white_wool", weight: 5 },
+      { id: "minecraft:orange_wool", weight: 3 },
+      { id: "minecraft:red_wool", weight: 3 },
+      { id: "minecraft:blue_wool", weight: 3 },
+      { id: "minecraft:green_wool", weight: 3 },
+      { id: "minecraft:yellow_wool", weight: 3 },
+      { id: "minecraft:black_wool", weight: 3 },
+      { id: "minecraft:glass", weight: 8 },
+      { id: "minecraft:tinted_glass", weight: 2 },
+      { id: "minecraft:bookshelf", weight: 6 },
+      { id: "minecraft:chiseled_bookshelf", weight: 3 },
+      { id: "minecraft:white_concrete", weight: 3 },
+      { id: "minecraft:orange_concrete", weight: 2 },
+      { id: "minecraft:red_concrete", weight: 2 },
+      { id: "minecraft:blue_concrete", weight: 2 },
+      { id: "minecraft:light_gray_concrete", weight: 2 },
+      { id: "minecraft:black_concrete", weight: 2 },
+      { id: "minecraft:white_terracotta", weight: 3 },
+      { id: "minecraft:orange_terracotta", weight: 3 },
+      { id: "minecraft:yellow_terracotta", weight: 3 },
+      { id: "minecraft:brown_terracotta", weight: 3 },
+      { id: "minecraft:red_terracotta", weight: 3 },
+      { id: "minecraft:light_gray_terracotta", weight: 3 },
+      { id: "minecraft:copper_block", weight: 4 },
+      { id: "minecraft:cut_copper", weight: 4 },
+      { id: "minecraft:exposed_copper", weight: 2 },
+      { id: "minecraft:weathered_copper", weight: 2 },
+      { id: "minecraft:oxidized_copper", weight: 2 },
+      { id: "minecraft:copper_grate", weight: 2 },
+      { id: "minecraft:chiseled_copper", weight: 2 },
+      { id: "minecraft:oak_planks", weight: 5 },
+      { id: "minecraft:crafting_table", weight: 4 }
+    ],
+    chests: [
+      { id: "minecraft:book", min: 1, max: 3, weight: 14 },
+      { id: "minecraft:paper", min: 2, max: 6, weight: 14 },
+      { id: "minecraft:emerald", min: 1, max: 3, weight: 14 },
+      { id: "minecraft:copper_ingot", min: 2, max: 6, weight: 12 },
+      { id: "minecraft:iron_ingot", min: 1, max: 3, weight: 10 },
+      { id: "minecraft:glass_bottle", min: 1, max: 3, weight: 8 },
+      { id: "minecraft:bread", min: 2, max: 4, weight: 8 },
+      { id: "minecraft:wheat", min: 2, max: 5, weight: 6 },
+      { id: "minecraft:gold_ingot", min: 1, max: 2, weight: 6 },
+      { id: "minecraft:diamond", min: 1, max: 1, weight: 4 },
+      { id: "minecraft:experience_bottle", min: 1, max: 2, weight: 4 }
+    ],
+    mobs: [
+      { id: "minecraft:villager", weight: 30 },
+      { id: "minecraft:pillager", weight: 20 },
+      { id: "minecraft:cat", weight: 15 },
+      { id: "minecraft:vindicator", weight: 15 },
+      { id: "minecraft:iron_golem", weight: 10 },
+      { id: "minecraft:wandering_trader", weight: 5 },
+      { id: "minecraft:zombie_villager", weight: 5 }
+    ]
+  },
+
   // ─────────────────────── DEEP CAVES ───────────────────────
   {
-    phase: 11,
+    phase: 15,
     name: "Deepslate Depths",
     description: "Dark deepslate caverns rich in diamonds, redstone, copper, and trial chamber tuff.",
     blocksRequired: 600,
@@ -456,7 +635,7 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     ]
   },
   {
-    phase: 12,
+    phase: 16,
     name: "Deep Dark",
     description: "Ancient sculk-infested depths where echo shards hide and the warden sleeps.",
     blocksRequired: 600,
@@ -494,7 +673,7 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
 
   // ───────────────────────── NETHER ─────────────────────────
   {
-    phase: 13,
+    phase: 17,
     name: "Nether Wastes",
     description: "Volcanic heat, soul sand, and glowing quartz from the depths of the Nether.",
     blocksRequired: 700,
@@ -529,7 +708,7 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     ]
   },
   {
-    phase: 14,
+    phase: 18,
     name: "Crimson & Warped Forests",
     description: "Giant fungal forests of red and teal, home to hoglins, piglins, and striders.",
     blocksRequired: 700,
@@ -562,7 +741,7 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     ]
   },
   {
-    phase: 15,
+    phase: 19,
     name: "Bastion & Basalt Deltas",
     description: "Blackstone fortresses, gilded treasure, and rare ancient debris.",
     blocksRequired: 800,
@@ -605,7 +784,7 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
 
   // ───────────────────────── THE END ─────────────────────────
   {
-    phase: 16,
+    phase: 20,
     name: "The End",
     description: "The dimension beyond the stars. Pale end stone, obsidian pillars, and chorus.",
     blocksRequired: 800,
@@ -633,7 +812,7 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     ]
   },
   {
-    phase: 17,
+    phase: 21,
     name: "End City & Void Horizon",
     description: "Floating purpur cities and deep void treasures. The final, endless phase.",
     blocksRequired: 1000,

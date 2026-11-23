@@ -26,7 +26,7 @@ Targets **Minecraft Bedrock 1.26.50**. All ids are Bedrock ids (for example `min
 
 ---
 
-## Progression Order (17 phases)
+## Progression Order (21 phases)
 
 Classic OneBlock flow: Overworld biomes, then caves, then the Nether, then the End.
 
@@ -39,18 +39,22 @@ Classic OneBlock flow: Overworld biomes, then caves, then the Nether, then the E
 | 5 | Jungle Canopy | 400 | Jungle, bamboo, moss |
 | 6 | Desert Dunes | 400 | Sandstone, gold |
 | 7 | Badlands Mesa | 450 | Red sand, clay, gold |
-| 8 | Mangrove Swamp | 450 | Mud, mangrove roots |
-| 9 | Cherry Grove | 500 | Cherry wood, petals |
-| 10 | Pale Garden | 500 | Pale oak, resin, creaking |
-| 11 | Deepslate Depths | 600 | Deepslate ores, tuff |
-| 12 | Deep Dark | 600 | Sculk, echo shards |
-| 13 | Nether Wastes | 700 | Netherrack, quartz, ghasts |
-| 14 | Crimson & Warped Forests | 700 | Nylium, stems, hoglins |
-| 15 | Bastion & Basalt Deltas | 800 | Blackstone, ancient debris |
-| 16 | The End | 800 | End stone, obsidian |
-| 17 | End City & Void Horizon | endless | Purpur, elytra, final phase |
+| 8 | Savanna Plains | 450 | Acacia, hay, horses |
+| 9 | Dark Forest & Mushroom Fields | 500 | Dark oak, giant mushrooms, mycelium |
+| 10 | Mangrove Swamp | 450 | Mud, mangrove roots |
+| 11 | Cherry Grove | 500 | Cherry wood, petals |
+| 12 | Pale Garden | 500 | Pale oak, resin, creaking |
+| 13 | Windswept Highlands | 550 | Emerald ore, spruce, mossy stone |
+| 14 | Craftsman's Workshop | 600 | Wool, glass, concrete, bookshelves, colored terracotta, copper |
+| 15 | Deepslate Depths | 600 | Deepslate ores, tuff |
+| 16 | Deep Dark | 600 | Sculk, echo shards |
+| 17 | Nether Wastes | 700 | Netherrack, quartz, ghasts |
+| 18 | Crimson & Warped Forests | 700 | Nylium, stems, hoglins |
+| 19 | Bastion & Basalt Deltas | 800 | Blackstone, ancient debris |
+| 20 | The End | 800 | End stone, obsidian |
+| 21 | End City & Void Horizon | endless | Purpur, elytra, final phase |
 
-`blocksRequired` is per phase, not cumulative. The last phase never ends. Total to reach phase 17: 7,950 blocks.
+`blocksRequired` is per phase, not cumulative. The last phase never ends. Total to reach phase 21: 10,050 blocks.
 
 ### Unlock model
 
@@ -58,7 +62,7 @@ Each phase lists only what it **unlocks**. Nothing is removed when you advance.
 
 - `sampleBlock(phase)`, `sampleChestItem(phase)`, and `sampleMob(phase)` sample from phases 1 to the current phase.
 - The newest phase gets 40% of the weight. Older phases share the other 60% evenly, so new content feels fresh.
-- At phase 17 the full pool (115 blocks) stays active forever, with phase 17 still weighted highest.
+- At phase 21 the full pool (163 blocks) stays active forever, with phase 21 still weighted highest.
 - Duplicate ids are merged. Chest counts use the lowest min and highest max.
 - Options: `{ exclusive: true }` samples the current phase only. `{ currentShare: 0.6 }` changes the newest-phase share.
 - `getUnlockedPool(phase, "blocks" | "chests" | "mobs")` returns the merged weighted list if your pack wants to apply its own rules.
