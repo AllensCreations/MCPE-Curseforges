@@ -4,6 +4,13 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v252] - 2026-11-23 - Shorter Menu Text
+
+**Spec**: spec_v252.txt | **Target**: MCPEDL/Addons/ALNPirateTokens | **Files edited**: 2
+
+### Fixed
+- **Cut-off text**: The ledger title and the Hunter's Compass button no longer end in "..." or lose their price line.
+
 ## [v251] - 2026-11-23 - Crate Rewards and MC Icons
 
 **Spec**: spec_v251.txt | **Target**: MCPEDL/Addons/ALNPirateTokens | **Files edited**: 5

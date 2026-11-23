@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:PirateTokens (v1.0.2)",
+    "name": "ALN:PirateTokens (v1.0.3)",
     "description": "Pirate token currency, vault, bounties, Black Market and crates. by ALNStudios",
     "uuid": "3778fb45-910e-41e8-8cd8-b62ed8171ace",
     "version": [
       1,
       0,
-      2
+      3
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         0,
-        2
+        3
       ]
     },
     {
@@ -33,7 +33,7 @@
       "version": [
         1,
         0,
-        2
+        3
       ]
     }
   ],
@@ -43,7 +43,7 @@
       "version": [
         1,
         0,
-        2
+        3
       ]
     },
     {
@@ -60,6 +60,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.2"
+    "version": "1.0.3"
   }
 }

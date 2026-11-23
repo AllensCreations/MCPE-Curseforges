@@ -2,6 +2,11 @@
 
 ---
 
+## [1.0.3] - 2026-11-23 - Shorter Menu Text
+
+### Fixed
+- **Cut-off text**: The ledger title and the Hunter's Compass button no longer end in "..." or lose their price line.
+
 ## [1.0.2] - 2026-11-23 - Crate Rewards and MC Icons
 
 ### Added

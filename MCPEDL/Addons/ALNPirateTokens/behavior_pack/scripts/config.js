@@ -35,7 +35,7 @@ export const KEYS = {
   chests: "aln_pt:chests"
 };
 
-export const TITLE = "§l§6@ALNStudios §ePirate Ledger§r §f(v1.0.0)";
+export const TITLE = "§l§6@ALNStudios §ePirate Ledger";
 
 export const MOB_DROPS = {
   "minecraft:drowned": [{ id: IDS.silver, chance: 0.25, min: 1, max: 2 }],
@@ -82,7 +82,7 @@ export const COMPASS_NAME = "Treasure Hunter's Compass";
 export const BREEZE_NAME = "Bottled Sea Breeze";
 
 export const SHOP = [
-  { key: "compass", label: "Treasure Hunter's Compass", price: 80, icon: mc("minecraft:compass"), note: "Use it to locate buried treasure. Sneak and use it to locate shipwrecks." },
+  { key: "compass", label: "Hunter's Compass", price: 80, icon: mc("minecraft:compass"), note: "Use it to locate buried treasure. Sneak and use it to locate shipwrecks." },
   { key: "cutlass", label: "Sea-Dog's Cutlass", price: 200, icon: mc("minecraft:iron_sword"), note: "Speed while swimming and extra token drops." },
   { key: "breeze", label: "Bottled Sea Breeze", price: 40, icon: mc("minecraft:glass_bottle"), note: "Dolphin's Grace and Water Breathing for 5 minutes." },
   { key: "prismarine", label: "Prismarine Mason Bundle", price: 60, icon: mc("minecraft:prismarine"), note: "32 Prismarine, 16 Prismarine Bricks, 8 Sea Lanterns." },
@@ -106,7 +106,7 @@ export const CRATES = [
       { w: 9, id: "minecraft:diamond", amount: 2, label: "2 Diamonds" },
       { w: 8, id: "minecraft:prismarine_crystals", amount: 12, label: "12 Prismarine Crystals" },
       { w: 8, id: "minecraft:sea_lantern", amount: 6, label: "6 Sea Lanterns" },
-      { w: 7, id: "minecraft:experience_bottle", amount: 12, label: "12 Bottles o' Enchanting" },
+      { w: 7, id: "minecraft:experience_bottle", amount: 12, label: "12 XP Bottles" },
       { w: 6, id: "minecraft:ender_pearl", amount: 4, label: "4 Ender Pearls" },
       { w: 5, id: "minecraft:golden_apple", amount: 2, label: "2 Golden Apples" },
       { w: 4, id: "minecraft:name_tag", amount: 2, label: "2 Name Tags" },
