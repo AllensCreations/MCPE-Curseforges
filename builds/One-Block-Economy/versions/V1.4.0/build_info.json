@@ -1,8 +1,0 @@
-{
-  "changelog_version": "1.4.0",
-  "manifest_version": "1.4.0",
-  "packages": {
-    "OneBlockEconomy V1.4.0.mcaddon": "1caa1785893dff7f529017c4143ce9bf6c0ed8acb7791e012b8a28d10d1f369f"
-  },
-  "source_sha256": "379a246cd62dd88d9cef28d8c940d240a7a9e62494d08e75a6e37ca075bd48ca"
-}
