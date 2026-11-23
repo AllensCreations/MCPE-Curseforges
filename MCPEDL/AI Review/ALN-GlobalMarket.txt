@@ -5,7 +5,7 @@
 - **Export request:** `MCPEDL/Addons/ALN-GlobalMarket`
 - **Destination:** `MCPEDL/Addons/ALN-GlobalMarket`
 - **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALN-GlobalMarket/CHANGELOG.md`)
-- **Current version:** Current REPO_VERSION, the next spec number and the newest specs: Context7 `docs/where-we-left-off.md` (library `/allenscreations/mcpe-curseforges`). The `REPO_VERSION` file and the root `CHANGELOG.md` in the repo win over it.
+- **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 11
 - **Skipped binary:** 0
 - **Paths not found:** 0
@@ -61,7 +61,7 @@ Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
 Output ONLY these three sections in order:
 1. **File Needed:** repo-root-relative path of each file created/edited.
 2. **Changelog:** bullets, brief summary of changes.
-3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands. Update to an existing project or the repo: deliver ONE attached `spec_v<N>.txt` (N = REPO_VERSION + 1, from Context7 `docs/where-we-left-off.md`) and the commands that build and run it (`python3 scripts/make_update_script.py ~/storage/downloads/spec_v<N>.txt --out-dir ~/storage/downloads --verify ~/MCPE-Curseforges`, then `bash ~/storage/downloads/<Name>_v<N>_*.sh`). New pack: the pack `.sh`.
+3. **Termux Script:** ONE fenced `bash` block holding the ready-to-run commands, and ONE generated self-contained `<Pack>_v<Version>_<rand>.sh` update script (built with `make_update_script.py`). The script contains the full UI, automatically pulls, applies edits safely, commits, and pushes.
 ---
 
 ## Skills
@@ -110,7 +110,7 @@ NEVER call `resolve-library-id`. NEVER query any other library.
 ## Scripts that must run
 
 - `make_pack_script.py`, `build_payload.py`, `import_project_payload.py`, `doc_template.py`, `pixel_json_to_png.py`, `make_update_script.py` and `apply_update.py` need their COMPLETE unchanged text. A Context7 snippet is not enough.
-- The complete files are in the kit zip (`New-Pack.zip`, `Maintenance.zip` or the pack's review zip `<Pack>.zip`) under `files/`. Unzip, run from there, NEVER retype or edit them.
+- The complete files are in the kit zip (`New-Pack.zip`, `Maintenance.zip` or the pack's review zip `<Pack>.zip`) under `files/`. Specifically, `make_update_script.py`, `apply_update.py`, `pixel_json_to_png.py`, and `docs/mcicons-index.md` are packaged under `files/`. Unzip, run from there, NEVER retype or edit them.
 - No zip and only partial text from a query: stop and ask the user to attach the zip. NEVER rewrite a script from memory.
 - A file attached in the conversation or read from a clone wins over the Context7 index. Context7 shows the repo as last indexed. Tell the user about any difference.
 
@@ -134,10 +134,10 @@ NEVER call `resolve-library-id`. NEVER query any other library.
 ````markdown
 ---
 name: mcpe-pack-update
-description: Use for any change to an existing project, workflow, script or doc in the MCPE-Curseforges repository (update, fix, add, rename). Delivers every change as ONE update spec file (spec_vN.txt) that the user turns into a Termux .sh with scripts/make_update_script.py. Not for read-only audits (use checkrm) and not for building a new project from an idea (use PACK_GENERATOR_INSTRUCTIONS.md Part 4).
+description: Use for any change to an existing project, workflow, script or doc in the MCPE-Curseforges repository (update, fix, add, rename). Delivers every change as ONE self-contained Termux update script (<Pack>_v<Version>_<rand>.sh) containing the spec and rich UI.
 ---
 
-# mcpe-pack-update: Update Spec Delivery
+# mcpe-pack-update: Update Delivery
 
 ## Authority
 
@@ -154,61 +154,30 @@ description: Use for any change to an existing project, workflow, script or doc 
 
 ## Procedure
 
-1. Read `INSTRUCTIONS.md` Parts 1 and 2 before writing anything, through Context7 as the `mcpe-context7` skill says. `make_update_script.py` and `apply_update.py` are complete in the pack's review zip (`<Pack>.zip`) under `files/`; run them from there.
-2. Find the destination folder: the path the user named, otherwise the matching project folder. Do not substitute a similar name; report ambiguity or a missing target. Ask at most one question, and only if the answer changes gameplay, compatibility, distribution, data loss or versioning.
-3. Read the real source (manifests, scripts, items, recipes, loot tables, functions, lang files) before writing any claim. Source priority when sources disagree, and report the disagreement: the project's own files, Mojang Bedrock Samples, official Minecraft Creator Documentation, Minecraft Wiki, Bedrock Wiki.
+1. Read `INSTRUCTIONS.md` Parts 1 and 2 before writing anything, through Context7 as the `mcpe-context7` skill says. `make_update_script.py`, `apply_update.py`, and `pixel_json_to_png.py` are complete in the pack's review zip (`<Pack>.zip`) under `files/`; run them from there.
+2. Find the destination folder: the path the user named, otherwise the matching project folder. Do not substitute a similar name; report ambiguity or a missing target.
+3. Read the real source (manifests, scripts, items, recipes, loot tables, functions, lang files) before writing any claim. Source priority when sources disagree: the project's own files, Mojang Bedrock Samples, official Minecraft Creator Documentation, Minecraft Wiki, Bedrock Wiki.
 4. Make the smallest possible change. No unrelated rewrites. Never invent features, versions, links, assets, test results or compatibility. Never write comments in shipped `.js`, `.mcfunction` or `.json` files.
-5. Write the spec (below), test it (below), then reply (below). For changes to an existing project, never deliver a .sh: this overrides any older "deliver the .sh" wording. A NEW pack still follows `mcpe-new-pack` and delivers its generated .sh.
+5. Generate the spec, convert it with `make_update_script.py` into a single self-contained `<Pack>_v<Version>_<rand>.sh` file, and provide the one-line run command for the user.
 
-## The spec
+## The update script
 
-File name: `spec_vN.txt`, a downloadable file. N = CURRENT VERSION + 1, read from the attached repo export, never guessed. The user builds the .sh on their phone with `scripts/make_update_script.py`.
-
-Format (`scripts/apply_update.py`):
-
-- Start: `@@ version vN`, then `@@ project MCPEDL/<Category>/<Name>`, then one `@@ file <path relative to the project>` block per file.
-- Directives: replace/with, replace-all, insert-after, insert-before, delete, append, create, overwrite, changelog. Remove files with `@@ delete-file <repo-root path>`.
-- Small change: replace/insert only. Anchors are copied from the attached export, never from memory, and must occur exactly once. Do not end an anchor with a newline.
-- Large redesign: `@@ overwrite` (new content must exceed 60% of the old file) or `@@ create` for new files. Never many fragile edits.
-- A content line that starts with `@@` is written `@@@`.
-- End with `@@ changelog <Update Name>` using `### Added`, `### Improved & Balanced`, `### Fixed` and `- **Title**: text`. Never touch manifest versions or README links.
-- New pixel textures: `@@ create` the pixel JSON under `texture_sources/`, then add the PNG step to the Termux commands.
-- Keep README.md and DESCRIPTION.md accurate (INSTRUCTIONS Part 2 template). Never claim an in-game test.
-
-**Test before delivering.** Apply the spec to the export text in the sandbox with `apply_update.py` (`--dry-run`, then a real run on a copy). Check every anchor, validate each changed JSON, run `node --check` on JS. Report every check not run.
-
-## Versions
-
-- N is the current version from the attached export plus one. `apply_update.py` rejects a stale version, so a stale spec cannot run on a newer repo.
-- Never edit manifest versions or the README version or download link. The auto-version-bump workflow does that on push.
-
-## Docs
-
-- The changelog entry is mandatory on every update and is written with the final `@@ changelog <Update Name>` directive. Never edit or delete older entries; correct them in the new entry.
-- After the change, check the README.md and DESCRIPTION.md in the destination. Edit them only if the change makes them inaccurate or incomplete. Never remove verified content.
-- Follow the Part 2 templates in `INSTRUCTIONS.md` exactly (`scripts/doc_template.py` fails the build on deviation): same headings, same heading text, same order, same labels, no added sections, no boilerplate, no placeholders. README is version-free and DESCRIPTION has no release version in its title.
-- Writing, layout, attribution, keywords and the README and DESCRIPTION templates are defined in `INSTRUCTIONS.md` Part 2. Read them there; do not copy them into the script from memory.
+Generate the spec with `apply_update.py` directives (replace, replace-all, insert-after, insert-before, create, overwrite, delete, changelog).
+Then build the single `.sh` using:
+```bash
+python3 files/scripts/make_update_script.py spec.txt --out-dir .
+```
+This produces ONE single `.sh` file (`<PackName>_v<Version>_<rand>.sh`) that contains the embedded update payload, ANSI colored status UI, automated git rebase, validation checks, commit, and push.
 
 ## Reply
 
-1. `spec_vN.txt` as a downloadable file.
-2. These Termux commands, with N and the project filled in:
-
+1. Attach or output the single `.sh` file (`<PackName>_v<Version>_<rand>.sh`).
+2. Give the single Termux command:
+```bash
+bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 ```
-cd ~/MCPE-Curseforges && git checkout -- Package changelog_views && git pull --rebase --autostash
-python3 scripts/make_update_script.py ~/storage/downloads/spec_vN.txt --out-dir ~/storage/downloads --verify ~/MCPE-Curseforges
-bash ~/storage/downloads/<Name>_vN_*.sh
-```
-
-Only when textures changed, then:
-
-```
-python3 scripts/pixel_json_to_png.py MCPEDL/<Category>/<Name>
-git add MCPEDL/<Category>/<Name>/resource_pack/textures
-git commit -m "<short>" && git pull --rebase --autostash && git push
-```
-
-3. Two or three sentences: what changed, which checks ran, what is unverified. Add `Docs queried (YYYY-MM-DD): <library IDs and topics>`.
+3. Brief summary of what changed and what checks ran.
+4. **Save in AI memory**: Every finished output, applied change summary, and spec version must be retained in AI memory/scratch notes so context is preserved across turns without relying on session replay.
 ````
 
 
