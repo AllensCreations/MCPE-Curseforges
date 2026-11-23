@@ -125,12 +125,14 @@ class DescriptionViewTests(unittest.TestCase):
             for sub, names in (("snapshots", ["10-Late.png", "2-Early.gif"]), ("recipes", ["Helmet-recipe.png", "Used.png"]),
                                ("items", ["Mining-Helmet.png"])):
                 (pack / "assets" / sub).mkdir(parents=True)
-                for n in names:
-                    (pack / "assets" / sub / n).write_bytes(b"x")
+                for i, n in enumerate(names):
+                    (pack / "assets" / sub / n).write_bytes(f"content-{sub}-{i}".encode())
+            (pack / "assets" / "items" / "Z-Mining-Helmet-dup.png").write_bytes(b"content-items-0")  # duplicate of Mining-Helmet.png
             (pack / "assets" / "snapshots" / "notes.txt").write_text("ignore")
             m = bdv.find_media(root, pack, "already ![x](u/Used.png)")
             self.assertEqual([c for _, c in m["snapshots"]], ["Early", "Late"])  # natural order, .txt ignored
             self.assertEqual([c for _, c in m["recipes"]], ["Helmet recipe"])      # Used.png is in DESCRIPTION.md
+            self.assertEqual([c for _, c in m["items"]], ["Mining Helmet"])        # duplicate by content deduplicated
             for st in bdv.STYLES:
                 h = bdv.render(self.md, "Demo-Pack", style=st, media=m)
                 self.assertEqual(bdv.check_html(h), [])

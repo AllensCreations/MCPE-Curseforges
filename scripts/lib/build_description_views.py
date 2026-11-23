@@ -431,13 +431,26 @@ def _natural(name):
 
 
 def find_media(root, project, md_text=""):
-    """{'snapshots': [(url, caption)], 'items': [...], 'recipes': [...]}; files already used in DESCRIPTION.md are skipped."""
+    """{'snapshots': [(url, caption)], 'items': [...], 'recipes': [...]}; files already used in DESCRIPTION.md are skipped.
+    Duplicate images (identical file content hash) are deduplicated so each asset is shown only once."""
     out = {}
     for kind in MEDIA_KINDS:
         folder = project / "assets" / kind
         files = [f for f in folder.iterdir() if f.is_file() and f.suffix.lower() in IMG_EXT] if folder.is_dir() else []
-        out[kind] = [(RAW + quote(f.relative_to(root).as_posix()), caption_from(f.name))
-                     for f in sorted(files, key=lambda f: _natural(f.name)) if f.name not in md_text]
+        seen_hashes = set()
+        entries = []
+        for f in sorted(files, key=lambda f: _natural(f.name)):
+            if f.name in md_text:
+                continue
+            try:
+                h = hashlib.sha256(f.read_bytes()).hexdigest()
+                if h in seen_hashes:
+                    continue
+                seen_hashes.add(h)
+            except OSError:
+                pass
+            entries.append((RAW + quote(f.relative_to(root).as_posix()), caption_from(f.name)))
+        out[kind] = entries
     return out
 
 
