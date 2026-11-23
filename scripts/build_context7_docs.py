@@ -4,7 +4,6 @@
 docs/ is the ONLY folder Context7 indexes (context7.json). Two pages are copies and are rebuilt here:
   docs/instructions-reference.md   INSTRUCTIONS.md + DOCS_RULES.md + PACK_GENERATOR_INSTRUCTIONS.md (lines the generator repeats from INSTRUCTIONS.md are omitted)
   docs/scripts-and-workflows.md    one summary per script (module docstring) and per workflow, plus key snippets
-  docs/where-we-left-off.md        REPO_VERSION, next spec number, newest spec ledger entries and each project's latest version
 docs/bedrock-guide.md is written by hand and is never touched.
 
 Usage: python3 scripts/build_context7_docs.py [--check]
@@ -158,7 +157,7 @@ def mcicons_page():
 
 
 def main():
-    pages = {"instructions-reference.md": instructions_page(), "scripts-and-workflows.md": scripts_page(), "where-we-left-off.md": ledger_page()}
+    pages = {"instructions-reference.md": instructions_page(), "scripts-and-workflows.md": scripts_page()}
     mc = mcicons_page()
     if mc:
         pages["mcicons-index.md"] = mc

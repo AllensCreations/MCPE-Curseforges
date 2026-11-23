@@ -41,12 +41,42 @@ SCRIPT_NAME="@@SCRIPT@@"
 REPO="@@REPO@@"
 VERSION="@@VERSION@@"
 DEST="@@PROJECT@@"
-cd "$HOME"
-[ -d "$HOME/MCPE-Curseforges" ] || git clone "$REPO" "$HOME/MCPE-Curseforges"
-cd "$HOME/MCPE-Curseforges"
-git checkout -q -- Package changelog_views 2>/dev/null || true
-git pull --rebase --autostash
-[ -f scripts/apply_update.py ] || { echo "ERROR: scripts/apply_update.py is missing in the repo. Apply the Search-Replace-Update script first."; exit 1; }
+
+# Color constants
+C_RESET="\033[0m"
+C_BOLD="\033[1m"
+C_DIM="\033[2m"
+C_GREEN="\033[1;32m"
+C_CYAN="\033[1;36m"
+C_YELLOW="\033[1;33m"
+C_RED="\033[1;31m"
+C_BLUE="\033[1;34m"
+
+ui_banner() {
+  echo -e "\n${C_CYAN}┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓${C_RESET}"
+  echo -e "${C_CYAN}┃${C_RESET} ${C_BOLD}ALNStudios MCPE Installer${C_RESET}                             ${C_CYAN}┃${C_RESET}"
+  echo -e "${C_CYAN}┃${C_RESET} Target:  ${C_YELLOW}$DEST${C_RESET}"
+  echo -e "${C_CYAN}┃${C_RESET} Version: ${C_GREEN}v$VERSION${C_RESET}"
+  echo -e "${C_CYAN}┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛${C_RESET}\n"
+}
+
+ui_step() {
+  echo -e " ${C_CYAN}▸${C_RESET} ${C_BOLD}$1${C_RESET}"
+}
+
+ui_ok() {
+  echo -e "   ${C_GREEN}✔${C_RESET} $1"
+}
+
+ui_warn() {
+  echo -e "   ${C_YELLOW}⚠${C_RESET} $1"
+}
+
+ui_err() {
+  echo -e "   ${C_RED}✖ $1${C_RESET}"
+}
+
+ui_banner
 
 SPEC="$(mktemp)"
 EDITS="$(mktemp)"
@@ -60,22 +90,46 @@ cleanup() {
     git reset -q 2>/dev/null || true
     git checkout -q -- . 2>/dev/null || true
     [ "$DEST" != "." ] && git clean -fdq -- "$DEST" 2>/dev/null || true
-    echo "Failed. Nothing was pushed."
+    echo -e "\n${C_RED}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${C_RESET}"
+    ui_err "Update failed! Working tree was cleanly rolled back."
+    echo -e "${C_RED}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${C_RESET}\n"
   fi
 }
 trap cleanup EXIT
 
+cd "$HOME"
+if [ ! -d "$HOME/MCPE-Curseforges" ]; then
+  ui_step "Cloning repository..."
+  git clone "$REPO" "$HOME/MCPE-Curseforges"
+  ui_ok "Repository cloned"
+fi
+
+cd "$HOME/MCPE-Curseforges"
+git checkout -q -- Package changelog_views 2>/dev/null || true
+
+ui_step "Pulling latest upstream changes..."
+git pull --rebase --autostash
+ui_ok "Repository up to date"
+
+[ -f scripts/apply_update.py ] || { ui_err "scripts/apply_update.py missing in repo."; exit 1; }
+
+ui_step "Extracting embedded update payload..."
 sed -n '/^#--- ALN UPDATE BEGIN ---$/,/^#--- ALN UPDATE END ---$/p' "$SELF" | sed '1d;$d' | sed 's/^#//' > "$SPEC"
-[ -s "$SPEC" ] || { echo "ERROR: the edit block is missing from this file."; exit 1; }
+[ -s "$SPEC" ] || { ui_err "Edit block missing from this file."; exit 1; }
 
 grep '^@@ delete-file ' "$SPEC" | sed 's/^@@ delete-file //' > "$DELETES" || true
 grep -v '^@@ delete-file ' "$SPEC" > "$EDITS" || true
+ui_ok "Payload verified"
 
+ui_step "Applying edits and validating..."
 DATE="$(TZ=Asia/Singapore date +%F)"
 python3 scripts/apply_update.py "$EDITS" --date "$DATE" --touched "$TOUCHED"
+ui_ok "Edits applied cleanly"
 
 if git diff --name-only | grep -q "INSTRUCTIONS.md"; then
+  ui_step "Validating instruction files..."
   python3 scripts/check_instruction_files.py
+  ui_ok "Instructions check passed"
 fi
 
 while IFS= read -r pat; do
@@ -83,23 +137,34 @@ while IFS= read -r pat; do
   found=0
   while IFS= read -r -d '' f; do
     git rm -q -f -- "$f"
-    echo "deleted  $f"
+    ui_ok "Deleted: $f"
     found=1
   done < <(git ls-files -z -- ":(glob)$pat")
-  [ "$found" = "1" ] || echo "skipped  $pat (no tracked file matches)"
+  [ "$found" = "1" ] || ui_warn "Skipped: $pat (no tracked file matches)"
 done < "$DELETES"
 
 while IFS= read -r f; do
   [ -n "$f" ] && git add -- "$f"
 done < "$TOUCHED"
+
+ui_step "Finalizing git commit and sync..."
 if git diff --cached --quiet; then
-  echo "Nothing to commit"
+  ui_warn "Nothing to commit (already applied)"
 else
   git commit -m "chore: update $DEST to v$VERSION"
   git push
+  ui_ok "Pushed to GitHub main"
 fi
+
 DONE=1
 rm -f -- "$SELF"
+
+echo -e "\n${C_GREEN}┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓${C_RESET}"
+echo -e "${C_GREEN}┃${C_RESET} ${C_BOLD}UPDATE COMPLETE!${C_RESET}                                      ${C_GREEN}┃${C_RESET}"
+echo -e "${C_GREEN}┃${C_RESET} Package ${C_BOLD}$DEST${C_RESET} is now on ${C_GREEN}v$VERSION${C_RESET}."
+echo -e "${C_GREEN}┃${C_RESET} Temporary script removed cleanly.                       ${C_GREEN}┃${C_RESET}"
+echo -e "${C_GREEN}┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛${C_RESET}\n"
+
 exit 0
 @@BLOCK@@
 '''

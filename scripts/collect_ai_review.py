@@ -141,7 +141,7 @@ def build_kit(root, kit, out, label):
     if files:
         parts.append(f"The complete, unchanged scripts this task has to RUN are in the same kit zip as this file, under `files/`: unzip and run them, never retype them.\n")
         parts += [f"- `files/{rel}`" for rel, _ in files] + [""]
-    parts += ["Current REPO_VERSION, the next spec number and the newest specs: Context7 `docs/where-we-left-off.md` (library `/allenscreations/mcpe-curseforges`). The `REPO_VERSION` file and the root `CHANGELOG.md` in the repo win over it.\n"]
+    parts += ["Project version and release notes: see the pack's own `CHANGELOG.md`. The repo's files win over any cached Context7 index.\n"]
     parts += ["## Directories\n", directory_map(root), ""]
     for rel, text in skills:
         f = _fence(text)
@@ -193,7 +193,7 @@ Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
 Output ONLY these three sections in order:
 1. **File Needed:** repo-root-relative path of each file created/edited.
 2. **Changelog:** bullets, brief summary of changes.
-3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands. Update to an existing project or the repo: deliver ONE attached `spec_v<N>.txt` (N = REPO_VERSION + 1, from Context7 `docs/where-we-left-off.md`) and the commands that build and run it (`python3 scripts/make_update_script.py ~/storage/downloads/spec_v<N>.txt --out-dir ~/storage/downloads --verify ~/MCPE-Curseforges`, then `bash ~/storage/downloads/<Name>_v<N>_*.sh`). New pack: the pack `.sh`.
+3. **Termux Script:** ONE fenced `bash` block holding the ready-to-run commands, and ONE generated self-contained `<Pack>_v<Version>_<rand>.sh` update script (built with `make_update_script.py`). The script contains the full UI, automatically pulls, applies edits safely, commits, and pushes.
 '''
 
 raw_paths = [p.strip().strip("'\"") for p in re.split(r"[,\n]", os.environ["PATHS"]) if p.strip()]
@@ -369,7 +369,7 @@ name = f"{label}.txt"
 index = ["- **Export request:** " + ", ".join(f"`{r}`" for r in raw_paths),
          "- **Destination:** " + ", ".join(f"`{d}`" for d in dests)]
 index += [f"- **{v.split('  (')[0]}**  (`{v.split('  (')[1].rstrip(')')}`)" for v in version_lines]
-index.append("- **Current version:** Current REPO_VERSION, the next spec number and the newest specs: Context7 `docs/where-we-left-off.md` (library `/allenscreations/mcpe-curseforges`). The `REPO_VERSION` file and the root `CHANGELOG.md` in the repo win over it.")
+index.append("- **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.")
 index += [f"- **Text files:** {len(files)}", f"- **Skipped binary:** {len(skipped)}", f"- **Paths not found:** {len(missing)}", "", "### Files in this export", ""]
 index += [f"- `{r}`" for r in inline]
 if not_inlined:

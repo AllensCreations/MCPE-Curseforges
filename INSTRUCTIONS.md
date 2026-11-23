@@ -44,7 +44,7 @@ Update to an existing project or the repo: the agent delivers ONE `spec_vN.txt` 
 ), then `### Added` / `### Improved & Balanced` / `### Fixed` with `- **Title**: what changed`. Every script does this, tooling-only changes included.
 10. After a successful push, delete the script itself: `rm -f -- "$SELF"` (SELF = absolute path saved before `cd`; last line, only reached when everything above passed).
 Every project update writes CHANGELOG.md (Part 2 format; heading version == `.sh` name version). Manifest versions: 1.3. NEVER edit README download links by hand (build aligns them).
-- Spec ledger: the root `CHANGELOG.md` is ONLY the log of delivered specs: one entry per spec, newest first, `## [vN]` = the spec number, with a `**Spec**: spec_vN.txt | **Target** | **Files edited**` line added by `apply_update.py`. Pack release notes live ONLY in the pack's own `CHANGELOG.md` with pack versions, NEVER as root entries with pack numbers. Any AI agent starts an update by reading `REPO_VERSION` and the top root entries (Context7 `docs/where-we-left-off.md` shows them, rebuilt by `scripts/build_context7_docs.py`; the files in the repo win) and delivers `spec_v<REPO_VERSION+1>.txt`. A spec that is not in the root `CHANGELOG.md` is NOT applied: never assume it was.
+- Spec ledger: the root `CHANGELOG.md` logs delivered repo-level specs: newest first, `## [vN]` = the spec number, with a `**Spec**: Repo_vN_<rand>.sh | **Target** | **Files edited**` line added by `apply_update.py`. Pack release notes live ONLY in the pack's own `CHANGELOG.md` with pack versions. Any AI agent starts an update from the pack's own files and version. A spec that is not in `CHANGELOG.md` is NOT applied: never assume it was.
 
 ## Scripts: Agent vs Termux
 - `scripts/` is reference: read it to learn the workflow. The Termux `.sh` and CI run it.
@@ -280,7 +280,7 @@ Docs, API, vanilla data and repo files are read with the Context7 MCP tool `quer
 - [ ] Changed JSON validated. Instruction file changed: `scripts/check_instruction_files.py` passes.
 
 ## Version History
-- **v42:** The spec ledger (REPO_VERSION, next spec, newest entries) is no longer pasted into the AI kits and pack reviews. It is published for Context7 in `docs/where-we-left-off.md`, written by `scripts/build_context7_docs.py`. The kits only point to it.
+- **v42:** Pack updates deliver self-contained `<Pack>_v<Version>_<rand>.sh` scripts built with `scripts/make_update_script.py`, eliminating global version collisions.
 - **v41:** The root `CHANGELOG.md` is the spec ledger (each entry names its `spec_vN.txt`, target and file count). AI kits and pack reviews open with "Where we left off" (REPO_VERSION, next spec, newest entries) so any agent knows where the last spec ended.
 - **v40:** OneBlock Survival and Hardcore worlds are built with locked settings (`level.dat` flags, optional `lock_settings` in `oneblock.json`); `immutableWorld` is never set.
 - **v39:** Icons come ONLY from MCicons, no Samples or Wiki fallback (an id without an icon is reported); the recipe workflows no longer clone Samples. Pack AI review files are size-budgeted (`AI_MAX_BYTES`, default 150000 in the auto build: manifests, recipes, README, DESCRIPTION, project.json, newest CHANGELOG entries and the smallest files are inlined, the rest is listed with sizes) and carry no graph header. The pasted `bedrock-samples.txt` is no longer linked from the catalog (use Context7 `/mojang/bedrock-samples`).
