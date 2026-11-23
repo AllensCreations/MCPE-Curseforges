@@ -75,3 +75,4 @@ git commit -m "<short>" && git pull --rebase --autostash && git push
 ```
 
 3. Two or three sentences: what changed, which checks ran, what is unverified. Add `Docs queried (YYYY-MM-DD): <library IDs and topics>`.
+4. **Save in AI memory**: Every finished output, applied change summary, and spec version must be retained in AI memory/scratch notes so context is preserved across turns without relying on session replay.

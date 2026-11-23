@@ -40,7 +40,7 @@ Full wording is in `DOCS_RULES.md`, Section 3.2.
    4. `python3 scripts/check_readme_status.py` again. Expect `0` needing update and `[LINK INTEGRITY] All relative links valid`.
    5. For projects under `MCPEDL/Addons/`, check the `LOCK` marker (Part 1, Section 3). Report the exact path of any missing or invalid marker and do not call the project build-ready.
    6. Review the final diff for scope. If a check was not run, say so.
-9. **Report.** Projects audited or updated; files changed; commands run and results; missing assets, unresolved links, or unverifiable information; projects still needing attention. Never report success for a check that was not run or did not pass, and never claim every project was audited if some were inaccessible.
+9. **Report.** Projects audited or updated; files changed; commands run and results; missing assets, unresolved links, or unverifiable information; projects still needing attention. Never report success for a check that was not run or did not pass, and never claim every project was audited if some were inaccessible. Every finished output and audit conclusion must always be saved in AI memory for ongoing session and future task continuity.
 
 ## Bulk remake
 

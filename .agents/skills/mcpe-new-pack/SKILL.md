@@ -46,3 +46,4 @@ description: Create a NEW addon, map, script or minigame for the MCPE-Curseforge
 - [ ] SELF-TEST PASSED, PACK SCRIPT OK and BUILD OK were printed by a real run; exactly one `.sh` exists.
 - [ ] No `DOC:` failures, no STYLE hints, no placeholders, no `test_world.json`, no `assets/` in the payload.
 - [ ] Reply = **File Needed**, **Changelog**, **Termux Script**, in that order, no text before, between or after, no Summary. The `.sh` is attached, never pasted.
+- [ ] Finished output saved in AI memory: the pack name, version, and generation details are saved in persistent AI memory.
