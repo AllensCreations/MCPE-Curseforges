@@ -2,6 +2,14 @@
 
 ---
 
+## [v12] - 2026-11-23 - Automation List
+
+### Added
+- **Auto Stock**: While the Restock Feather is in your inventory, your backpack items are sent every 5 seconds into nearby containers that already hold the same item. The hotbar and the feathers are never moved.
+
+### Improved & Balanced
+- **Automation List**: The Automatic Restock toggle in the Sort Settings Book is now an Automation list with Off, Auto Stock and Auto Restock. Players who had Automatic Restock on are moved to Auto Restock.
+
 ## [v11] - 2026-11-23 - Auto Restock and Chest Lock
 
 ### Added

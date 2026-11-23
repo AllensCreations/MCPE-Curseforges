@@ -158,7 +158,7 @@ function contentSignature(container) {
   return s;
 }
 
-function findNearbyContainers(player) {
+function findNearbyContainers(player, includeLocked = false) {
   const dim = player.dimension;
   const o = player.location;
   const cx = Math.floor(o.x), cy = Math.floor(o.y), cz = Math.floor(o.z);
@@ -176,7 +176,7 @@ function findNearbyContainers(player) {
         if (!block || !isSortableContainer(block.typeId)) continue;
         const container = block.getComponent("minecraft:inventory")?.container;
         if (!container) continue;
-        if (isLockedContainer(block, container)) continue;
+        if (!includeLocked && isLockedContainer(block, container)) continue;
 
         if (container.size === 54) {
           const sig = contentSignature(container);
@@ -196,6 +196,70 @@ function findNearbyContainers(player) {
     }
   }
   return found;
+}
+
+function hasStockableItem(backpack) {
+  for (let i = 9; i <= 35; i++) {
+    const it = backpack.getItem(i);
+    if (it && !isAutoSortFeather(it) && !isRestockFeather(it)) return true;
+  }
+  return false;
+}
+
+function autoStock(player) {
+  const prefs = getPrefs(player);
+  const backpack = getBackpack(player);
+  if (!hasStockableItem(backpack)) return;
+  const targets = findNearbyContainers(player, true);
+  if (targets.length === 0) return;
+
+  const typeSets = targets.map((t) => {
+    const set = new Set();
+    for (let i = 0; i < t.container.size; i++) {
+      const it = t.container.getItem(i);
+      if (it) set.add(it.typeId);
+    }
+    return set;
+  });
+
+  let movedItems = 0;
+  const touched = new Set();
+
+  for (let slot = 9; slot <= 35; slot++) {
+    let item = backpack.getItem(slot);
+    if (!item || isAutoSortFeather(item) || isRestockFeather(item)) continue;
+    let changed = false;
+
+    for (let t = 0; t < targets.length && item; t++) {
+      if (!typeSets[t].has(item.typeId)) continue;
+      const before = item.amount;
+      let leftover;
+      try {
+        leftover = targets[t].container.addItem(item);
+      } catch {
+        continue;
+      }
+      const after = leftover ? leftover.amount : 0;
+      if (after < before) {
+        movedItems += before - after;
+        touched.add(t);
+        changed = true;
+      }
+      item = leftover;
+    }
+    if (changed) backpack.setItem(slot, item);
+  }
+
+  if (movedItems === 0) return;
+  for (const t of touched) {
+    const c = targets[t].container;
+    sortContainer(c, 0, c.size - 1, prefs.sortMode);
+  }
+  feedback(
+    player,
+    prefs,
+    `§b[Stock] §fAuto-stocked §e${movedItems} §fitems into §a${touched.size} §fnearby chests!`
+  );
 }
 
 function stockChest(player, block) {
@@ -405,11 +469,14 @@ export function registerTriggers() {
   system.runInterval(() => {
     for (const player of world.getAllPlayers()) {
       try {
-        if (!getPrefs(player).autoRestock) continue;
+        const mode = getPrefs(player).automation;
+        if (mode === 0) continue;
         const inv = getBackpack(player);
         let hasFeather = false;
         for (let i = 0; i <= 35 && !hasFeather; i++) hasFeather = isRestockFeather(inv.getItem(i));
-        if (hasFeather) restock(player, true);
+        if (!hasFeather) continue;
+        if (mode === 1) autoStock(player);
+        else restock(player, true);
       } catch {
       }
     }

@@ -4,6 +4,16 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v255] - 2026-11-23 - Automation List
+
+**Spec**: spec_v255.txt | **Target**: MCPEDL/Addons/ALNOneClickSort | **Files edited**: 4
+
+### Added
+- **Auto Stock**: While the Restock Feather is in your inventory, your backpack items are sent every 5 seconds into nearby containers that already hold the same item. The hotbar and the feathers are never moved.
+
+### Improved & Balanced
+- **Automation List**: The Automatic Restock toggle in the Sort Settings Book is now an Automation list with Off, Auto Stock and Auto Restock. Players who had Automatic Restock on are moved to Auto Restock.
+
 ## [v254] - 2026-11-23 - Include Pixel To PNG and MCIcons Index in Kits
 
 **Spec**: spec_v254.txt | **Target**: repo | **Files edited**: 3

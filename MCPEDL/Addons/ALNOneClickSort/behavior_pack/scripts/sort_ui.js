@@ -7,7 +7,8 @@ const SORT_MODES = [
   "Alphabetical (A-Z)",
   "Stack Quantity (Highest First)",
 ];
-const DEFAULTS = { sortMode: 0, includeHotbar: false, soundFeedback: true, keepOneInChest: false, getEverything: false, autoRestock: false };
+const AUTOMATION_MODES = ["Off", "Auto Stock", "Auto Restock"];
+const DEFAULTS = { sortMode: 0, includeHotbar: false, soundFeedback: true, keepOneInChest: false, getEverything: false, automation: 0 };
 
 export function getPrefs(player) {
   try {
@@ -20,7 +21,12 @@ export function getPrefs(player) {
         soundFeedback: p.soundFeedback !== false,
         keepOneInChest: p.keepOneInChest === true,
         getEverything: p.getEverything === true,
-        autoRestock: p.autoRestock === true,
+        automation:
+          Number.isInteger(p.automation) && p.automation >= 0 && p.automation < 3
+            ? p.automation
+            : p.autoRestock === true
+              ? 2
+              : 0,
       };
     }
   } catch {
@@ -48,7 +54,7 @@ export function openSettings(player, attempt = 0) {
     .toggle("Audio & Particle Feedback", { defaultValue: prefs.soundFeedback })
     .toggle("Leave 1 Item in Chest When Restocking", { defaultValue: prefs.keepOneInChest })
     .toggle("Get Everything When Restocking (Not Just One Stack)", { defaultValue: prefs.getEverything })
-    .toggle("Automatic Restock (Needs Restock Feather in Inventory)", { defaultValue: prefs.autoRestock });
+    .dropdown("Automation (Needs Restock Feather in Inventory)", AUTOMATION_MODES, { defaultValueIndex: prefs.automation });
 
   form
     .show(player)
@@ -59,14 +65,14 @@ export function openSettings(player, attempt = 0) {
         }
         return;
       }
-      const [mode, hotbar, sound, keepOne, getAll, autoRst] = res.formValues;
+      const [mode, hotbar, sound, keepOne, getAll, auto] = res.formValues;
       savePrefs(player, {
         sortMode: Number(mode),
         includeHotbar: !!hotbar,
         soundFeedback: !!sound,
         keepOneInChest: !!keepOne,
         getEverything: !!getAll,
-        autoRestock: !!autoRst,
+        automation: Number(auto),
       });
       player.onScreenDisplay.setActionBar("§a[OneClickSort] §fSettings saved!");
     })

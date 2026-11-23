@@ -40,13 +40,13 @@ Hold the Auto-Sort Feather in your hand. Right-click to sort your backpack, or s
 - **How It Works**: Both halves of a double chest lock together, and a message tells you whether the container is now locked or unlocked.
 - **Good To Know**: A lock only stops Restock from taking items. You can still open, sort and stock the container, and any player can unlock it.
 
-### Automatic Restock
-- **What Happens**: Turn on Automatic Restock in Sort Settings and your partial stacks are topped up from nearby containers every 5 seconds without a click.
+### Automation
+- **What Happens**: Pick Off, Auto Stock or Auto Restock from the Automation list in Sort Settings. Auto Restock tops up your partial stacks from nearby containers every 5 seconds, and Auto Stock sends your backpack items into nearby containers that already hold them.
 - **How It Works**: Keep the Restock Feather anywhere in your inventory and stay within 6 blocks of your containers. A message appears only when items were moved.
-- **Good To Know**: It only tops up stacks you already hold, ignores Get Everything, skips locked containers and is off by default.
+- **Good To Know**: Only one mode runs at a time and it is off by default. Auto Restock ignores Get Everything and skips locked containers, and Auto Stock never moves the hotbar or the feathers.
 
 ### Sort Settings
-- **What Happens**: Right-click the Sort Settings Book to open a menu with six options: Sort Order, Sort Hotbar Slots, Audio and Particle Feedback, Leave 1 Item in Chest, Get Everything and Automatic Restock.
+- **What Happens**: Right-click the Sort Settings Book to open a menu with six options: Sort Order, Sort Hotbar Slots, Audio and Particle Feedback, Leave 1 Item in Chest, Get Everything and Automation.
 - **How It Works**: Choose Smart Category, Alphabetical (A-Z) or Stack Quantity (Highest First), then confirm.
 - **Good To Know**: Each player keeps their own settings, which stay saved between sessions.
 
