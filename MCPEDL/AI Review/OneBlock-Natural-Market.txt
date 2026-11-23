@@ -5,8 +5,9 @@
 - **Export request:** `MCPEDL/Maps/OneBlock-Natural-Market`
 - **Destination:** `MCPEDL/Maps/OneBlock-Natural-Market`
 - **CURRENT VERSION: v16 / NEXT UPDATE: v17**  (`MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md`)
+- **Spec ledger:** REPO_VERSION 248; the next spec is `spec_v249.txt` (newest specs are listed in the root `CHANGELOG.md`)
 - **Text files:** 17
-- **Skipped binary:** 231
+- **Skipped binary:** 232
 - **Paths not found:** 0
 
 ### Files in this export
@@ -29,7 +30,7 @@
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/ASSET-NOTICE.md`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/ui_chest_disabled/server_form.json`
 
-### Skipped (binary): 231 file(s)
+### Skipped (binary): 232 file(s)
 
 - `MCPEDL/Maps/OneBlock-Natural-Market/OneBlock Natural Market - Creative.mcworld`
 - `MCPEDL/Maps/OneBlock-Natural-Market/OneBlock Natural Market - Hardcore.mcworld`
@@ -71,7 +72,7 @@
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/bucket.png`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/cake.png`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/calcite.png`
-- ... and 191 more
+- ... and 192 more
 
 ---
 
@@ -85,7 +86,7 @@ Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 - **Mode**: UPDATE existing package (CURRENT VERSION: v16 / NEXT UPDATE: v17).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
-- Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
+- Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
 - Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
 
 ## Destination
@@ -110,7 +111,7 @@ Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
 Output ONLY these three sections in order:
 1. **File Needed:** repo-root-relative path of each file created/edited.
 2. **Changelog:** bullets, brief summary of changes.
-3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands. Update to an existing project or the repo: deliver ONE attached `spec_v<N>.txt` (N = REPO_VERSION + 1, see "Spec ledger" above) and the commands that build and run it (`python3 scripts/make_update_script.py ~/storage/downloads/spec_v<N>.txt --out-dir ~/storage/downloads --verify ~/MCPE-Curseforges`, then `bash ~/storage/downloads/<Name>_v<N>_*.sh`). New pack: the pack `.sh`.
 
 ---
 
@@ -198,13 +199,13 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v16.0.3)",
+    "name": "OneBlock Natural Market (v16.0.4)",
     "description": "OneBlock survival with a progression market and regenerating core. by ALNStudios",
     "uuid": "77f07d1a-fa7a-437d-8fea-72068be05162",
     "version": [
       16,
       0,
-      3
+      4
     ],
     "min_engine_version": [
       1,
@@ -219,7 +220,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "version": [
         16,
         0,
-        3
+        4
       ]
     },
     {
@@ -229,7 +230,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "version": [
         16,
         0,
-        3
+        4
       ],
       "entry": "scripts/main.js"
     }
@@ -240,7 +241,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "version": [
         16,
         0,
-        3
+        4
       ]
     },
     {
@@ -257,7 +258,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "16.0.3"
+    "version": "16.0.4"
   }
 }
 ```
@@ -310,7 +311,7 @@ Extracted from the script files; nothing here was run in game.
 Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (734 lines, 40468 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (808 lines, 43968 bytes)
 
 ```
 import { world, system, ItemStack, ItemTypes } from "@minecraft/server";
@@ -795,12 +796,12 @@ function marketMain(player) {
       "\nShared breaks: " + totalBreaks() + "\nUnlocked tier: " + (unlockedTier(player) + 1) + " / " + MILESTONES.length + "\n\nChoose a market section.");
   for (const c of CATEGORIES) form.button(c.name, c.icon);
   form
-    .button("Sell Eligible Items", "textures/items/gold_ingot")
+    .button("Sell Items", MCICON_DIR + "gold_ingot")
     .button("About", "textures/ui/icon_recipe_nature");
   showForm(form, player).then(r => {
     if (r.canceled) return;
     if (r.selection < CATEGORIES.length) return showCategory(player, CATEGORIES[r.selection].name);
-    if (r.selection === CATEGORIES.length) return sellEligible(player);
+    if (r.selection === CATEGORIES.length) return showSellMenu(player);
     if (r.selection === CATEGORIES.length + 1) return showAbout(player);
   }).catch(e => { logError("marketMain", e); tell(player, "The market menu could not open. Try using the Ledger again."); });
 }
@@ -865,14 +866,88 @@ function scanSellable(inv, values) {
   }
   return { slots, payout, count };
 }
-function sellEligible(player) {
+const LOCK_PREFIX = "obm_locks_";
+const DEFAULT_LOCKED = new Set(CATALOG
+  .filter(item => (item.category === "Tools & Gear" || item.category === "Combat") &&
+    /(pickaxe|_axe|_shovel|_hoe|_sword)$|^(shears|fishing_rod|bow|crossbow|trident|shield)$/.test(item.raw))
+  .map(item => item.raw));
+function lockOverrides(player) {
+  try {
+    const raw = world.getDynamicProperty(LOCK_PREFIX + player.name);
+    const data = typeof raw === "string" ? JSON.parse(raw) : {};
+    return data && typeof data === "object" && !Array.isArray(data) ? data : {};
+  } catch { return {}; }
+}
+function isLocked(overrides, item) {
+  return Object.prototype.hasOwnProperty.call(overrides, item.raw) ? overrides[item.raw] === 1 : DEFAULT_LOCKED.has(item.raw);
+}
+function setLocked(player, items, locked) {
+  const data = lockOverrides(player);
+  for (const item of items) {
+    if (locked === DEFAULT_LOCKED.has(item.raw)) delete data[item.raw];
+    else data[item.raw] = locked ? 1 : 0;
+  }
+  try {
+    world.setDynamicProperty(LOCK_PREFIX + player.name, JSON.stringify(data));
+    return true;
+  } catch (e) {
+    logError("setLocked", e);
+    tell(player, "Your lock list could not be saved.");
+    return false;
+  }
+}
+function showSellMenu(player) {
   const inv = inventoryOf(player);
   if (!inv) return tell(player, "Your inventory is unavailable.");
-  const values = new Map(CATALOG.map(item => [item.id, item.sell]));
+  const itemById = new Map(CATALOG.map(item => [item.id, item]));
+  const totals = new Map();
+  for (let i = 0; i < inv.size; i++) {
+    const stack = inv.getItem(i);
+    const item = stack && itemById.get(stack.typeId);
+    if (item) totals.set(item, (totals.get(item) ?? 0) + stack.amount);
+  }
+  const owned = [...totals].sort((a, b) => a[0].name.localeCompare(b[0].name));
+  if (!owned.length) return tell(player, "You have no market items to sell.");
+  const locks = lockOverrides(player);
+  let payout = 0, sellCount = 0, lockedCount = 0;
+  for (const [item, amount] of owned) {
+    if (isLocked(locks, item)) lockedCount += amount;
+    else { payout += item.sell * amount; sellCount += amount; }
+  }
+  const form = new ActionFormData().title("SELL ITEMS")
+    .body("Tap an item to lock or unlock it. Locked items are never sold.\nWill sell: " + sellCount + " item(s) for " + payout +
+      " Coins\nLocked: " + lockedCount + " item(s)");
+  for (const [item, amount] of owned) {
+    form.button("§l" + item.name + "§r\n" + (isLocked(locks, item) ? "LOCKED" : "Will sell") + " - " + amount + "x - " + item.sell + " Coins each", item.icon || undefined);
+  }
+  form
+    .button("§lSell Unlocked Items§r", MCICON_DIR + "gold_ingot")
+    .button("§lLock All§r", MCICON_DIR + "iron_door")
+    .button("§lUnlock All§r", MCICON_DIR + "oak_door")
+    .button("§lBack§r", "textures/ui/arrow_left");
+  const items = owned.map(entry => entry[0]);
+  showForm(form, player).then(r => {
+    if (r.canceled) return;
+    const n = items.length;
+    if (r.selection < n) {
+      setLocked(player, [items[r.selection]], !isLocked(locks, items[r.selection]));
+      return showSellMenu(player);
+    }
+    if (r.selection === n) return sellUnlocked(player);
+    if (r.selection === n + 1) { setLocked(player, items, true); return showSellMenu(player); }
+    if (r.selection === n + 2) { setLocked(player, items, false); return showSellMenu(player); }
+    return marketMain(player);
+  }).catch(e => { logError("showSellMenu", e); tell(player, "The sell menu could not open."); });
+}
+function sellUnlocked(player) {
+  const inv = inventoryOf(player);
+  if (!inv) return tell(player, "Your inventory is unavailable.");
+  const locks = lockOverrides(player);
+  const values = new Map(CATALOG.filter(item => !isLocked(locks, item)).map(item => [item.id, item.sell]));
   const { payout, count } = scanSellable(inv, values);
-  if (!count) return tell(player, "You have no eligible market items to sell.");
-  const form = new MessageFormData().title("SELL ELIGIBLE ITEMS")
-    .body("Sell " + count + " eligible item(s) for " + payout + " Coins? Items not listed in the market are kept.")
+  if (!count) return tell(player, "You have no unlocked market items to sell.");
+  const form = new MessageFormData().title("SELL UNLOCKED ITEMS")
+    .body("Sell " + count + " unlocked item(s) for " + payout + " Coins? Locked items and items not listed in the market are kept.")
     .button1("Sell")
     .button2("Cancel");
   showForm(form, player).then(r => {
@@ -1048,12 +1123,23 @@ system.runInterval(() => {
 }, 20);
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (177 lines, 10615 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (188 lines, 11266 bytes)
 
 ```
 # Changelog — OneBlock Natural Market
 
 ---
+
+## [16.0.4] - 2026-11-23 - Sell Lock List
+
+### Added
+- **Sell Items screen**: lists every sellable item in your inventory with its icon, amount and value. Tap an item to lock it so it is never sold, and tap again to unlock it.
+- **Lock All and Unlock All**: two buttons on the Sell Items screen.
+- **Saved locks**: locks are kept per player by item type and stay after you rejoin.
+
+### Improved & Balanced
+- **Tools and weapons start locked**: pickaxes, axes, shovels, hoes, swords, shears, fishing rod, bow, crossbow, trident and shield are locked until you unlock them.
+- **Sell Items**: replaces Sell Eligible Items and only sells unlocked items.
 
 ## [16.0.3] - 2026-11-22 - Brick Block MCicons Icon
 
@@ -1229,7 +1315,7 @@ system.runInterval(() => {
 - No experimental gameplay toggle was added. Source structure is updated; Minecraft in-game rendering has not been verified.
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/DESCRIPTION.md (82 lines, 4921 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/DESCRIPTION.md (82 lines, 5003 bytes)
 
 ```
 # OneBlock Natural Market — A OneBlock economy and supply shop
@@ -1263,7 +1349,7 @@ Start in the void on the central block at (0, 0, 0), with no bedrock beneath it.
 
 ### Coins and Selling
 - Successful central-block breaks award Coins.
-- Eligible catalogue items can be sold through the Ledger.
+- Eligible catalogue items can be sold through the Ledger. Each item type can be locked so it is never sold; tools and weapons start locked.
 - The balance appears in menu text and action-bar messages, not a sidebar scoreboard.
 
 ### Progression and Supply Pool
@@ -1352,13 +1438,13 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v16.0.3)",
+    "name": "OneBlock Natural Market (v16.0.4)",
     "description": "Trader Ledger icon for OneBlock Natural Market. by ALNStudios",
     "uuid": "187333a6-4353-4003-b379-471f85ce9021",
     "version": [
       16,
       0,
-      3
+      4
     ],
     "min_engine_version": [
       1,
@@ -1373,7 +1459,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "version": [
         16,
         0,
-        3
+        4
       ]
     }
   ],
@@ -1382,7 +1468,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "16.0.3"
+    "version": "16.0.4"
   }
 }
 ```
