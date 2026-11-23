@@ -33,6 +33,7 @@ on:
           - "ALL"
           - "MCPEDL/Addons/2-in-1-Loot--XP-Booster"
           - "MCPEDL/Addons/ALN-Bow-Aimbot"
+          - "MCPEDL/Addons/ALN-GlobalMarket"
           - "MCPEDL/Addons/ALN-MoreDiscs"
           - "MCPEDL/Addons/ALN-Pointer"
           - "MCPEDL/Addons/ALNOneClickSort"
@@ -53,7 +54,6 @@ on:
           - "MCPEDL/Maps/ALNMultiIslandOneBlock"
           - "MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks"
           - "MCPEDL/Maps/OneBlock-Natural-Market"
-          - "MCPEDL/Maps/OneBlock-Void-Survival"
           # END registered
       publish_map_variant:
         description: "Maps only (default = auto, all = Creative + Survival + Hardcore). Other pack types ignore it and publish normally"
