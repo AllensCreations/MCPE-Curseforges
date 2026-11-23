@@ -1,16 +1,17 @@
 import { system, ItemStack } from "@minecraft/server";
 import { giveStack } from "./vault.js";
+import { crateOdds, poolOf, tierOf } from "./config.js";
 
 const sleep = (ticks) => new Promise((resolve) => system.runTimeout(resolve, ticks));
 
 export function rollCrate(crate) {
-  const total = crate.pool.reduce((s, p) => s + p.w, 0);
-  let r = Math.random() * total;
-  for (const prize of crate.pool) {
-    r -= prize.w;
-    if (r < 0) return prize;
+  const odds = crateOdds(crate);
+  let r = Math.random() * 100;
+  for (const o of odds) {
+    r -= o.chance;
+    if (r < 0) return o.prize;
   }
-  return crate.pool[0];
+  return odds[odds.length - 1].prize;
 }
 
 const run = (player, cmd) => {
@@ -21,9 +22,10 @@ const run = (player, cmd) => {
 
 export async function animateCrate(player, crate, prize) {
   const delays = [2, 2, 2, 2, 3, 3, 4, 4, 5, 6, 7, 8, 10, 12];
+  const pool = poolOf(crate);
   let pitch = 0.6;
   for (let i = 0; i < delays.length; i++) {
-    const shown = i === delays.length - 1 ? prize : crate.pool[Math.floor(Math.random() * crate.pool.length)];
+    const shown = i === delays.length - 1 ? prize : pool[Math.floor(Math.random() * pool.length)];
     try {
       player.onScreenDisplay.setActionBar(`§l§e>> §f${shown.label} §e<<`);
     } catch (e) {}
@@ -40,7 +42,8 @@ export async function animateCrate(player, crate, prize) {
     const dy = 0.5 + Math.random() * 1.8;
     run(player, `particle minecraft:totem_particle ~${dx.toFixed(2)} ~${dy.toFixed(2)} ~${dz.toFixed(2)}`);
   }
-  run(player, `title @s title ${prize.jackpot ? "§6§lJACKPOT" : "§e§lTreasure"}`);
+  const tier = tierOf(prize);
+  run(player, `title @s title ${prize.tier === "legendary" ? "§6§lJACKPOT" : `${tier.color}§l${tier.name.toUpperCase()}`}`);
   run(player, `title @s subtitle §f${prize.label}`);
 }
 

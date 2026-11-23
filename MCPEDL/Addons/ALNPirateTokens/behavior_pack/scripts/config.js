@@ -90,6 +90,79 @@ export const SHOP = [
   { key: "treasure", label: "Treasure Hoarder Bundle", price: 120, icon: mc("minecraft:chest"), note: "4 Chests, 2 Gold Blocks, 8 Emeralds." }
 ];
 
+export const TIERS = [
+  { key: "common", name: "Common", color: "§f" },
+  { key: "uncommon", name: "Uncommon", color: "§a" },
+  { key: "rare", name: "Rare", color: "§b" },
+  { key: "epic", name: "Epic", color: "§d" },
+  { key: "legendary", name: "Legendary", color: "§6" }
+];
+
+export const tierOf = (prize) => TIERS.find((x) => x.key === prize.tier) ?? TIERS[0];
+
+const P = (tier, id, amount, label, w = 1) => ({ tier, id, amount, label, w });
+
+export const PRIZES = [
+  P("common", IDS.silver, 12, "12 Silver Pirate Tokens", 2),
+  P("common", "minecraft:cooked_salmon", 16, "16 Cooked Salmon"),
+  P("common", "minecraft:cooked_cod", 16, "16 Cooked Cod"),
+  P("common", "minecraft:bread", 16, "16 Bread"),
+  P("common", "minecraft:dark_oak_planks", 32, "32 Dark Oak Planks"),
+  P("common", "minecraft:iron_ingot", 16, "16 Iron Ingots"),
+  P("common", "minecraft:gold_nugget", 16, "16 Gold Nuggets"),
+  P("common", "minecraft:coal", 32, "32 Coal"),
+  P("common", "minecraft:arrow", 32, "32 Arrows"),
+  P("common", "minecraft:dried_kelp", 32, "32 Dried Kelp"),
+  P("common", "minecraft:sea_pickle", 8, "8 Sea Pickles"),
+  P("common", "minecraft:prismarine_shard", 16, "16 Prismarine Shards"),
+  P("common", "minecraft:ink_sac", 8, "8 Ink Sacs"),
+  P("common", "minecraft:lapis_lazuli", 16, "16 Lapis Lazuli"),
+
+  P("uncommon", IDS.gold, 2, "2 Gold Pirate Doubloons", 2),
+  P("uncommon", "minecraft:emerald", 10, "10 Emeralds"),
+  P("uncommon", "minecraft:gold_ingot", 16, "16 Gold Ingots"),
+  P("uncommon", "minecraft:prismarine_crystals", 12, "12 Prismarine Crystals"),
+  P("uncommon", "minecraft:sea_lantern", 6, "6 Sea Lanterns"),
+  P("uncommon", "minecraft:experience_bottle", 12, "12 XP Bottles"),
+  P("uncommon", "minecraft:ender_pearl", 4, "4 Ender Pearls"),
+  P("uncommon", "minecraft:golden_apple", 2, "2 Golden Apples"),
+  P("uncommon", "minecraft:name_tag", 2, "2 Name Tags"),
+  P("uncommon", "minecraft:obsidian", 6, "6 Obsidian"),
+  P("uncommon", "minecraft:spyglass", 1, "Spyglass"),
+  P("uncommon", "minecraft:firework_rocket", 16, "16 Firework Rockets"),
+
+  P("rare", "minecraft:diamond", 3, "3 Diamonds"),
+  P("rare", IDS.gold, 5, "5 Gold Pirate Doubloons", 2),
+  P("rare", "minecraft:emerald_block", 2, "2 Emerald Blocks"),
+  P("rare", "minecraft:totem_of_undying", 1, "Totem of Undying"),
+  P("rare", "minecraft:nautilus_shell", 1, "Nautilus Shell"),
+  P("rare", "minecraft:saddle", 1, "Saddle"),
+  P("rare", "minecraft:netherite_scrap", 3, "3 Netherite Scrap"),
+  P("rare", "minecraft:turtle_helmet", 1, "Turtle Shell Helmet"),
+  P("rare", "minecraft:diamond_pickaxe", 1, "Diamond Pickaxe"),
+  P("rare", "minecraft:diamond_sword", 1, "Diamond Sword"),
+
+  P("epic", IDS.cursed, 1, "Cursed Captain's Coin", 2),
+  P("epic", "minecraft:diamond_block", 2, "2 Diamond Blocks"),
+  P("epic", "minecraft:ancient_debris", 4, "4 Ancient Debris"),
+  P("epic", "minecraft:heart_of_the_sea", 1, "Heart of the Sea"),
+  P("epic", "minecraft:netherite_ingot", 1, "Netherite Ingot"),
+  P("epic", "minecraft:trident", 1, "Trident"),
+  P("epic", "minecraft:enchanted_golden_apple", 1, "Enchanted Golden Apple"),
+  P("epic", "minecraft:diamond_horse_armor", 1, "Diamond Horse Armor"),
+  P("epic", "minecraft:conduit", 1, "Conduit"),
+  P("epic", "minecraft:netherite_axe", 1, "Netherite Axe"),
+
+  P("legendary", IDS.cursed, 5, "5 Cursed Captain's Coins", 2),
+  P("legendary", "minecraft:beacon", 1, "Beacon"),
+  P("legendary", "minecraft:elytra", 1, "Elytra"),
+  P("legendary", "minecraft:nether_star", 1, "Nether Star"),
+  P("legendary", "minecraft:netherite_sword", 1, "Netherite Sword"),
+  P("legendary", "minecraft:netherite_ingot", 4, "4 Netherite Ingots"),
+  P("legendary", "minecraft:dragon_egg", 1, "Dragon Egg"),
+  P("legendary", "minecraft:enchanted_golden_apple", 3, "3 Enchanted Golden Apples")
+];
+
 export const CRATES = [
   {
     key: "buccaneer",
@@ -97,26 +170,7 @@ export const CRATES = [
     price: 30,
     priceText: "3 Gold Doubloons",
     icon: COIN_ICON[IDS.gold],
-    pool: [
-      { w: 28, id: IDS.silver, amount: 12, label: "12 Silver Pirate Tokens" },
-      { w: 16, id: IDS.gold, amount: 2, label: "2 Gold Pirate Doubloons" },
-      { w: 14, id: "minecraft:emerald", amount: 10, label: "10 Emeralds" },
-      { w: 12, id: "minecraft:cooked_salmon", amount: 16, label: "16 Cooked Salmon" },
-      { w: 10, id: "minecraft:gold_ingot", amount: 16, label: "16 Gold Ingots" },
-      { w: 9, id: "minecraft:diamond", amount: 2, label: "2 Diamonds" },
-      { w: 8, id: "minecraft:prismarine_crystals", amount: 12, label: "12 Prismarine Crystals" },
-      { w: 8, id: "minecraft:sea_lantern", amount: 6, label: "6 Sea Lanterns" },
-      { w: 7, id: "minecraft:experience_bottle", amount: 12, label: "12 XP Bottles" },
-      { w: 6, id: "minecraft:ender_pearl", amount: 4, label: "4 Ender Pearls" },
-      { w: 5, id: "minecraft:golden_apple", amount: 2, label: "2 Golden Apples" },
-      { w: 4, id: "minecraft:name_tag", amount: 2, label: "2 Name Tags" },
-      { w: 3, id: "minecraft:saddle", amount: 1, label: "Saddle" },
-      { w: 3, id: "minecraft:nautilus_shell", amount: 1, label: "Nautilus Shell", jackpot: true },
-      { w: 2, id: "minecraft:heart_of_the_sea", amount: 1, label: "Heart of the Sea", jackpot: true },
-      { w: 2, id: "minecraft:netherite_scrap", amount: 2, label: "2 Netherite Scrap", jackpot: true },
-      { w: 1, id: "minecraft:conduit", amount: 1, label: "Conduit", jackpot: true },
-      { w: 1, id: "minecraft:enchanted_golden_apple", amount: 1, label: "Enchanted Golden Apple", jackpot: true }
-    ]
+    tiers: { common: 50, uncommon: 30, rare: 14, epic: 5, legendary: 1 }
   },
   {
     key: "cursed",
@@ -124,25 +178,19 @@ export const CRATES = [
     price: 100,
     priceText: "1 Cursed Captain's Coin",
     icon: COIN_ICON[IDS.cursed],
-    pool: [
-      { w: 22, id: IDS.gold, amount: 6, label: "6 Gold Pirate Doubloons" },
-      { w: 18, id: "minecraft:diamond", amount: 6, label: "6 Diamonds" },
-      { w: 12, id: "minecraft:emerald_block", amount: 4, label: "4 Emerald Blocks" },
-      { w: 10, id: IDS.cursed, amount: 1, label: "Cursed Captain's Coin" },
-      { w: 10, id: "minecraft:totem_of_undying", amount: 1, label: "Totem of Undying" },
-      { w: 8, id: "minecraft:diamond_block", amount: 2, label: "2 Diamond Blocks" },
-      { w: 7, id: "minecraft:ancient_debris", amount: 2, label: "2 Ancient Debris" },
-      { w: 7, id: "minecraft:netherite_ingot", amount: 1, label: "Netherite Ingot", jackpot: true },
-      { w: 6, id: "minecraft:enchanted_golden_apple", amount: 2, label: "2 Enchanted Golden Apples", jackpot: true },
-      { w: 6, id: "minecraft:heart_of_the_sea", amount: 1, label: "Heart of the Sea", jackpot: true },
-      { w: 5, id: "minecraft:trident", amount: 1, label: "Trident", jackpot: true },
-      { w: 3, id: "minecraft:beacon", amount: 1, label: "Beacon", jackpot: true },
-      { w: 2, id: "minecraft:elytra", amount: 1, label: "Elytra", jackpot: true },
-      { w: 2, id: "minecraft:nether_star", amount: 1, label: "Nether Star", jackpot: true },
-      { w: 1, id: "minecraft:netherite_sword", amount: 1, label: "Netherite Sword", jackpot: true }
-    ]
+    tiers: { common: 0, uncommon: 25, rare: 45, epic: 22, legendary: 8 }
   }
 ];
+
+export function crateOdds(crate) {
+  const weights = {};
+  for (const p of PRIZES) weights[p.tier] = (weights[p.tier] ?? 0) + p.w;
+  const active = PRIZES.filter((p) => (crate.tiers[p.tier] ?? 0) > 0);
+  const tierTotal = Object.keys(crate.tiers).reduce((s, k) => s + crate.tiers[k], 0);
+  return active.map((p) => ({ prize: p, chance: ((crate.tiers[p.tier] / tierTotal) * 100 * p.w) / weights[p.tier] }));
+}
+
+export const poolOf = (crate) => crateOdds(crate).map((o) => o.prize);
 
 export const BOUNTY_POOL = [
   { title: "Drowned Hunter", text: "Defeat 10 Drowned", kind: "kill", targets: ["minecraft:drowned"], goal: 10, reward: 3 },

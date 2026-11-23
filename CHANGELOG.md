@@ -4,6 +4,18 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v253] - 2026-11-23 - Tiered Crate Prizes
+
+**Spec**: spec_v253.txt | **Target**: MCPEDL/Addons/ALNPirateTokens | **Files edited**: 5
+
+### Added
+- **54 crate prizes**: Prizes now come in 5 tiers (Common, Uncommon, Rare, Epic, Legendary), from cooked fish and arrows up to a Dragon Egg and 5 Cursed Captain's Coins.
+- **Tier odds**: The Buccaneer Crate rolls all 54 prizes. The Cursed Captain's Crate skips Common prizes and rolls 40 with better odds for Rare, Epic and Legendary.
+- **Prize lists**: View Prizes has a list for each crate, sorted from Legendary down, with each prize's tier and exact chance.
+
+### Changed
+- **Win titles**: The roll ends with the prize tier as the title, and Legendary prizes show JACKPOT.
+
 ## [v252] - 2026-11-23 - Shorter Menu Text
 
 **Spec**: spec_v252.txt | **Target**: MCPEDL/Addons/ALNPirateTokens | **Files edited**: 2

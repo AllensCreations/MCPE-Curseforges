@@ -1,6 +1,6 @@
 import { system } from "@minecraft/server";
 import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
-import { IDS, COIN_ICON, TITLE, SHOP, CRATES, BOUNTY_POOL, iconOf } from "./config.js";
+import { IDS, COIN_ICON, TITLE, SHOP, CRATES, BOUNTY_POOL, TIERS, iconOf, tierOf, crateOdds } from "./config.js";
 import {
   getBalance, setBalance, describeValue, looseCounts, countsValue, depositAll,
   withdrawCoin, withdrawAll, compressLoose
@@ -147,13 +147,16 @@ async function marketMenu(player) {
 }
 
 async function previewCrate(player, crate) {
-  const total = crate.pool.reduce((s, p) => s + p.w, 0);
-  const form = new ActionFormData()
-    .title(`${TITLE}`)
-    .body(`§l§6${crate.label}§r\n§ePrice: §f${crate.priceText}\n§eGold names are jackpot prizes.`);
-  for (const p of crate.pool) {
-    const chance = ((p.w / total) * 100).toFixed(1);
-    form.button(`${p.jackpot ? "§l§6" : "§l§f"}${p.label}\n§r§e${chance}%`, iconOf(p.id));
+  const odds = crateOdds(crate).sort((m, n) => TIERS.findIndex((q) => q.key === n.prize.tier) - TIERS.findIndex((q) => q.key === m.prize.tier));
+  const tierTotal = Object.keys(crate.tiers).reduce((s, k) => s + crate.tiers[k], 0);
+  let body = `§l§6${crate.label}§r\n§ePrice: §f${crate.priceText}\n`;
+  for (const tier of [...TIERS].reverse()) {
+    if (crate.tiers[tier.key] > 0) body += `${tier.color}${tier.name}: §f${((crate.tiers[tier.key] / tierTotal) * 100).toFixed(0)}%§r  `;
+  }
+  const form = new ActionFormData().title(`${TITLE}`).body(body);
+  for (const o of odds) {
+    const tier = tierOf(o.prize);
+    form.button(`§l${tier.color}${o.prize.label}\n§r${tier.color}${tier.name} §e${o.chance.toFixed(2)}%`, iconOf(o.prize.id));
   }
   form.button("§l§cBack");
   await show(form, player);
@@ -164,13 +167,13 @@ async function crateMenu(player) {
   for (;;) {
     const form = new ActionFormData().title(`${TITLE}`).body(`§l§6Mystery Crates§r\n${header(player)}\n${note}`);
     for (const c of CRATES) form.button(`§l§f${c.label}\n§r§e${c.priceText}`, c.icon);
-    form.button("§l§bView Prizes");
+    for (const c of CRATES) form.button(`§l§bPrizes: ${c.key === "cursed" ? "Cursed Crate" : "Buccaneer Crate"}`);
     form.button("§l§cBack");
     const sel = pick(await show(form, player));
     if (sel === -1) return false;
-    if (sel === CRATES.length + 1) return true;
-    if (sel === CRATES.length) {
-      for (const c of CRATES) await previewCrate(player, c);
+    if (sel === CRATES.length * 2) return true;
+    if (sel >= CRATES.length) {
+      await previewCrate(player, CRATES[sel - CRATES.length]);
       continue;
     }
     const crate = CRATES[sel];
