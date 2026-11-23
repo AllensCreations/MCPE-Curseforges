@@ -2,12 +2,13 @@
 
 Snapshot written by `python3 scripts/build_context7_docs.py` after the last spec. The files in the repository win over this page.
 
-- REPO_VERSION: 252. The next repo-level spec is spec_v253.txt (`@@ version 253`).
+- REPO_VERSION: 253. The next repo-level spec is spec_v254.txt (`@@ version 254`).
 - A spec that is not listed below or in the root `CHANGELOG.md` is NOT applied.
 - A project spec uses `@@ version` = the project's latest version below + 0.0.1.
 
 ## Newest specs (root CHANGELOG.md)
 
+- [v253] - 2026-11-23 - Tiered Crate Prizes | **Spec**: spec_v253.txt | **Target**: MCPEDL/Addons/ALNPirateTokens | **Files edited**: 5
 - [v252] - 2026-11-23 - Shorter Menu Text | **Spec**: spec_v252.txt | **Target**: MCPEDL/Addons/ALNPirateTokens | **Files edited**: 2
 - [v251] - 2026-11-23 - Crate Rewards and MC Icons | **Spec**: spec_v251.txt | **Target**: MCPEDL/Addons/ALNPirateTokens | **Files edited**: 5
 - [v250] - 2026-11-23 - Ledger Moved To Context7 | **Spec**: spec_v250.txt | **Target**: repo | **Files edited**: 2
@@ -17,7 +18,6 @@ Snapshot written by `python3 scripts/build_context7_docs.py` after the last spec
 - [v246] - 2026-11-23 - Where We Left Off Page | **Spec**: spec_v246.txt | **Target**: repo | **Files edited**: 1
 - [v245] - 2026-11-23 - Existing Boat Clutch | **Spec**: spec_v245.txt | **Target**: MCPEDL/Script/Universal-Clutch | **Files edited**: 6
 - [v244] - 2026-11-23 - Fix Duplication Timer and Add Break Drops | **Spec**: spec_v244.txt | **Target**: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator | **Files edited**: 3
-- [v243] - 2026-11-23 - Auto Restock and Chest Lock | **Spec**: spec_v243.txt | **Target**: MCPEDL/Addons/ALNOneClickSort | **Files edited**: 4
 
 ## Projects (latest heading in each project CHANGELOG.md)
 
@@ -34,7 +34,7 @@ Snapshot written by `python3 scripts/build_context7_docs.py` after the last spec
 - `MCPEDL/Addons/ALN-Wireless-Headphones`: [v11] - 2026-11-19 - Steadier Music
 - `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator`: [1.0.4] - 2026-11-23 - Fix Duplication Timer and Add Break Drops
 - `MCPEDL/Addons/ALNOneClickSort`: [v11] - 2026-11-23 - Auto Restock and Chest Lock
-- `MCPEDL/Addons/ALNPirateTokens`: [1.0.3] - 2026-11-23 - Shorter Menu Text
+- `MCPEDL/Addons/ALNPirateTokens`: [1.0.4] - 2026-11-23 - Tiered Crate Prizes
 - `MCPEDL/Addons/ALNXRayVisor-Tactical-Ore-Scanner-Headgear-by-ALNStudios`: [1.0.0] - 2026-11-20 - Launch
 - `MCPEDL/Addons/Cheat-Stick`: [v4] - 2026-11-11
 - `MCPEDL/Addons/Copper-Carrier-Logistics`: [v2] - 2026-11-03
