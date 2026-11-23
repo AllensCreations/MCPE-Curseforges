@@ -28,7 +28,7 @@ Start in the void on the central block at (0, 0, 0), with no bedrock beneath it.
 - The market uses the standard server Action Form. It is **not a chest container screen** and does not support draggable slots or native container transfers.
 
 ### Coins and Selling
-- Successful central-block breaks award Coins.
+- Successful central-block breaks award Coins and 1 ALN Coin. ALN Coins are a separate currency kept on the `aln_coins` scoreboard, so other add-ons can read them. They are not spent in this market.
 - Eligible catalogue items can be sold through the Ledger. Each item type can be locked so it is never sold; tools and weapons start locked.
 - The balance appears in menu text and action-bar messages, not a sidebar scoreboard.
 

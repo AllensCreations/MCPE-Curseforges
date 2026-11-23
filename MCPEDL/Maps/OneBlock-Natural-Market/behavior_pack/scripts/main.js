@@ -5,6 +5,7 @@ const CORE = { x: 0, y: 64, z: 0 };
 const BEDROCK = { x: 0, y: 63, z: 0 };
 const LEDGER = "allenscreations:trader_ledger";
 const COINS = "obm_coins";
+const ALN_COINS = "aln_coins";
 const MINED = "obm_mined";
 const TOTAL = "obm_total";
 const GLOBAL_KEY = "OneBlockNaturalMarket";
@@ -324,7 +325,7 @@ const objectiveCache = new Map();
 function objective(name) {
   let obj = objectiveCache.get(name);
   if (!obj) {
-    obj = world.scoreboard.getObjective(name) ?? world.scoreboard.addObjective(name, name);
+    obj = world.scoreboard.getObjective(name) ?? world.scoreboard.addObjective(name, name === ALN_COINS ? "ALN Coins" : name);
     objectiveCache.set(name, obj);
   }
   return obj;
@@ -336,6 +337,7 @@ function writeScore(name, identity, value) {
   try { objective(name).setScore(identity, Math.max(0, Math.floor(value))); return true; } catch { return false; }
 }
 function balance(player) { return readScore(COINS, player); }
+function alnCoins(player) { return readScore(ALN_COINS, player); }
 function personalBreaks(player) { return readScore(MINED, player); }
 function totalBreaks() { return readScore(TOTAL, GLOBAL_KEY); }
 function setBalance(player, amount) { return writeScore(COINS, player, amount); }
@@ -346,7 +348,7 @@ function itemAvailable(item) {
 function tell(player, message) { try { player.onScreenDisplay.setActionBar("§6[Market] §r" + message); } catch {} }
 
 function showBalance(player) {
-  try { player.onScreenDisplay.setActionBar("§6Coins: §e" + balance(player) + " §f| §fBlocks: §f" + personalBreaks(player)); } catch {}
+  try { player.onScreenDisplay.setActionBar("§6Coins: §e" + balance(player) + " §f| §bALN Coins: §f" + alnCoins(player) + " §f| §fBlocks: §f" + personalBreaks(player)); } catch {}
 }
 function hasLedger(player) {
   const inv = inventoryOf(player);
@@ -476,7 +478,7 @@ function showAbout(player) {
 function marketMain(player) {
   const form = new ActionFormData()
     .title("NATURAL MARKET")
-    .body("§6Coins: §e" + balance(player) + "§r\nPersonal breaks: " + personalBreaks(player) +
+    .body("§6Coins: §e" + balance(player) + "§r\nALN Coins: " + alnCoins(player) + "\nPersonal breaks: " + personalBreaks(player) +
       "\nShared breaks: " + totalBreaks() + "\nUnlocked tier: " + (unlockedTier(player) + 1) + " / " + MILESTONES.length + "\n\nChoose a market section.");
   for (const c of CATEGORIES) form.button(c.name, c.icon);
   form
@@ -701,11 +703,12 @@ function onCoreBreak(player) {
   tutorialStep(player, total);
   const milestone = [...MILESTONES].reverse().find(m => total >= m.unlock) ?? MILESTONES[0];
   writeScore(COINS, player, balance(player) + milestone.reward);
+  writeScore(ALN_COINS, player, alnCoins(player) + 1);
   if (MILESTONES.some(m => m.unlock > 0 && m.unlock === total)) {
     world.sendMessage("§6[Natural Market] §rA new core milestone has been reached. More block types can now appear.");
   }
   log("INFO", player.name + " mined the core: personal=" + personal + " shared=" + total + " reward=" + milestone.reward + ".");
-  tell(player, "Core mined: +" + milestone.reward + " Coins.");
+  tell(player, "Core mined: +" + milestone.reward + " Coins and +1 ALN Coin.");
   showBalance(player);
 }
 system.afterEvents.scriptEventReceive.subscribe(event => {
@@ -793,6 +796,7 @@ world.afterEvents.playerLeave.subscribe(event => {
 });
 system.run(() => {
   objective(COINS);
+  objective(ALN_COINS);
   objective(MINED);
   objective(TOTAL);
 });

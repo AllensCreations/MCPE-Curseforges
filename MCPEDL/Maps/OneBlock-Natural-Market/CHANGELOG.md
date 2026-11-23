@@ -2,6 +2,11 @@
 
 ---
 
+## [16.0.6] - 2026-11-23 - ALN Coins
+
+### Added
+- **ALN Coins**: every central-block break now also gives 1 ALN Coin, a separate currency kept on the `aln_coins` scoreboard. It shows in the market menu and in the action bar. The market still uses Coins.
+
 ## [16.0.5] - 2026-11-23 - Sell Form Toggles
 
 ### Improved & Balanced

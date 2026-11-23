@@ -4,6 +4,13 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v260] - 2026-11-23 - ALN Coins
+
+**Spec**: spec_v260.txt | **Target**: MCPEDL/Maps/OneBlock-Natural-Market | **Files edited**: 3
+
+### Added
+- **ALN Coins**: every central-block break now also gives 1 ALN Coin, a separate currency kept on the `aln_coins` scoreboard. It shows in the market menu and in the action bar. The market still uses Coins.
+
 ## [v259] - 2026-11-23 - Starter Chest Fix
 
 **Spec**: spec_v259.txt | **Target**: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks | **Files edited**: 2
