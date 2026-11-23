@@ -122,25 +122,6 @@ def _fence(data):
     return "`" * max(3, max((len(r) for r in runs), default=0) + 1)
 
 
-def where_we_left_off(root, entries=6):
-    """Spec ledger: REPO_VERSION, the next spec file name and the newest root CHANGELOG.md entries (heading + Spec line)."""
-    vp = root / "REPO_VERSION"
-    try:
-        n = int(re.match(r"\s*v?(\d+)", vp.read_text(encoding="utf-8")).group(1))
-    except (OSError, AttributeError):
-        return ""
-    lines = ["## Where we left off (spec ledger)\n",
-             f"- REPO_VERSION: {n}. The next spec is `spec_v{n + 1}.txt` (`@@ version {n + 1}`). Spec files, newest first, are in the root `CHANGELOG.md`:\n"]
-    log = root / "CHANGELOG.md"
-    if log.is_file():
-        blocks = re.split(r"(?m)^(?=## \[)", log.read_text(encoding="utf-8", errors="replace"))[1:]
-        for b in blocks[:entries]:
-            rows = b.strip().split("\n")
-            spec = next((r for r in rows[1:] if r.startswith("**Spec**")), "")
-            lines.append(f"- {rows[0][3:]}" + (f" ({spec.replace('**', '')})" if spec else ""))
-    return "\n".join(lines) + "\n"
-
-
 def build_kit(root, kit, out, label):
     """Write <label>_tools.txt (map + skills) and, when the kit has files, <label>_files.zip. Returns names written."""
     skills, missing = [], []
@@ -159,9 +140,7 @@ def build_kit(root, kit, out, label):
     if files:
         parts.append(f"The complete, unchanged scripts this task has to RUN are in the same kit zip as this file, under `files/`: unzip and run them, never retype them.\n")
         parts += [f"- `files/{rel}`" for rel, _ in files] + [""]
-    left = where_we_left_off(root)
-    if left:
-        parts += [left]
+    parts += ["Current REPO_VERSION, the next spec number and the newest specs: Context7 `docs/where-we-left-off.md` (library `/allenscreations/mcpe-curseforges`). The `REPO_VERSION` file and the root `CHANGELOG.md` in the repo win over it.\n"]
     parts += ["## Directories\n", directory_map(root), ""]
     for rel, text in skills:
         f = _fence(text)
@@ -213,7 +192,7 @@ Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
 Output ONLY these three sections in order:
 1. **File Needed:** repo-root-relative path of each file created/edited.
 2. **Changelog:** bullets, brief summary of changes.
-3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands. Update to an existing project or the repo: deliver ONE attached `spec_v<N>.txt` (N = REPO_VERSION + 1, see "Spec ledger" above) and the commands that build and run it (`python3 scripts/make_update_script.py ~/storage/downloads/spec_v<N>.txt --out-dir ~/storage/downloads --verify ~/MCPE-Curseforges`, then `bash ~/storage/downloads/<Name>_v<N>_*.sh`). New pack: the pack `.sh`.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands. Update to an existing project or the repo: deliver ONE attached `spec_v<N>.txt` (N = REPO_VERSION + 1, from Context7 `docs/where-we-left-off.md`) and the commands that build and run it (`python3 scripts/make_update_script.py ~/storage/downloads/spec_v<N>.txt --out-dir ~/storage/downloads --verify ~/MCPE-Curseforges`, then `bash ~/storage/downloads/<Name>_v<N>_*.sh`). New pack: the pack `.sh`.
 '''
 
 raw_paths = [p.strip().strip("'\"") for p in re.split(r"[,\n]", os.environ["PATHS"]) if p.strip()]
@@ -389,10 +368,7 @@ name = f"{label}.txt"
 index = ["- **Export request:** " + ", ".join(f"`{r}`" for r in raw_paths),
          "- **Destination:** " + ", ".join(f"`{d}`" for d in dests)]
 index += [f"- **{v.split('  (')[0]}**  (`{v.split('  (')[1].rstrip(')')}`)" for v in version_lines]
-_vp = root / "REPO_VERSION"
-if _vp.is_file() and re.match(r"\s*v?(\d+)", _vp.read_text(encoding="utf-8")):
-    _n = int(re.match(r"\s*v?(\d+)", _vp.read_text(encoding="utf-8")).group(1))
-    index.append(f"- **Spec ledger:** REPO_VERSION {_n}; the next spec is `spec_v{_n + 1}.txt` (newest specs are listed in the root `CHANGELOG.md`)")
+index.append("- **Current version:** Current REPO_VERSION, the next spec number and the newest specs: Context7 `docs/where-we-left-off.md` (library `/allenscreations/mcpe-curseforges`). The `REPO_VERSION` file and the root `CHANGELOG.md` in the repo win over it.")
 index += [f"- **Text files:** {len(files)}", f"- **Skipped binary:** {len(skipped)}", f"- **Paths not found:** {len(missing)}", "", "### Files in this export", ""]
 index += [f"- `{r}`" for r in inline]
 if not_inlined:

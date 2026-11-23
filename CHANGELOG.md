@@ -4,6 +4,13 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v250] - 2026-11-23 - Ledger Moved To Context7
+
+**Spec**: spec_v250.txt | **Target**: repo | **Files edited**: 2
+
+### Improved & Balanced
+- **Kits no longer carry the ledger**: the AI kits and pack reviews no longer paste REPO_VERSION and the newest spec entries. They point to `docs/where-we-left-off.md` in Context7 instead.
+
 ## [v249] - 2026-11-23 - Sell Form Toggles
 
 **Spec**: spec_v249.txt | **Target**: MCPEDL/Maps/OneBlock-Natural-Market | **Files edited**: 2
