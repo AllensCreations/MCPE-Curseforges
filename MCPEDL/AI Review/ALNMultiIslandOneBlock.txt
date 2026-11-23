@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Maps/ALNMultiIslandOneBlock`
 - **Destination:** `MCPEDL/Maps/ALNMultiIslandOneBlock`
-- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md`)
+- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 33
 - **Skipped binary:** 8
@@ -66,7 +66,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v3 / NEXT UPDATE: v4).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
@@ -287,11 +287,11 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:MultiIslandOneBlock (v2)",
+    "name": "ALN:MultiIslandOneBlock (v3)",
     "description": "Multi-island OneBlock grid with a central lobby and a global trade ledger. by ALNStudios",
     "uuid": "0886e248-abae-466f-85fe-a01de46396cf",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -306,7 +306,7 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
       "type": "data",
       "uuid": "76888f9d-5edf-4308-b1ab-1c176dbe38e9",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -317,7 +317,7 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
       "uuid": "fd4c32c2-7e0a-4bfe-8633-e30171567364",
       "entry": "scripts/main.js",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -327,7 +327,7 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
     {
       "uuid": "2cf90b7d-4b0f-44d5-b726-41f3e756f95f",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -346,7 +346,7 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "3.0.0"
   }
 }
 ```
@@ -589,16 +589,18 @@ export function regenerate(dim, x, z, trait, phaseIndex) {
 }
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/keeper.js (100 lines, 2390 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/keeper.js (146 lines, 3695 bytes)
 
 ```
 import { world, system, ItemStack, EntityComponentTypes } from "@minecraft/server";
 import { LEDGER_ID, PROP } from "./config.js";
-import { containerOf } from "./util.js";
+import { containerOf, findPlayer } from "./util.js";
 import { slotOf } from "./slots.js";
 
 const CATCH_RADIUS = 4;
-const CHECK_TICKS = 20;
+const SWEEP_RADIUS = 10;
+const CHECK_TICKS = 5;
+const seen = new Map();
 
 function isOwed(player) {
   return player.getDynamicProperty(PROP.LEDGER_OWED) === 1;
@@ -635,8 +637,35 @@ export function settleLedger(player) {
   if (!rest) setOwed(player, false);
 }
 
-export function ensureLedger(player) {
-  if (slotOf(player) === undefined) return;
+function ledgerStackOf(entity) {
+  if (entity.typeId !== "minecraft:item") return undefined;
+  const stack = entity.getComponent(EntityComponentTypes.Item)?.itemStack;
+  return stack && stack.typeId === LEDGER_ID ? stack : undefined;
+}
+
+function sweepDrops(dim, at) {
+  let found = false;
+  let list;
+  try {
+    list = dim.getEntities({ location: at, maxDistance: SWEEP_RADIUS });
+  } catch (e) {
+    return false;
+  }
+  for (const entity of list) {
+    try {
+      if (!ledgerStackOf(entity)) continue;
+      entity.remove();
+      found = true;
+    } catch (e) {}
+  }
+  return found;
+}
+
+export function ensureLedger(id) {
+  const player = findPlayer(id);
+  if (!player || slotOf(player) === undefined) return;
+  const before = seen.get(id);
+  if (before) sweepDrops(before.dim, before.at);
   if (!holdsLedger(player)) setOwed(player, true);
   settleLedger(player);
 }
@@ -660,12 +689,15 @@ function catchDrop(entity, attempt) {
   let stack;
   try {
     if (entity.typeId !== "minecraft:item") return;
-    stack = entity.getComponent(EntityComponentTypes.Item)?.itemStack;
+    stack = ledgerStackOf(entity);
+    if (!stack) {
+      if (attempt === 0) system.run(() => catchDrop(entity, 1));
+      return;
+    }
   } catch (e) {
     if (attempt === 0) system.run(() => catchDrop(entity, 1));
     return;
   }
-  if (!stack || stack.typeId !== LEDGER_ID) return;
   const owner = nearestPlayer(entity);
   try {
     entity.remove();
@@ -679,17 +711,31 @@ function catchDrop(entity, attempt) {
   });
 }
 
+function watch() {
+  for (const player of world.getAllPlayers()) {
+    try {
+      if (slotOf(player) === undefined) continue;
+      const has = holdsLedger(player);
+      const before = seen.get(player.id);
+      if (before && before.had && !has) {
+        if (sweepDrops(before.dim, before.at)) setOwed(player, true);
+      }
+      if (has) {
+        const l = player.location;
+        seen.set(player.id, { had: true, dim: player.dimension, at: { x: l.x, y: l.y, z: l.z } });
+      } else if (before) {
+        seen.set(player.id, { had: false, dim: before.dim, at: before.at });
+      }
+      settleLedger(player);
+    } catch (e) {}
+  }
+}
+
 export function startLedgerKeeper() {
   world.afterEvents.entitySpawn.subscribe((event) => {
     catchDrop(event.entity, 0);
   });
-  system.runInterval(() => {
-    for (const player of world.getAllPlayers()) {
-      try {
-        settleLedger(player);
-      } catch (e) {}
-    }
-  }, CHECK_TICKS);
+  system.runInterval(watch, CHECK_TICKS);
 }
 ```
 
@@ -2938,7 +2984,7 @@ export async function promptWelcome(player, attempt = 0) {
 }
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/main.js (70 lines, 2044 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/main.js (71 lines, 2064 bytes)
 
 ```
 import { world, system } from "@minecraft/server";
@@ -2985,7 +3031,8 @@ world.afterEvents.playerSpawn.subscribe((event) => {
     later(() => promptWelcome(player), 20);
     return;
   }
-  later(() => ensureLedger(player), 20);
+  const id = player.id;
+  later(() => ensureLedger(id), 20);
 });
 
 world.afterEvents.itemUse.subscribe((event) => {
@@ -3012,12 +3059,18 @@ world.afterEvents.worldLoad.subscribe(() => {
 });
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md (24 lines, 1615 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md (30 lines, 2156 bytes)
 
 ```
 # Changelog — ALN:MultiIslandOneBlock
 
 ---
+
+## [v3] - 2026-11-23 - TRADERS Item Return Fix
+
+### Fixed
+- **TRADERS Item Return**: A thrown TRADERS Item is now returned even when the game has not finished creating the dropped item yet. A second check every few ticks finds and removes a dropped copy and returns it, and it is delivered as soon as a slot is free when the inventory is full.
+- **TRADERS Item on Death**: After dying, the dropped copy is removed and a new TRADERS Item is delivered when you respawn, using the player's current entity instead of the one from before death.
 
 ## [v2] - 2026-11-23 - TRADERS Item
 
@@ -3185,11 +3238,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:MultiIslandOneBlock Resources (v2)",
+    "name": "ALN:MultiIslandOneBlock Resources (v3)",
     "description": "Textures and names for the TRADERS Item. by ALNStudios",
     "uuid": "2cf90b7d-4b0f-44d5-b726-41f3e756f95f",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -3204,7 +3257,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "02c6ed61-2e06-499b-b6d3-1c6afa51beb6",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -3215,7 +3268,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "3.0.0"
   }
 }
 ```

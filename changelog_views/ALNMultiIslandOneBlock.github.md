@@ -1,13 +1,24 @@
 # Changelog — ALN:MultiIslandOneBlock
 
-## [v2] - 2026-11-23 - TRADERS Item
+## [v3] - 2026-11-23 - TRADERS Item Return Fix
 
-### Added
+### Fixed
+- **TRADERS Item Return**: A thrown TRADERS Item is now returned even when the game has not finished creating the dropped item yet. A second check every few ticks finds and removes a dropped copy and returns it, and it is delivered as soon as a slot is free when the inventory is full.
+- **TRADERS Item on Death**: After dying, the dropped copy is removed and a new TRADERS Item is delivered when you respawn, using the player's current entity instead of the one from before death.
+
+<details>
+<summary><b>2.0.x</b> (1 release)</summary>
+
+### [v2] - 2026-11-23 - TRADERS Item
+
+#### Added
 - **Permanent TRADERS Item**: If you throw the TRADERS Item away it returns to you. If your inventory is full and you hold none, it is delivered as soon as a slot is free, and you get it back after respawning.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **TRADERS Item**: The Global Pirate Ledger is now named TRADERS Item and is the only trade item in the map.
 - **Removed Unused Item**: The OneBlock Trader item that had no role in this map was removed.
+
+</details>
 
 <details>
 <summary><b>1.0.x</b> (1 release)</summary>
