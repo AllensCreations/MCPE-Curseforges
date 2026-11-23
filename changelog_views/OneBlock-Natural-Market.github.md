@@ -1,18 +1,24 @@
 # Changelog — OneBlock Natural Market
 
-## [16.0.4] - 2026-11-23 - Sell Lock List
+## [16.0.5] - 2026-11-23 - Sell Form Toggles
 
-### Added
+### Improved & Balanced
+- **Sell form**: Sell Items now has three buttons: Lock / Unlock Items, Sell All and Exit. Sell All keeps locked items.
+- **Lock editor**: Lock / Unlock Items opens a form with one toggle per item. Switch an item on to lock it, then press Save.
+
+<details>
+<summary><b>16.0.x</b> (5 releases)</summary>
+
+### [16.0.4] - 2026-11-23 - Sell Lock List
+
+#### Added
 - **Sell Items screen**: lists every sellable item in your inventory with its icon, amount and value. Tap an item to lock it so it is never sold, and tap again to unlock it.
 - **Lock All and Unlock All**: two buttons on the Sell Items screen.
 - **Saved locks**: locks are kept per player by item type and stay after you rejoin.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **Tools and weapons start locked**: pickaxes, axes, shovels, hoes, swords, shears, fishing rod, bow, crossbow, trident and shield are locked until you unlock them.
 - **Sell Items**: replaces Sell Eligible Items and only sells unlocked items.
-
-<details>
-<summary><b>16.0.x</b> (4 releases)</summary>
 
 ### [16.0.3] - 2026-11-22 - Brick Block MCicons Icon
 
