@@ -29,7 +29,7 @@ Start in the void on the central block at (0, 0, 0), with no bedrock beneath it.
 
 ### Coins and Selling
 - Successful central-block breaks award Coins.
-- Eligible catalogue items can be sold through the Ledger.
+- Eligible catalogue items can be sold through the Ledger. Each item type can be locked so it is never sold; tools and weapons start locked.
 - The balance appears in menu text and action-bar messages, not a sidebar scoreboard.
 
 ### Progression and Supply Pool

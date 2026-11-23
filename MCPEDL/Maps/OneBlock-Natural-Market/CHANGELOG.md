@@ -2,6 +2,17 @@
 
 ---
 
+## [16.0.4] - 2026-11-23 - Sell Lock List
+
+### Added
+- **Sell Items screen**: lists every sellable item in your inventory with its icon, amount and value. Tap an item to lock it so it is never sold, and tap again to unlock it.
+- **Lock All and Unlock All**: two buttons on the Sell Items screen.
+- **Saved locks**: locks are kept per player by item type and stay after you rejoin.
+
+### Improved & Balanced
+- **Tools and weapons start locked**: pickaxes, axes, shovels, hoes, swords, shears, fishing rod, bow, crossbow, trident and shield are locked until you unlock them.
+- **Sell Items**: replaces Sell Eligible Items and only sells unlocked items.
+
 ## [16.0.3] - 2026-11-22 - Brick Block MCicons Icon
 
 ### Changed

@@ -480,12 +480,12 @@ function marketMain(player) {
       "\nShared breaks: " + totalBreaks() + "\nUnlocked tier: " + (unlockedTier(player) + 1) + " / " + MILESTONES.length + "\n\nChoose a market section.");
   for (const c of CATEGORIES) form.button(c.name, c.icon);
   form
-    .button("Sell Eligible Items", "textures/items/gold_ingot")
+    .button("Sell Items", MCICON_DIR + "gold_ingot")
     .button("About", "textures/ui/icon_recipe_nature");
   showForm(form, player).then(r => {
     if (r.canceled) return;
     if (r.selection < CATEGORIES.length) return showCategory(player, CATEGORIES[r.selection].name);
-    if (r.selection === CATEGORIES.length) return sellEligible(player);
+    if (r.selection === CATEGORIES.length) return showSellMenu(player);
     if (r.selection === CATEGORIES.length + 1) return showAbout(player);
   }).catch(e => { logError("marketMain", e); tell(player, "The market menu could not open. Try using the Ledger again."); });
 }
@@ -550,14 +550,88 @@ function scanSellable(inv, values) {
   }
   return { slots, payout, count };
 }
-function sellEligible(player) {
+const LOCK_PREFIX = "obm_locks_";
+const DEFAULT_LOCKED = new Set(CATALOG
+  .filter(item => (item.category === "Tools & Gear" || item.category === "Combat") &&
+    /(pickaxe|_axe|_shovel|_hoe|_sword)$|^(shears|fishing_rod|bow|crossbow|trident|shield)$/.test(item.raw))
+  .map(item => item.raw));
+function lockOverrides(player) {
+  try {
+    const raw = world.getDynamicProperty(LOCK_PREFIX + player.name);
+    const data = typeof raw === "string" ? JSON.parse(raw) : {};
+    return data && typeof data === "object" && !Array.isArray(data) ? data : {};
+  } catch { return {}; }
+}
+function isLocked(overrides, item) {
+  return Object.prototype.hasOwnProperty.call(overrides, item.raw) ? overrides[item.raw] === 1 : DEFAULT_LOCKED.has(item.raw);
+}
+function setLocked(player, items, locked) {
+  const data = lockOverrides(player);
+  for (const item of items) {
+    if (locked === DEFAULT_LOCKED.has(item.raw)) delete data[item.raw];
+    else data[item.raw] = locked ? 1 : 0;
+  }
+  try {
+    world.setDynamicProperty(LOCK_PREFIX + player.name, JSON.stringify(data));
+    return true;
+  } catch (e) {
+    logError("setLocked", e);
+    tell(player, "Your lock list could not be saved.");
+    return false;
+  }
+}
+function showSellMenu(player) {
   const inv = inventoryOf(player);
   if (!inv) return tell(player, "Your inventory is unavailable.");
-  const values = new Map(CATALOG.map(item => [item.id, item.sell]));
+  const itemById = new Map(CATALOG.map(item => [item.id, item]));
+  const totals = new Map();
+  for (let i = 0; i < inv.size; i++) {
+    const stack = inv.getItem(i);
+    const item = stack && itemById.get(stack.typeId);
+    if (item) totals.set(item, (totals.get(item) ?? 0) + stack.amount);
+  }
+  const owned = [...totals].sort((a, b) => a[0].name.localeCompare(b[0].name));
+  if (!owned.length) return tell(player, "You have no market items to sell.");
+  const locks = lockOverrides(player);
+  let payout = 0, sellCount = 0, lockedCount = 0;
+  for (const [item, amount] of owned) {
+    if (isLocked(locks, item)) lockedCount += amount;
+    else { payout += item.sell * amount; sellCount += amount; }
+  }
+  const form = new ActionFormData().title("SELL ITEMS")
+    .body("Tap an item to lock or unlock it. Locked items are never sold.\nWill sell: " + sellCount + " item(s) for " + payout +
+      " Coins\nLocked: " + lockedCount + " item(s)");
+  for (const [item, amount] of owned) {
+    form.button("§l" + item.name + "§r\n" + (isLocked(locks, item) ? "LOCKED" : "Will sell") + " - " + amount + "x - " + item.sell + " Coins each", item.icon || undefined);
+  }
+  form
+    .button("§lSell Unlocked Items§r", MCICON_DIR + "gold_ingot")
+    .button("§lLock All§r", MCICON_DIR + "iron_door")
+    .button("§lUnlock All§r", MCICON_DIR + "oak_door")
+    .button("§lBack§r", "textures/ui/arrow_left");
+  const items = owned.map(entry => entry[0]);
+  showForm(form, player).then(r => {
+    if (r.canceled) return;
+    const n = items.length;
+    if (r.selection < n) {
+      setLocked(player, [items[r.selection]], !isLocked(locks, items[r.selection]));
+      return showSellMenu(player);
+    }
+    if (r.selection === n) return sellUnlocked(player);
+    if (r.selection === n + 1) { setLocked(player, items, true); return showSellMenu(player); }
+    if (r.selection === n + 2) { setLocked(player, items, false); return showSellMenu(player); }
+    return marketMain(player);
+  }).catch(e => { logError("showSellMenu", e); tell(player, "The sell menu could not open."); });
+}
+function sellUnlocked(player) {
+  const inv = inventoryOf(player);
+  if (!inv) return tell(player, "Your inventory is unavailable.");
+  const locks = lockOverrides(player);
+  const values = new Map(CATALOG.filter(item => !isLocked(locks, item)).map(item => [item.id, item.sell]));
   const { payout, count } = scanSellable(inv, values);
-  if (!count) return tell(player, "You have no eligible market items to sell.");
-  const form = new MessageFormData().title("SELL ELIGIBLE ITEMS")
-    .body("Sell " + count + " eligible item(s) for " + payout + " Coins? Items not listed in the market are kept.")
+  if (!count) return tell(player, "You have no unlocked market items to sell.");
+  const form = new MessageFormData().title("SELL UNLOCKED ITEMS")
+    .body("Sell " + count + " unlocked item(s) for " + payout + " Coins? Locked items and items not listed in the market are kept.")
     .button1("Sell")
     .button2("Cancel");
   showForm(form, player).then(r => {

@@ -4,6 +4,19 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v248] - 2026-11-23 - Sell Lock List
+
+**Spec**: spec_v248.txt | **Target**: MCPEDL/Maps/OneBlock-Natural-Market | **Files edited**: 3
+
+### Added
+- **Sell Items screen**: lists every sellable item in your inventory with its icon, amount and value. Tap an item to lock it so it is never sold, and tap again to unlock it.
+- **Lock All and Unlock All**: two buttons on the Sell Items screen.
+- **Saved locks**: locks are kept per player by item type and stay after you rejoin.
+
+### Improved & Balanced
+- **Tools and weapons start locked**: pickaxes, axes, shovels, hoes, swords, shears, fishing rod, bow, crossbow, trident and shield are locked until you unlock them.
+- **Sell Items**: replaces Sell Eligible Items and only sells unlocked items.
+
 ## [v247] - 2026-11-23 - Dwarf Golem Update
 
 **Spec**: spec_v247.txt | **Target**: MCPEDL/Addons/ALN-FarmerGolem | **Files edited**: 8
