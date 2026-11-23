@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks`
 - **Destination:** `MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks`
-- **CURRENT VERSION: v8 / NEXT UPDATE: v9**  (`MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/CHANGELOG.md`)
+- **CURRENT VERSION: v9 / NEXT UPDATE: v10**  (`MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 35
 - **Skipped binary:** 27
@@ -87,7 +87,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v8 / NEXT UPDATE: v9).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v9 / NEXT UPDATE: v10).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
@@ -522,7 +522,7 @@ execute if entity @a[tag=void_cleaned] unless block 0 63 0 bedrock run setblock 
 }
 ```
 
-## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/functions/void_cleaner.mcfunction (13 lines, 944 bytes)
+## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/behavior_pack/functions/void_cleaner.mcfunction (13 lines, 920 bytes)
 
 ```
 execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air
@@ -531,10 +531,10 @@ execute as @a[tag=!void_cleaned] run setblock 0 63 0 bedrock
 execute as @a[tag=!void_cleaned] run setblock 0 64 0 allenscreations:lucky_block keep
 execute as @a[tag=!void_cleaned] run fill -1 64 -1 1 64 1 grass_block keep
 execute as @a[tag=!void_cleaned] run setblock -1 65 -1 chest keep
-execute as @a[tag=!void_cleaned] run item replace block -1 65 -1 slot.container 0 with oak_sapling 3
-execute as @a[tag=!void_cleaned] run item replace block -1 65 -1 slot.container 1 with bone_meal 4
-execute as @a[tag=!void_cleaned] run item replace block -1 65 -1 slot.container 2 with bread 4
-execute as @a[tag=!void_cleaned] run item replace block -1 65 -1 slot.container 3 with bucket 1
+execute as @a[tag=!void_cleaned] run replaceitem block -1 65 -1 slot.container 0 oak_sapling 3
+execute as @a[tag=!void_cleaned] run replaceitem block -1 65 -1 slot.container 1 bone_meal 4
+execute as @a[tag=!void_cleaned] run replaceitem block -1 65 -1 slot.container 2 bread 4
+execute as @a[tag=!void_cleaned] run replaceitem block -1 65 -1 slot.container 3 bucket 1
 execute as @a[tag=!void_cleaned] run setworldspawn 0 65 0
 execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cleaned
 ```
@@ -553,11 +553,11 @@ execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cle
 {
   "format_version": 2,
   "header": {
-    "name": "One Block Skyblock Lucky Blocks (v8)",
+    "name": "One Block Skyblock Lucky Blocks (v9)",
     "description": "One lucky block on a 3x3 void island. by ALNStudios",
     "uuid": "f8fcd28a-a8f9-479e-9326-94fd587c589f",
     "version": [
-      8,
+      9,
       0,
       0
     ],
@@ -572,7 +572,7 @@ execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cle
       "type": "data",
       "uuid": "ec84754f-7614-472d-ad98-89d8fd1e24b7",
       "version": [
-        8,
+        9,
         0,
         0
       ]
@@ -583,7 +583,7 @@ execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cle
       "uuid": "1d0ec910-add9-46ec-a03f-4f23f6b8907c",
       "entry": "scripts/main.js",
       "version": [
-        8,
+        9,
         0,
         0
       ]
@@ -593,7 +593,7 @@ execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cle
     {
       "uuid": "8e8d2f07-56e1-4271-bb5f-e8ae848db662",
       "version": [
-        8,
+        9,
         0,
         0
       ]
@@ -607,7 +607,7 @@ execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cle
     "authors": [
       "ALNStudios"
     ],
-    "version": "8.0.0",
+    "version": "9.0.0",
     "product_type": "addon"
   }
 }
@@ -2292,12 +2292,17 @@ system.runInterval(() => {
 registerIsland();
 ```
 
-## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/CHANGELOG.md (88 lines, 5480 bytes)
+## FILE: MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/CHANGELOG.md (93 lines, 5677 bytes)
 
 ```
 # Changelog — One Block Skyblock Lucky Blocks
 
 ---
+
+## [9.0.0] - 2026-11-23 - Starter Chest Fix
+
+### Fixed
+- **Starter chest**: The island function now fills the starter chest with the command Bedrock accepts, so the function loads without errors.
 
 ## [v8] - 2026-11-22 - Baby Shower and Split Scripts
 
@@ -2531,11 +2536,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "One Block Skyblock Lucky Blocks (v8)",
+    "name": "One Block Skyblock Lucky Blocks (v9)",
     "description": "Lucky block texture. by ALNStudios",
     "uuid": "8e8d2f07-56e1-4271-bb5f-e8ae848db662",
     "version": [
-      8,
+      9,
       0,
       0
     ],
@@ -2550,7 +2555,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "2871df63-c3f5-4516-87ee-35bb02dc838f",
       "version": [
-        8,
+        9,
         0,
         0
       ]
@@ -2560,7 +2565,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
     "authors": [
       "ALNStudios"
     ],
-    "version": "8.0.0",
+    "version": "9.0.0",
     "product_type": "addon"
   }
 }

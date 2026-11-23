@@ -1,15 +1,25 @@
 # Changelog — One Block Skyblock Lucky Blocks
 
-## [v8] - 2026-11-22 - Baby Shower and Split Scripts
+## [9.0.0] - 2026-11-23 - Starter Chest Fix
 
-### Added
+### Fixed
+- **Starter chest**: The island function now fills the starter chest with the command Bedrock accepts, so the function loads without errors.
+
+<details>
+<summary><b>8.0.x</b> (1 release)</summary>
+
+### [v8] - 2026-11-22 - Baby Shower and Split Scripts
+
+#### Added
 - **Baby Shower**: About 10 baby cows, pigs, sheep and chickens spawn around the island.
 - **49 more prizes**: The pool grows to 250 prizes, so each prize now has a 0.4% chance in the All-Round block.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **Block chance on the action bar**: Each result now shows the chance of that block type.
 - **One anvil only**: Falling Anvil drops a single anvil and removes it after it lands.
 - **Split scripts**: The script is now split into modules in scripts/lib so it is easier to maintain.
+
+</details>
 
 <details>
 <summary><b>7.0.x</b> (1 release)</summary>
