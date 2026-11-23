@@ -1,5 +1,5 @@
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
-import { PAGE_SIZE, MAX_LISTINGS_PER_PLAYER, PROP } from "./config.js";
+import { PAGE_SIZE, MAX_LISTINGS_PER_PLAYER, COIN_NAME, PROP } from "./config.js";
 import { slotOf, slotCoords, recordOf, recordOfPlayerId } from "./slots.js";
 import { traitInfo, traitLabel } from "./traits.js";
 import { phaseIndexFor, phaseLabel, breaksToNextPhase } from "./phases.js";
@@ -13,51 +13,11 @@ import {
   buyListing,
   payoutSummary,
   collectPayout,
+  coinsOf,
 } from "./market.js";
-import { findPlayer, wait, niceName, normalizeId, plainInventory, countPlain } from "./util.js";
+import { priceInfo, recommendedTotal } from "./prices.js";
+import { findPlayer, wait, niceName, plainInventory } from "./util.js";
 import { promptWelcome } from "./welcome.js";
-
-const GOODS = [
-  "minecraft:iron_ingot",
-  "minecraft:raw_iron",
-  "minecraft:copper_ingot",
-  "minecraft:gold_ingot",
-  "minecraft:coal",
-  "minecraft:redstone",
-  "minecraft:lapis_lazuli",
-  "minecraft:diamond",
-  "minecraft:emerald",
-  "minecraft:wheat",
-  "minecraft:carrot",
-  "minecraft:potato",
-  "minecraft:beetroot",
-  "minecraft:pumpkin",
-  "minecraft:melon_slice",
-  "minecraft:sweet_berries",
-  "minecraft:sugar_cane",
-  "minecraft:oak_log",
-  "minecraft:birch_log",
-  "minecraft:spruce_log",
-  "minecraft:stick",
-  "minecraft:apple",
-  "minecraft:cod",
-  "minecraft:salmon",
-  "minecraft:ink_sac",
-  "minecraft:nautilus_shell",
-  "minecraft:name_tag",
-  "minecraft:leather",
-  "minecraft:beef",
-  "minecraft:porkchop",
-  "minecraft:white_wool",
-  "minecraft:feather",
-  "minecraft:egg",
-  "minecraft:bone",
-  "minecraft:glowstone_dust",
-  "minecraft:nether_wart",
-  "minecraft:quartz",
-  "minecraft:blaze_rod",
-  "minecraft:obsidian",
-];
 
 const HUB_TITLE = "§6§lGlobal Trade Hub";
 
@@ -84,17 +44,13 @@ function sellerTrait(sellerId) {
 }
 
 function offerText(l) {
-  return `${l.give.amount}x ${niceName(l.give.id)}  §8for§r  ${l.want.amount}x ${niceName(l.want.id)}`;
+  return `${l.give.amount}x ${niceName(l.give.id)}  §8for§r  §e${l.price} ${COIN_NAME}`;
 }
 
 function matches(listing, filter) {
   if (!filter) return true;
   const f = filter.toLowerCase();
-  return (
-    niceName(listing.give.id).toLowerCase().includes(f) ||
-    niceName(listing.want.id).toLowerCase().includes(f) ||
-    listing.sellerName.toLowerCase().includes(f)
-  );
+  return niceName(listing.give.id).toLowerCase().includes(f) || listing.sellerName.toLowerCase().includes(f);
 }
 
 async function screenMain(player) {
@@ -102,17 +58,17 @@ async function screenMain(player) {
   const record = recordOf(slot);
   const offers = allListings().filter((l) => l.seller !== player.id).length;
   const mine = listingsOf(player.id).length;
-  const owed = payoutSummary(player.id).reduce((sum, e) => sum + e.amount, 0);
+  const returned = payoutSummary(player.id).reduce((sum, e) => sum + e.amount, 0);
   const phase = phaseIndexFor(globalBreaks());
   const form = new ActionFormData()
     .title(HUB_TITLE)
     .body(
-      `§7Island #${slot} §8| ${traitLabel(record.trait)}\n§7World phase: ${phaseLabel(phase)}\n\n§fTrade surplus items with every island on the grid, no market building needed.`
+      `§7Island #${slot} §8| ${traitLabel(record.trait)}\n§7World phase: ${phaseLabel(phase)}\n§fBalance: §e${coinsOf(player.id)} ${COIN_NAME}\n\n§fSell your surplus items for ${COIN_NAME} and buy what your island lacks. Every item shows a recommended price and amount when you create an offer.`
     )
     .button(`Browse Offers\n§8${offers} open`)
     .button("Create Offer")
     .button(`My Offers\n§8${mine} / ${MAX_LISTINGS_PER_PLAYER}`)
-    .button(`Collect Earnings\n§8${owed} items waiting`)
+    .button(`Collect Returned Items\n§8${returned} items waiting`)
     .button("My Island")
     .button("Close");
   const res = await show(form, player);
@@ -159,11 +115,11 @@ async function screenConfirm(player, state) {
     player.sendMessage("§6[ALN] §cThat offer is no longer available.");
     return { name: "browse", page: state.page, filter: state.filter };
   }
-  const have = countPlain(player, listing.want.id);
+  const rec = recommendedTotal(listing.give.id, listing.give.amount);
   const form = new ActionFormData()
     .title(HUB_TITLE)
     .body(
-      `§fYou receive: §a${listing.give.amount}x ${niceName(listing.give.id)}\n§fYou pay: §e${listing.want.amount}x ${niceName(listing.want.id)}\n§7You carry: ${have}x\n\n§7Seller: ${listing.sellerName} ${sellerTrait(listing.seller)}`
+      `§fYou receive: §a${listing.give.amount}x ${niceName(listing.give.id)}\n§fYou pay: §e${listing.price} ${COIN_NAME}\n§7Your balance: ${coinsOf(player.id)} ${COIN_NAME}\n§7Recommended price: ${rec} ${COIN_NAME}\n\n§7Seller: ${listing.sellerName} ${sellerTrait(listing.seller)}`
     )
     .button("Buy Now")
     .button("Back");
@@ -182,25 +138,24 @@ async function screenCreate(player) {
     player.sendMessage("§6[ALN] §cYou carry no plain items to sell.");
     return { name: "main", page: 0, filter: "" };
   }
+  const labels = inventory.map((e) => {
+    const p = priceInfo(e.id);
+    return `${niceName(e.id)} (have ${e.amount}) §8rec. ${p.unit} each, ${p.amount} per offer`;
+  });
   const form = new ModalFormData()
     .title(HUB_TITLE)
-    .dropdown("Item to sell", inventory.map((e) => `${niceName(e.id)} (have ${e.amount})`))
-    .textField("Amount to sell", "e.g. 32")
-    .dropdown("Item you want", GOODS.map((id) => niceName(id)))
-    .textField("Or type any other item name (optional)", "e.g. golden apple")
-    .textField("Amount you want", "e.g. 16");
+    .dropdown("Item to sell", labels)
+    .textField("Amount to sell (empty = recommended amount)", "e.g. 32")
+    .textField(`Total price in ${COIN_NAME} (empty = recommended price)`, "e.g. 160");
   const res = await show(form, player);
   if (!res || res.canceled || !res.formValues) return { name: "main", page: 0, filter: "" };
-  const [giveIndex, giveText, wantIndex, wantCustom, wantText] = res.formValues;
-  const give = inventory[giveIndex];
-  const wantId = String(wantCustom ?? "").trim() ? normalizeId(wantCustom) : GOODS[wantIndex];
-  const result = createListing(
-    player,
-    give.id,
-    Number.parseInt(String(giveText).trim(), 10),
-    wantId,
-    Number.parseInt(String(wantText).trim(), 10)
-  );
+  const [itemIndex, amountText, priceText] = res.formValues;
+  const item = inventory[itemIndex];
+  const typedAmount = String(amountText ?? "").trim();
+  const amount = typedAmount ? Number.parseInt(typedAmount, 10) : Math.min(priceInfo(item.id).amount, item.amount);
+  const typedPrice = String(priceText ?? "").trim();
+  const price = typedPrice ? Number.parseInt(typedPrice, 10) : recommendedTotal(item.id, amount);
+  const result = createListing(player, item.id, amount, price);
   player.sendMessage(`§6[ALN] ${result.ok ? "§a" : "§c"}${result.message}`);
   return { name: "main", page: 0, filter: "" };
 }
@@ -238,7 +193,7 @@ async function screenCancel(player, state) {
 function screenCollect(player) {
   const total = collectPayout(player);
   player.sendMessage(
-    total > 0 ? `§6[ALN] §aCollected ${total} items from your sales.` : "§6[ALN] §7You have no earnings waiting."
+    total > 0 ? `§6[ALN] §aCollected ${total} returned items.` : "§6[ALN] §7You have no returned items waiting."
   );
   return { name: "main", page: 0, filter: "" };
 }

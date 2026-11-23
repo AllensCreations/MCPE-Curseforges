@@ -18,12 +18,16 @@ export const PROP = {
   LISTING_PREFIX: "aln:listing_",
   PAYOUT_PREFIX: "aln:payout_",
   LEDGER_OWED: "aln:ledger_owed",
+  COIN_PREFIX: "aln:coins_",
 };
 
 export const BONUS_CHANCE = 0.3;
 export const MAX_LISTINGS_PER_PLAYER = 8;
 export const MAX_LISTINGS_TOTAL = 250;
 export const MAX_TRADE_AMOUNT = 2304;
+export const COIN_NAME = "ALN Coins";
+export const STARTER_COINS = 500;
+export const MAX_PRICE = 1000000;
 export const PAGE_SIZE = 6;
 export const WELCOME_RETRY_LIMIT = 12;
 
@@ -43,7 +47,11 @@ export const RULES_BODY = [
   "§7- Each island has one Richness trait that boosts its block mix and adds bonus drops. No island has everything, so trade.",
   "",
   "§eTRADERS Item",
-  "§7- Right-click the TRADERS Item anywhere to list items, browse offers and collect earnings from other islands.",
+  "§7- Right-click the TRADERS Item anywhere to sell items for ALN Coins, browse offers and buy with your coins.",
   "§7- Listed items are held safely until they sell or you cancel the listing.",
   "§7- The TRADERS Item is permanent. If you throw it away it returns to you, and if your inventory is full it returns as soon as a slot is free.",
+  "",
+  "§eALN Coins",
+  `§7- Trading uses ${COIN_NAME}. Every player starts with ${STARTER_COINS} ${COIN_NAME} and earns more by selling items.`,
+  "§7- When you create an offer, every item shows a recommended price and amount. Leave the fields empty to use them.",
 ].join("\n");

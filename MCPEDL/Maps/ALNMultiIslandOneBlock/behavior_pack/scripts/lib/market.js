@@ -1,5 +1,13 @@
 import { world } from "@minecraft/server";
-import { PROP, MAX_LISTINGS_PER_PLAYER, MAX_LISTINGS_TOTAL, MAX_TRADE_AMOUNT } from "./config.js";
+import {
+  PROP,
+  MAX_LISTINGS_PER_PLAYER,
+  MAX_LISTINGS_TOTAL,
+  MAX_TRADE_AMOUNT,
+  MAX_PRICE,
+  STARTER_COINS,
+  COIN_NAME,
+} from "./config.js";
 import {
   readJson,
   writeJson,
@@ -13,6 +21,16 @@ import {
 
 const listingKey = (id) => PROP.LISTING_PREFIX + id;
 const payoutKey = (playerId) => PROP.PAYOUT_PREFIX + playerId;
+const coinKey = (playerId) => PROP.COIN_PREFIX + playerId;
+
+export function coinsOf(playerId) {
+  const stored = world.getDynamicProperty(coinKey(playerId));
+  return typeof stored === "number" ? stored : STARTER_COINS;
+}
+
+function addCoins(playerId, amount) {
+  world.setDynamicProperty(coinKey(playerId), coinsOf(playerId) + amount);
+}
 
 function readIds() {
   return readJson(world, PROP.LISTING_IDS, []);
@@ -22,8 +40,15 @@ function writeIds(list) {
   writeJson(world, PROP.LISTING_IDS, list);
 }
 
+function addPayout(playerId, itemId, amount) {
+  const owed = readJson(world, payoutKey(playerId), {});
+  owed[itemId] = (owed[itemId] ?? 0) + amount;
+  writeJson(world, payoutKey(playerId), owed);
+}
+
 export function getListing(id) {
-  return readJson(world, listingKey(id), undefined);
+  const listing = readJson(world, listingKey(id), undefined);
+  return listing && typeof listing.price === "number" ? listing : undefined;
 }
 
 export function allListings() {
@@ -31,8 +56,13 @@ export function allListings() {
   const found = [];
   const keep = [];
   for (const id of ids) {
-    const listing = getListing(id);
+    const listing = readJson(world, listingKey(id), undefined);
     if (!listing) continue;
+    if (typeof listing.price !== "number") {
+      addPayout(listing.seller, listing.give.id, listing.give.amount);
+      world.setDynamicProperty(listingKey(id), undefined);
+      continue;
+    }
     found.push(listing);
     keep.push(id);
   }
@@ -59,36 +89,34 @@ function nextId() {
 const fail = (message) => ({ ok: false, message });
 const done = (message) => ({ ok: true, message });
 
-export function createListing(player, giveId, giveAmount, wantId, wantAmount) {
-  if (!Number.isInteger(giveAmount) || giveAmount < 1 || giveAmount > MAX_TRADE_AMOUNT) {
+export function createListing(player, itemId, amount, price) {
+  if (!Number.isInteger(amount) || amount < 1 || amount > MAX_TRADE_AMOUNT) {
     return fail(`The amount you sell must be a whole number from 1 to ${MAX_TRADE_AMOUNT}.`);
   }
-  if (!Number.isInteger(wantAmount) || wantAmount < 1 || wantAmount > MAX_TRADE_AMOUNT) {
-    return fail(`The amount you want must be a whole number from 1 to ${MAX_TRADE_AMOUNT}.`);
+  if (!Number.isInteger(price) || price < 1 || price > MAX_PRICE) {
+    return fail(`The price must be a whole number of ${COIN_NAME} from 1 to ${MAX_PRICE}.`);
   }
-  if (!isValidItem(giveId)) return fail("The item you want to sell is not valid.");
-  if (!isValidItem(wantId)) return fail("The item you asked for does not exist. Check the name.");
-  if (giveId === wantId) return fail("Sell and ask for two different items.");
+  if (!isValidItem(itemId)) return fail("The item you want to sell is not valid.");
   const all = allListings();
   if (all.length >= MAX_LISTINGS_TOTAL) return fail("The Global Trade Hub is full. Try again later.");
   if (all.filter((l) => l.seller === player.id).length >= MAX_LISTINGS_PER_PLAYER) {
     return fail(`You can have at most ${MAX_LISTINGS_PER_PLAYER} offers open at once.`);
   }
-  if (countPlain(player, giveId) < giveAmount) {
-    return fail(`You only carry ${countPlain(player, giveId)}x ${niceName(giveId)} without custom changes.`);
+  if (countPlain(player, itemId) < amount) {
+    return fail(`You only carry ${countPlain(player, itemId)}x ${niceName(itemId)} without custom changes.`);
   }
-  if (!removePlain(player, giveId, giveAmount)) return fail("Could not take the items from your inventory.");
+  if (!removePlain(player, itemId, amount)) return fail("Could not take the items from your inventory.");
   const id = nextId();
   writeJson(world, listingKey(id), {
     id,
     seller: player.id,
     sellerName: player.name,
-    give: { id: giveId, amount: giveAmount },
-    want: { id: wantId, amount: wantAmount },
+    give: { id: itemId, amount },
+    price,
   });
   writeIds([...readIds(), id]);
   return done(
-    `Offer posted: ${giveAmount}x ${niceName(giveId)} for ${wantAmount}x ${niceName(wantId)}. Your items are held safely until it sells.`
+    `Offer posted: ${amount}x ${niceName(itemId)} for ${price} ${COIN_NAME}. Your items are held safely until it sells.`
   );
 }
 
@@ -99,12 +127,6 @@ export function cancelListing(player, id) {
   dropListing(id);
   giveItem(player, listing.give.id, listing.give.amount);
   return done(`Offer cancelled. ${listing.give.amount}x ${niceName(listing.give.id)} returned to you.`);
-}
-
-function addPayout(playerId, itemId, amount) {
-  const owed = readJson(world, payoutKey(playerId), {});
-  owed[itemId] = (owed[itemId] ?? 0) + amount;
-  writeJson(world, payoutKey(playerId), owed);
 }
 
 export function payoutSummary(playerId) {
@@ -127,21 +149,20 @@ export function collectPayout(player) {
 export function buyListing(buyer, id) {
   const listing = getListing(id);
   if (!listing) return fail("That offer is no longer available.");
-  if (listing.seller === buyer.id) return fail("You cannot buy your own offer. Cancel it from My Listings.");
-  const owned = countPlain(buyer, listing.want.id);
-  if (owned < listing.want.amount) {
-    return fail(`You need ${listing.want.amount}x ${niceName(listing.want.id)} (you have ${owned}).`);
+  if (listing.seller === buyer.id) return fail("You cannot buy your own offer. Cancel it from My Offers.");
+  const balance = coinsOf(buyer.id);
+  if (balance < listing.price) {
+    return fail(`You need ${listing.price} ${COIN_NAME} (you have ${balance}).`);
   }
-  if (!removePlain(buyer, listing.want.id, listing.want.amount)) return fail("Could not take the payment from your inventory.");
   dropListing(id);
+  addCoins(buyer.id, -listing.price);
+  addCoins(listing.seller, listing.price);
   giveItem(buyer, listing.give.id, listing.give.amount);
   const seller = findPlayer(listing.seller);
-  const summary = `${listing.want.amount}x ${niceName(listing.want.id)}`;
   if (seller) {
-    giveItem(seller, listing.want.id, listing.want.amount);
-    seller.sendMessage(`§6[ALN] §a${buyer.name} bought your offer. You received ${summary}.`);
-  } else {
-    addPayout(listing.seller, listing.want.id, listing.want.amount);
+    seller.sendMessage(`§6[ALN] §a${buyer.name} bought your offer. You received ${listing.price} ${COIN_NAME}.`);
   }
-  return done(`Trade complete: you received ${listing.give.amount}x ${niceName(listing.give.id)} for ${summary}.`);
+  return done(
+    `Purchase complete: you received ${listing.give.amount}x ${niceName(listing.give.id)} for ${listing.price} ${COIN_NAME}.`
+  );
 }

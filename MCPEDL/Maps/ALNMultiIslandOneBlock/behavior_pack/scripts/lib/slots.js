@@ -118,6 +118,22 @@ export function firstFreeSlot() {
   return undefined;
 }
 
+const TIER_ENDS = [8, 24, 48, 80, 120];
+
+export function randomFreeSlot() {
+  const slots = readSlots();
+  let start = 1;
+  for (const end of TIER_ENDS) {
+    const free = [];
+    for (let s = start; s <= end; s++) {
+      if (!slots[String(s)]) free.push(s);
+    }
+    if (free.length > 0) return free[Math.floor(Math.random() * free.length)];
+    start = end + 1;
+  }
+  return undefined;
+}
+
 export function assignSlot(player, slot, trait) {
   readSlots()[String(slot)] = { id: player.id, name: player.name, trait, built: false };
   saveSlots();

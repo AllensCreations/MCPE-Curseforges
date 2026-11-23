@@ -5,7 +5,7 @@
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Claim a private OneBlock island on a 2,000-block grid and trade surplus goods through the TRADERS Item.**
+**Claim a private OneBlock island on a 2,000-block grid and trade surplus goods for ALN Coins through the TRADERS Item.**
 
 > Every player gets a floating island, every island shares the same OneBlock phase, and no island has everything. Trading is how the world grows.
 
@@ -26,16 +26,16 @@ The map is a void world and includes Creative, Survival and Hardcore versions.
 - **What Happens**: A first-time player sees the ALN:MultiIslandOneBlock window with Start / Claim Island and About / Rules buttons. The window warns that the island spot cannot be undone, and it reopens if it is closed before a choice is made.
 
 ### Permanent Island Claim
-- **What Happens**: Pressing Start assigns the next free island spot, builds a small grass island with the starting OneBlock, sets the personal respawn point on top of it, and teleports the player there. The spot belongs to that player for good.
+- **What Happens**: Pressing Start assigns a random free island spot, builds a small grass island with the starting OneBlock, sets the personal respawn point on top of it, and teleports the player there. The spot belongs to that player for good.
 
 ### 2,000-Block Square Grid
-- **What Happens**: The first eight islands sit at the corners and edges of a square around the lobby, from X: -2000, Z: -2000 to X: 2000, Z: 2000. Spots nine and up fill outer perimeter rings, up to 120 islands in total.
+- **What Happens**: Islands are placed on a random free spot of the innermost ring that still has room. The first eight spots sit at the corners and edges of a square around the lobby, from X: -2000, Z: -2000 to X: 2000, Z: 2000. Spots nine and up fill outer perimeter rings, up to 120 islands in total.
 
 ### Shared OneBlock Phases
 - **What Happens**: Every OneBlock broken on any island moves the whole world forward through eight phases: Forest, Underground, Desert, Frozen Tundra, Ocean Monument, Nether, Deepslate Depths and The End. All islands always draw blocks from the same phase.
 
 ### Island Richness Traits
-- **What Happens**: Each island receives one trait: Ore Bounty, Crop Master, Treasure Angler, Timber Baron, Beast Herder or Ember Forager. Traits are handed out evenly, and each one changes which blocks appear most often on that island.
+- **What Happens**: Each island receives one trait: Ore Bounty, Crop Master, Treasure Angler, Timber Baron, Beast Herder or Ember Forager. Traits are picked at random, and each one changes which blocks appear most often on that island.
 
 ### Bonus Drops
 - **What Happens**: Roughly three out of ten OneBlock breaks drop an extra item that matches the island's trait and the current phase. Ore Bounty islands earn metals and gems, Crop Master islands earn harvests, and the other traits earn their own goods.
@@ -44,10 +44,10 @@ The map is a void world and includes Creative, Survival and Hardcore versions.
 - **What Happens**: A portable item crafted from a Book, a Gold Nugget and an Emerald in a crafting table. Every player also receives one when claiming an island, and right-clicking it opens the Global Trade Hub from anywhere. It is permanent: if you throw it away it returns to you, and if your inventory is full it returns as soon as a slot is free.
 
 ### Global Trade Hub
-- **What Happens**: Players post offers such as 32 Iron Ingots for 16 Pumpkins, browse and search offers from every island, and buy with a single confirmation. Offered items are held safely until the offer sells or is cancelled.
+- **What Happens**: Players post offers priced in ALN Coins, such as 32 Iron Ingots for 160 ALN Coins, browse and search offers from every island, and buy with a single confirmation. Every item shows a recommended price and amount, and leaving the fields empty uses them. Offered items are held safely until the offer sells or is cancelled.
 
-### Earnings Collection
-- **What Happens**: Payment for a sold offer goes straight to the seller when online. Sellers who are offline receive their earnings the next time they join, or when they choose Collect Earnings in the hub.
+### ALN Coins
+- **What Happens**: ALN Coins are the currency of the Global Trade Hub. Every player starts with 500 ALN Coins, and the balance is shown in the hub. A sold offer pays the seller right away, even when the seller is offline.
 
 ## How to Use
 
@@ -56,7 +56,7 @@ The map is a void world and includes Creative, Survival and Hardcore versions.
 3. First-time players appear on the bedrock pillar and see the startup window.
 4. Read About / Rules if you like, then choose Start / Claim Island. This choice cannot be undone.
 5. Break the OneBlock under your feet. It regenerates every time, and the whole world advances through its phases as islands keep breaking blocks.
-6. Right-click the TRADERS Item to create offers, browse other islands' offers and collect earnings.
+6. Right-click the TRADERS Item to sell items for ALN Coins, browse other islands' offers and buy with your coins.
 7. Craft a new TRADERS Item with a Book, a Gold Nugget and an Emerald if you ever lose yours.
 8. Optional: the map includes a setup command that rebuilds the spawn pillar and resets the world spawn. It needs cheats, and cheats disable achievements in that world.
 

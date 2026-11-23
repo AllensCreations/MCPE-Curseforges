@@ -122,14 +122,6 @@ export function traitLabel(id) {
   return t ? `${t.color}${t.name}` : "§7Unknown";
 }
 
-export function pickTrait(slotRecords) {
-  const counts = {};
-  for (const id of TRAIT_IDS) counts[id] = 0;
-  for (const key of Object.keys(slotRecords)) {
-    const t = slotRecords[key].trait;
-    if (counts[t] !== undefined) counts[t]++;
-  }
-  const least = Math.min(...TRAIT_IDS.map((id) => counts[id]));
-  const pool = TRAIT_IDS.filter((id) => counts[id] === least);
-  return pool[Math.floor(Math.random() * pool.length)];
+export function pickTrait() {
+  return TRAIT_IDS[Math.floor(Math.random() * TRAIT_IDS.length)];
 }

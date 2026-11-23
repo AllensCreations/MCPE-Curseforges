@@ -21,7 +21,7 @@ function readyPlayer(player) {
   if (payoutSummary(player.id).length > 0) {
     later(() => {
       const total = collectPayout(player);
-      if (total > 0) player.sendMessage(`§6[ALN] §aWhile you were away, ${total} items from your sales were delivered.`);
+      if (total > 0) player.sendMessage(`§6[ALN] §aWhile you were away, ${total} items returned from your old offers were delivered.`);
     }, 40);
   }
 }

@@ -2,6 +2,16 @@
 
 ---
 
+## [v4] - 2026-11-23 - ALN Coins and Random Islands
+
+### Added
+- **ALN Coins**: The Global Trade Hub now uses ALN Coins instead of item-for-item swaps. Every player starts with 500 ALN Coins, offers are priced in coins, and a sale pays the seller right away, even when offline.
+- **Recommended Prices**: Every item shows a recommended price and amount when you create an offer, and empty fields use them.
+### Improved & Balanced
+- **Random Richness**: Each new island now gets a random Richness trait instead of an evenly balanced one.
+- **Random Island Spots**: Each new island now takes a random free spot of the innermost ring that still has room instead of the next spot in order.
+- **Old Offers**: Open item-for-item offers from the previous version are cancelled and the items are returned to their sellers.
+
 ## [v3] - 2026-11-23 - TRADERS Item Return Fix
 
 ### Fixed

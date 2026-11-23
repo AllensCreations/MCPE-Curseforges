@@ -1,6 +1,6 @@
 import { world } from "@minecraft/server";
 import { LEDGER_ID, SPAWN_Y, STARTER_LEDGER } from "./config.js";
-import { firstFreeSlot, assignSlot, slotCoords, slotOf, readSlots, recordOf } from "./slots.js";
+import { randomFreeSlot, assignSlot, slotCoords, slotOf, recordOf } from "./slots.js";
 import { pickTrait, traitInfo, traitLabel } from "./traits.js";
 import { ensureIsland, currentPhase } from "./island.js";
 import { phaseLabel } from "./phases.js";
@@ -51,12 +51,12 @@ export function claimIsland(player) {
     goHome(player, owned, true);
     return;
   }
-  const slot = firstFreeSlot();
+  const slot = randomFreeSlot();
   if (slot === undefined) {
     player.sendMessage("§c[ALN] Every island spot on this world is taken.");
     return;
   }
-  const trait = pickTrait(readSlots());
+  const trait = pickTrait();
   assignSlot(player, slot, trait);
   claiming.add(id);
   player.sendMessage(`§6[ALN] §7Preparing island #${slot}...`);
