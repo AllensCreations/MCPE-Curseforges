@@ -2,12 +2,13 @@
 
 Snapshot written by `python3 scripts/build_context7_docs.py` after the last spec. The files in the repository win over this page.
 
-- REPO_VERSION: 249. The next repo-level spec is spec_v250.txt (`@@ version 250`).
+- REPO_VERSION: 250. The next repo-level spec is spec_v251.txt (`@@ version 251`).
 - A spec that is not listed below or in the root `CHANGELOG.md` is NOT applied.
 - A project spec uses `@@ version` = the project's latest version below + 0.0.1.
 
 ## Newest specs (root CHANGELOG.md)
 
+- [v250] - 2026-11-23 - Ledger Moved To Context7 | **Spec**: spec_v250.txt | **Target**: repo | **Files edited**: 2
 - [v249] - 2026-11-23 - Sell Form Toggles | **Spec**: spec_v249.txt | **Target**: MCPEDL/Maps/OneBlock-Natural-Market | **Files edited**: 2
 - [v248] - 2026-11-23 - Sell Lock List | **Spec**: spec_v248.txt | **Target**: MCPEDL/Maps/OneBlock-Natural-Market | **Files edited**: 3
 - [v247] - 2026-11-23 - Dwarf Golem Update | **Spec**: spec_v247.txt | **Target**: MCPEDL/Addons/ALN-FarmerGolem | **Files edited**: 8
@@ -17,7 +18,6 @@ Snapshot written by `python3 scripts/build_context7_docs.py` after the last spec
 - [v243] - 2026-11-23 - Auto Restock and Chest Lock | **Spec**: spec_v243.txt | **Target**: MCPEDL/Addons/ALNOneClickSort | **Files edited**: 4
 - [v242] - 2026-11-23 - Restock Get Everything | **Spec**: spec_v242.txt | **Target**: MCPEDL/Addons/ALNOneClickSort | **Files edited**: 4
 - [v241] - 2026-11-23 - Repo Tester progress | **Spec**: spec_v241.txt | **Target**: repo | **Files edited**: 2
-- [v240] - 2026-11-23 - Self-test single-number versions | **Spec**: spec_v240.txt | **Target**: repo | **Files edited**: 1
 
 ## Projects (latest heading in each project CHANGELOG.md)
 
