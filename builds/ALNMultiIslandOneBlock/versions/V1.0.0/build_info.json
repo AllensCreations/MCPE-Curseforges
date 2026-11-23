@@ -1,8 +1,0 @@
-{
-  "changelog_version": "1.0.0",
-  "manifest_version": "1.0.0",
-  "packages": {
-    "ALNMultiIslandOneBlock V1.mcaddon": "53cdadc264f024008d857fda4abadff56589645939e2d3e6cc63d289b52889c2"
-  },
-  "source_sha256": "f7e7305a48b80fe223f0ea62253d937cc0fe40c1e1852c54c22b2d20432b82b9"
-}
