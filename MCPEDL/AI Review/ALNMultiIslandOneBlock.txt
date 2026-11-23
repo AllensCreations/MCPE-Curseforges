@@ -7,7 +7,7 @@
 - **CURRENT VERSION: v5 / NEXT UPDATE: v6**  (`MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 33
-- **Skipped binary:** 7
+- **Skipped binary:** 11
 - **Paths not found:** 0
 
 ### Files in this export
@@ -46,12 +46,16 @@
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/resource_pack/textures/item_texture.json`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/texture_sources/pirate_ledger.json`
 
-### Skipped (binary): 7 file(s)
+### Skipped (binary): 11 file(s)
 
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/ALNMultiIslandOneBlock - Creative.mcworld`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/ALNMultiIslandOneBlock - Hardcore.mcworld`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/ALNMultiIslandOneBlock - Survival.mcworld`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/assets/items/pirate_ledger.png`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/assets/snapshots/Screenshot_20261123_165614_com.mojang.v126661xxxx.jpg`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/assets/snapshots/Screenshot_20261123_165622_com.mojang.v126661xxxx.jpg`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/assets/snapshots/Screenshot_20261123_165708_com.mojang.v126661xxxx.jpg`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/assets/snapshots/Screenshot_20261123_165715_com.mojang.v126661xxxx.jpg`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/pack_icon.png`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/resource_pack/pack_icon.png`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/resource_pack/textures/items/pirate_ledger.png`
