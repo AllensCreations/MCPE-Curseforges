@@ -375,11 +375,11 @@ Same rules as `INSTRUCTIONS.md` 1.12. Read it when a mechanic hits a vanilla lim
 ### 4.13 Pixel textures (custom item and block art)
 - The ONLY way to draw new art: pixel JSON, rendered to PNG by `scripts/pixel_json_to_png.py`. NEVER AI-generated images, NEVER copied or guessed art. A vanilla look = use the real vanilla texture name instead. NEVER for `script` projects (no resource_pack).
 - Source: `texture_sources/<any>.json` = array of textures. NEVER inside `resource_pack/`. No comments.
-- One texture: `{"name": "shepherds_pie", "size": 16, "palette": {"0": "#00000000", "1": "#3d2817"}, "pixels": [[0, 0, 1, ...], ...]}`
+- One texture: `{"name": "shepherds_pie", "size": 64, "palette": {"0": "#00000000", "1": "#3d2817"}, "pixels": [[0, 0, 1, ...], ...]}`
 - `name`: lowercase letters, digits, `_`. It is the PNG name, the key in `resource_pack/textures/item_texture.json` and the item's `minecraft:icon`. ALWAYS register it there.
-- `size`: 16. 32, 64 or 128 ONLY on request. `pixels` = exactly `size` rows of exactly `size` palette indexes.
+- `size`: 64 standard for richer detail and styling freedom (16, 32 or 128 allowed when requested). `pixels` = exactly `size` rows of exactly `size` palette indexes.
 - `palette`: keys are numbers in quotes, `"0"` = `#00000000` (transparent). Values `#RRGGBB` or `#RRGGBBAA`. Every index used MUST exist in the palette. Max 12 colors.
 - Optional `folder`: `items` (default), `blocks` or `items/<sub>`. The PNG goes to `resource_pack/textures/<folder>/<name>.png`.
-- Style: Minecraft pixel art, 1 px dark outline, 3 to 4 shades per material, light from the top left, no gradients, no anti-aliasing, readable at 16x16. Recolors share one grid with a different palette.
+- Style: Minecraft pixel art, clean outlines, depth, light from the top left, no gradients, no blurry anti-aliasing, styled for 64x64 high detail. Recolors share one grid with a different palette.
 - RUN `python3 pixel_json_to_png.py build/<Name>` BEFORE `make_pack_script.py` (4.8): it checks every texture, lists every problem together and writes the PNGs. Fix, rerun. NEVER hand-write a PNG or base64.
 - Ship the JSON AND the PNGs. The JSON is the source: later changes edit the JSON and rerun the script, NEVER the PNG. `--preview [file]` writes a review sheet outside the project: NEVER ship it.

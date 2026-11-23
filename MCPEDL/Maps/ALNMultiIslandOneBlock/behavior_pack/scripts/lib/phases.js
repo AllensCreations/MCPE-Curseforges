@@ -1,7 +1,6 @@
 import { TRAITS } from "./traits.js";
 import { ONEBLOCK_PROGRESSION_POOLS, OneblockPoolProvider } from "./Oneblock_Progression.js";
 
-// Helper for weighted pick without relying on server-bound util.js
 function pickWeighted(list, weightOf) {
   let total = 0;
   for (const entry of list) total += weightOf(entry);
@@ -14,29 +13,28 @@ function pickWeighted(list, weightOf) {
   return list[list.length - 1];
 }
 
-// Color palette for each phase title/actionbar
 const PHASE_COLORS = [
-  "§a", // 1 Plains & Early Roots
-  "§7", // 2 Underground Cavern
-  "§b", // 3 Snowy Taiga & Tundra
-  "§3", // 4 Ocean Floor
-  "§2", // 5 Jungle Canopy
-  "§e", // 6 Desert Dunes
-  "§6", // 7 Badlands Mesa
-  "§g", // 8 Savanna Plains
-  "§d", // 9 Dark Forest & Mushroom Fields
-  "§2", // 10 Mangrove Swamp
-  "§d", // 11 Cherry Grove
-  "§f", // 12 Pale Garden
-  "§9", // 13 Windswept Highlands
-  "§6", // 14 Craftsman's Workshop
-  "§8", // 15 Deepslate Depths
-  "§1", // 16 Deep Dark
-  "§c", // 17 Nether Wastes
-  "§4", // 18 Crimson & Warped Forests
-  "§5", // 19 Bastion & Basalt Deltas
-  "§5", // 20 The End
-  "§d", // 21 End City & Void Horizon
+  "§a", 
+  "§7", 
+  "§b", 
+  "§3", 
+  "§2", 
+  "§e", 
+  "§6", 
+  "§g", 
+  "§d", 
+  "§2", 
+  "§d", 
+  "§f", 
+  "§9", 
+  "§6", 
+  "§8", 
+  "§1", 
+  "§c", 
+  "§4", 
+  "§5", 
+  "§5", 
+  "§d", 
 ];
 
 /**
@@ -93,7 +91,6 @@ export function classifyBlock(blockId) {
   return "stone";
 }
 
-// Build cumulative starting break counts for each phase
 let cumulativeBreaks = 0;
 export const PHASES = ONEBLOCK_PROGRESSION_POOLS.map((pool, idx) => {
   const from = cumulativeBreaks;
@@ -138,7 +135,6 @@ export function nextBlockId(phaseIndex, traitId) {
   const trait = TRAITS[traitId];
   const boost = trait?.boost ?? {};
 
-  // phaseIndex is 0-based in ALN, 1-based in OneblockPoolProvider
   const poolPhase = phaseIndex + 1;
   const unlocked = poolProvider.getUnlockedPool(poolPhase, "blocks");
 
