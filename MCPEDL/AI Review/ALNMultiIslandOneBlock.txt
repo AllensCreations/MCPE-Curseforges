@@ -4,10 +4,10 @@
 
 - **Export request:** `MCPEDL/Maps/ALNMultiIslandOneBlock`
 - **Destination:** `MCPEDL/Maps/ALNMultiIslandOneBlock`
-- **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md`)
+- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 33
-- **Skipped binary:** 10
+- **Skipped binary:** 8
 - **Paths not found:** 0
 
 ### Files in this export
@@ -17,12 +17,12 @@
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/functions/tick.json`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/functions/void_cleaner.mcfunction`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/items/pirate_ledger.json`
-- `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/items/trader_ledger.json`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/manifest.json`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/recipes/pirate_ledger.json`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/claim.js`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/config.js`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/island.js`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/keeper.js`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/ledger.js`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/lobby.js`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/market.js`
@@ -46,18 +46,16 @@
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/resource_pack/textures/item_texture.json`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/texture_sources/pirate_ledger.json`
 
-### Skipped (binary): 10 file(s)
+### Skipped (binary): 8 file(s)
 
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/ALNMultiIslandOneBlock - Creative.mcworld`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/ALNMultiIslandOneBlock - Hardcore.mcworld`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/ALNMultiIslandOneBlock - Survival.mcworld`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/assets/items/pirate_ledger.png`
-- `MCPEDL/Maps/ALNMultiIslandOneBlock/assets/items/trader_ledger.png`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/assets/recipes/pirate_ledger_recipe.png`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/pack_icon.png`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/resource_pack/pack_icon.png`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/resource_pack/textures/items/pirate_ledger.png`
-- `MCPEDL/Maps/ALNMultiIslandOneBlock/resource_pack/textures/items/trader_ledger.png`
 
 ---
 
@@ -68,7 +66,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v1 / NEXT UPDATE: v2).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
@@ -251,7 +249,7 @@ execute as @a[tag=!void_cleaned] run setworldspawn 0 65 0
 execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cleaned
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/items/pirate_ledger.json (28 lines, 592 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/items/pirate_ledger.json (28 lines, 584 bytes)
 
 ```
 {
@@ -271,39 +269,7 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
         }
       },
       "minecraft:display_name": {
-        "value": "§6Global Pirate Ledger"
-      },
-      "minecraft:use_animation": "spyglass",
-      "minecraft:use_modifiers": {
-        "use_duration": 0.1,
-        "movement_modifier": 1
-      }
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/items/trader_ledger.json (28 lines, 596 bytes)
-
-```
-{
-  "format_version": "1.26.60",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:trader_ledger",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {
-      "minecraft:max_stack_size": 1,
-      "minecraft:icon": {
-        "textures": {
-          "default": "trader_ledger"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "OneBlock Trader"
+        "value": "§6TRADERS Item"
       },
       "minecraft:use_animation": "spyglass",
       "minecraft:use_modifiers": {
@@ -321,11 +287,11 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:MultiIslandOneBlock (v1)",
+    "name": "ALN:MultiIslandOneBlock (v2)",
     "description": "Multi-island OneBlock grid with a central lobby and a global trade ledger. by ALNStudios",
     "uuid": "0886e248-abae-466f-85fe-a01de46396cf",
     "version": [
-      1,
+      2,
       0,
       0
     ],
@@ -340,7 +306,7 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
       "type": "data",
       "uuid": "76888f9d-5edf-4308-b1ab-1c176dbe38e9",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -351,7 +317,7 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
       "uuid": "fd4c32c2-7e0a-4bfe-8633-e30171567364",
       "entry": "scripts/main.js",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -361,7 +327,7 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
     {
       "uuid": "2cf90b7d-4b0f-44d5-b726-41f3e756f95f",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -380,7 +346,7 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "2.0.0"
   }
 }
 ```
@@ -420,7 +386,7 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
 }
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/claim.js (77 lines, 2746 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/claim.js (77 lines, 2740 bytes)
 
 ```
 import { world } from "@minecraft/server";
@@ -465,7 +431,7 @@ function welcomeToIsland(player, slot, islandReady) {
   player.sendMessage(`§6[ALN] §eIsland #${slot} claimed at X: ${c.x}, Z: ${c.z}.`);
   player.sendMessage(`§6[ALN] §fRichness: ${traitLabel(record.trait)} §7- ${info.blurb}`);
   player.sendMessage(`§6[ALN] §fWorld phase: ${phaseLabel(currentPhase())}§f. Break your OneBlock to begin.`);
-  if (STARTER_LEDGER) player.sendMessage("§6[ALN] §7You received a Global Pirate Ledger. Right-click it to trade with other islands.");
+  if (STARTER_LEDGER) player.sendMessage("§6[ALN] §7You received the TRADERS Item. Right-click it to trade with other islands.");
 }
 
 export function claimIsland(player) {
@@ -501,7 +467,7 @@ export function returnToIsland(player) {
 }
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/config.js (48 lines, 1914 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/config.js (50 lines, 2095 bytes)
 
 ```
 export const LOBBY = { x: 0, y: 65, z: 0 };
@@ -523,6 +489,7 @@ export const PROP = {
   LISTING_SEQ: "aln:ledger_seq",
   LISTING_PREFIX: "aln:listing_",
   PAYOUT_PREFIX: "aln:payout_",
+  LEDGER_OWED: "aln:ledger_owed",
 };
 
 export const BONUS_CHANCE = 0.3;
@@ -547,9 +514,10 @@ export const RULES_BODY = [
   "§eIsland Richness",
   "§7- Each island has one Richness trait that boosts its block mix and adds bonus drops. No island has everything, so trade.",
   "",
-  "§eGlobal Pirate Ledger",
-  "§7- Right-click the ledger anywhere to list items, browse offers and collect earnings from other islands.",
+  "§eTRADERS Item",
+  "§7- Right-click the TRADERS Item anywhere to list items, browse offers and collect earnings from other islands.",
   "§7- Listed items are held safely until they sell or you cancel the listing.",
+  "§7- The TRADERS Item is permanent. If you throw it away it returns to you, and if your inventory is full it returns as soon as a slot is free.",
 ].join("\n");
 ```
 
@@ -618,6 +586,110 @@ export function regenerate(dim, x, z, trait, phaseIndex) {
     const block = dim.getBlock({ x, y: ONE_BLOCK_Y, z });
     if (block) block.setType(nextBlockId(phaseIndex, trait));
   } catch (e) {}
+}
+```
+
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/keeper.js (100 lines, 2390 bytes)
+
+```
+import { world, system, ItemStack, EntityComponentTypes } from "@minecraft/server";
+import { LEDGER_ID, PROP } from "./config.js";
+import { containerOf } from "./util.js";
+import { slotOf } from "./slots.js";
+
+const CATCH_RADIUS = 4;
+const CHECK_TICKS = 20;
+
+function isOwed(player) {
+  return player.getDynamicProperty(PROP.LEDGER_OWED) === 1;
+}
+
+function setOwed(player, owed) {
+  player.setDynamicProperty(PROP.LEDGER_OWED, owed ? 1 : 0);
+}
+
+function holdsLedger(player) {
+  const inv = containerOf(player);
+  if (!inv) return false;
+  for (let i = 0; i < inv.size; i++) {
+    const item = inv.getItem(i);
+    if (item && item.typeId === LEDGER_ID) return true;
+  }
+  return false;
+}
+
+export function settleLedger(player) {
+  if (!isOwed(player)) return;
+  if (holdsLedger(player)) {
+    setOwed(player, false);
+    return;
+  }
+  const inv = containerOf(player);
+  if (!inv) return;
+  let rest;
+  try {
+    rest = inv.addItem(new ItemStack(LEDGER_ID, 1));
+  } catch (e) {
+    return;
+  }
+  if (!rest) setOwed(player, false);
+}
+
+export function ensureLedger(player) {
+  if (slotOf(player) === undefined) return;
+  if (!holdsLedger(player)) setOwed(player, true);
+  settleLedger(player);
+}
+
+function nearestPlayer(entity) {
+  const at = entity.location;
+  let best;
+  let bestDist = CATCH_RADIUS * CATCH_RADIUS;
+  for (const p of world.getAllPlayers()) {
+    const l = p.location;
+    const d = (l.x - at.x) ** 2 + (l.y - at.y) ** 2 + (l.z - at.z) ** 2;
+    if (d <= bestDist) {
+      best = p;
+      bestDist = d;
+    }
+  }
+  return best;
+}
+
+function catchDrop(entity, attempt) {
+  let stack;
+  try {
+    if (entity.typeId !== "minecraft:item") return;
+    stack = entity.getComponent(EntityComponentTypes.Item)?.itemStack;
+  } catch (e) {
+    if (attempt === 0) system.run(() => catchDrop(entity, 1));
+    return;
+  }
+  if (!stack || stack.typeId !== LEDGER_ID) return;
+  const owner = nearestPlayer(entity);
+  try {
+    entity.remove();
+  } catch (e) {}
+  if (!owner) return;
+  setOwed(owner, true);
+  system.run(() => {
+    try {
+      settleLedger(owner);
+    } catch (e) {}
+  });
+}
+
+export function startLedgerKeeper() {
+  world.afterEvents.entitySpawn.subscribe((event) => {
+    catchDrop(event.entity, 0);
+  });
+  system.runInterval(() => {
+    for (const player of world.getAllPlayers()) {
+      try {
+        settleLedger(player);
+      } catch (e) {}
+    }
+  }, CHECK_TICKS);
 }
 ```
 
@@ -2278,7 +2350,7 @@ export function rollBonus(phaseIndex, traitId) {
 }
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/README.md (22 lines, 2030 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/README.md (23 lines, 2224 bytes)
 
 ```
 # Script library
@@ -2297,10 +2369,11 @@ Scripts for ALN:MultiIslandOneBlock. All helper files live in this folder and ar
 - lib/welcome.js: the Start / About startup window for players without an island.
 - lib/oneblock.js: handles broken OneBlocks, global phase counting, bonus drops and the island self-repair check.
 - lib/market.js: global listing storage, purchases, cancellations and offline earnings.
-- lib/ledger.js: the Global Trade Hub forms opened by the Global Pirate Ledger.
+- lib/ledger.js: the Global Trade Hub forms opened by the TRADERS Item.
+- lib/keeper.js: keeps the TRADERS Item permanent. A thrown copy returns to the player, and a copy owed to a player with a full inventory is delivered as soon as a slot is free.
 
 Script events: aln:menu opens the startup window for a player who has no island yet.
-Custom item: aln:pirate_ledger.
+Custom item: aln:pirate_ledger (shown as TRADERS Item).
 Known limits: listings only accept items without custom names, lore, enchantments or damage. Ticking areas are used briefly while an island is built, and the world allows only a limited number of them.
 ```
 
@@ -2865,7 +2938,7 @@ export async function promptWelcome(player, attempt = 0) {
 }
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/main.js (66 lines, 1901 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/main.js (70 lines, 2044 bytes)
 
 ```
 import { world, system } from "@minecraft/server";
@@ -2875,6 +2948,7 @@ import { hasIsland, returnToIsland } from "./lib/claim.js";
 import { promptWelcome } from "./lib/welcome.js";
 import { startOneBlock } from "./lib/oneblock.js";
 import { openLedger } from "./lib/ledger.js";
+import { startLedgerKeeper, ensureLedger } from "./lib/keeper.js";
 import { collectPayout, payoutSummary } from "./lib/market.js";
 import { later } from "./lib/util.js";
 
@@ -2909,7 +2983,9 @@ world.afterEvents.playerSpawn.subscribe((event) => {
   if (!hasIsland(player)) {
     teleportToLobby(player);
     later(() => promptWelcome(player), 20);
+    return;
   }
+  later(() => ensureLedger(player), 20);
 });
 
 world.afterEvents.itemUse.subscribe((event) => {
@@ -2929,18 +3005,27 @@ system.afterEvents.scriptEventReceive.subscribe((event) => {
 world.afterEvents.worldLoad.subscribe(() => {
   setupLobby();
   startOneBlock();
+  startLedgerKeeper();
   for (const player of world.getAllPlayers()) {
     if (!joining.has(player.id)) readyPlayer(player);
   }
 });
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md (16 lines, 1129 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md (24 lines, 1615 bytes)
 
 ```
 # Changelog — ALN:MultiIslandOneBlock
 
 ---
+
+## [v2] - 2026-11-23 - TRADERS Item
+
+### Added
+- **Permanent TRADERS Item**: If you throw the TRADERS Item away it returns to you. If your inventory is full and you hold none, it is delivered as soon as a slot is free, and you get it back after respawning.
+### Improved & Balanced
+- **TRADERS Item**: The Global Pirate Ledger is now named TRADERS Item and is the only trade item in the map.
+- **Removed Unused Item**: The OneBlock Trader item that had no role in this map was removed.
 
 ## [1.0.0] - 2026-11-23 - First Release
 
@@ -2955,7 +3040,7 @@ world.afterEvents.worldLoad.subscribe(() => {
 - **Global Trade Hub**: Players can post, browse, search, buy, cancel and collect earnings from item offers made by other islands.
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/DESCRIPTION.md (95 lines, 6756 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/DESCRIPTION.md (95 lines, 6732 bytes)
 
 ```
 # ALN:MultiIslandOneBlock — A OneBlock world map with private islands on a 2,000-block grid and a global trade ledger
@@ -2965,7 +3050,7 @@ world.afterEvents.worldLoad.subscribe(() => {
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Claim a private OneBlock island on a 2,000-block grid and trade surplus goods through the Global Pirate Ledger.**
+**Claim a private OneBlock island on a 2,000-block grid and trade surplus goods through the TRADERS Item.**
 
 > Every player gets a floating island, every island shares the same OneBlock phase, and no island has everything. Trading is how the world grows.
 
@@ -2973,9 +3058,9 @@ world.afterEvents.worldLoad.subscribe(() => {
 
 ALN:MultiIslandOneBlock is a OneBlock world map for ten or more players. New players arrive on a lone bedrock pillar at the world spawn, read a short startup window and claim a personal island. Islands sit 2,000 blocks apart in a square grid around the central lobby.
 
-All islands share one progression, and each island carries a Richness trait that shapes its blocks and bonus drops. Because the traits differ, players end up with surplus goods that other islands need. The Global Pirate Ledger lets them swap those goods from anywhere in the world.
+All islands share one progression, and each island carries a Richness trait that shapes its blocks and bonus drops. Because the traits differ, players end up with surplus goods that other islands need. The TRADERS Item lets them swap those goods from anywhere in the world.
 
-The map is a void world and includes Creative, Survival and Hardcore versions. The OneBlock Trader item used by other ALNStudios OneBlock maps is included for compatibility and has no role in this map.
+The map is a void world and includes Creative, Survival and Hardcore versions.
 
 ## Key Features
 
@@ -3000,8 +3085,8 @@ The map is a void world and includes Creative, Survival and Hardcore versions. T
 ### Bonus Drops
 - **What Happens**: Roughly three out of ten OneBlock breaks drop an extra item that matches the island's trait and the current phase. Ore Bounty islands earn metals and gems, Crop Master islands earn harvests, and the other traits earn their own goods.
 
-### Global Pirate Ledger
-- **What Happens**: A portable item crafted from a Book, a Gold Nugget and an Emerald in a crafting table. Every player also receives one when claiming an island, and right-clicking it opens the Global Trade Hub from anywhere.
+### TRADERS Item
+- **What Happens**: A portable item crafted from a Book, a Gold Nugget and an Emerald in a crafting table. Every player also receives one when claiming an island, and right-clicking it opens the Global Trade Hub from anywhere. It is permanent: if you throw it away it returns to you, and if your inventory is full it returns as soon as a slot is free.
 
 ### Global Trade Hub
 - **What Happens**: Players post offers such as 32 Iron Ingots for 16 Pumpkins, browse and search offers from every island, and buy with a single confirmation. Offered items are held safely until the offer sells or is cancelled.
@@ -3016,8 +3101,8 @@ The map is a void world and includes Creative, Survival and Hardcore versions. T
 3. First-time players appear on the bedrock pillar and see the startup window.
 4. Read About / Rules if you like, then choose Start / Claim Island. This choice cannot be undone.
 5. Break the OneBlock under your feet. It regenerates every time, and the whole world advances through its phases as islands keep breaking blocks.
-6. Right-click the Global Pirate Ledger to create offers, browse other islands' offers and collect earnings.
-7. Craft a new ledger with a Book, a Gold Nugget and an Emerald if you ever lose yours.
+6. Right-click the TRADERS Item to create offers, browse other islands' offers and collect earnings.
+7. Craft a new TRADERS Item with a Book, a Gold Nugget and an Emerald if you ever lose yours.
 8. Optional: the map includes a setup command that rebuilds the spawn pillar and resets the world spawn. It needs cheats, and cheats disable achievements in that world.
 
 ## Compatibility
@@ -3094,17 +3179,17 @@ Download the current release of **ALN:MultiIslandOneBlock** for Minecraft Bedroc
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/ALNMultiIslandOneBlock/DESCRIPTION.md).
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/resource_pack/manifest.json (37 lines, 636 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/resource_pack/manifest.json (37 lines, 628 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:MultiIslandOneBlock Resources (v1)",
-    "description": "Textures and names for the Global Pirate Ledger. by ALNStudios",
+    "name": "ALN:MultiIslandOneBlock Resources (v2)",
+    "description": "Textures and names for the TRADERS Item. by ALNStudios",
     "uuid": "2cf90b7d-4b0f-44d5-b726-41f3e756f95f",
     "version": [
-      1,
+      2,
       0,
       0
     ],
@@ -3119,7 +3204,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "02c6ed61-2e06-499b-b6d3-1c6afa51beb6",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -3130,17 +3215,17 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "2.0.0"
   }
 }
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/resource_pack/texts/en_US.lang (4 lines, 168 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/resource_pack/texts/en_US.lang (4 lines, 152 bytes)
 
 ```
-item.aln:pirate_ledger=Global Pirate Ledger
+item.aln:pirate_ledger=TRADERS Item
 pack.name=ALN:MultiIslandOneBlock Resources
-pack.description=Textures and names for the Global Pirate Ledger. by ALNStudios
+pack.description=Textures and names for the TRADERS Item. by ALNStudios
 ```
 
 ## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/resource_pack/texts/languages.json (4 lines, 14 bytes)
@@ -3151,7 +3236,7 @@ pack.description=Textures and names for the Global Pirate Ledger. by ALNStudios
 ]
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/resource_pack/textures/item_texture.json (13 lines, 261 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/resource_pack/textures/item_texture.json (10 lines, 182 bytes)
 
 ```
 {
@@ -3160,9 +3245,6 @@ pack.description=Textures and names for the Global Pirate Ledger. by ALNStudios
   "texture_data": {
     "pirate_ledger": {
       "textures": "textures/items/pirate_ledger"
-    },
-    "trader_ledger": {
-      "textures": "textures/items/trader_ledger"
     }
   }
 }
