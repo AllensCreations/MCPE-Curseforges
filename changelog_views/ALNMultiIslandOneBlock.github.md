@@ -1,15 +1,32 @@
 # Changelog — ALN:MultiIslandOneBlock
 
-## [v4] - 2026-11-23 - ALN Coins and Random Islands
+## [v5] - 2026-11-23 - Price Guard and Weighted Richness
 
 ### Added
+- **Offline Earnings Message**: Sellers who were offline when an offer sold are told how many ALN Coins they earned when they join.
+
+### Improved & Balanced
+- **Price Guard**: For items with a recommended price, an offer must stay between one quarter and four times the recommended price, which blocks typo and scam prices.
+- **Weighted Richness**: New islands still get a random Richness trait, but traits that many islands already have are less likely.
+
+### Fixed
+- **Recipe Errors**: The TRADERS Item crafting recipe was removed, which also removes its recipe errors from the content log. The item is now only given when an island is claimed and returns to you if thrown.
+
+<details>
+<summary><b>4.0.x</b> (1 release)</summary>
+
+### [v4] - 2026-11-23 - ALN Coins and Random Islands
+
+#### Added
 - **ALN Coins**: The Global Trade Hub now uses ALN Coins instead of item-for-item swaps. Every player starts with 500 ALN Coins, offers are priced in coins, and a sale pays the seller right away, even when offline.
 - **Recommended Prices**: Every item shows a recommended price and amount when you create an offer, and empty fields use them.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **Random Richness**: Each new island now gets a random Richness trait instead of an evenly balanced one.
 - **Random Island Spots**: Each new island now takes a random free spot of the innermost ring that still has room instead of the next spot in order.
 - **Old Offers**: Open item-for-item offers from the previous version are cancelled and the items are returned to their sellers.
+
+</details>
 
 <details>
 <summary><b>3.0.x</b> (1 release)</summary>
