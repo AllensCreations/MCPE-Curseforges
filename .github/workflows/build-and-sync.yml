@@ -353,6 +353,8 @@ jobs:
             MCPEDL/AI Review/*.txt
           if-no-files-found: ignore
 
+      - name: Synchronize CurseForge live status across READMEs
+        run: python3 scripts/sync_curseforge_status.py
       - name: Build MCPEDL catalog index
         run: python3 scripts/build_mcpedl_readme.py
 
@@ -386,6 +388,7 @@ jobs:
           done
           if [ -f README.md ]; then git add README.md; fi
           if [ -f MCPEDL/README.md ]; then git add MCPEDL/README.md; fi
+          git add MCPEDL/*/*/README.md 2>/dev/null || true
           if [ -f scripts/CRAFTING_TABLE.png ]; then git add scripts/CRAFTING_TABLE.png; fi
           if compgen -G "assets/CRAFTING_RECIPE*.png" > /dev/null; then git add assets/CRAFTING_RECIPE*.png; fi
           if [ -f Mcpeworlds/README.md ]; then git add Mcpeworlds/README.md; fi

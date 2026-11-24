@@ -1,5 +1,9 @@
 # Monster Companions
 
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-v12-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1742867)
+<!-- CURSEFORGE-BADGE:END -->
+
 Download the current release of **Monster Companions** for Minecraft Bedrock Edition.
 
 ## Download

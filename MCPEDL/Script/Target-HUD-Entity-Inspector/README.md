@@ -1,5 +1,9 @@
 # Target HUD Entity Inspector
 
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-v2-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1798491)
+<!-- CURSEFORGE-BADGE:END -->
+
 Download the current release of **Target HUD Entity Inspector** for Minecraft Bedrock Edition.
 
 ## Download

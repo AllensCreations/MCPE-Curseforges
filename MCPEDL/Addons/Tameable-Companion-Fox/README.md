@@ -1,5 +1,9 @@
 # Tameable Companion Fox
 
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-v2-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1807465)
+<!-- CURSEFORGE-BADGE:END -->
+
 Download the current release of **Tameable Companion Fox** for Minecraft Bedrock Edition.
 
 ## Download

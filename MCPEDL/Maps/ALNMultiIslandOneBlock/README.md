@@ -1,5 +1,9 @@
 # ALN:MultiIslandOneBlock
 
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-v10-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1825799)
+<!-- CURSEFORGE-BADGE:END -->
+
 Download the current release of **ALN:MultiIslandOneBlock** for Minecraft Bedrock Edition.
 
 ## Download

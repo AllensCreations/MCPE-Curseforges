@@ -1,5 +1,9 @@
 # ALNMobStacker
 
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-v3-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1821753)
+<!-- CURSEFORGE-BADGE:END -->
+
 Download the current release of **ALNMobStacker** for Minecraft Bedrock Edition.
 
 ## Download

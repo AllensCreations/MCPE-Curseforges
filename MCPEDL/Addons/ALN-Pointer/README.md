@@ -1,5 +1,9 @@
 # Combat Helper
 
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-v21-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1816055)
+<!-- CURSEFORGE-BADGE:END -->
+
 Download the current release of **Combat Helper** for Minecraft Bedrock Edition.
 
 ## Download

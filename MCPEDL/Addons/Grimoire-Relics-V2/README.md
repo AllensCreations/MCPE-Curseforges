@@ -1,5 +1,9 @@
 # Grimoire Relics V2
 
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-v3-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1747867)
+<!-- CURSEFORGE-BADGE:END -->
+
 Download the current release of **Grimoire Relics V2** for Minecraft Bedrock Edition.
 
 ## Download

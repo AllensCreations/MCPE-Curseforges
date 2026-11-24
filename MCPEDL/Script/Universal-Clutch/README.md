@@ -1,5 +1,9 @@
 # Universal Clutch
 
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-v4-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1804905)
+<!-- CURSEFORGE-BADGE:END -->
+
 Download the current release of **Universal Clutch** for Minecraft Bedrock Edition.
 
 ## Download

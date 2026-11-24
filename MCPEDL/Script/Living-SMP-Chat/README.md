@@ -1,5 +1,9 @@
 # Living SMP Chat
 
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-v2-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1806402)
+<!-- CURSEFORGE-BADGE:END -->
+
 Download the current release of **Living SMP Chat** for Minecraft Bedrock Edition.
 
 ## Download

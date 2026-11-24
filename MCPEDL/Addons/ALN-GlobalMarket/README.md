@@ -1,5 +1,9 @@
 # ALN-GlobalMarket
 
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-v1.0.2-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1826201)
+<!-- CURSEFORGE-BADGE:END -->
+
 Download the current release of **ALN-GlobalMarket** for Minecraft Bedrock Edition.
 
 ## Download

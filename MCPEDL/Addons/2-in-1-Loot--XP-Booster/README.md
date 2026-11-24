@@ -1,5 +1,9 @@
 # 2-in-1 Loot & XP Booster
 
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-v10-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1800032)
+<!-- CURSEFORGE-BADGE:END -->
+
 Download the current release of **2-in-1 Loot & XP Booster** for Minecraft Bedrock Edition.
 
 ## Download

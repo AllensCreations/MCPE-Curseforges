@@ -1,5 +1,9 @@
 # OneBlock Void Survival
 
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-v10-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1740769)
+<!-- CURSEFORGE-BADGE:END -->
+
 Download the current release of **OneBlock Void Survival** for Minecraft Bedrock Edition.
 
 ## Download

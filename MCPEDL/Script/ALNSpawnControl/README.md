@@ -1,5 +1,9 @@
 # ALNSpawnControl
 
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-v3.0.3-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1812574)
+<!-- CURSEFORGE-BADGE:END -->
+
 Download the current release of **ALNSpawnControl** for Minecraft Bedrock Edition.
 
 ## Download

@@ -1,5 +1,9 @@
 # Selective Mob Controller
 
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-Not%20Published-lightgrey?style=flat-square&logo=curseforge)](https://www.curseforge.com/members/allenscreations/projects)
+<!-- CURSEFORGE-BADGE:END -->
+
 Download the current release of **Selective Mob Controller** for Minecraft Bedrock Edition.
 
 ## Download

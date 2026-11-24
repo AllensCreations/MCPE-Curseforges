@@ -1,5 +1,9 @@
 # Trivia Vault The Locked World
 
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-Not%20Published-lightgrey?style=flat-square&logo=curseforge)](https://www.curseforge.com/members/allenscreations/projects)
+<!-- CURSEFORGE-BADGE:END -->
+
 Download the current release of **Trivia Vault The Locked World** for Minecraft Bedrock Edition.
 
 ## Download

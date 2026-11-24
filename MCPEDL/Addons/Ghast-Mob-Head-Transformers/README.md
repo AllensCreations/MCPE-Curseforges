@@ -1,5 +1,9 @@
 # Ghast Mob Head Transformers
 
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-v2-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1744615)
+<!-- CURSEFORGE-BADGE:END -->
+
 Download the current release of **Ghast Mob Head Transformers** for Minecraft Bedrock Edition.
 
 ## Download

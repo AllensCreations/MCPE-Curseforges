@@ -1,5 +1,9 @@
 # Team Inventory
 
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-v2-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1769163)
+<!-- CURSEFORGE-BADGE:END -->
+
 Download the current release of **Team Inventory** for Minecraft Bedrock Edition.
 
 ## Download

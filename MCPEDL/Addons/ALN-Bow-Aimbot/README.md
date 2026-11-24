@@ -1,5 +1,9 @@
 # ALN Bow Aimbot
 
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-v1.0.1-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1822973)
+<!-- CURSEFORGE-BADGE:END -->
+
 Download the current release of **ALN Bow Aimbot** for Minecraft Bedrock Edition.
 
 ## Download

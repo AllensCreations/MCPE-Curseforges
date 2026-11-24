@@ -1,5 +1,9 @@
 # Alphabet Scavenger Hunt
 
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-v2-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1743214)
+<!-- CURSEFORGE-BADGE:END -->
+
 Download the current release of **Alphabet Scavenger Hunt** for Minecraft Bedrock Edition.
 
 ## Download

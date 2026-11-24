@@ -1,5 +1,9 @@
 # Always Critical
 
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-v2-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1804718)
+<!-- CURSEFORGE-BADGE:END -->
+
 Download the current release of **Always Critical** for Minecraft Bedrock Edition.
 
 ## Download

@@ -1,5 +1,9 @@
 # Immortal Pets
 
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-v2-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1745909)
+<!-- CURSEFORGE-BADGE:END -->
+
 Download the current release of **Immortal Pets** for Minecraft Bedrock Edition.
 
 ## Download

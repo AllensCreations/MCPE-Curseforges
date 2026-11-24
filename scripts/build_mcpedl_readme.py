@@ -111,10 +111,12 @@ def pack_status(root: Path, cat: str, project_name: str, current_ver: str, regis
     if not entry or not entry.get("last_published_version"):
         return "⚪ Not Published"
 
+    pid = entry.get("project_id", "")
     pub_v = _norm(str(entry["last_published_version"]))
+    link_text = f"[{pub_v}](https://www.curseforge.com/projects/{pid})" if pid else pub_v
     if current_ver != "-" and _tuple(current_ver) > _tuple(pub_v):
-        return f"🟡 Update Ready ({pub_v} → {current_ver})"
-    return f"🟢 Published ({pub_v})"
+        return f"🟡 Update Ready ({link_text} → {current_ver})"
+    return f"🟢 Published ({link_text})"
 
 
 def render(root):

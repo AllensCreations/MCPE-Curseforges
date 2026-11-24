@@ -1,5 +1,9 @@
 # Cheat Stick
 
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-v4-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1798250)
+<!-- CURSEFORGE-BADGE:END -->
+
 Download the current release of **Cheat Stick** for Minecraft Bedrock Edition.
 
 ## Download

@@ -1,5 +1,9 @@
 # Padlock & Key
 
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-v3-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1809473)
+<!-- CURSEFORGE-BADGE:END -->
+
 Download the current release of **Padlock & Key** for Minecraft Bedrock Edition.
 
 ## Download

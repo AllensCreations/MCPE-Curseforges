@@ -1,5 +1,9 @@
 # One Block Skyblock Lucky Blocks
 
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-v9-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1821677)
+<!-- CURSEFORGE-BADGE:END -->
+
 Download the current release of **One Block Skyblock Lucky Blocks** for Minecraft Bedrock Edition.
 
 ## Download

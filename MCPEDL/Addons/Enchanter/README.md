@@ -1,5 +1,9 @@
 # Enchanter
 
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-v2-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1802037)
+<!-- CURSEFORGE-BADGE:END -->
+
 Download the current release of **Enchanter** for Minecraft Bedrock Edition.
 
 ## Download
