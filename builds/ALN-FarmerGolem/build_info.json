@@ -1,8 +1,8 @@
 {
-  "changelog_version": "2.0.0",
-  "manifest_version": "2.0.0",
+  "changelog_version": "3.0.0",
+  "manifest_version": "3.0.0",
   "packages": {
-    "ALNFarmerGolem V2.mcaddon": "eb504197dea22ce8bd512a4606440544a0f51478202ee2744b142d310c7e863e"
+    "ALNFarmerGolem V3.mcaddon": "48e5a34b6b8221bce2b8d0195d0a4edf15a1c4c17cbc1cb5a4f76895df5f9ba9"
   },
-  "source_sha256": "d32d8db725936ff27599ccfe5ec65f57823b9c5c5d060027afa397ebe2d9bfbe"
+  "source_sha256": "bff8859eacf4bae31b4c829f5058e6a88eaa832d894648f521e71e02f8eadf45"
 }

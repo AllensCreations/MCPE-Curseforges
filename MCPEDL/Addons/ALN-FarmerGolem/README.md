@@ -5,7 +5,7 @@ Download the current release of **ALN FarmerGolem** for Minecraft Bedrock Editio
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN FarmerGolem (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-FarmerGolem/ALNFarmerGolem%20V2.mcaddon)
+- **Direct download:** [Download ALN FarmerGolem (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-FarmerGolem/ALNFarmerGolem%20V3.mcaddon)
 
 ## Installation
 

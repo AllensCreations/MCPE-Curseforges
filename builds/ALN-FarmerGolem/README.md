@@ -8,7 +8,7 @@ This folder contains compiled release packages for **ALN FarmerGolem** by ALNStu
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`ALNFarmerGolem V2.mcaddon`** | `.mcaddon` | ~14 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-FarmerGolem/ALNFarmerGolem%20V2.mcaddon) |
+| **`ALNFarmerGolem V3.mcaddon`** | `.mcaddon` | ~15 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-FarmerGolem/ALNFarmerGolem%20V3.mcaddon) |
 
 ---
 

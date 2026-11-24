@@ -1,8 +1,0 @@
-{
-  "changelog_version": "1.0.0",
-  "manifest_version": "1.0.0",
-  "packages": {
-    "ALNFarmerGolem V1.mcaddon": "f382b00f31ed71f1bbe87e09351980e5ba7b747d6e739efdf25f30de19501f7c"
-  },
-  "source_sha256": "8054fa6d24b8bf9794f80dae97142579ca47a2f950e693d4fb175041c210aba8"
-}
