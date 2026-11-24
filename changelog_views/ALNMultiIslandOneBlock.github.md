@@ -1,16 +1,31 @@
 # Changelog — ALN:MultiIslandOneBlock
 
-## [v5] - 2026-11-23 - Price Guard and Weighted Richness
+## [v6] - 2026-11-24 - Market Income and Coin Scoreboard
 
 ### Added
-- **Offline Earnings Message**: Sellers who were offline when an offer sold are told how many ALN Coins they earned when they join.
+- **Sell to Market**: A new hub button sells items that have a recommended price straight to the market for half of the recommended price.
+- **OneBlock Coin Reward**: Players earn 1 ALN Coin for every 10 OneBlock breaks.
+- **@ALNStudios Scoreboard**: A sidebar scoreboard titled @ALNStudios ranks island owners by their ALN Coins and refreshes every two seconds.
 
 ### Improved & Balanced
+- **Price Guard**: The lowest allowed offer price is now half of the recommended price, so nobody can buy cheaply from a player and resell to the market for a profit.
+
+<details>
+<summary><b>5.0.x</b> (1 release)</summary>
+
+### [v5] - 2026-11-23 - Price Guard and Weighted Richness
+
+#### Added
+- **Offline Earnings Message**: Sellers who were offline when an offer sold are told how many ALN Coins they earned when they join.
+
+#### Improved & Balanced
 - **Price Guard**: For items with a recommended price, an offer must stay between one quarter and four times the recommended price, which blocks typo and scam prices.
 - **Weighted Richness**: New islands still get a random Richness trait, but traits that many islands already have are less likely.
 
-### Fixed
+#### Fixed
 - **Recipe Errors**: The TRADERS Item crafting recipe was removed, which also removes its recipe errors from the content log. The item is now only given when an island is claimed and returns to you if thrown.
+
+</details>
 
 <details>
 <summary><b>4.0.x</b> (1 release)</summary>
