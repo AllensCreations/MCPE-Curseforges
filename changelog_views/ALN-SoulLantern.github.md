@@ -1,15 +1,23 @@
 # Changelog — ALN SoulLantern
 
-## [1.0.1] - 2026-11-23 - Spirit Ally and Particle Fix
+## [1.0.2] - 2026-11-24 - Pet Spirit Update
+
+### Added
+- **Spirit figurine**: A small figure of the captured mob floats inside the Spectral Ally, with a glowing orb for mobs that have no figure yet.
 
 ### Improved & Balanced
-- **Spectral Ally**: The ally is now a light-blue, slightly transparent spirit that never attacks you, and every captured mob can be projected, including hostile ones.
-
-### Fixed
-- **Soul effects**: The swirl, burst and ally trail no longer flood the content log with errors.
+- **Spectral Ally**: The ally now wanders and fights like a pet instead of circling you, and its attack depends on the captured mob. Creepers explode, Skeletons fire arrows, Snow Golems throw snowballs, and Iron Golems hit hard.
 
 <details>
-<summary><b>1.0.x</b> (1 release)</summary>
+<summary><b>1.0.x</b> (2 releases)</summary>
+
+### [1.0.1] - 2026-11-23 - Spirit Ally and Particle Fix
+
+#### Improved & Balanced
+- **Spectral Ally**: The ally is now a light-blue, slightly transparent spirit that never attacks you, and every captured mob can be projected, including hostile ones.
+
+#### Fixed
+- **Soul effects**: The swirl, burst and ally trail no longer flood the content log with errors.
 
 ### [1.0.0] - 2026-11-22 - First Release
 

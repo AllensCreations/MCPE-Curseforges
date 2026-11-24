@@ -6,8 +6,8 @@
 - **Destination:** `MCPEDL/Addons/ALN-SoulLantern`
 - **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALN-SoulLantern/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
-- **Text files:** 19
-- **Skipped binary:** 9
+- **Text files:** 20
+- **Skipped binary:** 10
 - **Paths not found:** 0
 
 ### Files in this export
@@ -30,9 +30,10 @@
 - `MCPEDL/Addons/ALN-SoulLantern/resource_pack/render_controllers/aln_spirit.render_controllers.json`
 - `MCPEDL/Addons/ALN-SoulLantern/resource_pack/textures/item_texture.json`
 - `MCPEDL/Addons/ALN-SoulLantern/texture_sources/aln_spirit.json`
+- `MCPEDL/Addons/ALN-SoulLantern/texture_sources/aln_spirit_figs.json`
 - `MCPEDL/Addons/ALN-SoulLantern/texture_sources/soul_lantern.json`
 
-### Skipped (binary): 9 file(s)
+### Skipped (binary): 10 file(s)
 
 - `MCPEDL/Addons/ALN-SoulLantern/assets/items/aln_soul_lantern.png`
 - `MCPEDL/Addons/ALN-SoulLantern/assets/items/aln_soul_lantern_filled.png`
@@ -42,6 +43,7 @@
 - `MCPEDL/Addons/ALN-SoulLantern/assets/recipes/soul_lantern_soul_lantern_soil_recipe.png`
 - `MCPEDL/Addons/ALN-SoulLantern/resource_pack/textures/items/aln_soul_lantern.png`
 - `MCPEDL/Addons/ALN-SoulLantern/resource_pack/textures/items/aln_soul_lantern_filled.png`
+- `MCPEDL/Addons/ALN-SoulLantern/resource_pack/textures/items/aln_spirit/figs.png`
 - `MCPEDL/Addons/ALN-SoulLantern/resource_pack/textures/items/aln_spirit/ghost.png`
 
 ---
@@ -205,7 +207,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 
 ## File Contents
 
-## FILE: MCPEDL/Addons/ALN-SoulLantern/behavior_pack/entities/aln_spirit.json (26 lines, 501 bytes)
+## FILE: MCPEDL/Addons/ALN-SoulLantern/behavior_pack/entities/aln_spirit.json (387 lines, 8121 bytes)
 
 ```
 {
@@ -217,18 +219,379 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "is_summonable": true,
       "is_experimental": false
     },
+    "component_groups": {
+      "aln:melee": {
+        "minecraft:movement": {
+          "value": 0.3
+        },
+        "minecraft:attack": {
+          "damage": 4
+        },
+        "minecraft:behavior.melee_attack": {
+          "priority": 2,
+          "speed_multiplier": 1.0,
+          "track_target": true
+        }
+      },
+      "aln:fast": {
+        "minecraft:movement": {
+          "value": 0.4
+        },
+        "minecraft:attack": {
+          "damage": 3
+        },
+        "minecraft:behavior.melee_attack": {
+          "priority": 2,
+          "speed_multiplier": 1.3,
+          "track_target": true
+        }
+      },
+      "aln:heavy": {
+        "minecraft:movement": {
+          "value": 0.25
+        },
+        "minecraft:attack": {
+          "damage": 8
+        },
+        "minecraft:behavior.melee_attack": {
+          "priority": 2,
+          "speed_multiplier": 1.0,
+          "track_target": true
+        }
+      },
+      "aln:kamikaze": {
+        "minecraft:movement": {
+          "value": 0.35
+        },
+        "minecraft:attack": {
+          "damage": 1
+        },
+        "minecraft:behavior.melee_attack": {
+          "priority": 2,
+          "speed_multiplier": 1.25,
+          "track_target": false,
+          "reach_multiplier": 0.0
+        }
+      },
+      "aln:archer": {
+        "minecraft:movement": {
+          "value": 0.3
+        },
+        "minecraft:behavior.ranged_attack": {
+          "priority": 2,
+          "ranged_fov": 90.0,
+          "attack_interval_min": 1.0,
+          "attack_interval_max": 3.0,
+          "attack_radius": 15.0
+        },
+        "minecraft:shooter": {
+          "def": "minecraft:arrow"
+        }
+      },
+      "aln:snow": {
+        "minecraft:movement": {
+          "value": 0.3
+        },
+        "minecraft:behavior.ranged_attack": {
+          "priority": 2,
+          "ranged_fov": 90.0,
+          "attack_interval_min": 1.0,
+          "attack_interval_max": 2.0,
+          "attack_radius": 15.0
+        },
+        "minecraft:shooter": {
+          "def": "minecraft:snowball"
+        }
+      },
+      "aln:fig_1": {
+        "minecraft:variant": {
+          "value": 1
+        }
+      },
+      "aln:fig_2": {
+        "minecraft:variant": {
+          "value": 2
+        }
+      },
+      "aln:fig_3": {
+        "minecraft:variant": {
+          "value": 3
+        }
+      },
+      "aln:fig_4": {
+        "minecraft:variant": {
+          "value": 4
+        }
+      },
+      "aln:fig_5": {
+        "minecraft:variant": {
+          "value": 5
+        }
+      },
+      "aln:fig_6": {
+        "minecraft:variant": {
+          "value": 6
+        }
+      },
+      "aln:fig_7": {
+        "minecraft:variant": {
+          "value": 7
+        }
+      },
+      "aln:fig_8": {
+        "minecraft:variant": {
+          "value": 8
+        }
+      },
+      "aln:fig_9": {
+        "minecraft:variant": {
+          "value": 9
+        }
+      },
+      "aln:fig_10": {
+        "minecraft:variant": {
+          "value": 10
+        }
+      },
+      "aln:fig_11": {
+        "minecraft:variant": {
+          "value": 11
+        }
+      },
+      "aln:fig_12": {
+        "minecraft:variant": {
+          "value": 12
+        }
+      },
+      "aln:fig_13": {
+        "minecraft:variant": {
+          "value": 13
+        }
+      },
+      "aln:fig_14": {
+        "minecraft:variant": {
+          "value": 14
+        }
+      }
+    },
     "components": {
-      "minecraft:health": {
-        "value": 20,
-        "max": 20
+      "minecraft:type_family": {
+        "family": [
+          "aln_spirit"
+        ]
       },
       "minecraft:collision_box": {
         "width": 0.6,
         "height": 1.4
       },
-      "minecraft:physics": {
-        "has_gravity": false,
-        "has_collision": false
+      "minecraft:health": {
+        "value": 20,
+        "max": 20
+      },
+      "minecraft:navigation.walk": {
+        "can_path_over_water": false,
+        "avoid_water": true,
+        "can_pass_doors": true
+      },
+      "minecraft:movement.basic": {},
+      "minecraft:jump.static": {},
+      "minecraft:knockback_resistance": {
+        "value": 0.6
+      },
+      "minecraft:nameable": {},
+      "minecraft:persistent": {},
+      "minecraft:physics": {},
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:breathable": {
+        "total_supply": 15,
+        "suffocate_time": 0
+      },
+      "minecraft:behavior.float": {
+        "priority": 0
+      },
+      "minecraft:behavior.hurt_by_target": {
+        "priority": 1
+      },
+      "minecraft:behavior.nearest_attackable_target": {
+        "priority": 3,
+        "must_see": true,
+        "reselect_targets": true,
+        "entity_types": [
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "monster"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "operator": "!=",
+                  "value": "creeper"
+                }
+              ]
+            },
+            "max_dist": 16
+          }
+        ]
+      },
+      "minecraft:behavior.random_stroll": {
+        "priority": 6,
+        "speed_multiplier": 1.0
+      },
+      "minecraft:behavior.look_at_player": {
+        "priority": 7,
+        "look_distance": 6.0
+      },
+      "minecraft:behavior.random_look_around": {
+        "priority": 8
+      }
+    },
+    "events": {
+      "aln:mode_melee": {
+        "add": {
+          "component_groups": [
+            "aln:melee"
+          ]
+        }
+      },
+      "aln:mode_fast": {
+        "add": {
+          "component_groups": [
+            "aln:fast"
+          ]
+        }
+      },
+      "aln:mode_heavy": {
+        "add": {
+          "component_groups": [
+            "aln:heavy"
+          ]
+        }
+      },
+      "aln:mode_kamikaze": {
+        "add": {
+          "component_groups": [
+            "aln:kamikaze"
+          ]
+        }
+      },
+      "aln:mode_archer": {
+        "add": {
+          "component_groups": [
+            "aln:archer"
+          ]
+        }
+      },
+      "aln:mode_snow": {
+        "add": {
+          "component_groups": [
+            "aln:snow"
+          ]
+        }
+      },
+      "aln:fig_1": {
+        "add": {
+          "component_groups": [
+            "aln:fig_1"
+          ]
+        }
+      },
+      "aln:fig_2": {
+        "add": {
+          "component_groups": [
+            "aln:fig_2"
+          ]
+        }
+      },
+      "aln:fig_3": {
+        "add": {
+          "component_groups": [
+            "aln:fig_3"
+          ]
+        }
+      },
+      "aln:fig_4": {
+        "add": {
+          "component_groups": [
+            "aln:fig_4"
+          ]
+        }
+      },
+      "aln:fig_5": {
+        "add": {
+          "component_groups": [
+            "aln:fig_5"
+          ]
+        }
+      },
+      "aln:fig_6": {
+        "add": {
+          "component_groups": [
+            "aln:fig_6"
+          ]
+        }
+      },
+      "aln:fig_7": {
+        "add": {
+          "component_groups": [
+            "aln:fig_7"
+          ]
+        }
+      },
+      "aln:fig_8": {
+        "add": {
+          "component_groups": [
+            "aln:fig_8"
+          ]
+        }
+      },
+      "aln:fig_9": {
+        "add": {
+          "component_groups": [
+            "aln:fig_9"
+          ]
+        }
+      },
+      "aln:fig_10": {
+        "add": {
+          "component_groups": [
+            "aln:fig_10"
+          ]
+        }
+      },
+      "aln:fig_11": {
+        "add": {
+          "component_groups": [
+            "aln:fig_11"
+          ]
+        }
+      },
+      "aln:fig_12": {
+        "add": {
+          "component_groups": [
+            "aln:fig_12"
+          ]
+        }
+      },
+      "aln:fig_13": {
+        "add": {
+          "component_groups": [
+            "aln:fig_13"
+          ]
+        }
+      },
+      "aln:fig_14": {
+        "add": {
+          "component_groups": [
+            "aln:fig_14"
+          ]
+        }
       }
     }
   }
@@ -302,13 +665,13 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 {
   "format_version": 2,
   "header": {
-    "name": "ALN SoulLantern (v1.0.1)",
+    "name": "ALN SoulLantern (v1.0.2)",
     "description": "Seals mobs in a Soul Lantern and releases them later. by ALNStudios",
     "uuid": "b5d340b3-4ec2-4dec-ae4e-3896132a4d52",
     "version": [
       1,
       0,
-      1
+      2
     ],
     "min_engine_version": [
       1,
@@ -323,7 +686,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "version": [
         1,
         0,
-        1
+        2
       ]
     },
     {
@@ -334,7 +697,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "version": [
         1,
         0,
-        1
+        2
       ]
     }
   ],
@@ -344,7 +707,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "version": [
         1,
         0,
-        1
+        2
       ]
     },
     {
@@ -361,7 +724,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.1"
+    "version": "1.0.2"
   }
 }
 ```
@@ -450,7 +813,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-SoulLantern/behavior_pack/scripts/lib/README.md (32 lines, 1968 bytes)
+## FILE: MCPEDL/Addons/ALN-SoulLantern/behavior_pack/scripts/lib/README.md (33 lines, 2195 bytes)
 
 ```
 # scripts/lib
@@ -467,7 +830,7 @@ scripts/lib/ holds no .js files yet. Everything lives in scripts/main.js.
 - Before-event on player interaction with an entity: a sneaking player holding aln:soul_lantern seals the target mob. The mob is saved with a world structure (entities only), its id and display facts are stored on the item as dynamic properties, and the item becomes aln:soul_lantern_filled.
 - Before-event on player interaction with a block: aln:soul_lantern_filled places the saved structure on top of the clicked block, renames the mob if a lantern name was set, deletes the structure, and returns an aln:soul_lantern.
 - After-event on item use: aln:soul_lantern_filled opens the Spirit menu (details, Project Spectral Ally, Rename Captured Mob). aln:soul_lantern shows a hint.
-- Repeating timer every 2 ticks: ends spectral allies after 400 ticks, orbits them around the owner, spawns the particle trail, and damages one nearby monster every 15 ticks.
+- Repeating timer every 4 ticks: ends spectral allies after 400 ticks, teleports one back to its owner when it strays over 16 blocks, spawns the particle trail, and detonates Kamikaze Spirits next to a monster.
 - World load: removes leftover entities tagged aln_spirit.
 
 ## Ids
@@ -475,21 +838,22 @@ scripts/lib/ holds no .js files yet. Everything lives in scripts/main.js.
 - Items: aln:soul_lantern, aln:soul_lantern_filled.
 - Recipes: aln:soul_lantern_soil, aln:soul_lantern_sand.
 - Dynamic properties on the filled item: aln_sid, aln_type, aln_name, aln_hp, aln_max_hp, aln_baby, aln_details, aln_rename.
-- Entity: aln:spirit, tag aln_spirit. Structure ids: aln:soul_<random>.
+- Entity: aln:spirit, tag aln_spirit, events aln:mode_<mode> and aln:fig_<n>. Structure ids: aln:soul_<random>.
 
 ## Known limits
 
 - Bosses (Ender Dragon, Wither, Warden, Elder Guardian), players, armor stands, NPCs and agents cannot be sealed.
-- The Spectral Ally is a light-blue, slightly transparent spirit entity that never attacks players. It does not copy the captured mob's model; its name shows the species.
+- The Spectral Ally is a light-blue, slightly transparent spirit entity that never attacks players. It wanders and fights like a pet using its own AI.
+- Its attack mode (melee, fast, heavy, kamikaze, archer, snow) and the small figure inside come from the captured mob type. Mobs without a figure show a glowing soul orb.
 - Villager profession is kept by the saved structure but is not shown in the menu.
 - Cooldowns and active allies reset when the world reloads.
 - Not tested in game.
 ```
 
-## FILE: MCPEDL/Addons/ALN-SoulLantern/behavior_pack/scripts/main.js (448 lines, 14922 bytes)
+## FILE: MCPEDL/Addons/ALN-SoulLantern/behavior_pack/scripts/main.js (486 lines, 16536 bytes)
 
 ```
-import { world, system, ItemStack, EntityComponentTypes, EntityDamageCause, StructureSaveMode } from "@minecraft/server";
+import { world, system, ItemStack, EntityComponentTypes, StructureSaveMode } from "@minecraft/server";
 import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
 
 const EMPTY_ID = "aln:soul_lantern";
@@ -499,12 +863,45 @@ const SPIRIT_TAG = "aln_spirit";
 const SPIRIT_TICKS = 400;
 const COOLDOWN_TICKS = 1200;
 const DEBOUNCE_TICKS = 8;
-const VERSION = "1.0.1";
+const VERSION = "1.0.2";
 
 const BOSSES = new Set(["minecraft:ender_dragon", "minecraft:wither", "minecraft:warden", "minecraft:elder_guardian"]);
 const NOT_SEALABLE = new Set(["minecraft:player", "minecraft:armor_stand", "minecraft:npc", "minecraft:agent"]);
 const DYES = ["White", "Orange", "Magenta", "Light Blue", "Yellow", "Lime", "Pink", "Gray", "Light Gray", "Cyan", "Purple", "Blue", "Brown", "Green", "Red", "Black"];
 const AXOLOTLS = ["Lucy", "Wild", "Gold", "Cyan", "Blue"];
+
+const SPECIES = {
+  "minecraft:creeper": { fig: 1, mode: "kamikaze" },
+  "minecraft:skeleton": { fig: 2, mode: "archer" },
+  "minecraft:stray": { fig: 2, mode: "archer" },
+  "minecraft:bogged": { fig: 2, mode: "archer" },
+  "minecraft:zombie": { fig: 3, mode: "melee" },
+  "minecraft:husk": { fig: 3, mode: "melee" },
+  "minecraft:drowned": { fig: 3, mode: "melee" },
+  "minecraft:zombie_villager": { fig: 3, mode: "melee" },
+  "minecraft:spider": { fig: 4, mode: "fast" },
+  "minecraft:cave_spider": { fig: 4, mode: "fast" },
+  "minecraft:pig": { fig: 5, mode: "melee" },
+  "minecraft:cow": { fig: 6, mode: "melee" },
+  "minecraft:mooshroom": { fig: 6, mode: "melee" },
+  "minecraft:sheep": { fig: 7, mode: "melee" },
+  "minecraft:chicken": { fig: 8, mode: "fast" },
+  "minecraft:wolf": { fig: 9, mode: "fast" },
+  "minecraft:villager": { fig: 10, mode: "melee" },
+  "minecraft:wandering_trader": { fig: 10, mode: "melee" },
+  "minecraft:iron_golem": { fig: 11, mode: "heavy" },
+  "minecraft:enderman": { fig: 12, mode: "heavy" },
+  "minecraft:blaze": { fig: 13, mode: "fast" },
+  "minecraft:snow_golem": { fig: 14, mode: "snow" },
+  "minecraft:cat": { fig: 0, mode: "fast" },
+  "minecraft:ocelot": { fig: 0, mode: "fast" },
+  "minecraft:fox": { fig: 0, mode: "fast" },
+  "minecraft:ravager": { fig: 0, mode: "heavy" },
+  "minecraft:hoglin": { fig: 0, mode: "heavy" },
+  "minecraft:zoglin": { fig: 0, mode: "heavy" },
+  "minecraft:polar_bear": { fig: 0, mode: "heavy" },
+  "minecraft:piglin_brute": { fig: 0, mode: "heavy" },
+};
 
 const KEY = {
   sid: "aln_sid",
@@ -594,6 +991,7 @@ function readStack(stack) {
   const rename = get(KEY.rename, "");
   return {
     sid: get(KEY.sid, ""),
+    type,
     species: prettyType(type) + (get(KEY.baby, false) ? " (Baby)" : ""),
     name: rename || get(KEY.name, ""),
     hp: get(KEY.hp, 0),
@@ -783,21 +1181,26 @@ function summon(player, slot) {
     if (s.owner.id === player.id) endSpirit(id, undefined);
   }
   const d = readStack(held);
+  const plan = SPECIES[d.type] ?? { fig: 0, mode: "melee" };
   const dim = player.dimension;
   const p = player.location;
   let spirit;
   try {
-    spirit = dim.spawnEntity(SPIRIT_ID, { x: p.x + 1.5, y: p.y + 0.8, z: p.z });
+    spirit = dim.spawnEntity(SPIRIT_ID, { x: p.x + 1.5, y: p.y, z: p.z });
   } catch (e) {
     tell(player, "§c", "The spirit could not take shape.");
     return;
   }
   try {
+    spirit.triggerEvent(`aln:mode_${plan.mode}`);
+    if (plan.fig > 0) spirit.triggerEvent(`aln:fig_${plan.fig}`);
+  } catch (e) {}
+  try {
     spirit.addTag(SPIRIT_TAG);
     spirit.nameTag = `§b${d.name || d.species} §3(Spirit)`;
     spirit.addEffect("resistance", SPIRIT_TICKS + 40, { amplifier: 4, showParticles: false });
   } catch (e) {}
-  spirits.set(spirit.id, { entity: spirit, owner: player, end: system.currentTick + SPIRIT_TICKS, nextHit: 0 });
+  spirits.set(spirit.id, { entity: spirit, owner: player, end: system.currentTick + SPIRIT_TICKS, mode: plan.mode });
   cooldowns.set(player.id, system.currentTick + COOLDOWN_TICKS);
   burst(dim, spirit.location);
   play(player, "block.amethyst_block.chime");
@@ -906,28 +1309,27 @@ system.runInterval(() => {
       continue;
     }
     try {
-      const dim = s.owner.dimension;
+      const dim = s.entity.dimension;
+      const at = s.entity.location;
       const p = s.owner.location;
-      const angle = now * 0.08;
-      const target = {
-        x: p.x + Math.cos(angle) * 1.7,
-        y: p.y + 0.8 + Math.sin(now * 0.15) * 0.25,
-        z: p.z + Math.sin(angle) * 1.7,
-      };
-      s.entity.teleport(target, { dimension: dim, facingLocation: { x: p.x, y: p.y + 1.2, z: p.z } });
-      dim.spawnParticle("minecraft:endrod", { x: target.x, y: target.y + 0.5, z: target.z });
-      if (now >= s.nextHit) {
-        const foes = dim.getEntities({ location: target, maxDistance: 6, families: ["monster"] });
-        const foe = foes.find((e) => e.id !== s.entity.id && !e.hasTag(SPIRIT_TAG));
+      const ownerGap = Math.hypot(p.x - at.x, p.z - at.z);
+      if (s.owner.dimension.id !== dim.id || ownerGap > 16) {
+        s.entity.teleport({ x: p.x + 1, y: p.y, z: p.z + 1 }, { dimension: s.owner.dimension });
+        continue;
+      }
+      dim.spawnParticle("minecraft:endrod", { x: at.x, y: at.y + 0.7, z: at.z });
+      if (s.mode === "kamikaze" && ownerGap > 3.5) {
+        const foe = dim
+          .getEntities({ location: at, maxDistance: 2.4, families: ["monster"] })
+          .find((e) => e.id !== s.entity.id && !e.hasTag(SPIRIT_TAG));
         if (foe) {
-          foe.applyDamage(3, { cause: EntityDamageCause.entityAttack, damagingEntity: s.owner });
-          dim.spawnParticle("minecraft:blue_flame_particle", { x: foe.location.x, y: foe.location.y + 1, z: foe.location.z });
-          s.nextHit = now + 15;
+          dim.createExplosion(at, 2.5, { breaksBlocks: false, causesFire: false, source: s.entity });
+          endSpirit(id, "Your Kamikaze Spirit detonates.");
         }
       }
     } catch (e) {}
   }
-}, 2);
+}, 4);
 
 world.afterEvents.worldLoad.subscribe(() => {
   for (const name of ["overworld", "nether", "the_end"]) {
@@ -938,12 +1340,20 @@ world.afterEvents.worldLoad.subscribe(() => {
 });
 ```
 
-## FILE: MCPEDL/Addons/ALN-SoulLantern/CHANGELOG.md (21 lines, 924 bytes)
+## FILE: MCPEDL/Addons/ALN-SoulLantern/CHANGELOG.md (29 lines, 1378 bytes)
 
 ```
 # Changelog — ALN SoulLantern
 
 ---
+
+## [1.0.2] - 2026-11-24 - Pet Spirit Update
+
+### Added
+- **Spirit figurine**: A small figure of the captured mob floats inside the Spectral Ally, with a glowing orb for mobs that have no figure yet.
+
+### Improved & Balanced
+- **Spectral Ally**: The ally now wanders and fights like a pet instead of circling you, and its attack depends on the captured mob. Creepers explode, Skeletons fire arrows, Snow Golems throw snowballs, and Iron Golems hit hard.
 
 ## [1.0.1] - 2026-11-23 - Spirit Ally and Particle Fix
 
@@ -963,7 +1373,7 @@ world.afterEvents.worldLoad.subscribe(() => {
 - **Spirit menu**: Inspect the trapped soul, rename it, or project a 20-second Spectral Ally with a 60-second cooldown.
 ```
 
-## FILE: MCPEDL/Addons/ALN-SoulLantern/DESCRIPTION.md (84 lines, 4446 bytes)
+## FILE: MCPEDL/Addons/ALN-SoulLantern/DESCRIPTION.md (87 lines, 4719 bytes)
 
 ```
 # ALN SoulLantern — Seal mobs in a relic and release them anywhere
@@ -1004,7 +1414,10 @@ Sneak and interact with a mob to seal it inside. The lantern shows the creature'
 - **What Happens**: Use a Soul-Bound lantern in the air to open a menu with the species, name, health, and variant of the trapped soul.
 
 ### Spectral Ally
-- **What Happens**: The menu can project a light-blue, slightly transparent spirit for 20 seconds, whichever mob is trapped. It circles you, leaves a particle trail, strikes nearby hostile mobs, never attacks you, then fades back into the lantern, with a 60-second cooldown.
+- **What Happens**: The menu can project a light-blue, slightly transparent spirit for 20 seconds, with a tiny figure of the trapped mob inside. It wanders near you and fights nearby hostile mobs like a pet, never attacks you, then fades back into the lantern, with a 60-second cooldown.
+
+### Mob-Specific Attacks
+- **What Happens**: A trapped Creeper becomes a kamikaze that explodes beside its target, a Skeleton fires arrows, and a Snow Golem throws snowballs. Spiders, wolves, and chickens attack fast, while Iron Golems and Endermen hit hard.
 
 ### Rename Captured Mob
 - **What Happens**: Give the trapped creature a custom name from the menu without using a Name Tag.
@@ -1069,7 +1482,7 @@ Download the current release of **ALN SoulLantern** for Minecraft Bedrock Editio
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN SoulLantern (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-SoulLantern/ALNSoulLantern%20V1.0.1.mcaddon)
+- **Direct download:** [Download ALN SoulLantern (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-SoulLantern/ALNSoulLantern%20V1.0.2.mcaddon)
 
 ## Installation
 
@@ -1082,7 +1495,7 @@ Download the current release of **ALN SoulLantern** for Minecraft Bedrock Editio
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALN-SoulLantern/DESCRIPTION.md).
 ```
 
-## FILE: MCPEDL/Addons/ALN-SoulLantern/resource_pack/entity/aln_spirit.entity.json (21 lines, 428 bytes)
+## FILE: MCPEDL/Addons/ALN-SoulLantern/resource_pack/entity/aln_spirit.entity.json (38 lines, 1105 bytes)
 
 ```
 {
@@ -1094,13 +1507,30 @@ For gameplay features, usage details, compatibility notes, and other project inf
         "default": "entity_alphablend"
       },
       "textures": {
-        "default": "textures/items/aln_spirit/ghost"
+        "default": "textures/items/aln_spirit/ghost",
+        "figs": "textures/items/aln_spirit/figs"
       },
       "geometry": {
-        "default": "geometry.aln_spirit"
+        "default": "geometry.aln_spirit",
+        "fig0": "geometry.aln_fig_0",
+        "fig1": "geometry.aln_fig_1",
+        "fig2": "geometry.aln_fig_2",
+        "fig3": "geometry.aln_fig_3",
+        "fig4": "geometry.aln_fig_4",
+        "fig5": "geometry.aln_fig_5",
+        "fig6": "geometry.aln_fig_6",
+        "fig7": "geometry.aln_fig_7",
+        "fig8": "geometry.aln_fig_8",
+        "fig9": "geometry.aln_fig_9",
+        "fig10": "geometry.aln_fig_10",
+        "fig11": "geometry.aln_fig_11",
+        "fig12": "geometry.aln_fig_12",
+        "fig13": "geometry.aln_fig_13",
+        "fig14": "geometry.aln_fig_14"
       },
       "render_controllers": [
-        "controller.render.aln_spirit"
+        "controller.render.aln_spirit",
+        "controller.render.aln_spirit_figure"
       ]
     }
   }
@@ -1113,13 +1543,13 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN SoulLantern (v1.0.1)",
+    "name": "ALN SoulLantern (v1.0.2)",
     "description": "Empty and Soul-Bound lantern textures. by ALNStudios",
     "uuid": "76644133-f7e5-4b13-ab5c-c0bb2eab30b6",
     "version": [
       1,
       0,
-      1
+      2
     ],
     "min_engine_version": [
       1,
@@ -1134,7 +1564,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "version": [
         1,
         0,
-        1
+        2
       ]
     }
   ],
@@ -1143,270 +1573,18 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.1"
+    "version": "1.0.2"
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-SoulLantern/resource_pack/models/entity/aln_spirit.geo.json (254 lines, 5535 bytes)
+## FILE: MCPEDL/Addons/ALN-SoulLantern/resource_pack/models/entity/aln_spirit.geo.json (2 lines, 31785 bytes)
 
 ```
-{
-  "format_version": "1.12.0",
-  "minecraft:geometry": [
-    {
-      "description": {
-        "identifier": "geometry.aln_spirit",
-        "texture_width": 16,
-        "texture_height": 16,
-        "visible_bounds_width": 2,
-        "visible_bounds_height": 3,
-        "visible_bounds_offset": [
-          0,
-          1,
-          0
-        ]
-      },
-      "bones": [
-        {
-          "name": "root",
-          "pivot": [
-            0,
-            0,
-            0
-          ],
-          "cubes": [
-            {
-              "origin": [
-                -3,
-                0,
-                -2
-              ],
-              "size": [
-                6,
-                4,
-                4
-              ],
-              "uv": {
-                "north": {
-                  "uv": [
-                    8,
-                    0
-                  ],
-                  "uv_size": [
-                    8,
-                    8
-                  ]
-                },
-                "east": {
-                  "uv": [
-                    8,
-                    0
-                  ],
-                  "uv_size": [
-                    8,
-                    8
-                  ]
-                },
-                "south": {
-                  "uv": [
-                    8,
-                    0
-                  ],
-                  "uv_size": [
-                    8,
-                    8
-                  ]
-                },
-                "west": {
-                  "uv": [
-                    8,
-                    0
-                  ],
-                  "uv_size": [
-                    8,
-                    8
-                  ]
-                },
-                "up": {
-                  "uv": [
-                    8,
-                    0
-                  ],
-                  "uv_size": [
-                    8,
-                    8
-                  ]
-                },
-                "down": {
-                  "uv": [
-                    8,
-                    0
-                  ],
-                  "uv_size": [
-                    8,
-                    8
-                  ]
-                }
-              }
-            },
-            {
-              "origin": [
-                -4,
-                4,
-                -3
-              ],
-              "size": [
-                8,
-                10,
-                6
-              ],
-              "uv": {
-                "north": {
-                  "uv": [
-                    8,
-                    0
-                  ],
-                  "uv_size": [
-                    8,
-                    8
-                  ]
-                },
-                "east": {
-                  "uv": [
-                    8,
-                    0
-                  ],
-                  "uv_size": [
-                    8,
-                    8
-                  ]
-                },
-                "south": {
-                  "uv": [
-                    8,
-                    0
-                  ],
-                  "uv_size": [
-                    8,
-                    8
-                  ]
-                },
-                "west": {
-                  "uv": [
-                    8,
-                    0
-                  ],
-                  "uv_size": [
-                    8,
-                    8
-                  ]
-                },
-                "up": {
-                  "uv": [
-                    8,
-                    0
-                  ],
-                  "uv_size": [
-                    8,
-                    8
-                  ]
-                },
-                "down": {
-                  "uv": [
-                    8,
-                    0
-                  ],
-                  "uv_size": [
-                    8,
-                    8
-                  ]
-                }
-              }
-            },
-            {
-              "origin": [
-                -4,
-                14,
-                -4
-              ],
-              "size": [
-                8,
-                8,
-                8
-              ],
-              "uv": {
-                "north": {
-                  "uv": [
-                    0,
-                    0
-                  ],
-                  "uv_size": [
-                    8,
-                    8
-                  ]
-                },
-                "east": {
-                  "uv": [
-                    8,
-                    0
-                  ],
-                  "uv_size": [
-                    8,
-                    8
-                  ]
-                },
-                "south": {
-                  "uv": [
-                    8,
-                    0
-                  ],
-                  "uv_size": [
-                    8,
-                    8
-                  ]
-                },
-                "west": {
-                  "uv": [
-                    8,
-                    0
-                  ],
-                  "uv_size": [
-                    8,
-                    8
-                  ]
-                },
-                "up": {
-                  "uv": [
-                    8,
-                    0
-                  ],
-                  "uv_size": [
-                    8,
-                    8
-                  ]
-                },
-                "down": {
-                  "uv": [
-                    8,
-                    0
-                  ],
-                  "uv_size": [
-                    8,
-                    8
-                  ]
-                }
-              }
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
+{"format_version":"1.12.0","minecraft:geometry":[{"description":{"identifier":"geometry.aln_spirit","texture_width":16,"texture_height":16,"visible_bounds_width":2,"visible_bounds_height":3,"visible_bounds_offset":[0,1,0]},"bones":[{"name":"root","pivot":[0,0,0],"cubes":[{"origin":[-3,0,-2],"size":[6,4,4],"uv":{"north":{"uv":[8,0],"uv_size":[8,8]},"east":{"uv":[8,0],"uv_size":[8,8]},"south":{"uv":[8,0],"uv_size":[8,8]},"west":{"uv":[8,0],"uv_size":[8,8]},"up":{"uv":[8,0],"uv_size":[8,8]},"down":{"uv":[8,0],"uv_size":[8,8]}}},{"origin":[-4,4,-3],"size":[8,10,6],"uv":{"north":{"uv":[8,0],"uv_size":[8,8]},"east":{"uv":[8,0],"uv_size":[8,8]},"south":{"uv":[8,0],"uv_size":[8,8]},"west":{"uv":[8,0],"uv_size":[8,8]},"up":{"uv":[8,0],"uv_size":[8,8]},"down":{"uv":[8,0],"uv_size":[8,8]}}},{"origin":[-4,14,-4],"size":[8,8,8],"uv":{"north":{"uv":[0,0],"uv_size":[8,8]},"east":{"uv":[8,0],"uv_size":[8,8]},"south":{"uv":[8,0],"uv_size":[8,8]},"west":{"uv":[8,0],"uv_size":[8,8]},"up":{"uv":[8,0],"uv_size":[8,8]},"down":{"uv":[8,0],"uv_size":[8,8]}}}]}]},{"description":{"identifier":"geometry.aln_fig_0","texture_width":16,"texture_height":16,"visible_bounds_width":2,"visible_bounds_height":3,"visible_bounds_offset":[0,1,0]},"bones":[{"name":"root","pivot":[0,0,0],"cubes":[{"origin":[-1.5,7.5,-1.5],"size":[3,3,3],"uv":{"north":{"uv":[0,0],"uv_size":[4,4]},"east":{"uv":[0,0],"uv_size":[4,4]},"south":{"uv":[0,0],"uv_size":[4,4]},"west":{"uv":[0,0],"uv_size":[4,4]},"up":{"uv":[0,0],"uv_size":[4,4]},"down":{"uv":[0,0],"uv_size":[4,4]}}},{"origin":[-0.75,8.25,-0.75],"size":[1.5,1.5,1.5],"uv":{"north":{"uv":[0,8],"uv_size":[4,4]},"east":{"uv":[0,8],"uv_size":[4,4]},"south":{"uv":[0,8],"uv_size":[4,4]},"west":{"uv":[0,8],"uv_size":[4,4]},"up":{"uv":[0,8],"uv_size":[4,4]},"down":{"uv":[0,8],"uv_size":[4,4]}}}]}]},{"description":{"identifier":"geometry.aln_fig_1","texture_width":16,"texture_height":16,"visible_bounds_width":2,"visible_bounds_height":3,"visible_bounds_offset":[0,1,0]},"bones":[{"name":"root","pivot":[0,0,0],"cubes":[{"origin":[-1.5,5,-1.5],"size":[3,2,3],"uv":{"north":{"uv":[4,0],"uv_size":[4,4]},"east":{"uv":[4,0],"uv_size":[4,4]},"south":{"uv":[4,0],"uv_size":[4,4]},"west":{"uv":[4,0],"uv_size":[4,4]},"up":{"uv":[4,0],"uv_size":[4,4]},"down":{"uv":[4,0],"uv_size":[4,4]}}},{"origin":[-1.5,7,-1],"size":[3,4,2],"uv":{"north":{"uv":[4,0],"uv_size":[4,4]},"east":{"uv":[4,0],"uv_size":[4,4]},"south":{"uv":[4,0],"uv_size":[4,4]},"west":{"uv":[4,0],"uv_size":[4,4]},"up":{"uv":[4,0],"uv_size":[4,4]},"down":{"uv":[4,0],"uv_size":[4,4]}}},{"origin":[-1.5,11,-1.5],"size":[3,3,3],"uv":{"north":{"uv":[4,0],"uv_size":[4,4]},"east":{"uv":[4,0],"uv_size":[4,4]},"south":{"uv":[4,0],"uv_size":[4,4]},"west":{"uv":[4,0],"uv_size":[4,4]},"up":{"uv":[4,0],"uv_size":[4,4]},"down":{"uv":[4,0],"uv_size":[4,4]}}},{"origin":[-1.1,12.4,-1.6],"size":[0.6,0.6,0.2],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}},{"origin":[0.4,12.4,-1.6],"size":[0.6,0.6,0.2],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}},{"origin":[-0.4,11.3,-1.6],"size":[0.8,1,0.2],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}}]}]},{"description":{"identifier":"geometry.aln_fig_2","texture_width":16,"texture_height":16,"visible_bounds_width":2,"visible_bounds_height":3,"visible_bounds_offset":[0,1,0]},"bones":[{"name":"root","pivot":[0,0,0],"cubes":[{"origin":[-1,5,-0.5],"size":[0.9,3,1],"uv":{"north":{"uv":[8,0],"uv_size":[4,4]},"east":{"uv":[8,0],"uv_size":[4,4]},"south":{"uv":[8,0],"uv_size":[4,4]},"west":{"uv":[8,0],"uv_size":[4,4]},"up":{"uv":[8,0],"uv_size":[4,4]},"down":{"uv":[8,0],"uv_size":[4,4]}}},{"origin":[0.1,5,-0.5],"size":[0.9,3,1],"uv":{"north":{"uv":[8,0],"uv_size":[4,4]},"east":{"uv":[8,0],"uv_size":[4,4]},"south":{"uv":[8,0],"uv_size":[4,4]},"west":{"uv":[8,0],"uv_size":[4,4]},"up":{"uv":[8,0],"uv_size":[4,4]},"down":{"uv":[8,0],"uv_size":[4,4]}}},{"origin":[-1,8,-0.5],"size":[2,3,1],"uv":{"north":{"uv":[8,0],"uv_size":[4,4]},"east":{"uv":[8,0],"uv_size":[4,4]},"south":{"uv":[8,0],"uv_size":[4,4]},"west":{"uv":[8,0],"uv_size":[4,4]},"up":{"uv":[8,0],"uv_size":[4,4]},"down":{"uv":[8,0],"uv_size":[4,4]}}},{"origin":[-1.9,8,-0.5],"size":[0.8,3,1],"uv":{"north":{"uv":[8,0],"uv_size":[4,4]},"east":{"uv":[8,0],"uv_size":[4,4]},"south":{"uv":[8,0],"uv_size":[4,4]},"west":{"uv":[8,0],"uv_size":[4,4]},"up":{"uv":[8,0],"uv_size":[4,4]},"down":{"uv":[8,0],"uv_size":[4,4]}}},{"origin":[1.1,8,-0.5],"size":[0.8,3,1],"uv":{"north":{"uv":[8,0],"uv_size":[4,4]},"east":{"uv":[8,0],"uv_size":[4,4]},"south":{"uv":[8,0],"uv_size":[4,4]},"west":{"uv":[8,0],"uv_size":[4,4]},"up":{"uv":[8,0],"uv_size":[4,4]},"down":{"uv":[8,0],"uv_size":[4,4]}}},{"origin":[-1.25,11,-1.25],"size":[2.5,2.5,2.5],"uv":{"north":{"uv":[8,0],"uv_size":[4,4]},"east":{"uv":[8,0],"uv_size":[4,4]},"south":{"uv":[8,0],"uv_size":[4,4]},"west":{"uv":[8,0],"uv_size":[4,4]},"up":{"uv":[8,0],"uv_size":[4,4]},"down":{"uv":[8,0],"uv_size":[4,4]}}},{"origin":[-0.9,12.1,-1.35],"size":[0.6,0.6,0.2],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}},{"origin":[0.3,12.1,-1.35],"size":[0.6,0.6,0.2],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}}]}]},{"description":{"identifier":"geometry.aln_fig_3","texture_width":16,"texture_height":16,"visible_bounds_width":2,"visible_bounds_height":3,"visible_bounds_offset":[0,1,0]},"bones":[{"name":"root","pivot":[0,0,0],"cubes":[{"origin":[-1.4,5,-0.7],"size":[1.3,3,1.4],"uv":{"north":{"uv":[4,4],"uv_size":[4,4]},"east":{"uv":[4,4],"uv_size":[4,4]},"south":{"uv":[4,4],"uv_size":[4,4]},"west":{"uv":[4,4],"uv_size":[4,4]},"up":{"uv":[4,4],"uv_size":[4,4]},"down":{"uv":[4,4],"uv_size":[4,4]}}},{"origin":[0.1,5,-0.7],"size":[1.3,3,1.4],"uv":{"north":{"uv":[4,4],"uv_size":[4,4]},"east":{"uv":[4,4],"uv_size":[4,4]},"south":{"uv":[4,4],"uv_size":[4,4]},"west":{"uv":[4,4],"uv_size":[4,4]},"up":{"uv":[4,4],"uv_size":[4,4]},"down":{"uv":[4,4],"uv_size":[4,4]}}},{"origin":[-1.5,8,-1],"size":[3,3.5,2],"uv":{"north":{"uv":[0,4],"uv_size":[4,4]},"east":{"uv":[0,4],"uv_size":[4,4]},"south":{"uv":[0,4],"uv_size":[4,4]},"west":{"uv":[0,4],"uv_size":[4,4]},"up":{"uv":[0,4],"uv_size":[4,4]},"down":{"uv":[0,4],"uv_size":[4,4]}}},{"origin":[-2.5,9,-2.8],"size":[1,1,3],"uv":{"north":{"uv":[12,0],"uv_size":[4,4]},"east":{"uv":[12,0],"uv_size":[4,4]},"south":{"uv":[12,0],"uv_size":[4,4]},"west":{"uv":[12,0],"uv_size":[4,4]},"up":{"uv":[12,0],"uv_size":[4,4]},"down":{"uv":[12,0],"uv_size":[4,4]}}},{"origin":[1.5,9,-2.8],"size":[1,1,3],"uv":{"north":{"uv":[12,0],"uv_size":[4,4]},"east":{"uv":[12,0],"uv_size":[4,4]},"south":{"uv":[12,0],"uv_size":[4,4]},"west":{"uv":[12,0],"uv_size":[4,4]},"up":{"uv":[12,0],"uv_size":[4,4]},"down":{"uv":[12,0],"uv_size":[4,4]}}},{"origin":[-1.5,11.5,-1.5],"size":[3,3,3],"uv":{"north":{"uv":[12,0],"uv_size":[4,4]},"east":{"uv":[12,0],"uv_size":[4,4]},"south":{"uv":[12,0],"uv_size":[4,4]},"west":{"uv":[12,0],"uv_size":[4,4]},"up":{"uv":[12,0],"uv_size":[4,4]},"down":{"uv":[12,0],"uv_size":[4,4]}}},{"origin":[-1.0,12.8,-1.6],"size":[0.6,0.6,0.2],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}},{"origin":[0.4,12.8,-1.6],"size":[0.6,0.6,0.2],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}}]}]},{"description":{"identifier":"geometry.aln_fig_4","texture_width":16,"texture_height":16,"visible_bounds_width":2,"visible_bounds_height":3,"visible_bounds_offset":[0,1,0]},"bones":[{"name":"root","pivot":[0,0,0],"cubes":[{"origin":[-1.5,6,-1],"size":[3,1.8,3],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}},{"origin":[-1,6.2,-2.5],"size":[2,1.5,1.5],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}},{"origin":[-3,5.5,-1.2],"size":[1.5,0.4,0.4],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}},{"origin":[-3,5.5,-0.4],"size":[1.5,0.4,0.4],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}},{"origin":[-3,5.5,0.4],"size":[1.5,0.4,0.4],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}},{"origin":[-3,5.5,1.2],"size":[1.5,0.4,0.4],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}},{"origin":[1.5,5.5,-1.2],"size":[1.5,0.4,0.4],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}},{"origin":[1.5,5.5,-0.4],"size":[1.5,0.4,0.4],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}},{"origin":[1.5,5.5,0.4],"size":[1.5,0.4,0.4],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}},{"origin":[1.5,5.5,1.2],"size":[1.5,0.4,0.4],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}},{"origin":[-0.6,7,-2.6],"size":[0.4,0.4,0.2],"uv":{"north":{"uv":[8,8],"uv_size":[4,4]},"east":{"uv":[8,8],"uv_size":[4,4]},"south":{"uv":[8,8],"uv_size":[4,4]},"west":{"uv":[8,8],"uv_size":[4,4]},"up":{"uv":[8,8],"uv_size":[4,4]},"down":{"uv":[8,8],"uv_size":[4,4]}}},{"origin":[0.2,7,-2.6],"size":[0.4,0.4,0.2],"uv":{"north":{"uv":[8,8],"uv_size":[4,4]},"east":{"uv":[8,8],"uv_size":[4,4]},"south":{"uv":[8,8],"uv_size":[4,4]},"west":{"uv":[8,8],"uv_size":[4,4]},"up":{"uv":[8,8],"uv_size":[4,4]},"down":{"uv":[8,8],"uv_size":[4,4]}}}]}]},{"description":{"identifier":"geometry.aln_fig_5","texture_width":16,"texture_height":16,"visible_bounds_width":2,"visible_bounds_height":3,"visible_bounds_offset":[0,1,0]},"bones":[{"name":"root","pivot":[0,0,0],"cubes":[{"origin":[-1.5,5,-2],"size":[1,1.5,1],"uv":{"north":{"uv":[8,4],"uv_size":[4,4]},"east":{"uv":[8,4],"uv_size":[4,4]},"south":{"uv":[8,4],"uv_size":[4,4]},"west":{"uv":[8,4],"uv_size":[4,4]},"up":{"uv":[8,4],"uv_size":[4,4]},"down":{"uv":[8,4],"uv_size":[4,4]}}},{"origin":[-1.5,5,1],"size":[1,1.5,1],"uv":{"north":{"uv":[8,4],"uv_size":[4,4]},"east":{"uv":[8,4],"uv_size":[4,4]},"south":{"uv":[8,4],"uv_size":[4,4]},"west":{"uv":[8,4],"uv_size":[4,4]},"up":{"uv":[8,4],"uv_size":[4,4]},"down":{"uv":[8,4],"uv_size":[4,4]}}},{"origin":[0.5,5,-2],"size":[1,1.5,1],"uv":{"north":{"uv":[8,4],"uv_size":[4,4]},"east":{"uv":[8,4],"uv_size":[4,4]},"south":{"uv":[8,4],"uv_size":[4,4]},"west":{"uv":[8,4],"uv_size":[4,4]},"up":{"uv":[8,4],"uv_size":[4,4]},"down":{"uv":[8,4],"uv_size":[4,4]}}},{"origin":[0.5,5,1],"size":[1,1.5,1],"uv":{"north":{"uv":[8,4],"uv_size":[4,4]},"east":{"uv":[8,4],"uv_size":[4,4]},"south":{"uv":[8,4],"uv_size":[4,4]},"west":{"uv":[8,4],"uv_size":[4,4]},"up":{"uv":[8,4],"uv_size":[4,4]},"down":{"uv":[8,4],"uv_size":[4,4]}}},{"origin":[-1.5,6.5,-2],"size":[3,2.5,4],"uv":{"north":{"uv":[8,4],"uv_size":[4,4]},"east":{"uv":[8,4],"uv_size":[4,4]},"south":{"uv":[8,4],"uv_size":[4,4]},"west":{"uv":[8,4],"uv_size":[4,4]},"up":{"uv":[8,4],"uv_size":[4,4]},"down":{"uv":[8,4],"uv_size":[4,4]}}},{"origin":[-1.25,7,-3],"size":[2.5,2.5,1.2],"uv":{"north":{"uv":[8,4],"uv_size":[4,4]},"east":{"uv":[8,4],"uv_size":[4,4]},"south":{"uv":[8,4],"uv_size":[4,4]},"west":{"uv":[8,4],"uv_size":[4,4]},"up":{"uv":[8,4],"uv_size":[4,4]},"down":{"uv":[8,4],"uv_size":[4,4]}}},{"origin":[-0.5,7.3,-3.3],"size":[1,0.8,0.3],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}}]}]},{"description":{"identifier":"geometry.aln_fig_6","texture_width":16,"texture_height":16,"visible_bounds_width":2,"visible_bounds_height":3,"visible_bounds_offset":[0,1,0]},"bones":[{"name":"root","pivot":[0,0,0],"cubes":[{"origin":[-1.5,5,-2],"size":[1,1.5,1],"uv":{"north":{"uv":[12,4],"uv_size":[4,4]},"east":{"uv":[12,4],"uv_size":[4,4]},"south":{"uv":[12,4],"uv_size":[4,4]},"west":{"uv":[12,4],"uv_size":[4,4]},"up":{"uv":[12,4],"uv_size":[4,4]},"down":{"uv":[12,4],"uv_size":[4,4]}}},{"origin":[-1.5,5,1],"size":[1,1.5,1],"uv":{"north":{"uv":[12,4],"uv_size":[4,4]},"east":{"uv":[12,4],"uv_size":[4,4]},"south":{"uv":[12,4],"uv_size":[4,4]},"west":{"uv":[12,4],"uv_size":[4,4]},"up":{"uv":[12,4],"uv_size":[4,4]},"down":{"uv":[12,4],"uv_size":[4,4]}}},{"origin":[0.5,5,-2],"size":[1,1.5,1],"uv":{"north":{"uv":[12,4],"uv_size":[4,4]},"east":{"uv":[12,4],"uv_size":[4,4]},"south":{"uv":[12,4],"uv_size":[4,4]},"west":{"uv":[12,4],"uv_size":[4,4]},"up":{"uv":[12,4],"uv_size":[4,4]},"down":{"uv":[12,4],"uv_size":[4,4]}}},{"origin":[0.5,5,1],"size":[1,1.5,1],"uv":{"north":{"uv":[12,4],"uv_size":[4,4]},"east":{"uv":[12,4],"uv_size":[4,4]},"south":{"uv":[12,4],"uv_size":[4,4]},"west":{"uv":[12,4],"uv_size":[4,4]},"up":{"uv":[12,4],"uv_size":[4,4]},"down":{"uv":[12,4],"uv_size":[4,4]}}},{"origin":[-1.5,6.5,-2],"size":[3,3,4],"uv":{"north":{"uv":[12,4],"uv_size":[4,4]},"east":{"uv":[12,4],"uv_size":[4,4]},"south":{"uv":[12,4],"uv_size":[4,4]},"west":{"uv":[12,4],"uv_size":[4,4]},"up":{"uv":[12,4],"uv_size":[4,4]},"down":{"uv":[12,4],"uv_size":[4,4]}}},{"origin":[-1.25,7.2,-3.1],"size":[2.5,2.3,1.3],"uv":{"north":{"uv":[12,4],"uv_size":[4,4]},"east":{"uv":[12,4],"uv_size":[4,4]},"south":{"uv":[12,4],"uv_size":[4,4]},"west":{"uv":[12,4],"uv_size":[4,4]},"up":{"uv":[12,4],"uv_size":[4,4]},"down":{"uv":[12,4],"uv_size":[4,4]}}},{"origin":[-0.6,7.2,-3.4],"size":[1.2,0.9,0.3],"uv":{"north":{"uv":[0,8],"uv_size":[4,4]},"east":{"uv":[0,8],"uv_size":[4,4]},"south":{"uv":[0,8],"uv_size":[4,4]},"west":{"uv":[0,8],"uv_size":[4,4]},"up":{"uv":[0,8],"uv_size":[4,4]},"down":{"uv":[0,8],"uv_size":[4,4]}}}]}]},{"description":{"identifier":"geometry.aln_fig_7","texture_width":16,"texture_height":16,"visible_bounds_width":2,"visible_bounds_height":3,"visible_bounds_offset":[0,1,0]},"bones":[{"name":"root","pivot":[0,0,0],"cubes":[{"origin":[-1.5,5,-2],"size":[1,1.5,1],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}},{"origin":[-1.5,5,1],"size":[1,1.5,1],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}},{"origin":[0.5,5,-2],"size":[1,1.5,1],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}},{"origin":[0.5,5,1],"size":[1,1.5,1],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}},{"origin":[-1.75,6.5,-2],"size":[3.5,3,4],"uv":{"north":{"uv":[0,8],"uv_size":[4,4]},"east":{"uv":[0,8],"uv_size":[4,4]},"south":{"uv":[0,8],"uv_size":[4,4]},"west":{"uv":[0,8],"uv_size":[4,4]},"up":{"uv":[0,8],"uv_size":[4,4]},"down":{"uv":[0,8],"uv_size":[4,4]}}},{"origin":[-1.1,7.2,-3.2],"size":[2.2,2.2,1.4],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}}]}]},{"description":{"identifier":"geometry.aln_fig_8","texture_width":16,"texture_height":16,"visible_bounds_width":2,"visible_bounds_height":3,"visible_bounds_offset":[0,1,0]},"bones":[{"name":"root","pivot":[0,0,0],"cubes":[{"origin":[-1,6,-1.5],"size":[2,2.5,3],"uv":{"north":{"uv":[0,8],"uv_size":[4,4]},"east":{"uv":[0,8],"uv_size":[4,4]},"south":{"uv":[0,8],"uv_size":[4,4]},"west":{"uv":[0,8],"uv_size":[4,4]},"up":{"uv":[0,8],"uv_size":[4,4]},"down":{"uv":[0,8],"uv_size":[4,4]}}},{"origin":[-0.7,8,-2],"size":[1.4,1.8,1.4],"uv":{"north":{"uv":[0,8],"uv_size":[4,4]},"east":{"uv":[0,8],"uv_size":[4,4]},"south":{"uv":[0,8],"uv_size":[4,4]},"west":{"uv":[0,8],"uv_size":[4,4]},"up":{"uv":[0,8],"uv_size":[4,4]},"down":{"uv":[0,8],"uv_size":[4,4]}}},{"origin":[-0.4,8.4,-2.4],"size":[0.8,0.6,0.5],"uv":{"north":{"uv":[8,8],"uv_size":[4,4]},"east":{"uv":[8,8],"uv_size":[4,4]},"south":{"uv":[8,8],"uv_size":[4,4]},"west":{"uv":[8,8],"uv_size":[4,4]},"up":{"uv":[8,8],"uv_size":[4,4]},"down":{"uv":[8,8],"uv_size":[4,4]}}},{"origin":[-0.6,5,-0.3],"size":[0.3,1,0.3],"uv":{"north":{"uv":[8,8],"uv_size":[4,4]},"east":{"uv":[8,8],"uv_size":[4,4]},"south":{"uv":[8,8],"uv_size":[4,4]},"west":{"uv":[8,8],"uv_size":[4,4]},"up":{"uv":[8,8],"uv_size":[4,4]},"down":{"uv":[8,8],"uv_size":[4,4]}}},{"origin":[0.3,5,-0.3],"size":[0.3,1,0.3],"uv":{"north":{"uv":[8,8],"uv_size":[4,4]},"east":{"uv":[8,8],"uv_size":[4,4]},"south":{"uv":[8,8],"uv_size":[4,4]},"west":{"uv":[8,8],"uv_size":[4,4]},"up":{"uv":[8,8],"uv_size":[4,4]},"down":{"uv":[8,8],"uv_size":[4,4]}}}]}]},{"description":{"identifier":"geometry.aln_fig_9","texture_width":16,"texture_height":16,"visible_bounds_width":2,"visible_bounds_height":3,"visible_bounds_offset":[0,1,0]},"bones":[{"name":"root","pivot":[0,0,0],"cubes":[{"origin":[-1.25,5,-2],"size":[0.8,1.5,0.8],"uv":{"north":{"uv":[8,0],"uv_size":[4,4]},"east":{"uv":[8,0],"uv_size":[4,4]},"south":{"uv":[8,0],"uv_size":[4,4]},"west":{"uv":[8,0],"uv_size":[4,4]},"up":{"uv":[8,0],"uv_size":[4,4]},"down":{"uv":[8,0],"uv_size":[4,4]}}},{"origin":[-1.25,5,1.2],"size":[0.8,1.5,0.8],"uv":{"north":{"uv":[8,0],"uv_size":[4,4]},"east":{"uv":[8,0],"uv_size":[4,4]},"south":{"uv":[8,0],"uv_size":[4,4]},"west":{"uv":[8,0],"uv_size":[4,4]},"up":{"uv":[8,0],"uv_size":[4,4]},"down":{"uv":[8,0],"uv_size":[4,4]}}},{"origin":[0.45,5,-2],"size":[0.8,1.5,0.8],"uv":{"north":{"uv":[8,0],"uv_size":[4,4]},"east":{"uv":[8,0],"uv_size":[4,4]},"south":{"uv":[8,0],"uv_size":[4,4]},"west":{"uv":[8,0],"uv_size":[4,4]},"up":{"uv":[8,0],"uv_size":[4,4]},"down":{"uv":[8,0],"uv_size":[4,4]}}},{"origin":[0.45,5,1.2],"size":[0.8,1.5,0.8],"uv":{"north":{"uv":[8,0],"uv_size":[4,4]},"east":{"uv":[8,0],"uv_size":[4,4]},"south":{"uv":[8,0],"uv_size":[4,4]},"west":{"uv":[8,0],"uv_size":[4,4]},"up":{"uv":[8,0],"uv_size":[4,4]},"down":{"uv":[8,0],"uv_size":[4,4]}}},{"origin":[-1.25,6.4,-2],"size":[2.5,2.5,4],"uv":{"north":{"uv":[8,0],"uv_size":[4,4]},"east":{"uv":[8,0],"uv_size":[4,4]},"south":{"uv":[8,0],"uv_size":[4,4]},"west":{"uv":[8,0],"uv_size":[4,4]},"up":{"uv":[8,0],"uv_size":[4,4]},"down":{"uv":[8,0],"uv_size":[4,4]}}},{"origin":[-1.25,6.8,-3.4],"size":[2.5,2.2,1.6],"uv":{"north":{"uv":[8,0],"uv_size":[4,4]},"east":{"uv":[8,0],"uv_size":[4,4]},"south":{"uv":[8,0],"uv_size":[4,4]},"west":{"uv":[8,0],"uv_size":[4,4]},"up":{"uv":[8,0],"uv_size":[4,4]},"down":{"uv":[8,0],"uv_size":[4,4]}}},{"origin":[-0.5,6.9,-3.7],"size":[1,0.9,0.4],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}},{"origin":[-0.4,8,1.8],"size":[0.8,0.8,1.8],"uv":{"north":{"uv":[8,0],"uv_size":[4,4]},"east":{"uv":[8,0],"uv_size":[4,4]},"south":{"uv":[8,0],"uv_size":[4,4]},"west":{"uv":[8,0],"uv_size":[4,4]},"up":{"uv":[8,0],"uv_size":[4,4]},"down":{"uv":[8,0],"uv_size":[4,4]}}}]}]},{"description":{"identifier":"geometry.aln_fig_10","texture_width":16,"texture_height":16,"visible_bounds_width":2,"visible_bounds_height":3,"visible_bounds_offset":[0,1,0]},"bones":[{"name":"root","pivot":[0,0,0],"cubes":[{"origin":[-1.5,5,-1],"size":[3,6,2],"uv":{"north":{"uv":[12,4],"uv_size":[4,4]},"east":{"uv":[12,4],"uv_size":[4,4]},"south":{"uv":[12,4],"uv_size":[4,4]},"west":{"uv":[12,4],"uv_size":[4,4]},"up":{"uv":[12,4],"uv_size":[4,4]},"down":{"uv":[12,4],"uv_size":[4,4]}}},{"origin":[-1.8,8.5,-1.5],"size":[3.6,1,1],"uv":{"north":{"uv":[12,4],"uv_size":[4,4]},"east":{"uv":[12,4],"uv_size":[4,4]},"south":{"uv":[12,4],"uv_size":[4,4]},"west":{"uv":[12,4],"uv_size":[4,4]},"up":{"uv":[12,4],"uv_size":[4,4]},"down":{"uv":[12,4],"uv_size":[4,4]}}},{"origin":[-1.5,11,-1.5],"size":[3,3,3],"uv":{"north":{"uv":[8,4],"uv_size":[4,4]},"east":{"uv":[8,4],"uv_size":[4,4]},"south":{"uv":[8,4],"uv_size":[4,4]},"west":{"uv":[8,4],"uv_size":[4,4]},"up":{"uv":[8,4],"uv_size":[4,4]},"down":{"uv":[8,4],"uv_size":[4,4]}}},{"origin":[-0.4,11.6,-1.9],"size":[0.8,1.4,0.4],"uv":{"north":{"uv":[8,4],"uv_size":[4,4]},"east":{"uv":[8,4],"uv_size":[4,4]},"south":{"uv":[8,4],"uv_size":[4,4]},"west":{"uv":[8,4],"uv_size":[4,4]},"up":{"uv":[8,4],"uv_size":[4,4]},"down":{"uv":[8,4],"uv_size":[4,4]}}},{"origin":[-1.0,12.6,-1.6],"size":[0.6,0.6,0.2],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}},{"origin":[0.4,12.6,-1.6],"size":[0.6,0.6,0.2],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}}]}]},{"description":{"identifier":"geometry.aln_fig_11","texture_width":16,"texture_height":16,"visible_bounds_width":2,"visible_bounds_height":3,"visible_bounds_offset":[0,1,0]},"bones":[{"name":"root","pivot":[0,0,0],"cubes":[{"origin":[-1.5,5,-0.7],"size":[1.4,2.5,1.4],"uv":{"north":{"uv":[8,0],"uv_size":[4,4]},"east":{"uv":[8,0],"uv_size":[4,4]},"south":{"uv":[8,0],"uv_size":[4,4]},"west":{"uv":[8,0],"uv_size":[4,4]},"up":{"uv":[8,0],"uv_size":[4,4]},"down":{"uv":[8,0],"uv_size":[4,4]}}},{"origin":[0.1,5,-0.7],"size":[1.4,2.5,1.4],"uv":{"north":{"uv":[8,0],"uv_size":[4,4]},"east":{"uv":[8,0],"uv_size":[4,4]},"south":{"uv":[8,0],"uv_size":[4,4]},"west":{"uv":[8,0],"uv_size":[4,4]},"up":{"uv":[8,0],"uv_size":[4,4]},"down":{"uv":[8,0],"uv_size":[4,4]}}},{"origin":[-2.25,7.5,-1.5],"size":[4.5,3.5,3],"uv":{"north":{"uv":[8,0],"uv_size":[4,4]},"east":{"uv":[8,0],"uv_size":[4,4]},"south":{"uv":[8,0],"uv_size":[4,4]},"west":{"uv":[8,0],"uv_size":[4,4]},"up":{"uv":[8,0],"uv_size":[4,4]},"down":{"uv":[8,0],"uv_size":[4,4]}}},{"origin":[-1.1,11,-1.1],"size":[2.2,2.2,2.2],"uv":{"north":{"uv":[8,0],"uv_size":[4,4]},"east":{"uv":[8,0],"uv_size":[4,4]},"south":{"uv":[8,0],"uv_size":[4,4]},"west":{"uv":[8,0],"uv_size":[4,4]},"up":{"uv":[8,0],"uv_size":[4,4]},"down":{"uv":[8,0],"uv_size":[4,4]}}},{"origin":[-0.3,11.6,-1.4],"size":[0.6,1,0.4],"uv":{"north":{"uv":[12,4],"uv_size":[4,4]},"east":{"uv":[12,4],"uv_size":[4,4]},"south":{"uv":[12,4],"uv_size":[4,4]},"west":{"uv":[12,4],"uv_size":[4,4]},"up":{"uv":[12,4],"uv_size":[4,4]},"down":{"uv":[12,4],"uv_size":[4,4]}}},{"origin":[-3.2,6,-0.8],"size":[1,5,1.6],"uv":{"north":{"uv":[8,0],"uv_size":[4,4]},"east":{"uv":[8,0],"uv_size":[4,4]},"south":{"uv":[8,0],"uv_size":[4,4]},"west":{"uv":[8,0],"uv_size":[4,4]},"up":{"uv":[8,0],"uv_size":[4,4]},"down":{"uv":[8,0],"uv_size":[4,4]}}},{"origin":[2.2,6,-0.8],"size":[1,5,1.6],"uv":{"north":{"uv":[8,0],"uv_size":[4,4]},"east":{"uv":[8,0],"uv_size":[4,4]},"south":{"uv":[8,0],"uv_size":[4,4]},"west":{"uv":[8,0],"uv_size":[4,4]},"up":{"uv":[8,0],"uv_size":[4,4]},"down":{"uv":[8,0],"uv_size":[4,4]}}}]}]},{"description":{"identifier":"geometry.aln_fig_12","texture_width":16,"texture_height":16,"visible_bounds_width":2,"visible_bounds_height":3,"visible_bounds_offset":[0,1,0]},"bones":[{"name":"root","pivot":[0,0,0],"cubes":[{"origin":[-1,5,-0.5],"size":[0.8,4,1],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}},{"origin":[0.2,5,-0.5],"size":[0.8,4,1],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}},{"origin":[-1,9,-0.5],"size":[2,3,1],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}},{"origin":[-1.25,12,-1.25],"size":[2.5,2.2,2.5],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}},{"origin":[-0.9,12.7,-1.35],"size":[0.6,0.6,0.2],"uv":{"north":{"uv":[0,0],"uv_size":[4,4]},"east":{"uv":[0,0],"uv_size":[4,4]},"south":{"uv":[0,0],"uv_size":[4,4]},"west":{"uv":[0,0],"uv_size":[4,4]},"up":{"uv":[0,0],"uv_size":[4,4]},"down":{"uv":[0,0],"uv_size":[4,4]}}},{"origin":[0.3,12.7,-1.35],"size":[0.6,0.6,0.2],"uv":{"north":{"uv":[0,0],"uv_size":[4,4]},"east":{"uv":[0,0],"uv_size":[4,4]},"south":{"uv":[0,0],"uv_size":[4,4]},"west":{"uv":[0,0],"uv_size":[4,4]},"up":{"uv":[0,0],"uv_size":[4,4]},"down":{"uv":[0,0],"uv_size":[4,4]}}}]}]},{"description":{"identifier":"geometry.aln_fig_13","texture_width":16,"texture_height":16,"visible_bounds_width":2,"visible_bounds_height":3,"visible_bounds_offset":[0,1,0]},"bones":[{"name":"root","pivot":[0,0,0],"cubes":[{"origin":[-1.4,10,-1.4],"size":[2.8,2.8,2.8],"uv":{"north":{"uv":[8,8],"uv_size":[4,4]},"east":{"uv":[8,8],"uv_size":[4,4]},"south":{"uv":[8,8],"uv_size":[4,4]},"west":{"uv":[8,8],"uv_size":[4,4]},"up":{"uv":[8,8],"uv_size":[4,4]},"down":{"uv":[8,8],"uv_size":[4,4]}}},{"origin":[-0.9,11.2,-1.5],"size":[0.6,0.6,0.2],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}},{"origin":[0.3,11.2,-1.5],"size":[0.6,0.6,0.2],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}},{"origin":[-2.5,6.5,-0.3],"size":[0.6,3,0.6],"uv":{"north":{"uv":[8,8],"uv_size":[4,4]},"east":{"uv":[8,8],"uv_size":[4,4]},"south":{"uv":[8,8],"uv_size":[4,4]},"west":{"uv":[8,8],"uv_size":[4,4]},"up":{"uv":[8,8],"uv_size":[4,4]},"down":{"uv":[8,8],"uv_size":[4,4]}}},{"origin":[1.9,6.5,-0.3],"size":[0.6,3,0.6],"uv":{"north":{"uv":[8,8],"uv_size":[4,4]},"east":{"uv":[8,8],"uv_size":[4,4]},"south":{"uv":[8,8],"uv_size":[4,4]},"west":{"uv":[8,8],"uv_size":[4,4]},"up":{"uv":[8,8],"uv_size":[4,4]},"down":{"uv":[8,8],"uv_size":[4,4]}}},{"origin":[-0.3,6.5,-2.5],"size":[0.6,3,0.6],"uv":{"north":{"uv":[8,8],"uv_size":[4,4]},"east":{"uv":[8,8],"uv_size":[4,4]},"south":{"uv":[8,8],"uv_size":[4,4]},"west":{"uv":[8,8],"uv_size":[4,4]},"up":{"uv":[8,8],"uv_size":[4,4]},"down":{"uv":[8,8],"uv_size":[4,4]}}},{"origin":[-0.3,6.5,1.9],"size":[0.6,3,0.6],"uv":{"north":{"uv":[8,8],"uv_size":[4,4]},"east":{"uv":[8,8],"uv_size":[4,4]},"south":{"uv":[8,8],"uv_size":[4,4]},"west":{"uv":[8,8],"uv_size":[4,4]},"up":{"uv":[8,8],"uv_size":[4,4]},"down":{"uv":[8,8],"uv_size":[4,4]}}},{"origin":[-0.5,6,-0.5],"size":[1,3,1],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}}]}]},{"description":{"identifier":"geometry.aln_fig_14","texture_width":16,"texture_height":16,"visible_bounds_width":2,"visible_bounds_height":3,"visible_bounds_offset":[0,1,0]},"bones":[{"name":"root","pivot":[0,0,0],"cubes":[{"origin":[-1.7,5,-1.7],"size":[3.4,3.4,3.4],"uv":{"north":{"uv":[0,8],"uv_size":[4,4]},"east":{"uv":[0,8],"uv_size":[4,4]},"south":{"uv":[0,8],"uv_size":[4,4]},"west":{"uv":[0,8],"uv_size":[4,4]},"up":{"uv":[0,8],"uv_size":[4,4]},"down":{"uv":[0,8],"uv_size":[4,4]}}},{"origin":[-1.4,8.4,-1.4],"size":[2.8,2.8,2.8],"uv":{"north":{"uv":[0,8],"uv_size":[4,4]},"east":{"uv":[0,8],"uv_size":[4,4]},"south":{"uv":[0,8],"uv_size":[4,4]},"west":{"uv":[0,8],"uv_size":[4,4]},"up":{"uv":[0,8],"uv_size":[4,4]},"down":{"uv":[0,8],"uv_size":[4,4]}}},{"origin":[-1.1,11.2,-1.1],"size":[2.2,2.2,2.2],"uv":{"north":{"uv":[0,8],"uv_size":[4,4]},"east":{"uv":[0,8],"uv_size":[4,4]},"south":{"uv":[0,8],"uv_size":[4,4]},"west":{"uv":[0,8],"uv_size":[4,4]},"up":{"uv":[0,8],"uv_size":[4,4]},"down":{"uv":[0,8],"uv_size":[4,4]}}},{"origin":[-0.7,12.3,-1.2],"size":[0.6,0.6,0.2],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}},{"origin":[0.3,12.3,-1.2],"size":[0.6,0.6,0.2],"uv":{"north":{"uv":[4,8],"uv_size":[4,4]},"east":{"uv":[4,8],"uv_size":[4,4]},"south":{"uv":[4,8],"uv_size":[4,4]},"west":{"uv":[4,8],"uv_size":[4,4]},"up":{"uv":[4,8],"uv_size":[4,4]},"down":{"uv":[4,8],"uv_size":[4,4]}}},{"origin":[-0.25,11.8,-1.6],"size":[0.5,0.5,0.7],"uv":{"north":{"uv":[8,8],"uv_size":[4,4]},"east":{"uv":[8,8],"uv_size":[4,4]},"south":{"uv":[8,8],"uv_size":[4,4]},"west":{"uv":[8,8],"uv_size":[4,4]},"up":{"uv":[8,8],"uv_size":[4,4]},"down":{"uv":[8,8],"uv_size":[4,4]}}}]}]}]}
 ```
 
-## FILE: MCPEDL/Addons/ALN-SoulLantern/resource_pack/render_controllers/aln_spirit.render_controllers.json (17 lines, 283 bytes)
+## FILE: MCPEDL/Addons/ALN-SoulLantern/resource_pack/render_controllers/aln_spirit.render_controllers.json (49 lines, 1055 bytes)
 
 ```
 {
@@ -1421,6 +1599,38 @@ For gameplay features, usage details, compatibility notes, and other project inf
       ],
       "textures": [
         "Texture.default"
+      ]
+    },
+    "controller.render.aln_spirit_figure": {
+      "arrays": {
+        "geometries": {
+          "Array.figs": [
+            "Geometry.fig0",
+            "Geometry.fig1",
+            "Geometry.fig2",
+            "Geometry.fig3",
+            "Geometry.fig4",
+            "Geometry.fig5",
+            "Geometry.fig6",
+            "Geometry.fig7",
+            "Geometry.fig8",
+            "Geometry.fig9",
+            "Geometry.fig10",
+            "Geometry.fig11",
+            "Geometry.fig12",
+            "Geometry.fig13",
+            "Geometry.fig14"
+          ]
+        }
+      },
+      "geometry": "Array.figs[query.variant]",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.figs"
       ]
     }
   }
@@ -1748,6 +1958,324 @@ For gameplay features, usage details, compatibility notes, and other project inf
           1,
           1,
           4
+        ]
+      ]
+    }
+  ]
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-SoulLantern/texture_sources/aln_spirit_figs.json (314 lines, 4158 bytes)
+
+```
+{
+  "textures": [
+    {
+      "name": "figs",
+      "size": 16,
+      "folder": "items/aln_spirit",
+      "palette": {
+        "0": "#00000000",
+        "1": "#7ff3ffff",
+        "2": "#4fb34bff",
+        "3": "#dcdcd2ff",
+        "4": "#6fa65aff",
+        "5": "#38a3b8ff",
+        "6": "#3b429eff",
+        "7": "#f4a6b8ff",
+        "8": "#8a5a2cff",
+        "9": "#f6f6f6ff",
+        "10": "#2f2f36ff",
+        "11": "#f5a21fff"
+      },
+      "pixels": [
+        [
+          1,
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          3,
+          3,
+          3,
+          3,
+          4,
+          4,
+          4,
+          4
+        ],
+        [
+          1,
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          3,
+          3,
+          3,
+          3,
+          4,
+          4,
+          4,
+          4
+        ],
+        [
+          1,
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          3,
+          3,
+          3,
+          3,
+          4,
+          4,
+          4,
+          4
+        ],
+        [
+          1,
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          3,
+          3,
+          3,
+          3,
+          4,
+          4,
+          4,
+          4
+        ],
+        [
+          5,
+          5,
+          5,
+          5,
+          6,
+          6,
+          6,
+          6,
+          7,
+          7,
+          7,
+          7,
+          8,
+          8,
+          8,
+          8
+        ],
+        [
+          5,
+          5,
+          5,
+          5,
+          6,
+          6,
+          6,
+          6,
+          7,
+          7,
+          7,
+          7,
+          8,
+          8,
+          8,
+          8
+        ],
+        [
+          5,
+          5,
+          5,
+          5,
+          6,
+          6,
+          6,
+          6,
+          7,
+          7,
+          7,
+          7,
+          8,
+          8,
+          8,
+          8
+        ],
+        [
+          5,
+          5,
+          5,
+          5,
+          6,
+          6,
+          6,
+          6,
+          7,
+          7,
+          7,
+          7,
+          8,
+          8,
+          8,
+          8
+        ],
+        [
+          9,
+          9,
+          9,
+          9,
+          10,
+          10,
+          10,
+          10,
+          11,
+          11,
+          11,
+          11,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          9,
+          9,
+          9,
+          9,
+          10,
+          10,
+          10,
+          10,
+          11,
+          11,
+          11,
+          11,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          9,
+          9,
+          9,
+          9,
+          10,
+          10,
+          10,
+          10,
+          11,
+          11,
+          11,
+          11,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          9,
+          9,
+          9,
+          9,
+          10,
+          10,
+          10,
+          10,
+          11,
+          11,
+          11,
+          11,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
         ]
       ]
     }
