@@ -14,8 +14,9 @@ import {
   payoutSummary,
   collectPayout,
   coinsOf,
+  sellToServer,
 } from "./market.js";
-import { priceInfo, recommendedTotal } from "./prices.js";
+import { priceInfo, recommendedTotal, serverPayout } from "./prices.js";
 import { findPlayer, wait, niceName, plainInventory } from "./util.js";
 import { promptWelcome } from "./welcome.js";
 
@@ -67,13 +68,14 @@ async function screenMain(player) {
     )
     .button(`Browse Offers\n§8${offers} open`)
     .button("Create Offer")
+    .button("Sell to Market")
     .button(`My Offers\n§8${mine} / ${MAX_LISTINGS_PER_PLAYER}`)
     .button(`Collect Returned Items\n§8${returned} items waiting`)
     .button("My Island")
     .button("Close");
   const res = await show(form, player);
   if (!res || res.canceled) return undefined;
-  const next = ["browse", "create", "mine", "collect", "island"][res.selection];
+  const next = ["browse", "create", "sell", "mine", "collect", "island"][res.selection];
   return next ? { name: next, page: 0, filter: "" } : undefined;
 }
 
@@ -156,6 +158,28 @@ async function screenCreate(player) {
   const typedPrice = String(priceText ?? "").trim();
   const price = typedPrice ? Number.parseInt(typedPrice, 10) : recommendedTotal(item.id, amount);
   const result = createListing(player, item.id, amount, price);
+  player.sendMessage(`§6[ALN] ${result.ok ? "§a" : "§c"}${result.message}`);
+  return { name: "main", page: 0, filter: "" };
+}
+
+async function screenSell(player) {
+  const inventory = plainInventory(player).filter((e) => priceInfo(e.id).listed);
+  if (inventory.length === 0) {
+    player.sendMessage("§6[ALN] §cYou carry nothing the market buys.");
+    return { name: "main", page: 0, filter: "" };
+  }
+  const labels = inventory.map((e) => `${niceName(e.id)} (have ${e.amount}) §8market pays ${serverPayout(e.id, e.amount)} for all`);
+  const form = new ModalFormData()
+    .title(HUB_TITLE)
+    .dropdown("Item to sell to the market", labels)
+    .textField("Amount to sell (empty = all you carry)", "e.g. 32");
+  const res = await show(form, player);
+  if (!res || res.canceled || !res.formValues) return { name: "main", page: 0, filter: "" };
+  const [itemIndex, amountText] = res.formValues;
+  const item = inventory[itemIndex];
+  const typed = String(amountText ?? "").trim();
+  const amount = typed ? Number.parseInt(typed, 10) : item.amount;
+  const result = sellToServer(player, item.id, amount);
   player.sendMessage(`§6[ALN] ${result.ok ? "§a" : "§c"}${result.message}`);
   return { name: "main", page: 0, filter: "" };
 }
@@ -250,6 +274,9 @@ export async function openLedger(player) {
         break;
       case "create":
         state = await screenCreate(p);
+        break;
+      case "sell":
+        state = await screenSell(p);
         break;
       case "mine":
         state = await screenMine(p, state);

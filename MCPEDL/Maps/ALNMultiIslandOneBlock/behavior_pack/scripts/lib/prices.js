@@ -1,3 +1,5 @@
+import { SERVER_BUY_RATIO } from "./config.js";
+
 const PRICES = {
   "minecraft:coal": [2, 32],
   "minecraft:flint": [1, 32],
@@ -69,4 +71,8 @@ export function priceInfo(typeId) {
 
 export function recommendedTotal(typeId, amount) {
   return Math.max(1, Math.round(priceInfo(typeId).unit * amount));
+}
+export function serverPayout(typeId, amount) {
+  const info = priceInfo(typeId);
+  return info.listed ? Math.floor(info.unit * amount * SERVER_BUY_RATIO) : 0;
 }

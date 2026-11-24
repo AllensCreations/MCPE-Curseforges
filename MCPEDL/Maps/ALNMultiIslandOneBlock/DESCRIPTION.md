@@ -44,10 +44,10 @@ The map is a void world and includes Creative, Survival and Hardcore versions.
 - **What Happens**: A portable item every player receives when claiming an island. Right-clicking it opens the Global Trade Hub from anywhere. It is permanent: if you throw it away it returns to you, and if your inventory is full it returns as soon as a slot is free.
 
 ### Global Trade Hub
-- **What Happens**: Players post offers priced in ALN Coins, such as 32 Iron Ingots for 160 ALN Coins, browse and search offers from every island, and buy with a single confirmation. Every item shows a recommended price and amount, and leaving the fields empty uses them. For items with a recommended price, an offer must stay between one quarter and four times that price. Offered items are held safely until the offer sells or is cancelled.
+- **What Happens**: Players post offers priced in ALN Coins, such as 32 Iron Ingots for 160 ALN Coins, browse and search offers from every island, and buy with a single confirmation. Every item shows a recommended price and amount, and leaving the fields empty uses them. For items with a recommended price, an offer must stay between half and four times that price. The market also buys those items directly for half of the recommended price. Offered items are held safely until the offer sells or is cancelled.
 
 ### ALN Coins
-- **What Happens**: ALN Coins are the currency of the Global Trade Hub. Every player starts with 500 ALN Coins, and the balance is shown in the hub. A sold offer pays the seller right away, even when the seller is offline.
+- **What Happens**: ALN Coins are the currency of the Global Trade Hub. Every player starts with 500 ALN Coins, and the balance is shown in the hub. A sold offer pays the seller right away, even when the seller is offline. Players also earn 1 ALN Coin for every 10 OneBlock breaks, and a sidebar scoreboard titled @ALNStudios ranks island owners by their ALN Coins.
 
 ## How to Use
 

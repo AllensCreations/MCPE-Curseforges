@@ -4,6 +4,17 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v261] - 2026-11-24 - Market Income and Coin Scoreboard
+
+**Spec**: spec_v261.txt | **Target**: MCPEDL/Maps/ALNMultiIslandOneBlock | **Files edited**: 10
+
+### Added
+- **Sell to Market**: A new hub button sells items that have a recommended price straight to the market for half of the recommended price.
+- **OneBlock Coin Reward**: Players earn 1 ALN Coin for every 10 OneBlock breaks.
+- **@ALNStudios Scoreboard**: A sidebar scoreboard titled @ALNStudios ranks island owners by their ALN Coins and refreshes every two seconds.
+### Improved & Balanced
+- **Price Guard**: The lowest allowed offer price is now half of the recommended price, so nobody can buy cheaply from a player and resell to the market for a profit.
+
 ## 2026-11-24 - New Addon ALNSpiritSphere
 
 ### Added

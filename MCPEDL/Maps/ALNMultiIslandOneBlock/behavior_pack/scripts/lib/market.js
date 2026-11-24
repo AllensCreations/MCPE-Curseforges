@@ -20,7 +20,7 @@ import {
   isValidItem,
   niceName,
 } from "./util.js";
-import { priceInfo, recommendedTotal } from "./prices.js";
+import { priceInfo, recommendedTotal, serverPayout } from "./prices.js";
 
 const listingKey = (id) => PROP.LISTING_PREFIX + id;
 const payoutKey = (playerId) => PROP.PAYOUT_PREFIX + playerId;
@@ -31,7 +31,7 @@ export function coinsOf(playerId) {
   return typeof stored === "number" ? stored : STARTER_COINS;
 }
 
-function addCoins(playerId, amount) {
+export function addCoins(playerId, amount) {
   world.setDynamicProperty(coinKey(playerId), coinsOf(playerId) + amount);
 }
 
@@ -194,4 +194,18 @@ export function buyListing(buyer, id) {
   return done(
     `Purchase complete: you received ${listing.give.amount}x ${niceName(listing.give.id)} for ${listing.price} ${COIN_NAME}.`
   );
+}
+export function sellToServer(player, itemId, amount) {
+  if (!Number.isInteger(amount) || amount < 1 || amount > MAX_TRADE_AMOUNT) {
+    return fail(`The amount you sell must be a whole number from 1 to ${MAX_TRADE_AMOUNT}.`);
+  }
+  if (!priceInfo(itemId).listed) return fail("The market only buys items that have a recommended price.");
+  const pay = serverPayout(itemId, amount);
+  if (pay < 1) return fail(`That is worth less than 1 ${COIN_NAME} to the market. Sell a larger amount.`);
+  if (countPlain(player, itemId) < amount) {
+    return fail(`You only carry ${countPlain(player, itemId)}x ${niceName(itemId)} without custom changes.`);
+  }
+  if (!removePlain(player, itemId, amount)) return fail("Could not take the items from your inventory.");
+  addCoins(player.id, pay);
+  return done(`Sold ${amount}x ${niceName(itemId)} to the market for ${pay} ${COIN_NAME}.`);
 }

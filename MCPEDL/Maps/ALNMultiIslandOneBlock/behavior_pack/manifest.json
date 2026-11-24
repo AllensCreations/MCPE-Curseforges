@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:MultiIslandOneBlock (v5)",
+    "name": "ALN:MultiIslandOneBlock (v6)",
     "description": "Multi-island OneBlock grid with a central lobby and a global trade ledger. by ALNStudios",
     "uuid": "0886e248-abae-466f-85fe-a01de46396cf",
     "version": [
-      5,
+      6,
       0,
       0
     ],
@@ -20,7 +20,7 @@
       "type": "data",
       "uuid": "76888f9d-5edf-4308-b1ab-1c176dbe38e9",
       "version": [
-        5,
+        6,
         0,
         0
       ]
@@ -31,7 +31,7 @@
       "uuid": "fd4c32c2-7e0a-4bfe-8633-e30171567364",
       "entry": "scripts/main.js",
       "version": [
-        5,
+        6,
         0,
         0
       ]
@@ -41,7 +41,7 @@
     {
       "uuid": "2cf90b7d-4b0f-44d5-b726-41f3e756f95f",
       "version": [
-        5,
+        6,
         0,
         0
       ]
@@ -60,6 +60,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "5.0.0"
+    "version": "6.0.0"
   }
 }

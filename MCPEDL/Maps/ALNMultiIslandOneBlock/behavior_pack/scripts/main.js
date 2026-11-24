@@ -6,6 +6,7 @@ import { promptWelcome } from "./lib/welcome.js";
 import { startOneBlock } from "./lib/oneblock.js";
 import { openLedger } from "./lib/ledger.js";
 import { startLedgerKeeper, ensureLedger } from "./lib/keeper.js";
+import { startCoinBoard } from "./lib/board.js";
 import { collectPayout, payoutSummary, takeEarned } from "./lib/market.js";
 import { later } from "./lib/util.js";
 
@@ -68,6 +69,7 @@ world.afterEvents.worldLoad.subscribe(() => {
   setupLobby();
   startOneBlock();
   startLedgerKeeper();
+  startCoinBoard();
   for (const player of world.getAllPlayers()) {
     if (!joining.has(player.id)) readyPlayer(player);
   }

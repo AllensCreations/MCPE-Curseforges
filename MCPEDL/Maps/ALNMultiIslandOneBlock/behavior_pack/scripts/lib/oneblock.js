@@ -1,10 +1,11 @@
 import { world, system, ItemStack } from "@minecraft/server";
-import { ONE_BLOCK_Y, PROP, BONUS_CHANCE } from "./config.js";
+import { ONE_BLOCK_Y, PROP, BONUS_CHANCE, BREAKS_PER_COIN, COINS_PER_REWARD } from "./config.js";
 import { slotAt, recordOf, slotOf, slotCoords } from "./slots.js";
 import { phaseIndexFor, rollBonus, PHASES, phaseLabel, breaksToNextPhase } from "./phases.js";
 import { globalBreaks, regenerate } from "./island.js";
 import { traitLabel } from "./traits.js";
 import { blockIdAt, isLoaded, isValidItem, overworld } from "./util.js";
+import { addCoins } from "./market.js";
 
 function announcePhase(index) {
   const p = PHASES[index];
@@ -45,6 +46,7 @@ function handleBreak(event) {
   const breaker = event.player;
   const mine = (breaker.getDynamicProperty(PROP.BREAKS) ?? 0) + 1;
   breaker.setDynamicProperty(PROP.BREAKS, mine);
+  if (mine % BREAKS_PER_COIN === 0) addCoins(breaker.id, COINS_PER_REWARD);
 
   const dim = block.dimension;
   const x = block.x;

@@ -29,8 +29,14 @@ export const MAX_TRADE_AMOUNT = 2304;
 export const COIN_NAME = "ALN Coins";
 export const STARTER_COINS = 500;
 export const MAX_PRICE = 1000000;
-export const PRICE_MIN_RATIO = 0.25;
+export const PRICE_MIN_RATIO = 0.5;
 export const PRICE_MAX_RATIO = 4;
+export const SERVER_BUY_RATIO = 0.5;
+export const BREAKS_PER_COIN = 10;
+export const COINS_PER_REWARD = 1;
+export const BOARD_ID = "aln_coins";
+export const BOARD_TITLE = "§6§l@ALNStudios";
+export const BOARD_TICKS = 40;
 export const PAGE_SIZE = 6;
 export const WELCOME_RETRY_LIMIT = 12;
 
