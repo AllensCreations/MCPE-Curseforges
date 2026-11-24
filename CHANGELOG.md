@@ -4,6 +4,13 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v265] - 2026-11-24 - Rare Bonus Drops
+
+**Spec**: spec_v265.txt | **Target**: MCPEDL/Maps/ALNMultiIslandOneBlock | **Files edited**: 3
+
+### Improved & Balanced
+- **Rare Bonus Drops**: Richness bonus drops now happen on about 5% of OneBlock breaks instead of 30%.
+
 ## [v264] - 2026-11-24 - TRADERS Item Sale Fix
 
 **Spec**: spec_v264.txt | **Target**: MCPEDL/Maps/ALNMultiIslandOneBlock | **Files edited**: 3

@@ -1,10 +1,10 @@
 import { world, system, ItemStack } from "@minecraft/server";
-import { ONE_BLOCK_Y, PROP, BONUS_CHANCE, BREAKS_PER_COIN, COINS_PER_REWARD } from "./config.js";
+import { ONE_BLOCK_Y, PROP, BONUS_CHANCE, BONUS_AMOUNT_MULT, BREAKS_PER_COIN, COINS_PER_REWARD } from "./config.js";
 import { slotAt, recordOf, slotOf, slotCoords } from "./slots.js";
 import { phaseIndexFor, rollBonus, PHASES, phaseLabel, breaksToNextPhase } from "./phases.js";
 import { globalBreaks, regenerate } from "./island.js";
 import { traitLabel } from "./traits.js";
-import { blockIdAt, isLoaded, isValidItem, overworld } from "./util.js";
+import { blockIdAt, isLoaded, isValidItem, overworld, stackLimit } from "./util.js";
 import { addCoins } from "./market.js";
 
 function announcePhase(index) {
@@ -24,7 +24,8 @@ function dropBonus(dim, x, z, trait, phaseIndex) {
     const bonus = rollBonus(phaseIndex, trait);
     if (!bonus || !isValidItem(bonus.id)) continue;
     try {
-      dim.spawnItem(new ItemStack(bonus.id, bonus.amount), { x: x + 0.5, y: ONE_BLOCK_Y + 1.2, z: z + 0.5 });
+      const amount = Math.min(bonus.amount * BONUS_AMOUNT_MULT, stackLimit(bonus.id));
+      dim.spawnItem(new ItemStack(bonus.id, amount), { x: x + 0.5, y: ONE_BLOCK_Y + 1.2, z: z + 0.5 });
     } catch (e) {}
     return;
   }

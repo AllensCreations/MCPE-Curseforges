@@ -22,7 +22,8 @@ export const PROP = {
   EARNED_PREFIX: "aln:earned_",
 };
 
-export const BONUS_CHANCE = 0.3;
+export const BONUS_CHANCE = 0.05;
+export const BONUS_AMOUNT_MULT = 1;
 export const MAX_LISTINGS_PER_PLAYER = 8;
 export const MAX_LISTINGS_TOTAL = 250;
 export const MAX_TRADE_AMOUNT = 2304;

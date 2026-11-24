@@ -2,6 +2,11 @@
 
 ---
 
+## [v8] - 2026-11-24 - Rare Bonus Drops
+
+### Improved & Balanced
+- **Rare Bonus Drops**: Richness bonus drops now happen on about 5% of OneBlock breaks instead of 30%.
+
 ## [v7] - 2026-11-24 - TRADERS Item Sale Fix
 
 ### Fixed
