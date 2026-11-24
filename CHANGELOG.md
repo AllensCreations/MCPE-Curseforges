@@ -4,6 +4,13 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v277] - 2026-11-24 - Stack Towers
+
+**Spec**: spec_v277.txt | **Target**: MCPEDL/Script/ALN-MobStacker | **Files edited**: 8
+
+### Added
+- **Stack Towers**: Farm animal stacks now show up to 3 mobs standing on top of each other, with the number label on the bottom mob. The mobs above are cosmetic copies that cannot be hurt.
+
 ## [v276] - 2026-11-24 - Element Sounds
 
 **Spec**: spec_v276.txt | **Target**: MCPEDL/Addons/ALNSpiritSphere | **Files edited**: 9

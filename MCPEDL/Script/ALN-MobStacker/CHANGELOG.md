@@ -2,6 +2,11 @@
 
 ---
 
+## [v4] - 2026-11-24 - Stack Towers
+
+### Added
+- **Stack Towers**: Farm animal stacks now show up to 3 mobs standing on top of each other, with the number label on the bottom mob. The mobs above are cosmetic copies that cannot be hurt.
+
 ## [v3] - 2026-11-20 - Faster Grinders
 
 ### Added

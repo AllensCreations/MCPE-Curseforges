@@ -22,6 +22,7 @@ import {
   stackCache,
   stackLabel,
 } from "./stack_config.js";
+import { clearTower, ensureTower, reconcileTowers } from "./stack_tower.js";
 
 const RADIUS_SQUARED = MERGE_RADIUS * MERGE_RADIUS;
 const queue = [];
@@ -46,6 +47,7 @@ function placeHost(host, total) {
   const entity = host.entity;
   if (entity.hasTag(PERSISTENT_TAG) || (host.meta.isBaby && FARM_ANIMAL_SET.has(entity.typeId))) {
     applyStack(entity, total, host.meta);
+    ensureTower(entity, total, host.meta);
     return;
   }
   let fresh;
@@ -56,13 +58,16 @@ function placeHost(host, total) {
   }
   if (!fresh) {
     applyStack(entity, total, host.meta);
+    ensureTower(entity, total, host.meta);
     return;
   }
   restoreAppearance(fresh, host.meta);
   fresh.addTag(PERSISTENT_TAG);
   stackCache.delete(entity.id);
+  clearTower(entity.id);
   entity.remove();
   applyStack(fresh, total, host.meta);
+  ensureTower(fresh, total, host.meta);
 }
 
 function mergeGroup(group) {
@@ -98,6 +103,7 @@ function mergeGroup(group) {
             total += other.count;
             used.add(j);
             stackCache.delete(other.entity.id);
+            clearTower(other.entity.id);
             other.entity.remove();
             absorbed++;
           }
@@ -118,12 +124,14 @@ function mergeGroup(group) {
         placeHost(host, host.count);
       } else {
         rememberStack(entity, host.count, host.meta);
+        ensureTower(entity, host.count, host.meta);
       }
     }
   }
 }
 
 function runJob(job) {
+  reconcileTowers(job.dimension, job.typeId);
   let entities = job.dimension.getEntities({ type: job.typeId });
   if (entities.length === 0) return;
   if (entities.length > MAX_ENTITIES_PER_JOB) {

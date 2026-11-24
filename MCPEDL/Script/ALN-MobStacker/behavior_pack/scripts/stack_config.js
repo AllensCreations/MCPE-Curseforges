@@ -51,6 +51,20 @@ export const GEAR_LOOTING_BONUS = 0.005;
 export const GRINDER_BATCH_SIZE = 5;
 export const IDLE_PASSES_BEFORE_SLOWDOWN = 3;
 export const IDLE_SLOW_FACTOR = 4;
+export const VISUAL_TAG = "aln_stack_visual";
+export const VISUAL_HOST_PROPERTY = "aln_visual_host";
+export const TOWER_HEIGHT = 3;
+export const TOWER_SYNC_TICKS = 2;
+export const TOWER_MOB_HEIGHTS = {
+  "minecraft:cow": 1.3,
+  "minecraft:pig": 0.9,
+  "minecraft:sheep": 1.3,
+  "minecraft:chicken": 0.8,
+  "minecraft:rabbit": 1.0,
+  "minecraft:mooshroom": 1.3,
+  "minecraft:goat": 1.3,
+  "minecraft:frog": 0.55,
+};
 export const GEAR_DROP_ITEMS = [
   "minecraft:leather_helmet",
   "minecraft:leather_chestplate",
@@ -279,6 +293,7 @@ function hasGear(entity) {
 }
 
 export function isStackExcluded(entity) {
+  if (entity.hasTag(VISUAL_TAG)) return true;
   if (component(entity, EntityComponentTypes.IsTamed) !== undefined) return true;
   if (!entity.hasTag(STACK_TAG) && hasGear(entity)) return true;
   const leash = component(entity, EntityComponentTypes.Leashable);

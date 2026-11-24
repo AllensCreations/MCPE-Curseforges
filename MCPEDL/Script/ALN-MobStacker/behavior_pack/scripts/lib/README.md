@@ -7,17 +7,19 @@ Extracted from the script files; nothing here was run in game.
 
 | File | Lines | Purpose |
 | :-- | --: | :-- |
-| `scripts/main.js` | 6 | (no header comment) |
-| `scripts/stack_combat.js` | 249 | (no header comment) |
-| `scripts/stack_config.js` | 359 | (no header comment) |
-| `scripts/stack_merger.js` | 209 | (no header comment) |
+| `scripts/main.js` | 8 | (no header comment) |
+| `scripts/stack_combat.js` | 252 | (no header comment) |
+| `scripts/stack_config.js` | 374 | (no header comment) |
+| `scripts/stack_merger.js` | 217 | (no header comment) |
+| `scripts/stack_tower.js` | 162 | (no header comment) |
 
 ## Imports
 
-- `@minecraft/server` (in `stack_combat.js`, `stack_config.js`, `stack_merger.js`)
+- `@minecraft/server` (in `stack_combat.js`, `stack_config.js`, `stack_merger.js`, `stack_tower.js`)
 - `./stack_combat.js` (in `main.js`)
-- `./stack_config.js` (in `stack_combat.js`, `stack_merger.js`)
+- `./stack_config.js` (in `stack_combat.js`, `stack_merger.js`, `stack_tower.js`)
 - `./stack_merger.js` (in `main.js`)
+- `./stack_tower.js` (in `main.js`, `stack_combat.js`, `stack_merger.js`)
 
 ## Events
 
@@ -37,4 +39,5 @@ Extracted from the script files; nothing here was run in game.
 
 ## Notes (AI review)
 
-Known limits, design decisions and things to check on the next update go here. Not filled in yet.
+- Stack towers (farm animals only): the extra mobs are real copies tagged as visuals. They get long resistance, fire resistance and slowness effects and are teleported above the stack mob every 2 ticks. Not tested in game: that the effects stop all damage, that the copies stay still, and that chickens or breeding on the copies cause no side effects.
+- Tower heights in `TOWER_MOB_HEIGHTS` come from the vanilla collision boxes in the Mojang samples. The rabbit value (1.0) is taken as written there.

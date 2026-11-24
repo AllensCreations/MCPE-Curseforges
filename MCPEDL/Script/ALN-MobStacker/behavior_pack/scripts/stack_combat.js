@@ -18,6 +18,7 @@ import {
   spawnMatching,
   stackCache,
 } from "./stack_config.js";
+import { clearTower, ensureTower } from "./stack_tower.js";
 
 const SAMPLE_LIMIT = 200;
 const MAX_ITEM_ENTITIES = 256;
@@ -207,6 +208,7 @@ function respawnStack(dimension, typeId, location, remaining, meta) {
   if (remaining > 1) {
     entity.addTag(PERSISTENT_TAG);
     applyStack(entity, remaining, meta);
+    ensureTower(entity, remaining, meta);
   }
 }
 
@@ -214,6 +216,7 @@ function handleDeath(event) {
   const dead = event.deadEntity;
   const typeId = dead.typeId;
   if (!STACKABLE_MOBS.has(typeId)) return;
+  clearTower(dead.id);
   const { count, location, dimension, meta } = readDeadStack(dead);
   if (count <= 1 || !location || !dimension) return;
 

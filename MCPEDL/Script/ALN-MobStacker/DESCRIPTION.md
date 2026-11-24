@@ -20,6 +20,11 @@ Build a farm or grinder as usual. Mobs of the same kind that stand close togethe
 - **How It Works**: Twenty cows packed in a pen become one Cow labelled `[x20]`. The label appears when you look at the mob.
 - **Good To Know**: There is no stack size limit. Mobs absorbed into a stack disappear without dropping anything. Merged stacks are set to stay in the world, so they should not despawn when you walk away. Baby farm animal stacks keep their original mob, so its growth is not reset, but killing one mob of a baby stack spawns a new baby that starts growing from the beginning.
 
+### Stack Towers
+- **What Happens**: A stack of farm animals shows up to 3 mobs standing on top of each other. Only the bottom mob is real, and the number label sits on it.
+- **How It Works**: Hit the bottom mob to remove one from the stack. The mobs above cannot be hurt and copy the bottom mob's movement.
+- **Good To Know**: Towers appear only for Cow, Pig, Sheep, Chicken, Rabbit, Mooshroom, Goat and Frog stacks. Hostile stacks show the number only. A tower is shorter under a low ceiling.
+
 ### Supported Mobs
 - **What Happens**: Farm animals: Cow, Pig, Sheep, Chicken, Rabbit, Mooshroom, Goat, Frog. Grinder mobs: Zombie, Skeleton, Spider, Cave Spider, Creeper, Drowned, Husk, Stray, Blaze, Magma Cube, Slime, Enderman, Witch, Zombified Piglin, Guardian, Bogged, Breeze.
 
