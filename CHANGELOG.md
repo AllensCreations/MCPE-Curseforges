@@ -4,6 +4,14 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v289] - 2026-11-24 - Unlimited OP Sponge
+
+**Spec**: spec_v289.txt | **Target**: MCPEDL/Addons/OP-Sponge | **Files edited**: 3
+
+### Changed
+
+- **OP Sponge**: It now absorbs all the connected water around it instead of stopping at 256 water blocks and 16 blocks of reach. Water in chunks that are not loaded is not reached.
+
 ## [v288] - 2026-11-24 - Ally Speed
 
 **Spec**: spec_v288.txt | **Target**: MCPEDL/Addons/ALN-SoulLantern | **Files edited**: 2

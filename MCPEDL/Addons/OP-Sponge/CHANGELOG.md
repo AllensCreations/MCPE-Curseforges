@@ -2,6 +2,12 @@
 
 ---
 
+## [v4] - 2026-11-24 - Unlimited OP Sponge
+
+### Changed
+
+- **OP Sponge**: It now absorbs all the connected water around it instead of stopping at 256 water blocks and 16 blocks of reach. Water in chunks that are not loaded is not reached.
+
 ## [v3] - 2026-11-22 - Shapeless Recipe Fix
 
 ### Fixed

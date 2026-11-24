@@ -28,7 +28,7 @@ function register(name, capacity, range, sparkle) {
   });
 }
 
-register("op_sponge", BASE_CAPACITY, BASE_RANGE, false);
+register("op_sponge", Infinity, Infinity, false);
 for (let level = 1; level <= 10; level++) {
   register(`super_sponge_${level}`, BASE_CAPACITY * (level + 1), BASE_RANGE + level * LEVEL_RANGE, true);
 }

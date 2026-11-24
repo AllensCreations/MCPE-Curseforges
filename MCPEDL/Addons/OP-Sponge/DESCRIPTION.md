@@ -16,8 +16,8 @@ Craft an OP Sponge, then combine it with a sponge book to make a Super Sponge or
 ## Key Features
 
 ### OP Sponge
-- **What Happens**: When placed, it absorbs up to 256 connected water blocks that are within 16 blocks of it, then becomes a Water-Filled OP Sponge.
-- **Good To Know**: It only absorbs water.
+- **What Happens**: When placed, it absorbs all the connected water around it with no block limit, then becomes a Water-Filled OP Sponge.
+- **Good To Know**: It only absorbs water, and it only reaches water in chunks that are loaded.
 
 ### Super Sponge I to X
 - **What Happens**: Each level absorbs more water.
