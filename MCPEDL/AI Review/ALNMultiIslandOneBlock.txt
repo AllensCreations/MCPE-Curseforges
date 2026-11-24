@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Maps/ALNMultiIslandOneBlock`
 - **Destination:** `MCPEDL/Maps/ALNMultiIslandOneBlock`
-- **CURRENT VERSION: v8 / NEXT UPDATE: v9**  (`MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md`)
+- **CURRENT VERSION: v9 / NEXT UPDATE: v10**  (`MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 34
 - **Skipped binary:** 12
@@ -71,7 +71,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v8 / NEXT UPDATE: v9).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v9 / NEXT UPDATE: v10).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
@@ -292,11 +292,11 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:MultiIslandOneBlock (v8)",
+    "name": "ALN:MultiIslandOneBlock (v9)",
     "description": "Multi-island OneBlock grid with a central lobby and a global trade ledger. by ALNStudios",
     "uuid": "0886e248-abae-466f-85fe-a01de46396cf",
     "version": [
-      8,
+      9,
       0,
       0
     ],
@@ -311,7 +311,7 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
       "type": "data",
       "uuid": "76888f9d-5edf-4308-b1ab-1c176dbe38e9",
       "version": [
-        8,
+        9,
         0,
         0
       ]
@@ -322,7 +322,7 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
       "uuid": "fd4c32c2-7e0a-4bfe-8633-e30171567364",
       "entry": "scripts/main.js",
       "version": [
-        8,
+        9,
         0,
         0
       ]
@@ -332,7 +332,7 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
     {
       "uuid": "2cf90b7d-4b0f-44d5-b726-41f3e756f95f",
       "version": [
-        8,
+        9,
         0,
         0
       ]
@@ -351,7 +351,7 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "8.0.0"
+    "version": "9.0.0"
   }
 }
 ```
@@ -479,7 +479,7 @@ export function returnToIsland(player) {
 }
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/config.js (68 lines, 2860 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/config.js (70 lines, 2934 bytes)
 
 ```
 export const LOBBY = { x: 0, y: 65, z: 0 };
@@ -524,6 +524,8 @@ export const BOARD_TITLE = "§6§l@ALNStudios";
 export const BOARD_TICKS = 40;
 export const PAGE_SIZE = 6;
 export const WELCOME_RETRY_LIMIT = 12;
+export const LOCK_EFFECT = "slowness";
+export const LOCK_AMPLIFIER = 254;
 
 export const TITLE = "§6§lALN:MultiIslandOneBlock";
 export const WELCOME_BODY =
@@ -3121,15 +3123,37 @@ export function dropArea(dim, name) {
 }
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/welcome.js (54 lines, 1477 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/welcome.js (79 lines, 2051 bytes)
 
 ```
+import { system } from "@minecraft/server";
 import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
-import { TITLE, WELCOME_BODY, RULES_BODY, WELCOME_RETRY_LIMIT } from "./config.js";
+import { TITLE, WELCOME_BODY, RULES_BODY, WELCOME_RETRY_LIMIT, LOCK_EFFECT, LOCK_AMPLIFIER } from "./config.js";
 import { findPlayer, wait } from "./util.js";
 import { hasIsland, claimIsland } from "./claim.js";
 
 const open = new Set();
+
+function lock(player) {
+  try {
+    player.addEffect(LOCK_EFFECT, 60, { amplifier: LOCK_AMPLIFIER, showParticles: false });
+  } catch (e) {}
+}
+
+function unlock(id) {
+  try {
+    findPlayer(id)?.removeEffect(LOCK_EFFECT);
+  } catch (e) {}
+}
+
+export function startWelcomeGuard() {
+  system.runInterval(() => {
+    for (const id of open) {
+      const p = findPlayer(id);
+      if (p && !hasIsland(p)) lock(p);
+    }
+  }, 20);
+}
 
 async function showRules(player) {
   const form = new ActionFormData().title("§6§lAbout / Rules").body(RULES_BODY).button("Back");
@@ -3142,6 +3166,8 @@ export async function promptWelcome(player, attempt = 0) {
   const id = player.id;
   if (open.has(id)) return;
   open.add(id);
+  const first = findPlayer(id);
+  if (first) lock(first);
   let tries = attempt;
   try {
     while (true) {
@@ -3175,18 +3201,19 @@ export async function promptWelcome(player, attempt = 0) {
     }
   } finally {
     open.delete(id);
+    unlock(id);
   }
 }
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/main.js (77 lines, 2350 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/main.js (78 lines, 2392 bytes)
 
 ```
 import { world, system } from "@minecraft/server";
 import { LEDGER_ID } from "./lib/config.js";
 import { setupLobby, teleportToLobby } from "./lib/lobby.js";
 import { hasIsland, returnToIsland } from "./lib/claim.js";
-import { promptWelcome } from "./lib/welcome.js";
+import { promptWelcome, startWelcomeGuard } from "./lib/welcome.js";
 import { startOneBlock } from "./lib/oneblock.js";
 import { openLedger } from "./lib/ledger.js";
 import { startLedgerKeeper, ensureLedger } from "./lib/keeper.js";
@@ -3254,18 +3281,24 @@ world.afterEvents.worldLoad.subscribe(() => {
   startOneBlock();
   startLedgerKeeper();
   startCoinBoard();
+  startWelcomeGuard();
   for (const player of world.getAllPlayers()) {
     if (!joining.has(player.id)) readyPlayer(player);
   }
 });
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md (69 lines, 4718 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md (74 lines, 5068 bytes)
 
 ```
 # Changelog — ALN:MultiIslandOneBlock
 
 ---
+
+## [v9] - 2026-11-24 - Claim Lock
+
+### Improved & Balanced
+- **Claim Lock**: A player who has not claimed an island yet is frozen in place at the lobby spawn by a maximum Slowness effect while the startup window is active. If they close the window it opens again, and the effect is removed as soon as they press Start or the window stops reopening.
 
 ## [v8] - 2026-11-24 - Rare Bonus Drops
 
@@ -3477,11 +3510,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:MultiIslandOneBlock Resources (v8)",
+    "name": "ALN:MultiIslandOneBlock Resources (v9)",
     "description": "Textures and names for the TRADERS Item. by ALNStudios",
     "uuid": "2cf90b7d-4b0f-44d5-b726-41f3e756f95f",
     "version": [
-      8,
+      9,
       0,
       0
     ],
@@ -3496,7 +3529,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "02c6ed61-2e06-499b-b6d3-1c6afa51beb6",
       "version": [
-        8,
+        9,
         0,
         0
       ]
@@ -3507,7 +3540,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "8.0.0"
+    "version": "9.0.0"
   }
 }
 ```

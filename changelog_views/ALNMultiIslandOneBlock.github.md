@@ -1,9 +1,19 @@
 # Changelog — ALN:MultiIslandOneBlock
 
-## [v8] - 2026-11-24 - Rare Bonus Drops
+## [v9] - 2026-11-24 - Claim Lock
 
 ### Improved & Balanced
+- **Claim Lock**: A player who has not claimed an island yet is frozen in place at the lobby spawn by a maximum Slowness effect while the startup window is active. If they close the window it opens again, and the effect is removed as soon as they press Start or the window stops reopening.
+
+<details>
+<summary><b>8.0.x</b> (1 release)</summary>
+
+### [v8] - 2026-11-24 - Rare Bonus Drops
+
+#### Improved & Balanced
 - **Rare Bonus Drops**: Richness bonus drops now happen on about 5% of OneBlock breaks instead of 30%.
+
+</details>
 
 <details>
 <summary><b>7.0.x</b> (1 release)</summary>
