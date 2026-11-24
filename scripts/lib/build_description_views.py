@@ -492,7 +492,7 @@ def find_media(root, project, md_text=""):
     item_names = _item_display_names(project)
     for kind in MEDIA_KINDS:
         folder = project / "assets" / kind
-        files = [f for f in folder.iterdir() if f.is_file() and f.suffix.lower() in IMG_EXT] if folder.is_dir() else []
+        files = [f for f in folder.iterdir() if f.is_file() and f.suffix.lower() in IMG_EXT and not f.name.endswith("_label.png")] if folder.is_dir() else []
         seen_hashes = set()
         entries = []
         # If recipes contains animated GIFs for alternate outputs (e.g. foo_recipe.gif),
@@ -521,7 +521,13 @@ def find_media(root, project, md_text=""):
                 caption = item_names[f.stem]
             else:
                 caption = caption_from(f.name)
-            entries.append((RAW + quote(f.relative_to(root).as_posix()), caption))
+            img_url = RAW + quote(f.relative_to(root).as_posix())
+            entries.append((img_url, caption))
+            label_file = f.with_name(f"{f.stem}_label.png")
+            if label_file.is_file():
+                if "labels" not in out:
+                    out["labels"] = {}
+                out["labels"][img_url] = RAW + quote(label_file.relative_to(root).as_posix())
         out[kind] = entries
     for b_name in ("banner.png", "Banner.png", "title_banner.png", "Title_banner.png"):
         banner_file = project / "assets" / b_name
@@ -531,15 +537,19 @@ def find_media(root, project, md_text=""):
     return out
 
 
-def gallery(kind, entries):
+def gallery(kind, entries, labels=None):
     """Responsive image grid. Each image links to the full-size file; snapshots omit text caption."""
+    labels = labels or {}
     basis = {"snapshots": "1 1 300px", "recipes": "0 1 400px", "items": "0 1 120px"}[kind]
     width = {"snapshots": "100%", "recipes": "100%", "items": "64px"}[kind]
     cells = []
     for url, cap in entries:
+        label_url = labels.get(url)
         alt_text = "" if kind == "snapshots" else html.escape(cap)
         img = f'<img src="{url}" alt="{alt_text}" style="width:{width}">'
-        if kind == "recipes":
+        if label_url:
+            caption_html = f'<p><img src="{label_url}" alt="{esc(cap)}"></p>'
+        elif kind == "recipes":
             caption_html = (f'<p><span style="display:inline-block;background-color:#14101e;border:2px solid #3c2068;'
                             f'border-radius:6px;color:#ffffff;font-family:\'Minecraft\', \'Minecraftia\', \'Mojangles\', '
                             f'\'Press Start 2P\', monospace;font-size:13px;line-height:24px">'
@@ -609,17 +619,18 @@ def render(md, fallback="", icon_url=None, latest=None, accent=None, style="mini
             if sc:
                 parts += [h2("Showcase", acc), sc]
     media = media or {}
+    labels = media.get("labels", {})
     if media.get("snapshots"):
-        parts += [h2("Screenshots", acc), gallery("snapshots", media["snapshots"])]
+        parts += [h2("Screenshots", acc), gallery("snapshots", media["snapshots"], labels)]
     if sec.get("Key Features", "").strip():
         parts += [h2("What You Get", acc), cards(sec["Key Features"], acc)]
     mech = mechanics_spoilers(sec, acc)
     if mech:
         parts += mech
     if media.get("items"):
-        parts += [h2("Custom Items", acc), gallery("items", media["items"])]
+        parts += [h2("Custom Items", acc), gallery("items", media["items"], labels)]
     if media.get("recipes"):
-        parts += [h2("Crafting Recipes", acc), gallery("recipes", media["recipes"])]
+        parts += [h2("Crafting Recipes", acc), gallery("recipes", media["recipes"], labels)]
     if sec.get("How to Use", "").strip():
         parts += [h2("Get Started", acc), blocks_to_html(sec["How to Use"], acc, badges=True)]
     cmd = commands(sec.get("Commands", ""), acc) if sec.get("Commands", "").strip() else ""

@@ -130,6 +130,121 @@ def render_banner(
     return img
 
 
+def render_label(
+    text: str,
+    out_path: Path | str | None = None,
+    font_path: Path | str = DEFAULT_FONT_PATH,
+    style: str = "tooltip",
+    font_size: int = 16,
+) -> Image.Image:
+    """Render text as an authentic Minecraft pixel font label image.
+
+    Styles:
+      - 'tooltip': Minecraft GUI tooltip style (dark purple #100c1c fill, #3c1e7a border)
+      - 'plain': Transparent background with classic black text shadow
+      - 'badge': Minecraft emerald green pill (#15803d fill, #0d5227 border)
+    """
+    font_path = Path(font_path)
+    font = ImageFont.truetype(str(font_path), font_size)
+
+    dummy = Image.new("RGBA", (1, 1))
+    d = ImageDraw.Draw(dummy)
+    bbox = d.textbbox((0, 0), text, font=font)
+    tw = bbox[2] - bbox[0]
+    th = bbox[3] - bbox[1]
+
+    if style == "plain":
+        w = tw + 6
+        h = th + 6
+        img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+        draw = ImageDraw.Draw(img)
+        # Drop shadow
+        draw.text((2, 2), text, font=font, fill=(0, 0, 0, 255))
+        # Front face
+        draw.text((0, 0), text, font=font, fill=(255, 255, 255, 255))
+    elif style == "badge":
+        pad_x, pad_y = 10, 4
+        w = tw + pad_x * 2
+        h = th + pad_y * 2
+        img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+        draw = ImageDraw.Draw(img)
+        draw.rectangle([0, 0, w - 1, h - 1], fill=(21, 128, 61, 255), outline=(13, 82, 39, 255), width=2)
+        draw.text((pad_x + 1, pad_y + 1), text, font=font, fill=(10, 50, 25, 255))
+        draw.text((pad_x, pad_y), text, font=font, fill=(255, 255, 255, 255))
+    else:  # tooltip
+        pad_x, pad_y = 8, 4
+        w = tw + pad_x * 2
+        h = th + pad_y * 2
+        img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+        draw = ImageDraw.Draw(img)
+        draw.rectangle([0, 0, w - 1, h - 1], fill=(16, 12, 28, 255), outline=(58, 20, 100, 255), width=2)
+        draw.text((pad_x + 1, pad_y + 1), text, font=font, fill=(50, 35, 75, 255))
+        draw.text((pad_x, pad_y), text, font=font, fill=(255, 255, 255, 255))
+
+    if out_path:
+        out_p = Path(out_path)
+        out_p.parent.mkdir(parents=True, exist_ok=True)
+        img.save(str(out_p), "PNG")
+
+    return img
+
+
+def render_labels_for_project(project_path: Path) -> int:
+    """Generate <stem>_label.png for all images in assets/recipes and assets/items."""
+    count = 0
+    # Process recipes
+    recipes_dir = project_path / "assets" / "recipes"
+    if recipes_dir.is_dir():
+        for f in recipes_dir.glob("*.png"):
+            if f.name.endswith("_label.png"):
+                continue
+            # Generate label name
+            cap = f.stem.replace("_recipe", "").replace("-", " ").replace("_", " ").title()
+            label_out = recipes_dir / f"{f.stem}_label.png"
+            render_label(cap, out_path=label_out, style="tooltip")
+            count += 1
+
+    # Process items
+    items_dir = project_path / "assets" / "items"
+    if items_dir.is_dir():
+        for f in items_dir.glob("*.png"):
+            if f.name.endswith("_label.png"):
+                continue
+            cap = f.stem.replace("-", " ").replace("_", " ").title()
+            label_out = items_dir / f"{f.stem}_label.png"
+            render_label(cap, out_path=label_out, style="tooltip")
+            count += 1
+
+    return count
+
+
+def render_common_ui_labels(out_dir: Path) -> int:
+    """Generate common listing heading word badges (About, Features, Recipes, etc.)."""
+    common_words = [
+        ("ABOUT", "badge"),
+        ("WHAT YOU GET", "badge"),
+        ("FEATURES", "badge"),
+        ("CRAFTING RECIPES", "badge"),
+        ("CUSTOM ITEMS", "badge"),
+        ("INSTALL", "badge"),
+        ("HOW TO PLAY", "badge"),
+        ("COMMANDS", "badge"),
+        ("SUPPORT", "badge"),
+        ("BEDROCK ADDON", "tooltip"),
+        ("SURVIVAL READY", "tooltip"),
+        ("NO EXPERIMENTS", "tooltip"),
+        ("ACHIEVEMENT FRIENDLY", "tooltip"),
+    ]
+    count = 0
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for word, style in common_words:
+        slug = re.sub(r"[^a-z0-9]+", "_", word.lower()).strip("_")
+        out_file = out_dir / f"{slug}.png"
+        render_label(word, out_path=out_file, style=style, font_size=14)
+        count += 1
+    return count
+
+
 def extract_pack_name(project_path: Path) -> str:
     """Read human pack name from DESCRIPTION.md or fallback to folder name."""
     desc = project_path / "DESCRIPTION.md"
@@ -151,7 +266,29 @@ def main():
     parser.add_argument("--all", action="store_true", help="Generate banners for all packs in MCPEDL/Addons.")
     parser.add_argument("--out", type=Path, help="Output PNG path.")
     parser.add_argument("--font", type=Path, default=DEFAULT_FONT_PATH, help="Path to Minecraft TrueType/OpenType font.")
+    parser.add_argument("--label", help="Single text to render as a Minecraft font label image.")
+    parser.add_argument("--labels", action="store_true", help="Generate <stem>_label.png for all recipes and items in --project.")
+    parser.add_argument("--common-labels", action="store_true", help="Generate common heading badges in assets/labels/.")
+    parser.add_argument("--label-style", default="tooltip", choices=["tooltip", "plain", "badge"], help="Label visual style.")
     args = parser.parse_args()
+
+    if args.common_labels:
+        out_dir = args.out or (ROOT / "assets" / "labels")
+        count = render_common_ui_labels(out_dir)
+        print(f"Generated {count} common UI labels in {out_dir}")
+        return
+
+    if args.label:
+        out_path = args.out or (ROOT / "assets" / "label.png")
+        render_label(args.label, out_path=out_path, font_path=args.font, style=args.label_style)
+        print(f"Generated label: {out_path} for '{args.label}'")
+        return
+
+    if args.project and args.labels:
+        p = Path(args.project).resolve()
+        count = render_labels_for_project(p)
+        print(f"Generated {count} item/recipe labels in {p / 'assets'}")
+        return
 
     if args.all:
         addons_dir = ROOT / "MCPEDL" / "Addons"

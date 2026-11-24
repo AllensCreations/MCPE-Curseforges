@@ -77,6 +77,12 @@ def render_kit(root, project):
         except Exception:
             pass
 
+    try:
+        import generate_title_banner as gtb
+        gtb.render_labels_for_project(project)
+    except Exception:
+        pass
+
     html = bdv.render(md, project.name, None, None, style="minimal",
                       media=bdv.find_media(root, project, md), min_version=bdv.find_min_version(project))
     errs = bdv.check_html(html)
