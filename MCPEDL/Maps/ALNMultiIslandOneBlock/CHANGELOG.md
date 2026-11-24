@@ -2,6 +2,11 @@
 
 ---
 
+## [v7] - 2026-11-24 - TRADERS Item Sale Fix
+
+### Fixed
+- **TRADERS Item Sale Bug**: The TRADERS Item can no longer be listed or sold. It is hidden from the sell lists, and any old offer that held it is removed.
+
 ## [v6] - 2026-11-24 - Market Income and Coin Scoreboard
 
 ### Added

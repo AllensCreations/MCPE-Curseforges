@@ -4,6 +4,13 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v264] - 2026-11-24 - TRADERS Item Sale Fix
+
+**Spec**: spec_v264.txt | **Target**: MCPEDL/Maps/ALNMultiIslandOneBlock | **Files edited**: 3
+
+### Fixed
+- **TRADERS Item Sale Bug**: The TRADERS Item can no longer be listed or sold. It is hidden from the sell lists, and any old offer that held it is removed.
+
 ## [v263] - 2026-11-24 - Void Singularity Rework
 
 **Spec**: spec_v263.txt | **Target**: MCPEDL/Addons/ALNSpiritSphere | **Files edited**: 11

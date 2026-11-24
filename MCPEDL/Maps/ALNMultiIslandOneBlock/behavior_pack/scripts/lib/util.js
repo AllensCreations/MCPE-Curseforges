@@ -1,4 +1,5 @@
 import { world, system, ItemStack, EntityComponentTypes } from "@minecraft/server";
+import { LEDGER_ID } from "./config.js";
 
 export function overworld() {
   return world.getDimension("overworld");
@@ -103,7 +104,7 @@ export function plainInventory(player) {
   if (!inv) return [];
   for (let i = 0; i < inv.size; i++) {
     const item = inv.getItem(i);
-    if (!item || !isPlain(item)) continue;
+    if (!item || item.typeId === LEDGER_ID || !isPlain(item)) continue;
     totals.set(item.typeId, (totals.get(item.typeId) ?? 0) + item.amount);
   }
   return [...totals.entries()]
@@ -112,6 +113,7 @@ export function plainInventory(player) {
 }
 
 export function countPlain(player, typeId) {
+  if (typeId === LEDGER_ID) return 0;
   const inv = containerOf(player);
   if (!inv) return 0;
   let total = 0;

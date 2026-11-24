@@ -9,6 +9,7 @@ import {
   PRICE_MAX_RATIO,
   STARTER_COINS,
   COIN_NAME,
+  LEDGER_ID,
 } from "./config.js";
 import {
   readJson,
@@ -65,7 +66,7 @@ function addPayout(playerId, itemId, amount) {
 
 export function getListing(id) {
   const listing = readJson(world, listingKey(id), undefined);
-  return listing && typeof listing.price === "number" ? listing : undefined;
+  return listing && typeof listing.price === "number" && listing.give?.id !== LEDGER_ID ? listing : undefined;
 }
 
 export function allListings() {
@@ -75,6 +76,10 @@ export function allListings() {
   for (const id of ids) {
     const listing = readJson(world, listingKey(id), undefined);
     if (!listing) continue;
+    if (listing.give?.id === LEDGER_ID) {
+      world.setDynamicProperty(listingKey(id), undefined);
+      continue;
+    }
     if (typeof listing.price !== "number") {
       addPayout(listing.seller, listing.give.id, listing.give.amount);
       world.setDynamicProperty(listingKey(id), undefined);
@@ -114,6 +119,7 @@ export function createListing(player, itemId, amount, price) {
     return fail(`The price must be a whole number of ${COIN_NAME} from 1 to ${MAX_PRICE}.`);
   }
   if (!isValidItem(itemId)) return fail("The item you want to sell is not valid.");
+  if (itemId === LEDGER_ID) return fail("The TRADERS Item cannot be sold.");
   if (priceInfo(itemId).listed) {
     const rec = recommendedTotal(itemId, amount);
     const low = Math.max(1, Math.ceil(rec * PRICE_MIN_RATIO));
