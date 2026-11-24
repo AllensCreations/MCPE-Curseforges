@@ -2,7 +2,7 @@
 
 Generated file. Do not edit by hand: it is rebuilt with every build.
 
-42 Add-ons · 5 Maps · 10 Scripts · 6 Minigames
+41 Add-ons · 5 Maps · 10 Scripts · 6 Minigames
 
 ## AI Review Kits
 
@@ -27,7 +27,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | **ALN Quiver** | v3 | ⚪ Not Published | [Source](Addons/ALN-Quiver) | [Package](../Package/ALN-Quiver.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-Quiver.txt) |
 | **ALN SoulLantern** | 1.0.2 | ⚪ Not Published | [Source](Addons/ALN-SoulLantern) | [Package](../Package/ALN-SoulLantern.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-SoulLantern.txt) |
 | **ALN Wireless Headphones** | v11 | ⚪ Not Published | [Source](Addons/ALN-Wireless-Headphones) | [Package](../Package/ALN-Wireless-Headphones.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-Wireless-Headphones.txt) |
-| **ALN-GlobalMarket** | 1.0.2 | ⚪ Not Published | [Source](Addons/ALN-GlobalMarket) | [Package](../Package/ALN-GlobalMarket.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-GlobalMarket.txt) |
+| **ALN-GlobalMarket** | 1.0.2 | 🟢 Published (1.0.2) | [Source](Addons/ALN-GlobalMarket) | [Package](../Package/ALN-GlobalMarket.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-GlobalMarket.txt) |
 | **ALN:ChronoStop** | 1.0.0 | ⚪ Not Published | [Source](Addons/ALNChronoStop) | [Package](../Package/ALNChronoStop.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNChronoStop.txt) |
 | **ALN:LootSpawner (Arcane Relic Duplicator)** | 1.0.5 | ⚪ Not Published | [Source](Addons/ALNLootSpawner-Arcane-Relic-Duplicator) | [Package](../Package/ALNLootSpawner-Arcane-Relic-Duplicator.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNLootSpawner-Arcane-Relic-Duplicator.txt) |
 | **ALN:OneClickSort** | v12 | 🟢 Published (v12) | [Source](Addons/ALNOneClickSort) | [Package](../Package/ALNOneClickSort.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNOneClickSort.txt) |
@@ -42,7 +42,6 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | **Grand Banquets** | v3 | ⚪ Not Published | [Source](Addons/Grand-Banquets) | [Package](../Package/Grand-Banquets.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Grand-Banquets.txt) |
 | **Grimoire Relics V2** | v3 | 🟢 Published (v3) | [Source](Addons/Grimoire-Relics-V2) | [Package](../Package/Grimoire-Relics-V2.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Grimoire-Relics-V2.txt) |
 | **Harvest Intelligence** | v2 | ⚪ Not Published | [Source](Addons/Harvest-Intelligence) | [Package](../Package/Harvest-Intelligence.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Harvest-Intelligence.txt) |
-| **Homes Warps and Back** | 1.0.0 | ⚪ Not Published | [Source](Addons/Homes-Warps-and-Back) | [Package](../Package/Homes-Warps-and-Back.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Homes-Warps-and-Back.txt) |
 | **Immortal Pets** | v2 | 🟢 Published (v2) | [Source](Addons/Immortal-Pets) | [Package](../Package/Immortal-Pets.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Immortal-Pets.txt) |
 | **Magnetic Satchel** | v2 | ⚪ Not Published | [Source](Addons/Magnetic-Satchel) | [Package](../Package/Magnetic-Satchel.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Magnetic-Satchel.txt) |
 | **Melody Figurine** | v2 | ⚪ Not Published | [Source](Addons/Melody-Figurine) | [Package](../Package/Melody-Figurine.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Melody-Figurine.txt) |
@@ -65,9 +64,9 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 
 | Pack | Version | Status | Source | Package | AI review |
 | :-- | :-- | :-- | :-- | :-- | :-- |
-| **ALN:MultiIslandOneBlock** | v10 | 🟡 Update Ready (v5 → v10) | [Source](Maps/ALNMultiIslandOneBlock) | [Package](../Package/ALNMultiIslandOneBlock.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNMultiIslandOneBlock.txt) |
-| **One Block Skyblock Lucky Blocks** | 9.0.0 | 🟡 Update Ready (v8 → 9.0.0) | [Source](Maps/One-Block-Skyblock-Lucky-Blocks) | [Package](../Package/One-Block-Skyblock-Lucky-Blocks.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/One-Block-Skyblock-Lucky-Blocks.txt) |
-| **OneBlock Natural Market** | 16.0.11 | 🟡 Update Ready (16.0.5 → 16.0.11) | [Source](Maps/OneBlock-Natural-Market) | [Package](../Package/OneBlock-Natural-Market.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/OneBlock-Natural-Market.txt) |
+| **ALN:MultiIslandOneBlock** | v10 | 🟢 Published (v10) | [Source](Maps/ALNMultiIslandOneBlock) | [Package](../Package/ALNMultiIslandOneBlock.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNMultiIslandOneBlock.txt) |
+| **One Block Skyblock Lucky Blocks** | 9.0.0 | 🟢 Published (v9) | [Source](Maps/One-Block-Skyblock-Lucky-Blocks) | [Package](../Package/One-Block-Skyblock-Lucky-Blocks.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/One-Block-Skyblock-Lucky-Blocks.txt) |
+| **OneBlock Natural Market** | 16.0.11 | 🟢 Published (16.0.11) | [Source](Maps/OneBlock-Natural-Market) | [Package](../Package/OneBlock-Natural-Market.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/OneBlock-Natural-Market.txt) |
 | **OneBlock Void Survival** | v10 | 🟢 Published (v10) | [Source](Maps/OneBlock-Void-Survival) | [Package](../Package/OneBlock-Void-Survival.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/OneBlock-Void-Survival.txt) |
 | **OneBlock: Sovereign Market** | v2 | ⚪ Not Published | [Source](Maps/Oneblock-SM) | [Package](../Package/Oneblock-SM.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Oneblock-SM.txt) |
 
@@ -77,7 +76,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | :-- | :-- | :-- | :-- | :-- | :-- |
 | **ALN:MobStacker** | v3 | 🟢 Published (v3) | [Source](Script/ALN-MobStacker) | [Package](../Package/ALN-MobStacker.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-MobStacker.txt) |
 | **ALN:SpawnControl** | 3.0.3 | 🟢 Published (3.0.3) | [Source](Script/ALNSpawnControl) | [Package](../Package/ALNSpawnControl.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNSpawnControl.txt) |
-| **Always Critical** | v2 | ⚪ Not Published | [Source](Script/Always-Critical) | [Package](../Package/Always-Critical.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Always-Critical.txt) |
+| **Always Critical** | v2 | 🟢 Published (v2) | [Source](Script/Always-Critical) | [Package](../Package/Always-Critical.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Always-Critical.txt) |
 | **Chrono-Bed** | v2 | ⚪ Not Published | [Source](Script/Chrono-Bed) | [Package](../Package/Chrono-Bed.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Chrono-Bed.txt) |
 | **Command Vault** | v3 | 🟢 Published (v3) | [Source](Script/Command-Vault) | [Package](../Package/Command-Vault.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Command-Vault.txt) |
 | **Gameplay Optimizer** | v2 | ⚪ Not Published | [Source](Script/Gameplay-Optimizer) | [Package](../Package/Gameplay-Optimizer.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Gameplay-Optimizer.txt) |
