@@ -10,9 +10,9 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | :-- | :-- |
 | **New Pack Kit (zip: map and scripts)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/New-Pack.zip) |
 | **Repo Maintenance Kit (zip: map and scripts)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Maintenance.zip) |
-| **Vanilla Bedrock Reference (JSON.gz)** | *(not yet built)* |
-| **Complete Bedrock Reference Bundle (Samples, Schemas & Types Zip)** | *(not yet built)* |
-| **Minecraft Script API TypeScript Definitions (.d.ts Zip)** | *(not yet built)* |
+| **Vanilla Bedrock Reference (JSON.gz)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/bedrock-samples/bedrock-samples.min.json.gz) |
+| **Bedrock Reference Bundle (v1.26.60)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/bedrock-samples/bedrock-reference-pack-1.26.60.zip) |
+| **Minecraft Script API TypeScript Definitions (.d.ts Zip)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/typescript-definitions/minecraft-bedrock-types.zip) |
 
 ## Add-ons
 
@@ -66,8 +66,8 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | **ALN:MultiIslandOneBlock** | v10 | 🟢 Published ([v10](https://www.curseforge.com/projects/1825799)) | [Source](Maps/ALNMultiIslandOneBlock) | [Package](../Package/ALNMultiIslandOneBlock.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNMultiIslandOneBlock.txt) |
 | **One Block Skyblock Lucky Blocks** | 9.0.0 | 🟢 Published ([v9](https://www.curseforge.com/projects/1821677)) | [Source](Maps/One-Block-Skyblock-Lucky-Blocks) | [Package](../Package/One-Block-Skyblock-Lucky-Blocks.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/One-Block-Skyblock-Lucky-Blocks.txt) |
 | **OneBlock Natural Market** | 16.0.11 | 🟢 Published ([16.0.11](https://www.curseforge.com/projects/1819420)) | [Source](Maps/OneBlock-Natural-Market) | [Package](../Package/OneBlock-Natural-Market.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/OneBlock-Natural-Market.txt) |
+| **OneBlock Sovereign Market** | v2 | ⚪ Not Published | [Source](Maps/Oneblock-SM) | [Package](../Package/Oneblock-SM.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Oneblock-SM.txt) |
 | **OneBlock Void Survival** | v10 | 🟢 Published ([v10](https://www.curseforge.com/projects/1740769)) | [Source](Maps/OneBlock-Void-Survival) | [Package](../Package/OneBlock-Void-Survival.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/OneBlock-Void-Survival.txt) |
-| **OneBlock: Sovereign Market** | v2 | ⚪ Not Published | [Source](Maps/Oneblock-SM) | [Package](../Package/Oneblock-SM.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Oneblock-SM.txt) |
 
 ## Scripts
 

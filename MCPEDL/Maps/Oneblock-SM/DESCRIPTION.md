@@ -1,8 +1,11 @@
 # OneBlock Sovereign Market
 
-[![ALNStudios](https://img.shields.io/badge/Author-ALNStudios-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+**By ALNStudios**
+
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+[![ALNStudios](https://img.shields.io/badge/Author-ALNStudios-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 **Dirt-to-sovereignty progression on an expanding void island with one infinite block, dynamic market prices, and automated extraction.**
 
@@ -47,7 +50,26 @@ Every transaction interacts with an active supply-and-demand curve. Liquid hazar
 - Created by: **ALNStudios**
 - Portfolio: [ALNStudios Monorepo](https://github.com/AllensCreations/MCPE-Curseforges)
 - Terms of Use: Personal and multiplayer server use is freely supported. Commercial redistribution, re-hosting, and unauthorized claim of pack assets are strictly prohibited under repository license terms.
+- [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
+- [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
 
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, OneBlock Sovereign Market Bedrock mod, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+

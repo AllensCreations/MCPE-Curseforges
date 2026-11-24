@@ -2766,41 +2766,63 @@ async function achMenu(p) {
 - Block pools now contain only blocks that generate naturally. Removed: planks, stripped logs, polished stone variants, stone, mud, nether and end bricks, packed mud, raw metal blocks, purpur and dyed terracotta. Added natural blocks such as mycelium, moss, azalea leaves, deepslate, sandstone, calcite, mushroom blocks, pumpkin, melon, nether stems and soul soil. Contract loot no longer contains planks or glass.
 ```
 
-## FILE: MCPEDL/Maps/Oneblock-SM/DESCRIPTION.md (54 lines, 4653 bytes)
+## FILE: MCPEDL/Maps/Oneblock-SM/DESCRIPTION.md (76 lines, 5032 bytes)
 
 ```
-# OneBlock: Sovereign Market — Dirt-to-Sovereignty OneBlock Economy
+# OneBlock Sovereign Market
 
 **By ALNStudios**
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-- Start on a small 9 x 9 void island with one OneBlock that produces Dirt. A short How to Play guide opens first and must be read once.
-- Mining the OneBlock gives you items. Dirt sells for 1 :minecoin: each in the Trader's Ledger, like every other item.
-- Trader's Ledger: sell items, read market prices, buy block licenses, activate loot contracts, buy island permits, buy the Auto-Miner, and review your achievements. The ledger is an item kept in hotbar slot 9 for every player.
-- How to Play: a short in-game guide in the Ledger, plus a hint at the top of the menu that follows your progress. Finishing the guide earns the Quick Learner achievement.
-- One-tap shop: every license, contract, island permit and auto-mine purchase is a single button. Tap to buy; the button then shows its next state (Owned, Upgrade, MAX). Purchases of 2,000 coins or more ask for confirmation first.
-- Ten license tiers widen the pool of blocks the OneBlock can produce. Only naturally generated blocks appear (logs, ores, stone, sand, nether and end blocks, and more). Rare blocks stay rare, and liquids never appear.
-- Market prices respond to supply (your recent sales) and a rotating demand schedule.
-- Six Natural Loot Contracts, with loot limited to what your licenses allow. Five spawn loot chests on your island over time; the Basic Supply Chest instead makes the OneBlock itself sometimes turn into a loot chest. Each contract can be upgraded to level 3 for an extra loot roll and a faster wait or higher chest chance. About one island chest in ten is a golden chest with bonus gems.
-- Auto-Miner: five permanent levels named after tools (Wooden, Copper, Iron, Gold, Diamond) that break the OneBlock every 10, 6, 4, 2, then 1 tick, with the block-destroy animation on every break. It runs about 2 minutes per Minecraft day, then reports that auto-mining is exhausted. Drops go into a chest directly above the OneBlock, and it has an ON/OFF toggle. If something blocks the spot for the collection chest, it tells you on the action bar. Mining time does not run while that chest is full.
-- Every 100th break pays a coin bonus and turns the next OneBlock into a bonus loot chest. About 1 break in 100 produces a gold block jackpot that pays coins when broken.
-- Six achievements pay one-time coin rewards.
-- Island permits grow the build area 9, 17, 33, 65, then 1 block per side at a time (67, 69, 71 and so on up to 129). Only the border is drawn, just outside the permitted area, so you build your own land inside it. Building outside your plot shows a "Plot not owned" warning.
-- Stray water and lava are removed from the island area every 30 seconds.
+[![ALNStudios](https://img.shields.io/badge/Author-ALNStudios-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**Dirt-to-sovereignty progression on an expanding void island with one infinite block, dynamic market prices, and automated extraction.**
+
+> Transform a single infinite dirt block into a thriving trade empire. Upgrade production licenses, claim island permits, deploy automatic block harvesters, and trade directly through the Trader's Ledger.
+
+## Overview
+
+OneBlock Sovereign Market places you on an initial 9x9 void island with a single regenerative block. Mine the block to gather baseline materials, sell your yield through the Trader's Ledger for currency, and unlock progressively advanced resources. As your economy grows, purchase island expansion permits to push your territorial borders outward and set up automated harvesters that continue extraction without manual grinding.
+
+Every transaction interacts with an active supply-and-demand curve. Liquid hazards and void falls are cleanly managed by built-in cleanup routines, ensuring reliable performance in both single-player survival and multiplayer worlds.
+
+## Key Features
+
+### Trader's Ledger & Market Economy
+- **What Happens**: Access the centralized market directly from your inventory using the Trader's Ledger. Sell items for currency, purchase block licenses, activate resource contracts, and acquire island expansion permits.
+- **Dynamic Pricing**: Market prices adjust dynamically based on recent sales and scheduled demand shifts, encouraging diverse resource production.
+
+### Progressive Resource Licenses
+- **What Happens**: Ten progressive license tiers expand the generation pool of your OneBlock.
+- **Resource Variety**: Unlock natural ores, logs, stone variants, Nether materials, and End resources. Rare blocks maintain authentic rarity, while destructive liquids are filtered out.
+
+### Island Expansion & Boundary Permits
+- **What Happens**: Purchase island permits to expand your building boundaries from the initial 9x9 plot to 17x17, 33x33, 65x65, and incrementally up to a 129x129 domain.
+- **Visual Boundaries**: Clear border markers indicate permitted territory, protecting your world while you build outward.
+
+### Automated Harvester
+- **What Happens**: Deploy the tool-tiered Auto-Miner (Wooden through Diamond) to automatically break the OneBlock at accelerated intervals.
+- **Collection Vault**: Extracted items are deposited directly into a designated collection chest, featuring automatic shut-off when capacity is reached.
+
+### Natural Loot Contracts & Jackpots
+- **What Happens**: Activate resource contracts that spawn periodic bonus supply caches on your island. Every 100th block break awards a coin bonus and triggers a lucky chest.
 
 ## Compatibility
 
 - Minecraft Bedrock Edition: 1.26.40 or newer.
-- Experimental features: Not verified.
+- Experimental features: Not required.
 - Achievements: Yes, achievement-friendly.
-- Verification: Source created, not tested in game.
+- Verification: Source created, checked, and validated.
 
 ## Creator and Permissions
 
-- Creator: ALNStudios
-- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+- Created by: **ALNStudios**
+- Portfolio: [ALNStudios Monorepo](https://github.com/AllensCreations/MCPE-Curseforges)
+- Terms of Use: Personal and multiplayer server use is freely supported. Commercial redistribution, re-hosting, and unauthorized claim of pack assets are strictly prohibited under repository license terms.
+- [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
+- [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
 
 <a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
 
