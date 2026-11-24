@@ -4,6 +4,13 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v270] - 2026-11-24 - Remove ALN Coins
+
+**Spec**: spec_v270.txt | **Target**: MCPEDL/Maps/OneBlock-Natural-Market | **Files edited**: 3
+
+### Improved & Balanced
+- **ALN Coins removed**: breaking the central block no longer gives ALN Coins, and they no longer show in the market menu or the action bar. Coins, rewards and prices are unchanged.
+
 ## [v269] - 2026-11-24 - Fix Missing Glass and Core Textures
 
 **Spec**: spec_v269.txt | **Target**: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator | **Files edited**: 2

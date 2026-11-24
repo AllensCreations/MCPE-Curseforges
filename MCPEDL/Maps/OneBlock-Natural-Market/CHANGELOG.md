@@ -2,6 +2,11 @@
 
 ---
 
+## [16.0.7] - 2026-11-24 - Remove ALN Coins
+
+### Improved & Balanced
+- **ALN Coins removed**: breaking the central block no longer gives ALN Coins, and they no longer show in the market menu or the action bar. Coins, rewards and prices are unchanged.
+
 ## [16.0.6] - 2026-11-23 - ALN Coins
 
 ### Added
