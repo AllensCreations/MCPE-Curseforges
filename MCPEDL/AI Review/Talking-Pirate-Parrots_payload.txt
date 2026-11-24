@@ -7,7 +7,7 @@
 - **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/Talking-Pirate-Parrots_payload/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 10
-- **Skipped binary:** 50
+- **Skipped binary:** 52
 - **Paths not found:** 0
 
 ### Files in this export
@@ -23,8 +23,10 @@
 - `MCPEDL/Addons/Talking-Pirate-Parrots_payload/resource_pack/sounds/mob/parrot/pirate/PLACE_OGG_FILES_HERE.txt`
 - `MCPEDL/Addons/Talking-Pirate-Parrots_payload/resource_pack/sounds/sound_definitions.json`
 
-### Skipped (binary): 50 file(s)
+### Skipped (binary): 52 file(s)
 
+- `MCPEDL/Addons/Talking-Pirate-Parrots_payload/behavior_pack/pack_icon.png`
+- `MCPEDL/Addons/Talking-Pirate-Parrots_payload/resource_pack/pack_icon.png`
 - `MCPEDL/Addons/Talking-Pirate-Parrots_payload/resource_pack/sounds/mob/parrot/pirate/act_bow_shot.ogg`
 - `MCPEDL/Addons/Talking-Pirate-Parrots_payload/resource_pack/sounds/mob/parrot/pirate/act_chest_01.ogg`
 - `MCPEDL/Addons/Talking-Pirate-Parrots_payload/resource_pack/sounds/mob/parrot/pirate/act_cookie_01.ogg`
@@ -63,9 +65,7 @@
 - `MCPEDL/Addons/Talking-Pirate-Parrots_payload/resource_pack/sounds/mob/parrot/pirate/idle_humor_06.ogg`
 - `MCPEDL/Addons/Talking-Pirate-Parrots_payload/resource_pack/sounds/mob/parrot/pirate/idle_humor_07.ogg`
 - `MCPEDL/Addons/Talking-Pirate-Parrots_payload/resource_pack/sounds/mob/parrot/pirate/idle_shoulder_01.ogg`
-- `MCPEDL/Addons/Talking-Pirate-Parrots_payload/resource_pack/sounds/mob/parrot/pirate/idle_shoulder_02.ogg`
-- `MCPEDL/Addons/Talking-Pirate-Parrots_payload/resource_pack/sounds/mob/parrot/pirate/idle_shoulder_03.ogg`
-- ... and 10 more
+- ... and 12 more
 
 ---
 
@@ -79,7 +79,7 @@ Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 - **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
-- Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
+- Deliver changes as ONE self-contained update `.sh` (`<Pack>_v<Version>_<rand>.sh`) built with `make_update_script.py` (INSTRUCTIONS.md Reply Format).
 - Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
 
 ## Destination

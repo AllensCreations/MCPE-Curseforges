@@ -7,7 +7,7 @@
 - **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALN-GlobalMarket/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 11
-- **Skipped binary:** 2
+- **Skipped binary:** 3
 - **Paths not found:** 0
 
 ### Files in this export
@@ -24,10 +24,11 @@
 - `MCPEDL/Addons/ALN-GlobalMarket/project.json`
 - `MCPEDL/Addons/ALN-GlobalMarket/README.md`
 
-### Skipped (binary): 2 file(s)
+### Skipped (binary): 3 file(s)
 
 - `MCPEDL/Addons/ALN-GlobalMarket/assets/snapshots/Screenshot_20261123_225134_com.mojang.v126661xxxx.jpg`
 - `MCPEDL/Addons/ALN-GlobalMarket/assets/snapshots/file_00000000a57c81fb848c0141679172fc.png`
+- `MCPEDL/Addons/ALN-GlobalMarket/behavior_pack/pack_icon.png`
 
 ---
 
@@ -41,7 +42,7 @@ Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 - **Mode**: UPDATE existing package (CURRENT VERSION: v1 / NEXT UPDATE: v2).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
-- Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
+- Deliver changes as ONE self-contained update `.sh` (`<Pack>_v<Version>_<rand>.sh`) built with `make_update_script.py` (INSTRUCTIONS.md Reply Format).
 - Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
 
 ## Destination
