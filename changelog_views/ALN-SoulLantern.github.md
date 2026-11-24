@@ -1,13 +1,23 @@
 # Changelog — ALN SoulLantern
 
-## [2.0.0] - 2026-11-24 - No-UI Update
-
-### Added
-- **Mob lanterns**: Each kind of captured mob gives the Soul-Bound lantern its own icon.
+## [2.0.1] - 2026-11-24 - Sneak Controls
 
 ### Improved & Balanced
+- **Controls**: Sneak and interact with a mob to seal it, sneak and click to release it, and use the lantern to call or recall the Spectral Ally.
+
+<details>
+<summary><b>2.0.x</b> (1 release)</summary>
+
+### [2.0.0] - 2026-11-24 - No-UI Update
+
+#### Added
+- **Mob lanterns**: Each kind of captured mob gives the Soul-Bound lantern its own icon.
+
+#### Improved & Balanced
 - **Controls**: The Spirit menu and sneaking are gone. Interact with a mob to seal it, tap to release it, and hold to call or recall the Spectral Ally.
 - **Spectral Ally**: The spirit now floats like an Allay, each lantern has one spirit, and the recharge is 10 seconds. A Kamikaze Spirit shrinks after exploding and slowly grows back.
+
+</details>
 
 <details>
 <summary><b>1.0.x</b> (3 releases)</summary>

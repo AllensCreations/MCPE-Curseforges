@@ -719,7 +719,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       },
       "minecraft:use_animation": "spyglass",
       "minecraft:use_modifiers": {
-        "use_duration": 1.0,
+        "use_duration": 0.1,
         "movement_modifier": 1
       }
     }
@@ -748,7 +748,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       },
       "minecraft:use_animation": "spyglass",
       "minecraft:use_modifiers": {
-        "use_duration": 1.0,
+        "use_duration": 0.1,
         "movement_modifier": 1
       }
     }
@@ -777,7 +777,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       },
       "minecraft:use_animation": "spyglass",
       "minecraft:use_modifiers": {
-        "use_duration": 1.0,
+        "use_duration": 0.1,
         "movement_modifier": 1
       }
     }
@@ -806,7 +806,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       },
       "minecraft:use_animation": "spyglass",
       "minecraft:use_modifiers": {
-        "use_duration": 1.0,
+        "use_duration": 0.1,
         "movement_modifier": 1
       }
     }
@@ -835,7 +835,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       },
       "minecraft:use_animation": "spyglass",
       "minecraft:use_modifiers": {
-        "use_duration": 1.0,
+        "use_duration": 0.1,
         "movement_modifier": 1
       }
     }
@@ -864,7 +864,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       },
       "minecraft:use_animation": "spyglass",
       "minecraft:use_modifiers": {
-        "use_duration": 1.0,
+        "use_duration": 0.1,
         "movement_modifier": 1
       }
     }
@@ -893,7 +893,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       },
       "minecraft:use_animation": "spyglass",
       "minecraft:use_modifiers": {
-        "use_duration": 1.0,
+        "use_duration": 0.1,
         "movement_modifier": 1
       }
     }
@@ -922,7 +922,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       },
       "minecraft:use_animation": "spyglass",
       "minecraft:use_modifiers": {
-        "use_duration": 1.0,
+        "use_duration": 0.1,
         "movement_modifier": 1
       }
     }
@@ -951,7 +951,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       },
       "minecraft:use_animation": "spyglass",
       "minecraft:use_modifiers": {
-        "use_duration": 1.0,
+        "use_duration": 0.1,
         "movement_modifier": 1
       }
     }
@@ -980,7 +980,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       },
       "minecraft:use_animation": "spyglass",
       "minecraft:use_modifiers": {
-        "use_duration": 1.0,
+        "use_duration": 0.1,
         "movement_modifier": 1
       }
     }
@@ -1009,7 +1009,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       },
       "minecraft:use_animation": "spyglass",
       "minecraft:use_modifiers": {
-        "use_duration": 1.0,
+        "use_duration": 0.1,
         "movement_modifier": 1
       }
     }
@@ -1038,7 +1038,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       },
       "minecraft:use_animation": "spyglass",
       "minecraft:use_modifiers": {
-        "use_duration": 1.0,
+        "use_duration": 0.1,
         "movement_modifier": 1
       }
     }
@@ -1067,7 +1067,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       },
       "minecraft:use_animation": "spyglass",
       "minecraft:use_modifiers": {
-        "use_duration": 1.0,
+        "use_duration": 0.1,
         "movement_modifier": 1
       }
     }
@@ -1096,7 +1096,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       },
       "minecraft:use_animation": "spyglass",
       "minecraft:use_modifiers": {
-        "use_duration": 1.0,
+        "use_duration": 0.1,
         "movement_modifier": 1
       }
     }
@@ -1125,7 +1125,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       },
       "minecraft:use_animation": "spyglass",
       "minecraft:use_modifiers": {
-        "use_duration": 1.0,
+        "use_duration": 0.1,
         "movement_modifier": 1
       }
     }
@@ -1133,19 +1133,19 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-SoulLantern/behavior_pack/manifest.json (66 lines, 1147 bytes)
+## FILE: MCPEDL/Addons/ALN-SoulLantern/behavior_pack/manifest.json (66 lines, 1151 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "ALN SoulLantern (v2)",
+    "name": "ALN SoulLantern (v2.0.1)",
     "description": "Seals mobs in a Soul Lantern and releases them later. by ALNStudios",
     "uuid": "b5d340b3-4ec2-4dec-ae4e-3896132a4d52",
     "version": [
       2,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -1160,7 +1160,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "version": [
         2,
         0,
-        0
+        1
       ]
     },
     {
@@ -1171,7 +1171,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "version": [
         2,
         0,
-        0
+        1
       ]
     }
   ],
@@ -1181,7 +1181,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "version": [
         2,
         0,
-        0
+        1
       ]
     },
     {
@@ -1198,7 +1198,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "2.0.1"
   }
 }
 ```
@@ -1287,7 +1287,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-SoulLantern/behavior_pack/scripts/lib/README.md (33 lines, 2416 bytes)
+## FILE: MCPEDL/Addons/ALN-SoulLantern/behavior_pack/scripts/lib/README.md (33 lines, 2403 bytes)
 
 ```
 # scripts/lib
@@ -1301,9 +1301,9 @@ scripts/lib/ holds no .js files yet. Everything lives in scripts/main.js.
 
 ## What main.js does
 
-- Before-event on player interaction with an entity: a player holding aln:soul_lantern seals the target mob. The mob is saved with a world structure (entities only), its id and display facts are stored on the item as dynamic properties, and the item becomes aln:soul_lantern_<kind> (or aln:soul_lantern_filled for mobs without an icon).
-- Tap (use ends early): a filled lantern places the saved structure on top of the aimed block, or in front of the player in open air, deletes the structure, and returns an aln:soul_lantern. A tap on a block is also detected from the before-event on player interaction with a block, with a short grace timer.
-- Hold (use completes): a filled lantern calls its Spectral Ally, or recalls it when one is already out. Each lantern (by saved structure id) has one spirit and a 10-second recharge that starts when the spirit leaves.
+- Before-event on player interaction with an entity: a sneaking player holding aln:soul_lantern seals the target mob. The mob is saved with a world structure (entities only), its id and display facts are stored on the item as dynamic properties, and the item becomes aln:soul_lantern_<kind> (or aln:soul_lantern_filled for mobs without an icon).
+- Before-event on player interaction with a block: a sneaking player holding a filled lantern places the saved structure on top of the clicked block, deletes the structure, and returns an aln:soul_lantern.
+- After-event on item use: a sneaking player releases the mob in front of them in open air. A player who is not sneaking calls the Spectral Ally, or recalls it when one is already out. Each lantern (by saved structure id) has one spirit and a 10-second recharge that starts when the spirit leaves.
 - Repeating timer every 4 ticks: ends spirits after 400 ticks, teleports one back to its owner when it strays, spawns the particle trail, regrows a shrunken Kamikaze Spirit, and detonates it next to a monster.
 - World load: removes leftover entities tagged aln_spirit.
 
@@ -1324,7 +1324,7 @@ scripts/lib/ holds no .js files yet. Everything lives in scripts/main.js.
 - Not tested in game.
 ```
 
-## FILE: MCPEDL/Addons/ALN-SoulLantern/behavior_pack/scripts/main.js (475 lines, 16476 bytes)
+## FILE: MCPEDL/Addons/ALN-SoulLantern/behavior_pack/scripts/main.js (448 lines, 15421 bytes)
 
 ```
 import { world, system, ItemStack, EntityComponentTypes, StructureSaveMode } from "@minecraft/server";
@@ -1336,7 +1336,7 @@ const SPIRIT_ID = "aln:spirit";
 const SPIRIT_TAG = "aln_spirit";
 const SPIRIT_TICKS = 400;
 const COOLDOWN_TICKS = 200;
-const HOLD_GRACE = 12;
+const DEBOUNCE_TICKS = 8;
 const REGROW_STEP = 0.02;
 const SHRUNK_SIZE = 0.3;
 
@@ -1391,9 +1391,7 @@ const KEY = {
 
 const spirits = new Map();
 const cooldowns = new Map();
-const usage = new Map();
-const lastBlock = new Map();
-const lastCapture = new Map();
+const lastAction = new Map();
 
 const tell = (player, color, text) => {
   try {
@@ -1427,6 +1425,13 @@ const prettyType = (typeId) =>
 const newStructureId = () => `aln:soul_${system.currentTick.toString(36)}${Math.floor(Math.random() * 1679616).toString(36)}`;
 
 const isFilled = (typeId) => typeof typeId === "string" && typeId.startsWith(LANTERN_PREFIX);
+
+const busy = (player) => {
+  const last = lastAction.get(player.id);
+  return last !== undefined && system.currentTick - last < DEBOUNCE_TICKS;
+};
+
+const mark = (player) => lastAction.set(player.id, system.currentTick);
 
 function lanternFor(type) {
   const fig = SPECIES[type]?.fig ?? 0;
@@ -1485,7 +1490,7 @@ function refreshDisplay(stack) {
     `§7Name: §f${d.name || "None"}`,
     `§7Health: §f${d.hp}/${d.maxHp}`,
     `§7Details: §f${d.details || "None"}`,
-    "§8Tap: release  Hold: Spectral Ally",
+    "§8Sneak + click: release  Use: Spectral Ally",
   ]);
 }
 
@@ -1685,71 +1690,39 @@ function setSize(entity, value) {
   } catch (e) {}
 }
 
-function press(player, block) {
-  const id = player.id;
-  const slot = player.selectedSlotIndex;
-  const stamp = system.currentTick;
-  if (block) lastBlock.set(id, { dim: block.dim, loc: block.loc, tick: stamp });
-  system.runTimeout(() => {
-    if (usage.get(id)?.using) return;
-    const b = lastBlock.get(id);
-    if (block) {
-      if (b && b.tick === stamp) {
-        lastBlock.delete(id);
-        tryRelease(player, b.dim, { x: b.loc.x, y: b.loc.y + 1, z: b.loc.z }, slot);
-      }
-    } else if (!b || Math.abs(b.tick - stamp) > 3) {
-      tryRelease(player, player.dimension, airCell(player), slot);
-    }
-  }, HOLD_GRACE);
-}
-
 world.beforeEvents.playerInteractWithEntity.subscribe((ev) => {
   const { player, target, itemStack } = ev;
-  if (itemStack?.typeId !== EMPTY_ID) return;
+  if (itemStack?.typeId !== EMPTY_ID || !player.isSneaking) return;
   ev.cancel = true;
-  const last = lastCapture.get(player.id);
-  if (last !== undefined && system.currentTick - last < 8) return;
-  lastCapture.set(player.id, system.currentTick);
+  if (busy(player)) return;
+  mark(player);
   const slot = player.selectedSlotIndex;
   system.run(() => tryCapture(player, target, slot));
 });
 
 world.beforeEvents.playerInteractWithBlock.subscribe((ev) => {
   const { player, block, itemStack, isFirstEvent } = ev;
-  if (!isFilled(itemStack?.typeId) || !isFirstEvent) return;
-  const target = { dim: block.dimension, loc: { x: block.location.x, y: block.location.y, z: block.location.z } };
-  system.run(() => press(player, target));
+  if (!isFilled(itemStack?.typeId) || !player.isSneaking) return;
+  ev.cancel = true;
+  if (!isFirstEvent || busy(player)) return;
+  mark(player);
+  const slot = player.selectedSlotIndex;
+  const dim = block.dimension;
+  const base = { x: block.location.x, y: block.location.y + 1, z: block.location.z };
+  system.run(() => tryRelease(player, dim, base, slot));
 });
 
 world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
-  if (isFilled(itemStack?.typeId)) press(source, undefined);
-});
-
-world.afterEvents.itemStartUse.subscribe(({ source, itemStack }) => {
-  if (isFilled(itemStack?.typeId)) usage.set(source.id, { using: true, done: false });
-});
-
-world.afterEvents.itemReleaseUse.subscribe(({ source, itemStack }) => {
-  if (!isFilled(itemStack?.typeId)) return;
-  const u = usage.get(source.id);
-  usage.set(source.id, { using: false, done: false });
-  if (u?.done) return;
-  const b = lastBlock.get(source.id);
-  lastBlock.delete(source.id);
-  const slot = source.selectedSlotIndex;
-  if (b && system.currentTick - b.tick <= 20) {
-    tryRelease(source, b.dim, { x: b.loc.x, y: b.loc.y + 1, z: b.loc.z }, slot);
-  } else {
-    tryRelease(source, source.dimension, airCell(source), slot);
+  const id = itemStack?.typeId;
+  if (id === EMPTY_ID) {
+    if (!busy(source)) tell(source, "§7", "Sneak and interact with a mob to seal it.");
+    return;
   }
-});
-
-world.afterEvents.itemCompleteUse.subscribe(({ source, itemStack }) => {
-  if (!isFilled(itemStack?.typeId)) return;
-  usage.set(source.id, { using: false, done: true });
-  lastBlock.delete(source.id);
-  toggleSpirit(source, source.selectedSlotIndex);
+  if (!isFilled(id) || busy(source)) return;
+  mark(source);
+  const slot = source.selectedSlotIndex;
+  if (source.isSneaking) tryRelease(source, source.dimension, airCell(source), slot);
+  else toggleSpirit(source, slot);
 });
 
 system.runInterval(() => {
@@ -1803,12 +1776,17 @@ world.afterEvents.worldLoad.subscribe(() => {
 });
 ```
 
-## FILE: MCPEDL/Addons/ALN-SoulLantern/CHANGELOG.md (38 lines, 1879 bytes)
+## FILE: MCPEDL/Addons/ALN-SoulLantern/CHANGELOG.md (43 lines, 2092 bytes)
 
 ```
 # Changelog — ALN SoulLantern
 
 ---
+
+## [2.0.1] - 2026-11-24 - Sneak Controls
+
+### Improved & Balanced
+- **Controls**: Sneak and interact with a mob to seal it, sneak and click to release it, and use the lantern to call or recall the Spectral Ally.
 
 ## [2.0.0] - 2026-11-24 - No-UI Update
 
@@ -1845,7 +1823,7 @@ world.afterEvents.worldLoad.subscribe(() => {
 - **Spirit menu**: Inspect the trapped soul, rename it, or project a 20-second Spectral Ally with a 60-second cooldown.
 ```
 
-## FILE: MCPEDL/Addons/ALN-SoulLantern/DESCRIPTION.md (81 lines, 4574 bytes)
+## FILE: MCPEDL/Addons/ALN-SoulLantern/DESCRIPTION.md (81 lines, 4651 bytes)
 
 ```
 # ALN SoulLantern — Seal mobs in a relic and release them anywhere
@@ -1863,7 +1841,7 @@ world.afterEvents.worldLoad.subscribe(() => {
 
 ALN SoulLantern adds one relic with two looks. The Empty Soul Lantern holds a faint pale-blue mist, and the Soul-Bound Soul Lantern glows with turquoise soul fire and floating embers.
 
-Interact with a mob to seal it inside. The lantern takes an icon for that mob and shows its name, health, and variant. Tap to release it, or hold to call a floating Spectral Ally.
+Sneak and interact with a mob to seal it inside. The lantern takes an icon for that mob and shows its name, health, and variant. Sneak and click to release it, or use the lantern to call a floating Spectral Ally.
 
 ## Key Features
 
@@ -1871,7 +1849,7 @@ Interact with a mob to seal it inside. The lantern takes an icon for that mob an
 - **What Happens**: Craft the lantern with 2 glass panes, 4 iron nuggets, 1 amethyst shard, and 1 soul soil or soul sand.
 
 ### Mob Capture
-- **What Happens**: Interact with a mob while holding an Empty lantern. The mob vanishes in a swirl of soul particles and the lantern turns turquoise, with a different icon for each kind of mob.
+- **What Happens**: Sneak and interact with a mob while holding an Empty lantern. The mob vanishes in a swirl of soul particles and the lantern turns turquoise, with a different icon for each kind of mob.
 
 ### Boss Protection
 - **What Happens**: The Ender Dragon, Wither, Warden, and Elder Guardian cannot be sealed. The lantern trembles and a warning appears above the hotbar.
@@ -1880,10 +1858,10 @@ Interact with a mob to seal it inside. The lantern takes an icon for that mob an
 - **What Happens**: The lantern keeps the mob's health, custom name, age, color, tamed state, equipment, and villager trades, and updates its own name and lore to match.
 
 ### Block Release
-- **What Happens**: Tap with a Soul-Bound lantern to place the saved mob on top of the block you aim at, or in front of you in open air. The lantern returns to the Empty state.
+- **What Happens**: Sneak and click with a Soul-Bound lantern to place the saved mob on top of the block you aim at, or in front of you in open air. The lantern returns to the Empty state.
 
 ### Spectral Ally
-- **What Happens**: Hold a Soul-Bound lantern to call a floating, light-blue, slightly transparent spirit with a tiny figure of the trapped mob inside. It fights nearby hostile mobs like a pet for 20 seconds, never attacks you, then fades back into the lantern. Hold again to recall it early. Each lantern has one spirit and a 10-second recharge.
+- **What Happens**: Use a Soul-Bound lantern to call a floating, light-blue, slightly transparent spirit with a tiny figure of the trapped mob inside. It fights nearby hostile mobs like a pet for 20 seconds, never attacks you, then fades back into the lantern. Use it again to recall it early. Each lantern has one spirit and a 10-second recharge.
 
 ### Mob-Specific Attacks
 - **What Happens**: A trapped Creeper becomes a kamikaze that explodes beside its target, then shrinks and slowly grows back. A Skeleton fires arrows, a Snow Golem throws snowballs, Spiders, wolves, and chickens attack fast, and Iron Golems and Endermen hit hard.
@@ -1891,9 +1869,9 @@ Interact with a mob to seal it inside. The lantern takes an icon for that mob an
 ## How to Use
 
 1. Craft a Soul Lantern at a crafting table.
-2. Hold the Soul Lantern and interact with a mob to seal it.
-3. Tap with the Soul-Bound lantern to release the mob where you aim.
-4. Hold the Soul-Bound lantern to call its floating Spectral Ally, and hold again to recall it.
+2. Hold the Soul Lantern, sneak, and interact with a mob to seal it.
+3. Sneak and click with the Soul-Bound lantern to release the mob where you aim.
+4. Use the Soul-Bound lantern to call its floating Spectral Ally, and use it again to recall it.
 5. Wait 10 seconds after the spirit leaves before calling it again.
 
 ## Compatibility
@@ -1938,7 +1916,7 @@ Minecraft Bedrock add-on, ALN SoulLantern Bedrock mod, MCPEDL add-on, CurseForge
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-SoulLantern/README.md (23 lines, 1039 bytes)
+## FILE: MCPEDL/Addons/ALN-SoulLantern/README.md (23 lines, 1043 bytes)
 
 ```
 # ALN SoulLantern
@@ -1952,7 +1930,7 @@ Download the current release of **ALN SoulLantern** for Minecraft Bedrock Editio
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN SoulLantern (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-SoulLantern/ALNSoulLantern%20V2.mcaddon)
+- **Direct download:** [Download ALN SoulLantern (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-SoulLantern/ALNSoulLantern%20V2.0.1.mcaddon)
 
 ## Installation
 
@@ -2010,19 +1988,19 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-SoulLantern/resource_pack/manifest.json (37 lines, 608 bytes)
+## FILE: MCPEDL/Addons/ALN-SoulLantern/resource_pack/manifest.json (37 lines, 612 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "ALN SoulLantern (v2)",
+    "name": "ALN SoulLantern (v2.0.1)",
     "description": "Empty and Soul-Bound lantern textures. by ALNStudios",
     "uuid": "76644133-f7e5-4b13-ab5c-c0bb2eab30b6",
     "version": [
       2,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -2037,7 +2015,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "version": [
         2,
         0,
-        0
+        1
       ]
     }
   ],
@@ -2046,7 +2024,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "2.0.1"
   }
 }
 ```
