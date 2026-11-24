@@ -318,13 +318,13 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v16.0.6)",
+    "name": "OneBlock Natural Market (v16.0.7)",
     "description": "OneBlock survival with a progression market and regenerating core. by ALNStudios",
     "uuid": "77f07d1a-fa7a-437d-8fea-72068be05162",
     "version": [
       16,
       0,
-      6
+      7
     ],
     "min_engine_version": [
       1,
@@ -339,7 +339,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "version": [
         16,
         0,
-        6
+        7
       ]
     },
     {
@@ -349,7 +349,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "version": [
         16,
         0,
-        6
+        7
       ],
       "entry": "scripts/main.js"
     }
@@ -360,7 +360,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "version": [
         16,
         0,
-        6
+        7
       ]
     },
     {
@@ -377,7 +377,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "16.0.6"
+    "version": "16.0.7"
   }
 }
 ```
@@ -1329,7 +1329,7 @@ Extracted from the script files; nothing here was run in game.
 Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (822 lines, 44814 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (818 lines, 44502 bytes)
 
 ```
 import { world, system, ItemStack, ItemTypes } from "@minecraft/server";
@@ -1339,7 +1339,6 @@ const CORE = { x: 0, y: 64, z: 0 };
 const BEDROCK = { x: 0, y: 63, z: 0 };
 const LEDGER = "allenscreations:trader_ledger";
 const COINS = "obm_coins";
-const ALN_COINS = "aln_coins";
 const MINED = "obm_mined";
 const TOTAL = "obm_total";
 const GLOBAL_KEY = "OneBlockNaturalMarket";
@@ -1659,7 +1658,7 @@ const objectiveCache = new Map();
 function objective(name) {
   let obj = objectiveCache.get(name);
   if (!obj) {
-    obj = world.scoreboard.getObjective(name) ?? world.scoreboard.addObjective(name, name === ALN_COINS ? "ALN Coins" : name);
+    obj = world.scoreboard.getObjective(name) ?? world.scoreboard.addObjective(name, name);
     objectiveCache.set(name, obj);
   }
   return obj;
@@ -1671,7 +1670,6 @@ function writeScore(name, identity, value) {
   try { objective(name).setScore(identity, Math.max(0, Math.floor(value))); return true; } catch { return false; }
 }
 function balance(player) { return readScore(COINS, player); }
-function alnCoins(player) { return readScore(ALN_COINS, player); }
 function personalBreaks(player) { return readScore(MINED, player); }
 function totalBreaks() { return readScore(TOTAL, GLOBAL_KEY); }
 function setBalance(player, amount) { return writeScore(COINS, player, amount); }
@@ -1682,7 +1680,7 @@ function itemAvailable(item) {
 function tell(player, message) { try { player.onScreenDisplay.setActionBar("§6[Market] §r" + message); } catch {} }
 
 function showBalance(player) {
-  try { player.onScreenDisplay.setActionBar("§6Coins: §e" + balance(player) + " §f| §bALN Coins: §f" + alnCoins(player) + " §f| §fBlocks: §f" + personalBreaks(player)); } catch {}
+  try { player.onScreenDisplay.setActionBar("§6Coins: §e" + balance(player) + " §f| §fBlocks: §f" + personalBreaks(player)); } catch {}
 }
 function hasLedger(player) {
   const inv = inventoryOf(player);
@@ -1812,7 +1810,7 @@ function showAbout(player) {
 function marketMain(player) {
   const form = new ActionFormData()
     .title("NATURAL MARKET")
-    .body("§6Coins: §e" + balance(player) + "§r\nALN Coins: " + alnCoins(player) + "\nPersonal breaks: " + personalBreaks(player) +
+    .body("§6Coins: §e" + balance(player) + "§r\nPersonal breaks: " + personalBreaks(player) +
       "\nShared breaks: " + totalBreaks() + "\nUnlocked tier: " + (unlockedTier(player) + 1) + " / " + MILESTONES.length + "\n\nChoose a market section.");
   for (const c of CATEGORIES) form.button(c.name, c.icon);
   form
@@ -2037,12 +2035,11 @@ function onCoreBreak(player) {
   tutorialStep(player, total);
   const milestone = [...MILESTONES].reverse().find(m => total >= m.unlock) ?? MILESTONES[0];
   writeScore(COINS, player, balance(player) + milestone.reward);
-  writeScore(ALN_COINS, player, alnCoins(player) + 1);
   if (MILESTONES.some(m => m.unlock > 0 && m.unlock === total)) {
     world.sendMessage("§6[Natural Market] §rA new core milestone has been reached. More block types can now appear.");
   }
   log("INFO", player.name + " mined the core: personal=" + personal + " shared=" + total + " reward=" + milestone.reward + ".");
-  tell(player, "Core mined: +" + milestone.reward + " Coins and +1 ALN Coin.");
+  tell(player, "Core mined: +" + milestone.reward + " Coins.");
   showBalance(player);
 }
 system.afterEvents.scriptEventReceive.subscribe(event => {
@@ -2130,7 +2127,6 @@ world.afterEvents.playerLeave.subscribe(event => {
 });
 system.run(() => {
   objective(COINS);
-  objective(ALN_COINS);
   objective(MINED);
   objective(TOTAL);
 });
@@ -2155,12 +2151,17 @@ system.runInterval(() => {
 }, 20);
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (199 lines, 11837 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (204 lines, 12089 bytes)
 
 ```
 # Changelog — OneBlock Natural Market
 
 ---
+
+## [16.0.7] - 2026-11-24 - Remove ALN Coins
+
+### Improved & Balanced
+- **ALN Coins removed**: breaking the central block no longer gives ALN Coins, and they no longer show in the market menu or the action bar. Coins, rewards and prices are unchanged.
 
 ## [16.0.6] - 2026-11-23 - ALN Coins
 
@@ -2358,7 +2359,7 @@ system.runInterval(() => {
 - No experimental gameplay toggle was added. Source structure is updated; Minecraft in-game rendering has not been verified.
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/DESCRIPTION.md (82 lines, 5155 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/DESCRIPTION.md (82 lines, 5003 bytes)
 
 ```
 # OneBlock Natural Market — A OneBlock economy and supply shop
@@ -2391,7 +2392,7 @@ Start in the void on the central block at (0, 0, 0), with no bedrock beneath it.
 - The market uses the standard server Action Form. It is **not a chest container screen** and does not support draggable slots or native container transfers.
 
 ### Coins and Selling
-- Successful central-block breaks award Coins and 1 ALN Coin. ALN Coins are a separate currency kept on the `aln_coins` scoreboard, so other add-ons can read them. They are not spent in this market.
+- Successful central-block breaks award Coins.
 - Eligible catalogue items can be sold through the Ledger. Each item type can be locked so it is never sold; tools and weapons start locked.
 - The balance appears in menu text and action-bar messages, not a sidebar scoreboard.
 
@@ -2481,13 +2482,13 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v16.0.6)",
+    "name": "OneBlock Natural Market (v16.0.7)",
     "description": "Trader Ledger icon for OneBlock Natural Market. by ALNStudios",
     "uuid": "187333a6-4353-4003-b379-471f85ce9021",
     "version": [
       16,
       0,
-      6
+      7
     ],
     "min_engine_version": [
       1,
@@ -2502,7 +2503,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "version": [
         16,
         0,
-        6
+        7
       ]
     }
   ],
@@ -2511,7 +2512,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "16.0.6"
+    "version": "16.0.7"
   }
 }
 ```

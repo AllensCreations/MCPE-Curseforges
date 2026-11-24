@@ -1,12 +1,17 @@
 # Changelog — OneBlock Natural Market
 
-## [16.0.6] - 2026-11-23 - ALN Coins
+## [16.0.7] - 2026-11-24 - Remove ALN Coins
 
-### Added
-- **ALN Coins**: every central-block break now also gives 1 ALN Coin, a separate currency kept on the `aln_coins` scoreboard. It shows in the market menu and in the action bar. The market still uses Coins.
+### Improved & Balanced
+- **ALN Coins removed**: breaking the central block no longer gives ALN Coins, and they no longer show in the market menu or the action bar. Coins, rewards and prices are unchanged.
 
 <details>
-<summary><b>16.0.x</b> (6 releases)</summary>
+<summary><b>16.0.x</b> (7 releases)</summary>
+
+### [16.0.6] - 2026-11-23 - ALN Coins
+
+#### Added
+- **ALN Coins**: every central-block break now also gives 1 ALN Coin, a separate currency kept on the `aln_coins` scoreboard. It shows in the market menu and in the action bar. The market still uses Coins.
 
 ### [16.0.5] - 2026-11-23 - Sell Form Toggles
 
