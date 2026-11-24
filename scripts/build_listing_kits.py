@@ -60,7 +60,7 @@ def first_paragraph(md):
     return ""
 
 
-def render_kit(root, project):
+def render_kit(root, project, style="minimal"):
     md = (project / "DESCRIPTION.md").read_text(encoding="utf-8")
     name, tagline, _ = bip.facts(md, project.name)
     if not tagline:
@@ -83,7 +83,7 @@ def render_kit(root, project):
     except Exception:
         pass
 
-    html = bdv.render(md, project.name, None, None, style="minimal",
+    html = bdv.render(md, project.name, None, None, style=style,
                       media=bdv.find_media(root, project, md), min_version=bdv.find_min_version(project))
     errs = bdv.check_html(html)
     if errs:
@@ -124,6 +124,7 @@ def main(argv=None):
     ap.add_argument("--check", action="store_true", help="write nothing; exit 1 if a kit is missing or stale")
     ap.add_argument("--out", default="Package", help="output folder (default: Package)")
     ap.add_argument("--root", default=".", help="repo root")
+    ap.add_argument("--theme", "--style", choices=list(bdv.THEMES.keys()), default="minimal", help="Listing HTML theme (default: minimal)")
     a = ap.parse_args(argv)
     if not a.project and not a.all:
         ap.error("use --all or --project <folder>")
@@ -136,7 +137,7 @@ def main(argv=None):
     built = same = bad = 0
     for p in projects:
         try:
-            text = render_kit(root, p)
+            text = render_kit(root, p, style=a.theme)
         except ValueError as e:
             print(f"FAIL {p.name}: {e}")
             bad += 1

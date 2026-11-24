@@ -43,26 +43,39 @@ MAX_FONT = 40
 # Styles. "dark" = dark store page. "minimal" = no page background and no text colors, so it follows the reader's
 # CurseForge theme (light or dark); accent color is only used as solid fills.
 THEMES = {
-    "dark": dict(BG="#12161c", PANEL="#1b222c", LINE="#2a3441", TEXT="#dfe5ec", HEAD="#ffffff", SUB="#c5ced9",
-                 MUTED="#8b98a8", LINK="#7cc4ff", ACCTXT=True),
     "minimal": dict(BG="", PANEL="", LINE="#8a94a3", TEXT="", HEAD="", SUB="",
-                    MUTED="#8a94a3", LINK="", ACCTXT=False),
+                    MUTED="#8a94a3", LINK="", ACCTXT=False, ACCENT="#15803d", SOFT="#dcfce7", DEEP="#14532d"),
+    "dark": dict(BG="#12161c", PANEL="#1b222c", LINE="#2a3441", TEXT="#dfe5ec", HEAD="#ffffff", SUB="#c5ced9",
+                 MUTED="#8b98a8", LINK="#7cc4ff", ACCTXT=True, ACCENT="#15803d", SOFT="#dcfce7", DEEP="#14532d"),
+    "netherite": dict(BG="#0d1117", PANEL="#161b22", LINE="#30363d", TEXT="#c9d1d9", HEAD="#ffffff", SUB="#8b949e",
+                      MUTED="#8b949e", LINK="#58a6ff", ACCTXT=True, ACCENT="#10b981", SOFT="#161b22", DEEP="#10b981"),
+    "bedrock_gui": dict(BG="#313233", PANEL="#202021", LINE="#4a4b4d", TEXT="#e0e0e0", HEAD="#ffffff", SUB="#d0d0d0",
+                        MUTED="#a0a0a0", LINK="#55ff55", ACCTXT=True, ACCENT="#4a4b4d", SOFT="#202021", DEEP="#ffffff"),
+    "marketplace": dict(BG="#022c22", PANEL="#064e3b", LINE="#059669", TEXT="#ecfdf5", HEAD="#ffffff", SUB="#a7f3d0",
+                        MUTED="#6ee7b7", LINK="#34d399", ACCTXT=True, ACCENT="#059669", SOFT="#047857", DEEP="#ffffff"),
+    "arcane": dict(BG="#120c1f", PANEL="#1c1033", LINE="#581c87", TEXT="#f3e8ff", HEAD="#ffffff", SUB="#d8b4fe",
+                   MUTED="#c084fc", LINK="#c084fc", ACCTXT=True, ACCENT="#7e22ce", SOFT="#3b0764", DEEP="#f3e8ff"),
 }
-STYLES = ("minimal",)  # the only published style: it follows the reader's theme (CurseForge and MCPEDL, light or dark)
-SUFFIX = {"dark": ".dark", "minimal": ""}
+STYLES = ("minimal",)  # the default published style: it follows the reader's theme (CurseForge and MCPEDL, light or dark)
+SUFFIX = {k: f".{k}" if k != "minimal" else "" for k in THEMES}
 BG = PANEL = LINE = TEXT = HEAD = SUB = MUTED = LINK = ""
 ACCTXT = True
 INK = "#ffffff"  # text on the dark green fills
 SOFT = "#dcfce7"  # light green pill fill (badges); its text is DEEP
 DEEP = "#14532d"
 RADIUS = "16px"
+ACCENT = "#15803d"  # default accent
+CURRENT_ACCENT = ACCENT
 
 
 def set_style(name):
-    global BG, PANEL, LINE, TEXT, HEAD, SUB, MUTED, LINK, ACCTXT
-    t = THEMES[name]
+    global BG, PANEL, LINE, TEXT, HEAD, SUB, MUTED, LINK, ACCTXT, CURRENT_ACCENT, SOFT, DEEP
+    t = THEMES.get(name, THEMES["minimal"])
     BG, PANEL, LINE, TEXT, HEAD, SUB, MUTED, LINK, ACCTXT = (
         t["BG"], t["PANEL"], t["LINE"], t["TEXT"], t["HEAD"], t["SUB"], t["MUTED"], t["LINK"], t["ACCTXT"])
+    CURRENT_ACCENT = t.get("ACCENT", ACCENT)
+    SOFT = t.get("SOFT", "#dcfce7")
+    DEEP = t.get("DEEP", "#14532d")
 
 
 def tidy(h):
@@ -100,7 +113,7 @@ def esc(t):
 
 
 def accent_for(folder):
-    return ACCENT_OVERRIDES.get(folder) or ACCENT
+    return ACCENT_OVERRIDES.get(folder) or CURRENT_ACCENT
 
 
 def inline(t):
