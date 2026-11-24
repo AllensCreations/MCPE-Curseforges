@@ -1,9 +1,19 @@
 # Changelog — ALN:MultiIslandOneBlock
 
-## [v7] - 2026-11-24 - TRADERS Item Sale Fix
+## [v8] - 2026-11-24 - Rare Bonus Drops
 
-### Fixed
+### Improved & Balanced
+- **Rare Bonus Drops**: Richness bonus drops now happen on about 5% of OneBlock breaks instead of 30%.
+
+<details>
+<summary><b>7.0.x</b> (1 release)</summary>
+
+### [v7] - 2026-11-24 - TRADERS Item Sale Fix
+
+#### Fixed
 - **TRADERS Item Sale Bug**: The TRADERS Item can no longer be listed or sold. It is hidden from the sell lists, and any old offer that held it is removed.
+
+</details>
 
 <details>
 <summary><b>6.0.x</b> (1 release)</summary>

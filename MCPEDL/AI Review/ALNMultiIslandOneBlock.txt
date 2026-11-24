@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Maps/ALNMultiIslandOneBlock`
 - **Destination:** `MCPEDL/Maps/ALNMultiIslandOneBlock`
-- **CURRENT VERSION: v7 / NEXT UPDATE: v8**  (`MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md`)
+- **CURRENT VERSION: v8 / NEXT UPDATE: v9**  (`MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 34
 - **Skipped binary:** 12
@@ -71,7 +71,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v7 / NEXT UPDATE: v8).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v8 / NEXT UPDATE: v9).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
@@ -292,11 +292,11 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:MultiIslandOneBlock (v7)",
+    "name": "ALN:MultiIslandOneBlock (v8)",
     "description": "Multi-island OneBlock grid with a central lobby and a global trade ledger. by ALNStudios",
     "uuid": "0886e248-abae-466f-85fe-a01de46396cf",
     "version": [
-      7,
+      8,
       0,
       0
     ],
@@ -311,7 +311,7 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
       "type": "data",
       "uuid": "76888f9d-5edf-4308-b1ab-1c176dbe38e9",
       "version": [
-        7,
+        8,
         0,
         0
       ]
@@ -322,7 +322,7 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
       "uuid": "fd4c32c2-7e0a-4bfe-8633-e30171567364",
       "entry": "scripts/main.js",
       "version": [
-        7,
+        8,
         0,
         0
       ]
@@ -332,7 +332,7 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
     {
       "uuid": "2cf90b7d-4b0f-44d5-b726-41f3e756f95f",
       "version": [
-        7,
+        8,
         0,
         0
       ]
@@ -351,7 +351,7 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "7.0.0"
+    "version": "8.0.0"
   }
 }
 ```
@@ -479,7 +479,7 @@ export function returnToIsland(player) {
 }
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/config.js (67 lines, 2823 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/config.js (68 lines, 2860 bytes)
 
 ```
 export const LOBBY = { x: 0, y: 65, z: 0 };
@@ -506,7 +506,8 @@ export const PROP = {
   EARNED_PREFIX: "aln:earned_",
 };
 
-export const BONUS_CHANCE = 0.3;
+export const BONUS_CHANCE = 0.05;
+export const BONUS_AMOUNT_MULT = 1;
 export const MAX_LISTINGS_PER_PLAYER = 8;
 export const MAX_LISTINGS_TOTAL = 250;
 export const MAX_TRADE_AMOUNT = 2304;
@@ -1313,16 +1314,16 @@ export function sellToServer(player, itemId, amount) {
 }
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/oneblock.js (95 lines, 3253 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/oneblock.js (96 lines, 3365 bytes)
 
 ```
 import { world, system, ItemStack } from "@minecraft/server";
-import { ONE_BLOCK_Y, PROP, BONUS_CHANCE, BREAKS_PER_COIN, COINS_PER_REWARD } from "./config.js";
+import { ONE_BLOCK_Y, PROP, BONUS_CHANCE, BONUS_AMOUNT_MULT, BREAKS_PER_COIN, COINS_PER_REWARD } from "./config.js";
 import { slotAt, recordOf, slotOf, slotCoords } from "./slots.js";
 import { phaseIndexFor, rollBonus, PHASES, phaseLabel, breaksToNextPhase } from "./phases.js";
 import { globalBreaks, regenerate } from "./island.js";
 import { traitLabel } from "./traits.js";
-import { blockIdAt, isLoaded, isValidItem, overworld } from "./util.js";
+import { blockIdAt, isLoaded, isValidItem, overworld, stackLimit } from "./util.js";
 import { addCoins } from "./market.js";
 
 function announcePhase(index) {
@@ -1342,7 +1343,8 @@ function dropBonus(dim, x, z, trait, phaseIndex) {
     const bonus = rollBonus(phaseIndex, trait);
     if (!bonus || !isValidItem(bonus.id)) continue;
     try {
-      dim.spawnItem(new ItemStack(bonus.id, bonus.amount), { x: x + 0.5, y: ONE_BLOCK_Y + 1.2, z: z + 0.5 });
+      const amount = Math.min(bonus.amount * BONUS_AMOUNT_MULT, stackLimit(bonus.id));
+      dim.spawnItem(new ItemStack(bonus.id, amount), { x: x + 0.5, y: ONE_BLOCK_Y + 1.2, z: z + 0.5 });
     } catch (e) {}
     return;
   }
@@ -3258,12 +3260,17 @@ world.afterEvents.worldLoad.subscribe(() => {
 });
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md (64 lines, 4549 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md (69 lines, 4718 bytes)
 
 ```
 # Changelog — ALN:MultiIslandOneBlock
 
 ---
+
+## [v8] - 2026-11-24 - Rare Bonus Drops
+
+### Improved & Balanced
+- **Rare Bonus Drops**: Richness bonus drops now happen on about 5% of OneBlock breaks instead of 30%.
 
 ## [v7] - 2026-11-24 - TRADERS Item Sale Fix
 
@@ -3470,11 +3477,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:MultiIslandOneBlock Resources (v7)",
+    "name": "ALN:MultiIslandOneBlock Resources (v8)",
     "description": "Textures and names for the TRADERS Item. by ALNStudios",
     "uuid": "2cf90b7d-4b0f-44d5-b726-41f3e756f95f",
     "version": [
-      7,
+      8,
       0,
       0
     ],
@@ -3489,7 +3496,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "02c6ed61-2e06-499b-b6d3-1c6afa51beb6",
       "version": [
-        7,
+        8,
         0,
         0
       ]
@@ -3500,7 +3507,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "7.0.0"
+    "version": "8.0.0"
   }
 }
 ```
