@@ -1,9 +1,22 @@
 # Changelog — ALN:MobStacker
 
-## [v4] - 2026-11-24 - Stack Towers
+## [v5] - 2026-11-24 - Calmer Towers
 
 ### Added
+- **Tower Copy Protection**: Feeding, shearing, milking, naming or leashing the copies above a stack tower is now blocked, so they cannot be used to breed animals or farm wool.
+
+### Improved & Balanced
+- **Steadier Towers**: Tower copies now fall slowly and are only moved when they drift away from their spot, so they bob less and need fewer moves.
+
+<details>
+<summary><b>4.0.x</b> (1 release)</summary>
+
+### [v4] - 2026-11-24 - Stack Towers
+
+#### Added
 - **Stack Towers**: Farm animal stacks now show up to 3 mobs standing on top of each other, with the number label on the bottom mob. The mobs above are cosmetic copies that cannot be hurt.
+
+</details>
 
 <details>
 <summary><b>3.0.x</b> (1 release)</summary>

@@ -1,8 +1,8 @@
 {
-  "changelog_version": "4.0.0",
-  "manifest_version": "4.0.0",
+  "changelog_version": "5.0.0",
+  "manifest_version": "5.0.0",
   "packages": {
-    "ALNMobStacker V4.mcpack": "19effb1b47d55f3b2013812d88c0082e2aca723cb1f1a776f3ddd1021a3c12f4"
+    "ALNMobStacker V5.mcpack": "29882b2982166bf29d078e912740297cdc2bf0c509ffaf26cb54c4d29086583c"
   },
-  "source_sha256": "cbab4a41ade22bf582eab04e99b1711dc5b6252cc1cbc5594065813744b470d8"
+  "source_sha256": "db29732ace6ccc8a4a7da24f33b167250c4d5db884855c359d70ffac220c3608"
 }

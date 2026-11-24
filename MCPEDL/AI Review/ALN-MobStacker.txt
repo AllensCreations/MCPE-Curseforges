@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Script/ALN-MobStacker`
 - **Destination:** `MCPEDL/Script/ALN-MobStacker`
-- **CURRENT VERSION: v4 / NEXT UPDATE: v5**  (`MCPEDL/Script/ALN-MobStacker/CHANGELOG.md`)
+- **CURRENT VERSION: v5 / NEXT UPDATE: v6**  (`MCPEDL/Script/ALN-MobStacker/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 11
 - **Skipped binary:** 1
@@ -37,10 +37,10 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v4 / NEXT UPDATE: v5).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v5 / NEXT UPDATE: v6).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
-- Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
+- Deliver changes as ONE self-contained update `.sh` (`<Pack>_v<Version>_<rand>.sh`) built with `make_update_script.py` (INSTRUCTIONS.md Reply Format).
 - Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
 
 ## Destination
@@ -195,11 +195,11 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:MobStacker (v4)",
+    "name": "ALN:MobStacker (v5)",
     "description": "Stacks nearby identical farm animals and grinder mobs into one counted mob to cut entity lag. by ALNStudios",
     "uuid": "e42a0f6c-e2a5-4f8f-ab41-4e25ba6cee40",
     "version": [
-      4,
+      5,
       0,
       0
     ],
@@ -216,7 +216,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "entry": "scripts/main.js",
       "uuid": "7c42741a-ae21-4cec-8bef-ea682106eed4",
       "version": [
-        4,
+        5,
         0,
         0
       ]
@@ -233,12 +233,12 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "4.0.0"
+    "version": "5.0.0"
   }
 }
 ```
 
-## FILE: MCPEDL/Script/ALN-MobStacker/behavior_pack/scripts/lib/README.md (44 lines, 1697 bytes)
+## FILE: MCPEDL/Script/ALN-MobStacker/behavior_pack/scripts/lib/README.md (45 lines, 1963 bytes)
 
 ```
 # ALN:MobStacker: script notes (scripts/lib)
@@ -252,9 +252,9 @@ Extracted from the script files; nothing here was run in game.
 | :-- | --: | :-- |
 | `scripts/main.js` | 8 | (no header comment) |
 | `scripts/stack_combat.js` | 252 | (no header comment) |
-| `scripts/stack_config.js` | 374 | (no header comment) |
+| `scripts/stack_config.js` | 376 | (no header comment) |
 | `scripts/stack_merger.js` | 217 | (no header comment) |
-| `scripts/stack_tower.js` | 162 | (no header comment) |
+| `scripts/stack_tower.js` | 190 | (no header comment) |
 
 ## Imports
 
@@ -269,6 +269,7 @@ Extracted from the script files; nothing here was run in game.
 - `world.afterEvents.entityDie`
 - `world.afterEvents.entityRemove`
 - `world.afterEvents.entitySpawn`
+- `world.beforeEvents.playerInteractWithEntity`
 
 ## Custom ids
 
@@ -282,7 +283,7 @@ Extracted from the script files; nothing here was run in game.
 
 ## Notes (AI review)
 
-- Stack towers (farm animals only): the extra mobs are real copies tagged as visuals. They get long resistance, fire resistance and slowness effects and are teleported above the stack mob every 2 ticks. Not tested in game: that the effects stop all damage, that the copies stay still, and that chickens or breeding on the copies cause no side effects.
+- Stack towers (farm animals only): the extra mobs are real copies tagged as visuals. They get long resistance, fire resistance, slowness and slow falling effects and are checked every 2 ticks, then teleported above the stack mob only when they drift more than 0.15 blocks or turn more than 5 degrees. Player interactions with a copy are cancelled. Not tested in game: that the effects stop all damage, that the copies stay still, that slow falling keeps them in place, and that the interaction block catches every action (feeding, shearing, milking, naming, leashing).
 - Tower heights in `TOWER_MOB_HEIGHTS` come from the vanilla collision boxes in the Mojang samples. The rabbit value (1.0) is taken as written there.
 ```
 
@@ -554,7 +555,7 @@ export function startCombat() {
 }
 ```
 
-## FILE: MCPEDL/Script/ALN-MobStacker/behavior_pack/scripts/stack_config.js (374 lines, 12448 bytes)
+## FILE: MCPEDL/Script/ALN-MobStacker/behavior_pack/scripts/stack_config.js (376 lines, 12528 bytes)
 
 ```
 import { EntityComponentTypes, EquipmentSlot } from "@minecraft/server";
@@ -614,6 +615,8 @@ export const VISUAL_TAG = "aln_stack_visual";
 export const VISUAL_HOST_PROPERTY = "aln_visual_host";
 export const TOWER_HEIGHT = 3;
 export const TOWER_SYNC_TICKS = 2;
+export const TOWER_MOVE_TOLERANCE = 0.15;
+export const TOWER_YAW_TOLERANCE = 5;
 export const TOWER_MOB_HEIGHTS = {
   "minecraft:cow": 1.3,
   "minecraft:pig": 0.9,
@@ -1153,14 +1156,16 @@ export function startMerger() {
 }
 ```
 
-## FILE: MCPEDL/Script/ALN-MobStacker/behavior_pack/scripts/stack_tower.js (162 lines, 4505 bytes)
+## FILE: MCPEDL/Script/ALN-MobStacker/behavior_pack/scripts/stack_tower.js (190 lines, 5158 bytes)
 
 ```
 import { system, world } from "@minecraft/server";
 import {
   TOWER_HEIGHT,
   TOWER_MOB_HEIGHTS,
+  TOWER_MOVE_TOLERANCE,
   TOWER_SYNC_TICKS,
+  TOWER_YAW_TOLERANCE,
   VISUAL_HOST_PROPERTY,
   VISUAL_TAG,
   readMeta,
@@ -1187,13 +1192,20 @@ function isFree(dimension, spot, height) {
   }
 }
 
+const INERT_EFFECTS = [
+  ["resistance", 255],
+  ["fire_resistance", 0],
+  ["slowness", 255],
+  ["slow_falling", 0],
+];
+
 function makeInert(entity) {
-  try {
-    entity.addEffect("resistance", EFFECT_TICKS, { amplifier: 255, showParticles: false });
-    entity.addEffect("fire_resistance", EFFECT_TICKS, { amplifier: 0, showParticles: false });
-    entity.addEffect("slowness", EFFECT_TICKS, { amplifier: 255, showParticles: false });
-  } catch (error) {
-    return;
+  for (const [id, amplifier] of INERT_EFFECTS) {
+    try {
+      entity.addEffect(id, EFFECT_TICKS, { amplifier, showParticles: false });
+    } catch (error) {
+      continue;
+    }
   }
 }
 
@@ -1283,7 +1295,10 @@ export function reconcileTowers(dimension, typeId) {
         entry = { host, meta: readMeta(host), visuals: [] };
         towers.set(hostId, entry);
       }
-      if (!entry.visuals.some((known) => known.id === visual.id)) entry.visuals.push(visual);
+      if (!entry.visuals.some((known) => known.id === visual.id)) {
+        entry.visuals.push(visual);
+        makeInert(visual);
+      }
     } catch (error) {
       continue;
     }
@@ -1306,6 +1321,14 @@ function syncTowers() {
       const spot = { x: location.x, y: location.y + level * height, z: location.z };
       level++;
       try {
+        const now = visual.location;
+        const dx = now.x - spot.x;
+        const dy = now.y - spot.y;
+        const dz = now.z - spot.z;
+        const turn = Math.abs(((visual.getRotation().y - rotation.y + 540) % 360) - 180);
+        if (dx * dx + dy * dy + dz * dz <= TOWER_MOVE_TOLERANCE * TOWER_MOVE_TOLERANCE && turn <= TOWER_YAW_TOLERANCE) {
+          continue;
+        }
         visual.teleport(spot, { keepVelocity: false, rotation });
       } catch (error) {
         continue;
@@ -1316,15 +1339,31 @@ function syncTowers() {
 
 export function startTower() {
   system.runInterval(syncTowers, TOWER_SYNC_TICKS);
+
+  world.beforeEvents.playerInteractWithEntity.subscribe((event) => {
+    try {
+      if (event.target.hasTag(VISUAL_TAG)) event.cancel = true;
+    } catch (error) {
+      return;
+    }
+  });
 }
 ```
 
-## FILE: MCPEDL/Script/ALN-MobStacker/CHANGELOG.md (75 lines, 3913 bytes)
+## FILE: MCPEDL/Script/ALN-MobStacker/CHANGELOG.md (83 lines, 4312 bytes)
 
 ```
 # Changelog — ALN:MobStacker
 
 ---
+
+## [v5] - 2026-11-24 - Calmer Towers
+
+### Added
+- **Tower Copy Protection**: Feeding, shearing, milking, naming or leashing the copies above a stack tower is now blocked, so they cannot be used to breed animals or farm wool.
+
+### Improved & Balanced
+- **Steadier Towers**: Tower copies now fall slowly and are only moved when they drift away from their spot, so they bob less and need fewer moves.
 
 ## [v4] - 2026-11-24 - Stack Towers
 
@@ -1398,7 +1437,7 @@ export function startTower() {
 - **Sneak Kill**: Sneaking during a kill clears the whole stack with drops and experience scaled by Looting.
 ```
 
-## FILE: MCPEDL/Script/ALN-MobStacker/DESCRIPTION.md (91 lines, 6993 bytes)
+## FILE: MCPEDL/Script/ALN-MobStacker/DESCRIPTION.md (91 lines, 7043 bytes)
 
 ```
 # ALN:MobStacker — Lag-Free Farm and Grinder Condenser
@@ -1425,7 +1464,7 @@ Build a farm or grinder as usual. Mobs of the same kind that stand close togethe
 
 ### Stack Towers
 - **What Happens**: A stack of farm animals shows up to 3 mobs standing on top of each other. Only the bottom mob is real, and the number label sits on it.
-- **How It Works**: Hit the bottom mob to remove one from the stack. The mobs above cannot be hurt and copy the bottom mob's movement.
+- **How It Works**: Hit the bottom mob to remove one from the stack. The mobs above cannot be hurt and copy the bottom mob's movement. You cannot feed, shear, milk, name or leash them.
 - **Good To Know**: Towers appear only for Cow, Pig, Sheep, Chicken, Rabbit, Mooshroom, Goat and Frog stacks. Hostile stacks show the number only. A tower is shorter under a low ceiling.
 
 ### Supported Mobs
@@ -1508,7 +1547,7 @@ Download the current release of **ALNMobStacker** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcpack`
-- **Direct download:** [Download ALNMobStacker (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MobStacker/ALNMobStacker%20V4.mcpack)
+- **Direct download:** [Download ALNMobStacker (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MobStacker/ALNMobStacker%20V5.mcpack)
 
 ## Installation
 
