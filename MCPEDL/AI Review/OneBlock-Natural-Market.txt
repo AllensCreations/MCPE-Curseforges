@@ -242,10 +242,10 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 .gitkeep
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/functions/oneblock_setup.mcfunction (2 lines, 54 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/functions/oneblock_setup.mcfunction (2 lines, 1 bytes)
 
 ```
-# Unused. The core no longer sits on a bedrock block.
+
 ```
 
 ## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/functions/oneblock_tick.mcfunction (3 lines, 163 bytes)

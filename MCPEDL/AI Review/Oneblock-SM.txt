@@ -208,17 +208,15 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 give @s allenscreations:trader_ledger 1
 ```
 
-## FILE: MCPEDL/Maps/Oneblock-SM/behavior_pack/functions/oneblock_setup.mcfunction (3 lines, 136 bytes)
+## FILE: MCPEDL/Maps/Oneblock-SM/behavior_pack/functions/oneblock_setup.mcfunction (2 lines, 62 bytes)
 
 ```
-# Optional manual setup, safe to run repeatedly. Not listed in tick.json.
 scoreboard objectives add osm_marker dummy "Sovereign Market"
 ```
 
-## FILE: MCPEDL/Maps/Oneblock-SM/behavior_pack/functions/oneblock_tick.mcfunction (3 lines, 177 bytes)
+## FILE: MCPEDL/Maps/Oneblock-SM/behavior_pack/functions/oneblock_tick.mcfunction (2 lines, 95 bytes)
 
 ```
-# Restore only missing foundation Bedrock, and only after a player finished setup
 execute if entity @a[tag=void_cleaned] unless block 0 -1 0 bedrock run setblock 0 -1 0 bedrock
 ```
 
@@ -233,11 +231,10 @@ execute if entity @a[tag=void_cleaned] unless block 0 -1 0 bedrock run setblock 
 }
 ```
 
-## FILE: MCPEDL/Maps/Oneblock-SM/behavior_pack/functions/void_cleaner.mcfunction (13 lines, 1051 bytes)
+## FILE: MCPEDL/Maps/Oneblock-SM/behavior_pack/functions/void_cleaner.mcfunction (12 lines, 955 bytes)
 
 ```
 execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air
-# Starter island: 9x9, two layers, built once (skipped when the core foundation already exists)
 execute as @a[tag=!void_cleaned] unless block 0 -1 0 bedrock run fill -4 -2 -4 4 -2 4 dirt
 execute as @a[tag=!void_cleaned] unless block 0 -1 0 bedrock run fill -4 -1 -4 4 -1 4 grass_block
 execute as @a[tag=!void_cleaned] run tp @s 0 1 0

@@ -2236,10 +2236,10 @@ def main():
 main()
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Void-Survival/CHANGELOG.md (62 lines, 4792 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Void-Survival/CHANGELOG.md (62 lines, 4819 bytes)
 
 ```
-# Changelog
+# Changelog — OneBlock Void Survival
 
 ---
 
@@ -2433,10 +2433,14 @@ crowded, flat lighting, earth terrain, no void, distorted hands, illegible typog
 ```
 ````
 
-## FILE: MCPEDL/Maps/OneBlock-Void-Survival/README.md (19 lines, 785 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Void-Survival/README.md (23 lines, 995 bytes)
 
 ```
 # OneBlock Void Survival
+
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-v10-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1740769)
+<!-- CURSEFORGE-BADGE:END -->
 
 Download the current release of **OneBlock Void Survival** for Minecraft Bedrock Edition.
 

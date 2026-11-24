@@ -4501,10 +4501,10 @@ world.afterEvents.playerLeave.subscribe((ev) => {
 });
 ```
 
-## FILE: MCPEDL/Addons/Grimoire-Relics-V2/CHANGELOG.md (186 lines, 8397 bytes)
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/CHANGELOG.md (186 lines, 8399 bytes)
 
 ```
-# Changelog - Grimoire Relics V2
+# Changelog — Grimoire Relics V2
 
 ---
 
@@ -4880,10 +4880,14 @@ If a feature is broken or does not work as described, please leave a comment on 
 Grimoire Relics V2 Bedrock add-on, magical offhand relics, craftable grimoires, Ancient Relics exploration, Void Phantom rescue relic, Minecraft Bedrock magic items, Minecraft PE RPG add-on, MCPEDL, CurseForge Bedrock, ALNStudios, Minecraft Bedrock add-on, MCPEDL add-on.
 ```
 
-## FILE: MCPEDL/Addons/Grimoire-Relics-V2/README.md (19 lines, 813 bytes)
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/README.md (23 lines, 1022 bytes)
 
 ```
 # Grimoire Relics V2
+
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-v3-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1747867)
+<!-- CURSEFORGE-BADGE:END -->
 
 Download the current release of **Grimoire Relics V2** for Minecraft Bedrock Edition.
 
