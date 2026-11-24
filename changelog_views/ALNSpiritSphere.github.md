@@ -1,13 +1,24 @@
 # Changelog — ALN:SpiritSphere
 
-## [3.0.0] - 2026-11-24 - Void Singularity Rework
+## [4.0.0] - 2026-11-24 - Inward Pull Particles
 
 ### Added
+- **Inward pull particles**: Particles now stream inward toward your hand while charging and toward the orb in flight for every element.
+- **Void Singularity pull**: The hover phase shows a wide inward stream across its 10 block range and a tighter collapse stream in the last second.
+
+<details>
+<summary><b>3.0.x</b> (1 release)</summary>
+
+### [3.0.0] - 2026-11-24 - Void Singularity Rework
+
+#### Added
 - **Void Singularity hold**: The orb now stops where it lands, hovers for 5 seconds, pulls all mobs within 10 blocks into its core, then explodes with a larger blast.
 
-### Fixed
+#### Fixed
 - **Recipes**: The six sphere recipes now use the object form of the unlock entry.
 - **Spirit Orb model**: The orb now uses the entity_alphatest material instead of entity_alpha.
+
+</details>
 
 <details>
 <summary><b>2.0.x</b> (1 release)</summary>

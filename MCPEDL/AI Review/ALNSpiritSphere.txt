@@ -4,9 +4,9 @@
 
 - **Export request:** `MCPEDL/Addons/ALNSpiritSphere`
 - **Destination:** `MCPEDL/Addons/ALNSpiritSphere`
-- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Addons/ALNSpiritSphere/CHANGELOG.md`)
+- **CURRENT VERSION: v4 / NEXT UPDATE: v5**  (`MCPEDL/Addons/ALNSpiritSphere/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
-- **Text files:** 34
+- **Text files:** 38
 - **Skipped binary:** 27
 - **Paths not found:** 0
 
@@ -40,6 +40,10 @@
 - `MCPEDL/Addons/ALNSpiritSphere/resource_pack/models/entity/spirit_orb.geo.json`
 - `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ss_big.json`
 - `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ss_mid.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ss_pull_core.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ss_pull_hand.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ss_pull_orb.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ss_pull_void.json`
 - `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ss_small.json`
 - `MCPEDL/Addons/ALNSpiritSphere/resource_pack/render_controllers/spirit_orb.rc.json`
 - `MCPEDL/Addons/ALNSpiritSphere/resource_pack/texts/en_US.lang`
@@ -86,7 +90,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v3 / NEXT UPDATE: v4).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v4 / NEXT UPDATE: v5).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
@@ -444,11 +448,11 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:SpiritSphere Behavior Pack (v3)",
+    "name": "ALN:SpiritSphere Behavior Pack (v4)",
     "description": "Charge one of five elemental Spirit Spheres and release a Ghast-style energy orb by ALNStudios",
     "uuid": "951ab0f1-53a7-45a3-80fc-a610ec8e217b",
     "version": [
-      3,
+      4,
       0,
       0
     ],
@@ -463,7 +467,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "type": "data",
       "uuid": "d58017bb-894b-4fd8-a26a-d2ab81d83a4e",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -473,7 +477,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "language": "javascript",
       "uuid": "ad6704ec-178d-4dd3-b3eb-1a719bd5b2f0",
       "version": [
-        3,
+        4,
         0,
         0
       ],
@@ -484,7 +488,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     {
       "uuid": "c05699f5-364c-44cb-9978-490a4bc716e4",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -499,7 +503,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "3.0.0"
+    "version": "4.0.0"
   }
 }
 ```
@@ -1113,7 +1117,7 @@ export function registerHits() {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/visuals.js (131 lines, 4346 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/visuals.js (140 lines, 4828 bytes)
 
 ```
 import { MolangVariableMap } from "@minecraft/server";
@@ -1122,6 +1126,10 @@ import { BURST_TICK, FULL_TICKS, OVER_TICKS } from "./elements.js";
 const SMALL = "aln:ss_small";
 const MID = "aln:ss_mid";
 const BIG = "aln:ss_big";
+const PULL_HAND = "aln:ss_pull_hand";
+const PULL_ORB = "aln:ss_pull_orb";
+const PULL_VOID = "aln:ss_pull_void";
+const PULL_CORE = "aln:ss_pull_core";
 
 export function puff(dimension, id, location, color) {
   try {
@@ -1205,10 +1213,12 @@ export function renderCharge(player, held, mode) {
   const phase = phaseOf(held);
   if (phase === 1) {
     if (held % 2 === 0) ring(dimension, center, view, 0.55, 8, held * 0.25, SMALL, mode.color);
+    if (held % 6 === 0) puff(dimension, PULL_HAND, center, mode.color);
   } else if (phase === 2) {
     const k = (held - 24) / (FULL_TICKS - 24);
     ring(dimension, center, view, 0.55 * (1 - k) + 0.04, 6, held * (0.5 + k * 1.5), SMALL, mode.color);
     puff(dimension, MID, center, { red: 1, green: 1, blue: 1 });
+    if (held % 2 === 0) puff(dimension, PULL_HAND, center, mode.color);
   } else {
     if (held === BURST_TICK) {
       shell(dimension, center, 0.9, 30, MID, mode.color);
@@ -1232,6 +1242,7 @@ export function impactBurst(dimension, center, radius, color) {
 
 export function orbTrail(dimension, center, color, age) {
   puff(dimension, BIG, center, color);
+  if (age % 2 === 0) puff(dimension, PULL_ORB, center, color);
   const a = age * 0.9;
   puff(dimension, SMALL, { x: center.x + Math.cos(a) * 0.5, y: center.y + Math.sin(a * 1.3) * 0.5, z: center.z + Math.sin(a) * 0.5 }, color);
   puff(dimension, SMALL, { x: center.x - Math.cos(a) * 0.5, y: center.y - Math.sin(a * 1.3) * 0.5, z: center.z - Math.sin(a) * 0.5 }, color);
@@ -1245,15 +1256,23 @@ export function voidSwirl(dimension, center, radius, color, tick) {
     puff(dimension, SMALL, { x: center.x + Math.cos(a) * r, y: center.y + Math.sin(a * 0.5) * r * 0.4, z: center.z + Math.sin(a) * r }, color);
   }
   puff(dimension, BIG, center, color);
+  if (tick % 2 === 0) puff(dimension, PULL_VOID, center, color);
+  if (tick > 80) puff(dimension, PULL_CORE, center, color);
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/CHANGELOG.md (31 lines, 1566 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/CHANGELOG.md (37 lines, 1911 bytes)
 
 ```
 # Changelog — ALN:SpiritSphere
 
 ---
+
+## [4.0.0] - 2026-11-24 - Inward Pull Particles
+
+### Added
+- **Inward pull particles**: Particles now stream inward toward your hand while charging and toward the orb in flight for every element.
+- **Void Singularity pull**: The hover phase shows a wide inward stream across its 10 block range and a tighter collapse stream in the last second.
 
 ## [3.0.0] - 2026-11-24 - Void Singularity Rework
 
@@ -1283,7 +1302,7 @@ export function voidSwirl(dimension, center, radius, color, tick) {
 - **Five elements**: Players can sneak and use the focus to switch between Aero Vortex, Blaze Solar, Frost Nova, Storm Surge and Void Singularity.
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/DESCRIPTION.md (86 lines, 5417 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/DESCRIPTION.md (89 lines, 5702 bytes)
 
 ```
 # ALN:SpiritSphere — Chargeable Elemental Energy Orbs
@@ -1325,6 +1344,9 @@ Each sphere has its own color and impact behavior. There is no switching: carry 
 
 ### Charge-Scaled Orb
 - **What Happens**: Releasing fires the Spirit Orb along your aim. A quick release lobs a slow orb with a small blast, a medium charge flies steadily, and a full charge flies almost straight and fast with a cratering explosion.
+
+### Inward Pull Particles
+- **What Happens**: Streams of particles fly inward toward your hand while you charge and toward the orb while it flies. The Void Singularity draws the thickest stream across its full 10 block range and tightens into a dense collapse during its last second.
 
 ### Element Colors
 - **What Happens**: Each sphere has its own particle color: cyan and white for Aero Vortex, orange and gold for Blaze Solar, icy blue for Frost Nova, purple for Storm Surge and dark magenta for Void Singularity.
@@ -1391,7 +1413,7 @@ Download the current release of **ALNSpiritSphere** for Minecraft Bedrock Editio
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNSpiritSphere (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpiritSphere/ALNSpiritSphere%20V3.mcaddon)
+- **Direct download:** [Download ALNSpiritSphere (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpiritSphere/ALNSpiritSphere%20V4.mcaddon)
 
 ## Installation
 
@@ -1435,11 +1457,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:SpiritSphere Resource Pack (v3)",
+    "name": "ALN:SpiritSphere Resource Pack (v4)",
     "description": "Charge one of five elemental Spirit Spheres and release a Ghast-style energy orb by ALNStudios",
     "uuid": "c05699f5-364c-44cb-9978-490a4bc716e4",
     "version": [
-      3,
+      4,
       0,
       0
     ],
@@ -1454,7 +1476,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "6ef1070d-ea7a-4d3f-8c1b-02834809e5e6",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -1465,7 +1487,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "3.0.0"
+    "version": "4.0.0"
   }
 }
 ```
@@ -1606,6 +1628,250 @@ For gameplay features, usage details, compatibility notes, and other project inf
         "size": [
           0.16,
           0.16
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 128,
+          "texture_height": 128,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            8,
+            8
+          ]
+        }
+      },
+      "minecraft:particle_appearance_tinting": {
+        "color": [
+          "variable.color.r",
+          "variable.color.g",
+          "variable.color.b",
+          1
+        ]
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ss_pull_core.json (57 lines, 1276 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:ss_pull_core",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/particles"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 14
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_sphere": {
+        "radius": 3.0,
+        "surface_only": true,
+        "direction": "inwards"
+      },
+      "minecraft:particle_initial_speed": 6.0,
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.5
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.1,
+          0.1
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 128,
+          "texture_height": 128,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            8,
+            8
+          ]
+        }
+      },
+      "minecraft:particle_appearance_tinting": {
+        "color": [
+          "variable.color.r",
+          "variable.color.g",
+          "variable.color.b",
+          1
+        ]
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ss_pull_hand.json (57 lines, 1277 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:ss_pull_hand",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/particles"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 6
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_sphere": {
+        "radius": 1.0,
+        "surface_only": true,
+        "direction": "inwards"
+      },
+      "minecraft:particle_initial_speed": 2.0,
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.5
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.06,
+          0.06
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 128,
+          "texture_height": 128,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            8,
+            8
+          ]
+        }
+      },
+      "minecraft:particle_appearance_tinting": {
+        "color": [
+          "variable.color.r",
+          "variable.color.g",
+          "variable.color.b",
+          1
+        ]
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ss_pull_orb.json (57 lines, 1276 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:ss_pull_orb",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/particles"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 5
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_sphere": {
+        "radius": 1.6,
+        "surface_only": true,
+        "direction": "inwards"
+      },
+      "minecraft:particle_initial_speed": 3.2,
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.5
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.07,
+          0.07
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 128,
+          "texture_height": 128,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            8,
+            8
+          ]
+        }
+      },
+      "minecraft:particle_appearance_tinting": {
+        "color": [
+          "variable.color.r",
+          "variable.color.g",
+          "variable.color.b",
+          1
+        ]
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ss_pull_void.json (57 lines, 1278 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:ss_pull_void",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/particles"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 20
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_sphere": {
+        "radius": 9.0,
+        "surface_only": true,
+        "direction": "inwards"
+      },
+      "minecraft:particle_initial_speed": 9.0,
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 1.0
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.12,
+          0.12
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
