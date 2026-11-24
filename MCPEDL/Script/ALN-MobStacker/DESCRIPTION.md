@@ -22,7 +22,7 @@ Build a farm or grinder as usual. Mobs of the same kind that stand close togethe
 
 ### Stack Towers
 - **What Happens**: A stack of farm animals shows up to 3 mobs standing on top of each other. Only the bottom mob is real, and the number label sits on it.
-- **How It Works**: Hit the bottom mob to remove one from the stack. The mobs above cannot be hurt and copy the bottom mob's movement.
+- **How It Works**: Hit the bottom mob to remove one from the stack. The mobs above cannot be hurt and copy the bottom mob's movement. You cannot feed, shear, milk, name or leash them.
 - **Good To Know**: Towers appear only for Cow, Pig, Sheep, Chicken, Rabbit, Mooshroom, Goat and Frog stacks. Hostile stacks show the number only. A tower is shorter under a low ceiling.
 
 ### Supported Mobs

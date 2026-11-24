@@ -2,6 +2,14 @@
 
 ---
 
+## [v5] - 2026-11-24 - Calmer Towers
+
+### Added
+- **Tower Copy Protection**: Feeding, shearing, milking, naming or leashing the copies above a stack tower is now blocked, so they cannot be used to breed animals or farm wool.
+
+### Improved & Balanced
+- **Steadier Towers**: Tower copies now fall slowly and are only moved when they drift away from their spot, so they bob less and need fewer moves.
+
 ## [v4] - 2026-11-24 - Stack Towers
 
 ### Added

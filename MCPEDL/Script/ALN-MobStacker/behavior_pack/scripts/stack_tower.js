@@ -2,7 +2,9 @@ import { system, world } from "@minecraft/server";
 import {
   TOWER_HEIGHT,
   TOWER_MOB_HEIGHTS,
+  TOWER_MOVE_TOLERANCE,
   TOWER_SYNC_TICKS,
+  TOWER_YAW_TOLERANCE,
   VISUAL_HOST_PROPERTY,
   VISUAL_TAG,
   readMeta,
@@ -29,13 +31,20 @@ function isFree(dimension, spot, height) {
   }
 }
 
+const INERT_EFFECTS = [
+  ["resistance", 255],
+  ["fire_resistance", 0],
+  ["slowness", 255],
+  ["slow_falling", 0],
+];
+
 function makeInert(entity) {
-  try {
-    entity.addEffect("resistance", EFFECT_TICKS, { amplifier: 255, showParticles: false });
-    entity.addEffect("fire_resistance", EFFECT_TICKS, { amplifier: 0, showParticles: false });
-    entity.addEffect("slowness", EFFECT_TICKS, { amplifier: 255, showParticles: false });
-  } catch (error) {
-    return;
+  for (const [id, amplifier] of INERT_EFFECTS) {
+    try {
+      entity.addEffect(id, EFFECT_TICKS, { amplifier, showParticles: false });
+    } catch (error) {
+      continue;
+    }
   }
 }
 
@@ -125,7 +134,10 @@ export function reconcileTowers(dimension, typeId) {
         entry = { host, meta: readMeta(host), visuals: [] };
         towers.set(hostId, entry);
       }
-      if (!entry.visuals.some((known) => known.id === visual.id)) entry.visuals.push(visual);
+      if (!entry.visuals.some((known) => known.id === visual.id)) {
+        entry.visuals.push(visual);
+        makeInert(visual);
+      }
     } catch (error) {
       continue;
     }
@@ -148,6 +160,14 @@ function syncTowers() {
       const spot = { x: location.x, y: location.y + level * height, z: location.z };
       level++;
       try {
+        const now = visual.location;
+        const dx = now.x - spot.x;
+        const dy = now.y - spot.y;
+        const dz = now.z - spot.z;
+        const turn = Math.abs(((visual.getRotation().y - rotation.y + 540) % 360) - 180);
+        if (dx * dx + dy * dy + dz * dz <= TOWER_MOVE_TOLERANCE * TOWER_MOVE_TOLERANCE && turn <= TOWER_YAW_TOLERANCE) {
+          continue;
+        }
         visual.teleport(spot, { keepVelocity: false, rotation });
       } catch (error) {
         continue;
@@ -158,4 +178,12 @@ function syncTowers() {
 
 export function startTower() {
   system.runInterval(syncTowers, TOWER_SYNC_TICKS);
+
+  world.beforeEvents.playerInteractWithEntity.subscribe((event) => {
+    try {
+      if (event.target.hasTag(VISUAL_TAG)) event.cancel = true;
+    } catch (error) {
+      return;
+    }
+  });
 }

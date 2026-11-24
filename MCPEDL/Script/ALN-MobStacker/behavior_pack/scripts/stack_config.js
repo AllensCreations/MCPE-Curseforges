@@ -55,6 +55,8 @@ export const VISUAL_TAG = "aln_stack_visual";
 export const VISUAL_HOST_PROPERTY = "aln_visual_host";
 export const TOWER_HEIGHT = 3;
 export const TOWER_SYNC_TICKS = 2;
+export const TOWER_MOVE_TOLERANCE = 0.15;
+export const TOWER_YAW_TOLERANCE = 5;
 export const TOWER_MOB_HEIGHTS = {
   "minecraft:cow": 1.3,
   "minecraft:pig": 0.9,

@@ -9,9 +9,9 @@ Extracted from the script files; nothing here was run in game.
 | :-- | --: | :-- |
 | `scripts/main.js` | 8 | (no header comment) |
 | `scripts/stack_combat.js` | 252 | (no header comment) |
-| `scripts/stack_config.js` | 374 | (no header comment) |
+| `scripts/stack_config.js` | 376 | (no header comment) |
 | `scripts/stack_merger.js` | 217 | (no header comment) |
-| `scripts/stack_tower.js` | 162 | (no header comment) |
+| `scripts/stack_tower.js` | 190 | (no header comment) |
 
 ## Imports
 
@@ -26,6 +26,7 @@ Extracted from the script files; nothing here was run in game.
 - `world.afterEvents.entityDie`
 - `world.afterEvents.entityRemove`
 - `world.afterEvents.entitySpawn`
+- `world.beforeEvents.playerInteractWithEntity`
 
 ## Custom ids
 
@@ -39,5 +40,5 @@ Extracted from the script files; nothing here was run in game.
 
 ## Notes (AI review)
 
-- Stack towers (farm animals only): the extra mobs are real copies tagged as visuals. They get long resistance, fire resistance and slowness effects and are teleported above the stack mob every 2 ticks. Not tested in game: that the effects stop all damage, that the copies stay still, and that chickens or breeding on the copies cause no side effects.
+- Stack towers (farm animals only): the extra mobs are real copies tagged as visuals. They get long resistance, fire resistance, slowness and slow falling effects and are checked every 2 ticks, then teleported above the stack mob only when they drift more than 0.15 blocks or turn more than 5 degrees. Player interactions with a copy are cancelled. Not tested in game: that the effects stop all damage, that the copies stay still, that slow falling keeps them in place, and that the interaction block catches every action (feeding, shearing, milking, naming, leashing).
 - Tower heights in `TOWER_MOB_HEIGHTS` come from the vanilla collision boxes in the Mojang samples. The rabbit value (1.0) is taken as written there.
