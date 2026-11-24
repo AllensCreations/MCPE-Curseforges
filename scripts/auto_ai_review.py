@@ -211,7 +211,11 @@ def main() -> int:
         txt = ROOT / OUT_DIR / f"{name}.txt"
         if not txt.is_file():
             continue
-        zpath = ROOT / OUT_DIR / f"{name}.zip"
+        ver = top_version(pack)
+        vsuffix = f"-{ver}" if ver else ""
+        zpath = ROOT / OUT_DIR / f"{name}{vsuffix}.zip"
+        old_zips = [p for p in (ROOT / OUT_DIR).glob(f"{name}-*.zip") if p != zpath]
+        old_zips += [ROOT / OUT_DIR / f"{name}.zip"]  # legacy unversioned name
         if args.all or name.lower() in rebuilt_packs or not zpath.is_file() or txt.stat().st_mtime > zpath.stat().st_mtime:
             with zipfile.ZipFile(zpath, "w", compression=zipfile.ZIP_DEFLATED) as zf:
                 zf.write(txt, arcname=f"{name}.txt")
@@ -221,6 +225,9 @@ def main() -> int:
                         info.compress_type = zipfile.ZIP_DEFLATED
                         info.external_attr = 0o644 << 16
                         zf.writestr(info, script_file.read_bytes(), compresslevel=9)
+            for old in old_zips:
+                if old.is_file() and old != zpath:
+                    old.unlink()
             changed.append(zpath.relative_to(ROOT).as_posix())
             print(f"Bundled {zpath.relative_to(ROOT)}")
 
