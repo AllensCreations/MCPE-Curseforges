@@ -280,13 +280,13 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:LootSpawner (v1.0.4)",
+    "name": "ALN:LootSpawner (v1.0.5)",
     "description": "Arcane Relic Duplicator Display Cage. by ALNStudios",
     "uuid": "168d9162-4f4a-4dda-a2c8-a550e2b9ad41",
     "version": [
       1,
       0,
-      4
+      5
     ],
     "min_engine_version": [
       1,
@@ -301,7 +301,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "version": [
         1,
         0,
-        4
+        5
       ]
     },
     {
@@ -311,7 +311,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "version": [
         1,
         0,
-        4
+        5
       ],
       "entry": "scripts/main.js"
     }
@@ -322,7 +322,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "version": [
         1,
         0,
-        4
+        5
       ]
     },
     {
@@ -335,7 +335,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     }
   ],
   "metadata": {
-    "version": "1.0.4",
+    "version": "1.0.5",
     "authors": [
       "ALNStudios"
     ],
@@ -727,12 +727,17 @@ system.runInterval(() => {
 }, STEP_TICKS);
 ```
 
-## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/CHANGELOG.md (47 lines, 4142 bytes)
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/CHANGELOG.md (52 lines, 4439 bytes)
 
 ```
 # Changelog — ALN:LootSpawner (Arcane Relic Duplicator)
 
 ---
+
+## [1.0.5] - 2026-11-24 - Fix Missing Glass and Core Textures
+
+### Fixed
+- **Glass and core textures**: Every part of the block model was left on the default frame texture, so the glass panes and the glowing core base could not use their own textures. Each part now uses the texture made for it.
 
 ## [1.0.4] - 2026-11-23 - Fix Duplication Timer and Add Break Drops
 
@@ -882,7 +887,7 @@ Download the current release of **ALNLootSpawner (Arcane Relic Duplicator)** for
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNLootSpawner (Arcane Relic Duplicator) (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNLootSpawner-Arcane-Relic-Duplicator/ALNLootSpawnerArcaneRelicDuplicator%20V1.0.4.mcaddon)
+- **Direct download:** [Download ALNLootSpawner (Arcane Relic Duplicator) (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNLootSpawner-Arcane-Relic-Duplicator/ALNLootSpawnerArcaneRelicDuplicator%20V1.0.5.mcaddon)
 
 ## Installation
 
@@ -909,13 +914,13 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:LootSpawner (v1.0.4)",
+    "name": "ALN:LootSpawner (v1.0.5)",
     "description": "Arcane Relic Duplicator Display Cage. by ALNStudios",
     "uuid": "1390b986-3030-4eee-a94b-1bd5ea7f88dd",
     "version": [
       1,
       0,
-      4
+      5
     ],
     "min_engine_version": [
       1,
@@ -930,12 +935,12 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "version": [
         1,
         0,
-        4
+        5
       ]
     }
   ],
   "metadata": {
-    "version": "1.0.4",
+    "version": "1.0.5",
     "authors": [
       "ALNStudios"
     ],
@@ -944,7 +949,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/models/blocks/loot_spawner.geo.json (360 lines, 10637 bytes)
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/models/blocks/loot_spawner.geo.json (360 lines, 14771 bytes)
 
 ```
 {
@@ -968,12 +973,12 @@ For gameplay features, usage details, compatibility notes, and other project inf
 							"origin": [-8, 0, -8],
 							"size": [16, 2, 16],
 							"uv": {
-								"north": {"uv": [0, 0], "uv_size": [16, 2]},
-								"east": {"uv": [0, 0], "uv_size": [16, 2]},
-								"south": {"uv": [0, 0], "uv_size": [16, 2]},
-								"west": {"uv": [0, 0], "uv_size": [16, 2]},
-								"up": {"uv": [0, 0], "uv_size": [16, 16]},
-								"down": {"uv": [0, 0], "uv_size": [16, 16]}
+								"north": {"uv": [0, 0], "uv_size": [16, 2], "material_instance": "frame"},
+								"east": {"uv": [0, 0], "uv_size": [16, 2], "material_instance": "frame"},
+								"south": {"uv": [0, 0], "uv_size": [16, 2], "material_instance": "frame"},
+								"west": {"uv": [0, 0], "uv_size": [16, 2], "material_instance": "frame"},
+								"up": {"uv": [0, 0], "uv_size": [16, 16], "material_instance": "frame"},
+								"down": {"uv": [0, 0], "uv_size": [16, 16], "material_instance": "frame"}
 							}
 						}
 					]
@@ -986,12 +991,12 @@ For gameplay features, usage details, compatibility notes, and other project inf
 							"origin": [-8, 14, -8],
 							"size": [16, 2, 16],
 							"uv": {
-								"north": {"uv": [0, 0], "uv_size": [16, 2]},
-								"east": {"uv": [0, 0], "uv_size": [16, 2]},
-								"south": {"uv": [0, 0], "uv_size": [16, 2]},
-								"west": {"uv": [0, 0], "uv_size": [16, 2]},
-								"up": {"uv": [0, 0], "uv_size": [16, 16]},
-								"down": {"uv": [0, 0], "uv_size": [16, 16]}
+								"north": {"uv": [0, 0], "uv_size": [16, 2], "material_instance": "frame"},
+								"east": {"uv": [0, 0], "uv_size": [16, 2], "material_instance": "frame"},
+								"south": {"uv": [0, 0], "uv_size": [16, 2], "material_instance": "frame"},
+								"west": {"uv": [0, 0], "uv_size": [16, 2], "material_instance": "frame"},
+								"up": {"uv": [0, 0], "uv_size": [16, 16], "material_instance": "frame"},
+								"down": {"uv": [0, 0], "uv_size": [16, 16], "material_instance": "frame"}
 							}
 						}
 					]
@@ -1004,48 +1009,48 @@ For gameplay features, usage details, compatibility notes, and other project inf
 							"origin": [-8, 2, -8],
 							"size": [2, 2, 2],
 							"uv": {
-								"north": {"uv": [0, 2], "uv_size": [2, 12]},
-								"east": {"uv": [0, 2], "uv_size": [2, 12]},
-								"south": {"uv": [0, 2], "uv_size": [2, 12]},
-								"west": {"uv": [0, 2], "uv_size": [2, 12]},
-								"up": {"uv": [0, 0], "uv_size": [2, 2]},
-								"down": {"uv": [0, 0], "uv_size": [2, 2]}
+								"north": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"east": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"south": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"west": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"up": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"},
+								"down": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"}
 							}
 						},
 						{
 							"origin": [-8, 12, -8],
 							"size": [2, 2, 2],
 							"uv": {
-								"north": {"uv": [0, 2], "uv_size": [2, 12]},
-								"east": {"uv": [0, 2], "uv_size": [2, 12]},
-								"south": {"uv": [0, 2], "uv_size": [2, 12]},
-								"west": {"uv": [0, 2], "uv_size": [2, 12]},
-								"up": {"uv": [0, 0], "uv_size": [2, 2]},
-								"down": {"uv": [0, 0], "uv_size": [2, 2]}
+								"north": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"east": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"south": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"west": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"up": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"},
+								"down": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"}
 							}
 						},
 						{
 							"origin": [-7, 4, -7],
 							"size": [1, 8, 1],
 							"uv": {
-								"north": {"uv": [0, 2], "uv_size": [2, 12]},
-								"east": {"uv": [0, 2], "uv_size": [2, 12]},
-								"south": {"uv": [0, 2], "uv_size": [2, 12]},
-								"west": {"uv": [0, 2], "uv_size": [2, 12]},
-								"up": {"uv": [0, 0], "uv_size": [2, 2]},
-								"down": {"uv": [0, 0], "uv_size": [2, 2]}
+								"north": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"east": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"south": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"west": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"up": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"},
+								"down": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"}
 							}
 						},
 						{
 							"origin": [-6, 2, -6],
 							"size": [2, 12, 2],
 							"uv": {
-								"north": {"uv": [0, 2], "uv_size": [2, 12]},
-								"east": {"uv": [0, 2], "uv_size": [2, 12]},
-								"south": {"uv": [0, 2], "uv_size": [2, 12]},
-								"west": {"uv": [0, 2], "uv_size": [2, 12]},
-								"up": {"uv": [0, 0], "uv_size": [2, 2]},
-								"down": {"uv": [0, 0], "uv_size": [2, 2]}
+								"north": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"east": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"south": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"west": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"up": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"},
+								"down": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"}
 							}
 						}
 					]
@@ -1058,48 +1063,48 @@ For gameplay features, usage details, compatibility notes, and other project inf
 							"origin": [4, 2, -6],
 							"size": [2, 12, 2],
 							"uv": {
-								"north": {"uv": [0, 2], "uv_size": [2, 12]},
-								"east": {"uv": [0, 2], "uv_size": [2, 12]},
-								"south": {"uv": [0, 2], "uv_size": [2, 12]},
-								"west": {"uv": [0, 2], "uv_size": [2, 12]},
-								"up": {"uv": [0, 0], "uv_size": [2, 2]},
-								"down": {"uv": [0, 0], "uv_size": [2, 2]}
+								"north": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"east": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"south": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"west": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"up": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"},
+								"down": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"}
 							}
 						},
 						{
 							"origin": [6, 2, -8],
 							"size": [2, 2, 2],
 							"uv": {
-								"north": {"uv": [0, 2], "uv_size": [2, 12]},
-								"east": {"uv": [0, 2], "uv_size": [2, 12]},
-								"south": {"uv": [0, 2], "uv_size": [2, 12]},
-								"west": {"uv": [0, 2], "uv_size": [2, 12]},
-								"up": {"uv": [0, 0], "uv_size": [2, 2]},
-								"down": {"uv": [0, 0], "uv_size": [2, 2]}
+								"north": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"east": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"south": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"west": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"up": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"},
+								"down": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"}
 							}
 						},
 						{
 							"origin": [6, 12, -8],
 							"size": [2, 2, 2],
 							"uv": {
-								"north": {"uv": [0, 2], "uv_size": [2, 12]},
-								"east": {"uv": [0, 2], "uv_size": [2, 12]},
-								"south": {"uv": [0, 2], "uv_size": [2, 12]},
-								"west": {"uv": [0, 2], "uv_size": [2, 12]},
-								"up": {"uv": [0, 0], "uv_size": [2, 2]},
-								"down": {"uv": [0, 0], "uv_size": [2, 2]}
+								"north": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"east": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"south": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"west": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"up": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"},
+								"down": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"}
 							}
 						},
 						{
 							"origin": [6, 4, -7],
 							"size": [1, 8, 1],
 							"uv": {
-								"north": {"uv": [0, 2], "uv_size": [2, 12]},
-								"east": {"uv": [0, 2], "uv_size": [2, 12]},
-								"south": {"uv": [0, 2], "uv_size": [2, 12]},
-								"west": {"uv": [0, 2], "uv_size": [2, 12]},
-								"up": {"uv": [0, 0], "uv_size": [2, 2]},
-								"down": {"uv": [0, 0], "uv_size": [2, 2]}
+								"north": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"east": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"south": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"west": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"up": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"},
+								"down": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"}
 							}
 						}
 					]
@@ -1112,48 +1117,48 @@ For gameplay features, usage details, compatibility notes, and other project inf
 							"origin": [-6, 2, 4],
 							"size": [2, 12, 2],
 							"uv": {
-								"north": {"uv": [0, 2], "uv_size": [2, 12]},
-								"east": {"uv": [0, 2], "uv_size": [2, 12]},
-								"south": {"uv": [0, 2], "uv_size": [2, 12]},
-								"west": {"uv": [0, 2], "uv_size": [2, 12]},
-								"up": {"uv": [0, 0], "uv_size": [2, 2]},
-								"down": {"uv": [0, 0], "uv_size": [2, 2]}
+								"north": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"east": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"south": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"west": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"up": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"},
+								"down": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"}
 							}
 						},
 						{
 							"origin": [-8, 4, 6],
 							"size": [2, -2, 2],
 							"uv": {
-								"north": {"uv": [0, 2], "uv_size": [2, 12]},
-								"east": {"uv": [0, 2], "uv_size": [2, 12]},
-								"south": {"uv": [0, 2], "uv_size": [2, 12]},
-								"west": {"uv": [0, 2], "uv_size": [2, 12]},
-								"up": {"uv": [0, 0], "uv_size": [2, 2]},
-								"down": {"uv": [0, 0], "uv_size": [2, 2]}
+								"north": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"east": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"south": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"west": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"up": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"},
+								"down": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"}
 							}
 						},
 						{
 							"origin": [-7, 12, 6],
 							"size": [1, -8, 1],
 							"uv": {
-								"north": {"uv": [0, 2], "uv_size": [2, 12]},
-								"east": {"uv": [0, 2], "uv_size": [2, 12]},
-								"south": {"uv": [0, 2], "uv_size": [2, 12]},
-								"west": {"uv": [0, 2], "uv_size": [2, 12]},
-								"up": {"uv": [0, 0], "uv_size": [2, 2]},
-								"down": {"uv": [0, 0], "uv_size": [2, 2]}
+								"north": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"east": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"south": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"west": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"up": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"},
+								"down": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"}
 							}
 						},
 						{
 							"origin": [-8, 14, 6],
 							"size": [2, -2, 2],
 							"uv": {
-								"north": {"uv": [0, 2], "uv_size": [2, 12]},
-								"east": {"uv": [0, 2], "uv_size": [2, 12]},
-								"south": {"uv": [0, 2], "uv_size": [2, 12]},
-								"west": {"uv": [0, 2], "uv_size": [2, 12]},
-								"up": {"uv": [0, 0], "uv_size": [2, 2]},
-								"down": {"uv": [0, 0], "uv_size": [2, 2]}
+								"north": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"east": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"south": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"west": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"up": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"},
+								"down": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"}
 							}
 						}
 					]
@@ -1166,48 +1171,48 @@ For gameplay features, usage details, compatibility notes, and other project inf
 							"origin": [4, 2, 4],
 							"size": [2, 12, 2],
 							"uv": {
-								"north": {"uv": [0, 2], "uv_size": [2, 12]},
-								"east": {"uv": [0, 2], "uv_size": [2, 12]},
-								"south": {"uv": [0, 2], "uv_size": [2, 12]},
-								"west": {"uv": [0, 2], "uv_size": [2, 12]},
-								"up": {"uv": [0, 0], "uv_size": [2, 2]},
-								"down": {"uv": [0, 0], "uv_size": [2, 2]}
+								"north": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"east": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"south": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"west": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"up": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"},
+								"down": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"}
 							}
 						},
 						{
 							"origin": [6, 2, 6],
 							"size": [2, 2, 2],
 							"uv": {
-								"north": {"uv": [0, 2], "uv_size": [2, 12]},
-								"east": {"uv": [0, 2], "uv_size": [2, 12]},
-								"south": {"uv": [0, 2], "uv_size": [2, 12]},
-								"west": {"uv": [0, 2], "uv_size": [2, 12]},
-								"up": {"uv": [0, 0], "uv_size": [2, 2]},
-								"down": {"uv": [0, 0], "uv_size": [2, 2]}
+								"north": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"east": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"south": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"west": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"up": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"},
+								"down": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"}
 							}
 						},
 						{
 							"origin": [6, 12, 6],
 							"size": [2, 2, 2],
 							"uv": {
-								"north": {"uv": [0, 2], "uv_size": [2, 12]},
-								"east": {"uv": [0, 2], "uv_size": [2, 12]},
-								"south": {"uv": [0, 2], "uv_size": [2, 12]},
-								"west": {"uv": [0, 2], "uv_size": [2, 12]},
-								"up": {"uv": [0, 0], "uv_size": [2, 2]},
-								"down": {"uv": [0, 0], "uv_size": [2, 2]}
+								"north": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"east": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"south": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"west": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"up": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"},
+								"down": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"}
 							}
 						},
 						{
 							"origin": [6, 4, 6],
 							"size": [1, 8, 1],
 							"uv": {
-								"north": {"uv": [0, 2], "uv_size": [2, 12]},
-								"east": {"uv": [0, 2], "uv_size": [2, 12]},
-								"south": {"uv": [0, 2], "uv_size": [2, 12]},
-								"west": {"uv": [0, 2], "uv_size": [2, 12]},
-								"up": {"uv": [0, 0], "uv_size": [2, 2]},
-								"down": {"uv": [0, 0], "uv_size": [2, 2]}
+								"north": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"east": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"south": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"west": {"uv": [0, 2], "uv_size": [2, 12], "material_instance": "frame"},
+								"up": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"},
+								"down": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"}
 							}
 						}
 					]
@@ -1220,12 +1225,12 @@ For gameplay features, usage details, compatibility notes, and other project inf
 							"origin": [-6, 2, -7],
 							"size": [12, 12, 1],
 							"uv": {
-								"north": {"uv": [0, 0], "uv_size": [12, 12]},
-								"east": {"uv": [0, 0], "uv_size": [1, 12]},
-								"south": {"uv": [0, 0], "uv_size": [12, 12]},
-								"west": {"uv": [0, 0], "uv_size": [1, 12]},
-								"up": {"uv": [0, 0], "uv_size": [12, 1]},
-								"down": {"uv": [0, 0], "uv_size": [12, 1]}
+								"north": {"uv": [0, 0], "uv_size": [12, 12], "material_instance": "glass"},
+								"east": {"uv": [0, 0], "uv_size": [1, 12], "material_instance": "glass"},
+								"south": {"uv": [0, 0], "uv_size": [12, 12], "material_instance": "glass"},
+								"west": {"uv": [0, 0], "uv_size": [1, 12], "material_instance": "glass"},
+								"up": {"uv": [0, 0], "uv_size": [12, 1], "material_instance": "glass"},
+								"down": {"uv": [0, 0], "uv_size": [12, 1], "material_instance": "glass"}
 							}
 						}
 					]
@@ -1238,12 +1243,12 @@ For gameplay features, usage details, compatibility notes, and other project inf
 							"origin": [-6, 2, 6],
 							"size": [12, 12, 1],
 							"uv": {
-								"north": {"uv": [0, 0], "uv_size": [12, 12]},
-								"east": {"uv": [0, 0], "uv_size": [1, 12]},
-								"south": {"uv": [0, 0], "uv_size": [12, 12]},
-								"west": {"uv": [0, 0], "uv_size": [1, 12]},
-								"up": {"uv": [0, 0], "uv_size": [12, 1]},
-								"down": {"uv": [0, 0], "uv_size": [12, 1]}
+								"north": {"uv": [0, 0], "uv_size": [12, 12], "material_instance": "glass"},
+								"east": {"uv": [0, 0], "uv_size": [1, 12], "material_instance": "glass"},
+								"south": {"uv": [0, 0], "uv_size": [12, 12], "material_instance": "glass"},
+								"west": {"uv": [0, 0], "uv_size": [1, 12], "material_instance": "glass"},
+								"up": {"uv": [0, 0], "uv_size": [12, 1], "material_instance": "glass"},
+								"down": {"uv": [0, 0], "uv_size": [12, 1], "material_instance": "glass"}
 							}
 						}
 					]
@@ -1256,12 +1261,12 @@ For gameplay features, usage details, compatibility notes, and other project inf
 							"origin": [-7, 2, -6],
 							"size": [1, 12, 12],
 							"uv": {
-								"north": {"uv": [0, 0], "uv_size": [1, 12]},
-								"east": {"uv": [0, 0], "uv_size": [12, 12]},
-								"south": {"uv": [0, 0], "uv_size": [1, 12]},
-								"west": {"uv": [0, 0], "uv_size": [12, 12]},
-								"up": {"uv": [0, 0], "uv_size": [1, 12]},
-								"down": {"uv": [0, 0], "uv_size": [1, 12]}
+								"north": {"uv": [0, 0], "uv_size": [1, 12], "material_instance": "glass"},
+								"east": {"uv": [0, 0], "uv_size": [12, 12], "material_instance": "glass"},
+								"south": {"uv": [0, 0], "uv_size": [1, 12], "material_instance": "glass"},
+								"west": {"uv": [0, 0], "uv_size": [12, 12], "material_instance": "glass"},
+								"up": {"uv": [0, 0], "uv_size": [1, 12], "material_instance": "glass"},
+								"down": {"uv": [0, 0], "uv_size": [1, 12], "material_instance": "glass"}
 							}
 						}
 					]
@@ -1274,12 +1279,12 @@ For gameplay features, usage details, compatibility notes, and other project inf
 							"origin": [6, 2, -6],
 							"size": [1, 12, 12],
 							"uv": {
-								"north": {"uv": [0, 0], "uv_size": [1, 12]},
-								"east": {"uv": [0, 0], "uv_size": [12, 12]},
-								"south": {"uv": [0, 0], "uv_size": [1, 12]},
-								"west": {"uv": [0, 0], "uv_size": [12, 12]},
-								"up": {"uv": [0, 0], "uv_size": [1, 12]},
-								"down": {"uv": [0, 0], "uv_size": [1, 12]}
+								"north": {"uv": [0, 0], "uv_size": [1, 12], "material_instance": "glass"},
+								"east": {"uv": [0, 0], "uv_size": [12, 12], "material_instance": "glass"},
+								"south": {"uv": [0, 0], "uv_size": [1, 12], "material_instance": "glass"},
+								"west": {"uv": [0, 0], "uv_size": [12, 12], "material_instance": "glass"},
+								"up": {"uv": [0, 0], "uv_size": [1, 12], "material_instance": "glass"},
+								"down": {"uv": [0, 0], "uv_size": [1, 12], "material_instance": "glass"}
 							}
 						}
 					]
@@ -1292,12 +1297,12 @@ For gameplay features, usage details, compatibility notes, and other project inf
 							"origin": [-3, 2, -3],
 							"size": [6, 2, 6],
 							"uv": {
-								"north": {"uv": [0, 0], "uv_size": [6, 2]},
-								"east": {"uv": [0, 0], "uv_size": [6, 2]},
-								"south": {"uv": [0, 0], "uv_size": [6, 2]},
-								"west": {"uv": [0, 0], "uv_size": [6, 2]},
-								"up": {"uv": [0, 0], "uv_size": [6, 6]},
-								"down": {"uv": [0, 0], "uv_size": [6, 6]}
+								"north": {"uv": [0, 0], "uv_size": [6, 2], "material_instance": "core"},
+								"east": {"uv": [0, 0], "uv_size": [6, 2], "material_instance": "core"},
+								"south": {"uv": [0, 0], "uv_size": [6, 2], "material_instance": "core"},
+								"west": {"uv": [0, 0], "uv_size": [6, 2], "material_instance": "core"},
+								"up": {"uv": [0, 0], "uv_size": [6, 6], "material_instance": "core"},
+								"down": {"uv": [0, 0], "uv_size": [6, 6], "material_instance": "core"}
 							}
 						}
 					]
