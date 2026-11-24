@@ -4,6 +4,17 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v272] - 2026-11-24 - Coins Scoreboard Hidden Names
+
+**Spec**: spec_v272.txt | **Target**: MCPEDL/Maps/OneBlock-Natural-Market | **Files edited**: 3
+
+### Added
+- **Coins scoreboard**: the sidebar always shows every player's Coins, highest first.
+- **Hide my name**: the About screen has a switch that replaces your name on the scoreboard with "Hidden" and a number.
+
+### Improved & Balanced
+- **About screen**: the sidebar on and off switch from the last update is replaced by the hide-name switch.
+
 ## [v271] - 2026-11-24 - Coins Scoreboard Switch
 
 **Spec**: spec_v271.txt | **Target**: MCPEDL/Maps/OneBlock-Natural-Market | **Files edited**: 3

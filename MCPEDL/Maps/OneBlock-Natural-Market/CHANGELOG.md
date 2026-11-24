@@ -2,6 +2,15 @@
 
 ---
 
+## [16.0.9] - 2026-11-24 - Coins Scoreboard Hidden Names
+
+### Added
+- **Coins scoreboard**: the sidebar always shows every player's Coins, highest first.
+- **Hide my name**: the About screen has a switch that replaces your name on the scoreboard with "Hidden" and a number.
+
+### Improved & Balanced
+- **About screen**: the sidebar on and off switch from the last update is replaced by the hide-name switch.
+
 ## [16.0.8] - 2026-11-24 - Coins Scoreboard Switch
 
 ### Added

@@ -5,6 +5,7 @@ const CORE = { x: 0, y: 64, z: 0 };
 const BEDROCK = { x: 0, y: 63, z: 0 };
 const LEDGER = "allenscreations:trader_ledger";
 const COINS = "obm_coins";
+const BOARD = "obm_coins_board";
 const MINED = "obm_mined";
 const TOTAL = "obm_total";
 const GLOBAL_KEY = "OneBlockNaturalMarket";
@@ -324,7 +325,7 @@ const objectiveCache = new Map();
 function objective(name) {
   let obj = objectiveCache.get(name);
   if (!obj) {
-    obj = world.scoreboard.getObjective(name) ?? world.scoreboard.addObjective(name, name);
+    obj = world.scoreboard.getObjective(name) ?? world.scoreboard.addObjective(name, name === BOARD ? "Coins" : name);
     objectiveCache.set(name, obj);
   }
   return obj;
@@ -333,7 +334,11 @@ function readScore(name, identity) {
   try { return objective(name).getScore(identity) ?? 0; } catch { return 0; }
 }
 function writeScore(name, identity, value) {
-  try { objective(name).setScore(identity, Math.max(0, Math.floor(value))); return true; } catch { return false; }
+  try {
+    objective(name).setScore(identity, Math.max(0, Math.floor(value)));
+    if (name === COINS) updateBoard(identity, value);
+    return true;
+  } catch { return false; }
 }
 function balance(player) { return readScore(COINS, player); }
 function personalBreaks(player) { return readScore(MINED, player); }
@@ -389,6 +394,7 @@ function hasScore(name, player) {
 function initializePlayer(player) {
   if (!hasScore(COINS, player)) writeScore(COINS, player, 50);
   if (!hasScore(MINED, player)) writeScore(MINED, player, 0);
+  updateBoard(player, balance(player));
   showBalance(player);
   grantLedger(player);
 }
@@ -458,21 +464,33 @@ function ensureCore() {
     }
   } catch (e) { logError("ensureCore", e); }
 }
-const SIDEBAR_KEY = "obm_sidebar";
-function sidebarOn() { return world.getDynamicProperty(SIDEBAR_KEY) === true; }
-function setSidebar(on) {
+const HIDE_PREFIX = "obm_hide_";
+function nameHidden(player) { return world.getDynamicProperty(HIDE_PREFIX + player.name) === true; }
+function boardLabel(player, hidden) {
+  if (!hidden) return player.name;
+  let h = 0;
+  for (const ch of player.name) h = (h * 31 + ch.charCodeAt(0)) % 9000;
+  return "Hidden " + (h + 1000);
+}
+function updateBoard(player, value) {
+  try { objective(BOARD).setScore(boardLabel(player, nameHidden(player)), Math.max(0, Math.floor(value))); } catch {}
+}
+function setNameHidden(player, hidden) {
   try {
-    if (on) {
-      world.scoreboard.setObjectiveAtDisplaySlot(DisplaySlotId.Sidebar, { objective: objective(COINS), sortOrder: ObjectiveSortOrder.Descending });
-    } else if (sidebarOn()) {
-      world.scoreboard.clearObjectiveAtDisplaySlot(DisplaySlotId.Sidebar);
-    }
-    world.setDynamicProperty(SIDEBAR_KEY, on);
+    const board = objective(BOARD);
+    board.removeParticipant(boardLabel(player, !hidden));
+    world.setDynamicProperty(HIDE_PREFIX + player.name, hidden);
+    board.setScore(boardLabel(player, hidden), balance(player));
     return true;
   } catch (e) {
-    logError("setSidebar", e);
+    logError("setNameHidden", e);
     return false;
   }
+}
+function showBoard() {
+  try {
+    world.scoreboard.setObjectiveAtDisplaySlot(DisplaySlotId.Sidebar, { objective: objective(BOARD), sortOrder: ObjectiveSortOrder.Descending });
+  } catch (e) { logError("showBoard", e); }
 }
 function showAbout(player) {
   let form = new ModalFormData().title("ABOUT - NATURAL MARKET");
@@ -485,14 +503,14 @@ function showAbout(player) {
     "The Ledger cannot be dropped. It always returns to you.\n\n" +
     "Version: v16 | ALNStudios | CurseForge / MCPEDL");
   form = addOptional(form, "divider");
-  form = form.toggle("Show Coins scoreboard on the sidebar (all players see it)", { defaultValue: sidebarOn() });
+  form = form.toggle("Hide my name on the Coins scoreboard", { defaultValue: nameHidden(player) });
   form = form.submitButton("Save");
   showForm(form, player).then(r => {
     if (r.canceled) return;
     const values = (r.formValues ?? []).filter(v => typeof v === "boolean");
     if (values.length !== 1) return tell(player, "The setting could not be read.");
-    if (values[0] === sidebarOn()) return;
-    if (setSidebar(values[0])) tell(player, "Coins scoreboard " + (values[0] ? "shown." : "hidden."));
+    if (values[0] === nameHidden(player)) return;
+    if (setNameHidden(player, values[0])) tell(player, values[0] ? "Your name is hidden on the scoreboard." : "Your name is shown on the scoreboard.");
     else tell(player, "The scoreboard setting could not be saved.");
   }).catch(e => { logError("showAbout", e); });
 }
@@ -816,6 +834,8 @@ world.afterEvents.playerLeave.subscribe(event => {
 });
 system.run(() => {
   objective(COINS);
+  objective(BOARD);
+  showBoard();
   objective(MINED);
   objective(TOTAL);
 });
