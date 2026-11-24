@@ -50,6 +50,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **ALNPirateTokens** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNPirateTokens/ALNPirateTokens%20V1.0.4.mcaddon) | [`ALNPirateTokens/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNPirateTokens/) |
 | **ALN FarmerGolem** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-FarmerGolem/ALNFarmerGolem%20V2.mcaddon) | [`ALN-FarmerGolem/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-FarmerGolem/) |
 | **ALNSpiritSphere** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNSpiritSphere/ALNSpiritSphere%20V3.mcaddon) | [`ALNSpiritSphere/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNSpiritSphere/) |
+| **ALNChronoStop** | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNChronoStop/ALNChronoStop%20V1.mcaddon) | [`ALNChronoStop/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNChronoStop/) |
 
 ### Worlds and Maps
 

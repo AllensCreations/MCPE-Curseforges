@@ -1,0 +1,8 @@
+{
+  "changelog_version": "1.0.0",
+  "manifest_version": "1.0.0",
+  "packages": {
+    "ALNChronoStop V1.mcaddon": "507c774fd4e29a124851a8e5939be92327508da5714ef893a05a8e9ac9f4fc16"
+  },
+  "source_sha256": "0fe1997e71b2b32a9ebcc27a2f5f8474d49c16dbe92cc89605e4ed2f0184a764"
+}

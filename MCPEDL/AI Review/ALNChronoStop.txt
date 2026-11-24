@@ -1,0 +1,890 @@
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Addons/ALNChronoStop`
+- **Destination:** `MCPEDL/Addons/ALNChronoStop`
+- **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALNChronoStop/CHANGELOG.md`)
+- **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
+- **Text files:** 12
+- **Skipped binary:** 4
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Addons/ALNChronoStop/behavior_pack/items/chrono_watch.json`
+- `MCPEDL/Addons/ALNChronoStop/behavior_pack/manifest.json`
+- `MCPEDL/Addons/ALNChronoStop/behavior_pack/scripts/lib/README.md`
+- `MCPEDL/Addons/ALNChronoStop/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/ALNChronoStop/CHANGELOG.md`
+- `MCPEDL/Addons/ALNChronoStop/DESCRIPTION.md`
+- `MCPEDL/Addons/ALNChronoStop/project.json`
+- `MCPEDL/Addons/ALNChronoStop/README.md`
+- `MCPEDL/Addons/ALNChronoStop/resource_pack/manifest.json`
+- `MCPEDL/Addons/ALNChronoStop/resource_pack/sounds/sound_definitions.json`
+- `MCPEDL/Addons/ALNChronoStop/resource_pack/textures/item_texture.json`
+- `MCPEDL/Addons/ALNChronoStop/texture_sources/chrono_watch.json`
+
+### Skipped (binary): 4 file(s)
+
+- `MCPEDL/Addons/ALNChronoStop/resource_pack/sounds/aln/chrono_heartbeat.ogg`
+- `MCPEDL/Addons/ALNChronoStop/resource_pack/sounds/aln/chrono_resume.ogg`
+- `MCPEDL/Addons/ALNChronoStop/resource_pack/sounds/aln/chrono_submerge.ogg`
+- `MCPEDL/Addons/ALNChronoStop/resource_pack/textures/items/chrono_watch.png`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v1 / NEXT UPDATE: v2).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Addons/ALNChronoStop
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding the ready-to-run commands, and ONE generated self-contained `<Pack>_v<Version>_<rand>.sh` update script (built with `make_update_script.py`). The script contains the full UI, automatically pulls, applies edits safely, commits, and pushes.
+---
+
+## Skills
+
+## Skill: .agents/skills/mcpe-context7/SKILL.md
+
+```markdown
+---
+name: mcpe-context7
+description: Use before looking up ANY repo rule, repo script, Bedrock API member, vanilla id, texture, recipe, component, manifest field or version for the MCPE-Curseforges repo. Routes each need to one of the four Context7 libraries and says when a script must come from the kit zip instead.
+---
+
+# mcpe-context7: Where to Look Things Up
+
+## Authority
+
+- `INSTRUCTIONS.md` 1.16 (copy in `docs/instructions-reference.md`) is the policy. This skill is only its routing table and never overrides it.
+- An AI review kit (`*_tools.txt` inside the kit zip) holds a directory map and skills, no file contents. That is on purpose: read what the task needs through Context7, not from a pasted dump.
+
+## Libraries (ONLY these four, IDs exactly, `query-docs` only)
+
+- `/microsoftdocs/minecraft-creator`: `@minecraft/server` and `@minecraft/server-ui` API, JSON schemas, stable and module versions.
+- `/mojang/bedrock-samples`: vanilla ids, textures, recipes, components, entities, formats, `version.json`.
+- `/websites/wiki_bedrock_dev`: manifest structure, scripting guides, techniques.
+- `/allenscreations/mcpe-curseforges`: this repo's rules, script summaries and Bedrock guide. Context7 indexes ONLY `docs/`.
+
+NEVER call `resolve-library-id`. NEVER query any other library.
+
+## Repo lookups (`/allenscreations/mcpe-curseforges`, `docs/` only)
+
+- `docs/instructions-reference.md`: `INSTRUCTIONS.md`, `DOCS_RULES.md`, `PACK_GENERATOR_INSTRUCTIONS.md` (Reply Format, Termux Script Rules, versions 1.3, recipes 1.4 and 1.5, templates 2.5, new packs Part 4).
+- `docs/scripts-and-workflows.md`: summary of every script and workflow, update spec syntax (`apply_update.py`, `make_update_script.py`).
+- `docs/mcicons-index.md`: every Minecraft icon id in MCicons (generated).
+- `docs/bedrock-guide.md`: add-on architecture, folder structure, manifest setup, target API versions.
+- Meaning of a build or doc check message: query the exact message text with the script name.
+
+## Rules
+
+1. Query first, write second. Batch: at most ONE `query-docs` call per needed `libraryId`, covering every topic needed from it, all calls in one parallel turn. NEVER two calls to the same `libraryId`. Name the exact member, file, id or schema and the game or module version.
+2. Verify every import, class, method, property and JSON field against the retrieved text. NEVER `mojang-minecraft`, `world.events` or 1.x syntax.
+3. Empty or doubtful result: no sequential retry loop. Say "not verified". NEVER fill the gap from memory.
+4. Versions come only from retrieved text. State the exact version used and the query date.
+5. Handoff bullet: `Docs queried (YYYY-MM-DD): <library IDs and topics>`.
+6. Library IDs, query text and the word Context7 NEVER go into shipped files or player-facing docs.
+
+## Scripts that must run
+
+- `make_pack_script.py`, `build_payload.py`, `import_project_payload.py`, `doc_template.py`, `pixel_json_to_png.py`, `make_update_script.py` and `apply_update.py` need their COMPLETE unchanged text. A Context7 snippet is not enough.
+- The complete files are in the kit zip (`New-Pack.zip`, `Maintenance.zip` or the pack's review zip `<Pack>.zip`) under `files/`. Specifically, `make_update_script.py`, `apply_update.py`, `pixel_json_to_png.py`, and `docs/mcicons-index.md` are packaged under `files/`. Unzip, run from there, NEVER retype or edit them.
+- No zip and only partial text from a query: stop and ask the user to attach the zip. NEVER rewrite a script from memory.
+- A file attached in the conversation or read from a clone wins over the Context7 index. Context7 shows the repo as last indexed. Tell the user about any difference.
+
+## Icons (MCicons)
+
+- Any vanilla item or block icon (recipe diagrams, sprites, README or listing images, UI art): use MCicons ONLY. It is the release file `reference/mcicons/mcicons-<ver>.tgz` in the repo (`package/dist/icons/minecraft_<id>.png`, 64x64, only `minecraft:` ids). It is NOT in Context7: read it with `scripts/lib/mcicons.py` (`has_icon(id)`, `icon_image(id)`), never retype or guess a PNG.
+- No icon for the id (custom ids, newer items): report it. NO fallback to Samples, the Wiki, another icon site or a third-party pack.
+- Context7 cannot index the binary `.tgz`, but `docs/mcicons-index.md` (`/allenscreations/mcpe-curseforges`) lists every icon id it holds: query it to check an id before using an icon.
+- The `.tgz` itself is not in the kit zips. To run code that reads the pixels it must be in the clone; if it is missing, ask the user to attach it. NEVER substitute a lookalike.
+- Every manifest (BP and RP) carries `metadata.authors` = `["ALNStudios"]` and `metadata.product_type` = `"addon"`, always.
+- Keep its `ASSET-NOTICE.md` with any redistributed icon.
+
+## Reading the directory map
+
+- The map lists directories with file counts. Pick the folder, then query for the file. For exact file text of a pack, ask for a Collect Files export of that path.
+- NEVER edit generated folders and files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`, `builds/README.md`.
+```
+
+## Skill: .agents/skills/mcpe-pack-update/SKILL.md
+
+````markdown
+---
+name: mcpe-pack-update
+description: Use for any change to an existing project, workflow, script or doc in the MCPE-Curseforges repository (update, fix, add, rename). Delivers every change as ONE self-contained Termux update script (<Pack>_v<Version>_<rand>.sh) containing the spec and rich UI.
+---
+
+# mcpe-pack-update: Update Delivery
+
+## Authority
+
+- `INSTRUCTIONS.md` is the policy source. `PACK_GENERATOR_INSTRUCTIONS.md` is its standalone copy for generation. The script flow is `INSTRUCTIONS.md` "Termux Script Rules", built with `scripts/make_update_script.py`. Where to look each rule up: the `mcpe-context7` skill. This skill is a short working checklist and never restates or overrides them.
+- **Precedence** (as in `PACK_GENERATOR_INSTRUCTIONS.md`): factual accuracy and the user's requested scope, then Part 1, then Part 2, then this skill. Part 4 of the generator file never overrides Parts 1 and 2.
+- If these files disagree with each other or with a script in `scripts/`, tell the user exactly what differs instead of choosing silently. If `INSTRUCTIONS.md` cannot be read, stop and report it instead of working from memory.
+- Achievements line (every project type): always `Yes, achievement-friendly.` Keep any cheats or world-setting caveat as a following sentence.
+
+## Scope
+
+- Use for changes to an existing project (`MCPEDL/Addons|Maps|Script|Minigame/<Name>/`), a workflow, a script, a catalog or any repo doc.
+- Read-only audit or report: use `checkrm`.
+- New project from an idea: follow `PACK_GENERATOR_INSTRUCTIONS.md` Part 4 (ask the type first, base64 payload).
+
+## Procedure
+
+1. Read `INSTRUCTIONS.md` Parts 1 and 2 before writing anything, through Context7 as the `mcpe-context7` skill says. `make_update_script.py`, `apply_update.py`, and `pixel_json_to_png.py` are complete in the pack's review zip (`<Pack>.zip`) under `files/`; run them from there.
+2. Find the destination folder: the path the user named, otherwise the matching project folder. Do not substitute a similar name; report ambiguity or a missing target.
+3. Read the real source (manifests, scripts, items, recipes, loot tables, functions, lang files) before writing any claim. Source priority when sources disagree: the project's own files, Mojang Bedrock Samples, official Minecraft Creator Documentation, Minecraft Wiki, Bedrock Wiki.
+4. Make the smallest possible change. No unrelated rewrites. Never invent features, versions, links, assets, test results or compatibility. Never write comments in shipped `.js`, `.mcfunction` or `.json` files.
+5. Generate the spec, convert it with `make_update_script.py` into a single self-contained `<Pack>_v<Version>_<rand>.sh` file, and provide the one-line run command for the user.
+
+## The update script
+
+Generate the spec with `apply_update.py` directives (replace, replace-all, insert-after, insert-before, create, overwrite, delete, changelog).
+Then build the single `.sh` using:
+```bash
+python3 files/scripts/make_update_script.py spec.txt --out-dir .
+```
+This produces ONE single `.sh` file (`<PackName>_v<Version>_<rand>.sh`) that contains the embedded update payload, ANSI colored status UI, automated git rebase, validation checks, commit, and push.
+
+## Reply
+
+1. Attach or output the single `.sh` file (`<PackName>_v<Version>_<rand>.sh`).
+2. Give the single Termux command:
+```bash
+bash ~/storage/downloads/<PackName>_v<Version>_*.sh
+```
+3. Brief summary of what changed and what checks ran.
+4. **Save in AI memory**: Every finished output, applied change summary, and spec version must be retained in AI memory/scratch notes so context is preserved across turns without relying on session replay.
+````
+
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Addons/ALNChronoStop/behavior_pack/items/chrono_watch.json (26 lines, 555 bytes)
+
+```
+{
+  "format_version": "1.21.114",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:chrono_watch",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "textures": {
+          "default": "chrono_watch"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "\u00a7l\u00a7bChrono \u00a76Watch"
+      },
+      "minecraft:use_modifiers": {
+        "use_duration": 0.1,
+        "movement_modifier": 1
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNChronoStop/behavior_pack/manifest.json (57 lines, 1033 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN:ChronoStop BP (v1)",
+    "description": "Time-stop with gradual slowdown, suspended projectiles and a submerged sound pulse, by ALNStudios.",
+    "uuid": "b8eca3b8-90da-4c69-9916-2107b53dd800",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      114
+    ]
+  },
+  "modules": [
+    {
+      "type": "script",
+      "language": "javascript",
+      "entry": "scripts/main.js",
+      "uuid": "6cfcbaf1-dcc1-4665-b992-2f57d02d2811",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "5aaf2767-5d30-45ea-ba83-6ca6d05be0c4",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.7.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.0.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNChronoStop/behavior_pack/scripts/lib/README.md (4 lines, 153 bytes)
+
+```
+# Scripts lib
+
+Reserved for shared helper modules of ALN:ChronoStop. The add-on currently ships everything in main.js, so this folder holds no code yet.
+```
+
+## FILE: MCPEDL/Addons/ALNChronoStop/behavior_pack/scripts/main.js (367 lines, 10754 bytes)
+
+```
+import { world, system, MolangVariableMap } from "@minecraft/server";
+import { ModalFormData } from "@minecraft/server-ui";
+
+const CLOCK_ID = "minecraft:clock";
+const WATCH_ID = "aln:chrono_watch";
+const CONFIG_KEY = "aln_chrono:config";
+const RADIUS = 48;
+const RAMP_TICKS = 30;
+const DOME_RADIUS = 18;
+const GRACE_TICKS = 4;
+const GRACE_RANGE = 8;
+const HEARTBEAT_TICKS = 32;
+const PULSE_TICKS = 10;
+const FREEZE_OPTIONS = [5, 8, 12, 15];
+const COOLDOWN_OPTIONS = [15, 30, 60];
+const DEFAULTS = { freeze: 8, cooldown: 30, particles: true };
+const PROJECTILES = new Set([
+  "minecraft:arrow",
+  "minecraft:snowball",
+  "minecraft:egg",
+  "minecraft:ender_pearl",
+  "minecraft:fireball",
+  "minecraft:small_fireball",
+  "minecraft:thrown_trident",
+  "minecraft:splash_potion",
+  "minecraft:lingering_potion",
+  "minecraft:xp_bottle",
+  "minecraft:wither_skull",
+  "minecraft:wither_skull_dangerous",
+  "minecraft:wind_charge_projectile",
+]);
+
+let tickNow = 0;
+let session = null;
+let pulse = null;
+const cooldowns = new Map();
+
+const add = (a, b) => ({ x: a.x + b.x, y: a.y + b.y, z: a.z + b.z });
+const sub = (a, b) => ({ x: a.x - b.x, y: a.y - b.y, z: a.z - b.z });
+const mul = (a, k) => ({ x: a.x * k, y: a.y * k, z: a.z * k });
+const len = (a) => Math.hypot(a.x, a.y, a.z);
+const copy = (a) => ({ x: a.x, y: a.y, z: a.z });
+const smooth = (p) => p * p * (3 - 2 * p);
+
+function loadConfig() {
+  try {
+    const raw = world.getDynamicProperty(CONFIG_KEY);
+    if (typeof raw !== "string") return { ...DEFAULTS };
+    const c = JSON.parse(raw);
+    return {
+      freeze: FREEZE_OPTIONS.includes(c.freeze) ? c.freeze : DEFAULTS.freeze,
+      cooldown: COOLDOWN_OPTIONS.includes(c.cooldown) ? c.cooldown : DEFAULTS.cooldown,
+      particles: typeof c.particles === "boolean" ? c.particles : DEFAULTS.particles,
+    };
+  } catch (e) {
+    return { ...DEFAULTS };
+  }
+}
+
+function saveConfig(cfg) {
+  try {
+    world.setDynamicProperty(CONFIG_KEY, JSON.stringify(cfg));
+  } catch (e) {}
+}
+
+function bar(player, text) {
+  try {
+    player.onScreenDisplay.setActionBar(text);
+  } catch (e) {}
+}
+
+function gauge(fraction, on, off) {
+  const n = Math.max(0, Math.min(20, Math.round(fraction * 20)));
+  return `${on}${"|".repeat(n)}${off}${"|".repeat(20 - n)}`;
+}
+
+function velocityOf(entity) {
+  try {
+    return copy(entity.getVelocity());
+  } catch (e) {
+    return { x: 0, y: 0, z: 0 };
+  }
+}
+
+function playersNear(dim, center) {
+  const out = [];
+  for (const p of world.getAllPlayers()) {
+    try {
+      if (p.dimension.id === dim.id && len(sub(p.location, center)) <= RADIUS) out.push(p);
+    } catch (e) {}
+  }
+  return out;
+}
+
+function playFor(players, sound) {
+  for (const p of players) {
+    try {
+      p.playSound(sound);
+    } catch (e) {}
+  }
+}
+
+const cyanMap = new MolangVariableMap();
+cyanMap.setColorRGB("variable.color", { red: 0.2, green: 0.9, blue: 1.0 });
+const goldMap = new MolangVariableMap();
+goldMap.setColorRGB("variable.color", { red: 1.0, green: 0.78, blue: 0.2 });
+
+function spawn(dim, loc, gold) {
+  try {
+    dim.spawnParticle("minecraft:colored_flame_particle", loc, gold ? goldMap : cyanMap);
+  } catch (e) {}
+}
+
+function drawDome(dim, center, radius, shellCount, spin) {
+  for (let i = 0; i < shellCount; i++) {
+    const u = Math.random() * 2 - 1;
+    const th = Math.random() * Math.PI * 2;
+    const r = Math.sqrt(1 - u * u);
+    spawn(
+      dim,
+      { x: center.x + radius * r * Math.cos(th), y: center.y + 1 + radius * u * 0.9, z: center.z + radius * r * Math.sin(th) },
+      i % 2 === 0
+    );
+  }
+  for (let k = 0; k < 24; k++) {
+    const a = (k / 24) * Math.PI * 2 + spin;
+    spawn(dim, { x: center.x + radius * Math.cos(a), y: center.y + 0.15, z: center.z + radius * Math.sin(a) }, true);
+  }
+  for (let k = 0; k < 12; k++) {
+    const a = (k / 12) * Math.PI * 2 - spin * 1.6;
+    spawn(dim, { x: center.x + radius * 0.6 * Math.cos(a), y: center.y + 0.15, z: center.z + radius * 0.6 * Math.sin(a) }, false);
+  }
+}
+
+function makeRecord(entity) {
+  const loc = entity.location;
+  return {
+    entity,
+    pos: copy(loc),
+    vel: velocityOf(entity),
+    proj: PROJECTILES.has(entity.typeId),
+    free: false,
+    until: 0,
+    skip: entity.typeId === "minecraft:player",
+  };
+}
+
+function collect(s, center, elapsed, allowGrace) {
+  let found;
+  try {
+    found = s.dim.getEntities({ location: center, maxDistance: RADIUS });
+  } catch (e) {
+    return;
+  }
+  for (const entity of found) {
+    try {
+      if (entity.id === s.casterId || s.records.has(entity.id)) continue;
+      const rec = makeRecord(entity);
+      if (allowGrace && rec.proj && len(sub(entity.location, center)) <= GRACE_RANGE) {
+        rec.free = true;
+        rec.until = elapsed + GRACE_TICKS;
+      }
+      s.records.set(entity.id, rec);
+    } catch (e) {}
+  }
+}
+
+function rampStep(rec, slow) {
+  const e = rec.entity;
+  if (rec.proj) {
+    rec.pos = add(rec.pos, mul(rec.vel, slow));
+    e.teleport(rec.pos, { keepVelocity: false });
+    e.clearVelocity();
+    return;
+  }
+  const cur = e.location;
+  const next = add(rec.pos, mul(sub(cur, rec.pos), slow));
+  if (len(sub(next, cur)) > 0.001) e.teleport(next, { keepVelocity: true });
+  rec.pos = next;
+  rec.vel = velocityOf(e);
+}
+
+function lockStep(rec) {
+  const e = rec.entity;
+  const cur = e.location;
+  if (len(sub(cur, rec.pos)) > 0.01) e.teleport(rec.pos, { keepVelocity: false });
+  e.clearVelocity();
+}
+
+function forEachRecord(s, fn) {
+  for (const [id, rec] of s.records) {
+    try {
+      fn(rec);
+    } catch (e) {
+      s.records.delete(id);
+    }
+  }
+}
+
+function finish() {
+  const s = session;
+  session = null;
+  let center = null;
+  try {
+    center = copy(s.caster.location);
+  } catch (e) {}
+  forEachRecord(s, (rec) => {
+    if (rec.skip) return;
+    rec.entity.clearVelocity();
+    if (len(rec.vel) > 0.001) rec.entity.applyImpulse(rec.vel);
+  });
+  playFor(playersNear(s.dim, center ?? s.origin), "aln.chrono.resume");
+  pulse = { dim: s.dim, center: center ?? s.origin, start: tickNow, particles: s.cfg.particles };
+  cooldowns.set(s.casterId, { until: tickNow + s.cfg.cooldown * 20, total: s.cfg.cooldown * 20 });
+}
+
+function stepSession() {
+  const s = session;
+  let center;
+  try {
+    center = copy(s.caster.location);
+    if (s.caster.dimension.id !== s.dim.id) throw new Error("dimension");
+  } catch (e) {
+    finish();
+    return;
+  }
+  const elapsed = tickNow - s.start - 1;
+
+  if (elapsed < RAMP_TICKS) {
+    const p = (elapsed + 1) / RAMP_TICKS;
+    const slow = 1 - smooth(p);
+    collect(s, center, elapsed, false);
+    forEachRecord(s, (rec) => rampStep(rec, slow));
+    if (s.cfg.particles) drawDome(s.dim, center, DOME_RADIUS * smooth(p), 70, elapsed * 0.12);
+    if (elapsed % 2 === 0) bar(s.caster, `§l§bALN §6Chrono §r§7| §fTime slowing §b${Math.round(p * 100)}%`);
+    return;
+  }
+
+  const held = elapsed - RAMP_TICKS;
+  if (held >= s.hold) {
+    finish();
+    return;
+  }
+
+  collect(s, center, elapsed, true);
+  forEachRecord(s, (rec) => {
+    if (rec.free) {
+      if (elapsed >= rec.until) rec.free = false;
+      rec.pos = copy(rec.entity.location);
+      rec.vel = velocityOf(rec.entity);
+      return;
+    }
+    lockStep(rec);
+  });
+
+  if (held % HEARTBEAT_TICKS === 0) playFor(playersNear(s.dim, center), "aln.chrono.heartbeat");
+  if (s.cfg.particles) drawDome(s.dim, center, DOME_RADIUS, 22, elapsed * 0.05);
+  if (held % 2 === 0) {
+    const left = (s.hold - held) / 20;
+    bar(s.caster, `§l§bALN §6Chrono §r§7| §bTime stopped §f${left.toFixed(1)}s §8${gauge(1 - held / s.hold, "§b", "§8")}`);
+  }
+}
+
+function stepPulse() {
+  const t = tickNow - pulse.start;
+  if (t >= PULSE_TICKS) {
+    pulse = null;
+    return;
+  }
+  if (!pulse.particles) return;
+  drawDome(pulse.dim, pulse.center, 2 + (DOME_RADIUS * 1.3 - 2) * smooth(t / PULSE_TICKS), 60, t * 0.3);
+}
+
+function findPlayer(id) {
+  for (const p of world.getAllPlayers()) {
+    try {
+      if (p.id === id) return p;
+    } catch (e) {}
+  }
+  return null;
+}
+
+function stepCooldowns() {
+  for (const [id, cd] of cooldowns) {
+    if (session && session.casterId === id) continue;
+    const player = findPlayer(id);
+    if (!player) {
+      cooldowns.delete(id);
+      continue;
+    }
+    const left = cd.until - tickNow;
+    if (left <= 0) {
+      cooldowns.delete(id);
+      bar(player, "§l§bALN §6Chrono §r§7| §aReady");
+      continue;
+    }
+    if (left % 2 === 0) {
+      bar(player, `§l§bALN §6Chrono §r§7| §eRecharging §f${(left / 20).toFixed(1)}s §8${gauge(1 - left / cd.total, "§6", "§8")}`);
+    }
+  }
+}
+
+function activate(player) {
+  if (session) {
+    bar(player, "§l§bALN §6Chrono §r§7| §cTime is already stopped");
+    return;
+  }
+  const cd = cooldowns.get(player.id);
+  if (cd && cd.until > tickNow) {
+    bar(player, `§l§bALN §6Chrono §r§7| §eRecharging §f${((cd.until - tickNow) / 20).toFixed(1)}s`);
+    return;
+  }
+  const cfg = loadConfig();
+  session = {
+    caster: player,
+    casterId: player.id,
+    dim: player.dimension,
+    origin: copy(player.location),
+    start: tickNow,
+    hold: cfg.freeze * 20,
+    cfg,
+    records: new Map(),
+  };
+  playFor(playersNear(player.dimension, player.location), "aln.chrono.submerge");
+}
+
+function ordered(options, current) {
+  return [current, ...options.filter((v) => v !== current)];
+}
+
+function openSettings(player) {
+  const cfg = loadConfig();
+  const freezeList = ordered(FREEZE_OPTIONS, cfg.freeze);
+  const coolList = ordered(COOLDOWN_OPTIONS, cfg.cooldown);
+  const domeList = cfg.particles ? ["On", "Off"] : ["Off", "On"];
+  const form = new ModalFormData();
+  form.title("§l§6ALN §bChronoStop §r§7Settings");
+  form.dropdown("Freeze Duration", freezeList.map((v, i) => (i === 0 ? `${v}s (current)` : `${v}s`)));
+  form.dropdown("Cooldown Timer", coolList.map((v, i) => (i === 0 ? `${v}s (current)` : `${v}s`)));
+  form.dropdown("Visual Dome Particles", domeList.map((v, i) => (i === 0 ? `${v} (current)` : v)));
+  form.show(player).then((r) => {
+    if (r.canceled) return;
+    const [f, c, d] = r.formValues;
+    const next = {
+      freeze: freezeList[f] ?? cfg.freeze,
+      cooldown: coolList[c] ?? cfg.cooldown,
+      particles: (domeList[d] ?? domeList[0]) === "On",
+    };
+    saveConfig(next);
+    bar(player, `§l§bALN §6Chrono §r§7| §aSaved §f${next.freeze}s §7/ §f${next.cooldown}s §7/ §f${next.particles ? "dome on" : "dome off"}`);
+  }).catch(() => {});
+}
+
+world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
+  const id = itemStack?.typeId;
+  if (id !== CLOCK_ID && id !== WATCH_ID) return;
+  if (source.isSneaking) openSettings(source);
+  else activate(source);
+});
+
+system.runInterval(() => {
+  tickNow++;
+  if (session) stepSession();
+  if (pulse) stepPulse();
+  if (cooldowns.size > 0) stepCooldowns();
+}, 1);
+```
+
+## FILE: MCPEDL/Addons/ALNChronoStop/CHANGELOG.md (13 lines, 520 bytes)
+
+```
+# Changelog — ALN:ChronoStop
+
+---
+
+## [1.0.0] - 2026-11-24
+
+### Added
+
+- **Time stop**: Clock and Chrono Watch slow the world over 1.5 seconds, then freeze nearby creatures, falling blocks and projectiles.
+- **Suspended projectiles**: Frozen projectiles keep their saved velocity and launch together when time resumes.
+- **Submerged sounds**: Three custom sounds for the slowdown, the frozen pulse and the resume snap.
+- **Chrono Settings**: Freeze duration, cooldown and dome particles, with an Action Bar countdown.
+```
+
+## FILE: MCPEDL/Addons/ALNChronoStop/DESCRIPTION.md (74 lines, 3875 bytes)
+
+```
+# ALN:ChronoStop — Gradual time freeze with suspended projectiles
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+Use a Clock to slow the world down, stop it completely, and then release everything at once, while you stay free to move and act.
+
+## Overview
+
+Right-click a Clock or the Chrono Watch and time around you decelerates over 1.5 seconds until every nearby creature, falling block and projectile hangs motionless. A cyan and gold clockwork dome expands from you while a muffled underwater pressure sound plays. When the freeze ends, a sharp reality snap sounds and everything resumes together, with every frozen arrow launching forward at once.
+
+## Key Features
+
+### Gradual Deceleration
+
+- **What Happens**: For 1.5 seconds movement and projectile speed fade smoothly to zero while the dome expands around you.
+
+### Complete Time Stop
+
+- **What Happens**: Everything within 48 blocks except you holds its exact position, including mobs, falling blocks, dropped items and mid-air arrows, fireballs, snowballs and tridents. Saved velocities are restored on resume.
+
+### Your Own Shots Travel, Then Freeze
+
+- **What Happens**: Arrows and thrown items you launch during the stop fly a short distance from your hand and then hang in the air with the rest.
+
+### Submerged Sound Design
+
+- **What Happens**: A sub-bass water-pressure drop plays as time slows, a faint deep-water pulse repeats while frozen, and a reverse-water snap with a clock chime plays on resume.
+
+### Chrono Settings and Action Bar
+
+- **What Happens**: Sneak and use the Clock to choose freeze time (5, 8, 12 or 15 seconds), cooldown (15, 30 or 60 seconds) and dome particles on or off. The Action Bar shows the countdown and the recharge timer.
+
+## How to Use
+
+1. Enable both the Behavior Pack and the Resource Pack in your world.
+2. Hold a Clock or the Chrono Watch and use it to stop time.
+3. Sneak and use it to open Chrono Settings.
+4. To get the Chrono Watch, run the give command for aln:chrono_watch.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: Written for 1.21.114 and newer.
+- Experimental features: None required.
+- Achievements: Yes, achievement-friendly.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+Created by ALNStudios. Profiles: [CurseForge](https://www.curseforge.com/members/allenscreations/projects) and [MCPEDL](https://mcpedl.com/user/alnstudios/).
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, MCPEDL add-on, CurseForge Bedrock, ALNStudios, time stop, time freeze, clock, frozen projectiles, script add-on
+```
+
+## FILE: MCPEDL/Addons/ALNChronoStop/project.json (4 lines, 49 bytes)
+
+```
+{
+  "type": "addon",
+  "name": "ALN:ChronoStop"
+}
+```
+
+## FILE: MCPEDL/Addons/ALNChronoStop/README.md (19 lines, 787 bytes)
+
+```
+# ALNChronoStop
+
+Download the current release of **ALNChronoStop** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download ALNChronoStop (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNChronoStop/ALNChronoStop%20V1.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALNChronoStop/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Addons/ALNChronoStop/resource_pack/manifest.json (47 lines, 783 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN:ChronoStop RP (v1)",
+    "description": "Submerged-water time-stop sounds and the Chrono Watch icon, by ALNStudios.",
+    "uuid": "5aaf2767-5d30-45ea-ba83-6ca6d05be0c4",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      114
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "42695db0-2e92-4602-821e-bea571c6c342",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "b8eca3b8-90da-4c69-9916-2107b53dd800",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNChronoStop/resource_pack/sounds/sound_definitions.json (23 lines, 443 bytes)
+
+```
+{
+  "format_version": "1.14.0",
+  "sound_definitions": {
+    "aln.chrono.submerge": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/chrono_submerge"
+      ]
+    },
+    "aln.chrono.heartbeat": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/chrono_heartbeat"
+      ]
+    },
+    "aln.chrono.resume": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/chrono_resume"
+      ]
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNChronoStop/resource_pack/textures/item_texture.json (9 lines, 178 bytes)
+
+```
+{
+  "resource_pack_name": "aln_chronostop",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "chrono_watch": {
+      "textures": "textures/items/chrono_watch"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNChronoStop/texture_sources/chrono_watch.json (1 lines, 1010 bytes)
+
+```
+{"name": "chrono_watch", "size": 16, "folder": "items", "palette": {"0": "#00000000", "1": "#7a5200", "2": "#e8b830", "3": "#ffe27a", "4": "#0b3a52", "5": "#2fd8f0", "6": "#bff6ff", "7": "#ffffff"}, "pixels": [[0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 2, 2, 1, 1, 2, 2, 0, 0, 0, 0, 0], [0, 0, 0, 2, 2, 4, 4, 4, 4, 4, 4, 3, 2, 0, 0, 0], [0, 0, 0, 2, 4, 4, 4, 5, 4, 5, 4, 4, 2, 0, 0, 0], [0, 0, 2, 4, 4, 4, 5, 6, 4, 4, 5, 4, 4, 2, 0, 0], [0, 0, 2, 4, 4, 5, 4, 6, 4, 4, 4, 5, 4, 3, 0, 0], [0, 2, 4, 4, 5, 4, 4, 6, 4, 4, 4, 4, 4, 4, 2, 0], [0, 3, 4, 5, 4, 4, 4, 7, 6, 4, 4, 5, 4, 4, 2, 0], [0, 2, 4, 4, 5, 4, 4, 4, 6, 6, 4, 4, 4, 4, 2, 0], [0, 0, 2, 4, 4, 5, 4, 4, 4, 4, 4, 5, 4, 2, 0, 0], [0, 0, 2, 4, 4, 4, 5, 4, 4, 4, 5, 4, 4, 3, 0, 0], [0, 0, 0, 2, 4, 4, 4, 5, 4, 5, 4, 4, 3, 0, 0, 0], [0, 0, 0, 0, 2, 4, 4, 4, 4, 4, 4, 3, 0, 0, 0, 0], [0, 0, 0, 0, 0, 3, 2, 2, 2, 2, 3, 0, 0, 0, 0, 0]]}
+```

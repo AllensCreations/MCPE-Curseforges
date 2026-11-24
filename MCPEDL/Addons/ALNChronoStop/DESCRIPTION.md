@@ -70,3 +70,4 @@ Created by ALNStudios. Profiles: [CurseForge](https://www.curseforge.com/members
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, MCPEDL add-on, CurseForge Bedrock, ALNStudios, time stop, time freeze, clock, frozen projectiles, script add-on
+

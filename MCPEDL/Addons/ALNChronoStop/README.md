@@ -1,11 +1,11 @@
-# ALN:ChronoStop
+# ALNChronoStop
 
-Download the current release of **ALN:ChronoStop** for Minecraft Bedrock Edition.
+Download the current release of **ALNChronoStop** for Minecraft Bedrock Edition.
 
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN:ChronoStop (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-ChronoStop.mcaddon)
+- **Direct download:** [Download ALNChronoStop (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNChronoStop/ALNChronoStop%20V1.mcaddon)
 
 ## Installation
 
@@ -15,4 +15,4 @@ Download the current release of **ALN:ChronoStop** for Minecraft Bedrock Edition
 
 ## Pack Information
 
-For gameplay features, usage details, compatibility notes, and other project information, read the [full description](DESCRIPTION.md).
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALNChronoStop/DESCRIPTION.md).
