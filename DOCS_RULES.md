@@ -144,14 +144,14 @@ Add separate feature cards for meaningful mechanics. Put relevant item lists, mo
 Minecraft Bedrock add-on, [Add-on Name] Bedrock mod, [feature 1], [feature 2], [item or mob name], Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
 ```
 
-CHANGELOG.md. Newest first. Groups: Added, Improved & Balanced, Fixed (bugs as in-game experience). NEVER links, URLs, badges, function/event names, JSON diffs, hashes, CI steps, unverified benefits. NEVER Keep a Changelog/SemVer mention. After the title go straight to entries.
+CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` supported). Groups: Added, Improved & Balanced, Fixed (bugs as in-game experience). NEVER links, URLs, badges, function/event names, JSON diffs, hashes, CI steps, unverified benefits. NEVER Keep a Changelog/SemVer mention. After the title go straight to entries.
 
 ```markdown
 # Changelog — [Add-on Name]
 
 ---
 
-## [1.0.0] - YYYY-MM-DD - [Update Name]
+## [v1] - YYYY-MM-DD - [Update Name]
 
 ### Added
 - **[Feature Title]**: [Clear summary of the new gameplay feature and how players use it].

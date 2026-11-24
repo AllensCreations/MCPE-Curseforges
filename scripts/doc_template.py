@@ -101,7 +101,9 @@ def manifest_version(root):
 
 
 def vtuple(text):
-    return tuple(int(x) for x in text.split("."))
+    cleaned = str(text or "").lstrip("vV").strip()
+    parts = [int(p) for p in cleaned.split(".") if p.isdigit()]
+    return tuple(parts + [0] * (3 - len(parts)))
 
 
 def banned_content(name, text, errors, images_allowed=False):
@@ -323,7 +325,7 @@ def check_changelog(text, version, errors):
     versions, group_order, current, bullets_in_group = [], -1, None, 0
     in_entries = False
     for i, line in ne[2:]:
-        entry = re.match(r"^## \[(\d+\.\d+\.\d+(?:\.\d+)?)\] - (\d{4}-\d{2}-\d{2})(?: - \S.*)?$", line)
+        entry = re.match(r"^## \[([vV]?\d+(?:\.\d+\.\d+)?)\] - (\d{4}-\d{2}-\d{2})(?: - \S.*)?$", line)
         group = re.match(r"^### (.+)$", line)
         bullet = re.match(r"^- \*\*[^*]+\*\*: \S", line)
         if entry:
@@ -361,7 +363,7 @@ def check_changelog(text, version, errors):
     else:
         if [vtuple(v) for v in versions] != sorted((vtuple(v) for v in versions), reverse=True) or len(set(versions)) != len(versions):
             errors.append(f"DOC: {n} entries must be newest first with no duplicate versions.")
-        if version and versions[0] != version:
+        if version and vtuple(versions[0]) != vtuple(version):
             errors.append(f"DOC: {n} the newest entry is {versions[0]} but the manifest version is {version}.")
     if re.search(r"https?://|\]\(|www\.", text):
         errors.append(f"DOC: {n} must not contain links or URLs (Part 2).")

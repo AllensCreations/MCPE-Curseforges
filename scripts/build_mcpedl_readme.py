@@ -4,8 +4,9 @@
 Generated file. The Build Changed Packs & Sync Catalogs workflow runs this after the per-pack AI review
 files are refreshed. Output has no dates, so an unchanged repo gives an identical file.
 
-The AI review link is the pack's file MCPEDL/AI Review/<Name>.txt. Only files that exist
-are linked; a missing one shows "-".
+The AI review link is the pack's zip MCPEDL/AI Review/<Name>.zip which contains the review
+<Name>.txt and a files/scripts/ folder with make_update_script.py, apply_update.py and helpers.
+Only zips that exist are linked; a missing one shows "-".
 
 Usage: python3 scripts/build_mcpedl_readme.py [--check] [--root DIR]
   --check  write nothing, exit 1 when MCPEDL/README.md is out of date.
@@ -179,10 +180,11 @@ def render(root):
         for p in projects:
             ver = pack_version(p)
             status = pack_status(root, cat, p.name, ver, registry)
-            review = mcpedl / "AI Review" / f"{p.name}.txt"
-            if not review.is_file():
+            review_txt = mcpedl / "AI Review" / f"{p.name}.txt"
+            review_zip = mcpedl / "AI Review" / f"{p.name}.zip"
+            if not review_txt.is_file():
                 warnings.append(f"no AI review file for {cat}/{p.name}")
-            ai = f"[Download]({RAW}{quote(review.relative_to(root).as_posix())})" if review.is_file() else "-"
+            ai = f"[Download]({RAW}{quote(review_zip.relative_to(root).as_posix())})" if review_zip.is_file() else "-"
             listing = root / "Package" / f"{p.name}.listing.md"
             pkg = f"[Package]({link(mcpedl, listing)})" if listing.is_file() else "-"
             mismatch = version_mismatch(p)
