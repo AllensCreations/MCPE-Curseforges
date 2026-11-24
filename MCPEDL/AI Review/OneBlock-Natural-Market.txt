@@ -318,13 +318,13 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v16.0.10)",
+    "name": "OneBlock Natural Market (v16.0.11)",
     "description": "OneBlock survival with a progression market and regenerating core. by ALNStudios",
     "uuid": "77f07d1a-fa7a-437d-8fea-72068be05162",
     "version": [
       16,
       0,
-      10
+      11
     ],
     "min_engine_version": [
       1,
@@ -339,7 +339,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "version": [
         16,
         0,
-        10
+        11
       ]
     },
     {
@@ -349,7 +349,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "version": [
         16,
         0,
-        10
+        11
       ],
       "entry": "scripts/main.js"
     }
@@ -360,7 +360,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "version": [
         16,
         0,
-        10
+        11
       ]
     },
     {
@@ -377,7 +377,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "16.0.10"
+    "version": "16.0.11"
   }
 }
 ```
@@ -1329,10 +1329,10 @@ Extracted from the script files; nothing here was run in game.
 Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (838 lines, 45430 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (865 lines, 46656 bytes)
 
 ```
-import { world, system, ItemStack, ItemTypes, DisplaySlotId, ObjectiveSortOrder } from "@minecraft/server";
+import { world, system, ItemStack, ItemTypes, DisplaySlotId, ObjectiveSortOrder, EquipmentSlot } from "@minecraft/server";
 import { ActionFormData, MessageFormData, ModalFormData } from "@minecraft/server-ui";
 
 const CORE = { x: 0, y: 64, z: 0 };
@@ -2041,6 +2041,31 @@ function rescuePhased() {
     } catch (e) { logError("rescuePhased", e); }
   }
 }
+function damageTool(player, heldId) {
+  try {
+    let creative = false;
+    try { creative = String(player.getGameMode()).toLowerCase() === "creative"; } catch {}
+    if (creative || !heldId) return;
+    const cost = /_sword$/.test(heldId) ? 2 : /(pickaxe|_axe|_shovel|_hoe|shears)$/.test(heldId) ? 1 : 0;
+    if (!cost) return;
+    const slot = player.getComponent("minecraft:equippable")?.getEquipmentSlot(EquipmentSlot.Mainhand);
+    const stack = slot?.getItem();
+    const durability = stack?.getComponent("minecraft:durability");
+    if (!stack || stack.typeId !== heldId || !durability) return;
+    let level = 0;
+    try { level = stack.getComponent("minecraft:enchantable")?.getEnchantment("unbreaking")?.level ?? 0; } catch {}
+    let hits = 0;
+    for (let i = 0; i < cost; i++) if (Math.random() < 1 / (level + 1)) hits++;
+    if (!hits) return;
+    if (durability.damage + hits >= durability.maxDurability) {
+      slot.setItem(undefined);
+      try { player.playSound("random.break"); } catch {}
+      return;
+    }
+    durability.damage += hits;
+    slot.setItem(stack);
+  } catch (e) { logError("damageTool", e); }
+}
 let coreBreakPending = false;
 function onCoreBreak(player, brokenId) {
   const personal = personalBreaks(player) + 1;
@@ -2120,12 +2145,14 @@ world.beforeEvents.playerBreakBlock.subscribe(event => {
   event.cancel = true;
   if (coreBreakPending) return;
   const brokenId = event.block.typeId;
+  const heldId = event.itemStack?.typeId;
   coreBreakPending = true;
   system.run(() => {
     try {
       log("INFO", "Core break detected by " + player.name + " (void_cleaned tag=" + player.hasTag("void_cleaned") + ").");
       if (player.hasTag("void_cleaned")) {
         onCoreBreak(player, brokenId);
+        damageTool(player, heldId);
         const block = world.getDimension("overworld").getBlock(CORE);
         if (block) placeCore(block);
       }
@@ -2171,12 +2198,17 @@ system.runInterval(() => {
 }, 20);
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (228 lines, 13371 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (233 lines, 13654 bytes)
 
 ```
 # Changelog — OneBlock Natural Market
 
 ---
+
+## [16.0.11] - 2026-11-24 - Core Tool Durability
+
+### Improved & Balanced
+- **Tool durability**: breaking the central block uses up durability on your pickaxe, axe, shovel, hoe, shears or sword again, and Unbreaking works. Swords lose 2 per break. Nothing is used in creative mode.
 
 ## [16.0.10] - 2026-11-24 - Block Values And No Drops
 
@@ -2525,13 +2557,13 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v16.0.10)",
+    "name": "OneBlock Natural Market (v16.0.11)",
     "description": "Trader Ledger icon for OneBlock Natural Market. by ALNStudios",
     "uuid": "187333a6-4353-4003-b379-471f85ce9021",
     "version": [
       16,
       0,
-      10
+      11
     ],
     "min_engine_version": [
       1,
@@ -2546,7 +2578,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "version": [
         16,
         0,
-        10
+        11
       ]
     }
   ],
@@ -2555,7 +2587,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "16.0.10"
+    "version": "16.0.11"
   }
 }
 ```

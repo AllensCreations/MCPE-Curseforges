@@ -1,17 +1,22 @@
 # Changelog — OneBlock Natural Market
 
-## [16.0.10] - 2026-11-24 - Block Values And No Drops
-
-### Added
-- **Block values**: every block type pays its own Coin value, rising with each tier from 1 Coin for Dirt to 60 for Obsidian.
+## [16.0.11] - 2026-11-24 - Core Tool Durability
 
 ### Improved & Balanced
+- **Tool durability**: breaking the central block uses up durability on your pickaxe, axe, shovel, hoe, shears or sword again, and Unbreaking works. Swords lose 2 per break. Nothing is used in creative mode.
+
+<details>
+<summary><b>16.0.x</b> (11 releases)</summary>
+
+### [16.0.10] - 2026-11-24 - Block Values And No Drops
+
+#### Added
+- **Block values**: every block type pays its own Coin value, rising with each tier from 1 Coin for Dirt to 60 for Obsidian.
+
+#### Improved & Balanced
 - **No drops**: the central block no longer drops items or experience. Breaking it only earns Coins.
 - **Tier prices**: market prices now rise faster with tier, up to about 10 times at the last tier, to match the new Coin income. Items in the first 6 tiers cost the same as before.
 - **Regeneration pool**: purchased blocks no longer join the central block's pool, and any already added are ignored.
-
-<details>
-<summary><b>16.0.x</b> (10 releases)</summary>
 
 ### [16.0.9] - 2026-11-24 - Coins Scoreboard Hidden Names
 
