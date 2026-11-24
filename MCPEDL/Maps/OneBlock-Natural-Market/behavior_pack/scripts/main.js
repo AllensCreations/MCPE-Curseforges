@@ -9,14 +9,7 @@ const BOARD = "obm_coins_board";
 const MINED = "obm_mined";
 const TOTAL = "obm_total";
 const GLOBAL_KEY = "OneBlockNaturalMarket";
-const POOL_KEY = "obm_purchased_blocks";
 const READY_EVENT = "allenscreations:oneblock_ready";
-const UNSAFE_CORE = new Set([
-  "minecraft:water", "minecraft:flowing_water", "minecraft:lava", "minecraft:flowing_lava",
-  "minecraft:oak_door", "minecraft:torch", "minecraft:redstone_torch", "minecraft:soul_torch",
-  "minecraft:lever", "minecraft:ladder", "minecraft:oak_sapling", "minecraft:sugar_cane",
-  "minecraft:bamboo", "minecraft:repeater", "minecraft:comparator", "minecraft:anvil", "minecraft:netherite_block"
-]);
 const MCICON_DIR = "textures/ui/natural_market/icons/";
 const CATEGORIES = [
   { name: "Building Blocks", icon: MCICON_DIR + "stone" },
@@ -41,11 +34,15 @@ const TIER_BLOCKS = [
   ["stone_bricks"], ["quartz_block"], ["purpur_block"], ["crying_obsidian"],
   ["ancient_debris"], ["obsidian"]
 ];
+const TIER_VALUES = [1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 14, 15, 17, 18, 20, 22, 24, 26, 28, 31, 33, 36, 39, 42, 45, 49, 52, 56, 60];
 const MILESTONES = TIER_BLOCKS.map((ids, i) => ({
   unlock: i === 0 ? 0 : Math.round(10000 * Math.pow(i / (TIER_BLOCKS.length - 1), 1.6) / 10) * 10,
   ids: ids.map(id => "minecraft:" + id),
-  reward: Math.round(1 + i * 11 / (TIER_BLOCKS.length - 1))
+  reward: TIER_VALUES[i]
 }));
+const BLOCK_VALUE = new Map(MILESTONES.flatMap(m => m.ids.map(id => [id, m.reward])));
+function blockValue(id) { return BLOCK_VALUE.get(id) ?? 1; }
+function blockName(id) { return id.replace("minecraft:", "").split("_").map(w => w[0].toUpperCase() + w.slice(1)).join(" "); }
 const CATALOG = [
   ["dirt", 2, 16, "Building Blocks", 0, true, "textures/blocks/dirt"],
   ["coarse_dirt", 2, 16, "Building Blocks", 0, true, "textures/blocks/coarse_dirt"],
@@ -281,14 +278,13 @@ for (const [mob, price, tier] of SPAWN_EGGS) {
 }
 const BASE_PRICE_FIX = { iron_block: 100, hay_block: 20, redstone_block: 70, netherite_block: 4500 };
 const SELL_FIX = { netherite_block: 100, ancient_debris: 40, obsidian: 10 };
-const priceMult = tier => (tier <= 5 ? 1 : 1 + (tier - 5) * 0.2);
+const priceMult = tier => (tier <= 5 ? 1 : 1 + (tier - 5) * 0.4);
 for (const item of CATALOG) {
   const base = BASE_PRICE_FIX[item.raw] ?? item.price;
   item.sell = item.category === "Spawn Eggs" ? 0 : (SELL_FIX[item.raw] ?? Math.max(1, Math.floor(base / 2)));
   item.price = Math.max(1, Math.round(base * priceMult(item.tier)));
   item.icon = MCICON_DIR + item.raw;
 }
-const BUILDING_IDS = new Set(CATALOG.filter(i => i.category === "Building Blocks").map(i => i.id));
 const LEDGER_PENDING = "obm_ledger_pending";
 const DEBUG_TAG = "obm_debug";
 const STATUS_EVENT = "allenscreations:obm_status";
@@ -413,28 +409,7 @@ function showForm(form, player, retries = 0) {
   });
 }
 function currentPool() {
-  const pool = new Set(MILESTONES.filter(m => totalBreaks() >= m.unlock).flatMap(m => m.ids));
-  for (const id of storedPool()) pool.add(id);
-  return [...pool];
-}
-function storedPool() {
-  try {
-    const raw = world.getDynamicProperty(POOL_KEY);
-    if (typeof raw !== "string") return [];
-    const list = JSON.parse(raw);
-    if (!Array.isArray(list)) return [];
-    return list
-      .filter(id => typeof id === "string")
-      .map(id => id.includes(":") ? id : "minecraft:" + id)
-      .filter(id => !UNSAFE_CORE.has(id) && !BUILDING_IDS.has(id));
-  } catch { return []; }
-}
-function addBlockToPool(item) {
-  if (!item.block || item.category === "Building Blocks" || UNSAFE_CORE.has(item.id)) return;
-  const stored = storedPool();
-  if (stored.includes(item.id)) return;
-  stored.push(item.id);
-  try { world.setDynamicProperty(POOL_KEY, JSON.stringify(stored.map(id => id.replace("minecraft:", "")))); } catch {}
+  return [...new Set(MILESTONES.filter(m => totalBreaks() >= m.unlock).flatMap(m => m.ids))];
 }
 function coreBlock() {
   const pool = currentPool();
@@ -498,7 +473,7 @@ function showAbout(player) {
   form = addOptional(form, "label",
     "by ALNStudios\n\n" +
     "Start in the void on a single regenerating block.\n" +
-    "Break the core to earn Coins and grow your block pool.\n" +
+    "Break the core to earn Coins. Each block type pays its own value.\n" +
     "Use the Natural Market Ledger to buy supplies.\n\n" +
     "The Ledger cannot be dropped. It always returns to you.\n\n" +
     "Version: v16 | ALNStudios | CurseForge / MCPEDL");
@@ -574,7 +549,6 @@ function purchase(player, item) {
   if (delivered <= 0) return tell(player, "Inventory full. No Coins were taken.");
   if (delivered < item.amount) tell(player, "Only " + delivered + " item(s) fit; charged " + charged + " Coins.");
   else tell(player, "Purchased " + delivered + " x " + item.name + " for " + charged + " Coins.");
-  addBlockToPool(item);
   showBalance(player);
 }
 function scanSellable(inv, values) {
@@ -734,19 +708,19 @@ function rescuePhased() {
   }
 }
 let coreBreakPending = false;
-function onCoreBreak(player) {
+function onCoreBreak(player, brokenId) {
   const personal = personalBreaks(player) + 1;
   const total = totalBreaks() + 1;
   writeScore(MINED, player, personal);
   writeScore(TOTAL, GLOBAL_KEY, total);
   tutorialStep(player, total);
-  const milestone = [...MILESTONES].reverse().find(m => total >= m.unlock) ?? MILESTONES[0];
-  writeScore(COINS, player, balance(player) + milestone.reward);
+  const value = blockValue(brokenId);
+  writeScore(COINS, player, balance(player) + value);
   if (MILESTONES.some(m => m.unlock > 0 && m.unlock === total)) {
     world.sendMessage("§6[Natural Market] §rA new core milestone has been reached. More block types can now appear.");
   }
-  log("INFO", player.name + " mined the core: personal=" + personal + " shared=" + total + " reward=" + milestone.reward + ".");
-  tell(player, "Core mined: +" + milestone.reward + " Coins.");
+  log("INFO", player.name + " mined the core: personal=" + personal + " shared=" + total + " block=" + brokenId + " reward=" + value + ".");
+  tell(player, "Core mined: " + blockName(brokenId) + " +" + value + " Coins.");
   showBalance(player);
 }
 system.afterEvents.scriptEventReceive.subscribe(event => {
@@ -804,23 +778,26 @@ world.afterEvents.itemThrow?.subscribe(event => {
   }, 5);
 });
 
-world.afterEvents.playerBreakBlock.subscribe(event => {
+world.beforeEvents.playerBreakBlock.subscribe(event => {
   const location = event.block.location;
   const player = event.player;
   if (!player || event.block.dimension.id !== "minecraft:overworld") return;
-  if (location.x !== CORE.x || location.y !== CORE.y || location.z !== CORE.z || coreBreakPending) return;
-  log("INFO", "Core break detected by " + player.name + " (void_cleaned tag=" + player.hasTag("void_cleaned") + ").");
+  if (location.x !== CORE.x || location.y !== CORE.y || location.z !== CORE.z) return;
+  event.cancel = true;
+  if (coreBreakPending) return;
+  const brokenId = event.block.typeId;
   coreBreakPending = true;
-  system.runTimeout(() => {
+  system.run(() => {
     try {
+      log("INFO", "Core break detected by " + player.name + " (void_cleaned tag=" + player.hasTag("void_cleaned") + ").");
       if (player.hasTag("void_cleaned")) {
-        onCoreBreak(player);
+        onCoreBreak(player, brokenId);
         const block = world.getDimension("overworld").getBlock(CORE);
-        if (block && block.typeId === "minecraft:air") placeCore(block);
+        if (block) placeCore(block);
       }
     } catch (e) { logError("core break", e); }
     coreBreakPending = false;
-  }, 1);
+  });
 });
 world.afterEvents.playerSpawn.subscribe(event => {
   system.runTimeout(() => {

@@ -9,12 +9,12 @@
 
 ## Overview
 
-Start in the void on the central block at (0, 0, 0), with no bedrock beneath it. A short tutorial builds your platform: each of the first 8 breaks adds a block beside the core until a 3x3 platform surrounds it. Breaking it earns Coins and advances shared progression. Use the Natural Market Ledger to buy supplies and expand the central block's eligible regeneration pool.
+Start in the void on the central block at (0, 0, 0), with no bedrock beneath it. A short tutorial builds your platform: each of the first 8 breaks adds a block beside the core until a 3x3 platform surrounds it. Breaking it earns Coins and advances shared progression. Use the Natural Market Ledger to buy supplies with the Coins you earn.
 
 ## Key Features
 
 ### Regenerating OneBlock
-- The central block returns after a successful break.
+- The central block returns after a successful break. It drops no items; breaking it only earns Coins.
 - The central block is also restored automatically if something other than a player removes it.
 - If a player ends up inside the central block or the 3x3 platform, they are teleported on top of the central block.
 - The available natural block pool expands as shared mining milestones are reached.
@@ -28,15 +28,13 @@ Start in the void on the central block at (0, 0, 0), with no bedrock beneath it.
 - The market uses the standard server Action Form. It is **not a chest container screen** and does not support draggable slots or native container transfers.
 
 ### Coins and Selling
-- Successful central-block breaks award Coins.
+- Each central-block break awards Coins. Every block type has its own value, and higher tiers pay more.
 - A Coins scoreboard is always shown on the sidebar. The About screen has a switch to hide your own name on it.
 - Eligible catalogue items can be sold through the Ledger. Each item type can be locked so it is never sold; tools and weapons start locked.
-- The balance appears in menu text and action-bar messages, not a sidebar scoreboard.
 
 ### Progression and Supply Pool
 - Personal mining milestones unlock additional market supplies across 30 tiers, ending with Obsidian.
-- Purchased eligible blocks can be added to the central block's regeneration pool.
-- Liquids and blocks that cannot stand on their own (such as torches, doors and saplings) are excluded from the purchased regeneration pool.
+- The central block pool is set by the tiers only. Purchased blocks do not change it.
 
 ## How to Use
 

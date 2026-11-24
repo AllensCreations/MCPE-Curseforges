@@ -4,6 +4,18 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v273] - 2026-11-24 - Block Values And No Drops
+
+**Spec**: spec_v273.txt | **Target**: MCPEDL/Maps/OneBlock-Natural-Market | **Files edited**: 3
+
+### Added
+- **Block values**: every block type pays its own Coin value, rising with each tier from 1 Coin for Dirt to 60 for Obsidian.
+
+### Improved & Balanced
+- **No drops**: the central block no longer drops items or experience. Breaking it only earns Coins.
+- **Tier prices**: market prices now rise faster with tier, up to about 10 times at the last tier, to match the new Coin income. Items in the first 6 tiers cost the same as before.
+- **Regeneration pool**: purchased blocks no longer join the central block's pool, and any already added are ignored.
+
 ## [v272] - 2026-11-24 - Coins Scoreboard Hidden Names
 
 **Spec**: spec_v272.txt | **Target**: MCPEDL/Maps/OneBlock-Natural-Market | **Files edited**: 3
