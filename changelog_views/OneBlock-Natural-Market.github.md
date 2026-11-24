@@ -1,12 +1,21 @@
 # Changelog — OneBlock Natural Market
 
-## [16.0.8] - 2026-11-24 - Coins Scoreboard Switch
+## [16.0.9] - 2026-11-24 - Coins Scoreboard Hidden Names
 
 ### Added
-- **Coins scoreboard switch**: the About screen is now a form with a switch that shows or hides a Coins scoreboard on the sidebar. It is off by default, and the sidebar is shared by all players.
+- **Coins scoreboard**: the sidebar always shows every player's Coins, highest first.
+- **Hide my name**: the About screen has a switch that replaces your name on the scoreboard with "Hidden" and a number.
+
+### Improved & Balanced
+- **About screen**: the sidebar on and off switch from the last update is replaced by the hide-name switch.
 
 <details>
-<summary><b>16.0.x</b> (8 releases)</summary>
+<summary><b>16.0.x</b> (9 releases)</summary>
+
+### [16.0.8] - 2026-11-24 - Coins Scoreboard Switch
+
+#### Added
+- **Coins scoreboard switch**: the About screen is now a form with a switch that shows or hides a Coins scoreboard on the sidebar. It is off by default, and the sidebar is shared by all players.
 
 ### [16.0.7] - 2026-11-24 - Remove ALN Coins
 
