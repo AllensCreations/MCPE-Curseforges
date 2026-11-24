@@ -2,6 +2,11 @@
 
 ---
 
+## [2.0.2] - 2026-11-24 - Ally Speed
+
+### Fixed
+- **Spectral Ally**: The floating spirit now moves at Allay-like speed instead of flying too fast.
+
 ## [2.0.1] - 2026-11-24 - Sneak Controls
 
 ### Improved & Balanced

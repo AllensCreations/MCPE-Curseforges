@@ -4,6 +4,13 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v288] - 2026-11-24 - Ally Speed
+
+**Spec**: spec_v288.txt | **Target**: MCPEDL/Addons/ALN-SoulLantern | **Files edited**: 2
+
+### Fixed
+- **Spectral Ally**: The floating spirit now moves at Allay-like speed instead of flying too fast.
+
 ## [v287] - 2026-11-24 - Versioning Clarification and Instruction File Fixes
 
 **Spec**: spec_v287.txt | **Target**: repo | **Files edited**: 2

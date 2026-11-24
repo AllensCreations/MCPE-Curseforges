@@ -21,7 +21,7 @@
     "component_groups": {
       "aln:melee": {
         "minecraft:movement": {
-          "value": 0.3
+          "value": 0.08
         },
         "minecraft:attack": {
           "damage": 4
@@ -34,7 +34,7 @@
       },
       "aln:fast": {
         "minecraft:movement": {
-          "value": 0.4
+          "value": 0.1
         },
         "minecraft:attack": {
           "damage": 3
@@ -47,7 +47,7 @@
       },
       "aln:heavy": {
         "minecraft:movement": {
-          "value": 0.25
+          "value": 0.06
         },
         "minecraft:attack": {
           "damage": 8
@@ -60,7 +60,7 @@
       },
       "aln:kamikaze": {
         "minecraft:movement": {
-          "value": 0.35
+          "value": 0.09
         },
         "minecraft:attack": {
           "damage": 1
@@ -74,7 +74,7 @@
       },
       "aln:archer": {
         "minecraft:movement": {
-          "value": 0.3
+          "value": 0.08
         },
         "minecraft:behavior.ranged_attack": {
           "priority": 2,
@@ -89,7 +89,7 @@
       },
       "aln:snow": {
         "minecraft:movement": {
-          "value": 0.3
+          "value": 0.08
         },
         "minecraft:behavior.ranged_attack": {
           "priority": 2,
