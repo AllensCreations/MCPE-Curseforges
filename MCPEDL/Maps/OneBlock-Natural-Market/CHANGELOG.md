@@ -2,6 +2,11 @@
 
 ---
 
+## [16.0.8] - 2026-11-24 - Coins Scoreboard Switch
+
+### Added
+- **Coins scoreboard switch**: the About screen is now a form with a switch that shows or hides a Coins scoreboard on the sidebar. It is off by default, and the sidebar is shared by all players.
+
 ## [16.0.7] - 2026-11-24 - Remove ALN Coins
 
 ### Improved & Balanced

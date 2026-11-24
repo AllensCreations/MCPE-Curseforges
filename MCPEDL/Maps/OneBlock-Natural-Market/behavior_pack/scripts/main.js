@@ -1,4 +1,4 @@
-import { world, system, ItemStack, ItemTypes } from "@minecraft/server";
+import { world, system, ItemStack, ItemTypes, DisplaySlotId, ObjectiveSortOrder } from "@minecraft/server";
 import { ActionFormData, MessageFormData, ModalFormData } from "@minecraft/server-ui";
 
 const CORE = { x: 0, y: 64, z: 0 };
@@ -458,20 +458,43 @@ function ensureCore() {
     }
   } catch (e) { logError("ensureCore", e); }
 }
+const SIDEBAR_KEY = "obm_sidebar";
+function sidebarOn() { return world.getDynamicProperty(SIDEBAR_KEY) === true; }
+function setSidebar(on) {
+  try {
+    if (on) {
+      world.scoreboard.setObjectiveAtDisplaySlot(DisplaySlotId.Sidebar, { objective: objective(COINS), sortOrder: ObjectiveSortOrder.Descending });
+    } else if (sidebarOn()) {
+      world.scoreboard.clearObjectiveAtDisplaySlot(DisplaySlotId.Sidebar);
+    }
+    world.setDynamicProperty(SIDEBAR_KEY, on);
+    return true;
+  } catch (e) {
+    logError("setSidebar", e);
+    return false;
+  }
+}
 function showAbout(player) {
-  const form = new ActionFormData()
-    .title("ABOUT - NATURAL MARKET")
-    .body(
-      "§l§aOneBlock Natural Market§r\n" +
-      "by ALNStudios\n\n" +
-      "Start in the void on a single regenerating block.\n" +
-      "Break the core to earn §eCoins§r and grow your block pool.\n" +
-      "Use the §bNatural Market Ledger§r to buy supplies.\n\n" +
-      "The Ledger cannot be dropped. It always returns to you.\n\n" +
-      "Version: v16 | ALNStudios | CurseForge / MCPEDL"
-    )
-    .button("Close");
-  showForm(form, player).catch(e => { logError("showAbout", e); });
+  let form = new ModalFormData().title("ABOUT - NATURAL MARKET");
+  form = addOptional(form, "header", "OneBlock Natural Market");
+  form = addOptional(form, "label",
+    "by ALNStudios\n\n" +
+    "Start in the void on a single regenerating block.\n" +
+    "Break the core to earn Coins and grow your block pool.\n" +
+    "Use the Natural Market Ledger to buy supplies.\n\n" +
+    "The Ledger cannot be dropped. It always returns to you.\n\n" +
+    "Version: v16 | ALNStudios | CurseForge / MCPEDL");
+  form = addOptional(form, "divider");
+  form = form.toggle("Show Coins scoreboard on the sidebar (all players see it)", { defaultValue: sidebarOn() });
+  form = form.submitButton("Save");
+  showForm(form, player).then(r => {
+    if (r.canceled) return;
+    const values = (r.formValues ?? []).filter(v => typeof v === "boolean");
+    if (values.length !== 1) return tell(player, "The setting could not be read.");
+    if (values[0] === sidebarOn()) return;
+    if (setSidebar(values[0])) tell(player, "Coins scoreboard " + (values[0] ? "shown." : "hidden."));
+    else tell(player, "The scoreboard setting could not be saved.");
+  }).catch(e => { logError("showAbout", e); });
 }
 function marketMain(player) {
   const form = new ActionFormData()
