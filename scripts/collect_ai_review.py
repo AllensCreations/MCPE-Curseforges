@@ -402,7 +402,7 @@ else:
         f"- **Mode**: UPDATE existing package ({v_info}).\n"
         "- Retain all UUIDs in manifests.\n"
         "- Update CHANGELOG.md with a new release entry at top under `---`.\n"
-        "- Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.\n"
+        "- Deliver changes as ONE self-contained update `.sh` (`<Pack>_v<Version>_<rand>.sh`) built with `make_update_script.py` (INSTRUCTIONS.md Reply Format).\n"
         "- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`."
     )
 

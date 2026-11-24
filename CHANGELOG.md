@@ -4,6 +4,16 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v278] - 2026-11-24 - Custom Sounds Workflow and Direct Update Script Delivery
+
+**Spec**: spec_v278.txt | **Target**: repo | **Files edited**: 3
+
+### Added
+- **Custom Sounds workflow**: Documented rules and structure for custom audio synthesized via `sound_sources/make_sounds.py` (`.ogg` output, `sound_definitions.json` at format 1.14.0, `aln.<project>.<element>.<kind>` naming pattern, and player-facing description rules) in both `INSTRUCTIONS.md` and `PACK_GENERATOR_INSTRUCTIONS.md`.
+
+### Improved & Balanced
+- **Direct update script delivery**: Streamlined pack update instructions to deliver self-contained `<Repofilename>_<Version>_<Rand>.sh` files containing the embedded payload and rich terminal UI directly, matching the single-file execution workflow.
+
 ## [v277] - 2026-11-24 - Stack Towers
 
 **Spec**: spec_v277.txt | **Target**: MCPEDL/Script/ALN-MobStacker | **Files edited**: 8

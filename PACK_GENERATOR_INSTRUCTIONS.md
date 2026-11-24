@@ -111,7 +111,7 @@ Open until confirmed in game. NEVER state as fact in docs.
 - Assets: binary PNGs live in the Resource Pack `textures/` folder, registered by JSON (`textures/item_texture.json`, `textures/terrain_texture.json`), NEVER mixed with the registration files. Recipes reference vanilla item identifiers directly. NEVER duplicate vanilla PNGs unless needed as templates.
 - Trusted sources (rely strictly and exclusively on these four Context7 libraries, queried per 1.16; NEVER invent API methods, outdated syntax or item ids): `/microsoftdocs/minecraft-creator` (Script API, `@minecraft/server`, `@minecraft/server-ui`, JSON schemas, versions); `/mojang/bedrock-samples` (vanilla textures, recipes, entities, definitions, formats); `/websites/wiki_bedrock_dev` (manifest structure, techniques); `/allenscreations/mcpe-curseforges` (this repo's rules and scripts). No other library, site or package page is a source. Priority and disagreements follow 1.1: report, NEVER choose silently.
 - Failure (script does not load, texture does not render, syntax changed in a newer update): query the Context7 libraries above (1.16) for the exact updated syntax, manifest dependency versions, valid vanilla identifiers and working patterns BEFORE rewriting code.
-- Output: complete ready-to-use files with exact repo-root-relative paths, delivered ONLY as one `spec_vN.txt` (updates) or the single pack `.sh` (new packs) and reply format above (Reply Format, Termux Script Rules).
+- Output: complete ready-to-use files with exact repo-root-relative paths, delivered ONLY as the single update `.sh` (`<Repofilename>_<Version>_<Rand>.sh`) or the single pack `.sh` (new packs) and reply format above (Reply Format, Termux Script Rules).
 
 ### 1.16 Documentation Lookup (Context7 MCP)
 Docs, API, vanilla data and repo files are read with the Context7 MCP tool `query-docs`. NEVER by pasted URL, NEVER from memory. Applies to every addon, map, script, minigame, update and docs task.
@@ -383,3 +383,10 @@ Same rules as `INSTRUCTIONS.md` 1.12. Read it when a mechanic hits a vanilla lim
 - Style: Minecraft pixel art, clean outlines, depth, light from the top left, no gradients, no blurry anti-aliasing, styled for 64x64 high detail. Recolors share one grid with a different palette.
 - RUN `python3 pixel_json_to_png.py build/<Name>` BEFORE `make_pack_script.py` (4.8): it checks every texture, lists every problem together and writes the PNGs. Fix, rerun. NEVER hand-write a PNG or base64.
 - Ship the JSON AND the PNGs. The JSON is the source: later changes edit the JSON and rerun the script, NEVER the PNG. `--preview [file]` writes a review sheet outside the project: NEVER ship it.
+
+### 4.14 Custom Sounds
+- Audio files cannot travel inside a spec or pack script. A project that needs custom sounds keeps a pure-Python synthesizer at `<project>/sound_sources/make_sounds.py` (reference: `MCPEDL/Addons/ALNSpiritSphere/sound_sources/make_sounds.py`). It writes `.ogg` files into `<project>/resource_pack/sounds/` and needs ffmpeg (Termux: `pkg install ffmpeg`).
+- An update that adds sounds uses `@@ create` for `make_sounds.py` and `resource_pack/sounds/sound_definitions.json` (`format_version` 1.14.0, one event per sound, sound paths without extension, category neutral). After the update script runs, the user runs: `python3 <project>/sound_sources/make_sounds.py`, then `git add`, `commit`, `push`.
+- Sound event ids use the pattern `aln.<project>.<element>.<kind>` and are played from scripts with `playSound`. NEVER guess vanilla sound ids; use only ids verified through Context7.
+- New sound files need a full Minecraft client restart to load. Say so in the handoff.
+- `.ogg` is the only audio type allowed. `DESCRIPTION.md` must describe sounds in player terms and never name the script, ffmpeg or file names.
