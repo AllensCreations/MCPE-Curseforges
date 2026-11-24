@@ -312,19 +312,19 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/manifest.json (66 lines, 1179 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/manifest.json (66 lines, 1185 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v16.0.9)",
+    "name": "OneBlock Natural Market (v16.0.10)",
     "description": "OneBlock survival with a progression market and regenerating core. by ALNStudios",
     "uuid": "77f07d1a-fa7a-437d-8fea-72068be05162",
     "version": [
       16,
       0,
-      9
+      10
     ],
     "min_engine_version": [
       1,
@@ -339,7 +339,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "version": [
         16,
         0,
-        9
+        10
       ]
     },
     {
@@ -349,7 +349,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "version": [
         16,
         0,
-        9
+        10
       ],
       "entry": "scripts/main.js"
     }
@@ -360,7 +360,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "version": [
         16,
         0,
-        9
+        10
       ]
     },
     {
@@ -377,7 +377,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "16.0.9"
+    "version": "16.0.10"
   }
 }
 ```
@@ -1329,7 +1329,7 @@ Extracted from the script files; nothing here was run in game.
 Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (861 lines, 46448 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (838 lines, 45430 bytes)
 
 ```
 import { world, system, ItemStack, ItemTypes, DisplaySlotId, ObjectiveSortOrder } from "@minecraft/server";
@@ -1343,14 +1343,7 @@ const BOARD = "obm_coins_board";
 const MINED = "obm_mined";
 const TOTAL = "obm_total";
 const GLOBAL_KEY = "OneBlockNaturalMarket";
-const POOL_KEY = "obm_purchased_blocks";
 const READY_EVENT = "allenscreations:oneblock_ready";
-const UNSAFE_CORE = new Set([
-  "minecraft:water", "minecraft:flowing_water", "minecraft:lava", "minecraft:flowing_lava",
-  "minecraft:oak_door", "minecraft:torch", "minecraft:redstone_torch", "minecraft:soul_torch",
-  "minecraft:lever", "minecraft:ladder", "minecraft:oak_sapling", "minecraft:sugar_cane",
-  "minecraft:bamboo", "minecraft:repeater", "minecraft:comparator", "minecraft:anvil", "minecraft:netherite_block"
-]);
 const MCICON_DIR = "textures/ui/natural_market/icons/";
 const CATEGORIES = [
   { name: "Building Blocks", icon: MCICON_DIR + "stone" },
@@ -1375,11 +1368,15 @@ const TIER_BLOCKS = [
   ["stone_bricks"], ["quartz_block"], ["purpur_block"], ["crying_obsidian"],
   ["ancient_debris"], ["obsidian"]
 ];
+const TIER_VALUES = [1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 14, 15, 17, 18, 20, 22, 24, 26, 28, 31, 33, 36, 39, 42, 45, 49, 52, 56, 60];
 const MILESTONES = TIER_BLOCKS.map((ids, i) => ({
   unlock: i === 0 ? 0 : Math.round(10000 * Math.pow(i / (TIER_BLOCKS.length - 1), 1.6) / 10) * 10,
   ids: ids.map(id => "minecraft:" + id),
-  reward: Math.round(1 + i * 11 / (TIER_BLOCKS.length - 1))
+  reward: TIER_VALUES[i]
 }));
+const BLOCK_VALUE = new Map(MILESTONES.flatMap(m => m.ids.map(id => [id, m.reward])));
+function blockValue(id) { return BLOCK_VALUE.get(id) ?? 1; }
+function blockName(id) { return id.replace("minecraft:", "").split("_").map(w => w[0].toUpperCase() + w.slice(1)).join(" "); }
 const CATALOG = [
   ["dirt", 2, 16, "Building Blocks", 0, true, "textures/blocks/dirt"],
   ["coarse_dirt", 2, 16, "Building Blocks", 0, true, "textures/blocks/coarse_dirt"],
@@ -1615,14 +1612,13 @@ for (const [mob, price, tier] of SPAWN_EGGS) {
 }
 const BASE_PRICE_FIX = { iron_block: 100, hay_block: 20, redstone_block: 70, netherite_block: 4500 };
 const SELL_FIX = { netherite_block: 100, ancient_debris: 40, obsidian: 10 };
-const priceMult = tier => (tier <= 5 ? 1 : 1 + (tier - 5) * 0.2);
+const priceMult = tier => (tier <= 5 ? 1 : 1 + (tier - 5) * 0.4);
 for (const item of CATALOG) {
   const base = BASE_PRICE_FIX[item.raw] ?? item.price;
   item.sell = item.category === "Spawn Eggs" ? 0 : (SELL_FIX[item.raw] ?? Math.max(1, Math.floor(base / 2)));
   item.price = Math.max(1, Math.round(base * priceMult(item.tier)));
   item.icon = MCICON_DIR + item.raw;
 }
-const BUILDING_IDS = new Set(CATALOG.filter(i => i.category === "Building Blocks").map(i => i.id));
 const LEDGER_PENDING = "obm_ledger_pending";
 const DEBUG_TAG = "obm_debug";
 const STATUS_EVENT = "allenscreations:obm_status";
@@ -1747,28 +1743,7 @@ function showForm(form, player, retries = 0) {
   });
 }
 function currentPool() {
-  const pool = new Set(MILESTONES.filter(m => totalBreaks() >= m.unlock).flatMap(m => m.ids));
-  for (const id of storedPool()) pool.add(id);
-  return [...pool];
-}
-function storedPool() {
-  try {
-    const raw = world.getDynamicProperty(POOL_KEY);
-    if (typeof raw !== "string") return [];
-    const list = JSON.parse(raw);
-    if (!Array.isArray(list)) return [];
-    return list
-      .filter(id => typeof id === "string")
-      .map(id => id.includes(":") ? id : "minecraft:" + id)
-      .filter(id => !UNSAFE_CORE.has(id) && !BUILDING_IDS.has(id));
-  } catch { return []; }
-}
-function addBlockToPool(item) {
-  if (!item.block || item.category === "Building Blocks" || UNSAFE_CORE.has(item.id)) return;
-  const stored = storedPool();
-  if (stored.includes(item.id)) return;
-  stored.push(item.id);
-  try { world.setDynamicProperty(POOL_KEY, JSON.stringify(stored.map(id => id.replace("minecraft:", "")))); } catch {}
+  return [...new Set(MILESTONES.filter(m => totalBreaks() >= m.unlock).flatMap(m => m.ids))];
 }
 function coreBlock() {
   const pool = currentPool();
@@ -1832,7 +1807,7 @@ function showAbout(player) {
   form = addOptional(form, "label",
     "by ALNStudios\n\n" +
     "Start in the void on a single regenerating block.\n" +
-    "Break the core to earn Coins and grow your block pool.\n" +
+    "Break the core to earn Coins. Each block type pays its own value.\n" +
     "Use the Natural Market Ledger to buy supplies.\n\n" +
     "The Ledger cannot be dropped. It always returns to you.\n\n" +
     "Version: v16 | ALNStudios | CurseForge / MCPEDL");
@@ -1908,7 +1883,6 @@ function purchase(player, item) {
   if (delivered <= 0) return tell(player, "Inventory full. No Coins were taken.");
   if (delivered < item.amount) tell(player, "Only " + delivered + " item(s) fit; charged " + charged + " Coins.");
   else tell(player, "Purchased " + delivered + " x " + item.name + " for " + charged + " Coins.");
-  addBlockToPool(item);
   showBalance(player);
 }
 function scanSellable(inv, values) {
@@ -2068,19 +2042,19 @@ function rescuePhased() {
   }
 }
 let coreBreakPending = false;
-function onCoreBreak(player) {
+function onCoreBreak(player, brokenId) {
   const personal = personalBreaks(player) + 1;
   const total = totalBreaks() + 1;
   writeScore(MINED, player, personal);
   writeScore(TOTAL, GLOBAL_KEY, total);
   tutorialStep(player, total);
-  const milestone = [...MILESTONES].reverse().find(m => total >= m.unlock) ?? MILESTONES[0];
-  writeScore(COINS, player, balance(player) + milestone.reward);
+  const value = blockValue(brokenId);
+  writeScore(COINS, player, balance(player) + value);
   if (MILESTONES.some(m => m.unlock > 0 && m.unlock === total)) {
     world.sendMessage("§6[Natural Market] §rA new core milestone has been reached. More block types can now appear.");
   }
-  log("INFO", player.name + " mined the core: personal=" + personal + " shared=" + total + " reward=" + milestone.reward + ".");
-  tell(player, "Core mined: +" + milestone.reward + " Coins.");
+  log("INFO", player.name + " mined the core: personal=" + personal + " shared=" + total + " block=" + brokenId + " reward=" + value + ".");
+  tell(player, "Core mined: " + blockName(brokenId) + " +" + value + " Coins.");
   showBalance(player);
 }
 system.afterEvents.scriptEventReceive.subscribe(event => {
@@ -2138,23 +2112,26 @@ world.afterEvents.itemThrow?.subscribe(event => {
   }, 5);
 });
 
-world.afterEvents.playerBreakBlock.subscribe(event => {
+world.beforeEvents.playerBreakBlock.subscribe(event => {
   const location = event.block.location;
   const player = event.player;
   if (!player || event.block.dimension.id !== "minecraft:overworld") return;
-  if (location.x !== CORE.x || location.y !== CORE.y || location.z !== CORE.z || coreBreakPending) return;
-  log("INFO", "Core break detected by " + player.name + " (void_cleaned tag=" + player.hasTag("void_cleaned") + ").");
+  if (location.x !== CORE.x || location.y !== CORE.y || location.z !== CORE.z) return;
+  event.cancel = true;
+  if (coreBreakPending) return;
+  const brokenId = event.block.typeId;
   coreBreakPending = true;
-  system.runTimeout(() => {
+  system.run(() => {
     try {
+      log("INFO", "Core break detected by " + player.name + " (void_cleaned tag=" + player.hasTag("void_cleaned") + ").");
       if (player.hasTag("void_cleaned")) {
-        onCoreBreak(player);
+        onCoreBreak(player, brokenId);
         const block = world.getDimension("overworld").getBlock(CORE);
-        if (block && block.typeId === "minecraft:air") placeCore(block);
+        if (block) placeCore(block);
       }
     } catch (e) { logError("core break", e); }
     coreBreakPending = false;
-  }, 1);
+  });
 });
 world.afterEvents.playerSpawn.subscribe(event => {
   system.runTimeout(() => {
@@ -2194,12 +2171,22 @@ system.runInterval(() => {
 }, 20);
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (218 lines, 12755 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (228 lines, 13371 bytes)
 
 ```
 # Changelog — OneBlock Natural Market
 
 ---
+
+## [16.0.10] - 2026-11-24 - Block Values And No Drops
+
+### Added
+- **Block values**: every block type pays its own Coin value, rising with each tier from 1 Coin for Dirt to 60 for Obsidian.
+
+### Improved & Balanced
+- **No drops**: the central block no longer drops items or experience. Breaking it only earns Coins.
+- **Tier prices**: market prices now rise faster with tier, up to about 10 times at the last tier, to match the new Coin income. Items in the first 6 tiers cost the same as before.
+- **Regeneration pool**: purchased blocks no longer join the central block's pool, and any already added are ignored.
 
 ## [16.0.9] - 2026-11-24 - Coins Scoreboard Hidden Names
 
@@ -2416,7 +2403,7 @@ system.runInterval(() => {
 - No experimental gameplay toggle was added. Source structure is updated; Minecraft in-game rendering has not been verified.
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/DESCRIPTION.md (83 lines, 5115 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/DESCRIPTION.md (81 lines, 4963 bytes)
 
 ```
 # OneBlock Natural Market — A OneBlock economy and supply shop
@@ -2430,12 +2417,12 @@ system.runInterval(() => {
 
 ## Overview
 
-Start in the void on the central block at (0, 0, 0), with no bedrock beneath it. A short tutorial builds your platform: each of the first 8 breaks adds a block beside the core until a 3x3 platform surrounds it. Breaking it earns Coins and advances shared progression. Use the Natural Market Ledger to buy supplies and expand the central block's eligible regeneration pool.
+Start in the void on the central block at (0, 0, 0), with no bedrock beneath it. A short tutorial builds your platform: each of the first 8 breaks adds a block beside the core until a 3x3 platform surrounds it. Breaking it earns Coins and advances shared progression. Use the Natural Market Ledger to buy supplies with the Coins you earn.
 
 ## Key Features
 
 ### Regenerating OneBlock
-- The central block returns after a successful break.
+- The central block returns after a successful break. It drops no items; breaking it only earns Coins.
 - The central block is also restored automatically if something other than a player removes it.
 - If a player ends up inside the central block or the 3x3 platform, they are teleported on top of the central block.
 - The available natural block pool expands as shared mining milestones are reached.
@@ -2449,15 +2436,13 @@ Start in the void on the central block at (0, 0, 0), with no bedrock beneath it.
 - The market uses the standard server Action Form. It is **not a chest container screen** and does not support draggable slots or native container transfers.
 
 ### Coins and Selling
-- Successful central-block breaks award Coins.
+- Each central-block break awards Coins. Every block type has its own value, and higher tiers pay more.
 - A Coins scoreboard is always shown on the sidebar. The About screen has a switch to hide your own name on it.
 - Eligible catalogue items can be sold through the Ledger. Each item type can be locked so it is never sold; tools and weapons start locked.
-- The balance appears in menu text and action-bar messages, not a sidebar scoreboard.
 
 ### Progression and Supply Pool
 - Personal mining milestones unlock additional market supplies across 30 tiers, ending with Obsidian.
-- Purchased eligible blocks can be added to the central block's regeneration pool.
-- Liquids and blocks that cannot stand on their own (such as torches, doors and saplings) are excluded from the purchased regeneration pool.
+- The central block pool is set by the tiers only. Purchased blocks do not change it.
 
 ## How to Use
 
@@ -2534,19 +2519,19 @@ Download the current release of **OneBlock Natural Market** for Minecraft Bedroc
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Natural-Market/DESCRIPTION.md).
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/manifest.json (37 lines, 633 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/manifest.json (37 lines, 637 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v16.0.9)",
+    "name": "OneBlock Natural Market (v16.0.10)",
     "description": "Trader Ledger icon for OneBlock Natural Market. by ALNStudios",
     "uuid": "187333a6-4353-4003-b379-471f85ce9021",
     "version": [
       16,
       0,
-      9
+      10
     ],
     "min_engine_version": [
       1,
@@ -2561,7 +2546,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "version": [
         16,
         0,
-        9
+        10
       ]
     }
   ],
@@ -2570,7 +2555,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "16.0.9"
+    "version": "16.0.10"
   }
 }
 ```
