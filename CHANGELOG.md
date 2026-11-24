@@ -4,6 +4,17 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v285] - 2026-11-24 - No-UI Update
+
+**Spec**: spec_v285.txt | **Target**: MCPEDL/Addons/ALN-SoulLantern | **Files edited**: 23
+
+### Added
+- **Mob lanterns**: Each kind of captured mob gives the Soul-Bound lantern its own icon.
+
+### Improved & Balanced
+- **Controls**: The Spirit menu and sneaking are gone. Interact with a mob to seal it, tap to release it, and hold to call or recall the Spectral Ally.
+- **Spectral Ally**: The spirit now floats like an Allay, each lantern has one spirit, and the recharge is 10 seconds. A Kamikaze Spirit shrinks after exploding and slowly grows back.
+
 ## [v284] - 2026-11-24 - Workflow Hardening and Delete Toolchain Sync
 
 **Spec**: spec_v284.txt | **Target**: repo | **Files edited**: 12

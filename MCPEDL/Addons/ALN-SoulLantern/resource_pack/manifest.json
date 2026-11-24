@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN SoulLantern (v1.0.2)",
+    "name": "ALN SoulLantern (v2)",
     "description": "Empty and Soul-Bound lantern textures. by ALNStudios",
     "uuid": "76644133-f7e5-4b13-ab5c-c0bb2eab30b6",
     "version": [
-      1,
+      2,
       0,
-      2
+      0
     ],
     "min_engine_version": [
       1,
@@ -20,9 +20,9 @@
       "type": "resources",
       "uuid": "aff7d06d-a034-4ef1-a3f0-f6c2b4c7a825",
       "version": [
-        1,
+        2,
         0,
-        2
+        0
       ]
     }
   ],
@@ -31,6 +31,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.2"
+    "version": "2.0.0"
   }
 }

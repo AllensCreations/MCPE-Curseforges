@@ -13,7 +13,7 @@
 
 ALN SoulLantern adds one relic with two looks. The Empty Soul Lantern holds a faint pale-blue mist, and the Soul-Bound Soul Lantern glows with turquoise soul fire and floating embers.
 
-Sneak and interact with a mob to seal it inside. The lantern shows the creature's name, health, and variant, and you can release it later on any block.
+Interact with a mob to seal it inside. The lantern takes an icon for that mob and shows its name, health, and variant. Tap to release it, or hold to call a floating Spectral Ally.
 
 ## Key Features
 
@@ -21,7 +21,7 @@ Sneak and interact with a mob to seal it inside. The lantern shows the creature'
 - **What Happens**: Craft the lantern with 2 glass panes, 4 iron nuggets, 1 amethyst shard, and 1 soul soil or soul sand.
 
 ### Mob Capture
-- **What Happens**: Sneak and interact with a mob while holding an Empty lantern. The mob vanishes in a swirl of soul particles and the lantern turns turquoise.
+- **What Happens**: Interact with a mob while holding an Empty lantern. The mob vanishes in a swirl of soul particles and the lantern turns turquoise, with a different icon for each kind of mob.
 
 ### Boss Protection
 - **What Happens**: The Ender Dragon, Wither, Warden, and Elder Guardian cannot be sealed. The lantern trembles and a warning appears above the hotbar.
@@ -30,27 +30,21 @@ Sneak and interact with a mob to seal it inside. The lantern shows the creature'
 - **What Happens**: The lantern keeps the mob's health, custom name, age, color, tamed state, equipment, and villager trades, and updates its own name and lore to match.
 
 ### Block Release
-- **What Happens**: Interact with a block while holding a Soul-Bound lantern to place the saved mob on top of it. The lantern returns to the Empty state.
-
-### Spirit Menu
-- **What Happens**: Use a Soul-Bound lantern in the air to open a menu with the species, name, health, and variant of the trapped soul.
+- **What Happens**: Tap with a Soul-Bound lantern to place the saved mob on top of the block you aim at, or in front of you in open air. The lantern returns to the Empty state.
 
 ### Spectral Ally
-- **What Happens**: The menu can project a light-blue, slightly transparent spirit for 20 seconds, with a tiny figure of the trapped mob inside. It wanders near you and fights nearby hostile mobs like a pet, never attacks you, then fades back into the lantern, with a 60-second cooldown.
+- **What Happens**: Hold a Soul-Bound lantern to call a floating, light-blue, slightly transparent spirit with a tiny figure of the trapped mob inside. It fights nearby hostile mobs like a pet for 20 seconds, never attacks you, then fades back into the lantern. Hold again to recall it early. Each lantern has one spirit and a 10-second recharge.
 
 ### Mob-Specific Attacks
-- **What Happens**: A trapped Creeper becomes a kamikaze that explodes beside its target, a Skeleton fires arrows, and a Snow Golem throws snowballs. Spiders, wolves, and chickens attack fast, while Iron Golems and Endermen hit hard.
-
-### Rename Captured Mob
-- **What Happens**: Give the trapped creature a custom name from the menu without using a Name Tag.
+- **What Happens**: A trapped Creeper becomes a kamikaze that explodes beside its target, then shrinks and slowly grows back. A Skeleton fires arrows, a Snow Golem throws snowballs, Spiders, wolves, and chickens attack fast, and Iron Golems and Endermen hit hard.
 
 ## How to Use
 
 1. Craft a Soul Lantern at a crafting table.
-2. Hold the Soul Lantern, sneak, and interact with a mob to seal it.
-3. Use the Soul-Bound lantern in the air to open the Spirit menu.
-4. Choose Project Spectral Ally to summon a temporary helper, or Rename Captured Mob to rename the soul.
-5. Interact with a block while holding the Soul-Bound lantern to release the mob on top of it.
+2. Hold the Soul Lantern and interact with a mob to seal it.
+3. Tap with the Soul-Bound lantern to release the mob where you aim.
+4. Hold the Soul-Bound lantern to call its floating Spectral Ally, and hold again to recall it.
+5. Wait 10 seconds after the spirit leaves before calling it again.
 
 ## Compatibility
 

@@ -1,15 +1,17 @@
 import { world, system, ItemStack, EntityComponentTypes, StructureSaveMode } from "@minecraft/server";
-import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
 
 const EMPTY_ID = "aln:soul_lantern";
-const FILLED_ID = "aln:soul_lantern_filled";
+const GENERIC_ID = "aln:soul_lantern_filled";
+const LANTERN_PREFIX = "aln:soul_lantern_";
 const SPIRIT_ID = "aln:spirit";
 const SPIRIT_TAG = "aln_spirit";
 const SPIRIT_TICKS = 400;
-const COOLDOWN_TICKS = 1200;
-const DEBOUNCE_TICKS = 8;
-const VERSION = "1.0.2";
+const COOLDOWN_TICKS = 200;
+const HOLD_GRACE = 12;
+const REGROW_STEP = 0.02;
+const SHRUNK_SIZE = 0.3;
 
+const KIND_NAMES = ["", "creeper", "skeleton", "zombie", "spider", "pig", "cow", "sheep", "chicken", "wolf", "villager", "iron_golem", "enderman", "blaze", "snow_golem"];
 const BOSSES = new Set(["minecraft:ender_dragon", "minecraft:wither", "minecraft:warden", "minecraft:elder_guardian"]);
 const NOT_SEALABLE = new Set(["minecraft:player", "minecraft:armor_stand", "minecraft:npc", "minecraft:agent"]);
 const DYES = ["White", "Orange", "Magenta", "Light Blue", "Yellow", "Lime", "Pink", "Gray", "Light Gray", "Cyan", "Purple", "Blue", "Brown", "Green", "Red", "Black"];
@@ -56,12 +58,13 @@ const KEY = {
   maxHp: "aln_max_hp",
   baby: "aln_baby",
   details: "aln_details",
-  rename: "aln_rename",
 };
 
 const spirits = new Map();
 const cooldowns = new Map();
-const lastAction = new Map();
+const usage = new Map();
+const lastBlock = new Map();
+const lastCapture = new Map();
 
 const tell = (player, color, text) => {
   try {
@@ -94,11 +97,12 @@ const prettyType = (typeId) =>
 
 const newStructureId = () => `aln:soul_${system.currentTick.toString(36)}${Math.floor(Math.random() * 1679616).toString(36)}`;
 
-const busy = (player) => {
-  const last = lastAction.get(player.id);
-  return last !== undefined && system.currentTick - last < DEBOUNCE_TICKS;
-};
-const mark = (player) => lastAction.set(player.id, system.currentTick);
+const isFilled = (typeId) => typeof typeId === "string" && typeId.startsWith(LANTERN_PREFIX);
+
+function lanternFor(type) {
+  const fig = SPECIES[type]?.fig ?? 0;
+  return fig > 0 ? `${LANTERN_PREFIX}${KIND_NAMES[fig]}` : GENERIC_ID;
+}
 
 function colorLabel(typeId, value) {
   if (typeId === "minecraft:axolotl") return `Variant ${AXOLOTLS[value] ?? value}`;
@@ -114,8 +118,8 @@ function readInfo(entity) {
   if (color !== undefined) details.push(colorLabel(entity.typeId, color));
   const variant = component(entity, "minecraft:variant")?.value;
   if (variant !== undefined && entity.typeId !== "minecraft:axolotl") details.push(`Variant ${variant}`);
-  const mark2 = component(entity, "minecraft:mark_variant")?.value;
-  if (mark2 !== undefined) details.push(`Pattern ${mark2}`);
+  const pattern = component(entity, "minecraft:mark_variant")?.value;
+  if (pattern !== undefined) details.push(`Pattern ${pattern}`);
   if (component(entity, "minecraft:is_tamed")) details.push("Tamed");
   return {
     type: entity.typeId,
@@ -133,16 +137,14 @@ function readStack(stack) {
     return v === undefined ? fallback : v;
   };
   const type = get(KEY.type, "minecraft:unknown");
-  const rename = get(KEY.rename, "");
   return {
     sid: get(KEY.sid, ""),
     type,
     species: prettyType(type) + (get(KEY.baby, false) ? " (Baby)" : ""),
-    name: rename || get(KEY.name, ""),
+    name: get(KEY.name, ""),
     hp: get(KEY.hp, 0),
     maxHp: get(KEY.maxHp, 0),
     details: get(KEY.details, ""),
-    rename,
   };
 }
 
@@ -154,6 +156,7 @@ function refreshDisplay(stack) {
     `§7Name: §f${d.name || "None"}`,
     `§7Health: §f${d.hp}/${d.maxHp}`,
     `§7Details: §f${d.details || "None"}`,
+    "§8Tap: release  Hold: Spectral Ally",
   ]);
 }
 
@@ -188,22 +191,6 @@ function burst(dim, center) {
   }
 }
 
-function nearbyIds(dim, center) {
-  try {
-    return new Set(dim.getEntities({ location: center, maxDistance: 8 }).map((e) => e.id));
-  } catch (e) {
-    return new Set();
-  }
-}
-
-function freshEntities(dim, center, before) {
-  try {
-    return dim.getEntities({ location: center, maxDistance: 8 }).filter((e) => !before.has(e.id));
-  } catch (e) {
-    return [];
-  }
-}
-
 function tryCapture(player, target, slot) {
   const container = containerOf(player);
   const held = container?.getItem(slot);
@@ -233,7 +220,7 @@ function tryCapture(player, target, slot) {
     tell(player, "§c", "The soul slipped away. Try again.");
     return;
   }
-  const stack = new ItemStack(FILLED_ID, 1);
+  const stack = new ItemStack(lanternFor(info.type), 1);
   stack.setDynamicProperty(KEY.sid, sid);
   stack.setDynamicProperty(KEY.type, info.type);
   stack.setDynamicProperty(KEY.name, info.name);
@@ -249,61 +236,39 @@ function tryCapture(player, target, slot) {
   tell(player, "§b", `Sealed: ${info.name || prettyType(info.type)}`);
 }
 
-function tryRelease(player, dim, blockLoc, slot) {
-  const container = containerOf(player);
-  const held = container?.getItem(slot);
-  if (!container || held?.typeId !== FILLED_ID) return;
-  const d = readStack(held);
-  if (typeof d.sid !== "string" || !d.sid) {
-    tell(player, "§c", "This lantern holds no soul.");
-    return;
-  }
-  let cell;
-  for (let up = 1; up <= 4 && !cell; up++) {
-    const c = { x: blockLoc.x, y: blockLoc.y + up, z: blockLoc.z };
+function findFree(dim, base, maxUp) {
+  for (let up = 0; up <= maxUp; up++) {
+    const c = { x: base.x, y: base.y + up, z: base.z };
     const low = dim.getBlock(c);
     const high = dim.getBlock({ x: c.x, y: c.y + 1, z: c.z });
-    if (low?.isAir && high?.isAir) cell = c;
+    if (low?.isAir && high?.isAir) return c;
   }
-  if (!cell) {
-    tell(player, "§e", "There is no free space to release the soul here.");
-    return;
-  }
-  const center = { x: cell.x + 0.5, y: cell.y + 0.5, z: cell.z + 0.5 };
-  const before = nearbyIds(dim, center);
-  try {
-    world.structureManager.place(d.sid, dim, cell, { includeBlocks: false, includeEntities: true });
-  } catch (e) {
-    tell(player, "§c", "The soul could not be released.");
-    return;
-  }
-  container.setItem(slot, new ItemStack(EMPTY_ID, 1));
-  burst(dim, center);
-  play(player, "random.orb");
-  tell(player, "§b", `Released: ${d.name || d.species}`);
-  system.runTimeout(() => {
-    if (d.rename) {
-      for (const e of freshEntities(dim, center, before)) {
-        try {
-          e.nameTag = d.rename;
-        } catch (err) {}
-      }
-    }
-    try {
-      world.structureManager.delete(d.sid);
-    } catch (err) {}
-  }, 4);
+  return undefined;
 }
 
-function cooldownLeft(player) {
-  const until = cooldowns.get(player.id);
+function airCell(player) {
+  const p = player.location;
+  let dx = 0;
+  let dz = 1;
+  try {
+    const v = player.getViewDirection();
+    const m = Math.hypot(v.x, v.z) || 1;
+    dx = v.x / m;
+    dz = v.z / m;
+  } catch (e) {}
+  return { x: Math.floor(p.x + dx * 2), y: Math.floor(p.y), z: Math.floor(p.z + dz * 2) };
+}
+
+function cooldownLeft(sid) {
+  const until = cooldowns.get(sid);
   return until === undefined ? 0 : Math.max(0, until - system.currentTick);
 }
 
-function endSpirit(id, message) {
-  const s = spirits.get(id);
+function endSpirit(sid, message, recharge = true) {
+  const s = spirits.get(sid);
   if (!s) return;
-  spirits.delete(id);
+  spirits.delete(sid);
+  if (recharge) cooldowns.set(sid, system.currentTick + COOLDOWN_TICKS);
   try {
     if (s.entity.isValid !== false) {
       burst(s.entity.dimension, s.entity.location);
@@ -313,25 +278,59 @@ function endSpirit(id, message) {
   if (message && s.owner) tell(s.owner, "§b", message);
 }
 
-function summon(player, slot) {
+function tryRelease(player, dim, base, slot) {
   const container = containerOf(player);
   const held = container?.getItem(slot);
-  if (held?.typeId !== FILLED_ID) return;
-  const left = cooldownLeft(player);
+  if (!container || !isFilled(held?.typeId)) return;
+  const d = readStack(held);
+  if (typeof d.sid !== "string" || !d.sid) {
+    tell(player, "§c", "This lantern holds no soul.");
+    return;
+  }
+  const cell = findFree(dim, base, 3);
+  if (!cell) {
+    tell(player, "§e", "There is no free space to release the soul here.");
+    return;
+  }
+  try {
+    world.structureManager.place(d.sid, dim, cell, { includeBlocks: false, includeEntities: true });
+  } catch (e) {
+    tell(player, "§c", "The soul could not be released.");
+    return;
+  }
+  container.setItem(slot, new ItemStack(EMPTY_ID, 1));
+  endSpirit(d.sid, undefined, false);
+  burst(dim, { x: cell.x + 0.5, y: cell.y + 0.5, z: cell.z + 0.5 });
+  play(player, "random.orb");
+  tell(player, "§b", `Released: ${d.name || d.species}`);
+  system.runTimeout(() => {
+    try {
+      world.structureManager.delete(d.sid);
+    } catch (err) {}
+  }, 4);
+}
+
+function toggleSpirit(player, slot) {
+  const container = containerOf(player);
+  const held = container?.getItem(slot);
+  if (!isFilled(held?.typeId)) return;
+  const d = readStack(held);
+  if (typeof d.sid !== "string" || !d.sid) return;
+  if (spirits.has(d.sid)) {
+    endSpirit(d.sid, "Your Spectral Ally returns to the lantern.");
+    return;
+  }
+  const left = cooldownLeft(d.sid);
   if (left > 0) {
     tell(player, "§e", `The lantern is recharging: ${Math.ceil(left / 20)}s`);
     return;
   }
-  for (const [id, s] of spirits) {
-    if (s.owner.id === player.id) endSpirit(id, undefined);
-  }
-  const d = readStack(held);
   const plan = SPECIES[d.type] ?? { fig: 0, mode: "melee" };
   const dim = player.dimension;
   const p = player.location;
   let spirit;
   try {
-    spirit = dim.spawnEntity(SPIRIT_ID, { x: p.x + 1.5, y: p.y, z: p.z });
+    spirit = dim.spawnEntity(SPIRIT_ID, { x: p.x + 1.2, y: p.y + 1.2, z: p.z });
   } catch (e) {
     tell(player, "§c", "The spirit could not take shape.");
     return;
@@ -345,102 +344,88 @@ function summon(player, slot) {
     spirit.nameTag = `§b${d.name || d.species} §3(Spirit)`;
     spirit.addEffect("resistance", SPIRIT_TICKS + 40, { amplifier: 4, showParticles: false });
   } catch (e) {}
-  spirits.set(spirit.id, { entity: spirit, owner: player, end: system.currentTick + SPIRIT_TICKS, mode: plan.mode });
-  cooldowns.set(player.id, system.currentTick + COOLDOWN_TICKS);
+  spirits.set(d.sid, { entity: spirit, owner: player, end: system.currentTick + SPIRIT_TICKS, mode: plan.mode, size: 1 });
   burst(dim, spirit.location);
   play(player, "block.amethyst_block.chime");
-  tell(player, "§b", "Spectral Ally projected for 20 seconds.");
+  tell(player, "§b", "Spectral Ally called. Hold again to recall it.");
 }
 
-async function renameCaptured(player, slot) {
-  const container = containerOf(player);
-  const held = container?.getItem(slot);
-  if (held?.typeId !== FILLED_ID) return;
-  const d = readStack(held);
-  const form = new ModalFormData()
-    .title("§bRename Captured Mob")
-    .textField("New name (leave empty to clear)", "Soul name", { defaultValue: d.rename || "" });
-  let res;
+function setSize(entity, value) {
   try {
-    res = await form.show(player);
-  } catch (e) {
-    return;
-  }
-  if (!res || res.canceled) return;
-  const value = String(res.formValues?.[0] ?? "").trim().slice(0, 32);
-  const fresh = container.getItem(slot);
-  if (fresh?.typeId !== FILLED_ID) return;
-  fresh.setDynamicProperty(KEY.rename, value === "" ? undefined : value);
-  refreshDisplay(fresh);
-  container.setItem(slot, fresh);
-  tell(player, "§b", value === "" ? "The soul's name was cleared." : `The soul is now named ${value}.`);
+    entity.setProperty("aln:size", value);
+  } catch (e) {}
 }
 
-async function openMenu(player) {
+function press(player, block) {
+  const id = player.id;
   const slot = player.selectedSlotIndex;
-  const held = containerOf(player)?.getItem(slot);
-  if (held?.typeId !== FILLED_ID) return;
-  const d = readStack(held);
-  const left = cooldownLeft(player);
-  const body = [
-    `§7Species: §f${d.species}`,
-    `§7Name: §f${d.name || "None"}`,
-    `§7Health: §f${d.hp}/${d.maxHp}`,
-    `§7Details: §f${d.details || "None"}`,
-    `§7Spectral Ally: §f${left > 0 ? `recharging ${Math.ceil(left / 20)}s` : "ready"}`,
-  ].join("\n");
-  const form = new ActionFormData()
-    .title(`§l§6@ALNStudios §eSoul Lantern §r§7(v${VERSION})`)
-    .body(body)
-    .button("§bProject Spectral Ally (20s)")
-    .button("§bRename Captured Mob")
-    .button("Close");
-  let res;
-  try {
-    res = await form.show(player);
-  } catch (e) {
-    return;
-  }
-  if (!res || res.canceled) return;
-  if (res.selection === 0) summon(player, slot);
-  else if (res.selection === 1) renameCaptured(player, slot);
+  const stamp = system.currentTick;
+  if (block) lastBlock.set(id, { dim: block.dim, loc: block.loc, tick: stamp });
+  system.runTimeout(() => {
+    if (usage.get(id)?.using) return;
+    const b = lastBlock.get(id);
+    if (block) {
+      if (b && b.tick === stamp) {
+        lastBlock.delete(id);
+        tryRelease(player, b.dim, { x: b.loc.x, y: b.loc.y + 1, z: b.loc.z }, slot);
+      }
+    } else if (!b || Math.abs(b.tick - stamp) > 3) {
+      tryRelease(player, player.dimension, airCell(player), slot);
+    }
+  }, HOLD_GRACE);
 }
 
 world.beforeEvents.playerInteractWithEntity.subscribe((ev) => {
   const { player, target, itemStack } = ev;
-  if (itemStack?.typeId !== EMPTY_ID || !player.isSneaking) return;
+  if (itemStack?.typeId !== EMPTY_ID) return;
   ev.cancel = true;
-  if (busy(player)) return;
-  mark(player);
+  const last = lastCapture.get(player.id);
+  if (last !== undefined && system.currentTick - last < 8) return;
+  lastCapture.set(player.id, system.currentTick);
   const slot = player.selectedSlotIndex;
   system.run(() => tryCapture(player, target, slot));
 });
 
 world.beforeEvents.playerInteractWithBlock.subscribe((ev) => {
   const { player, block, itemStack, isFirstEvent } = ev;
-  if (itemStack?.typeId !== FILLED_ID) return;
-  ev.cancel = true;
-  if (!isFirstEvent || busy(player)) return;
-  mark(player);
-  const slot = player.selectedSlotIndex;
-  const dim = block.dimension;
-  const loc = { x: block.location.x, y: block.location.y, z: block.location.z };
-  system.run(() => tryRelease(player, dim, loc, slot));
+  if (!isFilled(itemStack?.typeId) || !isFirstEvent) return;
+  const target = { dim: block.dimension, loc: { x: block.location.x, y: block.location.y, z: block.location.z } };
+  system.run(() => press(player, target));
 });
 
 world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
-  if (itemStack?.typeId === FILLED_ID) {
-    if (busy(source)) return;
-    mark(source);
-    openMenu(source);
-  } else if (itemStack?.typeId === EMPTY_ID) {
-    tell(source, "§7", "Sneak and interact with a mob to seal it.");
+  if (isFilled(itemStack?.typeId)) press(source, undefined);
+});
+
+world.afterEvents.itemStartUse.subscribe(({ source, itemStack }) => {
+  if (isFilled(itemStack?.typeId)) usage.set(source.id, { using: true, done: false });
+});
+
+world.afterEvents.itemReleaseUse.subscribe(({ source, itemStack }) => {
+  if (!isFilled(itemStack?.typeId)) return;
+  const u = usage.get(source.id);
+  usage.set(source.id, { using: false, done: false });
+  if (u?.done) return;
+  const b = lastBlock.get(source.id);
+  lastBlock.delete(source.id);
+  const slot = source.selectedSlotIndex;
+  if (b && system.currentTick - b.tick <= 20) {
+    tryRelease(source, b.dim, { x: b.loc.x, y: b.loc.y + 1, z: b.loc.z }, slot);
+  } else {
+    tryRelease(source, source.dimension, airCell(source), slot);
   }
+});
+
+world.afterEvents.itemCompleteUse.subscribe(({ source, itemStack }) => {
+  if (!isFilled(itemStack?.typeId)) return;
+  usage.set(source.id, { using: false, done: true });
+  lastBlock.delete(source.id);
+  toggleSpirit(source, source.selectedSlotIndex);
 });
 
 system.runInterval(() => {
   const now = system.currentTick;
-  for (const [id, s] of spirits) {
+  for (const [sid, s] of spirits) {
     let gone = s.entity.isValid === false || now >= s.end;
     if (!gone) {
       try {
@@ -450,26 +435,30 @@ system.runInterval(() => {
       }
     }
     if (gone) {
-      endSpirit(id, "Your Spectral Ally fades back into the lantern.");
+      endSpirit(sid, "Your Spectral Ally fades back into the lantern.");
       continue;
     }
     try {
       const dim = s.entity.dimension;
       const at = s.entity.location;
       const p = s.owner.location;
-      const ownerGap = Math.hypot(p.x - at.x, p.z - at.z);
-      if (s.owner.dimension.id !== dim.id || ownerGap > 16) {
-        s.entity.teleport({ x: p.x + 1, y: p.y, z: p.z + 1 }, { dimension: s.owner.dimension });
+      const gap = Math.hypot(p.x - at.x, p.z - at.z);
+      if (s.owner.dimension.id !== dim.id || gap > 16 || Math.abs(p.y - at.y) > 8) {
+        s.entity.teleport({ x: p.x + 1, y: p.y + 1.2, z: p.z + 1 }, { dimension: s.owner.dimension });
         continue;
       }
       dim.spawnParticle("minecraft:endrod", { x: at.x, y: at.y + 0.7, z: at.z });
-      if (s.mode === "kamikaze" && ownerGap > 3.5) {
+      if (s.size < 1) {
+        s.size = Math.min(1, s.size + REGROW_STEP);
+        setSize(s.entity, s.size);
+      } else if (s.mode === "kamikaze" && gap > 3.5) {
         const foe = dim
           .getEntities({ location: at, maxDistance: 2.4, families: ["monster"] })
           .find((e) => e.id !== s.entity.id && !e.hasTag(SPIRIT_TAG));
         if (foe) {
           dim.createExplosion(at, 2.5, { breaksBlocks: false, causesFire: false, source: s.entity });
-          endSpirit(id, "Your Kamikaze Spirit detonates.");
+          s.size = SHRUNK_SIZE;
+          setSize(s.entity, s.size);
         }
       }
     } catch (e) {}

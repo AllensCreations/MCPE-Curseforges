@@ -7,6 +7,48 @@
     },
     "aln_soul_lantern_filled": {
       "textures": "textures/items/aln_soul_lantern_filled"
+    },
+    "aln_soul_lantern_creeper": {
+      "textures": "textures/items/aln_soul_lantern/creeper"
+    },
+    "aln_soul_lantern_skeleton": {
+      "textures": "textures/items/aln_soul_lantern/skeleton"
+    },
+    "aln_soul_lantern_zombie": {
+      "textures": "textures/items/aln_soul_lantern/zombie"
+    },
+    "aln_soul_lantern_spider": {
+      "textures": "textures/items/aln_soul_lantern/spider"
+    },
+    "aln_soul_lantern_pig": {
+      "textures": "textures/items/aln_soul_lantern/pig"
+    },
+    "aln_soul_lantern_cow": {
+      "textures": "textures/items/aln_soul_lantern/cow"
+    },
+    "aln_soul_lantern_sheep": {
+      "textures": "textures/items/aln_soul_lantern/sheep"
+    },
+    "aln_soul_lantern_chicken": {
+      "textures": "textures/items/aln_soul_lantern/chicken"
+    },
+    "aln_soul_lantern_wolf": {
+      "textures": "textures/items/aln_soul_lantern/wolf"
+    },
+    "aln_soul_lantern_villager": {
+      "textures": "textures/items/aln_soul_lantern/villager"
+    },
+    "aln_soul_lantern_iron_golem": {
+      "textures": "textures/items/aln_soul_lantern/iron_golem"
+    },
+    "aln_soul_lantern_enderman": {
+      "textures": "textures/items/aln_soul_lantern/enderman"
+    },
+    "aln_soul_lantern_blaze": {
+      "textures": "textures/items/aln_soul_lantern/blaze"
+    },
+    "aln_soul_lantern_snow_golem": {
+      "textures": "textures/items/aln_soul_lantern/snow_golem"
     }
   }
 }

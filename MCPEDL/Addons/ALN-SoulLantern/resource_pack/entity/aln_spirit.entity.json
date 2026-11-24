@@ -31,7 +31,10 @@
       "render_controllers": [
         "controller.render.aln_spirit",
         "controller.render.aln_spirit_figure"
-      ]
+      ],
+      "scripts": {
+        "scale": "query.property('aln:size')"
+      }
     }
   }
 }

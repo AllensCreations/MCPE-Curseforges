@@ -5,7 +5,18 @@
       "identifier": "aln:spirit",
       "is_spawnable": false,
       "is_summonable": true,
-      "is_experimental": false
+      "is_experimental": false,
+      "properties": {
+        "aln:size": {
+          "type": "float",
+          "default": 1.0,
+          "range": [
+            0.0,
+            1.0
+          ],
+          "client_sync": true
+        }
+      }
     },
     "component_groups": {
       "aln:melee": {
@@ -176,10 +187,10 @@
         "value": 20,
         "max": 20
       },
-      "minecraft:navigation.walk": {
-        "can_path_over_water": false,
-        "avoid_water": true,
-        "can_pass_doors": true
+      "minecraft:can_fly": {},
+      "minecraft:navigation.float": {
+        "can_path_over_water": true,
+        "using_door_annotation": true
       },
       "minecraft:movement.basic": {},
       "minecraft:jump.static": {},
@@ -188,7 +199,9 @@
       },
       "minecraft:nameable": {},
       "minecraft:persistent": {},
-      "minecraft:physics": {},
+      "minecraft:physics": {
+        "has_gravity": false
+      },
       "minecraft:pushable": {
         "is_pushable": true,
         "is_pushable_by_piston": true
@@ -228,9 +241,18 @@
           }
         ]
       },
-      "minecraft:behavior.random_stroll": {
+      "minecraft:behavior.float_wander": {
         "priority": 6,
-        "speed_multiplier": 1.0
+        "float_duration": [
+          0.1,
+          0.35
+        ],
+        "float_wander_has_move_control": false,
+        "random_reselect": true,
+        "y_offset": 0.0,
+        "use_home_position_restriction": false,
+        "xz_dist": 8,
+        "y_dist": 3
       },
       "minecraft:behavior.look_at_player": {
         "priority": 7,
