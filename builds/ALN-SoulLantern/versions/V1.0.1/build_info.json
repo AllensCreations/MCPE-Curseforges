@@ -1,8 +1,0 @@
-{
-  "changelog_version": "1.0.1",
-  "manifest_version": "1.0.1",
-  "packages": {
-    "ALNSoulLantern V1.0.1.mcaddon": "68eb957491a1ac7e1d7608714ea4fc269c9734a53562cca06a7aa87d8d4e183c"
-  },
-  "source_sha256": "bef29ea5e43768fe327619058e5f0093b118b3915b1632fc0c3adba72f5bb912"
-}

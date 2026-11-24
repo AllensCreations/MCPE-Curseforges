@@ -1,15 +1,24 @@
 # Changelog — ALN SoulLantern
 
-## [1.0.2] - 2026-11-24 - Pet Spirit Update
+## [2.0.0] - 2026-11-24 - No-UI Update
 
 ### Added
-- **Spirit figurine**: A small figure of the captured mob floats inside the Spectral Ally, with a glowing orb for mobs that have no figure yet.
+- **Mob lanterns**: Each kind of captured mob gives the Soul-Bound lantern its own icon.
 
 ### Improved & Balanced
-- **Spectral Ally**: The ally now wanders and fights like a pet instead of circling you, and its attack depends on the captured mob. Creepers explode, Skeletons fire arrows, Snow Golems throw snowballs, and Iron Golems hit hard.
+- **Controls**: The Spirit menu and sneaking are gone. Interact with a mob to seal it, tap to release it, and hold to call or recall the Spectral Ally.
+- **Spectral Ally**: The spirit now floats like an Allay, each lantern has one spirit, and the recharge is 10 seconds. A Kamikaze Spirit shrinks after exploding and slowly grows back.
 
 <details>
-<summary><b>1.0.x</b> (2 releases)</summary>
+<summary><b>1.0.x</b> (3 releases)</summary>
+
+### [1.0.2] - 2026-11-24 - Pet Spirit Update
+
+#### Added
+- **Spirit figurine**: A small figure of the captured mob floats inside the Spectral Ally, with a glowing orb for mobs that have no figure yet.
+
+#### Improved & Balanced
+- **Spectral Ally**: The ally now wanders and fights like a pet instead of circling you, and its attack depends on the captured mob. Creepers explode, Skeletons fire arrows, Snow Golems throw snowballs, and Iron Golems hit hard.
 
 ### [1.0.1] - 2026-11-23 - Spirit Ally and Particle Fix
 
