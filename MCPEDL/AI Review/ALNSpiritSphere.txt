@@ -7,7 +7,7 @@
 - **CURRENT VERSION: v5 / NEXT UPDATE: v6**  (`MCPEDL/Addons/ALNSpiritSphere/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 40
-- **Skipped binary:** 47
+- **Skipped binary:** 48
 - **Paths not found:** 0
 
 ### Files in this export
@@ -53,7 +53,7 @@
 - `MCPEDL/Addons/ALNSpiritSphere/sound_sources/make_sounds.py`
 - `MCPEDL/Addons/ALNSpiritSphere/texture_sources/spirit_sphere.json`
 
-### Skipped (binary): 47 file(s)
+### Skipped (binary): 48 file(s)
 
 - `MCPEDL/Addons/ALNSpiritSphere/assets/items/aero_sphere.png`
 - `MCPEDL/Addons/ALNSpiritSphere/assets/items/aln_aero_sphere.png`
@@ -69,6 +69,7 @@
 - `MCPEDL/Addons/ALNSpiritSphere/assets/items/storm_sphere.png`
 - `MCPEDL/Addons/ALNSpiritSphere/assets/items/void_sphere.png`
 - `MCPEDL/Addons/ALNSpiritSphere/assets/recipes/aero_sphere_aero_sphere_wind_charge_recipe.png`
+- `MCPEDL/Addons/ALNSpiritSphere/assets/recipes/aero_sphere_recipe.gif`
 - `MCPEDL/Addons/ALNSpiritSphere/assets/recipes/aero_sphere_recipe.png`
 - `MCPEDL/Addons/ALNSpiritSphere/assets/recipes/blaze_sphere_recipe.png`
 - `MCPEDL/Addons/ALNSpiritSphere/assets/recipes/frost_sphere_recipe.png`
@@ -94,8 +95,7 @@
 - `MCPEDL/Addons/ALNSpiritSphere/resource_pack/sounds/aln/spirit/storm_launch.ogg`
 - `MCPEDL/Addons/ALNSpiritSphere/resource_pack/sounds/aln/spirit/void_burst.ogg`
 - `MCPEDL/Addons/ALNSpiritSphere/resource_pack/sounds/aln/spirit/void_charge.ogg`
-- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/sounds/aln/spirit/void_impact.ogg`
-- ... and 7 more
+- ... and 8 more
 
 ---
 
@@ -1435,10 +1435,14 @@ Minecraft Bedrock add-on, ALN:SpiritSphere Bedrock mod, Spirit Sphere, charge pr
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/README.md (19 lines, 799 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/README.md (23 lines, 1040 bytes)
 
 ```
 # ALNSpiritSphere
+
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-Not%20Published-lightgrey?style=flat-square&logo=curseforge)](https://www.curseforge.com/members/allenscreations/projects)
+<!-- CURSEFORGE-BADGE:END -->
 
 Download the current release of **ALNSpiritSphere** for Minecraft Bedrock Edition.
 

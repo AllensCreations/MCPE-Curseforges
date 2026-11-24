@@ -7,7 +7,7 @@
 - **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/ALN-SoulLantern/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 35
-- **Skipped binary:** 52
+- **Skipped binary:** 53
 - **Paths not found:** 0
 
 ### Files in this export
@@ -48,7 +48,7 @@
 - `MCPEDL/Addons/ALN-SoulLantern/texture_sources/aln_spirit_figs.json`
 - `MCPEDL/Addons/ALN-SoulLantern/texture_sources/soul_lantern.json`
 
-### Skipped (binary): 52 file(s)
+### Skipped (binary): 53 file(s)
 
 - `MCPEDL/Addons/ALN-SoulLantern/assets/items/aln_soul_lantern.png`
 - `MCPEDL/Addons/ALN-SoulLantern/assets/items/aln_soul_lantern_blaze.png`
@@ -82,6 +82,7 @@
 - `MCPEDL/Addons/ALN-SoulLantern/assets/items/soul_lantern_villager.png`
 - `MCPEDL/Addons/ALN-SoulLantern/assets/items/soul_lantern_wolf.png`
 - `MCPEDL/Addons/ALN-SoulLantern/assets/items/soul_lantern_zombie.png`
+- `MCPEDL/Addons/ALN-SoulLantern/assets/recipes/soul_lantern_recipe.gif`
 - `MCPEDL/Addons/ALN-SoulLantern/assets/recipes/soul_lantern_recipe.png`
 - `MCPEDL/Addons/ALN-SoulLantern/assets/recipes/soul_lantern_soul_lantern_soil_recipe.png`
 - `MCPEDL/Addons/ALN-SoulLantern/resource_pack/textures/items/aln_soul_lantern/blaze.png`
@@ -89,8 +90,7 @@
 - `MCPEDL/Addons/ALN-SoulLantern/resource_pack/textures/items/aln_soul_lantern/cow.png`
 - `MCPEDL/Addons/ALN-SoulLantern/resource_pack/textures/items/aln_soul_lantern/creeper.png`
 - `MCPEDL/Addons/ALN-SoulLantern/resource_pack/textures/items/aln_soul_lantern/enderman.png`
-- `MCPEDL/Addons/ALN-SoulLantern/resource_pack/textures/items/aln_soul_lantern/iron_golem.png`
-- ... and 12 more
+- ... and 13 more
 
 ---
 

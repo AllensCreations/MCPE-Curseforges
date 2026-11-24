@@ -7,7 +7,7 @@
 - **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/Mining-Helmet/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 22
-- **Skipped binary:** 21
+- **Skipped binary:** 22
 - **Paths not found:** 0
 
 ### Files in this export
@@ -35,12 +35,13 @@
 - `MCPEDL/Addons/Mining-Helmet/resource_pack/textures/item_texture.json`
 - `MCPEDL/Addons/Mining-Helmet/TEXTURE_GUIDE.md`
 
-### Skipped (binary): 21 file(s)
+### Skipped (binary): 22 file(s)
 
 - `MCPEDL/Addons/Mining-Helmet/1791946330457.jpg`
 - `MCPEDL/Addons/Mining-Helmet/assets/items/mining_helmet.png`
 - `MCPEDL/Addons/Mining-Helmet/assets/items/torch_mining_helmet.png`
 - `MCPEDL/Addons/Mining-Helmet/assets/recipes/mining_helmet_mining_helmet_upgrade_recipe.png`
+- `MCPEDL/Addons/Mining-Helmet/assets/recipes/mining_helmet_recipe.gif`
 - `MCPEDL/Addons/Mining-Helmet/assets/recipes/mining_helmet_recipe.png`
 - `MCPEDL/Addons/Mining-Helmet/assets/recipes/recipe_lantern.png`
 - `MCPEDL/Addons/Mining-Helmet/assets/recipes/recipe_torch.png`
@@ -1310,10 +1311,14 @@ oversaturated, daytime, flat ambient lighting, cartoonish smooth textures, illeg
 ```
 ````
 
-## FILE: MCPEDL/Addons/Mining-Helmet/README.md (19 lines, 786 bytes)
+## FILE: MCPEDL/Addons/Mining-Helmet/README.md (23 lines, 995 bytes)
 
 ```
 # Mining Helmet
+
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-v2-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1744147)
+<!-- CURSEFORGE-BADGE:END -->
 
 Download the current release of **Mining Helmet** for Minecraft Bedrock Edition.
 
