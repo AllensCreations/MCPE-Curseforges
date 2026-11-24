@@ -13,7 +13,9 @@ Usage: python3 scripts/build_mcpedl_readme.py [--check] [--root DIR]
 import argparse
 import os
 import json
+import os
 import re
+import subprocess
 import sys
 from pathlib import Path
 from urllib.parse import quote
@@ -24,9 +26,35 @@ RAW = "https://github.com/AllensCreations/MCPE-Curseforges/raw/main/"
 GITHUB_RAW = "https://github.com/AllensCreations/MCPE-Curseforges/raw/main/"
 
 
+def file_exists_in_repo(root: Path, rel_path: str) -> bool:
+    target = root / rel_path
+    if target.is_file():
+        return True
+    try:
+        res = subprocess.run(
+            ["git", "-C", str(root), "ls-files", "--error-unmatch", rel_path],
+            capture_output=True,
+            text=True,
+        )
+        return res.returncode == 0
+    except Exception:
+        return False
+
+
 def get_ai_kits(root: Path):
     bedrock_dir = root / "reference" / "bedrock-samples"
     zips = sorted(bedrock_dir.glob("bedrock-reference-pack-*.zip"))
+    if not zips:
+        try:
+            res = subprocess.run(
+                ["git", "-C", str(root), "ls-files", "reference/bedrock-samples/bedrock-reference-pack-*.zip"],
+                capture_output=True,
+                text=True,
+            )
+            if res.returncode == 0 and res.stdout.strip():
+                zips = [root / p for p in res.stdout.strip().splitlines()]
+        except Exception:
+            pass
     if zips:
         bundle_path = zips[-1].relative_to(root).as_posix()
         bundle_label = f"Bedrock Reference Bundle ({zips[-1].stem.replace('bedrock-reference-pack-', 'v')})"
@@ -134,8 +162,7 @@ def render(root):
     # AI Review Kits section
     kit_rows = ["| Kit | Download |", "| :-- | :-- |"]
     for kit_label, kit_rel in get_ai_kits(root):
-        kit_path = root / kit_rel
-        if kit_path.is_file():
+        if file_exists_in_repo(root, kit_rel):
             kit_rows.append(f"| **{kit_label}** | [Download]({GITHUB_RAW}{quote(kit_rel)}) |")
         else:
             kit_rows.append(f"| **{kit_label}** | *(not yet built)* |")

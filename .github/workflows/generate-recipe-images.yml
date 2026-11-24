@@ -55,5 +55,5 @@ jobs:
             echo "Recipe images are already up to date."
           else
             git commit -m "docs: regenerate source-based crafting recipe images [skip ci]"
-            python3 scripts/git_push_retry.py --branch main
+            python3 scripts/git_push_retry.py --branch "${GITHUB_REF#refs/heads/}"
           fi

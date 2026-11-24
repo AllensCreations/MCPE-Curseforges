@@ -9,14 +9,18 @@ import sys
 
 from PIL import Image
 
+import unittest
+
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 sys.path.insert(0, str(ROOT / "scripts" / "lib"))
 try:
     import cairosvg  # noqa: F401  (the template renderer needs it)
 except ImportError:
-    print("SKIPPED: cairosvg is not installed (pip install cairosvg to run this test)")
-    sys.exit(0)
+    if __name__ == "__main__":
+        print("SKIPPED: cairosvg is not installed (pip install cairosvg to run this test)")
+        sys.exit(0)
+    raise unittest.SkipTest("cairosvg is not installed (pip install cairosvg to run this test)")
 import crafting_template as ct  # noqa: E402
 
 OUT = Path(__file__).resolve().parent / "output"

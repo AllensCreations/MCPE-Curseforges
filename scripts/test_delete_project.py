@@ -67,8 +67,15 @@ class DeletePackageTests(unittest.TestCase):
             (self.root / "changelog_views").mkdir(exist_ok=True)
             (self.root / "changelog_views" / f"{name}.github.md").write_text("g")
             (self.root / "changelog_views" / f"{name}.curseforge.html").write_text("c")
+            (self.root / "Package").mkdir(exist_ok=True)
+            (self.root / "Package" / f"{name}.listing.md").write_text("listing")
+            (self.root / "MCPEDL/AI Review").mkdir(parents=True, exist_ok=True)
+            (self.root / "MCPEDL/AI Review" / f"{name}.txt").write_text("ai")
+            (self.root / "MCPEDL/AI Review" / f"{name}.zip").write_text("zip")
+            (self.root / "MCPEDL/AI Review" / f".{name}.source-hash").write_text("hash")
         (self.root / "MCPEDL/Maps/Mining-Helmet-Map").mkdir(parents=True)
         (self.root / "MCPEDL/Addons/README.md").write_text(CATEGORY_README, encoding="utf-8")
+        (self.root / "MCPEDL/README.md").write_text(CATEGORY_README, encoding="utf-8")
         (self.root / "builds/README.md").write_text(BUILDS_README, encoding="utf-8")
         (self.root / "README.md").write_text(ROOT_README, encoding="utf-8")
         (self.root / "builds/Curseforge_IDs.json").write_text(json.dumps({
@@ -82,8 +89,11 @@ class DeletePackageTests(unittest.TestCase):
             patch.object(dp, "MCPEDL_DIR", str(mcpedl)),
             patch.object(dp, "BUILDS_DIR", str(self.root / "builds")),
             patch.object(dp, "VIEWS_DIR", str(self.root / "changelog_views")),
+            patch.object(dp, "PACKAGE_DIR", str(self.root / "Package")),
+            patch.object(dp, "AI_REVIEW_DIR", str(mcpedl / "AI Review")),
             patch.object(dp, "ROOT_README", str(self.root / "README.md")),
             patch.object(dp, "BUILDS_README", str(self.root / "builds/README.md")),
+            patch.object(dp, "MCPEDL_README", str(mcpedl / "README.md")),
             patch.object(dp, "WORLDS_README", str(self.root / "Mcpeworlds/README.md")),
             patch.object(dp, "REGISTRY", str(self.root / "builds/Curseforge_IDs.json")),
             patch.object(dp, "CATEGORY_MAP", {k: str(mcpedl / v) for k, v in dp.CATEGORY_DIRS.items()}),
@@ -114,9 +124,13 @@ class DeletePackageTests(unittest.TestCase):
         self.assertFalse((self.root / "builds/Mining-Helmet").exists())
         self.assertFalse((self.root / "changelog_views/Mining-Helmet.github.md").exists())
         self.assertFalse((self.root / "changelog_views/Mining-Helmet.curseforge.html").exists())
+        self.assertFalse((self.root / "Package/Mining-Helmet.listing.md").exists())
+        self.assertFalse((self.root / "MCPEDL/AI Review/Mining-Helmet.txt").exists())
+        self.assertFalse((self.root / "MCPEDL/AI Review/Mining-Helmet.zip").exists())
+        self.assertFalse((self.root / "MCPEDL/AI Review/.Mining-Helmet.source-hash").exists())
         registry = json.loads((self.root / "builds/Curseforge_IDs.json").read_text())
         self.assertEqual(list(registry), ["MCPEDL/Addons/Universal-Leash"])
-        for readme in ("README.md", "builds/README.md", "MCPEDL/Addons/README.md"):
+        for readme in ("README.md", "builds/README.md", "MCPEDL/Addons/README.md", "MCPEDL/README.md"):
             text = (self.root / readme).read_text()
             self.assertNotIn("| **Mining Helmet**", text, readme)
             self.assertNotIn("| Mining Helmet |", text, readme)
@@ -134,6 +148,8 @@ class DeletePackageTests(unittest.TestCase):
         self.assertTrue((self.root / "builds/Universal-Leash/x.mcaddon").is_file())
         self.assertTrue((self.root / "MCPEDL/Maps/Mining-Helmet-Map").is_dir())
         self.assertTrue((self.root / "changelog_views/Universal-Leash.github.md").is_file())
+        self.assertTrue((self.root / "Package/Universal-Leash.listing.md").is_file())
+        self.assertTrue((self.root / "MCPEDL/AI Review/Universal-Leash.txt").is_file())
 
     def test_mention_inside_another_package_is_reported_not_deleted(self):
         _, _, warnings = dp.delete_project("addons", "Mining-Helmet")

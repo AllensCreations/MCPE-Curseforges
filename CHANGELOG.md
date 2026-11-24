@@ -4,6 +4,19 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v284] - 2026-11-24 - Workflow Hardening and Delete Toolchain Sync
+
+**Spec**: spec_v284.txt | **Target**: repo | **Files edited**: 12
+
+### Fixed & Hardened
+- **Base64 Importer Workflow Crash**: Added fallback wildcard handler to `case "$MODE"` in `.github/workflows/create-project-from-base64.yml`, preventing unbound variable failures under `set -u` when default `auto` mode is used. Switched direct push to `git_push_retry.py`.
+- **Delete Project Completeness**: Updated `scripts/delete_project.py` and `.github/workflows/delete-project.yml` to purge orphaned `Package/<name>.listing.md`, `MCPEDL/AI Review/<name>.*` files, and `MCPEDL/README.md` catalog rows when a package is removed.
+- **Workflow Push Retries**: Upgraded `.github/workflows/sync-oneblock-progression.yml`, `optimize-images.yml`, `generate-recipe-images.yml`, and `register-curseforge-id.yml` to use `git_push_retry.py` across current branches instead of bare/hardcoded pushes.
+- **Publish Workflow MCPEDL Sync**: Added `scripts/build_mcpedl_readme.py` execution to `.github/workflows/publish-curseforge.yml` so `MCPEDL/README.md` stays synchronized on pack publishing.
+- **Test Discovery Fix**: Replaced `sys.exit(0)` with `unittest.SkipTest` in `scripts/test_crafting_template.py` when `cairosvg` is missing so unittest discovery completes cleanly.
+- **Catalog Builder Sparse-Checkout Support**: Added git fallback to `scripts/build_mcpedl_readme.py` so reference kit links remain accurate even when `reference/` is excluded by sparse-checkout.
+- **Test Coverage**: Added dedicated unit test suite in `scripts/test_build_mcpedl_readme.py`.
+
 ## [v283] - 2026-11-24 - Changelog Standard and Function Linter Compliance
 
 **Spec**: spec_v283.txt | **Target**: repo | **Files edited**: 7

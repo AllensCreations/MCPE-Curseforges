@@ -11,11 +11,13 @@ Removed together with the package (the "affected things"):
   1. MCPEDL/<Category>/<Name>/            source, docs, changelog, world archives
   2. builds/<Name>/                       packages, versions/, build_info.json, build README
   3. changelog_views/<Name>.*             generated GitHub and CurseForge changelog views
-  4. builds/Curseforge_IDs.json           the pack's saved CurseForge project ID and versions
-  5. Catalog rows and overview sections   category README, builds/README.md, README.md,
-                                          Mcpeworlds/README.md
-  6. Collection Size badge                root README.md
-  7. Publish dropdown                     "Registered pack" list of publish-curseforge.yml
+  4. Package/<Name>.listing.md            generated package listing kit
+  5. MCPEDL/AI Review/<Name>.*            per-package AI review exports (.txt, .zip, .source-hash)
+  6. builds/Curseforge_IDs.json           the pack's saved CurseForge project ID and versions
+  7. Catalog rows and overview sections   category README, builds/README.md, README.md,
+                                          MCPEDL/README.md, Mcpeworlds/README.md
+  8. Collection Size badge                root README.md
+  9. Publish dropdown                     "Registered pack" list of publish-curseforge.yml
 Anything else that still mentions the package is reported as a warning (never edited blindly).
 """
 
@@ -32,8 +34,11 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 MCPEDL_DIR = os.path.join(REPO_ROOT, "MCPEDL")
 BUILDS_DIR = os.path.join(REPO_ROOT, "builds")
 VIEWS_DIR = os.path.join(REPO_ROOT, "changelog_views")
+PACKAGE_DIR = os.path.join(REPO_ROOT, "Package")
+AI_REVIEW_DIR = os.path.join(MCPEDL_DIR, "AI Review")
 ROOT_README = os.path.join(REPO_ROOT, "README.md")
 BUILDS_README = os.path.join(BUILDS_DIR, "README.md")
+MCPEDL_README = os.path.join(MCPEDL_DIR, "README.md")
 WORLDS_README = os.path.join(REPO_ROOT, "Mcpeworlds", "README.md")
 REGISTRY = os.path.join(BUILDS_DIR, "Curseforge_IDs.json")
 
@@ -226,6 +231,27 @@ def remove_changelog_views(slug, removed):
             print(f"  [Deleted] changelog_views/{name}")
 
 
+def remove_package_listing(slug, removed):
+    if not os.path.isdir(PACKAGE_DIR):
+        return
+    listing = os.path.join(PACKAGE_DIR, f"{slug}.listing.md")
+    if os.path.isfile(listing):
+        os.remove(listing)
+        removed.append(f"Package/{slug}.listing.md")
+        print(f"  [Deleted] Package/{slug}.listing.md")
+
+
+def remove_ai_review_files(slug, removed):
+    if not os.path.isdir(AI_REVIEW_DIR):
+        return
+    for name in (f"{slug}.txt", f"{slug}.zip", f".{slug}.source-hash"):
+        path = os.path.join(AI_REVIEW_DIR, name)
+        if os.path.isfile(path):
+            os.remove(path)
+            removed.append(f"MCPEDL/AI Review/{name}")
+            print(f"  [Deleted] MCPEDL/AI Review/{name}")
+
+
 def sync_publish_dropdown():
     """Refresh the 'Registered pack' list in publish-curseforge.yml from the registry."""
     try:
@@ -303,6 +329,11 @@ def delete_project(target_type, slug, dry_run=False):
         for suffix in ("github.md", "curseforge.html"):
             if os.path.isfile(os.path.join(VIEWS_DIR, f"{slug}.{suffix}")):
                 print(f"  - changelog_views/{slug}.{suffix}")
+        if os.path.isfile(os.path.join(PACKAGE_DIR, f"{slug}.listing.md")):
+            print(f"  - Package/{slug}.listing.md")
+        for name in (f"{slug}.txt", f"{slug}.zip", f".{slug}.source-hash"):
+            if os.path.isfile(os.path.join(AI_REVIEW_DIR, name)):
+                print(f"  - MCPEDL/AI Review/{name}")
         print("  - its catalog rows, overview section, CurseForge registry entry and dropdown option")
         return True, removed, []
 
@@ -316,12 +347,15 @@ def delete_project(target_type, slug, dry_run=False):
         print(f"  [Deleted] Build directory: builds/{slug}")
 
     remove_changelog_views(slug, removed)
+    remove_package_listing(slug, removed)
+    remove_ai_review_files(slug, removed)
     remove_registry_entry(category_name, slug, removed)
 
     clean_table_rows(os.path.join(cat_dir, "README.md"), category_name, slug, title, removed)
     clean_table_rows(BUILDS_README, category_name, slug, title, removed)
     clean_table_rows(ROOT_README, category_name, slug, title, removed)
     clean_table_rows(WORLDS_README, category_name, slug, title, removed)
+    clean_table_rows(MCPEDL_README, category_name, slug, title, removed)
     clean_root_overview(slug, title, removed)
     update_collection_badge(removed)
     sync_publish_dropdown()

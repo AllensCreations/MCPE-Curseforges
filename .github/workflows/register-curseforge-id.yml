@@ -92,8 +92,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "chore(curseforge): register/update ${PROJECT_PATH} -> ${CURSEFORGE_PROJECT_ID} [skip ci]"
-          git pull --rebase origin "${GITHUB_REF#refs/heads/}" --autostash
-          git push origin "HEAD:${GITHUB_REF}"
+          python3 scripts/git_push_retry.py --branch "${GITHUB_REF#refs/heads/}"
 
       - name: Start Build Changed Packs & Sync Catalogs
         env:

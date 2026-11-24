@@ -103,7 +103,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          for path in MCPEDL builds changelog_views Mcpeworlds/README.md README.md; do
+          for path in MCPEDL builds changelog_views Package Mcpeworlds/README.md README.md; do
             if [ -e "$path" ] || git ls-files --error-unmatch -- "$path" >/dev/null 2>&1; then
               git add -A -- "$path"
             fi

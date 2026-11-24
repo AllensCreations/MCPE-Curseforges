@@ -22,5 +22,5 @@ jobs:
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add assets/Images
             git commit -m "chore(images): optimize images [skip ci]"
-            git push
+            python3 scripts/git_push_retry.py --branch "${GITHUB_REF#refs/heads/}"
           fi

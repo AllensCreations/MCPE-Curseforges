@@ -24,9 +24,9 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
-        uses: actions/setup-python@a2696eed923e8484107e0503f1eed81a3d922bc9 # v6.1.0
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
-          python-version: "3.11"
+          python-version: "3.14"
 
       - name: Sync Oneblock_Progression.js into all OneBlock map packages
         run: python3 scripts/sync_oneblock_progression.py
@@ -40,5 +40,5 @@ jobs:
             echo "No OneBlock script files were modified."
           else
             git commit -m "chore(oneblock): sync Oneblock_Progression.js data pool into map packages [skip ci]"
-            git push origin HEAD:${{ github.ref }}
+            python3 scripts/git_push_retry.py --branch "${GITHUB_REF#refs/heads/}"
           fi

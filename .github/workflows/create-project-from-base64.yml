@@ -190,10 +190,11 @@ jobs:
             create)    VERB="create" ;;
             update)    VERB="update" ;;
             overwrite) VERB="overwrite" ;;
+            *)         VERB="${MODE:-import}" ;;
           esac
           git commit -m "feat(${PTYPE}): ${VERB} ${NAME} from base64 payload [skip ci]"
           if [ "$COMMIT_MODE" = "direct" ]; then
-            git push origin "HEAD:${GITHUB_REF_NAME}"
+            python3 scripts/git_push_retry.py --branch "${GITHUB_REF_NAME}"
             echo "mode=direct" >> "$GITHUB_OUTPUT"
           else
             git push origin "$BRANCH"
