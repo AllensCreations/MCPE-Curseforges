@@ -1,5 +1,4 @@
 execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air
-# Starter island: 9x9, two layers, built once (skipped when the core foundation already exists)
 execute as @a[tag=!void_cleaned] unless block 0 -1 0 bedrock run fill -4 -2 -4 4 -2 4 dirt
 execute as @a[tag=!void_cleaned] unless block 0 -1 0 bedrock run fill -4 -1 -4 4 -1 4 grass_block
 execute as @a[tag=!void_cleaned] run tp @s 0 1 0

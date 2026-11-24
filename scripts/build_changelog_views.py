@@ -14,7 +14,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "changelog_views"
 CATEGORIES = ("Addons", "Maps", "Script", "Minigame")
-TITLE = re.compile(r"^# Changelog — (.+)$")
+TITLE = re.compile(r"^# Changelog\s*[—–-]\s*(.+)$")
 ENTRY = re.compile(r"^## \[(?:v)?(\d+)(?:\.(\d+))?(?:\.(\d+))?(?:\.(\d+))?\] - (\d{4}-\d{2}-\d{2})(?: - (\S.*))?$", re.IGNORECASE)
 GROUP = re.compile(r"^### (.+)$")
 BULLET = re.compile(r"^- \*\*([^*]+)\*\*: (\S.*)$")

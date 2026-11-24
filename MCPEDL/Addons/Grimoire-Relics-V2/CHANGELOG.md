@@ -1,4 +1,4 @@
-# Changelog - Grimoire Relics V2
+# Changelog — Grimoire Relics V2
 
 ---
 

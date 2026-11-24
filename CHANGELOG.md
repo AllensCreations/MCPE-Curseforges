@@ -4,6 +4,15 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v283] - 2026-11-24 - Changelog Standard and Function Linter Compliance
+
+**Spec**: spec_v283.txt | **Target**: repo | **Files edited**: 7
+
+### Fixed & Standardized
+- **Changelog Header Standardization**: Aligned `MCPEDL/Addons/Grimoire-Relics-V2/CHANGELOG.md` and `MCPEDL/Maps/OneBlock-Void-Survival/CHANGELOG.md` with the em-dash title format (`# Changelog — <Name>`), allowing all 61 packages to generate changelog views.
+- **Robust Changelog View Parser**: Updated `scripts/build_changelog_views.py` title regex to support hyphens, en-dashes, and em-dashes transparently.
+- **Strict MCFunction Comment Purge**: Stripped remaining comments from `oneblock_setup.mcfunction`, `oneblock_tick.mcfunction`, and `void_cleaner.mcfunction` across OneBlock maps to comply with Bedrock function performance standards and eliminate test warnings.
+
 ## [v282] - 2026-11-24 - Automated MCPEDL and CurseForge Sync Tooling
 
 **Spec**: spec_v282.txt | **Target**: repo | **Files edited**: 2
