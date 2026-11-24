@@ -7,7 +7,7 @@
 - **CURRENT VERSION: v5 / NEXT UPDATE: v6**  (`MCPEDL/Addons/ALNSpiritSphere/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 40
-- **Skipped binary:** 27
+- **Skipped binary:** 47
 - **Paths not found:** 0
 
 ### Files in this export
@@ -53,7 +53,7 @@
 - `MCPEDL/Addons/ALNSpiritSphere/sound_sources/make_sounds.py`
 - `MCPEDL/Addons/ALNSpiritSphere/texture_sources/spirit_sphere.json`
 
-### Skipped (binary): 27 file(s)
+### Skipped (binary): 47 file(s)
 
 - `MCPEDL/Addons/ALNSpiritSphere/assets/items/aero_sphere.png`
 - `MCPEDL/Addons/ALNSpiritSphere/assets/items/aln_aero_sphere.png`
@@ -76,12 +76,26 @@
 - `MCPEDL/Addons/ALNSpiritSphere/assets/recipes/spirit_focus_spirit_focus_wind_charge_recipe.png`
 - `MCPEDL/Addons/ALNSpiritSphere/assets/recipes/storm_sphere_recipe.png`
 - `MCPEDL/Addons/ALNSpiritSphere/assets/recipes/void_sphere_recipe.png`
-- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/textures/items/aln_aero_sphere.png`
-- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/textures/items/aln_blaze_sphere.png`
-- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/textures/items/aln_frost_sphere.png`
-- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/textures/items/aln_orb_core.png`
-- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/textures/items/aln_storm_sphere.png`
-- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/textures/items/aln_void_sphere.png`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/sounds/aln/spirit/aero_burst.ogg`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/sounds/aln/spirit/aero_charge.ogg`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/sounds/aln/spirit/aero_impact.ogg`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/sounds/aln/spirit/aero_launch.ogg`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/sounds/aln/spirit/blaze_burst.ogg`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/sounds/aln/spirit/blaze_charge.ogg`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/sounds/aln/spirit/blaze_impact.ogg`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/sounds/aln/spirit/blaze_launch.ogg`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/sounds/aln/spirit/frost_burst.ogg`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/sounds/aln/spirit/frost_charge.ogg`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/sounds/aln/spirit/frost_impact.ogg`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/sounds/aln/spirit/frost_launch.ogg`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/sounds/aln/spirit/storm_burst.ogg`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/sounds/aln/spirit/storm_charge.ogg`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/sounds/aln/spirit/storm_impact.ogg`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/sounds/aln/spirit/storm_launch.ogg`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/sounds/aln/spirit/void_burst.ogg`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/sounds/aln/spirit/void_charge.ogg`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/sounds/aln/spirit/void_impact.ogg`
+- ... and 7 more
 
 ---
 
