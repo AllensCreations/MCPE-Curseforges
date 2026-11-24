@@ -60,4 +60,3 @@ Videos and streams are welcome with credit. Redistribution of original or modifi
 - [Maps](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps#available-maps)
 - [Scripts](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script#available-scripts)
 - [Minigames](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame#available-minigames)
-- [TypeScript Definitions (.d.ts)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/reference/typescript-definitions)

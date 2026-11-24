@@ -4,6 +4,17 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v281] - 2026-11-24 - Optimization and Repository Bug Fixes
+
+**Spec**: spec_v281.txt | **Target**: repo | **Files edited**: 6
+
+### Fixed & Cleaned
+- **Catalog Duplicate & Placement Cleanup**: Removed miscategorized duplicates (`Waypoint Helper`, `ALNOneClickSort`) and dead placeholder rows from `MCPEDL/Script/README.md`.
+- **Dead Link Purge**: Removed obsolete link to `reference/typescript-definitions` in `MCPEDL/Addons/README.md`.
+- **Automated Badge Preservation**: Updated `scripts/auto_bump_and_build.py` to preserve live CurseForge status badges across package README updates.
+- **Documentation Standard Alignment**: Rewrote `MCPEDL/Maps/Oneblock-SM/DESCRIPTION.md` to conform strictly with commercial player-first showcase guidelines.
+- **Context7 & Discovery Rules**: Synchronized `context7.json` and `llms.txt` with self-contained update script workflows, custom audio synthesis standards, and SEO tags.
+
 ## [v280] - 2026-11-24 - Barrel Chest Update
 
 **Spec**: spec_v280.txt | **Target**: MCPEDL/Addons/ALN-FarmerGolem | **Files edited**: 7

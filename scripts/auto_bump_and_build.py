@@ -717,8 +717,22 @@ def update_project_readme(project_path, category, new_ver_str, primary_file=None
         if package_ext == ".mcworld"
         else "3. If the package contains a pack that must be enabled separately, activate it in your world's settings."
     )
+    badge_content = ""
+    if os.path.isfile(readme_path):
+        try:
+            with open(readme_path, encoding="utf-8") as existing_f:
+                existing_text = existing_f.read()
+            if "<!-- CURSEFORGE-BADGE:START -->" in existing_text and "<!-- CURSEFORGE-BADGE:END -->" in existing_text:
+                import re
+                m = re.search(r"<!-- CURSEFORGE-BADGE:START -->.*?<!-- CURSEFORGE-BADGE:END -->\n*", existing_text, re.DOTALL)
+                if m:
+                    badge_content = m.group(0).rstrip("\n") + "\n\n"
+        except Exception:
+            pass
+
     content = (
         f"# {title}\n\n"
+        f"{badge_content}"
         f"Download the current release of **{title}** for Minecraft Bedrock Edition.\n\n"
         f"## Download\n\n"
         f"- **Package format:** `{package_ext}`\n"
