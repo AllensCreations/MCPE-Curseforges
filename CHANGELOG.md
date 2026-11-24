@@ -4,6 +4,13 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v274] - 2026-11-24 - Core Tool Durability
+
+**Spec**: spec_v274.txt | **Target**: MCPEDL/Maps/OneBlock-Natural-Market | **Files edited**: 2
+
+### Improved & Balanced
+- **Tool durability**: breaking the central block uses up durability on your pickaxe, axe, shovel, hoe, shears or sword again, and Unbreaking works. Swords lose 2 per break. Nothing is used in creative mode.
+
 ## [v273] - 2026-11-24 - Block Values And No Drops
 
 **Spec**: spec_v273.txt | **Target**: MCPEDL/Maps/OneBlock-Natural-Market | **Files edited**: 3

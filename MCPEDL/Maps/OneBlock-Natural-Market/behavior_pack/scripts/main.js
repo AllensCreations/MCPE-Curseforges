@@ -1,4 +1,4 @@
-import { world, system, ItemStack, ItemTypes, DisplaySlotId, ObjectiveSortOrder } from "@minecraft/server";
+import { world, system, ItemStack, ItemTypes, DisplaySlotId, ObjectiveSortOrder, EquipmentSlot } from "@minecraft/server";
 import { ActionFormData, MessageFormData, ModalFormData } from "@minecraft/server-ui";
 
 const CORE = { x: 0, y: 64, z: 0 };
@@ -707,6 +707,31 @@ function rescuePhased() {
     } catch (e) { logError("rescuePhased", e); }
   }
 }
+function damageTool(player, heldId) {
+  try {
+    let creative = false;
+    try { creative = String(player.getGameMode()).toLowerCase() === "creative"; } catch {}
+    if (creative || !heldId) return;
+    const cost = /_sword$/.test(heldId) ? 2 : /(pickaxe|_axe|_shovel|_hoe|shears)$/.test(heldId) ? 1 : 0;
+    if (!cost) return;
+    const slot = player.getComponent("minecraft:equippable")?.getEquipmentSlot(EquipmentSlot.Mainhand);
+    const stack = slot?.getItem();
+    const durability = stack?.getComponent("minecraft:durability");
+    if (!stack || stack.typeId !== heldId || !durability) return;
+    let level = 0;
+    try { level = stack.getComponent("minecraft:enchantable")?.getEnchantment("unbreaking")?.level ?? 0; } catch {}
+    let hits = 0;
+    for (let i = 0; i < cost; i++) if (Math.random() < 1 / (level + 1)) hits++;
+    if (!hits) return;
+    if (durability.damage + hits >= durability.maxDurability) {
+      slot.setItem(undefined);
+      try { player.playSound("random.break"); } catch {}
+      return;
+    }
+    durability.damage += hits;
+    slot.setItem(stack);
+  } catch (e) { logError("damageTool", e); }
+}
 let coreBreakPending = false;
 function onCoreBreak(player, brokenId) {
   const personal = personalBreaks(player) + 1;
@@ -786,12 +811,14 @@ world.beforeEvents.playerBreakBlock.subscribe(event => {
   event.cancel = true;
   if (coreBreakPending) return;
   const brokenId = event.block.typeId;
+  const heldId = event.itemStack?.typeId;
   coreBreakPending = true;
   system.run(() => {
     try {
       log("INFO", "Core break detected by " + player.name + " (void_cleaned tag=" + player.hasTag("void_cleaned") + ").");
       if (player.hasTag("void_cleaned")) {
         onCoreBreak(player, brokenId);
+        damageTool(player, heldId);
         const block = world.getDimension("overworld").getBlock(CORE);
         if (block) placeCore(block);
       }

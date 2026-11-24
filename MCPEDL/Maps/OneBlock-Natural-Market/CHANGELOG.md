@@ -2,6 +2,11 @@
 
 ---
 
+## [16.0.11] - 2026-11-24 - Core Tool Durability
+
+### Improved & Balanced
+- **Tool durability**: breaking the central block uses up durability on your pickaxe, axe, shovel, hoe, shears or sword again, and Unbreaking works. Swords lose 2 per break. Nothing is used in creative mode.
+
 ## [16.0.10] - 2026-11-24 - Block Values And No Drops
 
 ### Added
