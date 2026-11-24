@@ -359,13 +359,17 @@ def pack_name(pre, fallback):
     return fallback.replace("-", " ").replace("_", " ").strip() or "Pack"
 
 
-def hero(name, tagline, pitch, icon_url, acc, badges=""):
+def hero(name, tagline, pitch, icon_url, acc, badges="", banner_url=None):
     """Rounded frame: title, byline, tagline in a green pill, pitch, badges. No logo (icon_url is accepted and ignored)."""
     pill = (f'<p style="text-align:center"><span style="background-color:{acc};color:{INK};border-radius:20px;font-size:16px">'
             f'&nbsp;&nbsp;<strong>{inline(tagline)}</strong>&nbsp;&nbsp;</span></p>' if tagline else "")
     pitch_html = (f'<p style="color:{SUB};text-align:center;margin-left:16px;margin-right:16px">{inline(pitch)}</p>' if pitch else "")
+    if banner_url:
+        title_block = f'<p style="text-align:center"><img src="{banner_url}" alt="{esc(name)}" style="width:100%"></p>'
+    else:
+        title_block = f'<h1 style="color:{HEAD};font-size:34px;text-align:center">{esc(name)}</h1>'
     return (f'<div style="background-color:{PANEL};border:2px solid {acc};border-radius:18px;line-height:1.5"><br>'
-            f'<h1 style="color:{HEAD};font-size:34px;text-align:center">{esc(name)}</h1>'
+            f'{title_block}'
             f'<p style="color:{MUTED};font-size:14px;text-align:center">{BYLINE}</p>'
             f'{pill}{pitch_html}{badges}<br></div>')
 
@@ -519,6 +523,11 @@ def find_media(root, project, md_text=""):
                 caption = caption_from(f.name)
             entries.append((RAW + quote(f.relative_to(root).as_posix()), caption))
         out[kind] = entries
+    for b_name in ("banner.png", "Banner.png", "title_banner.png", "Title_banner.png"):
+        banner_file = project / "assets" / b_name
+        if banner_file.is_file():
+            out["banner_url"] = RAW + quote(banner_file.relative_to(root).as_posix())
+            break
     return out
 
 
@@ -530,7 +539,15 @@ def gallery(kind, entries):
     for url, cap in entries:
         alt_text = "" if kind == "snapshots" else html.escape(cap)
         img = f'<img src="{url}" alt="{alt_text}" style="width:{width}">'
-        caption_html = "" if kind == "snapshots" else f'<p style="color:{MUTED};font-size:13px">{esc(cap)}</p>'
+        if kind == "recipes":
+            caption_html = (f'<p><span style="display:inline-block;background-color:#14101e;border:2px solid #3c2068;'
+                            f'border-radius:6px;color:#ffffff;font-family:\'Minecraft\', \'Minecraftia\', \'Mojangles\', '
+                            f'\'Press Start 2P\', monospace;font-size:13px;line-height:24px">'
+                            f'&nbsp;&nbsp;{esc(cap)}&nbsp;&nbsp;</span></p>')
+        elif kind == "snapshots":
+            caption_html = ""
+        else:
+            caption_html = f'<p style="color:{MUTED};font-size:13px">{esc(cap)}</p>'
         cells.append(f'<div style="flex:{basis};background-color:{PANEL};border:1px solid {LINE};border-radius:{RADIUS};'
                      f'text-align:center"><p><a href="{url}">{img}</a></p>'
                      f'{caption_html}</div>')
@@ -572,7 +589,7 @@ def lost_links(md, page):
     return out
 
 
-def render(md, fallback="", icon_url=None, latest=None, accent=None, style="minimal", media=None, min_version=""):
+def render(md, fallback="", icon_url=None, latest=None, accent=None, style="minimal", media=None, min_version="", banner_url=None):
     """latest is accepted for old callers and ignored: the page has no changelog box."""
     set_style(style)
     pre, sec = sections(md)
@@ -580,8 +597,10 @@ def render(md, fallback="", icon_url=None, latest=None, accent=None, style="mini
     acc = accent or accent_for(fallback or name)
     tagline = re.search(r"(?m)^\*\*(?!By )(.+)\*\*\s*$", pre)
     pitch = re.search(r"(?m)^>\s*(.+)$", pre)
+    media = media or {}
+    banner = banner_url or media.get("banner_url")
     parts = [hero(name, tagline.group(1) if tagline else "", pitch.group(1) if pitch else "", icon_url, acc,
-                  hero_badges(min_version, sec.get("Compatibility", "")))]
+                  hero_badges(min_version, sec.get("Compatibility", "")), banner_url=banner)]
     if sec.get("Overview", "").strip():
         parts += [h2("About", acc), blocks_to_html(sec["Overview"], acc)]
     for sname, sbody in sec.items():

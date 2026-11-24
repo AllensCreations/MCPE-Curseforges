@@ -68,6 +68,15 @@ def render_kit(root, project):
     if not tagline:
         raise ValueError("DESCRIPTION.md has no bold tagline line to use as the summary")
     summary = make_summary(tagline)
+
+    banner_file = project / "assets" / "banner.png"
+    if not banner_file.is_file() and not (project / "assets" / "Banner.png").is_file():
+        try:
+            import generate_title_banner as gtb
+            gtb.render_banner(name, "BEDROCK ADDON", out_path=banner_file)
+        except Exception:
+            pass
+
     html = bdv.render(md, project.name, None, None, style="minimal",
                       media=bdv.find_media(root, project, md), min_version=bdv.find_min_version(project))
     errs = bdv.check_html(html)
