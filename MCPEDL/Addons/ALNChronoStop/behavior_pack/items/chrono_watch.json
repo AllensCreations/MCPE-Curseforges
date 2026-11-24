@@ -1,0 +1,26 @@
+{
+  "format_version": "1.21.114",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:chrono_watch",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "textures": {
+          "default": "chrono_watch"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "\u00a7l\u00a7bChrono \u00a76Watch"
+      },
+      "minecraft:use_modifiers": {
+        "use_duration": 0.1,
+        "movement_modifier": 1
+      }
+    }
+  }
+}

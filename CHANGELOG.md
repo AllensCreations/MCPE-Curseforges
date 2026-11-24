@@ -4,6 +4,11 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## 2026-11-24 - New Addon ALNChronoStop
+
+### Added
+- **ALNChronoStop**: New addon project created from a pack script.
+
 ## [v268] - 2026-11-24 - Pet Spirit Update
 
 **Spec**: spec_v268.txt | **Target**: MCPEDL/Addons/ALN-SoulLantern | **Files edited**: 9

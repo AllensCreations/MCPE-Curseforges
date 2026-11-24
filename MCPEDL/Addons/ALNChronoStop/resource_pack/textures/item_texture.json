@@ -1,0 +1,9 @@
+{
+  "resource_pack_name": "aln_chronostop",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "chrono_watch": {
+      "textures": "textures/items/chrono_watch"
+    }
+  }
+}

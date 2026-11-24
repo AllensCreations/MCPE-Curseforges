@@ -1,0 +1,23 @@
+{
+  "format_version": "1.14.0",
+  "sound_definitions": {
+    "aln.chrono.submerge": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/chrono_submerge"
+      ]
+    },
+    "aln.chrono.heartbeat": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/chrono_heartbeat"
+      ]
+    },
+    "aln.chrono.resume": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/chrono_resume"
+      ]
+    }
+  }
+}

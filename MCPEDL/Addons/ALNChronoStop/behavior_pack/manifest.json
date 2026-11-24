@@ -1,0 +1,56 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN:ChronoStop BP (v1)",
+    "description": "Time-stop with gradual slowdown, suspended projectiles and a submerged sound pulse, by ALNStudios.",
+    "uuid": "b8eca3b8-90da-4c69-9916-2107b53dd800",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      114
+    ]
+  },
+  "modules": [
+    {
+      "type": "script",
+      "language": "javascript",
+      "entry": "scripts/main.js",
+      "uuid": "6cfcbaf1-dcc1-4665-b992-2f57d02d2811",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "5aaf2767-5d30-45ea-ba83-6ca6d05be0c4",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.7.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.0.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}
