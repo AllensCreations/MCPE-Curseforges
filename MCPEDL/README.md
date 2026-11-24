@@ -74,7 +74,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 
 | Pack | Version | Status | Source | Package | AI review |
 | :-- | :-- | :-- | :-- | :-- | :-- |
-| **ALN:MobStacker** | v3 | 🟢 Published (v3) | [Source](Script/ALN-MobStacker) | [Package](../Package/ALN-MobStacker.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-MobStacker.txt) |
+| **ALN:MobStacker** | v4 | 🟡 Update Ready (v3 → v4) | [Source](Script/ALN-MobStacker) | [Package](../Package/ALN-MobStacker.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-MobStacker.txt) |
 | **ALN:SpawnControl** | 3.0.3 | 🟢 Published (3.0.3) | [Source](Script/ALNSpawnControl) | [Package](../Package/ALNSpawnControl.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNSpawnControl.txt) |
 | **Always Critical** | v2 | 🟢 Published (v2) | [Source](Script/Always-Critical) | [Package](../Package/Always-Critical.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Always-Critical.txt) |
 | **Chrono-Bed** | v2 | ⚪ Not Published | [Source](Script/Chrono-Bed) | [Package](../Package/Chrono-Bed.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Chrono-Bed.txt) |

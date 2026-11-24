@@ -4,9 +4,9 @@
 
 - **Export request:** `MCPEDL/Script/ALN-MobStacker`
 - **Destination:** `MCPEDL/Script/ALN-MobStacker`
-- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Script/ALN-MobStacker/CHANGELOG.md`)
+- **CURRENT VERSION: v4 / NEXT UPDATE: v5**  (`MCPEDL/Script/ALN-MobStacker/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
-- **Text files:** 10
+- **Text files:** 11
 - **Skipped binary:** 1
 - **Paths not found:** 0
 
@@ -18,6 +18,7 @@
 - `MCPEDL/Script/ALN-MobStacker/behavior_pack/scripts/stack_combat.js`
 - `MCPEDL/Script/ALN-MobStacker/behavior_pack/scripts/stack_config.js`
 - `MCPEDL/Script/ALN-MobStacker/behavior_pack/scripts/stack_merger.js`
+- `MCPEDL/Script/ALN-MobStacker/behavior_pack/scripts/stack_tower.js`
 - `MCPEDL/Script/ALN-MobStacker/CHANGELOG.md`
 - `MCPEDL/Script/ALN-MobStacker/DESCRIPTION.md`
 - `MCPEDL/Script/ALN-MobStacker/project.json`
@@ -36,7 +37,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v3 / NEXT UPDATE: v4).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v4 / NEXT UPDATE: v5).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
@@ -194,11 +195,11 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:MobStacker (v3)",
+    "name": "ALN:MobStacker (v4)",
     "description": "Stacks nearby identical farm animals and grinder mobs into one counted mob to cut entity lag. by ALNStudios",
     "uuid": "e42a0f6c-e2a5-4f8f-ab41-4e25ba6cee40",
     "version": [
-      3,
+      4,
       0,
       0
     ],
@@ -215,7 +216,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "entry": "scripts/main.js",
       "uuid": "7c42741a-ae21-4cec-8bef-ea682106eed4",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -232,12 +233,12 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "3.0.0"
+    "version": "4.0.0"
   }
 }
 ```
 
-## FILE: MCPEDL/Script/ALN-MobStacker/behavior_pack/scripts/lib/README.md (41 lines, 1126 bytes)
+## FILE: MCPEDL/Script/ALN-MobStacker/behavior_pack/scripts/lib/README.md (44 lines, 1697 bytes)
 
 ```
 # ALN:MobStacker: script notes (scripts/lib)
@@ -249,17 +250,19 @@ Extracted from the script files; nothing here was run in game.
 
 | File | Lines | Purpose |
 | :-- | --: | :-- |
-| `scripts/main.js` | 6 | (no header comment) |
-| `scripts/stack_combat.js` | 249 | (no header comment) |
-| `scripts/stack_config.js` | 359 | (no header comment) |
-| `scripts/stack_merger.js` | 209 | (no header comment) |
+| `scripts/main.js` | 8 | (no header comment) |
+| `scripts/stack_combat.js` | 252 | (no header comment) |
+| `scripts/stack_config.js` | 374 | (no header comment) |
+| `scripts/stack_merger.js` | 217 | (no header comment) |
+| `scripts/stack_tower.js` | 162 | (no header comment) |
 
 ## Imports
 
-- `@minecraft/server` (in `stack_combat.js`, `stack_config.js`, `stack_merger.js`)
+- `@minecraft/server` (in `stack_combat.js`, `stack_config.js`, `stack_merger.js`, `stack_tower.js`)
 - `./stack_combat.js` (in `main.js`)
-- `./stack_config.js` (in `stack_combat.js`, `stack_merger.js`)
+- `./stack_config.js` (in `stack_combat.js`, `stack_merger.js`, `stack_tower.js`)
 - `./stack_merger.js` (in `main.js`)
+- `./stack_tower.js` (in `main.js`, `stack_combat.js`, `stack_merger.js`)
 
 ## Events
 
@@ -279,20 +282,23 @@ Extracted from the script files; nothing here was run in game.
 
 ## Notes (AI review)
 
-Known limits, design decisions and things to check on the next update go here. Not filled in yet.
+- Stack towers (farm animals only): the extra mobs are real copies tagged as visuals. They get long resistance, fire resistance and slowness effects and are teleported above the stack mob every 2 ticks. Not tested in game: that the effects stop all damage, that the copies stay still, and that chickens or breeding on the copies cause no side effects.
+- Tower heights in `TOWER_MOB_HEIGHTS` come from the vanilla collision boxes in the Mojang samples. The rabbit value (1.0) is taken as written there.
 ```
 
-## FILE: MCPEDL/Script/ALN-MobStacker/behavior_pack/scripts/main.js (6 lines, 129 bytes)
+## FILE: MCPEDL/Script/ALN-MobStacker/behavior_pack/scripts/main.js (8 lines, 190 bytes)
 
 ```
 import { startCombat } from "./stack_combat.js";
 import { startMerger } from "./stack_merger.js";
+import { startTower } from "./stack_tower.js";
 
 startMerger();
 startCombat();
+startTower();
 ```
 
-## FILE: MCPEDL/Script/ALN-MobStacker/behavior_pack/scripts/stack_combat.js (249 lines, 7531 bytes)
+## FILE: MCPEDL/Script/ALN-MobStacker/behavior_pack/scripts/stack_combat.js (252 lines, 7656 bytes)
 
 ```
 import { EntityComponentTypes, EquipmentSlot, ItemStack, system, world } from "@minecraft/server";
@@ -315,6 +321,7 @@ import {
   spawnMatching,
   stackCache,
 } from "./stack_config.js";
+import { clearTower, ensureTower } from "./stack_tower.js";
 
 const SAMPLE_LIMIT = 200;
 const MAX_ITEM_ENTITIES = 256;
@@ -504,6 +511,7 @@ function respawnStack(dimension, typeId, location, remaining, meta) {
   if (remaining > 1) {
     entity.addTag(PERSISTENT_TAG);
     applyStack(entity, remaining, meta);
+    ensureTower(entity, remaining, meta);
   }
 }
 
@@ -511,6 +519,7 @@ function handleDeath(event) {
   const dead = event.deadEntity;
   const typeId = dead.typeId;
   if (!STACKABLE_MOBS.has(typeId)) return;
+  clearTower(dead.id);
   const { count, location, dimension, meta } = readDeadStack(dead);
   if (count <= 1 || !location || !dimension) return;
 
@@ -545,7 +554,7 @@ export function startCombat() {
 }
 ```
 
-## FILE: MCPEDL/Script/ALN-MobStacker/behavior_pack/scripts/stack_config.js (359 lines, 11987 bytes)
+## FILE: MCPEDL/Script/ALN-MobStacker/behavior_pack/scripts/stack_config.js (374 lines, 12448 bytes)
 
 ```
 import { EntityComponentTypes, EquipmentSlot } from "@minecraft/server";
@@ -601,6 +610,20 @@ export const GEAR_LOOTING_BONUS = 0.005;
 export const GRINDER_BATCH_SIZE = 5;
 export const IDLE_PASSES_BEFORE_SLOWDOWN = 3;
 export const IDLE_SLOW_FACTOR = 4;
+export const VISUAL_TAG = "aln_stack_visual";
+export const VISUAL_HOST_PROPERTY = "aln_visual_host";
+export const TOWER_HEIGHT = 3;
+export const TOWER_SYNC_TICKS = 2;
+export const TOWER_MOB_HEIGHTS = {
+  "minecraft:cow": 1.3,
+  "minecraft:pig": 0.9,
+  "minecraft:sheep": 1.3,
+  "minecraft:chicken": 0.8,
+  "minecraft:rabbit": 1.0,
+  "minecraft:mooshroom": 1.3,
+  "minecraft:goat": 1.3,
+  "minecraft:frog": 0.55,
+};
 export const GEAR_DROP_ITEMS = [
   "minecraft:leather_helmet",
   "minecraft:leather_chestplate",
@@ -829,6 +852,7 @@ function hasGear(entity) {
 }
 
 export function isStackExcluded(entity) {
+  if (entity.hasTag(VISUAL_TAG)) return true;
   if (component(entity, EntityComponentTypes.IsTamed) !== undefined) return true;
   if (!entity.hasTag(STACK_TAG) && hasGear(entity)) return true;
   const leash = component(entity, EntityComponentTypes.Leashable);
@@ -908,7 +932,7 @@ export function restoreAppearance(entity, meta) {
 }
 ```
 
-## FILE: MCPEDL/Script/ALN-MobStacker/behavior_pack/scripts/stack_merger.js (209 lines, 5640 bytes)
+## FILE: MCPEDL/Script/ALN-MobStacker/behavior_pack/scripts/stack_merger.js (217 lines, 6007 bytes)
 
 ```
 import { system, world } from "@minecraft/server";
@@ -935,6 +959,7 @@ import {
   stackCache,
   stackLabel,
 } from "./stack_config.js";
+import { clearTower, ensureTower, reconcileTowers } from "./stack_tower.js";
 
 const RADIUS_SQUARED = MERGE_RADIUS * MERGE_RADIUS;
 const queue = [];
@@ -959,6 +984,7 @@ function placeHost(host, total) {
   const entity = host.entity;
   if (entity.hasTag(PERSISTENT_TAG) || (host.meta.isBaby && FARM_ANIMAL_SET.has(entity.typeId))) {
     applyStack(entity, total, host.meta);
+    ensureTower(entity, total, host.meta);
     return;
   }
   let fresh;
@@ -969,13 +995,16 @@ function placeHost(host, total) {
   }
   if (!fresh) {
     applyStack(entity, total, host.meta);
+    ensureTower(entity, total, host.meta);
     return;
   }
   restoreAppearance(fresh, host.meta);
   fresh.addTag(PERSISTENT_TAG);
   stackCache.delete(entity.id);
+  clearTower(entity.id);
   entity.remove();
   applyStack(fresh, total, host.meta);
+  ensureTower(fresh, total, host.meta);
 }
 
 function mergeGroup(group) {
@@ -1011,6 +1040,7 @@ function mergeGroup(group) {
             total += other.count;
             used.add(j);
             stackCache.delete(other.entity.id);
+            clearTower(other.entity.id);
             other.entity.remove();
             absorbed++;
           }
@@ -1031,12 +1061,14 @@ function mergeGroup(group) {
         placeHost(host, host.count);
       } else {
         rememberStack(entity, host.count, host.meta);
+        ensureTower(entity, host.count, host.meta);
       }
     }
   }
 }
 
 function runJob(job) {
+  reconcileTowers(job.dimension, job.typeId);
   let entities = job.dimension.getEntities({ type: job.typeId });
   if (entities.length === 0) return;
   if (entities.length > MAX_ENTITIES_PER_JOB) {
@@ -1121,12 +1153,183 @@ export function startMerger() {
 }
 ```
 
-## FILE: MCPEDL/Script/ALN-MobStacker/CHANGELOG.md (70 lines, 3676 bytes)
+## FILE: MCPEDL/Script/ALN-MobStacker/behavior_pack/scripts/stack_tower.js (162 lines, 4505 bytes)
+
+```
+import { system, world } from "@minecraft/server";
+import {
+  TOWER_HEIGHT,
+  TOWER_MOB_HEIGHTS,
+  TOWER_SYNC_TICKS,
+  VISUAL_HOST_PROPERTY,
+  VISUAL_TAG,
+  readMeta,
+  restoreAppearance,
+  spawnMatching,
+} from "./stack_config.js";
+
+const EFFECT_TICKS = 20000000;
+const towers = new Map();
+
+function unitHeight(typeId, meta) {
+  const base = TOWER_MOB_HEIGHTS[typeId];
+  return meta.isBaby ? base * 0.5 : base;
+}
+
+function isFree(dimension, spot, height) {
+  try {
+    const feet = dimension.getBlock(spot);
+    const head = dimension.getBlock({ x: spot.x, y: spot.y + height - 0.1, z: spot.z });
+    const clear = (block) => !block || block.isAir || block.isLiquid;
+    return clear(feet) && clear(head);
+  } catch (error) {
+    return false;
+  }
+}
+
+function makeInert(entity) {
+  try {
+    entity.addEffect("resistance", EFFECT_TICKS, { amplifier: 255, showParticles: false });
+    entity.addEffect("fire_resistance", EFFECT_TICKS, { amplifier: 0, showParticles: false });
+    entity.addEffect("slowness", EFFECT_TICKS, { amplifier: 255, showParticles: false });
+  } catch (error) {
+    return;
+  }
+}
+
+function spawnVisual(host, meta, level) {
+  const location = host.location;
+  const spot = { x: location.x, y: location.y + level * unitHeight(host.typeId, meta), z: location.z };
+  const visual = spawnMatching(host.dimension, host.typeId, spot, meta, true);
+  restoreAppearance(visual, meta);
+  visual.addTag(VISUAL_TAG);
+  visual.setDynamicProperty(VISUAL_HOST_PROPERTY, host.id);
+  makeInert(visual);
+  return visual;
+}
+
+function removeAll(entry) {
+  for (const visual of entry.visuals) {
+    try {
+      if (visual.isValid) visual.remove();
+    } catch (error) {
+      continue;
+    }
+  }
+  entry.visuals = [];
+}
+
+export function clearTower(hostId) {
+  const entry = towers.get(hostId);
+  if (!entry) return;
+  removeAll(entry);
+  towers.delete(hostId);
+}
+
+export function ensureTower(host, count, meta) {
+  if (!TOWER_MOB_HEIGHTS[host.typeId]) return;
+  let entry = towers.get(host.id);
+  if (!entry) {
+    entry = { host, meta, visuals: [] };
+    towers.set(host.id, entry);
+  }
+  entry.host = host;
+  entry.meta = meta;
+  entry.visuals = entry.visuals.filter((visual) => visual.isValid);
+  const height = unitHeight(host.typeId, meta);
+  const location = host.location;
+  let allowed = 0;
+  const wanted = Math.min(TOWER_HEIGHT, count) - 1;
+  for (let level = 1; level <= wanted; level++) {
+    const spot = { x: location.x, y: location.y + level * height, z: location.z };
+    if (!isFree(host.dimension, spot, height)) break;
+    allowed = level;
+  }
+  while (entry.visuals.length > allowed) {
+    try {
+      entry.visuals.pop().remove();
+    } catch (error) {
+      continue;
+    }
+  }
+  while (entry.visuals.length < allowed) {
+    try {
+      entry.visuals.push(spawnVisual(host, meta, entry.visuals.length + 1));
+    } catch (error) {
+      break;
+    }
+  }
+  if (allowed === 0) towers.delete(host.id);
+}
+
+export function reconcileTowers(dimension, typeId) {
+  if (!TOWER_MOB_HEIGHTS[typeId]) return;
+  let visuals;
+  try {
+    visuals = dimension.getEntities({ type: typeId, tags: [VISUAL_TAG] });
+  } catch (error) {
+    return;
+  }
+  for (const visual of visuals) {
+    try {
+      const hostId = visual.getDynamicProperty(VISUAL_HOST_PROPERTY);
+      let entry = towers.get(hostId);
+      if (!entry || !entry.host.isValid) {
+        const host = typeof hostId === "string" ? world.getEntity(hostId) : undefined;
+        if (!host || !host.isValid) {
+          visual.remove();
+          continue;
+        }
+        entry = { host, meta: readMeta(host), visuals: [] };
+        towers.set(hostId, entry);
+      }
+      if (!entry.visuals.some((known) => known.id === visual.id)) entry.visuals.push(visual);
+    } catch (error) {
+      continue;
+    }
+  }
+}
+
+function syncTowers() {
+  for (const [hostId, entry] of towers) {
+    const host = entry.host;
+    if (!host.isValid) {
+      clearTower(hostId);
+      continue;
+    }
+    const location = host.location;
+    const height = unitHeight(host.typeId, entry.meta);
+    const rotation = host.getRotation();
+    let level = 1;
+    for (const visual of entry.visuals) {
+      if (!visual.isValid) continue;
+      const spot = { x: location.x, y: location.y + level * height, z: location.z };
+      level++;
+      try {
+        visual.teleport(spot, { keepVelocity: false, rotation });
+      } catch (error) {
+        continue;
+      }
+    }
+  }
+}
+
+export function startTower() {
+  system.runInterval(syncTowers, TOWER_SYNC_TICKS);
+}
+```
+
+## FILE: MCPEDL/Script/ALN-MobStacker/CHANGELOG.md (75 lines, 3913 bytes)
 
 ```
 # Changelog — ALN:MobStacker
 
 ---
+
+## [v4] - 2026-11-24 - Stack Towers
+
+### Added
+- **Stack Towers**: Farm animal stacks now show up to 3 mobs standing on top of each other, with the number label on the bottom mob. The mobs above are cosmetic copies that cannot be hurt.
 
 ## [v3] - 2026-11-20 - Faster Grinders
 
@@ -1195,7 +1398,7 @@ export function startMerger() {
 - **Sneak Kill**: Sneaking during a kill clears the whole stack with drops and experience scaled by Looting.
 ```
 
-## FILE: MCPEDL/Script/ALN-MobStacker/DESCRIPTION.md (86 lines, 6497 bytes)
+## FILE: MCPEDL/Script/ALN-MobStacker/DESCRIPTION.md (91 lines, 6993 bytes)
 
 ```
 # ALN:MobStacker — Lag-Free Farm and Grinder Condenser
@@ -1219,6 +1422,11 @@ Build a farm or grinder as usual. Mobs of the same kind that stand close togethe
 - **What Happens**: Identical mobs within 4 blocks of each other merge into one mob about once a second. The merged mob shows a label such as `[x12] Cow` in gold and white.
 - **How It Works**: Twenty cows packed in a pen become one Cow labelled `[x20]`. The label appears when you look at the mob.
 - **Good To Know**: There is no stack size limit. Mobs absorbed into a stack disappear without dropping anything. Merged stacks are set to stay in the world, so they should not despawn when you walk away. Baby farm animal stacks keep their original mob, so its growth is not reset, but killing one mob of a baby stack spawns a new baby that starts growing from the beginning.
+
+### Stack Towers
+- **What Happens**: A stack of farm animals shows up to 3 mobs standing on top of each other. Only the bottom mob is real, and the number label sits on it.
+- **How It Works**: Hit the bottom mob to remove one from the stack. The mobs above cannot be hurt and copy the bottom mob's movement.
+- **Good To Know**: Towers appear only for Cow, Pig, Sheep, Chicken, Rabbit, Mooshroom, Goat and Frog stacks. Hostile stacks show the number only. A tower is shorter under a low ceiling.
 
 ### Supported Mobs
 - **What Happens**: Farm animals: Cow, Pig, Sheep, Chicken, Rabbit, Mooshroom, Goat, Frog. Grinder mobs: Zombie, Skeleton, Spider, Cave Spider, Creeper, Drowned, Husk, Stray, Blaze, Magma Cube, Slime, Enderman, Witch, Zombified Piglin, Guardian, Bogged, Breeze.
@@ -1300,7 +1508,7 @@ Download the current release of **ALNMobStacker** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcpack`
-- **Direct download:** [Download ALNMobStacker (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MobStacker/ALNMobStacker%20V3.mcpack)
+- **Direct download:** [Download ALNMobStacker (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MobStacker/ALNMobStacker%20V4.mcpack)
 
 ## Installation
 
