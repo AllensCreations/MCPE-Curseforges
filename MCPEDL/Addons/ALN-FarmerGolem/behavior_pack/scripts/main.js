@@ -1,17 +1,18 @@
-import { world, system, ItemStack, EntityComponentTypes } from "@minecraft/server";
+import { world, system, ItemStack, EntityComponentTypes, BlockPermutation } from "@minecraft/server";
 
 const GOLEM_ID = "aln:farmer_golem";
-const STORAGE_ID = "aln:farmer_chest_storage";
-const CHEST_ID = "aln:farmer_chest";
+const BARREL_ID = "minecraft:barrel";
+const LEGACY_CHEST_ID = "aln:farmer_chest";
+const LEGACY_STORAGE_ID = "aln:farmer_chest_storage";
 const HOME_PREFIX = "aln_home:";
-const STORAGE_TAG = "aln_storage";
 const GOLEM_NAME = "§e§lFarmer Golem";
+const STATUS_EVENT = "aln:golem_status";
 const DIMENSION_IDS = ["overworld", "nether", "the_end"];
 
 const BRAIN_INTERVAL = 10;
-const MOVE_INTERVAL = 4;
+const MOVE_INTERVAL = 2;
 const SCAN_RADIUS = 4;
-const STEP_LENGTH = 0.8;
+const STEP_LENGTH = 0.4;
 const HARVEST_REACH = 1.8;
 const BREED_REACH = 3.2;
 const IDLE_RADIUS = 6;
@@ -19,13 +20,15 @@ const PATROL_RADIUS = 10;
 const LEASH_RADIUS = 16;
 const BREED_COOLDOWN = 6000;
 const BLOCKED_COOLDOWN = 1200;
-const HEAL_COOLDOWN = 60;
-const HEAL_THRESHOLD = 4;
+const HEAL_COOLDOWN = 80;
+const HEAL_THRESHOLD = 6;
 const HERD_LIMIT = 14;
 const HERD_RADIUS = 10;
 const MATURE_GROWTH = 7;
 const MISS_LIMIT = 3;
-const STORAGE_HEALTH = 40;
+const FAILURE_LIMIT = 3;
+const NOTICE_COOLDOWN = 600;
+const NOTICE_RADIUS = 16;
 
 const roll = (min, max) => min + Math.floor(Math.random() * (max - min + 1));
 const center = (p) => ({ x: p.x + 0.5, y: p.y + 0.5, z: p.z + 0.5 });
@@ -61,32 +64,36 @@ const LIVESTOCK = {
 };
 
 const HEAL_FOODS = [
-  ["minecraft:apple", 8],
-  ["minecraft:bread", 10],
-  ["minecraft:baked_potato", 10],
-  ["minecraft:cooked_beef", 14],
-  ["minecraft:cooked_porkchop", 14],
-  ["minecraft:cooked_chicken", 12],
-  ["minecraft:cooked_mutton", 12],
-  ["minecraft:carrot", 6],
+  ["minecraft:apple", 4],
+  ["minecraft:bread", 5],
+  ["minecraft:baked_potato", 5],
+  ["minecraft:cooked_beef", 7],
+  ["minecraft:cooked_porkchop", 7],
+  ["minecraft:cooked_chicken", 6],
+  ["minecraft:cooked_mutton", 6],
+  ["minecraft:carrot", 3],
 ];
 
 const known = new Map();
 const goals = new Map();
 const homes = new Map();
 const misses = new Map();
+const failures = new Map();
+const notices = new Map();
+const lastError = new Map();
 const healAt = new Map();
 const cooldowns = new Map();
 const blocked = new Map();
-const storageHealth = new Map();
 
 function forget(id) {
   known.delete(id);
   goals.delete(id);
   homes.delete(id);
   misses.delete(id);
+  failures.delete(id);
+  notices.delete(id);
+  lastError.delete(id);
   healAt.delete(id);
-  storageHealth.delete(id);
 }
 
 function burst(dim, at, particle, count, spread) {
@@ -103,7 +110,37 @@ function burst(dim, at, particle, count, spread) {
 
 const sound = (dim, id, at) => attempt(() => dim.playSound(id, at));
 
+function notify(golem, text, key) {
+  const now = system.currentTick;
+  const slot = `${golem.id}:${key}`;
+  if ((notices.get(slot) ?? 0) > now) return;
+  notices.set(slot, now + NOTICE_COOLDOWN);
+  attempt(() => {
+    const players = golem.dimension.getEntities({
+      type: "minecraft:player",
+      location: golem.location,
+      maxDistance: NOTICE_RADIUS,
+    });
+    for (const player of players) player.onScreenDisplay.setActionBar(text);
+  });
+}
+
+function fail(golem, error) {
+  const message = error && error.message ? error.message : String(error);
+  lastError.set(golem.id, message);
+  const count = (failures.get(golem.id) ?? 0) + 1;
+  failures.set(golem.id, count);
+  if (count < FAILURE_LIMIT) return;
+  attempt(() => console.warn(`[ALN FarmerGolem] ${message}`));
+  notify(golem, `§cFarmer Golem problem: ${message}`, "error");
+}
+
 const containerOf = (storage) => storage.getComponent(EntityComponentTypes.Inventory)?.container;
+
+function chestContainer(block) {
+  const part = attempt(() => block.getComponent("minecraft:inventory")) ?? attempt(() => block.getComponent("inventory"));
+  return part?.container;
+}
 
 function countOf(container, id) {
   let total = 0;
@@ -112,6 +149,12 @@ function countOf(container, id) {
     if (item && item.typeId === id) total += item.amount;
   }
   return total;
+}
+
+function freeSlots(container) {
+  let free = 0;
+  for (let i = 0; i < container.size; i++) if (!container.getItem(i)) free++;
+  return free;
 }
 
 function takeOne(container, id) {
@@ -130,9 +173,11 @@ function takeOne(container, id) {
 }
 
 function deposit(container, dim, at, id, amount) {
-  if (amount <= 0) return;
+  if (amount <= 0) return false;
   const left = container.addItem(new ItemStack(id, amount));
-  if (left) dim.spawnItem(left, at);
+  if (!left) return false;
+  dim.spawnItem(left, at);
+  return true;
 }
 
 function homeOf(golem) {
@@ -150,17 +195,38 @@ function homeOf(golem) {
   return undefined;
 }
 
-function findStorage(dim, home) {
-  return dim.getEntities({ type: STORAGE_ID, location: center(home), maxDistance: 2.5 })[0];
+function placeBarrel(block) {
+  try {
+    block.setPermutation(BlockPermutation.resolve(BARREL_ID, { facing_direction: 1, open_bit: false }));
+  } catch (e) {
+    block.setType(BARREL_ID);
+  }
+}
+
+function migrate(dim, block, home) {
+  const at = center(home);
+  const storage = dim.getEntities({ type: LEGACY_STORAGE_ID, location: at, maxDistance: 2.5 })[0];
+  const source = storage ? containerOf(storage) : undefined;
+  const items = [];
+  if (source) {
+    for (let i = 0; i < source.size; i++) {
+      const item = source.getItem(i);
+      if (item) items.push(item);
+    }
+  }
+  placeBarrel(block);
+  const target = chestContainer(dim.getBlock(home));
+  for (const item of items) {
+    const left = target ? target.addItem(item) : item;
+    if (left) dim.spawnItem(left, at);
+  }
+  if (source) attempt(() => source.clearAll());
+  if (storage) storage.remove();
 }
 
 function isFree(dim, x, y, z) {
   const block = dim.getBlock({ x, y, z });
   return !!block && (block.isAir || FREE_BLOCKS.has(block.typeId));
-}
-
-function roomAt(dim, x, y, z) {
-  return isFree(dim, x, y, z);
 }
 
 function stepToward(golem, from, goal) {
@@ -174,8 +240,8 @@ function stepToward(golem, from, goal) {
   const bz = Math.floor(nz);
   const by = Math.floor(from.y + 0.05);
   let ny;
-  if (roomAt(dim, bx, by, bz)) ny = by;
-  else if (roomAt(dim, bx, by + 1, bz)) ny = by + 1;
+  if (isFree(dim, bx, by, bz)) ny = by;
+  else if (isFree(dim, bx, by + 1, bz)) ny = by + 1;
   else return "blocked";
   const target = { x: nx, y: ny, z: nz };
   try {
@@ -249,14 +315,16 @@ function findCrop(dim, golem, home) {
   return best;
 }
 
-function harvest(dim, block, container, home) {
+function harvest(golem, dim, block, container, home) {
   const drops = CROPS[block.typeId]();
   const at = center(block.location);
   block.setPermutation(block.permutation.withState("growth", 0));
   const dropAt = { x: home.x + 0.5, y: home.y + 1.2, z: home.z + 0.5 };
-  for (const [id, amount] of drops) deposit(container, dim, dropAt, id, amount);
+  let overflow = false;
+  for (const [id, amount] of drops) if (deposit(container, dim, dropAt, id, amount)) overflow = true;
   burst(dim, at, "minecraft:villager_happy", 6, 0.8);
   sound(dim, "random.pop", at);
+  if (overflow) notify(golem, "§eThe Farmer Chest is full. Empty it so the harvest fits.", "full");
 }
 
 function findPair(dim, golem, container) {
@@ -302,26 +370,9 @@ function breed(dim, container, pair) {
   burst(dim, { x: b.x, y: b.y + 0.8, z: b.z }, "minecraft:heart_particle", 5, 1);
 }
 
-function restoreStorage(golem, dim, home) {
+function dismantle(golem, dim, home) {
   const at = center(home);
-  if (dim.getEntities({ tags: [STORAGE_TAG], location: at, maxDistance: 3 }).length > 0) return;
-  const storage = dim.spawnEntity(STORAGE_ID, { x: at.x, y: home.y - 0.05, z: at.z });
-  storage.addTag(STORAGE_TAG);
-  storageHealth.set(golem.id, STORAGE_HEALTH);
-  for (const player of dim.getEntities({ type: "minecraft:player", location: at, maxDistance: 16 })) {
-    attempt(() => player.onScreenDisplay.setActionBar("§eThe Farmer Chest storage was rebuilt."));
-  }
-}
-
-function dismantle(golem, dim, home, storage, chestStillThere) {
-  if (storage) attempt(() => storage.kill());
-  const at = center(home);
-  if (chestStillThere) {
-    const block = dim.getBlock(home);
-    if (block) block.setType("minecraft:air");
-    dim.spawnItem(new ItemStack("minecraft:hay_block", 1), at);
-    dim.spawnItem(new ItemStack("minecraft:carved_pumpkin", 1), at);
-  }
+  dim.spawnItem(new ItemStack("minecraft:carved_pumpkin", 1), at);
   burst(dim, at, "minecraft:villager_happy", 12, 1.2);
   forget(golem.id);
   golem.remove();
@@ -331,29 +382,23 @@ function brain(golem) {
   const home = homeOf(golem);
   if (!home) return;
   const dim = golem.dimension;
-  const chest = dim.getBlock(home);
-  if (!chest) return;
-  const chestOk = chest.typeId === CHEST_ID;
-  const storage = chestOk ? findStorage(dim, home) : undefined;
-  if (!chestOk || !storage) {
+  const block = dim.getBlock(home);
+  if (!block) return;
+
+  if (block.typeId === LEGACY_CHEST_ID) {
+    migrate(dim, block, home);
+    return;
+  }
+  if (block.typeId !== BARREL_ID) {
     const count = (misses.get(golem.id) ?? 0) + 1;
     misses.set(golem.id, count);
-    if (count < MISS_LIMIT) return;
-    misses.set(golem.id, 0);
-    if (!chestOk) {
-      dismantle(golem, dim, home, findStorage(dim, home), false);
-    } else if ((storageHealth.get(golem.id) ?? Infinity) < STORAGE_HEALTH - 0.5) {
-      dismantle(golem, dim, home, undefined, true);
-    } else {
-      restoreStorage(golem, dim, home);
-    }
+    if (count >= MISS_LIMIT) dismantle(golem, dim, home);
     return;
   }
   misses.set(golem.id, 0);
-  const vitals = storage.getComponent(EntityComponentTypes.Health);
-  if (vitals) storageHealth.set(golem.id, vitals.currentValue);
-  const container = containerOf(storage);
-  if (!container) return;
+
+  const container = chestContainer(block);
+  if (!container) throw new Error("the Farmer Chest has no inventory");
 
   if (tryHeal(golem, dim, container)) {
     goals.delete(golem.id);
@@ -372,7 +417,7 @@ function brain(golem) {
   if (crop) {
     const spot = center(crop.location);
     if (flat(here, spot) <= HARVEST_REACH) {
-      harvest(dim, crop, container, home);
+      harvest(golem, dim, crop, container, home);
       goals.delete(golem.id);
     } else {
       goals.set(golem.id, { x: spot.x, z: spot.z, key: keyOf(crop.location) });
@@ -406,6 +451,7 @@ function purge() {
   const now = system.currentTick;
   for (const [id, until] of cooldowns) if (until <= now) cooldowns.delete(id);
   for (const [id, until] of blocked) if (until <= now) blocked.delete(id);
+  for (const [id, until] of notices) if (until <= now) notices.delete(id);
 }
 
 function build(player, dim, top, base) {
@@ -413,14 +459,11 @@ function build(player, dim, top, base) {
   const cx = spot.x + 0.5;
   const cz = spot.z + 0.5;
   top.setType("minecraft:air");
-  base.setType(CHEST_ID);
-  const storage = dim.spawnEntity(STORAGE_ID, { x: cx, y: spot.y - 0.05, z: cz });
-  storage.addTag(STORAGE_TAG);
+  placeBarrel(base);
   const golem = dim.spawnEntity(GOLEM_ID, { x: cx, y: spot.y + 1, z: cz });
   golem.nameTag = GOLEM_NAME;
   golem.addTag(`${HOME_PREFIX}${spot.x},${spot.y},${spot.z}`);
   homes.set(golem.id, { x: spot.x, y: spot.y, z: spot.z });
-  storageHealth.set(golem.id, STORAGE_HEALTH);
   known.set(golem.id, golem);
   const at = { x: cx, y: spot.y + 1, z: cz };
   attempt(() => player.playSound("pumpkin.carve"));
@@ -428,8 +471,32 @@ function build(player, dim, top, base) {
   burst(dim, at, "minecraft:basic_flame_particle", 24, 1.6);
   burst(dim, at, "minecraft:villager_happy", 16, 1.6);
   player.onScreenDisplay.setActionBar(
-    "§6§lFarmer Golem§r§e awakens. Open the Farmer Chest to store seeds, wheat, carrots and food."
+    "§6§lFarmer Golem§r§e awakens. Tap the Farmer Chest to store seeds, wheat, carrots and food."
   );
+}
+
+function describe(golem) {
+  const home = homeOf(golem);
+  const loc = golem.location;
+  const lines = [`§6Farmer Golem at ${Math.floor(loc.x)}, ${Math.floor(loc.y)}, ${Math.floor(loc.z)}`];
+  if (!home) return lines.concat("§cno home chest recorded");
+  const dim = golem.dimension;
+  const block = attempt(() => dim.getBlock(home));
+  if (!block) return lines.concat(`§echest at ${home.x}, ${home.y}, ${home.z}: chunk not loaded`);
+  lines.push(`§echest at ${home.x}, ${home.y}, ${home.z}: ${block.typeId}`);
+  if (block.typeId === BARREL_ID) {
+    const container = chestContainer(block);
+    if (container) {
+      lines.push(`§echest free slots: ${freeSlots(container)} of ${container.size}`);
+    } else {
+      lines.push("§cchest inventory not readable");
+    }
+  }
+  const crop = attempt(() => findCrop(dim, golem, home));
+  lines.push(`§eripe crop in reach: ${crop ? "yes" : "no"}`);
+  lines.push(`§egoal: ${goals.has(golem.id) ? "walking" : "none"}`);
+  lines.push(`§elast problem: ${lastError.get(golem.id) ?? "none"}`);
+  return lines;
 }
 
 world.afterEvents.playerPlaceBlock.subscribe((event) => {
@@ -441,6 +508,17 @@ world.afterEvents.playerPlaceBlock.subscribe((event) => {
   build(player, dim, block, base);
 });
 
+system.afterEvents.scriptEventReceive.subscribe((event) => {
+  if (event.id !== STATUS_EVENT) return;
+  const source = event.sourceEntity;
+  if (!source) return;
+  const dim = source.dimension;
+  const golems = dim.getEntities({ type: GOLEM_ID, location: source.location, maxDistance: 64 });
+  const send = (text) => attempt(() => source.sendMessage(text));
+  if (golems.length === 0) send("§cNo Farmer Golem within 64 blocks.");
+  for (const golem of golems) for (const line of describe(golem)) send(line);
+});
+
 system.runInterval(() => {
   if (system.currentTick % 1200 < BRAIN_INTERVAL) purge();
   for (const id of DIMENSION_IDS) {
@@ -449,7 +527,12 @@ system.runInterval(() => {
     const golems = attempt(() => dim.getEntities({ type: GOLEM_ID })) ?? [];
     for (const golem of golems) {
       known.set(golem.id, golem);
-      attempt(() => brain(golem));
+      try {
+        brain(golem);
+        failures.set(golem.id, 0);
+      } catch (e) {
+        fail(golem, e);
+      }
     }
   }
 }, BRAIN_INTERVAL);

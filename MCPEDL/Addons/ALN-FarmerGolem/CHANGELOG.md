@@ -2,6 +2,20 @@
 
 ---
 
+## [v3] - 2026-11-24 - Barrel Chest Update
+
+### Added
+- **Golem Wrench**: The Farmer Golem now carries a wrench in its hand, and it swings as the golem walks.
+- **Problem Notices**: When the golem keeps running into the same problem, a red message appears near it and is written to the game log, so the problem can be reported.
+
+### Improved & Balanced
+- **Tap to Open Chest**: The Farmer Chest is now a Barrel. Tap it to open it, and its lid opens and closes like any other Barrel. Farmer Chests from earlier versions turn into Barrels, keeping their items, when their golem is nearby.
+- **Golem Strength**: The Farmer Golem now has 40 health instead of 60, deals 5 damage instead of 7 and guards within 8 blocks instead of 10.
+- **Healing**: The golem eats when it is missing 6 health instead of 4, each food item heals less, and meals are four seconds apart instead of three.
+- **Smoother Walking**: The golem moves in smaller steps, so its walk looks smoother at the same speed.
+- **Full Chest Notice**: When the Farmer Chest is full and the harvest drops next to it, the golem tells nearby players.
+- **Dismantling**: Breaking the Farmer Chest now drops a Carved Pumpkin along with the Barrel and its items, and no longer drops a Hay Bale.
+
 ## [v2] - 2026-11-23 - Dwarf Golem Update
 
 ### Added
