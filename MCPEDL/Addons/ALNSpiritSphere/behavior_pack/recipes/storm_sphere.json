@@ -24,10 +24,8 @@
     "result": {
       "item": "aln:storm_sphere"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

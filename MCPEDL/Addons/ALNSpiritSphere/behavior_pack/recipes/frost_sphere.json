@@ -24,10 +24,8 @@
     "result": {
       "item": "aln:frost_sphere"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

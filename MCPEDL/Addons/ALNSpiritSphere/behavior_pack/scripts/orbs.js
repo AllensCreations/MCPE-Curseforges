@@ -1,6 +1,6 @@
 import { world } from "@minecraft/server";
 import { MODES, ORB_ID, FULL_TICKS, OVER_TICKS, MAX_ORB_AGE } from "./elements.js";
-import { sound, impactBurst, orbTrail, handPoint } from "./visuals.js";
+import { sound, impactBurst, orbTrail, handPoint, voidSwirl } from "./visuals.js";
 
 const orbs = new Map();
 const PLAYER_ID = "minecraft:player";
@@ -98,23 +98,62 @@ function detonate(s, at) {
     } catch (e) {}
     shoveAll(d, at, reach, strength, lift);
   } else {
-    explode(d, at, r * 0.8, true, false);
+    explode(d, at, r * 1.1, true, false);
     shoveAll(d, at, reach, strength * 0.6, lift * 0.6);
   }
 }
 
-function pull(s, at) {
-  for (const e of nearby(s.dimension, at, 12)) {
-    if (e.id === s.owner || e.id === s.orb.id || e.typeId === PLAYER_ID || e.typeId === ORB_ID) continue;
+const VOID_PULL_RADIUS = 10;
+const VOID_HOLD_TICKS = 100;
+const anchors = new Map();
+
+function pull(a) {
+  let found;
+  try {
+    found = a.dimension.getEntities({ location: a.at, maxDistance: VOID_PULL_RADIUS, families: ["mob"] });
+  } catch (e) {
+    return;
+  }
+  for (const e of found) {
+    if (e.id === a.owner || e.typeId === PLAYER_ID || e.typeId === ORB_ID) continue;
     try {
       const l = e.location;
-      const dx = at.x - l.x;
-      const dy = at.y - l.y;
-      const dz = at.z - l.z;
+      const dx = a.at.x - l.x;
+      const dy = a.at.y - l.y;
+      const dz = a.at.z - l.z;
       const d = Math.hypot(dx, dy, dz) || 1;
-      const k = 0.1 + 0.12 * s.f;
-      e.applyImpulse({ x: (dx / d) * k, y: (dy / d) * k + 0.02, z: (dz / d) * k });
+      const k = (0.16 + 0.1 * a.f) * Math.min(1, d / 2.5);
+      e.applyImpulse({ x: (dx / d) * k, y: (dy / d) * k + 0.03, z: (dz / d) * k });
     } catch (err) {}
+  }
+}
+
+function anchorOrb(id, s, at) {
+  anchors.set(id, {
+    dimension: s.dimension,
+    mode: s.mode,
+    f: s.f,
+    over: s.over,
+    owner: s.owner,
+    at: { x: at.x, y: at.y + 0.5, z: at.z },
+    age: 0,
+  });
+  sound(s.dimension, "mob.warden.sonic_boom", at);
+}
+
+function tickAnchors() {
+  for (const [id, a] of anchors) {
+    a.age++;
+    try {
+      voidSwirl(a.dimension, a.at, VOID_PULL_RADIUS, a.mode.color, a.age);
+      pull(a);
+      if (a.age >= VOID_HOLD_TICKS) {
+        anchors.delete(id);
+        detonate(a, a.at);
+      }
+    } catch (e) {
+      anchors.delete(id);
+    }
   }
 }
 
@@ -142,6 +181,7 @@ export function launchOrb(player, modeIndex, held) {
 }
 
 export function tickOrbs() {
+  tickAnchors();
   for (const [id, s] of orbs) {
     try {
       const loc = s.orb.location;
@@ -149,10 +189,10 @@ export function tickOrbs() {
       s.age++;
       orbTrail(s.dimension, loc, s.mode.color, s.age);
       if (s.lob > 0) s.orb.applyImpulse({ x: 0, y: -s.lob, z: 0 });
-      if (s.mode.id === "void") pull(s, loc);
       if (s.age > MAX_ORB_AGE) {
         orbs.delete(id);
-        detonate(s, loc);
+        if (s.mode.id === "void") anchorOrb(id, s, loc);
+        else detonate(s, loc);
         s.orb.kill();
       }
     } catch (e) {
@@ -171,7 +211,9 @@ function onHit(projectile, location) {
   const s = orbs.get(id);
   if (!s) return;
   orbs.delete(id);
-  detonate(s, location ?? s.last);
+  const at = location ?? s.last;
+  if (s.mode.id === "void") anchorOrb(id, s, at);
+  else detonate(s, at);
   try {
     projectile.kill();
   } catch (e) {}

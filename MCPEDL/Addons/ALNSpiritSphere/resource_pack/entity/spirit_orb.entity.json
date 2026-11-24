@@ -4,7 +4,7 @@
     "description": {
       "identifier": "aln:spirit_orb",
       "materials": {
-        "default": "entity_alpha"
+        "default": "entity_alphatest"
       },
       "textures": {
         "default": "textures/items/aln_orb_core"

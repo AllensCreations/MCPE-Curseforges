@@ -118,3 +118,13 @@ export function orbTrail(dimension, center, color, age) {
   puff(dimension, SMALL, { x: center.x + Math.cos(a) * 0.5, y: center.y + Math.sin(a * 1.3) * 0.5, z: center.z + Math.sin(a) * 0.5 }, color);
   puff(dimension, SMALL, { x: center.x - Math.cos(a) * 0.5, y: center.y - Math.sin(a * 1.3) * 0.5, z: center.z - Math.sin(a) * 0.5 }, color);
 }
+
+export function voidSwirl(dimension, center, radius, color, tick) {
+  const k = 1 - (tick % 30) / 30;
+  const r = radius * k;
+  for (let i = 0; i < 8; i++) {
+    const a = tick * 0.35 + (i * Math.PI) / 4;
+    puff(dimension, SMALL, { x: center.x + Math.cos(a) * r, y: center.y + Math.sin(a * 0.5) * r * 0.4, z: center.z + Math.sin(a) * r }, color);
+  }
+  puff(dimension, BIG, center, color);
+}

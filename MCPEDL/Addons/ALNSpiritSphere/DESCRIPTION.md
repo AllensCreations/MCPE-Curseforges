@@ -42,7 +42,7 @@ Each sphere has its own color and impact behavior. There is no switching: carry 
 - **What Happens**: Each sphere has its own particle color: cyan and white for Aero Vortex, orange and gold for Blaze Solar, icy blue for Frost Nova, purple for Storm Surge and dark magenta for Void Singularity.
 
 ### Element Impacts
-- **What Happens**: Aero Vortex adds heavy knockback and a fire-free blast. Blaze Solar ignites the area. Frost Nova freezes nearby water and applies Slowness IV. Storm Surge flies 40 percent faster and calls lightning. Void Singularity pulls mobs toward the orb while it flies.
+- **What Happens**: Aero Vortex adds heavy knockback and a fire-free blast. Blaze Solar ignites the area. Frost Nova freezes nearby water and applies Slowness IV. Storm Surge flies 40 percent faster and calls lightning. Void Singularity stops where it lands, hovers for 5 seconds while it pulls every mob within 10 blocks into its core, then collapses in a larger explosion.
 
 ## How to Use
 

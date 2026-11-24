@@ -24,10 +24,8 @@
     "result": {
       "item": "aln:aero_sphere"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

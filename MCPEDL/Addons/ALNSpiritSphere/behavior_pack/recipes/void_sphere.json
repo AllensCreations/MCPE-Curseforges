@@ -24,10 +24,8 @@
     "result": {
       "item": "aln:void_sphere"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

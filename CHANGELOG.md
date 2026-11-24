@@ -4,6 +4,17 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v263] - 2026-11-24 - Void Singularity Rework
+
+**Spec**: spec_v263.txt | **Target**: MCPEDL/Addons/ALNSpiritSphere | **Files edited**: 11
+
+### Added
+- **Void Singularity hold**: The orb now stops where it lands, hovers for 5 seconds, pulls all mobs within 10 blocks into its core, then explodes with a larger blast.
+
+### Fixed
+- **Recipes**: The six sphere recipes now use the object form of the unlock entry.
+- **Spirit Orb model**: The orb now uses the entity_alphatest material instead of entity_alpha.
+
 ## [v262] - 2026-11-24 - Element Spheres
 
 **Spec**: spec_v262.txt | **Target**: MCPEDL/Addons/ALNSpiritSphere | **Files edited**: 21
