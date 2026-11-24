@@ -12,6 +12,7 @@ export const PROP = {
   BREAKS: "aln:breaks",
   SLOTS: "aln:slots",
   GLOBAL: "aln:global_breaks",
+  ISLAND_PREFIX: "aln:island_breaks_",
   LOBBY_BUILT: "aln:lobby_built",
   LISTING_IDS: "aln:ledger_ids",
   LISTING_SEQ: "aln:ledger_seq",
@@ -33,7 +34,10 @@ export const MAX_PRICE = 1000000;
 export const PRICE_MIN_RATIO = 0.5;
 export const PRICE_MAX_RATIO = 4;
 export const SERVER_BUY_RATIO = 0.5;
-export const BREAKS_PER_COIN = 10;
+export const RARE_UNIT_PRICE = 40;
+export const RARE_BUY_RATIO = 0.25;
+export const MARKET_FEE_RATIO = 0.05;
+export const BREAKS_PER_COIN = 5;
 export const COINS_PER_REWARD = 1;
 export const BOARD_ID = "aln_coins";
 export const BOARD_TITLE = "§6§l@ALNStudios";
@@ -53,7 +57,7 @@ export const RULES_BODY = [
   "§7- Your island spot is permanent once you press Start.",
   "",
   "§eOneBlock phases",
-  "§7- All islands share the same phase. Every OneBlock broken on any island moves the whole world closer to the next phase.",
+  "§7- Every island has its own phase. Every OneBlock you break on your island moves it closer to the next phase.",
   "",
   "§eIsland Richness",
   "§7- Each island has one Richness trait that boosts its block mix and adds bonus drops. No island has everything, so trade.",
@@ -61,6 +65,7 @@ export const RULES_BODY = [
   "§eTRADERS Item",
   "§7- Right-click the TRADERS Item anywhere to sell items for ALN Coins, browse offers and buy with your coins.",
   "§7- Listed items are held safely until they sell or you cancel the listing.",
+  `§7- A ${Math.round(MARKET_FEE_RATIO * 100)}% fee is taken from the seller when an offer sells.`,
   "§7- The TRADERS Item is permanent. If you throw it away it returns to you, and if your inventory is full it returns as soon as a slot is free.",
   "",
   "§eALN Coins",

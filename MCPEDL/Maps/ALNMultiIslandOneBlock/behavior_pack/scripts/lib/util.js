@@ -1,4 +1,4 @@
-import { world, system, ItemStack, EntityComponentTypes } from "@minecraft/server";
+import { world, system, ItemStack, EntityComponentTypes, GameMode } from "@minecraft/server";
 import { LEDGER_ID } from "./config.js";
 
 export function overworld() {
@@ -199,4 +199,12 @@ export function addArea(dim, name, x, y, z) {
 
 export function dropArea(dim, name) {
   return runCmd(dim, `tickingarea remove ${name}`);
+}
+
+export function isCreative(player) {
+  try {
+    return player.getGameMode() === GameMode.Creative;
+  } catch (e) {
+    return false;
+  }
 }

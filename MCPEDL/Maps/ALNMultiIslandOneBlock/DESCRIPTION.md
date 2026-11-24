@@ -7,13 +7,13 @@
 
 **Claim a private OneBlock island on a 2,000-block grid and trade surplus goods for ALN Coins through the TRADERS Item.**
 
-> Every player gets a floating island, every island shares the same OneBlock phase, and no island has everything. Trading is how the world grows.
+> Every player gets a floating island, every island climbs through its own OneBlock phases, and no island has everything. Trading is how the world grows.
 
 ## Overview
 
 ALN:MultiIslandOneBlock is a OneBlock world map for ten or more players. New players arrive on a lone bedrock pillar at the world spawn, read a short startup window and claim a personal island. Islands sit 2,000 blocks apart in a square grid around the central lobby.
 
-All islands share one progression, and each island carries a Richness trait that shapes its blocks and bonus drops. Because the traits differ, players end up with surplus goods that other islands need. The TRADERS Item lets them swap those goods from anywhere in the world.
+Each island has its own progression, and each island carries a Richness trait that shapes its blocks and bonus drops. Because the traits differ, players end up with surplus goods that other islands need. The TRADERS Item lets them swap those goods from anywhere in the world.
 
 The map is a void world and includes Creative, Survival and Hardcore versions.
 
@@ -31,23 +31,23 @@ The map is a void world and includes Creative, Survival and Hardcore versions.
 ### 2,000-Block Square Grid
 - **What Happens**: Islands are placed on a random free spot of the innermost ring that still has room. The first eight spots sit at the corners and edges of a square around the lobby, from X: -2000, Z: -2000 to X: 2000, Z: 2000. Spots nine and up fill outer perimeter rings, up to 120 islands in total.
 
-### Shared OneBlock Phases
-- **What Happens**: Every OneBlock broken on any island moves the whole world forward through eight phases: Forest, Underground, Desert, Frozen Tundra, Ocean Monument, Nether, Deepslate Depths and The End. All islands always draw blocks from the same phase.
+### Individual OneBlock Phases
+- **What Happens**: Every OneBlock broken on an island moves that island forward through eight phases: Forest, Underground, Desert, Frozen Tundra, Ocean Monument, Nether, Deepslate Depths and The End. Each island draws blocks from its own phase, so one player cannot rush everyone else.
 
 ### Island Richness Traits
 - **What Happens**: Each island receives one trait: Ore Bounty, Crop Master, Treasure Angler, Timber Baron, Beast Herder or Ember Forager. Traits are picked at random, with lower odds for traits that many islands already have, and each one changes which blocks appear most often on that island.
 
 ### Bonus Drops
-- **What Happens**: Roughly three out of ten OneBlock breaks drop an extra item that matches the island's trait and the current phase. Ore Bounty islands earn metals and gems, Crop Master islands earn harvests, and the other traits earn their own goods.
+- **What Happens**: About one in twenty OneBlock breaks drops an extra item that matches the island's trait and the island's phase. Ore Bounty islands earn metals and gems, Crop Master islands earn harvests, and the other traits earn their own goods.
 
 ### TRADERS Item
 - **What Happens**: A portable item every player receives when claiming an island. Right-clicking it opens the Global Trade Hub from anywhere. It is permanent: if you throw it away it returns to you, and if your inventory is full it returns as soon as a slot is free.
 
 ### Global Trade Hub
-- **What Happens**: Players post offers priced in ALN Coins, such as 32 Iron Ingots for 160 ALN Coins, browse and search offers from every island, and buy with a single confirmation. Every item shows a recommended price and amount, and leaving the fields empty uses them. For items with a recommended price, an offer must stay between half and four times that price. The market also buys those items directly for half of the recommended price. Offered items are held safely until the offer sells or is cancelled.
+- **What Happens**: Players post offers priced in ALN Coins, such as 32 Iron Ingots for 160 ALN Coins, browse and search offers from every island, and buy with a single confirmation. Every item shows a recommended price and amount, and leaving the fields empty uses them. For items with a recommended price, an offer must stay between half and four times that price. The market also buys those items directly for half of the recommended price, or a quarter for very valuable items, and sellers pay a 5% fee when an offer sells. Players in Creative mode cannot sell. Offered items are held safely until the offer sells or is cancelled.
 
 ### ALN Coins
-- **What Happens**: ALN Coins are the currency of the Global Trade Hub. Every player starts with 500 ALN Coins, and the balance is shown in the hub. A sold offer pays the seller right away, even when the seller is offline. Players also earn 1 ALN Coin for every 10 OneBlock breaks, and a sidebar scoreboard titled @ALNStudios ranks island owners by their ALN Coins.
+- **What Happens**: ALN Coins are the currency of the Global Trade Hub. Every player starts with 500 ALN Coins, and the balance is shown in the hub. A sold offer pays the seller right away, even when the seller is offline. Players also earn 1 ALN Coin for every 5 OneBlock breaks (not in Creative mode), and a sidebar scoreboard titled @ALNStudios ranks island owners by their ALN Coins.
 
 ## How to Use
 
@@ -55,7 +55,7 @@ The map is a void world and includes Creative, Survival and Hardcore versions.
 2. Open the imported world in the Creative, Survival or Hardcore version.
 3. First-time players appear on the bedrock pillar and see the startup window.
 4. Read About / Rules if you like, then choose Start / Claim Island. This choice cannot be undone.
-5. Break the OneBlock under your feet. It regenerates every time, and the whole world advances through its phases as islands keep breaking blocks.
+5. Break the OneBlock under your feet. It regenerates every time, and your island advances through its phases as you keep breaking blocks.
 6. Right-click the TRADERS Item to sell items for ALN Coins, browse other islands' offers and buy with your coins.
 7. Optional: the map includes a setup command that rebuilds the spawn pillar and resets the world spawn. It needs cheats, and cheats disable achievements in that world.
 

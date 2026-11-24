@@ -4,6 +4,18 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v267] - 2026-11-24 - Individual Phases and Market Balance
+
+**Spec**: spec_v267.txt | **Target**: MCPEDL/Maps/ALNMultiIslandOneBlock | **Files edited**: 12
+
+### Added
+- **Individual Island Phases**: Every island now has its own OneBlock phase. Breaking blocks on your island moves only your island forward, and the phase message goes to the island owner and the breaker. Existing islands keep their current phase until they break their next block.
+- **Market Fee**: Sellers pay a 5% fee when a player offer sells. The fee leaves the economy.
+### Improved & Balanced
+- **Creative Mode Restriction**: Players in Creative mode cannot create offers, sell to the market or earn ALN Coins from OneBlock breaks.
+- **Rare Items**: Items worth 40 ALN Coins or more (diamonds, emeralds, netherite scrap, nautilus shells, name tags, saddles) are no longer doubled as bonus drops, and the market pays a quarter of the recommended price for them instead of half.
+- **Faster Coin Reward**: Players now earn 1 ALN Coin for every 5 OneBlock breaks instead of every 10.
+
 ## [v266] - 2026-11-24 - Claim Lock
 
 **Spec**: spec_v266.txt | **Target**: MCPEDL/Maps/ALNMultiIslandOneBlock | **Files edited**: 4

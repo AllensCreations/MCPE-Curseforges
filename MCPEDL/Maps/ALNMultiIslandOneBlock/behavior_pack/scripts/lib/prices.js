@@ -1,4 +1,4 @@
-import { SERVER_BUY_RATIO } from "./config.js";
+import { SERVER_BUY_RATIO, RARE_UNIT_PRICE, RARE_BUY_RATIO } from "./config.js";
 
 const PRICES = {
   "minecraft:coal": [2, 32],
@@ -74,5 +74,7 @@ export function recommendedTotal(typeId, amount) {
 }
 export function serverPayout(typeId, amount) {
   const info = priceInfo(typeId);
-  return info.listed ? Math.floor(info.unit * amount * SERVER_BUY_RATIO) : 0;
+  if (!info.listed) return 0;
+  const ratio = info.unit >= RARE_UNIT_PRICE ? RARE_BUY_RATIO : SERVER_BUY_RATIO;
+  return Math.floor(info.unit * amount * ratio);
 }

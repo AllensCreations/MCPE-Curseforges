@@ -4,17 +4,24 @@ import { overworld, isLoaded, blockIdAt, runCmd, addArea, dropArea, later } from
 import { slotCoords, markBuilt } from "./slots.js";
 import { phaseIndexFor, nextBlockId } from "./phases.js";
 
-export function globalBreaks() {
+function legacyBreaks() {
   const v = world.getDynamicProperty(PROP.GLOBAL);
   return typeof v === "number" ? v : 0;
 }
 
-export function currentPhase() {
-  return phaseIndexFor(globalBreaks());
+export function islandBreaks(slot) {
+  const v = world.getDynamicProperty(PROP.ISLAND_PREFIX + slot);
+  return typeof v === "number" ? v : legacyBreaks();
 }
 
-function placeIsland(dim, x, z, trait) {
-  const first = nextBlockId(currentPhase(), trait);
+export function addIslandBreak(slot) {
+  const total = islandBreaks(slot) + 1;
+  world.setDynamicProperty(PROP.ISLAND_PREFIX + slot, total);
+  return total;
+}
+
+function placeIsland(dim, x, z, trait, slot) {
+  const first = nextBlockId(phaseIndexFor(islandBreaks(slot)), trait);
   runCmd(dim, `fill ${x - 3} 63 ${z - 3} ${x + 3} 63 ${z + 3} grass_block`);
   runCmd(dim, `fill ${x - 2} 62 ${z - 2} ${x + 2} 62 ${z + 2} dirt`);
   runCmd(dim, `fill ${x - 1} 61 ${z - 1} ${x + 1} 61 ${z + 1} dirt`);
@@ -39,7 +46,7 @@ export function ensureIsland(slot, trait, onResult) {
   };
   const step = () => {
     tries++;
-    if (isLoaded(dim, c.x, ONE_BLOCK_Y, c.z) && placeIsland(dim, c.x, c.z, trait)) {
+    if (isLoaded(dim, c.x, ONE_BLOCK_Y, c.z) && placeIsland(dim, c.x, c.z, trait, slot)) {
       markBuilt(slot);
       if (hasArea) dropArea(dim, area);
       report(true);

@@ -3,7 +3,7 @@ import { PAGE_SIZE, MAX_LISTINGS_PER_PLAYER, COIN_NAME, PROP } from "./config.js
 import { slotOf, slotCoords, recordOf, recordOfPlayerId } from "./slots.js";
 import { traitInfo, traitLabel } from "./traits.js";
 import { phaseIndexFor, phaseLabel, breaksToNextPhase } from "./phases.js";
-import { globalBreaks } from "./island.js";
+import { islandBreaks } from "./island.js";
 import {
   allListings,
   listingsOf,
@@ -60,11 +60,11 @@ async function screenMain(player) {
   const offers = allListings().filter((l) => l.seller !== player.id).length;
   const mine = listingsOf(player.id).length;
   const returned = payoutSummary(player.id).reduce((sum, e) => sum + e.amount, 0);
-  const phase = phaseIndexFor(globalBreaks());
+  const phase = phaseIndexFor(islandBreaks(slot));
   const form = new ActionFormData()
     .title(HUB_TITLE)
     .body(
-      `§7Island #${slot} §8| ${traitLabel(record.trait)}\n§7World phase: ${phaseLabel(phase)}\n§fBalance: §e${coinsOf(player.id)} ${COIN_NAME}\n\n§fSell your surplus items for ${COIN_NAME} and buy what your island lacks. Every item shows a recommended price and amount when you create an offer.`
+      `§7Island #${slot} §8| ${traitLabel(record.trait)}\n§7Island phase: ${phaseLabel(phase)}\n§fBalance: §e${coinsOf(player.id)} ${COIN_NAME}\n\n§fSell your surplus items for ${COIN_NAME} and buy what your island lacks. Every item shows a recommended price and amount when you create an offer.`
     )
     .button(`Browse Offers\n§8${offers} open`)
     .button("Create Offer")
@@ -227,7 +227,7 @@ async function screenIsland(player) {
   const record = recordOf(slot);
   const info = traitInfo(record.trait);
   const c = slotCoords(slot);
-  const total = globalBreaks();
+  const total = islandBreaks(slot);
   const left = breaksToNextPhase(total);
   const mine = player.getDynamicProperty(PROP.BREAKS) ?? 0;
   const form = new ActionFormData()
@@ -239,9 +239,9 @@ async function screenIsland(player) {
         `§7${info.blurb}`,
         `§fBest goods to export: §7${info.goods}`,
         "",
-        `§fWorld phase: ${phaseLabel(phaseIndexFor(total))}`,
-        left > 0 ? `§7Next phase in ${left} OneBlock breaks.` : "§7The world is in its final phase.",
-        `§7Your breaks: ${mine} §8| §7World breaks: ${total}`,
+        `§fIsland phase: ${phaseLabel(phaseIndexFor(total))}`,
+        left > 0 ? `§7Next phase in ${left} OneBlock breaks.` : "§7Your island is in its final phase.",
+        `§7Your breaks: ${mine} §8| §7Island breaks: ${total}`,
       ].join("\n")
     )
     .button("Back");

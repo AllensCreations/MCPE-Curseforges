@@ -10,6 +10,7 @@ import {
   STARTER_COINS,
   COIN_NAME,
   LEDGER_ID,
+  MARKET_FEE_RATIO,
 } from "./config.js";
 import {
   readJson,
@@ -20,6 +21,7 @@ import {
   findPlayer,
   isValidItem,
   niceName,
+  isCreative,
 } from "./util.js";
 import { priceInfo, recommendedTotal, serverPayout } from "./prices.js";
 
@@ -120,6 +122,7 @@ export function createListing(player, itemId, amount, price) {
   }
   if (!isValidItem(itemId)) return fail("The item you want to sell is not valid.");
   if (itemId === LEDGER_ID) return fail("The TRADERS Item cannot be sold.");
+  if (isCreative(player)) return fail("Players in Creative mode cannot sell items.");
   if (priceInfo(itemId).listed) {
     const rec = recommendedTotal(itemId, amount);
     const low = Math.max(1, Math.ceil(rec * PRICE_MIN_RATIO));
@@ -187,15 +190,16 @@ export function buyListing(buyer, id) {
   if (balance < listing.price) {
     return fail(`You need ${listing.price} ${COIN_NAME} (you have ${balance}).`);
   }
+  const net = listing.price - Math.floor(listing.price * MARKET_FEE_RATIO);
   dropListing(id);
   addCoins(buyer.id, -listing.price);
-  addCoins(listing.seller, listing.price);
+  addCoins(listing.seller, net);
   giveItem(buyer, listing.give.id, listing.give.amount);
   const seller = findPlayer(listing.seller);
   if (seller) {
-    seller.sendMessage(`§6[ALN] §a${buyer.name} bought your offer. You received ${listing.price} ${COIN_NAME}.`);
+    seller.sendMessage(`§6[ALN] §a${buyer.name} bought your offer. You received ${net} ${COIN_NAME} after the market fee.`);
   } else {
-    addEarned(listing.seller, listing.price);
+    addEarned(listing.seller, net);
   }
   return done(
     `Purchase complete: you received ${listing.give.amount}x ${niceName(listing.give.id)} for ${listing.price} ${COIN_NAME}.`

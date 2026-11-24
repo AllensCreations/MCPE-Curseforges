@@ -2,7 +2,7 @@ import { world } from "@minecraft/server";
 import { LEDGER_ID, SPAWN_Y, STARTER_LEDGER } from "./config.js";
 import { randomFreeSlot, assignSlot, slotCoords, slotOf, recordOf } from "./slots.js";
 import { pickTrait, traitInfo, traitLabel } from "./traits.js";
-import { ensureIsland, currentPhase } from "./island.js";
+import { ensureIsland } from "./island.js";
 import { phaseLabel } from "./phases.js";
 import { overworld, giveItem, findPlayer } from "./util.js";
 
@@ -39,7 +39,7 @@ function welcomeToIsland(player, slot, islandReady) {
   } catch (e) {}
   player.sendMessage(`§6[ALN] §eIsland #${slot} claimed at X: ${c.x}, Z: ${c.z}.`);
   player.sendMessage(`§6[ALN] §fRichness: ${traitLabel(record.trait)} §7- ${info.blurb}`);
-  player.sendMessage(`§6[ALN] §fWorld phase: ${phaseLabel(currentPhase())}§f. Break your OneBlock to begin.`);
+  player.sendMessage(`§6[ALN] §fIsland phase: ${phaseLabel(0)}§f. Break your OneBlock to begin.`);
   if (STARTER_LEDGER) player.sendMessage("§6[ALN] §7You received the TRADERS Item. Right-click it to trade with other islands.");
 }
 

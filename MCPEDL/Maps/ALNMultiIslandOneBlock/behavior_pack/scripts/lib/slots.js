@@ -140,6 +140,7 @@ export function assignSlot(player, slot, trait) {
   player.setDynamicProperty(PROP.SLOT, slot);
   player.setDynamicProperty(PROP.TRAIT, trait);
   player.setDynamicProperty(PROP.BREAKS, 0);
+  world.setDynamicProperty(PROP.ISLAND_PREFIX + slot, 0);
 }
 
 export function markBuilt(slot) {
