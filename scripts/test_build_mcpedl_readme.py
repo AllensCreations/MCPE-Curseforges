@@ -34,6 +34,7 @@ class BuildMcpedlReadmeTests(unittest.TestCase):
             (proj / "CHANGELOG.md").write_text("## [v1]\n", encoding="utf-8")
             (root / "MCPEDL" / "AI Review").mkdir(parents=True)
             (root / "MCPEDL" / "AI Review" / "Test-Pack.txt").write_text("AI", encoding="utf-8")
+            (root / "MCPEDL" / "AI Review" / "Test-Pack-v1.zip").write_text("ZIP", encoding="utf-8")
             (root / "Package").mkdir(parents=True)
             (root / "Package" / "Test-Pack.listing.md").write_text("Listing", encoding="utf-8")
 
@@ -41,7 +42,7 @@ class BuildMcpedlReadmeTests(unittest.TestCase):
             self.assertIn("# MCPEDL Catalog", out)
             self.assertIn("## Add-ons", out)
             self.assertIn("Test Pack", out)
-            self.assertIn("Test-Pack.txt", out)
+            self.assertIn("Test-Pack-v1.zip", out)
             self.assertIn("Test-Pack.listing.md", out)
 
 

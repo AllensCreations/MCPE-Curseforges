@@ -22,6 +22,7 @@ Anything else that still mentions the package is reported as a warning (never ed
 """
 
 import argparse
+import glob
 import json
 import os
 import re
@@ -244,6 +245,12 @@ def remove_package_listing(slug, removed):
 def remove_ai_review_files(slug, removed):
     if not os.path.isdir(AI_REVIEW_DIR):
         return
+    for p in glob.glob(os.path.join(AI_REVIEW_DIR, f"{slug}-*.zip")):
+        if os.path.isfile(p):
+            os.remove(p)
+            base = os.path.basename(p)
+            removed.append(f"MCPEDL/AI Review/{base}")
+            print(f"  [Deleted] MCPEDL/AI Review/{base}")
     for name in (f"{slug}.txt", f"{slug}.zip", f".{slug}.source-hash"):
         path = os.path.join(AI_REVIEW_DIR, name)
         if os.path.isfile(path):
@@ -331,6 +338,9 @@ def delete_project(target_type, slug, dry_run=False):
                 print(f"  - changelog_views/{slug}.{suffix}")
         if os.path.isfile(os.path.join(PACKAGE_DIR, f"{slug}.listing.md")):
             print(f"  - Package/{slug}.listing.md")
+        for p in glob.glob(os.path.join(AI_REVIEW_DIR, f"{slug}-*.zip")):
+            if os.path.isfile(p):
+                print(f"  - MCPEDL/AI Review/{os.path.basename(p)}")
         for name in (f"{slug}.txt", f"{slug}.zip", f".{slug}.source-hash"):
             if os.path.isfile(os.path.join(AI_REVIEW_DIR, name)):
                 print(f"  - MCPEDL/AI Review/{name}")
