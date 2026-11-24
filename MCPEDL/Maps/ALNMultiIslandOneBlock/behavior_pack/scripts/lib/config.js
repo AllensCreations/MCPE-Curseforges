@@ -40,6 +40,8 @@ export const BOARD_TITLE = "§6§l@ALNStudios";
 export const BOARD_TICKS = 40;
 export const PAGE_SIZE = 6;
 export const WELCOME_RETRY_LIMIT = 12;
+export const LOCK_EFFECT = "slowness";
+export const LOCK_AMPLIFIER = 254;
 
 export const TITLE = "§6§lALN:MultiIslandOneBlock";
 export const WELCOME_BODY =

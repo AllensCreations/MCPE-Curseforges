@@ -2,7 +2,7 @@ import { world, system } from "@minecraft/server";
 import { LEDGER_ID } from "./lib/config.js";
 import { setupLobby, teleportToLobby } from "./lib/lobby.js";
 import { hasIsland, returnToIsland } from "./lib/claim.js";
-import { promptWelcome } from "./lib/welcome.js";
+import { promptWelcome, startWelcomeGuard } from "./lib/welcome.js";
 import { startOneBlock } from "./lib/oneblock.js";
 import { openLedger } from "./lib/ledger.js";
 import { startLedgerKeeper, ensureLedger } from "./lib/keeper.js";
@@ -70,6 +70,7 @@ world.afterEvents.worldLoad.subscribe(() => {
   startOneBlock();
   startLedgerKeeper();
   startCoinBoard();
+  startWelcomeGuard();
   for (const player of world.getAllPlayers()) {
     if (!joining.has(player.id)) readyPlayer(player);
   }

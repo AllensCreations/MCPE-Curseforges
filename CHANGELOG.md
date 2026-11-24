@@ -4,6 +4,13 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v266] - 2026-11-24 - Claim Lock
+
+**Spec**: spec_v266.txt | **Target**: MCPEDL/Maps/ALNMultiIslandOneBlock | **Files edited**: 4
+
+### Improved & Balanced
+- **Claim Lock**: A player who has not claimed an island yet is frozen in place at the lobby spawn by a maximum Slowness effect while the startup window is active. If they close the window it opens again, and the effect is removed as soon as they press Start or the window stops reopening.
+
 ## [v265] - 2026-11-24 - Rare Bonus Drops
 
 **Spec**: spec_v265.txt | **Target**: MCPEDL/Maps/ALNMultiIslandOneBlock | **Files edited**: 3

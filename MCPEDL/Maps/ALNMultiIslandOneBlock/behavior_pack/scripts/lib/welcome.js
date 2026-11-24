@@ -1,9 +1,31 @@
+import { system } from "@minecraft/server";
 import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
-import { TITLE, WELCOME_BODY, RULES_BODY, WELCOME_RETRY_LIMIT } from "./config.js";
+import { TITLE, WELCOME_BODY, RULES_BODY, WELCOME_RETRY_LIMIT, LOCK_EFFECT, LOCK_AMPLIFIER } from "./config.js";
 import { findPlayer, wait } from "./util.js";
 import { hasIsland, claimIsland } from "./claim.js";
 
 const open = new Set();
+
+function lock(player) {
+  try {
+    player.addEffect(LOCK_EFFECT, 60, { amplifier: LOCK_AMPLIFIER, showParticles: false });
+  } catch (e) {}
+}
+
+function unlock(id) {
+  try {
+    findPlayer(id)?.removeEffect(LOCK_EFFECT);
+  } catch (e) {}
+}
+
+export function startWelcomeGuard() {
+  system.runInterval(() => {
+    for (const id of open) {
+      const p = findPlayer(id);
+      if (p && !hasIsland(p)) lock(p);
+    }
+  }, 20);
+}
 
 async function showRules(player) {
   const form = new ActionFormData().title("§6§lAbout / Rules").body(RULES_BODY).button("Back");
@@ -16,6 +38,8 @@ export async function promptWelcome(player, attempt = 0) {
   const id = player.id;
   if (open.has(id)) return;
   open.add(id);
+  const first = findPlayer(id);
+  if (first) lock(first);
   let tries = attempt;
   try {
     while (true) {
@@ -49,5 +73,6 @@ export async function promptWelcome(player, attempt = 0) {
     }
   } finally {
     open.delete(id);
+    unlock(id);
   }
 }
