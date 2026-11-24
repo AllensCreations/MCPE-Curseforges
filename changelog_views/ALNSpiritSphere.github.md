@@ -1,10 +1,23 @@
 # Changelog — ALN:SpiritSphere
 
-## [4.0.0] - 2026-11-24 - Inward Pull Particles
+## [5.0.0] - 2026-11-24 - Element Sounds
 
 ### Added
+- **Custom element sounds**: Each of the five spheres now has its own charge, burst, launch and impact sound, 20 sounds in total.
+
+### Improved & Balanced
+- **Shared sounds removed**: The old shared pulse, launch and explosion sounds are replaced by the per-element sounds, including the Void Singularity landing pulse.
+
+<details>
+<summary><b>4.0.x</b> (1 release)</summary>
+
+### [4.0.0] - 2026-11-24 - Inward Pull Particles
+
+#### Added
 - **Inward pull particles**: Particles now stream inward toward your hand while charging and toward the orb in flight for every element.
 - **Void Singularity pull**: The hover phase shows a wide inward stream across its 10 block range and a tighter collapse stream in the last second.
+
+</details>
 
 <details>
 <summary><b>3.0.x</b> (1 release)</summary>

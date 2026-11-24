@@ -1,8 +1,0 @@
-{
-  "changelog_version": "3.0.0",
-  "manifest_version": "3.0.0",
-  "packages": {
-    "ALNSpiritSphere V3.mcaddon": "51ff2be419b5ca4c004e301ddc10819bef559ffd62a46aef192cf1dc3329b88f"
-  },
-  "source_sha256": "2b6ec90645ddb6a964af4f0dba8189339fcd86d11ad0af7c6a64a787e5471e71"
-}

@@ -48,7 +48,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **ALN SoulLantern** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-SoulLantern/ALNSoulLantern%20V1.0.2.mcaddon) | [`ALN-SoulLantern/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-SoulLantern/) |
 | **ALNPirateTokens** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNPirateTokens/ALNPirateTokens%20V1.0.4.mcaddon) | [`ALNPirateTokens/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNPirateTokens/) |
 | **ALN FarmerGolem** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-FarmerGolem/ALNFarmerGolem%20V2.mcaddon) | [`ALN-FarmerGolem/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-FarmerGolem/) |
-| **ALNSpiritSphere** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNSpiritSphere/ALNSpiritSphere%20V4.mcaddon) | [`ALNSpiritSphere/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNSpiritSphere/) |
+| **ALNSpiritSphere** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNSpiritSphere/ALNSpiritSphere%20V5.mcaddon) | [`ALNSpiritSphere/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNSpiritSphere/) |
 | **ALNChronoStop** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNChronoStop/ALNChronoStop%20V1.mcaddon) | [`ALNChronoStop/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNChronoStop/) |
 
 ### Worlds and Maps
