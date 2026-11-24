@@ -1,0 +1,140 @@
+{
+  "format_version": "1.14.0",
+  "sound_definitions": {
+    "aln.spirit.aero.charge": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/spirit/aero_charge"
+      ]
+    },
+    "aln.spirit.aero.burst": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/spirit/aero_burst"
+      ],
+      "max_distance": 48
+    },
+    "aln.spirit.aero.launch": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/spirit/aero_launch"
+      ],
+      "max_distance": 48
+    },
+    "aln.spirit.aero.impact": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/spirit/aero_impact"
+      ],
+      "max_distance": 48
+    },
+    "aln.spirit.blaze.charge": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/spirit/blaze_charge"
+      ]
+    },
+    "aln.spirit.blaze.burst": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/spirit/blaze_burst"
+      ],
+      "max_distance": 48
+    },
+    "aln.spirit.blaze.launch": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/spirit/blaze_launch"
+      ],
+      "max_distance": 48
+    },
+    "aln.spirit.blaze.impact": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/spirit/blaze_impact"
+      ],
+      "max_distance": 48
+    },
+    "aln.spirit.frost.charge": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/spirit/frost_charge"
+      ]
+    },
+    "aln.spirit.frost.burst": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/spirit/frost_burst"
+      ],
+      "max_distance": 48
+    },
+    "aln.spirit.frost.launch": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/spirit/frost_launch"
+      ],
+      "max_distance": 48
+    },
+    "aln.spirit.frost.impact": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/spirit/frost_impact"
+      ],
+      "max_distance": 48
+    },
+    "aln.spirit.storm.charge": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/spirit/storm_charge"
+      ]
+    },
+    "aln.spirit.storm.burst": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/spirit/storm_burst"
+      ],
+      "max_distance": 48
+    },
+    "aln.spirit.storm.launch": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/spirit/storm_launch"
+      ],
+      "max_distance": 48
+    },
+    "aln.spirit.storm.impact": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/spirit/storm_impact"
+      ],
+      "max_distance": 48
+    },
+    "aln.spirit.void.charge": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/spirit/void_charge"
+      ]
+    },
+    "aln.spirit.void.burst": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/spirit/void_burst"
+      ],
+      "max_distance": 48
+    },
+    "aln.spirit.void.launch": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/spirit/void_launch"
+      ],
+      "max_distance": 48
+    },
+    "aln.spirit.void.impact": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/spirit/void_impact"
+      ],
+      "max_distance": 48
+    }
+  }
+}

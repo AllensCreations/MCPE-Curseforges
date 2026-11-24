@@ -2,6 +2,14 @@
 
 ---
 
+## [5.0.0] - 2026-11-24 - Element Sounds
+
+### Added
+- **Custom element sounds**: Each of the five spheres now has its own charge, burst, launch and impact sound, 20 sounds in total.
+
+### Improved & Balanced
+- **Shared sounds removed**: The old shared pulse, launch and explosion sounds are replaced by the per-element sounds, including the Void Singularity landing pulse.
+
 ## [4.0.0] - 2026-11-24 - Inward Pull Particles
 
 ### Added

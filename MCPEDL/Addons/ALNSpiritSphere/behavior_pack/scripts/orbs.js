@@ -70,7 +70,7 @@ function detonate(s, at) {
   const strength = 0.8 + 2.6 * f;
   const lift = 0.35 + 0.8 * f;
   impactBurst(d, at, r, s.mode.color);
-  sound(d, "random.explode", at);
+  sound(d, `${s.mode.sfx}.impact`, at);
   if (s.mode.id === "aero") {
     explode(d, at, r, true, false);
     shoveAll(d, at, reach, strength * 1.6, lift * 1.3);
@@ -138,7 +138,7 @@ function anchorOrb(id, s, at) {
     at: { x: at.x, y: at.y + 0.5, z: at.z },
     age: 0,
   });
-  sound(s.dimension, "mob.warden.sonic_boom", at);
+  sound(s.dimension, `${s.mode.sfx}.burst`, at);
 }
 
 function tickAnchors() {
@@ -177,7 +177,7 @@ export function launchOrb(player, modeIndex, held) {
     last: start,
     lob: f < 0.35 ? 0.035 * (1 - f / 0.35) : 0,
   });
-  sound(dimension, "mob.ghast.fireball", start);
+  sound(dimension, `${mode.sfx}.launch`, start);
 }
 
 export function tickOrbs() {

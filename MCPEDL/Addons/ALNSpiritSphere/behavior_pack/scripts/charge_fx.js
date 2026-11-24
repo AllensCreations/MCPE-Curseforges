@@ -14,10 +14,10 @@ export function clearZoom(player) {
   } catch (e) {}
 }
 
-export function chargeSound(player, held) {
+export function chargeSound(player, held, mode) {
   if (held < 2 || held % 3 !== 0) return;
   const k = Math.min(held, 70) / 70;
   try {
-    player.playSound("random.orb", { pitch: 0.6 + 1.4 * k, volume: 0.5 + 0.4 * k });
+    player.playSound(`${mode.sfx}.charge`, { pitch: 0.6 + 1.4 * k, volume: 0.5 + 0.4 * k });
   } catch (e) {}
 }

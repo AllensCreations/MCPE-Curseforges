@@ -101,7 +101,7 @@ export function renderCharge(player, held, mode) {
     if (held === BURST_TICK) {
       shell(dimension, center, 0.9, 30, MID, mode.color);
       ring(dimension, center, view, 0.9, 16, 0, BIG, mode.color);
-      sound(dimension, "mob.warden.sonic_boom", center);
+      sound(dimension, `${mode.sfx}.burst`, center);
     }
     puff(dimension, BIG, center, mode.color);
     shell(dimension, center, 0.55, 8, SMALL, mode.color);

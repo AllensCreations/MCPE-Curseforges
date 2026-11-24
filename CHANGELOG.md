@@ -4,6 +4,16 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v276] - 2026-11-24 - Element Sounds
+
+**Spec**: spec_v276.txt | **Target**: MCPEDL/Addons/ALNSpiritSphere | **Files edited**: 9
+
+### Added
+- **Custom element sounds**: Each of the five spheres now has its own charge, burst, launch and impact sound, 20 sounds in total.
+
+### Improved & Balanced
+- **Shared sounds removed**: The old shared pulse, launch and explosion sounds are replaced by the per-element sounds, including the Void Singularity landing pulse.
+
 ## [v275] - 2026-11-24 - Inward Pull Particles
 
 **Spec**: spec_v275.txt | **Target**: MCPEDL/Addons/ALNSpiritSphere | **Files edited**: 7

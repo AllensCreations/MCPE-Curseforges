@@ -38,6 +38,9 @@ Each sphere has its own color and impact behavior. There is no switching: carry 
 ### Charge-Scaled Orb
 - **What Happens**: Releasing fires the Spirit Orb along your aim. A quick release lobs a slow orb with a small blast, a medium charge flies steadily, and a full charge flies almost straight and fast with a cratering explosion.
 
+### Custom Element Sounds
+- **What Happens**: Every sphere has its own sounds for charging, the full-charge burst, launch and impact. Aero Vortex sounds like rushing wind, Blaze Solar like crackling fire, Frost Nova like shattering ice, Storm Surge like electric zaps and thunder, and Void Singularity like a deep pull and collapse.
+
 ### Inward Pull Particles
 - **What Happens**: Streams of particles fly inward toward your hand while you charge and toward the orb while it flies. The Void Singularity draws the thickest stream across its full 10 block range and tightens into a dense collapse during its last second.
 

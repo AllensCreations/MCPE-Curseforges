@@ -47,7 +47,7 @@ system.runInterval(() => {
       const phase = phaseOf(held);
       renderCharge(entry.player, held, mode);
       applyZoom(entry, phase);
-      chargeSound(entry.player, held);
+      chargeSound(entry.player, held, mode);
       if (held % 5 === 0) {
         const tail = held >= OVER_TICKS ? "§c" : "§f";
         entry.player.onScreenDisplay.setActionBar(`${mode.code}${mode.name} §7| ${tail}${PHASES[phase]}`);

@@ -9,6 +9,7 @@ export const MAX_ORB_AGE = 120;
 export const MODES = [
   {
     id: "aero",
+    sfx: "aln.spirit.aero",
     itemId: "aln:aero_sphere",
     name: "Aero Vortex",
     code: "§b",
@@ -17,6 +18,7 @@ export const MODES = [
   },
   {
     id: "blaze",
+    sfx: "aln.spirit.blaze",
     itemId: "aln:blaze_sphere",
     name: "Blaze Solar",
     code: "§6",
@@ -25,6 +27,7 @@ export const MODES = [
   },
   {
     id: "frost",
+    sfx: "aln.spirit.frost",
     itemId: "aln:frost_sphere",
     name: "Frost Nova",
     code: "§9",
@@ -33,6 +36,7 @@ export const MODES = [
   },
   {
     id: "storm",
+    sfx: "aln.spirit.storm",
     itemId: "aln:storm_sphere",
     name: "Storm Surge",
     code: "§5",
@@ -41,6 +45,7 @@ export const MODES = [
   },
   {
     id: "void",
+    sfx: "aln.spirit.void",
     itemId: "aln:void_sphere",
     name: "Void Singularity",
     code: "§d",
