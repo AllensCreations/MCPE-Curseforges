@@ -140,6 +140,23 @@ def sync_pack_readmes(root: Path, registry: dict) -> int:
     return changed
 
 
+def sync_mcpedl_readme(root: Path) -> bool:
+    try:
+        from scripts.build_mcpedl_readme import render
+    except ImportError:
+        import sys
+        sys.path.insert(0, str(root / "scripts"))
+        from build_mcpedl_readme import render
+
+    body, warnings = render(root)
+    out = root / "MCPEDL" / "README.md"
+    old = out.read_text(encoding="utf-8") if out.is_file() else None
+    if old != body:
+        out.write_text(body, encoding="utf-8", newline="\n")
+        return True
+    return False
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", default=str(ROOT))
@@ -148,7 +165,12 @@ def main():
     reg = load_registry(root)
     root_changed = sync_root_readme(root, reg)
     pack_changed = sync_pack_readmes(root, reg)
-    print(f"Synced CurseForge status: Root README {'updated' if root_changed else 'unchanged'}, {pack_changed} pack README(s) updated.")
+    mcpedl_changed = sync_mcpedl_readme(root)
+    print(
+        f"Synced CurseForge status: Root README {'updated' if root_changed else 'unchanged'}, "
+        f"MCPEDL README {'updated' if mcpedl_changed else 'unchanged'}, "
+        f"{pack_changed} pack README(s) updated."
+    )
 
 
 if __name__ == "__main__":

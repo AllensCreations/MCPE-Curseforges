@@ -4,6 +4,14 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v282] - 2026-11-24 - Automated MCPEDL and CurseForge Sync Tooling
+
+**Spec**: spec_v282.txt | **Target**: repo | **Files edited**: 2
+
+### Added
+- **Workflow & Publish Auto-Sync**: Added automatic `MCPEDL/README.md` catalog rebuilding to `scripts/sync_curseforge_status.py`, executing on every package build and during CurseForge publishing workflows.
+- **Publish Workflow Integration**: Updated `.github/workflows/publish-curseforge.yml` to automatically synchronize and commit `MCPEDL/README.md`, root README tables, and pack README badges immediately upon publishing.
+
 ## [v281] - 2026-11-24 - Optimization and Repository Bug Fixes
 
 **Spec**: spec_v281.txt | **Target**: repo | **Files edited**: 6
