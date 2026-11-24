@@ -45,7 +45,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          find MCPEDL \( -path '*/assets/recipes/*.png' -o -name all_recipes_sheet.png \) -print0 | xargs -0 -r git add
+          find MCPEDL \( -path '*/assets/recipes/*.png' -o -path '*/assets/recipes/*.gif' -o -name all_recipes_sheet.png \) -print0 | xargs -0 -r git add
           if [ -f scripts/CRAFTING_TABLE.png ]; then git add scripts/CRAFTING_TABLE.png; fi
           # Stage optional recipe SVG exports only when the files exist.
           if compgen -G "assets/CRAFTING_RECIPE*.png" > /dev/null; then

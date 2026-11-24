@@ -381,24 +381,40 @@ def plan_pack(pack: Path, samples_root: Path = None):
 def write_pack(pack: Path, jobs: list, with_sheet: bool):
     sys.path.insert(0, str(Path(__file__).resolve().parent / "lib"))
     from crafting_template import compose_recipe_diagram  # needs CairoSVG; imported only when writing
+    from collections import defaultdict
     out_dir = pack / "assets" / "recipes"
     out_dir.mkdir(parents=True, exist_ok=True)
     written = []
+    diagrams_by_result = defaultdict(list)
     for job in jobs:
         icons = job["icons"]
         diagram = compose_recipe_diagram(job["kind"], job["data"], lambda i, _m=icons: _m[i], job["result"], job["count"], scale=1)
         target = out_dir / job["out"]
         diagram.save(target)
         written.append(target)
+        diagrams_by_result[job["result_id"]].append((job, diagram))
+
+    # For any output item that has multiple recipes, generate an animated GIF cycling between them
+    for result_id, job_diagrams in diagrams_by_result.items():
+        if len(job_diagrams) > 1:
+            slug = short(result_id)
+            gif_target = out_dir / f"{slug}_recipe.gif"
+            frames = [d.convert("RGB") for _, d in job_diagrams]
+            # Save as animated GIF: duration 1800ms per recipe, loops infinitely
+            frames[0].save(gif_target, save_all=True, append_images=frames[1:], duration=1800, loop=0)
+            written.append(gif_target)
+
     sheet = pack / "assets" / "all_recipes_sheet.png"
     if written and (with_sheet or sheet.is_file()):
-        pad, w, h = 8, 400, 222
-        canvas = Image.new("RGBA", (w + 2 * pad, len(written) * h + (len(written) + 1) * pad), (35, 35, 38, 255))
-        for i, p in enumerate(sorted(written)):
-            with Image.open(p) as frame:
-                canvas.paste(frame, (pad, pad + i * (h + pad)))
-        canvas.save(sheet)
-        written.append(sheet)
+        png_diagrams = [p for p in written if p.suffix.lower() == ".png"]
+        if png_diagrams:
+            pad, w, h = 8, 400, 222
+            canvas = Image.new("RGBA", (w + 2 * pad, len(png_diagrams) * h + (len(png_diagrams) + 1) * pad), (35, 35, 38, 255))
+            for i, p in enumerate(sorted(png_diagrams)):
+                with Image.open(p) as frame:
+                    canvas.paste(frame, (pad, pad + i * (h + pad)))
+            canvas.save(sheet)
+            written.append(sheet)
     return written
 
 

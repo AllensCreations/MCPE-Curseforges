@@ -431,15 +431,78 @@ def _natural(name):
     return [int(t) if t.isdigit() else t.lower() for t in re.split(r"(\d+)", name)]
 
 
+def _item_display_names(project: Path) -> dict[str, str]:
+    """Map custom item identifiers and short stems to their in-game display name."""
+    names = {}
+    lang = {}
+    for sub in [project / "resource_pack", project / "behavior_pack"]:
+        texts = sub / "texts"
+        if texts.is_dir():
+            for lf in sorted(texts.glob("*.lang")):
+                try:
+                    for line in lf.read_text(encoding="utf-8", errors="replace").splitlines():
+                        line = line.strip()
+                        if line and not line.startswith("##") and "=" in line:
+                            k, v = line.split("=", 1)
+                            lang[k.strip()] = v.strip()
+                except Exception:
+                    pass
+
+    bp_items = project / "behavior_pack" / "items"
+    if bp_items.is_dir():
+        for f in bp_items.rglob("*.json"):
+            try:
+                d = json.loads(f.read_text(encoding="utf-8"))
+                item = d.get("minecraft:item", {})
+                ident = item.get("description", {}).get("identifier", "")
+                if not ident:
+                    continue
+                comps = item.get("components", {})
+                dn = comps.get("minecraft:display_name")
+                name = None
+                if isinstance(dn, dict) and "value" in dn:
+                    name = dn["value"]
+                elif isinstance(dn, str):
+                    name = dn
+                if name:
+                    if name in lang:
+                        name = lang[name]
+                    name = re.sub(r"§[0-9a-fk-or]", "", name).strip()
+                else:
+                    for k in [f"item.{ident}.name", f"item.{ident}", f"item.{ident.split(':')[-1]}.name", f"item.{ident.split(':')[-1]}"]:
+                        if k in lang:
+                            name = lang[k]
+                            break
+                if name:
+                    names[ident] = name
+                    names[ident.split(":")[-1]] = name
+            except Exception:
+                pass
+    return names
+
+
 def find_media(root, project, md_text=""):
     """{'snapshots': [(url, caption)], 'items': [...], 'recipes': [...]}; files already used in DESCRIPTION.md are skipped.
     Duplicate images (identical file content hash) are deduplicated so each asset is shown only once."""
     out = {}
+    item_names = _item_display_names(project)
     for kind in MEDIA_KINDS:
         folder = project / "assets" / kind
         files = [f for f in folder.iterdir() if f.is_file() and f.suffix.lower() in IMG_EXT] if folder.is_dir() else []
         seen_hashes = set()
         entries = []
+        # If recipes contains animated GIFs for alternate outputs (e.g. foo_recipe.gif),
+        # prefer the GIF over individual component PNGs (foo_recipe.png, foo_*_recipe.png)
+        if kind == "recipes":
+            gif_bases = {f.stem.replace("_recipe", "") for f in files if f.suffix.lower() == ".gif" and f.stem.endswith("_recipe")}
+            filtered_files = []
+            for f in files:
+                if f.suffix.lower() == ".png" and f.stem.endswith("_recipe"):
+                    base = f.stem.replace("_recipe", "").split("_")[0]
+                    if base in gif_bases:
+                        continue
+                filtered_files.append(f)
+            files = filtered_files
         for f in sorted(files, key=lambda f: _natural(f.name)):
             if f.name in md_text:
                 continue
@@ -450,7 +513,11 @@ def find_media(root, project, md_text=""):
                 seen_hashes.add(h)
             except OSError:
                 pass
-            entries.append((RAW + quote(f.relative_to(root).as_posix()), caption_from(f.name)))
+            if kind == "items" and f.stem in item_names:
+                caption = item_names[f.stem]
+            else:
+                caption = caption_from(f.name)
+            entries.append((RAW + quote(f.relative_to(root).as_posix()), caption))
         out[kind] = entries
     return out
 
