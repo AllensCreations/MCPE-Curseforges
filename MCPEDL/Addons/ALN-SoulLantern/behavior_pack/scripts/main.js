@@ -1,4 +1,4 @@
-import { world, system, ItemStack, EntityComponentTypes, EntityDamageCause, StructureSaveMode } from "@minecraft/server";
+import { world, system, ItemStack, EntityComponentTypes, StructureSaveMode } from "@minecraft/server";
 import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
 
 const EMPTY_ID = "aln:soul_lantern";
@@ -8,12 +8,45 @@ const SPIRIT_TAG = "aln_spirit";
 const SPIRIT_TICKS = 400;
 const COOLDOWN_TICKS = 1200;
 const DEBOUNCE_TICKS = 8;
-const VERSION = "1.0.1";
+const VERSION = "1.0.2";
 
 const BOSSES = new Set(["minecraft:ender_dragon", "minecraft:wither", "minecraft:warden", "minecraft:elder_guardian"]);
 const NOT_SEALABLE = new Set(["minecraft:player", "minecraft:armor_stand", "minecraft:npc", "minecraft:agent"]);
 const DYES = ["White", "Orange", "Magenta", "Light Blue", "Yellow", "Lime", "Pink", "Gray", "Light Gray", "Cyan", "Purple", "Blue", "Brown", "Green", "Red", "Black"];
 const AXOLOTLS = ["Lucy", "Wild", "Gold", "Cyan", "Blue"];
+
+const SPECIES = {
+  "minecraft:creeper": { fig: 1, mode: "kamikaze" },
+  "minecraft:skeleton": { fig: 2, mode: "archer" },
+  "minecraft:stray": { fig: 2, mode: "archer" },
+  "minecraft:bogged": { fig: 2, mode: "archer" },
+  "minecraft:zombie": { fig: 3, mode: "melee" },
+  "minecraft:husk": { fig: 3, mode: "melee" },
+  "minecraft:drowned": { fig: 3, mode: "melee" },
+  "minecraft:zombie_villager": { fig: 3, mode: "melee" },
+  "minecraft:spider": { fig: 4, mode: "fast" },
+  "minecraft:cave_spider": { fig: 4, mode: "fast" },
+  "minecraft:pig": { fig: 5, mode: "melee" },
+  "minecraft:cow": { fig: 6, mode: "melee" },
+  "minecraft:mooshroom": { fig: 6, mode: "melee" },
+  "minecraft:sheep": { fig: 7, mode: "melee" },
+  "minecraft:chicken": { fig: 8, mode: "fast" },
+  "minecraft:wolf": { fig: 9, mode: "fast" },
+  "minecraft:villager": { fig: 10, mode: "melee" },
+  "minecraft:wandering_trader": { fig: 10, mode: "melee" },
+  "minecraft:iron_golem": { fig: 11, mode: "heavy" },
+  "minecraft:enderman": { fig: 12, mode: "heavy" },
+  "minecraft:blaze": { fig: 13, mode: "fast" },
+  "minecraft:snow_golem": { fig: 14, mode: "snow" },
+  "minecraft:cat": { fig: 0, mode: "fast" },
+  "minecraft:ocelot": { fig: 0, mode: "fast" },
+  "minecraft:fox": { fig: 0, mode: "fast" },
+  "minecraft:ravager": { fig: 0, mode: "heavy" },
+  "minecraft:hoglin": { fig: 0, mode: "heavy" },
+  "minecraft:zoglin": { fig: 0, mode: "heavy" },
+  "minecraft:polar_bear": { fig: 0, mode: "heavy" },
+  "minecraft:piglin_brute": { fig: 0, mode: "heavy" },
+};
 
 const KEY = {
   sid: "aln_sid",
@@ -103,6 +136,7 @@ function readStack(stack) {
   const rename = get(KEY.rename, "");
   return {
     sid: get(KEY.sid, ""),
+    type,
     species: prettyType(type) + (get(KEY.baby, false) ? " (Baby)" : ""),
     name: rename || get(KEY.name, ""),
     hp: get(KEY.hp, 0),
@@ -292,21 +326,26 @@ function summon(player, slot) {
     if (s.owner.id === player.id) endSpirit(id, undefined);
   }
   const d = readStack(held);
+  const plan = SPECIES[d.type] ?? { fig: 0, mode: "melee" };
   const dim = player.dimension;
   const p = player.location;
   let spirit;
   try {
-    spirit = dim.spawnEntity(SPIRIT_ID, { x: p.x + 1.5, y: p.y + 0.8, z: p.z });
+    spirit = dim.spawnEntity(SPIRIT_ID, { x: p.x + 1.5, y: p.y, z: p.z });
   } catch (e) {
     tell(player, "§c", "The spirit could not take shape.");
     return;
   }
   try {
+    spirit.triggerEvent(`aln:mode_${plan.mode}`);
+    if (plan.fig > 0) spirit.triggerEvent(`aln:fig_${plan.fig}`);
+  } catch (e) {}
+  try {
     spirit.addTag(SPIRIT_TAG);
     spirit.nameTag = `§b${d.name || d.species} §3(Spirit)`;
     spirit.addEffect("resistance", SPIRIT_TICKS + 40, { amplifier: 4, showParticles: false });
   } catch (e) {}
-  spirits.set(spirit.id, { entity: spirit, owner: player, end: system.currentTick + SPIRIT_TICKS, nextHit: 0 });
+  spirits.set(spirit.id, { entity: spirit, owner: player, end: system.currentTick + SPIRIT_TICKS, mode: plan.mode });
   cooldowns.set(player.id, system.currentTick + COOLDOWN_TICKS);
   burst(dim, spirit.location);
   play(player, "block.amethyst_block.chime");
@@ -415,28 +454,27 @@ system.runInterval(() => {
       continue;
     }
     try {
-      const dim = s.owner.dimension;
+      const dim = s.entity.dimension;
+      const at = s.entity.location;
       const p = s.owner.location;
-      const angle = now * 0.08;
-      const target = {
-        x: p.x + Math.cos(angle) * 1.7,
-        y: p.y + 0.8 + Math.sin(now * 0.15) * 0.25,
-        z: p.z + Math.sin(angle) * 1.7,
-      };
-      s.entity.teleport(target, { dimension: dim, facingLocation: { x: p.x, y: p.y + 1.2, z: p.z } });
-      dim.spawnParticle("minecraft:endrod", { x: target.x, y: target.y + 0.5, z: target.z });
-      if (now >= s.nextHit) {
-        const foes = dim.getEntities({ location: target, maxDistance: 6, families: ["monster"] });
-        const foe = foes.find((e) => e.id !== s.entity.id && !e.hasTag(SPIRIT_TAG));
+      const ownerGap = Math.hypot(p.x - at.x, p.z - at.z);
+      if (s.owner.dimension.id !== dim.id || ownerGap > 16) {
+        s.entity.teleport({ x: p.x + 1, y: p.y, z: p.z + 1 }, { dimension: s.owner.dimension });
+        continue;
+      }
+      dim.spawnParticle("minecraft:endrod", { x: at.x, y: at.y + 0.7, z: at.z });
+      if (s.mode === "kamikaze" && ownerGap > 3.5) {
+        const foe = dim
+          .getEntities({ location: at, maxDistance: 2.4, families: ["monster"] })
+          .find((e) => e.id !== s.entity.id && !e.hasTag(SPIRIT_TAG));
         if (foe) {
-          foe.applyDamage(3, { cause: EntityDamageCause.entityAttack, damagingEntity: s.owner });
-          dim.spawnParticle("minecraft:blue_flame_particle", { x: foe.location.x, y: foe.location.y + 1, z: foe.location.z });
-          s.nextHit = now + 15;
+          dim.createExplosion(at, 2.5, { breaksBlocks: false, causesFire: false, source: s.entity });
+          endSpirit(id, "Your Kamikaze Spirit detonates.");
         }
       }
     } catch (e) {}
   }
-}, 2);
+}, 4);
 
 world.afterEvents.worldLoad.subscribe(() => {
   for (const name of ["overworld", "nether", "the_end"]) {

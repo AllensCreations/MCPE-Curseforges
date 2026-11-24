@@ -36,7 +36,10 @@ Sneak and interact with a mob to seal it inside. The lantern shows the creature'
 - **What Happens**: Use a Soul-Bound lantern in the air to open a menu with the species, name, health, and variant of the trapped soul.
 
 ### Spectral Ally
-- **What Happens**: The menu can project a light-blue, slightly transparent spirit for 20 seconds, whichever mob is trapped. It circles you, leaves a particle trail, strikes nearby hostile mobs, never attacks you, then fades back into the lantern, with a 60-second cooldown.
+- **What Happens**: The menu can project a light-blue, slightly transparent spirit for 20 seconds, with a tiny figure of the trapped mob inside. It wanders near you and fights nearby hostile mobs like a pet, never attacks you, then fades back into the lantern, with a 60-second cooldown.
+
+### Mob-Specific Attacks
+- **What Happens**: A trapped Creeper becomes a kamikaze that explodes beside its target, a Skeleton fires arrows, and a Snow Golem throws snowballs. Spiders, wolves, and chickens attack fast, while Iron Golems and Endermen hit hard.
 
 ### Rename Captured Mob
 - **What Happens**: Give the trapped creature a custom name from the menu without using a Name Tag.

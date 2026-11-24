@@ -4,6 +4,16 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v268] - 2026-11-24 - Pet Spirit Update
+
+**Spec**: spec_v268.txt | **Target**: MCPEDL/Addons/ALN-SoulLantern | **Files edited**: 9
+
+### Added
+- **Spirit figurine**: A small figure of the captured mob floats inside the Spectral Ally, with a glowing orb for mobs that have no figure yet.
+
+### Improved & Balanced
+- **Spectral Ally**: The ally now wanders and fights like a pet instead of circling you, and its attack depends on the captured mob. Creepers explode, Skeletons fire arrows, Snow Golems throw snowballs, and Iron Golems hit hard.
+
 ## [v267] - 2026-11-24 - Individual Phases and Market Balance
 
 **Spec**: spec_v267.txt | **Target**: MCPEDL/Maps/ALNMultiIslandOneBlock | **Files edited**: 12

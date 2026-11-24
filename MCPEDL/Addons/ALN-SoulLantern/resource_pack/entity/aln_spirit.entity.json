@@ -7,13 +7,30 @@
         "default": "entity_alphablend"
       },
       "textures": {
-        "default": "textures/items/aln_spirit/ghost"
+        "default": "textures/items/aln_spirit/ghost",
+        "figs": "textures/items/aln_spirit/figs"
       },
       "geometry": {
-        "default": "geometry.aln_spirit"
+        "default": "geometry.aln_spirit",
+        "fig0": "geometry.aln_fig_0",
+        "fig1": "geometry.aln_fig_1",
+        "fig2": "geometry.aln_fig_2",
+        "fig3": "geometry.aln_fig_3",
+        "fig4": "geometry.aln_fig_4",
+        "fig5": "geometry.aln_fig_5",
+        "fig6": "geometry.aln_fig_6",
+        "fig7": "geometry.aln_fig_7",
+        "fig8": "geometry.aln_fig_8",
+        "fig9": "geometry.aln_fig_9",
+        "fig10": "geometry.aln_fig_10",
+        "fig11": "geometry.aln_fig_11",
+        "fig12": "geometry.aln_fig_12",
+        "fig13": "geometry.aln_fig_13",
+        "fig14": "geometry.aln_fig_14"
       },
       "render_controllers": [
-        "controller.render.aln_spirit"
+        "controller.render.aln_spirit",
+        "controller.render.aln_spirit_figure"
       ]
     }
   }

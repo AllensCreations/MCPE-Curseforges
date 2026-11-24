@@ -11,6 +11,38 @@
       "textures": [
         "Texture.default"
       ]
+    },
+    "controller.render.aln_spirit_figure": {
+      "arrays": {
+        "geometries": {
+          "Array.figs": [
+            "Geometry.fig0",
+            "Geometry.fig1",
+            "Geometry.fig2",
+            "Geometry.fig3",
+            "Geometry.fig4",
+            "Geometry.fig5",
+            "Geometry.fig6",
+            "Geometry.fig7",
+            "Geometry.fig8",
+            "Geometry.fig9",
+            "Geometry.fig10",
+            "Geometry.fig11",
+            "Geometry.fig12",
+            "Geometry.fig13",
+            "Geometry.fig14"
+          ]
+        }
+      },
+      "geometry": "Array.figs[query.variant]",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.figs"
+      ]
     }
   }
 }

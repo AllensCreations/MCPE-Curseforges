@@ -2,6 +2,14 @@
 
 ---
 
+## [1.0.2] - 2026-11-24 - Pet Spirit Update
+
+### Added
+- **Spirit figurine**: A small figure of the captured mob floats inside the Spectral Ally, with a glowing orb for mobs that have no figure yet.
+
+### Improved & Balanced
+- **Spectral Ally**: The ally now wanders and fights like a pet instead of circling you, and its attack depends on the captured mob. Creepers explode, Skeletons fire arrows, Snow Golems throw snowballs, and Iron Golems hit hard.
+
 ## [1.0.1] - 2026-11-23 - Spirit Ally and Particle Fix
 
 ### Improved & Balanced

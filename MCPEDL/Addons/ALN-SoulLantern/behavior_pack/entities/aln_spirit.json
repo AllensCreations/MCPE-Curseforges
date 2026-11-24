@@ -7,18 +7,379 @@
       "is_summonable": true,
       "is_experimental": false
     },
+    "component_groups": {
+      "aln:melee": {
+        "minecraft:movement": {
+          "value": 0.3
+        },
+        "minecraft:attack": {
+          "damage": 4
+        },
+        "minecraft:behavior.melee_attack": {
+          "priority": 2,
+          "speed_multiplier": 1.0,
+          "track_target": true
+        }
+      },
+      "aln:fast": {
+        "minecraft:movement": {
+          "value": 0.4
+        },
+        "minecraft:attack": {
+          "damage": 3
+        },
+        "minecraft:behavior.melee_attack": {
+          "priority": 2,
+          "speed_multiplier": 1.3,
+          "track_target": true
+        }
+      },
+      "aln:heavy": {
+        "minecraft:movement": {
+          "value": 0.25
+        },
+        "minecraft:attack": {
+          "damage": 8
+        },
+        "minecraft:behavior.melee_attack": {
+          "priority": 2,
+          "speed_multiplier": 1.0,
+          "track_target": true
+        }
+      },
+      "aln:kamikaze": {
+        "minecraft:movement": {
+          "value": 0.35
+        },
+        "minecraft:attack": {
+          "damage": 1
+        },
+        "minecraft:behavior.melee_attack": {
+          "priority": 2,
+          "speed_multiplier": 1.25,
+          "track_target": false,
+          "reach_multiplier": 0.0
+        }
+      },
+      "aln:archer": {
+        "minecraft:movement": {
+          "value": 0.3
+        },
+        "minecraft:behavior.ranged_attack": {
+          "priority": 2,
+          "ranged_fov": 90.0,
+          "attack_interval_min": 1.0,
+          "attack_interval_max": 3.0,
+          "attack_radius": 15.0
+        },
+        "minecraft:shooter": {
+          "def": "minecraft:arrow"
+        }
+      },
+      "aln:snow": {
+        "minecraft:movement": {
+          "value": 0.3
+        },
+        "minecraft:behavior.ranged_attack": {
+          "priority": 2,
+          "ranged_fov": 90.0,
+          "attack_interval_min": 1.0,
+          "attack_interval_max": 2.0,
+          "attack_radius": 15.0
+        },
+        "minecraft:shooter": {
+          "def": "minecraft:snowball"
+        }
+      },
+      "aln:fig_1": {
+        "minecraft:variant": {
+          "value": 1
+        }
+      },
+      "aln:fig_2": {
+        "minecraft:variant": {
+          "value": 2
+        }
+      },
+      "aln:fig_3": {
+        "minecraft:variant": {
+          "value": 3
+        }
+      },
+      "aln:fig_4": {
+        "minecraft:variant": {
+          "value": 4
+        }
+      },
+      "aln:fig_5": {
+        "minecraft:variant": {
+          "value": 5
+        }
+      },
+      "aln:fig_6": {
+        "minecraft:variant": {
+          "value": 6
+        }
+      },
+      "aln:fig_7": {
+        "minecraft:variant": {
+          "value": 7
+        }
+      },
+      "aln:fig_8": {
+        "minecraft:variant": {
+          "value": 8
+        }
+      },
+      "aln:fig_9": {
+        "minecraft:variant": {
+          "value": 9
+        }
+      },
+      "aln:fig_10": {
+        "minecraft:variant": {
+          "value": 10
+        }
+      },
+      "aln:fig_11": {
+        "minecraft:variant": {
+          "value": 11
+        }
+      },
+      "aln:fig_12": {
+        "minecraft:variant": {
+          "value": 12
+        }
+      },
+      "aln:fig_13": {
+        "minecraft:variant": {
+          "value": 13
+        }
+      },
+      "aln:fig_14": {
+        "minecraft:variant": {
+          "value": 14
+        }
+      }
+    },
     "components": {
-      "minecraft:health": {
-        "value": 20,
-        "max": 20
+      "minecraft:type_family": {
+        "family": [
+          "aln_spirit"
+        ]
       },
       "minecraft:collision_box": {
         "width": 0.6,
         "height": 1.4
       },
-      "minecraft:physics": {
-        "has_gravity": false,
-        "has_collision": false
+      "minecraft:health": {
+        "value": 20,
+        "max": 20
+      },
+      "minecraft:navigation.walk": {
+        "can_path_over_water": false,
+        "avoid_water": true,
+        "can_pass_doors": true
+      },
+      "minecraft:movement.basic": {},
+      "minecraft:jump.static": {},
+      "minecraft:knockback_resistance": {
+        "value": 0.6
+      },
+      "minecraft:nameable": {},
+      "minecraft:persistent": {},
+      "minecraft:physics": {},
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:breathable": {
+        "total_supply": 15,
+        "suffocate_time": 0
+      },
+      "minecraft:behavior.float": {
+        "priority": 0
+      },
+      "minecraft:behavior.hurt_by_target": {
+        "priority": 1
+      },
+      "minecraft:behavior.nearest_attackable_target": {
+        "priority": 3,
+        "must_see": true,
+        "reselect_targets": true,
+        "entity_types": [
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "monster"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "operator": "!=",
+                  "value": "creeper"
+                }
+              ]
+            },
+            "max_dist": 16
+          }
+        ]
+      },
+      "minecraft:behavior.random_stroll": {
+        "priority": 6,
+        "speed_multiplier": 1.0
+      },
+      "minecraft:behavior.look_at_player": {
+        "priority": 7,
+        "look_distance": 6.0
+      },
+      "minecraft:behavior.random_look_around": {
+        "priority": 8
+      }
+    },
+    "events": {
+      "aln:mode_melee": {
+        "add": {
+          "component_groups": [
+            "aln:melee"
+          ]
+        }
+      },
+      "aln:mode_fast": {
+        "add": {
+          "component_groups": [
+            "aln:fast"
+          ]
+        }
+      },
+      "aln:mode_heavy": {
+        "add": {
+          "component_groups": [
+            "aln:heavy"
+          ]
+        }
+      },
+      "aln:mode_kamikaze": {
+        "add": {
+          "component_groups": [
+            "aln:kamikaze"
+          ]
+        }
+      },
+      "aln:mode_archer": {
+        "add": {
+          "component_groups": [
+            "aln:archer"
+          ]
+        }
+      },
+      "aln:mode_snow": {
+        "add": {
+          "component_groups": [
+            "aln:snow"
+          ]
+        }
+      },
+      "aln:fig_1": {
+        "add": {
+          "component_groups": [
+            "aln:fig_1"
+          ]
+        }
+      },
+      "aln:fig_2": {
+        "add": {
+          "component_groups": [
+            "aln:fig_2"
+          ]
+        }
+      },
+      "aln:fig_3": {
+        "add": {
+          "component_groups": [
+            "aln:fig_3"
+          ]
+        }
+      },
+      "aln:fig_4": {
+        "add": {
+          "component_groups": [
+            "aln:fig_4"
+          ]
+        }
+      },
+      "aln:fig_5": {
+        "add": {
+          "component_groups": [
+            "aln:fig_5"
+          ]
+        }
+      },
+      "aln:fig_6": {
+        "add": {
+          "component_groups": [
+            "aln:fig_6"
+          ]
+        }
+      },
+      "aln:fig_7": {
+        "add": {
+          "component_groups": [
+            "aln:fig_7"
+          ]
+        }
+      },
+      "aln:fig_8": {
+        "add": {
+          "component_groups": [
+            "aln:fig_8"
+          ]
+        }
+      },
+      "aln:fig_9": {
+        "add": {
+          "component_groups": [
+            "aln:fig_9"
+          ]
+        }
+      },
+      "aln:fig_10": {
+        "add": {
+          "component_groups": [
+            "aln:fig_10"
+          ]
+        }
+      },
+      "aln:fig_11": {
+        "add": {
+          "component_groups": [
+            "aln:fig_11"
+          ]
+        }
+      },
+      "aln:fig_12": {
+        "add": {
+          "component_groups": [
+            "aln:fig_12"
+          ]
+        }
+      },
+      "aln:fig_13": {
+        "add": {
+          "component_groups": [
+            "aln:fig_13"
+          ]
+        }
+      },
+      "aln:fig_14": {
+        "add": {
+          "component_groups": [
+            "aln:fig_14"
+          ]
+        }
       }
     }
   }
