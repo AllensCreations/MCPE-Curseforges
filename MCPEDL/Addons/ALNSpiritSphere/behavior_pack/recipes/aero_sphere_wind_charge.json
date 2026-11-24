@@ -1,0 +1,33 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "aln:aero_sphere_wind_charge"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:ender_pearl"
+      },
+      {
+        "item": "minecraft:amethyst_shard"
+      },
+      {
+        "item": "minecraft:blaze_powder"
+      },
+      {
+        "item": "minecraft:wind_charge"
+      }
+    ],
+    "result": {
+      "item": "aln:aero_sphere"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}

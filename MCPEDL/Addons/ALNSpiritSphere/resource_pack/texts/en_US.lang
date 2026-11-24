@@ -1,2 +1,6 @@
-item.aln:spirit_focus=Spirit Focus
+item.aln:aero_sphere=Aero Vortex Sphere
+item.aln:blaze_sphere=Blaze Solar Sphere
+item.aln:frost_sphere=Frost Nova Sphere
+item.aln:storm_sphere=Storm Surge Sphere
+item.aln:void_sphere=Void Singularity Sphere
 entity.aln:spirit_orb.name=Spirit Orb

@@ -4,6 +4,18 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v262] - 2026-11-24 - Element Spheres
+
+**Spec**: spec_v262.txt | **Target**: MCPEDL/Addons/ALNSpiritSphere | **Files edited**: 21
+
+### Added
+- **Five Spirit Spheres**: Players can craft Aero Vortex, Blaze Solar, Frost Nova, Storm Surge and Void Singularity spheres, each with its own icon and recipe.
+- **Bow zoom**: The view zooms in through the three charge phases and eases back on release.
+- **Charge sound**: A tone rises in pitch while the sphere charges.
+
+### Improved & Balanced
+- **Element choice**: Each element is now its own item, so sneak-switching is gone and the Spirit Focus is removed.
+
 ## [v261] - 2026-11-24 - Market Income and Coin Scoreboard
 
 **Spec**: spec_v261.txt | **Target**: MCPEDL/Maps/ALNMultiIslandOneBlock | **Files edited**: 10

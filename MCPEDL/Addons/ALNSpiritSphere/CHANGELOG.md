@@ -2,6 +2,16 @@
 
 ---
 
+## [2.0.0] - 2026-11-24 - Element Spheres
+
+### Added
+- **Five Spirit Spheres**: Players can craft Aero Vortex, Blaze Solar, Frost Nova, Storm Surge and Void Singularity spheres, each with its own icon and recipe.
+- **Bow zoom**: The view zooms in through the three charge phases and eases back on release.
+- **Charge sound**: A tone rises in pitch while the sphere charges.
+
+### Improved & Balanced
+- **Element choice**: Each element is now its own item, so sneak-switching is gone and the Spirit Focus is removed.
+
 ## [1.0.0] - 2026-11-24 - First Release
 
 ### Added

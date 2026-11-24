@@ -2,8 +2,20 @@
   "resource_pack_name": "aln_spiritsphere",
   "texture_name": "atlas.items",
   "texture_data": {
-    "aln_spirit_focus": {
-      "textures": "textures/items/aln_spirit_focus"
+    "aln_aero_sphere": {
+      "textures": "textures/items/aln_aero_sphere"
+    },
+    "aln_blaze_sphere": {
+      "textures": "textures/items/aln_blaze_sphere"
+    },
+    "aln_frost_sphere": {
+      "textures": "textures/items/aln_frost_sphere"
+    },
+    "aln_storm_sphere": {
+      "textures": "textures/items/aln_storm_sphere"
+    },
+    "aln_void_sphere": {
+      "textures": "textures/items/aln_void_sphere"
     },
     "aln_orb_core": {
       "textures": "textures/items/aln_orb_core"

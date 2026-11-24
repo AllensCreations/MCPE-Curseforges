@@ -1,4 +1,3 @@
-export const FOCUS_ID = "aln:spirit_focus";
 export const ORB_ID = "aln:spirit_orb";
 
 export const FULL_TICKS = 50;
@@ -10,51 +9,48 @@ export const MAX_ORB_AGE = 120;
 export const MODES = [
   {
     id: "aero",
+    itemId: "aln:aero_sphere",
     name: "Aero Vortex",
     code: "§b",
     color: { red: 0.45, green: 1.0, blue: 1.0 },
     speed: 1.0,
-    lore: "Wind spirals. Heavy knockback and a clean blast without fire.",
   },
   {
     id: "blaze",
+    itemId: "aln:blaze_sphere",
     name: "Blaze Solar",
     code: "§6",
     color: { red: 1.0, green: 0.6, blue: 0.1 },
     speed: 1.0,
-    lore: "Orange-gold plasma. Ghast-style blast that sets the area on fire.",
   },
   {
     id: "frost",
+    itemId: "aln:frost_sphere",
     name: "Frost Nova",
     code: "§9",
     color: { red: 0.55, green: 0.85, blue: 1.0 },
     speed: 1.0,
-    lore: "Ice crystals. Freezes nearby water and applies heavy Slowness.",
   },
   {
     id: "storm",
+    itemId: "aln:storm_sphere",
     name: "Storm Surge",
     code: "§5",
     color: { red: 0.7, green: 0.25, blue: 1.0 },
     speed: 1.4,
-    lore: "Purple lightning. Fastest orb, strikes lightning on impact.",
   },
   {
     id: "void",
+    itemId: "aln:void_sphere",
     name: "Void Singularity",
     code: "§d",
     color: { red: 0.65, green: 0.05, blue: 0.5 },
     speed: 0.9,
-    lore: "Dark magenta core. Pulls nearby mobs in while it flies.",
   },
 ];
 
+export const MODE_BY_ITEM = new Map(MODES.map((m, i) => [m.itemId, i]));
+
 export const state = {
   tick: 0,
-  modes: new Map(),
 };
-
-export function modeIndexOf(player) {
-  return state.modes.get(player.id) ?? 0;
-}
