@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Addons/OP-Sponge`
 - **Destination:** `MCPEDL/Addons/OP-Sponge`
-- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Addons/OP-Sponge/CHANGELOG.md`)
+- **CURRENT VERSION: v4 / NEXT UPDATE: v5**  (`MCPEDL/Addons/OP-Sponge/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 116
 - **Skipped binary:** 0
@@ -141,7 +141,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v3 / NEXT UPDATE: v4).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v4 / NEXT UPDATE: v5).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE self-contained update `.sh` (`<Pack>_v<Version>_<rand>.sh`) built with `make_update_script.py` (INSTRUCTIONS.md Reply Format).
@@ -4997,11 +4997,11 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 {
   "format_version": 2,
   "header": {
-    "name": "OP Sponge (v3)",
+    "name": "OP Sponge (v4)",
     "description": "A sponge that absorbs water. by ALNStudios",
     "uuid": "894911ae-ab32-43ea-8ab7-88823bcaab2a",
     "version": [
-      3,
+      4,
       0,
       0
     ],
@@ -5016,7 +5016,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "type": "data",
       "uuid": "ae723a26-8b15-4781-956c-81d53a3021fd",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -5027,7 +5027,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "uuid": "aa3774bf-f2b9-498d-aed8-1b816f595257",
       "entry": "scripts/main.js",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -5037,7 +5037,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     {
       "uuid": "67a33773-ea19-4d9c-a50c-0de79e1cf7aa",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -5052,7 +5052,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "3.0.0"
+    "version": "4.0.0"
   }
 }
 ```
@@ -5953,7 +5953,7 @@ Extracted from the script files; nothing here was run in game.
 Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/scripts/main.js (131 lines, 3385 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/scripts/main.js (131 lines, 3378 bytes)
 
 ```
 import { system, world } from "@minecraft/server";
@@ -5986,7 +5986,7 @@ function register(name, capacity, range, sparkle) {
   });
 }
 
-register("op_sponge", BASE_CAPACITY, BASE_RANGE, false);
+register("op_sponge", Infinity, Infinity, false);
 for (let level = 1; level <= 10; level++) {
   register(`super_sponge_${level}`, BASE_CAPACITY * (level + 1), BASE_RANGE + level * LEVEL_RANGE, true);
 }
@@ -6134,12 +6134,18 @@ item.allenscreations:extreme_sponge_book_1.name=Extreme Sponge I Book
 ["en_US"]
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/CHANGELOG.md (26 lines, 1577 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/CHANGELOG.md (32 lines, 1817 bytes)
 
 ```
 # Changelog — OP Sponge
 
 ---
+
+## [v4] - 2026-11-24 - Unlimited OP Sponge
+
+### Changed
+
+- **OP Sponge**: It now absorbs all the connected water around it instead of stopping at 256 water blocks and 16 blocks of reach. Water in chunks that are not loaded is not reached.
 
 ## [v3] - 2026-11-22 - Shapeless Recipe Fix
 
@@ -6164,7 +6170,7 @@ item.allenscreations:extreme_sponge_book_1.name=Extreme Sponge I Book
 - **Recipe**: Craft an OP Sponge from a Sponge and Prismarine Crystals.
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/DESCRIPTION.md (83 lines, 4525 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/DESCRIPTION.md (83 lines, 4567 bytes)
 
 ```
 # OP Sponge — Enchantable Sponges That Absorb Up to 100,000 Water Blocks
@@ -6185,8 +6191,8 @@ Craft an OP Sponge, then combine it with a sponge book to make a Super Sponge or
 ## Key Features
 
 ### OP Sponge
-- **What Happens**: When placed, it absorbs up to 256 connected water blocks that are within 16 blocks of it, then becomes a Water-Filled OP Sponge.
-- **Good To Know**: It only absorbs water.
+- **What Happens**: When placed, it absorbs all the connected water around it with no block limit, then becomes a Water-Filled OP Sponge.
+- **Good To Know**: It only absorbs water, and it only reaches water in chunks that are loaded.
 
 ### Super Sponge I to X
 - **What Happens**: Each level absorbs more water.
@@ -6256,17 +6262,21 @@ Minecraft Bedrock add-on, OP Sponge Bedrock mod, Super Sponge, Extreme Sponge, s
 {"type": "addon", "name": "OP Sponge"}
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/README.md (19 lines, 762 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/README.md (23 lines, 1003 bytes)
 
 ```
 # OP Sponge
+
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-Not%20Published-lightgrey?style=flat-square&logo=curseforge)](https://www.curseforge.com/members/allenscreations/projects)
+<!-- CURSEFORGE-BADGE:END -->
 
 Download the current release of **OP Sponge** for Minecraft Bedrock Edition.
 
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download OP Sponge (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OP-Sponge/OPSponge%20V3.mcaddon)
+- **Direct download:** [Download OP Sponge (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OP-Sponge/OPSponge%20V4.mcaddon)
 
 ## Installation
 
@@ -6285,11 +6295,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "OP Sponge (v3)",
+    "name": "OP Sponge (v4)",
     "description": "Textures for the add-on. by ALNStudios",
     "uuid": "67a33773-ea19-4d9c-a50c-0de79e1cf7aa",
     "version": [
-      3,
+      4,
       0,
       0
     ],
@@ -6304,7 +6314,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "f8d35b1f-a27a-457d-a97c-2d29d3b0c5a8",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -6315,7 +6325,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "3.0.0"
+    "version": "4.0.0"
   }
 }
 ```

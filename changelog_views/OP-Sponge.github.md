@@ -1,9 +1,19 @@
 # Changelog — OP Sponge
 
-## [v3] - 2026-11-22 - Shapeless Recipe Fix
+## [v4] - 2026-11-24 - Unlimited OP Sponge
 
-### Fixed
+### Changed
+- **OP Sponge**: It now absorbs all the connected water around it instead of stopping at 256 water blocks and 16 blocks of reach. Water in chunks that are not loaded is not reached.
+
+<details>
+<summary><b>3.0.x</b> (1 release)</summary>
+
+### [v3] - 2026-11-22 - Shapeless Recipe Fix
+
+#### Fixed
 - **Shapeless Recipes**: The shapeless crafting recipes now use the unlock format shown in the game's own recipe documentation, so they load without errors.
+
+</details>
 
 <details>
 <summary><b>2.0.x</b> (1 release)</summary>
