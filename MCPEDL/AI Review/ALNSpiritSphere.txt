@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Addons/ALNSpiritSphere`
 - **Destination:** `MCPEDL/Addons/ALNSpiritSphere`
-- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/ALNSpiritSphere/CHANGELOG.md`)
+- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Addons/ALNSpiritSphere/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 34
 - **Skipped binary:** 27
@@ -86,7 +86,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v3 / NEXT UPDATE: v4).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
@@ -444,11 +444,11 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:SpiritSphere Behavior Pack (v2)",
+    "name": "ALN:SpiritSphere Behavior Pack (v3)",
     "description": "Charge one of five elemental Spirit Spheres and release a Ghast-style energy orb by ALNStudios",
     "uuid": "951ab0f1-53a7-45a3-80fc-a610ec8e217b",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -463,7 +463,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "type": "data",
       "uuid": "d58017bb-894b-4fd8-a26a-d2ab81d83a4e",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -473,7 +473,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "language": "javascript",
       "uuid": "ad6704ec-178d-4dd3-b3eb-1a719bd5b2f0",
       "version": [
-        2,
+        3,
         0,
         0
       ],
@@ -484,7 +484,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     {
       "uuid": "c05699f5-364c-44cb-9978-490a4bc716e4",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -499,12 +499,12 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "3.0.0"
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/recipes/aero_sphere_feather.json (34 lines, 575 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/recipes/aero_sphere_feather.json (32 lines, 557 bytes)
 
 ```
 {
@@ -533,16 +533,14 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     "result": {
       "item": "aln:aero_sphere"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/recipes/aero_sphere_wind_charge.json (34 lines, 583 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/recipes/aero_sphere_wind_charge.json (32 lines, 565 bytes)
 
 ```
 {
@@ -571,16 +569,14 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     "result": {
       "item": "aln:aero_sphere"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/recipes/blaze_sphere.json (34 lines, 571 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/recipes/blaze_sphere.json (32 lines, 553 bytes)
 
 ```
 {
@@ -609,16 +605,14 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     "result": {
       "item": "aln:blaze_sphere"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/recipes/frost_sphere.json (34 lines, 570 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/recipes/frost_sphere.json (32 lines, 552 bytes)
 
 ```
 {
@@ -647,16 +641,14 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     "result": {
       "item": "aln:frost_sphere"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/recipes/storm_sphere.json (34 lines, 575 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/recipes/storm_sphere.json (32 lines, 557 bytes)
 
 ```
 {
@@ -685,16 +677,14 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     "result": {
       "item": "aln:storm_sphere"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/recipes/void_sphere.json (34 lines, 568 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/recipes/void_sphere.json (32 lines, 550 bytes)
 
 ```
 {
@@ -723,11 +713,9 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     "result": {
       "item": "aln:void_sphere"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -895,12 +883,12 @@ system.runInterval(() => {
 }, 1);
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/orbs.js (184 lines, 5462 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/orbs.js (226 lines, 6404 bytes)
 
 ```
 import { world } from "@minecraft/server";
 import { MODES, ORB_ID, FULL_TICKS, OVER_TICKS, MAX_ORB_AGE } from "./elements.js";
-import { sound, impactBurst, orbTrail, handPoint } from "./visuals.js";
+import { sound, impactBurst, orbTrail, handPoint, voidSwirl } from "./visuals.js";
 
 const orbs = new Map();
 const PLAYER_ID = "minecraft:player";
@@ -998,23 +986,62 @@ function detonate(s, at) {
     } catch (e) {}
     shoveAll(d, at, reach, strength, lift);
   } else {
-    explode(d, at, r * 0.8, true, false);
+    explode(d, at, r * 1.1, true, false);
     shoveAll(d, at, reach, strength * 0.6, lift * 0.6);
   }
 }
 
-function pull(s, at) {
-  for (const e of nearby(s.dimension, at, 12)) {
-    if (e.id === s.owner || e.id === s.orb.id || e.typeId === PLAYER_ID || e.typeId === ORB_ID) continue;
+const VOID_PULL_RADIUS = 10;
+const VOID_HOLD_TICKS = 100;
+const anchors = new Map();
+
+function pull(a) {
+  let found;
+  try {
+    found = a.dimension.getEntities({ location: a.at, maxDistance: VOID_PULL_RADIUS, families: ["mob"] });
+  } catch (e) {
+    return;
+  }
+  for (const e of found) {
+    if (e.id === a.owner || e.typeId === PLAYER_ID || e.typeId === ORB_ID) continue;
     try {
       const l = e.location;
-      const dx = at.x - l.x;
-      const dy = at.y - l.y;
-      const dz = at.z - l.z;
+      const dx = a.at.x - l.x;
+      const dy = a.at.y - l.y;
+      const dz = a.at.z - l.z;
       const d = Math.hypot(dx, dy, dz) || 1;
-      const k = 0.1 + 0.12 * s.f;
-      e.applyImpulse({ x: (dx / d) * k, y: (dy / d) * k + 0.02, z: (dz / d) * k });
+      const k = (0.16 + 0.1 * a.f) * Math.min(1, d / 2.5);
+      e.applyImpulse({ x: (dx / d) * k, y: (dy / d) * k + 0.03, z: (dz / d) * k });
     } catch (err) {}
+  }
+}
+
+function anchorOrb(id, s, at) {
+  anchors.set(id, {
+    dimension: s.dimension,
+    mode: s.mode,
+    f: s.f,
+    over: s.over,
+    owner: s.owner,
+    at: { x: at.x, y: at.y + 0.5, z: at.z },
+    age: 0,
+  });
+  sound(s.dimension, "mob.warden.sonic_boom", at);
+}
+
+function tickAnchors() {
+  for (const [id, a] of anchors) {
+    a.age++;
+    try {
+      voidSwirl(a.dimension, a.at, VOID_PULL_RADIUS, a.mode.color, a.age);
+      pull(a);
+      if (a.age >= VOID_HOLD_TICKS) {
+        anchors.delete(id);
+        detonate(a, a.at);
+      }
+    } catch (e) {
+      anchors.delete(id);
+    }
   }
 }
 
@@ -1042,6 +1069,7 @@ export function launchOrb(player, modeIndex, held) {
 }
 
 export function tickOrbs() {
+  tickAnchors();
   for (const [id, s] of orbs) {
     try {
       const loc = s.orb.location;
@@ -1049,10 +1077,10 @@ export function tickOrbs() {
       s.age++;
       orbTrail(s.dimension, loc, s.mode.color, s.age);
       if (s.lob > 0) s.orb.applyImpulse({ x: 0, y: -s.lob, z: 0 });
-      if (s.mode.id === "void") pull(s, loc);
       if (s.age > MAX_ORB_AGE) {
         orbs.delete(id);
-        detonate(s, loc);
+        if (s.mode.id === "void") anchorOrb(id, s, loc);
+        else detonate(s, loc);
         s.orb.kill();
       }
     } catch (e) {
@@ -1071,7 +1099,9 @@ function onHit(projectile, location) {
   const s = orbs.get(id);
   if (!s) return;
   orbs.delete(id);
-  detonate(s, location ?? s.last);
+  const at = location ?? s.last;
+  if (s.mode.id === "void") anchorOrb(id, s, at);
+  else detonate(s, at);
   try {
     projectile.kill();
   } catch (e) {}
@@ -1083,7 +1113,7 @@ export function registerHits() {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/visuals.js (121 lines, 3951 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/visuals.js (131 lines, 4346 bytes)
 
 ```
 import { MolangVariableMap } from "@minecraft/server";
@@ -1206,14 +1236,33 @@ export function orbTrail(dimension, center, color, age) {
   puff(dimension, SMALL, { x: center.x + Math.cos(a) * 0.5, y: center.y + Math.sin(a * 1.3) * 0.5, z: center.z + Math.sin(a) * 0.5 }, color);
   puff(dimension, SMALL, { x: center.x - Math.cos(a) * 0.5, y: center.y - Math.sin(a * 1.3) * 0.5, z: center.z - Math.sin(a) * 0.5 }, color);
 }
+
+export function voidSwirl(dimension, center, radius, color, tick) {
+  const k = 1 - (tick % 30) / 30;
+  const r = radius * k;
+  for (let i = 0; i < 8; i++) {
+    const a = tick * 0.35 + (i * Math.PI) / 4;
+    puff(dimension, SMALL, { x: center.x + Math.cos(a) * r, y: center.y + Math.sin(a * 0.5) * r * 0.4, z: center.z + Math.sin(a) * r }, color);
+  }
+  puff(dimension, BIG, center, color);
+}
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/CHANGELOG.md (22 lines, 1147 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/CHANGELOG.md (31 lines, 1566 bytes)
 
 ```
 # Changelog — ALN:SpiritSphere
 
 ---
+
+## [3.0.0] - 2026-11-24 - Void Singularity Rework
+
+### Added
+- **Void Singularity hold**: The orb now stops where it lands, hovers for 5 seconds, pulls all mobs within 10 blocks into its core, then explodes with a larger blast.
+
+### Fixed
+- **Recipes**: The six sphere recipes now use the object form of the unlock entry.
+- **Spirit Orb model**: The orb now uses the entity_alphatest material instead of entity_alpha.
 
 ## [2.0.0] - 2026-11-24 - Element Spheres
 
@@ -1234,7 +1283,7 @@ export function orbTrail(dimension, center, color, age) {
 - **Five elements**: Players can sneak and use the focus to switch between Aero Vortex, Blaze Solar, Frost Nova, Storm Surge and Void Singularity.
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/DESCRIPTION.md (86 lines, 5321 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/DESCRIPTION.md (86 lines, 5417 bytes)
 
 ```
 # ALN:SpiritSphere — Chargeable Elemental Energy Orbs
@@ -1281,7 +1330,7 @@ Each sphere has its own color and impact behavior. There is no switching: carry 
 - **What Happens**: Each sphere has its own particle color: cyan and white for Aero Vortex, orange and gold for Blaze Solar, icy blue for Frost Nova, purple for Storm Surge and dark magenta for Void Singularity.
 
 ### Element Impacts
-- **What Happens**: Aero Vortex adds heavy knockback and a fire-free blast. Blaze Solar ignites the area. Frost Nova freezes nearby water and applies Slowness IV. Storm Surge flies 40 percent faster and calls lightning. Void Singularity pulls mobs toward the orb while it flies.
+- **What Happens**: Aero Vortex adds heavy knockback and a fire-free blast. Blaze Solar ignites the area. Frost Nova freezes nearby water and applies Slowness IV. Storm Surge flies 40 percent faster and calls lightning. Void Singularity stops where it lands, hovers for 5 seconds while it pulls every mob within 10 blocks into its core, then collapses in a larger explosion.
 
 ## How to Use
 
@@ -1342,7 +1391,7 @@ Download the current release of **ALNSpiritSphere** for Minecraft Bedrock Editio
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNSpiritSphere (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpiritSphere/ALNSpiritSphere%20V2.mcaddon)
+- **Direct download:** [Download ALNSpiritSphere (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpiritSphere/ALNSpiritSphere%20V3.mcaddon)
 
 ## Installation
 
@@ -1355,7 +1404,7 @@ Download the current release of **ALNSpiritSphere** for Minecraft Bedrock Editio
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALNSpiritSphere/DESCRIPTION.md).
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/entity/spirit_orb.entity.json (21 lines, 431 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/entity/spirit_orb.entity.json (21 lines, 435 bytes)
 
 ```
 {
@@ -1364,7 +1413,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
     "description": {
       "identifier": "aln:spirit_orb",
       "materials": {
-        "default": "entity_alpha"
+        "default": "entity_alphatest"
       },
       "textures": {
         "default": "textures/items/aln_orb_core"
@@ -1386,11 +1435,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:SpiritSphere Resource Pack (v2)",
+    "name": "ALN:SpiritSphere Resource Pack (v3)",
     "description": "Charge one of five elemental Spirit Spheres and release a Ghast-style energy orb by ALNStudios",
     "uuid": "c05699f5-364c-44cb-9978-490a4bc716e4",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -1405,7 +1454,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "6ef1070d-ea7a-4d3f-8c1b-02834809e5e6",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -1416,7 +1465,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "3.0.0"
   }
 }
 ```
