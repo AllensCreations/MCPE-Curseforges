@@ -1,20 +1,84 @@
+/**
+ * Oneblock_Progression.js
+ * Pure Data Pool Foundation for OneBlock Maps, Add-ons, and Minigames.
+ * Target: Minecraft Bedrock 1.26.50 (all ids are Bedrock ids, not Java ids).
+ *
+ * ARCHITECTURE PRINCIPLE:
+ * - This file ONLY holds the DATA POOLS (Blocks, Chest Loot, Mobs, Phase Milestones & Themes).
+ * - Pack-specific gameplay logic, spawn mechanics, triggers, chest roll rates, custom events,
+ *   cooldowns, and island systems belong inside the individual pack's scripts.
+ * - Packs import or read from this progression pool without mutating the shared definitions.
+ *
+ * PROGRESSION ORDER (classic OneBlock):
+ *   Overworld biomes -> Caves & Deep Dark -> Nether -> The End.
+ *   1 Plains, 2 Underground, 3 Snowy Taiga, 4 Ocean, 5 Jungle, 6 Desert, 7 Badlands,
+ *   8 Savanna Plains, 9 Dark Forest & Mushroom Fields, 10 Mangrove Swamp, 11 Cherry Grove,
+ *   12 Pale Garden, 13 Windswept Highlands, 14 Frozen Peaks & Ice Spikes, 15 Craftsman's Workshop,
+ *   16 Lush & Dripstone Caves, 17 Deepslate Depths, 18 Trial Chambers, 19 Deep Dark,
+ *   20 Nether Wastes, 21 Crimson & Warped Forests, 22 Bastion & Basalt Deltas,
+ *   23 The End, 24 End City & Void Horizon (final, endless).
+ *
+ * UNLOCK MODEL:
+ * - Each phase lists only what it UNLOCKS. Earlier content is never removed.
+ * - OneblockPoolProvider.sampleBlock/sampleChestItem/sampleMob(phase) sample from every
+ *   phase up to the current one. The newest phase's share of the weight ramps from 40%
+ *   (phase 2) to 60% (last phase); older phases share the rest evenly.
+ * - Pass { exclusive: true } to sample the current phase only, or { currentShare: 0.5 } to fix the share.
+ * - The last phase keeps unlocking nothing new: the full pool stays active forever.
+ *
+ * POOL NOTES:
+ * - Block pools hold full solid blocks only (no plants or fluids), so they survive on the OneBlock.
+ * - Chest pools hold no buckets, fluids, powders, spawn eggs, spawners or shulker items.
+ * - Mob entries may carry tags: "aquatic" (needs water) and "boss" (very strong). sampleMob skips
+ *   both by default; pass { excludeTags: [] } to allow them, or your own list to filter.
+ * - `blocksRequired` is per phase (not cumulative). The last phase never ends.
+ */
 
+/**
+ * @typedef {Object} BlockPoolEntry
+ * @property {string} id - Minecraft block identifier (e.g. "minecraft:grass_block")
+ * @property {number} weight - Relative probability weight in the pool
+ * @property {Record<string, any>} [states] - Optional block state permutations
+ */
 
+/**
+ * @typedef {Object} ChestPoolEntry
+ * @property {string} id - Minecraft item identifier (e.g. "minecraft:oak_sapling")
+ * @property {number} min - Minimum stack count
+ * @property {number} max - Maximum stack count
+ * @property {number} weight - Relative weight in the pool
+ */
 
+/**
+ * @typedef {Object} MobPoolEntry
+ * @property {string} id - Entity identifier (e.g. "minecraft:cow")
+ * @property {number} weight - Relative spawn weight in the pool
+ * @property {string[]} [tags] - Optional tags: "aquatic" (needs water), "boss" (very strong)
+ */
 
+/**
+ * @typedef {Object} PhaseDataPool
+ * @property {number} phase - Phase index (1-based)
+ * @property {string} name - Phase title
+ * @property {string} description - Lore / theme description
+ * @property {number} blocksRequired - Base block break milestone to finish phase
+ * @property {string} bedrockReplacement - Safe fallback block when breaking
+ * @property {BlockPoolEntry[]} blocks - Block pool
+ * @property {ChestPoolEntry[]} chests - Chest item loot pool
+ * @property {MobPoolEntry[]} mobs - Entity spawn pool
+ */
 
-
-
-
-
-
-
+/**
+ * Foundation Phase Pools
+ * @type {PhaseDataPool[]}
+ */
 export const ONEBLOCK_PROGRESSION_POOLS = [
+  // ───────────────────────── OVERWORLD ─────────────────────────
   {
     phase: 1,
     name: "Plains & Early Roots",
     description: "The humble beginnings of survival. Gather wood, dirt, and early agricultural supplies.",
-    blocksRequired: 150,
+    blocksRequired: 300,
     bedrockReplacement: "minecraft:grass_block",
     blocks: [
       { id: "minecraft:grass_block", weight: 33 },
@@ -45,7 +109,7 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     phase: 2,
     name: "Underground Cavern",
     description: "Dig deep into stone layers, uncovering coal, raw iron, and subterranean minerals.",
-    blocksRequired: 250,
+    blocksRequired: 500,
     bedrockReplacement: "minecraft:stone",
     blocks: [
       { id: "minecraft:stone", weight: 30 },
@@ -79,7 +143,7 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     phase: 3,
     name: "Snowy Taiga & Tundra",
     description: "Frozen spruce forests and packed snow. Gather leather, berries, and cold-weather supplies.",
-    blocksRequired: 300,
+    blocksRequired: 600,
     bedrockReplacement: "minecraft:snow",
     blocks: [
       { id: "minecraft:snow", weight: 20 },
@@ -114,7 +178,7 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     phase: 4,
     name: "Ocean Floor",
     description: "Sunken sands, prismarine ruins, and coral beds from the depths of the ocean.",
-    blocksRequired: 350,
+    blocksRequired: 700,
     bedrockReplacement: "minecraft:sand",
     blocks: [
       { id: "minecraft:sand", weight: 18 },
@@ -144,14 +208,14 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     mobs: [
       { id: "minecraft:drowned", weight: 55 },
       { id: "minecraft:turtle", weight: 30 },
-      { id: "minecraft:squid", weight: 15 }
+      { id: "minecraft:squid", weight: 15, tags: ["aquatic"] }
     ]
   },
   {
     phase: 5,
     name: "Jungle Canopy",
     description: "Dense jungle growth, mossy ruins, bamboo groves, and rare jungle materials.",
-    blocksRequired: 400,
+    blocksRequired: 800,
     bedrockReplacement: "minecraft:moss_block",
     blocks: [
       { id: "minecraft:jungle_log", weight: 22 },
@@ -187,7 +251,7 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     phase: 6,
     name: "Desert Dunes",
     description: "Scorched sands and buried temples. Sandstone, gold, and ancient desert loot.",
-    blocksRequired: 400,
+    blocksRequired: 800,
     bedrockReplacement: "minecraft:sandstone",
     blocks: [
       { id: "minecraft:sand", weight: 35 },
@@ -221,7 +285,7 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     phase: 7,
     name: "Badlands Mesa",
     description: "Layered red clay and rich gold veins carved into towering mesas.",
-    blocksRequired: 450,
+    blocksRequired: 900,
     bedrockReplacement: "minecraft:hardened_clay",
     blocks: [
       { id: "minecraft:hardened_clay", weight: 22 },
@@ -255,7 +319,7 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     phase: 8,
     name: "Savanna Plains",
     description: "Flat-topped acacia trees, golden hay, and wandering herds across the dry grassland.",
-    blocksRequired: 450,
+    blocksRequired: 900,
     bedrockReplacement: "minecraft:coarse_dirt",
     blocks: [
       { id: "minecraft:acacia_log", weight: 28 },
@@ -290,7 +354,7 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     phase: 9,
     name: "Dark Forest & Mushroom Fields",
     description: "Towering dark oaks and giant glowing mushrooms growing from rich mycelium.",
-    blocksRequired: 500,
+    blocksRequired: 1000,
     bedrockReplacement: "minecraft:dark_oak_planks",
     blocks: [
       { id: "minecraft:dark_oak_log", weight: 20 },
@@ -328,7 +392,7 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     phase: 10,
     name: "Mangrove Swamp",
     description: "Muddy roots, mangrove trees, and murky swamp life.",
-    blocksRequired: 450,
+    blocksRequired: 900,
     bedrockReplacement: "minecraft:mud",
     blocks: [
       { id: "minecraft:mud", weight: 24 },
@@ -365,7 +429,7 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     phase: 11,
     name: "Cherry Grove",
     description: "A peaceful pink-blossom meadow on the mountainside.",
-    blocksRequired: 500,
+    blocksRequired: 1000,
     bedrockReplacement: "minecraft:grass_block",
     blocks: [
       { id: "minecraft:cherry_log", weight: 20 },
@@ -397,7 +461,7 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     phase: 12,
     name: "Pale Garden",
     description: "A silent, grey forest of pale oak, pale moss, and resin. The creaking stir at night.",
-    blocksRequired: 500,
+    blocksRequired: 1000,
     bedrockReplacement: "minecraft:pale_moss_block",
     blocks: [
       { id: "minecraft:pale_oak_log", weight: 24 },
@@ -430,7 +494,7 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     phase: 13,
     name: "Windswept Highlands",
     description: "Rocky peaks, old spruce taiga, and emerald veins high above the valleys.",
-    blocksRequired: 550,
+    blocksRequired: 1100,
     bedrockReplacement: "minecraft:stone",
     blocks: [
       { id: "minecraft:stone", weight: 18 },
@@ -469,9 +533,44 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
   },
   {
     phase: 14,
+    name: "Frozen Peaks & Ice Spikes",
+    description: "Jagged snow-capped summits and towering spikes of packed and blue ice.",
+    blocksRequired: 1100,
+    bedrockReplacement: "minecraft:snow",
+    blocks: [
+      { id: "minecraft:packed_ice", weight: 24 },
+      { id: "minecraft:snow", weight: 20 },
+      { id: "minecraft:stone", weight: 14 },
+      { id: "minecraft:blue_ice", weight: 12 },
+      { id: "minecraft:calcite", weight: 10 },
+      { id: "minecraft:ice", weight: 8 },
+      { id: "minecraft:iron_ore", weight: 6 },
+      { id: "minecraft:coal_ore", weight: 6 }
+    ],
+    chests: [
+      { id: "minecraft:cooked_salmon", min: 1, max: 3, weight: 14 },
+      { id: "minecraft:iron_ingot", min: 2, max: 4, weight: 14 },
+      { id: "minecraft:coal", min: 2, max: 6, weight: 14 },
+      { id: "minecraft:cooked_cod", min: 1, max: 3, weight: 12 },
+      { id: "minecraft:leather", min: 1, max: 3, weight: 12 },
+      { id: "minecraft:sweet_berries", min: 2, max: 5, weight: 12 },
+      { id: "minecraft:fishing_rod", min: 1, max: 1, weight: 8 },
+      { id: "minecraft:emerald", min: 1, max: 2, weight: 8 },
+      { id: "minecraft:diamond", min: 1, max: 1, weight: 6 }
+    ],
+    mobs: [
+      { id: "minecraft:stray", weight: 30 },
+      { id: "minecraft:goat", weight: 25 },
+      { id: "minecraft:polar_bear", weight: 20 },
+      { id: "minecraft:skeleton", weight: 15 },
+      { id: "minecraft:snow_golem", weight: 10 }
+    ]
+  },
+  {
+    phase: 15,
     name: "Craftsman's Workshop",
     description: "A village of builders: wool, glass, concrete, bookshelves, colored clay, and copper.",
-    blocksRequired: 600,
+    blocksRequired: 1200,
     bedrockReplacement: "minecraft:cobblestone",
     blocks: [
       { id: "minecraft:white_wool", weight: 5 },
@@ -531,11 +630,53 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     ]
   },
 
+  // ─────────────────────── DEEP CAVES ───────────────────────
   {
-    phase: 15,
+    phase: 16,
+    name: "Lush & Dripstone Caves",
+    description: "Glowing moss, flowering azalea, and dripstone formations deep under the hills.",
+    blocksRequired: 1200,
+    bedrockReplacement: "minecraft:tuff",
+    blocks: [
+      { id: "minecraft:dripstone_block", weight: 16 },
+      { id: "minecraft:moss_block", weight: 14 },
+      { id: "minecraft:azalea_leaves", weight: 10 },
+      { id: "minecraft:tuff", weight: 8 },
+      { id: "minecraft:dirt_with_roots", weight: 8 },
+      { id: "minecraft:stone", weight: 8 },
+      { id: "minecraft:azalea_leaves_flowered", weight: 6 },
+      { id: "minecraft:clay", weight: 6 },
+      { id: "minecraft:amethyst_block", weight: 6 },
+      { id: "minecraft:smooth_basalt", weight: 6 },
+      { id: "minecraft:calcite", weight: 6 },
+      { id: "minecraft:copper_ore", weight: 6 }
+    ],
+    chests: [
+      { id: "minecraft:glow_berries", min: 2, max: 6, weight: 20 },
+      { id: "minecraft:azalea", min: 1, max: 2, weight: 14 },
+      { id: "minecraft:bone_meal", min: 2, max: 6, weight: 12 },
+      { id: "minecraft:flowering_azalea", min: 1, max: 2, weight: 10 },
+      { id: "minecraft:clay_ball", min: 2, max: 6, weight: 10 },
+      { id: "minecraft:raw_copper", min: 2, max: 5, weight: 10 },
+      { id: "minecraft:amethyst_shard", min: 2, max: 5, weight: 10 },
+      { id: "minecraft:spore_blossom", min: 1, max: 1, weight: 6 },
+      { id: "minecraft:big_dripleaf", min: 1, max: 2, weight: 4 },
+      { id: "minecraft:experience_bottle", min: 1, max: 2, weight: 4 }
+    ],
+    mobs: [
+      { id: "minecraft:bat", weight: 25 },
+      { id: "minecraft:zombie", weight: 20 },
+      { id: "minecraft:skeleton", weight: 20 },
+      { id: "minecraft:spider", weight: 15 },
+      { id: "minecraft:creeper", weight: 10 },
+      { id: "minecraft:cave_spider", weight: 10 }
+    ]
+  },
+  {
+    phase: 17,
     name: "Deepslate Depths",
     description: "Dark deepslate caverns rich in diamonds, redstone, copper, and trial chamber tuff.",
-    blocksRequired: 600,
+    blocksRequired: 1200,
     bedrockReplacement: "minecraft:deepslate",
     blocks: [
       { id: "minecraft:deepslate", weight: 30 },
@@ -574,10 +715,54 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     ]
   },
   {
-    phase: 16,
+    phase: 18,
+    name: "Trial Chambers",
+    description: "Tuff-brick vaults with copper machinery, wind charges, and breeze-guarded trials.",
+    blocksRequired: 1300,
+    bedrockReplacement: "minecraft:tuff",
+    blocks: [
+      { id: "minecraft:tuff", weight: 14 },
+      { id: "minecraft:tuff_bricks", weight: 12 },
+      { id: "minecraft:polished_tuff", weight: 8 },
+      { id: "minecraft:deepslate", weight: 8 },
+      { id: "minecraft:copper_grate", weight: 8 },
+      { id: "minecraft:cut_copper", weight: 8 },
+      { id: "minecraft:chiseled_copper", weight: 6 },
+      { id: "minecraft:copper_bulb", weight: 6 },
+      { id: "minecraft:cobbled_deepslate", weight: 6 },
+      { id: "minecraft:deepslate_copper_ore", weight: 6 },
+      { id: "minecraft:chiseled_tuff", weight: 5 },
+      { id: "minecraft:oxidized_cut_copper", weight: 5 },
+      { id: "minecraft:chiseled_tuff_bricks", weight: 4 },
+      { id: "minecraft:oxidized_copper", weight: 4 }
+    ],
+    chests: [
+      { id: "minecraft:wind_charge", min: 2, max: 6, weight: 18 },
+      { id: "minecraft:emerald", min: 1, max: 3, weight: 12 },
+      { id: "minecraft:arrow", min: 4, max: 12, weight: 12 },
+      { id: "minecraft:bread", min: 2, max: 4, weight: 10 },
+      { id: "minecraft:copper_ingot", min: 2, max: 6, weight: 10 },
+      { id: "minecraft:iron_ingot", min: 2, max: 4, weight: 10 },
+      { id: "minecraft:cooked_beef", min: 1, max: 3, weight: 8 },
+      { id: "minecraft:experience_bottle", min: 1, max: 3, weight: 8 },
+      { id: "minecraft:diamond", min: 1, max: 1, weight: 6 },
+      { id: "minecraft:golden_apple", min: 1, max: 1, weight: 4 },
+      { id: "minecraft:mace", min: 1, max: 1, weight: 2 }
+    ],
+    mobs: [
+      { id: "minecraft:breeze", weight: 35 },
+      { id: "minecraft:zombie", weight: 15 },
+      { id: "minecraft:skeleton", weight: 15 },
+      { id: "minecraft:bogged", weight: 15 },
+      { id: "minecraft:cave_spider", weight: 10 },
+      { id: "minecraft:slime", weight: 10 }
+    ]
+  },
+  {
+    phase: 19,
     name: "Deep Dark",
     description: "Ancient sculk-infested depths where echo shards hide and the warden sleeps.",
-    blocksRequired: 600,
+    blocksRequired: 1200,
     bedrockReplacement: "minecraft:deepslate",
     blocks: [
       { id: "minecraft:deepslate", weight: 25 },
@@ -606,15 +791,16 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
       { id: "minecraft:creeper", weight: 15 },
       { id: "minecraft:bat", weight: 15 },
       { id: "minecraft:silverfish", weight: 10 },
-      { id: "minecraft:warden", weight: 2 }
+      { id: "minecraft:warden", weight: 2, tags: ["boss"] }
     ]
   },
 
+  // ───────────────────────── NETHER ─────────────────────────
   {
-    phase: 17,
+    phase: 20,
     name: "Nether Wastes",
     description: "Volcanic heat, soul sand, and glowing quartz from the depths of the Nether.",
-    blocksRequired: 700,
+    blocksRequired: 1400,
     bedrockReplacement: "minecraft:netherrack",
     blocks: [
       { id: "minecraft:netherrack", weight: 38 },
@@ -646,10 +832,10 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     ]
   },
   {
-    phase: 18,
+    phase: 21,
     name: "Crimson & Warped Forests",
     description: "Giant fungal forests of red and teal, home to hoglins, piglins, and striders.",
-    blocksRequired: 700,
+    blocksRequired: 1400,
     bedrockReplacement: "minecraft:netherrack",
     blocks: [
       { id: "minecraft:crimson_nylium", weight: 15 },
@@ -679,10 +865,10 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     ]
   },
   {
-    phase: 19,
+    phase: 22,
     name: "Bastion & Basalt Deltas",
     description: "Blackstone fortresses, gilded treasure, and rare ancient debris.",
-    blocksRequired: 800,
+    blocksRequired: 1600,
     bedrockReplacement: "minecraft:blackstone",
     blocks: [
       { id: "minecraft:blackstone", weight: 25 },
@@ -720,11 +906,12 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     ]
   },
 
+  // ───────────────────────── THE END ─────────────────────────
   {
-    phase: 20,
+    phase: 23,
     name: "The End",
     description: "The dimension beyond the stars. Pale end stone, obsidian pillars, and chorus.",
-    blocksRequired: 800,
+    blocksRequired: 1600,
     bedrockReplacement: "minecraft:end_stone",
     blocks: [
       { id: "minecraft:end_stone", weight: 60 },
@@ -749,10 +936,10 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     ]
   },
   {
-    phase: 21,
+    phase: 24,
     name: "End City & Void Horizon",
     description: "Floating purpur cities and deep void treasures. The final, endless phase.",
-    blocksRequired: 1000,
+    blocksRequired: 2000,
     bedrockReplacement: "minecraft:end_stone",
     blocks: [
       { id: "minecraft:purpur_block", weight: 25 },
@@ -784,26 +971,45 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
   }
 ];
 
+// Alias for backward compatibility
 export const ONEBLOCK_PROGRESSION = ONEBLOCK_PROGRESSION_POOLS;
 
+/** Unlock mode: share of total weight given to the newest phase. Ramps from START (phase 2) to END (last phase). */
+const CURRENT_SHARE_START = 0.4;
+const CURRENT_SHARE_END = 0.6;
 
-const DEFAULT_CURRENT_SHARE = 0.4;
+/** Mob tags skipped by default when sampling mobs. Pass { excludeTags: [] } to allow everything. */
+const DEFAULT_MOB_EXCLUDE_TAGS = ["aquatic", "boss"];
 
-
+/**
+ * Pure Data Pool Accessor
+ * Only provides sampling and lookup against the pools.
+ * Pack rules (spawn rates, mechanics) are implemented by the pack.
+ */
 export class OneblockPoolProvider {
-
+  /**
+   * @param {PhaseDataPool[]} [pools]
+   */
   constructor(pools = ONEBLOCK_PROGRESSION_POOLS) {
     this.pools = pools;
     this._unlockCache = new Map();
   }
 
-
+  /**
+   * Get phase data pool by 1-based number
+   * @param {number} phaseNumber
+   * @returns {PhaseDataPool}
+   */
   getPhasePool(phaseNumber) {
     const clampedIndex = Math.max(1, Math.min(phaseNumber, this.pools.length)) - 1;
     return this.pools[clampedIndex];
   }
 
-
+  /**
+   * Calculate milestone phase from broken block count
+   * @param {number} totalBreaks
+   * @returns {{ phase: PhaseDataPool, phaseIndex: number, phaseBreaks: number, isLastPhase: boolean }}
+   */
   getPhaseFromBreaks(totalBreaks) {
     let accumulated = 0;
     for (let i = 0; i < this.pools.length; i++) {
@@ -827,7 +1033,12 @@ export class OneblockPoolProvider {
     };
   }
 
-
+  /**
+   * Pick random item from a weighted pool
+   * @template {{ weight: number }} T
+   * @param {T[]} pool
+   * @returns {T}
+   */
   static sampleWeighted(pool) {
     const totalWeight = pool.reduce((sum, item) => sum + item.weight, 0);
     let rand = Math.random() * totalWeight;
@@ -838,9 +1049,22 @@ export class OneblockPoolProvider {
     return pool[pool.length - 1];
   }
 
-
-  getUnlockedPool(phaseNumber, kind, currentShare = DEFAULT_CURRENT_SHARE) {
+  /**
+   * Cumulative "unlock" pool: everything introduced in phases 1..phaseNumber.
+   * The current phase gets `currentShare` of the total weight so new content
+   * feels fresh; the remainder is split evenly across earlier phases.
+   * Duplicate ids are merged. Returns new objects; shared pools are never mutated.
+   * @param {number} phaseNumber - 1-based phase (clamped; also valid past the last phase)
+   * @param {"blocks"|"chests"|"mobs"} kind
+   * @param {number} [currentShare] - 0..1 share for the current phase
+   * @returns {Array<{ id: string, weight: number, min?: number, max?: number }>}
+   */
+  getUnlockedPool(phaseNumber, kind, currentShare) {
     const upto = Math.max(1, Math.min(Math.floor(phaseNumber) || 1, this.pools.length));
+    if (currentShare === undefined) {
+      const t = (upto - 1) / Math.max(1, this.pools.length - 1);
+      currentShare = CURRENT_SHARE_START + (CURRENT_SHARE_END - CURRENT_SHARE_START) * t;
+    }
     const key = `${kind}:${upto}:${currentShare}`;
     const cached = this._unlockCache.get(key);
     if (cached) return cached;
@@ -869,26 +1093,36 @@ export class OneblockPoolProvider {
     return out;
   }
 
-
+  /**
+   * Resolve the pool to sample from.
+   * Default = unlock mode (earlier phases stay available). `exclusive: true` = this phase only.
+   */
   _resolvePool(phaseNumber, kind, options = {}) {
-    if (options.exclusive) return this.getPhasePool(phaseNumber)[kind];
-    return this.getUnlockedPool(phaseNumber, kind, options.currentShare);
+    const pool = options.exclusive
+      ? this.getPhasePool(phaseNumber)[kind]
+      : this.getUnlockedPool(phaseNumber, kind, options.currentShare);
+    if (kind !== "mobs") return pool;
+    const skip = options.excludeTags ?? DEFAULT_MOB_EXCLUDE_TAGS;
+    if (!skip.length) return pool;
+    const allowed = pool.filter((m) => !(m.tags ?? []).some((t) => skip.includes(t)));
+    return allowed.length ? allowed : pool;
   }
 
-
+  /** Sample a block (unlock mode by default) */
   sampleBlock(phaseNumber, options) {
     return OneblockPoolProvider.sampleWeighted(this._resolvePool(phaseNumber, "blocks", options));
   }
 
-
+  /** Sample a chest item (unlock mode by default) */
   sampleChestItem(phaseNumber, options) {
     return OneblockPoolProvider.sampleWeighted(this._resolvePool(phaseNumber, "chests", options));
   }
 
-
+  /** Sample a mob (unlock mode by default) */
   sampleMob(phaseNumber, options) {
     return OneblockPoolProvider.sampleWeighted(this._resolvePool(phaseNumber, "mobs", options));
   }
 }
 
+// Backward-compatible alias
 export const OneBlockProgressionManager = OneblockPoolProvider;

@@ -26,45 +26,49 @@ Targets **Minecraft Bedrock 1.26.50**. All ids are Bedrock ids (for example `min
 
 ---
 
-## Progression Order (21 phases)
+## Progression Order (24 phases)
 
 Classic OneBlock flow: Overworld biomes, then caves, then the Nether, then the End.
 
 | # | Phase | Blocks to finish | Theme |
 |---|-------|------------------|-------|
-| 1 | Plains & Early Roots | 150 | Dirt, oak, farm basics |
-| 2 | Underground Cavern | 250 | Stone, coal, iron, copper |
-| 3 | Snowy Taiga & Tundra | 300 | Spruce, snow, ice |
-| 4 | Ocean Floor | 350 | Prismarine, coral, sand |
-| 5 | Jungle Canopy | 400 | Jungle, bamboo, moss |
-| 6 | Desert Dunes | 400 | Sandstone, gold |
-| 7 | Badlands Mesa | 450 | Red sand, clay, gold |
-| 8 | Savanna Plains | 450 | Acacia, hay, horses |
-| 9 | Dark Forest & Mushroom Fields | 500 | Dark oak, giant mushrooms, mycelium |
-| 10 | Mangrove Swamp | 450 | Mud, mangrove roots |
-| 11 | Cherry Grove | 500 | Cherry wood, petals |
-| 12 | Pale Garden | 500 | Pale oak, resin, creaking |
-| 13 | Windswept Highlands | 550 | Emerald ore, spruce, mossy stone |
-| 14 | Craftsman's Workshop | 600 | Wool, glass, concrete, bookshelves, colored terracotta, copper |
-| 15 | Deepslate Depths | 600 | Deepslate ores, tuff |
-| 16 | Deep Dark | 600 | Sculk, echo shards |
-| 17 | Nether Wastes | 700 | Netherrack, quartz, ghasts |
-| 18 | Crimson & Warped Forests | 700 | Nylium, stems, hoglins |
-| 19 | Bastion & Basalt Deltas | 800 | Blackstone, ancient debris |
-| 20 | The End | 800 | End stone, obsidian |
-| 21 | End City & Void Horizon | endless | Purpur, elytra, final phase |
+| 1 | Plains & Early Roots | 300 | Dirt, oak, farm basics |
+| 2 | Underground Cavern | 500 | Stone, coal, iron, copper |
+| 3 | Snowy Taiga & Tundra | 600 | Spruce, snow, ice |
+| 4 | Ocean Floor | 700 | Prismarine, coral, sand |
+| 5 | Jungle Canopy | 800 | Jungle, bamboo, moss |
+| 6 | Desert Dunes | 800 | Sandstone, gold |
+| 7 | Badlands Mesa | 900 | Red sand, clay, gold |
+| 8 | Savanna Plains | 900 | Acacia, hay, horses |
+| 9 | Dark Forest & Mushroom Fields | 1000 | Dark oak, giant mushrooms, mycelium |
+| 10 | Mangrove Swamp | 900 | Mud, mangrove roots |
+| 11 | Cherry Grove | 1000 | Cherry wood, petals |
+| 12 | Pale Garden | 1000 | Pale oak, resin, creaking |
+| 13 | Windswept Highlands | 1100 | Emerald ore, spruce, mossy stone |
+| 14 | Frozen Peaks & Ice Spikes | 1100 | Packed and blue ice, calcite |
+| 15 | Craftsman's Workshop | 1200 | Wool, glass, concrete, bookshelves, colored terracotta, copper |
+| 16 | Lush & Dripstone Caves | 1200 | Moss, azalea, dripstone |
+| 17 | Deepslate Depths | 1200 | Deepslate ores, tuff |
+| 18 | Trial Chambers | 1300 | Tuff bricks, copper, breeze |
+| 19 | Deep Dark | 1200 | Sculk, echo shards |
+| 20 | Nether Wastes | 1400 | Netherrack, quartz, ghasts |
+| 21 | Crimson & Warped Forests | 1400 | Nylium, stems, hoglins |
+| 22 | Bastion & Basalt Deltas | 1600 | Blackstone, ancient debris |
+| 23 | The End | 1600 | End stone, obsidian |
+| 24 | End City & Void Horizon | 2000 (endless) | Purpur, elytra, final phase |
 
-`blocksRequired` is per phase, not cumulative. The last phase never ends. Total to reach phase 21: 10,050 blocks.
+`blocksRequired` is per phase, not cumulative. The last phase never ends. Total to reach phase 24: 23,700 blocks.
 
 ### Unlock model
 
 Each phase lists only what it **unlocks**. Nothing is removed when you advance.
 
 - `sampleBlock(phase)`, `sampleChestItem(phase)`, and `sampleMob(phase)` sample from phases 1 to the current phase.
-- The newest phase gets 40% of the weight. Older phases share the other 60% evenly, so new content feels fresh.
-- At phase 21 the full pool (163 blocks) stays active forever, with phase 21 still weighted highest.
+- The newest phase's share of the weight ramps from 40% (phase 2) to 60% (last phase). Older phases share the rest evenly, so new content feels fresh.
+- At phase 24 the full pool (173 blocks) stays active forever, with phase 24 still weighted highest.
 - Duplicate ids are merged. Chest counts use the lowest min and highest max.
-- Options: `{ exclusive: true }` samples the current phase only. `{ currentShare: 0.6 }` changes the newest-phase share.
+- Options: `{ exclusive: true }` samples the current phase only. `{ currentShare: 0.5 }` fixes the newest-phase share.
+- Mob tags: `aquatic` (needs water) and `boss` (very strong, such as the warden). `sampleMob` skips both by default. Use `{ excludeTags: [] }` to allow them, or pass your own tag list.
 - `getUnlockedPool(phase, "blocks" | "chests" | "mobs")` returns the merged weighted list if your pack wants to apply its own rules.
 
 ---
