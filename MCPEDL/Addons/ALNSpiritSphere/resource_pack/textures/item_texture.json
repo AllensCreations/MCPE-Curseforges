@@ -17,6 +17,21 @@
     "aln_void_sphere": {
       "textures": "textures/items/aln_void_sphere"
     },
+    "aln_terra_sphere": {
+      "textures": "textures/items/aln_terra_sphere"
+    },
+    "aln_toxic_sphere": {
+      "textures": "textures/items/aln_toxic_sphere"
+    },
+    "aln_gravity_sphere": {
+      "textures": "textures/items/aln_gravity_sphere"
+    },
+    "aln_life_sphere": {
+      "textures": "textures/items/aln_life_sphere"
+    },
+    "aln_chrono_sphere": {
+      "textures": "textures/items/aln_chrono_sphere"
+    },
     "aln_orb_core": {
       "textures": "textures/items/aln_orb_core"
     }

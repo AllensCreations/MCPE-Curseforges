@@ -1,5 +1,5 @@
 import { MolangVariableMap } from "@minecraft/server";
-import { BURST_TICK, FULL_TICKS, OVER_TICKS } from "./elements.js";
+import { BURST_TICK, FULL_TICKS, OVER_TICKS, powerOf } from "./elements.js";
 
 const SMALL = "aln:ss_small";
 const MID = "aln:ss_mid";
@@ -104,7 +104,7 @@ export function renderCharge(player, held, mode) {
       sound(dimension, `${mode.sfx}.burst`, center);
     }
     puff(dimension, BIG, center, mode.color);
-    shell(dimension, center, 0.55, 8, SMALL, mode.color);
+    shell(dimension, center, 0.55 * Math.max(powerOf(held), 0.5), 8, SMALL, mode.color);
     if (phase === 4 && held % 3 === 0) shell(dimension, center, 0.8, 4, MID, { red: 1, green: 1, blue: 1 });
   }
 }

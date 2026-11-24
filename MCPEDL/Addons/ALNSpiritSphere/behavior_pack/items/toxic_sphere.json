@@ -1,0 +1,31 @@
+{
+  "format_version": "1.26.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:toxic_sphere",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:cooldown": {
+        "category": "aln_toxic_sphere",
+        "duration": 3
+      },
+      "minecraft:icon": {
+        "textures": {
+          "default": "aln_toxic_sphere"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "§l§2Toxic Bloom §aSphere"
+      },
+      "minecraft:use_animation": "spyglass",
+      "minecraft:use_modifiers": {
+        "use_duration": 3600,
+        "movement_modifier": 0.7
+      }
+    }
+  }
+}

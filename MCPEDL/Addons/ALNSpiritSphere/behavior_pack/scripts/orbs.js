@@ -1,5 +1,5 @@
 import { world } from "@minecraft/server";
-import { MODES, ORB_ID, FULL_TICKS, OVER_TICKS, MAX_ORB_AGE } from "./elements.js";
+import { MODES, ORB_ID, FULL_TICKS, OVER_TICKS, MAX_ORB_AGE, powerOf } from "./elements.js";
 import { sound, impactBurst, orbTrail, handPoint, voidSwirl } from "./visuals.js";
 
 const orbs = new Map();
@@ -62,6 +62,14 @@ function freeze(dimension, at, radius) {
   }
 }
 
+function affect(dimension, at, distance, effectId, ticks, amplifier) {
+  for (const e of nearby(dimension, at, distance)) {
+    try {
+      if (e.typeId !== ORB_ID) e.addEffect(effectId, ticks, { amplifier });
+    } catch (err) {}
+  }
+}
+
 function detonate(s, at) {
   const d = s.dimension;
   const f = s.f;
@@ -97,9 +105,25 @@ function detonate(s, at) {
       d.spawnEntity("minecraft:lightning_bolt", at);
     } catch (e) {}
     shoveAll(d, at, reach, strength, lift);
-  } else {
+  } else if (s.mode.id === "void") {
     explode(d, at, r * 1.1, true, false);
     shoveAll(d, at, reach, strength * 0.6, lift * 0.6);
+  } else if (s.mode.id === "terra") {
+    explode(d, at, r * 1.2, true, false);
+    shoveAll(d, at, reach, strength * 0.4, lift * 2.2);
+    affect(d, at, r * 1.8, "slowness", 80, 1);
+  } else if (s.mode.id === "toxic") {
+    explode(d, at, r * 0.5, false, false);
+    affect(d, at, r * 2, "poison", 200 + Math.round(200 * f), 1);
+    shoveAll(d, at, reach, strength * 0.3, lift * 0.4);
+  } else if (s.mode.id === "gravity") {
+    explode(d, at, r * 0.4, false, false);
+    affect(d, at, r * 2.2, "levitation", 60 + Math.round(80 * f), 1);
+  } else if (s.mode.id === "life") {
+    affect(d, at, r * 2, "regeneration", 120 + Math.round(120 * f), 2);
+  } else {
+    explode(d, at, r * 0.4, false, false);
+    affect(d, at, r * 2, "slowness", 80 + Math.round(80 * f), 6);
   }
 }
 
@@ -159,7 +183,7 @@ function tickAnchors() {
 
 export function launchOrb(player, modeIndex, held) {
   const mode = MODES[modeIndex];
-  const f = Math.min(1, held / FULL_TICKS);
+  const f = powerOf(held);
   const dimension = player.dimension;
   const view = player.getViewDirection();
   const start = handPoint(player, view);
@@ -171,7 +195,7 @@ export function launchOrb(player, modeIndex, held) {
     dimension,
     mode,
     f,
-    over: held >= OVER_TICKS,
+    over: held >= FULL_TICKS && held <= OVER_TICKS,
     owner: player.id,
     age: 0,
     last: start,

@@ -1,0 +1,31 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "aln:life_sphere"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:ender_pearl"
+      },
+      {
+        "item": "minecraft:amethyst_shard"
+      },
+      {
+        "item": "minecraft:blaze_powder"
+      },
+      {
+        "item": "minecraft:golden_apple"
+      }
+    ],
+    "result": {
+      "item": "aln:life_sphere"
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}

@@ -1,4 +1,6 @@
-const ZOOM_FOV = [70, 62, 50, 38, 34];
+import { powerOf } from "./elements.js";
+
+const ZOOM_FOV = [70, 62, 50, 38, 46];
 
 export function applyZoom(entry, phase) {
   if (entry.zoom === phase) return;
@@ -16,7 +18,7 @@ export function clearZoom(player) {
 
 export function chargeSound(player, held, mode) {
   if (held < 2 || held % 3 !== 0) return;
-  const k = Math.min(held, 70) / 70;
+  const k = powerOf(held);
   try {
     player.playSound(`${mode.sfx}.charge`, { pitch: 0.6 + 1.4 * k, volume: 0.5 + 0.4 * k });
   } catch (e) {}

@@ -9,6 +9,10 @@
     },
     "components": {
       "minecraft:max_stack_size": 1,
+      "minecraft:cooldown": {
+        "category": "aln_frost_sphere",
+        "duration": 3
+      },
       "minecraft:icon": {
         "textures": {
           "default": "aln_frost_sphere"
