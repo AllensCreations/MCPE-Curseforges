@@ -2,6 +2,11 @@
 
 ---
 
+## [1.0.5] - 2026-11-24 - Fix Missing Glass and Core Textures
+
+### Fixed
+- **Glass and core textures**: Every part of the block model was left on the default frame texture, so the glass panes and the glowing core base could not use their own textures. Each part now uses the texture made for it.
+
 ## [1.0.4] - 2026-11-23 - Fix Duplication Timer and Add Break Drops
 
 ### Added

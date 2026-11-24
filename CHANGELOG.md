@@ -4,6 +4,13 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v269] - 2026-11-24 - Fix Missing Glass and Core Textures
+
+**Spec**: spec_v269.txt | **Target**: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator | **Files edited**: 2
+
+### Fixed
+- **Glass and core textures**: Every part of the block model was left on the default frame texture, so the glass panes and the glowing core base could not use their own textures. Each part now uses the texture made for it.
+
 ## 2026-11-24 - New Addon ALNChronoStop
 
 ### Added
