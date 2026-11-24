@@ -4,6 +4,14 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v275] - 2026-11-24 - Inward Pull Particles
+
+**Spec**: spec_v275.txt | **Target**: MCPEDL/Addons/ALNSpiritSphere | **Files edited**: 7
+
+### Added
+- **Inward pull particles**: Particles now stream inward toward your hand while charging and toward the orb in flight for every element.
+- **Void Singularity pull**: The hover phase shows a wide inward stream across its 10 block range and a tighter collapse stream in the last second.
+
 ## [v274] - 2026-11-24 - Core Tool Durability
 
 **Spec**: spec_v274.txt | **Target**: MCPEDL/Maps/OneBlock-Natural-Market | **Files edited**: 2

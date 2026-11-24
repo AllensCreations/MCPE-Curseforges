@@ -38,6 +38,9 @@ Each sphere has its own color and impact behavior. There is no switching: carry 
 ### Charge-Scaled Orb
 - **What Happens**: Releasing fires the Spirit Orb along your aim. A quick release lobs a slow orb with a small blast, a medium charge flies steadily, and a full charge flies almost straight and fast with a cratering explosion.
 
+### Inward Pull Particles
+- **What Happens**: Streams of particles fly inward toward your hand while you charge and toward the orb while it flies. The Void Singularity draws the thickest stream across its full 10 block range and tightens into a dense collapse during its last second.
+
 ### Element Colors
 - **What Happens**: Each sphere has its own particle color: cyan and white for Aero Vortex, orange and gold for Blaze Solar, icy blue for Frost Nova, purple for Storm Surge and dark magenta for Void Singularity.
 

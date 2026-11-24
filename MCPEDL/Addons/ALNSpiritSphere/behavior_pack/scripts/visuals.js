@@ -4,6 +4,10 @@ import { BURST_TICK, FULL_TICKS, OVER_TICKS } from "./elements.js";
 const SMALL = "aln:ss_small";
 const MID = "aln:ss_mid";
 const BIG = "aln:ss_big";
+const PULL_HAND = "aln:ss_pull_hand";
+const PULL_ORB = "aln:ss_pull_orb";
+const PULL_VOID = "aln:ss_pull_void";
+const PULL_CORE = "aln:ss_pull_core";
 
 export function puff(dimension, id, location, color) {
   try {
@@ -87,10 +91,12 @@ export function renderCharge(player, held, mode) {
   const phase = phaseOf(held);
   if (phase === 1) {
     if (held % 2 === 0) ring(dimension, center, view, 0.55, 8, held * 0.25, SMALL, mode.color);
+    if (held % 6 === 0) puff(dimension, PULL_HAND, center, mode.color);
   } else if (phase === 2) {
     const k = (held - 24) / (FULL_TICKS - 24);
     ring(dimension, center, view, 0.55 * (1 - k) + 0.04, 6, held * (0.5 + k * 1.5), SMALL, mode.color);
     puff(dimension, MID, center, { red: 1, green: 1, blue: 1 });
+    if (held % 2 === 0) puff(dimension, PULL_HAND, center, mode.color);
   } else {
     if (held === BURST_TICK) {
       shell(dimension, center, 0.9, 30, MID, mode.color);
@@ -114,6 +120,7 @@ export function impactBurst(dimension, center, radius, color) {
 
 export function orbTrail(dimension, center, color, age) {
   puff(dimension, BIG, center, color);
+  if (age % 2 === 0) puff(dimension, PULL_ORB, center, color);
   const a = age * 0.9;
   puff(dimension, SMALL, { x: center.x + Math.cos(a) * 0.5, y: center.y + Math.sin(a * 1.3) * 0.5, z: center.z + Math.sin(a) * 0.5 }, color);
   puff(dimension, SMALL, { x: center.x - Math.cos(a) * 0.5, y: center.y - Math.sin(a * 1.3) * 0.5, z: center.z - Math.sin(a) * 0.5 }, color);
@@ -127,4 +134,6 @@ export function voidSwirl(dimension, center, radius, color, tick) {
     puff(dimension, SMALL, { x: center.x + Math.cos(a) * r, y: center.y + Math.sin(a * 0.5) * r * 0.4, z: center.z + Math.sin(a) * r }, color);
   }
   puff(dimension, BIG, center, color);
+  if (tick % 2 === 0) puff(dimension, PULL_VOID, center, color);
+  if (tick > 80) puff(dimension, PULL_CORE, center, color);
 }
