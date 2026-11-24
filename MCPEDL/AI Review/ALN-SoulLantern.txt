@@ -253,7 +253,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 
 ## File Contents
 
-## FILE: MCPEDL/Addons/ALN-SoulLantern/behavior_pack/entities/aln_spirit.json (409 lines, 8611 bytes)
+## FILE: MCPEDL/Addons/ALN-SoulLantern/behavior_pack/entities/aln_spirit.json (409 lines, 8614 bytes)
 
 ```
 {
@@ -279,7 +279,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     "component_groups": {
       "aln:melee": {
         "minecraft:movement": {
-          "value": 0.3
+          "value": 0.08
         },
         "minecraft:attack": {
           "damage": 4
@@ -292,7 +292,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       },
       "aln:fast": {
         "minecraft:movement": {
-          "value": 0.4
+          "value": 0.1
         },
         "minecraft:attack": {
           "damage": 3
@@ -305,7 +305,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       },
       "aln:heavy": {
         "minecraft:movement": {
-          "value": 0.25
+          "value": 0.06
         },
         "minecraft:attack": {
           "damage": 8
@@ -318,7 +318,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       },
       "aln:kamikaze": {
         "minecraft:movement": {
-          "value": 0.35
+          "value": 0.09
         },
         "minecraft:attack": {
           "damage": 1
@@ -332,7 +332,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       },
       "aln:archer": {
         "minecraft:movement": {
-          "value": 0.3
+          "value": 0.08
         },
         "minecraft:behavior.ranged_attack": {
           "priority": 2,
@@ -347,7 +347,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       },
       "aln:snow": {
         "minecraft:movement": {
-          "value": 0.3
+          "value": 0.08
         },
         "minecraft:behavior.ranged_attack": {
           "priority": 2,
@@ -1139,13 +1139,13 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 {
   "format_version": 2,
   "header": {
-    "name": "ALN SoulLantern (v2.0.1)",
+    "name": "ALN SoulLantern (v2.0.2)",
     "description": "Seals mobs in a Soul Lantern and releases them later. by ALNStudios",
     "uuid": "b5d340b3-4ec2-4dec-ae4e-3896132a4d52",
     "version": [
       2,
       0,
-      1
+      2
     ],
     "min_engine_version": [
       1,
@@ -1160,7 +1160,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "version": [
         2,
         0,
-        1
+        2
       ]
     },
     {
@@ -1171,7 +1171,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "version": [
         2,
         0,
-        1
+        2
       ]
     }
   ],
@@ -1181,7 +1181,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "version": [
         2,
         0,
-        1
+        2
       ]
     },
     {
@@ -1198,7 +1198,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.1"
+    "version": "2.0.2"
   }
 }
 ```
@@ -1776,12 +1776,17 @@ world.afterEvents.worldLoad.subscribe(() => {
 });
 ```
 
-## FILE: MCPEDL/Addons/ALN-SoulLantern/CHANGELOG.md (43 lines, 2092 bytes)
+## FILE: MCPEDL/Addons/ALN-SoulLantern/CHANGELOG.md (48 lines, 2240 bytes)
 
 ```
 # Changelog — ALN SoulLantern
 
 ---
+
+## [2.0.2] - 2026-11-24 - Ally Speed
+
+### Fixed
+- **Spectral Ally**: The floating spirit now moves at Allay-like speed instead of flying too fast.
 
 ## [2.0.1] - 2026-11-24 - Sneak Controls
 
@@ -1930,7 +1935,7 @@ Download the current release of **ALN SoulLantern** for Minecraft Bedrock Editio
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN SoulLantern (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-SoulLantern/ALNSoulLantern%20V2.0.1.mcaddon)
+- **Direct download:** [Download ALN SoulLantern (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-SoulLantern/ALNSoulLantern%20V2.0.2.mcaddon)
 
 ## Installation
 
@@ -1994,13 +1999,13 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN SoulLantern (v2.0.1)",
+    "name": "ALN SoulLantern (v2.0.2)",
     "description": "Empty and Soul-Bound lantern textures. by ALNStudios",
     "uuid": "76644133-f7e5-4b13-ab5c-c0bb2eab30b6",
     "version": [
       2,
       0,
-      1
+      2
     ],
     "min_engine_version": [
       1,
@@ -2015,7 +2020,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "version": [
         2,
         0,
-        1
+        2
       ]
     }
   ],
@@ -2024,7 +2029,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.1"
+    "version": "2.0.2"
   }
 }
 ```

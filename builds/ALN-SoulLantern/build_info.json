@@ -1,8 +1,8 @@
 {
-  "changelog_version": "2.0.1",
-  "manifest_version": "2.0.1",
+  "changelog_version": "2.0.2",
+  "manifest_version": "2.0.2",
   "packages": {
-    "ALNSoulLantern V2.0.1.mcaddon": "804527e71d94de8cba50342b028c0de663de724ce267773bf15ac41190201f2d"
+    "ALNSoulLantern V2.0.2.mcaddon": "398dd1af622c081b5cabd3fc278ceb60435b7af814910a0b1c081af786c672f8"
   },
-  "source_sha256": "37838ffe8006234ab75eee36a1b63bb338dd9dadd2528f65b475f84c860dc866"
+  "source_sha256": "c1d2bcdbbaedbc14cca55aa7f1fc8b948138e4c82ef48a9f6272c5daf0506ad2"
 }

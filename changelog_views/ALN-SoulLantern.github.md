@@ -1,12 +1,17 @@
 # Changelog — ALN SoulLantern
 
-## [2.0.1] - 2026-11-24 - Sneak Controls
+## [2.0.2] - 2026-11-24 - Ally Speed
 
-### Improved & Balanced
-- **Controls**: Sneak and interact with a mob to seal it, sneak and click to release it, and use the lantern to call or recall the Spectral Ally.
+### Fixed
+- **Spectral Ally**: The floating spirit now moves at Allay-like speed instead of flying too fast.
 
 <details>
-<summary><b>2.0.x</b> (1 release)</summary>
+<summary><b>2.0.x</b> (2 releases)</summary>
+
+### [2.0.1] - 2026-11-24 - Sneak Controls
+
+#### Improved & Balanced
+- **Controls**: Sneak and interact with a mob to seal it, sneak and click to release it, and use the lantern to call or recall the Spectral Ally.
 
 ### [2.0.0] - 2026-11-24 - No-UI Update
 
