@@ -4,6 +4,18 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v287] - 2026-11-24 - Versioning Clarification and Instruction File Fixes
+
+**Spec**: spec_v287.txt | **Target**: repo | **Files edited**: 2
+
+### Added
+- **Versioning Rule Clarification**: Section 1.3 now explicitly separates Bedrock manifest format (`[X, Y, Z]` / `"X.Y.Z"`) from per-pack user-facing format (`vX`).
+- **CHANGELOG Heading Standard**: `DOCS_RULES.md` template and `scripts/doc_template.py` accept `## [vX]` as the canonical changelog heading format.
+### Fixed
+- **Duplicate Section Heading**: `INSTRUCTIONS.md` had two `### 1.15` headings. Custom Sounds stays 1.15; Bedrock Developer Role → 1.16; Documentation Lookup → 1.17. All cross-references updated.
+- **`doc_template.py` Changelog Validator**: `vtuple()` strips leading `v`/`V`; `check_changelog()` regex accepts `## [vX]`; version comparison uses normalized tuples.
+- **`PACK_GENERATOR_INSTRUCTIONS.md` Sync**: Section 1.3, section numbers (1.16, 1.17), and cross-references updated to match `INSTRUCTIONS.md`.
+
 ## [v286] - 2026-11-24 - Sneak Controls
 
 **Spec**: spec_v286.txt | **Target**: MCPEDL/Addons/ALN-SoulLantern | **Files edited**: 19

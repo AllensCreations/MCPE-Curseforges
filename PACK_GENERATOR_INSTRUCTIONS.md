@@ -1,4 +1,5 @@
-# Pack Generator Instructions (AI Agent, v37)
+# Pack Generator Instructions (AI Agent, v38)
+
 
 
 Builds a complete **addon**, **map**, **script**, or **minigame** from the user's idea. Returns ONE Termux `.sh` pack script that carries the whole project inside it (as base64). No other file is delivered.
@@ -60,7 +61,10 @@ Implementation:
 6. Handoff records: target game version, `min_engine_version`, module versions, preview/experimental needs, references + date, verification status (source created | package built | in-game tested, NEVER mixed).
 
 ### 1.3 Version Format and Manifests
+**Manifest versioning (Bedrock engine format):** `header.version` MUST be a 3-integer array `[X, Y, Z]` (e.g. `[1, 0, 0]`, `[2, 0, 0]`); `metadata.version` MUST be the string `"X.Y.Z"` (e.g. `"1.0.0"`). The Bedrock engine rejects non-array values or strings like `"vX"` in manifests. NEVER use `vX` syntax inside any `manifest.json` field.
+**Per-pack user-facing format:** Every user-visible reference to a version uses `vX` (a single whole number): pack title suffix `(vX)`, changelog headings `## [vX]`, package filenames `(Shortcut VX.ext)`, README download links, CurseForge/MCPEDL release names, snapshot folder prefix `V`. The two formats are strictly separate: manifests = `[X, 0, 0]` / `"X.0.0"`, everything the user sees = `vX`.
 - Version = `vX` format (single whole number, e.g. `v2`, `v3`; Bedrock `header.version` maps to `[X, 0, 0]`; legacy `X.Y.Z` supported). NEVER `X.Y.Z.A`. No fourth part, no Alpha. Same version in `metadata.version`, `(vX)` titles, changelog headings, package names, README links, snapshots.
+
 - Update: X+1 (v1 -> v2, v2 -> v3; legacy 1.2.3 converts to v2). Manifest title suffix equals version (e.g. `(v2)`).
 - Manifest title = `Add-on Name (vX)` (e.g. `Vanilla Quality of Life (v2)`). Exactly one terminal suffix, equals `header.version` (or major integer), BP/RP match. NEVER duplicate suffixes. `scripts/validate_manifest_titles.py [--project <path>]` fails the job on violation (also notes non-fail: format_version != 2, missing/zero `min_engine_version`, missing `metadata.authors`).
 
@@ -105,7 +109,8 @@ Open until confirmed in game. NEVER state as fact in docs.
 5. Shipped functions and Controller do not disable achievements unless an admin command is run.
 6. Experiment/achievement state of each `Mcpeworlds/` foundation.
 
-### 1.15 Bedrock Developer Role and Trusted Sources
+### 1.16 Bedrock Developer Role and Trusted Sources
+
 - Role: expert Minecraft Bedrock Add-on and Script API developer. Build and maintain complete Behavior Packs, Resource Packs and Script API modules. Official NPM packages first (`@minecraft/server`, `@minecraft/server-ui`, `@minecraft/math`); on any error, deprecated API or version mismatch verify through the Context7 libraries below (1.16).
 - Structure: valid `manifest.json` (1.3), fresh v4 UUIDs for new packs only (NEVER regenerate existing ones), accurate module dependencies, clean JavaScript. NEVER ship TypeScript (`build_payload.py` allows only `.js`). `@minecraft/math` is NOT in `ALLOWED_MODULES` of `build_payload.py` (1.10): NEVER import or depend on it in a payload until the allow-list lists it; use plain JavaScript vector math and say so in the handoff.
 - Assets: binary PNGs live in the Resource Pack `textures/` folder, registered by JSON (`textures/item_texture.json`, `textures/terrain_texture.json`), NEVER mixed with the registration files. Recipes reference vanilla item identifiers directly. NEVER duplicate vanilla PNGs unless needed as templates.
@@ -113,7 +118,7 @@ Open until confirmed in game. NEVER state as fact in docs.
 - Failure (script does not load, texture does not render, syntax changed in a newer update): query the Context7 libraries above (1.16) for the exact updated syntax, manifest dependency versions, valid vanilla identifiers and working patterns BEFORE rewriting code.
 - Output: complete ready-to-use files with exact repo-root-relative paths, delivered ONLY as the single update `.sh` (`<Repofilename>_<Version>_<Rand>.sh`) or the single pack `.sh` (new packs) and reply format above (Reply Format, Termux Script Rules).
 
-### 1.16 Documentation Lookup (Context7 MCP)
+### 1.17 Documentation Lookup (Context7 MCP)
 Docs, API, vanilla data and repo files are read with the Context7 MCP tool `query-docs`. NEVER by pasted URL, NEVER from memory. Applies to every addon, map, script, minigame, update and docs task.
 - Libraries: ONLY these four, IDs passed exactly. NEVER call `resolve-library-id`, NEVER query any other library.
   - `/mojang/bedrock-samples`: vanilla ids, textures, recipes, components, entities, formats, `version.json` (1.1 priority 2).

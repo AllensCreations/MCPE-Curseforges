@@ -1,4 +1,5 @@
-# Instructions: Core Repository Policy (v42)
+# Instructions: Core Repository Policy (v43)
+
 
 
 Repo policy, docs rules for AllensCreations/MCPE-Curseforges (creator name `ALNStudios`). Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
@@ -10,8 +11,9 @@ Repo policy, docs rules for AllensCreations/MCPE-Curseforges (creator name `ALNS
 | Docs audit (`/checkrm`) | this file + `DOCS_RULES.md` | 1.1; all of `DOCS_RULES.md` |
 | Version, manifest, LOCK, recipe, function, build, workflow, OneBlock changes | this file | 1.1 to 1.12 |
 | New mechanic hits a vanilla limit | this file | 1.12 |
-| Script API code, manifests, textures, error fixes | this file | 1.2, 1.15, 1.16 |
-| Any API, vanilla id, version or repo-script lookup | this file | 1.16 (Context7) |
+| Script API code, manifests, textures, error fixes | this file | 1.2, 1.15, 1.16, 1.17 |
+| Any API, vanilla id, version or repo-script lookup | this file | 1.17 (Context7) |
+
 | Recipe images, sprites | this file + `DOCS_RULES.md` | 1.5; 3.3, 3.4 |
 | New addon / map / script / minigame | `PACK_GENERATOR_INSTRUCTIONS.md` | all |
 Read only the files and sections the task needs. Changing an instruction file: read both.
@@ -101,7 +103,10 @@ Implementation:
 6. Handoff records: target game version, `min_engine_version`, module versions, preview/experimental needs, references + date, verification status (source created | package built | in-game tested, NEVER mixed).
 
 ### 1.3 Version Format and Manifests
+**Manifest versioning (Bedrock engine format):** `header.version` MUST be a 3-integer array `[X, Y, Z]` (e.g. `[1, 0, 0]`, `[2, 0, 0]`); `metadata.version` MUST be the string `"X.Y.Z"` (e.g. `"1.0.0"`). The Bedrock engine rejects non-array values or strings like `"vX"` in manifests. NEVER use `vX` syntax inside any `manifest.json` field.
+**Per-pack user-facing format:** Every user-visible reference to a version uses `vX` (a single whole number): pack title suffix `(vX)`, changelog headings `## [vX]`, package filenames `(Shortcut VX.ext)`, README download links, CurseForge/MCPEDL release names, snapshot folder prefix `V`. The two formats are strictly separate: manifests = `[X, 0, 0]` / `"X.0.0"`, everything the user sees = `vX`.
 - Version = `vX` format (single whole number, e.g. `v2`, `v3`; Bedrock `header.version` maps to `[X, 0, 0]`; legacy `X.Y.Z` supported). NEVER `X.Y.Z.A`. No fourth part, no Alpha. Same version in `metadata.version`, `(vX)` titles, changelog headings, package names, README links, snapshots.
+
 - Update: X+1 (v1 -> v2, v2 -> v3; legacy 1.2.3 converts to v2). Manifest title suffix equals version (e.g. `(v2)`).
 - Manifest title = `Add-on Name (vX)` (e.g. `Vanilla Quality of Life (v2)`). Exactly one terminal suffix, equals `header.version` (or major integer), BP/RP match. NEVER duplicate suffixes. `scripts/validate_manifest_titles.py [--project <path>]` fails the job on violation (also notes non-fail: format_version != 2, missing/zero `min_engine_version`, missing `metadata.authors`).
 
@@ -247,7 +252,8 @@ Placeholders `<PackName>`, `<MainAction>`, `<version>`. NEVER hardcode one pack.
 - New sound files need a full Minecraft client restart to load. Say so in the handoff.
 - `.ogg` is the only audio type allowed. `DESCRIPTION.md` must describe sounds in player terms and never name the script, ffmpeg or file names.
 
-### 1.15 Bedrock Developer Role and Trusted Sources
+### 1.16 Bedrock Developer Role and Trusted Sources
+
 - Role: expert Minecraft Bedrock Add-on and Script API developer. Build and maintain complete Behavior Packs, Resource Packs and Script API modules. Official NPM packages first (`@minecraft/server`, `@minecraft/server-ui`, `@minecraft/math`); on any error, deprecated API or version mismatch verify through the Context7 libraries below (1.16).
 - Structure: valid `manifest.json` (1.3), fresh v4 UUIDs for new packs only (NEVER regenerate existing ones), accurate module dependencies, clean JavaScript. NEVER ship TypeScript (`build_payload.py` allows only `.js`). `@minecraft/math` is NOT in `ALLOWED_MODULES` of `build_payload.py` (1.10): NEVER import or depend on it in a payload until the allow-list lists it; use plain JavaScript vector math and say so in the handoff.
 - Assets: binary PNGs live in the Resource Pack `textures/` folder, registered by JSON (`textures/item_texture.json`, `textures/terrain_texture.json`), NEVER mixed with the registration files. Recipes reference vanilla item identifiers directly. NEVER duplicate vanilla PNGs unless needed as templates.
@@ -256,7 +262,8 @@ Placeholders `<PackName>`, `<MainAction>`, `<version>`. NEVER hardcode one pack.
 - Output: complete ready-to-use files with exact repo-root-relative paths, delivered ONLY as the single update `.sh` (`<Repofilename>_<Version>_<Rand>.sh`) or the single pack `.sh` (new packs) and reply format above (Reply Format, Termux Script Rules).
 - Item/Block menu_category: When defining `menu_category` in custom items or blocks, `group` MUST start with a namespace (e.g. `minecraft:itemGroup.name.<group>` or `<pack_namespace>:itemGroup.name.<group>`). Unnamespaced group strings (such as `itemGroup.name.helmet`) fail Bedrock parsing (`Failed to parse field ' -> description -> menu_category -> group: string must be prefixed with a namespace (eg. namespace:value)'`). When no specific vanilla group applies, omit `group` and specify only `category` (`items`, `equipment`, `construction`, `nature`).
 
-### 1.16 Documentation Lookup (Context7 MCP)
+### 1.17 Documentation Lookup (Context7 MCP)
+
 Docs, API, vanilla data and repo files are read with the Context7 MCP tool `query-docs`. NEVER by pasted URL, NEVER from memory. Applies to every addon, map, script, minigame, update and docs task.
 - Libraries: ONLY these four, IDs passed exactly. NEVER call `resolve-library-id`, NEVER query any other library.
   - `/mojang/bedrock-samples`: vanilla ids, textures, recipes, components, entities, formats, `version.json` (1.1 priority 2).
