@@ -9,9 +9,9 @@ scripts/lib/ holds no .js files yet. Everything lives in scripts/main.js.
 
 ## What main.js does
 
-- Before-event on player interaction with an entity: a player holding aln:soul_lantern seals the target mob. The mob is saved with a world structure (entities only), its id and display facts are stored on the item as dynamic properties, and the item becomes aln:soul_lantern_<kind> (or aln:soul_lantern_filled for mobs without an icon).
-- Tap (use ends early): a filled lantern places the saved structure on top of the aimed block, or in front of the player in open air, deletes the structure, and returns an aln:soul_lantern. A tap on a block is also detected from the before-event on player interaction with a block, with a short grace timer.
-- Hold (use completes): a filled lantern calls its Spectral Ally, or recalls it when one is already out. Each lantern (by saved structure id) has one spirit and a 10-second recharge that starts when the spirit leaves.
+- Before-event on player interaction with an entity: a sneaking player holding aln:soul_lantern seals the target mob. The mob is saved with a world structure (entities only), its id and display facts are stored on the item as dynamic properties, and the item becomes aln:soul_lantern_<kind> (or aln:soul_lantern_filled for mobs without an icon).
+- Before-event on player interaction with a block: a sneaking player holding a filled lantern places the saved structure on top of the clicked block, deletes the structure, and returns an aln:soul_lantern.
+- After-event on item use: a sneaking player releases the mob in front of them in open air. A player who is not sneaking calls the Spectral Ally, or recalls it when one is already out. Each lantern (by saved structure id) has one spirit and a 10-second recharge that starts when the spirit leaves.
 - Repeating timer every 4 ticks: ends spirits after 400 ticks, teleports one back to its owner when it strays, spawns the particle trail, regrows a shrunken Kamikaze Spirit, and detonates it next to a monster.
 - World load: removes leftover entities tagged aln_spirit.
 

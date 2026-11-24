@@ -4,6 +4,13 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v286] - 2026-11-24 - Sneak Controls
+
+**Spec**: spec_v286.txt | **Target**: MCPEDL/Addons/ALN-SoulLantern | **Files edited**: 19
+
+### Improved & Balanced
+- **Controls**: Sneak and interact with a mob to seal it, sneak and click to release it, and use the lantern to call or recall the Spectral Ally.
+
 ## [v285] - 2026-11-24 - No-UI Update
 
 **Spec**: spec_v285.txt | **Target**: MCPEDL/Addons/ALN-SoulLantern | **Files edited**: 23

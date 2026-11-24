@@ -7,7 +7,7 @@ const SPIRIT_ID = "aln:spirit";
 const SPIRIT_TAG = "aln_spirit";
 const SPIRIT_TICKS = 400;
 const COOLDOWN_TICKS = 200;
-const HOLD_GRACE = 12;
+const DEBOUNCE_TICKS = 8;
 const REGROW_STEP = 0.02;
 const SHRUNK_SIZE = 0.3;
 
@@ -62,9 +62,7 @@ const KEY = {
 
 const spirits = new Map();
 const cooldowns = new Map();
-const usage = new Map();
-const lastBlock = new Map();
-const lastCapture = new Map();
+const lastAction = new Map();
 
 const tell = (player, color, text) => {
   try {
@@ -98,6 +96,13 @@ const prettyType = (typeId) =>
 const newStructureId = () => `aln:soul_${system.currentTick.toString(36)}${Math.floor(Math.random() * 1679616).toString(36)}`;
 
 const isFilled = (typeId) => typeof typeId === "string" && typeId.startsWith(LANTERN_PREFIX);
+
+const busy = (player) => {
+  const last = lastAction.get(player.id);
+  return last !== undefined && system.currentTick - last < DEBOUNCE_TICKS;
+};
+
+const mark = (player) => lastAction.set(player.id, system.currentTick);
 
 function lanternFor(type) {
   const fig = SPECIES[type]?.fig ?? 0;
@@ -156,7 +161,7 @@ function refreshDisplay(stack) {
     `§7Name: §f${d.name || "None"}`,
     `§7Health: §f${d.hp}/${d.maxHp}`,
     `§7Details: §f${d.details || "None"}`,
-    "§8Tap: release  Hold: Spectral Ally",
+    "§8Sneak + click: release  Use: Spectral Ally",
   ]);
 }
 
@@ -356,71 +361,39 @@ function setSize(entity, value) {
   } catch (e) {}
 }
 
-function press(player, block) {
-  const id = player.id;
-  const slot = player.selectedSlotIndex;
-  const stamp = system.currentTick;
-  if (block) lastBlock.set(id, { dim: block.dim, loc: block.loc, tick: stamp });
-  system.runTimeout(() => {
-    if (usage.get(id)?.using) return;
-    const b = lastBlock.get(id);
-    if (block) {
-      if (b && b.tick === stamp) {
-        lastBlock.delete(id);
-        tryRelease(player, b.dim, { x: b.loc.x, y: b.loc.y + 1, z: b.loc.z }, slot);
-      }
-    } else if (!b || Math.abs(b.tick - stamp) > 3) {
-      tryRelease(player, player.dimension, airCell(player), slot);
-    }
-  }, HOLD_GRACE);
-}
-
 world.beforeEvents.playerInteractWithEntity.subscribe((ev) => {
   const { player, target, itemStack } = ev;
-  if (itemStack?.typeId !== EMPTY_ID) return;
+  if (itemStack?.typeId !== EMPTY_ID || !player.isSneaking) return;
   ev.cancel = true;
-  const last = lastCapture.get(player.id);
-  if (last !== undefined && system.currentTick - last < 8) return;
-  lastCapture.set(player.id, system.currentTick);
+  if (busy(player)) return;
+  mark(player);
   const slot = player.selectedSlotIndex;
   system.run(() => tryCapture(player, target, slot));
 });
 
 world.beforeEvents.playerInteractWithBlock.subscribe((ev) => {
   const { player, block, itemStack, isFirstEvent } = ev;
-  if (!isFilled(itemStack?.typeId) || !isFirstEvent) return;
-  const target = { dim: block.dimension, loc: { x: block.location.x, y: block.location.y, z: block.location.z } };
-  system.run(() => press(player, target));
+  if (!isFilled(itemStack?.typeId) || !player.isSneaking) return;
+  ev.cancel = true;
+  if (!isFirstEvent || busy(player)) return;
+  mark(player);
+  const slot = player.selectedSlotIndex;
+  const dim = block.dimension;
+  const base = { x: block.location.x, y: block.location.y + 1, z: block.location.z };
+  system.run(() => tryRelease(player, dim, base, slot));
 });
 
 world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
-  if (isFilled(itemStack?.typeId)) press(source, undefined);
-});
-
-world.afterEvents.itemStartUse.subscribe(({ source, itemStack }) => {
-  if (isFilled(itemStack?.typeId)) usage.set(source.id, { using: true, done: false });
-});
-
-world.afterEvents.itemReleaseUse.subscribe(({ source, itemStack }) => {
-  if (!isFilled(itemStack?.typeId)) return;
-  const u = usage.get(source.id);
-  usage.set(source.id, { using: false, done: false });
-  if (u?.done) return;
-  const b = lastBlock.get(source.id);
-  lastBlock.delete(source.id);
-  const slot = source.selectedSlotIndex;
-  if (b && system.currentTick - b.tick <= 20) {
-    tryRelease(source, b.dim, { x: b.loc.x, y: b.loc.y + 1, z: b.loc.z }, slot);
-  } else {
-    tryRelease(source, source.dimension, airCell(source), slot);
+  const id = itemStack?.typeId;
+  if (id === EMPTY_ID) {
+    if (!busy(source)) tell(source, "§7", "Sneak and interact with a mob to seal it.");
+    return;
   }
-});
-
-world.afterEvents.itemCompleteUse.subscribe(({ source, itemStack }) => {
-  if (!isFilled(itemStack?.typeId)) return;
-  usage.set(source.id, { using: false, done: true });
-  lastBlock.delete(source.id);
-  toggleSpirit(source, source.selectedSlotIndex);
+  if (!isFilled(id) || busy(source)) return;
+  mark(source);
+  const slot = source.selectedSlotIndex;
+  if (source.isSneaking) tryRelease(source, source.dimension, airCell(source), slot);
+  else toggleSpirit(source, slot);
 });
 
 system.runInterval(() => {

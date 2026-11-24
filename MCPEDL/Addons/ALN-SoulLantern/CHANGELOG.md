@@ -2,6 +2,11 @@
 
 ---
 
+## [2.0.1] - 2026-11-24 - Sneak Controls
+
+### Improved & Balanced
+- **Controls**: Sneak and interact with a mob to seal it, sneak and click to release it, and use the lantern to call or recall the Spectral Ally.
+
 ## [2.0.0] - 2026-11-24 - No-UI Update
 
 ### Added
