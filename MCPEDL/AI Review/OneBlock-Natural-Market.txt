@@ -318,13 +318,13 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v16.0.7)",
+    "name": "OneBlock Natural Market (v16.0.8)",
     "description": "OneBlock survival with a progression market and regenerating core. by ALNStudios",
     "uuid": "77f07d1a-fa7a-437d-8fea-72068be05162",
     "version": [
       16,
       0,
-      7
+      8
     ],
     "min_engine_version": [
       1,
@@ -339,7 +339,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "version": [
         16,
         0,
-        7
+        8
       ]
     },
     {
@@ -349,7 +349,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "version": [
         16,
         0,
-        7
+        8
       ],
       "entry": "scripts/main.js"
     }
@@ -360,7 +360,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "version": [
         16,
         0,
-        7
+        8
       ]
     },
     {
@@ -377,7 +377,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "16.0.7"
+    "version": "16.0.8"
   }
 }
 ```
@@ -1329,10 +1329,10 @@ Extracted from the script files; nothing here was run in game.
 Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (818 lines, 44502 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (841 lines, 45692 bytes)
 
 ```
-import { world, system, ItemStack, ItemTypes } from "@minecraft/server";
+import { world, system, ItemStack, ItemTypes, DisplaySlotId, ObjectiveSortOrder } from "@minecraft/server";
 import { ActionFormData, MessageFormData, ModalFormData } from "@minecraft/server-ui";
 
 const CORE = { x: 0, y: 64, z: 0 };
@@ -1792,20 +1792,43 @@ function ensureCore() {
     }
   } catch (e) { logError("ensureCore", e); }
 }
+const SIDEBAR_KEY = "obm_sidebar";
+function sidebarOn() { return world.getDynamicProperty(SIDEBAR_KEY) === true; }
+function setSidebar(on) {
+  try {
+    if (on) {
+      world.scoreboard.setObjectiveAtDisplaySlot(DisplaySlotId.Sidebar, { objective: objective(COINS), sortOrder: ObjectiveSortOrder.Descending });
+    } else if (sidebarOn()) {
+      world.scoreboard.clearObjectiveAtDisplaySlot(DisplaySlotId.Sidebar);
+    }
+    world.setDynamicProperty(SIDEBAR_KEY, on);
+    return true;
+  } catch (e) {
+    logError("setSidebar", e);
+    return false;
+  }
+}
 function showAbout(player) {
-  const form = new ActionFormData()
-    .title("ABOUT - NATURAL MARKET")
-    .body(
-      "§l§aOneBlock Natural Market§r\n" +
-      "by ALNStudios\n\n" +
-      "Start in the void on a single regenerating block.\n" +
-      "Break the core to earn §eCoins§r and grow your block pool.\n" +
-      "Use the §bNatural Market Ledger§r to buy supplies.\n\n" +
-      "The Ledger cannot be dropped. It always returns to you.\n\n" +
-      "Version: v16 | ALNStudios | CurseForge / MCPEDL"
-    )
-    .button("Close");
-  showForm(form, player).catch(e => { logError("showAbout", e); });
+  let form = new ModalFormData().title("ABOUT - NATURAL MARKET");
+  form = addOptional(form, "header", "OneBlock Natural Market");
+  form = addOptional(form, "label",
+    "by ALNStudios\n\n" +
+    "Start in the void on a single regenerating block.\n" +
+    "Break the core to earn Coins and grow your block pool.\n" +
+    "Use the Natural Market Ledger to buy supplies.\n\n" +
+    "The Ledger cannot be dropped. It always returns to you.\n\n" +
+    "Version: v16 | ALNStudios | CurseForge / MCPEDL");
+  form = addOptional(form, "divider");
+  form = form.toggle("Show Coins scoreboard on the sidebar (all players see it)", { defaultValue: sidebarOn() });
+  form = form.submitButton("Save");
+  showForm(form, player).then(r => {
+    if (r.canceled) return;
+    const values = (r.formValues ?? []).filter(v => typeof v === "boolean");
+    if (values.length !== 1) return tell(player, "The setting could not be read.");
+    if (values[0] === sidebarOn()) return;
+    if (setSidebar(values[0])) tell(player, "Coins scoreboard " + (values[0] ? "shown." : "hidden."));
+    else tell(player, "The scoreboard setting could not be saved.");
+  }).catch(e => { logError("showAbout", e); });
 }
 function marketMain(player) {
   const form = new ActionFormData()
@@ -2151,12 +2174,17 @@ system.runInterval(() => {
 }, 20);
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (204 lines, 12089 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (209 lines, 12347 bytes)
 
 ```
 # Changelog — OneBlock Natural Market
 
 ---
+
+## [16.0.8] - 2026-11-24 - Coins Scoreboard Switch
+
+### Added
+- **Coins scoreboard switch**: the About screen is now a form with a switch that shows or hides a Coins scoreboard on the sidebar. It is off by default, and the sidebar is shared by all players.
 
 ## [16.0.7] - 2026-11-24 - Remove ALN Coins
 
@@ -2359,7 +2387,7 @@ system.runInterval(() => {
 - No experimental gameplay toggle was added. Source structure is updated; Minecraft in-game rendering has not been verified.
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/DESCRIPTION.md (82 lines, 5003 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/DESCRIPTION.md (83 lines, 5106 bytes)
 
 ```
 # OneBlock Natural Market — A OneBlock economy and supply shop
@@ -2393,6 +2421,7 @@ Start in the void on the central block at (0, 0, 0), with no bedrock beneath it.
 
 ### Coins and Selling
 - Successful central-block breaks award Coins.
+- The About screen has a switch that shows or hides a Coins scoreboard on the sidebar for all players.
 - Eligible catalogue items can be sold through the Ledger. Each item type can be locked so it is never sold; tools and weapons start locked.
 - The balance appears in menu text and action-bar messages, not a sidebar scoreboard.
 
@@ -2482,13 +2511,13 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v16.0.7)",
+    "name": "OneBlock Natural Market (v16.0.8)",
     "description": "Trader Ledger icon for OneBlock Natural Market. by ALNStudios",
     "uuid": "187333a6-4353-4003-b379-471f85ce9021",
     "version": [
       16,
       0,
-      7
+      8
     ],
     "min_engine_version": [
       1,
@@ -2503,7 +2532,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "version": [
         16,
         0,
-        7
+        8
       ]
     }
   ],
@@ -2512,7 +2541,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "16.0.7"
+    "version": "16.0.8"
   }
 }
 ```

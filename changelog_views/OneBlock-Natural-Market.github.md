@@ -1,12 +1,17 @@
 # Changelog — OneBlock Natural Market
 
-## [16.0.7] - 2026-11-24 - Remove ALN Coins
+## [16.0.8] - 2026-11-24 - Coins Scoreboard Switch
 
-### Improved & Balanced
-- **ALN Coins removed**: breaking the central block no longer gives ALN Coins, and they no longer show in the market menu or the action bar. Coins, rewards and prices are unchanged.
+### Added
+- **Coins scoreboard switch**: the About screen is now a form with a switch that shows or hides a Coins scoreboard on the sidebar. It is off by default, and the sidebar is shared by all players.
 
 <details>
-<summary><b>16.0.x</b> (7 releases)</summary>
+<summary><b>16.0.x</b> (8 releases)</summary>
+
+### [16.0.7] - 2026-11-24 - Remove ALN Coins
+
+#### Improved & Balanced
+- **ALN Coins removed**: breaking the central block no longer gives ALN Coins, and they no longer show in the market menu or the action bar. Coins, rewards and prices are unchanged.
 
 ### [16.0.6] - 2026-11-23 - ALN Coins
 
