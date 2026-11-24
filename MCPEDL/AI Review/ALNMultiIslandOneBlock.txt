@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Maps/ALNMultiIslandOneBlock`
 - **Destination:** `MCPEDL/Maps/ALNMultiIslandOneBlock`
-- **CURRENT VERSION: v6 / NEXT UPDATE: v7**  (`MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md`)
+- **CURRENT VERSION: v7 / NEXT UPDATE: v8**  (`MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 34
 - **Skipped binary:** 12
@@ -71,7 +71,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v6 / NEXT UPDATE: v7).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v7 / NEXT UPDATE: v8).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE `spec_v<N>.txt` (INSTRUCTIONS.md Reply Format); the user builds the `.sh` with `scripts/make_update_script.py`.
@@ -292,11 +292,11 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:MultiIslandOneBlock (v6)",
+    "name": "ALN:MultiIslandOneBlock (v7)",
     "description": "Multi-island OneBlock grid with a central lobby and a global trade ledger. by ALNStudios",
     "uuid": "0886e248-abae-466f-85fe-a01de46396cf",
     "version": [
-      6,
+      7,
       0,
       0
     ],
@@ -311,7 +311,7 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
       "type": "data",
       "uuid": "76888f9d-5edf-4308-b1ab-1c176dbe38e9",
       "version": [
-        6,
+        7,
         0,
         0
       ]
@@ -322,7 +322,7 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
       "uuid": "fd4c32c2-7e0a-4bfe-8633-e30171567364",
       "entry": "scripts/main.js",
       "version": [
-        6,
+        7,
         0,
         0
       ]
@@ -332,7 +332,7 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
     {
       "uuid": "2cf90b7d-4b0f-44d5-b726-41f3e756f95f",
       "version": [
-        6,
+        7,
         0,
         0
       ]
@@ -351,7 +351,7 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "6.0.0"
+    "version": "7.0.0"
   }
 }
 ```
@@ -1091,7 +1091,7 @@ export function teleportToLobby(player) {
 }
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/market.js (212 lines, 7576 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/market.js (218 lines, 7823 bytes)
 
 ```
 import { world } from "@minecraft/server";
@@ -1105,6 +1105,7 @@ import {
   PRICE_MAX_RATIO,
   STARTER_COINS,
   COIN_NAME,
+  LEDGER_ID,
 } from "./config.js";
 import {
   readJson,
@@ -1161,7 +1162,7 @@ function addPayout(playerId, itemId, amount) {
 
 export function getListing(id) {
   const listing = readJson(world, listingKey(id), undefined);
-  return listing && typeof listing.price === "number" ? listing : undefined;
+  return listing && typeof listing.price === "number" && listing.give?.id !== LEDGER_ID ? listing : undefined;
 }
 
 export function allListings() {
@@ -1171,6 +1172,10 @@ export function allListings() {
   for (const id of ids) {
     const listing = readJson(world, listingKey(id), undefined);
     if (!listing) continue;
+    if (listing.give?.id === LEDGER_ID) {
+      world.setDynamicProperty(listingKey(id), undefined);
+      continue;
+    }
     if (typeof listing.price !== "number") {
       addPayout(listing.seller, listing.give.id, listing.give.amount);
       world.setDynamicProperty(listingKey(id), undefined);
@@ -1210,6 +1215,7 @@ export function createListing(player, itemId, amount, price) {
     return fail(`The price must be a whole number of ${COIN_NAME} from 1 to ${MAX_PRICE}.`);
   }
   if (!isValidItem(itemId)) return fail("The item you want to sell is not valid.");
+  if (itemId === LEDGER_ID) return fail("The TRADERS Item cannot be sold.");
   if (priceInfo(itemId).listed) {
     const rec = recommendedTotal(itemId, amount);
     const low = Math.max(1, Math.ceil(rec * PRICE_MIN_RATIO));
@@ -2906,10 +2912,11 @@ export function pickTrait() {
 }
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/util.js (201 lines, 5182 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/util.js (203 lines, 5290 bytes)
 
 ```
 import { world, system, ItemStack, EntityComponentTypes } from "@minecraft/server";
+import { LEDGER_ID } from "./config.js";
 
 export function overworld() {
   return world.getDimension("overworld");
@@ -3014,7 +3021,7 @@ export function plainInventory(player) {
   if (!inv) return [];
   for (let i = 0; i < inv.size; i++) {
     const item = inv.getItem(i);
-    if (!item || !isPlain(item)) continue;
+    if (!item || item.typeId === LEDGER_ID || !isPlain(item)) continue;
     totals.set(item.typeId, (totals.get(item.typeId) ?? 0) + item.amount);
   }
   return [...totals.entries()]
@@ -3023,6 +3030,7 @@ export function plainInventory(player) {
 }
 
 export function countPlain(player, typeId) {
+  if (typeId === LEDGER_ID) return 0;
   const inv = containerOf(player);
   if (!inv) return 0;
   let total = 0;
@@ -3250,12 +3258,17 @@ world.afterEvents.worldLoad.subscribe(() => {
 });
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md (59 lines, 4336 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md (64 lines, 4549 bytes)
 
 ```
 # Changelog — ALN:MultiIslandOneBlock
 
 ---
+
+## [v7] - 2026-11-24 - TRADERS Item Sale Fix
+
+### Fixed
+- **TRADERS Item Sale Bug**: The TRADERS Item can no longer be listed or sold. It is hidden from the sell lists, and any old offer that held it is removed.
 
 ## [v6] - 2026-11-24 - Market Income and Coin Scoreboard
 
@@ -3457,11 +3470,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:MultiIslandOneBlock Resources (v6)",
+    "name": "ALN:MultiIslandOneBlock Resources (v7)",
     "description": "Textures and names for the TRADERS Item. by ALNStudios",
     "uuid": "2cf90b7d-4b0f-44d5-b726-41f3e756f95f",
     "version": [
-      6,
+      7,
       0,
       0
     ],
@@ -3476,7 +3489,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "02c6ed61-2e06-499b-b6d3-1c6afa51beb6",
       "version": [
-        6,
+        7,
         0,
         0
       ]
@@ -3487,7 +3500,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "6.0.0"
+    "version": "7.0.0"
   }
 }
 ```

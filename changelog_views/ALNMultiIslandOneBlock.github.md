@@ -1,14 +1,24 @@
 # Changelog — ALN:MultiIslandOneBlock
 
-## [v6] - 2026-11-24 - Market Income and Coin Scoreboard
+## [v7] - 2026-11-24 - TRADERS Item Sale Fix
 
-### Added
+### Fixed
+- **TRADERS Item Sale Bug**: The TRADERS Item can no longer be listed or sold. It is hidden from the sell lists, and any old offer that held it is removed.
+
+<details>
+<summary><b>6.0.x</b> (1 release)</summary>
+
+### [v6] - 2026-11-24 - Market Income and Coin Scoreboard
+
+#### Added
 - **Sell to Market**: A new hub button sells items that have a recommended price straight to the market for half of the recommended price.
 - **OneBlock Coin Reward**: Players earn 1 ALN Coin for every 10 OneBlock breaks.
 - **@ALNStudios Scoreboard**: A sidebar scoreboard titled @ALNStudios ranks island owners by their ALN Coins and refreshes every two seconds.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **Price Guard**: The lowest allowed offer price is now half of the recommended price, so nobody can buy cheaply from a player and resell to the market for a profit.
+
+</details>
 
 <details>
 <summary><b>5.0.x</b> (1 release)</summary>
