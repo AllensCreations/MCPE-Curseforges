@@ -17,11 +17,11 @@ Single source for every doc rule and template (2.1 to 2.5), the `/checkrm` audit
 - NEVER write `Script API` or `@minecraft/server`. Use "modern Minecraft Bedrock mechanics".
 - NEVER BP/RP. Write "Behavior Pack", "Resource Pack", "Complete Pack (.mcaddon)".
 - NEVER code blocks or edit-JSON/JS instructions. Config = in-game options, commands, tags.
-- Tone: factual. NEVER hype, clickbait, rhetorical questions, filler, emojis.
+- Tone: factual, commercial, and minimal. NEVER hype, clickbait, rhetorical questions, filler, emojis, or walls of text. Keep every section short, scannable, and focused on what matters to the player.
 - ALWAYS verify exact values, recipes, requirements from source or tests.
 - NEVER claim "zero lag", universal multiplayer/Realms, achievement preservation, "no experimental features" without evidence for that exact claim. Exception: the Achievements line of EVERY project = `Yes, achievement-friendly.` (keep cheats/world caveats as a following sentence).
 - ALWAYS say cheats are needed when documenting a cheat-only function, and that cheats disable achievements in that world.
-- Page quality: tagline = one concrete sentence (<=25 words, one verified number or item name) that doubles as CurseForge Summary. NEVER "adds items to the game". Explain a mechanic with one short example. One idea per feature card. Steps = numbered. Style check: `python3 scripts/doc_template.py --style <folder>`; rewrite every STYLE hint with a fact (advisory).
+- Page quality: tagline = one concrete sentence (<=25 words, one verified number or item name) that doubles as CurseForge Summary. NEVER "adds items to the game". Minimize text everywhere: explain a mechanic with one short example, one idea per feature card, and keep `How to Use` crystal-clear so any player immediately understands how to play. Steps = numbered. Style check: `python3 scripts/doc_template.py --style <folder>`; rewrite every STYLE hint with a fact (advisory).
 
 ### 2.3 Layout
 - Must render on GitHub, CurseForge, MCPEDL, Planet Minecraft.
