@@ -1,0 +1,44 @@
+{
+  "format_version": "1.26.60",
+  "minecraft:geometry": [
+    {
+      "description": {
+        "identifier": "geometry.allenscreations_op_sponge",
+        "texture_width": 16,
+        "texture_height": 16
+      },
+      "bones": [
+        {
+          "name": "sponge",
+          "pivot": [0, 0, 0],
+          "cubes": [
+            {
+              "origin": [-8, 0, -8],
+              "size": [16, 16, 16],
+              "uv": {
+                "north": { "uv": [0, 0], "uv_size": [16, 16] },
+                "east": { "uv": [0, 0], "uv_size": [16, 16] },
+                "south": { "uv": [0, 0], "uv_size": [16, 16] },
+                "west": { "uv": [0, 0], "uv_size": [16, 16] },
+                "up": { "uv": [0, 0], "uv_size": [16, 16] },
+                "down": { "uv": [16, 16], "uv_size": [-16, -16] }
+              }
+            },
+            {
+              "origin": [-8.02, -0.02, -8.02],
+              "size": [16.04, 16.04, 16.04],
+              "uv": {
+                "north": { "uv": [0, 0], "uv_size": [16, 16], "material_instance": "letter" },
+                "east": { "uv": [0, 0], "uv_size": [16, 16], "material_instance": "letter" },
+                "south": { "uv": [0, 0], "uv_size": [16, 16], "material_instance": "letter" },
+                "west": { "uv": [0, 0], "uv_size": [16, 16], "material_instance": "letter" },
+                "up": { "uv": [0, 0], "uv_size": [16, 16], "material_instance": "letter" },
+                "down": { "uv": [16, 16], "uv_size": [-16, -16], "material_instance": "letter" }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

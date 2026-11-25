@@ -6,9 +6,10 @@
       "menu_category": { "category": "construction" }
     },
     "components": {
-      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:geometry": "geometry.allenscreations_op_sponge",
       "minecraft:material_instances": {
-        "*": { "texture": "allenscreations_op_sponge", "render_method": "opaque" }
+        "*": { "texture": "allenscreations_op_sponge", "render_method": "alpha_test" },
+        "letter": { "texture": "allenscreations_sponge_letter", "render_method": "alpha_test" }
       },
       "minecraft:destructible_by_mining": { "seconds_to_destroy": 0.6 },
       "minecraft:destructible_by_explosion": { "explosion_resistance": 0.6 },

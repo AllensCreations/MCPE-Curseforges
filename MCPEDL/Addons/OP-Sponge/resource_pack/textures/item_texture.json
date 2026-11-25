@@ -3,10 +3,10 @@
   "texture_name": "atlas.items",
   "texture_data": {
     "allenscreations_sponge_icon": {
-      "textures": "textures/blocks/op_sponge"
+      "textures": "textures/blocks/sponge"
     },
     "allenscreations_sponge_wet_icon": {
-      "textures": "textures/blocks/op_sponge_wet"
+      "textures": "textures/blocks/sponge_wet"
     },
     "allenscreations_sponge_book": {
       "textures": "textures/items/book_enchanted"

@@ -68,6 +68,22 @@ function sparkle(dimension, origin) {
   }
 }
 
+function drain(block) {
+  try {
+    if (WATER.has(block.typeId)) {
+      block.setType("minecraft:air");
+      return true;
+    }
+    if (block.isWaterlogged) {
+      block.setWaterlogged(false);
+      return true;
+    }
+  } catch (error) {
+    return false;
+  }
+  return false;
+}
+
 function* absorb(dimension, origin, spongeId, sponge) {
   const seen = new Set([keyOf(origin, origin)]);
   let frontier = [origin];
@@ -91,8 +107,7 @@ function* absorb(dimension, origin, spongeId, sponge) {
           yield;
         }
         const block = readBlock(dimension, location);
-        if (block && WATER.has(block.typeId)) {
-          block.setType("minecraft:air");
+        if (block && drain(block)) {
           removed++;
           next.push(location);
         }

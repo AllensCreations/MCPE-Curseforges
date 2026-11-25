@@ -5,10 +5,13 @@
   "num_mip_levels": 4,
   "texture_data": {
     "allenscreations_op_sponge": {
-      "textures": "textures/blocks/op_sponge"
+      "textures": "textures/blocks/sponge"
     },
     "allenscreations_op_sponge_wet": {
-      "textures": "textures/blocks/op_sponge_wet"
+      "textures": "textures/blocks/sponge_wet"
+    },
+    "allenscreations_sponge_letter": {
+      "textures": "textures/blocks/sponge_letter"
     }
   }
 }

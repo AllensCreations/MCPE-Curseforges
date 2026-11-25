@@ -2,6 +2,17 @@
 
 ---
 
+## [v6] - 2026-11-25 - Letter S And Waterlogged Blocks
+
+### Changed
+
+- **Textures**: Back to the vanilla sponge textures. The OP Sponge and the Water-Filled OP Sponge now show a letter S on every side.
+- **Sponges**: Every sponge now also drains water inside waterlogged blocks, such as stairs and slabs.
+
+### Removed
+
+- The v5 gold and blue sponge textures.
+
 ## [v5] - 2026-11-25 - Sponge Fix And New Textures
 
 ### Fixed
