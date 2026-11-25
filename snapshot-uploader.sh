@@ -7,7 +7,7 @@
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 MCPEDL="$REPO_ROOT/MCPEDL"
-SOURCE_DIR="$HOME/storage/downloads/Snapshots"
+SOURCE_DIR="/sdcard/Download/Snapshots"
 
 # ── colours ──────────────────────────────────────────────────
 C_RESET='\033[0m'

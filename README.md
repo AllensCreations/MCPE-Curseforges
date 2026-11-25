@@ -32,7 +32,7 @@ Quickly upload in-game screenshots to any pack's `assets/snapshots/` folder usin
 
 **Setup** — place your screenshots here:
 ```
-~/storage/downloads/Snapshots/
+/sdcard/Download/Snapshots/
 ```
 
 **Run:**
