@@ -63,6 +63,12 @@ class McIcons(unittest.TestCase):
         finally:
             del os.environ["MCICONS_TGZ"]
 
+    def test_bedrock_aliases_resolve_to_mcicons_names(self):
+        self.assertEqual(mcicons._file_name("minecraft:noteblock"), "minecraft_note_block.png")
+        self.assertEqual(mcicons._file_name("minecraft:brick_block"), "minecraft_bricks.png")
+        self.assertEqual(mcicons._file_name("minecraft:web"), "minecraft_cobweb.png")
+        self.assertEqual(mcicons._file_name("minecraft:magma"), "minecraft_magma_block.png")
+
     def test_pinned_release_constants(self):
         self.assertIn("/v" + sm.MCICONS_VERSION + "/mcicons-" + sm.MCICONS_VERSION + ".tgz", sm.MCICONS_URL)
         self.assertEqual(len(sm.MCICONS_SHA256), 64)

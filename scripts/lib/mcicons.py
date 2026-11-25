@@ -42,9 +42,26 @@ def _icons():
     return _load(p) if p and p.is_file() else {}
 
 
+BEDROCK_TO_MCICONS = {
+    "noteblock": "note_block",
+    "brick_block": "bricks",
+    "web": "cobweb",
+    "end_bricks": "end_stone_bricks",
+    "end_brick_stairs": "end_stone_brick_stairs",
+    "netherbrick": "nether_brick",
+    "red_nether_brick": "red_nether_bricks",
+    "normal_stone_stairs": "stone_stairs",
+    "magma": "magma_block",
+    "melon_block": "melon",
+}
+
+
 def _file_name(item_id):
     ns, _, name = item_id.rpartition(":")
-    return f"minecraft_{name}.png" if ns in ("", "minecraft") and name else None
+    if ns not in ("", "minecraft") or not name:
+        return None
+    mapped = BEDROCK_TO_MCICONS.get(name, name)
+    return f"minecraft_{mapped}.png"
 
 
 def has_icon(item_id: str) -> bool:
