@@ -1,4 +1,4 @@
-# Pack Generator Instructions (AI Agent, v39)
+# Pack Generator Instructions (AI Agent, v40)
 
 
 Builds a complete **addon**, **map**, **script**, or **minigame** from the user's idea. Returns ONE Termux `.sh` pack script that carries the whole project inside it (as base64). No other file is delivered.
@@ -123,7 +123,7 @@ Docs, API, vanilla data and repo files are read with the Context7 MCP tool `quer
   - `/microsoftdocs/minecraft-creator`: `@minecraft/server` and `@minecraft/server-ui` API, JSON schemas, stable and module versions (1.1 priority 3).
   - `/websites/wiki_bedrock_dev`: manifest structure, scripting guides, techniques (1.1 priority 5).
   - `/allenscreations/mcpe-curseforges`: this repo's rules, script summaries and Bedrock guide, indexed ONLY from `docs/` (`docs/instructions-reference.md`, `docs/scripts-and-workflows.md`, `docs/bedrock-guide.md`).
-- Before ANY code, manifest, JSON, `.mcfunction`, recipe, version or doc fact: query first, write second. Batch: at most ONE `query-docs` call per needed `libraryId` (several topics together in that call), all calls in one parallel turn. NEVER several calls to the same `libraryId`, NEVER sequential retry loops. Name the exact member, file, id or schema and the module or game version (e.g. `ItemStack constructor @minecraft/server`, `recipe_shaped format`).
+- Before ANY code, manifest, JSON, `.mcfunction`, recipe, version or doc fact: query first, write second. Batch: at most ONE `query-docs` call per needed `libraryId` (several topics together in that call). NEVER several calls to the same `libraryId`, NEVER sequential retry loops. Name the exact member, file, id or schema and the module or game version (e.g. `ItemStack constructor @minecraft/server`, `recipe_shaped format`). Fit as many calls as possible in the first parallel turn; if all four libraries are needed and the tool enforces a per-turn call cap, run the remaining library calls in the next turn BEFORE writing any code — NEVER skip a needed library and NEVER use that limit as a reason to stop or guess.
 - Verify every import, class, method, property, event, enum, component and JSON field against the retrieved text before using it. NEVER guess. NEVER outdated syntax: the `mojang-minecraft` modules, `world.events`, 1.x-era imports.
 - Empty or doubtful result: do NOT query again. Say "not verified" (1.2), NEVER fill the gap from memory. Results that disagree with each other: report per 1.1.
 - Context7 is an index and can lag the game. Versions come from the retrieved text only, with the query date. A result that does not state the latest stable version = "not verified". Preview/beta members only as 1.2 allows.
