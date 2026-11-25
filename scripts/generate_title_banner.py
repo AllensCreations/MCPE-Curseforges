@@ -258,19 +258,40 @@ def render_labels_for_project(project_path: Path) -> int:
     return count
 
 
+def detect_category_subtitle(project_path: Path) -> str:
+    """Detect banner ribbon subtitle from project path."""
+    posix = project_path.resolve().as_posix().lower()
+    if "/maps/" in posix or "/map/" in posix:
+        return "BEDROCK MAP"
+    if "/script/" in posix or "/scripts/" in posix:
+        return "BEDROCK SCRIPT"
+    if "/minigame/" in posix or "/minigames/" in posix:
+        return "BEDROCK MINIGAME"
+    return "BEDROCK ADDON"
+
+
 def render_common_ui_labels(out_dir: Path) -> int:
     """Generate common listing heading word badges (About, Features, Recipes, etc.)."""
     common_words = [
         ("ABOUT", "badge"),
+        ("OVERVIEW", "badge"),
         ("WHAT YOU GET", "badge"),
         ("FEATURES", "badge"),
+        ("KEY FEATURES", "badge"),
+        ("SHOWCASE", "badge"),
+        ("SCREENSHOTS", "badge"),
         ("CRAFTING RECIPES", "badge"),
         ("CUSTOM ITEMS", "badge"),
         ("INSTALL", "badge"),
         ("HOW TO PLAY", "badge"),
         ("COMMANDS", "badge"),
+        ("COMMON QUESTIONS", "badge"),
+        ("COMPATIBILITY", "badge"),
         ("SUPPORT", "badge"),
         ("BEDROCK ADDON", "tooltip"),
+        ("BEDROCK MAP", "tooltip"),
+        ("BEDROCK SCRIPT", "tooltip"),
+        ("BEDROCK MINIGAME", "tooltip"),
         ("SURVIVAL READY", "tooltip"),
         ("NO EXPERIMENTS", "tooltip"),
         ("ACHIEVEMENT FRIENDLY", "tooltip"),
@@ -331,24 +352,29 @@ def main():
         return
 
     if args.all:
-        addons_dir = ROOT / "MCPEDL" / "Addons"
         count = 0
-        for p in sorted(addons_dir.iterdir()):
-            if p.is_dir() and (p / "DESCRIPTION.md").is_file():
-                title = extract_pack_name(p)
-                out_path = p / "assets" / "banner.png"
-                render_banner(title, args.subtitle, font_path=args.font, out_path=out_path)
-                print(f"Generated: {out_path.relative_to(ROOT)} ({title})")
-                count += 1
+        for category in ("Addons", "Maps", "Script", "Minigame"):
+            cat_dir = ROOT / "MCPEDL" / category
+            if not cat_dir.is_dir():
+                continue
+            for p in sorted(cat_dir.iterdir()):
+                if p.is_dir() and (p / "DESCRIPTION.md").is_file():
+                    title = extract_pack_name(p)
+                    subtitle = args.subtitle if args.subtitle != "BEDROCK ADDON" else detect_category_subtitle(p)
+                    out_path = p / "assets" / "banner.png"
+                    render_banner(title, subtitle, font_path=args.font, out_path=out_path)
+                    print(f"Generated: {out_path.relative_to(ROOT)} ({title} | {subtitle})")
+                    count += 1
         print(f"Finished generating {count} banner(s).")
         return
 
     if args.project:
         p = Path(args.project).resolve()
         title = args.title or extract_pack_name(p)
+        subtitle = args.subtitle if args.subtitle != "BEDROCK ADDON" else detect_category_subtitle(p)
         out_path = args.out or (p / "assets" / "banner.png")
-        render_banner(title, args.subtitle, font_path=args.font, out_path=out_path)
-        print(f"Generated banner: {out_path} for '{title}'")
+        render_banner(title, subtitle, font_path=args.font, out_path=out_path)
+        print(f"Generated banner: {out_path} for '{title}' ({subtitle})")
         return
 
     if not args.title:

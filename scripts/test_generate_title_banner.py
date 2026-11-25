@@ -44,6 +44,24 @@ class TitleBannerTests(unittest.TestCase):
             single = gtb.render_banner("Short Title", "ADDON")
             self.assertGreater(img.height, single.height)
 
+    def test_detect_category_subtitle(self):
+        self.assertEqual(gtb.detect_category_subtitle(Path("MCPEDL/Addons/Mining-Helmet")), "BEDROCK ADDON")
+        self.assertEqual(gtb.detect_category_subtitle(Path("MCPEDL/Maps/OneBlock-Void-Survival")), "BEDROCK MAP")
+        self.assertEqual(gtb.detect_category_subtitle(Path("MCPEDL/Script/Smart-Filter")), "BEDROCK SCRIPT")
+        self.assertEqual(gtb.detect_category_subtitle(Path("MCPEDL/Minigame/Trivia-Vault")), "BEDROCK MINIGAME")
+
+    def test_render_common_ui_labels(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            out_dir = Path(tmpdir)
+            count = gtb.render_common_ui_labels(out_dir)
+            self.assertGreaterEqual(count, 20)
+            self.assertTrue((out_dir / "screenshots.png").is_file())
+            self.assertTrue((out_dir / "showcase.png").is_file())
+            self.assertTrue((out_dir / "common_questions.png").is_file())
+            self.assertTrue((out_dir / "bedrock_map.png").is_file())
+            self.assertTrue((out_dir / "bedrock_script.png").is_file())
+            self.assertTrue((out_dir / "bedrock_minigame.png").is_file())
+
 
 if __name__ == "__main__":
     unittest.main()

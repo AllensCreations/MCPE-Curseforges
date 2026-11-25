@@ -29,20 +29,6 @@ MP_URL = "https://mcpedl.com/user/alnstudios/"
 KOFI_URL = "https://ko-fi.com/alnstudios"
 RAW = "https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/"
 LABELS_DIR = Path(__file__).resolve().parent.parent.parent / "assets" / "labels"
-LABEL_SLUG = {
-    "About": "about",
-    "Screenshots": "about",
-    "What You Get": "what_you_get",
-    "Showcase": "about",
-    "Custom Items": "custom_items",
-    "Crafting Recipes": "crafting_recipes",
-    "Get Started": "how_to_play",
-    "Commands": "commands",
-    "Common Questions": "about",
-    "Install": "install",
-    "Support": "support",
-    "Features": "features",
-}
 KOFI_IMG = RAW + "assets/Images/ko-fi.png"
 
 ALLOWED_TAGS = set("p br strong b em i u strike ul li ol cite abbr acronym del ins blockquote span code pre sup dl dd dt "
@@ -157,9 +143,22 @@ def sections(text):
 
 def _label_img_url(title: str) -> str | None:
     """Return a raw GitHub URL for the section label image if it exists, else None."""
-    slug = LABEL_SLUG.get(title)
-    if slug:
-        f = LABELS_DIR / f"{slug}.png"
+    slug = re.sub(r"[^a-z0-9]+", "_", title.lower()).strip("_")
+    f = LABELS_DIR / f"{slug}.png"
+    if f.is_file():
+        from urllib.parse import quote as _quote
+        rel = f.relative_to(LABELS_DIR.parent.parent)
+        return RAW + _quote(rel.as_posix())
+    aliases = {
+        "overview": "about",
+        "get_started": "how_to_play",
+        "how_to_use": "how_to_play",
+        "installation": "install",
+        "key_features": "features",
+    }
+    alias_slug = aliases.get(slug)
+    if alias_slug:
+        f = LABELS_DIR / f"{alias_slug}.png"
         if f.is_file():
             from urllib.parse import quote as _quote
             rel = f.relative_to(LABELS_DIR.parent.parent)

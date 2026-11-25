@@ -73,7 +73,8 @@ def render_kit(root, project, style="all"):
     if not banner_file.is_file() and not (project / "assets" / "Banner.png").is_file():
         try:
             import generate_title_banner as gtb
-            gtb.render_banner(name, "BEDROCK ADDON", out_path=banner_file)
+            subtitle = gtb.detect_category_subtitle(project)
+            gtb.render_banner(name, subtitle, out_path=banner_file)
         except Exception:
             pass
 
