@@ -1,12 +1,24 @@
 # Changelog — ALN SoulLantern
 
-## [2.0.2] - 2026-11-24 - Ally Speed
+## [3.0.0] - 2026-11-25 - Soul Lantern Expansion
+
+### Added
+- **More mobs**: Ten more mobs get their own lantern icon and spirit figure: Cat, Horse, Bee, Axolotl, Fox, Witch, Slime, Ghast, Rabbit, and Polar Bear.
+
+### Improved & Balanced
+- **Lantern icons**: Every lantern icon is now 32x32.
 
 ### Fixed
-- **Spectral Ally**: The floating spirit now moves at Allay-like speed instead of flying too fast.
+- **Spectral Ally**: The spirit no longer turns on you if you hit it.
+- **Release**: The lantern now checks that the mob appeared before it empties, and a lantern whose soul is gone is emptied instead of staying stuck.
 
 <details>
-<summary><b>2.0.x</b> (2 releases)</summary>
+<summary><b>2.0.x</b> (3 releases)</summary>
+
+### [2.0.2] - 2026-11-24 - Ally Speed
+
+#### Fixed
+- **Spectral Ally**: The floating spirit now moves at Allay-like speed instead of flying too fast.
 
 ### [2.0.1] - 2026-11-24 - Sneak Controls
 
