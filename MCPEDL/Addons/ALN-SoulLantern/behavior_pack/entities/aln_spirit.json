@@ -171,6 +171,56 @@
         "minecraft:variant": {
           "value": 14
         }
+      },
+      "aln:fig_15": {
+        "minecraft:variant": {
+          "value": 15
+        }
+      },
+      "aln:fig_16": {
+        "minecraft:variant": {
+          "value": 16
+        }
+      },
+      "aln:fig_17": {
+        "minecraft:variant": {
+          "value": 17
+        }
+      },
+      "aln:fig_18": {
+        "minecraft:variant": {
+          "value": 18
+        }
+      },
+      "aln:fig_19": {
+        "minecraft:variant": {
+          "value": 19
+        }
+      },
+      "aln:fig_20": {
+        "minecraft:variant": {
+          "value": 20
+        }
+      },
+      "aln:fig_21": {
+        "minecraft:variant": {
+          "value": 21
+        }
+      },
+      "aln:fig_22": {
+        "minecraft:variant": {
+          "value": 22
+        }
+      },
+      "aln:fig_23": {
+        "minecraft:variant": {
+          "value": 23
+        }
+      },
+      "aln:fig_24": {
+        "minecraft:variant": {
+          "value": 24
+        }
       }
     },
     "components": {
@@ -212,9 +262,6 @@
       },
       "minecraft:behavior.float": {
         "priority": 0
-      },
-      "minecraft:behavior.hurt_by_target": {
-        "priority": 1
       },
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 3,
@@ -400,6 +447,76 @@
         "add": {
           "component_groups": [
             "aln:fig_14"
+          ]
+        }
+      },
+      "aln:fig_15": {
+        "add": {
+          "component_groups": [
+            "aln:fig_15"
+          ]
+        }
+      },
+      "aln:fig_16": {
+        "add": {
+          "component_groups": [
+            "aln:fig_16"
+          ]
+        }
+      },
+      "aln:fig_17": {
+        "add": {
+          "component_groups": [
+            "aln:fig_17"
+          ]
+        }
+      },
+      "aln:fig_18": {
+        "add": {
+          "component_groups": [
+            "aln:fig_18"
+          ]
+        }
+      },
+      "aln:fig_19": {
+        "add": {
+          "component_groups": [
+            "aln:fig_19"
+          ]
+        }
+      },
+      "aln:fig_20": {
+        "add": {
+          "component_groups": [
+            "aln:fig_20"
+          ]
+        }
+      },
+      "aln:fig_21": {
+        "add": {
+          "component_groups": [
+            "aln:fig_21"
+          ]
+        }
+      },
+      "aln:fig_22": {
+        "add": {
+          "component_groups": [
+            "aln:fig_22"
+          ]
+        }
+      },
+      "aln:fig_23": {
+        "add": {
+          "component_groups": [
+            "aln:fig_23"
+          ]
+        }
+      },
+      "aln:fig_24": {
+        "add": {
+          "component_groups": [
+            "aln:fig_24"
           ]
         }
       }

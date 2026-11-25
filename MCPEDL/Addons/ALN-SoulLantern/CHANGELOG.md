@@ -2,6 +2,18 @@
 
 ---
 
+## [3.0.0] - 2026-11-25 - Soul Lantern Expansion
+
+### Added
+- **More mobs**: Ten more mobs get their own lantern icon and spirit figure: Cat, Horse, Bee, Axolotl, Fox, Witch, Slime, Ghast, Rabbit, and Polar Bear.
+
+### Improved & Balanced
+- **Lantern icons**: Every lantern icon is now 32x32.
+
+### Fixed
+- **Spectral Ally**: The spirit no longer turns on you if you hit it.
+- **Release**: The lantern now checks that the mob appeared before it empties, and a lantern whose soul is gone is emptied instead of staying stuck.
+
 ## [2.0.2] - 2026-11-24 - Ally Speed
 
 ### Fixed

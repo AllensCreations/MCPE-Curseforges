@@ -49,6 +49,36 @@
     },
     "aln_soul_lantern_snow_golem": {
       "textures": "textures/items/aln_soul_lantern/snow_golem"
+    },
+    "aln_soul_lantern_cat": {
+      "textures": "textures/items/aln_soul_lantern/cat"
+    },
+    "aln_soul_lantern_horse": {
+      "textures": "textures/items/aln_soul_lantern/horse"
+    },
+    "aln_soul_lantern_bee": {
+      "textures": "textures/items/aln_soul_lantern/bee"
+    },
+    "aln_soul_lantern_axolotl": {
+      "textures": "textures/items/aln_soul_lantern/axolotl"
+    },
+    "aln_soul_lantern_fox": {
+      "textures": "textures/items/aln_soul_lantern/fox"
+    },
+    "aln_soul_lantern_witch": {
+      "textures": "textures/items/aln_soul_lantern/witch"
+    },
+    "aln_soul_lantern_slime": {
+      "textures": "textures/items/aln_soul_lantern/slime"
+    },
+    "aln_soul_lantern_ghast": {
+      "textures": "textures/items/aln_soul_lantern/ghast"
+    },
+    "aln_soul_lantern_rabbit": {
+      "textures": "textures/items/aln_soul_lantern/rabbit"
+    },
+    "aln_soul_lantern_polar_bear": {
+      "textures": "textures/items/aln_soul_lantern/polar_bear"
     }
   }
 }

@@ -30,7 +30,46 @@
             "Geometry.fig11",
             "Geometry.fig12",
             "Geometry.fig13",
-            "Geometry.fig14"
+            "Geometry.fig14",
+            "Geometry.fig15",
+            "Geometry.fig16",
+            "Geometry.fig17",
+            "Geometry.fig18",
+            "Geometry.fig19",
+            "Geometry.fig20",
+            "Geometry.fig21",
+            "Geometry.fig22",
+            "Geometry.fig23",
+            "Geometry.fig24"
+          ]
+        },
+        "textures": {
+          "Array.figtex": [
+            "Texture.figs",
+            "Texture.figs",
+            "Texture.figs",
+            "Texture.figs",
+            "Texture.figs",
+            "Texture.figs",
+            "Texture.figs",
+            "Texture.figs",
+            "Texture.figs",
+            "Texture.figs",
+            "Texture.figs",
+            "Texture.figs",
+            "Texture.figs",
+            "Texture.figs",
+            "Texture.figs",
+            "Texture.figs2",
+            "Texture.figs2",
+            "Texture.figs2",
+            "Texture.figs2",
+            "Texture.figs2",
+            "Texture.figs2",
+            "Texture.figs2",
+            "Texture.figs2",
+            "Texture.figs2",
+            "Texture.figs2"
           ]
         }
       },
@@ -41,7 +80,7 @@
         }
       ],
       "textures": [
-        "Texture.figs"
+        "Array.figtex[query.variant]"
       ]
     }
   }

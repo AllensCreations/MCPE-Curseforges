@@ -8,7 +8,8 @@
       },
       "textures": {
         "default": "textures/items/aln_spirit/ghost",
-        "figs": "textures/items/aln_spirit/figs"
+        "figs": "textures/items/aln_spirit/figs",
+        "figs2": "textures/items/aln_spirit/figs2"
       },
       "geometry": {
         "default": "geometry.aln_spirit",
@@ -26,7 +27,17 @@
         "fig11": "geometry.aln_fig_11",
         "fig12": "geometry.aln_fig_12",
         "fig13": "geometry.aln_fig_13",
-        "fig14": "geometry.aln_fig_14"
+        "fig14": "geometry.aln_fig_14",
+        "fig15": "geometry.aln_fig_15",
+        "fig16": "geometry.aln_fig_16",
+        "fig17": "geometry.aln_fig_17",
+        "fig18": "geometry.aln_fig_18",
+        "fig19": "geometry.aln_fig_19",
+        "fig20": "geometry.aln_fig_20",
+        "fig21": "geometry.aln_fig_21",
+        "fig22": "geometry.aln_fig_22",
+        "fig23": "geometry.aln_fig_23",
+        "fig24": "geometry.aln_fig_24"
       },
       "render_controllers": [
         "controller.render.aln_spirit",

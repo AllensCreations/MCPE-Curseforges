@@ -11,7 +11,7 @@ const DEBOUNCE_TICKS = 8;
 const REGROW_STEP = 0.02;
 const SHRUNK_SIZE = 0.3;
 
-const KIND_NAMES = ["", "creeper", "skeleton", "zombie", "spider", "pig", "cow", "sheep", "chicken", "wolf", "villager", "iron_golem", "enderman", "blaze", "snow_golem"];
+const KIND_NAMES = ["", "creeper", "skeleton", "zombie", "spider", "pig", "cow", "sheep", "chicken", "wolf", "villager", "iron_golem", "enderman", "blaze", "snow_golem", "cat", "horse", "bee", "axolotl", "fox", "witch", "slime", "ghast", "rabbit", "polar_bear"];
 const BOSSES = new Set(["minecraft:ender_dragon", "minecraft:wither", "minecraft:warden", "minecraft:elder_guardian"]);
 const NOT_SEALABLE = new Set(["minecraft:player", "minecraft:armor_stand", "minecraft:npc", "minecraft:agent"]);
 const DYES = ["White", "Orange", "Magenta", "Light Blue", "Yellow", "Lime", "Pink", "Gray", "Light Gray", "Cyan", "Purple", "Blue", "Brown", "Green", "Red", "Black"];
@@ -40,14 +40,24 @@ const SPECIES = {
   "minecraft:enderman": { fig: 12, mode: "heavy" },
   "minecraft:blaze": { fig: 13, mode: "fast" },
   "minecraft:snow_golem": { fig: 14, mode: "snow" },
-  "minecraft:cat": { fig: 0, mode: "fast" },
-  "minecraft:ocelot": { fig: 0, mode: "fast" },
-  "minecraft:fox": { fig: 0, mode: "fast" },
+  "minecraft:cat": { fig: 15, mode: "fast" },
+  "minecraft:ocelot": { fig: 15, mode: "fast" },
+  "minecraft:fox": { fig: 19, mode: "fast" },
   "minecraft:ravager": { fig: 0, mode: "heavy" },
   "minecraft:hoglin": { fig: 0, mode: "heavy" },
   "minecraft:zoglin": { fig: 0, mode: "heavy" },
-  "minecraft:polar_bear": { fig: 0, mode: "heavy" },
+  "minecraft:polar_bear": { fig: 24, mode: "heavy" },
   "minecraft:piglin_brute": { fig: 0, mode: "heavy" },
+  "minecraft:horse": { fig: 16, mode: "fast" },
+  "minecraft:donkey": { fig: 16, mode: "fast" },
+  "minecraft:mule": { fig: 16, mode: "fast" },
+  "minecraft:bee": { fig: 17, mode: "fast" },
+  "minecraft:axolotl": { fig: 18, mode: "melee" },
+  "minecraft:witch": { fig: 20, mode: "melee" },
+  "minecraft:slime": { fig: 21, mode: "melee" },
+  "minecraft:magma_cube": { fig: 21, mode: "melee" },
+  "minecraft:ghast": { fig: 22, mode: "melee" },
+  "minecraft:rabbit": { fig: 23, mode: "fast" },
 };
 
 const KEY = {
@@ -63,6 +73,7 @@ const KEY = {
 const spirits = new Map();
 const cooldowns = new Map();
 const lastAction = new Map();
+const releasing = new Set();
 
 const tell = (player, color, text) => {
   try {
@@ -283,36 +294,89 @@ function endSpirit(sid, message, recharge = true) {
   if (message && s.owner) tell(s.owner, "§b", message);
 }
 
+function nearbyIds(dim, center) {
+  try {
+    return new Set(dim.getEntities({ location: center, maxDistance: 8 }).map((e) => e.id));
+  } catch (e) {
+    return new Set();
+  }
+}
+
+function freshEntities(dim, center, before) {
+  try {
+    return dim.getEntities({ location: center, maxDistance: 8 }).filter((e) => !before.has(e.id));
+  } catch (e) {
+    return [];
+  }
+}
+
+function findLantern(player, sid) {
+  const container = containerOf(player);
+  if (!container) return undefined;
+  for (let i = 0; i < (container.size ?? 36); i++) {
+    const item = container.getItem(i);
+    if (isFilled(item?.typeId) && item.getDynamicProperty(KEY.sid) === sid) return { container, slot: i };
+  }
+  return undefined;
+}
+
+function confirmRelease(player, dim, center, before, d, attempt) {
+  system.runTimeout(() => {
+    const found = freshEntities(dim, center, before).length > 0;
+    if (!found && attempt < 2) {
+      confirmRelease(player, dim, center, before, d, attempt + 1);
+      return;
+    }
+    releasing.delete(d.sid);
+    try {
+      if (!found) {
+        tell(player, "§c", "The soul could not take shape here. Try another spot.");
+        return;
+      }
+      const lantern = findLantern(player, d.sid);
+      if (lantern) lantern.container.setItem(lantern.slot, new ItemStack(EMPTY_ID, 1));
+      endSpirit(d.sid, undefined, false);
+      burst(dim, center);
+      play(player, "random.orb");
+      tell(player, "§b", `Released: ${d.name || d.species}`);
+    } catch (e) {}
+    if (found) {
+      try {
+        world.structureManager.delete(d.sid);
+      } catch (e) {}
+    }
+  }, attempt === 0 ? 2 : 8);
+}
+
 function tryRelease(player, dim, base, slot) {
   const container = containerOf(player);
   const held = container?.getItem(slot);
   if (!container || !isFilled(held?.typeId)) return;
   const d = readStack(held);
   if (typeof d.sid !== "string" || !d.sid) {
-    tell(player, "§c", "This lantern holds no soul.");
+    container.setItem(slot, new ItemStack(EMPTY_ID, 1));
+    tell(player, "§e", "This lantern held no soul and was emptied.");
     return;
   }
+  if (releasing.has(d.sid)) return;
   const cell = findFree(dim, base, 3);
   if (!cell) {
     tell(player, "§e", "There is no free space to release the soul here.");
     return;
   }
+  const center = { x: cell.x + 0.5, y: cell.y + 0.5, z: cell.z + 0.5 };
+  const before = nearbyIds(dim, center);
+  releasing.add(d.sid);
   try {
     world.structureManager.place(d.sid, dim, cell, { includeBlocks: false, includeEntities: true });
   } catch (e) {
-    tell(player, "§c", "The soul could not be released.");
+    releasing.delete(d.sid);
+    container.setItem(slot, new ItemStack(EMPTY_ID, 1));
+    endSpirit(d.sid, undefined, false);
+    tell(player, "§e", "This soul is gone. The lantern was emptied.");
     return;
   }
-  container.setItem(slot, new ItemStack(EMPTY_ID, 1));
-  endSpirit(d.sid, undefined, false);
-  burst(dim, { x: cell.x + 0.5, y: cell.y + 0.5, z: cell.z + 0.5 });
-  play(player, "random.orb");
-  tell(player, "§b", `Released: ${d.name || d.species}`);
-  system.runTimeout(() => {
-    try {
-      world.structureManager.delete(d.sid);
-    } catch (err) {}
-  }, 4);
+  confirmRelease(player, dim, center, before, d, 0);
 }
 
 function toggleSpirit(player, slot) {

@@ -4,6 +4,20 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v295] - 2026-11-25 - Soul Lantern Expansion
+
+**Spec**: spec_v295.txt | **Target**: MCPEDL/Addons/ALN-SoulLantern | **Files edited**: 22
+
+### Added
+- **More mobs**: Ten more mobs get their own lantern icon and spirit figure: Cat, Horse, Bee, Axolotl, Fox, Witch, Slime, Ghast, Rabbit, and Polar Bear.
+
+### Improved & Balanced
+- **Lantern icons**: Every lantern icon is now 32x32.
+
+### Fixed
+- **Spectral Ally**: The spirit no longer turns on you if you hit it.
+- **Release**: The lantern now checks that the mob appeared before it empties, and a lantern whose soul is gone is emptied instead of staying stuck.
+
 ## [v294] - 2026-11-25 - Go Home, Top Islands and Offer Expiry
 
 **Spec**: spec_v294.txt | **Target**: MCPEDL/Maps/ALNMultiIslandOneBlock | **Files edited**: 6
