@@ -4,6 +4,18 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v292] - 2026-11-25 - Sponge Fix And New Textures
+
+**Spec**: spec_v292.txt | **Target**: MCPEDL/Addons/OP-Sponge | **Files edited**: 5
+
+### Fixed
+
+- **OP Sponge**: Water is now removed while the sponge scans, so you see it draining right away instead of waiting for the whole scan to finish. Big oceans now use much less memory.
+
+### Added
+
+- **Textures**: New 64x64 pixel textures for the dry and the water-filled sponge (gold with a diamond sparkle, and a wet blue version). All sponge tiers share them.
+
 ## [v291] - 2026-11-25 - Translucent Glass and Redrawn Textures
 
 **Spec**: spec_v291.txt | **Target**: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator | **Files edited**: 4

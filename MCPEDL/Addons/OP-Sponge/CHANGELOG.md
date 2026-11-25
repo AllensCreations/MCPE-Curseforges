@@ -2,6 +2,16 @@
 
 ---
 
+## [v5] - 2026-11-25 - Sponge Fix And New Textures
+
+### Fixed
+
+- **OP Sponge**: Water is now removed while the sponge scans, so you see it draining right away instead of waiting for the whole scan to finish. Big oceans now use much less memory.
+
+### Added
+
+- **Textures**: New 64x64 pixel textures for the dry and the water-filled sponge (gold with a diamond sparkle, and a wet blue version). All sponge tiers share them.
+
 ## [v4] - 2026-11-24 - Unlimited OP Sponge
 
 ### Changed

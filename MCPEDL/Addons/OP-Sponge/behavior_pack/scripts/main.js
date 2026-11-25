@@ -7,6 +7,8 @@ const LEVEL_RANGE = 2;
 const EXTREME_CAPACITY = 100000;
 const EXTREME_RANGE = 2048;
 const BATCH = 200;
+const BOUND_XZ = 4096;
+const BOUND_Y = 512;
 const SPARKLES = 16;
 const NEIGHBORS = [
   { x: 1, y: 0, z: 0 },
@@ -34,8 +36,14 @@ for (let level = 1; level <= 10; level++) {
 }
 register("extreme_sponge_1", EXTREME_CAPACITY, EXTREME_RANGE, true);
 
-function keyOf(location) {
-  return `${location.x},${location.y},${location.z}`;
+function keyOf(origin, location) {
+  const dx = location.x - origin.x + BOUND_XZ;
+  const dz = location.z - origin.z + BOUND_XZ;
+  const dy = location.y - origin.y + BOUND_Y;
+  if (dx < 0 || dz < 0 || dy < 0 || dx >= 2 * BOUND_XZ || dz >= 2 * BOUND_XZ || dy >= 2 * BOUND_Y) {
+    return -1;
+  }
+  return (dx * 2 * BOUND_XZ + dz) * 2 * BOUND_Y + dy;
 }
 
 function readBlock(dimension, location) {
@@ -61,53 +69,39 @@ function sparkle(dimension, origin) {
 }
 
 function* absorb(dimension, origin, spongeId, sponge) {
-  const found = [];
-  const seen = new Set();
+  const seen = new Set([keyOf(origin, origin)]);
   let frontier = [origin];
+  let removed = 0;
   let reads = 0;
-  for (let distance = 1; distance <= sponge.range && frontier.length > 0 && found.length < sponge.capacity; distance++) {
+  for (let distance = 1; distance <= sponge.range && frontier.length > 0 && removed < sponge.capacity; distance++) {
     const next = [];
     for (const cell of frontier) {
       for (const step of NEIGHBORS) {
-        if (found.length >= sponge.capacity) {
+        if (removed >= sponge.capacity) {
           break;
         }
         const location = { x: cell.x + step.x, y: cell.y + step.y, z: cell.z + step.z };
-        const key = keyOf(location);
-        if (seen.has(key)) {
+        const key = keyOf(origin, location);
+        if (key < 0 || seen.has(key)) {
           continue;
         }
-        const block = readBlock(dimension, location);
+        seen.add(key);
         reads++;
         if (reads % BATCH === 0) {
           yield;
         }
+        const block = readBlock(dimension, location);
         if (block && WATER.has(block.typeId)) {
-          seen.add(key);
-          found.push(location);
+          block.setType("minecraft:air");
+          removed++;
           next.push(location);
         }
       }
     }
     frontier = next;
   }
-  if (found.length === 0) {
+  if (removed === 0) {
     return;
-  }
-  const current = readBlock(dimension, origin);
-  if (!current || current.typeId !== spongeId) {
-    return;
-  }
-  let removed = 0;
-  for (const location of found) {
-    const block = readBlock(dimension, location);
-    if (block && WATER.has(block.typeId)) {
-      block.setType("minecraft:air");
-    }
-    removed++;
-    if (removed % BATCH === 0) {
-      yield;
-    }
   }
   const after = readBlock(dimension, origin);
   if (!after || after.typeId !== spongeId) {
