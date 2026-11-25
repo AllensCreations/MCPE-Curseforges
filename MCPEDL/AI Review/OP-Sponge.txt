@@ -7,7 +7,7 @@
 - **CURRENT VERSION: v4 / NEXT UPDATE: v5**  (`MCPEDL/Addons/OP-Sponge/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 116
-- **Skipped binary:** 0
+- **Skipped binary:** 117
 - **Paths not found:** 0
 
 ### Files in this export
@@ -131,6 +131,50 @@
 ### Not inlined: 1 larger file(s), ask the user for the exact paths you need
 
 - `MCPEDL/Addons/OP-Sponge/behavior_pack/trading/economy_trades/librarian_trades.json` (20905 bytes)
+
+### Skipped (binary): 117 file(s)
+
+- `MCPEDL/Addons/OP-Sponge/assets/banner.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/allenscreations_sponge_book.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/allenscreations_sponge_book_label.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/allenscreations_sponge_icon.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/allenscreations_sponge_icon_label.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/allenscreations_sponge_wet_icon.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/allenscreations_sponge_wet_icon_label.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/extreme_sponge_1.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/extreme_sponge_1_label.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/extreme_sponge_1_wet.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/extreme_sponge_1_wet_label.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/extreme_sponge_book_1.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/extreme_sponge_book_1_label.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_1.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_10.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_10_label.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_10_wet.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_10_wet_label.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_1_label.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_1_wet.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_1_wet_label.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_2.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_2_label.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_2_wet.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_2_wet_label.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_3.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_3_label.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_3_wet.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_3_wet_label.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_4.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_4_label.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_4_wet.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_4_wet_label.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_5.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_5_label.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_5_wet.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_5_wet_label.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_6.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_6_label.png`
+- `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_6_wet.png`
+- ... and 77 more
 
 ---
 
