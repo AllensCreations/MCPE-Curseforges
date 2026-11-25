@@ -7,7 +7,7 @@
 - **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Maps/Oneblock-SM/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 20
-- **Skipped binary:** 5
+- **Skipped binary:** 7
 - **Paths not found:** 0
 
 ### Files in this export
@@ -33,12 +33,14 @@
 - `MCPEDL/Maps/Oneblock-SM/resource_pack/manifest.json`
 - `MCPEDL/Maps/Oneblock-SM/resource_pack/textures/item_texture.json`
 
-### Skipped (binary): 5 file(s)
+### Skipped (binary): 7 file(s)
 
 - `MCPEDL/Maps/Oneblock-SM/OneBlock Sovereign Market - Creative.mcworld`
 - `MCPEDL/Maps/Oneblock-SM/OneBlock Sovereign Market - Hardcore.mcworld`
 - `MCPEDL/Maps/Oneblock-SM/OneBlock Sovereign Market - Survival.mcworld`
+- `MCPEDL/Maps/Oneblock-SM/assets/banner.png`
 - `MCPEDL/Maps/Oneblock-SM/assets/items/trader_ledger.png`
+- `MCPEDL/Maps/Oneblock-SM/assets/items/trader_ledger_label.png`
 - `MCPEDL/Maps/Oneblock-SM/resource_pack/textures/items/trader_ledger.png`
 
 ---

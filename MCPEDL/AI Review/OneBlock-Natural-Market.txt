@@ -7,7 +7,7 @@
 - **CURRENT VERSION: v16 / NEXT UPDATE: v17**  (`MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 18
-- **Skipped binary:** 233
+- **Skipped binary:** 235
 - **Paths not found:** 0
 
 ### Files in this export
@@ -31,12 +31,14 @@
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/ASSET-NOTICE.md`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/ui_chest_disabled/server_form.json`
 
-### Skipped (binary): 233 file(s)
+### Skipped (binary): 235 file(s)
 
 - `MCPEDL/Maps/OneBlock-Natural-Market/OneBlock Natural Market - Creative.mcworld`
 - `MCPEDL/Maps/OneBlock-Natural-Market/OneBlock Natural Market - Hardcore.mcworld`
 - `MCPEDL/Maps/OneBlock-Natural-Market/OneBlock Natural Market - Survival.mcworld`
+- `MCPEDL/Maps/OneBlock-Natural-Market/assets/banner.png`
 - `MCPEDL/Maps/OneBlock-Natural-Market/assets/items/trader_ledger.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/assets/items/trader_ledger_label.png`
 - `MCPEDL/Maps/OneBlock-Natural-Market/assets/snapshots/COMBAT.jpg`
 - `MCPEDL/Maps/OneBlock-Natural-Market/assets/snapshots/FARMING.jpg`
 - `MCPEDL/Maps/OneBlock-Natural-Market/assets/snapshots/FOODS.jpg`
@@ -71,9 +73,7 @@
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/bread.png`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/brick_block.png`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/bricks.png`
-- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/bucket.png`
-- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/cake.png`
-- ... and 193 more
+- ... and 195 more
 
 ---
 
