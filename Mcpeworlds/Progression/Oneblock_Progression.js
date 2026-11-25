@@ -73,7 +73,7 @@
  * @type {PhaseDataPool[]}
  */
 export const ONEBLOCK_PROGRESSION_POOLS = [
-  // ───────────────────────── OVERWORLD ─────────────────────────
+  // ────────────────────── OVERWORLD ──────────────────────
   {
     phase: 1,
     name: "Plains & Early Roots",
@@ -81,11 +81,13 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     blocksRequired: 300,
     bedrockReplacement: "minecraft:grass_block",
     blocks: [
-      { id: "minecraft:grass_block", weight: 33 },
-      { id: "minecraft:dirt", weight: 27 },
+      { id: "minecraft:grass_block", weight: 30 },
+      { id: "minecraft:dirt", weight: 24 },
       { id: "minecraft:oak_log", weight: 18 },
       { id: "minecraft:oak_leaves", weight: 9 },
       { id: "minecraft:birch_log", weight: 5 },
+      { id: "minecraft:oak_wood", weight: 3 },
+      { id: "minecraft:birch_wood", weight: 3 },
       { id: "minecraft:clay", weight: 4 },
       { id: "minecraft:sand", weight: 4 }
     ],
@@ -150,7 +152,8 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
       { id: "minecraft:spruce_log", weight: 20 },
       { id: "minecraft:spruce_leaves", weight: 12 },
       { id: "minecraft:podzol", weight: 10 },
-      { id: "minecraft:dirt", weight: 8 },
+      { id: "minecraft:dirt", weight: 4 },
+      { id: "minecraft:spruce_wood", weight: 4 },
       { id: "minecraft:stone", weight: 10 },
       { id: "minecraft:ice", weight: 8 },
       { id: "minecraft:packed_ice", weight: 6 },
@@ -181,18 +184,24 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     blocksRequired: 700,
     bedrockReplacement: "minecraft:sand",
     blocks: [
-      { id: "minecraft:sand", weight: 18 },
-      { id: "minecraft:gravel", weight: 14 },
+      { id: "minecraft:sand", weight: 12 },
+      { id: "minecraft:gravel", weight: 10 },
       { id: "minecraft:clay", weight: 12 },
       { id: "minecraft:prismarine", weight: 12 },
       { id: "minecraft:prismarine_bricks", weight: 8 },
       { id: "minecraft:dark_prismarine", weight: 4 },
       { id: "minecraft:sea_lantern", weight: 3 },
-      { id: "minecraft:sandstone", weight: 9 },
+      { id: "minecraft:sandstone", weight: 5 },
       { id: "minecraft:tube_coral_block", weight: 5 },
       { id: "minecraft:brain_coral_block", weight: 5 },
       { id: "minecraft:bubble_coral_block", weight: 5 },
-      { id: "minecraft:horn_coral_block", weight: 5 }
+      { id: "minecraft:horn_coral_block", weight: 5 },
+      { id: "minecraft:fire_coral_block", weight: 4 },
+      { id: "minecraft:dead_tube_coral_block", weight: 2 },
+      { id: "minecraft:dead_brain_coral_block", weight: 2 },
+      { id: "minecraft:dead_bubble_coral_block", weight: 2 },
+      { id: "minecraft:dead_horn_coral_block", weight: 2 },
+      { id: "minecraft:dead_fire_coral_block", weight: 2 }
     ],
     chests: [
       { id: "minecraft:kelp", min: 2, max: 6, weight: 20 },
@@ -220,11 +229,13 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     blocks: [
       { id: "minecraft:jungle_log", weight: 22 },
       { id: "minecraft:jungle_leaves", weight: 18 },
-      { id: "minecraft:grass_block", weight: 12 },
-      { id: "minecraft:dirt", weight: 8 },
+      { id: "minecraft:grass_block", weight: 9 },
+      { id: "minecraft:dirt", weight: 4 },
       { id: "minecraft:mossy_cobblestone", weight: 8 },
       { id: "minecraft:moss_block", weight: 8 },
       { id: "minecraft:bamboo_block", weight: 8 },
+      { id: "minecraft:stripped_bamboo_block", weight: 3 },
+      { id: "minecraft:jungle_wood", weight: 4 },
       { id: "minecraft:melon_block", weight: 6 },
       { id: "minecraft:mud", weight: 4 },
       { id: "minecraft:lapis_ore", weight: 6 }
@@ -324,8 +335,9 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     blocks: [
       { id: "minecraft:acacia_log", weight: 28 },
       { id: "minecraft:acacia_leaves", weight: 22 },
-      { id: "minecraft:acacia_planks", weight: 10 },
+      { id: "minecraft:acacia_wood", weight: 6 },
       { id: "minecraft:stripped_acacia_log", weight: 8 },
+      { id: "minecraft:stripped_acacia_wood", weight: 4 },
       { id: "minecraft:hay_block", weight: 6 },
       { id: "minecraft:coarse_dirt", weight: 14 },
       { id: "minecraft:grass_block", weight: 12 }
@@ -355,12 +367,13 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     name: "Dark Forest & Mushroom Fields",
     description: "Towering dark oaks and giant glowing mushrooms growing from rich mycelium.",
     blocksRequired: 1000,
-    bedrockReplacement: "minecraft:dark_oak_planks",
+    bedrockReplacement: "minecraft:dark_oak_log",
     blocks: [
       { id: "minecraft:dark_oak_log", weight: 20 },
       { id: "minecraft:dark_oak_leaves", weight: 18 },
-      { id: "minecraft:dark_oak_planks", weight: 6 },
+      { id: "minecraft:dark_oak_wood", weight: 4 },
       { id: "minecraft:stripped_dark_oak_log", weight: 6 },
+      { id: "minecraft:stripped_dark_oak_wood", weight: 2 },
       { id: "minecraft:mycelium", weight: 14 },
       { id: "minecraft:brown_mushroom_block", weight: 12 },
       { id: "minecraft:red_mushroom_block", weight: 12 },
@@ -395,17 +408,20 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     blocksRequired: 900,
     bedrockReplacement: "minecraft:mud",
     blocks: [
-      { id: "minecraft:mud", weight: 24 },
+      { id: "minecraft:mud", weight: 20 },
       { id: "minecraft:mangrove_log", weight: 18 },
       { id: "minecraft:mangrove_leaves", weight: 12 },
       { id: "minecraft:mangrove_roots", weight: 8 },
       { id: "minecraft:muddy_mangrove_roots", weight: 12 },
       { id: "minecraft:packed_mud", weight: 6 },
       { id: "minecraft:mud_bricks", weight: 4 },
-      { id: "minecraft:clay", weight: 6 },
+      { id: "minecraft:clay", weight: 4 },
       { id: "minecraft:moss_block", weight: 4 },
-      { id: "minecraft:mangrove_planks", weight: 3 },
-      { id: "minecraft:dirt", weight: 3 }
+      { id: "minecraft:mangrove_wood", weight: 4 },
+      { id: "minecraft:stripped_mangrove_log", weight: 2 },
+      { id: "minecraft:ochre_froglight", weight: 2 },
+      { id: "minecraft:verdant_froglight", weight: 2 },
+      { id: "minecraft:pearlescent_froglight", weight: 2 }
     ],
     chests: [
       { id: "minecraft:mangrove_propagule", min: 1, max: 3, weight: 22 },
@@ -437,7 +453,8 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
       { id: "minecraft:grass_block", weight: 20 },
       { id: "minecraft:dirt", weight: 10 },
       { id: "minecraft:stripped_cherry_log", weight: 8 },
-      { id: "minecraft:cherry_planks", weight: 12 },
+      { id: "minecraft:cherry_wood", weight: 8 },
+      { id: "minecraft:stripped_cherry_wood", weight: 4 },
       { id: "minecraft:stone", weight: 6 }
     ],
     chests: [
@@ -468,8 +485,9 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
       { id: "minecraft:pale_oak_leaves", weight: 20 },
       { id: "minecraft:pale_moss_block", weight: 18 },
       { id: "minecraft:dirt", weight: 10 },
-      { id: "minecraft:pale_oak_planks", weight: 10 },
+      { id: "minecraft:pale_oak_wood", weight: 6 },
       { id: "minecraft:stripped_pale_oak_log", weight: 8 },
+      { id: "minecraft:stripped_pale_oak_wood", weight: 4 },
       { id: "minecraft:coarse_dirt", weight: 6 },
       { id: "minecraft:resin_block", weight: 4 }
     ],
@@ -489,7 +507,6 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
       { id: "minecraft:spider", weight: 15 }
     ]
   },
-
   {
     phase: 13,
     name: "Windswept Highlands",
@@ -503,8 +520,8 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
       { id: "minecraft:cobblestone", weight: 6 },
       { id: "minecraft:spruce_log", weight: 14 },
       { id: "minecraft:spruce_leaves", weight: 10 },
-      { id: "minecraft:spruce_planks", weight: 6 },
       { id: "minecraft:stripped_spruce_log", weight: 4 },
+      { id: "minecraft:stripped_spruce_wood", weight: 6 },
       { id: "minecraft:podzol", weight: 8 },
       { id: "minecraft:mossy_cobblestone", weight: 8 },
       { id: "minecraft:coarse_dirt", weight: 6 },
@@ -573,38 +590,61 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     blocksRequired: 1200,
     bedrockReplacement: "minecraft:cobblestone",
     blocks: [
-      { id: "minecraft:white_wool", weight: 5 },
-      { id: "minecraft:orange_wool", weight: 3 },
-      { id: "minecraft:red_wool", weight: 3 },
-      { id: "minecraft:blue_wool", weight: 3 },
-      { id: "minecraft:green_wool", weight: 3 },
-      { id: "minecraft:yellow_wool", weight: 3 },
-      { id: "minecraft:black_wool", weight: 3 },
       { id: "minecraft:glass", weight: 8 },
+      { id: "minecraft:white_wool", weight: 4 },
+      { id: "minecraft:orange_wool", weight: 2 },
+      { id: "minecraft:red_wool", weight: 2 },
+      { id: "minecraft:blue_wool", weight: 2 },
+      { id: "minecraft:green_wool", weight: 2 },
+      { id: "minecraft:yellow_wool", weight: 2 },
+      { id: "minecraft:black_wool", weight: 2 },
       { id: "minecraft:tinted_glass", weight: 2 },
+      { id: "minecraft:white_stained_glass", weight: 1 },
+      { id: "minecraft:red_stained_glass", weight: 1 },
+      { id: "minecraft:blue_stained_glass", weight: 1 },
+      { id: "minecraft:green_stained_glass", weight: 1 },
+      { id: "minecraft:yellow_stained_glass", weight: 1 },
+      { id: "minecraft:black_stained_glass", weight: 1 },
       { id: "minecraft:bookshelf", weight: 6 },
-      { id: "minecraft:chiseled_bookshelf", weight: 3 },
+      { id: "minecraft:chiseled_bookshelf", weight: 2 },
       { id: "minecraft:white_concrete", weight: 3 },
-      { id: "minecraft:orange_concrete", weight: 2 },
-      { id: "minecraft:red_concrete", weight: 2 },
-      { id: "minecraft:blue_concrete", weight: 2 },
-      { id: "minecraft:light_gray_concrete", weight: 2 },
-      { id: "minecraft:black_concrete", weight: 2 },
-      { id: "minecraft:white_terracotta", weight: 3 },
-      { id: "minecraft:orange_terracotta", weight: 3 },
-      { id: "minecraft:yellow_terracotta", weight: 3 },
-      { id: "minecraft:brown_terracotta", weight: 3 },
-      { id: "minecraft:red_terracotta", weight: 3 },
-      { id: "minecraft:light_gray_terracotta", weight: 3 },
-      { id: "minecraft:copper_block", weight: 4 },
-      { id: "minecraft:cut_copper", weight: 4 },
-      { id: "minecraft:exposed_copper", weight: 2 },
-      { id: "minecraft:weathered_copper", weight: 2 },
-      { id: "minecraft:oxidized_copper", weight: 2 },
+      { id: "minecraft:orange_concrete", weight: 1 },
+      { id: "minecraft:red_concrete", weight: 1 },
+      { id: "minecraft:blue_concrete", weight: 1 },
+      { id: "minecraft:light_gray_concrete", weight: 1 },
+      { id: "minecraft:black_concrete", weight: 1 },
+      { id: "minecraft:yellow_concrete", weight: 1 },
+      { id: "minecraft:lime_concrete", weight: 1 },
+      { id: "minecraft:cyan_concrete", weight: 1 },
+      { id: "minecraft:purple_concrete", weight: 1 },
+      { id: "minecraft:white_terracotta", weight: 2 },
+      { id: "minecraft:orange_terracotta", weight: 2 },
+      { id: "minecraft:yellow_terracotta", weight: 2 },
+      { id: "minecraft:brown_terracotta", weight: 2 },
+      { id: "minecraft:red_terracotta", weight: 2 },
+      { id: "minecraft:light_gray_terracotta", weight: 2 },
+      { id: "minecraft:white_glazed_terracotta", weight: 1 },
+      { id: "minecraft:orange_glazed_terracotta", weight: 1 },
+      { id: "minecraft:light_blue_glazed_terracotta", weight: 1 },
+      { id: "minecraft:lime_glazed_terracotta", weight: 1 },
+      { id: "minecraft:pink_glazed_terracotta", weight: 1 },
+      { id: "minecraft:purple_glazed_terracotta", weight: 1 },
+      { id: "minecraft:red_glazed_terracotta", weight: 1 },
+      { id: "minecraft:black_glazed_terracotta", weight: 1 },
+      { id: "minecraft:copper_block", weight: 3 },
+      { id: "minecraft:cut_copper", weight: 3 },
+      { id: "minecraft:exposed_copper", weight: 1 },
+      { id: "minecraft:weathered_copper", weight: 1 },
+      { id: "minecraft:oxidized_copper", weight: 1 },
       { id: "minecraft:copper_grate", weight: 2 },
       { id: "minecraft:chiseled_copper", weight: 2 },
-      { id: "minecraft:oak_planks", weight: 5 },
-      { id: "minecraft:crafting_table", weight: 4 }
+      { id: "minecraft:crafting_table", weight: 4 },
+      { id: "minecraft:pumpkin", weight: 3 },
+      { id: "minecraft:carved_pumpkin", weight: 1 },
+      { id: "minecraft:lit_pumpkin", weight: 1 },
+      { id: "minecraft:slime_block", weight: 2 },
+      { id: "minecraft:jukebox", weight: 2 },
+      { id: "minecraft:note_block", weight: 2 }
     ],
     chests: [
       { id: "minecraft:book", min: 1, max: 3, weight: 14 },
@@ -630,7 +670,7 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     ]
   },
 
-  // ─────────────────────── DEEP CAVES ───────────────────────
+  // ────────────────────── DEEP CAVES ──────────────────────
   {
     phase: 16,
     name: "Lush & Dripstone Caves",
@@ -795,7 +835,7 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     ]
   },
 
-  // ───────────────────────── NETHER ─────────────────────────
+  // ──────────────────────── NETHER ────────────────────────
   {
     phase: 20,
     name: "Nether Wastes",
@@ -838,14 +878,18 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     blocksRequired: 1400,
     bedrockReplacement: "minecraft:netherrack",
     blocks: [
-      { id: "minecraft:crimson_nylium", weight: 15 },
+      { id: "minecraft:crimson_nylium", weight: 13 },
       { id: "minecraft:crimson_stem", weight: 14 },
+      { id: "minecraft:stripped_crimson_stem", weight: 3 },
+      { id: "minecraft:crimson_hyphae", weight: 3 },
       { id: "minecraft:nether_wart_block", weight: 12 },
-      { id: "minecraft:warped_nylium", weight: 15 },
+      { id: "minecraft:warped_nylium", weight: 13 },
       { id: "minecraft:warped_stem", weight: 14 },
+      { id: "minecraft:stripped_warped_stem", weight: 3 },
+      { id: "minecraft:warped_hyphae", weight: 3 },
       { id: "minecraft:warped_wart_block", weight: 12 },
       { id: "minecraft:shroomlight", weight: 6 },
-      { id: "minecraft:netherrack", weight: 12 }
+      { id: "minecraft:netherrack", weight: 4 }
     ],
     chests: [
       { id: "minecraft:crimson_fungus", min: 1, max: 3, weight: 18 },
@@ -906,7 +950,7 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     ]
   },
 
-  // ───────────────────────── THE END ─────────────────────────
+  // ─────────────────────── THE END ───────────────────────
   {
     phase: 23,
     name: "The End",

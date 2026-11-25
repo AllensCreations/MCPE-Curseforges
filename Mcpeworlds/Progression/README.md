@@ -18,7 +18,7 @@ Targets **Minecraft Bedrock 1.26.50**. All ids are Bedrock ids (for example `min
 
 ## What `Oneblock_Progression.js` Contains
 
-- **Blocks Pool**: Weighted list of full solid block ids per phase (no plants or fluids).
+- **Blocks Pool**: Weighted list of full solid block ids per phase (no plants, fluids, or planks).
 - **Chests Pool**: Weighted loot with item counts per phase (no buckets, fluids, powders, spawn eggs, spawners, or shulker items).
 - **Mobs Pool**: Weighted entity spawn list per phase.
 - **Milestones**: Per-phase `blocksRequired` and a fallback `bedrockReplacement` block.
@@ -65,7 +65,7 @@ Each phase lists only what it **unlocks**. Nothing is removed when you advance.
 
 - `sampleBlock(phase)`, `sampleChestItem(phase)`, and `sampleMob(phase)` sample from phases 1 to the current phase.
 - The newest phase's share of the weight ramps from 40% (phase 2) to 60% (last phase). Older phases share the rest evenly, so new content feels fresh.
-- At phase 24 the full pool (173 blocks) stays active forever, with phase 24 still weighted highest.
+- At phase 24 the full pool (219 blocks) stays active forever, with phase 24 still weighted highest.
 - Duplicate ids are merged. Chest counts use the lowest min and highest max.
 - Options: `{ exclusive: true }` samples the current phase only. `{ currentShare: 0.5 }` fixes the newest-phase share.
 - Mob tags: `aquatic` (needs water) and `boss` (very strong, such as the warden). `sampleMob` skips both by default. Use `{ excludeTags: [] }` to allow them, or pass your own tag list.
@@ -86,7 +86,7 @@ I have updated or need to modify the OneBlock progression pools in `Mcpeworlds/P
 1. `Oneblock_Progression.js` must ONLY contain Data Pools (blocks, chests, mobs, phase milestones). Do NOT embed map-specific game logic or hardcoded spawn rates here; packs implement their own rules.
 2. All block, item, and entity identifiers must be valid Minecraft Bedrock IDs (e.g., `minecraft:grass_block`, `minecraft:oak_log`). Use Bedrock names, not Java names (`minecraft:magma`, `minecraft:quartz_ore`, `minecraft:hardened_clay`).
 3. Keep the classic order: Overworld biomes, caves, Nether, End. The final phase is endless. Each phase lists only what it unlocks; the provider merges earlier phases (unlock model).
-4. Block pools: full solid blocks only (no plants, fluids, portals, spawners). Chest pools: no buckets, fluids, powders, spawn eggs, spawners, or shulker items.
+4. Block pools: full solid blocks only (no plants, fluids, portals, spawners) and no planks (use logs and wood blocks instead). Chest pools: no buckets, fluids, powders, spawn eggs, spawners, or shulker items.
 5. Maintain ES Module exports: `ONEBLOCK_PROGRESSION_POOLS`, `ONEBLOCK_PROGRESSION`, `OneblockPoolProvider`, and `OneBlockProgressionManager`.
 6. Validate that weights and min/max counts are balanced across phases (each pool sums to 100).
 7. Verify syntax using `node --input-type=module --check`.
