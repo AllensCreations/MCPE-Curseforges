@@ -253,15 +253,19 @@ browse_files() {
   cursor_show
 }
 
-# ── collect packages ──────────────────────────────────────────
-collect_packages() {
-  local -n _pkgs="$1"
+# ── collect packages by category ─────────────────────────────
+# collect_category_packages <category> <result_array_var>
+collect_category_packages() {
+  local cat="$1"
+  local -n _pkgs="$2"
   _pkgs=()
+  local cat_dir="$MCPEDL/$cat"
+  [[ -d "$cat_dir" ]] || return
   while IFS= read -r -d '' dir; do
     if [[ -d "$dir/assets/snapshots" ]]; then
-      _pkgs+=("${dir#$MCPEDL/}")
+      _pkgs+=("$(basename "$dir")")
     fi
-  done < <(find "$MCPEDL" -mindepth 2 -maxdepth 2 -type d -print0 | sort -z)
+  done < <(find "$cat_dir" -mindepth 1 -maxdepth 1 -type d -print0 | sort -z)
 }
 
 # ── upload confirm & copy ─────────────────────────────────────
@@ -320,28 +324,54 @@ do_upload() {
 
 # ── main ──────────────────────────────────────────────────────
 main() {
-  declare -a packages
-  collect_packages packages
-
-  if [[ ${#packages[@]} -eq 0 ]]; then
-    print_header
-    echo -e "  ${RED}No packages with assets/snapshots/ found.${R}\n"
-    exit 1
-  fi
-
   # Sensible start dir for browsing
   local start_dir="/sdcard/Download"
   [[ -d "$start_dir" ]] || start_dir="/sdcard"
   [[ -d "$start_dir" ]] || start_dir="$HOME"
 
-  while true; do
-    # ── Step 1: pick package ──────────────────────────────────
-    local chosen_pkg
-    menu "Select a Package to upload snapshots into:" \
-         "↑/↓ to move  |  Enter to select" \
-         chosen_pkg "${packages[@]}"
+  # Category icons
+  declare -A cat_icon=(
+    [Addons]="🧩"
+    [Script]="📜"
+    [Maps]="🗺 "
+    [Minigame]="🎮"
+  )
+  local categories=("Addons" "Script" "Maps" "Minigame")
 
-    # ── Step 2: browse & pick files ───────────────────────────
+  while true; do
+    # ── Step 1: pick category ─────────────────────────────────
+    local cat_labels=()
+    for c in "${categories[@]}"; do
+      cat_labels+=("${cat_icon[$c]:-📁}  $c")
+    done
+
+    local chosen_cat_label
+    menu "Select a Category:" \
+         "↑/↓ to move  |  Enter to select" \
+         chosen_cat_label "${cat_labels[@]}"
+
+    # Strip icon prefix to get raw category name
+    local chosen_cat
+    chosen_cat="${chosen_cat_label##*  }"
+
+    # ── Step 2: pick package within category ──────────────────
+    declare -a pkg_names
+    collect_category_packages "$chosen_cat" pkg_names
+
+    if [[ ${#pkg_names[@]} -eq 0 ]]; then
+      print_header
+      echo -e "  ${YELLOW}No packages with assets/snapshots/ found in ${CYAN}${chosen_cat}${R}.\n"
+      sleep 1; unset pkg_names; continue
+    fi
+
+    local chosen_pkg_name
+    menu "📂  ${chosen_cat}  —  Select a Package:" \
+         "↑/↓ to move  |  Enter to select  |  q = back to categories" \
+         chosen_pkg_name "${pkg_names[@]}"
+
+    local chosen_pkg="${chosen_cat}/${chosen_pkg_name}"
+
+    # ── Step 3: browse & pick files ───────────────────────────
     declare -a picked_files
     browse_files "$start_dir" picked_files
 
@@ -353,7 +383,7 @@ main() {
       continue
     fi
 
-    # ── Step 3: upload ────────────────────────────────────────
+    # ── Step 4: upload ────────────────────────────────────────
     do_upload "$chosen_pkg" picked_files
 
     # ── Step 4: what next? ────────────────────────────────────
