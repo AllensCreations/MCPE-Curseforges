@@ -7,7 +7,7 @@
 - **CURRENT VERSION: v12 / NEXT UPDATE: v13**  (`MCPEDL/Addons/Monster-Companions/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 57
-- **Skipped binary:** 19
+- **Skipped binary:** 25
 - **Paths not found:** 0
 
 ### Files in this export
@@ -73,16 +73,22 @@
 - `MCPEDL/Addons/Monster-Companions/behavior_pack/entities/zombie_villager.json` (37435 bytes)
 - `MCPEDL/Addons/Monster-Companions/behavior_pack/entities/zombie_villager_v2.json` (53895 bytes)
 
-### Skipped (binary): 19 file(s)
+### Skipped (binary): 25 file(s)
 
 - `MCPEDL/Addons/Monster-Companions/1791889944961.jpg`
 - `MCPEDL/Addons/Monster-Companions/1791889996745.jpg`
 - `MCPEDL/Addons/Monster-Companions/1791890109719.jpg`
+- `MCPEDL/Addons/Monster-Companions/assets/banner.png`
 - `MCPEDL/Addons/Monster-Companions/assets/items/allenscreations_beast_biscuit.png`
+- `MCPEDL/Addons/Monster-Companions/assets/items/allenscreations_beast_biscuit_label.png`
 - `MCPEDL/Addons/Monster-Companions/assets/items/beast_biscuit.png`
+- `MCPEDL/Addons/Monster-Companions/assets/items/beast_biscuit_label.png`
 - `MCPEDL/Addons/Monster-Companions/assets/items/golden_beast_biscuit.png`
+- `MCPEDL/Addons/Monster-Companions/assets/items/golden_beast_biscuit_label.png`
 - `MCPEDL/Addons/Monster-Companions/assets/recipes/beast_biscuit_recipe.png`
+- `MCPEDL/Addons/Monster-Companions/assets/recipes/beast_biscuit_recipe_label.png`
 - `MCPEDL/Addons/Monster-Companions/assets/recipes/golden_beast_biscuit_recipe.png`
+- `MCPEDL/Addons/Monster-Companions/assets/recipes/golden_beast_biscuit_recipe_label.png`
 - `MCPEDL/Addons/Monster-Companions/assets/snapshots/beast_biscuit_preview.png`
 - `MCPEDL/Addons/Monster-Companions/banner.jpg`
 - `MCPEDL/Addons/Monster-Companions/beast_biscuit_preview.png`
@@ -5008,10 +5014,14 @@ flat 2D, noisy, dark unreadable foreground, deformed hands, broken limbs, misspe
 {"type": "addon", "name": "Monster Companions"}
 ```
 
-## FILE: MCPEDL/Addons/Monster-Companions/README.md (19 lines, 817 bytes)
+## FILE: MCPEDL/Addons/Monster-Companions/README.md (23 lines, 1027 bytes)
 
 ```
 # Monster Companions
+
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-v12-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1742867)
+<!-- CURSEFORGE-BADGE:END -->
 
 Download the current release of **Monster Companions** for Minecraft Bedrock Edition.
 
