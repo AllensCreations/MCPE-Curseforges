@@ -1,15 +1,32 @@
 # Changelog — ALN:MultiIslandOneBlock
 
-## [v10] - 2026-11-24 - Individual Phases and Market Balance
+## [v11] - 2026-11-25 - Go Home, Top Islands and Offer Expiry
 
 ### Added
+- **Go Home Button**: The TRADERS Item menu has a Go Home button that teleports you to your island, with a 60 second cooldown.
+- **Top Islands Page**: A new page ranks islands by OneBlock breaks and shows each island's phase and your own rank.
+- **Phase Rewards**: The first time an island reaches a new phase, its owner earns 25 ALN Coins multiplied by the phase number.
+- **Bonus Drop Notice**: A bonus drop now shows its name on the action bar and plays a sound for the player who broke the block.
+- **Offer Expiry**: Offers that do not sell return their items to the seller after about 7 days.
+
+### Fixed
+- **Creative Market Sale**: Creative mode players can no longer sell items to the market.
+
+<details>
+<summary><b>10.0.x</b> (1 release)</summary>
+
+### [v10] - 2026-11-24 - Individual Phases and Market Balance
+
+#### Added
 - **Individual Island Phases**: Every island now has its own OneBlock phase. Breaking blocks on your island moves only your island forward, and the phase message goes to the island owner and the breaker. Existing islands keep their current phase until they break their next block.
 - **Market Fee**: Sellers pay a 5% fee when a player offer sells. The fee leaves the economy.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **Creative Mode Restriction**: Players in Creative mode cannot create offers, sell to the market or earn ALN Coins from OneBlock breaks.
 - **Rare Items**: Items worth 40 ALN Coins or more (diamonds, emeralds, netherite scrap, nautilus shells, name tags, saddles) are no longer doubled as bonus drops, and the market pays a quarter of the recommended price for them instead of half.
 - **Faster Coin Reward**: Players now earn 1 ALN Coin for every 5 OneBlock breaks instead of every 10.
+
+</details>
 
 <details>
 <summary><b>9.0.x</b> (1 release)</summary>
