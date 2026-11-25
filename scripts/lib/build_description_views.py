@@ -37,7 +37,7 @@ ALLOWED_ATTRS = set("style class href target src alt width height title data-tit
 ALLOWED_CSS = set("font-family font-weight font-style font-size color background-color text-align text-indent "
                   "text-decoration text-transform line-height padding-left margin-left margin-right margin border border-color "
                   "border-width border-radius width min-width max-width height align display float flex flex-wrap flex-direction "
-                  "align-items gap aspect-ratio object-fit".split())
+                  "justify-content align-items gap aspect-ratio object-fit".split())
 ALLOWED_CLASSES = {"spoiler"}
 MAX_FONT = 40
 
@@ -664,8 +664,8 @@ def gallery(kind, entries, labels=None):
     basis = {"snapshots": "1 1 300px", "recipes": "0 1 400px", "items": "0 1 120px"}[kind]
     img_style = {
         "snapshots": "width:100%;display:block",
-        "recipes":   "width:400px;max-width:100%;height:222px;object-fit:contain;display:block;margin:0 auto",
-        "items":     "width:64px;height:64px;object-fit:contain;display:block;margin:0 auto",
+        "recipes":   "width:400px;max-width:100%;height:222px;object-fit:contain;display:block;margin-left:auto;margin-right:auto",
+        "items":     "width:64px;height:64px;object-fit:contain;display:inline-block;margin-left:auto;margin-right:auto",
     }[kind]
     cells = []
     for url, cap in entries:
@@ -673,20 +673,20 @@ def gallery(kind, entries, labels=None):
         alt_text = "" if kind == "snapshots" else html.escape(cap)
         img = f'<img src="{url}" alt="{alt_text}" style="{img_style}">'
         if label_url:
-            caption_html = f'<p><img src="{label_url}" alt="{esc(cap)}"></p>'
+            caption_html = f'<p style="text-align:center"><img src="{label_url}" alt="{esc(cap)}" style="margin-left:auto;margin-right:auto;display:inline-block;max-width:100%"></p>'
         elif kind == "recipes":
-            caption_html = (f'<p><span style="display:inline-block;background-color:#14101e;border:2px solid #3c2068;'
+            caption_html = (f'<p style="text-align:center"><span style="display:inline-block;background-color:#14101e;border:2px solid #3c2068;'
                             f'border-radius:6px;color:#ffffff;font-family:\'Minecraft\', \'Minecraftia\', \'Mojangles\', '
                             f'\'Press Start 2P\', monospace;font-size:13px;line-height:24px">'
                             f'&nbsp;&nbsp;{esc(cap)}&nbsp;&nbsp;</span></p>')
         elif kind == "snapshots":
             caption_html = ""
         else:
-            caption_html = f'<p style="color:{MUTED};font-size:13px">{esc(cap)}</p>'
+            caption_html = f'<p style="color:{MUTED};font-size:13px;text-align:center">{esc(cap)}</p>'
         cells.append(f'<div style="flex:{basis};background-color:{PANEL};border:1px solid {LINE};border-radius:{RADIUS};'
-                     f'text-align:center"><p>{img}</p>'
+                     f'text-align:center"><p style="text-align:center">{img}</p>'
                      f'{caption_html}</div>')
-    return '<div style="display:flex;flex-wrap:wrap;gap:10px">' + "".join(cells) + "</div>"
+    return f'<div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center">{"".join(cells)}</div>'
 
 
 def showcase(body):
