@@ -6,8 +6,8 @@
 - **Destination:** `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator`
 - **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
-- **Text files:** 16
-- **Skipped binary:** 3
+- **Text files:** 17
+- **Skipped binary:** 4
 - **Paths not found:** 0
 
 ### Files in this export
@@ -28,9 +28,11 @@
 - `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/texts/en_US.lang`
 - `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/texts/languages.json`
 - `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/textures/terrain_texture.json`
+- `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/texture_sources/aln_loot_spawner_textures.json`
 
-### Skipped (binary): 3 file(s)
+### Skipped (binary): 4 file(s)
 
+- `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/assets/banner.png`
 - `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/textures/blocks/aln_loot_spawner_core.png`
 - `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/textures/blocks/aln_loot_spawner_frame.png`
 - `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/textures/blocks/aln_loot_spawner_glass.png`
@@ -196,7 +198,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 
 ## File Contents
 
-## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/behavior_pack/blocks/loot_spawner.json (54 lines, 1417 bytes)
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/behavior_pack/blocks/loot_spawner.json (54 lines, 1413 bytes)
 
 ```
 {
@@ -226,19 +228,19 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "minecraft:material_instances": {
         "frame": {
           "texture": "aln_loot_spawner_frame",
-          "render_method": "opaque"
+          "render_method": "blend"
         },
         "glass": {
           "texture": "aln_loot_spawner_glass",
-          "render_method": "opaque"
+          "render_method": "blend"
         },
         "core": {
           "texture": "aln_loot_spawner_core",
-          "render_method": "opaque"
+          "render_method": "blend"
         },
         "*": {
           "texture": "aln_loot_spawner_frame",
-          "render_method": "opaque"
+          "render_method": "blend"
         }
       },
       "minecraft:collision_box": {
@@ -280,13 +282,13 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:LootSpawner (v1.0.5)",
+    "name": "ALN:LootSpawner (v1.0.6)",
     "description": "Arcane Relic Duplicator Display Cage. by ALNStudios",
     "uuid": "168d9162-4f4a-4dda-a2c8-a550e2b9ad41",
     "version": [
       1,
       0,
-      5
+      6
     ],
     "min_engine_version": [
       1,
@@ -301,7 +303,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "version": [
         1,
         0,
-        5
+        6
       ]
     },
     {
@@ -311,7 +313,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "version": [
         1,
         0,
-        5
+        6
       ],
       "entry": "scripts/main.js"
     }
@@ -322,7 +324,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "version": [
         1,
         0,
-        5
+        6
       ]
     },
     {
@@ -335,7 +337,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     }
   ],
   "metadata": {
-    "version": "1.0.5",
+    "version": "1.0.6",
     "authors": [
       "ALNStudios"
     ],
@@ -727,12 +729,18 @@ system.runInterval(() => {
 }, STEP_TICKS);
 ```
 
-## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/CHANGELOG.md (52 lines, 4439 bytes)
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/CHANGELOG.md (58 lines, 4861 bytes)
 
 ```
 # Changelog — ALN:LootSpawner (Arcane Relic Duplicator)
 
 ---
+
+## [1.0.6] - 2026-11-25 - Translucent Glass and Redrawn Textures
+
+### Fixed
+- **See-through glass**: The glass panes are translucent again, and the lid is now a gilded rim around a glass top, so the base core can be seen inside the case.
+- **Textures**: The frame, glass and core textures were redrawn with even gold trim, amethyst studs and corner gems, a vanilla-style glass sheen, and a centered rune pad on the base.
 
 ## [1.0.5] - 2026-11-24 - Fix Missing Glass and Core Textures
 
@@ -877,17 +885,21 @@ Minecraft Bedrock add-on, ALN LootSpawner Bedrock mod, MCPEDL add-on, CurseForge
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/README.md (19 lines, 944 bytes)
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/README.md (23 lines, 1185 bytes)
 
 ```
 # ALNLootSpawner (Arcane Relic Duplicator)
+
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-Not%20Published-lightgrey?style=flat-square&logo=curseforge)](https://www.curseforge.com/members/allenscreations/projects)
+<!-- CURSEFORGE-BADGE:END -->
 
 Download the current release of **ALNLootSpawner (Arcane Relic Duplicator)** for Minecraft Bedrock Edition.
 
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNLootSpawner (Arcane Relic Duplicator) (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNLootSpawner-Arcane-Relic-Duplicator/ALNLootSpawnerArcaneRelicDuplicator%20V1.0.5.mcaddon)
+- **Direct download:** [Download ALNLootSpawner (Arcane Relic Duplicator) (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNLootSpawner-Arcane-Relic-Duplicator/ALNLootSpawnerArcaneRelicDuplicator%20V1.0.6.mcaddon)
 
 ## Installation
 
@@ -914,13 +926,13 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:LootSpawner (v1.0.5)",
+    "name": "ALN:LootSpawner (v1.0.6)",
     "description": "Arcane Relic Duplicator Display Cage. by ALNStudios",
     "uuid": "1390b986-3030-4eee-a94b-1bd5ea7f88dd",
     "version": [
       1,
       0,
-      5
+      6
     ],
     "min_engine_version": [
       1,
@@ -935,12 +947,12 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "version": [
         1,
         0,
-        5
+        6
       ]
     }
   ],
   "metadata": {
-    "version": "1.0.5",
+    "version": "1.0.6",
     "authors": [
       "ALNStudios"
     ],
@@ -949,7 +961,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/models/blocks/loot_spawner.geo.json (360 lines, 14771 bytes)
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/models/blocks/loot_spawner.geo.json (414 lines, 17207 bytes)
 
 ```
 {
@@ -989,14 +1001,68 @@ For gameplay features, usage details, compatibility notes, and other project inf
 					"cubes": [
 						{
 							"origin": [-8, 14, -8],
-							"size": [16, 2, 16],
+							"size": [16, 2, 2],
 							"uv": {
 								"north": {"uv": [0, 0], "uv_size": [16, 2], "material_instance": "frame"},
-								"east": {"uv": [0, 0], "uv_size": [16, 2], "material_instance": "frame"},
+								"east": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"},
 								"south": {"uv": [0, 0], "uv_size": [16, 2], "material_instance": "frame"},
-								"west": {"uv": [0, 0], "uv_size": [16, 2], "material_instance": "frame"},
-								"up": {"uv": [0, 0], "uv_size": [16, 16], "material_instance": "frame"},
-								"down": {"uv": [0, 0], "uv_size": [16, 16], "material_instance": "frame"}
+								"west": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"},
+								"up": {"uv": [0, 0], "uv_size": [16, 2], "material_instance": "frame"},
+								"down": {"uv": [0, 0], "uv_size": [16, 2], "material_instance": "frame"}
+							}
+						},
+						{
+							"origin": [-8, 14, 6],
+							"size": [16, 2, 2],
+							"uv": {
+								"north": {"uv": [0, 0], "uv_size": [16, 2], "material_instance": "frame"},
+								"east": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"},
+								"south": {"uv": [0, 0], "uv_size": [16, 2], "material_instance": "frame"},
+								"west": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"},
+								"up": {"uv": [0, 0], "uv_size": [16, 2], "material_instance": "frame"},
+								"down": {"uv": [0, 0], "uv_size": [16, 2], "material_instance": "frame"}
+							}
+						},
+						{
+							"origin": [-8, 14, -6],
+							"size": [2, 2, 12],
+							"uv": {
+								"north": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"},
+								"east": {"uv": [2, 0], "uv_size": [12, 2], "material_instance": "frame"},
+								"south": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"},
+								"west": {"uv": [2, 0], "uv_size": [12, 2], "material_instance": "frame"},
+								"up": {"uv": [0, 0], "uv_size": [2, 12], "material_instance": "frame"},
+								"down": {"uv": [0, 0], "uv_size": [2, 12], "material_instance": "frame"}
+							}
+						},
+						{
+							"origin": [6, 14, -6],
+							"size": [2, 2, 12],
+							"uv": {
+								"north": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"},
+								"east": {"uv": [2, 0], "uv_size": [12, 2], "material_instance": "frame"},
+								"south": {"uv": [0, 0], "uv_size": [2, 2], "material_instance": "frame"},
+								"west": {"uv": [2, 0], "uv_size": [12, 2], "material_instance": "frame"},
+								"up": {"uv": [0, 0], "uv_size": [2, 12], "material_instance": "frame"},
+								"down": {"uv": [0, 0], "uv_size": [2, 12], "material_instance": "frame"}
+							}
+						}
+					]
+				},
+				{
+					"name": "glass_top",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{
+							"origin": [-6, 14, -6],
+							"size": [12, 1, 12],
+							"uv": {
+								"north": {"uv": [0, 0], "uv_size": [12, 1], "material_instance": "glass"},
+								"east": {"uv": [0, 0], "uv_size": [1, 12], "material_instance": "glass"},
+								"south": {"uv": [0, 0], "uv_size": [12, 1], "material_instance": "glass"},
+								"west": {"uv": [0, 0], "uv_size": [1, 12], "material_instance": "glass"},
+								"up": {"uv": [0, 0], "uv_size": [12, 12], "material_instance": "glass"},
+								"down": {"uv": [0, 0], "uv_size": [12, 12], "material_instance": "glass"}
 							}
 						}
 					]
@@ -1342,5 +1408,86 @@ tile.aln:loot_spawner.name=Loot Spawner
       "textures": "textures/blocks/aln_loot_spawner_core"
     }
   }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/texture_sources/aln_loot_spawner_textures.json (77 lines, 3545 bytes)
+
+```
+{
+  "textures": [
+    {
+      "name": "aln_loot_spawner_frame",
+      "size": 16,
+      "folder": "blocks",
+      "palette": {"1": "#1A1625", "2": "#2A2240", "3": "#E5B84B", "4": "#F7D878", "5": "#A8832F", "6": "#B468FF", "7": "#7E46C8", "8": "#E9D2FF"},
+      "pixels": [
+        [8, 6, 4, 4, 4, 4, 4, 8, 6, 4, 4, 4, 4, 4, 8, 6],
+        [6, 7, 5, 5, 5, 5, 5, 6, 7, 5, 5, 5, 5, 5, 6, 7],
+        [4, 5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 5, 3],
+        [4, 5, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 5, 3],
+        [4, 5, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 5, 3],
+        [4, 5, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 5, 3],
+        [4, 5, 2, 1, 1, 1, 1, 5, 5, 1, 1, 1, 1, 2, 5, 3],
+        [8, 6, 2, 1, 1, 1, 5, 6, 6, 5, 1, 1, 1, 2, 8, 6],
+        [6, 7, 2, 1, 1, 1, 5, 6, 6, 5, 1, 1, 1, 2, 6, 7],
+        [4, 5, 2, 1, 1, 1, 1, 5, 5, 1, 1, 1, 1, 2, 5, 3],
+        [4, 5, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 5, 3],
+        [4, 5, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 5, 3],
+        [4, 5, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 5, 3],
+        [4, 5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 5, 3],
+        [8, 6, 5, 5, 5, 5, 5, 8, 6, 5, 5, 5, 5, 5, 8, 6],
+        [6, 7, 3, 3, 3, 3, 3, 6, 7, 3, 3, 3, 3, 3, 6, 7]
+      ]
+    },
+    {
+      "name": "aln_loot_spawner_glass",
+      "size": 16,
+      "folder": "blocks",
+      "palette": {"0": "#00000000", "1": "#C8F0FF30", "2": "#BEF0FFA0", "3": "#FFFFFFB4", "4": "#E6FAFF78", "5": "#FFFFFFDC"},
+      "pixels": [
+        [5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0],
+        [2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0, 0, 0, 0],
+        [2, 1, 1, 1, 1, 3, 1, 1, 4, 1, 1, 2, 0, 0, 0, 0],
+        [2, 1, 1, 1, 3, 1, 1, 4, 1, 1, 1, 2, 0, 0, 0, 0],
+        [2, 1, 1, 3, 1, 1, 4, 1, 1, 1, 1, 2, 0, 0, 0, 0],
+        [2, 1, 3, 1, 1, 4, 1, 1, 1, 1, 1, 2, 0, 0, 0, 0],
+        [2, 1, 1, 1, 4, 1, 1, 1, 1, 1, 1, 2, 0, 0, 0, 0],
+        [2, 1, 1, 4, 1, 1, 1, 1, 1, 1, 1, 2, 0, 0, 0, 0],
+        [2, 1, 4, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0, 0, 0, 0],
+        [2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0, 0, 0, 0],
+        [2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0, 0, 0, 0],
+        [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 5, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      ]
+    },
+    {
+      "name": "aln_loot_spawner_core",
+      "size": 16,
+      "folder": "blocks",
+      "palette": {"1": "#1A1625", "2": "#E5B84B", "3": "#B468FF", "4": "#F3E3FF", "6": "#F7D878"},
+      "pixels": [
+        [6, 2, 2, 2, 2, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [2, 3, 3, 3, 3, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [2, 3, 4, 4, 3, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [2, 3, 4, 4, 3, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [2, 3, 3, 3, 3, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [6, 2, 2, 2, 2, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+      ]
+    }
+  ]
 }
 ```
