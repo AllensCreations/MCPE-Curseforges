@@ -35,8 +35,8 @@ ALLOWED_TAGS = set("p br strong b em i u strike ul li ol cite abbr acronym del i
                    "hr table tr td th tbody thead section article h1 h2 h3 h4 h5 h6 a img div".split())
 ALLOWED_ATTRS = set("style class href target src alt width height title data-title type cite".split())
 ALLOWED_CSS = set("font-family font-weight font-style font-size color background-color text-align text-indent "
-                  "text-decoration text-transform line-height padding-left margin-left margin-right border border-color "
-                  "border-width border-radius width min-width align display float flex flex-wrap flex-direction "
+                  "text-decoration text-transform line-height padding-left margin-left margin-right margin border border-color "
+                  "border-width border-radius width min-width max-width height align display float flex flex-wrap flex-direction "
                   "align-items gap aspect-ratio object-fit".split())
 ALLOWED_CLASSES = {"spoiler"}
 MAX_FONT = 40
@@ -544,8 +544,8 @@ def find_media(root, project, md_text=""):
             filtered_files = []
             for f in files:
                 if f.suffix.lower() == ".png" and f.stem.endswith("_recipe"):
-                    base = f.stem.replace("_recipe", "").split("_")[0]
-                    if base in gif_bases:
+                    stem_base = f.stem.replace("_recipe", "")
+                    if any(stem_base == gb or stem_base.startswith(gb + "_") for gb in gif_bases):
                         continue
                 filtered_files.append(f)
             files = filtered_files
@@ -583,12 +583,16 @@ def gallery(kind, entries, labels=None):
     """Responsive image grid. Static unlinked images to prevent navigating to source; snapshots omit text caption."""
     labels = labels or {}
     basis = {"snapshots": "1 1 300px", "recipes": "0 1 400px", "items": "0 1 120px"}[kind]
-    width = {"snapshots": "100%", "recipes": "100%", "items": "64px"}[kind]
+    img_style = {
+        "snapshots": "width:100%;display:block",
+        "recipes":   "width:400px;max-width:100%;height:222px;object-fit:contain;display:block;margin:0 auto",
+        "items":     "width:64px;height:64px;object-fit:contain;display:block;margin:0 auto",
+    }[kind]
     cells = []
     for url, cap in entries:
         label_url = labels.get(url)
         alt_text = "" if kind == "snapshots" else html.escape(cap)
-        img = f'<img src="{url}" alt="{alt_text}" style="width:{width}">'
+        img = f'<img src="{url}" alt="{alt_text}" style="{img_style}">'
         if label_url:
             caption_html = f'<p><img src="{label_url}" alt="{esc(cap)}"></p>'
         elif kind == "recipes":
