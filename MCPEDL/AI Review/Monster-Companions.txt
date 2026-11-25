@@ -177,7 +177,7 @@ NEVER call `resolve-library-id`. NEVER query any other library.
 
 ## Rules
 
-1. Query first, write second. Batch: at most ONE `query-docs` call per needed `libraryId`, covering every topic needed from it, all calls in one parallel turn. NEVER two calls to the same `libraryId`. Name the exact member, file, id or schema and the game or module version.
+1. Query first, write second. Batch: at most ONE `query-docs` call per needed `libraryId`, covering every topic needed from it. NEVER two calls to the same `libraryId`. Name the exact member, file, id or schema and the game or module version. Fit as many library calls as possible in the first parallel turn. If all four libraries are needed and the tool enforces a per-turn call cap, run the remaining library calls in the next turn BEFORE writing any code — NEVER skip a needed library and NEVER use the cap as a reason to stop or guess.
 2. Verify every import, class, method, property and JSON field against the retrieved text. NEVER `mojang-minecraft`, `world.events` or 1.x syntax.
 3. Empty or doubtful result: no sequential retry loop. Say "not verified". NEVER fill the gap from memory.
 4. Versions come only from retrieved text. State the exact version used and the query date.
