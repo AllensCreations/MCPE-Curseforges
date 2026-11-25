@@ -4,10 +4,10 @@
 
 - **Export request:** `MCPEDL/Addons/OP-Sponge`
 - **Destination:** `MCPEDL/Addons/OP-Sponge`
-- **CURRENT VERSION: v5 / NEXT UPDATE: v6**  (`MCPEDL/Addons/OP-Sponge/CHANGELOG.md`)
+- **CURRENT VERSION: v6 / NEXT UPDATE: v7**  (`MCPEDL/Addons/OP-Sponge/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
-- **Text files:** 117
-- **Skipped binary:** 119
+- **Text files:** 118
+- **Skipped binary:** 118
 - **Paths not found:** 0
 
 ### Files in this export
@@ -123,17 +123,18 @@
 - `MCPEDL/Addons/OP-Sponge/project.json`
 - `MCPEDL/Addons/OP-Sponge/README.md`
 - `MCPEDL/Addons/OP-Sponge/resource_pack/manifest.json`
+- `MCPEDL/Addons/OP-Sponge/resource_pack/models/blocks/op_sponge.geo.json`
 - `MCPEDL/Addons/OP-Sponge/resource_pack/texts/en_US.lang`
 - `MCPEDL/Addons/OP-Sponge/resource_pack/texts/languages.json`
 - `MCPEDL/Addons/OP-Sponge/resource_pack/textures/item_texture.json`
 - `MCPEDL/Addons/OP-Sponge/resource_pack/textures/terrain_texture.json`
+- `MCPEDL/Addons/OP-Sponge/texture_sources/sponge_letter.json`
 
-### Not inlined: 2 larger file(s), ask the user for the exact paths you need
+### Not inlined: 1 larger file(s), ask the user for the exact paths you need
 
 - `MCPEDL/Addons/OP-Sponge/behavior_pack/trading/economy_trades/librarian_trades.json` (20905 bytes)
-- `MCPEDL/Addons/OP-Sponge/texture_sources/op_sponge_textures.json` (18055 bytes)
 
-### Skipped (binary): 119 file(s)
+### Skipped (binary): 118 file(s)
 
 - `MCPEDL/Addons/OP-Sponge/assets/banner.png`
 - `MCPEDL/Addons/OP-Sponge/assets/items/allenscreations_sponge_book.png`
@@ -175,7 +176,7 @@
 - `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_6.png`
 - `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_6_label.png`
 - `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_6_wet.png`
-- ... and 79 more
+- ... and 78 more
 
 ---
 
@@ -186,7 +187,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v5 / NEXT UPDATE: v6).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v6 / NEXT UPDATE: v7).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE self-contained update `.sh` (`<Pack>_v<Version>_<rand>.sh`) built with `make_update_script.py` (INSTRUCTIONS.md Reply Format).
@@ -402,7 +403,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/op_sponge.json (19 lines, 602 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/op_sponge.json (20 lines, 708 bytes)
 
 ```
 {
@@ -413,9 +414,10 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "menu_category": { "category": "construction" }
     },
     "components": {
-      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:geometry": "geometry.allenscreations_op_sponge",
       "minecraft:material_instances": {
-        "*": { "texture": "allenscreations_op_sponge", "render_method": "opaque" }
+        "*": { "texture": "allenscreations_op_sponge", "render_method": "alpha_test" },
+        "letter": { "texture": "allenscreations_sponge_letter", "render_method": "alpha_test" }
       },
       "minecraft:destructible_by_mining": { "seconds_to_destroy": 0.6 },
       "minecraft:destructible_by_explosion": { "explosion_resistance": 0.6 },
@@ -425,7 +427,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/op_sponge_wet.json (19 lines, 610 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/op_sponge_wet.json (20 lines, 716 bytes)
 
 ```
 {
@@ -436,9 +438,10 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "menu_category": { "category": "construction" }
     },
     "components": {
-      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:geometry": "geometry.allenscreations_op_sponge",
       "minecraft:material_instances": {
-        "*": { "texture": "allenscreations_op_sponge_wet", "render_method": "opaque" }
+        "*": { "texture": "allenscreations_op_sponge_wet", "render_method": "alpha_test" },
+        "letter": { "texture": "allenscreations_sponge_letter", "render_method": "alpha_test" }
       },
       "minecraft:destructible_by_mining": { "seconds_to_destroy": 0.6 },
       "minecraft:destructible_by_explosion": { "explosion_resistance": 0.6 },
@@ -5042,11 +5045,11 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 {
   "format_version": 2,
   "header": {
-    "name": "OP Sponge (v5)",
+    "name": "OP Sponge (v6)",
     "description": "A sponge that absorbs water. by ALNStudios",
     "uuid": "894911ae-ab32-43ea-8ab7-88823bcaab2a",
     "version": [
-      5,
+      6,
       0,
       0
     ],
@@ -5061,7 +5064,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "type": "data",
       "uuid": "ae723a26-8b15-4781-956c-81d53a3021fd",
       "version": [
-        5,
+        6,
         0,
         0
       ]
@@ -5072,7 +5075,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "uuid": "aa3774bf-f2b9-498d-aed8-1b816f595257",
       "entry": "scripts/main.js",
       "version": [
-        5,
+        6,
         0,
         0
       ]
@@ -5082,7 +5085,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     {
       "uuid": "67a33773-ea19-4d9c-a50c-0de79e1cf7aa",
       "version": [
-        5,
+        6,
         0,
         0
       ]
@@ -5097,7 +5100,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "5.0.0"
+    "version": "6.0.0"
   }
 }
 ```
@@ -5998,7 +6001,7 @@ Extracted from the script files; nothing here was run in game.
 Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/scripts/main.js (125 lines, 3370 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/scripts/main.js (140 lines, 3599 bytes)
 
 ```
 import { system, world } from "@minecraft/server";
@@ -6071,6 +6074,22 @@ function sparkle(dimension, origin) {
   }
 }
 
+function drain(block) {
+  try {
+    if (WATER.has(block.typeId)) {
+      block.setType("minecraft:air");
+      return true;
+    }
+    if (block.isWaterlogged) {
+      block.setWaterlogged(false);
+      return true;
+    }
+  } catch (error) {
+    return false;
+  }
+  return false;
+}
+
 function* absorb(dimension, origin, spongeId, sponge) {
   const seen = new Set([keyOf(origin, origin)]);
   let frontier = [origin];
@@ -6094,8 +6113,7 @@ function* absorb(dimension, origin, spongeId, sponge) {
           yield;
         }
         const block = readBlock(dimension, location);
-        if (block && WATER.has(block.typeId)) {
-          block.setType("minecraft:air");
+        if (block && drain(block)) {
           removed++;
           next.push(location);
         }
@@ -6173,12 +6191,23 @@ item.allenscreations:extreme_sponge_book_1.name=Extreme Sponge I Book
 ["en_US"]
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/CHANGELOG.md (42 lines, 2240 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/CHANGELOG.md (53 lines, 2600 bytes)
 
 ```
 # Changelog — OP Sponge
 
 ---
+
+## [v6] - 2026-11-25 - Letter S And Waterlogged Blocks
+
+### Changed
+
+- **Textures**: Back to the vanilla sponge textures. The OP Sponge and the Water-Filled OP Sponge now show a letter S on every side.
+- **Sponges**: Every sponge now also drains water inside waterlogged blocks, such as stairs and slabs.
+
+### Removed
+
+- The v5 gold and blue sponge textures.
 
 ## [v5] - 2026-11-25 - Sponge Fix And New Textures
 
@@ -6219,7 +6248,7 @@ item.allenscreations:extreme_sponge_book_1.name=Extreme Sponge I Book
 - **Recipe**: Craft an OP Sponge from a Sponge and Prismarine Crystals.
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/DESCRIPTION.md (83 lines, 4567 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/DESCRIPTION.md (84 lines, 4718 bytes)
 
 ```
 # OP Sponge — Enchantable Sponges That Absorb Up to 100,000 Water Blocks
@@ -6240,7 +6269,8 @@ Craft an OP Sponge, then combine it with a sponge book to make a Super Sponge or
 ## Key Features
 
 ### OP Sponge
-- **What Happens**: When placed, it absorbs all the connected water around it with no block limit, then becomes a Water-Filled OP Sponge.
+- **What Happens**: When placed, it absorbs all the connected water around it, including water inside waterlogged blocks, with no block limit, then becomes a Water-Filled OP Sponge.
+- **Look**: The vanilla sponge look with a letter S on every side, in both the dry and the filled version.
 - **Good To Know**: It only absorbs water, and it only reaches water in chunks that are loaded.
 
 ### Super Sponge I to X
@@ -6325,7 +6355,7 @@ Download the current release of **OP Sponge** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download OP Sponge (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OP-Sponge/OPSponge%20V5.mcaddon)
+- **Direct download:** [Download OP Sponge (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OP-Sponge/OPSponge%20V6.mcaddon)
 
 ## Installation
 
@@ -6344,11 +6374,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "OP Sponge (v5)",
+    "name": "OP Sponge (v6)",
     "description": "Textures for the add-on. by ALNStudios",
     "uuid": "67a33773-ea19-4d9c-a50c-0de79e1cf7aa",
     "version": [
-      5,
+      6,
       0,
       0
     ],
@@ -6363,7 +6393,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "f8d35b1f-a27a-457d-a97c-2d29d3b0c5a8",
       "version": [
-        5,
+        6,
         0,
         0
       ]
@@ -6374,8 +6404,57 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "5.0.0"
+    "version": "6.0.0"
   }
+}
+```
+
+## FILE: MCPEDL/Addons/OP-Sponge/resource_pack/models/blocks/op_sponge.geo.json (45 lines, 1609 bytes)
+
+```
+{
+  "format_version": "1.26.60",
+  "minecraft:geometry": [
+    {
+      "description": {
+        "identifier": "geometry.allenscreations_op_sponge",
+        "texture_width": 16,
+        "texture_height": 16
+      },
+      "bones": [
+        {
+          "name": "sponge",
+          "pivot": [0, 0, 0],
+          "cubes": [
+            {
+              "origin": [-8, 0, -8],
+              "size": [16, 16, 16],
+              "uv": {
+                "north": { "uv": [0, 0], "uv_size": [16, 16] },
+                "east": { "uv": [0, 0], "uv_size": [16, 16] },
+                "south": { "uv": [0, 0], "uv_size": [16, 16] },
+                "west": { "uv": [0, 0], "uv_size": [16, 16] },
+                "up": { "uv": [0, 0], "uv_size": [16, 16] },
+                "down": { "uv": [16, 16], "uv_size": [-16, -16] }
+              }
+            },
+            {
+              "origin": [-8.02, -0.02, -8.02],
+              "size": [16.04, 16.04, 16.04],
+              "uv": {
+                "north": { "uv": [0, 0], "uv_size": [16, 16], "material_instance": "letter" },
+                "east": { "uv": [0, 0], "uv_size": [16, 16], "material_instance": "letter" },
+                "south": { "uv": [0, 0], "uv_size": [16, 16], "material_instance": "letter" },
+                "west": { "uv": [0, 0], "uv_size": [16, 16], "material_instance": "letter" },
+                "up": { "uv": [0, 0], "uv_size": [16, 16], "material_instance": "letter" },
+                "down": { "uv": [16, 16], "uv_size": [-16, -16], "material_instance": "letter" }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
 ```
 
@@ -6425,7 +6504,7 @@ item.allenscreations:extreme_sponge_book_1.name=Extreme Sponge I Book
 ["en_US"]
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/resource_pack/textures/item_texture.json (16 lines, 379 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/resource_pack/textures/item_texture.json (16 lines, 373 bytes)
 
 ```
 {
@@ -6433,10 +6512,10 @@ item.allenscreations:extreme_sponge_book_1.name=Extreme Sponge I Book
   "texture_name": "atlas.items",
   "texture_data": {
     "allenscreations_sponge_icon": {
-      "textures": "textures/blocks/op_sponge"
+      "textures": "textures/blocks/sponge"
     },
     "allenscreations_sponge_wet_icon": {
-      "textures": "textures/blocks/op_sponge_wet"
+      "textures": "textures/blocks/sponge_wet"
     },
     "allenscreations_sponge_book": {
       "textures": "textures/items/book_enchanted"
@@ -6445,7 +6524,7 @@ item.allenscreations:extreme_sponge_book_1.name=Extreme Sponge I Book
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/resource_pack/textures/terrain_texture.json (15 lines, 322 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/resource_pack/textures/terrain_texture.json (18 lines, 412 bytes)
 
 ```
 {
@@ -6455,11 +6534,45 @@ item.allenscreations:extreme_sponge_book_1.name=Extreme Sponge I Book
   "num_mip_levels": 4,
   "texture_data": {
     "allenscreations_op_sponge": {
-      "textures": "textures/blocks/op_sponge"
+      "textures": "textures/blocks/sponge"
     },
     "allenscreations_op_sponge_wet": {
-      "textures": "textures/blocks/op_sponge_wet"
+      "textures": "textures/blocks/sponge_wet"
+    },
+    "allenscreations_sponge_letter": {
+      "textures": "textures/blocks/sponge_letter"
     }
   }
 }
+```
+
+## FILE: MCPEDL/Addons/OP-Sponge/texture_sources/sponge_letter.json (27 lines, 825 bytes)
+
+```
+[
+  {
+    "name": "sponge_letter",
+    "size": 16,
+    "folder": "blocks",
+    "palette": {"0": "#00000000", "1": "#3a2a05", "2": "#ffffff"},
+    "pixels": [
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0],
+      [0,0,0,0,1,1,2,2,2,2,1,1,0,0,0,0],
+      [0,0,0,1,1,2,2,2,2,2,2,1,1,0,0,0],
+      [0,0,0,1,2,2,1,1,1,1,2,2,1,0,0,0],
+      [0,0,0,1,2,2,1,1,1,1,1,1,1,0,0,0],
+      [0,0,0,1,1,2,2,2,2,2,1,1,0,0,0,0],
+      [0,0,0,0,1,1,2,2,2,2,2,1,1,0,0,0],
+      [0,0,0,1,1,1,1,1,1,1,2,2,1,0,0,0],
+      [0,0,0,1,2,2,1,1,1,1,2,2,1,0,0,0],
+      [0,0,0,1,1,2,2,2,2,2,2,1,1,0,0,0],
+      [0,0,0,0,1,1,2,2,2,2,1,1,0,0,0,0],
+      [0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    ]
+  }
+]
 ```

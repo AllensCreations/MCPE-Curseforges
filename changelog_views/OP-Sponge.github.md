@@ -1,12 +1,25 @@
 # Changelog — OP Sponge
 
-## [v5] - 2026-11-25 - Sponge Fix And New Textures
+## [v6] - 2026-11-25 - Letter S And Waterlogged Blocks
 
-### Fixed
+### Changed
+- **Textures**: Back to the vanilla sponge textures. The OP Sponge and the Water-Filled OP Sponge now show a letter S on every side.
+- **Sponges**: Every sponge now also drains water inside waterlogged blocks, such as stairs and slabs.
+
+### Removed
+
+<details>
+<summary><b>5.0.x</b> (1 release)</summary>
+
+### [v5] - 2026-11-25 - Sponge Fix And New Textures
+
+#### Fixed
 - **OP Sponge**: Water is now removed while the sponge scans, so you see it draining right away instead of waiting for the whole scan to finish. Big oceans now use much less memory.
 
-### Added
+#### Added
 - **Textures**: New 64x64 pixel textures for the dry and the water-filled sponge (gold with a diamond sparkle, and a wet blue version). All sponge tiers share them.
+
+</details>
 
 <details>
 <summary><b>4.0.x</b> (1 release)</summary>
