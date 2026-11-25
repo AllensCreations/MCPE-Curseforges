@@ -4,6 +4,14 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v291] - 2026-11-25 - Translucent Glass and Redrawn Textures
+
+**Spec**: spec_v291.txt | **Target**: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator | **Files edited**: 4
+
+### Fixed
+- **See-through glass**: The glass panes are translucent again, and the lid is now a gilded rim around a glass top, so the base core can be seen inside the case.
+- **Textures**: The frame, glass and core textures were redrawn with even gold trim, amethyst studs and corner gems, a vanilla-style glass sheen, and a centered rune pad on the base.
+
 ## [v290] - 2026-11-25 - Ten Spheres
 
 **Spec**: spec_v290.txt | **Target**: MCPEDL/Addons/ALNSpiritSphere | **Files edited**: 30

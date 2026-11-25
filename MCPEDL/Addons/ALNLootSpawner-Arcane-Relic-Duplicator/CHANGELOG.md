@@ -2,6 +2,12 @@
 
 ---
 
+## [1.0.6] - 2026-11-25 - Translucent Glass and Redrawn Textures
+
+### Fixed
+- **See-through glass**: The glass panes are translucent again, and the lid is now a gilded rim around a glass top, so the base core can be seen inside the case.
+- **Textures**: The frame, glass and core textures were redrawn with even gold trim, amethyst studs and corner gems, a vanilla-style glass sheen, and a centered rune pad on the base.
+
 ## [1.0.5] - 2026-11-24 - Fix Missing Glass and Core Textures
 
 ### Fixed
