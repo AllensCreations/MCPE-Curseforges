@@ -266,27 +266,74 @@ def vanilla_icon(item_id: str, samples_root: Path = None) -> Image.Image:
                      "(never guess a block texture).")
 
 
+TAG_REPRESENTATIVES = {
+    "minecraft:wool": "minecraft:white_wool",
+}
+
+VANILLA_TEXTURE_FALLBACKS = {
+    "textures/blocks/sponge": "minecraft:sponge",
+    "textures/items/book_enchanted": "minecraft:enchanted_book",
+}
+
+
+def _item_icon_name(pack: Path, item_id: str) -> str | None:
+    items_dir = pack / "behavior_pack" / "items"
+    if not items_dir.is_dir():
+        return None
+    for f in sorted(items_dir.rglob("*.json")):
+        try:
+            data = load_json(f).get("minecraft:item", {})
+        except (json.JSONDecodeError, OSError):
+            continue
+        if data.get("description", {}).get("identifier") != item_id:
+            continue
+        icon = data.get("components", {}).get("minecraft:icon")
+        if isinstance(icon, str):
+            return icon
+        if isinstance(icon, dict):
+            tex = icon.get("texture") or (icon.get("textures") or {}).get("default")
+            return tex if isinstance(tex, str) else None
+    return None
+
+
+def _raw_texture_from_json(rp: Path, name: str, index_name: str = "item_texture.json") -> str | None:
+    index = rp / "textures" / index_name
+    if not index.is_file():
+        return None
+    entry = load_json(index).get("texture_data", {}).get(name)
+    if not entry:
+        return None
+    tex = entry.get("textures")
+    if isinstance(tex, list):
+        tex = tex[0] if tex else None
+    if isinstance(tex, dict):
+        tex = tex.get("path")
+    return tex if isinstance(tex, str) else None
+
+
+def _custom_block_icon(rp: Path, name: str) -> Image.Image | None:
+    blocks_dir = rp / "textures" / "blocks"
+    if not blocks_dir.is_dir():
+        return None
+    for prefix in (f"aln_{name}", name):
+        side = blocks_dir / f"{prefix}_side.png"
+        top = blocks_dir / f"{prefix}_top.png"
+        if side.is_file() and top.is_file():
+            return isometric_block_icon(side, top)
+        direct = blocks_dir / f"{prefix}.png"
+        if direct.is_file():
+            return make_block_item_icon(direct)
+        hits = sorted(blocks_dir.glob(f"{prefix}_*.png"))
+        if hits:
+            return make_block_item_icon(hits[0])
+    return None
+
+
 # ---------------------------------------------------------------- custom textures (the pack's own files)
 def custom_texture_path(pack: Path, item_id: str) -> Path | None:
     rp = pack / "resource_pack"
     name = short(item_id)
-    icon_name = None
-    items_dir = pack / "behavior_pack" / "items"
-    if items_dir.is_dir():
-        for f in sorted(items_dir.rglob("*.json")):
-            try:
-                data = load_json(f).get("minecraft:item", {})
-            except (json.JSONDecodeError, OSError):
-                continue
-            if data.get("description", {}).get("identifier") != item_id:
-                continue
-            icon = data.get("components", {}).get("minecraft:icon")
-            if isinstance(icon, str):
-                icon_name = icon
-            elif isinstance(icon, dict):
-                tex = icon.get("texture") or (icon.get("textures") or {}).get("default")
-                icon_name = tex if isinstance(tex, str) else None
-            break
+    icon_name = _item_icon_name(pack, item_id)
     for candidate in (icon_name, name):
         if candidate:
             found = _texture_from_json(rp, candidate)
@@ -300,10 +347,22 @@ def icon_for(pack: Path, item_id: str, samples_root: Path = None) -> Image.Image
     if item_id.startswith("minecraft:") or ":" not in item_id:
         return vanilla_icon(item_id, samples_root)
     path = custom_texture_path(pack, item_id)
-    if not path:
-        raise Unresolved(f"{item_id}: no texture found in the pack's resource_pack (checked the BP item icon, "
-                         "item_texture.json and textures/items/**).")
-    return Image.open(path).convert("RGBA")
+    if path:
+        return Image.open(path).convert("RGBA")
+    rp = pack / "resource_pack"
+    name = short(item_id)
+    icon_name = _item_icon_name(pack, item_id)
+    for candidate in (icon_name, name, f"allenscreations_{name}"):
+        if candidate:
+            for index_name in ("item_texture.json", "terrain_texture.json"):
+                raw = _raw_texture_from_json(rp, candidate, index_name)
+                if raw and raw.removesuffix(".png") in VANILLA_TEXTURE_FALLBACKS:
+                    return vanilla_icon(VANILLA_TEXTURE_FALLBACKS[raw.removesuffix(".png")], samples_root)
+    block_icon = _custom_block_icon(rp, name)
+    if block_icon is not None:
+        return block_icon
+    raise Unresolved(f"{item_id}: no texture found in the pack's resource_pack (checked the BP item icon, "
+                     "item_texture.json and textures/items/**).")
 
 
 # ---------------------------------------------------------------- recipes
@@ -358,12 +417,19 @@ def plan_pack(pack: Path, samples_root: Path = None):
         kind, data = parsed
         try:
             result_id, count = result_of(data)
+            ingredients = set()
             for entry in ingredient_entries(kind, data):
-                if not isinstance(entry, dict) or not entry.get("item"):
+                if not isinstance(entry, dict):
+                    raise Unresolved(f"ingredient {entry!r} has no single item (tag or missing key); add an explicit item")
+                item = entry.get("item")
+                if not item and entry.get("tag") in TAG_REPRESENTATIVES:
+                    item = TAG_REPRESENTATIVES[entry["tag"]]
+                    entry["item"] = item
+                if not item:
                     raise Unresolved(f"ingredient {entry!r} has no single item (tag or missing key); add an explicit item")
                 if entry.get("data") not in (None, 0):
-                    raise Unresolved(f"{entry['item']} uses data value {entry['data']}; one icon cannot show it")
-            ingredients = {e["item"] for e in ingredient_entries(kind, data)}
+                    raise Unresolved(f"{item} uses data value {entry['data']}; one icon cannot show it")
+                ingredients.add(item)
             icons = {i: icon_for(pack, i, samples_root) for i in sorted(ingredients)}
             result_icon = icon_for(pack, result_id, samples_root)
         except Unresolved as exc:
