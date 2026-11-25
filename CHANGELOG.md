@@ -4,6 +4,11 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## 2026-11-25 - New Script ALN QualityOfLife Part 2
+
+### Added
+- **ALN QualityOfLife Part 2**: New script project created from a pack script.
+
 ## 2026-11-25 - New Addon ALNWarpScrolls
 
 ### Added
