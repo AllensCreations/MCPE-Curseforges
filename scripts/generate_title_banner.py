@@ -21,6 +21,26 @@ ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_FONT_PATH = ROOT / "assets" / "fonts" / "Minecraft-Bold.otf"
 
 
+MAX_BANNER_WIDTH = 900  # px at scale=1; wrap title to fit
+
+
+def _wrap_title(title: str, font, max_px: int, draw) -> list[str]:
+    """Split a long title across lines so each line fits within max_px."""
+    words = title.split()
+    lines, current = [], []
+    for word in words:
+        trial = " ".join(current + [word])
+        box = draw.textbbox((0, 0), trial, font=font)
+        if box[2] - box[0] <= max_px or not current:
+            current.append(word)
+        else:
+            lines.append(" ".join(current))
+            current = [word]
+    if current:
+        lines.append(" ".join(current))
+    return lines or [title]
+
+
 def render_banner(
     title: str,
     subtitle: str = "BEDROCK ADDON",
@@ -54,6 +74,17 @@ def render_banner(
     sw = s_box[2] - s_box[0]
     sh = s_box[3] - s_box[1]
 
+    # Wrap title if too wide
+    max_title_w = int(MAX_BANNER_WIDTH * scale)
+    title_lines = _wrap_title(title_clean, font_title, max_title_w, draw_dummy)
+    if len(title_lines) > 1:
+        line_boxes = [draw_dummy.textbbox((0, 0), ln, font=font_title) for ln in title_lines]
+        tw = max(b[2] - b[0] for b in line_boxes)
+        single_lh = line_boxes[0][3] - line_boxes[0][1]
+        th = single_lh * len(title_lines) + int(8 * scale) * (len(title_lines) - 1)
+    else:
+        single_lh = th
+
     # Ribbon box dimensions
     pad_x = int(22 * scale)
     pad_y = int(6 * scale)
@@ -74,20 +105,29 @@ def render_banner(
     # 3D extrusion depth
     depth = max(4, int(6 * scale))
 
-    # 1. Outer Black Outline for 3D extrusion
+    # 1. Outer Black Outline for 3D extrusion (all lines)
     for dx in range(-3, 4):
         for dy in range(-3, depth + 4):
-            draw.text((tx + dx, ty + dy), title_clean, font=font_title, fill=(0, 0, 0, 255))
+            cur_y = ty
+            for ln in title_lines:
+                draw.text((tx + dx, cur_y + dy), ln, font=font_title, fill=(0, 0, 0, 255))
+                cur_y += single_lh + int(8 * scale)
 
     # 2. 3D Shadow Layers (dark stone bevel)
     for d in range(1, depth + 1):
         color = (55, 55, 55, 255) if d > (depth // 2) else (95, 95, 95, 255)
-        draw.text((tx, ty + d), title_clean, font=font_title, fill=color)
-        draw.text((tx + 1, ty + d), title_clean, font=font_title, fill=color)
+        cur_y = ty
+        for ln in title_lines:
+            draw.text((tx, cur_y + d), ln, font=font_title, fill=color)
+            draw.text((tx + 1, cur_y + d), ln, font=font_title, fill=color)
+            cur_y += single_lh + int(8 * scale)
 
     # 3. Main Title Face (Silver / White with highlight)
-    draw.text((tx, ty), title_clean, font=font_title, fill=(240, 240, 240, 255))
-    draw.text((tx, ty - 1), title_clean, font=font_title, fill=(255, 255, 255, 210))
+    cur_y = ty
+    for ln in title_lines:
+        draw.text((tx, cur_y), ln, font=font_title, fill=(240, 240, 240, 255))
+        draw.text((tx, cur_y - 1), ln, font=font_title, fill=(255, 255, 255, 210))
+        cur_y += single_lh + int(8 * scale)
 
     # 4. Ribbon Subtitle Placement
     rx = (canvas_w - rw) // 2

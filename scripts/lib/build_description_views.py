@@ -28,6 +28,21 @@ CF_URL = "https://www.curseforge.com/members/allenscreations/projects"
 MP_URL = "https://mcpedl.com/user/alnstudios/"
 KOFI_URL = "https://ko-fi.com/alnstudios"
 RAW = "https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/"
+LABELS_DIR = Path(__file__).resolve().parent.parent.parent / "assets" / "labels"
+LABEL_SLUG = {
+    "About": "about",
+    "Screenshots": "about",
+    "What You Get": "what_you_get",
+    "Showcase": "about",
+    "Custom Items": "custom_items",
+    "Crafting Recipes": "crafting_recipes",
+    "Get Started": "how_to_play",
+    "Commands": "commands",
+    "Common Questions": "about",
+    "Install": "install",
+    "Support": "support",
+    "Features": "features",
+}
 KOFI_IMG = RAW + "assets/Images/ko-fi.png"
 
 ALLOWED_TAGS = set("p br strong b em i u strike ul li ol cite abbr acronym del ins blockquote span code pre sup dl dd dt "
@@ -140,8 +155,23 @@ def sections(text):
     return parts[0], {p.split("\n", 1)[0][3:].strip(): (p.split("\n", 1) + [""])[1] for p in parts[1:]}
 
 
+def _label_img_url(title: str) -> str | None:
+    """Return a raw GitHub URL for the section label image if it exists, else None."""
+    slug = LABEL_SLUG.get(title)
+    if slug:
+        f = LABELS_DIR / f"{slug}.png"
+        if f.is_file():
+            from urllib.parse import quote as _quote
+            rel = f.relative_to(LABELS_DIR.parent.parent)
+            return RAW + _quote(rel.as_posix())
+    return None
+
+
 def h2(title, acc):
-    """Section heading: the title sits in a green rounded chip."""
+    """Section heading: label image if available, else green rounded chip."""
+    label_url = _label_img_url(title)
+    if label_url:
+        return f'<p><img src="{label_url}" alt="{esc(title)}"></p>'
     return (f'<h2 style="font-size:17px;text-align:left"><span style="background-color:{acc};color:{INK};border-radius:20px">'
             f'&nbsp;&nbsp;{title}&nbsp;&nbsp;</span></h2>')
 

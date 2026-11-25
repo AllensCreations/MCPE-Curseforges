@@ -272,6 +272,7 @@ TAG_REPRESENTATIVES = {
 
 VANILLA_TEXTURE_FALLBACKS = {
     "textures/blocks/sponge": "minecraft:sponge",
+    "textures/blocks/sponge_wet": "minecraft:wet_sponge",
     "textures/items/book_enchanted": "minecraft:enchanted_book",
 }
 

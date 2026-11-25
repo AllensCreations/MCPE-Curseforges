@@ -34,6 +34,16 @@ class TitleBannerTests(unittest.TestCase):
             name = gtb.extract_pack_name(p)
             self.assertEqual(name, "Test Pack")
 
+    def test_long_title_wraps_lines(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            out_path = Path(tmpdir) / "long.png"
+            img = gtb.render_banner("Super Ultra Incredible Extraordinary Adventure Pack For Minecraft Bedrock", "ADDON", out_path=out_path)
+            self.assertTrue(out_path.is_file())
+            self.assertIsInstance(img, Image.Image)
+            # Banner height with multiple lines should be noticeably larger than single line
+            single = gtb.render_banner("Short Title", "ADDON")
+            self.assertGreater(img.height, single.height)
+
 
 if __name__ == "__main__":
     unittest.main()

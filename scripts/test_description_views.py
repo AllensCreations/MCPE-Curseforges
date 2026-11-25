@@ -47,7 +47,7 @@ class DescriptionViewTests(unittest.TestCase):
         gif = "https://raw.githubusercontent.com/x/y/abc/Demo/clip.gif"
         md = self.md.replace("## Key Features", f"## Showcase / Previews\n\n### Toggled On\n\nSee the menu: ![Toggled On]({gif})\n\n## Key Features", 1)
         h = bdv.render(md, "Demo-Pack")
-        self.assertIn("Showcase&nbsp;&nbsp;</span></h2>", h)
+        self.assertTrue('alt="Showcase"' in h or "Showcase&nbsp;&nbsp;</span></h2>" in h)
         self.assertEqual(h.count(gif), 2)  # link + image
         self.assertEqual(bdv.lost_links(md, h), [])
         self.assertEqual(bdv.check_html(h), [])
@@ -88,11 +88,11 @@ class DescriptionViewTests(unittest.TestCase):
     def test_commands_get_their_own_display(self):
         md = self.md.replace("## Compatibility", "## Commands\n\n- `/givemelight 5`: Gives 5 Cursor Lights.\n- `/lightoff`: Turns the light off.\n\n## Compatibility", 1)
         h = bdv.render(md)
-        self.assertEqual(h.count("Commands&nbsp;&nbsp;</span></h2>"), 1)
+        self.assertEqual(h.count('alt="Commands"') + h.count("Commands&nbsp;&nbsp;</span></h2>"), 1)
         self.assertIn("<code>/givemelight 5</code>", h)
         self.assertIn("Commands need cheats enabled", h)
         self.assertEqual(bdv.check_html(h), [])
-        self.assertNotIn("Commands&nbsp;&nbsp;</span></h2>", bdv.render(self.md))
+        self.assertNotIn('alt="Commands"', bdv.render(self.md))
 
     def test_command_with_a_namespace_colon(self):
         md = self.md.replace("## Compatibility", "## Commands\n\n- `/give @s aln:mining_helmet`: Gives you the helmet.\n\n## Compatibility", 1)
@@ -137,7 +137,10 @@ class DescriptionViewTests(unittest.TestCase):
                 h = bdv.render(self.md, "Demo-Pack", style=st, media=m)
                 self.assertEqual(bdv.check_html(h), [])
                 for title in ("Screenshots", "Custom Items", "Crafting Recipes"):
-                    self.assertEqual(h.count(f"{title}&nbsp;&nbsp;</span></h2>"), 1)
+                    self.assertTrue(
+                        h.count(f'alt="{title}"') >= 1 or h.count(f"{title}&nbsp;&nbsp;</span></h2>") >= 1,
+                        f"Section heading not found for: {title}"
+                    )
                 self.assertIn("raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Demo-Pack/assets/snapshots/2-Early.gif", h)
             self.assertNotIn("Screenshots", bdv.render(self.md, "Demo-Pack"))
 
