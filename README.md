@@ -25,6 +25,31 @@ Each list links to its packs.
 - [Minigames](MCPEDL/Minigame/README.md)
 - [All ready-to-install packages](builds/README.md)
 
+## Developer Tools
+
+### 📸 Snapshot Uploader
+Quickly upload in-game screenshots to any pack's `assets/snapshots/` folder using an interactive Terminal UI.
+
+**Setup** — place your screenshots here:
+```
+~/storage/downloads/Snapshots/
+```
+
+**Run:**
+```bash
+./upload
+```
+
+The tool will:
+1. Auto-detect all images in your Snapshots folder
+2. Let you pick a package with ↑/↓ arrow keys
+3. Preview the files, confirm, and copy them in one keystroke
+4. Optionally `git add` the new snapshots right away
+
+Supported formats: `.png` `.jpg` `.jpeg` `.webp` `.gif`
+
+---
+
 ## What's New
 See the [repository changelog](CHANGELOG.md) for the latest updates.
 
