@@ -82,3 +82,4 @@ Place a Sign next to a Hopper to turn it into a Filter Hopper or a Vacuum Hopper
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, ALN QualityOfLife Part 2 Bedrock mod, filter hopper, vacuum hopper, block breaker dispenser, block placer dispenser, auto breed trough, hopper filter Minecraft Bedrock, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+

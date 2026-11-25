@@ -1,0 +1,8 @@
+{
+  "changelog_version": "1.0.0",
+  "manifest_version": "1.0.0",
+  "packages": {
+    "ALNQualityOfLifePart2 V1.mcpack": "aab2c23f1fb2a3fbc3f3516bd9b793eb64ccbcd7b349d9d7f760286cffaed9bc"
+  },
+  "source_sha256": "e4fa966ca552b0786c32c5c49bcd918be51912ac0c155272f539bb803ffeeba2"
+}

@@ -2,7 +2,7 @@
 
 Generated file. Do not edit by hand: it is rebuilt with every build.
 
-40 Add-ons · 5 Maps · 10 Scripts · 6 Minigames
+40 Add-ons · 5 Maps · 11 Scripts · 6 Minigames
 
 ## AI Review Kits
 
@@ -73,6 +73,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 
 | Pack | Version | Status | Source | Package | AI review |
 | :-- | :-- | :-- | :-- | :-- | :-- |
+| **ALN QualityOfLife Part 2** | 1.0.0 | ⚪ Not Published | [Source](Script/ALN-QualityOfLife-Part-2) | [Package](../Package/ALN-QualityOfLife-Part-2.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-QualityOfLife-Part-2-1.0.0.zip) |
 | **ALN:MobStacker** | v5 | 🟢 Published ([v5](https://www.curseforge.com/projects/1821753)) | [Source](Script/ALN-MobStacker) | [Package](../Package/ALN-MobStacker.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-MobStacker-v5.zip) |
 | **ALN:SpawnControl** | 3.0.3 | 🟢 Published ([3.0.3](https://www.curseforge.com/projects/1812574)) | [Source](Script/ALNSpawnControl) | [Package](../Package/ALNSpawnControl.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNSpawnControl-3.0.3.zip) |
 | **Always Critical** | v2 | 🟢 Published ([v2](https://www.curseforge.com/projects/1804718)) | [Source](Script/Always-Critical) | [Package](../Package/Always-Critical.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Always-Critical-v2.zip) |

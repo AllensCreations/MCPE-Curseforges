@@ -87,6 +87,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **Command Vault** | Script Pack (.mcpack) | [Download (.mcpack)](Command-Vault/CommandVault%20V3.mcpack) | [`Command-Vault/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Command-Vault/) |
 | **Loot and XP Stick** | Script Pack (.mcpack) | [Download (.mcpack)](Loot-and-XP-Stick/LootXPStick%20V1.mcpack) | [`Loot-and-XP-Stick/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Loot-and-XP-Stick/) |
 | **ALNOneClickSort** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNOneClickSort/ALNOneClickSort%20V12.mcaddon) | [`ALNOneClickSort/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNOneClickSort/) |
+| **ALN QualityOfLife Part 2** | Script Pack (`.mcpack`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-QualityOfLife-Part-2/ALNQualityOfLifePart2%20V1.mcpack) | [`ALN-QualityOfLife-Part-2/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-QualityOfLife-Part-2/) |
 
 ---
 

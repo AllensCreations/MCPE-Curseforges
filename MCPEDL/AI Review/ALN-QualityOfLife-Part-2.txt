@@ -1,0 +1,1142 @@
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Script/ALN-QualityOfLife-Part-2`
+- **Destination:** `MCPEDL/Script/ALN-QualityOfLife-Part-2`
+- **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Script/ALN-QualityOfLife-Part-2/CHANGELOG.md`)
+- **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
+- **Text files:** 11
+- **Skipped binary:** 1
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Script/ALN-QualityOfLife-Part-2/behavior_pack/manifest.json`
+- `MCPEDL/Script/ALN-QualityOfLife-Part-2/behavior_pack/scripts/lib/auto_breed.js`
+- `MCPEDL/Script/ALN-QualityOfLife-Part-2/behavior_pack/scripts/lib/filter_hopper.js`
+- `MCPEDL/Script/ALN-QualityOfLife-Part-2/behavior_pack/scripts/lib/mechanical_dispenser.js`
+- `MCPEDL/Script/ALN-QualityOfLife-Part-2/behavior_pack/scripts/lib/README.md`
+- `MCPEDL/Script/ALN-QualityOfLife-Part-2/behavior_pack/scripts/lib/vacuum_hopper.js`
+- `MCPEDL/Script/ALN-QualityOfLife-Part-2/behavior_pack/scripts/main.js`
+- `MCPEDL/Script/ALN-QualityOfLife-Part-2/CHANGELOG.md`
+- `MCPEDL/Script/ALN-QualityOfLife-Part-2/DESCRIPTION.md`
+- `MCPEDL/Script/ALN-QualityOfLife-Part-2/project.json`
+- `MCPEDL/Script/ALN-QualityOfLife-Part-2/README.md`
+
+### Skipped (binary): 1 file(s)
+
+- `MCPEDL/Script/ALN-QualityOfLife-Part-2/assets/banner.png`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v1 / NEXT UPDATE: v2).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE self-contained update `.sh` (`<Pack>_v<Version>_<rand>.sh`) built with `make_update_script.py` (INSTRUCTIONS.md Reply Format).
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Script/ALN-QualityOfLife-Part-2
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding the ready-to-run commands, and ONE generated self-contained `<Pack>_v<Version>_<rand>.sh` update script (built with `make_update_script.py`). The script contains the full UI, automatically pulls, applies edits safely, commits, and pushes.
+---
+
+## Skills
+
+## Skill: .agents/skills/mcpe-context7/SKILL.md
+
+```markdown
+---
+name: mcpe-context7
+description: Use before looking up ANY Bedrock API member, vanilla id, texture, recipe, component, manifest field or version for the MCPE-Curseforges repo. Routes each need to one of the three Context7 libraries and says when a script must come from the kit zip instead.
+---
+
+# mcpe-context7: Where to Look Things Up
+
+## Authority
+
+- `INSTRUCTIONS.md` 1.16 (copy in the kit zip's instruction files) is the policy. This skill is only its routing table and never overrides it.
+- Repo rules, scripts and pack files come from the **kit zip** (`New-Pack.zip`, `Maintenance.zip` or the pack's review zip), NOT from Context7. The zip is always fresher.
+
+## Libraries (ONLY these three, IDs exactly, `query-docs` only)
+
+- `/microsoftdocs/minecraft-creator`: `@minecraft/server` and `@minecraft/server-ui` API, JSON schemas, stable and module versions.
+- `/mojang/bedrock-samples`: vanilla ids, textures, recipes, components, entities, formats, `version.json`.
+- `/websites/wiki_bedrock_dev`: manifest structure, scripting guides, techniques.
+
+NEVER call `resolve-library-id`. NEVER query any other library.
+
+## Repo lookups (from the kit zip, NOT Context7)
+
+Repo rules, scripts, instruction files, `DOCS_RULES.md`, `PACK_GENERATOR_INSTRUCTIONS.md`, `docs/mcicons-index.md`, `docs/bedrock-guide.md` and all script files come from the kit zip under `files/`. Read them from there. Context7 no longer indexes this repo.
+
+## Rules
+
+1. Query first, write second. Batch: at most ONE `query-docs` call per needed `libraryId`, covering every topic needed from it. NEVER two calls to the same `libraryId`. Name the exact member, file, id or schema and the game or module version. All three calls may go in one parallel turn.
+2. Verify every import, class, method, property and JSON field against the retrieved text. NEVER `mojang-minecraft`, `world.events` or 1.x syntax.
+3. Empty or doubtful result: no sequential retry loop. Say "not verified". NEVER fill the gap from memory.
+4. Versions come only from retrieved text. State the exact version used and the query date.
+5. Handoff bullet: `Docs queried (YYYY-MM-DD): <library IDs and topics>`.
+6. Library IDs, query text and the word Context7 NEVER go into shipped files or player-facing docs.
+
+## Scripts that must run
+
+- `make_pack_script.py`, `build_payload.py`, `import_project_payload.py`, `doc_template.py`, `pixel_json_to_png.py`, `make_update_script.py` and `apply_update.py` need their COMPLETE unchanged text.
+- The complete files are in the kit zip (`New-Pack.zip`, `Maintenance.zip` or the pack's review zip `<Pack>.zip`) under `files/`. Unzip, run from there, NEVER retype or edit them.
+- No zip: stop and ask the user to attach the zip. NEVER rewrite a script from memory.
+
+## Icons (MCicons)
+
+- Any vanilla item or block icon (recipe diagrams, sprites, README or listing images, UI art): use MCicons ONLY. It is the release file `reference/mcicons/mcicons-<ver>.tgz` in the repo (`package/dist/icons/minecraft_<id>.png`, 64x64, only `minecraft:` ids). Read it with `scripts/lib/mcicons.py` (`has_icon(id)`, `icon_image(id)`), never retype or guess a PNG.
+- No icon for the id (custom ids, newer items): report it. NO fallback to Samples, the Wiki, another icon site or a third-party pack.
+- `docs/mcicons-index.md` (in the kit zip under `files/`) lists every icon id it holds: check it before using an icon.
+- The `.tgz` itself is not in the kit zips. To run code that reads the pixels it must be in the clone; if it is missing, ask the user to attach it. NEVER substitute a lookalike.
+- Every manifest (BP and RP) carries `metadata.authors` = `["ALNStudios"]` and `metadata.product_type` = `"addon"`, always.
+- Keep its `ASSET-NOTICE.md` with any redistributed icon.
+
+## Reading the directory map
+
+- The map lists directories with file counts. Pick the folder, then read the file from the zip. For exact file text of a pack, ask for a Collect Files export of that path.
+- NEVER edit generated folders and files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`, `builds/README.md`.
+```
+
+## Skill: .agents/skills/mcpe-pack-update/SKILL.md
+
+````markdown
+---
+name: mcpe-pack-update
+description: Use for any change to an existing project, workflow, script or doc in the MCPE-Curseforges repository (update, fix, add, rename). Delivers every change as ONE self-contained Termux update script (<Pack>_v<Version>_<rand>.sh) containing the spec and rich UI.
+---
+
+# mcpe-pack-update: Update Delivery
+
+## Authority
+
+- `INSTRUCTIONS.md` is the policy source. `PACK_GENERATOR_INSTRUCTIONS.md` is its standalone copy for generation. The script flow is `INSTRUCTIONS.md` "Termux Script Rules", built with `scripts/make_update_script.py`. Where to look each rule up: the `mcpe-context7` skill. This skill is a short working checklist and never restates or overrides them.
+- **Precedence** (as in `PACK_GENERATOR_INSTRUCTIONS.md`): factual accuracy and the user's requested scope, then Part 1, then Part 2, then this skill. Part 4 of the generator file never overrides Parts 1 and 2.
+- If these files disagree with each other or with a script in `scripts/`, tell the user exactly what differs instead of choosing silently. If `INSTRUCTIONS.md` cannot be read, stop and report it instead of working from memory.
+- Achievements line (every project type): always `Yes, achievement-friendly.` Keep any cheats or world-setting caveat as a following sentence.
+
+## Scope
+
+- Use for changes to an existing project (`MCPEDL/Addons|Maps|Script|Minigame/<Name>/`), a workflow, a script, a catalog or any repo doc.
+- Read-only audit or report: use `checkrm`.
+- New project from an idea: follow `PACK_GENERATOR_INSTRUCTIONS.md` Part 4 (ask the type first, base64 payload).
+
+## Procedure
+
+1. Read `INSTRUCTIONS.md` Parts 1 and 2 before writing anything, through Context7 as the `mcpe-context7` skill says. `make_update_script.py`, `apply_update.py`, and `pixel_json_to_png.py` are complete in the pack's review zip (`<Pack>.zip`) under `files/`; run them from there.
+2. Find the destination folder: the path the user named, otherwise the matching project folder. Do not substitute a similar name; report ambiguity or a missing target.
+3. Read the real source (manifests, scripts, items, recipes, loot tables, functions, lang files) before writing any claim. Source priority when sources disagree: the project's own files, Mojang Bedrock Samples, official Minecraft Creator Documentation, Minecraft Wiki, Bedrock Wiki.
+4. Make the smallest possible change. No unrelated rewrites. Never invent features, versions, links, assets, test results or compatibility. Never write comments in shipped `.js`, `.mcfunction` or `.json` files.
+5. Generate the spec, convert it with `make_update_script.py` into a single self-contained `<Pack>_v<Version>_<rand>.sh` file, and provide the one-line run command for the user.
+
+## The update script
+
+Generate the spec with `apply_update.py` directives (replace, replace-all, insert-after, insert-before, create, overwrite, delete, changelog).
+Then build the single `.sh` using:
+```bash
+python3 files/scripts/make_update_script.py spec.txt --out-dir .
+```
+This produces ONE single `.sh` file (`<PackName>_v<Version>_<rand>.sh`) that contains the embedded update payload, ANSI colored status UI, automated git rebase, validation checks, commit, and push.
+
+## Reply
+
+1. Attach or output the single `.sh` file (`<PackName>_v<Version>_<rand>.sh`).
+2. Give the single Termux command:
+```bash
+bash ~/storage/downloads/<PackName>_v<Version>_*.sh
+```
+3. Brief summary of what changed and what checks ran.
+4. **Save in AI memory**: Every finished output, applied change summary, and spec version must be retained in AI memory/scratch notes so context is preserved across turns without relying on session replay.
+````
+
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Script/ALN-QualityOfLife-Part-2/behavior_pack/manifest.json (45 lines, 872 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN QualityOfLife Part 2 (v1)",
+    "description": "Sign-driven filter and vacuum hoppers, block-breaker and block-placer dispensers, and auto-breed troughs for survival worlds. by ALNStudios",
+    "uuid": "65030733-9a2e-45db-88d0-b0847c9cd010",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "script",
+      "language": "javascript",
+      "entry": "scripts/main.js",
+      "uuid": "1d2694b2-5f7e-49b7-84e8-fddb1a2214d9",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Script/ALN-QualityOfLife-Part-2/behavior_pack/scripts/lib/auto_breed.js (188 lines, 5621 bytes)
+
+```
+import { world, system } from "@minecraft/server";
+
+const STORE_KEY = "alnqol2:troughs";
+const DIMENSION_IDS = ["minecraft:overworld", "minecraft:nether", "minecraft:the_end"];
+const MAX_ENTRIES = 100;
+const RUN_TICKS = 20;
+const BREED_TICKS = 120;
+const SAVE_TICKS = 200;
+const RADIUS = 8;
+const HERD_CAP = 24;
+const COOLDOWN_KEY = "alnqol2:breed_until";
+const COOLDOWN_TIME = 6000;
+const TROUGHS = new Set(["minecraft:chest", "minecraft:barrel"]);
+const BREEDS = [
+  { type: "minecraft:cow", foods: ["minecraft:wheat"] },
+  { type: "minecraft:sheep", foods: ["minecraft:wheat"] },
+  { type: "minecraft:pig", foods: ["minecraft:carrot"] },
+  { type: "minecraft:rabbit", foods: ["minecraft:carrot"] },
+  {
+    type: "minecraft:chicken",
+    foods: [
+      "minecraft:wheat_seeds",
+      "minecraft:beetroot_seeds",
+      "minecraft:melon_seeds",
+      "minecraft:pumpkin_seeds",
+      "minecraft:pitcher_pod",
+      "minecraft:torchflower_seeds",
+    ],
+  },
+];
+
+const entries = [];
+const known = new Set();
+let dirty = false;
+
+function keyOf(dimId, x, y, z) {
+  return dimId + "|" + x + "|" + y + "|" + z;
+}
+
+function add(dimId, x, y, z) {
+  const key = keyOf(dimId, x, y, z);
+  if (known.has(key) || entries.length >= MAX_ENTRIES) return;
+  known.add(key);
+  entries.push({ dim: dimId, x, y, z, key, nextAt: system.currentTick + BREED_TICKS });
+  dirty = true;
+}
+
+function removeAt(index) {
+  known.delete(entries[index].key);
+  entries.splice(index, 1);
+  dirty = true;
+}
+
+function load() {
+  try {
+    const raw = world.getDynamicProperty(STORE_KEY);
+    if (typeof raw !== "string") return;
+    const list = JSON.parse(raw);
+    if (!Array.isArray(list)) return;
+    for (const item of list) {
+      if (!Array.isArray(item) || item.length !== 4) continue;
+      const dimId = DIMENSION_IDS[item[0]];
+      if (dimId) add(dimId, item[1], item[2], item[3]);
+    }
+    dirty = false;
+  } catch (e) {
+    entries.length = 0;
+    known.clear();
+  }
+}
+
+function save() {
+  if (!dirty) return;
+  try {
+    const payload = entries
+      .map((e) => [DIMENSION_IDS.indexOf(e.dim), e.x, e.y, e.z])
+      .filter((p) => p[0] >= 0);
+    world.setDynamicProperty(STORE_KEY, JSON.stringify(payload));
+    dirty = false;
+  } catch (e) {}
+}
+
+function countFood(container, foods) {
+  let total = 0;
+  for (let slot = 0; slot < container.size; slot++) {
+    const item = container.getItem(slot);
+    if (item && foods.includes(item.typeId)) total += item.amount;
+  }
+  return total;
+}
+
+function takeFood(container, foods, amount) {
+  let need = amount;
+  for (let slot = 0; slot < container.size && need > 0; slot++) {
+    const item = container.getItem(slot);
+    if (!item || !foods.includes(item.typeId)) continue;
+    const used = Math.min(item.amount, need);
+    need -= used;
+    if (used >= item.amount) {
+      container.setItem(slot);
+    } else {
+      item.amount -= used;
+      container.setItem(slot, item);
+    }
+  }
+}
+
+function isReady(animal, now) {
+  if (!animal.isValid || animal.hasComponent("minecraft:is_baby")) return false;
+  const health = animal.getComponent("minecraft:health");
+  if (!health || health.currentValue < health.effectiveMax) return false;
+  const until = animal.getDynamicProperty(COOLDOWN_KEY);
+  return !(typeof until === "number" && until > now);
+}
+
+function hearts(dimension, animal) {
+  try {
+    const at = animal.location;
+    dimension.spawnParticle("minecraft:heart_particle", { x: at.x, y: at.y + 1, z: at.z });
+  } catch (e) {}
+}
+
+function breed(dimension, center, container, rule) {
+  if (countFood(container, rule.foods) < 2) return;
+  const herd = dimension.getEntities({ type: rule.type, location: center, maxDistance: RADIUS });
+  if (herd.length >= HERD_CAP) return;
+  const now = world.getAbsoluteTime();
+  const ready = herd.filter((animal) => isReady(animal, now));
+  if (ready.length < 2) return;
+  const first = ready[0];
+  const second = ready[1];
+  const a = first.location;
+  const b = second.location;
+  const middle = { x: (a.x + b.x) / 2, y: Math.max(a.y, b.y), z: (a.z + b.z) / 2 };
+  try {
+    dimension.spawnEntity(rule.type, middle, { spawnEvent: "minecraft:entity_born" });
+  } catch (e) {
+    return;
+  }
+  takeFood(container, rule.foods, 2);
+  first.setDynamicProperty(COOLDOWN_KEY, now + COOLDOWN_TIME);
+  second.setDynamicProperty(COOLDOWN_KEY, now + COOLDOWN_TIME);
+  hearts(dimension, first);
+  hearts(dimension, second);
+}
+
+function process(entry, tick) {
+  const dimension = world.getDimension(entry.dim);
+  const block = dimension.getBlock({ x: entry.x, y: entry.y, z: entry.z });
+  if (!block || !block.isValid) return true;
+  if (!TROUGHS.has(block.typeId)) return false;
+  if (tick < entry.nextAt) return true;
+  entry.nextAt = tick + BREED_TICKS;
+  const inventory = block.getComponent("minecraft:inventory");
+  const container = inventory ? inventory.container : undefined;
+  if (!container) return true;
+  const center = block.center();
+  for (const rule of BREEDS) breed(dimension, center, container, rule);
+  return true;
+}
+
+function run() {
+  const tick = system.currentTick;
+  for (let i = entries.length - 1; i >= 0; i--) {
+    let keep = true;
+    try {
+      keep = process(entries[i], tick);
+    } catch (e) {
+      keep = true;
+    }
+    if (!keep) removeAt(i);
+  }
+}
+
+function onPlace(event) {
+  try {
+    const block = event.block;
+    if (TROUGHS.has(block.typeId)) add(event.dimension.id, block.x, block.y, block.z);
+  } catch (e) {}
+}
+
+world.afterEvents.worldLoad.subscribe(() => {
+  load();
+  world.afterEvents.playerPlaceBlock.subscribe(onPlace);
+  system.runInterval(run, RUN_TICKS);
+  system.runInterval(save, SAVE_TICKS);
+});
+```
+
+## FILE: MCPEDL/Script/ALN-QualityOfLife-Part-2/behavior_pack/scripts/lib/filter_hopper.js (176 lines, 4966 bytes)
+
+```
+import { world, system, SignSide } from "@minecraft/server";
+
+const STORE_KEY = "alnqol2:filter_hoppers";
+const DIMENSION_IDS = ["minecraft:overworld", "minecraft:nether", "minecraft:the_end"];
+const MAX_ENTRIES = 150;
+const BUDGET = 30;
+const REFRESH_TICKS = 20;
+const SAVE_TICKS = 200;
+const SIDES = [
+  { x: 0, y: 0, z: -1 },
+  { x: 1, y: 0, z: 0 },
+  { x: 0, y: 0, z: 1 },
+  { x: -1, y: 0, z: 0 },
+];
+
+const entries = [];
+const known = new Set();
+let cursor = 0;
+let dirty = false;
+
+function keyOf(dimId, x, y, z) {
+  return dimId + "|" + x + "|" + y + "|" + z;
+}
+
+function add(dimId, x, y, z) {
+  const key = keyOf(dimId, x, y, z);
+  if (known.has(key) || entries.length >= MAX_ENTRIES) return;
+  known.add(key);
+  entries.push({ dim: dimId, x, y, z, key, filter: null, refreshAt: 0 });
+  dirty = true;
+}
+
+function removeAt(index) {
+  known.delete(entries[index].key);
+  entries.splice(index, 1);
+  dirty = true;
+}
+
+function load() {
+  try {
+    const raw = world.getDynamicProperty(STORE_KEY);
+    if (typeof raw !== "string") return;
+    const list = JSON.parse(raw);
+    if (!Array.isArray(list)) return;
+    for (const item of list) {
+      if (!Array.isArray(item) || item.length !== 4) continue;
+      const dimId = DIMENSION_IDS[item[0]];
+      if (dimId) add(dimId, item[1], item[2], item[3]);
+    }
+    dirty = false;
+  } catch (e) {
+    entries.length = 0;
+    known.clear();
+  }
+}
+
+function save() {
+  if (!dirty) return;
+  try {
+    const payload = entries
+      .map((e) => [DIMENSION_IDS.indexOf(e.dim), e.x, e.y, e.z])
+      .filter((p) => p[0] >= 0);
+    world.setDynamicProperty(STORE_KEY, JSON.stringify(payload));
+    dirty = false;
+  } catch (e) {}
+}
+
+function parseFilter(text) {
+  const joined = text.replace(/§./g, "").split("\n").join(",");
+  const match = /^\s*filter\s*:(.*)$/i.exec(joined);
+  if (!match) return null;
+  const ids = new Set();
+  for (const part of match[1].split(",")) {
+    const id = part.trim().toLowerCase().replace(/\s+/g, "");
+    if (!id) continue;
+    ids.add(id.includes(":") ? id : "minecraft:" + id);
+  }
+  return ids.size > 0 ? ids : null;
+}
+
+function readSign(block) {
+  const sign = block.getComponent("minecraft:sign");
+  if (!sign) return undefined;
+  const text = sign.getText(SignSide.Front);
+  return typeof text === "string" ? text : "";
+}
+
+function scanSigns(block) {
+  const info = { hasSign: false, unknown: false, filter: null };
+  for (const side of SIDES) {
+    const neighbour = block.offset(side);
+    if (!neighbour) {
+      info.unknown = true;
+      continue;
+    }
+    const text = readSign(neighbour);
+    if (text === undefined) continue;
+    info.hasSign = true;
+    if (!info.filter) info.filter = parseFilter(text);
+  }
+  return info;
+}
+
+function findDropSpot(block) {
+  for (const side of SIDES) {
+    const neighbour = block.offset(side);
+    if (neighbour && neighbour.isAir) return neighbour.center();
+  }
+  return undefined;
+}
+
+function process(entry, tick) {
+  const dimension = world.getDimension(entry.dim);
+  const block = dimension.getBlock({ x: entry.x, y: entry.y, z: entry.z });
+  if (!block || !block.isValid) return true;
+  if (block.typeId !== "minecraft:hopper") return false;
+  if (tick >= entry.refreshAt) {
+    const info = scanSigns(block);
+    if (!info.hasSign && !info.unknown) return false;
+    entry.filter = info.filter;
+    entry.refreshAt = tick + REFRESH_TICKS;
+  }
+  if (!entry.filter) return true;
+  const inventory = block.getComponent("minecraft:inventory");
+  const container = inventory ? inventory.container : undefined;
+  if (!container) return true;
+  for (let slot = 0; slot < container.size; slot++) {
+    const item = container.getItem(slot);
+    if (!item || entry.filter.has(item.typeId)) continue;
+    const spot = findDropSpot(block);
+    if (!spot) return true;
+    container.setItem(slot);
+    dimension.spawnItem(item, spot);
+  }
+  return true;
+}
+
+function step() {
+  if (entries.length === 0) return;
+  const tick = system.currentTick;
+  let budget = Math.min(BUDGET, entries.length);
+  while (budget-- > 0 && entries.length > 0) {
+    if (cursor >= entries.length) cursor = 0;
+    let keep = true;
+    try {
+      keep = process(entries[cursor], tick);
+    } catch (e) {
+      keep = true;
+    }
+    if (keep) cursor++;
+    else removeAt(cursor);
+  }
+}
+
+function onPlace(event) {
+  try {
+    const block = event.block;
+    if (block.typeId === "minecraft:hopper") {
+      if (scanSigns(block).hasSign) add(event.dimension.id, block.x, block.y, block.z);
+      return;
+    }
+    if (!block.getComponent("minecraft:sign")) return;
+    for (const side of SIDES) {
+      const hopper = block.offset(side);
+      if (hopper && hopper.typeId === "minecraft:hopper") add(event.dimension.id, hopper.x, hopper.y, hopper.z);
+    }
+  } catch (e) {}
+}
+
+world.afterEvents.worldLoad.subscribe(() => {
+  load();
+  world.afterEvents.playerPlaceBlock.subscribe(onPlace);
+  system.runInterval(step, 1);
+  system.runInterval(save, SAVE_TICKS);
+});
+```
+
+## FILE: MCPEDL/Script/ALN-QualityOfLife-Part-2/behavior_pack/scripts/lib/mechanical_dispenser.js (174 lines, 5578 bytes)
+
+```
+import { world, system, BlockTypes, EntityInitializationCause } from "@minecraft/server";
+
+const COOLDOWN_TICKS = 3;
+const PLAYER_CLEARANCE = 1.5;
+const MIN_ALONG = 0.45;
+const MAX_ALONG = 1.05;
+const MAX_ACROSS = 0.5;
+const TOOL_SUFFIXES = ["_pickaxe", "_axe", "_shovel"];
+const UNSAFE_PLACE = /(^|_)door$|bed$|sign$|banner$|head$|skull$/;
+const PROTECTED = new Set([
+  "minecraft:bedrock",
+  "minecraft:barrier",
+  "minecraft:command_block",
+  "minecraft:chain_command_block",
+  "minecraft:repeating_command_block",
+  "minecraft:structure_block",
+  "minecraft:structure_void",
+  "minecraft:jigsaw",
+  "minecraft:end_portal",
+  "minecraft:end_portal_frame",
+  "minecraft:end_gateway",
+  "minecraft:portal",
+  "minecraft:reinforced_deepslate",
+  "minecraft:allow",
+  "minecraft:deny",
+  "minecraft:border_block",
+  "minecraft:light_block",
+]);
+const FRONTS = [
+  { x: 1, y: 0, z: 0 },
+  { x: -1, y: 0, z: 0 },
+  { x: 0, y: 1, z: 0 },
+  { x: 0, y: -1, z: 0 },
+  { x: 0, y: 0, z: 1 },
+  { x: 0, y: 0, z: -1 },
+];
+
+const cooldowns = new Map();
+
+function isDigTool(stack) {
+  if (!TOOL_SUFFIXES.some((suffix) => stack.typeId.endsWith(suffix))) return false;
+  return stack.hasComponent("minecraft:durability");
+}
+
+function isPlaceable(stack) {
+  if (UNSAFE_PLACE.test(stack.typeId)) return false;
+  return BlockTypes.get(stack.typeId) !== undefined;
+}
+
+function findDispenser(dimension, at) {
+  const cell = { x: Math.floor(at.x), y: Math.floor(at.y), z: Math.floor(at.z) };
+  let best;
+  for (const front of FRONTS) {
+    const origin = { x: cell.x - front.x, y: cell.y - front.y, z: cell.z - front.z };
+    const block = dimension.getBlock(origin);
+    if (!block || block.typeId !== "minecraft:dispenser") continue;
+    const dx = at.x - (origin.x + 0.5);
+    const dy = at.y - (origin.y + 0.5);
+    const dz = at.z - (origin.z + 0.5);
+    const along = dx * front.x + dy * front.y + dz * front.z;
+    const across = Math.max(
+      Math.abs(front.x === 0 ? dx : 0),
+      Math.abs(front.y === 0 ? dy : 0),
+      Math.abs(front.z === 0 ? dz : 0)
+    );
+    if (along < MIN_ALONG || along > MAX_ALONG || across > MAX_ACROSS) continue;
+    if (!best || along < best.along) best = { block, front, along };
+  }
+  return best;
+}
+
+function giveBack(dimension, dispenser, front, stack) {
+  if (!stack || stack.amount <= 0) return;
+  const inventory = dispenser.getComponent("minecraft:inventory");
+  const container = inventory ? inventory.container : undefined;
+  const rest = container ? container.addItem(stack) : stack;
+  if (!rest) return;
+  const mouth = dispenser.offset(front);
+  dimension.spawnItem(rest, mouth ? mouth.center() : dispenser.center());
+}
+
+function destroy(dimension, block) {
+  try {
+    dimension.runCommand("setblock " + block.x + " " + block.y + " " + block.z + " air destroy");
+  } catch (e) {}
+  if (block.isAir) return true;
+  try {
+    const drop = block.getItemStack(1, true);
+    const spot = block.center();
+    block.setType("minecraft:air");
+    if (drop) dimension.spawnItem(drop, spot);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function breakFront(dimension, dispenser, front, stack) {
+  const tool = stack.clone();
+  const target = dispenser.offset(front);
+  const blocked =
+    !target ||
+    target.isAir ||
+    target.isLiquid ||
+    PROTECTED.has(target.typeId) ||
+    target.hasComponent("minecraft:inventory");
+  if (blocked || !destroy(dimension, target)) {
+    giveBack(dimension, dispenser, front, tool);
+    return;
+  }
+  const durability = tool.getComponent("minecraft:durability");
+  if (durability) {
+    durability.damage += 1;
+    if (durability.damage >= durability.maxDurability) return;
+  }
+  giveBack(dimension, dispenser, front, tool);
+}
+
+function placeFront(dimension, dispenser, front, stack) {
+  const target = dispenser.offset(front);
+  if (!target || !target.isAir) {
+    giveBack(dimension, dispenser, front, stack.clone());
+    return;
+  }
+  try {
+    target.setType(stack.typeId);
+  } catch (e) {
+    giveBack(dimension, dispenser, front, stack.clone());
+    return;
+  }
+  if (stack.amount > 1) {
+    const rest = stack.clone();
+    rest.amount = stack.amount - 1;
+    giveBack(dimension, dispenser, front, rest);
+  }
+}
+
+function pruneCooldowns(tick) {
+  if (cooldowns.size < 300) return;
+  for (const [key, until] of cooldowns) {
+    if (until <= tick) cooldowns.delete(key);
+  }
+}
+
+function onSpawn(event) {
+  try {
+    if (event.cause === EntityInitializationCause.Loaded) return;
+    const entity = event.entity;
+    if (!entity.isValid || entity.typeId !== "minecraft:item") return;
+    const dimension = entity.dimension;
+    const at = entity.location;
+    const found = findDispenser(dimension, at);
+    if (!found) return;
+    const component = entity.getComponent("minecraft:item");
+    const stack = component ? component.itemStack : undefined;
+    if (!stack) return;
+    const breaker = isDigTool(stack);
+    if (!breaker && !isPlaceable(stack)) return;
+    const tick = system.currentTick;
+    const key = dimension.id + "|" + found.block.x + "|" + found.block.y + "|" + found.block.z;
+    if ((cooldowns.get(key) || 0) > tick) return;
+    if (dimension.getPlayers({ location: at, maxDistance: PLAYER_CLEARANCE }).length > 0) return;
+    cooldowns.set(key, tick + COOLDOWN_TICKS);
+    pruneCooldowns(tick);
+    entity.remove();
+    if (breaker) breakFront(dimension, found.block, found.front, stack);
+    else placeFront(dimension, found.block, found.front, stack);
+  } catch (e) {}
+}
+
+world.afterEvents.worldLoad.subscribe(() => {
+  world.afterEvents.entitySpawn.subscribe(onSpawn);
+});
+```
+
+## FILE: MCPEDL/Script/ALN-QualityOfLife-Part-2/behavior_pack/scripts/lib/README.md (18 lines, 2345 bytes)
+
+```
+# Script Library Notes
+
+Each file in this folder registers its own behavior when it is imported by main.js. Nothing is exported, and every file starts its work inside the world load event.
+
+- filter_hopper.js: tracks Hoppers that have a Sign beside them, reads a Sign starting with "Filter:" and pushes any item not on the list out onto a free side of the Hopper. Registers the player place block event and two intervals (1 tick, 200 ticks). Depends on the server module. Saves its Hopper list in a world property named alnqol2:filter_hoppers (150 entries at most).
+- vacuum_hopper.js: tracks Hoppers that have a Sign beside them, and for a Sign line reading "Vacuum Hopper" moves loose item entities from a 5 by 5 by 5 box into the Hopper every 10 ticks. Registers the player place block event and two intervals (10 ticks, 200 ticks). Depends on the server module. Saves its Hopper list in a world property named alnqol2:vacuum_hoppers (150 entries at most).
+- mechanical_dispenser.js: listens to the entity spawn event for item entities that appear at the front of a Dispenser. A Pickaxe, Axe or Shovel breaks the block in front and loses 1 durability; a placeable block item is placed in an empty space in front. The ejected item is removed and returned to the Dispenser when nothing happens. Depends on the server module. Keeps no saved data.
+- auto_breed.js: tracks Chests and Barrels, and every 120 ticks spawns a baby for two healthy adult animals within 8 blocks when the container holds their food. Registers the player place block event and two intervals (20 ticks, 200 ticks). Depends on the server module. Saves its container list in a world property named alnqol2:troughs (100 entries at most) and a breed cooldown dynamic property on each animal named alnqol2:breed_until.
+
+Script events and custom ids: none. The pack adds no custom items, blocks or entities.
+
+Known limits:
+- Hoppers, Chests and Barrels placed before the pack was installed are tracked only after they are placed again, or after a Sign is placed beside a Hopper.
+- Experience orbs are never collected by the Vacuum Hopper.
+- The Dispenser logic reacts to the item a Dispenser drops, so a player standing within 1.5 blocks of that item stops it from firing.
+- Breeding spawns a baby directly; animals do not enter love mode.
+- Source created, not tested in game.
+```
+
+## FILE: MCPEDL/Script/ALN-QualityOfLife-Part-2/behavior_pack/scripts/lib/vacuum_hopper.js (186 lines, 5199 bytes)
+
+```
+import { world, system, SignSide } from "@minecraft/server";
+
+const STORE_KEY = "alnqol2:vacuum_hoppers";
+const DIMENSION_IDS = ["minecraft:overworld", "minecraft:nether", "minecraft:the_end"];
+const MAX_ENTRIES = 150;
+const SWEEP_TICKS = 10;
+const REFRESH_SWEEPS = 4;
+const SAVE_TICKS = 200;
+const BOX = 5;
+const REACH = 2;
+const MAX_PER_SWEEP = 32;
+const SIDES = [
+  { x: 0, y: 0, z: -1 },
+  { x: 1, y: 0, z: 0 },
+  { x: 0, y: 0, z: 1 },
+  { x: -1, y: 0, z: 0 },
+];
+
+const entries = [];
+const known = new Set();
+let sweepCount = 0;
+let dirty = false;
+
+function keyOf(dimId, x, y, z) {
+  return dimId + "|" + x + "|" + y + "|" + z;
+}
+
+function add(dimId, x, y, z) {
+  const key = keyOf(dimId, x, y, z);
+  if (known.has(key) || entries.length >= MAX_ENTRIES) return;
+  known.add(key);
+  entries.push({ dim: dimId, x, y, z, key, active: false, refreshAt: 0 });
+  dirty = true;
+}
+
+function removeAt(index) {
+  known.delete(entries[index].key);
+  entries.splice(index, 1);
+  dirty = true;
+}
+
+function load() {
+  try {
+    const raw = world.getDynamicProperty(STORE_KEY);
+    if (typeof raw !== "string") return;
+    const list = JSON.parse(raw);
+    if (!Array.isArray(list)) return;
+    for (const item of list) {
+      if (!Array.isArray(item) || item.length !== 4) continue;
+      const dimId = DIMENSION_IDS[item[0]];
+      if (dimId) add(dimId, item[1], item[2], item[3]);
+    }
+    dirty = false;
+  } catch (e) {
+    entries.length = 0;
+    known.clear();
+  }
+}
+
+function save() {
+  if (!dirty) return;
+  try {
+    const payload = entries
+      .map((e) => [DIMENSION_IDS.indexOf(e.dim), e.x, e.y, e.z])
+      .filter((p) => p[0] >= 0);
+    world.setDynamicProperty(STORE_KEY, JSON.stringify(payload));
+    dirty = false;
+  } catch (e) {}
+}
+
+function isVacuumText(text) {
+  const lines = text.replace(/§./g, "").split("\n");
+  for (const line of lines) {
+    if (line.trim().toLowerCase() === "vacuum hopper") return true;
+  }
+  return false;
+}
+
+function readSign(block) {
+  const sign = block.getComponent("minecraft:sign");
+  if (!sign) return undefined;
+  const text = sign.getText(SignSide.Front);
+  return typeof text === "string" ? text : "";
+}
+
+function scanSigns(block) {
+  const info = { hasSign: false, unknown: false, vacuum: false };
+  for (const side of SIDES) {
+    const neighbour = block.offset(side);
+    if (!neighbour) {
+      info.unknown = true;
+      continue;
+    }
+    const text = readSign(neighbour);
+    if (text === undefined) continue;
+    info.hasSign = true;
+    if (isVacuumText(text)) info.vacuum = true;
+  }
+  return info;
+}
+
+function collect(dimension, block, container) {
+  const origin = { x: block.x - REACH, y: block.y - REACH, z: block.z - REACH };
+  const found = dimension.getEntities({
+    type: "minecraft:item",
+    location: origin,
+    volume: { x: BOX, y: BOX, z: BOX },
+  });
+  let moved = 0;
+  for (const entity of found) {
+    if (moved >= MAX_PER_SWEEP) break;
+    if (!entity.isValid) continue;
+    const at = entity.location;
+    if (at.x < origin.x || at.x >= origin.x + BOX) continue;
+    if (at.y < origin.y || at.y >= origin.y + BOX) continue;
+    if (at.z < origin.z || at.z >= origin.z + BOX) continue;
+    let stack;
+    try {
+      const component = entity.getComponent("minecraft:item");
+      stack = component ? component.itemStack : undefined;
+    } catch (e) {
+      continue;
+    }
+    if (!stack) continue;
+    const rest = container.addItem(stack);
+    if (rest && rest.amount >= stack.amount) continue;
+    entity.remove();
+    if (rest) dimension.spawnItem(rest, at);
+    moved++;
+  }
+}
+
+function process(entry) {
+  const dimension = world.getDimension(entry.dim);
+  const block = dimension.getBlock({ x: entry.x, y: entry.y, z: entry.z });
+  if (!block || !block.isValid) return true;
+  if (block.typeId !== "minecraft:hopper") return false;
+  if (sweepCount >= entry.refreshAt) {
+    const info = scanSigns(block);
+    if (!info.hasSign && !info.unknown) return false;
+    entry.active = info.vacuum;
+    entry.refreshAt = sweepCount + REFRESH_SWEEPS;
+  }
+  if (!entry.active) return true;
+  const inventory = block.getComponent("minecraft:inventory");
+  const container = inventory ? inventory.container : undefined;
+  if (!container) return true;
+  collect(dimension, block, container);
+  return true;
+}
+
+function sweep() {
+  sweepCount++;
+  for (let i = entries.length - 1; i >= 0; i--) {
+    let keep = true;
+    try {
+      keep = process(entries[i]);
+    } catch (e) {
+      keep = true;
+    }
+    if (!keep) removeAt(i);
+  }
+}
+
+function onPlace(event) {
+  try {
+    const block = event.block;
+    if (block.typeId === "minecraft:hopper") {
+      if (scanSigns(block).hasSign) add(event.dimension.id, block.x, block.y, block.z);
+      return;
+    }
+    if (!block.getComponent("minecraft:sign")) return;
+    for (const side of SIDES) {
+      const hopper = block.offset(side);
+      if (hopper && hopper.typeId === "minecraft:hopper") add(event.dimension.id, hopper.x, hopper.y, hopper.z);
+    }
+  } catch (e) {}
+}
+
+world.afterEvents.worldLoad.subscribe(() => {
+  load();
+  world.afterEvents.playerPlaceBlock.subscribe(onPlace);
+  system.runInterval(sweep, SWEEP_TICKS);
+  system.runInterval(save, SAVE_TICKS);
+});
+```
+
+## FILE: MCPEDL/Script/ALN-QualityOfLife-Part-2/behavior_pack/scripts/main.js (5 lines, 136 bytes)
+
+```
+import "./lib/filter_hopper.js";
+import "./lib/mechanical_dispenser.js";
+import "./lib/vacuum_hopper.js";
+import "./lib/auto_breed.js";
+```
+
+## FILE: MCPEDL/Script/ALN-QualityOfLife-Part-2/CHANGELOG.md (13 lines, 759 bytes)
+
+```
+# Changelog — ALN QualityOfLife Part 2
+
+---
+
+## [1.0.0] - 2026-11-25 - First Release
+
+### Added
+- **Filter Hopper**: A Sign beside a Hopper that starts with Filter: lists the only items the Hopper keeps.
+- **Block Breaker Dispenser**: A Dispenser with a Pickaxe, Axe or Shovel breaks the block in front of it on each redstone pulse and wears the tool.
+- **Block Placer Dispenser**: A Dispenser with placeable blocks puts one block into the empty space in front of it on each redstone pulse.
+- **Vacuum Hopper**: A Sign reading Vacuum Hopper makes a Hopper collect loose items from a 5 by 5 by 5 area every 10 ticks.
+- **Auto-Breed Trough**: A Chest or Barrel with matching food breeds healthy cows, sheep, pigs, rabbits and chickens nearby every 120 ticks.
+```
+
+## FILE: MCPEDL/Script/ALN-QualityOfLife-Part-2/DESCRIPTION.md (86 lines, 6007 bytes)
+
+```
+# ALN QualityOfLife Part 2 — Smart Redstone Automation and Quality of Life Suite
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**Filter and Vacuum Hoppers set by Sign, Block Breaker and Block Placer Dispensers, and troughs that breed 5 farm animals.**
+
+> This Behavior Pack adds sorting, collecting, mining, building and breeding automation to Hoppers, Dispensers, Chests and Barrels. It needs no custom items, so it works in existing survival and multiplayer worlds.
+
+## Overview
+
+Place a Sign next to a Hopper to turn it into a Filter Hopper or a Vacuum Hopper. Load a Dispenser with a tool or with blocks to make it break or place a block on each redstone pulse. Stock a Chest or Barrel with food near your pens to breed animals on a timer. Everything uses vanilla blocks, so no new items are added.
+
+## Key Features
+
+### Filter Hopper
+- **What Happens**: A Hopper with a Sign beside it that starts with "Filter:" keeps only the items listed on the Sign. Any other item is pushed out onto a free side of the Hopper within a tick or two.
+- **How It Works**: Write "Filter: diamond, iron_ingot" on a Sign placed next to the Hopper. Item names use the game's item names with underscores, and the lines of the Sign are read together.
+- **Good To Know**: The pack tracks up to 150 Filter Hoppers. A Hopper with no free side keeps its items.
+
+### Block Breaker Dispenser
+- **What Happens**: A Dispenser holding a Pickaxe, Axe or Shovel breaks the block in front of it on every redstone pulse. The block drops as an item and the tool loses 1 durability.
+- **How It Works**: Load the tool, point the Dispenser at a block and pulse it. The tool goes back into the Dispenser until it wears out.
+- **Good To Know**: Bedrock, command blocks, liquids and blocks with an inventory are never broken. Stand more than 1.5 blocks away from the front of the Dispenser while it fires.
+
+### Block Placer Dispenser
+- **What Happens**: A Dispenser holding placeable blocks puts 1 block into the empty space in front of it on every redstone pulse.
+- **How It Works**: Load the blocks, point the Dispenser at an empty space and pulse it. If the space is not empty, the block stays in the Dispenser.
+- **Good To Know**: Placed blocks use their default direction. Doors, beds, signs, banners and heads are not placed.
+
+### Vacuum Hopper
+- **What Happens**: A Hopper with a Sign beside it that reads "Vacuum Hopper" pulls loose item drops from a 5 by 5 by 5 area into its own slots every 10 ticks.
+- **How It Works**: Place the Hopper, put a Sign next to it with "Vacuum Hopper" on any line, and drop or let items fall nearby.
+- **Good To Know**: Experience orbs are not collected, because a Hopper cannot hold them. The pack tracks up to 150 Vacuum Hoppers.
+
+### Auto-Breed Trough
+- **What Happens**: A Chest or Barrel stocked with food breeds healthy adult animals within 8 blocks every 120 ticks. Each breeding uses 2 food and spawns one baby with heart particles.
+- **How It Works**: Wheat breeds cows and sheep, Carrots breed pigs and rabbits, and Wheat Seeds, Beetroot Seeds, Melon Seeds, Pumpkin Seeds, Pitcher Pods and Torchflower Seeds breed chickens.
+- **Good To Know**: The baby is spawned directly, so animals do not enter love mode. Each parent waits 5 minutes before breeding again, and a trough stops when 24 animals of that kind are already in range.
+
+## How to Use
+
+1. Place a Hopper, then place a Sign beside it and write "Filter:" followed by item names, or write "Vacuum Hopper".
+2. Load a Dispenser with a Pickaxe, Axe or Shovel to break blocks, or with building blocks to place them, and pulse it with redstone.
+3. Place a Chest or Barrel within 8 blocks of your animals and fill it with their food. Watch for hearts and babies every 6 seconds.
+
+## Common Questions
+
+- **Do my existing Hoppers work?**: Break and place a Hopper again, or place its Sign again, so the pack starts tracking it.
+- **Do I need a Resource Pack?**: No. The pack is a Behavior Pack only.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: Not verified.
+- Experimental features: None used by the pack. Not tested in game.
+- Achievements: Yes, achievement-friendly.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, ALN QualityOfLife Part 2 Bedrock mod, filter hopper, vacuum hopper, block breaker dispenser, block placer dispenser, auto breed trough, hopper filter Minecraft Bedrock, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+```
+
+## FILE: MCPEDL/Script/ALN-QualityOfLife-Part-2/project.json (4 lines, 60 bytes)
+
+```
+{
+  "type": "script",
+  "name": "ALN QualityOfLife Part 2"
+}
+```
+
+## FILE: MCPEDL/Script/ALN-QualityOfLife-Part-2/README.md (19 lines, 847 bytes)
+
+```
+# ALN QualityOfLife Part 2
+
+Download the current release of **ALN QualityOfLife Part 2** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcpack`
+- **Direct download:** [Download ALN QualityOfLife Part 2 (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-QualityOfLife-Part-2/ALNQualityOfLifePart2%20V1.mcpack)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Script/ALN-QualityOfLife-Part-2/DESCRIPTION.md).
+```
