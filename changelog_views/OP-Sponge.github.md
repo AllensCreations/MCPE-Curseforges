@@ -1,9 +1,22 @@
 # Changelog — OP Sponge
 
-## [v4] - 2026-11-24 - Unlimited OP Sponge
+## [v5] - 2026-11-25 - Sponge Fix And New Textures
 
-### Changed
+### Fixed
+- **OP Sponge**: Water is now removed while the sponge scans, so you see it draining right away instead of waiting for the whole scan to finish. Big oceans now use much less memory.
+
+### Added
+- **Textures**: New 64x64 pixel textures for the dry and the water-filled sponge (gold with a diamond sparkle, and a wet blue version). All sponge tiers share them.
+
+<details>
+<summary><b>4.0.x</b> (1 release)</summary>
+
+### [v4] - 2026-11-24 - Unlimited OP Sponge
+
+#### Changed
 - **OP Sponge**: It now absorbs all the connected water around it instead of stopping at 256 water blocks and 16 blocks of reach. Water in chunks that are not loaded is not reached.
+
+</details>
 
 <details>
 <summary><b>3.0.x</b> (1 release)</summary>

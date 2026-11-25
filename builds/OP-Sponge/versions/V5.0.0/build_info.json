@@ -1,0 +1,8 @@
+{
+  "changelog_version": "5.0.0",
+  "manifest_version": "5.0.0",
+  "packages": {
+    "OPSponge V5.mcaddon": "bc2a3eb92db07058cac87e70c445d18d4227f0a0672a27cf5c112a64fbd53d2f"
+  },
+  "source_sha256": "2ac2c291abfb002f4744037cd7beacc0776e644d9e17323a0fd2b29208530284"
+}
