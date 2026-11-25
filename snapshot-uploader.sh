@@ -23,6 +23,7 @@ export GUM_FILE_CURSOR="▶ "
 export GUM_FILE_CURSOR_FOREGROUND="#00FFAA"
 export GUM_FILE_SELECTED_FOREGROUND="#00FFAA"
 export GUM_FILE_HEADER_FOREGROUND="#FFD700"
+export GUM_FILE_FILE=true        # always show files, not just dirs
 export GUM_CONFIRM_PROMPT_FOREGROUND="#00FFAA"
 export GUM_CONFIRM_SELECTED_FOREGROUND="#000000"
 export GUM_CONFIRM_SELECTED_BACKGROUND="#00FFAA"
@@ -52,27 +53,6 @@ get_packages() {
   find "$MCPEDL/$cat" -mindepth 1 -maxdepth 1 -type d \
     -exec test -d '{}/assets/snapshots' \; -print 2>/dev/null \
   | sort | xargs -I{} basename {}
-}
-
-# ── file browser using gum file ───────────────────────────────
-pick_files() {
-  local start="/sdcard/Download"
-  [[ -d "$start" ]] || start="/sdcard"
-  [[ -d "$start" ]] || start="$HOME"
-
-  gum style --foreground="#FFD700" "📂  Browse to your images and select them"
-  gum style --foreground="#888" --italic "  (space = toggle · enter = open dir or confirm)"
-  echo ""
-
-  # gum file with multi-select
-  local picked
-  picked=$(gum file \
-    --file \
-    --all=false \
-    --height=20 \
-    "$start" 2>/dev/null)
-
-  echo "$picked"
 }
 
 # ── upload confirm & copy ─────────────────────────────────────
@@ -192,7 +172,11 @@ main() {
 
     while true; do
       local f
-      f=$(gum file --height=18 "$start_dir" 2>/dev/null) || break
+      f=$(gum file \
+        --file \
+        --height=20 \
+        --header="  Navigate into a folder, then select an image" \
+        "/sdcard" 2>/dev/null) || break
 
       if [[ -z "$f" ]]; then break; fi
 
@@ -204,6 +188,7 @@ main() {
         gum style --foreground="#00FFAA" "  ✔ Added: $(basename "$f")"
       else
         gum style --foreground="#FF5555" "  ✘ Not an image: $(basename "$f")"
+        gum style --foreground="#888"    "     Supported: .png .jpg .jpeg .webp .gif"
       fi
 
       echo ""
