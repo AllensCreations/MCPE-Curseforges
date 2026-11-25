@@ -1,0 +1,1110 @@
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Addons/ALNWarpScrolls`
+- **Destination:** `MCPEDL/Addons/ALNWarpScrolls`
+- **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALNWarpScrolls/CHANGELOG.md`)
+- **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
+- **Text files:** 21
+- **Skipped binary:** 13
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Addons/ALNWarpScrolls/behavior_pack/blocks/beacon_gate.json`
+- `MCPEDL/Addons/ALNWarpScrolls/behavior_pack/items/warp_scroll.json`
+- `MCPEDL/Addons/ALNWarpScrolls/behavior_pack/manifest.json`
+- `MCPEDL/Addons/ALNWarpScrolls/behavior_pack/recipes/beacon_gate.json`
+- `MCPEDL/Addons/ALNWarpScrolls/behavior_pack/recipes/warp_scroll.json`
+- `MCPEDL/Addons/ALNWarpScrolls/behavior_pack/scripts/lib/config.js`
+- `MCPEDL/Addons/ALNWarpScrolls/behavior_pack/scripts/lib/menus.js`
+- `MCPEDL/Addons/ALNWarpScrolls/behavior_pack/scripts/lib/README.md`
+- `MCPEDL/Addons/ALNWarpScrolls/behavior_pack/scripts/lib/registry.js`
+- `MCPEDL/Addons/ALNWarpScrolls/behavior_pack/scripts/lib/warp.js`
+- `MCPEDL/Addons/ALNWarpScrolls/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/ALNWarpScrolls/CHANGELOG.md`
+- `MCPEDL/Addons/ALNWarpScrolls/DESCRIPTION.md`
+- `MCPEDL/Addons/ALNWarpScrolls/project.json`
+- `MCPEDL/Addons/ALNWarpScrolls/README.md`
+- `MCPEDL/Addons/ALNWarpScrolls/resource_pack/manifest.json`
+- `MCPEDL/Addons/ALNWarpScrolls/resource_pack/sounds/sound_definitions.json`
+- `MCPEDL/Addons/ALNWarpScrolls/resource_pack/texts/en_US.lang`
+- `MCPEDL/Addons/ALNWarpScrolls/resource_pack/textures/item_texture.json`
+- `MCPEDL/Addons/ALNWarpScrolls/resource_pack/textures/terrain_texture.json`
+- `MCPEDL/Addons/ALNWarpScrolls/texture_sources/warp_scrolls.json`
+
+### Skipped (binary): 13 file(s)
+
+- `MCPEDL/Addons/ALNWarpScrolls/assets/banner.png`
+- `MCPEDL/Addons/ALNWarpScrolls/assets/items/warp_scroll.png`
+- `MCPEDL/Addons/ALNWarpScrolls/assets/items/warp_scroll_label.png`
+- `MCPEDL/Addons/ALNWarpScrolls/assets/recipes/beacon_gate_recipe.png`
+- `MCPEDL/Addons/ALNWarpScrolls/assets/recipes/beacon_gate_recipe_label.png`
+- `MCPEDL/Addons/ALNWarpScrolls/assets/recipes/warp_scroll_recipe.png`
+- `MCPEDL/Addons/ALNWarpScrolls/assets/recipes/warp_scroll_recipe_label.png`
+- `MCPEDL/Addons/ALNWarpScrolls/resource_pack/sounds/aln/gate_register.ogg`
+- `MCPEDL/Addons/ALNWarpScrolls/resource_pack/sounds/aln/scroll_break.ogg`
+- `MCPEDL/Addons/ALNWarpScrolls/resource_pack/sounds/aln/warp_arrive.ogg`
+- `MCPEDL/Addons/ALNWarpScrolls/resource_pack/sounds/aln/warp_charge.ogg`
+- `MCPEDL/Addons/ALNWarpScrolls/resource_pack/textures/blocks/beacon_gate.png`
+- `MCPEDL/Addons/ALNWarpScrolls/resource_pack/textures/items/warp_scroll.png`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v1 / NEXT UPDATE: v2).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE self-contained update `.sh` (`<Pack>_v<Version>_<rand>.sh`) built with `make_update_script.py` (INSTRUCTIONS.md Reply Format).
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Addons/ALNWarpScrolls
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding the ready-to-run commands, and ONE generated self-contained `<Pack>_v<Version>_<rand>.sh` update script (built with `make_update_script.py`). The script contains the full UI, automatically pulls, applies edits safely, commits, and pushes.
+---
+
+## Skills
+
+## Skill: .agents/skills/mcpe-context7/SKILL.md
+
+```markdown
+---
+name: mcpe-context7
+description: Use before looking up ANY Bedrock API member, vanilla id, texture, recipe, component, manifest field or version for the MCPE-Curseforges repo. Routes each need to one of the three Context7 libraries and says when a script must come from the kit zip instead.
+---
+
+# mcpe-context7: Where to Look Things Up
+
+## Authority
+
+- `INSTRUCTIONS.md` 1.16 (copy in the kit zip's instruction files) is the policy. This skill is only its routing table and never overrides it.
+- Repo rules, scripts and pack files come from the **kit zip** (`New-Pack.zip`, `Maintenance.zip` or the pack's review zip), NOT from Context7. The zip is always fresher.
+
+## Libraries (ONLY these three, IDs exactly, `query-docs` only)
+
+- `/microsoftdocs/minecraft-creator`: `@minecraft/server` and `@minecraft/server-ui` API, JSON schemas, stable and module versions.
+- `/mojang/bedrock-samples`: vanilla ids, textures, recipes, components, entities, formats, `version.json`.
+- `/websites/wiki_bedrock_dev`: manifest structure, scripting guides, techniques.
+
+NEVER call `resolve-library-id`. NEVER query any other library.
+
+## Repo lookups (from the kit zip, NOT Context7)
+
+Repo rules, scripts, instruction files, `DOCS_RULES.md`, `PACK_GENERATOR_INSTRUCTIONS.md`, `docs/mcicons-index.md`, `docs/bedrock-guide.md` and all script files come from the kit zip under `files/`. Read them from there. Context7 no longer indexes this repo.
+
+## Rules
+
+1. Query first, write second. Batch: at most ONE `query-docs` call per needed `libraryId`, covering every topic needed from it. NEVER two calls to the same `libraryId`. Name the exact member, file, id or schema and the game or module version. All three calls may go in one parallel turn.
+2. Verify every import, class, method, property and JSON field against the retrieved text. NEVER `mojang-minecraft`, `world.events` or 1.x syntax.
+3. Empty or doubtful result: no sequential retry loop. Say "not verified". NEVER fill the gap from memory.
+4. Versions come only from retrieved text. State the exact version used and the query date.
+5. Handoff bullet: `Docs queried (YYYY-MM-DD): <library IDs and topics>`.
+6. Library IDs, query text and the word Context7 NEVER go into shipped files or player-facing docs.
+
+## Scripts that must run
+
+- `make_pack_script.py`, `build_payload.py`, `import_project_payload.py`, `doc_template.py`, `pixel_json_to_png.py`, `make_update_script.py` and `apply_update.py` need their COMPLETE unchanged text.
+- The complete files are in the kit zip (`New-Pack.zip`, `Maintenance.zip` or the pack's review zip `<Pack>.zip`) under `files/`. Unzip, run from there, NEVER retype or edit them.
+- No zip: stop and ask the user to attach the zip. NEVER rewrite a script from memory.
+
+## Icons (MCicons)
+
+- Any vanilla item or block icon (recipe diagrams, sprites, README or listing images, UI art): use MCicons ONLY. It is the release file `reference/mcicons/mcicons-<ver>.tgz` in the repo (`package/dist/icons/minecraft_<id>.png`, 64x64, only `minecraft:` ids). Read it with `scripts/lib/mcicons.py` (`has_icon(id)`, `icon_image(id)`), never retype or guess a PNG.
+- No icon for the id (custom ids, newer items): report it. NO fallback to Samples, the Wiki, another icon site or a third-party pack.
+- `docs/mcicons-index.md` (in the kit zip under `files/`) lists every icon id it holds: check it before using an icon.
+- The `.tgz` itself is not in the kit zips. To run code that reads the pixels it must be in the clone; if it is missing, ask the user to attach it. NEVER substitute a lookalike.
+- Every manifest (BP and RP) carries `metadata.authors` = `["ALNStudios"]` and `metadata.product_type` = `"addon"`, always.
+- Keep its `ASSET-NOTICE.md` with any redistributed icon.
+
+## Reading the directory map
+
+- The map lists directories with file counts. Pick the folder, then read the file from the zip. For exact file text of a pack, ask for a Collect Files export of that path.
+- NEVER edit generated folders and files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`, `builds/README.md`.
+```
+
+## Skill: .agents/skills/mcpe-pack-update/SKILL.md
+
+````markdown
+---
+name: mcpe-pack-update
+description: Use for any change to an existing project, workflow, script or doc in the MCPE-Curseforges repository (update, fix, add, rename). Delivers every change as ONE self-contained Termux update script (<Pack>_v<Version>_<rand>.sh) containing the spec and rich UI.
+---
+
+# mcpe-pack-update: Update Delivery
+
+## Authority
+
+- `INSTRUCTIONS.md` is the policy source. `PACK_GENERATOR_INSTRUCTIONS.md` is its standalone copy for generation. The script flow is `INSTRUCTIONS.md` "Termux Script Rules", built with `scripts/make_update_script.py`. Where to look each rule up: the `mcpe-context7` skill. This skill is a short working checklist and never restates or overrides them.
+- **Precedence** (as in `PACK_GENERATOR_INSTRUCTIONS.md`): factual accuracy and the user's requested scope, then Part 1, then Part 2, then this skill. Part 4 of the generator file never overrides Parts 1 and 2.
+- If these files disagree with each other or with a script in `scripts/`, tell the user exactly what differs instead of choosing silently. If `INSTRUCTIONS.md` cannot be read, stop and report it instead of working from memory.
+- Achievements line (every project type): always `Yes, achievement-friendly.` Keep any cheats or world-setting caveat as a following sentence.
+
+## Scope
+
+- Use for changes to an existing project (`MCPEDL/Addons|Maps|Script|Minigame/<Name>/`), a workflow, a script, a catalog or any repo doc.
+- Read-only audit or report: use `checkrm`.
+- New project from an idea: follow `PACK_GENERATOR_INSTRUCTIONS.md` Part 4 (ask the type first, base64 payload).
+
+## Procedure
+
+1. Read `INSTRUCTIONS.md` Parts 1 and 2 before writing anything, through Context7 as the `mcpe-context7` skill says. `make_update_script.py`, `apply_update.py`, and `pixel_json_to_png.py` are complete in the pack's review zip (`<Pack>.zip`) under `files/`; run them from there.
+2. Find the destination folder: the path the user named, otherwise the matching project folder. Do not substitute a similar name; report ambiguity or a missing target.
+3. Read the real source (manifests, scripts, items, recipes, loot tables, functions, lang files) before writing any claim. Source priority when sources disagree: the project's own files, Mojang Bedrock Samples, official Minecraft Creator Documentation, Minecraft Wiki, Bedrock Wiki.
+4. Make the smallest possible change. No unrelated rewrites. Never invent features, versions, links, assets, test results or compatibility. Never write comments in shipped `.js`, `.mcfunction` or `.json` files.
+5. Generate the spec, convert it with `make_update_script.py` into a single self-contained `<Pack>_v<Version>_<rand>.sh` file, and provide the one-line run command for the user.
+
+## The update script
+
+Generate the spec with `apply_update.py` directives (replace, replace-all, insert-after, insert-before, create, overwrite, delete, changelog).
+Then build the single `.sh` using:
+```bash
+python3 files/scripts/make_update_script.py spec.txt --out-dir .
+```
+This produces ONE single `.sh` file (`<PackName>_v<Version>_<rand>.sh`) that contains the embedded update payload, ANSI colored status UI, automated git rebase, validation checks, commit, and push.
+
+## Reply
+
+1. Attach or output the single `.sh` file (`<PackName>_v<Version>_<rand>.sh`).
+2. Give the single Termux command:
+```bash
+bash ~/storage/downloads/<PackName>_v<Version>_*.sh
+```
+3. Brief summary of what changed and what checks ran.
+4. **Save in AI memory**: Every finished output, applied change summary, and spec version must be retained in AI memory/scratch notes so context is preserved across turns without relying on session replay.
+````
+
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Addons/ALNWarpScrolls/behavior_pack/blocks/beacon_gate.json (29 lines, 688 bytes)
+
+```
+{
+  "format_version": "1.26.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "aln:beacon_gate",
+      "menu_category": {
+        "category": "construction"
+      }
+    },
+    "components": {
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "aln_beacon_gate",
+          "render_method": "opaque"
+        }
+      },
+      "minecraft:light_emission": 10,
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 4
+      },
+      "minecraft:destructible_by_explosion": {
+        "explosion_resistance": 600
+      },
+      "minecraft:map_color": "#19c9d6"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNWarpScrolls/behavior_pack/items/warp_scroll.json (27 lines, 530 bytes)
+
+```
+{
+  "format_version": "1.26.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:warp_scroll",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "textures": {
+          "default": "warp_scroll"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "§bWarp Scroll"
+      },
+      "minecraft:cooldown": {
+        "category": "aln_warp_scroll",
+        "duration": 3
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNWarpScrolls/behavior_pack/manifest.json (66 lines, 1163 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN:WarpScrolls (v1)",
+    "description": "Single-use Warp Scrolls teleport you to named Beacon Gate waypoints. by ALNStudios",
+    "uuid": "385a1114-94c1-43be-a73e-c61a9eeef875",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      50
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "b557997e-6f03-4cd3-8686-94109496b2fa",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "3db2e03b-b444-4245-9c6e-67bbf6a4578c",
+      "entry": "scripts/main.js",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "08b3a65a-a0d1-453a-a445-72cc1a9b1682",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.10.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.2.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNWarpScrolls/behavior_pack/recipes/beacon_gate.json (38 lines, 631 bytes)
+
+```
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:beacon_gate"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "OAO",
+      "GLG",
+      "OOO"
+    ],
+    "key": {
+      "O": {
+        "item": "minecraft:obsidian"
+      },
+      "A": {
+        "item": "minecraft:amethyst_shard"
+      },
+      "G": {
+        "item": "minecraft:gold_ingot"
+      },
+      "L": {
+        "item": "minecraft:glass"
+      }
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
+    "result": {
+      "item": "aln:beacon_gate",
+      "count": 1
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNWarpScrolls/behavior_pack/recipes/warp_scroll.json (38 lines, 633 bytes)
+
+```
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:warp_scroll"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "NPN",
+      "PEP",
+      "NLN"
+    ],
+    "key": {
+      "N": {
+        "item": "minecraft:gold_nugget"
+      },
+      "P": {
+        "item": "minecraft:paper"
+      },
+      "E": {
+        "item": "minecraft:ender_pearl"
+      },
+      "L": {
+        "item": "minecraft:lapis_lazuli"
+      }
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
+    "result": {
+      "item": "aln:warp_scroll",
+      "count": 1
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNWarpScrolls/behavior_pack/scripts/lib/config.js (20 lines, 640 bytes)
+
+```
+export const GATE_ID = "aln:beacon_gate";
+export const SCROLL_ID = "aln:warp_scroll";
+export const STORE_KEY = "aln_warpscrolls:gates";
+export const MAX_GATES = 100;
+export const MAX_NAME = 24;
+export const WARP_TICKS = 60;
+export const PARTICLE_STEP = 2;
+export const SOUND = {
+  charge: "aln.warp.charge",
+  arrive: "aln.warp.arrive",
+  tear: "aln.scroll.break",
+  register: "aln.gate.register",
+};
+export const DIM_STYLE = {
+  overworld: { color: "§a", label: "Overworld" },
+  nether: { color: "§c", label: "Nether" },
+  the_end: { color: "§d", label: "The End" },
+};
+export const FALLBACK_STYLE = { color: "§7", label: "Unknown" };
+```
+
+## FILE: MCPEDL/Addons/ALNWarpScrolls/behavior_pack/scripts/lib/menus.js (56 lines, 1737 bytes)
+
+```
+import { system } from "@minecraft/server";
+import { ModalFormData, ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
+import { MAX_NAME, DIM_STYLE, FALLBACK_STYLE } from "./config.js";
+
+function wait(ticks) {
+  return new Promise((resolve) => system.runTimeout(resolve, ticks));
+}
+
+function cleanName(value) {
+  return value
+    .replace(/§./g, "")
+    .replace(/[\u0000-\u001f]/g, "")
+    .trim()
+    .slice(0, MAX_NAME)
+    .trim();
+}
+
+async function showWhenFree(player, makeForm) {
+  for (let attempt = 0; attempt < 12; attempt++) {
+    const response = await makeForm().show(player);
+    if (!response.canceled) return response;
+    if (response.cancelationReason !== FormCancelationReason.UserBusy) return undefined;
+    await wait(10);
+  }
+  return undefined;
+}
+
+export async function askGateName(player, fallback) {
+  try {
+    const response = await showWhenFree(player, () =>
+      new ModalFormData().title("Name Your Beacon Gate").textField("Waypoint name", "Home Base")
+    );
+    const value = response && response.formValues ? response.formValues[0] : "";
+    const name = typeof value === "string" ? cleanName(value) : "";
+    return name || fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+export async function chooseGate(player, gates) {
+  try {
+    const response = await showWhenFree(player, () => {
+      const form = new ActionFormData().title("Warp Scroll").body("Choose a Beacon Gate to warp to.");
+      for (const gate of gates) {
+        const style = DIM_STYLE[gate.d] || FALLBACK_STYLE;
+        form.button(style.color + gate.n + "\n§r§8" + style.label);
+      }
+      return form;
+    });
+    return response ? response.selection : undefined;
+  } catch {
+    return undefined;
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNWarpScrolls/behavior_pack/scripts/lib/README.md (7 lines, 281 bytes)
+
+```
+# ALN:WarpScrolls script modules
+
+- `config.js`: ids, sound names, timing and dimension colors.
+- `registry.js`: Beacon Gate list saved in the world.
+- `menus.js`: the naming form and the destination menu.
+- `warp.js`: cooldown, Nausea, particles, teleport and scroll consumption.
+```
+
+## FILE: MCPEDL/Addons/ALNWarpScrolls/behavior_pack/scripts/lib/registry.js (66 lines, 1626 bytes)
+
+```
+import { world } from "@minecraft/server";
+import { STORE_KEY, MAX_GATES } from "./config.js";
+
+export function shortDim(dimension) {
+  return String(dimension.id).replace("minecraft:", "");
+}
+
+function isGate(entry) {
+  return (
+    entry !== null &&
+    typeof entry === "object" &&
+    typeof entry.n === "string" &&
+    typeof entry.d === "string" &&
+    Number.isFinite(entry.x) &&
+    Number.isFinite(entry.y) &&
+    Number.isFinite(entry.z)
+  );
+}
+
+export function getGates() {
+  const raw = world.getDynamicProperty(STORE_KEY);
+  if (typeof raw !== "string") return [];
+  try {
+    const data = JSON.parse(raw);
+    return Array.isArray(data) ? data.filter(isGate) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveGates(list) {
+  try {
+    world.setDynamicProperty(STORE_KEY, JSON.stringify(list));
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function same(gate, dim, x, y, z) {
+  return gate.d === dim && gate.x === x && gate.y === y && gate.z === z;
+}
+
+export function findGate(dim, x, y, z) {
+  return getGates().find((gate) => same(gate, dim, x, y, z));
+}
+
+export function isFull() {
+  return getGates().length >= MAX_GATES;
+}
+
+export function addGate(name, dim, x, y, z) {
+  const list = getGates().filter((gate) => !same(gate, dim, x, y, z));
+  if (list.length >= MAX_GATES) return false;
+  list.push({ n: name, d: dim, x, y, z });
+  return saveGates(list);
+}
+
+export function removeGateAt(dim, x, y, z) {
+  const list = getGates();
+  const gate = list.find((entry) => same(entry, dim, x, y, z));
+  if (!gate) return undefined;
+  saveGates(list.filter((entry) => entry !== gate));
+  return gate;
+}
+```
+
+## FILE: MCPEDL/Addons/ALNWarpScrolls/behavior_pack/scripts/lib/warp.js (186 lines, 5322 bytes)
+
+```
+import { world, system, ItemComponentTypes, EntityInventoryComponent } from "@minecraft/server";
+import { GATE_ID, SCROLL_ID, WARP_TICKS, PARTICLE_STEP, SOUND } from "./config.js";
+import { removeGateAt } from "./registry.js";
+
+const active = new Set();
+
+export function isWarping(player) {
+  return active.has(player.id);
+}
+
+export function gateStillStands(gate) {
+  try {
+    const block = world.getDimension(gate.d).getBlock({ x: gate.x, y: gate.y, z: gate.z });
+    if (block && block.typeId !== GATE_ID) {
+      removeGateAt(gate.d, gate.x, gate.y, gate.z);
+      return false;
+    }
+  } catch {
+    return true;
+  }
+  return true;
+}
+
+function tell(player, text) {
+  try {
+    player.sendMessage(text);
+  } catch {
+    return;
+  }
+}
+
+function findScroll(player) {
+  const inventory = player.getComponent(EntityInventoryComponent.componentId);
+  if (!inventory) return { slot: -1 };
+  const container = inventory.container;
+  const selected = player.selectedSlotIndex;
+  const order = [selected];
+  for (let i = 0; i < 36; i++) if (i !== selected) order.push(i);
+  for (const i of order) {
+    try {
+      const item = container.getItem(i);
+      if (item && item.typeId === SCROLL_ID) return { slot: i, container };
+    } catch {
+      if (i !== selected) break;
+    }
+  }
+  return { slot: -1 };
+}
+
+function landingSpot(dimension, gate) {
+  const fallback = { x: gate.x + 0.5, y: gate.y + 1, z: gate.z + 0.5 };
+  for (let dy = 1; dy <= 4; dy++) {
+    try {
+      const feet = dimension.getBlock({ x: gate.x, y: gate.y + dy, z: gate.z });
+      const head = dimension.getBlock({ x: gate.x, y: gate.y + dy + 1, z: gate.z });
+      if ((!feet || feet.isAir) && (!head || head.isAir)) {
+        return { x: gate.x + 0.5, y: gate.y + dy, z: gate.z + 0.5 };
+      }
+    } catch {
+      return fallback;
+    }
+  }
+  return fallback;
+}
+
+function spawn(dimension, id, location) {
+  try {
+    dimension.spawnParticle(id, location);
+  } catch {
+    return;
+  }
+}
+
+function chargeParticles(player, tick) {
+  const dimension = player.dimension;
+  const base = player.location;
+  const progress = tick / WARP_TICKS;
+  const radius = 1.5 - progress * 0.9;
+  for (let k = 0; k < 3; k++) {
+    const angle = tick * 0.4 + (k * Math.PI * 2) / 3;
+    spawn(dimension, "minecraft:basic_portal_particle", {
+      x: base.x + Math.cos(angle) * radius,
+      y: base.y + 0.2 + progress * 1.7,
+      z: base.z + Math.sin(angle) * radius,
+    });
+  }
+  spawn(dimension, "minecraft:endrod", { x: base.x, y: base.y + 0.3 + progress * 1.6, z: base.z });
+}
+
+export function arrivalBurst(dimension, at) {
+  for (let i = 0; i < 30; i++) {
+    const angle = (i / 30) * Math.PI * 2;
+    const radius = 0.4 + (i % 4) * 0.25;
+    const point = {
+      x: at.x + Math.cos(angle) * radius,
+      y: at.y + 0.2 + (i % 7) * 0.28,
+      z: at.z + Math.sin(angle) * radius,
+    };
+    spawn(dimension, "minecraft:basic_portal_particle", point);
+    if (i % 3 === 0) spawn(dimension, "minecraft:endrod", point);
+    if (i % 5 === 0) spawn(dimension, "minecraft:totem_particle", point);
+  }
+}
+
+function breakEffects(player) {
+  try {
+    const at = player.location;
+    player.playSound(SOUND.tear, { volume: 1, pitch: 1 });
+    for (let i = 0; i < 12; i++) {
+      spawn(player.dimension, "minecraft:totem_particle", {
+        x: at.x + (Math.random() - 0.5) * 0.8,
+        y: at.y + 0.8 + Math.random() * 0.8,
+        z: at.z + (Math.random() - 0.5) * 0.8,
+      });
+    }
+  } catch {
+    return;
+  }
+}
+
+function complete(player, gate) {
+  if (!player.isValid) return;
+  const found = findScroll(player);
+  if (found.slot === -1) {
+    tell(player, "§cThe Warp Scroll fizzled out because it left your inventory.");
+    return;
+  }
+  let dimension;
+  let spot;
+  try {
+    dimension = world.getDimension(gate.d);
+    spot = landingSpot(dimension, gate);
+    player.teleport(spot, { dimension });
+  } catch {
+    tell(player, "§cThe Warp Scroll could not reach that Beacon Gate. It was not used up.");
+    return;
+  }
+  try {
+    found.container.setItem(found.slot, undefined);
+  } catch {
+    tell(player, "§cThe Warp Scroll could not be consumed.");
+  }
+  player.playSound(SOUND.arrive, { volume: 1, pitch: 1 });
+  arrivalBurst(dimension, spot);
+  system.runTimeout(() => {
+    if (player.isValid) breakEffects(player);
+  }, 6);
+  tell(player, "§bWarped to §f" + gate.n + "§b.");
+}
+
+export function beginWarp(player, item, gate) {
+  if (active.has(player.id)) return;
+  active.add(player.id);
+  try {
+    const cooldown = item.getComponent(ItemComponentTypes.Cooldown);
+    if (cooldown) cooldown.startCooldown(player);
+  } catch {
+    tell(player, "§7The cooldown overlay could not start.");
+  }
+  try {
+    player.addEffect("nausea", WARP_TICKS, { amplifier: 0, showParticles: false });
+  } catch {
+    tell(player, "§7The nausea effect could not start.");
+  }
+  player.playSound(SOUND.charge, { volume: 1, pitch: 1 });
+  let tick = 0;
+  const handle = system.runInterval(() => {
+    if (!player.isValid) {
+      system.clearRun(handle);
+      active.delete(player.id);
+      return;
+    }
+    tick += PARTICLE_STEP;
+    if (tick < WARP_TICKS) {
+      chargeParticles(player, tick);
+      return;
+    }
+    system.clearRun(handle);
+    try {
+      complete(player, gate);
+    } finally {
+      active.delete(player.id);
+    }
+  }, PARTICLE_STEP);
+}
+```
+
+## FILE: MCPEDL/Addons/ALNWarpScrolls/behavior_pack/scripts/main.js (83 lines, 2805 bytes)
+
+```
+import { world, system } from "@minecraft/server";
+import { GATE_ID, SCROLL_ID, SOUND } from "./lib/config.js";
+import { getGates, addGate, removeGateAt, shortDim, isFull } from "./lib/registry.js";
+import { askGateName, chooseGate } from "./lib/menus.js";
+import { beginWarp, isWarping, gateStillStands, arrivalBurst } from "./lib/warp.js";
+
+const pendingMenus = new Set();
+const pendingNames = new Set();
+
+async function registerGate(player, dimension, block) {
+  const dim = shortDim(dimension);
+  const x = block.x;
+  const y = block.y;
+  const z = block.z;
+  const key = dim + ":" + x + ":" + y + ":" + z;
+  if (pendingNames.has(key)) return;
+  pendingNames.add(key);
+  try {
+    if (isFull()) {
+      player.sendMessage("§cThis world already has the maximum number of Beacon Gates. This one was not registered.");
+      return;
+    }
+    const fallback = "Beacon Gate " + (getGates().length + 1);
+    const name = await askGateName(player, fallback);
+    if (!addGate(name, dim, x, y, z)) {
+      player.sendMessage("§cThe Beacon Gate could not be saved.");
+      return;
+    }
+    player.sendMessage("§aBeacon Gate §b" + name + "§a registered.");
+    player.playSound(SOUND.register, { volume: 1, pitch: 1 });
+    arrivalBurst(dimension, { x: x + 0.5, y: y + 1, z: z + 0.5 });
+  } catch {
+    return;
+  } finally {
+    pendingNames.delete(key);
+  }
+}
+
+async function openScroll(player, item) {
+  if (isWarping(player) || pendingMenus.has(player.id)) return;
+  pendingMenus.add(player.id);
+  try {
+    const gates = getGates();
+    if (gates.length === 0) {
+      player.sendMessage("§eNo Beacon Gates are registered yet. Place a Beacon Gate and name it first.");
+      return;
+    }
+    const picked = await chooseGate(player, gates);
+    if (picked === undefined) return;
+    const gate = gates[picked];
+    if (!gate) return;
+    if (!gateStillStands(gate)) {
+      player.sendMessage("§cThat Beacon Gate no longer exists and was removed from the list.");
+      return;
+    }
+    beginWarp(player, item, gate);
+  } catch {
+    return;
+  } finally {
+    pendingMenus.delete(player.id);
+  }
+}
+
+world.afterEvents.playerPlaceBlock.subscribe((event) => {
+  if (event.block.typeId !== GATE_ID) return;
+  const { player, block, dimension } = event;
+  system.runTimeout(() => {
+    registerGate(player, dimension, block);
+  }, 5);
+});
+
+world.afterEvents.playerBreakBlock.subscribe((event) => {
+  const { player, block, dimension } = event;
+  const gate = removeGateAt(shortDim(dimension), block.x, block.y, block.z);
+  if (gate) player.sendMessage("§eBeacon Gate §f" + gate.n + "§e removed from the destination list.");
+});
+
+world.afterEvents.itemUse.subscribe((event) => {
+  const item = event.itemStack;
+  if (!item || item.typeId !== SCROLL_ID) return;
+  openScroll(event.source, item);
+});
+```
+
+## FILE: MCPEDL/Addons/ALNWarpScrolls/CHANGELOG.md (13 lines, 637 bytes)
+
+```
+# Changelog — ALN:WarpScrolls
+
+---
+
+## [1.0.0] - 2026-11-25 - First Release
+
+### Added
+- **Beacon Gate**: A craftable waypoint block that asks for a name when placed and is saved with its dimension.
+- **Warp Scroll**: A single-use scroll with a colored destination menu, a 3-second cooldown sweep and 3 seconds of Nausea.
+- **Safe arrival**: Players land on the block directly above the chosen gate with particles and a chime, and the scroll breaks.
+- **Custom sounds**: Warp charge, crystal arrival, scroll break and gate registration sound effects.
+- **32x32 textures**: Hand-drawn pixel art for the Beacon Gate and the Warp Scroll.
+```
+
+## FILE: MCPEDL/Addons/ALNWarpScrolls/DESCRIPTION.md (80 lines, 4796 bytes)
+
+```
+# ALN:WarpScrolls — Teleport Scrolls and Named Waypoint Gates
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**Craft a Warp Scroll, pick a named Beacon Gate, and teleport after a 3-second Nausea charge that uses the scroll up.**
+
+> This add-on adds the Beacon Gate block and the single-use Warp Scroll, both with 32x32 textures. Players name their own waypoints and jump between them across the Overworld, Nether and End.
+
+## Overview
+
+Place a Beacon Gate wherever you want a destination and give it a name. Later, right-click a Warp Scroll, choose a gate from the colored list and wait out the 3-second charge. You arrive on top of the gate and the scroll is gone, so every trip costs one scroll.
+
+## Key Features
+
+### Beacon Gate
+- **What Happens**: Place a Beacon Gate and a form asks for a waypoint name such as Home Base. The gate glows at light level 10 and is saved with its name and dimension.
+- **How It Works**: Craft it with 5 Obsidian, 1 Amethyst Shard, 2 Gold Ingots and 1 Glass in a crafting table.
+- **Good To Know**: Breaking a gate removes it from the destination list and drops the block. The world keeps up to 100 gates.
+
+### Warp Scroll
+- **What Happens**: Right-click a Warp Scroll to open a menu of every Beacon Gate. Names are green for the Overworld, red for the Nether and purple for The End, with no coordinates shown.
+- **How It Works**: Craft it with 4 Gold Nuggets, 3 Paper, 1 Ender Pearl and 1 Lapis Lazuli in a crafting table.
+- **Good To Know**: A Warp Scroll stacks to 1 and is used up when the teleport finishes.
+
+### 3-Second Warp Sequence
+- **What Happens**: After you pick a gate, the scroll shows a 3-second cooldown sweep, you get 3 seconds of Nausea, and portal particles spiral around you while a rising charge sound plays.
+- **How It Works**: When the 3 seconds end, you land on the block directly above the Beacon Gate, an arrival chime and particle burst play, and the scroll tears apart.
+- **Good To Know**: If the scroll leaves your inventory during the charge, the warp fizzles out.
+
+### Custom Sound Effects
+- **What Happens**: Four new sounds ship with the pack: the warp charge, the crystal arrival, the paper and glass scroll break, and the gate registration chime.
+- **Good To Know**: Minecraft needs a full restart after installing a pack with new sound files.
+
+## How to Use
+
+1. Craft a Beacon Gate and place it, then type a waypoint name in the form.
+2. Craft a Warp Scroll and right-click it to open the destination menu.
+3. Pick a gate and wait 3 seconds until you land above it and the scroll breaks.
+
+## Common Questions
+
+- **Does a Warp Scroll stack?**: No. Each scroll stacks to 1 and is used up on arrival.
+- **What happens when I break a Beacon Gate?**: It leaves the destination list and drops as a block you can place again.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.26.50 or newer.
+- Experimental features: None declared in the manifest, stable script modules only.
+- Achievements: Yes, achievement-friendly.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, ALN:WarpScrolls Bedrock mod, teleport scroll, waypoint block, Beacon Gate, Warp Scroll, custom sound effects, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+```
+
+## FILE: MCPEDL/Addons/ALNWarpScrolls/project.json (5 lines, 50 bytes)
+
+```
+{
+  "type": "addon",
+  "name": "ALNWarpScrolls"
+}
+```
+
+## FILE: MCPEDL/Addons/ALNWarpScrolls/README.md (19 lines, 793 bytes)
+
+```
+# ALNWarpScrolls
+
+Download the current release of **ALNWarpScrolls** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download ALNWarpScrolls (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNWarpScrolls/ALNWarpScrolls%20V1.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALNWarpScrolls/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Addons/ALNWarpScrolls/resource_pack/manifest.json (37 lines, 638 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN:WarpScrolls (v1)",
+    "description": "Single-use Warp Scrolls teleport you to named Beacon Gate waypoints. by ALNStudios",
+    "uuid": "08b3a65a-a0d1-453a-a445-72cc1a9b1682",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      50
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "4c87a017-0e29-48d2-84d7-78e2e429cf10",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNWarpScrolls/resource_pack/sounds/sound_definitions.json (30 lines, 548 bytes)
+
+```
+{
+  "format_version": "1.14.0",
+  "sound_definitions": {
+    "aln.warp.charge": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/warp_charge"
+      ]
+    },
+    "aln.warp.arrive": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/warp_arrive"
+      ]
+    },
+    "aln.scroll.break": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/scroll_break"
+      ]
+    },
+    "aln.gate.register": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/gate_register"
+      ]
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNWarpScrolls/resource_pack/texts/en_US.lang (2 lines, 38 bytes)
+
+```
+tile.aln:beacon_gate.name=Beacon Gate
+```
+
+## FILE: MCPEDL/Addons/ALNWarpScrolls/resource_pack/textures/item_texture.json (9 lines, 135 bytes)
+
+```
+{
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "warp_scroll": {
+      "textures": "textures/items/warp_scroll"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNWarpScrolls/resource_pack/textures/terrain_texture.json (8 lines, 107 bytes)
+
+```
+{
+  "texture_data": {
+    "aln_beacon_gate": {
+      "textures": "textures/blocks/beacon_gate"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNWarpScrolls/texture_sources/warp_scrolls.json (1 lines, 4776 bytes)
+
+```
+[{"name":"beacon_gate","size":32,"folder":"blocks","palette":{"0":"#00000000","1":"#0d0a14","2":"#1c1530","3":"#2e2250","4":"#4a3a7a","5":"#7a5c14","6":"#c99a1e","7":"#f4d85a","8":"#0b6f7a","9":"#19c9d6","10":"#9ffcff","11":"#b87bff"},"pixels":[[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[1,4,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,4,3,3,3,1],[1,3,1,1,3,1,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,1,3,1,1,3,1],[1,3,1,1,3,1,2,3,2,2,2,2,2,2,2,10,11,2,3,2,2,2,3,2,2,2,1,3,1,1,3,1],[1,3,3,3,3,1,2,2,2,2,2,2,2,3,2,11,11,2,3,2,2,2,2,2,3,2,1,3,3,3,3,1],[1,1,1,1,1,7,6,6,3,2,2,2,2,2,3,11,11,2,2,3,2,2,2,2,7,6,6,1,1,1,1,1],[1,1,4,3,2,6,7,6,2,2,3,2,2,2,3,2,2,2,2,2,2,2,2,2,6,7,6,3,2,1,1,1],[1,1,4,2,2,6,6,5,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,6,6,5,2,2,1,1,1],[1,1,4,2,3,2,2,7,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,5,3,2,2,1,1,1],[1,1,4,2,2,2,2,7,6,2,3,2,2,2,2,3,2,2,2,2,2,3,2,2,6,5,2,2,2,1,1,1],[1,1,4,2,2,3,2,7,6,2,5,5,5,5,5,5,5,5,5,5,5,5,2,2,6,5,2,3,3,1,1,1],[1,1,4,2,2,2,2,7,6,2,5,8,8,8,8,9,9,8,8,8,8,5,3,2,6,5,2,2,2,1,1,1],[1,1,4,3,2,2,3,7,6,2,5,8,8,8,9,9,9,9,8,8,8,5,2,2,6,5,2,2,3,1,1,1],[1,1,4,2,2,2,2,7,6,2,5,8,8,9,9,10,10,9,9,8,8,5,2,3,6,5,2,2,2,1,1,1],[1,1,4,2,2,2,2,7,6,2,5,8,9,9,10,10,10,10,9,9,8,5,2,2,6,5,2,2,2,1,1,1],[1,1,4,10,11,11,2,7,6,2,5,9,9,10,10,10,7,10,10,9,9,5,2,2,6,5,10,11,11,1,1,1],[1,1,4,11,11,11,2,7,6,2,5,9,9,10,10,7,7,10,10,9,9,5,2,2,6,5,11,11,11,1,1,1],[1,1,4,3,2,2,2,7,6,2,5,8,9,9,10,10,10,10,9,9,8,5,2,2,6,5,2,2,2,1,1,1],[1,1,4,2,2,2,2,7,6,3,5,8,8,9,9,10,10,9,9,8,8,5,2,2,6,5,2,2,2,1,1,1],[1,1,4,2,3,2,2,7,6,3,5,8,8,8,9,9,9,9,8,8,8,5,2,2,6,5,3,2,2,1,1,1],[1,1,4,2,2,3,2,7,6,2,5,8,8,8,8,9,9,8,8,8,8,5,3,2,6,5,2,2,2,1,1,1],[1,1,4,2,2,3,2,7,6,2,5,5,5,5,5,5,5,5,5,5,5,5,2,2,6,5,2,3,2,1,1,1],[1,1,4,2,2,2,2,7,6,2,2,3,2,2,3,2,2,2,2,2,2,2,3,2,6,5,2,2,2,1,1,1],[1,1,4,2,2,2,3,7,6,2,3,2,2,2,2,2,2,3,2,2,2,2,2,2,6,5,2,3,3,1,1,1],[1,1,4,2,2,7,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,7,6,6,2,2,1,1,1],[1,1,4,2,2,6,7,6,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,6,7,6,2,2,1,1,1],[1,1,1,1,1,6,6,5,2,2,2,2,2,3,2,10,11,2,2,2,2,2,2,2,6,6,5,1,1,1,1,1],[1,4,3,3,3,1,2,2,3,2,2,3,2,2,2,11,11,2,2,3,2,2,2,2,2,2,1,4,3,3,3,1],[1,3,1,1,3,1,2,3,2,2,2,2,2,2,3,11,11,2,2,2,2,2,2,2,3,3,1,3,1,1,3,1],[1,3,1,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,1,1,3,1],[1,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,3,3,1],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]]},{"name":"warp_scroll","size":32,"folder":"items","palette":{"0":"#00000000","1":"#3b2410","2":"#b78a4f","3":"#dcb67a","4":"#f3dca5","5":"#8a5f0a","6":"#d9a521","7":"#fff08a","8":"#0e7c86","9":"#20d8e3","10":"#b8ffff","11":"#7a5530"},"pixels":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0],[0,0,0,1,4,4,3,2,1,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,1,4,4,3,2,1,0,0],[0,0,0,1,2,2,2,2,1,1,1,1,1,1,7,6,6,5,1,1,1,1,1,1,1,2,2,2,2,1,0,0],[0,0,0,1,4,4,3,2,1,4,4,4,4,1,7,6,6,5,1,4,4,4,4,4,1,4,4,3,2,1,0,0],[0,0,0,1,4,4,3,2,1,4,4,4,4,1,7,6,6,5,1,4,4,4,4,4,1,4,4,3,2,1,0,0],[0,0,0,1,4,2,2,2,1,3,3,3,3,1,1,1,1,1,1,3,3,3,3,3,1,4,2,2,2,1,0,0],[0,0,0,1,4,2,2,2,1,3,3,3,1,1,8,8,8,8,1,1,3,3,3,3,1,4,2,2,2,1,0,0],[0,0,0,1,4,2,2,2,1,3,3,2,1,8,10,9,9,9,8,1,2,3,3,2,1,4,2,2,2,1,0,0],[0,0,0,1,4,11,2,2,1,11,3,3,1,8,9,10,10,9,8,1,3,11,3,3,1,4,11,2,2,1,0,0],[0,0,0,1,4,2,11,2,1,3,3,3,1,8,9,10,10,9,8,1,3,3,3,3,1,4,2,11,2,1,0,0],[0,0,0,1,4,2,2,2,1,2,3,3,1,8,9,10,10,9,8,1,3,2,3,3,1,4,2,2,2,1,0,0],[0,0,0,1,4,2,2,2,1,3,3,3,1,8,9,10,10,9,8,1,3,3,3,3,1,4,2,2,2,1,0,0],[0,0,0,1,4,2,2,2,1,3,3,3,1,8,9,9,9,8,8,1,3,3,3,3,1,4,2,2,2,1,0,0],[0,0,0,1,4,4,3,2,1,2,2,2,1,1,8,8,8,8,1,1,2,2,2,2,1,4,4,3,2,1,0,0],[0,0,0,1,4,4,3,2,1,2,2,2,2,1,1,1,1,1,1,2,2,2,2,2,1,4,4,3,2,1,0,0],[0,0,0,1,4,4,3,2,1,1,1,7,6,1,7,6,6,5,1,7,6,1,1,1,1,4,4,3,2,1,0,0],[0,0,0,1,4,4,3,2,1,0,1,6,6,1,1,1,1,1,1,6,6,1,0,0,1,4,4,3,2,1,0,0],[0,0,0,1,1,1,1,1,1,0,1,6,6,1,0,0,0,0,1,6,6,1,0,0,1,1,1,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0,1,6,6,1,0,0,0,0,1,6,6,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,5,6,1,0,0,0,0,1,6,5,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]}]
+```

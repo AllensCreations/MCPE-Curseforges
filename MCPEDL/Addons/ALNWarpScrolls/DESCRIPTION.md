@@ -76,3 +76,4 @@ Place a Beacon Gate wherever you want a destination and give it a name. Later, r
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, ALN:WarpScrolls Bedrock mod, teleport scroll, waypoint block, Beacon Gate, Warp Scroll, custom sound effects, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+
