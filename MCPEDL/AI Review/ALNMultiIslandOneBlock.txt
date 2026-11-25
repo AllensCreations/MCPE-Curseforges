@@ -7,7 +7,7 @@
 - **CURRENT VERSION: v10 / NEXT UPDATE: v11**  (`MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 34
-- **Skipped binary:** 12
+- **Skipped binary:** 14
 - **Paths not found:** 0
 
 ### Files in this export
@@ -47,12 +47,14 @@
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/resource_pack/textures/item_texture.json`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/texture_sources/pirate_ledger.json`
 
-### Skipped (binary): 12 file(s)
+### Skipped (binary): 14 file(s)
 
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/ALNMultiIslandOneBlock - Creative.mcworld`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/ALNMultiIslandOneBlock - Hardcore.mcworld`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/ALNMultiIslandOneBlock - Survival.mcworld`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/assets/banner.png`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/assets/items/pirate_ledger.png`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/assets/items/pirate_ledger_label.png`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/assets/snapshots/Screenshot_20261123_165614_com.mojang.v126661xxxx.jpg`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/assets/snapshots/Screenshot_20261123_165622_com.mojang.v126661xxxx.jpg`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/assets/snapshots/Screenshot_20261123_165708_com.mojang.v126661xxxx.jpg`
@@ -3521,10 +3523,14 @@ Minecraft Bedrock add-on, ALN:MultiIslandOneBlock Bedrock map, MCPEDL add-on, Cu
 }
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/README.md (19 lines, 754 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/README.md (23 lines, 964 bytes)
 
 ```
 # ALN:MultiIslandOneBlock
+
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-v10-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1825799)
+<!-- CURSEFORGE-BADGE:END -->
 
 Download the current release of **ALN:MultiIslandOneBlock** for Minecraft Bedrock Edition.
 

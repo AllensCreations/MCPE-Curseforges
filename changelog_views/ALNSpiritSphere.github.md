@@ -1,12 +1,30 @@
 # Changelog — ALN:SpiritSphere
 
-## [5.0.0] - 2026-11-24 - Element Sounds
+## [6.0.0] - 2026-11-25 - Ten Spheres
 
 ### Added
-- **Custom element sounds**: Each of the five spheres now has its own charge, burst, launch and impact sound, 20 sounds in total.
+- **Five new spheres**: Players can craft Terra Quake, Toxic Bloom, Gravity Warp, Life Bloom and Chrono Stasis spheres, each with its own recipe, color, icon and impact effect.
+- **New sounds**: Each new sphere has its own charge, burst, launch and impact sound, 20 more in total.
+- **Cooldown**: Each sphere now has a 3 second cooldown after a shot, and the action bar shows the time left.
+- **Sweet spot**: Releasing between 50 and 62 ticks gives full power and a 25 percent larger blast.
 
 ### Improved & Balanced
+- **32x32 textures**: All sphere icons and the orb texture are redrawn at 32x32 with shading and an element detail on each.
+- **Overcharge**: Holding past the sweet spot now weakens the shot over 3 seconds down to 40 percent power, with the sphere shrinking and the charge tone falling in pitch.
+- **Action bar**: The charge display now shows the current power percentage.
+
+<details>
+<summary><b>5.0.x</b> (1 release)</summary>
+
+### [5.0.0] - 2026-11-24 - Element Sounds
+
+#### Added
+- **Custom element sounds**: Each of the five spheres now has its own charge, burst, launch and impact sound, 20 sounds in total.
+
+#### Improved & Balanced
 - **Shared sounds removed**: The old shared pulse, launch and explosion sounds are replaced by the per-element sounds, including the Void Singularity landing pulse.
+
+</details>
 
 <details>
 <summary><b>4.0.x</b> (1 release)</summary>

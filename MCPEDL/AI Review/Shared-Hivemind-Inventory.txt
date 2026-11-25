@@ -7,7 +7,7 @@
 - **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Minigame/Shared-Hivemind-Inventory/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 15
-- **Skipped binary:** 6
+- **Skipped binary:** 9
 - **Paths not found:** 0
 
 ### Files in this export
@@ -28,11 +28,14 @@
 - `MCPEDL/Minigame/Shared-Hivemind-Inventory/resource_pack/manifest.json`
 - `MCPEDL/Minigame/Shared-Hivemind-Inventory/resource_pack/textures/item_texture.json`
 
-### Skipped (binary): 6 file(s)
+### Skipped (binary): 9 file(s)
 
 - `MCPEDL/Minigame/Shared-Hivemind-Inventory/Icon.jpg`
+- `MCPEDL/Minigame/Shared-Hivemind-Inventory/assets/banner.png`
 - `MCPEDL/Minigame/Shared-Hivemind-Inventory/assets/items/controller.png`
+- `MCPEDL/Minigame/Shared-Hivemind-Inventory/assets/items/controller_label.png`
 - `MCPEDL/Minigame/Shared-Hivemind-Inventory/assets/items/shared_hivemind_inventory_controller.png`
+- `MCPEDL/Minigame/Shared-Hivemind-Inventory/assets/items/shared_hivemind_inventory_controller_label.png`
 - `MCPEDL/Minigame/Shared-Hivemind-Inventory/behavior_pack/pack_icon.png`
 - `MCPEDL/Minigame/Shared-Hivemind-Inventory/resource_pack/pack_icon.png`
 - `MCPEDL/Minigame/Shared-Hivemind-Inventory/resource_pack/textures/items/controller.png`
@@ -1723,10 +1726,14 @@ Minecraft Bedrock add-on, Team Inventory Bedrock mod, shared inventory, multipla
 {"type":"minigame","name":"Team Inventory"}
 ```
 
-## FILE: MCPEDL/Minigame/Shared-Hivemind-Inventory/README.md (19 lines, 816 bytes)
+## FILE: MCPEDL/Minigame/Shared-Hivemind-Inventory/README.md (23 lines, 1025 bytes)
 
 ```
 # Team Inventory
+
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-v2-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1769163)
+<!-- CURSEFORGE-BADGE:END -->
 
 Download the current release of **Team Inventory** for Minecraft Bedrock Edition.
 

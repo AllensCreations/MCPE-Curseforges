@@ -7,7 +7,7 @@
 - **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Minigame/Tethered-Breaker-And-Builder/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 14
-- **Skipped binary:** 6
+- **Skipped binary:** 9
 - **Paths not found:** 0
 
 ### Files in this export
@@ -27,10 +27,13 @@
 - `MCPEDL/Minigame/Tethered-Breaker-And-Builder/resource_pack/particles/tether_leash.json`
 - `MCPEDL/Minigame/Tethered-Breaker-And-Builder/resource_pack/textures/item_texture.json`
 
-### Skipped (binary): 6 file(s)
+### Skipped (binary): 9 file(s)
 
+- `MCPEDL/Minigame/Tethered-Breaker-And-Builder/assets/banner.png`
 - `MCPEDL/Minigame/Tethered-Breaker-And-Builder/assets/items/controller.png`
+- `MCPEDL/Minigame/Tethered-Breaker-And-Builder/assets/items/controller_label.png`
 - `MCPEDL/Minigame/Tethered-Breaker-And-Builder/assets/items/tethered_breaker_builder_controller.png`
+- `MCPEDL/Minigame/Tethered-Breaker-And-Builder/assets/items/tethered_breaker_builder_controller_label.png`
 - `MCPEDL/Minigame/Tethered-Breaker-And-Builder/behavior_pack/pack_icon.png`
 - `MCPEDL/Minigame/Tethered-Breaker-And-Builder/icon.png`
 - `MCPEDL/Minigame/Tethered-Breaker-And-Builder/resource_pack/pack_icon.png`
@@ -1348,10 +1351,14 @@ Minecraft Bedrock co-op challenge, Tethered Breaker and Builder, asymmetric two-
 {"type": "minigame", "name": "Tethered Breaker and Builder"}
 ```
 
-## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/README.md (19 lines, 866 bytes)
+## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/README.md (23 lines, 1075 bytes)
 
 ```
 # Tethered Breaker and Builder
+
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-v3-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1768897)
+<!-- CURSEFORGE-BADGE:END -->
 
 Download the current release of **Tethered Breaker and Builder** for Minecraft Bedrock Edition.
 

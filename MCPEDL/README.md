@@ -2,7 +2,7 @@
 
 Generated file. Do not edit by hand: it is rebuilt with every build.
 
-40 Add-ons · 5 Maps · 10 Scripts · 6 Minigames
+39 Add-ons · 5 Maps · 10 Scripts · 6 Minigames
 
 ## AI Review Kits
 
@@ -30,7 +30,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | **ALN:LootSpawner (Arcane Relic Duplicator)** | 1.0.5 | ⚪ Not Published | [Source](Addons/ALNLootSpawner-Arcane-Relic-Duplicator) | [Package](../Package/ALNLootSpawner-Arcane-Relic-Duplicator.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNLootSpawner-Arcane-Relic-Duplicator-1.0.5.zip) |
 | **ALN:OneClickSort** | v12 | 🟢 Published ([v12](https://www.curseforge.com/projects/1818338)) | [Source](Addons/ALNOneClickSort) | [Package](../Package/ALNOneClickSort.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNOneClickSort-v12.zip) |
 | **ALN:PirateTokens** | 1.0.4 | 🟢 Published ([1.0.4](https://www.curseforge.com/projects/1824277)) | [Source](Addons/ALNPirateTokens) | [Package](../Package/ALNPirateTokens.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNPirateTokens-1.0.4.zip) |
-| **ALN:SpiritSphere** | 5.0.0 | ⚪ Not Published | [Source](Addons/ALNSpiritSphere) | [Package](../Package/ALNSpiritSphere.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNSpiritSphere-5.0.0.zip) |
+| **ALN:SpiritSphere** | 6.0.0 | ⚪ Not Published | [Source](Addons/ALNSpiritSphere) | [Package](../Package/ALNSpiritSphere.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNSpiritSphere-6.0.0.zip) |
 | **Cheat Stick** | v4 | 🟢 Published ([v4](https://www.curseforge.com/projects/1798250)) | [Source](Addons/Cheat-Stick) | [Package](../Package/Cheat-Stick.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Cheat-Stick-v4.zip) |
 | **Combat Helper** | v21 | 🟢 Published ([v21](https://www.curseforge.com/projects/1816055)) | [Source](Addons/ALN-Pointer) | [Package](../Package/ALN-Pointer.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-Pointer-v21.zip) |
 | **Copper-Carrier Logistics** | v2 | ⚪ Not Published | [Source](Addons/Copper-Carrier-Logistics) | [Package](../Package/Copper-Carrier-Logistics.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Copper-Carrier-Logistics-v2.zip) |
@@ -45,7 +45,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | **Melody Figurine** | v2 | ⚪ Not Published | [Source](Addons/Melody-Figurine) | [Package](../Package/Melody-Figurine.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Melody-Figurine-v2.zip) |
 | **Mining Helmet** | v2 | 🟢 Published ([v2](https://www.curseforge.com/projects/1744147)) | [Source](Addons/Mining-Helmet) | [Package](../Package/Mining-Helmet.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Mining-Helmet-v2.zip) |
 | **Monster Companions** | v12 | 🟢 Published ([v12](https://www.curseforge.com/projects/1742867)) | [Source](Addons/Monster-Companions) | [Package](../Package/Monster-Companions.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Monster-Companions-v12.zip) |
-| **OP Sponge** | v4 | ⚪ Not Published | [Source](Addons/OP-Sponge) | [Package](../Package/OP-Sponge.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/OP-Sponge-v3.zip) |
+| **OP Sponge** | v4 | ⚪ Not Published | [Source](Addons/OP-Sponge) | [Package](../Package/OP-Sponge.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/OP-Sponge-v4.zip) |
 | **Padlock & Key** | v3 | 🟢 Published ([v3](https://www.curseforge.com/projects/1809473)) | [Source](Addons/Padlock-and-Key) | [Package](../Package/Padlock-and-Key.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Padlock-and-Key-v3.zip) |
 | **Passive Auto-Switch Tools** | v2 | ⚪ Not Published | [Source](Addons/Passive-Auto-Switch-Tools) | [Package](../Package/Passive-Auto-Switch-Tools.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Passive-Auto-Switch-Tools-v2.zip) |
 | **Selective Mob Controller** | v2 | ⚪ Not Published | [Source](Addons/Selective-Mob-Controller) | [Package](../Package/Selective-Mob-Controller.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Selective-Mob-Controller-v2.zip) |

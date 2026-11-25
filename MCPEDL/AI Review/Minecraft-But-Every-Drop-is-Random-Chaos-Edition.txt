@@ -7,7 +7,7 @@
 - **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 15
-- **Skipped binary:** 5
+- **Skipped binary:** 8
 - **Paths not found:** 0
 
 ### Files in this export
@@ -28,10 +28,13 @@
 - `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/resource_pack/manifest.json`
 - `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/resource_pack/textures/item_texture.json`
 
-### Skipped (binary): 5 file(s)
+### Skipped (binary): 8 file(s)
 
+- `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/assets/banner.png`
 - `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/assets/items/controller.png`
+- `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/assets/items/controller_label.png`
 - `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/assets/items/random_drop_chaos_controller.png`
+- `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/assets/items/random_drop_chaos_controller_label.png`
 - `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/pack_icon.png`
 - `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/resource_pack/pack_icon.png`
 - `MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/resource_pack/textures/items/controller.png`
@@ -1120,10 +1123,14 @@ Minecraft Bedrock add-on, Minecraft But Every Drop is Random Bedrock mod, random
 }
 ```
 
-## FILE: MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/README.md (19 lines, 995 bytes)
+## FILE: MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/README.md (23 lines, 1204 bytes)
 
 ```
 # Minecraft, But Every Drop is Random Chaos Edition
+
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-v2-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1807310)
+<!-- CURSEFORGE-BADGE:END -->
 
 Download the current release of **Minecraft, But Every Drop is Random Chaos Edition** for Minecraft Bedrock Edition.
 

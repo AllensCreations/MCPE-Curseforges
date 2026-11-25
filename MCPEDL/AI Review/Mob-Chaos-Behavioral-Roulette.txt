@@ -7,7 +7,7 @@
 - **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 14
-- **Skipped binary:** 3
+- **Skipped binary:** 6
 - **Paths not found:** 0
 
 ### Files in this export
@@ -27,10 +27,13 @@
 - `MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/resource_pack/manifest.json`
 - `MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/resource_pack/textures/item_texture.json`
 
-### Skipped (binary): 3 file(s)
+### Skipped (binary): 6 file(s)
 
+- `MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/assets/banner.png`
 - `MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/assets/items/controller.png`
+- `MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/assets/items/controller_label.png`
 - `MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/assets/items/mob_chaos_roulette_controller.png`
+- `MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/assets/items/mob_chaos_roulette_controller_label.png`
 - `MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/resource_pack/textures/items/controller.png`
 
 ---
@@ -1276,10 +1279,14 @@ Minecraft Bedrock add-on, Mob Chaos Behavioral Roulette Bedrock mod, mutating mo
 }
 ```
 
-## FILE: MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/README.md (19 lines, 864 bytes)
+## FILE: MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/README.md (23 lines, 1105 bytes)
 
 ```
 # Mob Chaos Behavioral Roulette
+
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-Not%20Published-lightgrey?style=flat-square&logo=curseforge)](https://www.curseforge.com/members/allenscreations/projects)
+<!-- CURSEFORGE-BADGE:END -->
 
 Download the current release of **Mob Chaos Behavioral Roulette** for Minecraft Bedrock Edition.
 

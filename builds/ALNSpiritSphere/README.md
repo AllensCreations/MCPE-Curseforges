@@ -8,7 +8,7 @@ This folder contains compiled release packages for **ALNSpiritSphere** by ALNStu
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`ALNSpiritSphere V5.mcaddon`** | `.mcaddon` | ~190 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpiritSphere/ALNSpiritSphere%20V5.mcaddon) |
+| **`ALNSpiritSphere V6.mcaddon`** | `.mcaddon` | ~200 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpiritSphere/ALNSpiritSphere%20V6.mcaddon) |
 
 ---
 
