@@ -1,6 +1,7 @@
+import { world } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
-import { PAGE_SIZE, MAX_LISTINGS_PER_PLAYER, COIN_NAME, PROP } from "./config.js";
-import { slotOf, slotCoords, recordOf, recordOfPlayerId } from "./slots.js";
+import { PAGE_SIZE, MAX_LISTINGS_PER_PLAYER, COIN_NAME, PROP, HOME_COOLDOWN_TICKS, TOP_ISLANDS_LIMIT } from "./config.js";
+import { slotOf, slotCoords, recordOf, recordOfPlayerId, readSlots } from "./slots.js";
 import { traitInfo, traitLabel } from "./traits.js";
 import { phaseIndexFor, phaseLabel, breaksToNextPhase } from "./phases.js";
 import { islandBreaks } from "./island.js";
@@ -19,8 +20,11 @@ import {
 import { priceInfo, recommendedTotal, serverPayout } from "./prices.js";
 import { findPlayer, wait, niceName, plainInventory } from "./util.js";
 import { promptWelcome } from "./welcome.js";
+import { goHome } from "./claim.js";
 
 const HUB_TITLE = "§6§lGlobal Trade Hub";
+
+const homeUsed = new Map();
 
 async function show(form, player) {
   for (let i = 0; i < 6; i++) {
@@ -72,10 +76,12 @@ async function screenMain(player) {
     .button(`My Offers\n§8${mine} / ${MAX_LISTINGS_PER_PLAYER}`)
     .button(`Collect Returned Items\n§8${returned} items waiting`)
     .button("My Island")
+    .button("Top Islands")
+    .button("Go Home")
     .button("Close");
   const res = await show(form, player);
   if (!res || res.canceled) return undefined;
-  const next = ["browse", "create", "sell", "mine", "collect", "island"][res.selection];
+  const next = ["browse", "create", "sell", "mine", "collect", "island", "top", "home"][res.selection];
   return next ? { name: next, page: 0, filter: "" } : undefined;
 }
 
@@ -250,6 +256,41 @@ async function screenIsland(player) {
   return { name: "main", page: 0, filter: "" };
 }
 
+function screenHome(player) {
+  const slot = slotOf(player);
+  const now = world.getAbsoluteTime();
+  const last = homeUsed.get(player.id);
+  if (last !== undefined && now - last < HOME_COOLDOWN_TICKS) {
+    const seconds = Math.ceil((HOME_COOLDOWN_TICKS - (now - last)) / 20);
+    player.sendMessage(`§6[ALN] §cGo Home is ready again in ${seconds} seconds.`);
+    return { name: "main", page: 0, filter: "" };
+  }
+  homeUsed.set(player.id, now);
+  goHome(player, slot, true);
+  player.sendMessage("§6[ALN] §aWelcome home.");
+  return undefined;
+}
+
+async function screenTop(player) {
+  const slots = readSlots();
+  const entries = [];
+  for (const key of Object.keys(slots)) {
+    const record = slots[key];
+    if (!record || !record.name) continue;
+    entries.push({ slot: Number(key), name: record.name, total: islandBreaks(Number(key)) });
+  }
+  entries.sort((a, b) => b.total - a.total);
+  const rank = entries.findIndex((e) => e.slot === slotOf(player)) + 1;
+  const lines = entries
+    .slice(0, TOP_ISLANDS_LIMIT)
+    .map((e, i) => `§e${i + 1}. §f${e.name} §8| §7Island #${e.slot} §8| ${phaseLabel(phaseIndexFor(e.total))} §8| §7${e.total} breaks`);
+  lines.push("", `§fYour rank: §e#${rank} §7of ${entries.length}`);
+  const form = new ActionFormData().title("§6§lTop Islands").body(lines.join("\n")).button("Back");
+  const res = await show(form, player);
+  if (!res || res.canceled) return undefined;
+  return { name: "main", page: 0, filter: "" };
+}
+
 export async function openLedger(player) {
   if (slotOf(player) === undefined) {
     promptWelcome(player);
@@ -289,6 +330,12 @@ export async function openLedger(player) {
         break;
       case "island":
         state = await screenIsland(p);
+        break;
+      case "top":
+        state = await screenTop(p);
+        break;
+      case "home":
+        state = screenHome(p);
         break;
       default:
         state = undefined;

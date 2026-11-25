@@ -39,6 +39,10 @@ export const RARE_BUY_RATIO = 0.25;
 export const MARKET_FEE_RATIO = 0.05;
 export const BREAKS_PER_COIN = 5;
 export const COINS_PER_REWARD = 1;
+export const PHASE_REWARD = 25;
+export const HOME_COOLDOWN_TICKS = 1200;
+export const OFFER_LIFETIME_TICKS = 12096000;
+export const TOP_ISLANDS_LIMIT = 10;
 export const BOARD_ID = "aln_coins";
 export const BOARD_TITLE = "§6§l@ALNStudios";
 export const BOARD_TICKS = 40;
@@ -55,9 +59,11 @@ export const RULES_BODY = [
   "§eHow the grid works",
   "§7- Every player claims one private island. Islands sit 2,000 blocks apart in a square grid around the lobby.",
   "§7- Your island spot is permanent once you press Start.",
+  "§7- Use Go Home in the TRADERS Item menu to return to your island. It has a short cooldown.",
   "",
   "§eOneBlock phases",
   "§7- Every island has its own phase. Every OneBlock you break on your island moves it closer to the next phase.",
+  "§7- The first time your island reaches a new phase you earn ALN Coins.",
   "",
   "§eIsland Richness",
   "§7- Each island has one Richness trait that boosts its block mix and adds bonus drops. No island has everything, so trade.",
@@ -65,6 +71,7 @@ export const RULES_BODY = [
   "§eTRADERS Item",
   "§7- Right-click the TRADERS Item anywhere to sell items for ALN Coins, browse offers and buy with your coins.",
   "§7- Listed items are held safely until they sell or you cancel the listing.",
+  `§7- Offers that do not sell return to you after ${Math.round(OFFER_LIFETIME_TICKS / 1728000)} days.`,
   `§7- A ${Math.round(MARKET_FEE_RATIO * 100)}% fee is taken from the seller when an offer sells.`,
   "§7- The TRADERS Item is permanent. If you throw it away it returns to you, and if your inventory is full it returns as soon as a slot is free.",
   "",

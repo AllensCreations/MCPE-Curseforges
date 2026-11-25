@@ -44,10 +44,22 @@ The map is a void world and includes Creative, Survival and Hardcore versions.
 - **What Happens**: A portable item every player receives when claiming an island. Right-clicking it opens the Global Trade Hub from anywhere. It is permanent: if you throw it away it returns to you, and if your inventory is full it returns as soon as a slot is free.
 
 ### Global Trade Hub
-- **What Happens**: Players post offers priced in ALN Coins, such as 32 Iron Ingots for 160 ALN Coins, browse and search offers from every island, and buy with a single confirmation. Every item shows a recommended price and amount, and leaving the fields empty uses them. For items with a recommended price, an offer must stay between half and four times that price. The market also buys those items directly for half of the recommended price, or a quarter for very valuable items, and sellers pay a 5% fee when an offer sells. Players in Creative mode cannot sell. Offered items are held safely until the offer sells or is cancelled.
+- **What Happens**: Players post offers priced in ALN Coins, such as 32 Iron Ingots for 160 ALN Coins, browse and search offers from every island, and buy with a single confirmation. Every item shows a recommended price and amount, and leaving the fields empty uses them. For items with a recommended price, an offer must stay between half and four times that price. The market also buys those items directly for half of the recommended price, or a quarter for very valuable items, and sellers pay a 5% fee when an offer sells. Players in Creative mode cannot sell. Offered items are held safely until the offer sells, is cancelled or expires after about 7 days and returns to you.
 
 ### ALN Coins
 - **What Happens**: ALN Coins are the currency of the Global Trade Hub. Every player starts with 500 ALN Coins, and the balance is shown in the hub. A sold offer pays the seller right away, even when the seller is offline. Players also earn 1 ALN Coin for every 5 OneBlock breaks (not in Creative mode), and a sidebar scoreboard titled @ALNStudios ranks island owners by their ALN Coins.
+
+### Go Home
+- **What Happens**: The TRADERS Item menu has a Go Home button that teleports you back to your island. It has a short cooldown.
+
+### Top Islands
+- **What Happens**: A ranking page in the TRADERS Item menu lists the islands with the most OneBlock breaks, their phase and your own rank.
+
+### Phase Rewards
+- **What Happens**: The first time your island reaches a new phase you earn ALN Coins, and the reward grows with each phase.
+
+### Bonus Drop Notice
+- **What Happens**: When a bonus drop appears, its name shows on the action bar and you hear a sound.
 
 ## How to Use
 

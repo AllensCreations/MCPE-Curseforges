@@ -1,10 +1,10 @@
 import { world, system, ItemStack } from "@minecraft/server";
-import { ONE_BLOCK_Y, PROP, BONUS_CHANCE, BONUS_AMOUNT_MULT, BREAKS_PER_COIN, COINS_PER_REWARD, RARE_UNIT_PRICE } from "./config.js";
+import { ONE_BLOCK_Y, PROP, BONUS_CHANCE, BONUS_AMOUNT_MULT, BREAKS_PER_COIN, COINS_PER_REWARD, RARE_UNIT_PRICE, PHASE_REWARD, COIN_NAME } from "./config.js";
 import { slotAt, recordOf, slotOf, slotCoords } from "./slots.js";
 import { phaseIndexFor, rollBonus, PHASES, phaseLabel, breaksToNextPhase } from "./phases.js";
 import { islandBreaks, addIslandBreak, regenerate } from "./island.js";
 import { traitLabel } from "./traits.js";
-import { blockIdAt, isLoaded, isValidItem, overworld, stackLimit, findPlayer, isCreative } from "./util.js";
+import { blockIdAt, isLoaded, isValidItem, overworld, stackLimit, findPlayer, isCreative, niceName } from "./util.js";
 import { addCoins } from "./market.js";
 import { priceInfo } from "./prices.js";
 
@@ -19,7 +19,7 @@ function announcePhase(players, index) {
   }
 }
 
-function dropBonus(dim, x, z, trait, phaseIndex) {
+function dropBonus(dim, x, z, trait, phaseIndex, breaker) {
   if (Math.random() >= BONUS_CHANCE) return;
   for (let attempt = 0; attempt < 3; attempt++) {
     const bonus = rollBonus(phaseIndex, trait);
@@ -28,6 +28,8 @@ function dropBonus(dim, x, z, trait, phaseIndex) {
       const mult = priceInfo(bonus.id).unit >= RARE_UNIT_PRICE ? 1 : BONUS_AMOUNT_MULT;
       const amount = Math.min(bonus.amount * mult, stackLimit(bonus.id));
       dim.spawnItem(new ItemStack(bonus.id, amount), { x: x + 0.5, y: ONE_BLOCK_Y + 1.2, z: z + 0.5 });
+      breaker.onScreenDisplay.setActionBar(`§6Bonus drop: §f${amount}x ${niceName(bonus.id)}`);
+      breaker.playSound("random.orb");
     } catch (e) {}
     return;
   }
@@ -55,12 +57,17 @@ function handleBreak(event) {
   const z = block.z;
   system.run(() => {
     regenerate(dim, x, z, record.trait, after);
-    dropBonus(dim, x, z, record.trait, after);
+    dropBonus(dim, x, z, record.trait, after, breaker);
   });
 
   if (after !== before) {
     const owner = findPlayer(record.id);
     announcePhase(owner && owner.id !== breaker.id ? [breaker, owner] : [breaker], after);
+    if (!isCreative(breaker)) {
+      const reward = PHASE_REWARD * after;
+      addCoins(record.id, reward);
+      if (owner) owner.sendMessage(`§6[ALN] §aPhase reward: ${reward} ${COIN_NAME}.`);
+    }
   }
   const left = breaksToNextPhase(total);
   const tail = left > 0 ? `§7Next phase in §f${left}` : "§7Final phase";

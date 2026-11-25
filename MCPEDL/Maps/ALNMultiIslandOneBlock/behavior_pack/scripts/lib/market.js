@@ -11,6 +11,7 @@ import {
   COIN_NAME,
   LEDGER_ID,
   MARKET_FEE_RATIO,
+  OFFER_LIFETIME_TICKS,
 } from "./config.js";
 import {
   readJson,
@@ -75,6 +76,7 @@ export function allListings() {
   const ids = readIds();
   const found = [];
   const keep = [];
+  const now = world.getAbsoluteTime();
   for (const id of ids) {
     const listing = readJson(world, listingKey(id), undefined);
     if (!listing) continue;
@@ -85,6 +87,17 @@ export function allListings() {
     if (typeof listing.price !== "number") {
       addPayout(listing.seller, listing.give.id, listing.give.amount);
       world.setDynamicProperty(listingKey(id), undefined);
+      continue;
+    }
+    if (typeof listing.created !== "number") {
+      listing.created = now;
+      writeJson(world, listingKey(id), listing);
+    } else if (now - listing.created >= OFFER_LIFETIME_TICKS) {
+      addPayout(listing.seller, listing.give.id, listing.give.amount);
+      world.setDynamicProperty(listingKey(id), undefined);
+      findPlayer(listing.seller)?.sendMessage(
+        `§6[ALN] §eYour offer for ${listing.give.amount}x ${niceName(listing.give.id)} expired. Collect the items from Collect Returned Items.`
+      );
       continue;
     }
     found.push(listing);
@@ -149,6 +162,7 @@ export function createListing(player, itemId, amount, price) {
     sellerName: player.name,
     give: { id: itemId, amount },
     price,
+    created: world.getAbsoluteTime(),
   });
   writeIds([...readIds(), id]);
   return done(
@@ -206,6 +220,7 @@ export function buyListing(buyer, id) {
   );
 }
 export function sellToServer(player, itemId, amount) {
+  if (isCreative(player)) return fail("Creative mode players cannot sell to the market.");
   if (!Number.isInteger(amount) || amount < 1 || amount > MAX_TRADE_AMOUNT) {
     return fail(`The amount you sell must be a whole number from 1 to ${MAX_TRADE_AMOUNT}.`);
   }

@@ -2,6 +2,17 @@
 
 ---
 
+## [v11] - 2026-11-25 - Go Home, Top Islands and Offer Expiry
+
+### Added
+- **Go Home Button**: The TRADERS Item menu has a Go Home button that teleports you to your island, with a 60 second cooldown.
+- **Top Islands Page**: A new page ranks islands by OneBlock breaks and shows each island's phase and your own rank.
+- **Phase Rewards**: The first time an island reaches a new phase, its owner earns 25 ALN Coins multiplied by the phase number.
+- **Bonus Drop Notice**: A bonus drop now shows its name on the action bar and plays a sound for the player who broke the block.
+- **Offer Expiry**: Offers that do not sell return their items to the seller after about 7 days.
+### Fixed
+- **Creative Market Sale**: Creative mode players can no longer sell items to the market.
+
 ## [v10] - 2026-11-24 - Individual Phases and Market Balance
 
 ### Added
