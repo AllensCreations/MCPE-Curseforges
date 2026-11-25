@@ -470,7 +470,12 @@ def caption_from(name):
     """'01-Cursor-Light_in_a_cave.gif' -> 'Cursor Light in a cave'."""
     stem = Path(name).stem
     stem = re.sub(r"^\d+[\s._-]+", "", stem)
-    return " ".join(stem.replace("-", " ").replace("_", " ").split()) or Path(name).stem
+    stem = re.sub(r"^(?:aln|allenscreations|pnk)[:_\s-]+", "", stem, flags=re.IGNORECASE)
+    words = stem.replace("-", " ").replace("_", " ").split()
+    cap = " ".join(words) or Path(name).stem
+    if cap and cap[0].islower():
+        cap = cap[0].upper() + cap[1:]
+    return cap
 
 
 def _natural(name):
@@ -478,10 +483,10 @@ def _natural(name):
 
 
 def _item_display_names(project: Path) -> dict[str, str]:
-    """Map custom item identifiers and short stems to their in-game display name."""
+    """Map custom item identifiers, short stems, and texture keys to their in-game display name."""
     names = {}
     lang = {}
-    for sub in [project / "resource_pack", project / "behavior_pack"]:
+    for sub in [project / "resource_pack", project / "behavior_pack", project]:
         texts = sub / "texts"
         if texts.is_dir():
             for lf in sorted(texts.glob("*.lang")):
@@ -494,9 +499,27 @@ def _item_display_names(project: Path) -> dict[str, str]:
                 except Exception:
                     pass
 
-    bp_items = project / "behavior_pack" / "items"
-    if bp_items.is_dir():
-        for f in bp_items.rglob("*.json"):
+    # Read item_texture.json to map icon keys to texture names
+    item_textures = {}
+    for sub in [project / "resource_pack", project]:
+        it_file = sub / "textures" / "item_texture.json"
+        if it_file.is_file():
+            try:
+                it_data = json.loads(it_file.read_text(encoding="utf-8"))
+                for tkey, tval in it_data.get("texture_data", {}).items():
+                    tex = tval.get("textures", "")
+                    if isinstance(tex, str):
+                        item_textures[tkey] = Path(tex).stem
+                    elif isinstance(tex, list) and tex:
+                        item_textures[tkey] = Path(tex[0]).stem
+            except Exception:
+                pass
+
+    for sub in [project / "behavior_pack", project / "resource_pack", project]:
+        items_dir = sub / "items"
+        if not items_dir.is_dir():
+            continue
+        for f in items_dir.rglob("*.json"):
             try:
                 d = json.loads(f.read_text(encoding="utf-8"))
                 item = d.get("minecraft:item", {})
@@ -510,18 +533,59 @@ def _item_display_names(project: Path) -> dict[str, str]:
                     name = dn["value"]
                 elif isinstance(dn, str):
                     name = dn
+
+                short = ident.split(":")[-1]
                 if name:
                     if name in lang:
                         name = lang[name]
-                    name = re.sub(r"§[0-9a-fk-or]", "", name).strip()
                 else:
-                    for k in [f"item.{ident}.name", f"item.{ident}", f"item.{ident.split(':')[-1]}.name", f"item.{ident.split(':')[-1]}"]:
+                    for k in [f"item.{ident}.name", f"item.{ident}", f"item.{short}.name", f"item.{short}"]:
                         if k in lang:
                             name = lang[k]
                             break
+                if not name and ident in lang:
+                    name = lang[ident]
+
                 if name:
-                    names[ident] = name
-                    names[ident.split(":")[-1]] = name
+                    name = re.sub(r"§[0-9a-fk-or]", "", name).strip()
+                    lines = [l.strip() for l in name.replace("\\n", "\n").splitlines() if l.strip()]
+                    if len(lines) > 1:
+                        if lines[0].lower().startswith("music disc") and any("track" in l.lower() for l in lines[1:]):
+                            track_line = next(l for l in lines[1:] if "track" in l.lower())
+                            name = f"Music Disc ({track_line})"
+                        else:
+                            name = " - ".join(lines[:2])
+                    elif lines:
+                        name = lines[0]
+                    else:
+                        name = ""
+
+                # Strip namespace prefix like "aln:", "aln_", "aln ", "allenscreations_", etc.
+                if name:
+                    name = re.sub(r"^(?:aln|allenscreations|pnk)[:_\s-]+", "", name, flags=re.IGNORECASE).strip()
+
+                if not name:
+                    name = short.replace("_", " ").replace("-", " ").title()
+
+                keys = {ident, short, short.replace("_", "-"), short.replace("-", "_"),
+                        ident.replace(":", "_"), ident.replace(":", "-")}
+
+                icon = comps.get("minecraft:icon")
+                icon_key = None
+                if isinstance(icon, str):
+                    icon_key = icon
+                elif isinstance(icon, dict):
+                    icon_key = icon.get("textures", {}).get("default") or icon.get("texture")
+                if icon_key:
+                    keys.add(icon_key)
+                    keys.add(icon_key.split(":")[-1])
+                    keys.add(re.sub(r"^(?:aln|allenscreations|pnk)[:_\s-]+", "", icon_key, flags=re.IGNORECASE))
+                    if icon_key in item_textures:
+                        keys.add(item_textures[icon_key])
+                        keys.add(re.sub(r"^(?:aln|allenscreations|pnk)[:_\s-]+", "", item_textures[icon_key], flags=re.IGNORECASE))
+
+                for k in keys:
+                    names[k] = name
             except Exception:
                 pass
     return names
@@ -559,8 +623,23 @@ def find_media(root, project, md_text=""):
                 seen_hashes.add(h)
             except OSError:
                 pass
-            if kind == "items" and f.stem in item_names:
-                caption = item_names[f.stem]
+            if kind == "items":
+                clean_stem = re.sub(r"^(?:aln|allenscreations|pnk)[:_\s-]+", "", f.stem, flags=re.IGNORECASE)
+                if f.stem in item_names:
+                    caption = item_names[f.stem]
+                elif clean_stem in item_names:
+                    caption = item_names[clean_stem]
+                else:
+                    caption = caption_from(f.name)
+            elif kind == "recipes":
+                base_stem = f.stem.replace("_recipe", "")
+                clean_base = re.sub(r"^(?:aln|allenscreations|pnk)[:_\s-]+", "", base_stem, flags=re.IGNORECASE)
+                if base_stem in item_names:
+                    caption = item_names[base_stem]
+                elif clean_base in item_names:
+                    caption = item_names[clean_base]
+                else:
+                    caption = caption_from(base_stem)
             else:
                 caption = caption_from(f.name)
             img_url = RAW + quote(f.relative_to(root).as_posix())

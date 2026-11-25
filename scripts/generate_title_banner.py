@@ -230,16 +230,25 @@ def render_label(
 
 
 def render_labels_for_project(project_path: Path) -> int:
-    """Generate <stem>_label.png for all images in assets/recipes and assets/items."""
+    """Generate <stem>_label.png for all images in assets/recipes and assets/items using accurate in-game display names."""
     count = 0
+    try:
+        from lib.build_description_views import _item_display_names
+        item_names = _item_display_names(project_path)
+    except Exception:
+        item_names = {}
+
     # Process recipes
     recipes_dir = project_path / "assets" / "recipes"
     if recipes_dir.is_dir():
         for f in recipes_dir.glob("*.png"):
             if f.name.endswith("_label.png"):
                 continue
-            # Generate label name
-            cap = f.stem.replace("_recipe", "").replace("-", " ").replace("_", " ").title()
+            base = f.stem.replace("_recipe", "")
+            clean_base = re.sub(r"^(?:aln|allenscreations|pnk)[:_\s-]+", "", base, flags=re.IGNORECASE)
+            cap = item_names.get(base) or item_names.get(clean_base)
+            if not cap:
+                cap = clean_base.replace("-", " ").replace("_", " ").title()
             label_out = recipes_dir / f"{f.stem}_label.png"
             render_label(cap, out_path=label_out, style="tooltip")
             count += 1
@@ -250,7 +259,10 @@ def render_labels_for_project(project_path: Path) -> int:
         for f in items_dir.glob("*.png"):
             if f.name.endswith("_label.png"):
                 continue
-            cap = f.stem.replace("-", " ").replace("_", " ").title()
+            clean_stem = re.sub(r"^(?:aln|allenscreations|pnk)[:_\s-]+", "", f.stem, flags=re.IGNORECASE)
+            cap = item_names.get(f.stem) or item_names.get(clean_stem)
+            if not cap:
+                cap = clean_stem.replace("-", " ").replace("_", " ").title()
             label_out = items_dir / f"{f.stem}_label.png"
             render_label(cap, out_path=label_out, style="tooltip")
             count += 1
