@@ -48,7 +48,7 @@ class DescriptionViewTests(unittest.TestCase):
         md = self.md.replace("## Key Features", f"## Showcase / Previews\n\n### Toggled On\n\nSee the menu: ![Toggled On]({gif})\n\n## Key Features", 1)
         h = bdv.render(md, "Demo-Pack")
         self.assertTrue('alt="Showcase"' in h or "Showcase&nbsp;&nbsp;</span></h2>" in h)
-        self.assertEqual(h.count(gif), 2)  # link + image
+        self.assertEqual(h.count(gif), 1)  # image unlinked
         self.assertEqual(bdv.lost_links(md, h), [])
         self.assertEqual(bdv.check_html(h), [])
         self.assertEqual(bdv.lost_links("see https://example.com/missing", h), ["https://example.com/missing"])

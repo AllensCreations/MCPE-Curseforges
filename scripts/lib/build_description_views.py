@@ -581,7 +581,7 @@ def find_media(root, project, md_text=""):
 
 
 def gallery(kind, entries, labels=None):
-    """Responsive image grid. Each image links to the full-size file; snapshots omit text caption."""
+    """Responsive image grid. Static unlinked images to prevent navigating to source; snapshots omit text caption."""
     labels = labels or {}
     basis = {"snapshots": "1 1 300px", "recipes": "0 1 400px", "items": "0 1 120px"}[kind]
     width = {"snapshots": "100%", "recipes": "100%", "items": "64px"}[kind]
@@ -602,13 +602,13 @@ def gallery(kind, entries, labels=None):
         else:
             caption_html = f'<p style="color:{MUTED};font-size:13px">{esc(cap)}</p>'
         cells.append(f'<div style="flex:{basis};background-color:{PANEL};border:1px solid {LINE};border-radius:{RADIUS};'
-                     f'text-align:center"><p><a href="{url}">{img}</a></p>'
+                     f'text-align:center"><p>{img}</p>'
                      f'{caption_html}</div>')
     return '<div style="display:flex;flex-wrap:wrap;gap:10px">' + "".join(cells) + "</div>"
 
 
 def showcase(body):
-    """'## Showcase / Previews': one card per '### Title' with its image(s) (GIFs included) and caption. No link is dropped."""
+    """'## Showcase / Previews': one card per '### Title' with its image(s) (GIFs included) and caption. Images are unlinked."""
     chunks = [c for c in re.split(r"(?m)^(?=### )", body.strip("\n")) if c.strip()]
     cells = []
     for c in chunks:
@@ -618,7 +618,7 @@ def showcase(body):
         imgs = re.findall(r"!\[([^\]]*)\]\(([^)\s]+)\)", rest)
         text = re.sub(r"!\[[^\]]*\]\([^)\s]+\)", "", rest).strip().rstrip(":").strip()
         text = " ".join(text.split())
-        shots = "".join(f'<p><a href="{u}"><img src="{u}" alt="{html.escape(a or title)}" style="width:100%"></a></p>' for a, u in imgs)
+        shots = "".join(f'<p><img src="{u}" alt="{html.escape(a or title)}" style="width:100%"></p>' for a, u in imgs)
         head = f'<p><strong>{inline(title)}</strong></p>' if title else ""
         cap = f'<p style="color:{MUTED};font-size:13px">{inline(text)}</p>' if text else ""
         cells.append(f'<div style="flex:1 1 300px;background-color:{PANEL};border:1px solid {LINE};border-radius:{RADIUS};text-align:center">'
