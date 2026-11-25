@@ -1,0 +1,7 @@
+{
+  "texture_data": {
+    "aln_beacon_gate": {
+      "textures": "textures/blocks/beacon_gate"
+    }
+  }
+}

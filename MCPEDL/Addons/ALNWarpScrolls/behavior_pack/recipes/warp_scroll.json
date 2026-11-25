@@ -1,0 +1,37 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:warp_scroll"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "NPN",
+      "PEP",
+      "NLN"
+    ],
+    "key": {
+      "N": {
+        "item": "minecraft:gold_nugget"
+      },
+      "P": {
+        "item": "minecraft:paper"
+      },
+      "E": {
+        "item": "minecraft:ender_pearl"
+      },
+      "L": {
+        "item": "minecraft:lapis_lazuli"
+      }
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
+    "result": {
+      "item": "aln:warp_scroll",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "format_version": "1.26.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "aln:beacon_gate",
+      "menu_category": {
+        "category": "construction"
+      }
+    },
+    "components": {
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "aln_beacon_gate",
+          "render_method": "opaque"
+        }
+      },
+      "minecraft:light_emission": 10,
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 4
+      },
+      "minecraft:destructible_by_explosion": {
+        "explosion_resistance": 600
+      },
+      "minecraft:map_color": "#19c9d6"
+    }
+  }
+}

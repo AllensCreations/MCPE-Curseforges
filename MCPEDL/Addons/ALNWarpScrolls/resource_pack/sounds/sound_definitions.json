@@ -1,0 +1,29 @@
+{
+  "format_version": "1.14.0",
+  "sound_definitions": {
+    "aln.warp.charge": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/warp_charge"
+      ]
+    },
+    "aln.warp.arrive": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/warp_arrive"
+      ]
+    },
+    "aln.scroll.break": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/scroll_break"
+      ]
+    },
+    "aln.gate.register": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/aln/gate_register"
+      ]
+    }
+  }
+}

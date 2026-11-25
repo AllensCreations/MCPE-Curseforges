@@ -1,0 +1,37 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:beacon_gate"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "OAO",
+      "GLG",
+      "OOO"
+    ],
+    "key": {
+      "O": {
+        "item": "minecraft:obsidian"
+      },
+      "A": {
+        "item": "minecraft:amethyst_shard"
+      },
+      "G": {
+        "item": "minecraft:gold_ingot"
+      },
+      "L": {
+        "item": "minecraft:glass"
+      }
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
+    "result": {
+      "item": "aln:beacon_gate",
+      "count": 1
+    }
+  }
+}

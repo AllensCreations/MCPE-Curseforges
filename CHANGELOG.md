@@ -4,6 +4,11 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## 2026-11-25 - New Addon ALNWarpScrolls
+
+### Added
+- **ALNWarpScrolls**: New addon project created from a pack script.
+
 ## [v295] - 2026-11-25 - Soul Lantern Expansion
 
 **Spec**: spec_v295.txt | **Target**: MCPEDL/Addons/ALN-SoulLantern | **Files edited**: 22
