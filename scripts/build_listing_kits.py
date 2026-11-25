@@ -60,7 +60,7 @@ def first_paragraph(md):
     return ""
 
 
-def render_kit(root, project, style="minimal"):
+def render_kit(root, project, style="all"):
     md = (project / "DESCRIPTION.md").read_text(encoding="utf-8")
     name, tagline, _ = bip.facts(md, project.name)
     if not tagline:
@@ -83,11 +83,53 @@ def render_kit(root, project, style="minimal"):
     except Exception:
         pass
 
-    html = bdv.render(md, project.name, None, None, style=style,
-                      media=bdv.find_media(root, project, md), min_version=bdv.find_min_version(project))
-    errs = bdv.check_html(html)
-    if errs:
-        raise ValueError("; ".join(errs))
+    media = bdv.find_media(root, project, md)
+    min_version = bdv.find_min_version(project)
+
+    THEME_OPTIONS = [
+        ("minimal", "Theme 1: Vanilla Adaptive (Default)", "Theme-neutral layout following the viewer's CurseForge light or dark mode."),
+        ("netherite", "Theme 2: Netherite Stealth (Modern Dark)", "High-tech dark obsidian & emerald storefront."),
+        ("bedrock_gui", "Theme 3: Bedrock GUI (In-Game Menu)", "Authentic Minecraft stone dialog with 3D beveled borders and item slot insets."),
+        ("marketplace", "Theme 4: Emerald Marketplace", "Official Minecraft Marketplace DLC showcase look with gold and emerald badges."),
+        ("arcane", "Theme 5: Arcane Grimoire (Fantasy RPG)", "Midnight obsidian purple theme with mystic amethyst and enchantment accents."),
+    ]
+
+    if style and style != "all":
+        # Single chosen theme
+        html = bdv.render(md, project.name, None, None, style=style, media=media, min_version=min_version)
+        errs = bdv.check_html(html)
+        if errs:
+            raise ValueError("; ".join(errs))
+        desc_blocks = [
+            "## Description (HTML)",
+            "",
+            "Paste into the CurseForge description editor in source (HTML) mode.",
+            "",
+            block(html.strip(), "html"),
+            "",
+        ]
+    else:
+        # All 5 themes auto-generated together
+        desc_blocks = [
+            "## Description (HTML)",
+            "",
+            "Choose any of the 5 themes below. Tap the Copy button on your preferred theme and paste into the CurseForge description editor in source (HTML) mode.",
+            "",
+        ]
+        for t_id, t_title, t_desc in THEME_OPTIONS:
+            t_html = bdv.render(md, project.name, None, None, style=t_id, media=media, min_version=min_version)
+            errs = bdv.check_html(t_html)
+            if errs:
+                raise ValueError(f"{t_title}: " + "; ".join(errs))
+            desc_blocks.extend([
+                f"### {t_title}",
+                "",
+                t_desc,
+                "",
+                block(t_html.strip(), "html"),
+                "",
+            ])
+
     prompts = bip.render(md, project.name)
     start, end = prompts.index("## Reference Images"), prompts.index("## Notes")
     lines = [
@@ -103,12 +145,7 @@ def render_kit(root, project, style="minimal"):
         "",
         block(summary, "text"),
         "",
-        "## Description (HTML)",
-        "",
-        "Paste into the CurseForge description editor in source (HTML) mode.",
-        "",
-        block(html.strip(), "html"),
-        "",
+        *desc_blocks,
         "## AI Image Prompts",
         "",
         prompts[start:end].replace("## Reference Images", "### Reference Images").replace("## Logo Prompt", "### Logo Prompt").replace("## Banner Prompt", "### Banner Prompt").rstrip(),
@@ -124,7 +161,7 @@ def main(argv=None):
     ap.add_argument("--check", action="store_true", help="write nothing; exit 1 if a kit is missing or stale")
     ap.add_argument("--out", default="Package", help="output folder (default: Package)")
     ap.add_argument("--root", default=".", help="repo root")
-    ap.add_argument("--theme", "--style", choices=list(bdv.THEMES.keys()), default="minimal", help="Listing HTML theme (default: minimal)")
+    ap.add_argument("--theme", "--style", choices=list(bdv.THEMES.keys()) + ["all"], default="all", help="Listing HTML theme (default: all 5 themes)")
     a = ap.parse_args(argv)
     if not a.project and not a.all:
         ap.error("use --all or --project <folder>")
