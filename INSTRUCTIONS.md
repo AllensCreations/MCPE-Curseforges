@@ -1,4 +1,4 @@
-# Instructions: Core Repository Policy (v43)
+# Instructions: Core Repository Policy (v44)
 
 
 Repo policy, docs rules for AllensCreations/MCPE-Curseforges (creator name `ALNStudios`). Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
@@ -26,7 +26,7 @@ Output ONLY, in order, exact headings:
 - NEVER text before, between, after. NEVER rename/merge/reorder/skip a section. Nothing to report: `- None`.
 - Ask only when 1.1 allows, one line; else proceed with defaults.
 - `/checkrm` audit report goes under **Changelog**: projects audited or updated, checks run and results, gaps.
-- New-pack build: same three sections, File Needed = the pack `.sh` (`PACK_GENERATOR_INSTRUCTIONS.md` 4.11).
+- New-pack build: same three sections, File Needed = the pack `.sh` (`PACK_GENERATOR_INSTRUCTIONS.md` 4.11). Planning phase: present the ~90% research plan and await user approval before proceeding to build.
 
 ## Termux Script Rules
 Update to an existing project or the repo: the agent builds and delivers ONE self-contained update `.sh` (`<Repofilename>_<Version>_<Rand>.sh`) generated via `scripts/make_update_script.py` (which embeds the update payload inside the script with ANSI status UI). New pack: the pack `.sh` named per 1.1, attached as a downloadable file. Order:
@@ -160,7 +160,7 @@ General:
 - Map README: download-focused. Link only compiled `.mcworld` that exist. NEVER claim an archive matches source unless checked. Same for `MCPEDL/Maps/README.md`.
 
 Payload import:
-- `PACK_GENERATOR_INSTRUCTIONS.md` is the generator file. Agent asks type (addon|map|script|minigame), returns single-line base64 ZIP made by running code, NEVER by hand. `project.json` = `{"type": "...", "name": "..."}`.
+- `PACK_GENERATOR_INSTRUCTIONS.md` is the generator file. Agent asks type (addon|map|script|minigame), conducts ~90% research on latest stable Bedrock APIs, presents the Plan for user confirmation, and returns single-line base64 ZIP made by running code, NEVER by hand. `project.json` = `{"type": "...", "name": "..."}`.
 - `create-project-from-base64.yml`: folder name + base64 (or `.b64` under `MCPEDL/incoming/`) -> `scripts/import_project_payload.py` -> imports `scripts/build_payload.py` (same checks agent-side and repo-side).
 - Destinations: addon `MCPEDL/Addons/<Name>/` (`.mcaddon`, importer writes `LOCK`); map `MCPEDL/Maps/<Name>/` (`.mcworld`, importer writes `oneblock.json`, installs `scripts/lib/Oneblock_Progression.js`, builds 3 worlds); script `MCPEDL/Script/<Name>/` (`.mcpack`, no Controller); minigame `MCPEDL/Minigame/<Name>/` (`.mcaddon`, Controller).
 - Importer creates `assets/snapshots/`, `assets/recipes/` and `assets/items/` (each with `.gitkeep`) in every imported project when missing, never touching existing files. Payloads NEVER ship `assets/`.
@@ -292,6 +292,7 @@ Docs, API, vanilla data and repo files are read with the Context7 MCP tool `quer
 - [ ] Manifest versions use `[X, Y, Z]` / `"X.Y.Z"` format; per-pack titles/changelogs/packages use `vX` format (1.3).
 
 ## Version History
+- **v44:** Pack generation protocol requires mandatory deep research (~90% thoroughness) on the requested idea and latest Bedrock Script APIs, selection of latest stable modules, and presenting the implementation Plan for user approval before building any files or `.sh` pack script.
 - **v43:** Manifests strictly use `[X, Y, Z]` / `"X.Y.Z"` (Bedrock engine format); per-pack user-facing files strictly use `vX`. Section 1.3 clarifies the two formats explicitly. Duplicate heading `1.15` resolved: Custom Sounds stays 1.15, Bedrock Developer Role becomes 1.16, Documentation Lookup becomes 1.17. `doc_template.py` and `DOCS_RULES.md` updated to accept `## [vX]` changelog headings.
 - **v42:** Pack updates deliver self-contained `<Pack>_v<Version>_<rand>.sh` scripts built with `scripts/make_update_script.py`, eliminating global version collisions.
 - **v41:** The root `CHANGELOG.md` is the update ledger (each entry names its self-contained update script, target and file count). AI kits open with current status so any agent knows where the last update ended.

@@ -1,4 +1,4 @@
-# Pack Generator Instructions (AI Agent, v38)
+# Pack Generator Instructions (AI Agent, v39)
 
 
 Builds a complete **addon**, **map**, **script**, or **minigame** from the user's idea. Returns ONE Termux `.sh` pack script that carries the whole project inside it (as base64). No other file is delivered.
@@ -12,7 +12,7 @@ Read `.agents/skills/mcpe-new-pack/SKILL.md` first (it is also `SKILL.md` at the
 | 4 | Generator: ask type, build, check, deliver, reply |
 
 Precedence: Part 1 wins. `DOCS_RULES.md` follows Part 1. Part 4 follows both. `INSTRUCTIONS.md` wins on conflict. Accuracy and requested scope outrank any template. Script and file disagree: tell the user.
-Order of work: read Part 1 (incl. 1.17), `DOCS_RULES.md`, then Part 4 from 4.0. Query Context7 per 1.17 before writing any code, manifest, JSON or doc fact. Unclear request: ask ONE line, then proceed.
+Order of work: read Part 1 (incl. 1.17), `DOCS_RULES.md`, then Part 4 from 4.0. Query Context7 per 1.17 before writing any code, manifest, JSON or doc fact. Unclear request: ask ONE line, then proceed. New pack creation: conduct mandatory ~90% research and present the Plan first (4.0a); wait for user confirmation before building.
 
 ---
 
@@ -156,6 +156,18 @@ NEVER guess the type. At most ONE more question, only if the answer changes the 
 | map | `MCPEDL/Maps/<Name>/` | `.mcworld`; Creative, Survival, Hardcore worlds |
 | script | `MCPEDL/Script/<Name>/` | `.mcpack`; BP only |
 | minigame | `MCPEDL/Minigame/<Name>/` | `.mcaddon`; Controller, RP |
+
+### 4.0a Research and Plan First (MANDATORY)
+Before generating any files, scratch workspaces, or pack `.sh` scripts:
+1. **Deep Research (~90% Thoroughness)**: Investigate the user's idea thoroughly (~90% confidence). Query Context7 (1.17) for Bedrock vanilla item/block/entity components, event hooks, mechanics, and limits.
+2. **Select Latest Best API**: Determine and verify the latest stable `@minecraft/server` and `@minecraft/server-ui` versions and modern component `format_version`. Ensure compatibility against `min_engine_version`.
+3. **Present the Plan**: Outline the implementation plan to the user:
+   - Target project type and folder path.
+   - Core gameplay mechanics and Bedrock systems used.
+   - Modules, APIs, components, and events.
+   - File manifest (manifests, scripts, functions, items/blocks, documentation).
+   - Any limits, fallbacks, or trade-offs.
+4. **Wait for User Approval**: Await user review and confirmation ("go" or requested changes). NEVER build files, scratch directories, or `.sh` scripts until the user explicitly approves the plan.
 
 ### 4.1 Hard rules
 - NEVER write base64 or the `.sh` by hand. Create files in scratch `build/<Name>/`, then RUN `make_pack_script.py` (4.8). Cannot run code: reply `CANNOT BUILD` (4.11). NEVER invent base64.
@@ -372,6 +384,7 @@ Exceptions (INSTEAD of the three sections, nothing else):
 - Cannot run code: `CANNOT BUILD` and one line why. No files, no base64.
 - Build failed, unfixable: `BUILD FAILED`, exact failing lines from `make_pack_script.py`, the rule each names. No `.sh`.
 - Type unknown: only the 4.0 question.
+- Planning phase (4.0a): present the ~90% research plan and await user approval before proceeding to build.
 
 ### 4.12 Vanilla Limits and Workarounds
 Same rules as `INSTRUCTIONS.md` 1.12. Read it when a mechanic hits a vanilla limit.

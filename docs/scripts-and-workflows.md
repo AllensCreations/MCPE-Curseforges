@@ -6,16 +6,18 @@ Generated from the module docstrings in `scripts/` and the files in `.github/wor
 
 | File | Name | Triggers | Scripts it runs |
 | :--- | :--- | :--- | :--- |
-| `build-and-sync.yml` | Build Changed Packs & Sync Catalogs | push, schedule, workflow_dispatch | scripts/migrate_three_part_versions.py<br>scripts/manifest_tools.py<br>scripts/ensure_recipe_unlocks.py<br>scripts/pixel_json_to_png.py<br>scripts/make_pack_icon.py<br>scripts/auto_bump_and_build.py<br>scripts/build_oneblock_variants_from_template.py<br>scripts/sync_oneblock_map_readmes.py<br>scripts/step_summary.py<br>scripts/sync_readme_links.py<br>scripts/build_changelog_views.py<br>scripts/remake_docs.py<br>scripts/convert_crafting_recipe_svgs_to_png.py<br>scripts/generate_recipe_images.py<br>scripts/recipe_image_report.py<br>scripts/build_listing_kits.py<br>scripts/sync_mcicons.py<br>scripts/build_bedrock_reference.py<br>scripts/sync_minecraft_types.py<br>scripts/bundle_bedrock_reference_pack.py<br>scripts/auto_ai_review.py<br>scripts/build_mcpedl_readme.py<br>scripts/validate_manifest_titles.py<br>scripts/check_manifest_versions.py<br>scripts/check_readme_status.py<br>scripts/git_push_retry.py |
+| `build-and-sync.yml` | Build Changed Packs & Sync Catalogs | push, schedule, workflow_dispatch | scripts/migrate_three_part_versions.py<br>scripts/manifest_tools.py<br>scripts/ensure_recipe_unlocks.py<br>scripts/pixel_json_to_png.py<br>scripts/make_pack_icon.py<br>scripts/auto_bump_and_build.py<br>scripts/build_oneblock_variants_from_template.py<br>scripts/sync_oneblock_map_readmes.py<br>scripts/step_summary.py<br>scripts/sync_readme_links.py<br>scripts/build_changelog_views.py<br>scripts/remake_docs.py<br>scripts/convert_crafting_recipe_svgs_to_png.py<br>scripts/generate_recipe_images.py<br>scripts/recipe_image_report.py<br>scripts/build_listing_kits.py<br>scripts/sync_mcicons.py<br>scripts/build_bedrock_reference.py<br>scripts/sync_minecraft_types.py<br>scripts/bundle_bedrock_reference_pack.py<br>scripts/auto_ai_review.py<br>scripts/sync_curseforge_status.py<br>scripts/build_mcpedl_readme.py<br>scripts/validate_manifest_titles.py<br>scripts/check_manifest_versions.py<br>scripts/check_readme_status.py<br>scripts/git_push_retry.py |
 | `build-center-ci.yml` | Build Center CI | pull_request, push | - |
 | `ci.yml` | CI | pull_request, workflow_dispatch | scripts/migrate_three_part_versions.py<br>scripts/manifest_tools.py<br>scripts/validate_manifest_titles.py<br>scripts/check_manifest_versions.py<br>scripts/sync_dispatch_choices.py<br>scripts/check_instruction_files.py<br>scripts/build_context7_docs.py<br>scripts/selftest_project_types.py<br>scripts/run_repo_tests.py |
-| `create-project-from-base64.yml` | Create Project from Base64 | workflow_dispatch | scripts/import_project_payload.py<br>scripts/build_oneblock_variants_from_template.py<br>scripts/sync_oneblock_map_readmes.py |
+| `create-project-from-base64.yml` | Create Project from Base64 | workflow_dispatch | scripts/import_project_payload.py<br>scripts/build_oneblock_variants_from_template.py<br>scripts/sync_oneblock_map_readmes.py<br>scripts/git_push_retry.py |
 | `delete-project.yml` | Delete Package | workflow_dispatch | scripts/delete_project.py<br>scripts/git_push_retry.py |
 | `generate-recipe-images.yml` | Generate Crafting Recipe Images | workflow_dispatch | scripts/convert_crafting_recipe_svgs_to_png.py<br>scripts/sync_mcicons.py<br>scripts/generate_recipe_images.py<br>scripts/git_push_retry.py |
-| `optimize-images.yml` | Optimize Images | push, workflow_dispatch | scripts/optimize_images.py |
-| `publish-curseforge.yml` | Publish to CurseForge | workflow_dispatch | scripts/migrate_three_part_versions.py<br>scripts/auto_publish_curseforge.py<br>scripts/git_push_retry.py |
-| `register-curseforge-id.yml` | Register CurseForge ID | workflow_dispatch | scripts/register_curseforge_id.py<br>scripts/sync_dispatch_choices.py<br>scripts/fetch_curseforge_logo.py |
+| `optimize-images.yml` | Optimize Images | push, workflow_dispatch | scripts/optimize_images.py<br>scripts/git_push_retry.py |
+| `publish-curseforge.yml` | Publish to CurseForge | workflow_dispatch | scripts/migrate_three_part_versions.py<br>scripts/auto_publish_curseforge.py<br>scripts/sync_curseforge_status.py<br>scripts/build_mcpedl_readme.py<br>scripts/git_push_retry.py |
+| `refresh-listing-kits.yml` | Refresh Listing Kits (Package/*.listing.md) | workflow_dispatch | scripts/build_listing_kits.py<br>scripts/git_push_retry.py |
+| `register-curseforge-id.yml` | Register CurseForge ID | workflow_dispatch | scripts/register_curseforge_id.py<br>scripts/sync_dispatch_choices.py<br>scripts/fetch_curseforge_logo.py<br>scripts/git_push_retry.py |
 | `remake-docs.yml` | Remake Docs (README, DESCRIPTION, CHANGELOG) | workflow_dispatch | scripts/check_readme_status.py |
+| `sync-oneblock-progression.yml` | Sync OneBlock Progression Data Pools | workflow_dispatch | scripts/sync_oneblock_progression.py<br>scripts/git_push_retry.py |
 
 ## AI review workflow
 
@@ -34,7 +36,7 @@ Generated from the module docstrings in `scripts/` and the files in `.github/wor
 - `scripts/build_changelog_views.py`: Build folded changelog views from the plain CHANGELOG.md of each project.
 - `scripts/build_context7_docs.py`: Regenerate the generated Context7 pages in docs/ from the repo's own files.
 - `scripts/build_listing_kits.py`: Build one Listing Kit per pack: every text you paste into a CurseForge listing, in one Markdown page.
-- `scripts/build_mcpedl_readme.py`: Builds MCPEDL/README.md: every pack grouped by type, with Version, Source, Package and AI review.
+- `scripts/build_mcpedl_readme.py`: Builds MCPEDL/README.md: every pack grouped by type, with Version, Status, Source, Package and AI review.
 - `scripts/build_oneblock_variants_from_template.py`: Build database-free OneBlock void worlds from the authoritative Mcpeworlds foundations.
 - `scripts/build_payload.py`: Project payload builder v9 for ALNStudios/MCPE-Curseforges.
 - `scripts/bundle_bedrock_reference_pack.py`: Bundles Bedrock reference materials into a unified FLAT zip distribution: reference/bedrock-samples/bedrock-reference-pack-<version>.zip
@@ -50,6 +52,7 @@ Generated from the module docstrings in `scripts/` and the files in `.github/wor
 - `scripts/ensure_recipe_unlocks.py`: Ensure every custom shaped/shapeless crafting recipe is always unlocked.
 - `scripts/fetch_curseforge_logo.py`: Use a project's CurseForge logo as pack_icon.png for packs that have none.
 - `scripts/generate_recipe_images.py`: Generate crafting recipe diagrams for ANY add-on pack (general generator, not tied to one pack).
+- `scripts/generate_title_banner.py`: Generate a 3D Minecraft-styled Title Banner with a 3D Red Ribbon Subtitle.
 - `scripts/git_push_retry.py`: Rebase onto the remote branch and push, retrying when another workflow pushed first.
 - `scripts/import_project_payload.py`: Import a base64 ZIP produced by an AI agent into the repository.
 - `scripts/make_lib_readmes.py`: Create behavior_pack/scripts/lib/README.md for packs that have a main.js (the AI review notes of the pack's scripts).
@@ -70,11 +73,13 @@ Generated from the module docstrings in `scripts/` and the files in `.github/wor
 - `scripts/run_repo_tests.py`: Whole-repo test runner for ALNStudios/MCPE-Curseforges.
 - `scripts/selftest_project_types.py`: End-to-end self-test of the addon / map / script pipeline, in a throwaway copy of the repo.
 - `scripts/step_summary.py`: Run a command, show its output in the log and add it to the GitHub step summary.
+- `scripts/sync_curseforge_status.py`: Synchronize live CurseForge status across root README.md, MCPEDL/README.md, and pack READMEs.
 - `scripts/sync_dispatch_choices.py`: Keep the "Registered pack" dropdown of Publish to CurseForge in sync with the saved CurseForge IDs.
 - `scripts/sync_manifest_versions.py`: Sync pack manifest versions, UUID references, and engine versions for MCPEDL projects, or verify them.
 - `scripts/sync_mcicons.py`: Download the pinned MCicons release (iMumd/mcicons) into reference/mcicons/ as ONE file: mcicons-<version>.tgz.
 - `scripts/sync_minecraft_types.py`: Syncs official Minecraft Bedrock Script API TypeScript definition (.d.ts) files from npm (@minecraft/server, @minecraft/server-ui, @minecraft/server-admin, @minecraft/server-net) into reference/typescript-definitions/.
 - `scripts/sync_oneblock_map_readmes.py`: Synchronize README.md files for opted-in OneBlock map projects.
+- `scripts/sync_oneblock_progression.py`: Sync Oneblock_Progression.js from Mcpeworlds/Progression/ into all OneBlock map packages.
 - `scripts/sync_project_docs.py`: Keep each project's DESCRIPTION.md heading version and CHANGELOG.md newest entry in step with its manifest version.
 - `scripts/sync_readme_links.py`: Make every README in the repository agree with the real builds: fix download links, versions, and report broken links.
 - `scripts/validate_manifest_titles.py`: Validate Minecraft Bedrock pack titles and three-part project versions.
