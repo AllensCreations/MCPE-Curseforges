@@ -16,6 +16,7 @@ Start in the void on the central block at (0, 0, 0), with no bedrock beneath it.
 ### Regenerating OneBlock
 - The central block returns after a successful break. It drops no items; breaking it only earns Coins.
 - The core is a set of 30 custom Currency Blocks, numbered 1 to 30. Each has its own break time, the same with any tool or bare hands, and uses up more tool durability the higher it goes.
+- After every 50 breaks the core turns into Bedrock for 30 seconds, and for 60 seconds at every new phase. A countdown shows on screen and the core comes back by itself.
 - The central block is also restored automatically if something other than a player removes it.
 - If a player ends up inside the central block or the 3x3 platform, they are teleported on top of the central block.
 - The available natural block pool expands as shared mining milestones are reached.
@@ -24,6 +25,7 @@ Start in the void on the central block at (0, 0, 0), with no bedrock beneath it.
 ### Natural Market Ledger
 - Opens the market in the game's standard form screen: a button list with item icons for each category and supply bundle.
 - Tap a supply slot to purchase its displayed bundle directly; no separate purchase-confirmation screen.
+- The Search button finds any unlocked supply by name, so you do not have to browse each section.
 - Large categories use pages that reserve two slots for navigation controls.
 - The catalogue only sells natural supplies (blocks, crops, raw food, raw ores, mob drops, Nether and End finds) plus mid-game Spawn Eggs. Crafted items are not sold. Entries unavailable in the current game version are hidden.
 - Prices rise as supplies are bought and settle back down over time. Common supplies recover faster than rare ones.

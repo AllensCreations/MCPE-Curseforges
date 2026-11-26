@@ -219,6 +219,11 @@ function recordPurchase(item, units) {
     world.setDynamicProperty(MARKET_KEY, JSON.stringify(next));
   } catch (e) { logError("recordPurchase", e); }
 }
+const COOLDOWN_KEY = "obm_cooldown";
+const BURST_KEY = "obm_burst";
+const BURST_LIMIT = 50;
+const BURST_SECONDS = 30;
+const PHASE_SECONDS = 60;
 const LEDGER_PENDING = "obm_ledger_pending";
 const DEBUG_TAG = "obm_debug";
 const STATUS_EVENT = "allenscreations:obm_status";
@@ -408,7 +413,8 @@ function showAbout(player) {
     "by ALNStudios\n\n" +
     "Start in the void on a single regenerating block.\n" +
     "Break the core to earn Coins. Each block type pays its own value and takes its own time to break.\n" +
-    "Use the Natural Market Ledger to buy natural supplies. Prices rise when a lot is bought and slowly settle back down.\n\n" +
+    "Use the Natural Market Ledger to buy natural supplies. Prices rise when a lot is bought and slowly settle back down.\n" +
+    "After " + BURST_LIMIT + " breaks the core turns to Bedrock for " + BURST_SECONDS + " seconds, and for " + PHASE_SECONDS + " seconds at every new phase.\n\n" +
     "The Ledger cannot be dropped. It always returns to you.\n\n" +
     "Version: v17 | ALNStudios | CurseForge / MCPEDL");
   form = addOptional(form, "divider");
@@ -430,16 +436,61 @@ function marketMain(player) {
       "\nShared breaks: " + totalBreaks() + "\nUnlocked tier: " + (unlockedTier(player) + 1) + " / " + MILESTONES.length + "\n\nChoose a market section.");
   for (const c of CATEGORIES) form.button(c.name, c.icon);
   form
+    .button("Search", MCICON_DIR + "spyglass")
     .button("Sell Items", MCICON_DIR + "gold_ingot")
     .button("About", "textures/ui/icon_recipe_nature");
   showForm(form, player).then(r => {
     if (r.canceled) return;
     if (r.selection < CATEGORIES.length) return showCategory(player, CATEGORIES[r.selection].name);
-    if (r.selection === CATEGORIES.length) return showSellMenu(player);
-    if (r.selection === CATEGORIES.length + 1) return showAbout(player);
+    if (r.selection === CATEGORIES.length) return searchMarket(player);
+    if (r.selection === CATEGORIES.length + 1) return showSellMenu(player);
+    if (r.selection === CATEGORIES.length + 2) return showAbout(player);
   }).catch(e => { logError("marketMain", e); tell(player, "The market menu could not open. Try using the Ledger again."); });
 }
 
+function marketButtonText(item, market, now) {
+  const heat = itemHeat(item, market, now);
+  const demand = demandPercent(heat);
+  return item.name + "\n§e" + item.amount + "x - " + quote(item, heat) + " Coins" + (demand >= 5 ? " §c+" + demand + "%" : "");
+}
+function searchMarket(player) {
+  const form = new ModalFormData().title("SEARCH MARKET")
+    .textField("Item name (unlocked supplies only)", "for example: diamond, log, egg");
+  showForm(form, player).then(r => {
+    if (r.canceled) return marketMain(player);
+    const text = String(r.formValues?.[0] ?? "").trim().toLowerCase();
+    if (!text) { tell(player, "Type part of an item name to search."); return marketMain(player); }
+    return showSearchResults(player, text);
+  }).catch(e => { logError("searchMarket", e); tell(player, "The search could not open."); });
+}
+function showSearchResults(player, text) {
+  const tier = unlockedTier(player);
+  const words = text.split(/\s+/).filter(Boolean);
+  const matches = CATALOG.filter(item => {
+    const hay = (item.name + " " + item.raw.replace(/_/g, " ")).toLowerCase();
+    return words.every(w => hay.includes(w));
+  });
+  const items = matches.filter(item => item.tier <= tier && itemAvailable(item)).slice(0, 30);
+  const lockedCount = matches.filter(item => item.tier > tier).length;
+  if (!items.length) {
+    tell(player, lockedCount ? "Matching supplies are still locked. Keep mining the core!" : "No supplies match \"" + text + "\".");
+    return searchMarket(player);
+  }
+  const market = loadMarket();
+  const now = world.getAbsoluteTime();
+  const form = new ActionFormData().title("SEARCH: " + text.toUpperCase().slice(0, 20))
+    .body("§6Coins: §e" + balance(player) + "§r\nTap a supply slot to buy the listed bundle." +
+      (lockedCount ? "\n" + lockedCount + " more match(es) are still locked." : ""));
+  for (const item of items) form.button(marketButtonText(item, market, now), item.icon || undefined);
+  form.button("Search Again", MCICON_DIR + "spyglass");
+  form.button("Back to Market", "textures/ui/arrow_left");
+  showForm(form, player).then(r => {
+    if (r.canceled) return;
+    if (r.selection < items.length) return purchase(player, items[r.selection]);
+    if (r.selection === items.length) return searchMarket(player);
+    return marketMain(player);
+  }).catch(e => { logError("showSearchResults", e); tell(player, "The search results could not open."); });
+}
 function showCategory(player, category, page = 0) {
   const tier = unlockedTier(player);
   const items = CATALOG.filter(item => item.category === category && item.tier <= tier && itemAvailable(item));
@@ -454,11 +505,7 @@ function showCategory(player, category, page = 0) {
     .body("§6Coins: §e" + balance(player) + "§r  |  Page " + (safePage + 1) + "/" + pageCount +
       "\nTap a supply slot to buy the listed bundle. Prices rise when a lot is bought and settle back over time." +
       (locked.length ? "\nMore supplies unlock as you mine the core." : ""));
-  for (const item of visible) {
-    const heat = itemHeat(item, market, now);
-    const demand = demandPercent(heat);
-    form.button(item.name + "\n§e" + item.amount + "x - " + quote(item, heat) + " Coins" + (demand >= 5 ? " §c+" + demand + "%" : ""), item.icon || undefined);
-  }
+  for (const item of visible) form.button(marketButtonText(item, market, now), item.icon || undefined);
   if (safePage + 1 < pageCount) form.button("Next Page", "textures/ui/arrow_right");
   form.button("Back to Market", "textures/ui/arrow_left");
   showForm(form, player).then(r => {
@@ -670,6 +717,43 @@ function damageTool(player, heldId, brokenId) {
     slot.setItem(stack);
   } catch (e) { logError("damageTool", e); }
 }
+function cooldownState() {
+  try {
+    const raw = world.getDynamicProperty(COOLDOWN_KEY);
+    const data = typeof raw === "string" && raw ? JSON.parse(raw) : null;
+    return data && typeof data.until === "number" ? data : null;
+  } catch { return null; }
+}
+function coreCoolingDown() {
+  const state = cooldownState();
+  return !!state && world.getAbsoluteTime() < state.until;
+}
+function startCooldown(seconds, label) {
+  try {
+    world.setDynamicProperty(COOLDOWN_KEY, JSON.stringify({ until: world.getAbsoluteTime() + seconds * 20, label }));
+    world.setDynamicProperty(BURST_KEY, 0);
+    const block = world.getDimension("overworld").getBlock(CORE);
+    if (block) block.setType("minecraft:bedrock");
+    world.sendMessage("§6[Natural Market] §r" + label + ": the core is Bedrock for " + seconds + " seconds.");
+    log("INFO", "Cooldown started: " + label + " " + seconds + "s.");
+  } catch (e) { logError("startCooldown", e); }
+}
+function tickCooldown() {
+  const state = cooldownState();
+  if (!state) return;
+  try {
+    const left = state.until - world.getAbsoluteTime();
+    if (left > 0) {
+      const text = "§e" + state.label + ": the core returns in " + Math.ceil(left / 20) + "s";
+      for (const p of world.getAllPlayers()) { try { p.onScreenDisplay.setActionBar(text); } catch {} }
+      return;
+    }
+    world.setDynamicProperty(COOLDOWN_KEY, "");
+    const block = world.getDimension("overworld").getBlock(CORE);
+    if (block && ["minecraft:bedrock", "minecraft:air", "minecraft:grass_block"].includes(block.typeId)) placeCore(block);
+    world.sendMessage("§6[Natural Market] §rThe core is back. Keep mining!");
+  } catch (e) { logError("tickCooldown", e); }
+}
 let coreBreakPending = false;
 function onCoreBreak(player, brokenId) {
   const personal = personalBreaks(player) + 1;
@@ -679,12 +763,19 @@ function onCoreBreak(player, brokenId) {
   tutorialStep(player, total);
   const value = blockValue(brokenId);
   writeScore(COINS, player, balance(player) + value);
+  let cooldown = null;
   if (MILESTONES.some(m => m.unlock > 0 && m.unlock === total)) {
     world.sendMessage("§6[Natural Market] §rA new core milestone has been reached. More block types can now appear.");
+    cooldown = { seconds: PHASE_SECONDS, label: "New phase" };
+  } else {
+    const burst = (Number(world.getDynamicProperty(BURST_KEY)) || 0) + 1;
+    if (burst >= BURST_LIMIT) cooldown = { seconds: BURST_SECONDS, label: "Cooldown" };
+    else world.setDynamicProperty(BURST_KEY, burst);
   }
   log("INFO", player.name + " mined the core: personal=" + personal + " shared=" + total + " block=" + brokenId + " reward=" + value + ".");
   tell(player, "Core mined: " + blockName(brokenId) + " +" + value + " Coins.");
   showBalance(player);
+  return cooldown;
 }
 system.afterEvents.scriptEventReceive.subscribe(event => {
   if (event.id === STATUS_EVENT) {
@@ -747,6 +838,7 @@ world.beforeEvents.playerBreakBlock.subscribe(event => {
   if (!player || event.block.dimension.id !== "minecraft:overworld") return;
   if (location.x !== CORE.x || location.y !== CORE.y || location.z !== CORE.z) return;
   event.cancel = true;
+  if (coreCoolingDown() || event.block.typeId === "minecraft:bedrock") return;
   if (coreBreakPending) return;
   const brokenId = event.block.typeId;
   const heldId = event.itemStack?.typeId;
@@ -755,10 +847,11 @@ world.beforeEvents.playerBreakBlock.subscribe(event => {
     try {
       log("INFO", "Core break detected by " + player.name + " (void_cleaned tag=" + player.hasTag("void_cleaned") + ").");
       if (player.hasTag("void_cleaned")) {
-        onCoreBreak(player, brokenId);
+        const cooldown = onCoreBreak(player, brokenId);
         damageTool(player, heldId, brokenId);
         const block = world.getDimension("overworld").getBlock(CORE);
-        if (block) placeCore(block);
+        if (cooldown) startCooldown(cooldown.seconds, cooldown.label);
+        else if (block) placeCore(block);
       }
     } catch (e) { logError("core break", e); }
     coreBreakPending = false;
@@ -786,6 +879,7 @@ system.runInterval(() => {
   log("INFO", statusReport(), "status");
 }, 40);
 system.runInterval(rescuePhased, 5);
+system.runInterval(tickCooldown, 20);
 system.run(() => log("INFO", "Script started and handlers registered. Debug chat: /tag @s add obm_debug. Status: /scriptevent allenscreations:obm_status"));
 system.runInterval(() => {
   try {

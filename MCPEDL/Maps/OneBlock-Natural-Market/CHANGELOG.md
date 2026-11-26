@@ -2,6 +2,16 @@
 
 ---
 
+## [17.0.1] - 2026-11-26 - Cooldown Bedrock and Market Search
+
+### Added
+- **Cooldown Bedrock**: after every 50 core breaks the core turns into Bedrock for 30 seconds, with a countdown on screen, so the Coins cannot be farmed without a pause.
+- **Phase countdown**: every time the shared progress reaches a new phase, the core turns into Bedrock for 1 minute with a countdown before the next block appears.
+- **Market Search**: a new Search button in the Ledger finds any unlocked supply by name and lets you buy it from the results. Locked supplies are not listed.
+
+### Improved & Balanced
+- **Break time**: Currency Blocks take about 25 percent longer to break, now from 0.5 to 2.2 seconds, still the same with any tool or bare hands.
+
 ## [17.0.0] - 2026-11-26 - Natural Market Currency Blocks
 
 ### Added
