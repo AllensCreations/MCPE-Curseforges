@@ -4,6 +4,13 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v301] - 2026-11-26 - Ally Combat Fix
+
+**Spec**: spec_v301.txt | **Target**: MCPEDL/Addons/ALN-SoulLantern | **Files edited**: 3
+
+### Fixed
+- **Spectral Ally**: The spirit now seeks out and attacks nearby monsters itself instead of relying on its AI, which did not attack.
+
 ## [v300] - 2026-11-26 - Island Protection and Co-op
 
 **Spec**: spec_v300.txt | **Target**: MCPEDL/Maps/ALNMultiIslandOneBlock | **Files edited**: 12

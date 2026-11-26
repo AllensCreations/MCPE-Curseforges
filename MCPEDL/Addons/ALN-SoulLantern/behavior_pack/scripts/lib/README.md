@@ -12,7 +12,7 @@ scripts/lib/ holds no .js files yet. Everything lives in scripts/main.js.
 - Before-event on player interaction with an entity: a sneaking player holding aln:soul_lantern seals the target mob. The mob is saved with a world structure (entities only), its id and display facts are stored on the item as dynamic properties, and the item becomes aln:soul_lantern_<kind> (or aln:soul_lantern_filled for mobs without an icon).
 - Before-event on player interaction with a block: a sneaking player holding a filled lantern places the saved structure on top of the clicked block, waits until a mob has appeared, then deletes the structure and returns an aln:soul_lantern. A failed placement keeps the soul, and a structure that no longer exists empties the lantern.
 - After-event on item use: a sneaking player releases the mob in front of them in open air. A player who is not sneaking calls the Spectral Ally, or recalls it when one is already out. Each lantern (by saved structure id) has one spirit and a 10-second recharge that starts when the spirit leaves.
-- Repeating timer every 4 ticks: ends spirits after 400 ticks, teleports one back to its owner when it strays, spawns the particle trail, regrows a shrunken Kamikaze Spirit, and detonates it next to a monster.
+- Repeating timer every 4 ticks: ends spirits after 400 ticks, teleports one back to its owner when it strays, spawns the particle trail, regrows a shrunken Kamikaze Spirit, and runs the spirit's fight: it seeks the nearest monster within 12 blocks, steps toward it, then strikes by script (melee, fast, heavy), shoots a damaging bolt (archer, snow) or detonates (kamikaze).
 - World load: removes leftover entities tagged aln_spirit.
 
 ## Ids

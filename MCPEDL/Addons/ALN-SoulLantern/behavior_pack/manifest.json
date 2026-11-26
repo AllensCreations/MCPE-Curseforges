@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN SoulLantern (v3)",
+    "name": "ALN SoulLantern (v3.0.1)",
     "description": "Seals mobs in a Soul Lantern and releases them later. by ALNStudios",
     "uuid": "b5d340b3-4ec2-4dec-ae4e-3896132a4d52",
     "version": [
       3,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         3,
         0,
-        0
+        1
       ]
     },
     {
@@ -33,7 +33,7 @@
       "version": [
         3,
         0,
-        0
+        1
       ]
     }
   ],
@@ -43,7 +43,7 @@
       "version": [
         3,
         0,
-        0
+        1
       ]
     },
     {
@@ -56,6 +56,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "3.0.0"
+    "version": "3.0.1"
   }
 }
