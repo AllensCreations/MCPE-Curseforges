@@ -75,3 +75,4 @@ Smart Tool Hub combines Passive Auto-Switch Tools with Smart Tree Capitator and 
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, Smart Tool Hub Bedrock mod, auto switch tools offhand, tree capitator, ore miner, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+

@@ -49,7 +49,7 @@
 
 ### Not inlined: 1 larger file(s), ask the user for the exact paths you need
 
-- `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/Oneblock_Progression.js` (36327 bytes)
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/Oneblock_Progression.js` (50865 bytes)
 
 ### Skipped (binary): 14 file(s)
 
@@ -3552,7 +3552,7 @@ Minecraft Bedrock add-on, ALN:MultiIslandOneBlock Bedrock map, MCPEDL add-on, Cu
 # ALN:MultiIslandOneBlock
 
 <!-- CURSEFORGE-BADGE:START -->
-[![CurseForge](https://img.shields.io/badge/CurseForge-v10-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1825799)
+[![CurseForge](https://img.shields.io/badge/CurseForge-v12-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1825799)
 <!-- CURSEFORGE-BADGE:END -->
 
 Download the current release of **ALN:MultiIslandOneBlock** for Minecraft Bedrock Edition.

@@ -1,0 +1,2926 @@
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Addons/Smart-Tool-Hub`
+- **Destination:** `MCPEDL/Addons/Smart-Tool-Hub`
+- **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/Smart-Tool-Hub/CHANGELOG.md`)
+- **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
+- **Text files:** 11
+- **Skipped binary:** 4
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/items/tool_hub.json`
+- `MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/manifest.json`
+- `MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/scripts/lib/README.md`
+- `MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/Smart-Tool-Hub/CHANGELOG.md`
+- `MCPEDL/Addons/Smart-Tool-Hub/DESCRIPTION.md`
+- `MCPEDL/Addons/Smart-Tool-Hub/project.json`
+- `MCPEDL/Addons/Smart-Tool-Hub/README.md`
+- `MCPEDL/Addons/Smart-Tool-Hub/resource_pack/manifest.json`
+- `MCPEDL/Addons/Smart-Tool-Hub/resource_pack/textures/item_texture.json`
+- `MCPEDL/Addons/Smart-Tool-Hub/texture_sources/aln_tool_hub.json`
+
+### Skipped (binary): 4 file(s)
+
+- `MCPEDL/Addons/Smart-Tool-Hub/assets/banner.png`
+- `MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/pack_icon.png`
+- `MCPEDL/Addons/Smart-Tool-Hub/resource_pack/pack_icon.png`
+- `MCPEDL/Addons/Smart-Tool-Hub/resource_pack/textures/items/aln_tool_hub.png`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v1 / NEXT UPDATE: v2).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE self-contained update `.sh` (`<Pack>_v<Version>_<rand>.sh`) built with `make_update_script.py` (INSTRUCTIONS.md Reply Format).
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Addons/Smart-Tool-Hub
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding the ready-to-run commands, and ONE generated self-contained `<Pack>_v<Version>_<rand>.sh` update script (built with `make_update_script.py`). The script contains the full UI, automatically pulls, applies edits safely, commits, and pushes.
+---
+
+## Skills
+
+## Skill: .agents/skills/mcpe-context7/SKILL.md
+
+```markdown
+---
+name: mcpe-context7
+description: Use before looking up ANY Bedrock API member, vanilla id, texture, recipe, component, manifest field or version for the MCPE-Curseforges repo. Routes each need to one of the three Context7 libraries and says when a script must come from the kit zip instead.
+---
+
+# mcpe-context7: Where to Look Things Up
+
+## Authority
+
+- `INSTRUCTIONS.md` 1.16 (copy in the kit zip's instruction files) is the policy. This skill is only its routing table and never overrides it.
+- Repo rules, scripts and pack files come from the **kit zip** (`New-Pack.zip`, `Maintenance.zip` or the pack's review zip), NOT from Context7. The zip is always fresher.
+
+## Libraries (ONLY these three, IDs exactly, `query-docs` only)
+
+- `/microsoftdocs/minecraft-creator`: `@minecraft/server` and `@minecraft/server-ui` API, JSON schemas, stable and module versions.
+- `/mojang/bedrock-samples`: vanilla ids, textures, recipes, components, entities, formats, `version.json`.
+- `/websites/wiki_bedrock_dev`: manifest structure, scripting guides, techniques.
+
+NEVER call `resolve-library-id`. NEVER query any other library.
+
+## Repo lookups (from the kit zip, NOT Context7)
+
+Repo rules, scripts, instruction files, `DOCS_RULES.md`, `PACK_GENERATOR_INSTRUCTIONS.md`, `docs/mcicons-index.md`, `docs/bedrock-guide.md` and all script files come from the kit zip under `files/`. Read them from there. Context7 no longer indexes this repo.
+
+## Rules
+
+1. Query first, write second. Batch: at most ONE `query-docs` call per needed `libraryId`, covering every topic needed from it. NEVER two calls to the same `libraryId`. Name the exact member, file, id or schema and the game or module version. All three calls may go in one parallel turn.
+2. Verify every import, class, method, property and JSON field against the retrieved text. NEVER `mojang-minecraft`, `world.events` or 1.x syntax.
+3. Empty or doubtful result: no sequential retry loop. Say "not verified". NEVER fill the gap from memory.
+4. Versions come only from retrieved text. State the exact version used and the query date.
+5. Handoff bullet: `Docs queried (YYYY-MM-DD): <library IDs and topics>`.
+6. Library IDs, query text and the word Context7 NEVER go into shipped files or player-facing docs.
+
+## Scripts that must run
+
+- `make_pack_script.py`, `build_payload.py`, `import_project_payload.py`, `doc_template.py`, `pixel_json_to_png.py`, `make_update_script.py` and `apply_update.py` need their COMPLETE unchanged text.
+- The complete files are in the kit zip (`New-Pack.zip`, `Maintenance.zip` or the pack's review zip `<Pack>.zip`) under `files/`. Unzip, run from there, NEVER retype or edit them.
+- No zip: stop and ask the user to attach the zip. NEVER rewrite a script from memory.
+
+## Icons (MCicons)
+
+- Any vanilla item or block icon (recipe diagrams, sprites, README or listing images, UI art): use MCicons ONLY. It is the release file `reference/mcicons/mcicons-<ver>.tgz` in the repo (`package/dist/icons/minecraft_<id>.png`, 64x64, only `minecraft:` ids). Read it with `scripts/lib/mcicons.py` (`has_icon(id)`, `icon_image(id)`), never retype or guess a PNG.
+- No icon for the id (custom ids, newer items): report it. NO fallback to Samples, the Wiki, another icon site or a third-party pack.
+- `docs/mcicons-index.md` (in the kit zip under `files/`) lists every icon id it holds: check it before using an icon.
+- The `.tgz` itself is not in the kit zips. To run code that reads the pixels it must be in the clone; if it is missing, ask the user to attach it. NEVER substitute a lookalike.
+- Every manifest (BP and RP) carries `metadata.authors` = `["ALNStudios"]` and `metadata.product_type` = `"addon"`, always.
+- Keep its `ASSET-NOTICE.md` with any redistributed icon.
+
+## Reading the directory map
+
+- The map lists directories with file counts. Pick the folder, then read the file from the zip. For exact file text of a pack, ask for a Collect Files export of that path.
+- NEVER edit generated folders and files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`, `builds/README.md`.
+```
+
+## Skill: .agents/skills/mcpe-pack-update/SKILL.md
+
+````markdown
+---
+name: mcpe-pack-update
+description: Use for any change to an existing project, workflow, script or doc in the MCPE-Curseforges repository (update, fix, add, rename). Delivers every change as ONE self-contained Termux update script (<Pack>_v<Version>_<rand>.sh) containing the spec and rich UI.
+---
+
+# mcpe-pack-update: Update Delivery
+
+## Authority
+
+- `INSTRUCTIONS.md` is the policy source. `PACK_GENERATOR_INSTRUCTIONS.md` is its standalone copy for generation. The script flow is `INSTRUCTIONS.md` "Termux Script Rules", built with `scripts/make_update_script.py`. Where to look each rule up: the `mcpe-context7` skill. This skill is a short working checklist and never restates or overrides them.
+- **Precedence** (as in `PACK_GENERATOR_INSTRUCTIONS.md`): factual accuracy and the user's requested scope, then Part 1, then Part 2, then this skill. Part 4 of the generator file never overrides Parts 1 and 2.
+- If these files disagree with each other or with a script in `scripts/`, tell the user exactly what differs instead of choosing silently. If `INSTRUCTIONS.md` cannot be read, stop and report it instead of working from memory.
+- Achievements line (every project type): always `Yes, achievement-friendly.` Keep any cheats or world-setting caveat as a following sentence.
+
+## Scope
+
+- Use for changes to an existing project (`MCPEDL/Addons|Maps|Script|Minigame/<Name>/`), a workflow, a script, a catalog or any repo doc.
+- Read-only audit or report: use `checkrm`.
+- New project from an idea: follow `PACK_GENERATOR_INSTRUCTIONS.md` Part 4 (ask the type first, base64 payload).
+
+## Procedure
+
+1. Read `INSTRUCTIONS.md` Parts 1 and 2 before writing anything, through Context7 as the `mcpe-context7` skill says. `make_update_script.py`, `apply_update.py`, and `pixel_json_to_png.py` are complete in the pack's review zip (`<Pack>.zip`) under `files/`; run them from there.
+2. Find the destination folder: the path the user named, otherwise the matching project folder. Do not substitute a similar name; report ambiguity or a missing target.
+3. Read the real source (manifests, scripts, items, recipes, loot tables, functions, lang files) before writing any claim. Source priority when sources disagree: the project's own files, Mojang Bedrock Samples, official Minecraft Creator Documentation, Minecraft Wiki, Bedrock Wiki.
+4. Make the smallest possible change. No unrelated rewrites. Never invent features, versions, links, assets, test results or compatibility. Never write comments in shipped `.js`, `.mcfunction` or `.json` files.
+5. Generate the spec, convert it with `make_update_script.py` into a single self-contained `<Pack>_v<Version>_<rand>.sh` file, and provide the one-line run command for the user.
+
+## The update script
+
+Generate the spec with `apply_update.py` directives (replace, replace-all, insert-after, insert-before, create, overwrite, delete, changelog).
+Then build the single `.sh` using:
+```bash
+python3 files/scripts/make_update_script.py spec.txt --out-dir .
+```
+This produces ONE single `.sh` file (`<PackName>_v<Version>_<rand>.sh`) that contains the embedded update payload, ANSI colored status UI, automated git rebase, validation checks, commit, and push.
+
+## Reply
+
+1. Attach or output the single `.sh` file (`<PackName>_v<Version>_<rand>.sh`).
+2. Give the single Termux command:
+```bash
+bash ~/storage/downloads/<PackName>_v<Version>_*.sh
+```
+3. Brief summary of what changed and what checks ran.
+4. **Save in AI memory**: Every finished output, applied change summary, and spec version must be retained in AI memory/scratch notes so context is preserved across turns without relying on session replay.
+````
+
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/items/tool_hub.json (22 lines, 430 bytes)
+
+```
+{
+  "format_version": "1.20.30",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:tool_hub",
+      "category": "Items"
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "texture": "aln_tool_hub"
+      },
+      "minecraft:display_name": {
+        "value": "Tool Hub"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.weapon.offhand"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/manifest.json (67 lines, 1250 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Smart Tool Hub (v1)",
+    "description": "Tool Hub item with a toggle menu for Passive Auto-Switch (offhand), Tree Capitator and Domino Ore Miner. by ALNStudios",
+    "uuid": "f0d4552b-755e-4bac-a2db-403201a5d709",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "d3ec8fb1-d118-4489-ac9f-6b2c8b6b4957",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "description": "Smart Tool Hub Script Module",
+      "type": "script",
+      "language": "javascript",
+      "uuid": "9a704854-4603-4995-a5ed-b53ad5f5f95b",
+      "version": [
+        1,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "87629f2e-265e-4288-aa92-42a34c0964bf",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.15.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "1.3.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/scripts/lib/README.md (42 lines, 2018 bytes)
+
+```
+# Smart Tool Hub: script notes (scripts/lib)
+
+For the AI review. Keep this file in step with the scripts: update it whenever a file in `scripts/` changes.
+Nothing here was run in game.
+
+`scripts/lib/` holds no `.js` files. All code is in `scripts/main.js`.
+
+## Files
+
+| File | Purpose |
+| :-- | :-- |
+| `scripts/main.js` | Tool Hub settings menu, offhand-gated Passive Auto-Switch, Smart Tree Capitator, Domino Ore Miner |
+
+## Imports
+
+- `@minecraft/server`
+- `@minecraft/server-ui` (`ModalFormData`, `FormCancelationReason`)
+
+## Events
+
+- `world.afterEvents.itemUse` (opens the menu when the Tool Hub is used)
+- `world.afterEvents.entityHitBlock`
+- `world.afterEvents.entityHitEntity`
+- `world.afterEvents.playerBreakBlock`
+- `world.afterEvents.playerLeave`
+- `system.runInterval` (cobweb check)
+- `system.runTimeout` (swap retry, menu retry when the player is busy)
+
+## Custom ids
+
+- `aln:tool_hub` (item, `items/tool_hub.json`, icon key `aln_tool_hub`, `minecraft:wearable` slot `slot.weapon.offhand` so it can be equipped in the offhand)
+
+## Behavior
+
+- Per-player settings (`autoSwitch`, `treeCapitator`, `dominoMiner`, all default on) are stored as one JSON string in the dynamic property `aln_tool_hub_settings`.
+- Auto Switch runs only when its setting is on AND the Tool Hub is in the offhand. It works on whichever hotbar slot is selected and swaps the best tool from any other inventory slot into it.
+- Tree Capitator and Domino Ore Miner need sneaking and their own toggle. They do not need the Tool Hub in the offhand.
+
+## Notes (AI review)
+
+Not verified against the docs at the time of writing: `minecraft:wearable` with slot `slot.weapon.offhand` on a custom item, `world.afterEvents.itemUse`, `Entity.getDynamicProperty` / `setDynamicProperty`, `ModalFormData.toggle(label, defaultValue)` signature, whether `Entity.isValid` is a method or a property (`isAlive` accepts both), and the `@minecraft/server` 1.15.0 / `@minecraft/server-ui` 1.3.0 pairing (taken from another pack's manifest in this repo).
+```
+
+## FILE: MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/scripts/main.js (1296 lines, 34947 bytes)
+
+```
+import { world, system, EquipmentSlot, ItemStack } from "@minecraft/server";
+import { ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
+
+const VERSION = "1.0.0";
+const HUB_ITEM_ID = "aln:tool_hub";
+const SETTINGS_KEY = "aln_tool_hub_settings";
+const DEFAULT_SETTINGS = {
+  autoSwitch: true,
+  treeCapitator: true,
+  dominoMiner: true,
+};
+
+const SWITCH = {
+  switchMargin: 3,
+  lowDurabilityUses: 15,
+  lowDurabilityPenalty: 100,
+  raycastDistance: 6,
+  retryTicks: 2,
+  combatCooldownTicks: 10,
+  webCheckInterval: 2,
+  webInteractionWindow: 12,
+  webCombatCooldown: 40,
+};
+
+const MINER = {
+  TREE_CAPITATOR_ENABLED: true,
+  DOMINO_ORE_MINER_ENABLED: true,
+  MAX_TREE_BLOCKS: 128,
+  MAX_TREE_HEIGHT: 320,
+  MATCH_TREE_SPECIES: true,
+  MAX_ORE_CLUSTER_SIZE: 64,
+  DURABILITY_SAFETY_THRESHOLD: 5,
+  ALERT_SOUND: "note.bass",
+  ALERT_PITCH: 0.7,
+  ALERT_VOLUME: 1.0,
+  NETHER_GOLD_POLICY: "nether_gold",
+};
+
+const settingsCache = new Map();
+
+function isAlive(entity) {
+  try {
+    if (!entity) return false;
+    return typeof entity.isValid === "function"
+      ? entity.isValid()
+      : Boolean(entity.isValid);
+  } catch {
+    return false;
+  }
+}
+
+function loadSettings(player) {
+  const result = { ...DEFAULT_SETTINGS };
+
+  try {
+    const raw = player.getDynamicProperty(SETTINGS_KEY);
+    const stored = typeof raw === "string" ? JSON.parse(raw) : null;
+
+    for (const key of Object.keys(DEFAULT_SETTINGS)) {
+      if (typeof stored?.[key] === "boolean") result[key] = stored[key];
+    }
+  } catch {}
+
+  return result;
+}
+
+function getSettings(player) {
+  let settings = settingsCache.get(player.id);
+
+  if (!settings) {
+    settings = loadSettings(player);
+    settingsCache.set(player.id, settings);
+  }
+
+  return settings;
+}
+
+function saveSettings(player, settings) {
+  settingsCache.set(player.id, settings);
+
+  try {
+    player.setDynamicProperty(SETTINGS_KEY, JSON.stringify(settings));
+  } catch {}
+}
+
+function hasHubInOffhand(player) {
+  try {
+    const equippable = player.getComponent("minecraft:equippable");
+
+    return (
+      equippable?.getEquipment(EquipmentSlot.Offhand)?.typeId === HUB_ITEM_ID
+    );
+  } catch {
+    return false;
+  }
+}
+
+function isAutoSwitchActive(player) {
+  return getSettings(player).autoSwitch && hasHubInOffhand(player);
+}
+
+function statusText(enabled) {
+  return enabled ? "§aON" : "§cOFF";
+}
+
+function openHubMenu(player, attempt = 0) {
+  const current = getSettings(player);
+
+  const form = new ModalFormData()
+    .title("Tool Hub")
+    .toggle("Auto Switch Tools (Hub must be in offhand)", current.autoSwitch)
+    .toggle("Tree Capitator (sneak + axe)", current.treeCapitator)
+    .toggle("Domino Ore Miner (sneak + pickaxe)", current.dominoMiner);
+
+  form
+    .show(player)
+    .then((response) => {
+      if (response.canceled) {
+        if (
+          response.cancelationReason === FormCancelationReason.UserBusy &&
+          attempt < 10
+        ) {
+          system.runTimeout(() => {
+            if (isAlive(player)) openHubMenu(player, attempt + 1);
+          }, 10);
+        }
+
+        return;
+      }
+
+      const values = response.formValues ?? [];
+
+      const updated = {
+        autoSwitch: Boolean(values[0]),
+        treeCapitator: Boolean(values[1]),
+        dominoMiner: Boolean(values[2]),
+      };
+
+      saveSettings(player, updated);
+
+      let message =
+        `§b[Tool Hub] §fAuto Switch ${statusText(updated.autoSwitch)}` +
+        ` §7| §fTree ${statusText(updated.treeCapitator)}` +
+        ` §7| §fOre ${statusText(updated.dominoMiner)}`;
+
+      if (updated.autoSwitch && !hasHubInOffhand(player)) {
+        message += "\n§eMove the Tool Hub to your offhand to use Auto Switch.";
+      }
+
+      player.onScreenDisplay.setActionBar(message);
+    })
+    .catch(() => {});
+}
+
+world.afterEvents.itemUse.subscribe((event) => {
+  try {
+    const player = event.source;
+
+    if (!player || player.typeId !== "minecraft:player") return;
+    if (event.itemStack?.typeId !== HUB_ITEM_ID) return;
+
+    openHubMenu(player);
+  } catch {}
+});
+
+const ToolCategory = {
+  PICKAXE: "pickaxe",
+  AXE: "axe",
+  SHOVEL: "shovel",
+  LEAVES: "leaves",
+  WEB: "web",
+  SHEARS_OR_SWORD: "shears_or_sword",
+  HOE: "hoe",
+  WEAPON: "weapon",
+};
+
+const TIER_SCORES = {
+  netherite: 50,
+  diamond: 40,
+  iron: 30,
+  stone: 20,
+  golden: 15,
+  gold: 15,
+  wooden: 10,
+  wood: 10,
+};
+
+const IGNORED_BLOCKS = new Set([
+  "air",
+  "cave_air",
+  "void_air",
+  "water",
+  "flowing_water",
+  "lava",
+  "flowing_lava",
+  "bedrock",
+  "barrier",
+  "structure_void",
+  "light_block",
+  "portal",
+  "end_portal",
+  "end_portal_frame",
+  "end_gateway",
+]);
+
+const NON_COMBAT_ENTITIES = new Set([
+  "item",
+  "arrow",
+  "spectral_arrow",
+  "xp_orb",
+  "experience_orb",
+  "snowball",
+  "egg",
+  "splash_potion",
+  "lingering_potion",
+  "ender_pearl",
+  "eye_of_ender_signal",
+  "lightning_bolt",
+  "armor_stand",
+  "painting",
+  "item_frame",
+  "glow_item_frame",
+  "leash_knot",
+  "boat",
+  "chest_boat",
+  "minecart",
+  "chest_minecart",
+  "hopper_minecart",
+  "tnt_minecart",
+  "command_block_minecart",
+  "tnt",
+  "falling_block",
+]);
+
+const recentCombat = new Map();
+const pendingSwaps = new Map();
+const webInteraction = new Map();
+
+function normalizeId(id) {
+  return (id ?? "").replace(/^minecraft:/, "").toLowerCase();
+}
+
+function getMaterialTier(id) {
+  for (const [tier, score] of Object.entries(TIER_SCORES)) {
+    if (id.includes(tier)) return score;
+  }
+
+  return 25;
+}
+
+function readEnchants(item) {
+  const result = {
+    silk: 0,
+    fortune: 0,
+    efficiency: 0,
+    sharpness: 0,
+  };
+
+  try {
+    const component = item.getComponent("minecraft:enchantable");
+
+    if (!component) return result;
+
+    result.silk = component.getEnchantment("silk_touch")?.level ?? 0;
+    result.fortune = component.getEnchantment("fortune")?.level ?? 0;
+    result.efficiency = component.getEnchantment("efficiency")?.level ?? 0;
+    result.sharpness = component.getEnchantment("sharpness")?.level ?? 0;
+  } catch {}
+
+  return result;
+}
+
+function readDurability(item) {
+  try {
+    const component = item.getComponent("minecraft:durability");
+
+    if (!component) return null;
+
+    const remaining = component.maxDurability - component.damage;
+
+    return {
+      remaining,
+      fraction: remaining / component.maxDurability,
+    };
+  } catch {
+    return null;
+  }
+}
+
+function evaluateToolScore(item, category, slotIndex) {
+  if (!item?.typeId) return -1;
+
+  const id = normalizeId(item.typeId);
+  const hotbarBonus = slotIndex >= 0 && slotIndex <= 8 ? 1 : 0;
+
+  if (category === ToolCategory.PICKAXE) {
+    return id.includes("pickaxe") ? getMaterialTier(id) + hotbarBonus : -1;
+  }
+
+  if (category === ToolCategory.AXE) {
+    return id.includes("axe") && !id.includes("pickaxe")
+      ? getMaterialTier(id) + hotbarBonus
+      : -1;
+  }
+
+  if (category === ToolCategory.SHOVEL) {
+    return id.includes("shovel") || id.includes("spade")
+      ? getMaterialTier(id) + hotbarBonus
+      : -1;
+  }
+
+  if (category === ToolCategory.HOE) {
+    return id.includes("hoe") ? getMaterialTier(id) + hotbarBonus : -1;
+  }
+
+  if (category === ToolCategory.LEAVES) {
+    if (id.includes("shears")) return 100 + hotbarBonus;
+
+    return id.includes("hoe") ? getMaterialTier(id) + hotbarBonus : -1;
+  }
+
+  if (category === ToolCategory.WEB) {
+    if (id.includes("shears")) return 100 + hotbarBonus;
+
+    return id.includes("sword") ? getMaterialTier(id) + hotbarBonus : -1;
+  }
+
+  if (category === ToolCategory.SHEARS_OR_SWORD) {
+    if (id.includes("shears")) return 60 + hotbarBonus;
+
+    return id.includes("sword")
+      ? Math.max(5, getMaterialTier(id) - 5) + hotbarBonus
+      : -1;
+  }
+
+  if (category === ToolCategory.WEAPON) {
+    const sword = id.includes("sword");
+    const axe = id.includes("axe") && !id.includes("pickaxe");
+
+    if (!sword && !axe) return -1;
+
+    return getMaterialTier(id) + (sword ? 2 : 0) + hotbarBonus;
+  }
+
+  return -1;
+}
+
+function scoreItem(item, category, slotIndex, blockId = "") {
+  const base = evaluateToolScore(item, category, slotIndex);
+
+  if (base < 0) return -Infinity;
+
+  let score = base;
+  const enchants = readEnchants(item);
+
+  score += enchants.efficiency;
+
+  if (category === ToolCategory.WEAPON) {
+    score += enchants.sharpness;
+  }
+
+  if (blockId) {
+    const silkPreferred =
+      blockId === "glass" ||
+      blockId.endsWith("_glass") ||
+      blockId.endsWith("glass_pane") ||
+      /(^|_)ice$/.test(blockId) ||
+      blockId === "bookshelf" ||
+      blockId === "ender_chest";
+
+    if (silkPreferred && enchants.silk > 0) {
+      score += 60;
+    }
+
+    if (blockId.endsWith("_ore")) {
+      score += enchants.fortune * 1.5;
+
+      if (enchants.silk > 0) score -= 8;
+    }
+  }
+
+  const durability = readDurability(item);
+
+  if (durability) {
+    if (durability.remaining <= SWITCH.lowDurabilityUses) {
+      score -= SWITCH.lowDurabilityPenalty;
+    } else {
+      score += durability.fraction;
+    }
+  }
+
+  return score;
+}
+
+function getRequiredToolCategory(typeId) {
+  if (!typeId) return null;
+
+  const id = normalizeId(typeId);
+
+  if (IGNORED_BLOCKS.has(id)) return null;
+
+  if (id === "web" || id.includes("cobweb")) {
+    return ToolCategory.WEB;
+  }
+
+  if (
+    id.endsWith("concrete_powder") ||
+    id.includes("sand") ||
+    id.includes("gravel") ||
+    id.includes("clay") ||
+    id.includes("dirt") ||
+    id === "grass_block" ||
+    id.includes("podzol") ||
+    id.includes("mycelium") ||
+    id.includes("farmland") ||
+    id.includes("mud") ||
+    id.includes("soul_soil") ||
+    id.includes("snow")
+  ) {
+    return ToolCategory.SHOVEL;
+  }
+
+  if (id === "ender_chest") {
+    return ToolCategory.PICKAXE;
+  }
+
+  if (id.includes("leaves")) {
+    return ToolCategory.LEAVES;
+  }
+
+  if (
+    id.includes("wool") ||
+    id.includes("vine") ||
+    id.includes("fern") ||
+    id === "tallgrass" ||
+    id === "seagrass" ||
+    id === "hanging_roots" ||
+    id === "deadbush" ||
+    id === "tripwire"
+  ) {
+    return ToolCategory.SHEARS_OR_SWORD;
+  }
+
+  if (
+    id === "hay_block" ||
+    id === "target" ||
+    id === "sponge" ||
+    id === "wet_sponge" ||
+    id.includes("sculk") ||
+    id.includes("moss_block") ||
+    id.includes("moss_carpet") ||
+    id.includes("wart_block") ||
+    id === "shroomlight"
+  ) {
+    return ToolCategory.HOE;
+  }
+
+  if (
+    id.endsWith("_log") ||
+    id.endsWith("_wood") ||
+    id.endsWith("_stem") ||
+    id.endsWith("_hyphae") ||
+    id.startsWith("stripped_") ||
+    id.includes("planks") ||
+    id.includes("crafting_table") ||
+    id.includes("cartography_table") ||
+    id.includes("fletching_table") ||
+    id.includes("smithing_table") ||
+    id.includes("loom") ||
+    id.includes("composter") ||
+    id === "chest" ||
+    id === "trapped_chest" ||
+    id === "barrel" ||
+    id.includes("bookshelf") ||
+    id === "lectern" ||
+    id.includes("pumpkin") ||
+    id.includes("melon") ||
+    id === "cocoa" ||
+    id.includes("beehive") ||
+    id === "bee_nest" ||
+    id.includes("ladder") ||
+    id.includes("sign") ||
+    id.includes("mushroom_stem") ||
+    id.includes("mushroom_block") ||
+    id === "jukebox" ||
+    id === "daylight_detector" ||
+    id === "note_block" ||
+    id.includes("bamboo_block") ||
+    id.includes("bamboo_mosaic") ||
+    (id.endsWith("_fence") && !id.includes("nether_brick")) ||
+    id.endsWith("_fence_gate")
+  ) {
+    return ToolCategory.AXE;
+  }
+
+  const woodMaterials = [
+    "oak",
+    "spruce",
+    "birch",
+    "jungle",
+    "acacia",
+    "dark_oak",
+    "mangrove",
+    "cherry",
+    "bamboo",
+    "crimson",
+    "warped",
+    "pale_oak",
+  ];
+
+  if (
+    woodMaterials.some((material) => id.includes(material)) &&
+    !id.includes("petrified") &&
+    (id.endsWith("_door") ||
+      id.endsWith("_trapdoor") ||
+      id.endsWith("_button") ||
+      id.endsWith("_pressure_plate") ||
+      id.endsWith("_stairs") ||
+      id.endsWith("_slab"))
+  ) {
+    return ToolCategory.AXE;
+  }
+
+  return ToolCategory.PICKAXE;
+}
+
+function getInventory(player) {
+  try {
+    return player.getComponent("minecraft:inventory")?.container;
+  } catch {
+    return undefined;
+  }
+}
+
+function switchSelectedSlotTool(player, category, blockTypeId = "") {
+  if (!player || !isAutoSwitchActive(player)) {
+    return false;
+  }
+
+  const container = getInventory(player);
+
+  if (!container) return false;
+
+  const targetSlot = player.selectedSlotIndex;
+  const heldItem = container.getItem(targetSlot);
+
+  if (heldItem?.typeId === HUB_ITEM_ID) return false;
+
+  const blockId = normalizeId(blockTypeId);
+  const currentScore = scoreItem(heldItem, category, targetSlot, blockId);
+
+  let bestSlot = -1;
+  let bestScore = -Infinity;
+
+  for (let slot = 0; slot < container.size; slot++) {
+    if (slot === targetSlot) continue;
+
+    const item = container.getItem(slot);
+
+    if (!item) continue;
+
+    const score = scoreItem(item, category, slot, blockId);
+
+    if (score > bestScore) {
+      bestScore = score;
+      bestSlot = slot;
+    }
+  }
+
+  if (bestSlot === -1 || bestScore === -Infinity) {
+    return false;
+  }
+
+  if (
+    currentScore !== -Infinity &&
+    bestScore < currentScore + SWITCH.switchMargin
+  ) {
+    return false;
+  }
+
+  try {
+    container.swapItems(bestSlot, targetSlot, container);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function isCombatTarget(entity) {
+  if (!entity?.typeId) return false;
+
+  const id = normalizeId(entity.typeId);
+
+  if (NON_COMBAT_ENTITIES.has(id)) return false;
+
+  try {
+    return id === "player" || !!entity.getComponent("minecraft:health");
+  } catch {
+    return false;
+  }
+}
+
+function isWeb(block) {
+  if (!block?.typeId) return false;
+
+  const id = normalizeId(block.typeId);
+
+  return id === "web" || id.includes("cobweb");
+}
+
+function blockKey(block) {
+  if (!block) return "";
+
+  const { x, y, z } = block.location;
+
+  return `${block.typeId}@${x},${y},${z}`;
+}
+
+function clearPendingSwap(playerId) {
+  const runId = pendingSwaps.get(playerId);
+
+  if (runId !== undefined) {
+    system.clearRun(runId);
+    pendingSwaps.delete(playerId);
+  }
+}
+
+function scheduleSwapRetry(player, category, blockTypeId) {
+  clearPendingSwap(player.id);
+
+  const slotAtSchedule = player.selectedSlotIndex;
+
+  const runId = system.runTimeout(() => {
+    pendingSwaps.delete(player.id);
+
+    try {
+      if (player.selectedSlotIndex !== slotAtSchedule) return;
+
+      switchSelectedSlotTool(player, category, blockTypeId);
+    } catch {}
+  }, SWITCH.retryTicks);
+
+  pendingSwaps.set(player.id, runId);
+}
+
+function getTargetBlock(player) {
+  try {
+    return player.getBlockFromViewDirection({
+      maxDistance: SWITCH.raycastDistance,
+      includeLiquidBlocks: false,
+      includePassableBlocks: true,
+    })?.block;
+  } catch {
+    return undefined;
+  }
+}
+
+world.afterEvents.entityHitBlock.subscribe((event) => {
+  try {
+    const player = event.damagingEntity;
+
+    if (!player || player.typeId !== "minecraft:player") return;
+    if (!isAutoSwitchActive(player)) return;
+
+    const block = event.hitBlock;
+
+    if (!block) return;
+
+    const category = getRequiredToolCategory(block.typeId);
+
+    if (!category) return;
+
+    const now = system.currentTick;
+    const lastCombat = recentCombat.get(player.id) ?? -Infinity;
+
+    if (now - lastCombat < SWITCH.combatCooldownTicks) {
+      return;
+    }
+
+    webInteraction.set(player.id, {
+      key: blockKey(block),
+      lastInteractionTick: now,
+    });
+
+    if (!switchSelectedSlotTool(player, category, block.typeId)) {
+      scheduleSwapRetry(player, category, block.typeId);
+    }
+  } catch {}
+});
+
+system.runInterval(() => {
+  const now = system.currentTick;
+
+  for (const player of world.getAllPlayers()) {
+    try {
+      if (!isAutoSwitchActive(player)) {
+        webInteraction.delete(player.id);
+        continue;
+      }
+
+      const lastCombat = recentCombat.get(player.id) ?? -Infinity;
+
+      if (now - lastCombat < SWITCH.webCombatCooldown) {
+        continue;
+      }
+
+      const block = getTargetBlock(player);
+
+      if (!isWeb(block)) {
+        webInteraction.delete(player.id);
+        continue;
+      }
+
+      const key = blockKey(block);
+      const state = webInteraction.get(player.id);
+
+      if (!state || state.key !== key) {
+        webInteraction.set(player.id, {
+          key,
+          lastInteractionTick: now,
+          initialTick: now,
+        });
+
+        continue;
+      }
+
+      const elapsed = now - state.initialTick;
+
+      if (elapsed < SWITCH.webInteractionWindow) {
+        continue;
+      }
+
+      if (now - state.lastInteractionTick > SWITCH.webInteractionWindow) {
+        webInteraction.delete(player.id);
+        continue;
+      }
+
+      const held = getInventory(player)?.getItem(player.selectedSlotIndex);
+
+      if (held && normalizeId(held.typeId).includes("shears")) {
+        continue;
+      }
+
+      switchSelectedSlotTool(player, ToolCategory.WEB, block.typeId);
+
+      webInteraction.set(player.id, {
+        key,
+        initialTick: now,
+        lastInteractionTick: now,
+      });
+    } catch {}
+  }
+}, SWITCH.webCheckInterval);
+
+world.afterEvents.entityHitEntity.subscribe((event) => {
+  try {
+    const player = event.damagingEntity;
+
+    if (!player || player.typeId !== "minecraft:player") return;
+    if (!isAutoSwitchActive(player)) return;
+    if (!isCombatTarget(event.hitEntity)) return;
+
+    recentCombat.set(player.id, system.currentTick);
+
+    clearPendingSwap(player.id);
+    webInteraction.delete(player.id);
+
+    switchSelectedSlotTool(player, ToolCategory.WEAPON);
+  } catch {}
+});
+
+world.afterEvents.playerLeave.subscribe((event) => {
+  recentCombat.delete(event.playerId);
+  webInteraction.delete(event.playerId);
+  settingsCache.delete(event.playerId);
+  clearPendingSwap(event.playerId);
+});
+
+const AXE_IDENTIFIERS = new Set([
+  "minecraft:wooden_axe",
+  "minecraft:stone_axe",
+  "minecraft:iron_axe",
+  "minecraft:golden_axe",
+  "minecraft:diamond_axe",
+  "minecraft:netherite_axe",
+]);
+
+const PICKAXE_TIERS = {
+  "minecraft:wooden_axe": 1,
+  "minecraft:golden_axe": 1,
+  "minecraft:wooden_pickaxe": 1,
+  "minecraft:golden_pickaxe": 1,
+  "minecraft:stone_pickaxe": 2,
+  "minecraft:iron_pickaxe": 3,
+  "minecraft:diamond_pickaxe": 4,
+  "minecraft:netherite_pickaxe": 5,
+};
+
+function isAxe(typeId) {
+  if (!typeId) return false;
+  return AXE_IDENTIFIERS.has(typeId) || typeId.endsWith("_axe");
+}
+
+function isPickaxe(typeId) {
+  if (!typeId) return false;
+  return Boolean(PICKAXE_TIERS[typeId]) || typeId.endsWith("_pickaxe");
+}
+
+function getPickaxeTier(typeId) {
+  return PICKAXE_TIERS[typeId] || (typeId?.endsWith("_pickaxe") ? 3 : 0);
+}
+
+const ELIGIBLE_LOGS = new Set([
+  "minecraft:oak_log", "minecraft:stripped_oak_log", "minecraft:oak_wood", "minecraft:stripped_oak_wood",
+  "minecraft:spruce_log", "minecraft:stripped_spruce_log", "minecraft:spruce_wood", "minecraft:stripped_spruce_wood",
+  "minecraft:birch_log", "minecraft:stripped_birch_log", "minecraft:birch_wood", "minecraft:stripped_birch_wood",
+  "minecraft:jungle_log", "minecraft:stripped_jungle_log", "minecraft:jungle_wood", "minecraft:stripped_jungle_wood",
+  "minecraft:acacia_log", "minecraft:stripped_acacia_log", "minecraft:acacia_wood", "minecraft:stripped_acacia_wood",
+  "minecraft:dark_oak_log", "minecraft:stripped_dark_oak_log", "minecraft:dark_oak_wood", "minecraft:stripped_dark_oak_wood",
+  "minecraft:mangrove_log", "minecraft:stripped_mangrove_log", "minecraft:mangrove_wood", "minecraft:stripped_mangrove_wood",
+  "minecraft:mangrove_roots", "minecraft:muddy_mangrove_roots",
+  "minecraft:cherry_log", "minecraft:stripped_cherry_log", "minecraft:cherry_wood", "minecraft:stripped_cherry_wood",
+  "minecraft:pale_oak_log", "minecraft:stripped_pale_oak_log", "minecraft:pale_oak_wood", "minecraft:stripped_pale_oak_wood",
+  "minecraft:crimson_stem", "minecraft:stripped_crimson_stem", "minecraft:crimson_hyphae", "minecraft:stripped_crimson_hyphae",
+  "minecraft:warped_stem", "minecraft:stripped_warped_stem", "minecraft:warped_hyphae", "minecraft:stripped_warped_hyphae",
+]);
+
+function isEligibleLog(blockId) {
+  if (!blockId) return false;
+  if (ELIGIBLE_LOGS.has(blockId)) return true;
+  return /(log|wood|stem|hyphae|mangrove_roots)$/i.test(blockId);
+}
+
+function getWoodSpecies(typeId) {
+  if (!typeId) return null;
+  const match = typeId.match(
+    /(dark_oak|pale_oak|oak|spruce|birch|jungle|acacia|mangrove|cherry|crimson|warped)/i
+  );
+  return match ? match[1].toLowerCase() : null;
+}
+
+function isMatchingLog(blockId, targetSpecies) {
+  if (!isEligibleLog(blockId)) return false;
+  if (!MINER.MATCH_TREE_SPECIES || !targetSpecies) return true;
+  const species = getWoodSpecies(blockId);
+  return !species || species === targetSpecies;
+}
+
+const ORE_DEFINITIONS = {
+  "minecraft:coal_ore": { category: "coal", minTier: 1, dropItem: "minecraft:coal" },
+  "minecraft:deepslate_coal_ore": { category: "coal", minTier: 1, dropItem: "minecraft:coal" },
+
+  "minecraft:iron_ore": { category: "iron", minTier: 2, dropItem: "minecraft:raw_iron" },
+  "minecraft:deepslate_iron_ore": { category: "iron", minTier: 2, dropItem: "minecraft:raw_iron" },
+
+  "minecraft:copper_ore": { category: "copper", minTier: 2, dropItem: "minecraft:raw_copper", minDrop: 2, maxDrop: 5 },
+  "minecraft:deepslate_copper_ore": { category: "copper", minTier: 2, dropItem: "minecraft:raw_copper", minDrop: 2, maxDrop: 5 },
+
+  "minecraft:lapis_ore": { category: "lapis", minTier: 2, dropItem: "minecraft:lapis_lazuli", minDrop: 4, maxDrop: 9 },
+  "minecraft:deepslate_lapis_ore": { category: "lapis", minTier: 2, dropItem: "minecraft:lapis_lazuli", minDrop: 4, maxDrop: 9 },
+
+  "minecraft:gold_ore": { category: "gold", minTier: 3, dropItem: "minecraft:raw_gold" },
+  "minecraft:deepslate_gold_ore": { category: "gold", minTier: 3, dropItem: "minecraft:raw_gold" },
+
+  "minecraft:nether_gold_ore": {
+    category: MINER.NETHER_GOLD_POLICY,
+    minTier: 1,
+    dropItem: "minecraft:gold_nugget",
+    minDrop: 2,
+    maxDrop: 6,
+  },
+
+  "minecraft:redstone_ore": { category: "redstone", minTier: 3, dropItem: "minecraft:redstone", minDrop: 4, maxDrop: 5 },
+  "minecraft:deepslate_redstone_ore": { category: "redstone", minTier: 3, dropItem: "minecraft:redstone", minDrop: 4, maxDrop: 5 },
+  "minecraft:lit_redstone_ore": { category: "redstone", minTier: 3, dropItem: "minecraft:redstone", minDrop: 4, maxDrop: 5 },
+  "minecraft:lit_deepslate_redstone_ore": { category: "redstone", minTier: 3, dropItem: "minecraft:redstone", minDrop: 4, maxDrop: 5 },
+
+  "minecraft:diamond_ore": { category: "diamond", minTier: 3, dropItem: "minecraft:diamond" },
+  "minecraft:deepslate_diamond_ore": { category: "diamond", minTier: 3, dropItem: "minecraft:diamond" },
+
+  "minecraft:emerald_ore": { category: "emerald", minTier: 3, dropItem: "minecraft:emerald" },
+  "minecraft:deepslate_emerald_ore": { category: "emerald", minTier: 3, dropItem: "minecraft:emerald" },
+
+  "minecraft:quartz_ore": { category: "quartz", minTier: 1, dropItem: "minecraft:quartz" },
+  "minecraft:nether_quartz_ore": { category: "quartz", minTier: 1, dropItem: "minecraft:quartz" },
+
+  "minecraft:ancient_debris": { category: "ancient_debris", minTier: 4, dropItem: "minecraft:ancient_debris" },
+};
+
+function getOreInfo(blockId) {
+  if (!blockId) return null;
+  return ORE_DEFINITIONS[blockId] || null;
+}
+
+const NEIGHBOR_OFFSETS_26 = [];
+for (let dx = -1; dx <= 1; dx++) {
+  for (let dy = -1; dy <= 1; dy++) {
+    for (let dz = -1; dz <= 1; dz++) {
+      if (dx === 0 && dy === 0 && dz === 0) continue;
+      NEIGHBOR_OFFSETS_26.push({ x: dx, y: dy, z: dz });
+    }
+  }
+}
+
+function getMainhandTool(player) {
+  if (!isAlive(player)) return undefined;
+  const equippable = player.getComponent("minecraft:equippable");
+  if (!equippable) return undefined;
+  return equippable.getEquipment(EquipmentSlot.Mainhand);
+}
+
+function checkToolSafety(player) {
+  if (!isAlive(player)) {
+    return { safe: false, remaining: 0 };
+  }
+
+  const tool = getMainhandTool(player);
+  if (!tool) {
+    return { safe: false, remaining: 0 };
+  }
+
+  const durabilityComp = tool.getComponent("minecraft:durability");
+  if (!durabilityComp) {
+    return { safe: true, tool, remaining: 9999 };
+  }
+
+  const remaining = durabilityComp.maxDurability - durabilityComp.damage;
+  if (remaining <= MINER.DURABILITY_SAFETY_THRESHOLD) {
+    return { safe: false, tool, remaining };
+  }
+
+  return { safe: true, tool, remaining };
+}
+
+function applyToolDurabilityDamage(player) {
+  if (!isAlive(player)) return false;
+
+  const equippable = player.getComponent("minecraft:equippable");
+  if (!equippable) return false;
+
+  const tool = equippable.getEquipment(EquipmentSlot.Mainhand);
+  if (!tool) return false;
+
+  const durabilityComp = tool.getComponent("minecraft:durability");
+  if (!durabilityComp) return true;
+
+  let unbreakingLevel = 0;
+  try {
+    const enchantable = tool.getComponent("minecraft:enchantable");
+    if (enchantable) {
+      const unbreaking = enchantable.getEnchantment("unbreaking");
+      if (unbreaking && typeof unbreaking.level === "number") {
+        unbreakingLevel = unbreaking.level;
+      }
+    }
+  } catch (err) {}
+
+  const shouldTakeDamage =
+    unbreakingLevel > 0 ? Math.random() < 1.0 / (unbreakingLevel + 1) : true;
+
+  if (shouldTakeDamage) {
+    durabilityComp.damage += 1;
+
+    if (durabilityComp.damage >= durabilityComp.maxDurability) {
+      equippable.setEquipment(EquipmentSlot.Mainhand, undefined);
+      try {
+        player.playSound("random.break", { volume: 1.0, pitch: 0.9 });
+      } catch (e) {}
+      return false;
+    }
+
+    equippable.setEquipment(EquipmentSlot.Mainhand, tool);
+  }
+
+  return true;
+}
+
+function notifyToolProtection(player, remainingDurability) {
+  if (!isAlive(player)) return;
+
+  try {
+    player.playSound(MINER.ALERT_SOUND, {
+      volume: MINER.ALERT_VOLUME,
+      pitch: MINER.ALERT_PITCH,
+    });
+  } catch (e) {}
+
+  try {
+    player.onScreenDisplay.setActionBar(
+      `§e[Tool Protection] §cStopped mining to save tool! §6(${remainingDurability} durability left)`
+    );
+  } catch (e) {}
+}
+
+function calculateFortuneDropCount(fortuneLevel, minBase = 1, maxBase = 1) {
+  const baseCount =
+    minBase === maxBase
+      ? minBase
+      : Math.floor(Math.random() * (maxBase - minBase + 1)) + minBase;
+
+  if (fortuneLevel <= 0) return baseCount;
+  const multiplier = Math.max(1, Math.floor(Math.random() * (fortuneLevel + 2)));
+  return Math.min(baseCount * multiplier, 64);
+}
+
+function isTreeCanopy(dimension, blocks) {
+  if (!blocks || blocks.length === 0) return false;
+  const candidates = [...blocks].sort((a, b) => b.y - a.y).slice(0, 8);
+  for (const pos of candidates) {
+    for (let dx = -2; dx <= 2; dx++) {
+      for (let dz = -2; dz <= 2; dz++) {
+        for (let dy = -1; dy <= 2; dy++) {
+          try {
+            const b = dimension.getBlock({
+              x: pos.x + dx,
+              y: pos.y + dy,
+              z: pos.z + dz,
+            });
+            if (!b) continue;
+
+            if (b.typeId.includes("wart_block") || b.typeId.includes("shroomlight")) {
+              return true;
+            }
+
+            if (b.typeId.includes("leaves")) {
+              const permutation = b.permutation;
+              const isPersistent = permutation?.getState("persistent_bit");
+              if (isPersistent === true) {
+                continue;
+              }
+              return true;
+            }
+          } catch (e) {}
+        }
+      }
+    }
+  }
+  return false;
+}
+
+function executeTreeCapitator(player, dimension, startLoc, startBlockId, onComplete) {
+  if (typeof startBlockId === "function") {
+    onComplete = startBlockId;
+    startBlockId = null;
+  }
+  if (!MINER.TREE_CAPITATOR_ENABLED) {
+    if (onComplete) onComplete();
+    return;
+  }
+
+  const targetSpecies = startBlockId ? getWoodSpecies(startBlockId) : null;
+  const visited = new Set();
+  visited.add(`${startLoc.x},${startLoc.y},${startLoc.z}`);
+
+  const blocksToBreak = [];
+  const queue = [{ x: startLoc.x, y: startLoc.y, z: startLoc.z }];
+
+  while (queue.length > 0 && blocksToBreak.length < MINER.MAX_TREE_BLOCKS) {
+    const cur = queue.shift();
+
+    for (let dy = 0; dy <= 1; dy++) {
+      for (let dx = -1; dx <= 1; dx++) {
+        for (let dz = -1; dz <= 1; dz++) {
+          if (dx === 0 && dy === 0 && dz === 0) continue;
+
+          const nx = cur.x + dx;
+          const ny = cur.y + dy;
+          const nz = cur.z + dz;
+
+          if (ny < startLoc.y) continue;
+          if (ny > startLoc.y + MINER.MAX_TREE_HEIGHT) continue;
+
+          const key = `${nx},${ny},${nz}`;
+          if (visited.has(key)) continue;
+          visited.add(key);
+
+          try {
+            const block = dimension.getBlock({ x: nx, y: ny, z: nz });
+            if (block && isMatchingLog(block.typeId, targetSpecies)) {
+              const logPos = { x: nx, y: ny, z: nz };
+              blocksToBreak.push(logPos);
+              queue.push(logPos);
+              if (blocksToBreak.length >= MINER.MAX_TREE_BLOCKS) break;
+            }
+          } catch (e) {}
+        }
+        if (blocksToBreak.length >= MINER.MAX_TREE_BLOCKS) break;
+      }
+      if (blocksToBreak.length >= MINER.MAX_TREE_BLOCKS) break;
+    }
+  }
+
+  if (blocksToBreak.length === 0) {
+    if (onComplete) onComplete();
+    return;
+  }
+
+  if (!isTreeCanopy(dimension, blocksToBreak)) {
+    if (onComplete) onComplete();
+    return;
+  }
+
+  for (const pos of blocksToBreak) {
+    if (!isAlive(player)) break;
+
+    const safety = checkToolSafety(player);
+    if (!safety.safe) {
+      notifyToolProtection(player, safety.remaining);
+      break;
+    }
+
+    try {
+      dimension.runCommand(`setblock ${pos.x} ${pos.y} ${pos.z} air destroy`);
+      applyToolDurabilityDamage(player);
+    } catch (err) {}
+  }
+
+  if (onComplete) onComplete();
+}
+
+function executeDominoOreMiner(player, dimension, startLoc, startBlockId, onComplete) {
+  if (!MINER.DOMINO_ORE_MINER_ENABLED) {
+    if (onComplete) onComplete();
+    return;
+  }
+
+  const startOreInfo = getOreInfo(startBlockId);
+  if (!startOreInfo) {
+    if (onComplete) onComplete();
+    return;
+  }
+
+  const initialTool = getMainhandTool(player);
+  const toolTier = getPickaxeTier(initialTool?.typeId);
+  if (toolTier < startOreInfo.minTier) {
+    if (onComplete) onComplete();
+    return;
+  }
+
+  const queue = [{ x: startLoc.x, y: startLoc.y, z: startLoc.z }];
+  const visited = new Set();
+  visited.add(`${startLoc.x},${startLoc.y},${startLoc.z}`);
+
+  const cluster = [];
+
+  while (queue.length > 0 && cluster.length < MINER.MAX_ORE_CLUSTER_SIZE) {
+    const current = queue.shift();
+
+    for (const offset of NEIGHBOR_OFFSETS_26) {
+      const nx = current.x + offset.x;
+      const ny = current.y + offset.y;
+      const nz = current.z + offset.z;
+      const key = `${nx},${ny},${nz}`;
+
+      if (visited.has(key)) continue;
+      visited.add(key);
+
+      if (ny < -64 || ny > 320) continue;
+
+      try {
+        const neighborBlock = dimension.getBlock({ x: nx, y: ny, z: nz });
+        if (!neighborBlock) continue;
+
+        const neighborOreInfo = getOreInfo(neighborBlock.typeId);
+        if (neighborOreInfo && neighborOreInfo.category === startOreInfo.category) {
+          cluster.push({
+            x: nx,
+            y: ny,
+            z: nz,
+            blockId: neighborBlock.typeId,
+            oreInfo: neighborOreInfo,
+          });
+          queue.push({ x: nx, y: ny, z: nz });
+
+          if (cluster.length >= MINER.MAX_ORE_CLUSTER_SIZE) break;
+        }
+      } catch (err) {}
+    }
+  }
+
+  if (cluster.length === 0) {
+    if (onComplete) onComplete();
+    return;
+  }
+
+  for (const target of cluster) {
+    if (!isAlive(player)) break;
+
+    const safety = checkToolSafety(player);
+    if (!safety.safe) {
+      notifyToolProtection(player, safety.remaining);
+      break;
+    }
+
+    const currentTool = safety.tool;
+    const currentTier = getPickaxeTier(currentTool?.typeId);
+    if (currentTier < target.oreInfo.minTier) break;
+
+    let silkTouch = false;
+    let fortuneLevel = 0;
+
+    try {
+      const enchantable = currentTool.getComponent("minecraft:enchantable");
+      if (enchantable) {
+        silkTouch = Boolean(enchantable.getEnchantment("silk_touch"));
+        const fortune = enchantable.getEnchantment("fortune");
+        if (fortune && typeof fortune.level === "number") {
+          fortuneLevel = fortune.level;
+        }
+      }
+    } catch (e) {}
+
+    try {
+      const centerPos = { x: target.x + 0.5, y: target.y + 0.5, z: target.z + 0.5 };
+
+      if (silkTouch) {
+        dimension.spawnItem(new ItemStack(target.blockId, 1), centerPos);
+        dimension.getBlock({ x: target.x, y: target.y, z: target.z })?.setType("minecraft:air");
+        try {
+          dimension.playSound("dig.stone", centerPos, { volume: 0.8, pitch: 1.0 });
+        } catch (pe) {}
+      } else if (
+        fortuneLevel > 0 &&
+        target.oreInfo.dropItem &&
+        target.oreInfo.dropItem !== target.blockId
+      ) {
+        const minDrop = target.oreInfo.minDrop || 1;
+        const maxDrop = target.oreInfo.maxDrop || 1;
+        const count = calculateFortuneDropCount(fortuneLevel, minDrop, maxDrop);
+
+        dimension.spawnItem(new ItemStack(target.oreInfo.dropItem, count), centerPos);
+        dimension.getBlock({ x: target.x, y: target.y, z: target.z })?.setType("minecraft:air");
+        try {
+          dimension.playSound("dig.stone", centerPos, { volume: 0.8, pitch: 1.0 });
+        } catch (pe) {}
+      } else {
+        dimension.runCommand(`setblock ${target.x} ${target.y} ${target.z} air destroy`);
+      }
+
+      applyToolDurabilityDamage(player);
+    } catch (err) {}
+  }
+
+  if (onComplete) onComplete();
+}
+
+const activeOperations = new Set();
+
+world.afterEvents.playerBreakBlock.subscribe((event) => {
+  const { block, brokenBlockPermutation, player, dimension, itemStackBeforeBreak } = event;
+
+  if (!isAlive(player)) return;
+  if (!player.isSneaking) return;
+  if (activeOperations.has(player.id)) return;
+
+  const startLoc = {
+    x: Math.floor(block.location.x),
+    y: Math.floor(block.location.y),
+    z: Math.floor(block.location.z),
+  };
+  const brokenTypeId = brokenBlockPermutation?.type?.id;
+  if (!brokenTypeId) return;
+
+  const tool = getMainhandTool(player) || itemStackBeforeBreak;
+  if (!tool) return;
+
+  const toolTypeId = tool.typeId;
+  const settings = getSettings(player);
+
+  if (settings.treeCapitator && isAxe(toolTypeId) && isEligibleLog(brokenTypeId)) {
+    activeOperations.add(player.id);
+    try {
+      executeTreeCapitator(player, dimension, startLoc, brokenTypeId, () => {
+        activeOperations.delete(player.id);
+      });
+    } catch (err) {
+      activeOperations.delete(player.id);
+    }
+    return;
+  }
+
+  if (settings.dominoMiner && isPickaxe(toolTypeId) && getOreInfo(brokenTypeId)) {
+    activeOperations.add(player.id);
+    try {
+      executeDominoOreMiner(player, dimension, startLoc, brokenTypeId, () => {
+        activeOperations.delete(player.id);
+      });
+    } catch (err) {
+      activeOperations.delete(player.id);
+    }
+    return;
+  }
+});
+
+console.warn(`[Smart Tool Hub v${VERSION}] Initialized.`);
+```
+
+## FILE: MCPEDL/Addons/Smart-Tool-Hub/CHANGELOG.md (11 lines, 424 bytes)
+
+```
+# Changelog — Smart Tool Hub
+
+---
+
+## [1.0.0] - 2026-11-26 - First Release
+
+### Added
+- **Tool Hub item**: A custom item, equippable in the offhand, opens a toggle menu for Auto Switch, Tree Capitator and Domino Ore Miner.
+- **Offhand Auto Switch**: Auto Switch works on any hotbar slot and only runs while the Tool Hub is in the offhand.
+- **32x32 icon**: A resource pack adds a Tool Hub emblem icon with a circle arrow.
+```
+
+## FILE: MCPEDL/Addons/Smart-Tool-Hub/DESCRIPTION.md (79 lines, 3880 bytes)
+
+```
+# Smart Tool Hub — Tool Hub Menu with Offhand Auto Switch
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**One Tool Hub item, three toggles: switch tools, fell trees and mine ore veins.**
+
+> The Tool Hub item opens a toggle menu for Auto Switch, Tree Capitator and Domino Ore Miner. Auto Switch only runs while the Tool Hub is in your offhand.
+
+## Overview
+
+Smart Tool Hub combines Passive Auto-Switch Tools with Smart Tree Capitator and Domino Ore Miner. A single custom item, the Tool Hub, controls all three features. Auto Switch is no longer tied to hotbar slot 1: it works on whichever slot is selected, as long as the Tool Hub is in the offhand.
+
+## Key Features
+
+### Tool Hub Item
+- **What Happens**: Use the Tool Hub (`aln:tool_hub`) in your main hand to open a settings menu with three toggles.
+
+### Offhand Slot
+- **What Happens**: The Tool Hub can be equipped in the offhand slot.
+
+### Auto Switch on Any Hotbar Slot
+- **What Happens**: While the Tool Hub is in your offhand and Auto Switch is on, hitting a block or a mob swaps the best tool or weapon into the hotbar slot you have selected.
+
+### Tree Capitator
+- **What Happens**: Sneak and break a log with an axe to fell the whole tree. It needs natural leaves nearby, so wooden builds stay safe.
+
+### Domino Ore Miner
+- **What Happens**: Sneak and break an ore with a pickaxe to mine the connected vein of the same ore type.
+
+### Tool Protection
+- **What Happens**: Chain actions stop when the held tool is close to breaking, with a sound and an action bar warning.
+
+### Saved Settings
+- **What Happens**: Each player keeps their own toggles. All three start on.
+
+## How to Use
+
+1. Get the item with `/give @s aln:tool_hub`.
+2. Hold the Tool Hub in your main hand and use it to open the menu.
+3. Turn each feature on or off and submit.
+4. Move the Tool Hub to your offhand to use Auto Switch.
+5. Sneak while breaking a log with an axe, or an ore with a pickaxe, to use Tree Capitator or Domino Ore Miner.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.21.0 or newer.
+- Experimental features: Not verified.
+- Achievements: Yes, achievement-friendly.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, Smart Tool Hub Bedrock mod, auto switch tools offhand, tree capitator, ore miner, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+```
+
+## FILE: MCPEDL/Addons/Smart-Tool-Hub/project.json (5 lines, 50 bytes)
+
+```
+{
+  "type": "addon",
+  "name": "Smart Tool Hub"
+}
+```
+
+## FILE: MCPEDL/Addons/Smart-Tool-Hub/README.md (19 lines, 791 bytes)
+
+```
+# Smart Tool Hub
+
+Download the current release of **Smart Tool Hub** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download Smart Tool Hub (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Smart-Tool-Hub/SmartToolHub%20V1.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/Smart-Tool-Hub/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Addons/Smart-Tool-Hub/resource_pack/manifest.json (37 lines, 595 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Smart Tool Hub (v1)",
+    "description": "32x32 Tool Hub emblem icon. by ALNStudios",
+    "uuid": "87629f2e-265e-4288-aa92-42a34c0964bf",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "50d7a0b9-0eed-44f6-a71a-96fb42e74a12",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Smart-Tool-Hub/resource_pack/textures/item_texture.json (10 lines, 179 bytes)
+
+```
+{
+  "resource_pack_name": "smart_tool_hub",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "aln_tool_hub": {
+      "textures": "textures/items/aln_tool_hub"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Smart-Tool-Hub/texture_sources/aln_tool_hub.json (1108 lines, 6676 bytes)
+
+```
+{
+ "name": "aln_tool_hub",
+ "size": 32,
+ "folder": "items",
+ "palette": {
+  "0": "#00000000",
+  "1": "#12121f",
+  "2": "#8a6a12",
+  "3": "#e0b83a",
+  "4": "#fff0a8",
+  "5": "#1c4f78",
+  "6": "#2f7fb8",
+  "7": "#5db6e8",
+  "8": "#ffffff",
+  "9": "#a9e8ff"
+ },
+ "pixels": [
+  [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   1,
+   1,
+   1,
+   1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   1,
+   1,
+   1,
+   1,
+   4,
+   4,
+   4,
+   4,
+   1,
+   1,
+   1,
+   1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   1,
+   1,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   3,
+   3,
+   3,
+   3,
+   1,
+   1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   1,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   3,
+   3,
+   3,
+   3,
+   3,
+   3,
+   3,
+   1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   0,
+   0,
+   1,
+   1,
+   4,
+   4,
+   4,
+   4,
+   1,
+   1,
+   1,
+   7,
+   7,
+   7,
+   7,
+   1,
+   1,
+   1,
+   3,
+   3,
+   3,
+   3,
+   1,
+   1,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   0,
+   1,
+   1,
+   4,
+   4,
+   4,
+   1,
+   1,
+   7,
+   7,
+   7,
+   7,
+   7,
+   1,
+   1,
+   1,
+   7,
+   7,
+   1,
+   1,
+   3,
+   3,
+   3,
+   1,
+   1,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   0,
+   1,
+   4,
+   4,
+   4,
+   1,
+   7,
+   7,
+   7,
+   7,
+   7,
+   7,
+   7,
+   1,
+   8,
+   1,
+   7,
+   6,
+   6,
+   6,
+   1,
+   3,
+   3,
+   3,
+   1,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   1,
+   4,
+   4,
+   4,
+   1,
+   7,
+   7,
+   7,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   8,
+   1,
+   1,
+   6,
+   6,
+   6,
+   6,
+   1,
+   3,
+   3,
+   3,
+   1,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   1,
+   4,
+   4,
+   4,
+   1,
+   7,
+   7,
+   7,
+   1,
+   1,
+   8,
+   8,
+   8,
+   8,
+   8,
+   8,
+   8,
+   1,
+   1,
+   6,
+   6,
+   6,
+   6,
+   1,
+   3,
+   3,
+   3,
+   1,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   1,
+   4,
+   4,
+   1,
+   7,
+   7,
+   7,
+   1,
+   1,
+   8,
+   8,
+   8,
+   8,
+   8,
+   8,
+   8,
+   8,
+   8,
+   1,
+   1,
+   6,
+   6,
+   6,
+   6,
+   1,
+   3,
+   3,
+   1,
+   0,
+   0
+  ],
+  [
+   0,
+   1,
+   4,
+   4,
+   4,
+   1,
+   7,
+   7,
+   1,
+   1,
+   8,
+   8,
+   8,
+   8,
+   1,
+   1,
+   8,
+   8,
+   8,
+   8,
+   8,
+   1,
+   6,
+   6,
+   6,
+   5,
+   1,
+   3,
+   2,
+   2,
+   1,
+   0
+  ],
+  [
+   0,
+   1,
+   4,
+   4,
+   1,
+   7,
+   7,
+   1,
+   1,
+   8,
+   8,
+   8,
+   1,
+   1,
+   1,
+   1,
+   8,
+   8,
+   8,
+   8,
+   1,
+   1,
+   6,
+   6,
+   5,
+   5,
+   5,
+   1,
+   2,
+   2,
+   1,
+   0
+  ],
+  [
+   0,
+   1,
+   4,
+   4,
+   1,
+   7,
+   7,
+   1,
+   8,
+   8,
+   8,
+   1,
+   1,
+   7,
+   6,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   6,
+   6,
+   5,
+   5,
+   5,
+   5,
+   1,
+   2,
+   2,
+   1,
+   0
+  ],
+  [
+   0,
+   1,
+   4,
+   4,
+   1,
+   7,
+   7,
+   1,
+   8,
+   8,
+   8,
+   1,
+   7,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   5,
+   5,
+   5,
+   5,
+   5,
+   1,
+   2,
+   2,
+   1,
+   0
+  ],
+  [
+   1,
+   4,
+   4,
+   4,
+   7,
+   7,
+   7,
+   1,
+   8,
+   8,
+   1,
+   1,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   2,
+   2,
+   2,
+   1
+  ],
+  [
+   1,
+   4,
+   4,
+   4,
+   7,
+   7,
+   7,
+   1,
+   8,
+   8,
+   1,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   2,
+   2,
+   2,
+   1
+  ],
+  [
+   1,
+   4,
+   4,
+   4,
+   7,
+   7,
+   7,
+   1,
+   8,
+   8,
+   1,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   5,
+   5,
+   1,
+   1,
+   1,
+   1,
+   5,
+   5,
+   5,
+   2,
+   2,
+   2,
+   1
+  ],
+  [
+   1,
+   4,
+   4,
+   3,
+   7,
+   7,
+   7,
+   1,
+   8,
+   8,
+   1,
+   1,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   5,
+   5,
+   1,
+   1,
+   9,
+   9,
+   1,
+   5,
+   5,
+   5,
+   2,
+   2,
+   2,
+   1
+  ],
+  [
+   0,
+   1,
+   3,
+   3,
+   1,
+   7,
+   7,
+   1,
+   8,
+   8,
+   8,
+   1,
+   6,
+   6,
+   6,
+   6,
+   6,
+   5,
+   5,
+   5,
+   1,
+   9,
+   9,
+   9,
+   1,
+   5,
+   5,
+   1,
+   2,
+   2,
+   1,
+   0
+  ],
+  [
+   0,
+   1,
+   3,
+   3,
+   1,
+   7,
+   7,
+   1,
+   8,
+   8,
+   8,
+   1,
+   1,
+   6,
+   6,
+   6,
+   5,
+   5,
+   5,
+   1,
+   1,
+   9,
+   9,
+   9,
+   1,
+   5,
+   5,
+   1,
+   2,
+   2,
+   1,
+   0
+  ],
+  [
+   0,
+   1,
+   3,
+   3,
+   1,
+   7,
+   6,
+   1,
+   1,
+   8,
+   8,
+   9,
+   1,
+   1,
+   1,
+   5,
+   5,
+   1,
+   1,
+   1,
+   9,
+   9,
+   9,
+   1,
+   1,
+   5,
+   5,
+   1,
+   2,
+   2,
+   1,
+   0
+  ],
+  [
+   0,
+   1,
+   3,
+   3,
+   3,
+   1,
+   6,
+   6,
+   1,
+   1,
+   9,
+   9,
+   9,
+   9,
+   1,
+   1,
+   1,
+   1,
+   9,
+   9,
+   9,
+   9,
+   1,
+   1,
+   5,
+   5,
+   1,
+   2,
+   2,
+   2,
+   1,
+   0
+  ],
+  [
+   0,
+   0,
+   1,
+   3,
+   3,
+   1,
+   6,
+   6,
+   6,
+   1,
+   1,
+   9,
+   9,
+   9,
+   9,
+   9,
+   9,
+   9,
+   9,
+   9,
+   9,
+   1,
+   1,
+   5,
+   5,
+   5,
+   1,
+   2,
+   2,
+   1,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   1,
+   3,
+   3,
+   3,
+   1,
+   6,
+   6,
+   6,
+   1,
+   1,
+   9,
+   9,
+   9,
+   9,
+   9,
+   9,
+   9,
+   9,
+   1,
+   1,
+   5,
+   5,
+   5,
+   1,
+   2,
+   2,
+   2,
+   1,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   1,
+   3,
+   3,
+   3,
+   1,
+   6,
+   6,
+   6,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   5,
+   5,
+   5,
+   1,
+   2,
+   2,
+   2,
+   1,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   0,
+   1,
+   3,
+   3,
+   3,
+   1,
+   6,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   1,
+   2,
+   2,
+   2,
+   1,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   0,
+   1,
+   1,
+   3,
+   3,
+   3,
+   1,
+   1,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   1,
+   1,
+   2,
+   2,
+   2,
+   1,
+   1,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   0,
+   0,
+   1,
+   1,
+   3,
+   3,
+   3,
+   3,
+   1,
+   1,
+   1,
+   5,
+   5,
+   5,
+   5,
+   1,
+   1,
+   1,
+   2,
+   2,
+   2,
+   2,
+   1,
+   1,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   1,
+   3,
+   3,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   1,
+   1,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   1,
+   1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   1,
+   1,
+   1,
+   1,
+   2,
+   2,
+   2,
+   2,
+   1,
+   1,
+   1,
+   1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   1,
+   1,
+   1,
+   1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ ]
+}
+```
