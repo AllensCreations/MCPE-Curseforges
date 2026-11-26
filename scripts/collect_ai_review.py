@@ -133,7 +133,7 @@ def _fence(data):
 
 
 def build_kit(root, kit, out, label):
-    """Write <label>_tools.txt (map + skills) and, when the kit has files, <label>_files.zip. Returns names written."""
+    """Write <label>_tools.txt (and SKILL.md) and, when the kit has files, <label>_files.zip. Returns names written."""
     skills, missing = [], []
     for rel in KIT_SKILLS[kit]:
         p = root / rel
@@ -144,22 +144,26 @@ def build_kit(root, kit, out, label):
     files = [(rel, root / rel) for rel in KIT_FILES[kit] if (root / rel).is_file()]
     missing += [rel for rel in KIT_FILES[kit] if not (root / rel).is_file()]
     zip_name = f"{label}_files.zip"
-    parts = ["# Repo Map (directories only)\n",
+    parts = []
+    # Skills placed at the top for better agent comprehension
+    for rel, text in skills:
+        f = _fence(text)
+        parts += [f"## Skill: {rel}\n", f"{f}markdown", text.rstrip("\n"), f, ""]
+    parts += ["# Repo Map (directories only)\n",
              "No file contents are pasted here on purpose. Rules, docs and script source are read through Context7 `query-docs` "
-             "(see the `mcpe-context7` skill below). Do not ask for a full dump.\n"]
+             "(see the `mcpe-context7` skill above). Do not ask for a full dump.\n"]
     if files:
         parts.append(f"The complete, unchanged scripts this task has to RUN are in the same kit zip as this file, under `files/`: unzip and run them, never retype them.\n")
         parts += [f"- `files/{rel}`" for rel, _ in files] + [""]
     parts += ["Project version and release notes: see the pack's own `CHANGELOG.md`. The repo's files win over any cached Context7 index.\n"]
     parts += ["## Directories\n", directory_map(root), ""]
-    for rel, text in skills:
-        f = _fence(text)
-        parts += [f"## Skill: {rel}\n", f"{f}markdown", text.rstrip("\n"), f, ""]
     if missing:
         parts += ["## Not found", ""] + [f"- `{m}`" for m in missing] + [""]
     out.mkdir(parents=True, exist_ok=True)
-    written = [f"{label}_tools.txt"]
-    (out / written[0]).write_text("\n".join(parts), encoding="utf-8")
+    txt_content = "\n".join(parts)
+    written = [f"{label}_tools.txt", "SKILL.md"]
+    (out / written[0]).write_text(txt_content, encoding="utf-8")
+    (out / written[1]).write_text(txt_content, encoding="utf-8")
     if files:
         with zipfile.ZipFile(out / zip_name, "w", zipfile.ZIP_DEFLATED) as z:
             for rel, p in files:
@@ -445,8 +449,9 @@ for doc_rel in ["INSTRUCTIONS.md", "PACK_GENERATOR_INSTRUCTIONS.md", "DOCS_RULES
 docs_section = "\n---\n\n## Policy Docs\n" + "".join(doc_blocks) if doc_blocks else ""
 
 content = ("# Repo Export\n\n## Index\n\n" + "\n".join(index) + "\n\n---\n\n"
-           + instructions.strip()
            + skills_section
+           + "\n---\n\n"
+           + instructions.strip()
            + docs_section + "\n\n---\n\n"
            + "## File Contents\n" + "".join(b for _, b in blocks))
 (out / name).write_text(content, encoding="utf-8")

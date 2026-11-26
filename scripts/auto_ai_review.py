@@ -105,7 +105,7 @@ def write_if_changed(path: Path, data: str) -> bool:
 
 
 def write_kit_zip(dest: Path, tools_txt: Path, map_name: str, files_zips) -> None:
-    """ONE zip per kit: the map text at the top plus the runnable scripts under files/. Deterministic bytes."""
+    """ONE zip per kit: the map/skill text at the top plus the runnable scripts under files/. Deterministic bytes."""
     def info(name):
         i = zipfile.ZipInfo(name, date_time=(2020, 1, 1, 0, 0, 0))
         i.compress_type = zipfile.ZIP_DEFLATED
@@ -113,6 +113,9 @@ def write_kit_zip(dest: Path, tools_txt: Path, map_name: str, files_zips) -> Non
         return i
     with zipfile.ZipFile(dest, "w", zipfile.ZIP_DEFLATED) as zf:
         zf.writestr(info(map_name), tools_txt.read_bytes(), compresslevel=9)
+        # Also include SKILL.md inside the root of the kit zip for AI tools looking for SKILL.md
+        if map_name != "SKILL.md":
+            zf.writestr(info("SKILL.md"), tools_txt.read_bytes(), compresslevel=9)
         for fz in files_zips:
             with zipfile.ZipFile(fz) as src:
                 for member in src.namelist():

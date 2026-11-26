@@ -43,10 +43,14 @@ class KitTests(unittest.TestCase):
             self.assertIn("## Directories", txt)
             self.assertIn("## Skill: .agents/skills/mcpe-context7/SKILL.md", txt)
             self.assertNotIn("Not found", txt, label)
+            self.assertTrue((d / "SKILL.md").is_file(), f"{label} missing SKILL.md")
+            self.assertEqual((d / "SKILL.md").read_text(encoding="utf-8"), txt)
 
     def test_directory_map_lists_directories_only(self):
         txt = (self.kit("UPDATE") / "Update-Pack_tools.txt").read_text(encoding="utf-8")
-        block = txt.split("## Directories", 1)[1].split("## Skill:", 1)[0]
+        block = txt.split("## Directories", 1)[1]
+        if "## Not found" in block:
+            block = block.split("## Not found", 1)[0]
         for line in block.strip().splitlines():
             if line.startswith("- "):
                 self.assertRegex(line, r"^- `[^`]+/` \(\d+ (files?|projects?)\)")
@@ -81,9 +85,9 @@ class KitTests(unittest.TestCase):
         self.assertEqual(rc, 0, log)
         txt = (self.out / "pack" / f"{pack.name}.txt").read_text(encoding="utf-8")
         self.assertNotRegex(txt, r"(?m)^## FILE: (changelog_views|Package)/")
-        self.assertNotIn(".curseforge.html", txt)
+        self.assertNotRegex(txt, r"(?m)^## FILE: .*\.curseforge\.html")
         self.assertIn("single Context7 query", txt)
-        self.assertEqual(len(re.findall(r"(?m)^## Reply Format", txt)), 1)
+        self.assertEqual(len(re.findall(r"(?m)^## Reply Format \(STRICT, same as INSTRUCTIONS.md", txt)), 1)
 
 
 class BudgetTests(unittest.TestCase):

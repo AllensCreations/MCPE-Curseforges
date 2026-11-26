@@ -47,42 +47,7 @@
 
 ---
 
-# AI Instructions & Review Notes
 
-Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
-Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
-Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
-
-## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v1 / NEXT UPDATE: v2).
-- Retain all UUIDs in manifests.
-- Update CHANGELOG.md with a new release entry at top under `---`.
-- Deliver changes as ONE self-contained update `.sh` (`<Pack>_v<Version>_<rand>.sh`) built with `make_update_script.py` (INSTRUCTIONS.md Reply Format).
-- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
-
-## Destination
-Repo-root-relative folders for this work:
-- MCPEDL/Maps/ALN-LegendaryPiglin
-- .sh paths start at repo root, stay inside these folders. New files go here too.
-- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
-
-## Rules
-1. NEVER invent features, versions, links, assets, test results.
-2. Output only what changed. Smallest edits. No unrelated rewrites.
-3. No notes or summaries unless asked.
-4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
-
-## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
-```
-[SYSTEM_CONFIG]
-Mode: Direct Execution
-Token_Efficiency: Maximum
-Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
-```
-Output ONLY these three sections in order:
-1. **File Needed:** repo-root-relative path of each file created/edited.
-2. **Changelog:** bullets, brief summary of changes.
-3. **Termux Script:** ONE fenced `bash` block holding the ready-to-run commands, and ONE generated self-contained `<Pack>_v<Version>_<rand>.sh` update script (built with `make_update_script.py`). The script contains the full UI, automatically pulls, applies edits safely, commits, and pushes.
 ---
 
 ## Skills
@@ -195,6 +160,44 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 4. **Save in AI memory**: Every finished output, applied change summary, and spec version must be retained in AI memory/scratch notes so context is preserved across turns without relying on session replay.
 ````
 
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v1 / NEXT UPDATE: v2).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE self-contained update `.sh` (`<Pack>_v<Version>_<rand>.sh`) built with `make_update_script.py` (INSTRUCTIONS.md Reply Format).
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Maps/ALN-LegendaryPiglin
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding the ready-to-run commands, and ONE generated self-contained `<Pack>_v<Version>_<rand>.sh` update script (built with `make_update_script.py`). The script contains the full UI, automatically pulls, applies edits safely, commits, and pushes.
 ---
 
 ## Policy Docs
@@ -3567,10 +3570,14 @@ Minecraft Bedrock add-on, ALN:LegendaryPiglin Bedrock mod, OneBlock map, Piglin 
 }
 ```
 
-## FILE: MCPEDL/Maps/ALN-LegendaryPiglin/README.md (19 lines, 1122 bytes)
+## FILE: MCPEDL/Maps/ALN-LegendaryPiglin/README.md (23 lines, 1363 bytes)
 
 ```
 # ALN-LegendaryPiglin
+
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-Not%20Published-lightgrey?style=flat-square&logo=curseforge)](https://www.curseforge.com/members/allenscreations/projects)
+<!-- CURSEFORGE-BADGE:END -->
 
 Download the current release of **ALN-LegendaryPiglin** for Minecraft Bedrock Edition.
 
