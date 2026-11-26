@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Smart Tool Hub (v1.0.1)",
+    "name": "Smart Tool Hub (v1.0.2)",
     "description": "Tool Hub item with a toggle menu for Passive Auto-Switch (offhand), Tree Capitator and Domino Ore Miner. by ALNStudios",
     "uuid": "f0d4552b-755e-4bac-a2db-403201a5d709",
     "version": [
       1,
       0,
-      1
+      2
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         0,
-        1
+        2
       ]
     },
     {
@@ -33,7 +33,7 @@
       "version": [
         1,
         0,
-        1
+        2
       ],
       "entry": "scripts/main.js"
     }
@@ -44,7 +44,7 @@
       "version": [
         1,
         0,
-        1
+        2
       ]
     },
     {
@@ -61,6 +61,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.1"
+    "version": "1.0.2"
   }
 }

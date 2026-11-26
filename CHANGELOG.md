@@ -4,6 +4,18 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v310] - 2026-11-26 - Crafting Recipe and Hub Settings
+
+**Spec**: spec_v310.txt | **Target**: MCPEDL/Addons/Smart-Tool-Hub | **Files edited**: 5
+
+### Added
+- **Crafting recipe**: The Tool Hub can be crafted with a diamond, 4 iron ingots and 4 redstone. The recipe is always unlocked.
+- **More Hub settings**: New toggles for keeping your current tool, skipping swords while mining, natural trees only, and requiring the Hub in the offhand for Tree Capitator and Domino Ore Miner. New sliders set the maximum blocks for each.
+- **Status message**: An action bar message shows when the Tool Hub enters or leaves the offhand.
+
+### Improved & Balanced
+- **Swap delay**: After a swap, the same tool type waits 5 ticks before it can swap again, so a block is not re-swapped while you break it.
+
 ## [v309] - 2026-11-26 - Per-Tick Auto Switch
 
 **Spec**: spec_v309.txt | **Target**: MCPEDL/Addons/Smart-Tool-Hub | **Files edited**: 4

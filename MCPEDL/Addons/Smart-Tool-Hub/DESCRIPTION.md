@@ -16,7 +16,7 @@ Smart Tool Hub combines Passive Auto-Switch Tools with Smart Tree Capitator and 
 ## Key Features
 
 ### Tool Hub Item
-- **What Happens**: Use the Tool Hub (`aln:tool_hub`) in your main hand to open a settings menu with three toggles.
+- **What Happens**: Use the Tool Hub (`aln:tool_hub`) in your main hand to open a settings menu with toggles and two sliders. Craft it with a diamond in the center, iron ingots in the corners and redstone on the sides.
 
 ### Offhand Slot
 - **What Happens**: The Tool Hub can be equipped in the offhand slot.
@@ -33,14 +33,26 @@ Smart Tool Hub combines Passive Auto-Switch Tools with Smart Tree Capitator and 
 ### Tool Protection
 - **What Happens**: Chain actions stop when the held tool is close to breaking, with a sound and an action bar warning.
 
+### Smarter Switching
+- **What Happens**: Turn on "Keep my current tool" to stop swaps when the tool in your hand already works. Turn on "Never switch to a sword while mining" to keep swords out of block breaking. After a swap, the same tool type waits 5 ticks before it can swap again.
+
+### Safer Tree Capitator
+- **What Happens**: "Natural trees only" skips stripped logs and wood blocks and needs at least 4 natural leaves near the top of the tree. You can also set the maximum number of blocks it breaks.
+
+### Offhand Requirement for Chain Mining
+- **What Happens**: Turn on "Capitator and Miner need Hub in offhand" so tree felling and ore mining only work while the Tool Hub is in your offhand.
+
+### Status Message
+- **What Happens**: An action bar message shows your Auto Switch, Tree and Ore status when the Tool Hub enters your offhand, and a pause notice when it leaves.
+
 ### Saved Settings
-- **What Happens**: Each player keeps their own toggles. All three start on.
+- **What Happens**: Each player keeps their own settings. Auto Switch, Tree Capitator, Domino Ore Miner and Natural trees only start on.
 
 ## How to Use
 
-1. Get the item with `/give @s aln:tool_hub`.
+1. Craft the Tool Hub at a crafting table (diamond in the center, iron ingots in the corners, redstone on the sides), or use `/give @s aln:tool_hub`.
 2. Hold the Tool Hub in your main hand and use it to open the menu.
-3. Turn each feature on or off and submit.
+3. Adjust the toggles and sliders, then submit.
 4. Move the Tool Hub to your offhand to use Auto Switch.
 5. Sneak while breaking a log with an axe, or an ore with a pickaxe, to use Tree Capitator or Domino Ore Miner.
 

@@ -1,13 +1,19 @@
 import { world, system, EquipmentSlot, ItemStack } from "@minecraft/server";
 import { ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
-const VERSION = "1.0.0";
+const VERSION = "1.0.2";
 const HUB_ITEM_ID = "aln:tool_hub";
 const SETTINGS_KEY = "aln_tool_hub_settings";
 const DEFAULT_SETTINGS = {
   autoSwitch: true,
+  keepCurrentTool: false,
+  ignoreSwordsMining: false,
   treeCapitator: true,
+  naturalTreesOnly: true,
   dominoMiner: true,
+  requireHubForMiners: false,
+  maxTreeBlocks: 128,
+  maxOreBlocks: 64,
 };
 
 const SWITCH = {
@@ -18,6 +24,9 @@ const SWITCH = {
   retryTicks: 2,
   combatCooldownTicks: 10,
   miningWindowTicks: 10,
+  swapCooldownTicks: 5,
+  statusCheckTicks: 10,
+  naturalMinLeaves: 4,
   webCheckInterval: 2,
   webInteractionWindow: 12,
   webCombatCooldown: 40,
@@ -58,7 +67,9 @@ function loadSettings(player) {
     const stored = typeof raw === "string" ? JSON.parse(raw) : null;
 
     for (const key of Object.keys(DEFAULT_SETTINGS)) {
-      if (typeof stored?.[key] === "boolean") result[key] = stored[key];
+      if (typeof stored?.[key] === typeof DEFAULT_SETTINGS[key]) {
+        result[key] = stored[key];
+      }
     }
   } catch {}
 
@@ -104,14 +115,28 @@ function statusText(enabled) {
   return enabled ? "§aON" : "§cOFF";
 }
 
+function hubStatusMessage(settings) {
+  return (
+    `§b[Tool Hub] §fAuto Switch ${statusText(settings.autoSwitch)}` +
+    ` §7| §fTree ${statusText(settings.treeCapitator)}` +
+    ` §7| §fOre ${statusText(settings.dominoMiner)}`
+  );
+}
+
 function openHubMenu(player, attempt = 0) {
   const current = getSettings(player);
 
   const form = new ModalFormData()
     .title("Tool Hub")
     .toggle("Auto Switch Tools (Hub must be in offhand)", current.autoSwitch)
+    .toggle("Keep my current tool if it already works", current.keepCurrentTool)
+    .toggle("Never switch to a sword while mining", current.ignoreSwordsMining)
     .toggle("Tree Capitator (sneak + axe)", current.treeCapitator)
-    .toggle("Domino Ore Miner (sneak + pickaxe)", current.dominoMiner);
+    .toggle("Natural trees only (skip stripped logs, few leaves)", current.naturalTreesOnly)
+    .toggle("Domino Ore Miner (sneak + pickaxe)", current.dominoMiner)
+    .toggle("Capitator and Miner need Hub in offhand", current.requireHubForMiners)
+    .slider("Tree Capitator max blocks", 16, 256, 16, current.maxTreeBlocks)
+    .slider("Domino Ore Miner max blocks", 8, 128, 8, current.maxOreBlocks);
 
   form
     .show(player)
@@ -133,16 +158,19 @@ function openHubMenu(player, attempt = 0) {
 
       const updated = {
         autoSwitch: Boolean(values[0]),
-        treeCapitator: Boolean(values[1]),
-        dominoMiner: Boolean(values[2]),
+        keepCurrentTool: Boolean(values[1]),
+        ignoreSwordsMining: Boolean(values[2]),
+        treeCapitator: Boolean(values[3]),
+        naturalTreesOnly: Boolean(values[4]),
+        dominoMiner: Boolean(values[5]),
+        requireHubForMiners: Boolean(values[6]),
+        maxTreeBlocks: Number(values[7]) || DEFAULT_SETTINGS.maxTreeBlocks,
+        maxOreBlocks: Number(values[8]) || DEFAULT_SETTINGS.maxOreBlocks,
       };
 
       saveSettings(player, updated);
 
-      let message =
-        `§b[Tool Hub] §fAuto Switch ${statusText(updated.autoSwitch)}` +
-        ` §7| §fTree ${statusText(updated.treeCapitator)}` +
-        ` §7| §fOre ${statusText(updated.dominoMiner)}`;
+      let message = hubStatusMessage(updated);
 
       if (updated.autoSwitch && !hasHubInOffhand(player)) {
         message += "\n§eMove the Tool Hub to your offhand to use Auto Switch.";
@@ -237,6 +265,8 @@ const recentCombat = new Map();
 const pendingSwaps = new Map();
 const webInteraction = new Map();
 const miningState = new Map();
+const lastSwap = new Map();
+const hubSeen = new Map();
 
 function normalizeId(id) {
   return (id ?? "").replace(/^minecraft:/, "").toLowerCase();
@@ -543,6 +573,18 @@ function switchSelectedSlotTool(player, category, blockTypeId = "") {
 
   if (!container) return false;
 
+  const settings = getSettings(player);
+  const now = system.currentTick;
+  const previous = lastSwap.get(player.id);
+
+  if (
+    previous &&
+    previous.category === category &&
+    now - previous.tick < SWITCH.swapCooldownTicks
+  ) {
+    return false;
+  }
+
   const targetSlot = player.selectedSlotIndex;
   const heldItem = container.getItem(targetSlot);
 
@@ -550,6 +592,10 @@ function switchSelectedSlotTool(player, category, blockTypeId = "") {
 
   const blockId = normalizeId(blockTypeId);
   const currentScore = scoreItem(heldItem, category, targetSlot, blockId);
+
+  if (settings.keepCurrentTool && currentScore !== -Infinity) {
+    return false;
+  }
 
   let bestSlot = -1;
   let bestScore = -Infinity;
@@ -560,6 +606,14 @@ function switchSelectedSlotTool(player, category, blockTypeId = "") {
     const item = container.getItem(slot);
 
     if (!item) continue;
+
+    if (
+      settings.ignoreSwordsMining &&
+      category !== ToolCategory.WEAPON &&
+      normalizeId(item.typeId).includes("sword")
+    ) {
+      continue;
+    }
 
     const score = scoreItem(item, category, slot, blockId);
 
@@ -582,6 +636,7 @@ function switchSelectedSlotTool(player, category, blockTypeId = "") {
 
   try {
     container.swapItems(bestSlot, targetSlot, container);
+    lastSwap.set(player.id, { tick: now, category });
     return true;
   } catch {
     return false;
@@ -806,10 +861,31 @@ world.afterEvents.entityHitEntity.subscribe((event) => {
   } catch {}
 });
 
+system.runInterval(() => {
+  for (const player of world.getAllPlayers()) {
+    try {
+      const has = hasHubInOffhand(player);
+      const previous = hubSeen.get(player.id);
+
+      hubSeen.set(player.id, has);
+
+      if (previous === has || (previous === undefined && !has)) continue;
+
+      player.onScreenDisplay.setActionBar(
+        has
+          ? hubStatusMessage(getSettings(player))
+          : "§7[Tool Hub] Removed from offhand. Auto Switch paused."
+      );
+    } catch {}
+  }
+}, SWITCH.statusCheckTicks);
+
 world.afterEvents.playerLeave.subscribe((event) => {
   recentCombat.delete(event.playerId);
   webInteraction.delete(event.playerId);
   miningState.delete(event.playerId);
+  lastSwap.delete(event.playerId);
+  hubSeen.delete(event.playerId);
   settingsCache.delete(event.playerId);
   clearPendingSwap(event.playerId);
 });
@@ -877,8 +953,13 @@ function getWoodSpecies(typeId) {
   return match ? match[1].toLowerCase() : null;
 }
 
-function isMatchingLog(blockId, targetSpecies) {
+function isNaturalLog(blockId) {
+  return !blockId.includes("stripped_") && !/(_wood|_hyphae)$/.test(blockId);
+}
+
+function isMatchingLog(blockId, targetSpecies, naturalOnly = false) {
   if (!isEligibleLog(blockId)) return false;
+  if (naturalOnly && !isNaturalLog(blockId)) return false;
   if (!MINER.MATCH_TREE_SPECIES || !targetSpecies) return true;
   const species = getWoodSpecies(blockId);
   return !species || species === targetSpecies;
@@ -1041,33 +1122,29 @@ function calculateFortuneDropCount(fortuneLevel, minBase = 1, maxBase = 1) {
   return Math.min(baseCount * multiplier, 64);
 }
 
-function isTreeCanopy(dimension, blocks) {
+function isTreeCanopy(dimension, blocks, minCount = 1) {
   if (!blocks || blocks.length === 0) return false;
   const candidates = [...blocks].sort((a, b) => b.y - a.y).slice(0, 8);
+  const found = new Set();
   for (const pos of candidates) {
     for (let dx = -2; dx <= 2; dx++) {
       for (let dz = -2; dz <= 2; dz++) {
         for (let dy = -1; dy <= 2; dy++) {
           try {
-            const b = dimension.getBlock({
-              x: pos.x + dx,
-              y: pos.y + dy,
-              z: pos.z + dz,
-            });
+            const x = pos.x + dx;
+            const y = pos.y + dy;
+            const z = pos.z + dz;
+            const b = dimension.getBlock({ x, y, z });
             if (!b) continue;
 
             if (b.typeId.includes("wart_block") || b.typeId.includes("shroomlight")) {
-              return true;
+              found.add(`${x},${y},${z}`);
+            } else if (b.typeId.includes("leaves")) {
+              const isPersistent = b.permutation?.getState("persistent_bit");
+              if (isPersistent !== true) found.add(`${x},${y},${z}`);
             }
 
-            if (b.typeId.includes("leaves")) {
-              const permutation = b.permutation;
-              const isPersistent = permutation?.getState("persistent_bit");
-              if (isPersistent === true) {
-                continue;
-              }
-              return true;
-            }
+            if (found.size >= minCount) return true;
           } catch (e) {}
         }
       }
@@ -1086,6 +1163,9 @@ function executeTreeCapitator(player, dimension, startLoc, startBlockId, onCompl
     return;
   }
 
+  const settings = getSettings(player);
+  const maxBlocks = settings.maxTreeBlocks;
+  const naturalOnly = settings.naturalTreesOnly;
   const targetSpecies = startBlockId ? getWoodSpecies(startBlockId) : null;
   const visited = new Set();
   visited.add(`${startLoc.x},${startLoc.y},${startLoc.z}`);
@@ -1093,7 +1173,7 @@ function executeTreeCapitator(player, dimension, startLoc, startBlockId, onCompl
   const blocksToBreak = [];
   const queue = [{ x: startLoc.x, y: startLoc.y, z: startLoc.z }];
 
-  while (queue.length > 0 && blocksToBreak.length < MINER.MAX_TREE_BLOCKS) {
+  while (queue.length > 0 && blocksToBreak.length < maxBlocks) {
     const cur = queue.shift();
 
     for (let dy = 0; dy <= 1; dy++) {
@@ -1114,17 +1194,17 @@ function executeTreeCapitator(player, dimension, startLoc, startBlockId, onCompl
 
           try {
             const block = dimension.getBlock({ x: nx, y: ny, z: nz });
-            if (block && isMatchingLog(block.typeId, targetSpecies)) {
+            if (block && isMatchingLog(block.typeId, targetSpecies, naturalOnly)) {
               const logPos = { x: nx, y: ny, z: nz };
               blocksToBreak.push(logPos);
               queue.push(logPos);
-              if (blocksToBreak.length >= MINER.MAX_TREE_BLOCKS) break;
+              if (blocksToBreak.length >= maxBlocks) break;
             }
           } catch (e) {}
         }
-        if (blocksToBreak.length >= MINER.MAX_TREE_BLOCKS) break;
+        if (blocksToBreak.length >= maxBlocks) break;
       }
-      if (blocksToBreak.length >= MINER.MAX_TREE_BLOCKS) break;
+      if (blocksToBreak.length >= maxBlocks) break;
     }
   }
 
@@ -1133,7 +1213,7 @@ function executeTreeCapitator(player, dimension, startLoc, startBlockId, onCompl
     return;
   }
 
-  if (!isTreeCanopy(dimension, blocksToBreak)) {
+  if (!isTreeCanopy(dimension, blocksToBreak, naturalOnly ? SWITCH.naturalMinLeaves : 1)) {
     if (onComplete) onComplete();
     return;
   }
@@ -1175,13 +1255,14 @@ function executeDominoOreMiner(player, dimension, startLoc, startBlockId, onComp
     return;
   }
 
+  const maxBlocks = getSettings(player).maxOreBlocks;
   const queue = [{ x: startLoc.x, y: startLoc.y, z: startLoc.z }];
   const visited = new Set();
   visited.add(`${startLoc.x},${startLoc.y},${startLoc.z}`);
 
   const cluster = [];
 
-  while (queue.length > 0 && cluster.length < MINER.MAX_ORE_CLUSTER_SIZE) {
+  while (queue.length > 0 && cluster.length < maxBlocks) {
     const current = queue.shift();
 
     for (const offset of NEIGHBOR_OFFSETS_26) {
@@ -1210,7 +1291,7 @@ function executeDominoOreMiner(player, dimension, startLoc, startBlockId, onComp
           });
           queue.push({ x: nx, y: ny, z: nz });
 
-          if (cluster.length >= MINER.MAX_ORE_CLUSTER_SIZE) break;
+          if (cluster.length >= maxBlocks) break;
         }
       } catch (err) {}
     }
@@ -1304,8 +1385,15 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
 
   const toolTypeId = tool.typeId;
   const settings = getSettings(player);
+  const minersAllowed = !settings.requireHubForMiners || hasHubInOffhand(player);
 
-  if (settings.treeCapitator && isAxe(toolTypeId) && isEligibleLog(brokenTypeId)) {
+  if (
+    minersAllowed &&
+    settings.treeCapitator &&
+    isAxe(toolTypeId) &&
+    isEligibleLog(brokenTypeId) &&
+    (!settings.naturalTreesOnly || isNaturalLog(brokenTypeId))
+  ) {
     activeOperations.add(player.id);
     try {
       executeTreeCapitator(player, dimension, startLoc, brokenTypeId, () => {
@@ -1317,7 +1405,7 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
     return;
   }
 
-  if (settings.dominoMiner && isPickaxe(toolTypeId) && getOreInfo(brokenTypeId)) {
+  if (minersAllowed && settings.dominoMiner && isPickaxe(toolTypeId) && getOreInfo(brokenTypeId)) {
     activeOperations.add(player.id);
     try {
       executeDominoOreMiner(player, dimension, startLoc, brokenTypeId, () => {
