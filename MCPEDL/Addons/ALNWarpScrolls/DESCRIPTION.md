@@ -16,7 +16,7 @@ Place a Beacon Gate wherever you want a destination and give it a name. Later, r
 ## Key Features
 
 ### Beacon Gate
-- **What Happens**: Place a Beacon Gate and a form asks for a waypoint name such as Home Base. The gate glows at light level 10 and is saved with its name and dimension.
+- **What Happens**: Place a Beacon Gate and a form asks for a waypoint name such as Home Base. The gate glows at light level 10 and is saved with its name and dimension. Its custom 3D model has a gold plinth, four obsidian pillars with amethyst tips, gold rails and a floating crystal.
 - **How It Works**: Craft it with 5 Obsidian, 1 Amethyst Shard, 2 Gold Ingots and 1 Glass in a crafting table.
 - **Good To Know**: Breaking a gate removes it from the destination list and drops the block. The world keeps up to 100 gates.
 

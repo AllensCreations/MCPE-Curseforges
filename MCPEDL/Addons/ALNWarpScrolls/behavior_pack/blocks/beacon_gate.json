@@ -8,7 +8,7 @@
       }
     },
     "components": {
-      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:geometry": {"identifier": "geometry.aln_beacon_gate"},
       "minecraft:material_instances": {
         "*": {
           "texture": "aln_beacon_gate",

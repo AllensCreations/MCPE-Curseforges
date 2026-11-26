@@ -4,6 +4,13 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v299] - 2026-11-26 - Beacon Gate Model
+
+**Spec**: spec_v299.txt | **Target**: MCPEDL/Addons/ALNWarpScrolls | **Files edited**: 4
+
+### Added
+- **Beacon Gate model**: The block now has a custom 3D model with a gold plinth, four obsidian pillars topped with gold and amethyst, gold rails and a floating crystal.
+
 ## [v298] - 2026-11-26 - Channel Cancel and Full Blackout
 
 **Spec**: spec_v298.txt | **Target**: MCPEDL/Addons/ALNWarpScrolls | **Files edited**: 6

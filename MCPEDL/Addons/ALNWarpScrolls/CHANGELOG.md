@@ -2,6 +2,11 @@
 
 ---
 
+## [v5] - 2026-11-26 - Beacon Gate Model
+
+### Added
+- **Beacon Gate model**: The block now has a custom 3D model with a gold plinth, four obsidian pillars topped with gold and amethyst, gold rails and a floating crystal.
+
 ## [v4] - 2026-11-26 - Channel Cancel and Full Blackout
 
 ### Added
