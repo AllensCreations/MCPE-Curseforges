@@ -1,8 +1,8 @@
 {
-  "changelog_version": "3.0.0",
-  "manifest_version": "3.0.0",
+  "changelog_version": "3.0.1",
+  "manifest_version": "3.0.1",
   "packages": {
-    "ALNSoulLantern V3.mcaddon": "7b08b6f9eade098cc204482e1a29416f647dec743f34b7a66e9f6aa3cb3797aa"
+    "ALNSoulLantern V3.0.1.mcaddon": "9fe3ed242525378b33285b7e4eb3eac0d186433c75e9a2f901914ed6a957d3c8"
   },
-  "source_sha256": "587bd88df86b721e493da82616e9dce18fb12aa8ea8ee11b8bc6bae52321e214"
+  "source_sha256": "7555e8edc0bb4c4bef6a7ddc0a182d8781440203820a5ad6c423789f18a82879"
 }

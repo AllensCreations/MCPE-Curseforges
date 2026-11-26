@@ -1,16 +1,26 @@
 # Changelog — ALN SoulLantern
 
-## [3.0.0] - 2026-11-25 - Soul Lantern Expansion
-
-### Added
-- **More mobs**: Ten more mobs get their own lantern icon and spirit figure: Cat, Horse, Bee, Axolotl, Fox, Witch, Slime, Ghast, Rabbit, and Polar Bear.
-
-### Improved & Balanced
-- **Lantern icons**: Every lantern icon is now 32x32.
+## [3.0.1] - 2026-11-26 - Ally Combat Fix
 
 ### Fixed
+- **Spectral Ally**: The spirit now seeks out and attacks nearby monsters itself instead of relying on its AI, which did not attack.
+
+<details>
+<summary><b>3.0.x</b> (1 release)</summary>
+
+### [3.0.0] - 2026-11-25 - Soul Lantern Expansion
+
+#### Added
+- **More mobs**: Ten more mobs get their own lantern icon and spirit figure: Cat, Horse, Bee, Axolotl, Fox, Witch, Slime, Ghast, Rabbit, and Polar Bear.
+
+#### Improved & Balanced
+- **Lantern icons**: Every lantern icon is now 32x32.
+
+#### Fixed
 - **Spectral Ally**: The spirit no longer turns on you if you hit it.
 - **Release**: The lantern now checks that the mob appeared before it empties, and a lantern whose soul is gone is emptied instead of staying stuck.
+
+</details>
 
 <details>
 <summary><b>2.0.x</b> (3 releases)</summary>
