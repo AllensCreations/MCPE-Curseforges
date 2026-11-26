@@ -8,7 +8,7 @@ This folder contains compiled release packages for **OP Sponge** by ALNStudios.
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`OPSponge V7.mcaddon`** | `.mcaddon` | ~55 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OP-Sponge/OPSponge%20V7.mcaddon) |
+| **`OPSponge V8.mcaddon`** | `.mcaddon` | ~55 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OP-Sponge/OPSponge%20V8.mcaddon) |
 
 ---
 

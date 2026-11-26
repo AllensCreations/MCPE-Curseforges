@@ -1,12 +1,22 @@
 # Changelog — OP Sponge
 
-## [v7] - 2026-11-26 - Power Levels And Water Recheck
-
-### Added
-- **Power Levels**: Three subpacks for the OP Sponge. Normal OP absorbs up to 256 water blocks, Extremely OP up to 1,024, and Unlimited OP has no block limit. Unlimited OP is the default. Choose one in the pack settings.
+## [v8] - 2026-11-26 - Letter S Flicker Fix
 
 ### Fixed
+- **Letter S**: The S layer now sits a little further off the sponge surface, so it no longer flickers.
+
+<details>
+<summary><b>7.0.x</b> (1 release)</summary>
+
+### [v7] - 2026-11-26 - Power Levels And Water Recheck
+
+#### Added
+- **Power Levels**: Three subpacks for the OP Sponge. Normal OP absorbs up to 256 water blocks, Extremely OP up to 1,024, and Unlimited OP has no block limit. Unlimited OP is the default. Choose one in the pack settings.
+
+#### Fixed
 - **Sponges**: After draining, every sponge now re-checks the cleared cells up to 3 times and removes water that flowed back in.
+
+</details>
 
 <details>
 <summary><b>6.0.x</b> (1 release)</summary>
