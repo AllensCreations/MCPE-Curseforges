@@ -4,6 +4,11 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## 2026-11-26 - New Addon Smart Tool Hub
+
+### Added
+- **Smart Tool Hub**: New addon project created from a pack script.
+
 ## [v308] - 2026-11-26 - Cooldown Bedrock and Market Search
 
 **Spec**: spec_v308.txt | **Target**: MCPEDL/Maps/OneBlock-Natural-Market | **Files edited**: 33
