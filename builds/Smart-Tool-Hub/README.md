@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Smart Tool Hub** by ALNStud
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`SmartToolHub V1.mcaddon`** | `.mcaddon` | ~14 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Smart-Tool-Hub/SmartToolHub%20V1.mcaddon) |
+| **`SmartToolHub V1.0.1.mcaddon`** | `.mcaddon` | ~15 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Smart-Tool-Hub/SmartToolHub%20V1.0.1.mcaddon) |
 
 ---
 

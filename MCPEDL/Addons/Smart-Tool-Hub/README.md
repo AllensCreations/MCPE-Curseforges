@@ -9,7 +9,7 @@ Download the current release of **Smart Tool Hub** for Minecraft Bedrock Edition
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Smart Tool Hub (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Smart-Tool-Hub/SmartToolHub%20V1.mcaddon)
+- **Direct download:** [Download Smart Tool Hub (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Smart-Tool-Hub/SmartToolHub%20V1.0.1.mcaddon)
 
 ## Installation
 

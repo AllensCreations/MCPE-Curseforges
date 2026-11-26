@@ -1,0 +1,8 @@
+{
+  "changelog_version": "1.0.1",
+  "manifest_version": "1.0.1",
+  "packages": {
+    "SmartToolHub V1.0.1.mcaddon": "d3f07c9660cbfe1370e78d237d4a7ee2519eeea7c88d7bdd759796863fd2bd5f"
+  },
+  "source_sha256": "2f221b3ad32918373bc4aa8b73108f891a4d37ccb24b06f918366583feb9b0eb"
+}
