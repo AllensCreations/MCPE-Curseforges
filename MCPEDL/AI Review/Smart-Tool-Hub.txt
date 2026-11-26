@@ -7,7 +7,7 @@
 - **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/Smart-Tool-Hub/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 12
-- **Skipped binary:** 10
+- **Skipped binary:** 12
 - **Paths not found:** 0
 
 ### Files in this export
@@ -25,7 +25,7 @@
 - `MCPEDL/Addons/Smart-Tool-Hub/resource_pack/textures/item_texture.json`
 - `MCPEDL/Addons/Smart-Tool-Hub/texture_sources/aln_tool_hub.json`
 
-### Skipped (binary): 10 file(s)
+### Skipped (binary): 12 file(s)
 
 - `MCPEDL/Addons/Smart-Tool-Hub/assets/banner.png`
 - `MCPEDL/Addons/Smart-Tool-Hub/assets/items/aln_tool_hub.png`
@@ -34,6 +34,8 @@
 - `MCPEDL/Addons/Smart-Tool-Hub/assets/items/tool_hub_label.png`
 - `MCPEDL/Addons/Smart-Tool-Hub/assets/recipes/tool_hub_recipe.png`
 - `MCPEDL/Addons/Smart-Tool-Hub/assets/recipes/tool_hub_recipe_label.png`
+- `MCPEDL/Addons/Smart-Tool-Hub/assets/snapshots/lv_0_20261126150214.gif`
+- `MCPEDL/Addons/Smart-Tool-Hub/assets/snapshots/lv_0_20261126150340.gif`
 - `MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/pack_icon.png`
 - `MCPEDL/Addons/Smart-Tool-Hub/resource_pack/pack_icon.png`
 - `MCPEDL/Addons/Smart-Tool-Hub/resource_pack/textures/items/aln_tool_hub.png`
