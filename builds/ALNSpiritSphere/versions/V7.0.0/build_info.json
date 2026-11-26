@@ -2,7 +2,7 @@
   "changelog_version": "7.0.0",
   "manifest_version": "7.0.0",
   "packages": {
-    "ALNSpiritSphere V7.mcaddon": "a22abd562ff4a8e1b3b7f443ee7ff3bc93dbba8110cbc5fa767d15c1c7b0ccd9"
+    "ALNSpiritSphere V7.mcaddon": "282887d620f01aff78e2913076c7dd5834133e82616542caab587731c11b4adb"
   },
-  "source_sha256": "68639b5bbb7a99b4eb6966449c0621730440101635815b20db79fdad93ab1258"
+  "source_sha256": "c9cbd602c0b07cfca3579420af20b3440e94e902dcd0f625d39ba26d5213b478"
 }
