@@ -78,6 +78,13 @@ class PackScriptTests(unittest.TestCase):
         code, _ = run(self.root, "scripts/make_pack_script.py", "build/Sample-Addon", "--rand", "AB")
         self.assertNotEqual(code, 0)
 
+    def test_mcstructure_allowed(self):
+        st_file = self.root / "build/Sample-Addon/behavior_pack/structures/sample.mcstructure"
+        st_file.parent.mkdir(parents=True, exist_ok=True)
+        st_file.write_bytes(b"\x00\x01\x02\x03\x04")
+        sh = self.build()
+        self.assertTrue(sh.is_file())
+
 
 if __name__ == "__main__":
     unittest.main()
