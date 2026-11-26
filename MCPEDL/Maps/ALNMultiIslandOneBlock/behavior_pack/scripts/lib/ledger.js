@@ -21,6 +21,7 @@ import { priceInfo, recommendedTotal, serverPayout } from "./prices.js";
 import { findPlayer, wait, niceName, plainInventory } from "./util.js";
 import { promptWelcome } from "./welcome.js";
 import { goHome } from "./claim.js";
+import { openSocial } from "./social.js";
 
 const HUB_TITLE = "§6§lGlobal Trade Hub";
 
@@ -78,10 +79,11 @@ async function screenMain(player) {
     .button("My Island")
     .button("Top Islands")
     .button("Go Home")
+    .button("Friends & Co-op")
     .button("Close");
   const res = await show(form, player);
   if (!res || res.canceled) return undefined;
-  const next = ["browse", "create", "sell", "mine", "collect", "island", "top", "home"][res.selection];
+  const next = ["browse", "create", "sell", "mine", "collect", "island", "top", "home", "social"][res.selection];
   return next ? { name: next, page: 0, filter: "" } : undefined;
 }
 
@@ -285,9 +287,14 @@ async function screenTop(player) {
     .slice(0, TOP_ISLANDS_LIMIT)
     .map((e, i) => `§e${i + 1}. §f${e.name} §8| §7Island #${e.slot} §8| ${phaseLabel(phaseIndexFor(e.total))} §8| §7${e.total} breaks`);
   lines.push("", `§fYour rank: §e#${rank} §7of ${entries.length}`);
-  const form = new ActionFormData().title("§6§lTop Islands").body(lines.join("\n")).button("Back");
+  const form = new ActionFormData()
+    .title("§6§lTop Islands")
+    .body(lines.join("\n"))
+    .button("Visit an Island")
+    .button("Back");
   const res = await show(form, player);
   if (!res || res.canceled) return undefined;
+  if (res.selection === 0) return { name: "visit", page: 0, filter: "" };
   return { name: "main", page: 0, filter: "" };
 }
 
@@ -336,6 +343,12 @@ export async function openLedger(player) {
         break;
       case "home":
         state = screenHome(p);
+        break;
+      case "social":
+        state = await openSocial(p);
+        break;
+      case "visit":
+        state = await openSocial(p, "visit");
         break;
       default:
         state = undefined;

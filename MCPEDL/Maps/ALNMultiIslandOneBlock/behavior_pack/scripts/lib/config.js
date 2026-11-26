@@ -21,6 +21,13 @@ export const PROP = {
   LEDGER_OWED: "aln:ledger_owed",
   COIN_PREFIX: "aln:coins_",
   EARNED_PREFIX: "aln:earned_",
+  COOP_PREFIX: "aln:coop_",
+  TRUST_PREFIX: "aln:trust_",
+  INVITE_PREFIX: "aln:coopinv_",
+  REQ_IDS: "aln:req_ids",
+  REQ_SEQ: "aln:req_seq",
+  REQ_PREFIX: "aln:req_",
+  DAILY_PREFIX: "aln:daily_",
 };
 
 export const BONUS_CHANCE = 0.05;
@@ -43,6 +50,16 @@ export const PHASE_REWARD = 25;
 export const HOME_COOLDOWN_TICKS = 1200;
 export const OFFER_LIFETIME_TICKS = 12096000;
 export const TOP_ISLANDS_LIMIT = 10;
+export const PROTECT_RADIUS = 96;
+export const TRUST_LIMIT = 8;
+export const COOP_MAX_MEMBERS = 3;
+export const MAX_REQUESTS_PER_PLAYER = 4;
+export const MAX_REQUESTS_TOTAL = 100;
+export const REQUEST_LIST_LIMIT = 12;
+export const VISIT_COOLDOWN_TICKS = 600;
+export const TRADE_BONUS = 10;
+export const TRADE_BONUS_TRAIT = 15;
+export const DAY_TICKS = 1728000;
 export const BOARD_ID = "aln_coins";
 export const BOARD_TITLE = "§6§l@ALNStudios";
 export const BOARD_TICKS = 40;
@@ -74,6 +91,11 @@ export const RULES_BODY = [
   `§7- Offers that do not sell return to you after ${Math.round(OFFER_LIFETIME_TICKS / 1728000)} days.`,
   `§7- A ${Math.round(MARKET_FEE_RATIO * 100)}% fee is taken from the seller when an offer sells.`,
   "§7- The TRADERS Item is permanent. If you throw it away it returns to you, and if your inventory is full it returns as soon as a slot is free.",
+  "",
+  "§eFriends & Protection",
+  "§7- Only you, your co-op members and players you trust can build, break or use blocks on your island.",
+  "§7- Friends & Co-op in the TRADERS Item menu lets you visit islands with approval, trust players, invite co-op members, send gifts and post buy requests.",
+  "§7- Your first sale to another player each day earns a bonus, and it is bigger when the buyer's island has a different trait.",
   "",
   "§eALN Coins",
   `§7- Trading uses ${COIN_NAME}. Every player starts with ${STARTER_COINS} ${COIN_NAME} and earns more by selling items.`,

@@ -2,6 +2,17 @@
 
 ---
 
+## [v12] - 2026-11-26 - Island Protection and Co-op
+
+### Added
+- **Island Protection**: Only the owner, co-op members and trusted players can build, break or use blocks on an island.
+- **Visit Requests**: Players can ask an online island owner for a visit from Friends & Co-op or the Top Islands page. Owners accept or decline.
+- **Trusted Players**: Island owners can trust up to eight players to build on their island.
+- **Co-op Islands**: Up to four players can share one island and one phase. Invited players join from the startup window, keep their own coins and split phase rewards.
+- **Gifts**: Players can send ALN Coins or items to any island player, online or offline.
+- **Buy Requests**: Players can post requests with a price, hold their coins until another player fills it, and get a refund if it expires or is cancelled.
+- **Daily Trade Bonus**: The first sale to another player each day earns bonus ALN Coins, with a larger bonus when the buyer's island has a different trait.
+
 ## [v11] - 2026-11-25 - Go Home, Top Islands and Offer Expiry
 
 ### Added

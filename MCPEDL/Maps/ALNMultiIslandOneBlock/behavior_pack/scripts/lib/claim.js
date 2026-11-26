@@ -1,6 +1,6 @@
 import { world } from "@minecraft/server";
-import { LEDGER_ID, SPAWN_Y, STARTER_LEDGER } from "./config.js";
-import { randomFreeSlot, assignSlot, slotCoords, slotOf, recordOf } from "./slots.js";
+import { LEDGER_ID, SPAWN_Y, STARTER_LEDGER, PROP } from "./config.js";
+import { randomFreeSlot, assignSlot, slotCoords, slotOf, recordOf, addCoopMember, clearInvite } from "./slots.js";
 import { pickTrait, traitInfo, traitLabel } from "./traits.js";
 import { ensureIsland } from "./island.js";
 import { phaseLabel } from "./phases.js";
@@ -73,4 +73,20 @@ export function returnToIsland(player) {
   if (slot === undefined) return;
   const record = recordOf(slot);
   if (!record.built) ensureIsland(slot, record.trait, () => {});
+}
+
+export function joinCoopIsland(player, slot) {
+  const record = recordOf(slot);
+  clearInvite(player.id);
+  if (!record || !addCoopMember(slot, player)) {
+    player.sendMessage("§6[ALN] §cThat co-op island is full or no longer available.");
+    return false;
+  }
+  player.setDynamicProperty(PROP.SLOT, slot);
+  player.setDynamicProperty(PROP.TRAIT, record.trait);
+  player.setDynamicProperty(PROP.BREAKS, 0);
+  goHome(player, slot, record.built === true);
+  if (STARTER_LEDGER) giveItem(player, LEDGER_ID, 1);
+  player.sendMessage(`§6[ALN] §eYou joined ${record.name}'s island #${slot} as a co-op member.`);
+  return true;
 }

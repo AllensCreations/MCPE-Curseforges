@@ -17,6 +17,7 @@ Scripts for ALN:MultiIslandOneBlock. All helper files live in this folder and ar
 - lib/prices.js: recommended price and amount for each item, and what the market pays for it.
 - lib/board.js: the @ALNStudios sidebar scoreboard that ranks every island owner by ALN Coins.
 - lib/ledger.js: the Global Trade Hub forms opened by the TRADERS Item.
+- lib/social.js: island protection, trusted players, visit requests, co-op invites, gifts and buy requests.
 - lib/keeper.js: keeps the TRADERS Item permanent. A thrown copy returns to the player, and a copy owed to a player with a full inventory is delivered as soon as a slot is free.
 
 Script events: aln:menu opens the startup window for a player who has no island yet.

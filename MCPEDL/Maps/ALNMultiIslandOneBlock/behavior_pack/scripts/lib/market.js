@@ -12,6 +12,9 @@ import {
   LEDGER_ID,
   MARKET_FEE_RATIO,
   OFFER_LIFETIME_TICKS,
+  DAY_TICKS,
+  TRADE_BONUS,
+  TRADE_BONUS_TRAIT,
 } from "./config.js";
 import {
   readJson,
@@ -25,6 +28,7 @@ import {
   isCreative,
 } from "./util.js";
 import { priceInfo, recommendedTotal, serverPayout } from "./prices.js";
+import { recordOfPlayerId } from "./slots.js";
 
 const listingKey = (id) => PROP.LISTING_PREFIX + id;
 const payoutKey = (playerId) => PROP.PAYOUT_PREFIX + playerId;
@@ -41,7 +45,7 @@ export function addCoins(playerId, amount) {
 
 const earnedKey = (playerId) => PROP.EARNED_PREFIX + playerId;
 
-function addEarned(playerId, amount) {
+export function addEarned(playerId, amount) {
   const current = world.getDynamicProperty(earnedKey(playerId));
   world.setDynamicProperty(earnedKey(playerId), (typeof current === "number" ? current : 0) + amount);
 }
@@ -61,7 +65,7 @@ function writeIds(list) {
   writeJson(world, PROP.LISTING_IDS, list);
 }
 
-function addPayout(playerId, itemId, amount) {
+export function addPayout(playerId, itemId, amount) {
   const owed = readJson(world, payoutKey(playerId), {});
   owed[itemId] = (owed[itemId] ?? 0) + amount;
   writeJson(world, payoutKey(playerId), owed);
@@ -196,6 +200,23 @@ export function collectPayout(player) {
   return total;
 }
 
+export function awardTradeBonus(sellerId, buyerId) {
+  const buyer = findPlayer(buyerId);
+  if (buyer && isCreative(buyer)) return 0;
+  const today = Math.floor(world.getAbsoluteTime() / DAY_TICKS);
+  const key = PROP.DAILY_PREFIX + sellerId;
+  if (world.getDynamicProperty(key) === today) return 0;
+  world.setDynamicProperty(key, today);
+  const sellerTraitId = recordOfPlayerId(sellerId)?.record.trait;
+  const buyerTraitId = recordOfPlayerId(buyerId)?.record.trait;
+  const bonus = TRADE_BONUS + (sellerTraitId && buyerTraitId && sellerTraitId !== buyerTraitId ? TRADE_BONUS_TRAIT : 0);
+  addCoins(sellerId, bonus);
+  const seller = findPlayer(sellerId);
+  if (seller) seller.sendMessage(`§6[ALN] §aDaily trade bonus: +${bonus} ${COIN_NAME}.`);
+  else addEarned(sellerId, bonus);
+  return bonus;
+}
+
 export function buyListing(buyer, id) {
   const listing = getListing(id);
   if (!listing) return fail("That offer is no longer available.");
@@ -209,6 +230,7 @@ export function buyListing(buyer, id) {
   addCoins(buyer.id, -listing.price);
   addCoins(listing.seller, net);
   giveItem(buyer, listing.give.id, listing.give.amount);
+  awardTradeBonus(listing.seller, buyer.id);
   const seller = findPlayer(listing.seller);
   if (seller) {
     seller.sendMessage(`§6[ALN] §a${buyer.name} bought your offer. You received ${net} ${COIN_NAME} after the market fee.`);
