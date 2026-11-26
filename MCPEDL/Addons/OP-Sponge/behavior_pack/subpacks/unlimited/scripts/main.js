@@ -3,14 +3,10 @@ import { system, world } from "@minecraft/server";
 const WATER = new Set(["minecraft:water", "minecraft:flowing_water"]);
 const BASE_CAPACITY = 256;
 const BASE_RANGE = 16;
-const LEVEL_RANGE = 2;
-const EXTREME_CAPACITY = 100000;
-const EXTREME_RANGE = 2048;
 const BATCH = 200;
 const BOUND_XZ = 4096;
 const BOUND_Y = 512;
 const SWEEPS = 3;
-const SPARKLES = 16;
 const NEIGHBORS = [
   { x: 1, y: 0, z: 0 },
   { x: -1, y: 0, z: 0 },
@@ -22,20 +18,15 @@ const NEIGHBORS = [
 
 const SPONGES = new Map();
 
-function register(name, capacity, range, sparkle) {
+function register(name, capacity, range) {
   SPONGES.set(`allenscreations:${name}`, {
     filled: `allenscreations:${name}_wet`,
     capacity,
     range,
-    sparkle,
   });
 }
 
-register("op_sponge", Infinity, Infinity, false);
-for (let level = 1; level <= 10; level++) {
-  register(`super_sponge_${level}`, BASE_CAPACITY * (level + 1), BASE_RANGE + level * LEVEL_RANGE, true);
-}
-register("extreme_sponge_1", EXTREME_CAPACITY, EXTREME_RANGE, true);
+register("op_sponge", Infinity, Infinity);
 
 function keyOf(origin, location) {
   const dx = location.x - origin.x + BOUND_XZ;
@@ -60,20 +51,6 @@ function readBlock(dimension, location) {
     return dimension.getBlock(location);
   } catch (error) {
     return undefined;
-  }
-}
-
-function sparkle(dimension, origin) {
-  for (let i = 0; i < SPARKLES; i++) {
-    try {
-      dimension.spawnParticle("minecraft:villager_happy", {
-        x: origin.x + Math.random(),
-        y: origin.y + Math.random(),
-        z: origin.z + Math.random(),
-      });
-    } catch (error) {
-      return;
-    }
   }
 }
 
@@ -151,9 +128,6 @@ function* absorb(dimension, origin, spongeId, sponge) {
     return;
   }
   after.setType(sponge.filled);
-  if (sponge.sparkle) {
-    sparkle(dimension, origin);
-  }
 }
 
 world.afterEvents.playerPlaceBlock.subscribe((event) => {

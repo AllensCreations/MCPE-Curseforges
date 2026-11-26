@@ -7,10 +7,10 @@ Extracted from the script files; nothing here was run in game.
 
 | File | Lines | Purpose |
 | :-- | --: | :-- |
-| `scripts/main.js` | 167 | (no header comment) |
-| `subpacks/normal/scripts/main.js` | 167 | Same as `main.js`, OP Sponge capped at 256 blocks and 16 reach |
-| `subpacks/extreme/scripts/main.js` | 167 | Same as `main.js`, OP Sponge capped at 1024 blocks and 32 reach |
-| `subpacks/unlimited/scripts/main.js` | 167 | Same as `main.js`, OP Sponge with no cap |
+| `scripts/main.js` | 141 | (no header comment) |
+| `subpacks/normal/scripts/main.js` | 141 | Same as `main.js`, OP Sponge capped at 256 blocks and 16 reach |
+| `subpacks/extreme/scripts/main.js` | 141 | Same as `main.js`, OP Sponge capped at 1024 blocks and 32 reach |
+| `subpacks/unlimited/scripts/main.js` | 141 | Same as `main.js`, OP Sponge with no cap |
 
 ## Imports
 
@@ -36,3 +36,4 @@ Extracted from the script files; nothing here was run in game.
 - Cells outside 4095 blocks sideways or 511 up and down are never reached. Unloaded chunks are never reached.
 - Waterlogged blocks are drained with `Block.setWaterlogged(false)`; errors from it are caught and skipped.
 - Nothing here was run in game. Whether the game loads `scripts/main.js` from a behavior pack subpack is not verified.
+- Only the OP Sponge exists. The Super Sponges, the Extreme Sponge, the sponge books and the chest loot overrides were removed in v9.

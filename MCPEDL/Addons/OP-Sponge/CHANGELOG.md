@@ -2,6 +2,17 @@
 
 ---
 
+## [v9] - 2026-11-26 - Sponges Simplified
+
+### Removed
+
+- **Sponge books**: Super Sponge I to X Book and Extreme Sponge I Book, with their crafting recipes and the chest loot changes. Chests use the game's normal loot again.
+- **Super Sponges and Extreme Sponge**: all ten Super Sponges, the Extreme Sponge, their Water-Filled versions, recipes, names and icons.
+
+### Changed
+
+- **OP Sponge**: It is now the only sponge. Choose Normal, Extremely or Unlimited power with the pack subpacks.
+
 ## [v8] - 2026-11-26 - Letter S Flicker Fix
 
 ### Fixed

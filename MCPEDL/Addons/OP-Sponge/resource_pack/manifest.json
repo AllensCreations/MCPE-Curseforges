@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "OP Sponge (v8)",
+    "name": "OP Sponge (v9)",
     "description": "Textures for the add-on. by ALNStudios",
     "uuid": "67a33773-ea19-4d9c-a50c-0de79e1cf7aa",
     "version": [
-      8,
+      9,
       0,
       0
     ],
@@ -20,7 +20,7 @@
       "type": "resources",
       "uuid": "f8d35b1f-a27a-457d-a97c-2d29d3b0c5a8",
       "version": [
-        8,
+        9,
         0,
         0
       ]
@@ -31,6 +31,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "8.0.0"
+    "version": "9.0.0"
   }
 }
