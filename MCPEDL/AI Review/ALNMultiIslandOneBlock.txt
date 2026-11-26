@@ -4,9 +4,9 @@
 
 - **Export request:** `MCPEDL/Maps/ALNMultiIslandOneBlock`
 - **Destination:** `MCPEDL/Maps/ALNMultiIslandOneBlock`
-- **CURRENT VERSION: v11 / NEXT UPDATE: v12**  (`MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md`)
+- **CURRENT VERSION: v12 / NEXT UPDATE: v13**  (`MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
-- **Text files:** 34
+- **Text files:** 35
 - **Skipped binary:** 14
 - **Paths not found:** 0
 
@@ -27,11 +27,11 @@
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/lobby.js`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/market.js`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/oneblock.js`
-- `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/Oneblock_Progression.js`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/phases.js`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/prices.js`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/README.md`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/slots.js`
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/social.js`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/traits.js`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/util.js`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/welcome.js`
@@ -46,6 +46,10 @@
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/resource_pack/texts/languages.json`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/resource_pack/textures/item_texture.json`
 - `MCPEDL/Maps/ALNMultiIslandOneBlock/texture_sources/pirate_ledger.json`
+
+### Not inlined: 1 larger file(s), ask the user for the exact paths you need
+
+- `MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/Oneblock_Progression.js` (50865 bytes)
 
 ### Skipped (binary): 14 file(s)
 
@@ -73,7 +77,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v11 / NEXT UPDATE: v12).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v12 / NEXT UPDATE: v13).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE self-contained update `.sh` (`<Pack>_v<Version>_<rand>.sh`) built with `make_update_script.py` (INSTRUCTIONS.md Reply Format).
@@ -288,11 +292,11 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:MultiIslandOneBlock (v11)",
+    "name": "ALN:MultiIslandOneBlock (v12)",
     "description": "Multi-island OneBlock grid with a central lobby and a global trade ledger. by ALNStudios",
     "uuid": "0886e248-abae-466f-85fe-a01de46396cf",
     "version": [
-      11,
+      12,
       0,
       0
     ],
@@ -307,7 +311,7 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
       "type": "data",
       "uuid": "76888f9d-5edf-4308-b1ab-1c176dbe38e9",
       "version": [
-        11,
+        12,
         0,
         0
       ]
@@ -318,7 +322,7 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
       "uuid": "fd4c32c2-7e0a-4bfe-8633-e30171567364",
       "entry": "scripts/main.js",
       "version": [
-        11,
+        12,
         0,
         0
       ]
@@ -328,7 +332,7 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
     {
       "uuid": "2cf90b7d-4b0f-44d5-b726-41f3e756f95f",
       "version": [
-        11,
+        12,
         0,
         0
       ]
@@ -347,7 +351,7 @@ execute as @a[tag=!void_cleaned] if block 0 64 0 bedrock run tag @s add void_cle
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "11.0.0"
+    "version": "12.0.0"
   }
 }
 ```
@@ -394,12 +398,12 @@ export function startCoinBoard() {
 }
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/claim.js (77 lines, 2694 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/claim.js (93 lines, 3359 bytes)
 
 ```
 import { world } from "@minecraft/server";
-import { LEDGER_ID, SPAWN_Y, STARTER_LEDGER } from "./config.js";
-import { randomFreeSlot, assignSlot, slotCoords, slotOf, recordOf } from "./slots.js";
+import { LEDGER_ID, SPAWN_Y, STARTER_LEDGER, PROP } from "./config.js";
+import { randomFreeSlot, assignSlot, slotCoords, slotOf, recordOf, addCoopMember, clearInvite } from "./slots.js";
 import { pickTrait, traitInfo, traitLabel } from "./traits.js";
 import { ensureIsland } from "./island.js";
 import { phaseLabel } from "./phases.js";
@@ -473,9 +477,25 @@ export function returnToIsland(player) {
   const record = recordOf(slot);
   if (!record.built) ensureIsland(slot, record.trait, () => {});
 }
+
+export function joinCoopIsland(player, slot) {
+  const record = recordOf(slot);
+  clearInvite(player.id);
+  if (!record || !addCoopMember(slot, player)) {
+    player.sendMessage("§6[ALN] §cThat co-op island is full or no longer available.");
+    return false;
+  }
+  player.setDynamicProperty(PROP.SLOT, slot);
+  player.setDynamicProperty(PROP.TRAIT, record.trait);
+  player.setDynamicProperty(PROP.BREAKS, 0);
+  goHome(player, slot, record.built === true);
+  if (STARTER_LEDGER) giveItem(player, LEDGER_ID, 1);
+  player.sendMessage(`§6[ALN] §eYou joined ${record.name}'s island #${slot} as a co-op member.`);
+  return true;
+}
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/config.js (82 lines, 3608 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/config.js (104 lines, 4603 bytes)
 
 ```
 export const LOBBY = { x: 0, y: 65, z: 0 };
@@ -501,6 +521,13 @@ export const PROP = {
   LEDGER_OWED: "aln:ledger_owed",
   COIN_PREFIX: "aln:coins_",
   EARNED_PREFIX: "aln:earned_",
+  COOP_PREFIX: "aln:coop_",
+  TRUST_PREFIX: "aln:trust_",
+  INVITE_PREFIX: "aln:coopinv_",
+  REQ_IDS: "aln:req_ids",
+  REQ_SEQ: "aln:req_seq",
+  REQ_PREFIX: "aln:req_",
+  DAILY_PREFIX: "aln:daily_",
 };
 
 export const BONUS_CHANCE = 0.05;
@@ -523,6 +550,16 @@ export const PHASE_REWARD = 25;
 export const HOME_COOLDOWN_TICKS = 1200;
 export const OFFER_LIFETIME_TICKS = 12096000;
 export const TOP_ISLANDS_LIMIT = 10;
+export const PROTECT_RADIUS = 96;
+export const TRUST_LIMIT = 8;
+export const COOP_MAX_MEMBERS = 3;
+export const MAX_REQUESTS_PER_PLAYER = 4;
+export const MAX_REQUESTS_TOTAL = 100;
+export const REQUEST_LIST_LIMIT = 12;
+export const VISIT_COOLDOWN_TICKS = 600;
+export const TRADE_BONUS = 10;
+export const TRADE_BONUS_TRAIT = 15;
+export const DAY_TICKS = 1728000;
 export const BOARD_ID = "aln_coins";
 export const BOARD_TITLE = "§6§l@ALNStudios";
 export const BOARD_TICKS = 40;
@@ -554,6 +591,11 @@ export const RULES_BODY = [
   `§7- Offers that do not sell return to you after ${Math.round(OFFER_LIFETIME_TICKS / 1728000)} days.`,
   `§7- A ${Math.round(MARKET_FEE_RATIO * 100)}% fee is taken from the seller when an offer sells.`,
   "§7- The TRADERS Item is permanent. If you throw it away it returns to you, and if your inventory is full it returns as soon as a slot is free.",
+  "",
+  "§eFriends & Protection",
+  "§7- Only you, your co-op members and players you trust can build, break or use blocks on your island.",
+  "§7- Friends & Co-op in the TRADERS Item menu lets you visit islands with approval, trust players, invite co-op members, send gifts and post buy requests.",
+  "§7- Your first sale to another player each day earns a bonus, and it is bigger when the buyer's island has a different trait.",
   "",
   "§eALN Coins",
   `§7- Trading uses ${COIN_NAME}. Every player starts with ${STARTER_COINS} ${COIN_NAME} and earns more by selling items.`,
@@ -786,7 +828,7 @@ export function startLedgerKeeper() {
 }
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/ledger.js (345 lines, 13866 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/ledger.js (358 lines, 14223 bytes)
 
 ```
 import { world } from "@minecraft/server";
@@ -812,6 +854,7 @@ import { priceInfo, recommendedTotal, serverPayout } from "./prices.js";
 import { findPlayer, wait, niceName, plainInventory } from "./util.js";
 import { promptWelcome } from "./welcome.js";
 import { goHome } from "./claim.js";
+import { openSocial } from "./social.js";
 
 const HUB_TITLE = "§6§lGlobal Trade Hub";
 
@@ -869,10 +912,11 @@ async function screenMain(player) {
     .button("My Island")
     .button("Top Islands")
     .button("Go Home")
+    .button("Friends & Co-op")
     .button("Close");
   const res = await show(form, player);
   if (!res || res.canceled) return undefined;
-  const next = ["browse", "create", "sell", "mine", "collect", "island", "top", "home"][res.selection];
+  const next = ["browse", "create", "sell", "mine", "collect", "island", "top", "home", "social"][res.selection];
   return next ? { name: next, page: 0, filter: "" } : undefined;
 }
 
@@ -1076,9 +1120,14 @@ async function screenTop(player) {
     .slice(0, TOP_ISLANDS_LIMIT)
     .map((e, i) => `§e${i + 1}. §f${e.name} §8| §7Island #${e.slot} §8| ${phaseLabel(phaseIndexFor(e.total))} §8| §7${e.total} breaks`);
   lines.push("", `§fYour rank: §e#${rank} §7of ${entries.length}`);
-  const form = new ActionFormData().title("§6§lTop Islands").body(lines.join("\n")).button("Back");
+  const form = new ActionFormData()
+    .title("§6§lTop Islands")
+    .body(lines.join("\n"))
+    .button("Visit an Island")
+    .button("Back");
   const res = await show(form, player);
   if (!res || res.canceled) return undefined;
+  if (res.selection === 0) return { name: "visit", page: 0, filter: "" };
   return { name: "main", page: 0, filter: "" };
 }
 
@@ -1128,6 +1177,12 @@ export async function openLedger(player) {
       case "home":
         state = screenHome(p);
         break;
+      case "social":
+        state = await openSocial(p);
+        break;
+      case "visit":
+        state = await openSocial(p, "visit");
+        break;
       default:
         state = undefined;
     }
@@ -1156,7 +1211,7 @@ export function teleportToLobby(player) {
 }
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/market.js (237 lines, 8745 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/market.js (259 lines, 9705 bytes)
 
 ```
 import { world } from "@minecraft/server";
@@ -1173,6 +1228,9 @@ import {
   LEDGER_ID,
   MARKET_FEE_RATIO,
   OFFER_LIFETIME_TICKS,
+  DAY_TICKS,
+  TRADE_BONUS,
+  TRADE_BONUS_TRAIT,
 } from "./config.js";
 import {
   readJson,
@@ -1186,6 +1244,7 @@ import {
   isCreative,
 } from "./util.js";
 import { priceInfo, recommendedTotal, serverPayout } from "./prices.js";
+import { recordOfPlayerId } from "./slots.js";
 
 const listingKey = (id) => PROP.LISTING_PREFIX + id;
 const payoutKey = (playerId) => PROP.PAYOUT_PREFIX + playerId;
@@ -1202,7 +1261,7 @@ export function addCoins(playerId, amount) {
 
 const earnedKey = (playerId) => PROP.EARNED_PREFIX + playerId;
 
-function addEarned(playerId, amount) {
+export function addEarned(playerId, amount) {
   const current = world.getDynamicProperty(earnedKey(playerId));
   world.setDynamicProperty(earnedKey(playerId), (typeof current === "number" ? current : 0) + amount);
 }
@@ -1222,7 +1281,7 @@ function writeIds(list) {
   writeJson(world, PROP.LISTING_IDS, list);
 }
 
-function addPayout(playerId, itemId, amount) {
+export function addPayout(playerId, itemId, amount) {
   const owed = readJson(world, payoutKey(playerId), {});
   owed[itemId] = (owed[itemId] ?? 0) + amount;
   writeJson(world, payoutKey(playerId), owed);
@@ -1357,6 +1416,23 @@ export function collectPayout(player) {
   return total;
 }
 
+export function awardTradeBonus(sellerId, buyerId) {
+  const buyer = findPlayer(buyerId);
+  if (buyer && isCreative(buyer)) return 0;
+  const today = Math.floor(world.getAbsoluteTime() / DAY_TICKS);
+  const key = PROP.DAILY_PREFIX + sellerId;
+  if (world.getDynamicProperty(key) === today) return 0;
+  world.setDynamicProperty(key, today);
+  const sellerTraitId = recordOfPlayerId(sellerId)?.record.trait;
+  const buyerTraitId = recordOfPlayerId(buyerId)?.record.trait;
+  const bonus = TRADE_BONUS + (sellerTraitId && buyerTraitId && sellerTraitId !== buyerTraitId ? TRADE_BONUS_TRAIT : 0);
+  addCoins(sellerId, bonus);
+  const seller = findPlayer(sellerId);
+  if (seller) seller.sendMessage(`§6[ALN] §aDaily trade bonus: +${bonus} ${COIN_NAME}.`);
+  else addEarned(sellerId, bonus);
+  return bonus;
+}
+
 export function buyListing(buyer, id) {
   const listing = getListing(id);
   if (!listing) return fail("That offer is no longer available.");
@@ -1370,6 +1446,7 @@ export function buyListing(buyer, id) {
   addCoins(buyer.id, -listing.price);
   addCoins(listing.seller, net);
   giveItem(buyer, listing.give.id, listing.give.amount);
+  awardTradeBonus(listing.seller, buyer.id);
   const seller = findPlayer(listing.seller);
   if (seller) {
     seller.sendMessage(`§6[ALN] §a${buyer.name} bought your offer. You received ${net} ${COIN_NAME} after the market fee.`);
@@ -1397,12 +1474,12 @@ export function sellToServer(player, itemId, amount) {
 }
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/oneblock.js (106 lines, 4008 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/oneblock.js (109 lines, 4172 bytes)
 
 ```
 import { world, system, ItemStack } from "@minecraft/server";
 import { ONE_BLOCK_Y, PROP, BONUS_CHANCE, BONUS_AMOUNT_MULT, BREAKS_PER_COIN, COINS_PER_REWARD, RARE_UNIT_PRICE, PHASE_REWARD, COIN_NAME } from "./config.js";
-import { slotAt, recordOf, slotOf, slotCoords } from "./slots.js";
+import { slotAt, recordOf, slotOf, slotCoords, islandMemberIds } from "./slots.js";
 import { phaseIndexFor, rollBonus, PHASES, phaseLabel, breaksToNextPhase } from "./phases.js";
 import { islandBreaks, addIslandBreak, regenerate } from "./island.js";
 import { traitLabel } from "./traits.js";
@@ -1463,12 +1540,15 @@ function handleBreak(event) {
   });
 
   if (after !== before) {
-    const owner = findPlayer(record.id);
-    announcePhase(owner && owner.id !== breaker.id ? [breaker, owner] : [breaker], after);
+    const memberIds = islandMemberIds(slot);
+    const others = memberIds.map((id) => findPlayer(id)).filter((p) => p && p.id !== breaker.id);
+    announcePhase([breaker, ...others], after);
     if (!isCreative(breaker)) {
-      const reward = PHASE_REWARD * after;
-      addCoins(record.id, reward);
-      if (owner) owner.sendMessage(`§6[ALN] §aPhase reward: ${reward} ${COIN_NAME}.`);
+      const share = Math.floor((PHASE_REWARD * after) / memberIds.length);
+      for (const memberId of memberIds) {
+        addCoins(memberId, share);
+        findPlayer(memberId)?.sendMessage(`§6[ALN] §aPhase reward: ${share} ${COIN_NAME}.`);
+      }
     }
   }
   const left = breaksToNextPhase(total);
@@ -1505,905 +1585,6 @@ export function startOneBlock() {
     } catch (e) {}
   }, 40);
 }
-```
-
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/Oneblock_Progression.js (895 lines, 36327 bytes)
-
-```
-
-
-
-
-
-
-
-
-
-
-
-export const ONEBLOCK_PROGRESSION_POOLS = [
-  {
-    phase: 1,
-    name: "Plains & Early Roots",
-    description: "The humble beginnings of survival. Gather wood, dirt, and early agricultural supplies.",
-    blocksRequired: 150,
-    bedrockReplacement: "minecraft:grass_block",
-    blocks: [
-      { id: "minecraft:grass_block", weight: 33 },
-      { id: "minecraft:dirt", weight: 27 },
-      { id: "minecraft:oak_log", weight: 18 },
-      { id: "minecraft:oak_leaves", weight: 9 },
-      { id: "minecraft:birch_log", weight: 5 },
-      { id: "minecraft:clay", weight: 4 },
-      { id: "minecraft:sand", weight: 4 }
-    ],
-    chests: [
-      { id: "minecraft:oak_sapling", min: 1, max: 3, weight: 22 },
-      { id: "minecraft:wheat_seeds", min: 2, max: 6, weight: 20 },
-      { id: "minecraft:apple", min: 1, max: 4, weight: 16 },
-      { id: "minecraft:carrot", min: 1, max: 3, weight: 12 },
-      { id: "minecraft:potato", min: 1, max: 3, weight: 10 },
-      { id: "minecraft:bone", min: 1, max: 3, weight: 10 },
-      { id: "minecraft:bread", min: 1, max: 2, weight: 10 }
-    ],
-    mobs: [
-      { id: "minecraft:chicken", weight: 35 },
-      { id: "minecraft:pig", weight: 30 },
-      { id: "minecraft:sheep", weight: 25 },
-      { id: "minecraft:cow", weight: 10 }
-    ]
-  },
-  {
-    phase: 2,
-    name: "Underground Cavern",
-    description: "Dig deep into stone layers, uncovering coal, raw iron, and subterranean minerals.",
-    blocksRequired: 250,
-    bedrockReplacement: "minecraft:stone",
-    blocks: [
-      { id: "minecraft:stone", weight: 30 },
-      { id: "minecraft:cobblestone", weight: 22 },
-      { id: "minecraft:gravel", weight: 10 },
-      { id: "minecraft:andesite", weight: 7 },
-      { id: "minecraft:diorite", weight: 5 },
-      { id: "minecraft:granite", weight: 5 },
-      { id: "minecraft:coal_ore", weight: 10 },
-      { id: "minecraft:iron_ore", weight: 7 },
-      { id: "minecraft:copper_ore", weight: 4 }
-    ],
-    chests: [
-      { id: "minecraft:torch", min: 4, max: 12, weight: 25 },
-      { id: "minecraft:coal", min: 2, max: 6, weight: 20 },
-      { id: "minecraft:iron_nugget", min: 3, max: 8, weight: 15 },
-      { id: "minecraft:raw_iron", min: 1, max: 3, weight: 14 },
-      { id: "minecraft:raw_copper", min: 1, max: 4, weight: 10 },
-      { id: "minecraft:bread", min: 2, max: 5, weight: 8 },
-      { id: "minecraft:string", min: 1, max: 3, weight: 8 }
-    ],
-    mobs: [
-      { id: "minecraft:zombie", weight: 30 },
-      { id: "minecraft:skeleton", weight: 25 },
-      { id: "minecraft:spider", weight: 25 },
-      { id: "minecraft:bat", weight: 15 },
-      { id: "minecraft:creeper", weight: 5 }
-    ]
-  },
-  {
-    phase: 3,
-    name: "Snowy Taiga & Tundra",
-    description: "Frozen spruce forests and packed snow. Gather leather, berries, and cold-weather supplies.",
-    blocksRequired: 300,
-    bedrockReplacement: "minecraft:snow",
-    blocks: [
-      { id: "minecraft:snow", weight: 20 },
-      { id: "minecraft:spruce_log", weight: 20 },
-      { id: "minecraft:spruce_leaves", weight: 12 },
-      { id: "minecraft:podzol", weight: 10 },
-      { id: "minecraft:dirt", weight: 8 },
-      { id: "minecraft:stone", weight: 10 },
-      { id: "minecraft:ice", weight: 8 },
-      { id: "minecraft:packed_ice", weight: 6 },
-      { id: "minecraft:blue_ice", weight: 3 },
-      { id: "minecraft:coal_ore", weight: 3 }
-    ],
-    chests: [
-      { id: "minecraft:spruce_sapling", min: 1, max: 3, weight: 22 },
-      { id: "minecraft:sweet_berries", min: 2, max: 5, weight: 25 },
-      { id: "minecraft:leather", min: 1, max: 3, weight: 15 },
-      { id: "minecraft:rabbit_hide", min: 1, max: 3, weight: 12 },
-      { id: "minecraft:iron_ingot", min: 1, max: 2, weight: 12 },
-      { id: "minecraft:cooked_salmon", min: 1, max: 2, weight: 9 },
-      { id: "minecraft:emerald", min: 1, max: 1, weight: 5 }
-    ],
-    mobs: [
-      { id: "minecraft:wolf", weight: 25 },
-      { id: "minecraft:fox", weight: 20 },
-      { id: "minecraft:rabbit", weight: 20 },
-      { id: "minecraft:stray", weight: 20 },
-      { id: "minecraft:polar_bear", weight: 15 }
-    ]
-  },
-  {
-    phase: 4,
-    name: "Ocean Floor",
-    description: "Sunken sands, prismarine ruins, and coral beds from the depths of the ocean.",
-    blocksRequired: 350,
-    bedrockReplacement: "minecraft:sand",
-    blocks: [
-      { id: "minecraft:sand", weight: 18 },
-      { id: "minecraft:gravel", weight: 14 },
-      { id: "minecraft:clay", weight: 12 },
-      { id: "minecraft:prismarine", weight: 12 },
-      { id: "minecraft:prismarine_bricks", weight: 8 },
-      { id: "minecraft:dark_prismarine", weight: 4 },
-      { id: "minecraft:sea_lantern", weight: 3 },
-      { id: "minecraft:sandstone", weight: 9 },
-      { id: "minecraft:tube_coral_block", weight: 5 },
-      { id: "minecraft:brain_coral_block", weight: 5 },
-      { id: "minecraft:bubble_coral_block", weight: 5 },
-      { id: "minecraft:horn_coral_block", weight: 5 }
-    ],
-    chests: [
-      { id: "minecraft:kelp", min: 2, max: 6, weight: 20 },
-      { id: "minecraft:sea_pickle", min: 1, max: 3, weight: 15 },
-      { id: "minecraft:cod", min: 2, max: 4, weight: 15 },
-      { id: "minecraft:salmon", min: 1, max: 3, weight: 12 },
-      { id: "minecraft:prismarine_shard", min: 2, max: 5, weight: 12 },
-      { id: "minecraft:prismarine_crystals", min: 1, max: 3, weight: 8 },
-      { id: "minecraft:ink_sac", min: 1, max: 3, weight: 8 },
-      { id: "minecraft:nautilus_shell", min: 1, max: 1, weight: 6 },
-      { id: "minecraft:heart_of_the_sea", min: 1, max: 1, weight: 4 }
-    ],
-    mobs: [
-      { id: "minecraft:drowned", weight: 55 },
-      { id: "minecraft:turtle", weight: 30 },
-      { id: "minecraft:squid", weight: 15 }
-    ]
-  },
-  {
-    phase: 5,
-    name: "Jungle Canopy",
-    description: "Dense jungle growth, mossy ruins, bamboo groves, and rare jungle materials.",
-    blocksRequired: 400,
-    bedrockReplacement: "minecraft:moss_block",
-    blocks: [
-      { id: "minecraft:jungle_log", weight: 22 },
-      { id: "minecraft:jungle_leaves", weight: 18 },
-      { id: "minecraft:grass_block", weight: 12 },
-      { id: "minecraft:dirt", weight: 8 },
-      { id: "minecraft:mossy_cobblestone", weight: 8 },
-      { id: "minecraft:moss_block", weight: 8 },
-      { id: "minecraft:bamboo_block", weight: 8 },
-      { id: "minecraft:melon_block", weight: 6 },
-      { id: "minecraft:mud", weight: 4 },
-      { id: "minecraft:lapis_ore", weight: 6 }
-    ],
-    chests: [
-      { id: "minecraft:bamboo", min: 2, max: 5, weight: 20 },
-      { id: "minecraft:jungle_sapling", min: 1, max: 3, weight: 18 },
-      { id: "minecraft:melon_seeds", min: 1, max: 3, weight: 16 },
-      { id: "minecraft:cocoa_beans", min: 2, max: 4, weight: 16 },
-      { id: "minecraft:vine", min: 2, max: 4, weight: 10 },
-      { id: "minecraft:lapis_lazuli", min: 2, max: 6, weight: 10 },
-      { id: "minecraft:golden_apple", min: 1, max: 1, weight: 5 },
-      { id: "minecraft:emerald", min: 1, max: 2, weight: 5 }
-    ],
-    mobs: [
-      { id: "minecraft:ocelot", weight: 28 },
-      { id: "minecraft:parrot", weight: 28 },
-      { id: "minecraft:panda", weight: 16 },
-      { id: "minecraft:skeleton", weight: 14 },
-      { id: "minecraft:creeper", weight: 14 }
-    ]
-  },
-  {
-    phase: 6,
-    name: "Desert Dunes",
-    description: "Scorched sands and buried temples. Sandstone, gold, and ancient desert loot.",
-    blocksRequired: 400,
-    bedrockReplacement: "minecraft:sandstone",
-    blocks: [
-      { id: "minecraft:sand", weight: 35 },
-      { id: "minecraft:sandstone", weight: 22 },
-      { id: "minecraft:cut_sandstone", weight: 9 },
-      { id: "minecraft:smooth_sandstone", weight: 7 },
-      { id: "minecraft:chiseled_sandstone", weight: 4 },
-      { id: "minecraft:hardened_clay", weight: 9 },
-      { id: "minecraft:gold_ore", weight: 6 },
-      { id: "minecraft:coal_ore", weight: 8 }
-    ],
-    chests: [
-      { id: "minecraft:cactus", min: 1, max: 4, weight: 20 },
-      { id: "minecraft:gold_nugget", min: 3, max: 9, weight: 18 },
-      { id: "minecraft:gold_ingot", min: 1, max: 3, weight: 12 },
-      { id: "minecraft:bone", min: 2, max: 5, weight: 15 },
-      { id: "minecraft:spider_eye", min: 1, max: 3, weight: 15 },
-      { id: "minecraft:rotten_flesh", min: 2, max: 6, weight: 10 },
-      { id: "minecraft:emerald", min: 1, max: 2, weight: 6 },
-      { id: "minecraft:diamond", min: 1, max: 1, weight: 4 }
-    ],
-    mobs: [
-      { id: "minecraft:husk", weight: 35 },
-      { id: "minecraft:rabbit", weight: 20 },
-      { id: "minecraft:skeleton", weight: 20 },
-      { id: "minecraft:camel", weight: 15 },
-      { id: "minecraft:spider", weight: 10 }
-    ]
-  },
-  {
-    phase: 7,
-    name: "Badlands Mesa",
-    description: "Layered red clay and rich gold veins carved into towering mesas.",
-    blocksRequired: 450,
-    bedrockReplacement: "minecraft:hardened_clay",
-    blocks: [
-      { id: "minecraft:hardened_clay", weight: 22 },
-      { id: "minecraft:red_sand", weight: 20 },
-      { id: "minecraft:red_sandstone", weight: 14 },
-      { id: "minecraft:cut_red_sandstone", weight: 8 },
-      { id: "minecraft:smooth_red_sandstone", weight: 6 },
-      { id: "minecraft:coarse_dirt", weight: 10 },
-      { id: "minecraft:gold_ore", weight: 12 },
-      { id: "minecraft:iron_ore", weight: 8 }
-    ],
-    chests: [
-      { id: "minecraft:gold_ingot", min: 1, max: 4, weight: 20 },
-      { id: "minecraft:gold_nugget", min: 4, max: 10, weight: 18 },
-      { id: "minecraft:raw_gold", min: 1, max: 3, weight: 15 },
-      { id: "minecraft:iron_ingot", min: 1, max: 3, weight: 12 },
-      { id: "minecraft:clay_ball", min: 2, max: 6, weight: 10 },
-      { id: "minecraft:bone", min: 2, max: 4, weight: 10 },
-      { id: "minecraft:emerald", min: 1, max: 2, weight: 8 },
-      { id: "minecraft:golden_apple", min: 1, max: 1, weight: 7 }
-    ],
-    mobs: [
-      { id: "minecraft:skeleton", weight: 25 },
-      { id: "minecraft:zombie", weight: 25 },
-      { id: "minecraft:spider", weight: 20 },
-      { id: "minecraft:creeper", weight: 15 },
-      { id: "minecraft:armadillo", weight: 15 }
-    ]
-  },
-  {
-    phase: 8,
-    name: "Savanna Plains",
-    description: "Flat-topped acacia trees, golden hay, and wandering herds across the dry grassland.",
-    blocksRequired: 450,
-    bedrockReplacement: "minecraft:coarse_dirt",
-    blocks: [
-      { id: "minecraft:acacia_log", weight: 28 },
-      { id: "minecraft:acacia_leaves", weight: 22 },
-      { id: "minecraft:acacia_planks", weight: 10 },
-      { id: "minecraft:stripped_acacia_log", weight: 8 },
-      { id: "minecraft:hay_block", weight: 6 },
-      { id: "minecraft:coarse_dirt", weight: 14 },
-      { id: "minecraft:grass_block", weight: 12 }
-    ],
-    chests: [
-      { id: "minecraft:acacia_sapling", min: 1, max: 3, weight: 22 },
-      { id: "minecraft:wheat", min: 2, max: 5, weight: 16 },
-      { id: "minecraft:leather", min: 1, max: 3, weight: 14 },
-      { id: "minecraft:bread", min: 2, max: 4, weight: 12 },
-      { id: "minecraft:lead", min: 1, max: 1, weight: 10 },
-      { id: "minecraft:hay_block", min: 1, max: 2, weight: 8 },
-      { id: "minecraft:saddle", min: 1, max: 1, weight: 6 },
-      { id: "minecraft:golden_carrot", min: 1, max: 2, weight: 6 },
-      { id: "minecraft:name_tag", min: 1, max: 1, weight: 6 }
-    ],
-    mobs: [
-      { id: "minecraft:horse", weight: 28 },
-      { id: "minecraft:donkey", weight: 18 },
-      { id: "minecraft:llama", weight: 18 },
-      { id: "minecraft:sheep", weight: 16 },
-      { id: "minecraft:zombie", weight: 10 },
-      { id: "minecraft:skeleton", weight: 10 }
-    ]
-  },
-  {
-    phase: 9,
-    name: "Dark Forest & Mushroom Fields",
-    description: "Towering dark oaks and giant glowing mushrooms growing from rich mycelium.",
-    blocksRequired: 500,
-    bedrockReplacement: "minecraft:dark_oak_planks",
-    blocks: [
-      { id: "minecraft:dark_oak_log", weight: 20 },
-      { id: "minecraft:dark_oak_leaves", weight: 18 },
-      { id: "minecraft:dark_oak_planks", weight: 6 },
-      { id: "minecraft:stripped_dark_oak_log", weight: 6 },
-      { id: "minecraft:mycelium", weight: 14 },
-      { id: "minecraft:brown_mushroom_block", weight: 12 },
-      { id: "minecraft:red_mushroom_block", weight: 12 },
-      { id: "minecraft:mushroom_stem", weight: 8 },
-      { id: "minecraft:grass_block", weight: 4 }
-    ],
-    chests: [
-      { id: "minecraft:dark_oak_sapling", min: 1, max: 3, weight: 20 },
-      { id: "minecraft:brown_mushroom", min: 2, max: 5, weight: 16 },
-      { id: "minecraft:red_mushroom", min: 2, max: 5, weight: 16 },
-      { id: "minecraft:mushroom_stew", min: 1, max: 1, weight: 10 },
-      { id: "minecraft:bone_meal", min: 2, max: 5, weight: 10 },
-      { id: "minecraft:bowl", min: 1, max: 3, weight: 8 },
-      { id: "minecraft:glass_bottle", min: 1, max: 3, weight: 8 },
-      { id: "minecraft:emerald", min: 1, max: 3, weight: 8 },
-      { id: "minecraft:totem_of_undying", min: 1, max: 1, weight: 4 }
-    ],
-    mobs: [
-      { id: "minecraft:mooshroom", weight: 30 },
-      { id: "minecraft:witch", weight: 15 },
-      { id: "minecraft:zombie", weight: 15 },
-      { id: "minecraft:skeleton", weight: 15 },
-      { id: "minecraft:vindicator", weight: 10 },
-      { id: "minecraft:spider", weight: 10 },
-      { id: "minecraft:evoker", weight: 5 }
-    ]
-  },
-  {
-    phase: 10,
-    name: "Mangrove Swamp",
-    description: "Muddy roots, mangrove trees, and murky swamp life.",
-    blocksRequired: 450,
-    bedrockReplacement: "minecraft:mud",
-    blocks: [
-      { id: "minecraft:mud", weight: 24 },
-      { id: "minecraft:mangrove_log", weight: 18 },
-      { id: "minecraft:mangrove_leaves", weight: 12 },
-      { id: "minecraft:mangrove_roots", weight: 8 },
-      { id: "minecraft:muddy_mangrove_roots", weight: 12 },
-      { id: "minecraft:packed_mud", weight: 6 },
-      { id: "minecraft:mud_bricks", weight: 4 },
-      { id: "minecraft:clay", weight: 6 },
-      { id: "minecraft:moss_block", weight: 4 },
-      { id: "minecraft:mangrove_planks", weight: 3 },
-      { id: "minecraft:dirt", weight: 3 }
-    ],
-    chests: [
-      { id: "minecraft:mangrove_propagule", min: 1, max: 3, weight: 22 },
-      { id: "minecraft:slime_ball", min: 1, max: 4, weight: 20 },
-      { id: "minecraft:clay_ball", min: 2, max: 6, weight: 15 },
-      { id: "minecraft:brown_mushroom", min: 1, max: 3, weight: 12 },
-      { id: "minecraft:red_mushroom", min: 1, max: 3, weight: 10 },
-      { id: "minecraft:spider_eye", min: 1, max: 3, weight: 8 },
-      { id: "minecraft:lead", min: 1, max: 1, weight: 8 },
-      { id: "minecraft:experience_bottle", min: 1, max: 2, weight: 5 }
-    ],
-    mobs: [
-      { id: "minecraft:frog", weight: 25 },
-      { id: "minecraft:slime", weight: 25 },
-      { id: "minecraft:bogged", weight: 20 },
-      { id: "minecraft:witch", weight: 15 },
-      { id: "minecraft:zombie", weight: 15 }
-    ]
-  },
-  {
-    phase: 11,
-    name: "Cherry Grove",
-    description: "A peaceful pink-blossom meadow on the mountainside.",
-    blocksRequired: 500,
-    bedrockReplacement: "minecraft:grass_block",
-    blocks: [
-      { id: "minecraft:cherry_log", weight: 20 },
-      { id: "minecraft:cherry_leaves", weight: 24 },
-      { id: "minecraft:grass_block", weight: 20 },
-      { id: "minecraft:dirt", weight: 10 },
-      { id: "minecraft:stripped_cherry_log", weight: 8 },
-      { id: "minecraft:cherry_planks", weight: 12 },
-      { id: "minecraft:stone", weight: 6 }
-    ],
-    chests: [
-      { id: "minecraft:cherry_sapling", min: 1, max: 3, weight: 22 },
-      { id: "minecraft:pink_petals", min: 2, max: 6, weight: 22 },
-      { id: "minecraft:apple", min: 1, max: 3, weight: 16 },
-      { id: "minecraft:bone_meal", min: 2, max: 5, weight: 15 },
-      { id: "minecraft:amethyst_shard", min: 1, max: 3, weight: 10 },
-      { id: "minecraft:golden_carrot", min: 1, max: 2, weight: 10 },
-      { id: "minecraft:cookie", min: 1, max: 3, weight: 5 }
-    ],
-    mobs: [
-      { id: "minecraft:pig", weight: 25 },
-      { id: "minecraft:sheep", weight: 25 },
-      { id: "minecraft:rabbit", weight: 20 },
-      { id: "minecraft:bee", weight: 15 },
-      { id: "minecraft:donkey", weight: 15 }
-    ]
-  },
-  {
-    phase: 12,
-    name: "Pale Garden",
-    description: "A silent, grey forest of pale oak, pale moss, and resin. The creaking stir at night.",
-    blocksRequired: 500,
-    bedrockReplacement: "minecraft:pale_moss_block",
-    blocks: [
-      { id: "minecraft:pale_oak_log", weight: 24 },
-      { id: "minecraft:pale_oak_leaves", weight: 20 },
-      { id: "minecraft:pale_moss_block", weight: 18 },
-      { id: "minecraft:dirt", weight: 10 },
-      { id: "minecraft:pale_oak_planks", weight: 10 },
-      { id: "minecraft:stripped_pale_oak_log", weight: 8 },
-      { id: "minecraft:coarse_dirt", weight: 6 },
-      { id: "minecraft:resin_block", weight: 4 }
-    ],
-    chests: [
-      { id: "minecraft:pale_oak_sapling", min: 1, max: 3, weight: 22 },
-      { id: "minecraft:resin_clump", min: 2, max: 6, weight: 22 },
-      { id: "minecraft:open_eyeblossom", min: 1, max: 2, weight: 15 },
-      { id: "minecraft:closed_eyeblossom", min: 1, max: 2, weight: 10 },
-      { id: "minecraft:bone_meal", min: 2, max: 6, weight: 11 },
-      { id: "minecraft:bone", min: 1, max: 3, weight: 10 },
-      { id: "minecraft:resin_brick", min: 1, max: 3, weight: 10 }
-    ],
-    mobs: [
-      { id: "minecraft:creaking", weight: 50 },
-      { id: "minecraft:zombie", weight: 20 },
-      { id: "minecraft:skeleton", weight: 15 },
-      { id: "minecraft:spider", weight: 15 }
-    ]
-  },
-
-  {
-    phase: 13,
-    name: "Windswept Highlands",
-    description: "Rocky peaks, old spruce taiga, and emerald veins high above the valleys.",
-    blocksRequired: 550,
-    bedrockReplacement: "minecraft:stone",
-    blocks: [
-      { id: "minecraft:stone", weight: 18 },
-      { id: "minecraft:gravel", weight: 8 },
-      { id: "minecraft:andesite", weight: 6 },
-      { id: "minecraft:cobblestone", weight: 6 },
-      { id: "minecraft:spruce_log", weight: 14 },
-      { id: "minecraft:spruce_leaves", weight: 10 },
-      { id: "minecraft:spruce_planks", weight: 6 },
-      { id: "minecraft:stripped_spruce_log", weight: 4 },
-      { id: "minecraft:podzol", weight: 8 },
-      { id: "minecraft:mossy_cobblestone", weight: 8 },
-      { id: "minecraft:coarse_dirt", weight: 6 },
-      { id: "minecraft:emerald_ore", weight: 6 }
-    ],
-    chests: [
-      { id: "minecraft:emerald", min: 1, max: 3, weight: 20 },
-      { id: "minecraft:spruce_sapling", min: 1, max: 3, weight: 14 },
-      { id: "minecraft:iron_ingot", min: 2, max: 4, weight: 14 },
-      { id: "minecraft:cooked_mutton", min: 1, max: 3, weight: 12 },
-      { id: "minecraft:coal", min: 2, max: 6, weight: 10 },
-      { id: "minecraft:leather", min: 1, max: 3, weight: 10 },
-      { id: "minecraft:copper_ingot", min: 2, max: 5, weight: 8 },
-      { id: "minecraft:bone", min: 1, max: 3, weight: 8 },
-      { id: "minecraft:diamond", min: 1, max: 1, weight: 4 }
-    ],
-    mobs: [
-      { id: "minecraft:goat", weight: 25 },
-      { id: "minecraft:llama", weight: 20 },
-      { id: "minecraft:wolf", weight: 15 },
-      { id: "minecraft:skeleton", weight: 15 },
-      { id: "minecraft:zombie", weight: 10 },
-      { id: "minecraft:creeper", weight: 10 },
-      { id: "minecraft:spider", weight: 5 }
-    ]
-  },
-  {
-    phase: 14,
-    name: "Craftsman's Workshop",
-    description: "A village of builders: wool, glass, concrete, bookshelves, colored clay, and copper.",
-    blocksRequired: 600,
-    bedrockReplacement: "minecraft:cobblestone",
-    blocks: [
-      { id: "minecraft:white_wool", weight: 5 },
-      { id: "minecraft:orange_wool", weight: 3 },
-      { id: "minecraft:red_wool", weight: 3 },
-      { id: "minecraft:blue_wool", weight: 3 },
-      { id: "minecraft:green_wool", weight: 3 },
-      { id: "minecraft:yellow_wool", weight: 3 },
-      { id: "minecraft:black_wool", weight: 3 },
-      { id: "minecraft:glass", weight: 8 },
-      { id: "minecraft:tinted_glass", weight: 2 },
-      { id: "minecraft:bookshelf", weight: 6 },
-      { id: "minecraft:chiseled_bookshelf", weight: 3 },
-      { id: "minecraft:white_concrete", weight: 3 },
-      { id: "minecraft:orange_concrete", weight: 2 },
-      { id: "minecraft:red_concrete", weight: 2 },
-      { id: "minecraft:blue_concrete", weight: 2 },
-      { id: "minecraft:light_gray_concrete", weight: 2 },
-      { id: "minecraft:black_concrete", weight: 2 },
-      { id: "minecraft:white_terracotta", weight: 3 },
-      { id: "minecraft:orange_terracotta", weight: 3 },
-      { id: "minecraft:yellow_terracotta", weight: 3 },
-      { id: "minecraft:brown_terracotta", weight: 3 },
-      { id: "minecraft:red_terracotta", weight: 3 },
-      { id: "minecraft:light_gray_terracotta", weight: 3 },
-      { id: "minecraft:copper_block", weight: 4 },
-      { id: "minecraft:cut_copper", weight: 4 },
-      { id: "minecraft:exposed_copper", weight: 2 },
-      { id: "minecraft:weathered_copper", weight: 2 },
-      { id: "minecraft:oxidized_copper", weight: 2 },
-      { id: "minecraft:copper_grate", weight: 2 },
-      { id: "minecraft:chiseled_copper", weight: 2 },
-      { id: "minecraft:oak_planks", weight: 5 },
-      { id: "minecraft:crafting_table", weight: 4 }
-    ],
-    chests: [
-      { id: "minecraft:book", min: 1, max: 3, weight: 14 },
-      { id: "minecraft:paper", min: 2, max: 6, weight: 14 },
-      { id: "minecraft:emerald", min: 1, max: 3, weight: 14 },
-      { id: "minecraft:copper_ingot", min: 2, max: 6, weight: 12 },
-      { id: "minecraft:iron_ingot", min: 1, max: 3, weight: 10 },
-      { id: "minecraft:glass_bottle", min: 1, max: 3, weight: 8 },
-      { id: "minecraft:bread", min: 2, max: 4, weight: 8 },
-      { id: "minecraft:wheat", min: 2, max: 5, weight: 6 },
-      { id: "minecraft:gold_ingot", min: 1, max: 2, weight: 6 },
-      { id: "minecraft:diamond", min: 1, max: 1, weight: 4 },
-      { id: "minecraft:experience_bottle", min: 1, max: 2, weight: 4 }
-    ],
-    mobs: [
-      { id: "minecraft:villager", weight: 30 },
-      { id: "minecraft:pillager", weight: 20 },
-      { id: "minecraft:cat", weight: 15 },
-      { id: "minecraft:vindicator", weight: 15 },
-      { id: "minecraft:iron_golem", weight: 10 },
-      { id: "minecraft:wandering_trader", weight: 5 },
-      { id: "minecraft:zombie_villager", weight: 5 }
-    ]
-  },
-
-  {
-    phase: 15,
-    name: "Deepslate Depths",
-    description: "Dark deepslate caverns rich in diamonds, redstone, copper, and trial chamber tuff.",
-    blocksRequired: 600,
-    bedrockReplacement: "minecraft:deepslate",
-    blocks: [
-      { id: "minecraft:deepslate", weight: 30 },
-      { id: "minecraft:cobbled_deepslate", weight: 20 },
-      { id: "minecraft:tuff", weight: 12 },
-      { id: "minecraft:tuff_bricks", weight: 3 },
-      { id: "minecraft:calcite", weight: 2 },
-      { id: "minecraft:deepslate_coal_ore", weight: 6 },
-      { id: "minecraft:deepslate_iron_ore", weight: 7 },
-      { id: "minecraft:deepslate_copper_ore", weight: 5 },
-      { id: "minecraft:deepslate_gold_ore", weight: 4 },
-      { id: "minecraft:deepslate_redstone_ore", weight: 5 },
-      { id: "minecraft:deepslate_lapis_ore", weight: 4 },
-      { id: "minecraft:deepslate_diamond_ore", weight: 2 }
-    ],
-    chests: [
-      { id: "minecraft:redstone", min: 3, max: 8, weight: 18 },
-      { id: "minecraft:lapis_lazuli", min: 2, max: 6, weight: 14 },
-      { id: "minecraft:raw_gold", min: 1, max: 3, weight: 14 },
-      { id: "minecraft:raw_copper", min: 2, max: 5, weight: 14 },
-      { id: "minecraft:copper_ingot", min: 2, max: 6, weight: 10 },
-      { id: "minecraft:amethyst_shard", min: 2, max: 5, weight: 10 },
-      { id: "minecraft:iron_ingot", min: 2, max: 4, weight: 8 },
-      { id: "minecraft:wind_charge", min: 2, max: 5, weight: 6 },
-      { id: "minecraft:diamond", min: 1, max: 1, weight: 6 }
-    ],
-    mobs: [
-      { id: "minecraft:zombie", weight: 20 },
-      { id: "minecraft:skeleton", weight: 20 },
-      { id: "minecraft:creeper", weight: 15 },
-      { id: "minecraft:cave_spider", weight: 15 },
-      { id: "minecraft:breeze", weight: 10 },
-      { id: "minecraft:silverfish", weight: 10 },
-      { id: "minecraft:copper_golem", weight: 5 },
-      { id: "minecraft:bat", weight: 5 }
-    ]
-  },
-  {
-    phase: 16,
-    name: "Deep Dark",
-    description: "Ancient sculk-infested depths where echo shards hide and the warden sleeps.",
-    blocksRequired: 600,
-    bedrockReplacement: "minecraft:deepslate",
-    blocks: [
-      { id: "minecraft:deepslate", weight: 25 },
-      { id: "minecraft:sculk", weight: 25 },
-      { id: "minecraft:cobbled_deepslate", weight: 12 },
-      { id: "minecraft:deepslate_bricks", weight: 10 },
-      { id: "minecraft:deepslate_tiles", weight: 6 },
-      { id: "minecraft:sculk_catalyst", weight: 6 },
-      { id: "minecraft:bone_block", weight: 6 },
-      { id: "minecraft:calcite", weight: 5 },
-      { id: "minecraft:tuff", weight: 5 }
-    ],
-    chests: [
-      { id: "minecraft:experience_bottle", min: 1, max: 3, weight: 20 },
-      { id: "minecraft:amethyst_shard", min: 2, max: 5, weight: 16 },
-      { id: "minecraft:echo_shard", min: 1, max: 2, weight: 14 },
-      { id: "minecraft:glow_berries", min: 2, max: 6, weight: 14 },
-      { id: "minecraft:book", min: 1, max: 2, weight: 14 },
-      { id: "minecraft:disc_fragment_5", min: 1, max: 1, weight: 8 },
-      { id: "minecraft:diamond", min: 1, max: 1, weight: 8 },
-      { id: "minecraft:recovery_compass", min: 1, max: 1, weight: 6 }
-    ],
-    mobs: [
-      { id: "minecraft:zombie", weight: 30 },
-      { id: "minecraft:skeleton", weight: 28 },
-      { id: "minecraft:creeper", weight: 15 },
-      { id: "minecraft:bat", weight: 15 },
-      { id: "minecraft:silverfish", weight: 10 },
-      { id: "minecraft:warden", weight: 2 }
-    ]
-  },
-
-  {
-    phase: 17,
-    name: "Nether Wastes",
-    description: "Volcanic heat, soul sand, and glowing quartz from the depths of the Nether.",
-    blocksRequired: 700,
-    bedrockReplacement: "minecraft:netherrack",
-    blocks: [
-      { id: "minecraft:netherrack", weight: 38 },
-      { id: "minecraft:soul_sand", weight: 12 },
-      { id: "minecraft:soul_soil", weight: 8 },
-      { id: "minecraft:quartz_ore", weight: 12 },
-      { id: "minecraft:nether_gold_ore", weight: 10 },
-      { id: "minecraft:magma", weight: 6 },
-      { id: "minecraft:glowstone", weight: 6 },
-      { id: "minecraft:gravel", weight: 5 },
-      { id: "minecraft:dried_ghast", weight: 3 }
-    ],
-    chests: [
-      { id: "minecraft:nether_wart", min: 1, max: 4, weight: 22 },
-      { id: "minecraft:glowstone_dust", min: 2, max: 6, weight: 18 },
-      { id: "minecraft:quartz", min: 2, max: 5, weight: 18 },
-      { id: "minecraft:magma_cream", min: 1, max: 3, weight: 12 },
-      { id: "minecraft:ghast_tear", min: 1, max: 1, weight: 10 },
-      { id: "minecraft:blaze_rod", min: 1, max: 2, weight: 10 },
-      { id: "minecraft:gold_nugget", min: 3, max: 9, weight: 10 }
-    ],
-    mobs: [
-      { id: "minecraft:zombified_piglin", weight: 35 },
-      { id: "minecraft:magma_cube", weight: 20 },
-      { id: "minecraft:strider", weight: 15 },
-      { id: "minecraft:skeleton", weight: 13 },
-      { id: "minecraft:ghast", weight: 12 },
-      { id: "minecraft:happy_ghast", weight: 5 }
-    ]
-  },
-  {
-    phase: 18,
-    name: "Crimson & Warped Forests",
-    description: "Giant fungal forests of red and teal, home to hoglins, piglins, and striders.",
-    blocksRequired: 700,
-    bedrockReplacement: "minecraft:netherrack",
-    blocks: [
-      { id: "minecraft:crimson_nylium", weight: 15 },
-      { id: "minecraft:crimson_stem", weight: 14 },
-      { id: "minecraft:nether_wart_block", weight: 12 },
-      { id: "minecraft:warped_nylium", weight: 15 },
-      { id: "minecraft:warped_stem", weight: 14 },
-      { id: "minecraft:warped_wart_block", weight: 12 },
-      { id: "minecraft:shroomlight", weight: 6 },
-      { id: "minecraft:netherrack", weight: 12 }
-    ],
-    chests: [
-      { id: "minecraft:crimson_fungus", min: 1, max: 3, weight: 18 },
-      { id: "minecraft:warped_fungus", min: 1, max: 3, weight: 18 },
-      { id: "minecraft:nether_wart", min: 2, max: 5, weight: 14 },
-      { id: "minecraft:weeping_vines", min: 2, max: 5, weight: 12 },
-      { id: "minecraft:twisting_vines", min: 2, max: 5, weight: 12 },
-      { id: "minecraft:shroomlight", min: 1, max: 2, weight: 10 },
-      { id: "minecraft:glowstone_dust", min: 2, max: 5, weight: 8 },
-      { id: "minecraft:gold_nugget", min: 3, max: 8, weight: 8 }
-    ],
-    mobs: [
-      { id: "minecraft:hoglin", weight: 30 },
-      { id: "minecraft:piglin", weight: 30 },
-      { id: "minecraft:strider", weight: 20 },
-      { id: "minecraft:enderman", weight: 20 }
-    ]
-  },
-  {
-    phase: 19,
-    name: "Bastion & Basalt Deltas",
-    description: "Blackstone fortresses, gilded treasure, and rare ancient debris.",
-    blocksRequired: 800,
-    bedrockReplacement: "minecraft:blackstone",
-    blocks: [
-      { id: "minecraft:blackstone", weight: 25 },
-      { id: "minecraft:polished_blackstone", weight: 12 },
-      { id: "minecraft:polished_blackstone_bricks", weight: 10 },
-      { id: "minecraft:chiseled_polished_blackstone", weight: 4 },
-      { id: "minecraft:gilded_blackstone", weight: 6 },
-      { id: "minecraft:basalt", weight: 12 },
-      { id: "minecraft:nether_brick", weight: 8 },
-      { id: "minecraft:netherrack", weight: 6 },
-      { id: "minecraft:magma", weight: 5 },
-      { id: "minecraft:obsidian", weight: 5 },
-      { id: "minecraft:crying_obsidian", weight: 4 },
-      { id: "minecraft:ancient_debris", weight: 3 }
-    ],
-    chests: [
-      { id: "minecraft:gold_ingot", min: 2, max: 6, weight: 20 },
-      { id: "minecraft:golden_carrot", min: 2, max: 4, weight: 12 },
-      { id: "minecraft:obsidian", min: 1, max: 3, weight: 12 },
-      { id: "minecraft:crying_obsidian", min: 1, max: 3, weight: 10 },
-      { id: "minecraft:iron_ingot", min: 2, max: 5, weight: 10 },
-      { id: "minecraft:blaze_rod", min: 1, max: 2, weight: 8 },
-      { id: "minecraft:quartz", min: 4, max: 8, weight: 8 },
-      { id: "minecraft:arrow", min: 4, max: 12, weight: 8 },
-      { id: "minecraft:netherite_scrap", min: 1, max: 1, weight: 6 },
-      { id: "minecraft:diamond", min: 1, max: 1, weight: 6 }
-    ],
-    mobs: [
-      { id: "minecraft:piglin", weight: 28 },
-      { id: "minecraft:piglin_brute", weight: 20 },
-      { id: "minecraft:wither_skeleton", weight: 20 },
-      { id: "minecraft:blaze", weight: 15 },
-      { id: "minecraft:hoglin", weight: 12 },
-      { id: "minecraft:magma_cube", weight: 5 }
-    ]
-  },
-
-  {
-    phase: 20,
-    name: "The End",
-    description: "The dimension beyond the stars. Pale end stone, obsidian pillars, and chorus.",
-    blocksRequired: 800,
-    bedrockReplacement: "minecraft:end_stone",
-    blocks: [
-      { id: "minecraft:end_stone", weight: 60 },
-      { id: "minecraft:end_bricks", weight: 15 },
-      { id: "minecraft:obsidian", weight: 15 },
-      { id: "minecraft:crying_obsidian", weight: 5 },
-      { id: "minecraft:purpur_block", weight: 5 }
-    ],
-    chests: [
-      { id: "minecraft:chorus_fruit", min: 2, max: 6, weight: 30 },
-      { id: "minecraft:ender_pearl", min: 1, max: 3, weight: 27 },
-      { id: "minecraft:ender_eye", min: 1, max: 2, weight: 14 },
-      { id: "minecraft:diamond", min: 1, max: 2, weight: 10 },
-      { id: "minecraft:popped_chorus_fruit", min: 2, max: 5, weight: 10 },
-      { id: "minecraft:end_rod", min: 1, max: 4, weight: 4 },
-      { id: "minecraft:dragon_breath", min: 1, max: 1, weight: 5 }
-    ],
-    mobs: [
-      { id: "minecraft:enderman", weight: 70 },
-      { id: "minecraft:endermite", weight: 25 },
-      { id: "minecraft:shulker", weight: 5 }
-    ]
-  },
-  {
-    phase: 21,
-    name: "End City & Void Horizon",
-    description: "Floating purpur cities and deep void treasures. The final, endless phase.",
-    blocksRequired: 1000,
-    bedrockReplacement: "minecraft:end_stone",
-    blocks: [
-      { id: "minecraft:purpur_block", weight: 25 },
-      { id: "minecraft:end_stone", weight: 25 },
-      { id: "minecraft:purpur_pillar", weight: 14 },
-      { id: "minecraft:end_bricks", weight: 12 },
-      { id: "minecraft:obsidian", weight: 8 },
-      { id: "minecraft:crying_obsidian", weight: 6 },
-      { id: "minecraft:amethyst_block", weight: 5 },
-      { id: "minecraft:diamond_ore", weight: 5 }
-    ],
-    chests: [
-      { id: "minecraft:ender_pearl", min: 1, max: 3, weight: 18 },
-      { id: "minecraft:diamond", min: 1, max: 3, weight: 16 },
-      { id: "minecraft:chorus_fruit", min: 2, max: 6, weight: 15 },
-      { id: "minecraft:emerald", min: 2, max: 4, weight: 12 },
-      { id: "minecraft:chorus_flower", min: 1, max: 2, weight: 10 },
-      { id: "minecraft:ender_eye", min: 1, max: 2, weight: 10 },
-      { id: "minecraft:experience_bottle", min: 2, max: 6, weight: 10 },
-      { id: "minecraft:netherite_scrap", min: 1, max: 1, weight: 5 },
-      { id: "minecraft:elytra", min: 1, max: 1, weight: 2 },
-      { id: "minecraft:totem_of_undying", min: 1, max: 1, weight: 2 }
-    ],
-    mobs: [
-      { id: "minecraft:enderman", weight: 55 },
-      { id: "minecraft:endermite", weight: 25 },
-      { id: "minecraft:shulker", weight: 20 }
-    ]
-  }
-];
-
-export const ONEBLOCK_PROGRESSION = ONEBLOCK_PROGRESSION_POOLS;
-
-
-const DEFAULT_CURRENT_SHARE = 0.4;
-
-
-export class OneblockPoolProvider {
-
-  constructor(pools = ONEBLOCK_PROGRESSION_POOLS) {
-    this.pools = pools;
-    this._unlockCache = new Map();
-  }
-
-
-  getPhasePool(phaseNumber) {
-    const clampedIndex = Math.max(1, Math.min(phaseNumber, this.pools.length)) - 1;
-    return this.pools[clampedIndex];
-  }
-
-
-  getPhaseFromBreaks(totalBreaks) {
-    let accumulated = 0;
-    for (let i = 0; i < this.pools.length; i++) {
-      const p = this.pools[i];
-      if (totalBreaks < accumulated + p.blocksRequired) {
-        return {
-          phase: p,
-          phaseIndex: i + 1,
-          phaseBreaks: totalBreaks - accumulated,
-          isLastPhase: false
-        };
-      }
-      accumulated += p.blocksRequired;
-    }
-    const last = this.pools[this.pools.length - 1];
-    return {
-      phase: last,
-      phaseIndex: this.pools.length,
-      phaseBreaks: totalBreaks - accumulated,
-      isLastPhase: true
-    };
-  }
-
-
-  static sampleWeighted(pool) {
-    const totalWeight = pool.reduce((sum, item) => sum + item.weight, 0);
-    let rand = Math.random() * totalWeight;
-    for (const item of pool) {
-      if (rand < item.weight) return item;
-      rand -= item.weight;
-    }
-    return pool[pool.length - 1];
-  }
-
-
-  getUnlockedPool(phaseNumber, kind, currentShare = DEFAULT_CURRENT_SHARE) {
-    const upto = Math.max(1, Math.min(Math.floor(phaseNumber) || 1, this.pools.length));
-    const key = `${kind}:${upto}:${currentShare}`;
-    const cached = this._unlockCache.get(key);
-    if (cached) return cached;
-
-    const merged = new Map();
-    for (let i = 0; i < upto; i++) {
-      const list = this.pools[i][kind];
-      const sum = list.reduce((s, e) => s + e.weight, 0);
-      const share = upto === 1 ? 1 : (i === upto - 1 ? currentShare : (1 - currentShare) / (upto - 1));
-      for (const e of list) {
-        const w = (e.weight / sum) * share * 100;
-        const prev = merged.get(e.id);
-        if (!prev) {
-          merged.set(e.id, { ...e, weight: w });
-        } else {
-          prev.weight += w;
-          if (kind === "chests") {
-            prev.min = Math.min(prev.min, e.min);
-            prev.max = Math.max(prev.max, e.max);
-          }
-        }
-      }
-    }
-    const out = [...merged.values()];
-    this._unlockCache.set(key, out);
-    return out;
-  }
-
-
-  _resolvePool(phaseNumber, kind, options = {}) {
-    if (options.exclusive) return this.getPhasePool(phaseNumber)[kind];
-    return this.getUnlockedPool(phaseNumber, kind, options.currentShare);
-  }
-
-
-  sampleBlock(phaseNumber, options) {
-    return OneblockPoolProvider.sampleWeighted(this._resolvePool(phaseNumber, "blocks", options));
-  }
-
-
-  sampleChestItem(phaseNumber, options) {
-    return OneblockPoolProvider.sampleWeighted(this._resolvePool(phaseNumber, "chests", options));
-  }
-
-
-  sampleMob(phaseNumber, options) {
-    return OneblockPoolProvider.sampleWeighted(this._resolvePool(phaseNumber, "mobs", options));
-  }
-}
-
-export const OneBlockProgressionManager = OneblockPoolProvider;
 ```
 
 ## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/phases.js (164 lines, 4543 bytes)
@@ -2659,7 +1840,7 @@ export function serverPayout(typeId, amount) {
 }
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/README.md (25 lines, 2431 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/README.md (26 lines, 2539 bytes)
 
 ```
 # Script library
@@ -2681,6 +1862,7 @@ Scripts for ALN:MultiIslandOneBlock. All helper files live in this folder and ar
 - lib/prices.js: recommended price and amount for each item, and what the market pays for it.
 - lib/board.js: the @ALNStudios sidebar scoreboard that ranks every island owner by ALN Coins.
 - lib/ledger.js: the Global Trade Hub forms opened by the TRADERS Item.
+- lib/social.js: island protection, trusted players, visit requests, co-op invites, gifts and buy requests.
 - lib/keeper.js: keeps the TRADERS Item permanent. A thrown copy returns to the player, and a copy owed to a player with a full inventory is delivered as soon as a slot is free.
 
 Script events: aln:menu opens the startup window for a player who has no island yet.
@@ -2688,11 +1870,11 @@ Custom item: aln:pirate_ledger (shown as TRADERS Item).
 Known limits: listings only accept items without custom names, lore, enchantments or damage. Ticking areas are used briefly while an island is built, and the world allows only a limited number of them.
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/slots.js (171 lines, 4183 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/slots.js (238 lines, 6275 bytes)
 
 ```
 import { world } from "@minecraft/server";
-import { PROP, GRID_STEP } from "./config.js";
+import { PROP, GRID_STEP, COOP_MAX_MEMBERS, PROTECT_RADIUS } from "./config.js";
 import { readJson, writeJson } from "./util.js";
 
 const CORE = [
@@ -2800,6 +1982,9 @@ export function recordOfPlayerId(id) {
   for (const key of Object.keys(slots)) {
     if (slots[key].id === id) return { slot: Number(key), record: slots[key] };
   }
+  for (const key of Object.keys(slots)) {
+    if (isMemberOf(Number(key), id)) return { slot: Number(key), record: slots[key] };
+  }
   return undefined;
 }
 
@@ -2845,7 +2030,10 @@ export function markBuilt(slot) {
 
 export function slotOf(player) {
   const stored = player.getDynamicProperty(PROP.SLOT);
-  if (typeof stored === "number" && recordOf(stored)?.id === player.id) return stored;
+  if (typeof stored === "number") {
+    const own = recordOf(stored);
+    if (own && (own.id === player.id || isMemberOf(stored, player.id))) return stored;
+  }
   const found = recordOfPlayerId(player.id);
   if (!found) return undefined;
   player.setDynamicProperty(PROP.SLOT, found.slot);
@@ -2860,6 +2048,750 @@ export function traitOf(player) {
 
 export function usedSlotCount() {
   return Object.keys(readSlots()).length;
+}
+
+export function coopMembers(slot) {
+  return readJson(world, PROP.COOP_PREFIX + slot, []);
+}
+
+export function setCoopMembers(slot, list) {
+  writeJson(world, PROP.COOP_PREFIX + slot, list);
+}
+
+export function isMemberOf(slot, id) {
+  return coopMembers(slot).some((m) => m.id === id);
+}
+
+export function addCoopMember(slot, player) {
+  const members = coopMembers(slot);
+  if (members.length >= COOP_MAX_MEMBERS || members.some((m) => m.id === player.id)) return false;
+  members.push({ id: player.id, name: player.name });
+  setCoopMembers(slot, members);
+  return true;
+}
+
+export function trustedOf(slot) {
+  return readJson(world, PROP.TRUST_PREFIX + slot, []);
+}
+
+export function setTrusted(slot, list) {
+  writeJson(world, PROP.TRUST_PREFIX + slot, list);
+}
+
+export function islandMemberIds(slot) {
+  const record = recordOf(slot);
+  return record ? [record.id, ...coopMembers(slot).map((m) => m.id)] : [];
+}
+
+export function canBuild(playerId, slot) {
+  const record = recordOf(slot);
+  if (!record || record.id === playerId) return true;
+  if (isMemberOf(slot, playerId)) return true;
+  return trustedOf(slot).some((t) => t.id === playerId);
+}
+
+export function slotNear(x, z) {
+  const cx = Math.round(x / GRID_STEP);
+  const cz = Math.round(z / GRID_STEP);
+  if (Math.abs(x - cx * GRID_STEP) > PROTECT_RADIUS || Math.abs(z - cz * GRID_STEP) > PROTECT_RADIUS) return undefined;
+  return slotAt(cx * GRID_STEP, cz * GRID_STEP);
+}
+
+export function inviteFor(playerId) {
+  const invite = readJson(world, PROP.INVITE_PREFIX + playerId, undefined);
+  if (!invite || !recordOf(invite.slot)) return undefined;
+  return invite;
+}
+
+export function setInvite(playerId, invite) {
+  writeJson(world, PROP.INVITE_PREFIX + playerId, invite);
+}
+
+export function clearInvite(playerId) {
+  world.setDynamicProperty(PROP.INVITE_PREFIX + playerId, undefined);
+}
+```
+
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/social.js (679 lines, 25685 bytes)
+
+```
+import { world, system } from "@minecraft/server";
+import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
+import {
+  PROP,
+  LEDGER_ID,
+  SPAWN_Y,
+  COIN_NAME,
+  MAX_TRADE_AMOUNT,
+  MAX_PRICE,
+  PRICE_MIN_RATIO,
+  PRICE_MAX_RATIO,
+  MARKET_FEE_RATIO,
+  OFFER_LIFETIME_TICKS,
+  TRUST_LIMIT,
+  COOP_MAX_MEMBERS,
+  MAX_REQUESTS_PER_PLAYER,
+  MAX_REQUESTS_TOTAL,
+  REQUEST_LIST_LIMIT,
+  VISIT_COOLDOWN_TICKS,
+} from "./config.js";
+import {
+  slotOf,
+  recordOf,
+  readSlots,
+  slotCoords,
+  slotNear,
+  trustedOf,
+  setTrusted,
+  coopMembers,
+  setCoopMembers,
+  canBuild,
+  setInvite,
+} from "./slots.js";
+import { coinsOf, addCoins, addPayout, addEarned, awardTradeBonus } from "./market.js";
+import { priceInfo, recommendedTotal } from "./prices.js";
+import {
+  findPlayer,
+  later,
+  wait,
+  niceName,
+  normalizeId,
+  isValidItem,
+  plainInventory,
+  countPlain,
+  removePlain,
+  giveItem,
+  isCreative,
+  readJson,
+  writeJson,
+  overworld,
+} from "./util.js";
+import { hasIsland } from "./claim.js";
+import { teleportToLobby } from "./lobby.js";
+import { promptWelcome } from "./welcome.js";
+
+const BACK = { name: "main", page: 0, filter: "" };
+const warned = new Map();
+const visitUsed = new Map();
+
+async function ask(form, player, tries = 6, delay = 10) {
+  for (let i = 0; i < tries; i++) {
+    let res;
+    try {
+      res = await form.show(player);
+    } catch (e) {
+      return undefined;
+    }
+    if (res.canceled && res.cancelationReason === FormCancelationReason.UserBusy) {
+      await wait(delay);
+      continue;
+    }
+    return res;
+  }
+  return undefined;
+}
+
+function say(player, text, good = true) {
+  try {
+    player.sendMessage(`§6[ALN] ${good ? "§a" : "§c"}${text}`);
+  } catch (e) {}
+}
+
+function notify(playerId, text) {
+  const target = findPlayer(playerId);
+  if (target) say(target, text);
+  return target;
+}
+
+function deliver(targetId, itemId, amount) {
+  const target = findPlayer(targetId);
+  if (target) giveItem(target, itemId, amount);
+  else addPayout(targetId, itemId, amount);
+}
+
+function labelOf(person) {
+  return `${person.name} (${findPlayer(person.id) ? "online" : "offline"})`;
+}
+
+function islandPeople(excludeId) {
+  const seen = new Set();
+  const list = [];
+  const slots = readSlots();
+  for (const key of Object.keys(slots)) {
+    const record = slots[key];
+    if (!record) continue;
+    for (const person of [{ id: record.id, name: record.name }, ...coopMembers(Number(key))]) {
+      if (!person.id || !person.name || person.id === excludeId || seen.has(person.id)) continue;
+      seen.add(person.id);
+      list.push({ id: person.id, name: person.name, slot: Number(key) });
+    }
+  }
+  return list.sort((a, b) => a.name.localeCompare(b.name));
+}
+
+function warnDenied(player, slot) {
+  system.run(() => {
+    try {
+      const now = world.getAbsoluteTime();
+      if (now - (warned.get(player.id) ?? -100) < 40) return;
+      warned.set(player.id, now);
+      const name = recordOf(slot)?.name ?? "another player";
+      player.sendMessage(`§6[ALN] §cThis island belongs to ${name}. Ask them to trust you.`);
+    } catch (e) {}
+  });
+}
+
+function guard(event, interact) {
+  const block = event.block;
+  if (block.dimension.id !== "minecraft:overworld") return;
+  const slot = slotNear(block.x, block.z);
+  if (slot === undefined || canBuild(event.player.id, slot)) return;
+  if (interact && event.itemStack?.typeId === LEDGER_ID) return;
+  event.cancel = true;
+  warnDenied(event.player, slot);
+}
+
+export function startProtection() {
+  world.beforeEvents.playerBreakBlock.subscribe((event) => {
+    try {
+      guard(event, false);
+    } catch (e) {}
+  });
+  world.beforeEvents.playerInteractWithBlock.subscribe((event) => {
+    try {
+      guard(event, true);
+    } catch (e) {}
+  });
+}
+
+function teleportVisit(visitor, slot) {
+  const c = slotCoords(slot);
+  try {
+    visitor.teleport({ x: c.x + 0.5, y: SPAWN_Y, z: c.z + 0.5 }, { dimension: overworld() });
+  } catch (e) {}
+}
+
+async function requestVisit(visitor, target) {
+  const record = recordOf(target.slot);
+  if (!record) return;
+  if (target.slot === slotOf(visitor)) {
+    say(visitor, "That is your own island. Use Go Home.", false);
+    return;
+  }
+  if (canBuild(visitor.id, target.slot)) {
+    teleportVisit(visitor, target.slot);
+    say(visitor, `Visiting ${record.name}'s island. Use Go Home to return.`);
+    return;
+  }
+  const owner = findPlayer(record.id);
+  if (!owner) {
+    say(visitor, "The island owner must be online to approve your visit.", false);
+    return;
+  }
+  const now = world.getAbsoluteTime();
+  const last = visitUsed.get(visitor.id);
+  if (last !== undefined && now - last < VISIT_COOLDOWN_TICKS) {
+    say(visitor, `You can send another visit request in ${Math.ceil((VISIT_COOLDOWN_TICKS - (now - last)) / 20)} seconds.`, false);
+    return;
+  }
+  visitUsed.set(visitor.id, now);
+  say(visitor, `Visit request sent to ${owner.name}.`);
+  const form = new ActionFormData()
+    .title("§6§lVisit Request")
+    .body(`§f${visitor.name} §7wants to visit your island.\n§7Visitors cannot build or break blocks unless you trust them.`)
+    .button("Accept")
+    .button("Decline");
+  const res = await ask(form, owner, 15, 40);
+  const arrived = findPlayer(visitor.id);
+  if (!arrived) return;
+  if (!res || res.canceled || res.selection !== 0) {
+    say(arrived, `${owner.name} did not accept your visit.`, false);
+    return;
+  }
+  teleportVisit(arrived, target.slot);
+  say(arrived, `Visiting ${owner.name}'s island. Use Go Home to return.`);
+}
+
+async function screenVisit(player) {
+  const own = slotOf(player);
+  const slots = readSlots();
+  const targets = [];
+  for (const key of Object.keys(slots)) {
+    const slot = Number(key);
+    const record = slots[key];
+    if (!record || slot === own) continue;
+    if (findPlayer(record.id) || canBuild(player.id, slot)) targets.push({ slot, name: record.name, id: record.id });
+  }
+  targets.sort((a, b) => a.name.localeCompare(b.name));
+  if (targets.length === 0) {
+    say(player, "No island owners are online to visit right now.", false);
+    return "menu";
+  }
+  const form = new ActionFormData().title("§6§lVisit an Island").body("§7The island owner must approve your visit.");
+  for (const t of targets) form.button(`${t.name}\n§8Island #${t.slot} | ${findPlayer(t.id) ? "online" : "offline"}`);
+  form.button("Back");
+  const res = await ask(form, player);
+  if (!res || res.canceled) return undefined;
+  if (res.selection < targets.length) await requestVisit(player, targets[res.selection]);
+  return "menu";
+}
+
+async function addTrusted(player, slot) {
+  const trusted = trustedOf(slot);
+  if (trusted.length >= TRUST_LIMIT) {
+    say(player, `You can trust at most ${TRUST_LIMIT} players.`, false);
+    return;
+  }
+  const skip = new Set([player.id, ...trusted.map((t) => t.id), ...coopMembers(slot).map((m) => m.id)]);
+  const candidates = world.getAllPlayers().filter((p) => !skip.has(p.id));
+  if (candidates.length === 0) {
+    say(player, "No other players are online to trust.", false);
+    return;
+  }
+  const form = new ModalFormData().title("§6§lTrust Player").dropdown("Player to trust", candidates.map((p) => p.name));
+  const res = await ask(form, player);
+  if (!res || res.canceled || !res.formValues) return;
+  const target = candidates[res.formValues[0]];
+  if (!target) return;
+  setTrusted(slot, [...trusted, { id: target.id, name: target.name }]);
+  say(player, `${target.name} can now build on your island.`);
+  say(target, `${player.name} trusts you. You can build on their island.`);
+}
+
+async function removeTrusted(player, slot) {
+  const trusted = trustedOf(slot);
+  if (trusted.length === 0) {
+    say(player, "You do not trust anyone yet.", false);
+    return;
+  }
+  const form = new ModalFormData().title("§6§lRemove Trusted Player").dropdown("Player to remove", trusted.map((t) => t.name));
+  const res = await ask(form, player);
+  if (!res || res.canceled || !res.formValues) return;
+  const target = trusted[res.formValues[0]];
+  if (!target) return;
+  setTrusted(slot, trusted.filter((t) => t.id !== target.id));
+  say(player, `${target.name} can no longer build on your island.`);
+  notify(target.id, `${player.name} no longer trusts you.`);
+}
+
+async function screenTrust(player) {
+  const slot = slotOf(player);
+  const record = slot === undefined ? undefined : recordOf(slot);
+  if (!record) {
+    say(player, "You need an island first.", false);
+    return "menu";
+  }
+  const owner = record.id === player.id;
+  const trusted = trustedOf(slot);
+  const lines = ["§7Trusted players can build, break and use blocks on your island. Everyone else can only look.", ""];
+  if (trusted.length === 0) lines.push("§7Nobody is trusted yet.");
+  for (const t of trusted) lines.push(`§f${t.name}`);
+  if (!owner) lines.push("", "§7Only the island owner can change this list.");
+  const form = new ActionFormData().title("§6§lTrusted Players").body(lines.join("\n"));
+  if (owner) form.button("Trust a Player").button("Remove a Player");
+  form.button("Back");
+  const res = await ask(form, player);
+  if (!res || res.canceled) return undefined;
+  if (owner && res.selection === 0) await addTrusted(player, slot);
+  else if (owner && res.selection === 1) await removeTrusted(player, slot);
+  else return "menu";
+  return "trust";
+}
+
+function dropMember(slot, memberId) {
+  setCoopMembers(slot, coopMembers(slot).filter((m) => m.id !== memberId));
+  const target = findPlayer(memberId);
+  if (!target) return;
+  target.setDynamicProperty(PROP.SLOT, undefined);
+  target.setDynamicProperty(PROP.TRAIT, undefined);
+  teleportToLobby(target);
+  later(() => promptWelcome(target), 20);
+}
+
+async function invitePlayer(player, slot, record) {
+  if (coopMembers(slot).length >= COOP_MAX_MEMBERS) {
+    say(player, `Your co-op island is full (${COOP_MAX_MEMBERS + 1} players).`, false);
+    return;
+  }
+  const candidates = world.getAllPlayers().filter((p) => !hasIsland(p));
+  if (candidates.length === 0) {
+    say(player, "Only players who have not claimed an island yet can be invited, and nobody like that is online.", false);
+    return;
+  }
+  const form = new ModalFormData().title("§6§lInvite Player").dropdown("Player to invite", candidates.map((p) => p.name));
+  const res = await ask(form, player);
+  if (!res || res.canceled || !res.formValues) return;
+  const target = candidates[res.formValues[0]];
+  if (!target) return;
+  setInvite(target.id, { slot, owner: record.name });
+  say(player, `Invitation sent to ${target.name}.`);
+  say(target, `${record.name} invited you to share their island. Close the window and choose Join when it opens again.`);
+}
+
+async function removeMember(player, slot) {
+  const members = coopMembers(slot);
+  if (members.length === 0) {
+    say(player, "You have no co-op members.", false);
+    return;
+  }
+  const form = new ModalFormData().title("§6§lRemove Member").dropdown("Member to remove", members.map((m) => m.name));
+  const res = await ask(form, player);
+  if (!res || res.canceled || !res.formValues) return;
+  const target = members[res.formValues[0]];
+  if (!target) return;
+  dropMember(slot, target.id);
+  say(player, `${target.name} left your co-op island.`);
+  notify(target.id, `${player.name} removed you from their island.`);
+}
+
+async function leaveCoop(player, slot) {
+  const form = new ActionFormData()
+    .title("§6§lLeave Co-op")
+    .body("§7You will return to the lobby and can claim your own island. Your coins stay with you.")
+    .button("Leave Co-op")
+    .button("Stay");
+  const res = await ask(form, player);
+  if (!res || res.canceled || res.selection !== 0) return false;
+  dropMember(slot, player.id);
+  return true;
+}
+
+async function screenCoop(player) {
+  const slot = slotOf(player);
+  const record = slot === undefined ? undefined : recordOf(slot);
+  if (!record) {
+    say(player, "You need an island first.", false);
+    return "menu";
+  }
+  const owner = record.id === player.id;
+  const members = coopMembers(slot);
+  const lines = [
+    `§7A co-op island is shared by up to ${COOP_MAX_MEMBERS + 1} players. Everyone uses the same OneBlock and phase, and everyone keeps their own coins.`,
+    "",
+    `§fOwner: §e${record.name}`,
+  ];
+  if (members.length === 0) lines.push("§7No co-op members yet.");
+  for (const m of members) lines.push(`§fMember: §e${m.name}`);
+  const form = new ActionFormData().title("§6§lCo-op Island").body(lines.join("\n"));
+  if (owner) form.button("Invite a Player").button("Remove a Member");
+  else form.button("Leave Co-op");
+  form.button("Back");
+  const res = await ask(form, player);
+  if (!res || res.canceled) return undefined;
+  if (owner && res.selection === 0) await invitePlayer(player, slot, record);
+  else if (owner && res.selection === 1) await removeMember(player, slot);
+  else if (!owner && res.selection === 0) return (await leaveCoop(player, slot)) ? undefined : "coop";
+  else return "menu";
+  return "coop";
+}
+
+async function giftCoins(player) {
+  if (isCreative(player)) return say(player, "Players in Creative mode cannot send gifts.", false);
+  const people = islandPeople(player.id);
+  if (people.length === 0) return say(player, "There is nobody to send a gift to yet.", false);
+  const form = new ModalFormData()
+    .title("§6§lSend Coins")
+    .dropdown("Send to", people.map(labelOf))
+    .textField(`Amount (you have ${coinsOf(player.id)} ${COIN_NAME})`, "e.g. 50");
+  const res = await ask(form, player);
+  if (!res || res.canceled || !res.formValues) return undefined;
+  const target = people[res.formValues[0]];
+  const amount = Number(String(res.formValues[1] ?? "").trim());
+  if (!target || !Number.isInteger(amount) || amount < 1) return say(player, "Enter a whole number of coins.", false);
+  if (amount > coinsOf(player.id)) return say(player, `You only have ${coinsOf(player.id)} ${COIN_NAME}.`, false);
+  addCoins(player.id, -amount);
+  addCoins(target.id, amount);
+  say(player, `Sent ${amount} ${COIN_NAME} to ${target.name}.`);
+  if (!notify(target.id, `${player.name} sent you ${amount} ${COIN_NAME}.`)) addEarned(target.id, amount);
+  return undefined;
+}
+
+async function giftItem(player) {
+  if (isCreative(player)) return say(player, "Players in Creative mode cannot send gifts.", false);
+  const people = islandPeople(player.id);
+  if (people.length === 0) return say(player, "There is nobody to send a gift to yet.", false);
+  const items = plainInventory(player);
+  if (items.length === 0) return say(player, "You carry no items that can be sent.", false);
+  const form = new ModalFormData()
+    .title("§6§lSend Item")
+    .dropdown("Send to", people.map(labelOf))
+    .dropdown("Item", items.map((i) => `${niceName(i.id)} (x${i.amount})`))
+    .textField("Amount (empty = all)", "e.g. 16");
+  const res = await ask(form, player);
+  if (!res || res.canceled || !res.formValues) return undefined;
+  const target = people[res.formValues[0]];
+  const item = items[res.formValues[1]];
+  const text = String(res.formValues[2] ?? "").trim();
+  const amount = text === "" ? item?.amount : Number(text);
+  if (!target || !item || !Number.isInteger(amount) || amount < 1 || amount > item.amount) {
+    return say(player, `Enter a whole amount from 1 to ${item?.amount ?? 1}.`, false);
+  }
+  if (!removePlain(player, item.id, amount)) return say(player, "Could not take the items from your inventory.", false);
+  deliver(target.id, item.id, amount);
+  say(player, `Sent ${amount}x ${niceName(item.id)} to ${target.name}.`);
+  notify(target.id, `${player.name} sent you ${amount}x ${niceName(item.id)}.`);
+  return undefined;
+}
+
+async function screenGift(player) {
+  const form = new ActionFormData()
+    .title("§6§lSend a Gift")
+    .body("§7Send coins or items to another island player, online or offline.")
+    .button("Send Coins")
+    .button("Send Item")
+    .button("Back");
+  const res = await ask(form, player);
+  if (!res || res.canceled) return undefined;
+  if (res.selection === 0) await giftCoins(player);
+  else if (res.selection === 1) await giftItem(player);
+  else return "menu";
+  return "gift";
+}
+
+const reqKey = (id) => PROP.REQ_PREFIX + id;
+
+function readReqIds() {
+  return readJson(world, PROP.REQ_IDS, []);
+}
+
+function writeReqIds(list) {
+  writeJson(world, PROP.REQ_IDS, list);
+}
+
+function nextReqId() {
+  const current = world.getDynamicProperty(PROP.REQ_SEQ);
+  const id = (typeof current === "number" ? current : 0) + 1;
+  world.setDynamicProperty(PROP.REQ_SEQ, id);
+  return id;
+}
+
+function dropRequest(id) {
+  world.setDynamicProperty(reqKey(id), undefined);
+  writeReqIds(readReqIds().filter((x) => x !== id));
+}
+
+function allRequests() {
+  const now = world.getAbsoluteTime();
+  const ids = readReqIds();
+  const found = [];
+  const keep = [];
+  for (const id of ids) {
+    const req = readJson(world, reqKey(id), undefined);
+    if (!req) continue;
+    if (now - req.created >= OFFER_LIFETIME_TICKS) {
+      addCoins(req.buyer, req.price);
+      world.setDynamicProperty(reqKey(id), undefined);
+      const buyer = findPlayer(req.buyer);
+      if (buyer) say(buyer, `Your buy request for ${req.give.amount}x ${niceName(req.give.id)} expired. ${req.price} ${COIN_NAME} returned.`);
+      else addEarned(req.buyer, req.price);
+      continue;
+    }
+    found.push(req);
+    keep.push(id);
+  }
+  if (keep.length !== ids.length) writeReqIds(keep);
+  return found.sort((a, b) => b.id - a.id);
+}
+
+async function createRequest(player) {
+  const all = allRequests();
+  if (all.length >= MAX_REQUESTS_TOTAL) return say(player, "The request board is full. Try again later.", false);
+  if (all.filter((r) => r.buyer === player.id).length >= MAX_REQUESTS_PER_PLAYER) {
+    return say(player, `You can have at most ${MAX_REQUESTS_PER_PLAYER} requests open at once.`, false);
+  }
+  const form = new ModalFormData()
+    .title("§6§lNew Buy Request")
+    .textField("Item name", "e.g. pumpkin")
+    .textField("Amount", "e.g. 32")
+    .textField(`Total price in ${COIN_NAME} (empty = recommended)`, "e.g. 100");
+  const res = await ask(form, player);
+  if (!res || res.canceled || !res.formValues) return undefined;
+  const itemId = normalizeId(res.formValues[0]);
+  if (!isValidItem(itemId) || itemId === LEDGER_ID) return say(player, "That is not an item that can be requested.", false);
+  const amountText = String(res.formValues[1] ?? "").trim();
+  const amount = amountText === "" ? priceInfo(itemId).amount : Number(amountText);
+  if (!Number.isInteger(amount) || amount < 1 || amount > MAX_TRADE_AMOUNT) {
+    return say(player, `The amount must be a whole number from 1 to ${MAX_TRADE_AMOUNT}.`, false);
+  }
+  const rec = recommendedTotal(itemId, amount);
+  const priceText = String(res.formValues[2] ?? "").trim();
+  const price = priceText === "" ? rec : Number(priceText);
+  if (!Number.isInteger(price) || price < 1 || price > MAX_PRICE) {
+    return say(player, `The price must be a whole number of ${COIN_NAME} from 1 to ${MAX_PRICE}.`, false);
+  }
+  if (priceInfo(itemId).listed) {
+    const low = Math.max(1, Math.ceil(rec * PRICE_MIN_RATIO));
+    const high = Math.floor(rec * PRICE_MAX_RATIO);
+    if (price < low || price > high) {
+      return say(player, `For ${amount}x ${niceName(itemId)} the price must be between ${low} and ${high} ${COIN_NAME}.`, false);
+    }
+  }
+  if (coinsOf(player.id) < price) {
+    return say(player, `You need ${price} ${COIN_NAME} to post this request. They are held until it is filled or cancelled.`, false);
+  }
+  addCoins(player.id, -price);
+  const id = nextReqId();
+  writeJson(world, reqKey(id), {
+    id,
+    buyer: player.id,
+    buyerName: player.name,
+    give: { id: itemId, amount },
+    price,
+    created: world.getAbsoluteTime(),
+  });
+  writeReqIds([...readReqIds(), id]);
+  say(player, `Request posted: ${amount}x ${niceName(itemId)} for ${price} ${COIN_NAME}. The coins are held until it is filled or cancelled.`);
+  return undefined;
+}
+
+function fillRequest(player, id) {
+  const req = readJson(world, reqKey(id), undefined);
+  if (!req) return say(player, "That request is no longer available.", false);
+  if (req.buyer === player.id) return say(player, "You cannot fill your own request.", false);
+  if (isCreative(player)) return say(player, "Players in Creative mode cannot sell items.", false);
+  if (countPlain(player, req.give.id) < req.give.amount) {
+    return say(player, `You need ${req.give.amount}x ${niceName(req.give.id)} without custom changes.`, false);
+  }
+  if (!removePlain(player, req.give.id, req.give.amount)) return say(player, "Could not take the items from your inventory.", false);
+  dropRequest(id);
+  const net = req.price - Math.floor(req.price * MARKET_FEE_RATIO);
+  addCoins(player.id, net);
+  deliver(req.buyer, req.give.id, req.give.amount);
+  notify(req.buyer, `${player.name} filled your request for ${req.give.amount}x ${niceName(req.give.id)}.`);
+  say(player, `You received ${net} ${COIN_NAME} after the market fee.`);
+  awardTradeBonus(player.id, req.buyer);
+  return undefined;
+}
+
+async function screenFill(player, id) {
+  const req = readJson(world, reqKey(id), undefined);
+  if (!req) {
+    say(player, "That request is no longer available.", false);
+    return "requests";
+  }
+  const net = req.price - Math.floor(req.price * MARKET_FEE_RATIO);
+  const lines = [
+    `§fRequested by: §e${req.buyerName}`,
+    `§fYou give: §e${req.give.amount}x ${niceName(req.give.id)}`,
+    `§fYou receive: §e${net} ${COIN_NAME} §7(after the market fee)`,
+    `§7You carry: ${countPlain(player, req.give.id)}x ${niceName(req.give.id)}`,
+  ];
+  const form = new ActionFormData().title("§6§lFill Request").body(lines.join("\n")).button("Fill Request").button("Back");
+  const res = await ask(form, player);
+  if (!res || res.canceled) return undefined;
+  if (res.selection === 0) fillRequest(player, id);
+  return "requests";
+}
+
+async function screenBrowse(player) {
+  const list = allRequests()
+    .filter((r) => r.buyer !== player.id)
+    .slice(0, REQUEST_LIST_LIMIT);
+  if (list.length === 0) {
+    say(player, "There are no buy requests from other players right now.", false);
+    return "requests";
+  }
+  const form = new ActionFormData().title("§6§lBuy Requests").body("§7Pick a request to fill it from your inventory.");
+  for (const r of list) form.button(`${r.give.amount}x ${niceName(r.give.id)} for ${r.price} ${COIN_NAME}\n§8${r.buyerName}`);
+  form.button("Back");
+  const res = await ask(form, player);
+  if (!res || res.canceled) return undefined;
+  if (res.selection >= list.length) return "requests";
+  return screenFill(player, list[res.selection].id);
+}
+
+async function screenMine(player) {
+  const list = allRequests().filter((r) => r.buyer === player.id);
+  if (list.length === 0) {
+    say(player, "You have no open buy requests.", false);
+    return "requests";
+  }
+  const form = new ActionFormData().title("§6§lMy Requests").body("§7Pick a request to cancel it and get your coins back.");
+  for (const r of list) form.button(`${r.give.amount}x ${niceName(r.give.id)} for ${r.price} ${COIN_NAME}`);
+  form.button("Back");
+  const res = await ask(form, player);
+  if (!res || res.canceled) return undefined;
+  if (res.selection >= list.length) return "requests";
+  const req = list[res.selection];
+  const confirm = new ActionFormData()
+    .title("§6§lCancel Request")
+    .body(`§7Cancel your request for ${req.give.amount}x ${niceName(req.give.id)} and get ${req.price} ${COIN_NAME} back?`)
+    .button("Cancel Request")
+    .button("Keep");
+  const answer = await ask(confirm, player);
+  if (answer && !answer.canceled && answer.selection === 0 && readJson(world, reqKey(req.id), undefined)) {
+    dropRequest(req.id);
+    addCoins(player.id, req.price);
+    say(player, `Request cancelled. ${req.price} ${COIN_NAME} returned.`);
+  }
+  return "requests";
+}
+
+async function screenRequests(player) {
+  const form = new ActionFormData()
+    .title("§6§lBuy Requests")
+    .body("§7Post what you need and other players can fill it. Your coins are held until it is filled or cancelled.")
+    .button("Browse Requests")
+    .button("New Request")
+    .button("My Requests")
+    .button("Back");
+  const res = await ask(form, player);
+  if (!res || res.canceled) return undefined;
+  if (res.selection === 0) return screenBrowse(player);
+  if (res.selection === 1) {
+    await createRequest(player);
+    return "requests";
+  }
+  if (res.selection === 2) return screenMine(player);
+  return "menu";
+}
+
+async function screenMenu(player) {
+  const form = new ActionFormData()
+    .title("§6§lFriends & Co-op")
+    .body("§7Visit islands, share yours, send gifts and trade with requests.")
+    .button("Visit an Island")
+    .button("Trusted Players")
+    .button("Co-op Island")
+    .button("Send a Gift")
+    .button("Buy Requests")
+    .button("Back");
+  const res = await ask(form, player);
+  if (!res || res.canceled) return undefined;
+  return ["visit", "trust", "coop", "gift", "requests", "back"][res.selection];
+}
+
+export async function openSocial(player, start = "menu") {
+  let state = start;
+  while (state) {
+    const p = findPlayer(player.id);
+    if (!p) return undefined;
+    switch (state) {
+      case "menu":
+        state = await screenMenu(p);
+        break;
+      case "visit":
+        state = await screenVisit(p);
+        break;
+      case "trust":
+        state = await screenTrust(p);
+        break;
+      case "coop":
+        state = await screenCoop(p);
+        break;
+      case "gift":
+        state = await screenGift(p);
+        break;
+      case "requests":
+        state = await screenRequests(p);
+        break;
+      case "back":
+        return BACK;
+      default:
+        state = undefined;
+    }
+  }
+  return undefined;
 }
 ```
 
@@ -3225,14 +3157,15 @@ export function isCreative(player) {
 }
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/welcome.js (79 lines, 2051 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/lib/welcome.js (86 lines, 2336 bytes)
 
 ```
 import { system } from "@minecraft/server";
 import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
 import { TITLE, WELCOME_BODY, RULES_BODY, WELCOME_RETRY_LIMIT, LOCK_EFFECT, LOCK_AMPLIFIER } from "./config.js";
 import { findPlayer, wait } from "./util.js";
-import { hasIsland, claimIsland } from "./claim.js";
+import { hasIsland, claimIsland, joinCoopIsland } from "./claim.js";
+import { inviteFor } from "./slots.js";
 
 const open = new Set();
 
@@ -3275,11 +3208,13 @@ export async function promptWelcome(player, attempt = 0) {
     while (true) {
       const p = findPlayer(id);
       if (!p || hasIsland(p)) return;
+      const invite = inviteFor(id);
       const form = new ActionFormData()
         .title(TITLE)
         .body(WELCOME_BODY)
         .button("Start / Claim Island")
         .button("About / Rules");
+      if (invite) form.button(`Join ${invite.owner}'s Island (Co-op)`);
       let res;
       try {
         res = await form.show(p);
@@ -3295,6 +3230,10 @@ export async function promptWelcome(player, attempt = 0) {
         await wait(res.cancelationReason === FormCancelationReason.UserBusy ? 10 : 100);
         continue;
       }
+      if (res.selection === 2 && invite) {
+        if (joinCoopIsland(p, invite.slot)) return;
+        continue;
+      }
       if (res.selection === 0) {
         claimIsland(p);
         return;
@@ -3308,7 +3247,7 @@ export async function promptWelcome(player, attempt = 0) {
 }
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/main.js (78 lines, 2392 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/behavior_pack/scripts/main.js (80 lines, 2480 bytes)
 
 ```
 import { world, system } from "@minecraft/server";
@@ -3320,6 +3259,7 @@ import { startOneBlock } from "./lib/oneblock.js";
 import { openLedger } from "./lib/ledger.js";
 import { startLedgerKeeper, ensureLedger } from "./lib/keeper.js";
 import { startCoinBoard } from "./lib/board.js";
+import { startProtection } from "./lib/social.js";
 import { collectPayout, payoutSummary, takeEarned } from "./lib/market.js";
 import { later } from "./lib/util.js";
 
@@ -3334,7 +3274,7 @@ function readyPlayer(player) {
   returnToIsland(player);
   later(() => {
     const earned = takeEarned(player.id);
-    if (earned > 0) player.sendMessage(`§6[ALN] §aWhile you were away you earned ${earned} ALN Coins from your sales.`);
+    if (earned > 0) player.sendMessage(`§6[ALN] §aWhile you were away you received ${earned} ALN Coins from sales, bonuses and gifts.`);
   }, 60);
   if (payoutSummary(player.id).length > 0) {
     later(() => {
@@ -3384,18 +3324,30 @@ world.afterEvents.worldLoad.subscribe(() => {
   startLedgerKeeper();
   startCoinBoard();
   startWelcomeGuard();
+  startProtection();
   for (const player of world.getAllPlayers()) {
     if (!joining.has(player.id)) readyPlayer(player);
   }
 });
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md (95 lines, 6799 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/CHANGELOG.md (62 lines, 4182 bytes)
 
 ```
 # Changelog — ALN:MultiIslandOneBlock
 
 ---
+
+## [v12] - 2026-11-26 - Island Protection and Co-op
+
+### Added
+- **Island Protection**: Only the owner, co-op members and trusted players can build, break or use blocks on an island.
+- **Visit Requests**: Players can ask an online island owner for a visit from Friends & Co-op or the Top Islands page. Owners accept or decline.
+- **Trusted Players**: Island owners can trust up to eight players to build on their island.
+- **Co-op Islands**: Up to four players can share one island and one phase. Invited players join from the startup window, keep their own coins and split phase rewards.
+- **Gifts**: Players can send ALN Coins or items to any island player, online or offline.
+- **Buy Requests**: Players can post requests with a price, hold their coins until another player fills it, and get a refund if it expires or is cancelled.
+- **Daily Trade Bonus**: The first sale to another player each day earns bonus ALN Coins, with a larger bonus when the buyer's island has a different trait.
 
 ## [v11] - 2026-11-25 - Go Home, Top Islands and Offer Expiry
 
@@ -3442,54 +3394,11 @@ world.afterEvents.worldLoad.subscribe(() => {
 ### Improved & Balanced
 - **Price Guard**: The lowest allowed offer price is now half of the recommended price, so nobody can buy cheaply from a player and resell to the market for a profit.
 
-## [v5] - 2026-11-23 - Price Guard and Weighted Richness
 
-### Added
-- **Offline Earnings Message**: Sellers who were offline when an offer sold are told how many ALN Coins they earned when they join.
-### Improved & Balanced
-- **Price Guard**: For items with a recommended price, an offer must stay between one quarter and four times the recommended price, which blocks typo and scam prices.
-- **Weighted Richness**: New islands still get a random Richness trait, but traits that many islands already have are less likely.
-### Fixed
-- **Recipe Errors**: The TRADERS Item crafting recipe was removed, which also removes its recipe errors from the content log. The item is now only given when an island is claimed and returns to you if thrown.
-
-## [v4] - 2026-11-23 - ALN Coins and Random Islands
-
-### Added
-- **ALN Coins**: The Global Trade Hub now uses ALN Coins instead of item-for-item swaps. Every player starts with 500 ALN Coins, offers are priced in coins, and a sale pays the seller right away, even when offline.
-- **Recommended Prices**: Every item shows a recommended price and amount when you create an offer, and empty fields use them.
-### Improved & Balanced
-- **Random Richness**: Each new island now gets a random Richness trait instead of an evenly balanced one.
-- **Random Island Spots**: Each new island now takes a random free spot of the innermost ring that still has room instead of the next spot in order.
-- **Old Offers**: Open item-for-item offers from the previous version are cancelled and the items are returned to their sellers.
-
-## [v3] - 2026-11-23 - TRADERS Item Return Fix
-
-### Fixed
-- **TRADERS Item Return**: A thrown TRADERS Item is now returned even when the game has not finished creating the dropped item yet. A second check every few ticks finds and removes a dropped copy and returns it, and it is delivered as soon as a slot is free when the inventory is full.
-- **TRADERS Item on Death**: After dying, the dropped copy is removed and a new TRADERS Item is delivered when you respawn, using the player's current entity instead of the one from before death.
-
-## [v2] - 2026-11-23 - TRADERS Item
-
-### Added
-- **Permanent TRADERS Item**: If you throw the TRADERS Item away it returns to you. If your inventory is full and you hold none, it is delivered as soon as a slot is free, and you get it back after respawning.
-### Improved & Balanced
-- **TRADERS Item**: The Global Pirate Ledger is now named TRADERS Item and is the only trade item in the map.
-- **Removed Unused Item**: The OneBlock Trader item that had no role in this map was removed.
-
-## [1.0.0] - 2026-11-23 - First Release
-
-### Added
-- **OneBlock World Map**: A void OneBlock world for ten or more players, with Creative, Survival and Hardcore versions.
-- **Central Lobby**: The world spawn sits on a single bedrock pillar at the center of the grid.
-- **Startup Window**: First-time players see a welcome window with Start / Claim Island and About / Rules buttons, plus a warning that the island choice is permanent.
-- **Island Grid**: Each player claims a private island on a square grid with 2,000 blocks between islands, with extra outer rings for more than eight players.
-- **Shared OneBlock Phases**: All islands progress through eight phases together, from Forest to The End.
-- **Island Richness Traits**: Every island has one of six traits that change its block mix and add bonus drops.
-- **Global Pirate Ledger**: A craftable item, made from a Book, a Gold Nugget and an Emerald, that opens the Global Trade Hub from anywhere.
-- **Global Trade Hub**: Players can post, browse, search, buy, cancel and collect earnings from item offers made by other islands.
+(older entries omitted; ask for the full file if needed)
 ```
 
-## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/DESCRIPTION.md (106 lines, 7945 bytes)
+## FILE: MCPEDL/Maps/ALNMultiIslandOneBlock/DESCRIPTION.md (127 lines, 9223 bytes)
 
 ```
 # ALN:MultiIslandOneBlock — A OneBlock world map with private islands on a 2,000-block grid and a global trade ledger
@@ -3554,6 +3463,27 @@ The map is a void world and includes Creative, Survival and Hardcore versions.
 
 ### Bonus Drop Notice
 - **What Happens**: When a bonus drop appears, its name shows on the action bar and you hear a sound.
+
+### Island Protection
+- **What Happens**: Only the island owner, co-op members and trusted players can build, break or use blocks on an island. Visitors can look around but cannot change anything.
+
+### Visit Requests
+- **What Happens**: Friends & Co-op lets you ask an online island owner for a visit. The owner accepts or declines, and trusted players and co-op members can visit directly. Go Home brings you back.
+
+### Trusted Players
+- **What Happens**: Island owners can trust up to eight players so they can build on the island.
+
+### Co-op Islands
+- **What Happens**: Up to four players can share one island, one OneBlock and one phase. New players can accept an invitation in the startup window, and each member keeps their own ALN Coins. Phase rewards are split between members.
+
+### Gifts
+- **What Happens**: Send ALN Coins or items to any island player, online or offline.
+
+### Buy Requests
+- **What Happens**: Post what you need with a price. Your coins are held until another player fills the request or you cancel it. Requests expire after about 7 days and return your coins.
+
+### Daily Trade Bonus
+- **What Happens**: Your first sale to another player each day earns bonus ALN Coins, and the bonus is bigger when the buyer's island has a different Richness trait.
 
 ## How to Use
 
@@ -3622,7 +3552,7 @@ Minecraft Bedrock add-on, ALN:MultiIslandOneBlock Bedrock map, MCPEDL add-on, Cu
 # ALN:MultiIslandOneBlock
 
 <!-- CURSEFORGE-BADGE:START -->
-[![CurseForge](https://img.shields.io/badge/CurseForge-v10-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1825799)
+[![CurseForge](https://img.shields.io/badge/CurseForge-v12-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1825799)
 <!-- CURSEFORGE-BADGE:END -->
 
 Download the current release of **ALN:MultiIslandOneBlock** for Minecraft Bedrock Edition.
@@ -3649,11 +3579,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:MultiIslandOneBlock Resources (v11)",
+    "name": "ALN:MultiIslandOneBlock Resources (v12)",
     "description": "Textures and names for the TRADERS Item. by ALNStudios",
     "uuid": "2cf90b7d-4b0f-44d5-b726-41f3e756f95f",
     "version": [
-      11,
+      12,
       0,
       0
     ],
@@ -3668,7 +3598,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "02c6ed61-2e06-499b-b6d3-1c6afa51beb6",
       "version": [
-        11,
+        12,
         0,
         0
       ]
@@ -3679,7 +3609,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "11.0.0"
+    "version": "12.0.0"
   }
 }
 ```

@@ -1,0 +1,5 @@
+tile.aln:pipe_standard.name=Standard Pipe
+tile.aln:pipe_receiver.name=Receiver Pipe
+tile.aln:pipe_filter.name=Filter Pipe
+tile.aln:pipe_junction.name=T-Junction Pipe
+item.aln:pipe_wrench.name=Pipe Wrench

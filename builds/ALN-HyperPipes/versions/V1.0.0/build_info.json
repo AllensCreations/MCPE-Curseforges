@@ -1,0 +1,8 @@
+{
+  "changelog_version": "1.0.0",
+  "manifest_version": "1.0.0",
+  "packages": {
+    "ALNHyperPipes V1.mcaddon": "da7888429c76be562815e048ab6a40d277ef9471ebfa7dae9afc780a0728ef82"
+  },
+  "source_sha256": "06e83ef350491afa341377d45dd3957da75a5ffcc4c807f9eda3e6cc87860c7a"
+}

@@ -1,0 +1,36 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN HyperPipes (v1)",
+    "description": "Textures and pipe models. by ALNStudios",
+    "uuid": "b2395b04-6f93-42fb-9c7f-554068edf924",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      100
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "74d38836-b9cf-40e1-bfcb-816b94a71688",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}

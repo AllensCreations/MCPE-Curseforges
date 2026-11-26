@@ -433,9 +433,20 @@ if not new_pack and not repo_kit:
 
 skills_section = "\n---\n\n## Skills\n" + "".join(skill_blocks) if skill_blocks else ""
 
+# Embed core policy docs so the AI has them without a Context7 round-trip
+doc_blocks = []
+for doc_rel in ["INSTRUCTIONS.md", "PACK_GENERATOR_INSTRUCTIONS.md", "DOCS_RULES.md"]:
+    doc_path = root / doc_rel
+    if doc_path.is_file():
+        doc_text = doc_path.read_text(encoding="utf-8", errors="replace").rstrip("\n")
+        f = _fence(doc_text)
+        doc_blocks.append(f"\n## Policy Doc: {doc_rel}\n\n{f}markdown\n{doc_text}\n{f}\n")
+docs_section = "\n---\n\n## Policy Docs\n" + "".join(doc_blocks) if doc_blocks else ""
+
 content = ("# Repo Export\n\n## Index\n\n" + "\n".join(index) + "\n\n---\n\n"
            + instructions.strip()
-           + skills_section + "\n\n---\n\n"
+           + skills_section
+           + docs_section + "\n\n---\n\n"
            + "## File Contents\n" + "".join(b for _, b in blocks))
 (out / name).write_text(content, encoding="utf-8")
 

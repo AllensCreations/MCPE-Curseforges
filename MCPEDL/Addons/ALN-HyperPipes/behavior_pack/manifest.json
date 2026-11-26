@@ -1,0 +1,61 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN HyperPipes (v1)",
+    "description": "Logistics pipes, filters and a wrench for item transport. by ALNStudios",
+    "uuid": "aca4949e-4b5a-4b6d-9ab1-d8e60b8e2e01",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      100
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "ebc838f4-d2bd-4311-ac42-e7d7247df7a9",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "entry": "scripts/main.js",
+      "uuid": "f41d8240-37ec-4fb4-b911-028bb20c3cf2",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "b2395b04-6f93-42fb-9c7f-554068edf924",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.1.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}

@@ -61,6 +61,27 @@ The map is a void world and includes Creative, Survival and Hardcore versions.
 ### Bonus Drop Notice
 - **What Happens**: When a bonus drop appears, its name shows on the action bar and you hear a sound.
 
+### Island Protection
+- **What Happens**: Only the island owner, co-op members and trusted players can build, break or use blocks on an island. Visitors can look around but cannot change anything.
+
+### Visit Requests
+- **What Happens**: Friends & Co-op lets you ask an online island owner for a visit. The owner accepts or declines, and trusted players and co-op members can visit directly. Go Home brings you back.
+
+### Trusted Players
+- **What Happens**: Island owners can trust up to eight players so they can build on the island.
+
+### Co-op Islands
+- **What Happens**: Up to four players can share one island, one OneBlock and one phase. New players can accept an invitation in the startup window, and each member keeps their own ALN Coins. Phase rewards are split between members.
+
+### Gifts
+- **What Happens**: Send ALN Coins or items to any island player, online or offline.
+
+### Buy Requests
+- **What Happens**: Post what you need with a price. Your coins are held until another player fills the request or you cancel it. Requests expire after about 7 days and return your coins.
+
+### Daily Trade Bonus
+- **What Happens**: Your first sale to another player each day earns bonus ALN Coins, and the bonus is bigger when the buyer's island has a different Richness trait.
+
 ## How to Use
 
 1. Download the map and open the file with Minecraft to import it.

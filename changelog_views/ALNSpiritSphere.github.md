@@ -1,17 +1,32 @@
 # Changelog — ALN:SpiritSphere
 
-## [6.0.0] - 2026-11-25 - Ten Spheres
+## [7.0.0] - 2026-11-26 - Flight Paths and Energy Hands
 
 ### Added
+- **Flight paths**: Each of the ten spheres now flies its own path, from a spiral and a zigzag to arcs, homing, a wobble, a side curve and a speed-up.
+- **Energy hands**: Glowing particle hands and arms now appear on both sides of the sphere while you charge, so it looks held in two hands.
+
+### Improved & Balanced
+- **Sphere position**: The charging sphere and the launch point now sit in front of your chest instead of beside your right hand.
+- **Chrono Stasis speed**: The orb now starts at about 40 percent of its old speed and speeds up in flight.
+
+<details>
+<summary><b>6.0.x</b> (1 release)</summary>
+
+### [6.0.0] - 2026-11-25 - Ten Spheres
+
+#### Added
 - **Five new spheres**: Players can craft Terra Quake, Toxic Bloom, Gravity Warp, Life Bloom and Chrono Stasis spheres, each with its own recipe, color, icon and impact effect.
 - **New sounds**: Each new sphere has its own charge, burst, launch and impact sound, 20 more in total.
 - **Cooldown**: Each sphere now has a 3 second cooldown after a shot, and the action bar shows the time left.
 - **Sweet spot**: Releasing between 50 and 62 ticks gives full power and a 25 percent larger blast.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **32x32 textures**: All sphere icons and the orb texture are redrawn at 32x32 with shading and an element detail on each.
 - **Overcharge**: Holding past the sweet spot now weakens the shot over 3 seconds down to 40 percent power, with the sphere shrinking and the charge tone falling in pitch.
 - **Action bar**: The charge display now shows the current power percentage.
+
+</details>
 
 <details>
 <summary><b>5.0.x</b> (1 release)</summary>

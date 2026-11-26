@@ -2,6 +2,33 @@
 
 ---
 
+## [v9] - 2026-11-26 - Sponges Simplified
+
+### Removed
+
+- **Sponge books**: Super Sponge I to X Book and Extreme Sponge I Book, with their crafting recipes and the chest loot changes. Chests use the game's normal loot again.
+- **Super Sponges and Extreme Sponge**: all ten Super Sponges, the Extreme Sponge, their Water-Filled versions, recipes, names and icons.
+
+### Changed
+
+- **OP Sponge**: It is now the only sponge. Choose Normal, Extremely or Unlimited power with the pack subpacks.
+
+## [v8] - 2026-11-26 - Letter S Flicker Fix
+
+### Fixed
+
+- **Letter S**: The S layer now sits a little further off the sponge surface, so it no longer flickers.
+
+## [v7] - 2026-11-26 - Power Levels And Water Recheck
+
+### Added
+
+- **Power Levels**: Three subpacks for the OP Sponge. Normal OP absorbs up to 256 water blocks, Extremely OP up to 1,024, and Unlimited OP has no block limit. Unlimited OP is the default. Choose one in the pack settings.
+
+### Fixed
+
+- **Sponges**: After draining, every sponge now re-checks the cleared cells up to 3 times and removes water that flowed back in.
+
 ## [v6] - 2026-11-25 - Letter S And Waterlogged Blocks
 
 ### Changed

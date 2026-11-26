@@ -4,6 +4,201 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## 2026-11-26 - New Map ALN-LegendaryPiglin
+
+### Added
+- **ALN-LegendaryPiglin**: New map project created from a pack script.
+
+## [v312] - 2026-11-26 - Biome Fix and Aurora Palette
+
+**Spec**: spec_v312.txt | **Target**: MCPEDL/Addons/ALNAuroraBorealis | **Files edited**: 100
+
+### Added
+- **Aurora Palette**: Up to 47 Overworld biomes get an emerald, cyan or violet sky tint, with a matching haze at the edge of your view distance.
+- **Tinted Water**: Water surfaces match the biome's aurora color.
+- **Pack Icon**: A pixel-art aurora over snowy peaks shows in the pack list.
+
+### Fixed
+- **Biome Tints**: The sky, haze and water tints now load in game; they were stored where Minecraft does not read them.
+
+## 2026-11-26 - New Addon ALNAuroraBorealis
+
+### Added
+- **ALNAuroraBorealis**: New addon project created from a pack script.
+
+## 2026-11-26 - New Addon ALN HyperPipes
+
+### Added
+- **ALN HyperPipes**: New addon project created from a pack script.
+
+## [v311] - 2026-11-26 - Scroll Retexture
+
+**Spec**: spec_v311.txt | **Target**: MCPEDL/Addons/ALNWarpScrolls | **Files edited**: 2
+
+### Improved & Balanced
+- **Warp Scroll texture**: Redrawn as a tilted parchment scroll with curled ends, a purple band, a gold-framed gem and a purple glow outline.
+
+## [v310] - 2026-11-26 - Crafting Recipe and Hub Settings
+
+**Spec**: spec_v310.txt | **Target**: MCPEDL/Addons/Smart-Tool-Hub | **Files edited**: 5
+
+### Added
+- **Crafting recipe**: The Tool Hub can be crafted with a diamond, 4 iron ingots and 4 redstone. The recipe is always unlocked.
+- **More Hub settings**: New toggles for keeping your current tool, skipping swords while mining, natural trees only, and requiring the Hub in the offhand for Tree Capitator and Domino Ore Miner. New sliders set the maximum blocks for each.
+- **Status message**: An action bar message shows when the Tool Hub enters or leaves the offhand.
+
+### Improved & Balanced
+- **Swap delay**: After a swap, the same tool type waits 5 ticks before it can swap again, so a block is not re-swapped while you break it.
+
+## [v309] - 2026-11-26 - Per-Tick Auto Switch
+
+**Spec**: spec_v309.txt | **Target**: MCPEDL/Addons/Smart-Tool-Hub | **Files edited**: 4
+
+### Improved & Balanced
+- **Per-tick Auto Switch**: While you keep mining, Auto Switch re-checks the block under your crosshair every tick and switches to the best tool.
+
+## 2026-11-26 - New Addon Smart Tool Hub
+
+### Added
+- **Smart Tool Hub**: New addon project created from a pack script.
+
+## [v308] - 2026-11-26 - Cooldown Bedrock and Market Search
+
+**Spec**: spec_v308.txt | **Target**: MCPEDL/Maps/OneBlock-Natural-Market | **Files edited**: 33
+
+### Added
+- **Cooldown Bedrock**: after every 50 core breaks the core turns into Bedrock for 30 seconds, with a countdown on screen, so the Coins cannot be farmed without a pause.
+- **Phase countdown**: every time the shared progress reaches a new phase, the core turns into Bedrock for 1 minute with a countdown before the next block appears.
+- **Market Search**: a new Search button in the Ledger finds any unlocked supply by name and lets you buy it from the results. Locked supplies are not listed.
+
+### Improved & Balanced
+- **Break time**: Currency Blocks take about 25 percent longer to break, now from 0.5 to 2.2 seconds, still the same with any tool or bare hands.
+
+## [v307] - 2026-11-26 - Natural Market Currency Blocks
+
+**Spec**: spec_v307.txt | **Target**: MCPEDL/Maps/OneBlock-Natural-Market | **Files edited**: 36
+
+### Added
+- **Currency Blocks**: the central block is now 30 custom banknote-style blocks, numbered 1 to 30, one per tier. Each has its own break time, from 0.4 to 1.7 seconds, and it is the same with any tool or bare hands.
+- **Market demand**: every supply gets more expensive as it is bought. Each bundle bought raises that item's price by about 15 percent, up to 12 times the normal price, and a red percentage shows the current rise. Prices fall back by half every 8 to 25 minutes, and rare items take longer to settle.
+- **New natural supplies**: Raw Iron, Raw Copper, Raw Gold, Raw Beef, Raw Porkchop, Raw Chicken, Raw Mutton, Raw Rabbit, Raw Cod and Raw Salmon.
+
+### Improved & Balanced
+- **Natural supplies only**: the market no longer sells crafted items such as tools, weapons, planks, ingots, cooked food, redstone parts, glass or bricks. The Tools & Gear, Combat and Redstone sections are gone and Building Blocks is now Natural Blocks.
+- **Tool wear**: breaking the core costs more tool durability on higher Currency Blocks, from 1 to 3 times the usual amount.
+- **Prices**: late-tier supplies cost more to match the new Coin income and break times.
+- **Locked by default**: the Trident, Elytra and Totem of Undying start locked in the sell list.
+
+### Fixed
+- **Old core blocks**: a vanilla core block already in an existing world still pays Coins when broken and is then replaced by a Currency Block.
+
+## [v306] - 2026-11-26 - Flight Paths and Energy Hands
+
+**Spec**: spec_v306.txt | **Target**: MCPEDL/Addons/ALNSpiritSphere | **Files edited**: 5
+
+### Added
+- **Flight paths**: Each of the ten spheres now flies its own path, from a spiral and a zigzag to arcs, homing, a wobble, a side curve and a speed-up.
+- **Energy hands**: Glowing particle hands and arms now appear on both sides of the sphere while you charge, so it looks held in two hands.
+
+### Improved & Balanced
+- **Sphere position**: The charging sphere and the launch point now sit in front of your chest instead of beside your right hand.
+- **Chrono Stasis speed**: The orb now starts at about 40 percent of its old speed and speeds up in flight.
+
+## [v305] - 2026-11-26 - Add Inventory Icon for Recipe Diagram
+
+**Spec**: spec_v305.txt | **Target**: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator | **Files edited**: 2
+
+### Added
+- **Inventory icon**: Added an inventory-style icon of the Loot Spawner so its crafting recipe diagram can be built for the pack page.
+
+## [v304] - 2026-11-26 - Sponges Simplified
+
+**Spec**: spec_v304.txt | **Target**: MCPEDL/Addons/OP-Sponge | **Files edited**: 9
+
+### Removed
+
+- **Sponge books**: Super Sponge I to X Book and Extreme Sponge I Book, with their crafting recipes and the chest loot changes. Chests use the game's normal loot again.
+- **Super Sponges and Extreme Sponge**: all ten Super Sponges, the Extreme Sponge, their Water-Filled versions, recipes, names and icons.
+
+### Changed
+
+- **OP Sponge**: It is now the only sponge. Choose Normal, Extremely or Unlimited power with the pack subpacks.
+
+## [v303] - 2026-11-26 - Letter S Flicker Fix
+
+**Spec**: spec_v303.txt | **Target**: MCPEDL/Addons/OP-Sponge | **Files edited**: 2
+
+### Fixed
+
+- **Letter S**: The S layer now sits a little further off the sponge surface, so it no longer flickers.
+
+## [v302] - 2026-11-26 - Power Levels And Water Recheck
+
+**Spec**: spec_v302.txt | **Target**: MCPEDL/Addons/OP-Sponge | **Files edited**: 8
+
+### Added
+
+- **Power Levels**: Three subpacks for the OP Sponge. Normal OP absorbs up to 256 water blocks, Extremely OP up to 1,024, and Unlimited OP has no block limit. Unlimited OP is the default. Choose one in the pack settings.
+
+### Fixed
+
+- **Sponges**: After draining, every sponge now re-checks the cleared cells up to 3 times and removes water that flowed back in.
+
+## [v301] - 2026-11-26 - Ally Combat Fix
+
+**Spec**: spec_v301.txt | **Target**: MCPEDL/Addons/ALN-SoulLantern | **Files edited**: 3
+
+### Fixed
+- **Spectral Ally**: The spirit now seeks out and attacks nearby monsters itself instead of relying on its AI, which did not attack.
+
+## [v300] - 2026-11-26 - Island Protection and Co-op
+
+**Spec**: spec_v300.txt | **Target**: MCPEDL/Maps/ALNMultiIslandOneBlock | **Files edited**: 12
+
+### Added
+- **Island Protection**: Only the owner, co-op members and trusted players can build, break or use blocks on an island.
+- **Visit Requests**: Players can ask an online island owner for a visit from Friends & Co-op or the Top Islands page. Owners accept or decline.
+- **Trusted Players**: Island owners can trust up to eight players to build on their island.
+- **Co-op Islands**: Up to four players can share one island and one phase. Invited players join from the startup window, keep their own coins and split phase rewards.
+- **Gifts**: Players can send ALN Coins or items to any island player, online or offline.
+- **Buy Requests**: Players can post requests with a price, hold their coins until another player fills it, and get a refund if it expires or is cancelled.
+- **Daily Trade Bonus**: The first sale to another player each day earns bonus ALN Coins, with a larger bonus when the buyer's island has a different trait.
+
+## [v299] - 2026-11-26 - Beacon Gate Model
+
+**Spec**: spec_v299.txt | **Target**: MCPEDL/Addons/ALNWarpScrolls | **Files edited**: 4
+
+### Added
+- **Beacon Gate model**: The block now has a custom 3D model with a gold plinth, four obsidian pillars topped with gold and amethyst, gold rails and a floating crystal.
+
+## [v298] - 2026-11-26 - Channel Cancel and Full Blackout
+
+**Spec**: spec_v298.txt | **Target**: MCPEDL/Addons/ALNWarpScrolls | **Files edited**: 6
+
+### Added
+- **Channel cancel**: Moving during the 3-second charge now interrupts the warp. The scroll is kept, the Nausea and the charge sound stop, and the eyelids open.
+
+### Improved & Balanced
+- **Full-screen blackout**: The eyelid screen now reaches past the screen edges, and a black veil fades in over the whole screen as the eyelids close.
+
+## [v297] - 2026-11-26 - Light Beam
+
+**Spec**: spec_v297.txt | **Target**: MCPEDL/Addons/ALNWarpScrolls | **Files edited**: 5
+
+### Added
+- **Light beam**: A pillar of light shoots up from you while the scroll charges, and a second beam shines over the Beacon Gate for a couple of seconds after you arrive.
+
+## [v296] - 2026-11-26 - Recall Sphere and Eyelid Screen
+
+**Spec**: spec_v296.txt | **Target**: MCPEDL/Addons/ALNWarpScrolls | **Files edited**: 6
+
+### Added
+- **Recall sphere**: A hollow sphere of portal particles now rises from your feet to above your head while the scroll charges, and a second sphere rises around you on arrival.
+- **Eyelid screen**: Your eyelids slowly close over the screen during the 3-second charge and snap open when you arrive.
+
+### Improved & Balanced
+- **Stronger Nausea**: The Nausea applied during the warp now uses a higher strength setting.
+
 ## 2026-11-25 - New Script ALN QualityOfLife Part 2
 
 ### Added

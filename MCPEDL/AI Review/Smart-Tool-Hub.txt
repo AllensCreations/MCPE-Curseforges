@@ -1,0 +1,4095 @@
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Addons/Smart-Tool-Hub`
+- **Destination:** `MCPEDL/Addons/Smart-Tool-Hub`
+- **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/Smart-Tool-Hub/CHANGELOG.md`)
+- **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
+- **Text files:** 12
+- **Skipped binary:** 12
+- **Paths not found:** 0
+
+### Files in this export
+
+- `MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/items/tool_hub.json`
+- `MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/manifest.json`
+- `MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/recipes/tool_hub.json`
+- `MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/scripts/lib/README.md`
+- `MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/Smart-Tool-Hub/CHANGELOG.md`
+- `MCPEDL/Addons/Smart-Tool-Hub/DESCRIPTION.md`
+- `MCPEDL/Addons/Smart-Tool-Hub/project.json`
+- `MCPEDL/Addons/Smart-Tool-Hub/README.md`
+- `MCPEDL/Addons/Smart-Tool-Hub/resource_pack/manifest.json`
+- `MCPEDL/Addons/Smart-Tool-Hub/resource_pack/textures/item_texture.json`
+- `MCPEDL/Addons/Smart-Tool-Hub/texture_sources/aln_tool_hub.json`
+
+### Skipped (binary): 12 file(s)
+
+- `MCPEDL/Addons/Smart-Tool-Hub/assets/banner.png`
+- `MCPEDL/Addons/Smart-Tool-Hub/assets/items/aln_tool_hub.png`
+- `MCPEDL/Addons/Smart-Tool-Hub/assets/items/aln_tool_hub_label.png`
+- `MCPEDL/Addons/Smart-Tool-Hub/assets/items/tool_hub.png`
+- `MCPEDL/Addons/Smart-Tool-Hub/assets/items/tool_hub_label.png`
+- `MCPEDL/Addons/Smart-Tool-Hub/assets/recipes/tool_hub_recipe.png`
+- `MCPEDL/Addons/Smart-Tool-Hub/assets/recipes/tool_hub_recipe_label.png`
+- `MCPEDL/Addons/Smart-Tool-Hub/assets/snapshots/lv_0_20261126150214.gif`
+- `MCPEDL/Addons/Smart-Tool-Hub/assets/snapshots/lv_0_20261126150340.gif`
+- `MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/pack_icon.png`
+- `MCPEDL/Addons/Smart-Tool-Hub/resource_pack/pack_icon.png`
+- `MCPEDL/Addons/Smart-Tool-Hub/resource_pack/textures/items/aln_tool_hub.png`
+
+---
+
+# AI Instructions & Review Notes
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Use Context7 to query this repository's documentation (`docs/`) for project scripts, coding instructions, and Bedrock conventions before reviewing the pack changes. Batch your lookup into a single Context7 query.
+Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
+
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v1 / NEXT UPDATE: v2).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE self-contained update `.sh` (`<Pack>_v<Version>_<rand>.sh`) built with `make_update_script.py` (INSTRUCTIONS.md Reply Format).
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Addons/Smart-Tool-Hub
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes or summaries unless asked.
+4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+
+## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections in order:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding the ready-to-run commands, and ONE generated self-contained `<Pack>_v<Version>_<rand>.sh` update script (built with `make_update_script.py`). The script contains the full UI, automatically pulls, applies edits safely, commits, and pushes.
+---
+
+## Skills
+
+## Skill: .agents/skills/mcpe-context7/SKILL.md
+
+```markdown
+---
+name: mcpe-context7
+description: Use before looking up ANY Bedrock API member, vanilla id, texture, recipe, component, manifest field or version for the MCPE-Curseforges repo. Routes each need to one of the three Context7 libraries and says when a script must come from the kit zip instead.
+---
+
+# mcpe-context7: Where to Look Things Up
+
+## Authority
+
+- `INSTRUCTIONS.md` 1.16 (copy in the kit zip's instruction files) is the policy. This skill is only its routing table and never overrides it.
+- Repo rules, scripts and pack files come from the **kit zip** (`New-Pack.zip`, `Maintenance.zip` or the pack's review zip), NOT from Context7. The zip is always fresher.
+
+## Libraries (ONLY these three, IDs exactly, `query-docs` only)
+
+- `/microsoftdocs/minecraft-creator`: `@minecraft/server` and `@minecraft/server-ui` API, JSON schemas, stable and module versions.
+- `/mojang/bedrock-samples`: vanilla ids, textures, recipes, components, entities, formats, `version.json`.
+- `/websites/wiki_bedrock_dev`: manifest structure, scripting guides, techniques.
+
+NEVER call `resolve-library-id`. NEVER query any other library.
+
+## Repo lookups (from the kit zip, NOT Context7)
+
+Repo rules, scripts, instruction files, `DOCS_RULES.md`, `PACK_GENERATOR_INSTRUCTIONS.md`, `docs/mcicons-index.md`, `docs/bedrock-guide.md` and all script files come from the kit zip under `files/`. Read them from there. Context7 no longer indexes this repo.
+
+## Rules
+
+1. Query first, write second. Batch: at most ONE `query-docs` call per needed `libraryId`, covering every topic needed from it. NEVER two calls to the same `libraryId`. Name the exact member, file, id or schema and the game or module version. All three calls may go in one parallel turn.
+2. Verify every import, class, method, property and JSON field against the retrieved text. NEVER `mojang-minecraft`, `world.events` or 1.x syntax.
+3. Empty or doubtful result: no sequential retry loop. Say "not verified". NEVER fill the gap from memory.
+4. Versions come only from retrieved text. State the exact version used and the query date.
+5. Handoff bullet: `Docs queried (YYYY-MM-DD): <library IDs and topics>`.
+6. Library IDs, query text and the word Context7 NEVER go into shipped files or player-facing docs.
+
+## Scripts that must run
+
+- `make_pack_script.py`, `build_payload.py`, `import_project_payload.py`, `doc_template.py`, `pixel_json_to_png.py`, `make_update_script.py` and `apply_update.py` need their COMPLETE unchanged text.
+- The complete files are in the kit zip (`New-Pack.zip`, `Maintenance.zip` or the pack's review zip `<Pack>.zip`) under `files/`. Unzip, run from there, NEVER retype or edit them.
+- No zip: stop and ask the user to attach the zip. NEVER rewrite a script from memory.
+
+## Icons (MCicons)
+
+- Any vanilla item or block icon (recipe diagrams, sprites, README or listing images, UI art): use MCicons ONLY. It is the release file `reference/mcicons/mcicons-<ver>.tgz` in the repo (`package/dist/icons/minecraft_<id>.png`, 64x64, only `minecraft:` ids). Read it with `scripts/lib/mcicons.py` (`has_icon(id)`, `icon_image(id)`), never retype or guess a PNG.
+- No icon for the id (custom ids, newer items): report it. NO fallback to Samples, the Wiki, another icon site or a third-party pack.
+- `docs/mcicons-index.md` (in the kit zip under `files/`) lists every icon id it holds: check it before using an icon.
+- The `.tgz` itself is not in the kit zips. To run code that reads the pixels it must be in the clone; if it is missing, ask the user to attach it. NEVER substitute a lookalike.
+- Every manifest (BP and RP) carries `metadata.authors` = `["ALNStudios"]` and `metadata.product_type` = `"addon"`, always.
+- Keep its `ASSET-NOTICE.md` with any redistributed icon.
+
+## Reading the directory map
+
+- The map lists directories with file counts. Pick the folder, then read the file from the zip. For exact file text of a pack, ask for a Collect Files export of that path.
+- NEVER edit generated folders and files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`, `builds/README.md`.
+```
+
+## Skill: .agents/skills/mcpe-pack-update/SKILL.md
+
+````markdown
+---
+name: mcpe-pack-update
+description: Use for any change to an existing project, workflow, script or doc in the MCPE-Curseforges repository (update, fix, add, rename). Delivers every change as ONE self-contained Termux update script (<Pack>_v<Version>_<rand>.sh) containing the spec and rich UI.
+---
+
+# mcpe-pack-update: Update Delivery
+
+## Authority
+
+- `INSTRUCTIONS.md` is the policy source. `PACK_GENERATOR_INSTRUCTIONS.md` is its standalone copy for generation. The script flow is `INSTRUCTIONS.md` "Termux Script Rules", built with `scripts/make_update_script.py`. Where to look each rule up: the `mcpe-context7` skill. This skill is a short working checklist and never restates or overrides them.
+- **Precedence** (as in `PACK_GENERATOR_INSTRUCTIONS.md`): factual accuracy and the user's requested scope, then Part 1, then Part 2, then this skill. Part 4 of the generator file never overrides Parts 1 and 2.
+- If these files disagree with each other or with a script in `scripts/`, tell the user exactly what differs instead of choosing silently. If `INSTRUCTIONS.md` cannot be read, stop and report it instead of working from memory.
+- Achievements line (every project type): always `Yes, achievement-friendly.` Keep any cheats or world-setting caveat as a following sentence.
+
+## Scope
+
+- Use for changes to an existing project (`MCPEDL/Addons|Maps|Script|Minigame/<Name>/`), a workflow, a script, a catalog or any repo doc.
+- Read-only audit or report: use `checkrm`.
+- New project from an idea: follow `PACK_GENERATOR_INSTRUCTIONS.md` Part 4 (ask the type first, base64 payload).
+
+## Procedure
+
+1. Read `INSTRUCTIONS.md` Parts 1 and 2 before writing anything, through Context7 as the `mcpe-context7` skill says. `make_update_script.py`, `apply_update.py`, and `pixel_json_to_png.py` are complete in the pack's review zip (`<Pack>.zip`) under `files/`; run them from there.
+2. Find the destination folder: the path the user named, otherwise the matching project folder. Do not substitute a similar name; report ambiguity or a missing target.
+3. Read the real source (manifests, scripts, items, recipes, loot tables, functions, lang files) before writing any claim. Source priority when sources disagree: the project's own files, Mojang Bedrock Samples, official Minecraft Creator Documentation, Minecraft Wiki, Bedrock Wiki.
+4. Make the smallest possible change. No unrelated rewrites. Never invent features, versions, links, assets, test results or compatibility. Never write comments in shipped `.js`, `.mcfunction` or `.json` files.
+5. Generate the spec, convert it with `make_update_script.py` into a single self-contained `<Pack>_v<Version>_<rand>.sh` file, and provide the one-line run command for the user.
+
+## The update script
+
+Generate the spec with `apply_update.py` directives (replace, replace-all, insert-after, insert-before, create, overwrite, delete, changelog).
+Then build the single `.sh` using:
+```bash
+python3 files/scripts/make_update_script.py spec.txt --out-dir .
+```
+This produces ONE single `.sh` file (`<PackName>_v<Version>_<rand>.sh`) that contains the embedded update payload, ANSI colored status UI, automated git rebase, validation checks, commit, and push.
+
+## Reply
+
+1. Attach or output the single `.sh` file (`<PackName>_v<Version>_<rand>.sh`).
+2. Give the single Termux command:
+```bash
+bash ~/storage/downloads/<PackName>_v<Version>_*.sh
+```
+3. Brief summary of what changed and what checks ran.
+4. **Save in AI memory**: Every finished output, applied change summary, and spec version must be retained in AI memory/scratch notes so context is preserved across turns without relying on session replay.
+````
+
+---
+
+## Policy Docs
+
+## Policy Doc: INSTRUCTIONS.md
+
+````markdown
+# Instructions: Core Repository Policy (v46)
+
+
+Repo policy, docs rules for AllensCreations/MCPE-Curseforges (creator name `ALNStudios`). Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
+
+## Read Only What the Task Needs
+| Task | Read | Sections |
+| :--- | :--- | :--- |
+| Docs (README/DESCRIPTION/CHANGELOG) | this file + `DOCS_RULES.md` | 1.1 to 1.3; 2.1 to 2.5 |
+| Docs audit (`/checkrm`) | this file + `DOCS_RULES.md` | 1.1; all of `DOCS_RULES.md` |
+| Version, manifest, LOCK, recipe, function, build, workflow, OneBlock changes | this file | 1.1 to 1.12 |
+| New mechanic hits a vanilla limit | this file | 1.12 |
+| Script API code, manifests, textures, error fixes | this file | 1.2, 1.15, 1.16, 1.17 |
+| Any API, vanilla id, version or repo-script lookup | this file | 1.17 (Context7) |
+| Recipe images, sprites | this file + `DOCS_RULES.md` | 1.5; 3.3, 3.4 |
+| New addon / map / script / minigame | `PACK_GENERATOR_INSTRUCTIONS.md` | all |
+Read only the files and sections the task needs. Changing an instruction file: read both.
+
+## Reply Format (STRICT: repo edits, updates, `.sh` deliveries)
+`[SYSTEM_CONFIG] Direct Execution. Maximum token efficiency. No greeting, intro, outro, offers, restating. High technical accuracy.`
+Questions, reviews, discussion: free-form.
+Output ONLY, in order, exact headings:
+1. **File Needed:** repo-root-relative path of each file created/edited. Update to an existing project or the repo: the generated self-contained update `.sh` (`<Repofilename>_<Version>_<Rand>.sh`).
+2. **Changelog:** bullets, brief.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands. Update: `bash ~/storage/downloads/<Repofilename>_<Version>_*.sh` (the self-contained `.sh` with embedded update payload and terminal UI is attached as a downloadable file, NEVER pasted). New pack: `bash ~/storage/downloads/<file>.sh`, the pack `.sh` attached. Commands live in this block only. NEVER a Summary section.
+- NEVER text before, between, after. NEVER rename/merge/reorder/skip a section. Nothing to report: `- None`.
+- Ask only when 1.1 allows, one line; else proceed with defaults.
+- `/checkrm` audit report goes under **Changelog**: projects audited or updated, checks run and results, gaps.
+- New-pack build: same three sections, File Needed = the pack `.sh` (`PACK_GENERATOR_INSTRUCTIONS.md` 4.11). Planning phase: present the ~90% research plan and await user approval before proceeding to build.
+
+## Termux Script Rules
+Update to an existing project or the repo: the agent builds and delivers ONE self-contained update `.sh` (`<Repofilename>_<Version>_<Rand>.sh`) generated via `scripts/make_update_script.py` (which embeds the update payload inside the script with ANSI status UI). New pack: the pack `.sh` named per 1.1, attached as a downloadable file. Order:
+1. `#!/data/data/com.termux/files/usr/bin/bash` + `set -e`
+2. `cd "$HOME/MCPE-Curseforges"` (clone first if missing)
+3. Discard the generated folders (`git checkout -- Package changelog_views`, CI rebuilds them), then `git pull --rebase --autostash`.
+4. Apply ALL changes inside the script. PROJECT UPDATE = search and replace: write a spec and run `python3 scripts/make_update_script.py spec.txt` (format in `scripts/apply_update.py`: `@@ replace`/`replace-all`/`insert-after`/`insert-before`/`delete`/`append`/`create`, exact match, atomic, idempotent; `--verify <clone>` dry-runs it). Size decides the method. SMALL update (a few edits, under about 60% of any file touched): search and replace only. LARGE update (most of a file, many new files, a redesign): use the best method, `@@ create`/`@@ overwrite` in the same spec, never many fragile edits. Deliver ONE self-contained `<Repofilename>_<Version>_<Rand>.sh` built with `scripts/make_update_script.py` (embedding the spec inside it, with ANSI colors, status banner, rebase, validations, commit, push, and self-cleanup). A new pixel texture: `@@ create` its pixel JSON under `texture_sources/`, then `python3 scripts/pixel_json_to_png.py <project>` after the `.sh`. The tool also sets the manifest version, validates JSON/JS, writes both changelogs. Deliver ONLY the `.sh`: NEVER a separate `.zip`, pack file (`.mcaddon`/`.mcworld`/`.mcpack`), `.json`, `.js` or `.b64`. A NEW project is one pack `.sh` from `scripts/make_pack_script.py` (`PACK_GENERATOR_INSTRUCTIONS.md` Part 4).
+5. Validate every changed `.json` with python3. Stop on error.
+6. Run `python3 scripts/check_instruction_files.py` when an instruction file changed.
+6b. Project update: after the CHANGELOG entry, run `python3 scripts/manifest_tools.py --project "$DEST" --set vX` (or `X.0.0`), then `--check`
+ and `python3 scripts/validate_manifest_titles.py --project "$DEST"`. Stop on error.
+7. `git add` changed paths only; `git commit -m "<short>"`; `git push`
+8. Idempotent: skip applied changes.
+9. Add an entry to the root `CHANGELOG.md` (repo-wide, newest first under `---`): `## [vN] - YYYY-MM-DD - [Update Name]` (N = `REPO_VERSION` + 1, a single whole number such as v80, no dots; set by `apply_update.py`, never by hand; a repo-level script's `@@ version` (just the number) and its `.sh` name `Repo_vN_<Rand>.sh` MUST equal it, the script refuses otherwise; pack versions use vX
+), then `### Added` / `### Improved & Balanced` / `### Fixed` with `- **Title**: what changed`. Every script does this, tooling-only changes included.
+10. After a successful push, delete the script itself: `rm -f -- "$SELF"` (SELF = absolute path saved before `cd`; last line, only reached when everything above passed).
+Every project update writes CHANGELOG.md (Part 2 format; heading version == `.sh` name version). Manifest versions: 1.3. NEVER edit README download links by hand (build aligns them).
+- Spec ledger: the root `CHANGELOG.md` logs delivered repo-level specs: newest first, `## [vN]` = the spec number, with a `**Spec**: Repo_vN_<rand>.sh | **Target** | **Files edited**` line added by `apply_update.py`. Pack release notes live ONLY in the pack's own `CHANGELOG.md` with pack versions. Any AI agent starts an update from the pack's own files and version. A spec that is not in `CHANGELOG.md` is NOT applied: never assume it was.
+
+## Scripts: Agent vs Termux
+- `scripts/` is reference: read it to learn the workflow. The Termux `.sh` and CI run it.
+- Agents MAY run only: test scripts (`scripts/test_*.py`), `scripts/selftest_project_types.py`, `scripts/make_update_script.py` (build the `.sh`, `--verify`), `scripts/check_instruction_files.py`.
+- Agents NEVER run scripts that change the repo (build, bump, publish, delete, import, sync, rename).
+- Project checks (`check_readme_status.py`, `validate_manifest_titles.py`, `manifest_tools.py --check`): the agent reads and reports; the `.sh` runs them.
+
+## Precedence
+Part 1 wins. `DOCS_RULES.md` never overrides it. Generator file never overrides this file. Accuracy and requested scope outrank any template. Section numbers refer to this file.
+
+---
+
+## Part 1: Core Policy
+
+### 1.1 Accuracy
+- ALWAYS inspect source files before claims. Ask only if an unresolved choice affects gameplay, compatibility, distribution, data loss, or versioning. Else use defaults.
+- NEVER invent features, versions, links, assets, test results, compatibility, achievement support, performance, platform behavior. Separate verified facts from assumptions.
+- NEVER claim in-game test/function run/gameplay result unless tested in Minecraft. Archive/JSON/syntax checks prove structure only.
+- Source priority (report disagreements, NEVER choose silently). Read sources 2, 3 and 5 through Context7 (1.17): 1 add-on's own files; 1b MCicons release file `reference/mcicons/mcicons-<ver>.tgz` (NOT in Context7; ids in `docs/mcicons-index.md`; the ONLY source of vanilla item and block icons, no fallback); 2 Mojang Bedrock Samples (`/mojang/bedrock-samples`; offline copy reference/bedrock-samples/bedrock-samples.min.json.gz): vanilla ids, textures, recipes, components, formats;
+ 3 Minecraft Creator Docs (`/microsoftdocs/minecraft-creator`): stable versions, API; 4 Minecraft Wiki (https://minecraft.wiki/, not in Context7, only through a web tool when one exists): display names, edition, icon look; 5 Bedrock Wiki (`/websites/wiki_bedrock_dev`): formats, techniques. Sources 4-5 NEVER override 1-3 on ids, versions, API.
+- NEVER comments in shipped `.js`, `.mcfunction`, `.json`. Explanations go in docs or handoff.
+- NEVER imply Mojang/Microsoft endorsement.
+- `.sh` names: `(Repofilename)_(Version)_(Rand).sh`. Repofilename = project/folder/file changed, no extension, no spaces (hyphens). Version = new `vX` (e.g. `v2`, or legacy `X.Y.Z`), instruction version (`v5`) or repo version (`v80`). Rand = >=5 random lowercase/digits, fresh each time (`head -c 200 /dev/urandom | tr -dc 'a-z0-9' | head -c 6`), NEVER reused. Example `Dirtbound_v2_k7q2x.sh`. Same name in reply and run command.
+
+
+### 1.2 Versions and Compatibility
+Latest stable:
+- ALWAYS look up latest stable Bedrock release and Script API module versions at time of work. Record date. NEVER trust numbers in this file or memory.
+- Refs: Context7 `/microsoftdocs/minecraft-creator` (Script API versioning, `@minecraft/server` and `@minecraft/server-ui` stable references, platform version guidance), queried per 1.17. Community wikis NEVER pick versions or confirm API.
+- Pick highest stable module version supported by target game and every dependency (check peers). NEVER preview/beta/RC unless a requested feature needs it; then disclose in docs and handoff.
+- Game version and module version are separate. NEVER infer one from the other.
+
+Engine:
+- `min_engine_version` = lowest game version the pack needs. 3-integer array in the manifest form `[1, RELEASE, PATCH]`: game 26.60 = `[1, 26, 60]`, NEVER `[26, 60, 0]` (Minecraft rejects it and caps at the highest released version). Real looked-up value, NEVER `[0,0,0]`. NEVER hardcode a minimum in docs; a documented minimum uses the same form (`1.26.60`).
+- Manifest `format_version` = 2. Item/block `format_version` NEVER newer than `min_engine_version`.
+- Compatibility line states only a verified minimum. NEVER "or newer" unverified.
+- Updating old pack: ALWAYS keep UUIDs, persistent ids, working behavior. Upgrade deps deliberately. Raising `min_engine_version` drops players: say so in CHANGELOG.
+
+Achievements/experiments (every new pack, meaningful update):
+- ALWAYS inspect manifests, deps, stable-vs-preview imports, JSON, components, scripts, functions, world settings. Confirm experiment needs against current docs, NEVER keyword match. Stable Script API alone != experiment or achievements disabled.
+- Pack files NEVER establish an existing world's settings.
+- Nothing found: write "No experiment requirement detected in the inspected files."
+- Prefer stable implementation. NEVER silently weaken a feature to dodge an experiment.
+- Status: EVERY pack (add-on, map, script, minigame) = ALWAYS `Yes, achievement-friendly.` Every manifest carries `metadata.product_type` = `"addon"`, and the owner confirmed in game (ALN Pointer V20 `.mcaddon`) that a pack of that type keeps achievements allowed. Keep any cheat/command/world caveat as a following sentence. NEVER write Likely, Not or Unknown.
+- Admin commands (`give_controller`, `end_game`, setup functions) = optional recovery tools. Cheats disable achievements in that world: say so wherever documented.
+- Handoff: achievement status, experiments (none/required name/unknown), evidence, scope.
+
+Implementation:
+1. ALWAYS inspect manifest, entry points, imports, structure first.
+2. Confirm each API member exists in the chosen stable module version.
+3. Prefer event-driven logic. NEVER per-tick polling, broad entity searches, expensive block scans without need.
+4. Vanilla JSON components and `.mcfunction` when simpler. Script API when needed.
+5. Fix obvious malformed files.
+6. Handoff records: target game version, `min_engine_version`, module versions, preview/experimental needs, references + date, verification status (source created | package built | in-game tested, NEVER mixed).
+
+### 1.3 Version Format and Manifests
+**Manifest versioning (Bedrock engine format):** `header.version` MUST be a 3-integer array `[X, Y, Z]` (e.g. `[1, 0, 0]`, `[2, 0, 0]`); `metadata.version` MUST be the string `"X.Y.Z"` (e.g. `"1.0.0"`). The Bedrock engine rejects non-array values or strings like `"vX"` in manifests. NEVER use `vX` syntax inside any `manifest.json` field.
+**Per-pack user-facing format:** Every user-visible reference to a version uses `vX` (a single whole number): pack title suffix `(vX)`, changelog headings `## [vX]`, package filenames `(Shortcut VX.ext)`, README download links, CurseForge/MCPEDL release names, snapshot folder prefix `V`. The two formats are strictly separate: manifests = `[X, 0, 0]` / `"X.0.0"`, everything the user sees = `vX`.
+- Version = `vX` format (single whole number, e.g. `v2`, `v3`; Bedrock `header.version` maps to `[X, 0, 0]`; legacy `X.Y.Z` supported). NEVER `X.Y.Z.A`. No fourth part, no Alpha. Same version in `metadata.version`, `(vX)` titles, changelog headings, package names, README links, snapshots.
+
+- Update: X+1 (v1 -> v2, v2 -> v3; legacy 1.2.3 converts to v2). Manifest title suffix equals version (e.g. `(v2)`).
+- Manifest title = `Add-on Name (vX)` (e.g. `Vanilla Quality of Life (v2)`). Exactly one terminal suffix, equals `header.version` (or major integer), BP/RP match. NEVER duplicate suffixes. `scripts/validate_manifest_titles.py [--project <path>]` fails the job on violation (also notes non-fail: format_version != 2, missing/zero `min_engine_version`, missing `metadata.authors`).
+
+- `header.description` contains `by ALNStudios` exactly once. NEVER attribution in title.
+- NEVER change pack UUIDs or world storage keys to rename a title. NEVER regenerate header UUIDs (breaks worlds).
+- Build sync: every processed project aligns all source manifests to one highest `X.Y.Z`: `header.version`, `metadata.version`, title suffix, module versions, same-project BP/RP deps. FORCES `metadata.authors` = `["ALNStudios"]` and `metadata.product_type` = `"addon"` in EVERY BP and RP manifest (new packs, updates, builds; NEVER another author or type), optional `metadata.license`. `product_type` `"addon"` is what keeps achievements allowed (owner-confirmed in game). The Bedrock Wiki says Mojang removed this in game 26.50 (MCPE-242529): if a newer game version shows achievements disabled, report it, do not hide it.
+- Snapshots: `builds/<pack>/versions/V<X.Y.Z>/` (packages, `source.zip`, `source.sha256`, `build_info.json`). Refreshed when source/packages differ. Last 5 kept.
+- NOTHING auto-bumps. The new version is written in CHANGELOG.md AND, in the same update script, into every source manifest with `python3 scripts/manifest_tools.py --project <path> --set vX` (header.version, metadata.version, title suffix, module and dependency versions; UUIDs untouched; never lowers)
+, so every update changes the build. Publish to CurseForge uploads the newest changelog version as written and groups every entry since the last publish. The passive build (`Build Changed Packs & Sync Catalogs`) aligns each pack to its highest existing version and rebuilds. `--bump` / `AUTO_BUMP_MANIFEST=true` remain in `scripts/auto_bump_and_build.py` for manual use only.
+- Package name: **`(<Shortcut> VX.<ext>)`** (example **`(MiningHelmet V1.mcaddon)`**, or legacy **`(<Shortcut> VX.Y.Z.<ext>)`**). Always format name references in bold with parentheses. Shortcut = short, letters and digits only (NEVER `-`, `_`, spaces, `by ALNStudios`), close to the add-on name, kept in `scripts/pack_shortcuts.json` by project folder (fallback: folder name joined). Custom via `metadata.package_filename` or `PACK_FILENAME_TEMPLATE`; MUST contain `V{version}` and no parenthesis in the file name itself, else the default is used. CurseForge upload copy uses the same name. `python3 scripts/rename_packages.py --check|--apply` renames old packages and repairs references.
+- Creator name `ALNStudios`. `python3 scripts/rename_brand.py --apply` migrates old name. NEVER rename lowercase namespaces (`allenscreations:`).
+- Tools: `python3 scripts/manifest_tools.py --project <path> --check|--align|--bump` (`--all --check`). `sync_manifest_versions.py`: deps and `min_engine_version` maintenance; set `min_engine_version` by hand after lookup. `sync_project_docs.py` NOT in build: edit DESCRIPTION/CHANGELOG deliberately. `sync_readme_links.py [--check]` repairs README links (runs after every build).
+- LOCK: every `MCPEDL/Addons/` project has `LOCK` at root starting `ALNStudios Add-on Lock v1`. Importer creates it, build enforces it. Missing/invalid = release-blocking: report path, NEVER call build-ready. Safeguard only, not encryption.
+
+### 1.4 Recipe Unlock
+- ALWAYS unlock every custom crafting recipe by default. Shaped = object `"unlock": { "context": "AlwaysUnlocked" }`. Shapeless = array `"unlock": [{ "context": "AlwaysUnlocked" }]`. NEVER mix forms in one recipe. Validators accept either; generator writes these.
+- Covers `minecraft:recipe_shaped`, `minecraft:recipe_shapeless` only. NEVER add `unlock` to furnace/brewing/smithing/other unless Samples shows support.
+- Validators parse JSON and check `unlock` key. NEVER text search for `AlwaysUnlocked`.
+- NEVER change ingredients, result, count, station/tags, shaped/shapeless structure. NEVER rely on recipe-book discovery unless asked.
+- Applies to all new recipes and any recipe touched. Check type against Samples first.
+
+### 1.5 Recipe Images, Sprites, and Platform Descriptions
+- ALWAYS: every custom crafting recipe gets a diagram and custom items get sprites. The build makes diagrams and sprites with `scripts/generate_recipe_images.py --all --all-items` (PNGs in `<pack>/assets/recipes/` and `<pack>/assets/items/`, sprites 128x128 nearest-neighbor for all new items, not just craftable ones); agents NEVER run it, they keep the recipe JSON, item JSONs, and add-on textures correct. `<pack>/assets/snapshots/` holds screenshots and GIFs the user uploads: NEVER rename, edit or delete. Snapshots display clean images without file-name text captions in galleries. `scripts/lib/build_description_views.py` shows all three folders automatically in responsive galleries (`Custom Items`, `Crafting Recipes`, `Screenshots`) on the CurseForge page; NEVER manually insert raw HTML `<img>` tags for asset files into `DESCRIPTION.md` (which blocks the automated gallery renderer from displaying them). Commit the images in the same task. ONLY for DESCRIPTION. AI image generation prompts for banners and logos belong solely in the generated Listing Kit (`Package/<Name>.listing.md`) under AI Image Prompts; NEVER use AI image generation for recipes or item sprites unless asked.
+- ALWAYS verified absolute raw GitHub URLs. Confirm image exists, committed, matches item/recipe. Remove outdated.
+- Sprites: real texture from add-on or authoritative vanilla source. Inventory-style, NEVER cropped world textures. Block-only: build small isometric cube from verified top+side faces, NEVER stretch one face.
+- Build diagrams by code from recipe JSON + add-on result texture + MCicons icons only (no icon for an id: report it, never substitute). Recipe JSON authoritative. NEVER change a recipe to fit an image.
+- Board: ONLY `scripts/CRAFTING_TABLE.svg` via `scripts/lib/crafting_template.py` (ids `slot-0`..`slot-8` row-major, `slot-N-fill`, `output`, `output-fill`, `arrow`). NEVER `CRAFTINGBOARD.PNG`, screenshots, hand-drawn boards. SVG missing: stop, report.
+- ALWAYS full 3x3. Shaped keeps exact placement + empties. Shapeless fills row-major. NEVER flatten to list. Show quantities and output count. Colors from the SVG, background NEVER transparent. Vanilla gray UI, crisp nearest-neighbor, no frames/gradients/glow/labels/emojis. One diagram per row at 400x222.
+- Minecraft icons (recipe diagrams, vanilla item sprites, README and listing images, anything showing a vanilla item or block): the reference is MCicons, the release file `reference/mcicons/mcicons-<ver>.tgz` (`package/dist/icons/minecraft_<id>.png`, 64x64; `scripts/lib/mcicons.py` reads it, `scripts/sync_mcicons.py` downloads it, the build refreshes it). Use the icon from that file, NEVER another icon site. Keep its `ASSET-NOTICE.md` with any redistributed icon (Minecraft art belongs to Mojang Studios / Microsoft).
+- Icon source: MCicons ONLY, no fallback. An id without an icon (custom id, newer item) is reported, never replaced by a Samples or Wiki texture, another pack, a guessed name or an approximation. Samples stays the source for ids, recipes, components and loot tables, not for icons.
+- Wiki images: CC BY-NC-SA, conflicts with monetized pages. ONLY with explicit user approval of that image. Names `Invicon_<Title_Case_Name>.png`, `ItemSprite_<lowercase-hyphenated-name>.png`. Open file page, confirm license. Record file page URL, license, date in generator header comment or `scripts/ASSET_SOURCES.md`; add attribution to DESCRIPTION. NEVER bulk-copy. Wiki blocked: report, fall back to Samples.
+- ALWAYS map every ingredient to a texture first (filenames differ from ids; `textures/items/` or `textures/blocks/`; verify path + item). NEVER substitute or skip. Report all unresolved together, stop.
+- Optional per-pack listing images (distinct from the profile banners in 2.3; user supplies both): clickable in Creator and Permissions, 16:9 JPEG `assets/Images/<slug>-curseforge.jpg`, `<slug>-mcpedl.jpg`, link to verified pack listing. NEVER placeholders or invented URLs. Pair only if both images and both URLs exist.
+- Generators: `scripts/`, fail clearly on missing Samples/texture/recipe. Register in `.github/workflows/build-and-sync.yml` (run step in the recipe images step, `git add` in the commit step) and mirror the same command in the manual fallback `.github/workflows/generate-recipe-images.yml`. Workflow commits PNGs `[skip ci]`. NEVER call images published until workflow succeeded and PNGs exist.
+- Technical reference: Bedrock Wiki explains; verify schema/ids/format version against Samples + current docs. Cite it as community docs; link, NEVER copy.
+
+### 1.6 Function Files
+Paths from repo root. A function file existing != it runs.
+- Functions: `<project>/behavior_pack/functions/<name>.mcfunction`. Tick: `functions/tick.json` `values` = names without suffix (`oneblock_tick`).
+- Before delivery: 1 inspect real manifest, functions, `tick.json`, install steps, report paths; 2 `tick.json` valid, right dir, names existing function; 3 check syntax, ids, coordinates, deps (scoreboards). NEVER make a score-dependent command the only initial-block path unless init guaranteed; 4 validate JSON and `node --check` JS directly (project scripts run in the `.sh`), state what passed; 5 custom item delivered but block missing: diagnose item delivery and function execution separately (pack activation, world links, tick registration, name/path, command errors) BEFORE fallbacks or version bump.
+- NEVER claim `tick.json` missing without inspecting installed/packaged copy.
+
+### 1.7 OneBlock, Maps, Scripts, Minigames
+General:
+- OneBlock script = general pack. MUST work in any world. NEVER depend on a world's terrain/database/settings. Project-specific (coords, spawn, cleanup, shop) lives in that project's spec (Dirtbound: `SPEC.md` in its folder).
+- `Mcpeworlds/{Creative,Survival,Hardcore}/` = ONLY world foundations (convenience targets, not a usage limit). NEVER old world ZIPs, `Oneblock-assets.mcworld`, `assets/Void_For_Workv2.mcworld`, persisted `assets/oneblock-template/`.
+- NEVER create/fabricate/borrow/require `db/CURRENT` or LevelDB data (database-free void design). NEVER modify source foundations; build renames only the staged copy's world name.
+- Build: `build-and-sync.yml` (OneBlock steps) copies each foundation to staging, keeps its `level.dat`, adds map BP + RP, packages `.mcworld` into `MCPEDL/Maps/<Map-Name>/`. Source: `MCPEDL/Maps/<Map-Name>/behavior_pack/`, `resource_pack/`.
+- Maps ship Creative+Survival+Hardcore worlds. Add-ons/Scripts/Minigames ship no world: the Test World was removed. NEVER `test_world.json`, `<Name> - Test.mcworld`, a separate tester package or `Tester Build/`. Add-on workflows NEVER misclassify a Map.
+- One OneBlock gameplay pack per world (maps only). Installing a different one: remove the old pack folders + link entries from all 3 modes first. NEVER touch unrelated packs.
+- World lock: the build locks the settings of Survival and Hardcore (`level.dat` flags `isFromLockedTemplate`, `hasLockedBehaviorPack`, and `hasLockedResourcePack` when the map has a resource pack). Creative stays unlocked. `immutableWorld` is NEVER set (the world would become read-only). Override per map with `"lock_settings": ["Survival"]` in `oneblock.json` (a list, may be empty). The effect of these flags is not in the Bedrock docs: mark it "not tested in game" until the owner opens the locked worlds.
+- Install per mode (identical in all three): `behavior_pack/` -> `<mode>/behavior_packs/<Map-Name>_BP/`, `resource_pack/` -> `<mode>/resource_packs/<Map-Name>_RP/`. Update = replace whole folder. Link files at world root `world_behavior_packs.json` / `world_resource_packs.json`: `[{ "pack_id": "<manifest header uuid>", "version": [1, 0, 0] }]`, replace same `pack_id` on update. NEVER invent UUID/version. Unresolved deps: stop, report path.
+- Map README: download-focused. Link only compiled `.mcworld` that exist. NEVER claim an archive matches source unless checked. Same for `MCPEDL/Maps/README.md`.
+
+Payload import:
+- `PACK_GENERATOR_INSTRUCTIONS.md` is the generator file. Agent asks type (addon|map|script|minigame), conducts ~90% research on latest stable Bedrock APIs, presents the Plan for user confirmation, and returns single-line base64 ZIP made by running code, NEVER by hand. `project.json` = `{"type": "...", "name": "..."}`.
+- `create-project-from-base64.yml`: folder name + base64 (or `.b64` under `MCPEDL/incoming/`) -> `scripts/import_project_payload.py` -> imports `scripts/build_payload.py` (same checks agent-side and repo-side).
+- Destinations: addon `MCPEDL/Addons/<Name>/` (`.mcaddon`, importer writes `LOCK`); map `MCPEDL/Maps/<Name>/` (`.mcworld`, importer writes `oneblock.json`, installs `scripts/lib/Oneblock_Progression.js`, builds 3 worlds); script `MCPEDL/Script/<Name>/` (`.mcpack`, no Controller); minigame `MCPEDL/Minigame/<Name>/` (`.mcaddon`, Controller).
+- Importer creates `assets/snapshots/`, `assets/recipes/` and `assets/items/` (each with `.gitkeep`) in every imported project when missing, never touching existing files. Payloads NEVER ship `assets/`.
+- Importer validates BEFORE writing. Rejects unsafe paths, symlinks, world data (`db/`, `level.dat`), nested archives, shipped link files, disallowed types, bad manifests, recipes without unlock, per-type misses. Icons MUST match repo copies in `Mcpeworlds/assets/resources_pack/textures/items/` byte for byte. Payload size capped; duplicate/case-colliding ZIP entries and control chars rejected; folder names differing only by case or existing under another type refused unless `overwrite` (lists deleted files); count actual bytes while extracting (declared ZIP sizes can be forged).
+- Map requires: `tick.json` lists `void_cleaner` first; `void_cleaner.mcfunction` starts with the Y=-64 fill line; `oneblock_setup.mcfunction` exists; Trader Ledger item + texture entry + `trader_ledger.png`. Others need no void cleaner/ledger.
+- Folder name typed per run. NEVER hardcode. Payload with only `oneblock.json` still = map.
+- Sections 1.3, 1.4, 1.6, 1.7 change: ALWAYS update `PACK_GENERATOR_INSTRUCTIONS.md`, `scripts/build_payload.py`, importer in the same change, then `scripts/selftest_project_types.py`. This file wins on conflict.
+
+Scripts and minigames:
+- Script project `MCPEDL/Script/<Name>/`: script BP, `.mcpack`. Minigame `MCPEDL/Minigame/<Name>/`: BP + RP, `.mcaddon`.
+- Every Minigame ships Controller (`aln:<minigame_name>_controller`, `controller.png` 16x16 at `Mcpeworlds/assets/resources_pack/textures/items/controller.png`). Opens the ALN UI Redesign main menu (1.14): exactly 3 buttons, **Start**, **About**, **Exit**; while running the first button = **End Game**. The importer installs the skin font, `pixelify.js` and the About icon into the minigame. State (idle/running/ended) in a world dynamic property. NEVER opt out.
+- Only host/operator gets and uses it. Start works while idle. End Game asks confirm, calls `endGame()`, needs no cheats. Start opens the How to play page (Start Game + Back) before the game begins. About page has creator, version, one line on the pack, profiles and a Back button. Game ends via win/lose logic calling `endGame()`.
+- Controller KEPT while game runs. `consumeOnStart: true` in `registerController` restores old behavior (Start consumes first Controller unless Creative; End Game only reachable by host still carrying one). Host/operator gets one on every spawn (incl. death) when carrying none; game end gives a fresh one.
+- Stuck state: NEVER stay `running` forever. On world load, a script that cannot restore a live game resets to `idle` and gives Controller. `give_controller.mcfunction`, `end_game.mcfunction` ship with every Controller minigame but need cheats: last resort, NEVER only recovery.
+- No test world (removed, NEVER recreate). The importer rejects a payload that ships `test_world.json`. Experiments/achievement state of a world come from the foundation, unverified.
+- Verify: manifest, `tick.json`, functions wired (1.6); installed pack matches source per mode; link entry matches manifest UUID+version; RP dependency resolves; script syntax checks pass. Importer, `build_oneblock_variants_from_template.py` (`verify_archive`), `scripts/selftest_project_types.py` run these. State exactly what passed. Structure checks NEVER prove Minecraft loaded the world.
+
+Project specs live in the project folder (Dirtbound: `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/SPEC.md`).
+
+### 1.8 Workflows
+- Workflows: `.github/workflows/`. ALWAYS read the actual file before editing or describing it. NEVER claim a run succeeded unless checked. NEVER trust summaries of workflows (they drift).
+- Retired, NEVER recreate or reference: `update-min-version.yml`, `scripts/update_min_version.py`, `create-addon-scaffold.yml`, `test-crafting-template.yml`, `create-mcpe-world.yml`, `scripts/create_mcpe_world.py`, `scripts/check_generator_sync.py`, `scripts/build_test_world.py`, `test_world.json`, `<Name> - Test.mcworld`.
+- Version rules (1.3) changing workflow behavior: update the workflow in the same change.
+- Entry points: read the workflow file; never rely on a summary of it.
+- Helper scripts: `scripts/` (read each script for options). `scripts/check_instruction_files.py` fails CI when an instruction file breaks size/format rules.
+
+### 1.9 Repository Layout
+```
+MCPE-Curseforges/
+├── INSTRUCTIONS.md  PACK_GENERATOR_INSTRUCTIONS.md  README.md
+├── scripts/  .github/workflows/  tests/
+├── Mcpeworlds/{Creative,Survival,Hardcore}/
+├── MCPEDL/{Addons,Maps,Script,Minigame}/<Name>/  MCPEDL/incoming/
+└── builds/<Name>/ build_info.json  versions/V<X.Y.Z>/
+```
+
+### 1.10 Review and Security
+AI payloads = untrusted until a person reviews. Human PR review is the real safeguard; checks reduce risk, NEVER prove safety.
+- ALWAYS review `behavior_pack/scripts/` and every `.mcfunction` in the PR before merge. `direct` commit only for a payload you made and checked. PR mode needs "Allow GitHub Actions to create and approve pull requests".
+- `build_payload.py` enforces: imports only `@minecraft/server`, `@minecraft/server-ui`, `@minecraft/vanilla-data`, relative files; `eval`/`Function` rejected; every `.js` passes `node --check`. Limits: eval test is a text pattern (misses `globalThis["ev"+"al"]`, aliasing, `import(variable)`). Reviewers MUST read scripts.
+- UUIDs unique across `MCPEDL/` (own folder excluded). `min_engine_version` = real looked-up version.
+- NEVER `${{ inputs.* }}` or step outputs inside `run:`. Pass via `env:`, quote.
+- Docs MUST pass `build_payload.py` `DOC:` checks (failures, not warnings).
+
+### 1.11 Known Untested Assumptions
+Open until confirmed in game. NEVER state as fact in docs.
+1. Void cleaner: Y=-64 fill succeeds for a player spawning in a fresh void world; conditional tag (Dirtbound `SPEC.md`) retries correctly.
+2. World host reports as Operator via `playerPermissionLevel` with cheats off (Controller reaches host on achievement-eligible world).
+3. `isOp()` absent in 2.x `@minecraft/server` (Controller uses a helper). Re-check on every module bump.
+4. Controller behavior across rejoin, death, reload. Tested only with mocked modules.
+5. Shipped functions and Controller do not disable achievements unless an admin command is run.
+6. Experiment/achievement state of each `Mcpeworlds/` foundation.
+
+### 1.12 Vanilla Limits and Workarounds
+Applies to every addon, map, script, minigame, item, entity, block, trade, recipe and enchantment, new or updated.
+- A hardcoded vanilla limit blocks the requested mechanic (examples: mutually exclusive enchantments, item, entity or component caps, trade or recipe limits) AND the standard approach (behavior JSON, commands, crafting, enchanting) fails: NEVER drop the feature silently. The standard approach works: use it, no workaround.
+- Lightest workaround first. 1) Data-driven: custom item, block, entity, recipe, loot, trade, spawn rule, animation controller, tag, component. 2) `@minecraft/server`: custom components, events, ItemStack and Entity APIs, dynamic properties, tags or scoreboard for state. 3) Structural: helper or proxy entity, swapped or replaced item or entity, tiered item variants, `.mcstructure` or template placement, function-driven effects.
+- NEVER invent an API, component, event or behavior. Use only what the looked-up stable version (1.2) provides and the repo scripts accept. Cannot verify: say so in DESCRIPTION.md.
+- Modular: one small file per workaround with one entry point (script: `behavior_pack/scripts/lib/<name>.js` imported relatively; data: its own function file, entity or item definition). Reuse an existing module. NEVER copy the logic per feature.
+- Safe: idempotent setup, caps and cleanup for spawned entities and loops, nothing that corrupts worlds or other packs.
+- Conflict Prevention & Isolation:
+  1. Custom namespace isolation: Always prefix custom items, blocks, and entities with `aln:<name>` (e.g. `aln:<minigame_name>_controller`).
+  2. Avoid Vanilla Entity Overrides: Overriding vanilla entity JSON files (e.g. `entities/zombie.json`) completely wipes out other addons modifying the same entity in Bedrock's load order. Whenever possible, hook into vanilla entity mechanics using `@minecraft/server` Script API event subscriptions (`world.afterEvents.entityDie`, `playerInteractWithEntity`, `entityHurt`, etc.) rather than replacing the vanilla entity JSON.
+- Docs (`DOCS_RULES.md`): player-facing result only, no code or API names; the trade-off under Good To Know. State achievement and experiment impact per 1.2.
+
+### 1.13 ALN UI Redesign (UI skin)
+- `assets/aln-ui-redesign/` is the shared UI skin (formerly Cheatstick UI): `README.txt` (how to apply), `design.json` (tokens), `textures/`, `preview_reference.png`.
+- Any pack that adds or changes a menu, form, HUD or screen reads `README.txt` and `design.json` first and ships the skin in its Resource Pack: textures copied in (never linked), tokens reused (NEVER invent colors or layout). Version the Resource Pack with `manifest_tools.py --set` like every update.
+- Pack task needs the skin: ask for Collect Files `paths` = `assets/aln-ui-redesign, <pack folder>/resource_pack`. NEVER edit the shared folder from a pack task unless asked.
+- Menu text uses the shared Pixelify Sans glyph font in `assets/aln-ui-redesign/font/` (its README.txt has the steps): copy the glyph sheet into the Resource Pack `font/`, wrap strings with `pixelify()`.
+
+### 1.14 ALNStudios Redesigned UI Standard (every add-on with a menu)
+Placeholders `<PackName>`, `<MainAction>`, `<version>`. NEVER hardcode one pack.
+- Main menu: ONE ActionForm, exactly 3 buttons: `<MainAction>`, About, Exit. X also exits. Menus loop; every sub-screen has Back.
+- Title `§l§6@ALNStudios §e<PackName>§r (v<version>)` = the ONLY colored form text. Script version constant == manifest version, bumped together.
+- Colors ONLY in title and action bar. Body, labels, slider labels, buttons, summaries: default color + `§l`, `§r` after bold. NEVER `§f §7 §e §a` etc. in forms.
+- About: title `About ALNStudios`. Body: creator, `<PackName>` + version, one line on the pack, CurseForge and MCPEDL profile text (plain, not clickable), not-affiliated-with-Mojang line. One Back button to main menu. Icon = `assets/aln-ui-redesign/about_icon.png` shipped in the RP as `textures/ui/aln/about_icon` (no `.png`); RP or file missing: `textures/items/name_tag`.
+- Icons: `<MainAction>` icon matches the pack, only if the pack needs one and a verified path exists (else none). About and Exit always have an icon. ONLY paths verified in Mojang `resource_pack/textures/item_texture.json` (bedrock-samples). NEVER guess; no verified path = no icon. `wooden_` -> `wood_`, `golden_` -> `gold_`. Spears `textures/items/spear/<wood|stone|copper|iron|gold|diamond|netherite>_spear`. Nautilus armor `textures/items/nautilus_armor/<material>_nautilus_armor`.
+- Feedback: `player.onScreenDisplay.setActionBar`, NEVER chat. Green success, yellow warning, red error. Second message chained with `system.runTimeout(..., 50)`.
+- Slider/modal forms: header = item or context name, label = current state, divider after every control. Optional form methods go through a guarded helper (a missing method NEVER crashes). Read `formValues` filtering numbers.
+- NEVER slide or fade animations in UI JSON. Use the skin in `assets/aln-ui-redesign/` (1.13).
+
+### 1.15 Custom Sounds
+- Audio files cannot travel inside a spec. A project that needs custom sounds keeps a pure-Python synthesizer at `<project>/sound_sources/make_sounds.py` (reference: `MCPEDL/Addons/ALNSpiritSphere/sound_sources/make_sounds.py`). It writes `.ogg` files into `<project>/resource_pack/sounds/` and needs ffmpeg (Termux: `pkg install ffmpeg`).
+- An update that adds sounds uses `@@ create` for `make_sounds.py` and `resource_pack/sounds/sound_definitions.json` (`format_version` 1.14.0, one event per sound, sound paths without extension, category neutral). After the update script runs, the user runs: `python3 <project>/sound_sources/make_sounds.py`, then `git add`, `commit`, `push`.
+- Sound event ids use the pattern `aln.<project>.<element>.<kind>` and are played from scripts with `playSound`. NEVER guess vanilla sound ids; use only ids verified through Context7.
+- New sound files need a full Minecraft client restart to load. Say so in the handoff.
+- `.ogg` is the only audio type allowed. `DESCRIPTION.md` must describe sounds in player terms and never name the script, ffmpeg or file names.
+
+### 1.16 Bedrock Developer Role and Trusted Sources
+- Role: expert Minecraft Bedrock Add-on and Script API developer. Build and maintain complete Behavior Packs, Resource Packs and Script API modules. Official NPM packages first (`@minecraft/server`, `@minecraft/server-ui`, `@minecraft/math`); on any error, deprecated API or version mismatch verify through the Context7 libraries below (1.17).
+- Structure: valid `manifest.json` (1.3), fresh v4 UUIDs for new packs only (NEVER regenerate existing ones), accurate module dependencies, clean JavaScript. NEVER ship TypeScript (`build_payload.py` allows only `.js`). `@minecraft/math` is NOT in `ALLOWED_MODULES` of `build_payload.py` (1.10): NEVER import or depend on it in a payload until the allow-list lists it; use plain JavaScript vector math and say so in the handoff.
+- Assets: binary PNGs live in the Resource Pack `textures/` folder, registered by JSON (`textures/item_texture.json`, `textures/terrain_texture.json`), NEVER mixed with the registration files. Recipes reference vanilla item identifiers directly. NEVER duplicate vanilla PNGs unless needed as templates.
+- Trusted sources (rely strictly and exclusively on these four Context7 libraries, queried per 1.17; NEVER invent API methods, outdated syntax or item ids): `/microsoftdocs/minecraft-creator` (Script API, `@minecraft/server`, `@minecraft/server-ui`, JSON schemas, versions); `/mojang/bedrock-samples` (vanilla textures, recipes, entities, definitions, formats); `/websites/wiki_bedrock_dev` (manifest structure, techniques); `/allenscreations/mcpe-curseforges` (this repo's rules and scripts). No other library, site or package page is a source. Priority and disagreements follow 1.1: report, NEVER choose silently.
+- Failure (script does not load, texture does not render, syntax changed in a newer update): query the Context7 libraries above (1.17) for the exact updated syntax, manifest dependency versions, valid vanilla identifiers and working patterns BEFORE rewriting code.
+- Output: complete ready-to-use files with exact repo-root-relative paths, delivered ONLY as the single update `.sh` (`<Repofilename>_<Version>_<Rand>.sh`) or the single pack `.sh` (new packs) and reply format above (Reply Format, Termux Script Rules).
+- Item/Block menu_category: When defining `menu_category` in custom items or blocks, `group` MUST start with a namespace (e.g. `minecraft:itemGroup.name.<group>` or `<pack_namespace>:itemGroup.name.<group>`). Unnamespaced group strings (such as `itemGroup.name.helmet`) fail Bedrock parsing (`Failed to parse field ' -> description -> menu_category -> group: string must be prefixed with a namespace (eg. namespace:value)'`). When no specific vanilla group applies, omit `group` and specify only `category` (`items`, `equipment`, `construction`, `nature`).
+
+### 1.17 Documentation Lookup (Context7 MCP)
+
+Docs, API, vanilla data and repo files are read with the Context7 MCP tool `query-docs`. NEVER by pasted URL, NEVER from memory. Applies to every addon, map, script, minigame, update and docs task.
+- Libraries: ONLY these three, IDs passed exactly. NEVER call `resolve-library-id`, NEVER query any other library.
+  - `/mojang/bedrock-samples`: vanilla ids, textures, recipes, components, entities, formats, `version.json` (1.1 priority 2).
+  - `/microsoftdocs/minecraft-creator`: `@minecraft/server` and `@minecraft/server-ui` API, JSON schemas, stable and module versions (1.1 priority 3).
+  - `/websites/wiki_bedrock_dev`: manifest structure, scripting guides, techniques (1.1 priority 5).
+- Before ANY code, manifest, JSON, `.mcfunction`, recipe, version or doc fact: query first, write second. Batch: at most ONE `query-docs` call per needed `libraryId` (several topics together in that call). NEVER several calls to the same `libraryId`, NEVER sequential retry loops. Name the exact member, file, id or schema and the module or game version (e.g. `ItemStack constructor @minecraft/server`, `recipe_shaped format`). All three calls may go in one parallel turn.
+- Verify every import, class, method, property, event, enum, component and JSON field against the retrieved text before using it. NEVER guess. NEVER outdated syntax: the `mojang-minecraft` modules, `world.events`, 1.x-era imports.
+- Empty or doubtful result: do NOT query again. Say "not verified" (1.2), NEVER fill the gap from memory. Results that disagree with each other: report per 1.1.
+- Context7 is an index and can lag the game. Versions come from the retrieved text only, with the query date. A result that does not state the latest stable version = "not verified". Preview/beta members only as 1.2 allows.
+- Repo files: read from the kit zip (`New-Pack.zip`, `Maintenance.zip` or the pack's review zip) or from the repo clone — these always beat any external index. Scripts that must run (`build_payload.py`, `doc_template.py`, `import_project_payload.py`, `make_pack_script.py`, `pixel_json_to_png.py`) need their COMPLETE unchanged text from the zip under `files/`. Incomplete: ask the user to attach the zip. NEVER rewrite from memory.
+- Handoff: one bullet `Docs queried (YYYY-MM-DD): <library IDs and topics>`.
+- NEVER put library IDs, query text or the word Context7 in shipped files or player-facing docs (2.2).
+
+---
+
+## Parts 2 and 3: Docs, Audit, References (moved)
+`DOCS_RULES.md`: README, DESCRIPTION and CHANGELOG rules and templates (2.1 to 2.5); `/checkrm` audit procedure and the Minecraft Wiki and Bedrock Samples references (3.1 to 3.4).
+
+---
+
+## Final Self-Check (run before replying)
+- [ ] Reply = three sections only (File Needed, Changelog, Termux Script).
+- [ ] Versions per 1.3, script name per 1.1.
+- [ ] CHANGELOG.md updated, top heading == new version == script name version.
+- [ ] Docs match the `DOCS_RULES.md` templates exactly, no placeholders, no unverified claims.
+- [ ] No comments in `.js`/`.mcfunction`/`.json`. Recipes unlocked (1.4).
+- [ ] Changed JSON validated. Instruction file changed: `scripts/check_instruction_files.py` passes.
+- [ ] Manifest versions use `[X, Y, Z]` / `"X.Y.Z"` format; per-pack titles/changelogs/packages use `vX` format (1.3).
+
+## Version History
+- **v46:** Removed `/allenscreations/mcpe-curseforges` from the Context7 library list (redundant — the kit zip always has fresher repo files and already takes priority). Context7 now covers only the three external Bedrock doc libraries. Updated the per-turn batching note: all three calls fit in one parallel turn.
+- **v45:** Context7 query batching rule updated: when all four libraries are needed and the tool enforces a per-turn call cap, run remaining library calls in the next turn BEFORE writing code — never skip a needed library or use the cap as a reason to stop or guess.
+- **v44:** Pack generation protocol requires mandatory deep research (~90% thoroughness) on the requested idea and latest Bedrock Script APIs, selection of latest stable modules, and presenting the implementation Plan for user approval before building any files or `.sh` pack script.
+- **v43:** Manifests strictly use `[X, Y, Z]` / `"X.Y.Z"` (Bedrock engine format); per-pack user-facing files strictly use `vX`. Section 1.3 clarifies the two formats explicitly. Duplicate heading `1.15` resolved: Custom Sounds stays 1.15, Bedrock Developer Role becomes 1.16, Documentation Lookup becomes 1.17. `doc_template.py` and `DOCS_RULES.md` updated to accept `## [vX]` changelog headings.
+- **v42:** Pack updates deliver self-contained `<Pack>_v<Version>_<rand>.sh` scripts built with `scripts/make_update_script.py`, eliminating global version collisions.
+- **v41:** The root `CHANGELOG.md` is the update ledger (each entry names its self-contained update script, target and file count). AI kits open with current status so any agent knows where the last update ended.
+- **v40:** OneBlock Survival and Hardcore worlds are built with locked settings (`level.dat` flags, optional `lock_settings` in `oneblock.json`); `immutableWorld` is never set.
+- **v39:** Icons come ONLY from MCicons, no Samples or Wiki fallback (an id without an icon is reported); the recipe workflows no longer clone Samples. Pack AI review files are size-budgeted (`AI_MAX_BYTES`, default 150000 in the auto build: manifests, recipes, README, DESCRIPTION, project.json, newest CHANGELOG entries and the smallest files are inlined, the rest is listed with sizes) and carry no graph header. The pasted `bedrock-samples.txt` is no longer linked from the catalog (use Context7 `/mojang/bedrock-samples`).
+- **v38:** Updates are delivered as ONE self-contained update `.sh` (`<Repofilename>_<Version>_<Rand>.sh`), never as a raw `.txt` spec file. Embedded payload, ANSI status UI, auto-rebase, commit, push, and cleanup.
+- **v37:** The Achievements line is ALWAYS `Yes, achievement-friendly.` for every project type (owner confirmed in game that an add-on-type pack keeps achievements allowed). The doc template, validators and all `DESCRIPTION.md` files use it.
+- **v36:** Every manifest MUST carry `metadata.authors` = `["ALNStudios"]` and `metadata.product_type` = `"addon"` (`manifest_tools.ensure_metadata` forces both in the build; the title validator reports a miss). MCicons ids are indexed in `docs/mcicons-index.md` for Context7.
+- **v35:** Source priority lists MCicons (1b) for vanilla icons; the AI skills (`mcpe-context7`, `mcpe-new-pack`, `checkrm`) and the generator file now say to use MCicons first for any icon.
+- **v34:** Minecraft icons come from MCicons: the release file `reference/mcicons/mcicons-<ver>.tgz` (kept as ONE file, downloaded by `scripts/sync_mcicons.py` in `build-and-sync.yml`, read by `scripts/lib/mcicons.py`). Rule 1.5 uses it first for recipe diagrams and every other icon.
+- **v33:** OneBlock world builds run inside `build-and-sync.yml` (the separate OneBlock workflow is removed). The MCPEDL catalog reads `## [vN]` and `## [X.Y.Z]` changelog headings.
+- **v32:** AI review files live in `MCPEDL/AI Review/` (`<Pack>.txt`, `<Pack>.zip`, shared kits), not in `ai-review/` folders. Every pack with a `main.js` also has `behavior_pack/scripts/lib/README.md` (rule in `PACK_GENERATOR_INSTRUCTIONS.md`, Script module).
+- **v31:** Optional `behavior_pack/scripts/lib/` folder for shared script helpers (see `PACK_GENERATOR_INSTRUCTIONS.md` Script module). Library-only Python modules moved to `scripts/lib/` (`crafting_template.py`, `build_description_views.py`, `build_image_prompts.py`).
+- **v30:** 1.16 batches Context7 lookups: at most one `query-docs` call per `libraryId`, all in one parallel turn, no retry loops. Repo rules and script summaries are read from `docs/` (the only folder Context7 indexes).
+- **v29:** New 1.16 (Documentation Lookup): docs, API, vanilla data and repo scripts are read with Context7 `query-docs` from four fixed libraries instead of pasted URLs. Source priority, 1.2 refs and 1.15 trusted sources point to those libraries.
+- **v28:** Required namespace prefix for all item and block `menu_category.group` definitions (e.g. `minecraft:itemGroup.name.<group>`).
+- **v27:** Standardized instruction naming format to bold with parentheses (**`(<Shortcut> VX.<ext>)`**) and clarified engaging Hook Questions for pack documentation.
+- **v26:** Standardized downloadable build package filenames to `VX` format (`<Shortcut> VX.<ext>`); updated `make_pack_script.py` to auto-build description and changelog views on new pack creation.
+- **v25:** Updated instructions to reflect single-version `vX` scheme (Bedrock `[X, 0, 0]`), 3-mode AI review export (`update_pack`, `new_pack`, `repo_maintenance`), and gzipped Bedrock reference.
+- **v24:** The build workflow file is now `build-and-sync.yml`
+ (display name "Build Changed Packs & Sync Catalogs" unchanged). Callers start it by that file name; CI fails when a workflow starts a file that does not exist.
+- **v23:** Recipe image generators are registered in `auto-version-bump.yml` (it builds them on every run that touches recipes or textures); `generate-recipe-images.yml` is only the manual fallback with the same commands.
+- **v22:** The repo version is a single number (`REPO_VERSION` = `80`, written `v80`), no longer X.Y.Z. Next = number + 1. Root changelog headings are `## [vN]`; repo-level scripts are `@@ version N` and named `Repo_vN_<Rand>.sh`. Pack versions stay X.Y.Z.
+- **v21:** New 1.15 (Bedrock Developer Role and Trusted Sources): official NPM packages first, the trusted source list, texture/registration split, failure procedure. `@minecraft/math` stays blocked by the payload allow-list until `build_payload.py` lists it.
+- **v19:** The separate description views (`<Name>.curseforge.html`) and `image_prompts/` were removed. The Listing Kit is the only generated listing file.
+- **v20:** The description HTML has no pack logo. New look: rounded hero (title, tagline pill, badge pills), green heading chips, feature cards with a green title header, rounded step badges. A command like `/give @s aln:item` keeps its colon.
+- **v18:** Listing Kit per pack (`Package/<Name>.listing.md`): name, summary, description HTML and image prompts with Copy buttons.
+- **v17:** Controller menu follows the ALN UI Redesign / 1.14 (3-button main menu, About, skin font, ALNStudios title, action bar feedback). `registerController` needs `title`, `version` (== Behavior Pack version), `about`.
+- **v16:** Test World removed. Importer creates `assets/` per project. New pack skill `mcpe-new-pack` (`SKILL.md` at the root of every AI review zip). Register CurseForge ID starts the build.
+- **v15:** `min_engine_version` is written as `[1, RELEASE, PATCH]` (game 26.60 = `[1, 26, 60]`, never `[26, 60, 0]`), docs use `1.26.60`.
+- **v14:** `CHECKRM_REFERENCE.md` merged into `DOCS_RULES.md` (Part 3); 1.8 entry-point list removed; one `requirements.txt` for workflows.
+- **v13:** Docs rules and templates moved to `DOCS_RULES.md` (single source for both instruction files); the generator's Part 1 excerpt is kept identical to this file by the checker.
+- **v12:** Part 3 moved to `CHECKRM_REFERENCE.md`; Dirtbound spec moved to its project folder; scripts reference-only for agents; duplicates and contradictions removed; size cap 60,000 bytes.
+````
+
+## Policy Doc: PACK_GENERATOR_INSTRUCTIONS.md
+
+````markdown
+# Pack Generator Instructions (AI Agent, v41)
+
+
+Builds a complete **addon**, **map**, **script**, or **minigame** from the user's idea. Returns ONE Termux `.sh` pack script that carries the whole project inside it (as base64). No other file is delivered.
+
+Read `.agents/skills/mcpe-new-pack/SKILL.md` first (it is also `SKILL.md` at the root of the AI review zip), then this file and `DOCS_RULES.md` for a build task. Part 1 below is an excerpt of `INSTRUCTIONS.md`; the checker keeps its lines identical. Maintenance, workflows, audits, recipe images: `INSTRUCTIONS.md`. Numbers 1.x and 4.x refer to this file; 2.x to `DOCS_RULES.md`.
+
+| Part | Covers |
+| :--- | :--- |
+| 1 (excerpt) | Accuracy, versions, manifests, recipe unlock, functions, security, untested assumptions |
+| 2 | In `DOCS_RULES.md`: README, DESCRIPTION, CHANGELOG rules, templates |
+| 4 | Generator: ask type, build, check, deliver, reply |
+
+Precedence: Part 1 wins. `DOCS_RULES.md` follows Part 1. Part 4 follows both. `INSTRUCTIONS.md` wins on conflict. Accuracy and requested scope outrank any template. Script and file disagree: tell the user.
+Order of work: read Part 1 (incl. 1.17), `DOCS_RULES.md`, then Part 4 from 4.0. Query Context7 per 1.17 before writing any code, manifest, JSON or doc fact. Unclear request: ask ONE line, then proceed. New pack creation: conduct mandatory ~90% research and present the Plan first (4.0a); wait for user confirmation before building.
+
+---
+
+## Part 1 (excerpt): Core Policy
+
+### 1.1 Accuracy
+- ALWAYS inspect source files before claims. Ask only if an unresolved choice affects gameplay, compatibility, distribution, data loss, or versioning. Else use defaults.
+- NEVER invent features, versions, links, assets, test results, compatibility, achievement support, performance, platform behavior. Separate verified facts from assumptions.
+- NEVER claim in-game test/function run/gameplay result unless tested in Minecraft. Archive/JSON/syntax checks prove structure only.
+- Source priority (report disagreements, NEVER choose silently). Read sources 2, 3 and 5 through Context7 (1.17): 1 add-on's own files; 1b MCicons release file `reference/mcicons/mcicons-<ver>.tgz` (NOT in Context7; ids in `docs/mcicons-index.md`; the ONLY source of vanilla item and block icons, no fallback); 2 Mojang Bedrock Samples (`/mojang/bedrock-samples`; offline copy reference/bedrock-samples/bedrock-samples.min.json.gz): vanilla ids, textures, recipes, components, formats;
+ 3 Minecraft Creator Docs (`/microsoftdocs/minecraft-creator`): stable versions, API; 4 Minecraft Wiki (https://minecraft.wiki/, not in Context7, only through a web tool when one exists): display names, edition, icon look; 5 Bedrock Wiki (`/websites/wiki_bedrock_dev`): formats, techniques. Sources 4-5 NEVER override 1-3 on ids, versions, API.
+- NEVER comments in shipped `.js`, `.mcfunction`, `.json`. Explanations go in docs or handoff.
+- NEVER imply Mojang/Microsoft endorsement.
+- `.sh` names: `(Repofilename)_(Version)_(Rand).sh`. Repofilename = project/folder/file changed, no extension, no spaces (hyphens). Version = new `vX` (e.g. `v2`, or legacy `X.Y.Z`), instruction version (`v5`) or repo version (`v80`). Rand = >=5 random lowercase/digits, fresh each time (`head -c 200 /dev/urandom | tr -dc 'a-z0-9' | head -c 6`), NEVER reused. Example `Dirtbound_v2_k7q2x.sh`. Same name in reply and run command.
+
+
+### 1.2 Versions and Compatibility
+Latest stable:
+- ALWAYS look up latest stable Bedrock release and Script API module versions at time of work. Record date. NEVER trust numbers in this file or memory.
+- Refs: Context7 `/microsoftdocs/minecraft-creator` (Script API versioning, `@minecraft/server` and `@minecraft/server-ui` stable references, platform version guidance), queried per 1.17. Community wikis NEVER pick versions or confirm API.
+- Pick highest stable module version supported by target game and every dependency (check peers). NEVER preview/beta/RC unless a requested feature needs it; then disclose in docs and handoff.
+- Game version and module version are separate. NEVER infer one from the other.
+
+Engine:
+- `min_engine_version` = lowest game version the pack needs. 3-integer array in the manifest form `[1, RELEASE, PATCH]`: game 26.60 = `[1, 26, 60]`, NEVER `[26, 60, 0]` (Minecraft rejects it and caps at the highest released version). Real looked-up value, NEVER `[0,0,0]`. NEVER hardcode a minimum in docs; a documented minimum uses the same form (`1.26.60`).
+- Manifest `format_version` = 2. Item/block `format_version` NEVER newer than `min_engine_version`.
+- Compatibility line states only a verified minimum. NEVER "or newer" unverified.
+- Updating old pack: ALWAYS keep UUIDs, persistent ids, working behavior. Upgrade deps deliberately. Raising `min_engine_version` drops players: say so in CHANGELOG.
+
+Achievements/experiments (every new pack, meaningful update):
+- ALWAYS inspect manifests, deps, stable-vs-preview imports, JSON, components, scripts, functions, world settings. Confirm experiment needs against current docs, NEVER keyword match. Stable Script API alone != experiment or achievements disabled.
+- Pack files NEVER establish an existing world's settings.
+- Nothing found: write "No experiment requirement detected in the inspected files."
+- Prefer stable implementation. NEVER silently weaken a feature to dodge an experiment.
+- Status: EVERY pack (add-on, map, script, minigame) = ALWAYS `Yes, achievement-friendly.` Every manifest carries `metadata.product_type` = `"addon"`, and the owner confirmed in game (ALN Pointer V20 `.mcaddon`) that a pack of that type keeps achievements allowed. Keep any cheat/command/world caveat as a following sentence. NEVER write Likely, Not or Unknown.
+- Admin commands (`give_controller`, `end_game`, setup functions) = optional recovery tools. Cheats disable achievements in that world: say so wherever documented.
+- Handoff: achievement status, experiments (none/required name/unknown), evidence, scope.
+
+Implementation:
+1. ALWAYS inspect manifest, entry points, imports, structure first.
+2. Confirm each API member exists in the chosen stable module version.
+3. Prefer event-driven logic. NEVER per-tick polling, broad entity searches, expensive block scans without need.
+4. Vanilla JSON components and `.mcfunction` when simpler. Script API when needed.
+5. Fix obvious malformed files.
+6. Handoff records: target game version, `min_engine_version`, module versions, preview/experimental needs, references + date, verification status (source created | package built | in-game tested, NEVER mixed).
+
+### 1.3 Version Format and Manifests
+**Manifest versioning (Bedrock engine format):** `header.version` MUST be a 3-integer array `[X, Y, Z]` (e.g. `[1, 0, 0]`, `[2, 0, 0]`); `metadata.version` MUST be the string `"X.Y.Z"` (e.g. `"1.0.0"`). The Bedrock engine rejects non-array values or strings like `"vX"` in manifests. NEVER use `vX` syntax inside any `manifest.json` field.
+**Per-pack user-facing format:** Every user-visible reference to a version uses `vX` (a single whole number): pack title suffix `(vX)`, changelog headings `## [vX]`, package filenames `(Shortcut VX.ext)`, README download links, CurseForge/MCPEDL release names, snapshot folder prefix `V`. The two formats are strictly separate: manifests = `[X, 0, 0]` / `"X.0.0"`, everything the user sees = `vX`.
+- Version = `vX` format (single whole number, e.g. `v2`, `v3`; Bedrock `header.version` maps to `[X, 0, 0]`; legacy `X.Y.Z` supported). NEVER `X.Y.Z.A`. No fourth part, no Alpha. Same version in `metadata.version`, `(vX)` titles, changelog headings, package names, README links, snapshots.
+
+- Update: X+1 (v1 -> v2, v2 -> v3; legacy 1.2.3 converts to v2). Manifest title suffix equals version (e.g. `(v2)`).
+- Manifest title = `Add-on Name (vX)` (e.g. `Vanilla Quality of Life (v2)`). Exactly one terminal suffix, equals `header.version` (or major integer), BP/RP match. NEVER duplicate suffixes. `scripts/validate_manifest_titles.py [--project <path>]` fails the job on violation (also notes non-fail: format_version != 2, missing/zero `min_engine_version`, missing `metadata.authors`).
+
+- `header.description` contains `by ALNStudios` exactly once. NEVER attribution in title.
+- NEVER change pack UUIDs or world storage keys to rename a title. NEVER regenerate header UUIDs (breaks worlds).
+- Build sync: every processed project aligns all source manifests to one highest `X.Y.Z`: `header.version`, `metadata.version`, title suffix, module versions, same-project BP/RP deps. FORCES `metadata.authors` = `["ALNStudios"]` and `metadata.product_type` = `"addon"` in EVERY BP and RP manifest (new packs, updates, builds; NEVER another author or type), optional `metadata.license`. `product_type` `"addon"` is what keeps achievements allowed (owner-confirmed in game). The Bedrock Wiki says Mojang removed this in game 26.50 (MCPE-242529): if a newer game version shows achievements disabled, report it, do not hide it.
+- Snapshots: `builds/<pack>/versions/V<X.Y.Z>/` (packages, `source.zip`, `source.sha256`, `build_info.json`). Refreshed when source/packages differ. Last 5 kept.
+- NOTHING auto-bumps. The new version is written in CHANGELOG.md AND, in the same update script, into every source manifest with `python3 scripts/manifest_tools.py --project <path> --set vX` (header.version, metadata.version, title suffix, module and dependency versions; UUIDs untouched; never lowers)
+, so every update changes the build. Publish to CurseForge uploads the newest changelog version as written and groups every entry since the last publish. The passive build (`Build Changed Packs & Sync Catalogs`) aligns each pack to its highest existing version and rebuilds. `--bump` / `AUTO_BUMP_MANIFEST=true` remain in `scripts/auto_bump_and_build.py` for manual use only.
+- Package name: **`(<Shortcut> VX.<ext>)`** (example **`(MiningHelmet V1.mcaddon)`**, or legacy **`(<Shortcut> VX.Y.Z.<ext>)`**). Always format name references in bold with parentheses. Shortcut = short, letters and digits only (NEVER `-`, `_`, spaces, `by ALNStudios`), close to the add-on name, kept in `scripts/pack_shortcuts.json` by project folder (fallback: folder name joined). Custom via `metadata.package_filename` or `PACK_FILENAME_TEMPLATE`; MUST contain `V{version}` and no parenthesis in the file name itself, else the default is used. CurseForge upload copy uses the same name. `python3 scripts/rename_packages.py --check|--apply` renames old packages and repairs references.
+- Creator name `ALNStudios`. `python3 scripts/rename_brand.py --apply` migrates old name. NEVER rename lowercase namespaces (`allenscreations:`).
+- Tools: `python3 scripts/manifest_tools.py --project <path> --check|--align|--bump` (`--all --check`). `sync_manifest_versions.py`: deps and `min_engine_version` maintenance; set `min_engine_version` by hand after lookup. `sync_project_docs.py` NOT in build: edit DESCRIPTION/CHANGELOG deliberately. `sync_readme_links.py [--check]` repairs README links (runs after every build).
+- LOCK: every `MCPEDL/Addons/` project has `LOCK` at root starting `ALNStudios Add-on Lock v1`. Importer creates it, build enforces it. Missing/invalid = release-blocking: report path, NEVER call build-ready. Safeguard only, not encryption.
+
+### 1.4 Recipe Unlock
+- ALWAYS unlock every custom crafting recipe by default. Shaped = object `"unlock": { "context": "AlwaysUnlocked" }`. Shapeless = array `"unlock": [{ "context": "AlwaysUnlocked" }]`. NEVER mix forms in one recipe. Validators accept either; generator writes these.
+- Covers `minecraft:recipe_shaped`, `minecraft:recipe_shapeless` only. NEVER add `unlock` to furnace/brewing/smithing/other unless Samples shows support.
+- Validators parse JSON and check `unlock` key. NEVER text search for `AlwaysUnlocked`.
+- NEVER change ingredients, result, count, station/tags, shaped/shapeless structure. NEVER rely on recipe-book discovery unless asked.
+- Applies to all new recipes and any recipe touched. Check type against Samples first.
+
+### 1.6 Function Files
+Paths from repo root. A function file existing != it runs.
+- Functions: `<project>/behavior_pack/functions/<name>.mcfunction`. Tick: `functions/tick.json` `values` = names without suffix (`oneblock_tick`).
+- Before delivery: 1 inspect real manifest, functions, `tick.json`, install steps, report paths; 2 `tick.json` valid, right dir, names existing function; 3 check syntax, ids, coordinates, deps (scoreboards). NEVER make a score-dependent command the only initial-block path unless init guaranteed; 4 validate JSON and `node --check` JS directly (project scripts run in the `.sh`), state what passed; 5 custom item delivered but block missing: diagnose item delivery and function execution separately (pack activation, world links, tick registration, name/path, command errors) BEFORE fallbacks or version bump.
+- NEVER claim `tick.json` missing without inspecting installed/packaged copy.
+
+### 1.10 Review and Security
+AI payloads = untrusted until a person reviews. Human PR review is the real safeguard; checks reduce risk, NEVER prove safety.
+- ALWAYS review `behavior_pack/scripts/` and every `.mcfunction` in the PR before merge. `direct` commit only for a payload you made and checked. PR mode needs "Allow GitHub Actions to create and approve pull requests".
+- `build_payload.py` enforces: imports only `@minecraft/server`, `@minecraft/server-ui`, `@minecraft/vanilla-data`, relative files; `eval`/`Function` rejected; every `.js` passes `node --check`. Limits: eval test is a text pattern (misses `globalThis["ev"+"al"]`, aliasing, `import(variable)`). Reviewers MUST read scripts.
+- UUIDs unique across `MCPEDL/` (own folder excluded). `min_engine_version` = real looked-up version.
+- NEVER `${{ inputs.* }}` or step outputs inside `run:`. Pass via `env:`, quote.
+- Docs MUST pass `build_payload.py` `DOC:` checks (failures, not warnings).
+
+### 1.11 Known Untested Assumptions
+Open until confirmed in game. NEVER state as fact in docs.
+1. Void cleaner: Y=-64 fill succeeds for a player spawning in a fresh void world; conditional tag (Dirtbound `SPEC.md`) retries correctly.
+2. World host reports as Operator via `playerPermissionLevel` with cheats off (Controller reaches host on achievement-eligible world).
+3. `isOp()` absent in 2.x `@minecraft/server` (Controller uses a helper). Re-check on every module bump.
+4. Controller behavior across rejoin, death, reload. Tested only with mocked modules.
+5. Shipped functions and Controller do not disable achievements unless an admin command is run.
+6. Experiment/achievement state of each `Mcpeworlds/` foundation.
+
+### 1.16 Bedrock Developer Role and Trusted Sources
+- Role: expert Minecraft Bedrock Add-on and Script API developer. Build and maintain complete Behavior Packs, Resource Packs and Script API modules. Official NPM packages first (`@minecraft/server`, `@minecraft/server-ui`, `@minecraft/math`); on any error, deprecated API or version mismatch verify through the Context7 libraries below (1.17).
+- Structure: valid `manifest.json` (1.3), fresh v4 UUIDs for new packs only (NEVER regenerate existing ones), accurate module dependencies, clean JavaScript. NEVER ship TypeScript (`build_payload.py` allows only `.js`). `@minecraft/math` is NOT in `ALLOWED_MODULES` of `build_payload.py` (1.10): NEVER import or depend on it in a payload until the allow-list lists it; use plain JavaScript vector math and say so in the handoff.
+- Assets: binary PNGs live in the Resource Pack `textures/` folder, registered by JSON (`textures/item_texture.json`, `textures/terrain_texture.json`), NEVER mixed with the registration files. Recipes reference vanilla item identifiers directly. NEVER duplicate vanilla PNGs unless needed as templates.
+- Trusted sources (rely strictly and exclusively on these four Context7 libraries, queried per 1.17; NEVER invent API methods, outdated syntax or item ids): `/microsoftdocs/minecraft-creator` (Script API, `@minecraft/server`, `@minecraft/server-ui`, JSON schemas, versions); `/mojang/bedrock-samples` (vanilla textures, recipes, entities, definitions, formats); `/websites/wiki_bedrock_dev` (manifest structure, techniques); `/allenscreations/mcpe-curseforges` (this repo's rules and scripts). No other library, site or package page is a source. Priority and disagreements follow 1.1: report, NEVER choose silently.
+- Failure (script does not load, texture does not render, syntax changed in a newer update): query the Context7 libraries above (1.17) for the exact updated syntax, manifest dependency versions, valid vanilla identifiers and working patterns BEFORE rewriting code.
+- Output: complete ready-to-use files with exact repo-root-relative paths, delivered ONLY as the single update `.sh` (`<Repofilename>_<Version>_<Rand>.sh`) or the single pack `.sh` (new packs) and reply format above (Reply Format, Termux Script Rules).
+
+### 1.17 Documentation Lookup (Context7 MCP)
+Docs, API, vanilla data and repo files are read with the Context7 MCP tool `query-docs`. NEVER by pasted URL, NEVER from memory. Applies to every addon, map, script, minigame, update and docs task.
+- Libraries: ONLY these three, IDs passed exactly. NEVER call `resolve-library-id`, NEVER query any other library.
+  - `/mojang/bedrock-samples`: vanilla ids, textures, recipes, components, entities, formats, `version.json` (1.1 priority 2).
+  - `/microsoftdocs/minecraft-creator`: `@minecraft/server` and `@minecraft/server-ui` API, JSON schemas, stable and module versions (1.1 priority 3).
+  - `/websites/wiki_bedrock_dev`: manifest structure, scripting guides, techniques (1.1 priority 5).
+- Before ANY code, manifest, JSON, `.mcfunction`, recipe, version or doc fact: query first, write second. Batch: at most ONE `query-docs` call per needed `libraryId` (several topics together in that call). NEVER several calls to the same `libraryId`, NEVER sequential retry loops. Name the exact member, file, id or schema and the module or game version (e.g. `ItemStack constructor @minecraft/server`, `recipe_shaped format`). All three calls may go in one parallel turn.
+- Verify every import, class, method, property, event, enum, component and JSON field against the retrieved text before using it. NEVER guess. NEVER outdated syntax: the `mojang-minecraft` modules, `world.events`, 1.x-era imports.
+- Empty or doubtful result: do NOT query again. Say "not verified" (1.2), NEVER fill the gap from memory. Results that disagree with each other: report per 1.1.
+- Context7 is an index and can lag the game. Versions come from the retrieved text only, with the query date. A result that does not state the latest stable version = "not verified". Preview/beta members only as 1.2 allows.
+- Repo files: read from the kit zip (`New-Pack.zip`, `Maintenance.zip` or the pack's review zip) or from the repo clone — these always beat any external index. Scripts that must run (`build_payload.py`, `doc_template.py`, `import_project_payload.py`, `make_pack_script.py`, `pixel_json_to_png.py`) need their COMPLETE unchanged text from the zip under `files/`. Incomplete: ask the user to attach the zip. NEVER rewrite from memory.
+- Handoff: one bullet `Docs queried (YYYY-MM-DD): <library IDs and topics>`.
+- NEVER put library IDs, query text or the word Context7 in shipped files or player-facing docs (2.2).
+
+---
+
+## Part 2: Docs (moved)
+Every README, DESCRIPTION and CHANGELOG rule and template: `DOCS_RULES.md` (sections 2.1 to 2.5). Read it before writing any doc.
+
+---
+
+## Part 4: Pack Generator
+
+Agent builds a full project from the user's idea and returns ONE `.sh` pack script (`scripts/make_pack_script.py`). The user runs it in Termux (`bash <file>.sh` creates the project, builds worlds, pushes; `bash <file>.sh stage` only copies it to `MCPEDL/incoming/`) or runs GitHub workflow **Create Project from Base64** with `payload_file` = the `.sh` (the workflow only reads the payload block, it never runs the file).
+
+Source of truth = scripts: `scripts/build_payload.py` (packager + checks), `scripts/doc_template.py`, `scripts/import_project_payload.py` from ALNStudios/MCPE-Curseforges. ALWAYS read them before building. Disagreement with this file: tell the user. Read them through Context7 `/allenscreations/mcpe-curseforges` (1.17); an attached `tools.txt` wins on any difference. Complete text not retrievable: ask the user to attach `tools.txt`, use that exact text. NEVER rewrite a script from memory. NEVER use a stale copy.
+
+### 4.0 Ask the type first
+Type unknown: ask exactly this, wait:
+> What do you want to make: **addon** (.mcaddon), **map** (.mcworld), **script** (.mcpack), or **minigame** (.mcaddon with the Controller item)?
+
+NEVER guess the type. At most ONE more question, only if the answer changes the build.
+
+| Type | Folder | Extra |
+|---|---|---|
+| addon | `MCPEDL/Addons/<Name>/` | `.mcaddon` |
+| map | `MCPEDL/Maps/<Name>/` | `.mcworld`; Creative, Survival, Hardcore worlds |
+| script | `MCPEDL/Script/<Name>/` | `.mcpack`; BP only |
+| minigame | `MCPEDL/Minigame/<Name>/` | `.mcaddon`; Controller, RP |
+
+### 4.0a Research and Plan First (MANDATORY)
+Before generating any files, scratch workspaces, or pack `.sh` scripts:
+1. **Deep Research (~90% Thoroughness)**: Investigate the user's idea thoroughly (~90% confidence). Query Context7 (1.17) for Bedrock vanilla item/block/entity components, event hooks, mechanics, and limits.
+2. **Select Latest Best API**: Determine and verify the latest stable `@minecraft/server` and `@minecraft/server-ui` versions and modern component `format_version`. Ensure compatibility against `min_engine_version`.
+3. **Present the Plan**: Outline the implementation plan to the user:
+   - Target project type and folder path.
+   - Core gameplay mechanics and Bedrock systems used.
+   - Modules, APIs, components, and events.
+   - File manifest (manifests, scripts, functions, items/blocks, documentation).
+   - Any limits, fallbacks, or trade-offs.
+4. **Wait for User Approval**: Await user review and confirmation ("go" or requested changes). NEVER build files, scratch directories, or `.sh` scripts until the user explicitly approves the plan.
+
+### 4.1 Hard rules
+- NEVER write base64 or the `.sh` by hand. Create files in scratch `build/<Name>/`, then RUN `make_pack_script.py` (4.8). Cannot run code: reply `CANNOT BUILD` (4.11). NEVER invent base64.
+- Deliver ONLY the one pack `.sh`. NEVER deliver a separate `.zip`, pack file (`.mcaddon`/`.mcworld`/`.mcpack`), `.json`, `.js`, `.b64` or any other file; every file lives inside the `.sh`. `build/` is scratch: never delivered, never committed.
+- NEVER invent features, versions, links, assets, results, compatibility. ZIP build proves structure only.
+- ALWAYS look up latest stable Bedrock + `@minecraft/server` + `@minecraft/server-ui` at time of work, record date (1.2). NEVER preview/beta/RC unless a requested feature needs it (then disclose in DESCRIPTION). `min_engine_version` per 1.2. Cannot confirm which game version first shipped your module version: say so.
+- Art: vanilla item and block icons ONLY from MCicons (`reference/mcicons/mcicons-<ver>.tgz` via `scripts/lib/mcicons.py`; only `minecraft:` ids; no icon for an id = report it); NEVER Samples, Wiki or other icon sources. NEVER AI-generated images; new custom textures ONLY as pixel JSON (4.13). NEVER CurseForge/MCPEDL listing images in the payload (linked by URL from `assets/Images/`). Trader Ledger (maps) and Controller (minigames) icons ONLY from the repo copy that `build_payload.py` installs. Other textures: real vanilla names, user-supplied, pixel JSON (4.13), or omit.
+- Gap in the idea: choose the most reasonable option, state it in DESCRIPTION.md.
+- Shell may be plain `sh`: NEVER brace expansion. After creating files, list them, confirm they exist.
+- `.sh` names: 1.1 rule (`(Repofilename)_(Version)_(Rand).sh`).
+- NEVER comments in `.js`, `.mcfunction`, `.json`. Prefer event-driven logic. NEVER claim a README/catalog link to a `.mcworld` that does not exist yet.
+- Every reply = the three 4.11 sections (File Needed, Changelog, Termux Script). NEVER a Summary section.
+- Vanilla limit blocks a requested mechanic: follow 4.12.
+
+### 4.2 Delivery layout
+ZIP root = project folder contents, built in `build/<Name>/`:
+```
+project.json          REQUIRED: {"type": "addon|map|script|minigame", "name": "Display Name"}
+README.md  DESCRIPTION.md  CHANGELOG.md
+behavior_pack/manifest.json
+behavior_pack/...     functions/ items/ blocks/ entities/ recipes/ loot_tables/ texts/ scripts/main.js
+                      scripts/lib/README.md (REQUIRED with main.js), lib/*.js optional
+resource_pack/        map/minigame REQUIRED. addon optional. script FORBIDDEN.
+texture_sources/      optional pixel JSON for custom textures (4.13). NEVER inside resource_pack/.
+```
+- NEVER ship `oneblock.json` (importer writes for maps), `LOCK` (importer writes for add-ons), another type's `project.json`.
+- NEVER include: `db/`, `level.dat`, `world_behavior_packs.json`, `world_resource_packs.json`, `.mcworld/.mcpack/.mcaddon/.zip`, symlinks, `Mcpeworlds/...` or `assets/...` paths. NEVER name a file/folder exactly `db`.
+- Limits (see `build_payload.py`): 500 files, 5 MB/file, 25 MB total. Delivery = the one pack `.sh`, nothing else.
+- NEVER create `test_world.json` or promise a test world (removed). The importer creates `assets/snapshots/`, `assets/recipes/`, `assets/items/` itself: NEVER ship `assets/`.
+
+### 4.3 Manifests (all types)
+`behavior_pack/manifest.json` and `resource_pack/manifest.json` (if present). Part 1 (1.2, 1.3) applies.
+- `format_version` 2. `min_engine_version` = looked-up `[1, RELEASE, PATCH]` (game 26.60 = `[1, 26, 60]`, NEVER `[26, 60, 0]`), NEVER `[0,0,0]`.
+- `header.name` = `Add-on Name (vX)`: one terminal suffix == `header.version`. Both packs same version.
+
+- `header.description` contains `by ALNStudios` exactly once. NEVER in name.
+- Fresh unique v4 UUIDs for every header and module. NEVER reuse/copy from examples.
+- RP exists: BP `dependencies` include `{ "uuid": "<RP header.uuid>", "version": [x, y, z] }` matching.
+- Script module: `"type": "script"`, `"language": "javascript"`, `"entry": "scripts/main.js"`; deps `{ "module_name": "@minecraft/server", "version": "<latest stable string>" }`. Add `@minecraft/server-ui` for forms (always for Controller).
+- Script `lib/` folder: EVERY pack that has a `behavior_pack/scripts/main.js` ALSO has `behavior_pack/scripts/lib/README.md` (create the folder together with `main.js`, never later). The README is for the AI review: what the pack's script code does, one line per file in `scripts/` and `scripts/lib/` (purpose, what it exports or registers, what it depends on), the script events and custom item/entity ids it uses, and known limits. When `lib/` holds no `.js` files yet, the README says so in one line. Never write library IDs, query text or the word Context7 in it (2.2). Update it whenever the scripts change.
+- Helper code in `lib/` (only when `main.js` grows past one readable file, e.g. shared helpers, constants, form builders): put the helpers in `behavior_pack/scripts/lib/<name>.js` and import them from `main.js` with a relative path and the `.js` extension (`import "./lib/<name>.js";`). `entry` stays `scripts/main.js`. Verified form (Context7 2026-11-21): relative `./file.js` import from the entry file; named exports from `lib/` files are not verified, query before using them. A small pack keeps everything in `main.js` and only the README in `lib/`.
+- NEVER experiments unless needed (name in docs). Deps/imports ONLY `@minecraft/server`, `@minecraft/server-ui`, `@minecraft/vanilla-data`.
+- RP template (replace every placeholder; run `python3 -m json.tool`):
+```json
+{
+  "format_version": 2,
+  "header": {
+    "name": "Add-on Name (v1)",
+    "description": "Textures for the add-on. by ALNStudios",
+    "uuid": "<fresh uuid v4>",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, LOOKED_UP_RELEASE, LOOKED_UP_PATCH]
+  },
+  "modules": [
+    { "type": "resources", "uuid": "<fresh uuid v4>", "version": [1, 0, 0] }
+  ],
+  "metadata": { "authors": ["ALNStudios"], "product_type": "addon" }
+}
+```
+
+### 4.4 Type: addon
+- `.mcaddon`. BP required, RP optional. No void cleaner, ledger, Controller.
+- `functions/tick.json` names MUST exist as `functions/<name>.mcfunction`.
+- NEVER create `LOCK`.
+
+### 4.5 Type: map (OneBlock)
+Works in any database-free void world. NEVER depend on terrain, database, world settings.
+Required (`build_payload.py` installs the 3 ledger files if missing):
+```
+behavior_pack/functions/tick.json              {"values": ["void_cleaner", "oneblock_tick"]}  void_cleaner FIRST
+behavior_pack/functions/void_cleaner.mcfunction
+behavior_pack/functions/oneblock_setup.mcfunction
+behavior_pack/items/trader_ledger.json
+resource_pack/textures/item_texture.json
+resource_pack/textures/items/trader_ledger.png
+```
+1. `tick.json` valid, non-empty `values`, `void_cleaner` first, every name exists.
+2. `void_cleaner.mcfunction` FIRST command, own line, no trailing spaces:
+   ```
+   execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air
+   ```
+3. `oneblock_setup.mcfunction`: exists, harmless, idempotent. NEVER in `tick.json`. DESCRIPTION says in plain words (no file name) that the optional setup command needs cheats and cheats disable achievements.
+4. Trader Ledger MANDATORY, ONLY from repo copy (32x32 RGBA `Mcpeworlds/assets/resources_pack/textures/items/trader_ledger.png`). Identifier stays `allenscreations:trader_ledger`; display name may change. NEVER redraw/recolor/resize/re-encode. NEVER copy the whole `Mcpeworlds/assets/`.
+5. Ledger role follows the idea (Dirtbound: only way to open a shop menu). No role: still ship, say so in DESCRIPTION.md.
+6. Progression data pool: Every OneBlock map's Script module uses the centralized data pool at `behavior_pack/scripts/lib/Oneblock_Progression.js` (copied from `Mcpeworlds/Progression/Oneblock_Progression.js`). The file contains only the blocks, loot, and mob pools; map-specific spawn chances, island rules, and event triggers remain in the map's own scripts. The importer installs it automatically if omitted.
+
+Pipeline (Dirtbound design) unless user says otherwise. `void_cleaner.mcfunction` runs every tick, each command guarded `tag=!void_cleaned`, order: (1) required Y=-64 line; (2) teleport untagged player to spawn (only function-side teleport); (3) Bedrock under core; (4) placeholder at core only if empty; (5) world spawn; (6) optional notice; (7) add `void_cleaned` tag LAST, CONDITIONAL on core Bedrock existing (`execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cleaned`). Without the tag every guarded command repeats forever; unconditional tag never retries a fill on unloaded chunks. NEVER add a "clear starting area" step.
+- ALWAYS skip any core-area clear once the core exists.
+- `oneblock_tick`: restores only missing Bedrock, only if a player has `void_cleaned`. NEVER reset spawn, teleport, place/replace core.
+- Script API owning the core waits for `void_cleaned` before replacing the placeholder.
+- Dirtbound coords: core `(0,0,0)`, Bedrock `(0,-1,0)`, spawn `(0,1,0)`. User coords win; every `fill` MUST cover what it claims to clear.
+- Script teleport only in script, state it in summary. Idea cannot fit the `void_cleaner`-first pipeline: say so, NEVER silently change it.
+
+### 4.6 Types: script and minigame
+Script: standalone BP for general logic. `project.json` type `script`, `behavior_pack/manifest.json`, `behavior_pack/scripts/main.js`. NEVER RP or Controller. Always `.mcpack`.
+
+Minigame: playable challenge driven by a script. `project.json` type `minigame`, BP + RP. Always `.mcaddon`. Uses the Controller.
+
+Required (`build_payload.py` installs Controller files if missing):
+```
+behavior_pack/manifest.json                    script module + @minecraft/server + @minecraft/server-ui
+behavior_pack/scripts/main.js                  the game only; imports ./controller.js
+behavior_pack/scripts/controller.js            fixed copy installed by build_payload.py, NEVER edited
+behavior_pack/items/controller.json
+behavior_pack/functions/give_controller.mcfunction
+behavior_pack/functions/end_game.mcfunction
+resource_pack/manifest.json
+resource_pack/textures/item_texture.json
+resource_pack/textures/items/controller.png    16 x 16, from repo, NEVER redrawn
+```
+Controller (item `aln:<minigame_name>_controller`; NEVER opt out): ALN UI Redesign main menu per `INSTRUCTIONS.md` 1.13/1.14 with exactly 3 buttons **Start**, **About**, **Exit** (this order); while running the first button = **End Game**. All of it lives in `controller.js`: NEVER build another form.
+- Only host/operator gets/uses it, via `isHost` in `controller.js`, NEVER `player.isOp()` alone. Start works while not running (re-read state after form closes). Running: End Game -> confirm form (**End Game** / **Back**) -> `endGame()`, no cheats. Start opens How to play (rules, **Start Game**, **Back**). About: creator, pack + version, one line, profiles, Back.
+- KEPT while the game runs. `consumeOnStart: true` restores old behavior (Start consumes first Controller unless `getGameMode()` is `GameMode.Creative`; End Game then only reachable by a host still carrying one).
+- Game logic calls `endGame()` on win/lose. `endGame()` sets `ended`, gives host/operator a fresh Controller if none.
+- Stuck state: NEVER `running` after reload with no live game. Reset to `idle` on world load, give Controller (1.11 item 4). `give_controller`/`end_game` need cheats: last resort.
+- Giving: host/operator on every spawn incl. death when carrying none (`consumeOnStart: true`: first spawn when not `running`; Creative operators always). State `idle|running|ended` in a world dynamic property.
+- Form shows state and whether Controller is kept. NEVER add Restart/other buttons. Fill `about`, `gameInfo` and `howToPlay` with real text and NO `§` color codes. Colors, the ALNStudios title, bold text, Pixelify font and action bar feedback are done by `controller.js`. The importer copies the skin font + About icon from `assets/aln-ui-redesign/` into the RP and `lib/pixelify.js` is installed with `controller.js`: NEVER ship or edit them.
+- `controller.js` installed when `main.js` calls `registerController(`; check fails if it differs, NEVER edit. Write BP manifest with looked-up `min_engine_version` BEFORE running the script (item JSON takes `format_version` from it). You write `resource_pack/manifest.json` (4.3, fresh UUIDs, same version) and add its dependency + `@minecraft/server-ui` to the BP manifest. NEVER copy anything else from `Mcpeworlds/assets/`.
+`main.js` template:
+```js
+import { world } from "@minecraft/server";
+import { registerController, endGame } from "./controller.js";
+function win() {
+  world.sendMessage("You won.");
+  endGame();
+}
+registerController({
+  title: "Sample Game",
+  version: "1.0.0",
+  about: "One plain sentence about the pack.",
+  gameInfo: "Type: Challenge\nPlayers: 1 or more\nGoal: Replace this text with a short description of the game.",
+  howToPlay: "Goal: replace this text.\nControls: replace this text.\nHow it ends: replace this text.",
+  onStart: () => {
+    world.sendMessage("Game started.");
+  },
+  onEnd: () => {
+    world.sendMessage("Game ended.");
+  },
+});
+```
+- `title`, `version` (EXACTLY the Behavior Pack manifest version, bump both together), `about`, `gameInfo`, `howToPlay` required; `consumeOnStart` optional (default false). `onStart(player)` throws: state -> `idle`, Controller returned. `onEnd()` runs via `endGame()`. Script event `allenscreations:end` also ends the game. Template `win()` only sends a message: REPLACE with real logic. Old inline Controllers pass with a warning.
+
+### 4.7 Recipes
+- Every custom shaped/shapeless crafting recipe: unlock per 1.4. Other recipe types: no `unlock`.
+
+### 4.8 Build the pack script
+NEVER hand-write ZIP, base64 or the `.sh`. `scripts/make_pack_script.py` installs missing Ledger/Controller files, runs every `build_payload.py` check, builds the ZIP in memory and writes ONE Termux `.sh` that carries the project as a base64 block at its end. It writes nothing else. The importer reads that same block.
+1. Create `build/<Name>/` per 4.2 incl. `project.json` + BP manifest with looked-up `min_engine_version`. `build/` is scratch.
+2. Get `scripts/make_pack_script.py`, `build_payload.py`, `import_project_payload.py`, `doc_template.py`, plus `pixel_json_to_png.py` when `texture_sources/` exists (complete text from `/allenscreations/mcpe-curseforges` via Context7, or from the attached `tools.txt`), all in one folder next to `build/`.
+3. With `texture_sources/`: `python3 pixel_json_to_png.py build/Name` first, fix every FAIL line, rerun (4.13). Then `python3 make_pack_script.py build/Name` (`--check-only` to test only).
+4. Fix every failure incl. every `DOC:`, rerun. Put the SELF-TEST PASSED + PACK SCRIPT OK + BUILD OK (+ PIXEL TEXTURES OK when textures were drawn) result after the file name in File Needed. Proves structure only. Node MUST be installed for syntax check; if output says not checked, say so.
+5. Run `python3 doc_template.py --style build/Name`; rewrite every STYLE hint with a specific fact, rebuild.
+6. Deliver ONLY `<Name>_<Version>_<Rand>.sh` (fresh Rand, 1.1 rule). NEVER retype or edit it.
+
+### 4.9 Final self-check before replying
+- [ ] Type asked/given before building.
+- [ ] `behavior_pack/scripts/lib/README.md` exists whenever `main.js` does.
+- [ ] Context7 queried (1.17) before code, manifests, JSON and version claims; four fixed libraries only; `Docs queried` bullet written.
+- [ ] SELF-TEST PASSED + PACK SCRIPT OK + BUILD OK printed; exactly one `.sh` delivered, no other file.
+- [ ] Module versions latest stable, date recorded. `min_engine_version` looked up in the form `[1, RELEASE, PATCH]`, docs state only a verified minimum.
+- [ ] Docs state achievement status (+cheats caveat), experiments, "not tested in game"; no `DOC:` failures; no STYLE hints; tagline one concrete sentence.
+- [ ] Every README/DESCRIPTION/CHANGELOG matches `DOCS_RULES.md` exactly, no placeholders, DESCRIPTION has both listing images.
+- [ ] Map: `oneblock_setup` harmless+idempotent; `void_cleaner` ends with conditional `void_cleaned` tag.
+- [ ] Script: BP only, `.mcpack`, no Controller/RP, real `main.js` logic.
+- [ ] Minigame: Controller unchanged; `title`, `version` == BP manifest, `about`, real `gameInfo`/`howToPlay` without color codes; real logic calling `endGame()`; stuck-state recovery.
+- [ ] No comments in scripts/functions/JSON. Versions `vX` format only.
+- [ ] No `Mcpeworlds/assets/` file copied except ledger/controller; nothing from `assets/Images/`.
+- [ ] Any `.sh` named `(Repofilename)_(Version)_(Rand).sh`, fresh Rand >=5.
+- [ ] Reply = only the three 4.11 sections (or one exception).
+
+### 4.10 Build failures
+Paste the workflow error log back to the agent. Find the rule here and the check in `build_payload.py`/`doc_template.py`.
+| Message contains | Fix |
+|---|---|
+| `type must be one of` | `project.json` type: addon, map, script, minigame. |
+| `File type not allowed` / `world data not allowed` / `link files not allowed` | Remove it (4.2). |
+| `header.name must end with one (vX)` / `title version does not match` | One suffix == `header.version`, both packs. |
+
+| `description needs 'by ALNStudios' exactly once` | Once per description, never in name. |
+| `must depend on the resource pack header.uuid` | Add dependency (4.3). |
+| `first entry must be void_cleaner` / `lacks the exact required fill line` / `the last command must add the void_cleaned tag` | Fix `tick.json`, `void_cleaner.mcfunction` (4.5). |
+| `missing required file` | Add the file for your type. |
+| `is not a byte-for-byte copy` | Use the repo PNG unchanged. |
+| `controller.js must be the unchanged generator copy` | Delete it, rerun the script. |
+| `registerController needs ...` | Fill the call's fields (`version` must equal the BP manifest version). |
+| `import ... is not allowed` / `eval and the Function constructor` / `syntax error` | Fix the named line. |
+| `min_engine_version must be 3 integers` | Use looked-up game version. |
+| Minecraft import: `min_engine_version` too high ("highest value we accept") | Use `[1, RELEASE, PATCH]` (game 26.60 = `[1, 26, 60]`), at most the highest released version. |
+| `format_version ... newer than min_engine_version` | Raise `min_engine_version` or lower item `format_version`. |
+| `is already used by MCPEDL/...` | Fresh UUIDs. |
+| `Name clash` / `already exists` / `also exists under` | Other folder name or `overwrite` true. |
+| `test worlds were removed` | Delete `test_world.json` from the project (no test world exists anymore). |
+| `missing the unlock context` | Add unlock (1.4). |
+| `clickable CurseForge image` / `clickable MCPEDL image` | Paste the exact HTML line from `DOCS_RULES.md` 2.5 into Creator and Permissions. |
+| `run scripts/optimize_images.py` | Compress `assets/Images/` (workflow does it). |
+| `old hardcoded-version Minecraft Bedrock badge` | Use the version-free badge from `DOCS_RULES.md` 2.5. |
+| `DOC: ...` | Fix exactly what it names; template in `DOCS_RULES.md` 2.5. |
+
+### 4.11 Reply format
+Every reply = exactly these three sections, this order, these headings (`INSTRUCTIONS.md` Reply Format). NOTHING before, between or after. NEVER a Summary section. Empty: `- None`.
+
+**File Needed:** the one pack `.sh`, attached as the downloadable file, then its check result on the same line, e.g. `<Name>_<Version>_<Rand>.sh (SELF-TEST PASSED, PACK SCRIPT OK, BUILD OK)`. No other file.
+
+**Changelog:** brief bullets: what the project does; `min_engine_version` and module versions with the check date (verified or not verified); `Docs queried (date): <library IDs and topics>`; deviations from this file or `None`; `Source created, not tested in game.`
+
+**Termux Script:** ONE fenced `bash` block with ONLY the run commands, nothing else inside it:
+```bash
+bash ~/storage/downloads/<file>.sh
+bash ~/storage/downloads/<file>.sh stage
+```
+First line creates the project and pushes. Second line only stages it for GitHub workflow **Create Project from Base64** (`payload_file` = `<file>.sh`). Use one or both lines as the user needs.
+
+Exceptions (INSTEAD of the three sections, nothing else):
+- Cannot run code: `CANNOT BUILD` and one line why. No files, no base64.
+- Build failed, unfixable: `BUILD FAILED`, exact failing lines from `make_pack_script.py`, the rule each names. No `.sh`.
+- Type unknown: only the 4.0 question.
+- Planning phase (4.0a): present the ~90% research plan and await user approval before proceeding to build.
+
+### 4.12 Vanilla Limits and Workarounds
+Same rules as `INSTRUCTIONS.md` 1.12. Read it when a mechanic hits a vanilla limit.
+### 4.13 Pixel textures (custom item and block art)
+- The ONLY way to draw new art: pixel JSON, rendered to PNG by `scripts/pixel_json_to_png.py`. NEVER AI-generated images, NEVER copied or guessed art. A vanilla look = use the real vanilla texture name instead. NEVER for `script` projects (no resource_pack).
+- Source: `texture_sources/<any>.json` = array of textures. NEVER inside `resource_pack/`. No comments.
+- One texture: `{"name": "shepherds_pie", "size": 64, "palette": {"0": "#00000000", "1": "#3d2817"}, "pixels": [[0, 0, 1, ...], ...]}`
+- `name`: lowercase letters, digits, `_`. It is the PNG name, the key in `resource_pack/textures/item_texture.json` and the item's `minecraft:icon`. ALWAYS register it there.
+- `size`: 64 standard for richer detail and styling freedom (16, 32 or 128 allowed when requested). `pixels` = exactly `size` rows of exactly `size` palette indexes.
+- `palette`: keys are numbers in quotes, `"0"` = `#00000000` (transparent). Values `#RRGGBB` or `#RRGGBBAA`. Every index used MUST exist in the palette. Max 12 colors.
+- Optional `folder`: `items` (default), `blocks` or `items/<sub>`. The PNG goes to `resource_pack/textures/<folder>/<name>.png`.
+- Style: Minecraft pixel art, clean outlines, depth, light from the top left, no gradients, no blurry anti-aliasing, styled for 64x64 high detail. Recolors share one grid with a different palette.
+- RUN `python3 pixel_json_to_png.py build/<Name>` BEFORE `make_pack_script.py` (4.8): it checks every texture, lists every problem together and writes the PNGs. Fix, rerun. NEVER hand-write a PNG or base64.
+- Ship the JSON AND the PNGs. The JSON is the source: later changes edit the JSON and rerun the script, NEVER the PNG. `--preview [file]` writes a review sheet outside the project: NEVER ship it.
+
+### 4.14 Custom Sounds
+- Audio files cannot travel inside a spec or pack script. A project that needs custom sounds keeps a pure-Python synthesizer at `<project>/sound_sources/make_sounds.py` (reference: `MCPEDL/Addons/ALNSpiritSphere/sound_sources/make_sounds.py`). It writes `.ogg` files into `<project>/resource_pack/sounds/` and needs ffmpeg (Termux: `pkg install ffmpeg`).
+- An update that adds sounds uses `@@ create` for `make_sounds.py` and `resource_pack/sounds/sound_definitions.json` (`format_version` 1.14.0, one event per sound, sound paths without extension, category neutral). After the update script runs, the user runs: `python3 <project>/sound_sources/make_sounds.py`, then `git add`, `commit`, `push`.
+- Sound event ids use the pattern `aln.<project>.<element>.<kind>` and are played from scripts with `playSound`. NEVER guess vanilla sound ids; use only ids verified through Context7.
+- New sound files need a full Minecraft client restart to load. Say so in the handoff.
+- `.ogg` is the only audio type allowed. `DESCRIPTION.md` must describe sounds in player terms and never name the script, ffmpeg or file names.
+````
+
+## Policy Doc: DOCS_RULES.md
+
+````markdown
+# Docs Rules: README, DESCRIPTION, CHANGELOG, Audit and References (Parts 2-3, v3)
+
+Single source for every doc rule and template (2.1 to 2.5), the `/checkrm` audit (3.1, 3.2) and the Minecraft Wiki and Bedrock Samples references (3.3, 3.4). `PACK_GENERATOR_INSTRUCTIONS.md` uses it too. `INSTRUCTIONS.md` Part 1 wins on conflict. `scripts/doc_template.py` enforces the templates below (`DOC:` failures). Script and file disagree: report it, follow the script for what the build accepts.
+
+### 2.1 Roles
+- README.md: version-free download landing page. Title, package format, direct link, 3 install steps, link to DESCRIPTION. NEVER gameplay text, badges, images, release version.
+- Root `README.md`: public introduction only (what ALNStudios makes, where to download, install steps, links to the catalogs, attribution). NEVER a pack list, tables, badges, images, versions. The build NEVER edits it.
+- DESCRIPTION.md: full product page. NEVER release version in title.
+- CHANGELOG.md: player-visible changes only. Plain text, only source of truth.
+- Catalogs (download source of truth, tables allowed): `MCPEDL/Addons/README.md#available-add-ons`, `MCPEDL/Maps/README.md#available-maps`, `MCPEDL/Script/README.md#available-scripts`, `MCPEDL/Minigame/README.md#available-minigames`, `builds/README.md#available-pack-and-map-builds`.
+- Index: `MCPEDL/README.md` is generated by `scripts/build_mcpedl_readme.py` (run by Build Changed Packs & Sync Catalogs after the AI review files): per pack Version, Source, Package and AI review links, grouped by type. NEVER hand-edit.
+- ALWAYS move verified player-facing text from a long README into DESCRIPTION before replacing it. NEVER lose verified info. NEVER duplicate full descriptions.
+
+### 2.2 Writing
+- ALWAYS player-facing: what players do, how it behaves in game, what they need.
+- ALWAYS in-game display names ("Diamond"). NEVER identifiers (`minecraft:diamond`), file/function/event/API/module names, JSON, config keys, tick intervals, code, hashes, build details.
+- NEVER write `Script API` or `@minecraft/server`. Use "modern Minecraft Bedrock mechanics".
+- NEVER BP/RP. Write "Behavior Pack", "Resource Pack", "Complete Pack (.mcaddon)".
+- NEVER code blocks or edit-JSON/JS instructions. Config = in-game options, commands, tags.
+- Tone: factual, commercial, and minimal. NEVER hype, clickbait, rhetorical questions, filler, emojis, or walls of text. Keep every section short, scannable, and focused on what matters to the player.
+- ALWAYS verify exact values, recipes, requirements from source or tests.
+- NEVER claim "zero lag", universal multiplayer/Realms, achievement preservation, "no experimental features" without evidence for that exact claim. Exception: the Achievements line of EVERY project = `Yes, achievement-friendly.` (keep cheats/world caveats as a following sentence).
+- ALWAYS say cheats are needed when documenting a cheat-only function, and that cheats disable achievements in that world.
+- Page quality: tagline = one concrete sentence (<=25 words, one verified number or item name) that doubles as CurseForge Summary. NEVER "adds items to the game". Minimize text everywhere: explain a mechanic with one short example, one idea per feature card, and keep `How to Use` crystal-clear so any player immediately understands how to play. Steps = numbered. Style check: `python3 scripts/doc_template.py --style <folder>`; rewrite every STYLE hint with a fact (advisory).
+
+### 2.3 Layout
+- Must render on GitHub, CurseForge, MCPEDL, Planet Minecraft.
+- NEVER hand-written Markdown tables in README/DESCRIPTION (catalogs and generated CurseForge views may use tables). Use `### Feature Name` cards with `- **What Happens**: ...`.
+- Paragraphs <=4 sentences. NEVER LaTeX. Use `->`.
+- README: NEVER badges/images. DESCRIPTION: exactly the 2 template badges (Minecraft Bedrock "Stable Release", never a version) plus the 2 profile banners. Other images: item sprites (`assets/items/`), recipe diagrams (`assets/recipes/`), snapshots (`assets/snapshots/`) only.
+- Profile banners (distinct from the per-pack listing images in 1.5): HTML, `width="45%"`, NEVER `height`, full raw URL `https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/<file>` (`curseforge.jpg`, `MCPEDL.jpg`). NEVER edit/copy them. `scripts/optimize_images.py` compresses (800 px, 200 KB, JPEG).
+- NEVER duplicate version suffixes `(v1.2.0) (v1.2.1)`.
+- NEVER copy a legacy MCPEDL description to CurseForge unchanged.
+- Repo links: relative. Published pages: full URLs `https://github.com/AllensCreations/MCPE-Curseforges/tree/main/<path>`, `.../raw/main/builds/<file>`.
+- Spoiler (CurseForge `</>`): `<h2>Title</h2><div class="spoiler">content</div>`. Preview first. HTML only for listing images and a verified spoiler.
+- Changelog views: `changelog_views/<Name>.github.md` + `.curseforge.html` generated by `scripts/build_changelog_views.py`. NEVER add HTML/folds/links to CHANGELOG.md. NEVER hand-edit views.
+- Description HTML: rendered from DESCRIPTION.md by `scripts/lib/build_description_views.py` (a library, writes no file) into the Listing Kit below; NEVER recreate separate `Package/<Name>.curseforge.html` or `image_prompts/` files (one dark green accent (#15803d) on every page, minimal theme-following style only; hero with badges: lowest Minecraft version read from the manifests as `1.26+`, `Experimental: No` always, achievements; feature cards; Get Started steps; Commands box; NO changelog box and NO pack version; CurseForge-supported HTML only). Assets in `assets/items/`, `assets/recipes/`, and `assets/snapshots/` automatically build responsive galleries (`Custom Items`, `Crafting Recipes`, `Screenshots`); NEVER manually embed raw `<img>` tags for asset files into `DESCRIPTION.md`, as find_media skips files already present in the markdown. DESCRIPTION.md stays the source. NEVER hand-edit views.
+- Listing Kit: `Package/<Name>.listing.md` generated from DESCRIPTION.md by `scripts/build_listing_kits.py` (refreshed by Build Changed Packs & Sync Catalogs). One page with Package name, Summary (max 256, the DESCRIPTION tagline as plain text), the description HTML and the Logo/Banner AI image prompts, each in its own code block so GitHub shows a Copy button. AI image generation prompts for banners/logos are generated automatically here; recipes and sprites use pixel/vector generators, NEVER AI generation. The HTML has no pack logo. NEVER hand-edit.
+- Media: payloads contain no screenshots. Add them on the platform after publishing.
+
+### 2.4 Attribution and keywords
+- Creator links + profile banners: DESCRIPTION only, in Creator and Permissions. NEVER in README, changelog, manifest description.
+- Attribution block (no links) and Keywords line: exact text in the DESCRIPTION template (2.5), attribution directly before Keywords.
+- Keywords: end of every DESCRIPTION, from real features. Anchors: `Minecraft Bedrock add-on`, `Minecraft PE mod`, `MCPEDL add-on`, `CurseForge Bedrock`, `ALNStudios`. Gameplay anchors only if verified.
+
+### 2.5 Templates (STRICT)
+- ALWAYS follow exactly: same headings, text, order, labels, bullet format. NEVER add/remove/rename/merge/reorder sections. NEVER boilerplate or text outside the template.
+- Only optional sections, in this order directly after How to Use: `## Commands` (lines `- `/command options`: what it does`; only for packs with real player commands) then `## Common Questions` (engaging hook Q&A connected to the pack's best highlights, features, or player benefits; lines `- **Question**: answer`). Omit a whole section without verified content. The CurseForge view shows Commands in its own box with a cheats note, and renders Common Questions as minimal collapsible spoilers.
+- ALWAYS replace every `[placeholder]` and `verified-...` marker. NEVER leave one.
+- `.mcworld` installs may vary; multiple verified world variants may be listed. 
+
+README.md (exactly 11 non-empty lines). Direct package URL if it exists, else official category catalog. Format = real (`.mcaddon`/`.mcpack`/`.mcworld`). `.mcworld` step 3 = `3. Find the imported world in your Worlds list and open it.` Preserve all verified world links.
+
+```markdown
+# [Pack Name]
+
+Download the current release of **[Pack Name]** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download [Pack Name] (.mcaddon)](verified-direct-download-link)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](verified-DESCRIPTION-link).
+```
+
+DESCRIPTION.md (all project types; the Achievements line is the same for every type). Portable Markdown. NEVER version in title, unverified features, placeholder images.
+
+```markdown
+# [Pack Name] — [Clear, factual subtitle]
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**[One concrete sentence, 25 words or fewer, with one verified number or item name. It doubles as the CurseForge Summary.]**
+
+> [Two sentences at most. First: what the pack adds, with a verified name or number. Second: what changes in play or who it suits. Never write "adds items to the game".]
+
+## Overview
+
+[One short paragraph in plain words: what a player does with the pack from start to finish, and what is different from vanilla Minecraft.]
+
+## Key Features
+
+### [Feature Name]
+- **What Happens**: [One or two sentences of player-facing behavior with verified numbers, ranges, and item names.]
+- **How It Works**: [Optional. A short example such as "Right-click X with Y, then Z happens".]
+- **Good To Know**: [Optional. A verified limit, cost, or interaction players ask about.]
+
+Add separate feature cards for meaningful mechanics. Put relevant item lists, mob rosters, and verified crafting details inside the matching card; omit sections the pack does not need.
+
+## How to Use
+
+1. [First thing a player does, with the exact item or action.]
+2. [Next step.]
+3. [What they should see happen.]
+
+## Common Questions
+
+- **[Question players actually ask]**: [Verified answer in one or two sentences.]
+
+(The Common Questions section is optional. Include it only with verified answers; otherwise omit the whole section. It comes directly after How to Use.)
+
+## Compatibility
+
+- Minecraft Bedrock Edition: [verified minimum version, only if verified]
+- Experimental features: [verified status]
+- Achievements: Yes, achievement-friendly. [Every project type; add a cheats/world caveat sentence only when one applies.]
+- Verification: [source created / package built / in-game tested; never conflate them]
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, [Add-on Name] Bedrock mod, [feature 1], [feature 2], [item or mob name], Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+```
+
+CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` supported). Groups: Added, Improved & Balanced, Fixed (bugs as in-game experience). NEVER links, URLs, badges, function/event names, JSON diffs, hashes, CI steps, unverified benefits. NEVER Keep a Changelog/SemVer mention. After the title go straight to entries.
+
+```markdown
+# Changelog — [Add-on Name]
+
+---
+
+## [v1] - YYYY-MM-DD - [Update Name]
+
+### Added
+- **[Feature Title]**: [Clear summary of the new gameplay feature and how players use it].
+
+### Improved & Balanced
+- **[Enhancement Title]**: [Player-friendly description of tuning, balance, or visual changes].
+
+### Fixed
+- **[Fix Title]**: [What in-game bug or glitch was resolved].
+```
+
+---
+
+## Part 3: Docs Audit and References (checkrm)
+
+### 3.1 Authority and Scope
+- `INSTRUCTIONS.md` Part 1 and Part 2 here are authoritative. Unreadable: stop, report. NEVER work from memory.
+- Docs and catalog maintenance ONLY. NEVER change gameplay code, manifests, UUIDs, versions, deps, pack settings, assets, workflows, release config unless explicitly asked. "Documentation-only" = touch none of those.
+- Modes: repo-wide (`/checkrm`, "all projects", no single project named) | single project (name/slug/folder, or create/repair/update one project's docs).
+- ALWAYS discover real folder structure first. NEVER assume a path or substitute a similar project. Report ambiguity/missing target.
+
+### 3.2 Procedure
+1. Discover: target project, README, DESCRIPTION, manifests, scripts, config, entities, items, blocks, recipes, functions, loot tables, lang files, assets; parent catalog, builds README.
+2. Audit by reading (agents do not run `scripts/check_readme_status.py`; the `.sh` runs it). It checks: missing/incomplete docs, add-on READMEs with product info, short map/script READMEs, broken relative links, orphan build dirs. Cover the same ground by hand and report.
+3. Verify facts BEFORE writing: what it does, features, activation/config, persistence, packs/deps, versions, limits, achievements/experiments (1.2). NEVER infer a feature from a name. Separate implemented from planned. Verify vanilla names/sprites against 3.3-3.4.
+4. References: before creating/rewriting README or DESCRIPTION read category catalog, builds README, 2-3 well-documented same-category projects. Reuse conventions, NEVER project-specific claims. Verify their links/images/claims first.
+5. Write per `DOCS_RULES.md`. NEVER add an unimplemented feature because requested. Omit install steps if asked.
+6. Images/badges/links: README none. DESCRIPTION 2 template badges + profile banners, no other badges. Other images: item sprites, recipe diagrams, snapshots from the pack's `assets/` folders (see 1.5). Confirm assets exist, absolute raw URLs, verify link targets. No placeholders.
+7. Sync catalogs and builds: check category catalog, builds README. Update only relevant entries. Search first (no duplicates). Keep ordering. Inspect build scripts before running. The `.sh` or CI runs `scripts/auto_bump_and_build.py --project "<Project-Name>"` (never changes manifest versions). NEVER claim build/sync done if failed or not run.
+8. Verify: re-read whole edited file (headings, lists, links); each feature has source evidence, no verified content lost; the `.sh` runs `scripts/validate_manifest_titles.py --project <path>` and `scripts/check_readme_status.py` (expect 0 needing update, `[LINK INTEGRITY] All relative links valid`); LOCK marker for `MCPEDL/Addons/`; review diff for scope. State any check not run.
+9. Report under **Changelog** (`INSTRUCTIONS.md` Reply Format): projects audited/updated, files changed, commands + results, missing assets/links/unverifiable info, remaining work. NEVER report success for an unrun or failed check.
+- Bulk remake (run by the `.sh` or `remake-docs.yml`, never by the agent): `python3 scripts/check_readme_status.py --remake standardize --all --check` previews; without `--check` writes. `standardize` keeps text, refreshes READMEs as version-free pages, strips versions from DESCRIPTION titles, fixes structure, adds missing CHANGELOG entry. `--remake rebuild --project <Name>` regenerates generic DESCRIPTION/README from source (`--all` needs `--confirm-rebuild`). Defaults (Verification, Achievements, Experimental features) are placeholders: replace with verified facts. `remake-docs.yml` = dry run + PR.
+
+### 3.3 Minecraft Wiki Item Reference
+- https://minecraft.wiki/w/Item = official names, grouping, sprite look. ALWAYS together with Samples, NEVER instead.
+- Ids, textures, recipes, components: Samples. Display names: Wiki Bedrock name, confirmed against Samples `resource_pack/texts/en_US.lang` (`item.<id>.name`, `tile.<id>.name`). Lang file = in-game truth if Wiki unreachable/disagrees; report disagreement.
+- NEVER title-case an identifier (`experience_bottle` = Bottle o' Enchanting, `hay_block` = Hay Bale, `ender_eye` = Eye of Ender, `wooden_door` = Oak Door, `golden_rail` = Powered Rail, `magma` = Magma Block).
+- Edition tags `[BE only]`/`[JE only]`. NEVER document a Java-only item as available (Spectral Arrow is not Bedrock).
+
+### 3.4 Mojang Bedrock Samples Reference
+- Wiki sprite names: `Invicon_<Title_Case_Name>.png`, `ItemSprite_<lowercase-hyphenated-name>.png`. Look up by Wiki name, NEVER identifier. Fetch with available web tool; shell blocked: report, NEVER route around, fall back to Samples. Image license rules: 1.5.
+- Wiki, `en_US.lang`, Samples lag each other. ALWAYS check Samples `version.json`, state the version a claim was verified against.
+- Samples = truth for vanilla ids, textures, recipes, components, entities, formats (1.1 source priority). Root `BEDROCK_SAMPLES_ROOT` (workflow clones to `/tmp/bedrock-samples`). Agents read it through Context7 `/mojang/bedrock-samples` (INSTRUCTIONS.md 1.16).
+- Layout: `resource_pack/` (`textures/items/`, `textures/blocks/`, `textures/models/armor/`, `textures/ui/`, `attachables/`, `texts/`), `behavior_pack/` (`items/`, `entities/`, `recipes/`, `loot_tables/`).
+- Content changes per release: ALWAYS verify checked-out version, confirm each path exists. NEVER hardcode values (armor defense, durability) from memory.
+- Ids != texture filenames. Inventory all recipes, map every ingredient, report unresolved together. NEVER placeholder.
+- `textures/item_texture.json`, `terrain_texture.json` start with a `//` comment line: strip before parsing. Many vanilla items have no id-keyed entry; many block textures are `.tga`: check both extensions before calling missing.
+- Block icons render in game from top+side textures: build isometric view from real faces for cube sprites.
+- An id valid elsewhere may not exist in Bedrock (`oak_door` = `wooden_door`). Confirm id appears in Samples recipes/loot tables/trades before documenting.
+- Custom items use the add-on's own RP textures. Vanilla `behavior_pack/recipes/` = reference for recipe format, group tags, ingredient ids.
+- Context7 first (1.16). Library empty or asset absent: report. Only GitHub reachable: `git clone --filter=blob:none --sparse` then `git sparse-checkout set --no-cone <paths>`.
+- Scale 16x16 textures with nearest-neighbor (`Image.Resampling.NEAREST`).
+````
+
+
+---
+
+## File Contents
+
+## FILE: MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/items/tool_hub.json (22 lines, 430 bytes)
+
+```
+{
+  "format_version": "1.20.30",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:tool_hub",
+      "category": "Items"
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "texture": "aln_tool_hub"
+      },
+      "minecraft:display_name": {
+        "value": "Tool Hub"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.weapon.offhand"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/manifest.json (67 lines, 1254 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Smart Tool Hub (v1.0.2)",
+    "description": "Tool Hub item with a toggle menu for Passive Auto-Switch (offhand), Tree Capitator and Domino Ore Miner. by ALNStudios",
+    "uuid": "f0d4552b-755e-4bac-a2db-403201a5d709",
+    "version": [
+      1,
+      0,
+      2
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "d3ec8fb1-d118-4489-ac9f-6b2c8b6b4957",
+      "version": [
+        1,
+        0,
+        2
+      ]
+    },
+    {
+      "description": "Smart Tool Hub Script Module",
+      "type": "script",
+      "language": "javascript",
+      "uuid": "9a704854-4603-4995-a5ed-b53ad5f5f95b",
+      "version": [
+        1,
+        0,
+        2
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "87629f2e-265e-4288-aa92-42a34c0964bf",
+      "version": [
+        1,
+        0,
+        2
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.15.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "1.3.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.2"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/recipes/tool_hub.json (34 lines, 544 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:tool_hub"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "IRI",
+      "RDR",
+      "IRI"
+    ],
+    "key": {
+      "I": {
+        "item": "minecraft:iron_ingot"
+      },
+      "R": {
+        "item": "minecraft:redstone"
+      },
+      "D": {
+        "item": "minecraft:diamond"
+      }
+    },
+    "result": {
+      "item": "aln:tool_hub"
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/scripts/lib/README.md (46 lines, 3032 bytes)
+
+```
+# Smart Tool Hub: script notes (scripts/lib)
+
+For the AI review. Keep this file in step with the scripts: update it whenever a file in `scripts/` changes.
+Nothing here was run in game.
+
+`scripts/lib/` holds no `.js` files. All code is in `scripts/main.js`.
+
+## Files
+
+| File | Purpose |
+| :-- | :-- |
+| `scripts/main.js` | Tool Hub settings menu, offhand-gated Passive Auto-Switch, Smart Tree Capitator, Domino Ore Miner |
+
+## Imports
+
+- `@minecraft/server`
+- `@minecraft/server-ui` (`ModalFormData`, `FormCancelationReason`)
+
+## Events
+
+- `world.afterEvents.itemUse` (opens the menu when the Tool Hub is used)
+- `world.afterEvents.entityHitBlock`
+- `world.afterEvents.entityHitEntity`
+- `world.afterEvents.playerBreakBlock`
+- `world.afterEvents.playerLeave`
+- `system.runInterval` (1-tick mining re-check, 2-tick cobweb check)
+- `system.runTimeout` (swap retry, menu retry when the player is busy)
+
+## Custom ids
+
+- `aln:tool_hub` (item, `items/tool_hub.json`, icon key `aln_tool_hub`, `minecraft:wearable` slot `slot.weapon.offhand` so it can be equipped in the offhand; recipe `recipes/tool_hub.json`, shaped, iron ingots and redstone around a diamond, always unlocked)
+
+## Behavior
+
+- While a player keeps hitting a block (a hit within the last 10 ticks), a 1-tick interval re-checks the block under the crosshair and swaps in the best tool every tick. The switch margin stops it flipping between similar tools.
+- Per-player settings are stored as one JSON string in the dynamic property `aln_tool_hub_settings`. Toggles: `autoSwitch`, `keepCurrentTool`, `ignoreSwordsMining`, `treeCapitator`, `naturalTreesOnly`, `dominoMiner`, `requireHubForMiners`. Sliders: `maxTreeBlocks` (16 to 256, default 128), `maxOreBlocks` (8 to 128, default 64). Defaults: `keepCurrentTool`, `ignoreSwordsMining` and `requireHubForMiners` off, all others on.
+- After a swap, the same tool category cannot swap again for 5 ticks, so a block is not re-swapped while it is being broken.
+- A 10-tick poll shows an action bar message when the Tool Hub enters or leaves the offhand.
+- Auto Switch runs only when its setting is on AND the Tool Hub is in the offhand. It works on whichever hotbar slot is selected and swaps the best tool from any other inventory slot into it.
+- Tree Capitator and Domino Ore Miner need sneaking and their own toggle. They need the Tool Hub in the offhand only when `requireHubForMiners` is on.
+- Natural trees only: stripped logs, `_wood` and `_hyphae` blocks are skipped, and at least 4 non-persistent leaf, wart block or shroomlight blocks must be near the top logs. This is a guess from block types, so it cannot tell a placed log from a natural one inside a real tree.
+
+## Notes (AI review)
+
+Not verified against the docs at the time of writing: `minecraft:wearable` with slot `slot.weapon.offhand` on a custom item, whether `Entity.isValid` is a method or a property (`isAlive` accepts both), and the `@minecraft/server` 1.15.0 / `@minecraft/server-ui` 1.3.0 pairing (taken from another pack's manifest in this repo).
+```
+
+## FILE: MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/scripts/main.js (1422 lines, 38964 bytes)
+
+```
+import { world, system, EquipmentSlot, ItemStack } from "@minecraft/server";
+import { ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
+
+const VERSION = "1.0.2";
+const HUB_ITEM_ID = "aln:tool_hub";
+const SETTINGS_KEY = "aln_tool_hub_settings";
+const DEFAULT_SETTINGS = {
+  autoSwitch: true,
+  keepCurrentTool: false,
+  ignoreSwordsMining: false,
+  treeCapitator: true,
+  naturalTreesOnly: true,
+  dominoMiner: true,
+  requireHubForMiners: false,
+  maxTreeBlocks: 128,
+  maxOreBlocks: 64,
+};
+
+const SWITCH = {
+  switchMargin: 3,
+  lowDurabilityUses: 15,
+  lowDurabilityPenalty: 100,
+  raycastDistance: 6,
+  retryTicks: 2,
+  combatCooldownTicks: 10,
+  miningWindowTicks: 10,
+  swapCooldownTicks: 5,
+  statusCheckTicks: 10,
+  naturalMinLeaves: 4,
+  webCheckInterval: 2,
+  webInteractionWindow: 12,
+  webCombatCooldown: 40,
+};
+
+const MINER = {
+  TREE_CAPITATOR_ENABLED: true,
+  DOMINO_ORE_MINER_ENABLED: true,
+  MAX_TREE_BLOCKS: 128,
+  MAX_TREE_HEIGHT: 320,
+  MATCH_TREE_SPECIES: true,
+  MAX_ORE_CLUSTER_SIZE: 64,
+  DURABILITY_SAFETY_THRESHOLD: 5,
+  ALERT_SOUND: "note.bass",
+  ALERT_PITCH: 0.7,
+  ALERT_VOLUME: 1.0,
+  NETHER_GOLD_POLICY: "nether_gold",
+};
+
+const settingsCache = new Map();
+
+function isAlive(entity) {
+  try {
+    if (!entity) return false;
+    return typeof entity.isValid === "function"
+      ? entity.isValid()
+      : Boolean(entity.isValid);
+  } catch {
+    return false;
+  }
+}
+
+function loadSettings(player) {
+  const result = { ...DEFAULT_SETTINGS };
+
+  try {
+    const raw = player.getDynamicProperty(SETTINGS_KEY);
+    const stored = typeof raw === "string" ? JSON.parse(raw) : null;
+
+    for (const key of Object.keys(DEFAULT_SETTINGS)) {
+      if (typeof stored?.[key] === typeof DEFAULT_SETTINGS[key]) {
+        result[key] = stored[key];
+      }
+    }
+  } catch {}
+
+  return result;
+}
+
+function getSettings(player) {
+  let settings = settingsCache.get(player.id);
+
+  if (!settings) {
+    settings = loadSettings(player);
+    settingsCache.set(player.id, settings);
+  }
+
+  return settings;
+}
+
+function saveSettings(player, settings) {
+  settingsCache.set(player.id, settings);
+
+  try {
+    player.setDynamicProperty(SETTINGS_KEY, JSON.stringify(settings));
+  } catch {}
+}
+
+function hasHubInOffhand(player) {
+  try {
+    const equippable = player.getComponent("minecraft:equippable");
+
+    return (
+      equippable?.getEquipment(EquipmentSlot.Offhand)?.typeId === HUB_ITEM_ID
+    );
+  } catch {
+    return false;
+  }
+}
+
+function isAutoSwitchActive(player) {
+  return getSettings(player).autoSwitch && hasHubInOffhand(player);
+}
+
+function statusText(enabled) {
+  return enabled ? "§aON" : "§cOFF";
+}
+
+function hubStatusMessage(settings) {
+  return (
+    `§b[Tool Hub] §fAuto Switch ${statusText(settings.autoSwitch)}` +
+    ` §7| §fTree ${statusText(settings.treeCapitator)}` +
+    ` §7| §fOre ${statusText(settings.dominoMiner)}`
+  );
+}
+
+function openHubMenu(player, attempt = 0) {
+  const current = getSettings(player);
+
+  const form = new ModalFormData()
+    .title("Tool Hub")
+    .toggle("Auto Switch Tools (Hub must be in offhand)", current.autoSwitch)
+    .toggle("Keep my current tool if it already works", current.keepCurrentTool)
+    .toggle("Never switch to a sword while mining", current.ignoreSwordsMining)
+    .toggle("Tree Capitator (sneak + axe)", current.treeCapitator)
+    .toggle("Natural trees only (skip stripped logs, few leaves)", current.naturalTreesOnly)
+    .toggle("Domino Ore Miner (sneak + pickaxe)", current.dominoMiner)
+    .toggle("Capitator and Miner need Hub in offhand", current.requireHubForMiners)
+    .slider("Tree Capitator max blocks", 16, 256, 16, current.maxTreeBlocks)
+    .slider("Domino Ore Miner max blocks", 8, 128, 8, current.maxOreBlocks);
+
+  form
+    .show(player)
+    .then((response) => {
+      if (response.canceled) {
+        if (
+          response.cancelationReason === FormCancelationReason.UserBusy &&
+          attempt < 10
+        ) {
+          system.runTimeout(() => {
+            if (isAlive(player)) openHubMenu(player, attempt + 1);
+          }, 10);
+        }
+
+        return;
+      }
+
+      const values = response.formValues ?? [];
+
+      const updated = {
+        autoSwitch: Boolean(values[0]),
+        keepCurrentTool: Boolean(values[1]),
+        ignoreSwordsMining: Boolean(values[2]),
+        treeCapitator: Boolean(values[3]),
+        naturalTreesOnly: Boolean(values[4]),
+        dominoMiner: Boolean(values[5]),
+        requireHubForMiners: Boolean(values[6]),
+        maxTreeBlocks: Number(values[7]) || DEFAULT_SETTINGS.maxTreeBlocks,
+        maxOreBlocks: Number(values[8]) || DEFAULT_SETTINGS.maxOreBlocks,
+      };
+
+      saveSettings(player, updated);
+
+      let message = hubStatusMessage(updated);
+
+      if (updated.autoSwitch && !hasHubInOffhand(player)) {
+        message += "\n§eMove the Tool Hub to your offhand to use Auto Switch.";
+      }
+
+      player.onScreenDisplay.setActionBar(message);
+    })
+    .catch(() => {});
+}
+
+world.afterEvents.itemUse.subscribe((event) => {
+  try {
+    const player = event.source;
+
+    if (!player || player.typeId !== "minecraft:player") return;
+    if (event.itemStack?.typeId !== HUB_ITEM_ID) return;
+
+    openHubMenu(player);
+  } catch {}
+});
+
+const ToolCategory = {
+  PICKAXE: "pickaxe",
+  AXE: "axe",
+  SHOVEL: "shovel",
+  LEAVES: "leaves",
+  WEB: "web",
+  SHEARS_OR_SWORD: "shears_or_sword",
+  HOE: "hoe",
+  WEAPON: "weapon",
+};
+
+const TIER_SCORES = {
+  netherite: 50,
+  diamond: 40,
+  iron: 30,
+  stone: 20,
+  golden: 15,
+  gold: 15,
+  wooden: 10,
+  wood: 10,
+};
+
+const IGNORED_BLOCKS = new Set([
+  "air",
+  "cave_air",
+  "void_air",
+  "water",
+  "flowing_water",
+  "lava",
+  "flowing_lava",
+  "bedrock",
+  "barrier",
+  "structure_void",
+  "light_block",
+  "portal",
+  "end_portal",
+  "end_portal_frame",
+  "end_gateway",
+]);
+
+const NON_COMBAT_ENTITIES = new Set([
+  "item",
+  "arrow",
+  "spectral_arrow",
+  "xp_orb",
+  "experience_orb",
+  "snowball",
+  "egg",
+  "splash_potion",
+  "lingering_potion",
+  "ender_pearl",
+  "eye_of_ender_signal",
+  "lightning_bolt",
+  "armor_stand",
+  "painting",
+  "item_frame",
+  "glow_item_frame",
+  "leash_knot",
+  "boat",
+  "chest_boat",
+  "minecart",
+  "chest_minecart",
+  "hopper_minecart",
+  "tnt_minecart",
+  "command_block_minecart",
+  "tnt",
+  "falling_block",
+]);
+
+const recentCombat = new Map();
+const pendingSwaps = new Map();
+const webInteraction = new Map();
+const miningState = new Map();
+const lastSwap = new Map();
+const hubSeen = new Map();
+
+function normalizeId(id) {
+  return (id ?? "").replace(/^minecraft:/, "").toLowerCase();
+}
+
+function getMaterialTier(id) {
+  for (const [tier, score] of Object.entries(TIER_SCORES)) {
+    if (id.includes(tier)) return score;
+  }
+
+  return 25;
+}
+
+function readEnchants(item) {
+  const result = {
+    silk: 0,
+    fortune: 0,
+    efficiency: 0,
+    sharpness: 0,
+  };
+
+  try {
+    const component = item.getComponent("minecraft:enchantable");
+
+    if (!component) return result;
+
+    result.silk = component.getEnchantment("silk_touch")?.level ?? 0;
+    result.fortune = component.getEnchantment("fortune")?.level ?? 0;
+    result.efficiency = component.getEnchantment("efficiency")?.level ?? 0;
+    result.sharpness = component.getEnchantment("sharpness")?.level ?? 0;
+  } catch {}
+
+  return result;
+}
+
+function readDurability(item) {
+  try {
+    const component = item.getComponent("minecraft:durability");
+
+    if (!component) return null;
+
+    const remaining = component.maxDurability - component.damage;
+
+    return {
+      remaining,
+      fraction: remaining / component.maxDurability,
+    };
+  } catch {
+    return null;
+  }
+}
+
+function evaluateToolScore(item, category, slotIndex) {
+  if (!item?.typeId) return -1;
+
+  const id = normalizeId(item.typeId);
+  const hotbarBonus = slotIndex >= 0 && slotIndex <= 8 ? 1 : 0;
+
+  if (category === ToolCategory.PICKAXE) {
+    return id.includes("pickaxe") ? getMaterialTier(id) + hotbarBonus : -1;
+  }
+
+  if (category === ToolCategory.AXE) {
+    return id.includes("axe") && !id.includes("pickaxe")
+      ? getMaterialTier(id) + hotbarBonus
+      : -1;
+  }
+
+  if (category === ToolCategory.SHOVEL) {
+    return id.includes("shovel") || id.includes("spade")
+      ? getMaterialTier(id) + hotbarBonus
+      : -1;
+  }
+
+  if (category === ToolCategory.HOE) {
+    return id.includes("hoe") ? getMaterialTier(id) + hotbarBonus : -1;
+  }
+
+  if (category === ToolCategory.LEAVES) {
+    if (id.includes("shears")) return 100 + hotbarBonus;
+
+    return id.includes("hoe") ? getMaterialTier(id) + hotbarBonus : -1;
+  }
+
+  if (category === ToolCategory.WEB) {
+    if (id.includes("shears")) return 100 + hotbarBonus;
+
+    return id.includes("sword") ? getMaterialTier(id) + hotbarBonus : -1;
+  }
+
+  if (category === ToolCategory.SHEARS_OR_SWORD) {
+    if (id.includes("shears")) return 60 + hotbarBonus;
+
+    return id.includes("sword")
+      ? Math.max(5, getMaterialTier(id) - 5) + hotbarBonus
+      : -1;
+  }
+
+  if (category === ToolCategory.WEAPON) {
+    const sword = id.includes("sword");
+    const axe = id.includes("axe") && !id.includes("pickaxe");
+
+    if (!sword && !axe) return -1;
+
+    return getMaterialTier(id) + (sword ? 2 : 0) + hotbarBonus;
+  }
+
+  return -1;
+}
+
+function scoreItem(item, category, slotIndex, blockId = "") {
+  const base = evaluateToolScore(item, category, slotIndex);
+
+  if (base < 0) return -Infinity;
+
+  let score = base;
+  const enchants = readEnchants(item);
+
+  score += enchants.efficiency;
+
+  if (category === ToolCategory.WEAPON) {
+    score += enchants.sharpness;
+  }
+
+  if (blockId) {
+    const silkPreferred =
+      blockId === "glass" ||
+      blockId.endsWith("_glass") ||
+      blockId.endsWith("glass_pane") ||
+      /(^|_)ice$/.test(blockId) ||
+      blockId === "bookshelf" ||
+      blockId === "ender_chest";
+
+    if (silkPreferred && enchants.silk > 0) {
+      score += 60;
+    }
+
+    if (blockId.endsWith("_ore")) {
+      score += enchants.fortune * 1.5;
+
+      if (enchants.silk > 0) score -= 8;
+    }
+  }
+
+  const durability = readDurability(item);
+
+  if (durability) {
+    if (durability.remaining <= SWITCH.lowDurabilityUses) {
+      score -= SWITCH.lowDurabilityPenalty;
+    } else {
+      score += durability.fraction;
+    }
+  }
+
+  return score;
+}
+
+function getRequiredToolCategory(typeId) {
+  if (!typeId) return null;
+
+  const id = normalizeId(typeId);
+
+  if (IGNORED_BLOCKS.has(id)) return null;
+
+  if (id === "web" || id.includes("cobweb")) {
+    return ToolCategory.WEB;
+  }
+
+  if (
+    id.endsWith("concrete_powder") ||
+    id.includes("sand") ||
+    id.includes("gravel") ||
+    id.includes("clay") ||
+    id.includes("dirt") ||
+    id === "grass_block" ||
+    id.includes("podzol") ||
+    id.includes("mycelium") ||
+    id.includes("farmland") ||
+    id.includes("mud") ||
+    id.includes("soul_soil") ||
+    id.includes("snow")
+  ) {
+    return ToolCategory.SHOVEL;
+  }
+
+  if (id === "ender_chest") {
+    return ToolCategory.PICKAXE;
+  }
+
+  if (id.includes("leaves")) {
+    return ToolCategory.LEAVES;
+  }
+
+  if (
+    id.includes("wool") ||
+    id.includes("vine") ||
+    id.includes("fern") ||
+    id === "tallgrass" ||
+    id === "seagrass" ||
+    id === "hanging_roots" ||
+    id === "deadbush" ||
+    id === "tripwire"
+  ) {
+    return ToolCategory.SHEARS_OR_SWORD;
+  }
+
+  if (
+    id === "hay_block" ||
+    id === "target" ||
+    id === "sponge" ||
+    id === "wet_sponge" ||
+    id.includes("sculk") ||
+    id.includes("moss_block") ||
+    id.includes("moss_carpet") ||
+    id.includes("wart_block") ||
+    id === "shroomlight"
+  ) {
+    return ToolCategory.HOE;
+  }
+
+  if (
+    id.endsWith("_log") ||
+    id.endsWith("_wood") ||
+    id.endsWith("_stem") ||
+    id.endsWith("_hyphae") ||
+    id.startsWith("stripped_") ||
+    id.includes("planks") ||
+    id.includes("crafting_table") ||
+    id.includes("cartography_table") ||
+    id.includes("fletching_table") ||
+    id.includes("smithing_table") ||
+    id.includes("loom") ||
+    id.includes("composter") ||
+    id === "chest" ||
+    id === "trapped_chest" ||
+    id === "barrel" ||
+    id.includes("bookshelf") ||
+    id === "lectern" ||
+    id.includes("pumpkin") ||
+    id.includes("melon") ||
+    id === "cocoa" ||
+    id.includes("beehive") ||
+    id === "bee_nest" ||
+    id.includes("ladder") ||
+    id.includes("sign") ||
+    id.includes("mushroom_stem") ||
+    id.includes("mushroom_block") ||
+    id === "jukebox" ||
+    id === "daylight_detector" ||
+    id === "note_block" ||
+    id.includes("bamboo_block") ||
+    id.includes("bamboo_mosaic") ||
+    (id.endsWith("_fence") && !id.includes("nether_brick")) ||
+    id.endsWith("_fence_gate")
+  ) {
+    return ToolCategory.AXE;
+  }
+
+  const woodMaterials = [
+    "oak",
+    "spruce",
+    "birch",
+    "jungle",
+    "acacia",
+    "dark_oak",
+    "mangrove",
+    "cherry",
+    "bamboo",
+    "crimson",
+    "warped",
+    "pale_oak",
+  ];
+
+  if (
+    woodMaterials.some((material) => id.includes(material)) &&
+    !id.includes("petrified") &&
+    (id.endsWith("_door") ||
+      id.endsWith("_trapdoor") ||
+      id.endsWith("_button") ||
+      id.endsWith("_pressure_plate") ||
+      id.endsWith("_stairs") ||
+      id.endsWith("_slab"))
+  ) {
+    return ToolCategory.AXE;
+  }
+
+  return ToolCategory.PICKAXE;
+}
+
+function getInventory(player) {
+  try {
+    return player.getComponent("minecraft:inventory")?.container;
+  } catch {
+    return undefined;
+  }
+}
+
+function switchSelectedSlotTool(player, category, blockTypeId = "") {
+  if (!player || !isAutoSwitchActive(player)) {
+    return false;
+  }
+
+  const container = getInventory(player);
+
+  if (!container) return false;
+
+  const settings = getSettings(player);
+  const now = system.currentTick;
+  const previous = lastSwap.get(player.id);
+
+  if (
+    previous &&
+    previous.category === category &&
+    now - previous.tick < SWITCH.swapCooldownTicks
+  ) {
+    return false;
+  }
+
+  const targetSlot = player.selectedSlotIndex;
+  const heldItem = container.getItem(targetSlot);
+
+  if (heldItem?.typeId === HUB_ITEM_ID) return false;
+
+  const blockId = normalizeId(blockTypeId);
+  const currentScore = scoreItem(heldItem, category, targetSlot, blockId);
+
+  if (settings.keepCurrentTool && currentScore !== -Infinity) {
+    return false;
+  }
+
+  let bestSlot = -1;
+  let bestScore = -Infinity;
+
+  for (let slot = 0; slot < container.size; slot++) {
+    if (slot === targetSlot) continue;
+
+    const item = container.getItem(slot);
+
+    if (!item) continue;
+
+    if (
+      settings.ignoreSwordsMining &&
+      category !== ToolCategory.WEAPON &&
+      normalizeId(item.typeId).includes("sword")
+    ) {
+      continue;
+    }
+
+    const score = scoreItem(item, category, slot, blockId);
+
+    if (score > bestScore) {
+      bestScore = score;
+      bestSlot = slot;
+    }
+  }
+
+  if (bestSlot === -1 || bestScore === -Infinity) {
+    return false;
+  }
+
+  if (
+    currentScore !== -Infinity &&
+    bestScore < currentScore + SWITCH.switchMargin
+  ) {
+    return false;
+  }
+
+  try {
+    container.swapItems(bestSlot, targetSlot, container);
+    lastSwap.set(player.id, { tick: now, category });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function isCombatTarget(entity) {
+  if (!entity?.typeId) return false;
+
+  const id = normalizeId(entity.typeId);
+
+  if (NON_COMBAT_ENTITIES.has(id)) return false;
+
+  try {
+    return id === "player" || !!entity.getComponent("minecraft:health");
+  } catch {
+    return false;
+  }
+}
+
+function isWeb(block) {
+  if (!block?.typeId) return false;
+
+  const id = normalizeId(block.typeId);
+
+  return id === "web" || id.includes("cobweb");
+}
+
+function blockKey(block) {
+  if (!block) return "";
+
+  const { x, y, z } = block.location;
+
+  return `${block.typeId}@${x},${y},${z}`;
+}
+
+function clearPendingSwap(playerId) {
+  const runId = pendingSwaps.get(playerId);
+
+  if (runId !== undefined) {
+    system.clearRun(runId);
+    pendingSwaps.delete(playerId);
+  }
+}
+
+function scheduleSwapRetry(player, category, blockTypeId) {
+  clearPendingSwap(player.id);
+
+  const slotAtSchedule = player.selectedSlotIndex;
+
+  const runId = system.runTimeout(() => {
+    pendingSwaps.delete(player.id);
+
+    try {
+      if (player.selectedSlotIndex !== slotAtSchedule) return;
+
+      switchSelectedSlotTool(player, category, blockTypeId);
+    } catch {}
+  }, SWITCH.retryTicks);
+
+  pendingSwaps.set(player.id, runId);
+}
+
+function getTargetBlock(player) {
+  try {
+    return player.getBlockFromViewDirection({
+      maxDistance: SWITCH.raycastDistance,
+      includeLiquidBlocks: false,
+      includePassableBlocks: true,
+    })?.block;
+  } catch {
+    return undefined;
+  }
+}
+
+world.afterEvents.entityHitBlock.subscribe((event) => {
+  try {
+    const player = event.damagingEntity;
+
+    if (!player || player.typeId !== "minecraft:player") return;
+    if (!isAutoSwitchActive(player)) return;
+
+    const block = event.hitBlock;
+
+    if (!block) return;
+
+    const category = getRequiredToolCategory(block.typeId);
+
+    if (!category) return;
+
+    const now = system.currentTick;
+    const lastCombat = recentCombat.get(player.id) ?? -Infinity;
+
+    if (now - lastCombat < SWITCH.combatCooldownTicks) {
+      return;
+    }
+
+    webInteraction.set(player.id, {
+      key: blockKey(block),
+      lastInteractionTick: now,
+    });
+
+    miningState.set(player.id, { lastHitTick: now, blockTypeId: block.typeId });
+    if (!switchSelectedSlotTool(player, category, block.typeId)) {
+      scheduleSwapRetry(player, category, block.typeId);
+    }
+  } catch {}
+});
+
+system.runInterval(() => {
+  const now = system.currentTick;
+
+  for (const player of world.getAllPlayers()) {
+    try {
+      const state = miningState.get(player.id);
+
+      if (!state) continue;
+
+      if (
+        now - state.lastHitTick > SWITCH.miningWindowTicks ||
+        !isAutoSwitchActive(player)
+      ) {
+        miningState.delete(player.id);
+        continue;
+      }
+
+      const lastCombat = recentCombat.get(player.id) ?? -Infinity;
+
+      if (now - lastCombat < SWITCH.combatCooldownTicks) continue;
+
+      const target = getTargetBlock(player);
+      const blockTypeId = target?.typeId ?? state.blockTypeId;
+      const category = getRequiredToolCategory(blockTypeId);
+
+      if (!category) continue;
+
+      state.blockTypeId = blockTypeId;
+      switchSelectedSlotTool(player, category, blockTypeId);
+    } catch {}
+  }
+}, 1);
+
+system.runInterval(() => {
+  const now = system.currentTick;
+
+  for (const player of world.getAllPlayers()) {
+    try {
+      if (!isAutoSwitchActive(player)) {
+        webInteraction.delete(player.id);
+        continue;
+      }
+
+      const lastCombat = recentCombat.get(player.id) ?? -Infinity;
+
+      if (now - lastCombat < SWITCH.webCombatCooldown) {
+        continue;
+      }
+
+      const block = getTargetBlock(player);
+
+      if (!isWeb(block)) {
+        webInteraction.delete(player.id);
+        continue;
+      }
+
+      const key = blockKey(block);
+      const state = webInteraction.get(player.id);
+
+      if (!state || state.key !== key) {
+        webInteraction.set(player.id, {
+          key,
+          lastInteractionTick: now,
+          initialTick: now,
+        });
+
+        continue;
+      }
+
+      const elapsed = now - state.initialTick;
+
+      if (elapsed < SWITCH.webInteractionWindow) {
+        continue;
+      }
+
+      if (now - state.lastInteractionTick > SWITCH.webInteractionWindow) {
+        webInteraction.delete(player.id);
+        continue;
+      }
+
+      const held = getInventory(player)?.getItem(player.selectedSlotIndex);
+
+      if (held && normalizeId(held.typeId).includes("shears")) {
+        continue;
+      }
+
+      switchSelectedSlotTool(player, ToolCategory.WEB, block.typeId);
+
+      webInteraction.set(player.id, {
+        key,
+        initialTick: now,
+        lastInteractionTick: now,
+      });
+    } catch {}
+  }
+}, SWITCH.webCheckInterval);
+
+world.afterEvents.entityHitEntity.subscribe((event) => {
+  try {
+    const player = event.damagingEntity;
+
+    if (!player || player.typeId !== "minecraft:player") return;
+    if (!isAutoSwitchActive(player)) return;
+    if (!isCombatTarget(event.hitEntity)) return;
+
+    recentCombat.set(player.id, system.currentTick);
+
+    clearPendingSwap(player.id);
+    webInteraction.delete(player.id);
+    miningState.delete(player.id);
+
+    switchSelectedSlotTool(player, ToolCategory.WEAPON);
+  } catch {}
+});
+
+system.runInterval(() => {
+  for (const player of world.getAllPlayers()) {
+    try {
+      const has = hasHubInOffhand(player);
+      const previous = hubSeen.get(player.id);
+
+      hubSeen.set(player.id, has);
+
+      if (previous === has || (previous === undefined && !has)) continue;
+
+      player.onScreenDisplay.setActionBar(
+        has
+          ? hubStatusMessage(getSettings(player))
+          : "§7[Tool Hub] Removed from offhand. Auto Switch paused."
+      );
+    } catch {}
+  }
+}, SWITCH.statusCheckTicks);
+
+world.afterEvents.playerLeave.subscribe((event) => {
+  recentCombat.delete(event.playerId);
+  webInteraction.delete(event.playerId);
+  miningState.delete(event.playerId);
+  lastSwap.delete(event.playerId);
+  hubSeen.delete(event.playerId);
+  settingsCache.delete(event.playerId);
+  clearPendingSwap(event.playerId);
+});
+
+const AXE_IDENTIFIERS = new Set([
+  "minecraft:wooden_axe",
+  "minecraft:stone_axe",
+  "minecraft:iron_axe",
+  "minecraft:golden_axe",
+  "minecraft:diamond_axe",
+  "minecraft:netherite_axe",
+]);
+
+const PICKAXE_TIERS = {
+  "minecraft:wooden_axe": 1,
+  "minecraft:golden_axe": 1,
+  "minecraft:wooden_pickaxe": 1,
+  "minecraft:golden_pickaxe": 1,
+  "minecraft:stone_pickaxe": 2,
+  "minecraft:iron_pickaxe": 3,
+  "minecraft:diamond_pickaxe": 4,
+  "minecraft:netherite_pickaxe": 5,
+};
+
+function isAxe(typeId) {
+  if (!typeId) return false;
+  return AXE_IDENTIFIERS.has(typeId) || typeId.endsWith("_axe");
+}
+
+function isPickaxe(typeId) {
+  if (!typeId) return false;
+  return Boolean(PICKAXE_TIERS[typeId]) || typeId.endsWith("_pickaxe");
+}
+
+function getPickaxeTier(typeId) {
+  return PICKAXE_TIERS[typeId] || (typeId?.endsWith("_pickaxe") ? 3 : 0);
+}
+
+const ELIGIBLE_LOGS = new Set([
+  "minecraft:oak_log", "minecraft:stripped_oak_log", "minecraft:oak_wood", "minecraft:stripped_oak_wood",
+  "minecraft:spruce_log", "minecraft:stripped_spruce_log", "minecraft:spruce_wood", "minecraft:stripped_spruce_wood",
+  "minecraft:birch_log", "minecraft:stripped_birch_log", "minecraft:birch_wood", "minecraft:stripped_birch_wood",
+  "minecraft:jungle_log", "minecraft:stripped_jungle_log", "minecraft:jungle_wood", "minecraft:stripped_jungle_wood",
+  "minecraft:acacia_log", "minecraft:stripped_acacia_log", "minecraft:acacia_wood", "minecraft:stripped_acacia_wood",
+  "minecraft:dark_oak_log", "minecraft:stripped_dark_oak_log", "minecraft:dark_oak_wood", "minecraft:stripped_dark_oak_wood",
+  "minecraft:mangrove_log", "minecraft:stripped_mangrove_log", "minecraft:mangrove_wood", "minecraft:stripped_mangrove_wood",
+  "minecraft:mangrove_roots", "minecraft:muddy_mangrove_roots",
+  "minecraft:cherry_log", "minecraft:stripped_cherry_log", "minecraft:cherry_wood", "minecraft:stripped_cherry_wood",
+  "minecraft:pale_oak_log", "minecraft:stripped_pale_oak_log", "minecraft:pale_oak_wood", "minecraft:stripped_pale_oak_wood",
+  "minecraft:crimson_stem", "minecraft:stripped_crimson_stem", "minecraft:crimson_hyphae", "minecraft:stripped_crimson_hyphae",
+  "minecraft:warped_stem", "minecraft:stripped_warped_stem", "minecraft:warped_hyphae", "minecraft:stripped_warped_hyphae",
+]);
+
+function isEligibleLog(blockId) {
+  if (!blockId) return false;
+  if (ELIGIBLE_LOGS.has(blockId)) return true;
+  return /(log|wood|stem|hyphae|mangrove_roots)$/i.test(blockId);
+}
+
+function getWoodSpecies(typeId) {
+  if (!typeId) return null;
+  const match = typeId.match(
+    /(dark_oak|pale_oak|oak|spruce|birch|jungle|acacia|mangrove|cherry|crimson|warped)/i
+  );
+  return match ? match[1].toLowerCase() : null;
+}
+
+function isNaturalLog(blockId) {
+  return !blockId.includes("stripped_") && !/(_wood|_hyphae)$/.test(blockId);
+}
+
+function isMatchingLog(blockId, targetSpecies, naturalOnly = false) {
+  if (!isEligibleLog(blockId)) return false;
+  if (naturalOnly && !isNaturalLog(blockId)) return false;
+  if (!MINER.MATCH_TREE_SPECIES || !targetSpecies) return true;
+  const species = getWoodSpecies(blockId);
+  return !species || species === targetSpecies;
+}
+
+const ORE_DEFINITIONS = {
+  "minecraft:coal_ore": { category: "coal", minTier: 1, dropItem: "minecraft:coal" },
+  "minecraft:deepslate_coal_ore": { category: "coal", minTier: 1, dropItem: "minecraft:coal" },
+
+  "minecraft:iron_ore": { category: "iron", minTier: 2, dropItem: "minecraft:raw_iron" },
+  "minecraft:deepslate_iron_ore": { category: "iron", minTier: 2, dropItem: "minecraft:raw_iron" },
+
+  "minecraft:copper_ore": { category: "copper", minTier: 2, dropItem: "minecraft:raw_copper", minDrop: 2, maxDrop: 5 },
+  "minecraft:deepslate_copper_ore": { category: "copper", minTier: 2, dropItem: "minecraft:raw_copper", minDrop: 2, maxDrop: 5 },
+
+  "minecraft:lapis_ore": { category: "lapis", minTier: 2, dropItem: "minecraft:lapis_lazuli", minDrop: 4, maxDrop: 9 },
+  "minecraft:deepslate_lapis_ore": { category: "lapis", minTier: 2, dropItem: "minecraft:lapis_lazuli", minDrop: 4, maxDrop: 9 },
+
+  "minecraft:gold_ore": { category: "gold", minTier: 3, dropItem: "minecraft:raw_gold" },
+  "minecraft:deepslate_gold_ore": { category: "gold", minTier: 3, dropItem: "minecraft:raw_gold" },
+
+  "minecraft:nether_gold_ore": {
+    category: MINER.NETHER_GOLD_POLICY,
+    minTier: 1,
+    dropItem: "minecraft:gold_nugget",
+    minDrop: 2,
+    maxDrop: 6,
+  },
+
+  "minecraft:redstone_ore": { category: "redstone", minTier: 3, dropItem: "minecraft:redstone", minDrop: 4, maxDrop: 5 },
+  "minecraft:deepslate_redstone_ore": { category: "redstone", minTier: 3, dropItem: "minecraft:redstone", minDrop: 4, maxDrop: 5 },
+  "minecraft:lit_redstone_ore": { category: "redstone", minTier: 3, dropItem: "minecraft:redstone", minDrop: 4, maxDrop: 5 },
+  "minecraft:lit_deepslate_redstone_ore": { category: "redstone", minTier: 3, dropItem: "minecraft:redstone", minDrop: 4, maxDrop: 5 },
+
+  "minecraft:diamond_ore": { category: "diamond", minTier: 3, dropItem: "minecraft:diamond" },
+  "minecraft:deepslate_diamond_ore": { category: "diamond", minTier: 3, dropItem: "minecraft:diamond" },
+
+  "minecraft:emerald_ore": { category: "emerald", minTier: 3, dropItem: "minecraft:emerald" },
+  "minecraft:deepslate_emerald_ore": { category: "emerald", minTier: 3, dropItem: "minecraft:emerald" },
+
+  "minecraft:quartz_ore": { category: "quartz", minTier: 1, dropItem: "minecraft:quartz" },
+  "minecraft:nether_quartz_ore": { category: "quartz", minTier: 1, dropItem: "minecraft:quartz" },
+
+  "minecraft:ancient_debris": { category: "ancient_debris", minTier: 4, dropItem: "minecraft:ancient_debris" },
+};
+
+function getOreInfo(blockId) {
+  if (!blockId) return null;
+  return ORE_DEFINITIONS[blockId] || null;
+}
+
+const NEIGHBOR_OFFSETS_26 = [];
+for (let dx = -1; dx <= 1; dx++) {
+  for (let dy = -1; dy <= 1; dy++) {
+    for (let dz = -1; dz <= 1; dz++) {
+      if (dx === 0 && dy === 0 && dz === 0) continue;
+      NEIGHBOR_OFFSETS_26.push({ x: dx, y: dy, z: dz });
+    }
+  }
+}
+
+function getMainhandTool(player) {
+  if (!isAlive(player)) return undefined;
+  const equippable = player.getComponent("minecraft:equippable");
+  if (!equippable) return undefined;
+  return equippable.getEquipment(EquipmentSlot.Mainhand);
+}
+
+function checkToolSafety(player) {
+  if (!isAlive(player)) {
+    return { safe: false, remaining: 0 };
+  }
+
+  const tool = getMainhandTool(player);
+  if (!tool) {
+    return { safe: false, remaining: 0 };
+  }
+
+  const durabilityComp = tool.getComponent("minecraft:durability");
+  if (!durabilityComp) {
+    return { safe: true, tool, remaining: 9999 };
+  }
+
+  const remaining = durabilityComp.maxDurability - durabilityComp.damage;
+  if (remaining <= MINER.DURABILITY_SAFETY_THRESHOLD) {
+    return { safe: false, tool, remaining };
+  }
+
+  return { safe: true, tool, remaining };
+}
+
+function applyToolDurabilityDamage(player) {
+  if (!isAlive(player)) return false;
+
+  const equippable = player.getComponent("minecraft:equippable");
+  if (!equippable) return false;
+
+  const tool = equippable.getEquipment(EquipmentSlot.Mainhand);
+  if (!tool) return false;
+
+  const durabilityComp = tool.getComponent("minecraft:durability");
+  if (!durabilityComp) return true;
+
+  let unbreakingLevel = 0;
+  try {
+    const enchantable = tool.getComponent("minecraft:enchantable");
+    if (enchantable) {
+      const unbreaking = enchantable.getEnchantment("unbreaking");
+      if (unbreaking && typeof unbreaking.level === "number") {
+        unbreakingLevel = unbreaking.level;
+      }
+    }
+  } catch (err) {}
+
+  const shouldTakeDamage =
+    unbreakingLevel > 0 ? Math.random() < 1.0 / (unbreakingLevel + 1) : true;
+
+  if (shouldTakeDamage) {
+    durabilityComp.damage += 1;
+
+    if (durabilityComp.damage >= durabilityComp.maxDurability) {
+      equippable.setEquipment(EquipmentSlot.Mainhand, undefined);
+      try {
+        player.playSound("random.break", { volume: 1.0, pitch: 0.9 });
+      } catch (e) {}
+      return false;
+    }
+
+    equippable.setEquipment(EquipmentSlot.Mainhand, tool);
+  }
+
+  return true;
+}
+
+function notifyToolProtection(player, remainingDurability) {
+  if (!isAlive(player)) return;
+
+  try {
+    player.playSound(MINER.ALERT_SOUND, {
+      volume: MINER.ALERT_VOLUME,
+      pitch: MINER.ALERT_PITCH,
+    });
+  } catch (e) {}
+
+  try {
+    player.onScreenDisplay.setActionBar(
+      `§e[Tool Protection] §cStopped mining to save tool! §6(${remainingDurability} durability left)`
+    );
+  } catch (e) {}
+}
+
+function calculateFortuneDropCount(fortuneLevel, minBase = 1, maxBase = 1) {
+  const baseCount =
+    minBase === maxBase
+      ? minBase
+      : Math.floor(Math.random() * (maxBase - minBase + 1)) + minBase;
+
+  if (fortuneLevel <= 0) return baseCount;
+  const multiplier = Math.max(1, Math.floor(Math.random() * (fortuneLevel + 2)));
+  return Math.min(baseCount * multiplier, 64);
+}
+
+function isTreeCanopy(dimension, blocks, minCount = 1) {
+  if (!blocks || blocks.length === 0) return false;
+  const candidates = [...blocks].sort((a, b) => b.y - a.y).slice(0, 8);
+  const found = new Set();
+  for (const pos of candidates) {
+    for (let dx = -2; dx <= 2; dx++) {
+      for (let dz = -2; dz <= 2; dz++) {
+        for (let dy = -1; dy <= 2; dy++) {
+          try {
+            const x = pos.x + dx;
+            const y = pos.y + dy;
+            const z = pos.z + dz;
+            const b = dimension.getBlock({ x, y, z });
+            if (!b) continue;
+
+            if (b.typeId.includes("wart_block") || b.typeId.includes("shroomlight")) {
+              found.add(`${x},${y},${z}`);
+            } else if (b.typeId.includes("leaves")) {
+              const isPersistent = b.permutation?.getState("persistent_bit");
+              if (isPersistent !== true) found.add(`${x},${y},${z}`);
+            }
+
+            if (found.size >= minCount) return true;
+          } catch (e) {}
+        }
+      }
+    }
+  }
+  return false;
+}
+
+function executeTreeCapitator(player, dimension, startLoc, startBlockId, onComplete) {
+  if (typeof startBlockId === "function") {
+    onComplete = startBlockId;
+    startBlockId = null;
+  }
+  if (!MINER.TREE_CAPITATOR_ENABLED) {
+    if (onComplete) onComplete();
+    return;
+  }
+
+  const settings = getSettings(player);
+  const maxBlocks = settings.maxTreeBlocks;
+  const naturalOnly = settings.naturalTreesOnly;
+  const targetSpecies = startBlockId ? getWoodSpecies(startBlockId) : null;
+  const visited = new Set();
+  visited.add(`${startLoc.x},${startLoc.y},${startLoc.z}`);
+
+  const blocksToBreak = [];
+  const queue = [{ x: startLoc.x, y: startLoc.y, z: startLoc.z }];
+
+  while (queue.length > 0 && blocksToBreak.length < maxBlocks) {
+    const cur = queue.shift();
+
+    for (let dy = 0; dy <= 1; dy++) {
+      for (let dx = -1; dx <= 1; dx++) {
+        for (let dz = -1; dz <= 1; dz++) {
+          if (dx === 0 && dy === 0 && dz === 0) continue;
+
+          const nx = cur.x + dx;
+          const ny = cur.y + dy;
+          const nz = cur.z + dz;
+
+          if (ny < startLoc.y) continue;
+          if (ny > startLoc.y + MINER.MAX_TREE_HEIGHT) continue;
+
+          const key = `${nx},${ny},${nz}`;
+          if (visited.has(key)) continue;
+          visited.add(key);
+
+          try {
+            const block = dimension.getBlock({ x: nx, y: ny, z: nz });
+            if (block && isMatchingLog(block.typeId, targetSpecies, naturalOnly)) {
+              const logPos = { x: nx, y: ny, z: nz };
+              blocksToBreak.push(logPos);
+              queue.push(logPos);
+              if (blocksToBreak.length >= maxBlocks) break;
+            }
+          } catch (e) {}
+        }
+        if (blocksToBreak.length >= maxBlocks) break;
+      }
+      if (blocksToBreak.length >= maxBlocks) break;
+    }
+  }
+
+  if (blocksToBreak.length === 0) {
+    if (onComplete) onComplete();
+    return;
+  }
+
+  if (!isTreeCanopy(dimension, blocksToBreak, naturalOnly ? SWITCH.naturalMinLeaves : 1)) {
+    if (onComplete) onComplete();
+    return;
+  }
+
+  for (const pos of blocksToBreak) {
+    if (!isAlive(player)) break;
+
+    const safety = checkToolSafety(player);
+    if (!safety.safe) {
+      notifyToolProtection(player, safety.remaining);
+      break;
+    }
+
+    try {
+      dimension.runCommand(`setblock ${pos.x} ${pos.y} ${pos.z} air destroy`);
+      applyToolDurabilityDamage(player);
+    } catch (err) {}
+  }
+
+  if (onComplete) onComplete();
+}
+
+function executeDominoOreMiner(player, dimension, startLoc, startBlockId, onComplete) {
+  if (!MINER.DOMINO_ORE_MINER_ENABLED) {
+    if (onComplete) onComplete();
+    return;
+  }
+
+  const startOreInfo = getOreInfo(startBlockId);
+  if (!startOreInfo) {
+    if (onComplete) onComplete();
+    return;
+  }
+
+  const initialTool = getMainhandTool(player);
+  const toolTier = getPickaxeTier(initialTool?.typeId);
+  if (toolTier < startOreInfo.minTier) {
+    if (onComplete) onComplete();
+    return;
+  }
+
+  const maxBlocks = getSettings(player).maxOreBlocks;
+  const queue = [{ x: startLoc.x, y: startLoc.y, z: startLoc.z }];
+  const visited = new Set();
+  visited.add(`${startLoc.x},${startLoc.y},${startLoc.z}`);
+
+  const cluster = [];
+
+  while (queue.length > 0 && cluster.length < maxBlocks) {
+    const current = queue.shift();
+
+    for (const offset of NEIGHBOR_OFFSETS_26) {
+      const nx = current.x + offset.x;
+      const ny = current.y + offset.y;
+      const nz = current.z + offset.z;
+      const key = `${nx},${ny},${nz}`;
+
+      if (visited.has(key)) continue;
+      visited.add(key);
+
+      if (ny < -64 || ny > 320) continue;
+
+      try {
+        const neighborBlock = dimension.getBlock({ x: nx, y: ny, z: nz });
+        if (!neighborBlock) continue;
+
+        const neighborOreInfo = getOreInfo(neighborBlock.typeId);
+        if (neighborOreInfo && neighborOreInfo.category === startOreInfo.category) {
+          cluster.push({
+            x: nx,
+            y: ny,
+            z: nz,
+            blockId: neighborBlock.typeId,
+            oreInfo: neighborOreInfo,
+          });
+          queue.push({ x: nx, y: ny, z: nz });
+
+          if (cluster.length >= maxBlocks) break;
+        }
+      } catch (err) {}
+    }
+  }
+
+  if (cluster.length === 0) {
+    if (onComplete) onComplete();
+    return;
+  }
+
+  for (const target of cluster) {
+    if (!isAlive(player)) break;
+
+    const safety = checkToolSafety(player);
+    if (!safety.safe) {
+      notifyToolProtection(player, safety.remaining);
+      break;
+    }
+
+    const currentTool = safety.tool;
+    const currentTier = getPickaxeTier(currentTool?.typeId);
+    if (currentTier < target.oreInfo.minTier) break;
+
+    let silkTouch = false;
+    let fortuneLevel = 0;
+
+    try {
+      const enchantable = currentTool.getComponent("minecraft:enchantable");
+      if (enchantable) {
+        silkTouch = Boolean(enchantable.getEnchantment("silk_touch"));
+        const fortune = enchantable.getEnchantment("fortune");
+        if (fortune && typeof fortune.level === "number") {
+          fortuneLevel = fortune.level;
+        }
+      }
+    } catch (e) {}
+
+    try {
+      const centerPos = { x: target.x + 0.5, y: target.y + 0.5, z: target.z + 0.5 };
+
+      if (silkTouch) {
+        dimension.spawnItem(new ItemStack(target.blockId, 1), centerPos);
+        dimension.getBlock({ x: target.x, y: target.y, z: target.z })?.setType("minecraft:air");
+        try {
+          dimension.playSound("dig.stone", centerPos, { volume: 0.8, pitch: 1.0 });
+        } catch (pe) {}
+      } else if (
+        fortuneLevel > 0 &&
+        target.oreInfo.dropItem &&
+        target.oreInfo.dropItem !== target.blockId
+      ) {
+        const minDrop = target.oreInfo.minDrop || 1;
+        const maxDrop = target.oreInfo.maxDrop || 1;
+        const count = calculateFortuneDropCount(fortuneLevel, minDrop, maxDrop);
+
+        dimension.spawnItem(new ItemStack(target.oreInfo.dropItem, count), centerPos);
+        dimension.getBlock({ x: target.x, y: target.y, z: target.z })?.setType("minecraft:air");
+        try {
+          dimension.playSound("dig.stone", centerPos, { volume: 0.8, pitch: 1.0 });
+        } catch (pe) {}
+      } else {
+        dimension.runCommand(`setblock ${target.x} ${target.y} ${target.z} air destroy`);
+      }
+
+      applyToolDurabilityDamage(player);
+    } catch (err) {}
+  }
+
+  if (onComplete) onComplete();
+}
+
+const activeOperations = new Set();
+
+world.afterEvents.playerBreakBlock.subscribe((event) => {
+  const { block, brokenBlockPermutation, player, dimension, itemStackBeforeBreak } = event;
+
+  if (!isAlive(player)) return;
+  if (!player.isSneaking) return;
+  if (activeOperations.has(player.id)) return;
+
+  const startLoc = {
+    x: Math.floor(block.location.x),
+    y: Math.floor(block.location.y),
+    z: Math.floor(block.location.z),
+  };
+  const brokenTypeId = brokenBlockPermutation?.type?.id;
+  if (!brokenTypeId) return;
+
+  const tool = getMainhandTool(player) || itemStackBeforeBreak;
+  if (!tool) return;
+
+  const toolTypeId = tool.typeId;
+  const settings = getSettings(player);
+  const minersAllowed = !settings.requireHubForMiners || hasHubInOffhand(player);
+
+  if (
+    minersAllowed &&
+    settings.treeCapitator &&
+    isAxe(toolTypeId) &&
+    isEligibleLog(brokenTypeId) &&
+    (!settings.naturalTreesOnly || isNaturalLog(brokenTypeId))
+  ) {
+    activeOperations.add(player.id);
+    try {
+      executeTreeCapitator(player, dimension, startLoc, brokenTypeId, () => {
+        activeOperations.delete(player.id);
+      });
+    } catch (err) {
+      activeOperations.delete(player.id);
+    }
+    return;
+  }
+
+  if (minersAllowed && settings.dominoMiner && isPickaxe(toolTypeId) && getOreInfo(brokenTypeId)) {
+    activeOperations.add(player.id);
+    try {
+      executeDominoOreMiner(player, dimension, startLoc, brokenTypeId, () => {
+        activeOperations.delete(player.id);
+      });
+    } catch (err) {
+      activeOperations.delete(player.id);
+    }
+    return;
+  }
+});
+
+console.warn(`[Smart Tool Hub v${VERSION}] Initialized.`);
+```
+
+## FILE: MCPEDL/Addons/Smart-Tool-Hub/CHANGELOG.md (26 lines, 1346 bytes)
+
+```
+# Changelog — Smart Tool Hub
+
+---
+
+## [1.0.2] - 2026-11-26 - Crafting Recipe and Hub Settings
+
+### Added
+- **Crafting recipe**: The Tool Hub can be crafted with a diamond, 4 iron ingots and 4 redstone. The recipe is always unlocked.
+- **More Hub settings**: New toggles for keeping your current tool, skipping swords while mining, natural trees only, and requiring the Hub in the offhand for Tree Capitator and Domino Ore Miner. New sliders set the maximum blocks for each.
+- **Status message**: An action bar message shows when the Tool Hub enters or leaves the offhand.
+
+### Improved & Balanced
+- **Swap delay**: After a swap, the same tool type waits 5 ticks before it can swap again, so a block is not re-swapped while you break it.
+
+## [1.0.1] - 2026-11-26 - Per-Tick Auto Switch
+
+### Improved & Balanced
+- **Per-tick Auto Switch**: While you keep mining, Auto Switch re-checks the block under your crosshair every tick and switches to the best tool.
+
+## [1.0.0] - 2026-11-26 - First Release
+
+### Added
+- **Tool Hub item**: A custom item, equippable in the offhand, opens a toggle menu for Auto Switch, Tree Capitator and Domino Ore Miner.
+- **Offhand Auto Switch**: Auto Switch works on any hotbar slot and only runs while the Tool Hub is in the offhand.
+- **32x32 icon**: A resource pack adds a Tool Hub emblem icon with a circle arrow.
+```
+
+## FILE: MCPEDL/Addons/Smart-Tool-Hub/DESCRIPTION.md (91 lines, 5095 bytes)
+
+```
+# Smart Tool Hub — Tool Hub Menu with Offhand Auto Switch
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**One Tool Hub item, three toggles: switch tools, fell trees and mine ore veins.**
+
+> The Tool Hub item opens a toggle menu for Auto Switch, Tree Capitator and Domino Ore Miner. Auto Switch only runs while the Tool Hub is in your offhand.
+
+## Overview
+
+Smart Tool Hub combines Passive Auto-Switch Tools with Smart Tree Capitator and Domino Ore Miner. A single custom item, the Tool Hub, controls all three features. Auto Switch is no longer tied to hotbar slot 1: it works on whichever slot is selected, as long as the Tool Hub is in the offhand.
+
+## Key Features
+
+### Tool Hub Item
+- **What Happens**: Use the Tool Hub (`aln:tool_hub`) in your main hand to open a settings menu with toggles and two sliders. Craft it with a diamond in the center, iron ingots in the corners and redstone on the sides.
+
+### Offhand Slot
+- **What Happens**: The Tool Hub can be equipped in the offhand slot.
+
+### Auto Switch on Any Hotbar Slot
+- **What Happens**: While the Tool Hub is in your offhand and Auto Switch is on, hitting a block or a mob swaps the best tool or weapon into the hotbar slot you have selected, and while you keep mining it re-checks the block every tick.
+
+### Tree Capitator
+- **What Happens**: Sneak and break a log with an axe to fell the whole tree. It needs natural leaves nearby, so wooden builds stay safe.
+
+### Domino Ore Miner
+- **What Happens**: Sneak and break an ore with a pickaxe to mine the connected vein of the same ore type.
+
+### Tool Protection
+- **What Happens**: Chain actions stop when the held tool is close to breaking, with a sound and an action bar warning.
+
+### Smarter Switching
+- **What Happens**: Turn on "Keep my current tool" to stop swaps when the tool in your hand already works. Turn on "Never switch to a sword while mining" to keep swords out of block breaking. After a swap, the same tool type waits 5 ticks before it can swap again.
+
+### Safer Tree Capitator
+- **What Happens**: "Natural trees only" skips stripped logs and wood blocks and needs at least 4 natural leaves near the top of the tree. You can also set the maximum number of blocks it breaks.
+
+### Offhand Requirement for Chain Mining
+- **What Happens**: Turn on "Capitator and Miner need Hub in offhand" so tree felling and ore mining only work while the Tool Hub is in your offhand.
+
+### Status Message
+- **What Happens**: An action bar message shows your Auto Switch, Tree and Ore status when the Tool Hub enters your offhand, and a pause notice when it leaves.
+
+### Saved Settings
+- **What Happens**: Each player keeps their own settings. Auto Switch, Tree Capitator, Domino Ore Miner and Natural trees only start on.
+
+## How to Use
+
+1. Craft the Tool Hub at a crafting table (diamond in the center, iron ingots in the corners, redstone on the sides), or use `/give @s aln:tool_hub`.
+2. Hold the Tool Hub in your main hand and use it to open the menu.
+3. Adjust the toggles and sliders, then submit.
+4. Move the Tool Hub to your offhand to use Auto Switch.
+5. Sneak while breaking a log with an axe, or an ore with a pickaxe, to use Tree Capitator or Domino Ore Miner.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.21.0 or newer.
+- Experimental features: Not verified.
+- Achievements: Yes, achievement-friendly.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, Smart Tool Hub Bedrock mod, auto switch tools offhand, tree capitator, ore miner, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+```
+
+## FILE: MCPEDL/Addons/Smart-Tool-Hub/project.json (5 lines, 50 bytes)
+
+```
+{
+  "type": "addon",
+  "name": "Smart Tool Hub"
+}
+```
+
+## FILE: MCPEDL/Addons/Smart-Tool-Hub/README.md (23 lines, 1036 bytes)
+
+```
+# Smart Tool Hub
+
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-Not%20Published-lightgrey?style=flat-square&logo=curseforge)](https://www.curseforge.com/members/allenscreations/projects)
+<!-- CURSEFORGE-BADGE:END -->
+
+Download the current release of **Smart Tool Hub** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download Smart Tool Hub (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Smart-Tool-Hub/SmartToolHub%20V1.0.2.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/Smart-Tool-Hub/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Addons/Smart-Tool-Hub/resource_pack/manifest.json (37 lines, 599 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Smart Tool Hub (v1.0.2)",
+    "description": "32x32 Tool Hub emblem icon. by ALNStudios",
+    "uuid": "87629f2e-265e-4288-aa92-42a34c0964bf",
+    "version": [
+      1,
+      0,
+      2
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "50d7a0b9-0eed-44f6-a71a-96fb42e74a12",
+      "version": [
+        1,
+        0,
+        2
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.2"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Smart-Tool-Hub/resource_pack/textures/item_texture.json (10 lines, 179 bytes)
+
+```
+{
+  "resource_pack_name": "smart_tool_hub",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "aln_tool_hub": {
+      "textures": "textures/items/aln_tool_hub"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Smart-Tool-Hub/texture_sources/aln_tool_hub.json (1108 lines, 6676 bytes)
+
+```
+{
+ "name": "aln_tool_hub",
+ "size": 32,
+ "folder": "items",
+ "palette": {
+  "0": "#00000000",
+  "1": "#12121f",
+  "2": "#8a6a12",
+  "3": "#e0b83a",
+  "4": "#fff0a8",
+  "5": "#1c4f78",
+  "6": "#2f7fb8",
+  "7": "#5db6e8",
+  "8": "#ffffff",
+  "9": "#a9e8ff"
+ },
+ "pixels": [
+  [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   1,
+   1,
+   1,
+   1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   1,
+   1,
+   1,
+   1,
+   4,
+   4,
+   4,
+   4,
+   1,
+   1,
+   1,
+   1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   1,
+   1,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   3,
+   3,
+   3,
+   3,
+   1,
+   1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   1,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   3,
+   3,
+   3,
+   3,
+   3,
+   3,
+   3,
+   1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   0,
+   0,
+   1,
+   1,
+   4,
+   4,
+   4,
+   4,
+   1,
+   1,
+   1,
+   7,
+   7,
+   7,
+   7,
+   1,
+   1,
+   1,
+   3,
+   3,
+   3,
+   3,
+   1,
+   1,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   0,
+   1,
+   1,
+   4,
+   4,
+   4,
+   1,
+   1,
+   7,
+   7,
+   7,
+   7,
+   7,
+   1,
+   1,
+   1,
+   7,
+   7,
+   1,
+   1,
+   3,
+   3,
+   3,
+   1,
+   1,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   0,
+   1,
+   4,
+   4,
+   4,
+   1,
+   7,
+   7,
+   7,
+   7,
+   7,
+   7,
+   7,
+   1,
+   8,
+   1,
+   7,
+   6,
+   6,
+   6,
+   1,
+   3,
+   3,
+   3,
+   1,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   1,
+   4,
+   4,
+   4,
+   1,
+   7,
+   7,
+   7,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   8,
+   1,
+   1,
+   6,
+   6,
+   6,
+   6,
+   1,
+   3,
+   3,
+   3,
+   1,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   1,
+   4,
+   4,
+   4,
+   1,
+   7,
+   7,
+   7,
+   1,
+   1,
+   8,
+   8,
+   8,
+   8,
+   8,
+   8,
+   8,
+   1,
+   1,
+   6,
+   6,
+   6,
+   6,
+   1,
+   3,
+   3,
+   3,
+   1,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   1,
+   4,
+   4,
+   1,
+   7,
+   7,
+   7,
+   1,
+   1,
+   8,
+   8,
+   8,
+   8,
+   8,
+   8,
+   8,
+   8,
+   8,
+   1,
+   1,
+   6,
+   6,
+   6,
+   6,
+   1,
+   3,
+   3,
+   1,
+   0,
+   0
+  ],
+  [
+   0,
+   1,
+   4,
+   4,
+   4,
+   1,
+   7,
+   7,
+   1,
+   1,
+   8,
+   8,
+   8,
+   8,
+   1,
+   1,
+   8,
+   8,
+   8,
+   8,
+   8,
+   1,
+   6,
+   6,
+   6,
+   5,
+   1,
+   3,
+   2,
+   2,
+   1,
+   0
+  ],
+  [
+   0,
+   1,
+   4,
+   4,
+   1,
+   7,
+   7,
+   1,
+   1,
+   8,
+   8,
+   8,
+   1,
+   1,
+   1,
+   1,
+   8,
+   8,
+   8,
+   8,
+   1,
+   1,
+   6,
+   6,
+   5,
+   5,
+   5,
+   1,
+   2,
+   2,
+   1,
+   0
+  ],
+  [
+   0,
+   1,
+   4,
+   4,
+   1,
+   7,
+   7,
+   1,
+   8,
+   8,
+   8,
+   1,
+   1,
+   7,
+   6,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   6,
+   6,
+   5,
+   5,
+   5,
+   5,
+   1,
+   2,
+   2,
+   1,
+   0
+  ],
+  [
+   0,
+   1,
+   4,
+   4,
+   1,
+   7,
+   7,
+   1,
+   8,
+   8,
+   8,
+   1,
+   7,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   5,
+   5,
+   5,
+   5,
+   5,
+   1,
+   2,
+   2,
+   1,
+   0
+  ],
+  [
+   1,
+   4,
+   4,
+   4,
+   7,
+   7,
+   7,
+   1,
+   8,
+   8,
+   1,
+   1,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   2,
+   2,
+   2,
+   1
+  ],
+  [
+   1,
+   4,
+   4,
+   4,
+   7,
+   7,
+   7,
+   1,
+   8,
+   8,
+   1,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   2,
+   2,
+   2,
+   1
+  ],
+  [
+   1,
+   4,
+   4,
+   4,
+   7,
+   7,
+   7,
+   1,
+   8,
+   8,
+   1,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   5,
+   5,
+   1,
+   1,
+   1,
+   1,
+   5,
+   5,
+   5,
+   2,
+   2,
+   2,
+   1
+  ],
+  [
+   1,
+   4,
+   4,
+   3,
+   7,
+   7,
+   7,
+   1,
+   8,
+   8,
+   1,
+   1,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   5,
+   5,
+   1,
+   1,
+   9,
+   9,
+   1,
+   5,
+   5,
+   5,
+   2,
+   2,
+   2,
+   1
+  ],
+  [
+   0,
+   1,
+   3,
+   3,
+   1,
+   7,
+   7,
+   1,
+   8,
+   8,
+   8,
+   1,
+   6,
+   6,
+   6,
+   6,
+   6,
+   5,
+   5,
+   5,
+   1,
+   9,
+   9,
+   9,
+   1,
+   5,
+   5,
+   1,
+   2,
+   2,
+   1,
+   0
+  ],
+  [
+   0,
+   1,
+   3,
+   3,
+   1,
+   7,
+   7,
+   1,
+   8,
+   8,
+   8,
+   1,
+   1,
+   6,
+   6,
+   6,
+   5,
+   5,
+   5,
+   1,
+   1,
+   9,
+   9,
+   9,
+   1,
+   5,
+   5,
+   1,
+   2,
+   2,
+   1,
+   0
+  ],
+  [
+   0,
+   1,
+   3,
+   3,
+   1,
+   7,
+   6,
+   1,
+   1,
+   8,
+   8,
+   9,
+   1,
+   1,
+   1,
+   5,
+   5,
+   1,
+   1,
+   1,
+   9,
+   9,
+   9,
+   1,
+   1,
+   5,
+   5,
+   1,
+   2,
+   2,
+   1,
+   0
+  ],
+  [
+   0,
+   1,
+   3,
+   3,
+   3,
+   1,
+   6,
+   6,
+   1,
+   1,
+   9,
+   9,
+   9,
+   9,
+   1,
+   1,
+   1,
+   1,
+   9,
+   9,
+   9,
+   9,
+   1,
+   1,
+   5,
+   5,
+   1,
+   2,
+   2,
+   2,
+   1,
+   0
+  ],
+  [
+   0,
+   0,
+   1,
+   3,
+   3,
+   1,
+   6,
+   6,
+   6,
+   1,
+   1,
+   9,
+   9,
+   9,
+   9,
+   9,
+   9,
+   9,
+   9,
+   9,
+   9,
+   1,
+   1,
+   5,
+   5,
+   5,
+   1,
+   2,
+   2,
+   1,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   1,
+   3,
+   3,
+   3,
+   1,
+   6,
+   6,
+   6,
+   1,
+   1,
+   9,
+   9,
+   9,
+   9,
+   9,
+   9,
+   9,
+   9,
+   1,
+   1,
+   5,
+   5,
+   5,
+   1,
+   2,
+   2,
+   2,
+   1,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   1,
+   3,
+   3,
+   3,
+   1,
+   6,
+   6,
+   6,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   5,
+   5,
+   5,
+   1,
+   2,
+   2,
+   2,
+   1,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   0,
+   1,
+   3,
+   3,
+   3,
+   1,
+   6,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   1,
+   2,
+   2,
+   2,
+   1,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   0,
+   1,
+   1,
+   3,
+   3,
+   3,
+   1,
+   1,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   1,
+   1,
+   2,
+   2,
+   2,
+   1,
+   1,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   0,
+   0,
+   1,
+   1,
+   3,
+   3,
+   3,
+   3,
+   1,
+   1,
+   1,
+   5,
+   5,
+   5,
+   5,
+   1,
+   1,
+   1,
+   2,
+   2,
+   2,
+   2,
+   1,
+   1,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   1,
+   3,
+   3,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   1,
+   1,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   1,
+   1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   1,
+   1,
+   1,
+   1,
+   2,
+   2,
+   2,
+   2,
+   1,
+   1,
+   1,
+   1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   1,
+   1,
+   1,
+   1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ ]
+}
+```

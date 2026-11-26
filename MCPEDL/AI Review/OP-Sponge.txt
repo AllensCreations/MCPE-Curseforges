@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Addons/OP-Sponge`
 - **Destination:** `MCPEDL/Addons/OP-Sponge`
-- **CURRENT VERSION: v6 / NEXT UPDATE: v7**  (`MCPEDL/Addons/OP-Sponge/CHANGELOG.md`)
+- **CURRENT VERSION: v9 / NEXT UPDATE: v10**  (`MCPEDL/Addons/OP-Sponge/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 118
 - **Skipped binary:** 121
@@ -12,112 +12,19 @@
 
 ### Files in this export
 
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/extreme_sponge_1.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/extreme_sponge_1_wet.json`
 - `MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/op_sponge.json`
 - `MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/op_sponge_wet.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_1.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_10.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_10_wet.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_1_wet.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_2.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_2_wet.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_3.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_3_wet.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_4.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_4_wet.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_5.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_5_wet.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_6.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_6_wet.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_7.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_7_wet.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_8.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_8_wet.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_9.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_9_wet.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/extreme_sponge_1.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/extreme_sponge_1_wet.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/extreme_sponge_book_1.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_1.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_10.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_10_wet.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_1_wet.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_2.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_2_wet.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_3.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_3_wet.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_4.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_4_wet.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_5.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_5_wet.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_6.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_6_wet.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_7.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_7_wet.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_8.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_8_wet.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_9.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_9_wet.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_book_1.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_book_10.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_book_2.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_book_3.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_book_4.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_book_5.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_book_6.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_book_7.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_book_8.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_book_9.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/loot_tables/chests/ancient_city.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/loot_tables/chests/buriedtreasure.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/loot_tables/chests/desert_pyramid.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/loot_tables/chests/end_city_treasure.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/loot_tables/chests/jungle_temple.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/loot_tables/chests/shipwrecktreasure.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/loot_tables/chests/simple_dungeon.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/loot_tables/chests/stronghold_library.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/loot_tables/chests/underwater_ruin_big.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/loot_tables/chests/woodland_mansion.json`
 - `MCPEDL/Addons/OP-Sponge/behavior_pack/manifest.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/dry_extreme_sponge_1.json`
 - `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/dry_op_sponge.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/dry_super_sponge_1.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/dry_super_sponge_10.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/dry_super_sponge_2.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/dry_super_sponge_3.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/dry_super_sponge_4.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/dry_super_sponge_5.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/dry_super_sponge_6.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/dry_super_sponge_7.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/dry_super_sponge_8.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/dry_super_sponge_9.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/extreme_sponge_1_from_book.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/extreme_sponge_book_1_from_books.json`
 - `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/op_sponge_from_sponge.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_10_from_book.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_1_from_book.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_2_from_book.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_3_from_book.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_4_from_book.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_5_from_book.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_6_from_book.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_7_from_book.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_8_from_book.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_9_from_book.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_10_from_books.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_2_from_books.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_3_from_books.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_4_from_books.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_5_from_books.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_6_from_books.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_7_from_books.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_8_from_books.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_9_from_books.json`
 - `MCPEDL/Addons/OP-Sponge/behavior_pack/scripts/lib/README.md`
 - `MCPEDL/Addons/OP-Sponge/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/OP-Sponge/behavior_pack/subpacks/extreme/scripts/main.js`
+- `MCPEDL/Addons/OP-Sponge/behavior_pack/subpacks/normal/scripts/main.js`
+- `MCPEDL/Addons/OP-Sponge/behavior_pack/subpacks/unlimited/scripts/main.js`
 - `MCPEDL/Addons/OP-Sponge/behavior_pack/texts/en_US.lang`
 - `MCPEDL/Addons/OP-Sponge/behavior_pack/texts/languages.json`
+- `MCPEDL/Addons/OP-Sponge/behavior_pack/trading/economy_trades/librarian_trades.json`
 - `MCPEDL/Addons/OP-Sponge/CHANGELOG.md`
 - `MCPEDL/Addons/OP-Sponge/DESCRIPTION.md`
 - `MCPEDL/Addons/OP-Sponge/project.json`
@@ -126,7 +33,6 @@
 - `MCPEDL/Addons/OP-Sponge/resource_pack/models/blocks/op_sponge.geo.json`
 - `MCPEDL/Addons/OP-Sponge/resource_pack/texts/en_US.lang`
 - `MCPEDL/Addons/OP-Sponge/resource_pack/texts/languages.json`
-- `MCPEDL/Addons/OP-Sponge/resource_pack/textures/item_texture.json`
 - `MCPEDL/Addons/OP-Sponge/resource_pack/textures/terrain_texture.json`
 - `MCPEDL/Addons/OP-Sponge/texture_sources/sponge_letter.json`
 
@@ -187,7 +93,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v6 / NEXT UPDATE: v7).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v9 / NEXT UPDATE: v10).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE self-contained update `.sh` (`<Pack>_v<Version>_<rand>.sh`) built with `make_update_script.py` (INSTRUCTIONS.md Reply Format).
@@ -333,70 +239,6 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 
 ## File Contents
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/extreme_sponge_1.json (28 lines, 679 bytes)
-
-```
-{
-  "format_version": "1.21.60",
-  "minecraft:block": {
-    "description": {
-      "identifier": "allenscreations:extreme_sponge_1",
-      "menu_category": {
-        "category": "construction"
-      }
-    },
-    "components": {
-      "minecraft:geometry": "minecraft:geometry.full_block",
-      "minecraft:material_instances": {
-        "*": {
-          "texture": "allenscreations_op_sponge",
-          "render_method": "opaque"
-        }
-      },
-      "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.6
-      },
-      "minecraft:destructible_by_explosion": {
-        "explosion_resistance": 0.6
-      },
-      "minecraft:map_color": "#E5E54A"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/extreme_sponge_1_wet.json (28 lines, 687 bytes)
-
-```
-{
-  "format_version": "1.21.60",
-  "minecraft:block": {
-    "description": {
-      "identifier": "allenscreations:extreme_sponge_1_wet",
-      "menu_category": {
-        "category": "construction"
-      }
-    },
-    "components": {
-      "minecraft:geometry": "minecraft:geometry.full_block",
-      "minecraft:material_instances": {
-        "*": {
-          "texture": "allenscreations_op_sponge_wet",
-          "render_method": "opaque"
-        }
-      },
-      "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.6
-      },
-      "minecraft:destructible_by_explosion": {
-        "explosion_resistance": 0.6
-      },
-      "minecraft:map_color": "#B8B83A"
-    }
-  }
-}
-```
-
 ## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/op_sponge.json (20 lines, 708 bytes)
 
 ```
@@ -445,4605 +287,17 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_1.json (28 lines, 677 bytes)
-
-```
-{
-  "format_version": "1.21.60",
-  "minecraft:block": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_1",
-      "menu_category": {
-        "category": "construction"
-      }
-    },
-    "components": {
-      "minecraft:geometry": "minecraft:geometry.full_block",
-      "minecraft:material_instances": {
-        "*": {
-          "texture": "allenscreations_op_sponge",
-          "render_method": "opaque"
-        }
-      },
-      "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.6
-      },
-      "minecraft:destructible_by_explosion": {
-        "explosion_resistance": 0.6
-      },
-      "minecraft:map_color": "#E5E54A"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_10.json (28 lines, 678 bytes)
-
-```
-{
-  "format_version": "1.21.60",
-  "minecraft:block": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_10",
-      "menu_category": {
-        "category": "construction"
-      }
-    },
-    "components": {
-      "minecraft:geometry": "minecraft:geometry.full_block",
-      "minecraft:material_instances": {
-        "*": {
-          "texture": "allenscreations_op_sponge",
-          "render_method": "opaque"
-        }
-      },
-      "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.6
-      },
-      "minecraft:destructible_by_explosion": {
-        "explosion_resistance": 0.6
-      },
-      "minecraft:map_color": "#E5E54A"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_10_wet.json (28 lines, 686 bytes)
-
-```
-{
-  "format_version": "1.21.60",
-  "minecraft:block": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_10_wet",
-      "menu_category": {
-        "category": "construction"
-      }
-    },
-    "components": {
-      "minecraft:geometry": "minecraft:geometry.full_block",
-      "minecraft:material_instances": {
-        "*": {
-          "texture": "allenscreations_op_sponge_wet",
-          "render_method": "opaque"
-        }
-      },
-      "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.6
-      },
-      "minecraft:destructible_by_explosion": {
-        "explosion_resistance": 0.6
-      },
-      "minecraft:map_color": "#B8B83A"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_1_wet.json (28 lines, 685 bytes)
-
-```
-{
-  "format_version": "1.21.60",
-  "minecraft:block": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_1_wet",
-      "menu_category": {
-        "category": "construction"
-      }
-    },
-    "components": {
-      "minecraft:geometry": "minecraft:geometry.full_block",
-      "minecraft:material_instances": {
-        "*": {
-          "texture": "allenscreations_op_sponge_wet",
-          "render_method": "opaque"
-        }
-      },
-      "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.6
-      },
-      "minecraft:destructible_by_explosion": {
-        "explosion_resistance": 0.6
-      },
-      "minecraft:map_color": "#B8B83A"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_2.json (28 lines, 677 bytes)
-
-```
-{
-  "format_version": "1.21.60",
-  "minecraft:block": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_2",
-      "menu_category": {
-        "category": "construction"
-      }
-    },
-    "components": {
-      "minecraft:geometry": "minecraft:geometry.full_block",
-      "minecraft:material_instances": {
-        "*": {
-          "texture": "allenscreations_op_sponge",
-          "render_method": "opaque"
-        }
-      },
-      "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.6
-      },
-      "minecraft:destructible_by_explosion": {
-        "explosion_resistance": 0.6
-      },
-      "minecraft:map_color": "#E5E54A"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_2_wet.json (28 lines, 685 bytes)
-
-```
-{
-  "format_version": "1.21.60",
-  "minecraft:block": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_2_wet",
-      "menu_category": {
-        "category": "construction"
-      }
-    },
-    "components": {
-      "minecraft:geometry": "minecraft:geometry.full_block",
-      "minecraft:material_instances": {
-        "*": {
-          "texture": "allenscreations_op_sponge_wet",
-          "render_method": "opaque"
-        }
-      },
-      "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.6
-      },
-      "minecraft:destructible_by_explosion": {
-        "explosion_resistance": 0.6
-      },
-      "minecraft:map_color": "#B8B83A"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_3.json (28 lines, 677 bytes)
-
-```
-{
-  "format_version": "1.21.60",
-  "minecraft:block": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_3",
-      "menu_category": {
-        "category": "construction"
-      }
-    },
-    "components": {
-      "minecraft:geometry": "minecraft:geometry.full_block",
-      "minecraft:material_instances": {
-        "*": {
-          "texture": "allenscreations_op_sponge",
-          "render_method": "opaque"
-        }
-      },
-      "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.6
-      },
-      "minecraft:destructible_by_explosion": {
-        "explosion_resistance": 0.6
-      },
-      "minecraft:map_color": "#E5E54A"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_3_wet.json (28 lines, 685 bytes)
-
-```
-{
-  "format_version": "1.21.60",
-  "minecraft:block": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_3_wet",
-      "menu_category": {
-        "category": "construction"
-      }
-    },
-    "components": {
-      "minecraft:geometry": "minecraft:geometry.full_block",
-      "minecraft:material_instances": {
-        "*": {
-          "texture": "allenscreations_op_sponge_wet",
-          "render_method": "opaque"
-        }
-      },
-      "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.6
-      },
-      "minecraft:destructible_by_explosion": {
-        "explosion_resistance": 0.6
-      },
-      "minecraft:map_color": "#B8B83A"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_4.json (28 lines, 677 bytes)
-
-```
-{
-  "format_version": "1.21.60",
-  "minecraft:block": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_4",
-      "menu_category": {
-        "category": "construction"
-      }
-    },
-    "components": {
-      "minecraft:geometry": "minecraft:geometry.full_block",
-      "minecraft:material_instances": {
-        "*": {
-          "texture": "allenscreations_op_sponge",
-          "render_method": "opaque"
-        }
-      },
-      "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.6
-      },
-      "minecraft:destructible_by_explosion": {
-        "explosion_resistance": 0.6
-      },
-      "minecraft:map_color": "#E5E54A"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_4_wet.json (28 lines, 685 bytes)
-
-```
-{
-  "format_version": "1.21.60",
-  "minecraft:block": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_4_wet",
-      "menu_category": {
-        "category": "construction"
-      }
-    },
-    "components": {
-      "minecraft:geometry": "minecraft:geometry.full_block",
-      "minecraft:material_instances": {
-        "*": {
-          "texture": "allenscreations_op_sponge_wet",
-          "render_method": "opaque"
-        }
-      },
-      "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.6
-      },
-      "minecraft:destructible_by_explosion": {
-        "explosion_resistance": 0.6
-      },
-      "minecraft:map_color": "#B8B83A"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_5.json (28 lines, 677 bytes)
-
-```
-{
-  "format_version": "1.21.60",
-  "minecraft:block": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_5",
-      "menu_category": {
-        "category": "construction"
-      }
-    },
-    "components": {
-      "minecraft:geometry": "minecraft:geometry.full_block",
-      "minecraft:material_instances": {
-        "*": {
-          "texture": "allenscreations_op_sponge",
-          "render_method": "opaque"
-        }
-      },
-      "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.6
-      },
-      "minecraft:destructible_by_explosion": {
-        "explosion_resistance": 0.6
-      },
-      "minecraft:map_color": "#E5E54A"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_5_wet.json (28 lines, 685 bytes)
-
-```
-{
-  "format_version": "1.21.60",
-  "minecraft:block": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_5_wet",
-      "menu_category": {
-        "category": "construction"
-      }
-    },
-    "components": {
-      "minecraft:geometry": "minecraft:geometry.full_block",
-      "minecraft:material_instances": {
-        "*": {
-          "texture": "allenscreations_op_sponge_wet",
-          "render_method": "opaque"
-        }
-      },
-      "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.6
-      },
-      "minecraft:destructible_by_explosion": {
-        "explosion_resistance": 0.6
-      },
-      "minecraft:map_color": "#B8B83A"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_6.json (28 lines, 677 bytes)
-
-```
-{
-  "format_version": "1.21.60",
-  "minecraft:block": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_6",
-      "menu_category": {
-        "category": "construction"
-      }
-    },
-    "components": {
-      "minecraft:geometry": "minecraft:geometry.full_block",
-      "minecraft:material_instances": {
-        "*": {
-          "texture": "allenscreations_op_sponge",
-          "render_method": "opaque"
-        }
-      },
-      "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.6
-      },
-      "minecraft:destructible_by_explosion": {
-        "explosion_resistance": 0.6
-      },
-      "minecraft:map_color": "#E5E54A"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_6_wet.json (28 lines, 685 bytes)
-
-```
-{
-  "format_version": "1.21.60",
-  "minecraft:block": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_6_wet",
-      "menu_category": {
-        "category": "construction"
-      }
-    },
-    "components": {
-      "minecraft:geometry": "minecraft:geometry.full_block",
-      "minecraft:material_instances": {
-        "*": {
-          "texture": "allenscreations_op_sponge_wet",
-          "render_method": "opaque"
-        }
-      },
-      "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.6
-      },
-      "minecraft:destructible_by_explosion": {
-        "explosion_resistance": 0.6
-      },
-      "minecraft:map_color": "#B8B83A"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_7.json (28 lines, 677 bytes)
-
-```
-{
-  "format_version": "1.21.60",
-  "minecraft:block": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_7",
-      "menu_category": {
-        "category": "construction"
-      }
-    },
-    "components": {
-      "minecraft:geometry": "minecraft:geometry.full_block",
-      "minecraft:material_instances": {
-        "*": {
-          "texture": "allenscreations_op_sponge",
-          "render_method": "opaque"
-        }
-      },
-      "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.6
-      },
-      "minecraft:destructible_by_explosion": {
-        "explosion_resistance": 0.6
-      },
-      "minecraft:map_color": "#E5E54A"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_7_wet.json (28 lines, 685 bytes)
-
-```
-{
-  "format_version": "1.21.60",
-  "minecraft:block": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_7_wet",
-      "menu_category": {
-        "category": "construction"
-      }
-    },
-    "components": {
-      "minecraft:geometry": "minecraft:geometry.full_block",
-      "minecraft:material_instances": {
-        "*": {
-          "texture": "allenscreations_op_sponge_wet",
-          "render_method": "opaque"
-        }
-      },
-      "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.6
-      },
-      "minecraft:destructible_by_explosion": {
-        "explosion_resistance": 0.6
-      },
-      "minecraft:map_color": "#B8B83A"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_8.json (28 lines, 677 bytes)
-
-```
-{
-  "format_version": "1.21.60",
-  "minecraft:block": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_8",
-      "menu_category": {
-        "category": "construction"
-      }
-    },
-    "components": {
-      "minecraft:geometry": "minecraft:geometry.full_block",
-      "minecraft:material_instances": {
-        "*": {
-          "texture": "allenscreations_op_sponge",
-          "render_method": "opaque"
-        }
-      },
-      "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.6
-      },
-      "minecraft:destructible_by_explosion": {
-        "explosion_resistance": 0.6
-      },
-      "minecraft:map_color": "#E5E54A"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_8_wet.json (28 lines, 685 bytes)
-
-```
-{
-  "format_version": "1.21.60",
-  "minecraft:block": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_8_wet",
-      "menu_category": {
-        "category": "construction"
-      }
-    },
-    "components": {
-      "minecraft:geometry": "minecraft:geometry.full_block",
-      "minecraft:material_instances": {
-        "*": {
-          "texture": "allenscreations_op_sponge_wet",
-          "render_method": "opaque"
-        }
-      },
-      "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.6
-      },
-      "minecraft:destructible_by_explosion": {
-        "explosion_resistance": 0.6
-      },
-      "minecraft:map_color": "#B8B83A"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_9.json (28 lines, 677 bytes)
-
-```
-{
-  "format_version": "1.21.60",
-  "minecraft:block": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_9",
-      "menu_category": {
-        "category": "construction"
-      }
-    },
-    "components": {
-      "minecraft:geometry": "minecraft:geometry.full_block",
-      "minecraft:material_instances": {
-        "*": {
-          "texture": "allenscreations_op_sponge",
-          "render_method": "opaque"
-        }
-      },
-      "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.6
-      },
-      "minecraft:destructible_by_explosion": {
-        "explosion_resistance": 0.6
-      },
-      "minecraft:map_color": "#E5E54A"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/blocks/super_sponge_9_wet.json (28 lines, 685 bytes)
-
-```
-{
-  "format_version": "1.21.60",
-  "minecraft:block": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_9_wet",
-      "menu_category": {
-        "category": "construction"
-      }
-    },
-    "components": {
-      "minecraft:geometry": "minecraft:geometry.full_block",
-      "minecraft:material_instances": {
-        "*": {
-          "texture": "allenscreations_op_sponge_wet",
-          "render_method": "opaque"
-        }
-      },
-      "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.6
-      },
-      "minecraft:destructible_by_explosion": {
-        "explosion_resistance": 0.6
-      },
-      "minecraft:map_color": "#B8B83A"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/extreme_sponge_1.json (24 lines, 554 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:extreme_sponge_1"
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_icon"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "tile.allenscreations:extreme_sponge_1.name"
-      },
-      "minecraft:block_placer": {
-        "block": "allenscreations:extreme_sponge_1",
-        "replace_block_item": true
-      },
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/extreme_sponge_1_wet.json (24 lines, 570 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:extreme_sponge_1_wet"
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_wet_icon"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "tile.allenscreations:extreme_sponge_1_wet.name"
-      },
-      "minecraft:block_placer": {
-        "block": "allenscreations:extreme_sponge_1_wet",
-        "replace_block_item": true
-      },
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/extreme_sponge_book_1.json (24 lines, 532 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:extreme_sponge_book_1",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_book"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "item.allenscreations:extreme_sponge_book_1.name"
-      },
-      "minecraft:max_stack_size": 1,
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_1.json (24 lines, 548 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_1"
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_icon"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "tile.allenscreations:super_sponge_1.name"
-      },
-      "minecraft:block_placer": {
-        "block": "allenscreations:super_sponge_1",
-        "replace_block_item": true
-      },
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_10.json (24 lines, 551 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_10"
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_icon"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "tile.allenscreations:super_sponge_10.name"
-      },
-      "minecraft:block_placer": {
-        "block": "allenscreations:super_sponge_10",
-        "replace_block_item": true
-      },
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_10_wet.json (24 lines, 567 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_10_wet"
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_wet_icon"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "tile.allenscreations:super_sponge_10_wet.name"
-      },
-      "minecraft:block_placer": {
-        "block": "allenscreations:super_sponge_10_wet",
-        "replace_block_item": true
-      },
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_1_wet.json (24 lines, 564 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_1_wet"
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_wet_icon"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "tile.allenscreations:super_sponge_1_wet.name"
-      },
-      "minecraft:block_placer": {
-        "block": "allenscreations:super_sponge_1_wet",
-        "replace_block_item": true
-      },
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_2.json (24 lines, 548 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_2"
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_icon"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "tile.allenscreations:super_sponge_2.name"
-      },
-      "minecraft:block_placer": {
-        "block": "allenscreations:super_sponge_2",
-        "replace_block_item": true
-      },
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_2_wet.json (24 lines, 564 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_2_wet"
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_wet_icon"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "tile.allenscreations:super_sponge_2_wet.name"
-      },
-      "minecraft:block_placer": {
-        "block": "allenscreations:super_sponge_2_wet",
-        "replace_block_item": true
-      },
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_3.json (24 lines, 548 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_3"
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_icon"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "tile.allenscreations:super_sponge_3.name"
-      },
-      "minecraft:block_placer": {
-        "block": "allenscreations:super_sponge_3",
-        "replace_block_item": true
-      },
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_3_wet.json (24 lines, 564 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_3_wet"
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_wet_icon"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "tile.allenscreations:super_sponge_3_wet.name"
-      },
-      "minecraft:block_placer": {
-        "block": "allenscreations:super_sponge_3_wet",
-        "replace_block_item": true
-      },
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_4.json (24 lines, 548 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_4"
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_icon"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "tile.allenscreations:super_sponge_4.name"
-      },
-      "minecraft:block_placer": {
-        "block": "allenscreations:super_sponge_4",
-        "replace_block_item": true
-      },
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_4_wet.json (24 lines, 564 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_4_wet"
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_wet_icon"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "tile.allenscreations:super_sponge_4_wet.name"
-      },
-      "minecraft:block_placer": {
-        "block": "allenscreations:super_sponge_4_wet",
-        "replace_block_item": true
-      },
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_5.json (24 lines, 548 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_5"
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_icon"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "tile.allenscreations:super_sponge_5.name"
-      },
-      "minecraft:block_placer": {
-        "block": "allenscreations:super_sponge_5",
-        "replace_block_item": true
-      },
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_5_wet.json (24 lines, 564 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_5_wet"
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_wet_icon"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "tile.allenscreations:super_sponge_5_wet.name"
-      },
-      "minecraft:block_placer": {
-        "block": "allenscreations:super_sponge_5_wet",
-        "replace_block_item": true
-      },
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_6.json (24 lines, 548 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_6"
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_icon"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "tile.allenscreations:super_sponge_6.name"
-      },
-      "minecraft:block_placer": {
-        "block": "allenscreations:super_sponge_6",
-        "replace_block_item": true
-      },
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_6_wet.json (24 lines, 564 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_6_wet"
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_wet_icon"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "tile.allenscreations:super_sponge_6_wet.name"
-      },
-      "minecraft:block_placer": {
-        "block": "allenscreations:super_sponge_6_wet",
-        "replace_block_item": true
-      },
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_7.json (24 lines, 548 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_7"
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_icon"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "tile.allenscreations:super_sponge_7.name"
-      },
-      "minecraft:block_placer": {
-        "block": "allenscreations:super_sponge_7",
-        "replace_block_item": true
-      },
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_7_wet.json (24 lines, 564 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_7_wet"
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_wet_icon"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "tile.allenscreations:super_sponge_7_wet.name"
-      },
-      "minecraft:block_placer": {
-        "block": "allenscreations:super_sponge_7_wet",
-        "replace_block_item": true
-      },
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_8.json (24 lines, 548 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_8"
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_icon"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "tile.allenscreations:super_sponge_8.name"
-      },
-      "minecraft:block_placer": {
-        "block": "allenscreations:super_sponge_8",
-        "replace_block_item": true
-      },
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_8_wet.json (24 lines, 564 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_8_wet"
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_wet_icon"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "tile.allenscreations:super_sponge_8_wet.name"
-      },
-      "minecraft:block_placer": {
-        "block": "allenscreations:super_sponge_8_wet",
-        "replace_block_item": true
-      },
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_9.json (24 lines, 548 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_9"
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_icon"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "tile.allenscreations:super_sponge_9.name"
-      },
-      "minecraft:block_placer": {
-        "block": "allenscreations:super_sponge_9",
-        "replace_block_item": true
-      },
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_9_wet.json (24 lines, 564 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_9_wet"
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_wet_icon"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "tile.allenscreations:super_sponge_9_wet.name"
-      },
-      "minecraft:block_placer": {
-        "block": "allenscreations:super_sponge_9_wet",
-        "replace_block_item": true
-      },
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_book_1.json (24 lines, 528 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_book_1",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_book"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "item.allenscreations:super_sponge_book_1.name"
-      },
-      "minecraft:max_stack_size": 1,
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_book_10.json (24 lines, 530 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_book_10",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_book"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "item.allenscreations:super_sponge_book_10.name"
-      },
-      "minecraft:max_stack_size": 1,
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_book_2.json (24 lines, 528 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_book_2",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_book"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "item.allenscreations:super_sponge_book_2.name"
-      },
-      "minecraft:max_stack_size": 1,
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_book_3.json (24 lines, 528 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_book_3",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_book"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "item.allenscreations:super_sponge_book_3.name"
-      },
-      "minecraft:max_stack_size": 1,
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_book_4.json (24 lines, 528 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_book_4",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_book"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "item.allenscreations:super_sponge_book_4.name"
-      },
-      "minecraft:max_stack_size": 1,
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_book_5.json (24 lines, 528 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_book_5",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_book"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "item.allenscreations:super_sponge_book_5.name"
-      },
-      "minecraft:max_stack_size": 1,
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_book_6.json (24 lines, 528 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_book_6",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_book"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "item.allenscreations:super_sponge_book_6.name"
-      },
-      "minecraft:max_stack_size": 1,
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_book_7.json (24 lines, 528 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_book_7",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_book"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "item.allenscreations:super_sponge_book_7.name"
-      },
-      "minecraft:max_stack_size": 1,
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_book_8.json (24 lines, 528 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_book_8",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_book"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "item.allenscreations:super_sponge_book_8.name"
-      },
-      "minecraft:max_stack_size": 1,
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_book_9.json (24 lines, 528 bytes)
-
-```
-{
-  "format_version": "1.26.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_book_9",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "allenscreations_sponge_book"
-        }
-      },
-      "minecraft:display_name": {
-        "value": "item.allenscreations:super_sponge_book_9.name"
-      },
-      "minecraft:max_stack_size": 1,
-      "minecraft:glint": true
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/loot_tables/chests/ancient_city.json (479 lines, 10787 bytes)
-
-```
-{
-  "pools": [
-    {
-      "rolls": {
-        "min": 5,
-        "max": 10.0
-      },
-      "bonus_rolls": 0,
-      "entries": [
-        {
-          "type": "item",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 2.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:enchanted_golden_apple",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "minecraft:music_disc_otherside",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": 1,
-              "add": false
-            }
-          ],
-          "name": "minecraft:compass"
-        },
-        {
-          "type": "item",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 2.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:sculk_catalyst"
-        },
-        {
-          "type": "item",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": 1,
-              "add": false
-            },
-            {
-              "function": "set_damage",
-              "damage": {
-                "min": 0.8,
-                "max": 1.0
-              },
-              "add": false
-            },
-            {
-              "function": "enchant_with_levels",
-              "levels": {
-                "min": 30,
-                "max": 50.0
-              },
-              "treasure": true
-            }
-          ],
-          "name": "minecraft:diamond_hoe"
-        },
-        {
-          "type": "item",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": 1,
-              "add": false
-            }
-          ],
-          "name": "minecraft:lead"
-        },
-        {
-          "type": "item",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": 1,
-              "add": false
-            }
-          ],
-          "name": "minecraft:diamond_horse_armor"
-        },
-        {
-          "type": "item",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 5
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:leather"
-        },
-        {
-          "type": "item",
-          "weight": 2,
-          "name": "minecraft:music_disc_13"
-        },
-        {
-          "type": "item",
-          "weight": 2,
-          "name": "minecraft:music_disc_cat"
-        },
-        {
-          "type": "item",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "enchant_with_levels",
-              "levels": {
-                "min": 30,
-                "max": 50.0
-              },
-              "treasure": true
-            }
-          ],
-          "name": "minecraft:diamond_leggings"
-        },
-        {
-          "type": "item",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "specific_enchants",
-              "enchants": [
-                {
-                  "id": "swift_sneak",
-                  "level": [
-                    1,
-                    3
-                  ]
-                }
-              ]
-            }
-          ],
-          "name": "minecraft:book"
-        },
-        {
-          "type": "item",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 4,
-                "max": 10.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:sculk"
-        },
-        {
-          "type": "item",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 3.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:sculk_sensor"
-        },
-        {
-          "type": "item",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 4.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:candle"
-        },
-        {
-          "type": "item",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 15.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:amethyst_shard"
-        },
-        {
-          "type": "item",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 3.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:experience_bottle"
-        },
-        {
-          "type": "item",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 15.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:glow_berries"
-        },
-        {
-          "type": "item",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "enchant_with_levels",
-              "levels": {
-                "min": 20,
-                "max": 39.0
-              },
-              "treasure": true
-            }
-          ],
-          "name": "minecraft:iron_leggings"
-        },
-        {
-          "type": "item",
-          "weight": 4,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 3.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:echo_shard"
-        },
-        {
-          "type": "item",
-          "weight": 4,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 3.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:disc_fragment_5"
-        },
-        {
-          "type": "item",
-          "weight": 5,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 3.0
-              },
-              "add": false
-            },
-            {
-              "function": "set_potion",
-              "id": "strong_regeneration"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "item",
-          "weight": 5,
-          "functions": [
-            {
-              "function": "enchant_randomly"
-            }
-          ],
-          "name": "minecraft:book"
-        },
-        {
-          "type": "item",
-          "weight": 5,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 3,
-                "max": 10.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:book"
-        },
-        {
-          "type": "item",
-          "weight": 5,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 15.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:bone"
-        },
-        {
-          "type": "item",
-          "weight": 5,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 15.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:soul_torch"
-        },
-        {
-          "type": "item",
-          "weight": 7,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 6,
-                "max": 15.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:coal"
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "empty",
-          "weight": 75
-        },
-        {
-          "type": "item",
-          "name": "minecraft:ward_armor_trim_smithing_template",
-          "weight": 4
-        },
-        {
-          "type": "item",
-          "name": "minecraft:silence_armor_trim_smithing_template",
-          "weight": 1
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "empty",
-          "weight": 400
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_1",
-          "weight": 20
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_2",
-          "weight": 14
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_3",
-          "weight": 10
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_4",
-          "weight": 7
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_5",
-          "weight": 5
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_6",
-          "weight": 3
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_7",
-          "weight": 2
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_8",
-          "weight": 2
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_9",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_10",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:extreme_sponge_book_1",
-          "weight": 1
-        }
-      ]
-    }
-  ]
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/loot_tables/chests/buriedtreasure.json (282 lines, 5825 bytes)
-
-```
-{
-  "pools": [
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "item",
-          "name": "minecraft:heart_of_the_sea"
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 5,
-        "max": 8
-      },
-      "entries": [
-        {
-          "type": "item",
-          "name": "minecraft:iron_ingot",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 4
-              }
-            }
-          ],
-          "weight": 20
-        },
-        {
-          "type": "item",
-          "name": "minecraft:gold_ingot",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 4
-              }
-            }
-          ],
-          "weight": 10
-        },
-        {
-          "type": "item",
-          "name": "minecraft:tnt",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 5
-              }
-            }
-          ],
-          "weight": 5
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 1,
-        "max": 3
-      },
-      "entries": [
-        {
-          "type": "item",
-          "name": "minecraft:emerald",
-          "weight": 5,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 4,
-                "max": 8
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:diamond",
-          "weight": 5,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 2
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:prismarine_crystals",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 5
-              }
-            }
-          ],
-          "weight": 5
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 0,
-        "max": 1
-      },
-      "entries": [
-        {
-          "type": "item",
-          "name": "minecraft:leather_chestplate",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "minecraft:iron_sword",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "minecraft:iron_spear",
-          "weight": 1
-        }
-      ]
-    },
-    {
-      "rolls": 2,
-      "entries": [
-        {
-          "type": "item",
-          "name": "minecraft:cooked_cod",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 2,
-                "max": 4
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:cooked_salmon",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 2,
-                "max": 4
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 0,
-        "max": 2
-      },
-      "entries": [
-        {
-          "type": "item",
-          "name": "minecraft:potion",
-          "functions": [
-            {
-              "function": "set_potion",
-              "id": "water_breathing"
-            }
-          ],
-          "weight": 15
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "conditions": [
-        {
-          "condition": "random_chance",
-          "chance": 0.2
-        }
-      ],
-      "entries": [
-        {
-          "type": "item",
-          "name": "minecraft:copper_nautilus_armor",
-          "weight": 100
-        },
-        {
-          "type": "item",
-          "name": "minecraft:iron_nautilus_armor",
-          "weight": 50
-        },
-        {
-          "type": "item",
-          "name": "minecraft:golden_nautilus_armor",
-          "weight": 25
-        },
-        {
-          "type": "item",
-          "name": "minecraft:diamond_nautilus_armor",
-          "weight": 10
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "empty",
-          "weight": 400
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_1",
-          "weight": 20
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_2",
-          "weight": 14
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_3",
-          "weight": 10
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_4",
-          "weight": 7
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_5",
-          "weight": 5
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_6",
-          "weight": 3
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_7",
-          "weight": 2
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_8",
-          "weight": 2
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_9",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_10",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:extreme_sponge_book_1",
-          "weight": 1
-        }
-      ]
-    }
-  ]
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/loot_tables/chests/desert_pyramid.json (329 lines, 7092 bytes)
-
-```
-{
-  "pools": [
-    {
-      "rolls": {
-        "min": 2,
-        "max": 4
-      },
-      "entries": [
-        {
-          "type": "item",
-          "name": "minecraft:diamond",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 3
-              }
-            }
-          ],
-          "weight": 5
-        },
-        {
-          "type": "item",
-          "name": "minecraft:iron_ingot",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 5
-              }
-            }
-          ],
-          "weight": 15
-        },
-        {
-          "type": "item",
-          "name": "minecraft:gold_ingot",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 2,
-                "max": 7
-              }
-            }
-          ],
-          "weight": 15
-        },
-        {
-          "type": "item",
-          "name": "minecraft:emerald",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 3
-              }
-            }
-          ],
-          "weight": 15
-        },
-        {
-          "type": "item",
-          "name": "minecraft:bone",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 4,
-                "max": 6
-              }
-            }
-          ],
-          "weight": 25
-        },
-        {
-          "type": "item",
-          "name": "minecraft:spider_eye",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 3
-              }
-            }
-          ],
-          "weight": 25
-        },
-        {
-          "type": "item",
-          "name": "minecraft:rotten_flesh",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 3,
-                "max": 7
-              }
-            }
-          ],
-          "weight": 25
-        },
-        {
-          "type": "item",
-          "name": "minecraft:leather",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 5
-              },
-              "add": false
-            }
-          ],
-          "weight": 20
-        },
-        {
-          "type": "item",
-          "name": "minecraft:horsearmoriron",
-          "weight": 15
-        },
-        {
-          "type": "item",
-          "name": "minecraft:copper_horse_armor",
-          "weight": 15
-        },
-        {
-          "type": "item",
-          "name": "minecraft:horsearmorgold",
-          "weight": 10
-        },
-        {
-          "type": "item",
-          "name": "minecraft:horsearmordiamond",
-          "weight": 5
-        },
-        {
-          "type": "item",
-          "name": "minecraft:book",
-          "weight": 20,
-          "functions": [
-            {
-              "function": "enchant_randomly"
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:golden_apple",
-          "weight": 20
-        },
-        {
-          "type": "item",
-          "name": "minecraft:appleEnchanted",
-          "weight": 2
-        },
-        {
-          "type": "empty",
-          "weight": 15
-        }
-      ]
-    },
-    {
-      "rolls": 4,
-      "entries": [
-        {
-          "type": "item",
-          "name": "minecraft:bone",
-          "weight": 10,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 8
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:gunpowder",
-          "weight": 10,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 8
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:rotten_flesh",
-          "weight": 10,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 8
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:string",
-          "weight": 10,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 8
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:sand",
-          "weight": 10,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 8
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "empty",
-          "weight": 6
-        },
-        {
-          "type": "item",
-          "name": "minecraft:dune_armor_trim_smithing_template",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": 2
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "empty",
-          "weight": 400
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_1",
-          "weight": 20
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_2",
-          "weight": 14
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_3",
-          "weight": 10
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_4",
-          "weight": 7
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_5",
-          "weight": 5
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_6",
-          "weight": 3
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_7",
-          "weight": 2
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_8",
-          "weight": 2
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_9",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_10",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:extreme_sponge_book_1",
-          "weight": 1
-        }
-      ]
-    }
-  ]
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/loot_tables/chests/end_city_treasure.json (411 lines, 9362 bytes)
-
-```
-{
-  "pools": [
-    {
-      "rolls": {
-        "min": 2,
-        "max": 6
-      },
-      "entries": [
-        {
-          "type": "item",
-          "name": "minecraft:diamond",
-          "weight": 5,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 2,
-                "max": 7
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:iron_ingot",
-          "weight": 10,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 4,
-                "max": 8
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:gold_ingot",
-          "weight": 15,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 2,
-                "max": 7
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:emerald",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 2,
-                "max": 6
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:beetroot_seeds",
-          "weight": 5,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 10
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:saddle",
-          "weight": 3
-        },
-        {
-          "type": "item",
-          "name": "minecraft:horsearmoriron",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "minecraft:copper_horse_armor",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "minecraft:horsearmorgold",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "minecraft:horsearmordiamond",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "minecraft:diamond_sword",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "enchant_with_levels",
-              "treasure": true,
-              "levels": {
-                "min": 20,
-                "max": 39
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:diamond_spear",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "enchant_with_levels",
-              "treasure": true,
-              "levels": {
-                "min": 20,
-                "max": 39
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:diamond_boots",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "enchant_with_levels",
-              "treasure": true,
-              "levels": {
-                "min": 20,
-                "max": 39
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:diamond_chestplate",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "enchant_with_levels",
-              "treasure": true,
-              "levels": {
-                "min": 20,
-                "max": 39
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:diamond_leggings",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "enchant_with_levels",
-              "treasure": true,
-              "levels": {
-                "min": 20,
-                "max": 39
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:diamond_helmet",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "enchant_with_levels",
-              "treasure": true,
-              "levels": {
-                "min": 20,
-                "max": 39
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:diamond_pickaxe",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "enchant_with_levels",
-              "treasure": true,
-              "levels": {
-                "min": 20,
-                "max": 39
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:diamond_shovel",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "enchant_with_levels",
-              "treasure": true,
-              "levels": {
-                "min": 20,
-                "max": 39
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:iron_sword",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "enchant_with_levels",
-              "treasure": true,
-              "levels": {
-                "min": 20,
-                "max": 39
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:iron_boots",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "enchant_with_levels",
-              "treasure": true,
-              "levels": {
-                "min": 20,
-                "max": 39
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:iron_chestplate",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "enchant_with_levels",
-              "treasure": true,
-              "levels": {
-                "min": 20,
-                "max": 39
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:iron_leggings",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "enchant_with_levels",
-              "treasure": true,
-              "levels": {
-                "min": 20,
-                "max": 39
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:iron_helmet",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "enchant_with_levels",
-              "treasure": true,
-              "levels": {
-                "min": 20,
-                "max": 39
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:iron_pickaxe",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "enchant_with_levels",
-              "treasure": true,
-              "levels": {
-                "min": 20,
-                "max": 39
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:iron_shovel",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "enchant_with_levels",
-              "treasure": true,
-              "levels": {
-                "min": 20,
-                "max": 39
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "empty",
-          "weight": 14
-        },
-        {
-          "type": "item",
-          "name": "minecraft:spire_armor_trim_smithing_template",
-          "weight": 1
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "empty",
-          "weight": 400
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_1",
-          "weight": 20
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_2",
-          "weight": 14
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_3",
-          "weight": 10
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_4",
-          "weight": 7
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_5",
-          "weight": 5
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_6",
-          "weight": 3
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_7",
-          "weight": 2
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_8",
-          "weight": 2
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_9",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_10",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:extreme_sponge_book_1",
-          "weight": 1
-        }
-      ]
-    }
-  ]
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/loot_tables/chests/jungle_temple.json (242 lines, 5262 bytes)
-
-```
-{
-  "pools": [
-    {
-      "rolls": {
-        "min": 2,
-        "max": 6
-      },
-      "entries": [
-        {
-          "type": "item",
-          "name": "minecraft:diamond",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 3
-              }
-            }
-          ],
-          "weight": 15
-        },
-        {
-          "type": "item",
-          "name": "minecraft:iron_ingot",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 5
-              }
-            }
-          ],
-          "weight": 50
-        },
-        {
-          "type": "item",
-          "name": "minecraft:gold_ingot",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 2,
-                "max": 7
-              }
-            }
-          ],
-          "weight": 75
-        },
-        {
-          "type": "item",
-          "name": "minecraft:emerald",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 3
-              }
-            }
-          ],
-          "weight": 10
-        },
-        {
-          "type": "item",
-          "name": "minecraft:bone",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 4,
-                "max": 6
-              }
-            }
-          ],
-          "weight": 100
-        },
-        {
-          "type": "item",
-          "name": "minecraft:rotten_flesh",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 3,
-                "max": 7
-              }
-            }
-          ],
-          "weight": 80
-        },
-        {
-          "type": "item",
-          "name": "minecraft:bamboo",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 3
-              }
-            }
-          ],
-          "weight": 75
-        },
-        {
-          "type": "item",
-          "name": "minecraft:leather",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 5
-              },
-              "add": false
-            }
-          ],
-          "weight": 15
-        },
-        {
-          "type": "item",
-          "name": "minecraft:horsearmoriron",
-          "weight": 5
-        },
-        {
-          "type": "item",
-          "name": "minecraft:copper_horse_armor",
-          "weight": 5
-        },
-        {
-          "type": "item",
-          "name": "minecraft:horsearmorgold",
-          "weight": 5
-        },
-        {
-          "type": "item",
-          "name": "minecraft:horsearmordiamond",
-          "weight": 5
-        },
-        {
-          "type": "item",
-          "name": "minecraft:book",
-          "weight": 6,
-          "functions": [
-            {
-              "function": "enchant_with_levels",
-              "levels": 30,
-              "treasure": true
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "empty",
-          "weight": 2
-        },
-        {
-          "type": "item",
-          "name": "minecraft:wild_armor_trim_smithing_template",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": 2
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "empty",
-          "weight": 400
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_1",
-          "weight": 20
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_2",
-          "weight": 14
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_3",
-          "weight": 10
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_4",
-          "weight": 7
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_5",
-          "weight": 5
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_6",
-          "weight": 3
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_7",
-          "weight": 2
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_8",
-          "weight": 2
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_9",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_10",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:extreme_sponge_book_1",
-          "weight": 1
-        }
-      ]
-    }
-  ]
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/loot_tables/chests/shipwrecktreasure.json (203 lines, 4299 bytes)
-
-```
-{
-  "pools": [
-    {
-      "rolls": {
-        "min": 3,
-        "max": 6
-      },
-      "entries": [
-        {
-          "type": "item",
-          "name": "minecraft:iron_ingot",
-          "weight": 90,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 5
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:gold_ingot",
-          "weight": 10,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 5
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:emerald",
-          "weight": 40,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 5
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:diamond",
-          "weight": 5
-        },
-        {
-          "type": "item",
-          "name": "minecraft:experience_bottle",
-          "weight": 5
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 2,
-        "max": 5
-      },
-      "entries": [
-        {
-          "type": "item",
-          "name": "minecraft:iron_nugget",
-          "weight": 50,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 10
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:gold_nugget",
-          "weight": 10,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 10
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:dye",
-          "weight": 20,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 10
-              }
-            },
-            {
-              "function": "set_data",
-              "data": 4
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "empty",
-          "weight": 5
-        },
-        {
-          "type": "item",
-          "name": "minecraft:coast_armor_trim_smithing_template",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": 2
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "empty",
-          "weight": 400
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_1",
-          "weight": 20
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_2",
-          "weight": 14
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_3",
-          "weight": 10
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_4",
-          "weight": 7
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_5",
-          "weight": 5
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_6",
-          "weight": 3
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_7",
-          "weight": 2
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_8",
-          "weight": 2
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_9",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_10",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:extreme_sponge_book_1",
-          "weight": 1
-        }
-      ]
-    }
-  ]
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/loot_tables/chests/simple_dungeon.json (343 lines, 7406 bytes)
-
-```
-{
-  "pools": [
-    {
-      "rolls": {
-        "min": 1,
-        "max": 3
-      },
-      "entries": [
-        {
-          "type": "item",
-          "name": "minecraft:leather",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 5
-              },
-              "add": false
-            }
-          ],
-          "weight": 20
-        },
-        {
-          "type": "item",
-          "name": "minecraft:golden_apple",
-          "weight": 15
-        },
-        {
-          "type": "item",
-          "name": "minecraft:appleEnchanted",
-          "weight": 2
-        },
-        {
-          "type": "item",
-          "name": "minecraft:record_13",
-          "weight": 15
-        },
-        {
-          "type": "item",
-          "name": "minecraft:record_cat",
-          "weight": 15
-        },
-        {
-          "type": "item",
-          "name": "minecraft:record_otherside",
-          "weight": 2
-        },
-        {
-          "type": "item",
-          "name": "minecraft:name_tag",
-          "weight": 20
-        },
-        {
-          "type": "item",
-          "name": "minecraft:horsearmorgold",
-          "weight": 10
-        },
-        {
-          "type": "item",
-          "name": "minecraft:horsearmoriron",
-          "weight": 15
-        },
-        {
-          "type": "item",
-          "name": "minecraft:copper_horse_armor",
-          "weight": 15
-        },
-        {
-          "type": "item",
-          "name": "minecraft:horsearmordiamond",
-          "weight": 5
-        },
-        {
-          "type": "item",
-          "name": "minecraft:book",
-          "weight": 10,
-          "functions": [
-            {
-              "function": "enchant_randomly"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 1,
-        "max": 4
-      },
-      "entries": [
-        {
-          "type": "item",
-          "name": "minecraft:iron_ingot",
-          "weight": 10,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 4
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:gold_ingot",
-          "weight": 5,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 4
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:bread",
-          "weight": 20
-        },
-        {
-          "type": "item",
-          "name": "minecraft:wheat",
-          "weight": 20,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 4
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:bucket",
-          "weight": 10
-        },
-        {
-          "type": "item",
-          "name": "minecraft:redstone",
-          "weight": 15,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 4
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:coal",
-          "weight": 15,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 4
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:melon_seeds",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 2,
-                "max": 4
-              }
-            }
-          ],
-          "weight": 10
-        },
-        {
-          "type": "item",
-          "name": "minecraft:pumpkin_seeds",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 2,
-                "max": 4
-              }
-            }
-          ],
-          "weight": 10
-        },
-        {
-          "type": "item",
-          "name": "minecraft:beetroot_seeds",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 2,
-                "max": 4
-              }
-            }
-          ],
-          "weight": 10
-        }
-      ]
-    },
-    {
-      "rolls": 3,
-      "entries": [
-        {
-          "type": "item",
-          "name": "minecraft:bone",
-          "weight": 10,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 8
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:gunpowder",
-          "weight": 10,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 8
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:rotten_flesh",
-          "weight": 10,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 8
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:string",
-          "weight": 10,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 8
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "empty",
-          "weight": 400
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_1",
-          "weight": 20
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_2",
-          "weight": 14
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_3",
-          "weight": 10
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_4",
-          "weight": 7
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_5",
-          "weight": 5
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_6",
-          "weight": 3
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_7",
-          "weight": 2
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_8",
-          "weight": 2
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_9",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_10",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:extreme_sponge_book_1",
-          "weight": 1
-        }
-      ]
-    }
-  ]
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/loot_tables/chests/stronghold_library.json (137 lines, 2933 bytes)
-
-```
-{
-  "pools": [
-    {
-      "rolls": {
-        "min": 2,
-        "max": 10
-      },
-      "entries": [
-        {
-          "type": "item",
-          "name": "minecraft:book",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 3
-              }
-            }
-          ],
-          "weight": 100
-        },
-        {
-          "type": "item",
-          "name": "minecraft:paper",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 2,
-                "max": 7
-              }
-            }
-          ],
-          "weight": 100
-        },
-        {
-          "type": "item",
-          "name": "minecraft:map",
-          "weight": 5
-        },
-        {
-          "type": "item",
-          "name": "minecraft:compass",
-          "weight": 5
-        },
-        {
-          "type": "item",
-          "name": "minecraft:book",
-          "weight": 60,
-          "functions": [
-            {
-              "function": "enchant_with_levels",
-              "levels": 30,
-              "treasure": true
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "item",
-          "name": "minecraft:eye_armor_trim_smithing_template",
-          "weight": 1
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "empty",
-          "weight": 400
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_1",
-          "weight": 20
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_2",
-          "weight": 14
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_3",
-          "weight": 10
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_4",
-          "weight": 7
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_5",
-          "weight": 5
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_6",
-          "weight": 3
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_7",
-          "weight": 2
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_8",
-          "weight": 2
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_9",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_10",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:extreme_sponge_book_1",
-          "weight": 1
-        }
-      ]
-    }
-  ]
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/loot_tables/chests/underwater_ruin_big.json (211 lines, 4576 bytes)
-
-```
-{
-  "pools": [
-    {
-      "rolls": {
-        "min": 2,
-        "max": 8
-      },
-      "entries": [
-        {
-          "type": "item",
-          "name": "minecraft:coal",
-          "weight": 10,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1,
-                "max": 4
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:stone_spear",
-          "weight": 2
-        },
-        {
-          "type": "item",
-          "name": "minecraft:gold_nugget",
-          "weight": 10,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1,
-                "max": 3
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:emerald",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "minecraft:wheat",
-          "weight": 10,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 2,
-                "max": 3
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "item",
-          "name": "minecraft:golden_apple",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "minecraft:book",
-          "weight": 5,
-          "functions": [
-            {
-              "function": "enchant_randomly"
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:leather_chestplate",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "minecraft:golden_helmet",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "minecraft:fishing_rod",
-          "weight": 5,
-          "functions": [
-            {
-              "function": "enchant_randomly"
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:map",
-          "weight": 10,
-          "functions": [
-            {
-              "function": "exploration_map",
-              "destination": "buriedtreasure"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "conditions": [
-        {
-          "condition": "random_chance",
-          "chance": 0.2
-        }
-      ],
-      "entries": [
-        {
-          "type": "item",
-          "name": "minecraft:copper_nautilus_armor",
-          "weight": 100
-        },
-        {
-          "type": "item",
-          "name": "minecraft:iron_nautilus_armor",
-          "weight": 50
-        },
-        {
-          "type": "item",
-          "name": "minecraft:golden_nautilus_armor",
-          "weight": 25
-        },
-        {
-          "type": "item",
-          "name": "minecraft:diamond_nautilus_armor",
-          "weight": 10
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "empty",
-          "weight": 400
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_1",
-          "weight": 20
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_2",
-          "weight": 14
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_3",
-          "weight": 10
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_4",
-          "weight": 7
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_5",
-          "weight": 5
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_6",
-          "weight": 3
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_7",
-          "weight": 2
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_8",
-          "weight": 2
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_9",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_10",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:extreme_sponge_book_1",
-          "weight": 1
-        }
-      ]
-    }
-  ]
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/loot_tables/chests/woodland_mansion.json (347 lines, 7443 bytes)
-
-```
-{
-  "pools": [
-    {
-      "rolls": {
-        "min": 1,
-        "max": 3
-      },
-      "entries": [
-        {
-          "type": "item",
-          "name": "minecraft:lead",
-          "weight": 100
-        },
-        {
-          "type": "item",
-          "name": "minecraft:golden_apple",
-          "weight": 75
-        },
-        {
-          "type": "item",
-          "name": "minecraft:appleEnchanted",
-          "weight": 10
-        },
-        {
-          "type": "item",
-          "name": "minecraft:record_13",
-          "weight": 75
-        },
-        {
-          "type": "item",
-          "name": "minecraft:record_cat",
-          "weight": 75
-        },
-        {
-          "type": "item",
-          "name": "minecraft:chainmail_chestplate",
-          "weight": 50
-        },
-        {
-          "type": "item",
-          "name": "minecraft:diamond_hoe",
-          "weight": 75
-        },
-        {
-          "type": "item",
-          "name": "minecraft:diamond_chestplate",
-          "weight": 25
-        },
-        {
-          "type": "item",
-          "name": "minecraft:book",
-          "weight": 60,
-          "functions": [
-            {
-              "function": "enchant_randomly",
-              "treasure": true
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 1,
-        "max": 4
-      },
-      "entries": [
-        {
-          "type": "item",
-          "name": "minecraft:iron_ingot",
-          "weight": 50,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 4
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:gold_ingot",
-          "weight": 25,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 4
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:bread",
-          "weight": 100
-        },
-        {
-          "type": "item",
-          "name": "minecraft:wheat",
-          "weight": 100,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 4
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:bucket",
-          "weight": 50
-        },
-        {
-          "type": "item",
-          "name": "minecraft:redstone",
-          "weight": 75,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 4
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:coal",
-          "weight": 75,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 4
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:melon_seeds",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 2,
-                "max": 4
-              }
-            }
-          ],
-          "weight": 50
-        },
-        {
-          "type": "item",
-          "name": "minecraft:pumpkin_seeds",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 2,
-                "max": 4
-              }
-            }
-          ],
-          "weight": 50
-        },
-        {
-          "type": "item",
-          "name": "minecraft:beetroot_seeds",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 2,
-                "max": 4
-              }
-            }
-          ],
-          "weight": 50
-        },
-        {
-          "type": "item",
-          "name": "minecraft:resin_clump",
-          "weight": 50,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 2,
-                "max": 4
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "rolls": 3,
-      "entries": [
-        {
-          "type": "item",
-          "name": "minecraft:bone",
-          "weight": 50,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 8
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:gunpowder",
-          "weight": 50,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 8
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:rotten_flesh",
-          "weight": 50,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 8
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:string",
-          "weight": 50,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 8
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "empty",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "minecraft:vex_armor_trim_smithing_template",
-          "weight": 1
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "empty",
-          "weight": 400
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_1",
-          "weight": 20
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_2",
-          "weight": 14
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_3",
-          "weight": 10
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_4",
-          "weight": 7
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_5",
-          "weight": 5
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_6",
-          "weight": 3
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_7",
-          "weight": 2
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_8",
-          "weight": 2
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_9",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_10",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:extreme_sponge_book_1",
-          "weight": 1
-        }
-      ]
-    }
-  ]
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/manifest.json (62 lines, 1034 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/manifest.json (79 lines, 1379 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "OP Sponge (v6)",
+    "name": "OP Sponge (v9)",
     "description": "A sponge that absorbs water. by ALNStudios",
     "uuid": "894911ae-ab32-43ea-8ab7-88823bcaab2a",
     "version": [
-      6,
+      9,
       0,
       0
     ],
@@ -5058,7 +312,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "type": "data",
       "uuid": "ae723a26-8b15-4781-956c-81d53a3021fd",
       "version": [
-        6,
+        9,
         0,
         0
       ]
@@ -5069,7 +323,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "uuid": "aa3774bf-f2b9-498d-aed8-1b816f595257",
       "entry": "scripts/main.js",
       "version": [
-        6,
+        9,
         0,
         0
       ]
@@ -5079,7 +333,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     {
       "uuid": "67a33773-ea19-4d9c-a50c-0de79e1cf7aa",
       "version": [
-        6,
+        9,
         0,
         0
       ]
@@ -5089,30 +343,29 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "version": "2.11.0"
     }
   ],
+  "subpacks": [
+    {
+      "folder_name": "normal",
+      "name": "Normal OP (256 blocks)",
+      "memory_tier": 1
+    },
+    {
+      "folder_name": "extreme",
+      "name": "Extremely OP (1024 blocks)",
+      "memory_tier": 2
+    },
+    {
+      "folder_name": "unlimited",
+      "name": "Unlimited OP (Max)",
+      "memory_tier": 3
+    }
+  ],
   "metadata": {
     "authors": [
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "6.0.0"
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/dry_extreme_sponge_1.json (14 lines, 297 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_furnace": {
-    "description": {
-      "identifier": "allenscreations:dry_extreme_sponge_1"
-    },
-    "tags": [
-      "furnace"
-    ],
-    "input": "allenscreations:extreme_sponge_1_wet",
-    "output": "allenscreations:extreme_sponge_1"
+    "version": "9.0.0"
   }
 }
 ```
@@ -5127,246 +380,6 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     "tags": ["furnace"],
     "input": "allenscreations:op_sponge_wet",
     "output": "allenscreations:op_sponge"
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/dry_super_sponge_1.json (14 lines, 291 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_furnace": {
-    "description": {
-      "identifier": "allenscreations:dry_super_sponge_1"
-    },
-    "tags": [
-      "furnace"
-    ],
-    "input": "allenscreations:super_sponge_1_wet",
-    "output": "allenscreations:super_sponge_1"
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/dry_super_sponge_10.json (14 lines, 294 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_furnace": {
-    "description": {
-      "identifier": "allenscreations:dry_super_sponge_10"
-    },
-    "tags": [
-      "furnace"
-    ],
-    "input": "allenscreations:super_sponge_10_wet",
-    "output": "allenscreations:super_sponge_10"
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/dry_super_sponge_2.json (14 lines, 291 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_furnace": {
-    "description": {
-      "identifier": "allenscreations:dry_super_sponge_2"
-    },
-    "tags": [
-      "furnace"
-    ],
-    "input": "allenscreations:super_sponge_2_wet",
-    "output": "allenscreations:super_sponge_2"
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/dry_super_sponge_3.json (14 lines, 291 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_furnace": {
-    "description": {
-      "identifier": "allenscreations:dry_super_sponge_3"
-    },
-    "tags": [
-      "furnace"
-    ],
-    "input": "allenscreations:super_sponge_3_wet",
-    "output": "allenscreations:super_sponge_3"
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/dry_super_sponge_4.json (14 lines, 291 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_furnace": {
-    "description": {
-      "identifier": "allenscreations:dry_super_sponge_4"
-    },
-    "tags": [
-      "furnace"
-    ],
-    "input": "allenscreations:super_sponge_4_wet",
-    "output": "allenscreations:super_sponge_4"
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/dry_super_sponge_5.json (14 lines, 291 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_furnace": {
-    "description": {
-      "identifier": "allenscreations:dry_super_sponge_5"
-    },
-    "tags": [
-      "furnace"
-    ],
-    "input": "allenscreations:super_sponge_5_wet",
-    "output": "allenscreations:super_sponge_5"
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/dry_super_sponge_6.json (14 lines, 291 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_furnace": {
-    "description": {
-      "identifier": "allenscreations:dry_super_sponge_6"
-    },
-    "tags": [
-      "furnace"
-    ],
-    "input": "allenscreations:super_sponge_6_wet",
-    "output": "allenscreations:super_sponge_6"
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/dry_super_sponge_7.json (14 lines, 291 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_furnace": {
-    "description": {
-      "identifier": "allenscreations:dry_super_sponge_7"
-    },
-    "tags": [
-      "furnace"
-    ],
-    "input": "allenscreations:super_sponge_7_wet",
-    "output": "allenscreations:super_sponge_7"
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/dry_super_sponge_8.json (14 lines, 291 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_furnace": {
-    "description": {
-      "identifier": "allenscreations:dry_super_sponge_8"
-    },
-    "tags": [
-      "furnace"
-    ],
-    "input": "allenscreations:super_sponge_8_wet",
-    "output": "allenscreations:super_sponge_8"
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/dry_super_sponge_9.json (14 lines, 291 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_furnace": {
-    "description": {
-      "identifier": "allenscreations:dry_super_sponge_9"
-    },
-    "tags": [
-      "furnace"
-    ],
-    "input": "allenscreations:super_sponge_9_wet",
-    "output": "allenscreations:super_sponge_9"
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/extreme_sponge_1_from_book.json (26 lines, 499 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_shapeless": {
-    "description": {
-      "identifier": "allenscreations:extreme_sponge_1_from_book"
-    },
-    "tags": [
-      "crafting_table"
-    ],
-    "ingredients": [
-      {
-        "item": "allenscreations:op_sponge"
-      },
-      {
-        "item": "allenscreations:extreme_sponge_book_1"
-      }
-    ],
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    },
-    "result": {
-      "item": "allenscreations:extreme_sponge_1"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/extreme_sponge_book_1_from_books.json (26 lines, 520 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_shapeless": {
-    "description": {
-      "identifier": "allenscreations:extreme_sponge_book_1_from_books"
-    },
-    "tags": [
-      "crafting_table"
-    ],
-    "ingredients": [
-      {
-        "item": "allenscreations:super_sponge_book_10"
-      },
-      {
-        "item": "allenscreations:super_sponge_book_10"
-      }
-    ],
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    },
-    "result": {
-      "item": "allenscreations:extreme_sponge_book_1"
-    }
   }
 }
 ```
@@ -5389,577 +402,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_10_from_book.json (26 lines, 496 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_shapeless": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_10_from_book"
-    },
-    "tags": [
-      "crafting_table"
-    ],
-    "ingredients": [
-      {
-        "item": "allenscreations:op_sponge"
-      },
-      {
-        "item": "allenscreations:super_sponge_book_10"
-      }
-    ],
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    },
-    "result": {
-      "item": "allenscreations:super_sponge_10"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_1_from_book.json (26 lines, 493 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_shapeless": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_1_from_book"
-    },
-    "tags": [
-      "crafting_table"
-    ],
-    "ingredients": [
-      {
-        "item": "allenscreations:op_sponge"
-      },
-      {
-        "item": "allenscreations:super_sponge_book_1"
-      }
-    ],
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    },
-    "result": {
-      "item": "allenscreations:super_sponge_1"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_2_from_book.json (26 lines, 493 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_shapeless": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_2_from_book"
-    },
-    "tags": [
-      "crafting_table"
-    ],
-    "ingredients": [
-      {
-        "item": "allenscreations:op_sponge"
-      },
-      {
-        "item": "allenscreations:super_sponge_book_2"
-      }
-    ],
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    },
-    "result": {
-      "item": "allenscreations:super_sponge_2"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_3_from_book.json (26 lines, 493 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_shapeless": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_3_from_book"
-    },
-    "tags": [
-      "crafting_table"
-    ],
-    "ingredients": [
-      {
-        "item": "allenscreations:op_sponge"
-      },
-      {
-        "item": "allenscreations:super_sponge_book_3"
-      }
-    ],
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    },
-    "result": {
-      "item": "allenscreations:super_sponge_3"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_4_from_book.json (26 lines, 493 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_shapeless": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_4_from_book"
-    },
-    "tags": [
-      "crafting_table"
-    ],
-    "ingredients": [
-      {
-        "item": "allenscreations:op_sponge"
-      },
-      {
-        "item": "allenscreations:super_sponge_book_4"
-      }
-    ],
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    },
-    "result": {
-      "item": "allenscreations:super_sponge_4"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_5_from_book.json (26 lines, 493 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_shapeless": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_5_from_book"
-    },
-    "tags": [
-      "crafting_table"
-    ],
-    "ingredients": [
-      {
-        "item": "allenscreations:op_sponge"
-      },
-      {
-        "item": "allenscreations:super_sponge_book_5"
-      }
-    ],
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    },
-    "result": {
-      "item": "allenscreations:super_sponge_5"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_6_from_book.json (26 lines, 493 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_shapeless": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_6_from_book"
-    },
-    "tags": [
-      "crafting_table"
-    ],
-    "ingredients": [
-      {
-        "item": "allenscreations:op_sponge"
-      },
-      {
-        "item": "allenscreations:super_sponge_book_6"
-      }
-    ],
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    },
-    "result": {
-      "item": "allenscreations:super_sponge_6"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_7_from_book.json (26 lines, 493 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_shapeless": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_7_from_book"
-    },
-    "tags": [
-      "crafting_table"
-    ],
-    "ingredients": [
-      {
-        "item": "allenscreations:op_sponge"
-      },
-      {
-        "item": "allenscreations:super_sponge_book_7"
-      }
-    ],
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    },
-    "result": {
-      "item": "allenscreations:super_sponge_7"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_8_from_book.json (26 lines, 493 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_shapeless": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_8_from_book"
-    },
-    "tags": [
-      "crafting_table"
-    ],
-    "ingredients": [
-      {
-        "item": "allenscreations:op_sponge"
-      },
-      {
-        "item": "allenscreations:super_sponge_book_8"
-      }
-    ],
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    },
-    "result": {
-      "item": "allenscreations:super_sponge_8"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_9_from_book.json (26 lines, 493 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_shapeless": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_9_from_book"
-    },
-    "tags": [
-      "crafting_table"
-    ],
-    "ingredients": [
-      {
-        "item": "allenscreations:op_sponge"
-      },
-      {
-        "item": "allenscreations:super_sponge_book_9"
-      }
-    ],
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    },
-    "result": {
-      "item": "allenscreations:super_sponge_9"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_10_from_books.json (26 lines, 516 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_shapeless": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_book_10_from_books"
-    },
-    "tags": [
-      "crafting_table"
-    ],
-    "ingredients": [
-      {
-        "item": "allenscreations:super_sponge_book_9"
-      },
-      {
-        "item": "allenscreations:super_sponge_book_9"
-      }
-    ],
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    },
-    "result": {
-      "item": "allenscreations:super_sponge_book_10"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_2_from_books.json (26 lines, 514 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_shapeless": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_book_2_from_books"
-    },
-    "tags": [
-      "crafting_table"
-    ],
-    "ingredients": [
-      {
-        "item": "allenscreations:super_sponge_book_1"
-      },
-      {
-        "item": "allenscreations:super_sponge_book_1"
-      }
-    ],
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    },
-    "result": {
-      "item": "allenscreations:super_sponge_book_2"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_3_from_books.json (26 lines, 514 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_shapeless": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_book_3_from_books"
-    },
-    "tags": [
-      "crafting_table"
-    ],
-    "ingredients": [
-      {
-        "item": "allenscreations:super_sponge_book_2"
-      },
-      {
-        "item": "allenscreations:super_sponge_book_2"
-      }
-    ],
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    },
-    "result": {
-      "item": "allenscreations:super_sponge_book_3"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_4_from_books.json (26 lines, 514 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_shapeless": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_book_4_from_books"
-    },
-    "tags": [
-      "crafting_table"
-    ],
-    "ingredients": [
-      {
-        "item": "allenscreations:super_sponge_book_3"
-      },
-      {
-        "item": "allenscreations:super_sponge_book_3"
-      }
-    ],
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    },
-    "result": {
-      "item": "allenscreations:super_sponge_book_4"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_5_from_books.json (26 lines, 514 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_shapeless": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_book_5_from_books"
-    },
-    "tags": [
-      "crafting_table"
-    ],
-    "ingredients": [
-      {
-        "item": "allenscreations:super_sponge_book_4"
-      },
-      {
-        "item": "allenscreations:super_sponge_book_4"
-      }
-    ],
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    },
-    "result": {
-      "item": "allenscreations:super_sponge_book_5"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_6_from_books.json (26 lines, 514 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_shapeless": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_book_6_from_books"
-    },
-    "tags": [
-      "crafting_table"
-    ],
-    "ingredients": [
-      {
-        "item": "allenscreations:super_sponge_book_5"
-      },
-      {
-        "item": "allenscreations:super_sponge_book_5"
-      }
-    ],
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    },
-    "result": {
-      "item": "allenscreations:super_sponge_book_6"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_7_from_books.json (26 lines, 514 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_shapeless": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_book_7_from_books"
-    },
-    "tags": [
-      "crafting_table"
-    ],
-    "ingredients": [
-      {
-        "item": "allenscreations:super_sponge_book_6"
-      },
-      {
-        "item": "allenscreations:super_sponge_book_6"
-      }
-    ],
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    },
-    "result": {
-      "item": "allenscreations:super_sponge_book_7"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_8_from_books.json (26 lines, 514 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_shapeless": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_book_8_from_books"
-    },
-    "tags": [
-      "crafting_table"
-    ],
-    "ingredients": [
-      {
-        "item": "allenscreations:super_sponge_book_7"
-      },
-      {
-        "item": "allenscreations:super_sponge_book_7"
-      }
-    ],
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    },
-    "result": {
-      "item": "allenscreations:super_sponge_book_8"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_9_from_books.json (26 lines, 514 bytes)
-
-```
-{
-  "format_version": "1.20.10",
-  "minecraft:recipe_shapeless": {
-    "description": {
-      "identifier": "allenscreations:super_sponge_book_9_from_books"
-    },
-    "tags": [
-      "crafting_table"
-    ],
-    "ingredients": [
-      {
-        "item": "allenscreations:super_sponge_book_8"
-      },
-      {
-        "item": "allenscreations:super_sponge_book_8"
-      }
-    ],
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    },
-    "result": {
-      "item": "allenscreations:super_sponge_book_9"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/scripts/lib/README.md (32 lines, 685 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/scripts/lib/README.md (40 lines, 1646 bytes)
 
 ```
 # OP Sponge: script notes (scripts/lib)
@@ -5971,7 +414,10 @@ Extracted from the script files; nothing here was run in game.
 
 | File | Lines | Purpose |
 | :-- | --: | :-- |
-| `scripts/main.js` | 131 | (no header comment) |
+| `scripts/main.js` | 141 | (no header comment) |
+| `subpacks/normal/scripts/main.js` | 141 | Same as `main.js`, OP Sponge capped at 256 blocks and 16 reach |
+| `subpacks/extreme/scripts/main.js` | 141 | Same as `main.js`, OP Sponge capped at 1024 blocks and 32 reach |
+| `subpacks/unlimited/scripts/main.js` | 141 | Same as `main.js`, OP Sponge with no cap |
 
 ## Imports
 
@@ -5992,10 +438,15 @@ Extracted from the script files; nothing here was run in game.
 
 ## Notes (AI review)
 
-Known limits, design decisions and things to check on the next update go here. Not filled in yet.
+- The three subpack scripts are full copies of `main.js` that differ only in the `register("op_sponge", ...)` line. Change all four files together.
+- Water is removed while scanning. Afterwards the cleared cells are re-checked up to 3 times to remove water that flowed back in.
+- Cells outside 4095 blocks sideways or 511 up and down are never reached. Unloaded chunks are never reached.
+- Waterlogged blocks are drained with `Block.setWaterlogged(false)`; errors from it are caught and skipped.
+- Nothing here was run in game. Whether the game loads `scripts/main.js` from a behavior pack subpack is not verified.
+- Only the OP Sponge exists. The Super Sponges, the Extreme Sponge, the sponge books and the chest loot overrides were removed in v9.
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/scripts/main.js (140 lines, 3599 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/scripts/main.js (142 lines, 3633 bytes)
 
 ```
 import { system, world } from "@minecraft/server";
@@ -6003,13 +454,10 @@ import { system, world } from "@minecraft/server";
 const WATER = new Set(["minecraft:water", "minecraft:flowing_water"]);
 const BASE_CAPACITY = 256;
 const BASE_RANGE = 16;
-const LEVEL_RANGE = 2;
-const EXTREME_CAPACITY = 100000;
-const EXTREME_RANGE = 2048;
 const BATCH = 200;
 const BOUND_XZ = 4096;
 const BOUND_Y = 512;
-const SPARKLES = 16;
+const SWEEPS = 3;
 const NEIGHBORS = [
   { x: 1, y: 0, z: 0 },
   { x: -1, y: 0, z: 0 },
@@ -6021,20 +469,15 @@ const NEIGHBORS = [
 
 const SPONGES = new Map();
 
-function register(name, capacity, range, sparkle) {
+function register(name, capacity, range) {
   SPONGES.set(`allenscreations:${name}`, {
     filled: `allenscreations:${name}_wet`,
     capacity,
     range,
-    sparkle,
   });
 }
 
-register("op_sponge", Infinity, Infinity, false);
-for (let level = 1; level <= 10; level++) {
-  register(`super_sponge_${level}`, BASE_CAPACITY * (level + 1), BASE_RANGE + level * LEVEL_RANGE, true);
-}
-register("extreme_sponge_1", EXTREME_CAPACITY, EXTREME_RANGE, true);
+register("op_sponge", Infinity, Infinity);
 
 function keyOf(origin, location) {
   const dx = location.x - origin.x + BOUND_XZ;
@@ -6046,25 +489,19 @@ function keyOf(origin, location) {
   return (dx * 2 * BOUND_XZ + dz) * 2 * BOUND_Y + dy;
 }
 
+function locationOf(origin, key) {
+  const dy = key % (2 * BOUND_Y);
+  const rest = Math.floor(key / (2 * BOUND_Y));
+  const dz = rest % (2 * BOUND_XZ);
+  const dx = Math.floor(rest / (2 * BOUND_XZ));
+  return { x: origin.x + dx - BOUND_XZ, y: origin.y + dy - BOUND_Y, z: origin.z + dz - BOUND_XZ };
+}
+
 function readBlock(dimension, location) {
   try {
     return dimension.getBlock(location);
   } catch (error) {
     return undefined;
-  }
-}
-
-function sparkle(dimension, origin) {
-  for (let i = 0; i < SPARKLES; i++) {
-    try {
-      dimension.spawnParticle("minecraft:villager_happy", {
-        x: origin.x + Math.random(),
-        y: origin.y + Math.random(),
-        z: origin.z + Math.random(),
-      });
-    } catch (error) {
-      return;
-    }
   }
 }
 
@@ -6086,6 +523,7 @@ function drain(block) {
 
 function* absorb(dimension, origin, spongeId, sponge) {
   const seen = new Set([keyOf(origin, origin)]);
+  const drained = [];
   let frontier = [origin];
   let removed = 0;
   let reads = 0;
@@ -6109,6 +547,7 @@ function* absorb(dimension, origin, spongeId, sponge) {
         const block = readBlock(dimension, location);
         if (block && drain(block)) {
           removed++;
+          drained.push(key);
           next.push(location);
         }
       }
@@ -6118,14 +557,28 @@ function* absorb(dimension, origin, spongeId, sponge) {
   if (removed === 0) {
     return;
   }
+  for (let pass = 0; pass < SWEEPS; pass++) {
+    const total = drained.length;
+    let again = 0;
+    for (let i = 0; i < total; i++) {
+      reads++;
+      if (reads % BATCH === 0) {
+        yield;
+      }
+      const block = readBlock(dimension, locationOf(origin, drained[i]));
+      if (block && drain(block)) {
+        again++;
+      }
+    }
+    if (again === 0) {
+      break;
+    }
+  }
   const after = readBlock(dimension, origin);
   if (!after || after.typeId !== spongeId) {
     return;
   }
   after.setType(sponge.filled);
-  if (sponge.sparkle) {
-    sparkle(dimension, origin);
-  }
 }
 
 world.afterEvents.playerPlaceBlock.subscribe((event) => {
@@ -6139,44 +592,449 @@ world.afterEvents.playerPlaceBlock.subscribe((event) => {
 });
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/texts/en_US.lang (36 lines, 2302 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/subpacks/extreme/scripts/main.js (142 lines, 3648 bytes)
+
+```
+import { system, world } from "@minecraft/server";
+
+const WATER = new Set(["minecraft:water", "minecraft:flowing_water"]);
+const BASE_CAPACITY = 256;
+const BASE_RANGE = 16;
+const BATCH = 200;
+const BOUND_XZ = 4096;
+const BOUND_Y = 512;
+const SWEEPS = 3;
+const NEIGHBORS = [
+  { x: 1, y: 0, z: 0 },
+  { x: -1, y: 0, z: 0 },
+  { x: 0, y: 1, z: 0 },
+  { x: 0, y: -1, z: 0 },
+  { x: 0, y: 0, z: 1 },
+  { x: 0, y: 0, z: -1 },
+];
+
+const SPONGES = new Map();
+
+function register(name, capacity, range) {
+  SPONGES.set(`allenscreations:${name}`, {
+    filled: `allenscreations:${name}_wet`,
+    capacity,
+    range,
+  });
+}
+
+register("op_sponge", BASE_CAPACITY * 4, BASE_RANGE * 2);
+
+function keyOf(origin, location) {
+  const dx = location.x - origin.x + BOUND_XZ;
+  const dz = location.z - origin.z + BOUND_XZ;
+  const dy = location.y - origin.y + BOUND_Y;
+  if (dx < 0 || dz < 0 || dy < 0 || dx >= 2 * BOUND_XZ || dz >= 2 * BOUND_XZ || dy >= 2 * BOUND_Y) {
+    return -1;
+  }
+  return (dx * 2 * BOUND_XZ + dz) * 2 * BOUND_Y + dy;
+}
+
+function locationOf(origin, key) {
+  const dy = key % (2 * BOUND_Y);
+  const rest = Math.floor(key / (2 * BOUND_Y));
+  const dz = rest % (2 * BOUND_XZ);
+  const dx = Math.floor(rest / (2 * BOUND_XZ));
+  return { x: origin.x + dx - BOUND_XZ, y: origin.y + dy - BOUND_Y, z: origin.z + dz - BOUND_XZ };
+}
+
+function readBlock(dimension, location) {
+  try {
+    return dimension.getBlock(location);
+  } catch (error) {
+    return undefined;
+  }
+}
+
+function drain(block) {
+  try {
+    if (WATER.has(block.typeId)) {
+      block.setType("minecraft:air");
+      return true;
+    }
+    if (block.isWaterlogged) {
+      block.setWaterlogged(false);
+      return true;
+    }
+  } catch (error) {
+    return false;
+  }
+  return false;
+}
+
+function* absorb(dimension, origin, spongeId, sponge) {
+  const seen = new Set([keyOf(origin, origin)]);
+  const drained = [];
+  let frontier = [origin];
+  let removed = 0;
+  let reads = 0;
+  for (let distance = 1; distance <= sponge.range && frontier.length > 0 && removed < sponge.capacity; distance++) {
+    const next = [];
+    for (const cell of frontier) {
+      for (const step of NEIGHBORS) {
+        if (removed >= sponge.capacity) {
+          break;
+        }
+        const location = { x: cell.x + step.x, y: cell.y + step.y, z: cell.z + step.z };
+        const key = keyOf(origin, location);
+        if (key < 0 || seen.has(key)) {
+          continue;
+        }
+        seen.add(key);
+        reads++;
+        if (reads % BATCH === 0) {
+          yield;
+        }
+        const block = readBlock(dimension, location);
+        if (block && drain(block)) {
+          removed++;
+          drained.push(key);
+          next.push(location);
+        }
+      }
+    }
+    frontier = next;
+  }
+  if (removed === 0) {
+    return;
+  }
+  for (let pass = 0; pass < SWEEPS; pass++) {
+    const total = drained.length;
+    let again = 0;
+    for (let i = 0; i < total; i++) {
+      reads++;
+      if (reads % BATCH === 0) {
+        yield;
+      }
+      const block = readBlock(dimension, locationOf(origin, drained[i]));
+      if (block && drain(block)) {
+        again++;
+      }
+    }
+    if (again === 0) {
+      break;
+    }
+  }
+  const after = readBlock(dimension, origin);
+  if (!after || after.typeId !== spongeId) {
+    return;
+  }
+  after.setType(sponge.filled);
+}
+
+world.afterEvents.playerPlaceBlock.subscribe((event) => {
+  const block = event.block;
+  const sponge = SPONGES.get(block.typeId);
+  if (!sponge) {
+    return;
+  }
+  const origin = { x: block.location.x, y: block.location.y, z: block.location.z };
+  system.runJob(absorb(block.dimension, origin, block.typeId, sponge));
+});
+```
+
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/subpacks/normal/scripts/main.js (142 lines, 3640 bytes)
+
+```
+import { system, world } from "@minecraft/server";
+
+const WATER = new Set(["minecraft:water", "minecraft:flowing_water"]);
+const BASE_CAPACITY = 256;
+const BASE_RANGE = 16;
+const BATCH = 200;
+const BOUND_XZ = 4096;
+const BOUND_Y = 512;
+const SWEEPS = 3;
+const NEIGHBORS = [
+  { x: 1, y: 0, z: 0 },
+  { x: -1, y: 0, z: 0 },
+  { x: 0, y: 1, z: 0 },
+  { x: 0, y: -1, z: 0 },
+  { x: 0, y: 0, z: 1 },
+  { x: 0, y: 0, z: -1 },
+];
+
+const SPONGES = new Map();
+
+function register(name, capacity, range) {
+  SPONGES.set(`allenscreations:${name}`, {
+    filled: `allenscreations:${name}_wet`,
+    capacity,
+    range,
+  });
+}
+
+register("op_sponge", BASE_CAPACITY, BASE_RANGE);
+
+function keyOf(origin, location) {
+  const dx = location.x - origin.x + BOUND_XZ;
+  const dz = location.z - origin.z + BOUND_XZ;
+  const dy = location.y - origin.y + BOUND_Y;
+  if (dx < 0 || dz < 0 || dy < 0 || dx >= 2 * BOUND_XZ || dz >= 2 * BOUND_XZ || dy >= 2 * BOUND_Y) {
+    return -1;
+  }
+  return (dx * 2 * BOUND_XZ + dz) * 2 * BOUND_Y + dy;
+}
+
+function locationOf(origin, key) {
+  const dy = key % (2 * BOUND_Y);
+  const rest = Math.floor(key / (2 * BOUND_Y));
+  const dz = rest % (2 * BOUND_XZ);
+  const dx = Math.floor(rest / (2 * BOUND_XZ));
+  return { x: origin.x + dx - BOUND_XZ, y: origin.y + dy - BOUND_Y, z: origin.z + dz - BOUND_XZ };
+}
+
+function readBlock(dimension, location) {
+  try {
+    return dimension.getBlock(location);
+  } catch (error) {
+    return undefined;
+  }
+}
+
+function drain(block) {
+  try {
+    if (WATER.has(block.typeId)) {
+      block.setType("minecraft:air");
+      return true;
+    }
+    if (block.isWaterlogged) {
+      block.setWaterlogged(false);
+      return true;
+    }
+  } catch (error) {
+    return false;
+  }
+  return false;
+}
+
+function* absorb(dimension, origin, spongeId, sponge) {
+  const seen = new Set([keyOf(origin, origin)]);
+  const drained = [];
+  let frontier = [origin];
+  let removed = 0;
+  let reads = 0;
+  for (let distance = 1; distance <= sponge.range && frontier.length > 0 && removed < sponge.capacity; distance++) {
+    const next = [];
+    for (const cell of frontier) {
+      for (const step of NEIGHBORS) {
+        if (removed >= sponge.capacity) {
+          break;
+        }
+        const location = { x: cell.x + step.x, y: cell.y + step.y, z: cell.z + step.z };
+        const key = keyOf(origin, location);
+        if (key < 0 || seen.has(key)) {
+          continue;
+        }
+        seen.add(key);
+        reads++;
+        if (reads % BATCH === 0) {
+          yield;
+        }
+        const block = readBlock(dimension, location);
+        if (block && drain(block)) {
+          removed++;
+          drained.push(key);
+          next.push(location);
+        }
+      }
+    }
+    frontier = next;
+  }
+  if (removed === 0) {
+    return;
+  }
+  for (let pass = 0; pass < SWEEPS; pass++) {
+    const total = drained.length;
+    let again = 0;
+    for (let i = 0; i < total; i++) {
+      reads++;
+      if (reads % BATCH === 0) {
+        yield;
+      }
+      const block = readBlock(dimension, locationOf(origin, drained[i]));
+      if (block && drain(block)) {
+        again++;
+      }
+    }
+    if (again === 0) {
+      break;
+    }
+  }
+  const after = readBlock(dimension, origin);
+  if (!after || after.typeId !== spongeId) {
+    return;
+  }
+  after.setType(sponge.filled);
+}
+
+world.afterEvents.playerPlaceBlock.subscribe((event) => {
+  const block = event.block;
+  const sponge = SPONGES.get(block.typeId);
+  if (!sponge) {
+    return;
+  }
+  const origin = { x: block.location.x, y: block.location.y, z: block.location.z };
+  system.runJob(absorb(block.dimension, origin, block.typeId, sponge));
+});
+```
+
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/subpacks/unlimited/scripts/main.js (142 lines, 3633 bytes)
+
+```
+import { system, world } from "@minecraft/server";
+
+const WATER = new Set(["minecraft:water", "minecraft:flowing_water"]);
+const BASE_CAPACITY = 256;
+const BASE_RANGE = 16;
+const BATCH = 200;
+const BOUND_XZ = 4096;
+const BOUND_Y = 512;
+const SWEEPS = 3;
+const NEIGHBORS = [
+  { x: 1, y: 0, z: 0 },
+  { x: -1, y: 0, z: 0 },
+  { x: 0, y: 1, z: 0 },
+  { x: 0, y: -1, z: 0 },
+  { x: 0, y: 0, z: 1 },
+  { x: 0, y: 0, z: -1 },
+];
+
+const SPONGES = new Map();
+
+function register(name, capacity, range) {
+  SPONGES.set(`allenscreations:${name}`, {
+    filled: `allenscreations:${name}_wet`,
+    capacity,
+    range,
+  });
+}
+
+register("op_sponge", Infinity, Infinity);
+
+function keyOf(origin, location) {
+  const dx = location.x - origin.x + BOUND_XZ;
+  const dz = location.z - origin.z + BOUND_XZ;
+  const dy = location.y - origin.y + BOUND_Y;
+  if (dx < 0 || dz < 0 || dy < 0 || dx >= 2 * BOUND_XZ || dz >= 2 * BOUND_XZ || dy >= 2 * BOUND_Y) {
+    return -1;
+  }
+  return (dx * 2 * BOUND_XZ + dz) * 2 * BOUND_Y + dy;
+}
+
+function locationOf(origin, key) {
+  const dy = key % (2 * BOUND_Y);
+  const rest = Math.floor(key / (2 * BOUND_Y));
+  const dz = rest % (2 * BOUND_XZ);
+  const dx = Math.floor(rest / (2 * BOUND_XZ));
+  return { x: origin.x + dx - BOUND_XZ, y: origin.y + dy - BOUND_Y, z: origin.z + dz - BOUND_XZ };
+}
+
+function readBlock(dimension, location) {
+  try {
+    return dimension.getBlock(location);
+  } catch (error) {
+    return undefined;
+  }
+}
+
+function drain(block) {
+  try {
+    if (WATER.has(block.typeId)) {
+      block.setType("minecraft:air");
+      return true;
+    }
+    if (block.isWaterlogged) {
+      block.setWaterlogged(false);
+      return true;
+    }
+  } catch (error) {
+    return false;
+  }
+  return false;
+}
+
+function* absorb(dimension, origin, spongeId, sponge) {
+  const seen = new Set([keyOf(origin, origin)]);
+  const drained = [];
+  let frontier = [origin];
+  let removed = 0;
+  let reads = 0;
+  for (let distance = 1; distance <= sponge.range && frontier.length > 0 && removed < sponge.capacity; distance++) {
+    const next = [];
+    for (const cell of frontier) {
+      for (const step of NEIGHBORS) {
+        if (removed >= sponge.capacity) {
+          break;
+        }
+        const location = { x: cell.x + step.x, y: cell.y + step.y, z: cell.z + step.z };
+        const key = keyOf(origin, location);
+        if (key < 0 || seen.has(key)) {
+          continue;
+        }
+        seen.add(key);
+        reads++;
+        if (reads % BATCH === 0) {
+          yield;
+        }
+        const block = readBlock(dimension, location);
+        if (block && drain(block)) {
+          removed++;
+          drained.push(key);
+          next.push(location);
+        }
+      }
+    }
+    frontier = next;
+  }
+  if (removed === 0) {
+    return;
+  }
+  for (let pass = 0; pass < SWEEPS; pass++) {
+    const total = drained.length;
+    let again = 0;
+    for (let i = 0; i < total; i++) {
+      reads++;
+      if (reads % BATCH === 0) {
+        yield;
+      }
+      const block = readBlock(dimension, locationOf(origin, drained[i]));
+      if (block && drain(block)) {
+        again++;
+      }
+    }
+    if (again === 0) {
+      break;
+    }
+  }
+  const after = readBlock(dimension, origin);
+  if (!after || after.typeId !== spongeId) {
+    return;
+  }
+  after.setType(sponge.filled);
+}
+
+world.afterEvents.playerPlaceBlock.subscribe((event) => {
+  const block = event.block;
+  const sponge = SPONGES.get(block.typeId);
+  if (!sponge) {
+    return;
+  }
+  const origin = { x: block.location.x, y: block.location.y, z: block.location.z };
+  system.runJob(absorb(block.dimension, origin, block.typeId, sponge));
+});
+```
+
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/texts/en_US.lang (3 lines, 109 bytes)
 
 ```
 tile.allenscreations:op_sponge.name=OP Sponge
 tile.allenscreations:op_sponge_wet.name=Water-Filled OP Sponge
-tile.allenscreations:super_sponge_1.name=Super Sponge I
-tile.allenscreations:super_sponge_1_wet.name=Water-Filled Super Sponge I
-tile.allenscreations:super_sponge_2.name=Super Sponge II
-tile.allenscreations:super_sponge_2_wet.name=Water-Filled Super Sponge II
-tile.allenscreations:super_sponge_3.name=Super Sponge III
-tile.allenscreations:super_sponge_3_wet.name=Water-Filled Super Sponge III
-tile.allenscreations:super_sponge_4.name=Super Sponge IV
-tile.allenscreations:super_sponge_4_wet.name=Water-Filled Super Sponge IV
-tile.allenscreations:super_sponge_5.name=Super Sponge V
-tile.allenscreations:super_sponge_5_wet.name=Water-Filled Super Sponge V
-tile.allenscreations:super_sponge_6.name=Super Sponge VI
-tile.allenscreations:super_sponge_6_wet.name=Water-Filled Super Sponge VI
-tile.allenscreations:super_sponge_7.name=Super Sponge VII
-tile.allenscreations:super_sponge_7_wet.name=Water-Filled Super Sponge VII
-tile.allenscreations:super_sponge_8.name=Super Sponge VIII
-tile.allenscreations:super_sponge_8_wet.name=Water-Filled Super Sponge VIII
-tile.allenscreations:super_sponge_9.name=Super Sponge IX
-tile.allenscreations:super_sponge_9_wet.name=Water-Filled Super Sponge IX
-tile.allenscreations:super_sponge_10.name=Super Sponge X
-tile.allenscreations:super_sponge_10_wet.name=Water-Filled Super Sponge X
-tile.allenscreations:extreme_sponge_1.name=Extreme Sponge I
-tile.allenscreations:extreme_sponge_1_wet.name=Water-Filled Extreme Sponge I
-item.allenscreations:super_sponge_book_1.name=Super Sponge I Book
-item.allenscreations:super_sponge_book_2.name=Super Sponge II Book
-item.allenscreations:super_sponge_book_3.name=Super Sponge III Book
-item.allenscreations:super_sponge_book_4.name=Super Sponge IV Book
-item.allenscreations:super_sponge_book_5.name=Super Sponge V Book
-item.allenscreations:super_sponge_book_6.name=Super Sponge VI Book
-item.allenscreations:super_sponge_book_7.name=Super Sponge VII Book
-item.allenscreations:super_sponge_book_8.name=Super Sponge VIII Book
-item.allenscreations:super_sponge_book_9.name=Super Sponge IX Book
-item.allenscreations:super_sponge_book_10.name=Super Sponge X Book
-item.allenscreations:extreme_sponge_book_1.name=Extreme Sponge I Book
 ```
 
 ## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/texts/languages.json (2 lines, 10 bytes)
@@ -6185,12 +1043,828 @@ item.allenscreations:extreme_sponge_book_1.name=Extreme Sponge I Book
 ["en_US"]
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/CHANGELOG.md (53 lines, 2600 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/trading/economy_trades/librarian_trades.json (785 lines, 20905 bytes)
+
+```
+{
+  "tiers": [
+    {
+      "total_exp_required": 0,
+      "groups": [
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "minecraft:paper",
+                  "quantity": 24,
+                  "price_multiplier": 0.05
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 2,
+              "max_uses": 16,
+              "reward_exp": true
+            }
+          ]
+        },
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 9,
+                  "price_multiplier": 0.05
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:bookshelf",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 1,
+              "max_uses": 12,
+              "reward_exp": true
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "price_multiplier": 0.2
+                },
+                {
+                  "item": "minecraft:book",
+                  "quantity": 1,
+                  "price_multiplier": 0.2
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:book",
+                  "quantity": 1,
+                  "functions": [
+                    {
+                      "function": "enchant_book_for_trading",
+                      "base_cost": 2,
+                      "base_random_cost": 5,
+                      "per_level_random_cost": 10,
+                      "per_level_cost": 3
+                    }
+                  ]
+                }
+              ],
+              "trader_exp": 1,
+              "max_uses": 12,
+              "reward_exp": true
+            }
+          ]
+        },
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 12,
+                  "price_multiplier": 0.2
+                },
+                {
+                  "item": "minecraft:book",
+                  "quantity": 1,
+                  "price_multiplier": 0.2
+                }
+              ],
+              "gives": [
+                {
+                  "item": "allenscreations:super_sponge_book_1",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 7,
+              "max_uses": 3,
+              "reward_exp": true
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 16,
+                  "price_multiplier": 0.2
+                },
+                {
+                  "item": "minecraft:book",
+                  "quantity": 1,
+                  "price_multiplier": 0.2
+                }
+              ],
+              "gives": [
+                {
+                  "item": "allenscreations:super_sponge_book_2",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 9,
+              "max_uses": 3,
+              "reward_exp": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 10,
+      "groups": [
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "minecraft:book",
+                  "quantity": 4,
+                  "price_multiplier": 0.05
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 10,
+              "max_uses": 12,
+              "reward_exp": true
+            }
+          ]
+        },
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1,
+                  "price_multiplier": 0.05
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:lantern",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 5,
+              "max_uses": 12,
+              "reward_exp": true
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "price_multiplier": 0.2
+                },
+                {
+                  "item": "minecraft:book",
+                  "quantity": 1,
+                  "price_multiplier": 0.2
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:book",
+                  "quantity": 1,
+                  "functions": [
+                    {
+                      "function": "enchant_book_for_trading",
+                      "base_cost": 2,
+                      "base_random_cost": 5,
+                      "per_level_random_cost": 10,
+                      "per_level_cost": 3
+                    }
+                  ]
+                }
+              ],
+              "trader_exp": 5,
+              "max_uses": 12,
+              "reward_exp": true
+            }
+          ]
+        },
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 16,
+                  "price_multiplier": 0.2
+                },
+                {
+                  "item": "minecraft:book",
+                  "quantity": 1,
+                  "price_multiplier": 0.2
+                }
+              ],
+              "gives": [
+                {
+                  "item": "allenscreations:super_sponge_book_2",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 9,
+              "max_uses": 3,
+              "reward_exp": true
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 20,
+                  "price_multiplier": 0.2
+                },
+                {
+                  "item": "minecraft:book",
+                  "quantity": 1,
+                  "price_multiplier": 0.2
+                }
+              ],
+              "gives": [
+                {
+                  "item": "allenscreations:super_sponge_book_3",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 11,
+              "max_uses": 3,
+              "reward_exp": true
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 24,
+                  "price_multiplier": 0.2
+                },
+                {
+                  "item": "minecraft:book",
+                  "quantity": 1,
+                  "price_multiplier": 0.2
+                }
+              ],
+              "gives": [
+                {
+                  "item": "allenscreations:super_sponge_book_4",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 13,
+              "max_uses": 3,
+              "reward_exp": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 70,
+      "groups": [
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "minecraft:dye:0",
+                  "quantity": 5,
+                  "price_multiplier": 0.05
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 20,
+              "max_uses": 12,
+              "reward_exp": true
+            }
+          ]
+        },
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1,
+                  "price_multiplier": 0.05
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:glass",
+                  "quantity": 4
+                }
+              ],
+              "trader_exp": 10,
+              "max_uses": 12,
+              "reward_exp": true
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "price_multiplier": 0.2
+                },
+                {
+                  "item": "minecraft:book",
+                  "quantity": 1,
+                  "price_multiplier": 0.2
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:book",
+                  "quantity": 1,
+                  "functions": [
+                    {
+                      "function": "enchant_book_for_trading",
+                      "base_cost": 2,
+                      "base_random_cost": 5,
+                      "per_level_random_cost": 10,
+                      "per_level_cost": 3
+                    }
+                  ]
+                }
+              ],
+              "trader_exp": 10,
+              "max_uses": 12,
+              "reward_exp": true
+            }
+          ]
+        },
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 24,
+                  "price_multiplier": 0.2
+                },
+                {
+                  "item": "minecraft:book",
+                  "quantity": 1,
+                  "price_multiplier": 0.2
+                }
+              ],
+              "gives": [
+                {
+                  "item": "allenscreations:super_sponge_book_4",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 13,
+              "max_uses": 3,
+              "reward_exp": true
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 28,
+                  "price_multiplier": 0.2
+                },
+                {
+                  "item": "minecraft:book",
+                  "quantity": 1,
+                  "price_multiplier": 0.2
+                }
+              ],
+              "gives": [
+                {
+                  "item": "allenscreations:super_sponge_book_5",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 15,
+              "max_uses": 3,
+              "reward_exp": true
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 32,
+                  "price_multiplier": 0.2
+                },
+                {
+                  "item": "minecraft:book",
+                  "quantity": 1,
+                  "price_multiplier": 0.2
+                }
+              ],
+              "gives": [
+                {
+                  "item": "allenscreations:super_sponge_book_6",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 17,
+              "max_uses": 3,
+              "reward_exp": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 150,
+      "groups": [
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "minecraft:writable_book",
+                  "quantity": 1,
+                  "price_multiplier": 0.05
+                },
+                {
+                  "item": "minecraft:writable_book",
+                  "quantity": 1,
+                  "price_multiplier": 0.05
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 30,
+              "max_uses": 12,
+              "reward_exp": true
+            }
+          ]
+        },
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 4,
+                  "price_multiplier": 0.05
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:compass",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 15,
+              "max_uses": 12,
+              "reward_exp": true
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 5,
+                  "price_multiplier": 0.05
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:clock",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 15,
+              "max_uses": 12,
+              "reward_exp": true
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "price_multiplier": 0.2
+                },
+                {
+                  "item": "minecraft:book",
+                  "quantity": 1,
+                  "price_multiplier": 0.2
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:book",
+                  "quantity": 1,
+                  "functions": [
+                    {
+                      "function": "enchant_book_for_trading",
+                      "base_cost": 2,
+                      "base_random_cost": 5,
+                      "per_level_random_cost": 10,
+                      "per_level_cost": 3
+                    }
+                  ]
+                }
+              ],
+              "trader_exp": 15,
+              "max_uses": 12,
+              "reward_exp": true
+            }
+          ]
+        },
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 32,
+                  "price_multiplier": 0.2
+                },
+                {
+                  "item": "minecraft:book",
+                  "quantity": 1,
+                  "price_multiplier": 0.2
+                }
+              ],
+              "gives": [
+                {
+                  "item": "allenscreations:super_sponge_book_6",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 17,
+              "max_uses": 3,
+              "reward_exp": true
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 36,
+                  "price_multiplier": 0.2
+                },
+                {
+                  "item": "minecraft:book",
+                  "quantity": 1,
+                  "price_multiplier": 0.2
+                }
+              ],
+              "gives": [
+                {
+                  "item": "allenscreations:super_sponge_book_7",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 19,
+              "max_uses": 3,
+              "reward_exp": true
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 40,
+                  "price_multiplier": 0.2
+                },
+                {
+                  "item": "minecraft:book",
+                  "quantity": 1,
+                  "price_multiplier": 0.2
+                }
+              ],
+              "gives": [
+                {
+                  "item": "allenscreations:super_sponge_book_8",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 21,
+              "max_uses": 3,
+              "reward_exp": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 250,
+      "groups": [
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 3,
+                  "price_multiplier": 0.05
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:red_candle",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 30,
+              "max_uses": 12,
+              "reward_exp": true
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 3,
+                  "price_multiplier": 0.05
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:red_candle",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 30,
+              "max_uses": 12,
+              "reward_exp": true
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 3,
+                  "price_multiplier": 0.05
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:red_candle",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 30,
+              "max_uses": 12,
+              "reward_exp": true
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 3,
+                  "price_multiplier": 0.05
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:yellow_candle",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 30,
+              "max_uses": 12,
+              "reward_exp": true
+            }
+          ]
+        },
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 44,
+                  "price_multiplier": 0.2
+                },
+                {
+                  "item": "minecraft:book",
+                  "quantity": 1,
+                  "price_multiplier": 0.2
+                }
+              ],
+              "gives": [
+                {
+                  "item": "allenscreations:super_sponge_book_9",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 23,
+              "max_uses": 3,
+              "reward_exp": true
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 48,
+                  "price_multiplier": 0.2
+                },
+                {
+                  "item": "minecraft:book",
+                  "quantity": 1,
+                  "price_multiplier": 0.2
+                }
+              ],
+              "gives": [
+                {
+                  "item": "allenscreations:super_sponge_book_10",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 25,
+              "max_uses": 3,
+              "reward_exp": true
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 64,
+                  "price_multiplier": 0.2
+                },
+                {
+                  "item": "minecraft:book",
+                  "quantity": 1,
+                  "price_multiplier": 0.2
+                }
+              ],
+              "gives": [
+                {
+                  "item": "allenscreations:extreme_sponge_book_1",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 40,
+              "max_uses": 3,
+              "reward_exp": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+## FILE: MCPEDL/Addons/OP-Sponge/CHANGELOG.md (80 lines, 3680 bytes)
 
 ```
 # Changelog — OP Sponge
 
 ---
+
+## [v9] - 2026-11-26 - Sponges Simplified
+
+### Removed
+
+- **Sponge books**: Super Sponge I to X Book and Extreme Sponge I Book, with their crafting recipes and the chest loot changes. Chests use the game's normal loot again.
+- **Super Sponges and Extreme Sponge**: all ten Super Sponges, the Extreme Sponge, their Water-Filled versions, recipes, names and icons.
+
+### Changed
+
+- **OP Sponge**: It is now the only sponge. Choose Normal, Extremely or Unlimited power with the pack subpacks.
+
+## [v8] - 2026-11-26 - Letter S Flicker Fix
+
+### Fixed
+
+- **Letter S**: The S layer now sits a little further off the sponge surface, so it no longer flickers.
+
+## [v7] - 2026-11-26 - Power Levels And Water Recheck
+
+### Added
+
+- **Power Levels**: Three subpacks for the OP Sponge. Normal OP absorbs up to 256 water blocks, Extremely OP up to 1,024, and Unlimited OP has no block limit. Unlimited OP is the default. Choose one in the pack settings.
+
+### Fixed
+
+- **Sponges**: After draining, every sponge now re-checks the cleared cells up to 3 times and removes water that flowed back in.
 
 ## [v6] - 2026-11-25 - Letter S And Waterlogged Blocks
 
@@ -6242,49 +1916,34 @@ item.allenscreations:extreme_sponge_book_1.name=Extreme Sponge I Book
 - **Recipe**: Craft an OP Sponge from a Sponge and Prismarine Crystals.
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/DESCRIPTION.md (84 lines, 4718 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/DESCRIPTION.md (69 lines, 3508 bytes)
 
 ```
-# OP Sponge — Enchantable Sponges That Absorb Up to 100,000 Water Blocks
+# OP Sponge — A Sponge That Drains Connected Water
 
 **By ALNStudios**
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Craft Super Sponges that absorb up to 2,816 water blocks, or an Extreme Sponge that clears up to 100,000.**
+**Place the OP Sponge in or next to water and it drains the connected water, with three power levels to choose from.**
 
-> Adds the OP Sponge, ten levels of Super Sponge, and an Extreme Sponge, powered up with sponge books from chests, Librarian villagers, or crafting.
+> Adds the OP Sponge, crafted from a Sponge and Prismarine Crystals, with Normal, Extremely and Unlimited power levels.
 
 ## Overview
 
-Craft an OP Sponge, then combine it with a sponge book to make a Super Sponge or an Extreme Sponge. Place the sponge in or next to water and it removes the connected water around it, then turns into its filled version.
+Craft an OP Sponge, then place it in or next to water. It removes the connected water around it, then turns into its filled version.
 
 ## Key Features
 
 ### OP Sponge
-- **What Happens**: When placed, it absorbs all the connected water around it, including water inside waterlogged blocks, with no block limit, then becomes a Water-Filled OP Sponge.
+- **What Happens**: When placed, it absorbs the connected water around it, including water inside waterlogged blocks, then becomes a Water-Filled OP Sponge.
+- **Power Levels**: Pick one in the pack settings. Normal OP absorbs up to 256 water blocks, Extremely OP up to 1,024, and Unlimited OP has no block limit. Unlimited OP is the default.
 - **Look**: The vanilla sponge look with a letter S on every side, in both the dry and the filled version.
 - **Good To Know**: It only absorbs water, and it only reaches water in chunks that are loaded.
 
-### Super Sponge I to X
-- **What Happens**: Each level absorbs more water.
-- **Good To Know**: Super Sponges and their filled versions glow like enchanted items in your inventory and hand.
-
-### Extreme Sponge I
-- **What Happens**: It keeps absorbing until no connected water is left in reach, up to 100,000 water blocks in one use.
-- **Good To Know**: A very large drain is spread over a short time, so the water disappears over a moment instead of all at once.
-
-### Sponge Books
-- **What Happens**: There is a Super Sponge Book for each level from I to X, plus an Extreme Sponge I Book.
-- **Good To Know**: These are custom books, not vanilla enchantments, so the enchanting table and the anvil do not offer them.
-
-### Finding Books
-- **What Happens**: Sponge books can appear in shipwreck treasure chests, buried treasure, big ocean ruins, dungeons, stronghold libraries, ancient cities, desert temples, woodland mansions, jungle temples, and end city chests.
-- **Good To Know**: To add the books, this add-on replaces the vanilla loot lists of those chests and the Librarian trade list.
-
 ### Filled Sponges
-- **What Happens**: Every sponge has a Water-Filled version that you can pick up, carry, and place like any other block.
+- **What Happens**: The OP Sponge has a Water-Filled version that you can pick up, carry, and place like any other block.
 - **Good To Know**: Filled sponges use the wet Sponge look.
 
 ### Crafting
@@ -6293,8 +1952,8 @@ Craft an OP Sponge, then combine it with a sponge book to make a Super Sponge or
 ## How to Use
 
 1. Craft an OP Sponge from a Sponge and Prismarine Crystals.
-2. Find or buy a sponge book, then craft it together with the OP Sponge to make a Super Sponge or an Extreme Sponge.
-3. Place the sponge in or next to the water you want to remove, then smelt the filled sponge in a furnace to reuse it.
+2. Place the OP Sponge in or next to the water you want to remove.
+3. Smelt the filled sponge in a furnace to reuse it.
 
 ## Compatibility
 
@@ -6326,7 +1985,7 @@ Craft an OP Sponge, then combine it with a sponge book to make a Super Sponge or
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, OP Sponge Bedrock mod, Super Sponge, Extreme Sponge, sponge books, drain water, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+Minecraft Bedrock add-on, OP Sponge Bedrock mod, sponge, drain water, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
 ```
 
 ## FILE: MCPEDL/Addons/OP-Sponge/project.json (2 lines, 39 bytes)
@@ -6349,7 +2008,7 @@ Download the current release of **OP Sponge** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download OP Sponge (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OP-Sponge/OPSponge%20V6.mcaddon)
+- **Direct download:** [Download OP Sponge (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OP-Sponge/OPSponge%20V9.mcaddon)
 
 ## Installation
 
@@ -6368,11 +2027,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "OP Sponge (v6)",
+    "name": "OP Sponge (v9)",
     "description": "Textures for the add-on. by ALNStudios",
     "uuid": "67a33773-ea19-4d9c-a50c-0de79e1cf7aa",
     "version": [
-      6,
+      9,
       0,
       0
     ],
@@ -6387,7 +2046,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "f8d35b1f-a27a-457d-a97c-2d29d3b0c5a8",
       "version": [
-        6,
+        9,
         0,
         0
       ]
@@ -6398,12 +2057,12 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "6.0.0"
+    "version": "9.0.0"
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/resource_pack/models/blocks/op_sponge.geo.json (45 lines, 1609 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/resource_pack/models/blocks/op_sponge.geo.json (45 lines, 1603 bytes)
 
 ```
 {
@@ -6433,8 +2092,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
               }
             },
             {
-              "origin": [-8.02, -0.02, -8.02],
-              "size": [16.04, 16.04, 16.04],
+              "origin": [-8.2, -0.2, -8.2],
+              "size": [16.4, 16.4, 16.4],
               "uv": {
                 "north": { "uv": [0, 0], "uv_size": [16, 16], "material_instance": "letter" },
                 "east": { "uv": [0, 0], "uv_size": [16, 16], "material_instance": "letter" },
@@ -6452,70 +2111,17 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/resource_pack/texts/en_US.lang (36 lines, 2302 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/resource_pack/texts/en_US.lang (3 lines, 109 bytes)
 
 ```
 tile.allenscreations:op_sponge.name=OP Sponge
 tile.allenscreations:op_sponge_wet.name=Water-Filled OP Sponge
-tile.allenscreations:super_sponge_1.name=Super Sponge I
-tile.allenscreations:super_sponge_1_wet.name=Water-Filled Super Sponge I
-tile.allenscreations:super_sponge_2.name=Super Sponge II
-tile.allenscreations:super_sponge_2_wet.name=Water-Filled Super Sponge II
-tile.allenscreations:super_sponge_3.name=Super Sponge III
-tile.allenscreations:super_sponge_3_wet.name=Water-Filled Super Sponge III
-tile.allenscreations:super_sponge_4.name=Super Sponge IV
-tile.allenscreations:super_sponge_4_wet.name=Water-Filled Super Sponge IV
-tile.allenscreations:super_sponge_5.name=Super Sponge V
-tile.allenscreations:super_sponge_5_wet.name=Water-Filled Super Sponge V
-tile.allenscreations:super_sponge_6.name=Super Sponge VI
-tile.allenscreations:super_sponge_6_wet.name=Water-Filled Super Sponge VI
-tile.allenscreations:super_sponge_7.name=Super Sponge VII
-tile.allenscreations:super_sponge_7_wet.name=Water-Filled Super Sponge VII
-tile.allenscreations:super_sponge_8.name=Super Sponge VIII
-tile.allenscreations:super_sponge_8_wet.name=Water-Filled Super Sponge VIII
-tile.allenscreations:super_sponge_9.name=Super Sponge IX
-tile.allenscreations:super_sponge_9_wet.name=Water-Filled Super Sponge IX
-tile.allenscreations:super_sponge_10.name=Super Sponge X
-tile.allenscreations:super_sponge_10_wet.name=Water-Filled Super Sponge X
-tile.allenscreations:extreme_sponge_1.name=Extreme Sponge I
-tile.allenscreations:extreme_sponge_1_wet.name=Water-Filled Extreme Sponge I
-item.allenscreations:super_sponge_book_1.name=Super Sponge I Book
-item.allenscreations:super_sponge_book_2.name=Super Sponge II Book
-item.allenscreations:super_sponge_book_3.name=Super Sponge III Book
-item.allenscreations:super_sponge_book_4.name=Super Sponge IV Book
-item.allenscreations:super_sponge_book_5.name=Super Sponge V Book
-item.allenscreations:super_sponge_book_6.name=Super Sponge VI Book
-item.allenscreations:super_sponge_book_7.name=Super Sponge VII Book
-item.allenscreations:super_sponge_book_8.name=Super Sponge VIII Book
-item.allenscreations:super_sponge_book_9.name=Super Sponge IX Book
-item.allenscreations:super_sponge_book_10.name=Super Sponge X Book
-item.allenscreations:extreme_sponge_book_1.name=Extreme Sponge I Book
 ```
 
 ## FILE: MCPEDL/Addons/OP-Sponge/resource_pack/texts/languages.json (2 lines, 10 bytes)
 
 ```
 ["en_US"]
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/resource_pack/textures/item_texture.json (16 lines, 373 bytes)
-
-```
-{
-  "resource_pack_name": "op_sponge",
-  "texture_name": "atlas.items",
-  "texture_data": {
-    "allenscreations_sponge_icon": {
-      "textures": "textures/blocks/sponge"
-    },
-    "allenscreations_sponge_wet_icon": {
-      "textures": "textures/blocks/sponge_wet"
-    },
-    "allenscreations_sponge_book": {
-      "textures": "textures/items/book_enchanted"
-    }
-  }
-}
 ```
 
 ## FILE: MCPEDL/Addons/OP-Sponge/resource_pack/textures/terrain_texture.json (18 lines, 412 bytes)

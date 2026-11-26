@@ -1,0 +1,8 @@
+{
+  "changelog_version": "8.0.0",
+  "manifest_version": "8.0.0",
+  "packages": {
+    "OPSponge V8.mcaddon": "5f21d89ba723dd8845369cc55ff6aba376149e55af7a4ce276fceda1b6487dbd"
+  },
+  "source_sha256": "10d83c6f5c618fd056af990a079188a6b3429c9705541dfccd3be047669942ad"
+}

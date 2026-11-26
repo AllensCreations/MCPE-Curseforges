@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:WarpScrolls (v1)",
+    "name": "ALN:WarpScrolls (v6)",
     "description": "Single-use Warp Scrolls teleport you to named Beacon Gate waypoints. by ALNStudios",
     "uuid": "385a1114-94c1-43be-a73e-c61a9eeef875",
     "version": [
-      1,
+      6,
       0,
       0
     ],
@@ -20,7 +20,7 @@
       "type": "data",
       "uuid": "b557997e-6f03-4cd3-8686-94109496b2fa",
       "version": [
-        1,
+        6,
         0,
         0
       ]
@@ -31,7 +31,7 @@
       "uuid": "3db2e03b-b444-4245-9c6e-67bbf6a4578c",
       "entry": "scripts/main.js",
       "version": [
-        1,
+        6,
         0,
         0
       ]
@@ -41,7 +41,7 @@
     {
       "uuid": "08b3a65a-a0d1-453a-a445-72cc1a9b1682",
       "version": [
-        1,
+        6,
         0,
         0
       ]
@@ -60,6 +60,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "6.0.0"
   }
 }

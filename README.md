@@ -55,7 +55,7 @@ See the [repository changelog](CHANGELOG.md) for the latest updates.
 
 ## CurseForge Live Status
 <!-- CURSEFORGE-STATUS:START -->
-### Published Packs on CurseForge (35)
+### Published Packs on CurseForge (37)
 
 | Pack | Category | CurseForge Project | Version | Status |
 | :--- | :--- | :---: | :---: | :---: |
@@ -65,6 +65,8 @@ See the [repository changelog](CHANGELOG.md) for the latest updates.
 | [**ALN-GlobalMarket**](MCPEDL/Addons/ALN-GlobalMarket/README.md) | Add-ons | [1826201](https://www.curseforge.com/projects/1826201) | `v1.0.2` | 🟢 Published |
 | [**ALN:OneClickSort**](MCPEDL/Addons/ALNOneClickSort/README.md) | Add-ons | [1818338](https://www.curseforge.com/projects/1818338) | `v12` | 🟢 Published |
 | [**ALN:PirateTokens**](MCPEDL/Addons/ALNPirateTokens/README.md) | Add-ons | [1824277](https://www.curseforge.com/projects/1824277) | `v1.0.4` | 🟢 Published |
+| [**ALN:SpiritSphere**](MCPEDL/Addons/ALNSpiritSphere/README.md) | Add-ons | [1831969](https://www.curseforge.com/projects/1831969) | `v7` | 🟢 Published |
+| [**ALN:WarpScrolls**](MCPEDL/Addons/ALNWarpScrolls/README.md) | Add-ons | [1831750](https://www.curseforge.com/projects/1831750) | `v5` | 🟢 Published |
 | [**Cheat Stick**](MCPEDL/Addons/Cheat-Stick/README.md) | Add-ons | [1798250](https://www.curseforge.com/projects/1798250) | `v4` | 🟢 Published |
 | [**Combat Helper**](MCPEDL/Addons/ALN-Pointer/README.md) | Add-ons | [1816055](https://www.curseforge.com/projects/1816055) | `v21` | 🟢 Published |
 | [**Enchanter**](MCPEDL/Addons/Enchanter/README.md) | Add-ons | [1802037](https://www.curseforge.com/projects/1802037) | `v2` | 🟢 Published |
@@ -79,9 +81,9 @@ See the [repository changelog](CHANGELOG.md) for the latest updates.
 | [**Universal Leash**](MCPEDL/Addons/Universal-Leash/README.md) | Add-ons | [1795874](https://www.curseforge.com/projects/1795874) | `v3` | 🟢 Published |
 | [**Vanilla Quality of Life**](MCPEDL/Addons/Vanilla-Quality-of-Life/README.md) | Add-ons | [1742470](https://www.curseforge.com/projects/1742470) | `v12` | 🟢 Published |
 | [**Waypoint Helper**](MCPEDL/Addons/Waypoint-Helper/README.md) | Add-ons | [1799752](https://www.curseforge.com/projects/1799752) | `v2` | 🟢 Published |
-| [**ALN:MultiIslandOneBlock**](MCPEDL/Maps/ALNMultiIslandOneBlock/README.md) | Maps | [1825799](https://www.curseforge.com/projects/1825799) | `v10` | 🟢 Published |
+| [**ALN:MultiIslandOneBlock**](MCPEDL/Maps/ALNMultiIslandOneBlock/README.md) | Maps | [1825799](https://www.curseforge.com/projects/1825799) | `v12` | 🟢 Published |
 | [**One Block Skyblock Lucky Blocks**](MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/README.md) | Maps | [1821677](https://www.curseforge.com/projects/1821677) | `v9` | 🟢 Published |
-| [**OneBlock Natural Market**](MCPEDL/Maps/OneBlock-Natural-Market/README.md) | Maps | [1819420](https://www.curseforge.com/projects/1819420) | `v16.0.11` | 🟢 Published |
+| [**OneBlock Natural Market**](MCPEDL/Maps/OneBlock-Natural-Market/README.md) | Maps | [1819420](https://www.curseforge.com/projects/1819420) | `v17.0.1` | 🟢 Published |
 | [**OneBlock Void Survival**](MCPEDL/Maps/OneBlock-Void-Survival/README.md) | Maps | [1740769](https://www.curseforge.com/projects/1740769) | `v10` | 🟢 Published |
 | [**ALN:MobStacker**](MCPEDL/Script/ALN-MobStacker/README.md) | Scripts | [1821753](https://www.curseforge.com/projects/1821753) | `v5` | 🟢 Published |
 | [**ALN:SpawnControl**](MCPEDL/Script/ALNSpawnControl/README.md) | Scripts | [1812574](https://www.curseforge.com/projects/1812574) | `v3.0.3` | 🟢 Published |

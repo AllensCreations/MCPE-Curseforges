@@ -4,15 +4,45 @@
 
 - **Export request:** `MCPEDL/Maps/OneBlock-Natural-Market`
 - **Destination:** `MCPEDL/Maps/OneBlock-Natural-Market`
-- **CURRENT VERSION: v16 / NEXT UPDATE: v17**  (`MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md`)
+- **CURRENT VERSION: v17 / NEXT UPDATE: v18**  (`MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
-- **Text files:** 18
-- **Skipped binary:** 235
+- **Text files:** 51
+- **Skipped binary:** 181
 - **Paths not found:** 0
 
 ### Files in this export
 
 - `MCPEDL/Maps/OneBlock-Natural-Market/assets/snapshots/snapshots`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_01_note.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_02_note.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_03_note.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_04_note.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_05_note.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_06_note.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_07_note.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_08_note.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_09_note.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_10_note.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_11_note.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_12_note.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_13_note.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_14_note.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_15_note.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_16_note.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_17_note.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_18_note.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_19_note.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_20_note.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_21_note.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_22_note.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_23_note.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_24_note.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_25_note.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_26_note.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_27_note.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_28_note.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_29_note.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_30_note.json`
 - `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/functions/oneblock_setup.mcfunction`
 - `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/functions/oneblock_tick.mcfunction`
 - `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/functions/tick.json`
@@ -27,11 +57,17 @@
 - `MCPEDL/Maps/OneBlock-Natural-Market/oneblock.json`
 - `MCPEDL/Maps/OneBlock-Natural-Market/README.md`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/manifest.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/texts/en_US.lang`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/item_texture.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/terrain_texture.json`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/ASSET-NOTICE.md`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/ui_chest_disabled/server_form.json`
 
-### Skipped (binary): 235 file(s)
+### Not inlined: 1 larger file(s), ask the user for the exact paths you need
+
+- `MCPEDL/Maps/OneBlock-Natural-Market/texture_sources/core_blocks.json` (255212 bytes)
+
+### Skipped (binary): 181 file(s)
 
 - `MCPEDL/Maps/OneBlock-Natural-Market/OneBlock Natural Market - Creative.mcworld`
 - `MCPEDL/Maps/OneBlock-Natural-Market/OneBlock Natural Market - Hardcore.mcworld`
@@ -45,35 +81,35 @@
 - `MCPEDL/Maps/OneBlock-Natural-Market/assets/snapshots/TOOLS & GEARS.jpg`
 - `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/pack_icon.png`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/pack_icon.png`
-- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/items/trader_ledger.png`
-- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/chest_panel.png`
-- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/acacia_log.png`
-- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/ancient_debris.png`
-- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/andesite.png`
-- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/anvil.png`
-- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/apple.png`
-- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/arrow.png`
-- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/axolotl_spawn_egg.png`
-- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/baked_potato.png`
-- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/bamboo.png`
-- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/basalt.png`
-- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/beacon.png`
-- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/bee_spawn_egg.png`
-- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/beetroot.png`
-- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/beetroot_seeds.png`
-- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/birch_log.png`
-- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/birch_planks.png`
-- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/blackstone.png`
-- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/blaze_powder.png`
-- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/blaze_rod.png`
-- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/blaze_spawn_egg.png`
-- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/blue_wool.png`
-- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/bone.png`
-- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/bow.png`
-- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/bread.png`
-- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/brick_block.png`
-- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/icons/bricks.png`
-- ... and 195 more
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/blocks/core_01_note.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/blocks/core_02_note.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/blocks/core_03_note.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/blocks/core_04_note.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/blocks/core_05_note.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/blocks/core_06_note.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/blocks/core_07_note.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/blocks/core_08_note.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/blocks/core_09_note.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/blocks/core_10_note.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/blocks/core_11_note.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/blocks/core_12_note.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/blocks/core_13_note.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/blocks/core_14_note.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/blocks/core_15_note.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/blocks/core_16_note.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/blocks/core_17_note.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/blocks/core_18_note.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/blocks/core_19_note.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/blocks/core_20_note.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/blocks/core_21_note.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/blocks/core_22_note.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/blocks/core_23_note.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/blocks/core_24_note.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/blocks/core_25_note.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/blocks/core_26_note.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/blocks/core_27_note.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/blocks/core_28_note.png`
+- ... and 141 more
 
 ---
 
@@ -84,7 +120,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v16 / NEXT UPDATE: v17).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v17 / NEXT UPDATE: v18).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE self-contained update `.sh` (`<Pack>_v<Version>_<rand>.sh`) built with `make_update_script.py` (INSTRUCTIONS.md Reply Format).
@@ -236,6 +272,756 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 .gitkeep
 ```
 
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_01_note.json (21 lines, 461 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:core_01_note"
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 0.5
+      },
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "core_01_note",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_02_note.json (21 lines, 461 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:core_02_note"
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 0.5
+      },
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "core_02_note",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_03_note.json (21 lines, 461 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:core_03_note"
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 0.5
+      },
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "core_03_note",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_04_note.json (21 lines, 461 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:core_04_note"
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 0.5
+      },
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "core_04_note",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_05_note.json (21 lines, 461 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:core_05_note"
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 0.5
+      },
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "core_05_note",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_06_note.json (21 lines, 461 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:core_06_note"
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 0.7
+      },
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "core_06_note",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_07_note.json (21 lines, 461 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:core_07_note"
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 0.7
+      },
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "core_07_note",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_08_note.json (21 lines, 461 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:core_08_note"
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 0.7
+      },
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "core_08_note",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_09_note.json (21 lines, 461 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:core_09_note"
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 0.7
+      },
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "core_09_note",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_10_note.json (21 lines, 461 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:core_10_note"
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 0.7
+      },
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "core_10_note",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_11_note.json (21 lines, 461 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:core_11_note"
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 1.0
+      },
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "core_11_note",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_12_note.json (21 lines, 461 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:core_12_note"
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 1.0
+      },
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "core_12_note",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_13_note.json (21 lines, 461 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:core_13_note"
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 1.0
+      },
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "core_13_note",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_14_note.json (21 lines, 461 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:core_14_note"
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 1.0
+      },
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "core_14_note",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_15_note.json (21 lines, 461 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:core_15_note"
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 1.0
+      },
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "core_15_note",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_16_note.json (21 lines, 461 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:core_16_note"
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 1.3
+      },
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "core_16_note",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_17_note.json (21 lines, 461 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:core_17_note"
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 1.3
+      },
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "core_17_note",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_18_note.json (21 lines, 461 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:core_18_note"
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 1.3
+      },
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "core_18_note",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_19_note.json (21 lines, 461 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:core_19_note"
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 1.3
+      },
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "core_19_note",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_20_note.json (21 lines, 461 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:core_20_note"
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 1.3
+      },
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "core_20_note",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_21_note.json (21 lines, 461 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:core_21_note"
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 1.7
+      },
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "core_21_note",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_22_note.json (21 lines, 461 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:core_22_note"
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 1.7
+      },
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "core_22_note",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_23_note.json (21 lines, 461 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:core_23_note"
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 1.7
+      },
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "core_23_note",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_24_note.json (21 lines, 461 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:core_24_note"
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 1.7
+      },
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "core_24_note",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_25_note.json (21 lines, 461 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:core_25_note"
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 1.7
+      },
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "core_25_note",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_26_note.json (21 lines, 461 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:core_26_note"
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 2.2
+      },
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "core_26_note",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_27_note.json (21 lines, 461 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:core_27_note"
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 2.2
+      },
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "core_27_note",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_28_note.json (21 lines, 461 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:core_28_note"
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 2.2
+      },
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "core_28_note",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_29_note.json (21 lines, 461 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:core_29_note"
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 2.2
+      },
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "core_29_note",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_30_note.json (21 lines, 461 bytes)
+
+```
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:core_30_note"
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 2.2
+      },
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "core_30_note",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}
+```
+
 ## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/functions/oneblock_setup.mcfunction (2 lines, 1 bytes)
 
 ```
@@ -306,19 +1092,19 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/manifest.json (66 lines, 1185 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/manifest.json (66 lines, 1179 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v16.0.11)",
+    "name": "OneBlock Natural Market (v17.0.1)",
     "description": "OneBlock survival with a progression market and regenerating core. by ALNStudios",
     "uuid": "77f07d1a-fa7a-437d-8fea-72068be05162",
     "version": [
-      16,
+      17,
       0,
-      11
+      1
     ],
     "min_engine_version": [
       1,
@@ -331,9 +1117,9 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "type": "data",
       "uuid": "6382a3dd-3398-4ec5-851b-748d052c0e36",
       "version": [
-        16,
+        17,
         0,
-        11
+        1
       ]
     },
     {
@@ -341,9 +1127,9 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "language": "javascript",
       "uuid": "645e0490-52c0-4f43-b412-0f20375a92fc",
       "version": [
-        16,
+        17,
         0,
-        11
+        1
       ],
       "entry": "scripts/main.js"
     }
@@ -352,9 +1138,9 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
     {
       "uuid": "187333a6-4353-4003-b379-471f85ce9021",
       "version": [
-        16,
+        17,
         0,
-        11
+        1
       ]
     },
     {
@@ -371,38 +1157,104 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "16.0.11"
+    "version": "17.0.1"
   }
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/lib/Oneblock_Progression.js (895 lines, 36327 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/lib/Oneblock_Progression.js (1173 lines, 50865 bytes)
 
 ```
+/**
+ * Oneblock_Progression.js
+ * Pure Data Pool Foundation for OneBlock Maps, Add-ons, and Minigames.
+ * Target: Minecraft Bedrock 1.26.50 (all ids are Bedrock ids, not Java ids).
+ *
+ * ARCHITECTURE PRINCIPLE:
+ * - This file ONLY holds the DATA POOLS (Blocks, Chest Loot, Mobs, Phase Milestones & Themes).
+ * - Pack-specific gameplay logic, spawn mechanics, triggers, chest roll rates, custom events,
+ *   cooldowns, and island systems belong inside the individual pack's scripts.
+ * - Packs import or read from this progression pool without mutating the shared definitions.
+ *
+ * PROGRESSION ORDER (classic OneBlock):
+ *   Overworld biomes -> Caves & Deep Dark -> Nether -> The End.
+ *   1 Plains, 2 Underground, 3 Snowy Taiga, 4 Ocean, 5 Jungle, 6 Desert, 7 Badlands,
+ *   8 Savanna Plains, 9 Dark Forest & Mushroom Fields, 10 Mangrove Swamp, 11 Cherry Grove,
+ *   12 Pale Garden, 13 Windswept Highlands, 14 Frozen Peaks & Ice Spikes, 15 Craftsman's Workshop,
+ *   16 Lush & Dripstone Caves, 17 Deepslate Depths, 18 Trial Chambers, 19 Deep Dark,
+ *   20 Nether Wastes, 21 Crimson & Warped Forests, 22 Bastion & Basalt Deltas,
+ *   23 The End, 24 End City & Void Horizon (final, endless).
+ *
+ * UNLOCK MODEL:
+ * - Each phase lists only what it UNLOCKS. Earlier content is never removed.
+ * - OneblockPoolProvider.sampleBlock/sampleChestItem/sampleMob(phase) sample from every
+ *   phase up to the current one. The newest phase's share of the weight ramps from 40%
+ *   (phase 2) to 60% (last phase); older phases share the rest evenly.
+ * - Pass { exclusive: true } to sample the current phase only, or { currentShare: 0.5 } to fix the share.
+ * - The last phase keeps unlocking nothing new: the full pool stays active forever.
+ *
+ * POOL NOTES:
+ * - Block pools hold full solid blocks only (no plants or fluids), so they survive on the OneBlock.
+ * - Chest pools hold no buckets, fluids, powders, spawn eggs, spawners or shulker items.
+ * - Mob entries may carry tags: "aquatic" (needs water) and "boss" (very strong). sampleMob skips
+ *   both by default; pass { excludeTags: [] } to allow them, or your own list to filter.
+ * - `blocksRequired` is per phase (not cumulative). The last phase never ends.
+ */
 
+/**
+ * @typedef {Object} BlockPoolEntry
+ * @property {string} id - Minecraft block identifier (e.g. "minecraft:grass_block")
+ * @property {number} weight - Relative probability weight in the pool
+ * @property {Record<string, any>} [states] - Optional block state permutations
+ */
 
+/**
+ * @typedef {Object} ChestPoolEntry
+ * @property {string} id - Minecraft item identifier (e.g. "minecraft:oak_sapling")
+ * @property {number} min - Minimum stack count
+ * @property {number} max - Maximum stack count
+ * @property {number} weight - Relative weight in the pool
+ */
 
+/**
+ * @typedef {Object} MobPoolEntry
+ * @property {string} id - Entity identifier (e.g. "minecraft:cow")
+ * @property {number} weight - Relative spawn weight in the pool
+ * @property {string[]} [tags] - Optional tags: "aquatic" (needs water), "boss" (very strong)
+ */
 
+/**
+ * @typedef {Object} PhaseDataPool
+ * @property {number} phase - Phase index (1-based)
+ * @property {string} name - Phase title
+ * @property {string} description - Lore / theme description
+ * @property {number} blocksRequired - Base block break milestone to finish phase
+ * @property {string} bedrockReplacement - Safe fallback block when breaking
+ * @property {BlockPoolEntry[]} blocks - Block pool
+ * @property {ChestPoolEntry[]} chests - Chest item loot pool
+ * @property {MobPoolEntry[]} mobs - Entity spawn pool
+ */
 
-
-
-
-
-
-
+/**
+ * Foundation Phase Pools
+ * @type {PhaseDataPool[]}
+ */
 export const ONEBLOCK_PROGRESSION_POOLS = [
+  // ────────────────────── OVERWORLD ──────────────────────
   {
     phase: 1,
     name: "Plains & Early Roots",
     description: "The humble beginnings of survival. Gather wood, dirt, and early agricultural supplies.",
-    blocksRequired: 150,
+    blocksRequired: 300,
     bedrockReplacement: "minecraft:grass_block",
     blocks: [
-      { id: "minecraft:grass_block", weight: 33 },
-      { id: "minecraft:dirt", weight: 27 },
+      { id: "minecraft:grass_block", weight: 30 },
+      { id: "minecraft:dirt", weight: 24 },
       { id: "minecraft:oak_log", weight: 18 },
       { id: "minecraft:oak_leaves", weight: 9 },
       { id: "minecraft:birch_log", weight: 5 },
+      { id: "minecraft:oak_wood", weight: 3 },
+      { id: "minecraft:birch_wood", weight: 3 },
       { id: "minecraft:clay", weight: 4 },
       { id: "minecraft:sand", weight: 4 }
     ],
@@ -426,7 +1278,7 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     phase: 2,
     name: "Underground Cavern",
     description: "Dig deep into stone layers, uncovering coal, raw iron, and subterranean minerals.",
-    blocksRequired: 250,
+    blocksRequired: 500,
     bedrockReplacement: "minecraft:stone",
     blocks: [
       { id: "minecraft:stone", weight: 30 },
@@ -460,14 +1312,15 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     phase: 3,
     name: "Snowy Taiga & Tundra",
     description: "Frozen spruce forests and packed snow. Gather leather, berries, and cold-weather supplies.",
-    blocksRequired: 300,
+    blocksRequired: 600,
     bedrockReplacement: "minecraft:snow",
     blocks: [
       { id: "minecraft:snow", weight: 20 },
       { id: "minecraft:spruce_log", weight: 20 },
       { id: "minecraft:spruce_leaves", weight: 12 },
       { id: "minecraft:podzol", weight: 10 },
-      { id: "minecraft:dirt", weight: 8 },
+      { id: "minecraft:dirt", weight: 4 },
+      { id: "minecraft:spruce_wood", weight: 4 },
       { id: "minecraft:stone", weight: 10 },
       { id: "minecraft:ice", weight: 8 },
       { id: "minecraft:packed_ice", weight: 6 },
@@ -495,21 +1348,27 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     phase: 4,
     name: "Ocean Floor",
     description: "Sunken sands, prismarine ruins, and coral beds from the depths of the ocean.",
-    blocksRequired: 350,
+    blocksRequired: 700,
     bedrockReplacement: "minecraft:sand",
     blocks: [
-      { id: "minecraft:sand", weight: 18 },
-      { id: "minecraft:gravel", weight: 14 },
+      { id: "minecraft:sand", weight: 12 },
+      { id: "minecraft:gravel", weight: 10 },
       { id: "minecraft:clay", weight: 12 },
       { id: "minecraft:prismarine", weight: 12 },
       { id: "minecraft:prismarine_bricks", weight: 8 },
       { id: "minecraft:dark_prismarine", weight: 4 },
       { id: "minecraft:sea_lantern", weight: 3 },
-      { id: "minecraft:sandstone", weight: 9 },
+      { id: "minecraft:sandstone", weight: 5 },
       { id: "minecraft:tube_coral_block", weight: 5 },
       { id: "minecraft:brain_coral_block", weight: 5 },
       { id: "minecraft:bubble_coral_block", weight: 5 },
-      { id: "minecraft:horn_coral_block", weight: 5 }
+      { id: "minecraft:horn_coral_block", weight: 5 },
+      { id: "minecraft:fire_coral_block", weight: 4 },
+      { id: "minecraft:dead_tube_coral_block", weight: 2 },
+      { id: "minecraft:dead_brain_coral_block", weight: 2 },
+      { id: "minecraft:dead_bubble_coral_block", weight: 2 },
+      { id: "minecraft:dead_horn_coral_block", weight: 2 },
+      { id: "minecraft:dead_fire_coral_block", weight: 2 }
     ],
     chests: [
       { id: "minecraft:kelp", min: 2, max: 6, weight: 20 },
@@ -525,23 +1384,25 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     mobs: [
       { id: "minecraft:drowned", weight: 55 },
       { id: "minecraft:turtle", weight: 30 },
-      { id: "minecraft:squid", weight: 15 }
+      { id: "minecraft:squid", weight: 15, tags: ["aquatic"] }
     ]
   },
   {
     phase: 5,
     name: "Jungle Canopy",
     description: "Dense jungle growth, mossy ruins, bamboo groves, and rare jungle materials.",
-    blocksRequired: 400,
+    blocksRequired: 800,
     bedrockReplacement: "minecraft:moss_block",
     blocks: [
       { id: "minecraft:jungle_log", weight: 22 },
       { id: "minecraft:jungle_leaves", weight: 18 },
-      { id: "minecraft:grass_block", weight: 12 },
-      { id: "minecraft:dirt", weight: 8 },
+      { id: "minecraft:grass_block", weight: 9 },
+      { id: "minecraft:dirt", weight: 4 },
       { id: "minecraft:mossy_cobblestone", weight: 8 },
       { id: "minecraft:moss_block", weight: 8 },
       { id: "minecraft:bamboo_block", weight: 8 },
+      { id: "minecraft:stripped_bamboo_block", weight: 3 },
+      { id: "minecraft:jungle_wood", weight: 4 },
       { id: "minecraft:melon_block", weight: 6 },
       { id: "minecraft:mud", weight: 4 },
       { id: "minecraft:lapis_ore", weight: 6 }
@@ -568,7 +1429,7 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     phase: 6,
     name: "Desert Dunes",
     description: "Scorched sands and buried temples. Sandstone, gold, and ancient desert loot.",
-    blocksRequired: 400,
+    blocksRequired: 800,
     bedrockReplacement: "minecraft:sandstone",
     blocks: [
       { id: "minecraft:sand", weight: 35 },
@@ -602,7 +1463,7 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     phase: 7,
     name: "Badlands Mesa",
     description: "Layered red clay and rich gold veins carved into towering mesas.",
-    blocksRequired: 450,
+    blocksRequired: 900,
     bedrockReplacement: "minecraft:hardened_clay",
     blocks: [
       { id: "minecraft:hardened_clay", weight: 22 },
@@ -636,13 +1497,14 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     phase: 8,
     name: "Savanna Plains",
     description: "Flat-topped acacia trees, golden hay, and wandering herds across the dry grassland.",
-    blocksRequired: 450,
+    blocksRequired: 900,
     bedrockReplacement: "minecraft:coarse_dirt",
     blocks: [
       { id: "minecraft:acacia_log", weight: 28 },
       { id: "minecraft:acacia_leaves", weight: 22 },
-      { id: "minecraft:acacia_planks", weight: 10 },
+      { id: "minecraft:acacia_wood", weight: 6 },
       { id: "minecraft:stripped_acacia_log", weight: 8 },
+      { id: "minecraft:stripped_acacia_wood", weight: 4 },
       { id: "minecraft:hay_block", weight: 6 },
       { id: "minecraft:coarse_dirt", weight: 14 },
       { id: "minecraft:grass_block", weight: 12 }
@@ -671,13 +1533,14 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     phase: 9,
     name: "Dark Forest & Mushroom Fields",
     description: "Towering dark oaks and giant glowing mushrooms growing from rich mycelium.",
-    blocksRequired: 500,
-    bedrockReplacement: "minecraft:dark_oak_planks",
+    blocksRequired: 1000,
+    bedrockReplacement: "minecraft:dark_oak_log",
     blocks: [
       { id: "minecraft:dark_oak_log", weight: 20 },
       { id: "minecraft:dark_oak_leaves", weight: 18 },
-      { id: "minecraft:dark_oak_planks", weight: 6 },
+      { id: "minecraft:dark_oak_wood", weight: 4 },
       { id: "minecraft:stripped_dark_oak_log", weight: 6 },
+      { id: "minecraft:stripped_dark_oak_wood", weight: 2 },
       { id: "minecraft:mycelium", weight: 14 },
       { id: "minecraft:brown_mushroom_block", weight: 12 },
       { id: "minecraft:red_mushroom_block", weight: 12 },
@@ -709,20 +1572,23 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     phase: 10,
     name: "Mangrove Swamp",
     description: "Muddy roots, mangrove trees, and murky swamp life.",
-    blocksRequired: 450,
+    blocksRequired: 900,
     bedrockReplacement: "minecraft:mud",
     blocks: [
-      { id: "minecraft:mud", weight: 24 },
+      { id: "minecraft:mud", weight: 20 },
       { id: "minecraft:mangrove_log", weight: 18 },
       { id: "minecraft:mangrove_leaves", weight: 12 },
       { id: "minecraft:mangrove_roots", weight: 8 },
       { id: "minecraft:muddy_mangrove_roots", weight: 12 },
       { id: "minecraft:packed_mud", weight: 6 },
       { id: "minecraft:mud_bricks", weight: 4 },
-      { id: "minecraft:clay", weight: 6 },
+      { id: "minecraft:clay", weight: 4 },
       { id: "minecraft:moss_block", weight: 4 },
-      { id: "minecraft:mangrove_planks", weight: 3 },
-      { id: "minecraft:dirt", weight: 3 }
+      { id: "minecraft:mangrove_wood", weight: 4 },
+      { id: "minecraft:stripped_mangrove_log", weight: 2 },
+      { id: "minecraft:ochre_froglight", weight: 2 },
+      { id: "minecraft:verdant_froglight", weight: 2 },
+      { id: "minecraft:pearlescent_froglight", weight: 2 }
     ],
     chests: [
       { id: "minecraft:mangrove_propagule", min: 1, max: 3, weight: 22 },
@@ -746,7 +1612,7 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     phase: 11,
     name: "Cherry Grove",
     description: "A peaceful pink-blossom meadow on the mountainside.",
-    blocksRequired: 500,
+    blocksRequired: 1000,
     bedrockReplacement: "minecraft:grass_block",
     blocks: [
       { id: "minecraft:cherry_log", weight: 20 },
@@ -754,7 +1620,8 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
       { id: "minecraft:grass_block", weight: 20 },
       { id: "minecraft:dirt", weight: 10 },
       { id: "minecraft:stripped_cherry_log", weight: 8 },
-      { id: "minecraft:cherry_planks", weight: 12 },
+      { id: "minecraft:cherry_wood", weight: 8 },
+      { id: "minecraft:stripped_cherry_wood", weight: 4 },
       { id: "minecraft:stone", weight: 6 }
     ],
     chests: [
@@ -778,15 +1645,16 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     phase: 12,
     name: "Pale Garden",
     description: "A silent, grey forest of pale oak, pale moss, and resin. The creaking stir at night.",
-    blocksRequired: 500,
+    blocksRequired: 1000,
     bedrockReplacement: "minecraft:pale_moss_block",
     blocks: [
       { id: "minecraft:pale_oak_log", weight: 24 },
       { id: "minecraft:pale_oak_leaves", weight: 20 },
       { id: "minecraft:pale_moss_block", weight: 18 },
       { id: "minecraft:dirt", weight: 10 },
-      { id: "minecraft:pale_oak_planks", weight: 10 },
+      { id: "minecraft:pale_oak_wood", weight: 6 },
       { id: "minecraft:stripped_pale_oak_log", weight: 8 },
+      { id: "minecraft:stripped_pale_oak_wood", weight: 4 },
       { id: "minecraft:coarse_dirt", weight: 6 },
       { id: "minecraft:resin_block", weight: 4 }
     ],
@@ -806,12 +1674,11 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
       { id: "minecraft:spider", weight: 15 }
     ]
   },
-
   {
     phase: 13,
     name: "Windswept Highlands",
     description: "Rocky peaks, old spruce taiga, and emerald veins high above the valleys.",
-    blocksRequired: 550,
+    blocksRequired: 1100,
     bedrockReplacement: "minecraft:stone",
     blocks: [
       { id: "minecraft:stone", weight: 18 },
@@ -820,8 +1687,8 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
       { id: "minecraft:cobblestone", weight: 6 },
       { id: "minecraft:spruce_log", weight: 14 },
       { id: "minecraft:spruce_leaves", weight: 10 },
-      { id: "minecraft:spruce_planks", weight: 6 },
       { id: "minecraft:stripped_spruce_log", weight: 4 },
+      { id: "minecraft:stripped_spruce_wood", weight: 6 },
       { id: "minecraft:podzol", weight: 8 },
       { id: "minecraft:mossy_cobblestone", weight: 8 },
       { id: "minecraft:coarse_dirt", weight: 6 },
@@ -850,43 +1717,101 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
   },
   {
     phase: 14,
+    name: "Frozen Peaks & Ice Spikes",
+    description: "Jagged snow-capped summits and towering spikes of packed and blue ice.",
+    blocksRequired: 1100,
+    bedrockReplacement: "minecraft:snow",
+    blocks: [
+      { id: "minecraft:packed_ice", weight: 24 },
+      { id: "minecraft:snow", weight: 20 },
+      { id: "minecraft:stone", weight: 14 },
+      { id: "minecraft:blue_ice", weight: 12 },
+      { id: "minecraft:calcite", weight: 10 },
+      { id: "minecraft:ice", weight: 8 },
+      { id: "minecraft:iron_ore", weight: 6 },
+      { id: "minecraft:coal_ore", weight: 6 }
+    ],
+    chests: [
+      { id: "minecraft:cooked_salmon", min: 1, max: 3, weight: 14 },
+      { id: "minecraft:iron_ingot", min: 2, max: 4, weight: 14 },
+      { id: "minecraft:coal", min: 2, max: 6, weight: 14 },
+      { id: "minecraft:cooked_cod", min: 1, max: 3, weight: 12 },
+      { id: "minecraft:leather", min: 1, max: 3, weight: 12 },
+      { id: "minecraft:sweet_berries", min: 2, max: 5, weight: 12 },
+      { id: "minecraft:fishing_rod", min: 1, max: 1, weight: 8 },
+      { id: "minecraft:emerald", min: 1, max: 2, weight: 8 },
+      { id: "minecraft:diamond", min: 1, max: 1, weight: 6 }
+    ],
+    mobs: [
+      { id: "minecraft:stray", weight: 30 },
+      { id: "minecraft:goat", weight: 25 },
+      { id: "minecraft:polar_bear", weight: 20 },
+      { id: "minecraft:skeleton", weight: 15 },
+      { id: "minecraft:snow_golem", weight: 10 }
+    ]
+  },
+  {
+    phase: 15,
     name: "Craftsman's Workshop",
     description: "A village of builders: wool, glass, concrete, bookshelves, colored clay, and copper.",
-    blocksRequired: 600,
+    blocksRequired: 1200,
     bedrockReplacement: "minecraft:cobblestone",
     blocks: [
-      { id: "minecraft:white_wool", weight: 5 },
-      { id: "minecraft:orange_wool", weight: 3 },
-      { id: "minecraft:red_wool", weight: 3 },
-      { id: "minecraft:blue_wool", weight: 3 },
-      { id: "minecraft:green_wool", weight: 3 },
-      { id: "minecraft:yellow_wool", weight: 3 },
-      { id: "minecraft:black_wool", weight: 3 },
       { id: "minecraft:glass", weight: 8 },
+      { id: "minecraft:white_wool", weight: 4 },
+      { id: "minecraft:orange_wool", weight: 2 },
+      { id: "minecraft:red_wool", weight: 2 },
+      { id: "minecraft:blue_wool", weight: 2 },
+      { id: "minecraft:green_wool", weight: 2 },
+      { id: "minecraft:yellow_wool", weight: 2 },
+      { id: "minecraft:black_wool", weight: 2 },
       { id: "minecraft:tinted_glass", weight: 2 },
+      { id: "minecraft:white_stained_glass", weight: 1 },
+      { id: "minecraft:red_stained_glass", weight: 1 },
+      { id: "minecraft:blue_stained_glass", weight: 1 },
+      { id: "minecraft:green_stained_glass", weight: 1 },
+      { id: "minecraft:yellow_stained_glass", weight: 1 },
+      { id: "minecraft:black_stained_glass", weight: 1 },
       { id: "minecraft:bookshelf", weight: 6 },
-      { id: "minecraft:chiseled_bookshelf", weight: 3 },
+      { id: "minecraft:chiseled_bookshelf", weight: 2 },
       { id: "minecraft:white_concrete", weight: 3 },
-      { id: "minecraft:orange_concrete", weight: 2 },
-      { id: "minecraft:red_concrete", weight: 2 },
-      { id: "minecraft:blue_concrete", weight: 2 },
-      { id: "minecraft:light_gray_concrete", weight: 2 },
-      { id: "minecraft:black_concrete", weight: 2 },
-      { id: "minecraft:white_terracotta", weight: 3 },
-      { id: "minecraft:orange_terracotta", weight: 3 },
-      { id: "minecraft:yellow_terracotta", weight: 3 },
-      { id: "minecraft:brown_terracotta", weight: 3 },
-      { id: "minecraft:red_terracotta", weight: 3 },
-      { id: "minecraft:light_gray_terracotta", weight: 3 },
-      { id: "minecraft:copper_block", weight: 4 },
-      { id: "minecraft:cut_copper", weight: 4 },
-      { id: "minecraft:exposed_copper", weight: 2 },
-      { id: "minecraft:weathered_copper", weight: 2 },
-      { id: "minecraft:oxidized_copper", weight: 2 },
+      { id: "minecraft:orange_concrete", weight: 1 },
+      { id: "minecraft:red_concrete", weight: 1 },
+      { id: "minecraft:blue_concrete", weight: 1 },
+      { id: "minecraft:light_gray_concrete", weight: 1 },
+      { id: "minecraft:black_concrete", weight: 1 },
+      { id: "minecraft:yellow_concrete", weight: 1 },
+      { id: "minecraft:lime_concrete", weight: 1 },
+      { id: "minecraft:cyan_concrete", weight: 1 },
+      { id: "minecraft:purple_concrete", weight: 1 },
+      { id: "minecraft:white_terracotta", weight: 2 },
+      { id: "minecraft:orange_terracotta", weight: 2 },
+      { id: "minecraft:yellow_terracotta", weight: 2 },
+      { id: "minecraft:brown_terracotta", weight: 2 },
+      { id: "minecraft:red_terracotta", weight: 2 },
+      { id: "minecraft:light_gray_terracotta", weight: 2 },
+      { id: "minecraft:white_glazed_terracotta", weight: 1 },
+      { id: "minecraft:orange_glazed_terracotta", weight: 1 },
+      { id: "minecraft:light_blue_glazed_terracotta", weight: 1 },
+      { id: "minecraft:lime_glazed_terracotta", weight: 1 },
+      { id: "minecraft:pink_glazed_terracotta", weight: 1 },
+      { id: "minecraft:purple_glazed_terracotta", weight: 1 },
+      { id: "minecraft:red_glazed_terracotta", weight: 1 },
+      { id: "minecraft:black_glazed_terracotta", weight: 1 },
+      { id: "minecraft:copper_block", weight: 3 },
+      { id: "minecraft:cut_copper", weight: 3 },
+      { id: "minecraft:exposed_copper", weight: 1 },
+      { id: "minecraft:weathered_copper", weight: 1 },
+      { id: "minecraft:oxidized_copper", weight: 1 },
       { id: "minecraft:copper_grate", weight: 2 },
       { id: "minecraft:chiseled_copper", weight: 2 },
-      { id: "minecraft:oak_planks", weight: 5 },
-      { id: "minecraft:crafting_table", weight: 4 }
+      { id: "minecraft:crafting_table", weight: 4 },
+      { id: "minecraft:pumpkin", weight: 3 },
+      { id: "minecraft:carved_pumpkin", weight: 1 },
+      { id: "minecraft:lit_pumpkin", weight: 1 },
+      { id: "minecraft:slime_block", weight: 2 },
+      { id: "minecraft:jukebox", weight: 2 },
+      { id: "minecraft:note_block", weight: 2 }
     ],
     chests: [
       { id: "minecraft:book", min: 1, max: 3, weight: 14 },
@@ -912,11 +1837,53 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     ]
   },
 
+  // ────────────────────── DEEP CAVES ──────────────────────
   {
-    phase: 15,
+    phase: 16,
+    name: "Lush & Dripstone Caves",
+    description: "Glowing moss, flowering azalea, and dripstone formations deep under the hills.",
+    blocksRequired: 1200,
+    bedrockReplacement: "minecraft:tuff",
+    blocks: [
+      { id: "minecraft:dripstone_block", weight: 16 },
+      { id: "minecraft:moss_block", weight: 14 },
+      { id: "minecraft:azalea_leaves", weight: 10 },
+      { id: "minecraft:tuff", weight: 8 },
+      { id: "minecraft:dirt_with_roots", weight: 8 },
+      { id: "minecraft:stone", weight: 8 },
+      { id: "minecraft:azalea_leaves_flowered", weight: 6 },
+      { id: "minecraft:clay", weight: 6 },
+      { id: "minecraft:amethyst_block", weight: 6 },
+      { id: "minecraft:smooth_basalt", weight: 6 },
+      { id: "minecraft:calcite", weight: 6 },
+      { id: "minecraft:copper_ore", weight: 6 }
+    ],
+    chests: [
+      { id: "minecraft:glow_berries", min: 2, max: 6, weight: 20 },
+      { id: "minecraft:azalea", min: 1, max: 2, weight: 14 },
+      { id: "minecraft:bone_meal", min: 2, max: 6, weight: 12 },
+      { id: "minecraft:flowering_azalea", min: 1, max: 2, weight: 10 },
+      { id: "minecraft:clay_ball", min: 2, max: 6, weight: 10 },
+      { id: "minecraft:raw_copper", min: 2, max: 5, weight: 10 },
+      { id: "minecraft:amethyst_shard", min: 2, max: 5, weight: 10 },
+      { id: "minecraft:spore_blossom", min: 1, max: 1, weight: 6 },
+      { id: "minecraft:big_dripleaf", min: 1, max: 2, weight: 4 },
+      { id: "minecraft:experience_bottle", min: 1, max: 2, weight: 4 }
+    ],
+    mobs: [
+      { id: "minecraft:bat", weight: 25 },
+      { id: "minecraft:zombie", weight: 20 },
+      { id: "minecraft:skeleton", weight: 20 },
+      { id: "minecraft:spider", weight: 15 },
+      { id: "minecraft:creeper", weight: 10 },
+      { id: "minecraft:cave_spider", weight: 10 }
+    ]
+  },
+  {
+    phase: 17,
     name: "Deepslate Depths",
     description: "Dark deepslate caverns rich in diamonds, redstone, copper, and trial chamber tuff.",
-    blocksRequired: 600,
+    blocksRequired: 1200,
     bedrockReplacement: "minecraft:deepslate",
     blocks: [
       { id: "minecraft:deepslate", weight: 30 },
@@ -955,10 +1922,54 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     ]
   },
   {
-    phase: 16,
+    phase: 18,
+    name: "Trial Chambers",
+    description: "Tuff-brick vaults with copper machinery, wind charges, and breeze-guarded trials.",
+    blocksRequired: 1300,
+    bedrockReplacement: "minecraft:tuff",
+    blocks: [
+      { id: "minecraft:tuff", weight: 14 },
+      { id: "minecraft:tuff_bricks", weight: 12 },
+      { id: "minecraft:polished_tuff", weight: 8 },
+      { id: "minecraft:deepslate", weight: 8 },
+      { id: "minecraft:copper_grate", weight: 8 },
+      { id: "minecraft:cut_copper", weight: 8 },
+      { id: "minecraft:chiseled_copper", weight: 6 },
+      { id: "minecraft:copper_bulb", weight: 6 },
+      { id: "minecraft:cobbled_deepslate", weight: 6 },
+      { id: "minecraft:deepslate_copper_ore", weight: 6 },
+      { id: "minecraft:chiseled_tuff", weight: 5 },
+      { id: "minecraft:oxidized_cut_copper", weight: 5 },
+      { id: "minecraft:chiseled_tuff_bricks", weight: 4 },
+      { id: "minecraft:oxidized_copper", weight: 4 }
+    ],
+    chests: [
+      { id: "minecraft:wind_charge", min: 2, max: 6, weight: 18 },
+      { id: "minecraft:emerald", min: 1, max: 3, weight: 12 },
+      { id: "minecraft:arrow", min: 4, max: 12, weight: 12 },
+      { id: "minecraft:bread", min: 2, max: 4, weight: 10 },
+      { id: "minecraft:copper_ingot", min: 2, max: 6, weight: 10 },
+      { id: "minecraft:iron_ingot", min: 2, max: 4, weight: 10 },
+      { id: "minecraft:cooked_beef", min: 1, max: 3, weight: 8 },
+      { id: "minecraft:experience_bottle", min: 1, max: 3, weight: 8 },
+      { id: "minecraft:diamond", min: 1, max: 1, weight: 6 },
+      { id: "minecraft:golden_apple", min: 1, max: 1, weight: 4 },
+      { id: "minecraft:mace", min: 1, max: 1, weight: 2 }
+    ],
+    mobs: [
+      { id: "minecraft:breeze", weight: 35 },
+      { id: "minecraft:zombie", weight: 15 },
+      { id: "minecraft:skeleton", weight: 15 },
+      { id: "minecraft:bogged", weight: 15 },
+      { id: "minecraft:cave_spider", weight: 10 },
+      { id: "minecraft:slime", weight: 10 }
+    ]
+  },
+  {
+    phase: 19,
     name: "Deep Dark",
     description: "Ancient sculk-infested depths where echo shards hide and the warden sleeps.",
-    blocksRequired: 600,
+    blocksRequired: 1200,
     bedrockReplacement: "minecraft:deepslate",
     blocks: [
       { id: "minecraft:deepslate", weight: 25 },
@@ -987,15 +1998,16 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
       { id: "minecraft:creeper", weight: 15 },
       { id: "minecraft:bat", weight: 15 },
       { id: "minecraft:silverfish", weight: 10 },
-      { id: "minecraft:warden", weight: 2 }
+      { id: "minecraft:warden", weight: 2, tags: ["boss"] }
     ]
   },
 
+  // ──────────────────────── NETHER ────────────────────────
   {
-    phase: 17,
+    phase: 20,
     name: "Nether Wastes",
     description: "Volcanic heat, soul sand, and glowing quartz from the depths of the Nether.",
-    blocksRequired: 700,
+    blocksRequired: 1400,
     bedrockReplacement: "minecraft:netherrack",
     blocks: [
       { id: "minecraft:netherrack", weight: 38 },
@@ -1027,20 +2039,24 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     ]
   },
   {
-    phase: 18,
+    phase: 21,
     name: "Crimson & Warped Forests",
     description: "Giant fungal forests of red and teal, home to hoglins, piglins, and striders.",
-    blocksRequired: 700,
+    blocksRequired: 1400,
     bedrockReplacement: "minecraft:netherrack",
     blocks: [
-      { id: "minecraft:crimson_nylium", weight: 15 },
+      { id: "minecraft:crimson_nylium", weight: 13 },
       { id: "minecraft:crimson_stem", weight: 14 },
+      { id: "minecraft:stripped_crimson_stem", weight: 3 },
+      { id: "minecraft:crimson_hyphae", weight: 3 },
       { id: "minecraft:nether_wart_block", weight: 12 },
-      { id: "minecraft:warped_nylium", weight: 15 },
+      { id: "minecraft:warped_nylium", weight: 13 },
       { id: "minecraft:warped_stem", weight: 14 },
+      { id: "minecraft:stripped_warped_stem", weight: 3 },
+      { id: "minecraft:warped_hyphae", weight: 3 },
       { id: "minecraft:warped_wart_block", weight: 12 },
       { id: "minecraft:shroomlight", weight: 6 },
-      { id: "minecraft:netherrack", weight: 12 }
+      { id: "minecraft:netherrack", weight: 4 }
     ],
     chests: [
       { id: "minecraft:crimson_fungus", min: 1, max: 3, weight: 18 },
@@ -1060,10 +2076,10 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     ]
   },
   {
-    phase: 19,
+    phase: 22,
     name: "Bastion & Basalt Deltas",
     description: "Blackstone fortresses, gilded treasure, and rare ancient debris.",
-    blocksRequired: 800,
+    blocksRequired: 1600,
     bedrockReplacement: "minecraft:blackstone",
     blocks: [
       { id: "minecraft:blackstone", weight: 25 },
@@ -1101,11 +2117,12 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     ]
   },
 
+  // ─────────────────────── THE END ───────────────────────
   {
-    phase: 20,
+    phase: 23,
     name: "The End",
     description: "The dimension beyond the stars. Pale end stone, obsidian pillars, and chorus.",
-    blocksRequired: 800,
+    blocksRequired: 1600,
     bedrockReplacement: "minecraft:end_stone",
     blocks: [
       { id: "minecraft:end_stone", weight: 60 },
@@ -1130,10 +2147,10 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
     ]
   },
   {
-    phase: 21,
+    phase: 24,
     name: "End City & Void Horizon",
     description: "Floating purpur cities and deep void treasures. The final, endless phase.",
-    blocksRequired: 1000,
+    blocksRequired: 2000,
     bedrockReplacement: "minecraft:end_stone",
     blocks: [
       { id: "minecraft:purpur_block", weight: 25 },
@@ -1165,26 +2182,45 @@ export const ONEBLOCK_PROGRESSION_POOLS = [
   }
 ];
 
+// Alias for backward compatibility
 export const ONEBLOCK_PROGRESSION = ONEBLOCK_PROGRESSION_POOLS;
 
+/** Unlock mode: share of total weight given to the newest phase. Ramps from START (phase 2) to END (last phase). */
+const CURRENT_SHARE_START = 0.4;
+const CURRENT_SHARE_END = 0.6;
 
-const DEFAULT_CURRENT_SHARE = 0.4;
+/** Mob tags skipped by default when sampling mobs. Pass { excludeTags: [] } to allow everything. */
+const DEFAULT_MOB_EXCLUDE_TAGS = ["aquatic", "boss"];
 
-
+/**
+ * Pure Data Pool Accessor
+ * Only provides sampling and lookup against the pools.
+ * Pack rules (spawn rates, mechanics) are implemented by the pack.
+ */
 export class OneblockPoolProvider {
-
+  /**
+   * @param {PhaseDataPool[]} [pools]
+   */
   constructor(pools = ONEBLOCK_PROGRESSION_POOLS) {
     this.pools = pools;
     this._unlockCache = new Map();
   }
 
-
+  /**
+   * Get phase data pool by 1-based number
+   * @param {number} phaseNumber
+   * @returns {PhaseDataPool}
+   */
   getPhasePool(phaseNumber) {
     const clampedIndex = Math.max(1, Math.min(phaseNumber, this.pools.length)) - 1;
     return this.pools[clampedIndex];
   }
 
-
+  /**
+   * Calculate milestone phase from broken block count
+   * @param {number} totalBreaks
+   * @returns {{ phase: PhaseDataPool, phaseIndex: number, phaseBreaks: number, isLastPhase: boolean }}
+   */
   getPhaseFromBreaks(totalBreaks) {
     let accumulated = 0;
     for (let i = 0; i < this.pools.length; i++) {
@@ -1208,7 +2244,12 @@ export class OneblockPoolProvider {
     };
   }
 
-
+  /**
+   * Pick random item from a weighted pool
+   * @template {{ weight: number }} T
+   * @param {T[]} pool
+   * @returns {T}
+   */
   static sampleWeighted(pool) {
     const totalWeight = pool.reduce((sum, item) => sum + item.weight, 0);
     let rand = Math.random() * totalWeight;
@@ -1219,9 +2260,22 @@ export class OneblockPoolProvider {
     return pool[pool.length - 1];
   }
 
-
-  getUnlockedPool(phaseNumber, kind, currentShare = DEFAULT_CURRENT_SHARE) {
+  /**
+   * Cumulative "unlock" pool: everything introduced in phases 1..phaseNumber.
+   * The current phase gets `currentShare` of the total weight so new content
+   * feels fresh; the remainder is split evenly across earlier phases.
+   * Duplicate ids are merged. Returns new objects; shared pools are never mutated.
+   * @param {number} phaseNumber - 1-based phase (clamped; also valid past the last phase)
+   * @param {"blocks"|"chests"|"mobs"} kind
+   * @param {number} [currentShare] - 0..1 share for the current phase
+   * @returns {Array<{ id: string, weight: number, min?: number, max?: number }>}
+   */
+  getUnlockedPool(phaseNumber, kind, currentShare) {
     const upto = Math.max(1, Math.min(Math.floor(phaseNumber) || 1, this.pools.length));
+    if (currentShare === undefined) {
+      const t = (upto - 1) / Math.max(1, this.pools.length - 1);
+      currentShare = CURRENT_SHARE_START + (CURRENT_SHARE_END - CURRENT_SHARE_START) * t;
+    }
     const key = `${kind}:${upto}:${currentShare}`;
     const cached = this._unlockCache.get(key);
     if (cached) return cached;
@@ -1250,28 +2304,38 @@ export class OneblockPoolProvider {
     return out;
   }
 
-
+  /**
+   * Resolve the pool to sample from.
+   * Default = unlock mode (earlier phases stay available). `exclusive: true` = this phase only.
+   */
   _resolvePool(phaseNumber, kind, options = {}) {
-    if (options.exclusive) return this.getPhasePool(phaseNumber)[kind];
-    return this.getUnlockedPool(phaseNumber, kind, options.currentShare);
+    const pool = options.exclusive
+      ? this.getPhasePool(phaseNumber)[kind]
+      : this.getUnlockedPool(phaseNumber, kind, options.currentShare);
+    if (kind !== "mobs") return pool;
+    const skip = options.excludeTags ?? DEFAULT_MOB_EXCLUDE_TAGS;
+    if (!skip.length) return pool;
+    const allowed = pool.filter((m) => !(m.tags ?? []).some((t) => skip.includes(t)));
+    return allowed.length ? allowed : pool;
   }
 
-
+  /** Sample a block (unlock mode by default) */
   sampleBlock(phaseNumber, options) {
     return OneblockPoolProvider.sampleWeighted(this._resolvePool(phaseNumber, "blocks", options));
   }
 
-
+  /** Sample a chest item (unlock mode by default) */
   sampleChestItem(phaseNumber, options) {
     return OneblockPoolProvider.sampleWeighted(this._resolvePool(phaseNumber, "chests", options));
   }
 
-
+  /** Sample a mob (unlock mode by default) */
   sampleMob(phaseNumber, options) {
     return OneblockPoolProvider.sampleWeighted(this._resolvePool(phaseNumber, "mobs", options));
   }
 }
 
+// Backward-compatible alias
 export const OneBlockProgressionManager = OneblockPoolProvider;
 ```
 
@@ -1323,7 +2387,7 @@ Extracted from the script files; nothing here was run in game.
 Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (865 lines, 46656 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (897 lines, 42262 bytes)
 
 ```
 import { world, system, ItemStack, ItemTypes, DisplaySlotId, ObjectiveSortOrder, EquipmentSlot } from "@minecraft/server";
@@ -1340,279 +2404,218 @@ const GLOBAL_KEY = "OneBlockNaturalMarket";
 const READY_EVENT = "allenscreations:oneblock_ready";
 const MCICON_DIR = "textures/ui/natural_market/icons/";
 const CATEGORIES = [
-  { name: "Building Blocks", icon: MCICON_DIR + "stone" },
-  { name: "Tools & Gear", icon: MCICON_DIR + "iron_pickaxe" },
+  { name: "Natural Blocks", icon: MCICON_DIR + "stone" },
   { name: "Farming", icon: MCICON_DIR + "wheat" },
-  { name: "Food", icon: MCICON_DIR + "bread" },
-  { name: "Combat", icon: MCICON_DIR + "iron_sword" },
+  { name: "Food", icon: MCICON_DIR + "beef" },
   { name: "Ores & Minerals", icon: MCICON_DIR + "diamond" },
-  { name: "Redstone", icon: MCICON_DIR + "redstone" },
   { name: "Mob Drops", icon: MCICON_DIR + "bone" },
-  { name: "Spawn Eggs", icon: MCICON_DIR + "cow_spawn_egg" },
   { name: "Nether", icon: MCICON_DIR + "netherrack" },
-  { name: "Endgame", icon: MCICON_DIR + "ender_pearl" }
+  { name: "Endgame", icon: MCICON_DIR + "ender_pearl" },
+  { name: "Spawn Eggs", icon: MCICON_DIR + "cow_spawn_egg" }
 ];
-const TIER_BLOCKS = [
-  ["dirt"], ["coarse_dirt"], ["clay"],
-  ["oak_log"], ["spruce_log"], ["birch_log"], ["jungle_log"], ["acacia_log"],
-  ["cobblestone"], ["stone"], ["andesite"], ["diorite"], ["granite"],
-  ["coal_ore", "copper_ore"], ["iron_ore"], ["gold_ore"], ["lapis_ore"], ["redstone_ore"],
-  ["deepslate_iron_ore"], ["deepslate_gold_ore"], ["diamond_ore"], ["emerald_ore"],
-  ["nether_gold_ore"], ["quartz_ore"],
-  ["stone_bricks"], ["quartz_block"], ["purpur_block"], ["crying_obsidian"],
-  ["ancient_debris"], ["obsidian"]
+const CORE_PREFIX = "allenscreations:core_";
+const CORE_COUNT = 30;
+const LEGACY_CORE = [
+  "dirt", "coarse_dirt", "clay", "oak_log", "spruce_log", "birch_log",
+  "jungle_log", "acacia_log", "cobblestone", "stone", "andesite", "diorite",
+  "granite", "coal_ore", "copper_ore", "iron_ore", "gold_ore", "lapis_ore",
+  "redstone_ore", "deepslate_iron_ore", "deepslate_gold_ore", "diamond_ore", "emerald_ore", "nether_gold_ore",
+  "quartz_ore", "blackstone", "end_stone", "crying_obsidian", "ancient_debris", "obsidian"
 ];
 const TIER_VALUES = [1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 14, 15, 17, 18, 20, 22, 24, 26, 28, 31, 33, 36, 39, 42, 45, 49, 52, 56, 60];
-const MILESTONES = TIER_BLOCKS.map((ids, i) => ({
-  unlock: i === 0 ? 0 : Math.round(10000 * Math.pow(i / (TIER_BLOCKS.length - 1), 1.6) / 10) * 10,
-  ids: ids.map(id => "minecraft:" + id),
+const TIER_WEAR = [1, 1, 2, 2, 3, 3];
+const CORE_ID = Array.from({ length: CORE_COUNT }, (_, i) => CORE_PREFIX + String(i + 1).padStart(2, "0") + "_note");
+const MILESTONES = CORE_ID.map((id, i) => ({
+  unlock: i === 0 ? 0 : Math.round(10000 * Math.pow(i / (CORE_COUNT - 1), 1.6) / 10) * 10,
+  ids: [id],
   reward: TIER_VALUES[i]
 }));
-const BLOCK_VALUE = new Map(MILESTONES.flatMap(m => m.ids.map(id => [id, m.reward])));
-function blockValue(id) { return BLOCK_VALUE.get(id) ?? 1; }
-function blockName(id) { return id.replace("minecraft:", "").split("_").map(w => w[0].toUpperCase() + w.slice(1)).join(" "); }
-const CATALOG = [
-  ["dirt", 2, 16, "Building Blocks", 0, true, "textures/blocks/dirt"],
-  ["coarse_dirt", 2, 16, "Building Blocks", 0, true, "textures/blocks/coarse_dirt"],
-  ["sand", 2, 16, "Building Blocks", 0, true, "textures/blocks/sand"],
-  ["gravel", 2, 16, "Building Blocks", 0, true, "textures/blocks/gravel"],
-  ["oak_log", 3, 8, "Building Blocks", 0, true, "textures/blocks/log_oak"],
-  ["oak_planks", 2, 16, "Building Blocks", 0, true, "textures/blocks/planks_oak"],
-  ["stick", 2, 16, "Tools & Gear", 0, false, "textures/items/stick"],
-  ["crafting_table", 5, 1, "Building Blocks", 0, true, "textures/blocks/crafting_table_front"],
-  ["torch", 2, 16, "Building Blocks", 0, true, "textures/blocks/torch_on"],
-  ["bread", 4, 4, "Food", 0, false, "textures/items/bread"],
-  ["wheat_seeds", 2, 16, "Farming", 0, false, "textures/items/seeds_wheat"],
-  ["oak_sapling", 4, 4, "Farming", 0, true, "textures/blocks/sapling_oak"],
-  ["chest", 8, 1, "Building Blocks", 0, true, "textures/blocks/chest_front"],
-  ["furnace", 10, 1, "Building Blocks", 0, true, "textures/blocks/furnace_front_off"],
-  ["wooden_pickaxe", 8, 1, "Tools & Gear", 0, false, "textures/items/wood_pickaxe"],
-  ["wooden_axe", 8, 1, "Tools & Gear", 0, false, "textures/items/wood_axe"],
-  ["wooden_shovel", 5, 1, "Tools & Gear", 0, false, "textures/items/wood_shovel"],
-  ["wooden_sword", 6, 1, "Combat", 0, false, "textures/items/wood_sword"],
-  ["cobblestone", 3, 16, "Building Blocks", 1, true, "textures/blocks/cobblestone"],
-  ["stone", 5, 16, "Building Blocks", 1, true, "textures/blocks/stone"],
-  ["glass", 6, 16, "Building Blocks", 1, true, "textures/blocks/glass"],
-  ["bricks", 12, 8, "Building Blocks", 1, true, "textures/blocks/brick"],
-  ["oak_door", 6, 4, "Building Blocks", 1, true, "textures/items/door_wood"],
-  ["oak_fence", 5, 8, "Building Blocks", 1, true, "textures/blocks/planks_oak"],
-  ["ladder", 4, 8, "Building Blocks", 1, true, "textures/blocks/ladder"],
-  ["stone_pickaxe", 16, 1, "Tools & Gear", 1, false, "textures/items/stone_pickaxe"],
-  ["stone_axe", 15, 1, "Tools & Gear", 1, false, "textures/items/stone_axe"],
-  ["stone_sword", 14, 1, "Combat", 1, false, "textures/items/stone_sword"],
-  ["stone_shovel", 10, 1, "Tools & Gear", 1, false, "textures/items/stone_shovel"],
-  ["carrot", 3, 8, "Farming", 1, false, "textures/items/carrot"],
-  ["potato", 3, 8, "Farming", 1, false, "textures/items/potato"],
-  ["wheat", 4, 8, "Farming", 1, false, "textures/items/wheat"],
-  ["composter", 8, 1, "Farming", 1, true, "textures/blocks/composter_side"],
-  ["bucket", 18, 1, "Farming", 1, false, "textures/items/bucket_empty"],
-  ["iron_ingot", 20, 2, "Ores & Minerals", 2, false, "textures/items/iron_ingot"],
-  ["coal", 8, 8, "Ores & Minerals", 2, false, "textures/items/coal"],
-  ["coal_ore", 12, 4, "Ores & Minerals", 2, true, "textures/blocks/coal_ore"],
-  ["iron_ore", 22, 4, "Ores & Minerals", 2, true, "textures/blocks/iron_ore"],
-  ["stone_bricks", 10, 16, "Building Blocks", 2, true, "textures/blocks/stonebrick"],
-  ["lantern", 12, 4, "Building Blocks", 2, true, "textures/items/lantern"],
-  ["iron_pickaxe", 45, 1, "Tools & Gear", 2, false, "textures/items/iron_pickaxe"],
-  ["iron_axe", 40, 1, "Tools & Gear", 2, false, "textures/items/iron_axe"],
-  ["iron_sword", 38, 1, "Combat", 2, false, "textures/items/iron_sword"],
-  ["iron_shovel", 24, 1, "Tools & Gear", 2, false, "textures/items/iron_shovel"],
-  ["shield", 35, 1, "Combat", 2, false, ""],
-  ["bow", 30, 1, "Combat", 2, false, "textures/items/bow_standby"],
-  ["arrow", 3, 16, "Combat", 2, false, "textures/items/arrow"],
-  ["pumpkin_seeds", 4, 8, "Farming", 2, false, "textures/items/seeds_pumpkin"],
-  ["melon_seeds", 4, 8, "Farming", 2, false, "textures/items/seeds_melon"],
-  ["hay_block", 10, 4, "Farming", 2, true, "textures/blocks/hay_block_side"],
-  ["redstone", 14, 8, "Redstone", 3, false, "textures/items/redstone_dust"],
-  ["redstone_torch", 12, 8, "Redstone", 3, true, "textures/blocks/redstone_torch_on"],
-  ["lever", 8, 4, "Redstone", 3, true, "textures/items/lever"],
-  ["piston", 25, 2, "Redstone", 3, true, "textures/blocks/piston_top_normal"],
-  ["dispenser", 18, 1, "Redstone", 3, true, "textures/blocks/dispenser_front_horizontal"],
-  ["hopper", 30, 1, "Redstone", 3, true, "textures/items/hopper"],
-  ["iron_block", 90, 2, "Ores & Minerals", 3, true, "textures/blocks/iron_block"],
-  ["gold_ingot", 35, 2, "Ores & Minerals", 3, false, "textures/items/gold_ingot"],
-  ["gold_ore", 38, 4, "Ores & Minerals", 3, true, "textures/blocks/gold_ore"],
-  ["anvil", 70, 1, "Tools & Gear", 3, true, "textures/blocks/anvil_base"],
-  ["fishing_rod", 25, 1, "Tools & Gear", 3, false, "textures/items/fishing_rod_uncast"],
-  ["shears", 28, 1, "Tools & Gear", 3, false, "textures/items/shears"],
-  ["apple", 5, 8, "Food", 3, false, "textures/items/apple"],
-  ["cooked_beef", 8, 8, "Food", 3, false, "textures/items/beef_cooked"],
-  ["bone", 8, 8, "Mob Drops", 3, false, "textures/items/bone"],
-  ["string", 8, 8, "Mob Drops", 3, false, "textures/items/string"],
-  ["rotten_flesh", 3, 8, "Mob Drops", 3, false, "textures/items/rotten_flesh"],
-  ["golden_apple", 80, 1, "Food", 4, false, "textures/items/apple_golden"],
-  ["diamond", 60, 2, "Ores & Minerals", 4, false, "textures/items/diamond"],
-  ["diamond_ore", 90, 4, "Ores & Minerals", 4, true, "textures/blocks/diamond_ore"],
-  ["emerald", 65, 2, "Ores & Minerals", 4, false, "textures/items/emerald"],
-  ["emerald_ore", 95, 4, "Ores & Minerals", 4, true, "textures/blocks/emerald_ore"],
-  ["lapis_lazuli", 18, 8, "Ores & Minerals", 4, false, "textures/items/dye_powder_blue"],
-  ["enchanting_table", 120, 1, "Tools & Gear", 4, true, "textures/blocks/enchanting_table_side"],
-  ["diamond_pickaxe", 140, 1, "Tools & Gear", 4, false, "textures/items/diamond_pickaxe"],
-  ["diamond_sword", 120, 1, "Combat", 4, false, "textures/items/diamond_sword"],
-  ["diamond_axe", 130, 1, "Tools & Gear", 4, false, "textures/items/diamond_axe"],
-  ["experience_bottle", 25, 4, "Tools & Gear", 4, false, "textures/items/experience_bottle"],
-  ["ender_pearl", 35, 2, "Endgame", 5, false, "textures/items/ender_pearl"],
-  ["blaze_rod", 40, 2, "Nether", 5, false, "textures/items/blaze_rod"],
-  ["blaze_powder", 24, 4, "Nether", 5, false, "textures/items/blaze_powder"],
-  ["netherrack", 12, 16, "Nether", 5, true, "textures/blocks/netherrack"],
-  ["soul_sand", 15, 8, "Nether", 5, true, "textures/blocks/soul_sand"],
-  ["nether_brick", 18, 8, "Nether", 5, true, "textures/blocks/nether_brick"],
-  ["magma_block", 20, 8, "Nether", 5, true, "textures/blocks/magma"],
-  ["obsidian", 30, 4, "Nether", 6, true, "textures/blocks/obsidian"],
-  ["crying_obsidian", 45, 4, "Nether", 6, true, "textures/blocks/crying_obsidian"],
-  ["ghast_tear", 55, 1, "Mob Drops", 6, false, "textures/items/ghast_tear"],
-  ["nether_wart", 18, 8, "Farming", 6, false, "textures/items/nether_wart"],
-  ["quartz", 24, 8, "Nether", 6, false, "textures/items/quartz"],
-  ["quartz_block", 28, 8, "Nether", 6, true, "textures/blocks/quartz_block_side"],
-  ["ender_eye", 65, 2, "Endgame", 7, false, "textures/items/ender_eye"],
-  ["end_stone", 25, 16, "Endgame", 7, true, "textures/blocks/end_stone"],
-  ["purpur_block", 32, 8, "Endgame", 7, true, "textures/blocks/purpur_block"],
-  ["chorus_fruit", 20, 4, "Endgame", 7, false, "textures/items/chorus_fruit"],
-  ["shulker_shell", 75, 1, "Endgame", 7, false, "textures/items/shulker_shell"],
-  ["elytra", 800, 1, "Endgame", 8, false, "textures/items/elytra"],
-  ["shulker_box", 150, 1, "Endgame", 8, true, "textures/blocks/shulker_top_undyed"],
-  ["nether_star", 600, 1, "Endgame", 8, false, "textures/items/nether_star"],
-  ["beacon", 750, 1, "Endgame", 8, true, "textures/blocks/beacon"],
-  ["ancient_debris", 250, 2, "Nether", 8, true, "textures/blocks/ancient_debris_side"],
-  ["netherite_ingot", 500, 1, "Ores & Minerals", 9, false, "textures/items/netherite_ingot"],
-  ["netherite_block", 1200, 1, "Endgame", 9, true, "textures/blocks/netherite_block"],
-  ["totem_of_undying", 900, 1, "Combat", 9, false, "textures/items/totem"],
-  ["enchanted_golden_apple", 500, 1, "Food", 9, false, "textures/items/apple_golden"],
-  ["spruce_log", 3, 8, "Building Blocks", 0, true, "textures/blocks/log_spruce"],
-  ["birch_log", 3, 8, "Building Blocks", 0, true, "textures/blocks/log_birch"],
-  ["jungle_log", 3, 8, "Building Blocks", 0, true, "textures/blocks/log_jungle"],
-  ["acacia_log", 3, 8, "Building Blocks", 0, true, "textures/blocks/log_acacia"],
-  ["dark_oak_log", 3, 8, "Building Blocks", 0, true, "textures/blocks/log_big_oak"],
-  ["mangrove_log", 4, 8, "Building Blocks", 1, true, "textures/blocks/mangrove_log_side"],
-  ["cherry_log", 4, 8, "Building Blocks", 1, true, "textures/blocks/cherry_log_top"],
-  ["spruce_planks", 2, 16, "Building Blocks", 0, true, "textures/blocks/planks_spruce"],
-  ["birch_planks", 2, 16, "Building Blocks", 0, true, "textures/blocks/planks_birch"],
-  ["dark_oak_planks", 2, 16, "Building Blocks", 1, true, "textures/blocks/planks_big_oak"],
-  ["sandstone", 4, 16, "Building Blocks", 1, true, "textures/blocks/sandstone_normal"],
-  ["red_sandstone", 5, 16, "Building Blocks", 2, true, "textures/blocks/red_sandstone_normal"],
-  ["moss_block", 8, 8, "Building Blocks", 2, true, "textures/blocks/moss_block"],
-  ["mossy_cobblestone", 7, 16, "Building Blocks", 2, true, "textures/blocks/cobblestone_mossy"],
-  ["granite", 4, 16, "Building Blocks", 1, true, "textures/blocks/stone_granite"],
-  ["diorite", 4, 16, "Building Blocks", 1, true, "textures/blocks/stone_diorite"],
-  ["andesite", 4, 16, "Building Blocks", 1, true, "textures/blocks/stone_andesite"],
-  ["deepslate", 8, 16, "Building Blocks", 3, true, "textures/blocks/deepslate/deepslate"],
-  ["calcite", 7, 16, "Building Blocks", 3, true, "textures/blocks/calcite"],
-  ["tuff", 6, 16, "Building Blocks", 3, true, "textures/blocks/tuff"],
-  ["terracotta", 8, 16, "Building Blocks", 3, true, "textures/blocks/hardened_clay"],
-  ["white_wool", 6, 16, "Building Blocks", 1, true, "textures/blocks/wool_colored_white"],
-  ["blue_wool", 7, 16, "Building Blocks", 2, true, "textures/blocks/wool_colored_blue"],
-  ["packed_ice", 12, 8, "Building Blocks", 4, true, "textures/blocks/ice_packed"],
-  ["snow_block", 5, 8, "Building Blocks", 2, true, "textures/blocks/snow"],
-  ["brick_block", 12, 8, "Building Blocks", 2, true, "textures/blocks/brick"],
-  ["stone_hoe", 12, 1, "Tools & Gear", 1, false, "textures/items/stone_hoe"],
-  ["iron_hoe", 28, 1, "Tools & Gear", 2, false, "textures/items/iron_hoe"],
-  ["diamond_hoe", 95, 1, "Tools & Gear", 4, false, "textures/items/diamond_hoe"],
-  ["golden_pickaxe", 22, 1, "Tools & Gear", 3, false, "textures/items/gold_pickaxe"],
-  ["golden_axe", 20, 1, "Tools & Gear", 3, false, "textures/items/gold_axe"],
-  ["golden_sword", 18, 1, "Combat", 3, false, "textures/items/gold_sword"],
-  ["crossbow", 48, 1, "Combat", 4, false, "textures/items/crossbow_standby"],
-  ["trident", 280, 1, "Combat", 7, false, "textures/items/trident"],
-  ["beetroot", 3, 8, "Farming", 1, false, "textures/items/beetroot"],
-  ["beetroot_seeds", 3, 8, "Farming", 1, false, "textures/items/seeds_beetroot"],
-  ["melon_slice", 3, 8, "Food", 1, false, "textures/items/melon"],
-  ["pumpkin", 4, 4, "Farming", 1, true, "textures/blocks/pumpkin_side"],
-  ["sugar_cane", 3, 8, "Farming", 1, true, "textures/items/reeds"],
-  ["bamboo", 4, 8, "Farming", 1, true, "textures/blocks/bamboo_stem"],
-  ["cocoa_beans", 4, 8, "Farming", 2, false, "textures/items/dye_powder_brown"],
-  ["sweet_berries", 5, 8, "Farming", 2, false, "textures/items/sweet_berries"],
-  ["cooked_chicken", 7, 8, "Food", 2, false, "textures/items/chicken_cooked"],
-  ["cooked_porkchop", 8, 8, "Food", 2, false, "textures/items/porkchop_cooked"],
-  ["cooked_mutton", 8, 8, "Food", 3, false, "textures/items/mutton_cooked"],
-  ["baked_potato", 5, 8, "Food", 2, false, "textures/items/potato_baked"],
-  ["golden_carrot", 18, 4, "Food", 4, false, "textures/items/carrot_golden"],
-  ["pumpkin_pie", 10, 4, "Food", 3, false, "textures/items/pumpkin_pie"],
-  ["cookie", 4, 8, "Food", 1, false, "textures/items/cookie"],
-  ["cake", 20, 1, "Food", 3, false, "textures/items/cake"],
-  ["redstone_block", 60, 2, "Redstone", 4, true, "textures/blocks/redstone_block"],
-  ["repeater", 18, 4, "Redstone", 3, true, "textures/items/repeater"],
-  ["comparator", 24, 2, "Redstone", 4, true, "textures/items/comparator"],
-  ["observer", 28, 2, "Redstone", 4, true, "textures/blocks/observer_front"],
-  ["dropper", 18, 2, "Redstone", 3, true, "textures/blocks/dropper_front_horizontal"],
-  ["sticky_piston", 32, 2, "Redstone", 4, true, "textures/blocks/piston_top_sticky"],
-  ["daylight_detector", 26, 1, "Redstone", 4, true, "textures/blocks/daylight_detector_top"],
-  ["target", 22, 2, "Redstone", 4, true, "textures/blocks/target_side"],
-  ["tripwire_hook", 8, 4, "Redstone", 3, false, "textures/blocks/trip_wire_source"],
-  ["spider_eye", 8, 8, "Mob Drops", 3, false, "textures/items/spider_eye"],
-  ["gunpowder", 10, 8, "Mob Drops", 3, false, "textures/items/gunpowder"],
-  ["slime_ball", 18, 4, "Mob Drops", 4, false, "textures/items/slimeball"],
-  ["leather", 8, 8, "Mob Drops", 3, false, "textures/items/leather"],
-  ["feather", 5, 8, "Mob Drops", 2, false, "textures/items/feather"],
-  ["ink_sac", 7, 8, "Mob Drops", 3, false, "textures/items/dye_powder_black"],
-  ["prismarine_shard", 18, 4, "Mob Drops", 5, false, "textures/items/prismarine_shard"],
-  ["prismarine_crystals", 20, 4, "Mob Drops", 5, false, "textures/items/prismarine_crystals"],
-  ["rabbit_hide", 6, 8, "Mob Drops", 3, false, "textures/items/rabbit_hide"],
-  ["nautilus_shell", 45, 1, "Mob Drops", 6, false, "textures/items/nautilus"],
-
-  ["basalt", 10, 16, "Nether", 5, true, "textures/blocks/basalt_side"],
-  ["blackstone", 10, 16, "Nether", 5, true, "textures/blocks/blackstone"],
-  ["polished_blackstone", 12, 16, "Nether", 6, true, "textures/blocks/polished_blackstone"],
-  ["crimson_stem", 8, 8, "Nether", 5, true, "textures/blocks/huge_fungus/crimson_log_top"],
-  ["warped_stem", 8, 8, "Nether", 5, true, "textures/blocks/huge_fungus/warped_stem_top"],
-
-  ["glowstone_dust", 15, 8, "Nether", 5, false, "textures/items/glowstone_dust"],
-  ["soul_torch", 5, 8, "Nether", 5, true, "textures/blocks/soul_torch"],
-
-  ["ender_chest", 120, 1, "Endgame", 6, true, "textures/blocks/ender_chest_front"],
-
-  ["end_crystal", 120, 1, "Endgame", 8, false, "textures/items/end_crystal"],
-  ["dragon_breath", 90, 1, "Endgame", 8, false, "textures/items/dragons_breath"],
-  ["conduit", 350, 1, "Endgame", 8, true, "textures/blocks/conduit_base"],
-
-  ["heart_of_the_sea", 160, 1, "Endgame", 7, false, "textures/items/heartofthesea_closed"]
-].map(([raw, price, amount, category, tier, block, icon]) => ({
-  id: "minecraft:" + raw, raw, price, amount, category, tier, block, icon,
-  name: raw.split("_").map(s => s[0].toUpperCase() + s.slice(1)).join(" ")
-}));
-
-const OLD_TIER_TO_NEW = [0, 2, 4, 7, 12, 18, 21, 24, 26, 28];
-const TIER_FIX = {
-  oak_log: 1, oak_planks: 1, spruce_log: 1, birch_log: 1, jungle_log: 1, acacia_log: 1, dark_oak_log: 1,
-  spruce_planks: 1, birch_planks: 1, stick: 1, crafting_table: 1, chest: 1,
-  wooden_pickaxe: 1, wooden_axe: 1, wooden_shovel: 1, wooden_sword: 1,
-  furnace: 2, torch: 3, coal: 3, coal_ore: 3,
-  gold_ore: 5, gold_ingot: 5, golden_pickaxe: 5, golden_axe: 5, golden_sword: 5,
-  lapis_lazuli: 8, crying_obsidian: 27, ancient_debris: 28, obsidian: 29
-};
-for (const item of CATALOG) {
-  let t = OLD_TIER_TO_NEW[item.tier] ?? 0;
-  if (item.category === "Redstone" && item.tier === 3) t = 9;
-  item.tier = TIER_FIX[item.raw] ?? t;
+const BLOCK_TIER = new Map();
+CORE_ID.forEach((id, i) => BLOCK_TIER.set(id, i));
+LEGACY_CORE.forEach((slug, i) => BLOCK_TIER.set("minecraft:" + slug, i));
+BLOCK_TIER.set("minecraft:stone_bricks", 25);
+BLOCK_TIER.set("minecraft:quartz_block", 26);
+BLOCK_TIER.set("minecraft:purpur_block", 26);
+function coreTier(id) { return BLOCK_TIER.get(id) ?? 0; }
+function blockValue(id) { return BLOCK_TIER.has(id) ? TIER_VALUES[BLOCK_TIER.get(id)] : 1; }
+function blockName(id) {
+  const note = /^allenscreations:core_(\d+)_note$/.exec(id);
+  if (note) return "Currency Block " + Number(note[1]);
+  return id.replace(/^[^:]*:/, "").split("_").map(w => w[0].toUpperCase() + w.slice(1)).join(" ");
 }
-function makeEntry(raw, price, amount, category, tier, block, icon) {
+const NAME_FIX = {
+  beef: "Raw Beef", porkchop: "Raw Porkchop", chicken: "Raw Chicken", mutton: "Raw Mutton",
+  rabbit: "Raw Rabbit", cod: "Raw Cod", salmon: "Raw Salmon"
+};
+function makeEntry(raw, price, amount, category, tier) {
   return {
-    id: "minecraft:" + raw, raw, price, amount, category, tier, block, icon,
-    name: raw.split("_").map(w => w[0].toUpperCase() + w.slice(1)).join(" ")
+    id: "minecraft:" + raw, raw, price, amount, category, tier,
+    name: NAME_FIX[raw] ?? raw.split("_").map(w => w[0].toUpperCase() + w.slice(1)).join(" ")
   };
 }
-CATALOG.push(
-  makeEntry("copper_ore", 14, 4, "Ores & Minerals", 3, true, "textures/blocks/copper_ore"),
-  makeEntry("copper_ingot", 12, 4, "Ores & Minerals", 3, false, "textures/items/copper_ingot")
-);
+const CATALOG = [
+  ["dirt", 2, 16, "Natural Blocks", 0],
+  ["sand", 2, 16, "Natural Blocks", 0],
+  ["gravel", 2, 16, "Natural Blocks", 0],
+  ["wheat_seeds", 2, 16, "Farming", 0],
+  ["coarse_dirt", 2, 16, "Natural Blocks", 1],
+  ["clay", 4, 8, "Natural Blocks", 2],
+  ["oak_sapling", 4, 4, "Farming", 2],
+  ["oak_log", 3, 8, "Natural Blocks", 3],
+  ["carrot", 3, 8, "Farming", 3],
+  ["potato", 3, 8, "Farming", 3],
+  ["beetroot_seeds", 3, 8, "Farming", 3],
+  ["spruce_log", 3, 8, "Natural Blocks", 4],
+  ["wheat", 4, 8, "Farming", 4],
+  ["pumpkin", 4, 4, "Farming", 4],
+  ["beetroot", 3, 8, "Farming", 4],
+  ["apple", 5, 8, "Food", 4],
+  ["birch_log", 3, 8, "Natural Blocks", 5],
+  ["white_wool", 6, 16, "Natural Blocks", 5],
+  ["pumpkin_seeds", 4, 8, "Farming", 5],
+  ["melon_seeds", 4, 8, "Farming", 5],
+  ["melon_slice", 3, 8, "Food", 5],
+  ["sugar_cane", 3, 8, "Farming", 5],
+  ["feather", 5, 8, "Mob Drops", 5],
+  ["jungle_log", 3, 8, "Natural Blocks", 6],
+  ["bamboo", 4, 8, "Farming", 6],
+  ["beef", 5, 8, "Food", 6],
+  ["porkchop", 5, 8, "Food", 6],
+  ["chicken", 4, 8, "Food", 6],
+  ["bone", 8, 8, "Mob Drops", 6],
+  ["rotten_flesh", 3, 8, "Mob Drops", 6],
+  ["leather", 8, 8, "Mob Drops", 6],
+  ["acacia_log", 3, 8, "Natural Blocks", 7],
+  ["dark_oak_log", 3, 8, "Natural Blocks", 7],
+  ["sweet_berries", 5, 8, "Farming", 7],
+  ["mutton", 5, 8, "Food", 7],
+  ["rabbit", 4, 8, "Food", 7],
+  ["string", 8, 8, "Mob Drops", 7],
+  ["mangrove_log", 4, 8, "Natural Blocks", 8],
+  ["cherry_log", 4, 8, "Natural Blocks", 8],
+  ["cobblestone", 3, 16, "Natural Blocks", 8],
+  ["cocoa_beans", 4, 8, "Farming", 8],
+  ["cod", 4, 8, "Food", 8],
+  ["salmon", 5, 8, "Food", 8],
+  ["coal", 8, 8, "Ores & Minerals", 8],
+  ["spider_eye", 8, 8, "Mob Drops", 8],
+  ["rabbit_hide", 6, 8, "Mob Drops", 8],
+  ["stone", 5, 16, "Natural Blocks", 9],
+  ["sandstone", 4, 16, "Natural Blocks", 9],
+  ["gunpowder", 10, 8, "Mob Drops", 9],
+  ["ink_sac", 7, 8, "Mob Drops", 9],
+  ["andesite", 4, 16, "Natural Blocks", 10],
+  ["red_sandstone", 5, 16, "Natural Blocks", 10],
+  ["diorite", 4, 16, "Natural Blocks", 11],
+  ["granite", 4, 16, "Natural Blocks", 12],
+  ["terracotta", 8, 16, "Natural Blocks", 12],
+  ["mossy_cobblestone", 7, 16, "Natural Blocks", 12],
+  ["slime_ball", 18, 4, "Mob Drops", 12],
+  ["moss_block", 8, 8, "Natural Blocks", 13],
+  ["coal_ore", 12, 4, "Ores & Minerals", 13],
+  ["raw_copper", 8, 8, "Ores & Minerals", 13],
+  ["tuff", 6, 16, "Natural Blocks", 14],
+  ["copper_ore", 10, 4, "Ores & Minerals", 14],
+  ["raw_iron", 14, 8, "Ores & Minerals", 14],
+  ["iron_ore", 18, 4, "Ores & Minerals", 15],
+  ["packed_ice", 12, 8, "Natural Blocks", 16],
+  ["raw_gold", 25, 4, "Ores & Minerals", 16],
+  ["prismarine_shard", 18, 4, "Mob Drops", 16],
+  ["prismarine_crystals", 20, 4, "Mob Drops", 16],
+  ["calcite", 7, 16, "Natural Blocks", 17],
+  ["gold_ore", 30, 4, "Ores & Minerals", 17],
+  ["netherrack", 12, 16, "Nether", 17],
+  ["lapis_lazuli", 18, 8, "Ores & Minerals", 18],
+  ["soul_sand", 15, 8, "Nether", 18],
+  ["deepslate", 8, 16, "Natural Blocks", 19],
+  ["redstone", 14, 8, "Ores & Minerals", 19],
+  ["basalt", 10, 16, "Nether", 19],
+  ["blackstone", 10, 16, "Nether", 19],
+  ["nautilus_shell", 45, 1, "Mob Drops", 20],
+  ["ender_pearl", 35, 2, "Endgame", 20],
+  ["crimson_stem", 8, 8, "Nether", 20],
+  ["warped_stem", 8, 8, "Nether", 20],
+  ["glowstone_dust", 15, 8, "Nether", 21],
+  ["diamond", 60, 2, "Ores & Minerals", 22],
+  ["blaze_rod", 40, 2, "Nether", 22],
+  ["quartz", 24, 8, "Nether", 22],
+  ["nether_wart", 18, 8, "Nether", 22],
+  ["diamond_ore", 90, 4, "Ores & Minerals", 23],
+  ["emerald", 65, 2, "Ores & Minerals", 23],
+  ["emerald_ore", 95, 4, "Ores & Minerals", 24],
+  ["ghast_tear", 55, 1, "Mob Drops", 24],
+  ["trident", 280, 1, "Endgame", 25],
+  ["end_stone", 25, 16, "Endgame", 25],
+  ["shulker_shell", 75, 1, "Endgame", 26],
+  ["heart_of_the_sea", 160, 1, "Endgame", 26],
+  ["chorus_fruit", 20, 4, "Endgame", 26],
+  ["crying_obsidian", 45, 4, "Nether", 27],
+  ["totem_of_undying", 900, 1, "Endgame", 27],
+  ["ancient_debris", 250, 2, "Nether", 28],
+  ["nether_star", 600, 1, "Endgame", 28],
+  ["elytra", 800, 1, "Endgame", 28],
+  ["obsidian", 30, 4, "Nether", 29]
+].map(row => makeEntry(...row));
 const SPAWN_EGGS = [
-  ["chicken", 50, 9], ["pig", 60, 9], ["cow", 60, 10], ["sheep", 60, 10], ["rabbit", 70, 10],
-  ["cat", 90, 11], ["wolf", 110, 11], ["horse", 130, 12], ["donkey", 130, 12], ["llama", 140, 12],
-  ["fox", 120, 13], ["bee", 100, 13], ["zombie", 120, 13], ["skeleton", 150, 13],
-  ["mooshroom", 160, 14], ["goat", 130, 14], ["frog", 120, 14], ["spider", 130, 14],
-  ["turtle", 150, 15], ["axolotl", 150, 15], ["creeper", 200, 15],
-  ["slime", 180, 16], ["panda", 220, 16], ["witch", 260, 17], ["camel", 240, 17],
-  ["enderman", 320, 19], ["blaze", 350, 20], ["magma_cube", 260, 20]
+    ["chicken", 50, 9], ["pig", 60, 9], ["cow", 60, 10], ["sheep", 60, 10], ["rabbit", 70, 10],
+    ["cat", 90, 11], ["wolf", 110, 11], ["horse", 130, 12], ["donkey", 130, 12], ["llama", 140, 12],
+    ["fox", 120, 13], ["bee", 100, 13], ["zombie", 120, 13], ["skeleton", 150, 13], ["mooshroom", 160, 14],
+    ["goat", 130, 14], ["frog", 120, 14], ["spider", 130, 14], ["turtle", 150, 15], ["axolotl", 150, 15],
+    ["creeper", 200, 15], ["slime", 180, 16], ["panda", 220, 16], ["witch", 260, 17], ["camel", 240, 17],
+    ["enderman", 320, 19], ["blaze", 350, 20], ["magma_cube", 260, 20]
 ];
-for (const [mob, price, tier] of SPAWN_EGGS) {
-  CATALOG.push(makeEntry(mob + "_spawn_egg", price, 1, "Spawn Eggs", tier, false, "textures/items/spawn_eggs/spawn_egg_" + mob));
-}
-const BASE_PRICE_FIX = { iron_block: 100, hay_block: 20, redstone_block: 70, netherite_block: 4500 };
-const SELL_FIX = { netherite_block: 100, ancient_debris: 40, obsidian: 10 };
-const priceMult = tier => (tier <= 5 ? 1 : 1 + (tier - 5) * 0.4);
+for (const [mob, price, tier] of SPAWN_EGGS) CATALOG.push(makeEntry(mob + "_spawn_egg", price, 1, "Spawn Eggs", tier));
+const SELL_FIX = { ancient_debris: 40, obsidian: 10 };
+const priceMult = tier => (tier <= 5 ? 1 : 1 + (tier - 5) * 0.4 + (tier - 5) * (tier - 5) * 0.012);
 for (const item of CATALOG) {
-  const base = BASE_PRICE_FIX[item.raw] ?? item.price;
-  item.sell = item.category === "Spawn Eggs" ? 0 : (SELL_FIX[item.raw] ?? Math.max(1, Math.floor(base / 2)));
-  item.price = Math.max(1, Math.round(base * priceMult(item.tier)));
+  item.sell = item.category === "Spawn Eggs" ? 0 : (SELL_FIX[item.raw] ?? Math.max(1, Math.floor(item.price / 2)));
+  item.price = Math.max(1, Math.round(item.price * priceMult(item.tier)));
   item.icon = MCICON_DIR + item.raw;
 }
+const MARKET_KEY = "obm_market";
+const HEAT_STEP = 0.15;
+const PRICE_CAP = 12;
+const HEAT_CAP = Math.log(PRICE_CAP);
+const TICKS_PER_MINUTE = 1200;
+function loadMarket() {
+  try {
+    const raw = world.getDynamicProperty(MARKET_KEY);
+    const data = typeof raw === "string" ? JSON.parse(raw) : {};
+    return data && typeof data === "object" && !Array.isArray(data) ? data : {};
+  } catch { return {}; }
+}
+function itemHeat(item, market, now) {
+  const entry = market[item.raw];
+  if (!Array.isArray(entry)) return 0;
+  const age = Math.max(0, now - entry[1]);
+  return entry[0] * Math.pow(0.5, age / ((8 + item.tier * 0.6) * TICKS_PER_MINUTE));
+}
+function unitPrice(item, heat) { return Math.max(1, Math.round(item.price * Math.min(PRICE_CAP, Math.exp(heat)))); }
+function quote(item, heat, units = item.amount) {
+  let total = 0;
+  for (let i = 0; i < units; i++) total += unitPrice(item, Math.min(HEAT_CAP, heat + HEAT_STEP * i / item.amount));
+  return total;
+}
+function demandPercent(heat) { return Math.round((Math.min(PRICE_CAP, Math.exp(heat)) - 1) * 100); }
+function recordPurchase(item, units) {
+  try {
+    const now = world.getAbsoluteTime();
+    const market = loadMarket();
+    const next = {};
+    for (const other of CATALOG) {
+      const heat = other === item
+        ? Math.min(HEAT_CAP, itemHeat(other, market, now) + HEAT_STEP * units / item.amount)
+        : itemHeat(other, market, now);
+      if (heat >= 0.02) next[other.raw] = [Math.round(heat * 1000) / 1000, now];
+    }
+    world.setDynamicProperty(MARKET_KEY, JSON.stringify(next));
+  } catch (e) { logError("recordPurchase", e); }
+}
+const COOLDOWN_KEY = "obm_cooldown";
+const BURST_KEY = "obm_burst";
+const BURST_LIMIT = 50;
+const BURST_SECONDS = 30;
+const PHASE_SECONDS = 60;
 const LEDGER_PENDING = "obm_ledger_pending";
 const DEBUG_TAG = "obm_debug";
 const STATUS_EVENT = "allenscreations:obm_status";
@@ -1801,10 +2804,11 @@ function showAbout(player) {
   form = addOptional(form, "label",
     "by ALNStudios\n\n" +
     "Start in the void on a single regenerating block.\n" +
-    "Break the core to earn Coins. Each block type pays its own value.\n" +
-    "Use the Natural Market Ledger to buy supplies.\n\n" +
+    "Break the core to earn Coins. Each block type pays its own value and takes its own time to break.\n" +
+    "Use the Natural Market Ledger to buy natural supplies. Prices rise when a lot is bought and slowly settle back down.\n" +
+    "After " + BURST_LIMIT + " breaks the core turns to Bedrock for " + BURST_SECONDS + " seconds, and for " + PHASE_SECONDS + " seconds at every new phase.\n\n" +
     "The Ledger cannot be dropped. It always returns to you.\n\n" +
-    "Version: v16 | ALNStudios | CurseForge / MCPEDL");
+    "Version: v17 | ALNStudios | CurseForge / MCPEDL");
   form = addOptional(form, "divider");
   form = form.toggle("Hide my name on the Coins scoreboard", { defaultValue: nameHidden(player) });
   form = form.submitButton("Save");
@@ -1824,16 +2828,61 @@ function marketMain(player) {
       "\nShared breaks: " + totalBreaks() + "\nUnlocked tier: " + (unlockedTier(player) + 1) + " / " + MILESTONES.length + "\n\nChoose a market section.");
   for (const c of CATEGORIES) form.button(c.name, c.icon);
   form
+    .button("Search", MCICON_DIR + "spyglass")
     .button("Sell Items", MCICON_DIR + "gold_ingot")
     .button("About", "textures/ui/icon_recipe_nature");
   showForm(form, player).then(r => {
     if (r.canceled) return;
     if (r.selection < CATEGORIES.length) return showCategory(player, CATEGORIES[r.selection].name);
-    if (r.selection === CATEGORIES.length) return showSellMenu(player);
-    if (r.selection === CATEGORIES.length + 1) return showAbout(player);
+    if (r.selection === CATEGORIES.length) return searchMarket(player);
+    if (r.selection === CATEGORIES.length + 1) return showSellMenu(player);
+    if (r.selection === CATEGORIES.length + 2) return showAbout(player);
   }).catch(e => { logError("marketMain", e); tell(player, "The market menu could not open. Try using the Ledger again."); });
 }
 
+function marketButtonText(item, market, now) {
+  const heat = itemHeat(item, market, now);
+  const demand = demandPercent(heat);
+  return item.name + "\n§e" + item.amount + "x - " + quote(item, heat) + " Coins" + (demand >= 5 ? " §c+" + demand + "%" : "");
+}
+function searchMarket(player) {
+  const form = new ModalFormData().title("SEARCH MARKET")
+    .textField("Item name (unlocked supplies only)", "for example: diamond, log, egg");
+  showForm(form, player).then(r => {
+    if (r.canceled) return marketMain(player);
+    const text = String(r.formValues?.[0] ?? "").trim().toLowerCase();
+    if (!text) { tell(player, "Type part of an item name to search."); return marketMain(player); }
+    return showSearchResults(player, text);
+  }).catch(e => { logError("searchMarket", e); tell(player, "The search could not open."); });
+}
+function showSearchResults(player, text) {
+  const tier = unlockedTier(player);
+  const words = text.split(/\s+/).filter(Boolean);
+  const matches = CATALOG.filter(item => {
+    const hay = (item.name + " " + item.raw.replace(/_/g, " ")).toLowerCase();
+    return words.every(w => hay.includes(w));
+  });
+  const items = matches.filter(item => item.tier <= tier && itemAvailable(item)).slice(0, 30);
+  const lockedCount = matches.filter(item => item.tier > tier).length;
+  if (!items.length) {
+    tell(player, lockedCount ? "Matching supplies are still locked. Keep mining the core!" : "No supplies match \"" + text + "\".");
+    return searchMarket(player);
+  }
+  const market = loadMarket();
+  const now = world.getAbsoluteTime();
+  const form = new ActionFormData().title("SEARCH: " + text.toUpperCase().slice(0, 20))
+    .body("§6Coins: §e" + balance(player) + "§r\nTap a supply slot to buy the listed bundle." +
+      (lockedCount ? "\n" + lockedCount + " more match(es) are still locked." : ""));
+  for (const item of items) form.button(marketButtonText(item, market, now), item.icon || undefined);
+  form.button("Search Again", MCICON_DIR + "spyglass");
+  form.button("Back to Market", "textures/ui/arrow_left");
+  showForm(form, player).then(r => {
+    if (r.canceled) return;
+    if (r.selection < items.length) return purchase(player, items[r.selection]);
+    if (r.selection === items.length) return searchMarket(player);
+    return marketMain(player);
+  }).catch(e => { logError("showSearchResults", e); tell(player, "The search results could not open."); });
+}
 function showCategory(player, category, page = 0) {
   const tier = unlockedTier(player);
   const items = CATALOG.filter(item => item.category === category && item.tier <= tier && itemAvailable(item));
@@ -1842,13 +2891,13 @@ function showCategory(player, category, page = 0) {
   const pageCount = Math.max(1, Math.ceil(items.length / pageSize));
   const safePage = Math.max(0, Math.min(page, pageCount - 1));
   const visible = items.slice(safePage * pageSize, (safePage + 1) * pageSize);
+  const market = loadMarket();
+  const now = world.getAbsoluteTime();
   const form = new ActionFormData().title(category.toUpperCase())
     .body("§6Coins: §e" + balance(player) + "§r  |  Page " + (safePage + 1) + "/" + pageCount +
-      "\nTap a supply slot to buy the listed bundle." +
+      "\nTap a supply slot to buy the listed bundle. Prices rise when a lot is bought and settle back over time." +
       (locked.length ? "\nMore supplies unlock as you mine the core." : ""));
-  for (const item of visible) {
-    form.button(item.name + "\n§e" + item.amount + "x - " + (item.price * item.amount) + " Coins", item.icon || undefined);
-  }
+  for (const item of visible) form.button(marketButtonText(item, market, now), item.icon || undefined);
   if (safePage + 1 < pageCount) form.button("Next Page", "textures/ui/arrow_right");
   form.button("Back to Market", "textures/ui/arrow_left");
   showForm(form, player).then(r => {
@@ -1864,7 +2913,8 @@ function purchase(player, item) {
   const inv = inventoryOf(player);
   if (!inv) return tell(player, "Your inventory is unavailable.");
   const funds = balance(player);
-  const totalPrice = item.price * item.amount;
+  const heat = itemHeat(item, loadMarket(), world.getAbsoluteTime());
+  const totalPrice = quote(item, heat);
   if (funds < totalPrice) return tell(player, "Not enough Coins. You need " + totalPrice + " Coins.");
   let stack;
   try { stack = new ItemStack(item.id, item.amount); } catch { return tell(player, "This item is not available in the current game version."); }
@@ -1872,9 +2922,10 @@ function purchase(player, item) {
   let leftover;
   try { leftover = inv.addItem(stack); } catch { leftover = stack; }
   const delivered = item.amount - (leftover?.amount ?? 0);
-  const charged = delivered * item.price;
+  const charged = quote(item, heat, delivered);
   if (charged < totalPrice) setBalance(player, balance(player) + totalPrice - charged);
   if (delivered <= 0) return tell(player, "Inventory full. No Coins were taken.");
+  recordPurchase(item, delivered);
   if (delivered < item.amount) tell(player, "Only " + delivered + " item(s) fit; charged " + charged + " Coins.");
   else tell(player, "Purchased " + delivered + " x " + item.name + " for " + charged + " Coins.");
   showBalance(player);
@@ -1894,10 +2945,7 @@ function scanSellable(inv, values) {
   return { slots, payout, count };
 }
 const LOCK_PREFIX = "obm_locks_";
-const DEFAULT_LOCKED = new Set(CATALOG
-  .filter(item => (item.category === "Tools & Gear" || item.category === "Combat") &&
-    /(pickaxe|_axe|_shovel|_hoe|_sword)$|^(shears|fishing_rod|bow|crossbow|trident|shield)$/.test(item.raw))
-  .map(item => item.raw));
+const DEFAULT_LOCKED = new Set(["trident", "elytra", "totem_of_undying"]);
 function lockOverrides(player) {
   try {
     const raw = world.getDynamicProperty(LOCK_PREFIX + player.name);
@@ -2035,13 +3083,14 @@ function rescuePhased() {
     } catch (e) { logError("rescuePhased", e); }
   }
 }
-function damageTool(player, heldId) {
+function damageTool(player, heldId, brokenId) {
   try {
     let creative = false;
     try { creative = String(player.getGameMode()).toLowerCase() === "creative"; } catch {}
     if (creative || !heldId) return;
-    const cost = /_sword$/.test(heldId) ? 2 : /(pickaxe|_axe|_shovel|_hoe|shears)$/.test(heldId) ? 1 : 0;
-    if (!cost) return;
+    const base = /_sword$/.test(heldId) ? 2 : /(pickaxe|_axe|_shovel|_hoe|shears)$/.test(heldId) ? 1 : 0;
+    if (!base) return;
+    const cost = base * (TIER_WEAR[Math.floor(coreTier(brokenId) / 5)] ?? 1);
     const slot = player.getComponent("minecraft:equippable")?.getEquipmentSlot(EquipmentSlot.Mainhand);
     const stack = slot?.getItem();
     const durability = stack?.getComponent("minecraft:durability");
@@ -2060,6 +3109,43 @@ function damageTool(player, heldId) {
     slot.setItem(stack);
   } catch (e) { logError("damageTool", e); }
 }
+function cooldownState() {
+  try {
+    const raw = world.getDynamicProperty(COOLDOWN_KEY);
+    const data = typeof raw === "string" && raw ? JSON.parse(raw) : null;
+    return data && typeof data.until === "number" ? data : null;
+  } catch { return null; }
+}
+function coreCoolingDown() {
+  const state = cooldownState();
+  return !!state && world.getAbsoluteTime() < state.until;
+}
+function startCooldown(seconds, label) {
+  try {
+    world.setDynamicProperty(COOLDOWN_KEY, JSON.stringify({ until: world.getAbsoluteTime() + seconds * 20, label }));
+    world.setDynamicProperty(BURST_KEY, 0);
+    const block = world.getDimension("overworld").getBlock(CORE);
+    if (block) block.setType("minecraft:bedrock");
+    world.sendMessage("§6[Natural Market] §r" + label + ": the core is Bedrock for " + seconds + " seconds.");
+    log("INFO", "Cooldown started: " + label + " " + seconds + "s.");
+  } catch (e) { logError("startCooldown", e); }
+}
+function tickCooldown() {
+  const state = cooldownState();
+  if (!state) return;
+  try {
+    const left = state.until - world.getAbsoluteTime();
+    if (left > 0) {
+      const text = "§e" + state.label + ": the core returns in " + Math.ceil(left / 20) + "s";
+      for (const p of world.getAllPlayers()) { try { p.onScreenDisplay.setActionBar(text); } catch {} }
+      return;
+    }
+    world.setDynamicProperty(COOLDOWN_KEY, "");
+    const block = world.getDimension("overworld").getBlock(CORE);
+    if (block && ["minecraft:bedrock", "minecraft:air", "minecraft:grass_block"].includes(block.typeId)) placeCore(block);
+    world.sendMessage("§6[Natural Market] §rThe core is back. Keep mining!");
+  } catch (e) { logError("tickCooldown", e); }
+}
 let coreBreakPending = false;
 function onCoreBreak(player, brokenId) {
   const personal = personalBreaks(player) + 1;
@@ -2069,12 +3155,19 @@ function onCoreBreak(player, brokenId) {
   tutorialStep(player, total);
   const value = blockValue(brokenId);
   writeScore(COINS, player, balance(player) + value);
+  let cooldown = null;
   if (MILESTONES.some(m => m.unlock > 0 && m.unlock === total)) {
     world.sendMessage("§6[Natural Market] §rA new core milestone has been reached. More block types can now appear.");
+    cooldown = { seconds: PHASE_SECONDS, label: "New phase" };
+  } else {
+    const burst = (Number(world.getDynamicProperty(BURST_KEY)) || 0) + 1;
+    if (burst >= BURST_LIMIT) cooldown = { seconds: BURST_SECONDS, label: "Cooldown" };
+    else world.setDynamicProperty(BURST_KEY, burst);
   }
   log("INFO", player.name + " mined the core: personal=" + personal + " shared=" + total + " block=" + brokenId + " reward=" + value + ".");
   tell(player, "Core mined: " + blockName(brokenId) + " +" + value + " Coins.");
   showBalance(player);
+  return cooldown;
 }
 system.afterEvents.scriptEventReceive.subscribe(event => {
   if (event.id === STATUS_EVENT) {
@@ -2137,6 +3230,7 @@ world.beforeEvents.playerBreakBlock.subscribe(event => {
   if (!player || event.block.dimension.id !== "minecraft:overworld") return;
   if (location.x !== CORE.x || location.y !== CORE.y || location.z !== CORE.z) return;
   event.cancel = true;
+  if (coreCoolingDown() || event.block.typeId === "minecraft:bedrock") return;
   if (coreBreakPending) return;
   const brokenId = event.block.typeId;
   const heldId = event.itemStack?.typeId;
@@ -2145,10 +3239,11 @@ world.beforeEvents.playerBreakBlock.subscribe(event => {
     try {
       log("INFO", "Core break detected by " + player.name + " (void_cleaned tag=" + player.hasTag("void_cleaned") + ").");
       if (player.hasTag("void_cleaned")) {
-        onCoreBreak(player, brokenId);
-        damageTool(player, heldId);
+        const cooldown = onCoreBreak(player, brokenId);
+        damageTool(player, heldId, brokenId);
         const block = world.getDimension("overworld").getBlock(CORE);
-        if (block) placeCore(block);
+        if (cooldown) startCooldown(cooldown.seconds, cooldown.label);
+        else if (block) placeCore(block);
       }
     } catch (e) { logError("core break", e); }
     coreBreakPending = false;
@@ -2176,6 +3271,7 @@ system.runInterval(() => {
   log("INFO", statusReport(), "status");
 }, 40);
 system.runInterval(rescuePhased, 5);
+system.runInterval(tickCooldown, 20);
 system.run(() => log("INFO", "Script started and handlers registered. Debug chat: /tag @s add obm_debug. Status: /scriptevent allenscreations:obm_status"));
 system.runInterval(() => {
   try {
@@ -2192,12 +3288,38 @@ system.runInterval(() => {
 }, 20);
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (233 lines, 13654 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (62 lines, 3926 bytes)
 
 ```
 # Changelog — OneBlock Natural Market
 
 ---
+
+## [17.0.1] - 2026-11-26 - Cooldown Bedrock and Market Search
+
+### Added
+- **Cooldown Bedrock**: after every 50 core breaks the core turns into Bedrock for 30 seconds, with a countdown on screen, so the Coins cannot be farmed without a pause.
+- **Phase countdown**: every time the shared progress reaches a new phase, the core turns into Bedrock for 1 minute with a countdown before the next block appears.
+- **Market Search**: a new Search button in the Ledger finds any unlocked supply by name and lets you buy it from the results. Locked supplies are not listed.
+
+### Improved & Balanced
+- **Break time**: Currency Blocks take about 25 percent longer to break, now from 0.5 to 2.2 seconds, still the same with any tool or bare hands.
+
+## [17.0.0] - 2026-11-26 - Natural Market Currency Blocks
+
+### Added
+- **Currency Blocks**: the central block is now 30 custom banknote-style blocks, numbered 1 to 30, one per tier. Each has its own break time, from 0.4 to 1.7 seconds, and it is the same with any tool or bare hands.
+- **Market demand**: every supply gets more expensive as it is bought. Each bundle bought raises that item's price by about 15 percent, up to 12 times the normal price, and a red percentage shows the current rise. Prices fall back by half every 8 to 25 minutes, and rare items take longer to settle.
+- **New natural supplies**: Raw Iron, Raw Copper, Raw Gold, Raw Beef, Raw Porkchop, Raw Chicken, Raw Mutton, Raw Rabbit, Raw Cod and Raw Salmon.
+
+### Improved & Balanced
+- **Natural supplies only**: the market no longer sells crafted items such as tools, weapons, planks, ingots, cooked food, redstone parts, glass or bricks. The Tools & Gear, Combat and Redstone sections are gone and Building Blocks is now Natural Blocks.
+- **Tool wear**: breaking the core costs more tool durability on higher Currency Blocks, from 1 to 3 times the usual amount.
+- **Prices**: late-tier supplies cost more to match the new Coin income and break times.
+- **Locked by default**: the Trident, Elytra and Totem of Undying start locked in the sell list.
+
+### Fixed
+- **Old core blocks**: a vanilla core block already in an existing world still pays Coins when broken and is then replaced by a Currency Block.
 
 ## [16.0.11] - 2026-11-24 - Core Tool Durability
 
@@ -2230,206 +3352,10 @@ system.runInterval(() => {
 
 ## [16.0.7] - 2026-11-24 - Remove ALN Coins
 
-### Improved & Balanced
-- **ALN Coins removed**: breaking the central block no longer gives ALN Coins, and they no longer show in the market menu or the action bar. Coins, rewards and prices are unchanged.
-
-## [16.0.6] - 2026-11-23 - ALN Coins
-
-### Added
-- **ALN Coins**: every central-block break now also gives 1 ALN Coin, a separate currency kept on the `aln_coins` scoreboard. It shows in the market menu and in the action bar. The market still uses Coins.
-
-## [16.0.5] - 2026-11-23 - Sell Form Toggles
-
-### Improved & Balanced
-- **Sell form**: Sell Items now has three buttons: Lock / Unlock Items, Sell All and Exit. Sell All keeps locked items.
-- **Lock editor**: Lock / Unlock Items opens a form with one toggle per item. Switch an item on to lock it, then press Save.
-
-## [16.0.4] - 2026-11-23 - Sell Lock List
-
-### Added
-- **Sell Items screen**: lists every sellable item in your inventory with its icon, amount and value. Tap an item to lock it so it is never sold, and tap again to unlock it.
-- **Lock All and Unlock All**: two buttons on the Sell Items screen.
-- **Saved locks**: locks are kept per player by item type and stay after you rejoin.
-
-### Improved & Balanced
-- **Tools and weapons start locked**: pickaxes, axes, shovels, hoes, swords, shears, fishing rod, bow, crossbow, trident and shield are locked until you unlock them.
-- **Sell Items**: replaces Sell Eligible Items and only sells unlocked items.
-
-## [16.0.3] - 2026-11-22 - Brick Block MCicons Icon
-
-### Changed
-- Brick Block now uses its MCicons icon (the Bricks icon), so all market items use MCicons.
-
-## [16.0.2] - 2026-11-22 - MCicons Market Icons
-
-### Changed
-- Market icons now use the MCicons set (Minecraft item and block icons), shipped in the resource pack, instead of the game's own texture paths. This covers the 11 category buttons and every market item except Brick Block, which has no MCicons icon and keeps its old one.
-
-### Added
-- The MCicons notice file (`ASSET-NOTICE.md`) sits beside the icons in the resource pack.
-
-### Fixed
-- Shield now shows an icon in the market.
-
-## [16.0.1] - 2026-11-21 - Core Tier Reorder
-
-### Changed
-- The core block order is now Dirt, Wood, Stone, Ores, then Blocks across the 30 tiers, ending with Obsidian at tier 30.
-- Ancient Debris moved to tier 29.
-- Netherite Block can no longer enter the core pool, even if bought.
-- Mossy Cobblestone, Sandstone, Deepslate, Netherrack, Soul Sand, Blackstone, Basalt and End Stone are no longer part of the tier order.
-
-### Added
-- Clay, Coarse Dirt, Jungle Log, Acacia Log, Andesite, Diorite, Granite, Stone Bricks and Quartz Block join the tier order.
-
-## [16.0.0] - 2026-11-21 - 30 Tiers And Spawn Eggs
-
-### Added
-- 30 progression tiers. The core block pool and market supplies unlock across 30 tiers (10,000 breaks), ending with Obsidian at tier 30.
-- Spawn Eggs category with 28 mob eggs, unlocking at tiers 10 to 21. Eggs cannot be sold back.
-- Copper Ore and Copper Ingot in the market.
-
-### Changed
-- Coin reward per core break rises from 1 to 12 across the tiers.
-- Market prices scale with tier from tier 6 up.
-- Wood supplies unlock at tier 2, and gold, redstone, diamond, Nether and End supplies unlock at their own tiers.
-- Ancient Debris and Netherite Block now appear in the core at tiers 27 and 28, and Obsidian is last.
-- Your tier is recalculated from your mined blocks, so it can differ from before.
-
-### Fixed
-- Anvils bought in the market no longer enter the core pool, because they fall into the void.
-
-## [15.0.0] - 2026-11-21 - Core Pool And Ledger Return Fix
-
-### Fixed
-- Building Blocks bought in the market no longer join the OneBlock regeneration pool. Building Blocks added by earlier purchases are removed from the pool. Milestone blocks are unchanged.
-- The Ledger now comes back when you free an inventory slot. Before, a dropped Ledger could be deleted while your inventory was full, and a Ledger that could not be given at join was only retried when you rejoined.
-- Fixed missing market icons for Magma Block and Conduit.
-- Fixed the missing Redstone category icon.
-- Removed the "Balance & Progress" button, which never displayed its message. Coins, breaks and tier are shown in the menu text.
-- Back and Next Page buttons now use left and right arrow icons.
-- Removed special characters from menu text and replaced gray text colors with white.
-- The About screen now has a single Close button.
-
-### Changed
-- Market prices now scale with tier. Tier 4 and above cost more, up to 6x at the last tier. Tiers 1 to 3 and all sell values are unchanged, except the three drops below.
-- Netherite Block, Hay Block, Redstone Block and Iron Block cost more, so crafting them into ingots or dust and selling no longer earns a profit.
-- Netherite Block, Ancient Debris and Obsidian sell for less, so rare core drops no longer outweigh the Coin reward.
-
-## [14.0.1] - 2026-11-21 - Startup Crash Fix
-
-### Fixed
-- Fixed the map script stopping at startup with "cannot read property 'subscribe' of undefined". The Ledger throw event is not available in the game's script version, so it was replaced with a scan that returns a dropped Ledger to its owner. The market, core regeneration and rewards run again.
-
-## [14.0.0] - 2026-11-21 - Inventory Icons And Core Height
-
-### Fixed
-- **Inventory icons**: market slots now use each item's inventory icon (the flat item sprite) wherever the game has one, and the block's own texture for full blocks. 26 slots with missing or wrong textures were corrected, including Lever, Hopper, Repeater, Comparator, Nautilus Shell, Dragon's Breath, Heart of the Sea, Furnace, Oak Door, Piston, Shulker Box, Bamboo, Observer, Tripwire Hook, Warped and Crimson Stem, Ender Chest, Conduit, Lantern and Sugar Cane.
-- Shield and Magma Block have no flat icon in the game files, so they show text only instead of a broken picture.
-
-### Changed
-- **Core height**: the central block is now at 0, 64, 0 and the world spawn point is at 0, 65, 0 (on top of the block).
-- Existing worlds: a block left at the old height (0, 0, 0) is not moved.
-
-## [13.0.0] - 2026-11-21 - Ledger Keep, Icon Fixes, Action Bar, About Button
-
-- **Ledger keep**: the Natural Market Ledger now has `keep_on_death` and returns to your inventory automatically when thrown.
-- **Icon fixes**: corrected texture paths for Nautilus Shell, Crimson Stem, Warped Stem, Soul Torch, Ender Chest, and Conduit so their market slots show the correct icons.
-- **Action bar feedback**: all market messages (purchases, balance, errors) now display on the action bar instead of in chat.
-- **About button**: a new ℹ About button at the bottom of the main market menu shows pack info.
-
-## [v12] - 2026-11-20 - Tutorial Platform Update
-
-### Added
-- **Tutorial platform**: each of the first 8 core breaks adds a grass block beside the core, building a 3x3 platform around it. Players get a short message for each step.
-- **Anti-phase rescue**: a player inside the central block or the 3x3 platform is teleported on top of the central block.
-
-### Changed
-- **No bedrock**: the core no longer sits on a bedrock block. Existing worlds clear the old bedrock block automatically.
-- **Standard market screen**: the market uses the game's standard form screen again. The chest-style screen files were moved to `resource_pack/ui_chest_disabled/` and are not loaded.
-
-## [v11] - 2026-11-20 - Chest Market Screen Restored
-
-### Fixed
-- Fixed the blank chest-style market screen. The game's form container is 0 x 0 pixels, so the percentage sizes resolved to nothing. The container now fills the screen, and the market panel sizes itself from that.
-
-### Changed
-- The chest-style screen is active again. Run `/tag @s add obm_vanilla_ui` to use the game's standard form screen instead, and `/tag @s remove obm_vanilla_ui` to switch back.
-
-## [v10] - 2026-11-20 - Standard Market Screen
-
-### Fixed
-- The market now opens in the game's standard form screen. The custom chest-style screen showed a blank menu in testing, and it also produced `Unknown property [orientation]` UI errors, so it has been taken out of the loaded resource pack.
-- The market menus, purchases and selling work as before.
-
-### Changed
-- The chest-style screen files were moved to `resource_pack/ui_chest_disabled/` and are not loaded by the game. The `obm_vanilla_ui` tag from v9 is no longer needed.
-
-## [v9] - 2026-11-20 - Standard Screen Option
-
-### Added
-- Added an option to use the game's standard form screen for the market. Run `/tag @s add obm_vanilla_ui` to switch to it, and `/tag @s remove obm_vanilla_ui` to switch back to the chest-style screen. The market menus and purchases work the same on both screens.
-
-## [v8] - 2026-11-20 - Market Screen Fix
-
-### Fixed
-- Fixed the market screen showing blank. The screen is now created through the game's form factory, so it receives the form's title, text and slot buttons.
-
-## [v7] - 2026-11-20 - Chest Market UI
-
-### Fixed
-- Fixed the UI errors `Unknown property [orientation]` for `dynamic_button`, `long_form_dynamic_buttons_panel` and `inside_header_panel`. The market screen no longer redefines the game's own form controls; it uses its own uniquely named controls instead.
-- Other forms in your world (from other add-ons) use the normal game screen again. The market screen now appears only for Natural Market forms.
-
-### Improved
-- The market is now a large chest-style panel, 88% of the screen height, with 9 square slots per row. It scales with any screen size or UI scale.
-
-## [v6] - 2026-11-20 - Responsive Market UI
-
-### Fixed
-- The market screen now sizes itself as a percentage of the screen, so it adjusts to any screen size or UI scale instead of using a fixed 460 x 350 panel.
-- The slot grid is now 9 columns by 3 rows as described, instead of 3 columns by 9 rows, which ran past the bottom of the panel.
-
-### Improved
-- Slots, item icons and labels scale with the panel and keep square slots.
-
-## [v5] - 2026-11-20 - Diagnostic Log
-
-### Added
-- Added a diagnostic log for map creators and testers. It records startup, core regeneration, Ledger use, core breaks, player spawns and errors in the content log.
-- Added an optional in-game debug mode that shows the same messages in chat, and a status command that reports the current core state.
-
-## [v4] - 2026-11-20 - Startup Fix
-
-### Fixed
-- Fixed the map script stopping during startup. Because of this, the Natural Market Ledger, core regeneration, Coin rewards and the automatic core restore from v3 did not run.
-- The central block now regenerates after being broken, and is restored if something else removes it.
-
-## [v3] - 2026-11-20 - Core Reliability Update
-
-### Fixed
-- The central block is now restored automatically if an explosion, piston or command removes it.
-- Selling items no longer risks deleting items that were moved while the confirmation was open.
-- Blocks that cannot stand on their own (torches, doors, saplings and similar) no longer enter the regeneration pool.
-- The next-tier message now correctly shows personal breaks.
-
-### Improved
-- Saved regeneration-pool data is more compact and no longer repeats unlocked milestone blocks.
-
-## [v2] - 2026-11-11
-
-### Improved
-- Reworked the Ledger's Action Form presentation with a wood-framed market panel and individual inventory-style slot backgrounds.
-- Added distinct default, hover, and pressed slot states while retaining Minecraft item icons and the existing 3 × 9 button grid.
-- Kept the category catalogue's 25-item page size so the Next Page and Back controls fit in the remaining two slots.
-
-### Compatibility note
-- This remains a simulated inventory-style Action Form, not a native chest container. It does not provide draggable item slots or vanilla container transfer behavior.
-- The visual layer uses legacy resource-pack JSON UI, which Minecraft is deprecating in favor of Ore UI. Future game updates may require maintenance.
-- No experimental gameplay toggle was added. Source structure is updated; Minecraft in-game rendering has not been verified.
+(older entries omitted; ask for the full file if needed)
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/DESCRIPTION.md (81 lines, 4963 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/DESCRIPTION.md (85 lines, 5666 bytes)
 
 ```
 # OneBlock Natural Market — A OneBlock economy and supply shop
@@ -2449,25 +3375,29 @@ Start in the void on the central block at (0, 0, 0), with no bedrock beneath it.
 
 ### Regenerating OneBlock
 - The central block returns after a successful break. It drops no items; breaking it only earns Coins.
+- The core is a set of 30 custom Currency Blocks, numbered 1 to 30. Each has its own break time, the same with any tool or bare hands, and uses up more tool durability the higher it goes.
+- After every 50 breaks the core turns into Bedrock for 30 seconds, and for 60 seconds at every new phase. A countdown shows on screen and the core comes back by itself.
 - The central block is also restored automatically if something other than a player removes it.
 - If a player ends up inside the central block or the 3x3 platform, they are teleported on top of the central block.
 - The available natural block pool expands as shared mining milestones are reached.
-- The starting core is Dirt and is managed by the map script after one-time void setup.
+- The starting core is Currency Block 1 and is managed by the map script after one-time void setup.
 
 ### Natural Market Ledger
 - Opens the market in the game's standard form screen: a button list with item icons for each category and supply bundle.
 - Tap a supply slot to purchase its displayed bundle directly; no separate purchase-confirmation screen.
+- The Search button finds any unlocked supply by name, so you do not have to browse each section.
 - Large categories use pages that reserve two slots for navigation controls.
-- The catalogue contains more than 180 configured supplies across eleven categories, including mid-game Spawn Eggs. Entries unavailable in the current game version are hidden.
+- The catalogue only sells natural supplies (blocks, crops, raw food, raw ores, mob drops, Nether and End finds) plus mid-game Spawn Eggs. Crafted items are not sold. Entries unavailable in the current game version are hidden.
+- Prices rise as supplies are bought and settle back down over time. Common supplies recover faster than rare ones.
 - The market uses the standard server Action Form. It is **not a chest container screen** and does not support draggable slots or native container transfers.
 
 ### Coins and Selling
 - Each central-block break awards Coins. Every block type has its own value, and higher tiers pay more.
 - A Coins scoreboard is always shown on the sidebar. The About screen has a switch to hide your own name on it.
-- Eligible catalogue items can be sold through the Ledger. Each item type can be locked so it is never sold; tools and weapons start locked.
+- Eligible catalogue items can be sold through the Ledger. Each item type can be locked so it is never sold; the Trident, Elytra and Totem of Undying start locked.
 
 ### Progression and Supply Pool
-- Personal mining milestones unlock additional market supplies across 30 tiers, ending with Obsidian.
+- Personal mining milestones unlock additional market supplies across 30 tiers, ending with Currency Block 30.
 - The central block pool is set by the tiers only. Purchased blocks do not change it.
 
 ## How to Use
@@ -2482,7 +3412,7 @@ Start in the void on the central block at (0, 0, 0), with no bedrock beneath it.
 
 - Minecraft Bedrock Edition: minimum engine version 1.26.50.
 - Stable Script API dependencies: `@minecraft/server` 2.10.0 and `@minecraft/server-ui` 2.2.0.
-- Experimental features: No experiment requirement detected in the inspected files.
+- Experimental features: none are turned on by the pack files. The custom Currency Blocks have not been tested in game.
 - UI compatibility: The market uses the game's standard forms, so it does not depend on a custom screen and works with other add-ons that customize form screens.
 - Achievements: Yes, achievement-friendly.
 - Verification: Source updated; no package build or in-game test has been run for this UI revision.
@@ -2549,19 +3479,19 @@ Download the current release of **OneBlock Natural Market** for Minecraft Bedroc
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Natural-Market/DESCRIPTION.md).
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/manifest.json (37 lines, 637 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/manifest.json (37 lines, 633 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v16.0.11)",
+    "name": "OneBlock Natural Market (v17.0.1)",
     "description": "Trader Ledger icon for OneBlock Natural Market. by ALNStudios",
     "uuid": "187333a6-4353-4003-b379-471f85ce9021",
     "version": [
-      16,
+      17,
       0,
-      11
+      1
     ],
     "min_engine_version": [
       1,
@@ -2574,9 +3504,9 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "bdbf7c5c-5c34-4d6d-93c9-16a468f66b52",
       "version": [
-        16,
+        17,
         0,
-        11
+        1
       ]
     }
   ],
@@ -2585,9 +3515,44 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "16.0.11"
+    "version": "17.0.1"
   }
 }
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/texts/en_US.lang (31 lines, 1701 bytes)
+
+```
+tile.allenscreations:core_01_note.name=Currency Block 1
+tile.allenscreations:core_02_note.name=Currency Block 2
+tile.allenscreations:core_03_note.name=Currency Block 3
+tile.allenscreations:core_04_note.name=Currency Block 4
+tile.allenscreations:core_05_note.name=Currency Block 5
+tile.allenscreations:core_06_note.name=Currency Block 6
+tile.allenscreations:core_07_note.name=Currency Block 7
+tile.allenscreations:core_08_note.name=Currency Block 8
+tile.allenscreations:core_09_note.name=Currency Block 9
+tile.allenscreations:core_10_note.name=Currency Block 10
+tile.allenscreations:core_11_note.name=Currency Block 11
+tile.allenscreations:core_12_note.name=Currency Block 12
+tile.allenscreations:core_13_note.name=Currency Block 13
+tile.allenscreations:core_14_note.name=Currency Block 14
+tile.allenscreations:core_15_note.name=Currency Block 15
+tile.allenscreations:core_16_note.name=Currency Block 16
+tile.allenscreations:core_17_note.name=Currency Block 17
+tile.allenscreations:core_18_note.name=Currency Block 18
+tile.allenscreations:core_19_note.name=Currency Block 19
+tile.allenscreations:core_20_note.name=Currency Block 20
+tile.allenscreations:core_21_note.name=Currency Block 21
+tile.allenscreations:core_22_note.name=Currency Block 22
+tile.allenscreations:core_23_note.name=Currency Block 23
+tile.allenscreations:core_24_note.name=Currency Block 24
+tile.allenscreations:core_25_note.name=Currency Block 25
+tile.allenscreations:core_26_note.name=Currency Block 26
+tile.allenscreations:core_27_note.name=Currency Block 27
+tile.allenscreations:core_28_note.name=Currency Block 28
+tile.allenscreations:core_29_note.name=Currency Block 29
+tile.allenscreations:core_30_note.name=Currency Block 30
 ```
 
 ## FILE: MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/item_texture.json (10 lines, 190 bytes)
@@ -2599,6 +3564,107 @@ For gameplay features, usage details, compatibility notes, and other project inf
   "texture_data": {
     "trader_ledger": {
       "textures": "textures/items/trader_ledger"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/terrain_texture.json (97 lines, 2453 bytes)
+
+```
+{
+  "resource_pack_name": "oneblock_natural_market",
+  "texture_name": "atlas.terrain",
+  "texture_data": {
+    "core_01_note": {
+      "textures": "textures/blocks/core_01_note"
+    },
+    "core_02_note": {
+      "textures": "textures/blocks/core_02_note"
+    },
+    "core_03_note": {
+      "textures": "textures/blocks/core_03_note"
+    },
+    "core_04_note": {
+      "textures": "textures/blocks/core_04_note"
+    },
+    "core_05_note": {
+      "textures": "textures/blocks/core_05_note"
+    },
+    "core_06_note": {
+      "textures": "textures/blocks/core_06_note"
+    },
+    "core_07_note": {
+      "textures": "textures/blocks/core_07_note"
+    },
+    "core_08_note": {
+      "textures": "textures/blocks/core_08_note"
+    },
+    "core_09_note": {
+      "textures": "textures/blocks/core_09_note"
+    },
+    "core_10_note": {
+      "textures": "textures/blocks/core_10_note"
+    },
+    "core_11_note": {
+      "textures": "textures/blocks/core_11_note"
+    },
+    "core_12_note": {
+      "textures": "textures/blocks/core_12_note"
+    },
+    "core_13_note": {
+      "textures": "textures/blocks/core_13_note"
+    },
+    "core_14_note": {
+      "textures": "textures/blocks/core_14_note"
+    },
+    "core_15_note": {
+      "textures": "textures/blocks/core_15_note"
+    },
+    "core_16_note": {
+      "textures": "textures/blocks/core_16_note"
+    },
+    "core_17_note": {
+      "textures": "textures/blocks/core_17_note"
+    },
+    "core_18_note": {
+      "textures": "textures/blocks/core_18_note"
+    },
+    "core_19_note": {
+      "textures": "textures/blocks/core_19_note"
+    },
+    "core_20_note": {
+      "textures": "textures/blocks/core_20_note"
+    },
+    "core_21_note": {
+      "textures": "textures/blocks/core_21_note"
+    },
+    "core_22_note": {
+      "textures": "textures/blocks/core_22_note"
+    },
+    "core_23_note": {
+      "textures": "textures/blocks/core_23_note"
+    },
+    "core_24_note": {
+      "textures": "textures/blocks/core_24_note"
+    },
+    "core_25_note": {
+      "textures": "textures/blocks/core_25_note"
+    },
+    "core_26_note": {
+      "textures": "textures/blocks/core_26_note"
+    },
+    "core_27_note": {
+      "textures": "textures/blocks/core_27_note"
+    },
+    "core_28_note": {
+      "textures": "textures/blocks/core_28_note"
+    },
+    "core_29_note": {
+      "textures": "textures/blocks/core_29_note"
+    },
+    "core_30_note": {
+      "textures": "textures/blocks/core_30_note"
     }
   }
 }

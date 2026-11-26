@@ -8,7 +8,7 @@ This folder contains compiled release packages for **ALNWarpScrolls** by ALNStud
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`ALNWarpScrolls V1.mcaddon`** | `.mcaddon` | ~98 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNWarpScrolls/ALNWarpScrolls%20V1.mcaddon) |
+| **`ALNWarpScrolls V6.mcaddon`** | `.mcaddon` | ~405 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNWarpScrolls/ALNWarpScrolls%20V6.mcaddon) |
 
 ---
 

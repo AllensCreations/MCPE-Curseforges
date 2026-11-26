@@ -1,0 +1,30 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:pipe_receiver"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "H",
+      "P"
+    ],
+    "key": {
+      "H": {
+        "item": "minecraft:hopper"
+      },
+      "P": {
+        "item": "aln:pipe_standard"
+      }
+    },
+    "result": {
+      "item": "aln:pipe_receiver",
+      "count": 1
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}

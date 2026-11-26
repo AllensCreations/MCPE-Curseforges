@@ -1,0 +1,36 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Smart Tool Hub (v1.0.2)",
+    "description": "32x32 Tool Hub emblem icon. by ALNStudios",
+    "uuid": "87629f2e-265e-4288-aa92-42a34c0964bf",
+    "version": [
+      1,
+      0,
+      2
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "50d7a0b9-0eed-44f6-a71a-96fb42e74a12",
+      "version": [
+        1,
+        0,
+        2
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.2"
+  }
+}

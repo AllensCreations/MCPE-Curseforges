@@ -28,6 +28,7 @@
 - `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/texts/en_US.lang`
 - `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/texts/languages.json`
 - `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/textures/terrain_texture.json`
+- `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/texture_sources/aln_loot_spawner_icon.json`
 - `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/texture_sources/aln_loot_spawner_textures.json`
 
 ### Skipped (binary): 6 file(s)
@@ -38,6 +39,7 @@
 - `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/textures/blocks/aln_loot_spawner_core.png`
 - `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/textures/blocks/aln_loot_spawner_frame.png`
 - `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/textures/blocks/aln_loot_spawner_glass.png`
+- `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/textures/items/loot_spawner.png`
 
 ---
 
@@ -278,13 +280,13 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:LootSpawner (v1.0.6)",
+    "name": "ALN:LootSpawner (v1.0.7)",
     "description": "Arcane Relic Duplicator Display Cage. by ALNStudios",
     "uuid": "168d9162-4f4a-4dda-a2c8-a550e2b9ad41",
     "version": [
       1,
       0,
-      6
+      7
     ],
     "min_engine_version": [
       1,
@@ -299,7 +301,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "version": [
         1,
         0,
-        6
+        7
       ]
     },
     {
@@ -309,7 +311,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "version": [
         1,
         0,
-        6
+        7
       ],
       "entry": "scripts/main.js"
     }
@@ -320,7 +322,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "version": [
         1,
         0,
-        6
+        7
       ]
     },
     {
@@ -333,7 +335,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     }
   ],
   "metadata": {
-    "version": "1.0.6",
+    "version": "1.0.7",
     "authors": [
       "ALNStudios"
     ],
@@ -725,12 +727,17 @@ system.runInterval(() => {
 }, STEP_TICKS);
 ```
 
-## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/CHANGELOG.md (58 lines, 4861 bytes)
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/CHANGELOG.md (63 lines, 5072 bytes)
 
 ```
 # Changelog — ALN:LootSpawner (Arcane Relic Duplicator)
 
 ---
+
+## [1.0.7] - 2026-11-26 - Add Inventory Icon for Recipe Diagram
+
+### Added
+- **Inventory icon**: Added an inventory-style icon of the Loot Spawner so its crafting recipe diagram can be built for the pack page.
 
 ## [1.0.6] - 2026-11-25 - Translucent Glass and Redrawn Textures
 
@@ -895,7 +902,7 @@ Download the current release of **ALNLootSpawner (Arcane Relic Duplicator)** for
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNLootSpawner (Arcane Relic Duplicator) (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNLootSpawner-Arcane-Relic-Duplicator/ALNLootSpawnerArcaneRelicDuplicator%20V1.0.6.mcaddon)
+- **Direct download:** [Download ALNLootSpawner (Arcane Relic Duplicator) (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNLootSpawner-Arcane-Relic-Duplicator/ALNLootSpawnerArcaneRelicDuplicator%20V1.0.7.mcaddon)
 
 ## Installation
 
@@ -922,13 +929,13 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:LootSpawner (v1.0.6)",
+    "name": "ALN:LootSpawner (v1.0.7)",
     "description": "Arcane Relic Duplicator Display Cage. by ALNStudios",
     "uuid": "1390b986-3030-4eee-a94b-1bd5ea7f88dd",
     "version": [
       1,
       0,
-      6
+      7
     ],
     "min_engine_version": [
       1,
@@ -943,12 +950,12 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "version": [
         1,
         0,
-        6
+        7
       ]
     }
   ],
   "metadata": {
-    "version": "1.0.6",
+    "version": "1.0.7",
     "authors": [
       "ALNStudios"
     ],
@@ -1404,6 +1411,35 @@ tile.aln:loot_spawner.name=Loot Spawner
       "textures": "textures/blocks/aln_loot_spawner_core"
     }
   }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/texture_sources/aln_loot_spawner_icon.json (25 lines, 1123 bytes)
+
+```
+{
+  "name": "loot_spawner",
+  "size": 16,
+  "folder": "items",
+  "palette": {"0": "#00000000", "1": "#E5B84B", "2": "#A8832F", "3": "#F7D878", "4": "#B468FF", "5": "#7E46C8", "6": "#FFFFFF", "7": "#CDF2FC", "8": "#96CDDE", "9": "#70A2BC"},
+  "pixels": [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 1, 7, 7, 1, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 1, 6, 7, 7, 7, 7, 7, 1, 1, 0, 0, 0],
+    [0, 4, 1, 7, 6, 7, 7, 7, 7, 7, 7, 7, 7, 1, 4, 0],
+    [0, 1, 1, 1, 7, 7, 7, 7, 7, 7, 7, 7, 1, 1, 1, 0],
+    [0, 1, 8, 8, 1, 1, 7, 7, 7, 7, 1, 1, 9, 9, 1, 0],
+    [0, 1, 8, 6, 8, 8, 1, 4, 4, 1, 9, 9, 9, 9, 1, 0],
+    [0, 1, 8, 6, 8, 8, 8, 4, 4, 9, 9, 9, 9, 9, 1, 0],
+    [0, 1, 8, 8, 6, 8, 8, 1, 1, 9, 9, 9, 9, 9, 1, 0],
+    [0, 1, 8, 8, 8, 8, 8, 1, 1, 9, 9, 9, 9, 9, 1, 0],
+    [0, 4, 1, 8, 8, 8, 8, 1, 1, 9, 9, 9, 9, 1, 4, 0],
+    [0, 0, 0, 2, 2, 8, 8, 2, 2, 9, 9, 2, 2, 0, 0, 0],
+    [0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  ]
 }
 ```
 

@@ -1,0 +1,96 @@
+{
+  "resource_pack_name": "oneblock_natural_market",
+  "texture_name": "atlas.terrain",
+  "texture_data": {
+    "core_01_note": {
+      "textures": "textures/blocks/core_01_note"
+    },
+    "core_02_note": {
+      "textures": "textures/blocks/core_02_note"
+    },
+    "core_03_note": {
+      "textures": "textures/blocks/core_03_note"
+    },
+    "core_04_note": {
+      "textures": "textures/blocks/core_04_note"
+    },
+    "core_05_note": {
+      "textures": "textures/blocks/core_05_note"
+    },
+    "core_06_note": {
+      "textures": "textures/blocks/core_06_note"
+    },
+    "core_07_note": {
+      "textures": "textures/blocks/core_07_note"
+    },
+    "core_08_note": {
+      "textures": "textures/blocks/core_08_note"
+    },
+    "core_09_note": {
+      "textures": "textures/blocks/core_09_note"
+    },
+    "core_10_note": {
+      "textures": "textures/blocks/core_10_note"
+    },
+    "core_11_note": {
+      "textures": "textures/blocks/core_11_note"
+    },
+    "core_12_note": {
+      "textures": "textures/blocks/core_12_note"
+    },
+    "core_13_note": {
+      "textures": "textures/blocks/core_13_note"
+    },
+    "core_14_note": {
+      "textures": "textures/blocks/core_14_note"
+    },
+    "core_15_note": {
+      "textures": "textures/blocks/core_15_note"
+    },
+    "core_16_note": {
+      "textures": "textures/blocks/core_16_note"
+    },
+    "core_17_note": {
+      "textures": "textures/blocks/core_17_note"
+    },
+    "core_18_note": {
+      "textures": "textures/blocks/core_18_note"
+    },
+    "core_19_note": {
+      "textures": "textures/blocks/core_19_note"
+    },
+    "core_20_note": {
+      "textures": "textures/blocks/core_20_note"
+    },
+    "core_21_note": {
+      "textures": "textures/blocks/core_21_note"
+    },
+    "core_22_note": {
+      "textures": "textures/blocks/core_22_note"
+    },
+    "core_23_note": {
+      "textures": "textures/blocks/core_23_note"
+    },
+    "core_24_note": {
+      "textures": "textures/blocks/core_24_note"
+    },
+    "core_25_note": {
+      "textures": "textures/blocks/core_25_note"
+    },
+    "core_26_note": {
+      "textures": "textures/blocks/core_26_note"
+    },
+    "core_27_note": {
+      "textures": "textures/blocks/core_27_note"
+    },
+    "core_28_note": {
+      "textures": "textures/blocks/core_28_note"
+    },
+    "core_29_note": {
+      "textures": "textures/blocks/core_29_note"
+    },
+    "core_30_note": {
+      "textures": "textures/blocks/core_30_note"
+    }
+  }
+}

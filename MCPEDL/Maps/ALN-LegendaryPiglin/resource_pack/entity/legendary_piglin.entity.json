@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "aln:legendary_piglin",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/piglin/piglin"
+      },
+      "geometry": {
+        "default": "geometry.piglin"
+      },
+      "render_controllers": [
+        "controller.render.aln_legendary_piglin"
+      ]
+    }
+  }
+}

@@ -1,16 +1,32 @@
 # Changelog — ALN:MultiIslandOneBlock
 
-## [v11] - 2026-11-25 - Go Home, Top Islands and Offer Expiry
+## [v12] - 2026-11-26 - Island Protection and Co-op
 
 ### Added
+- **Island Protection**: Only the owner, co-op members and trusted players can build, break or use blocks on an island.
+- **Visit Requests**: Players can ask an online island owner for a visit from Friends & Co-op or the Top Islands page. Owners accept or decline.
+- **Trusted Players**: Island owners can trust up to eight players to build on their island.
+- **Co-op Islands**: Up to four players can share one island and one phase. Invited players join from the startup window, keep their own coins and split phase rewards.
+- **Gifts**: Players can send ALN Coins or items to any island player, online or offline.
+- **Buy Requests**: Players can post requests with a price, hold their coins until another player fills it, and get a refund if it expires or is cancelled.
+- **Daily Trade Bonus**: The first sale to another player each day earns bonus ALN Coins, with a larger bonus when the buyer's island has a different trait.
+
+<details>
+<summary><b>11.0.x</b> (1 release)</summary>
+
+### [v11] - 2026-11-25 - Go Home, Top Islands and Offer Expiry
+
+#### Added
 - **Go Home Button**: The TRADERS Item menu has a Go Home button that teleports you to your island, with a 60 second cooldown.
 - **Top Islands Page**: A new page ranks islands by OneBlock breaks and shows each island's phase and your own rank.
 - **Phase Rewards**: The first time an island reaches a new phase, its owner earns 25 ALN Coins multiplied by the phase number.
 - **Bonus Drop Notice**: A bonus drop now shows its name on the action bar and plays a sound for the player who broke the block.
 - **Offer Expiry**: Offers that do not sell return their items to the seller after about 7 days.
 
-### Fixed
+#### Fixed
 - **Creative Market Sale**: Creative mode players can no longer sell items to the market.
+
+</details>
 
 <details>
 <summary><b>10.0.x</b> (1 release)</summary>

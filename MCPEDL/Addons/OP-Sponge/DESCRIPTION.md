@@ -1,43 +1,28 @@
-# OP Sponge — Enchantable Sponges That Absorb Up to 100,000 Water Blocks
+# OP Sponge — A Sponge That Drains Connected Water
 
 **By ALNStudios**
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Craft Super Sponges that absorb up to 2,816 water blocks, or an Extreme Sponge that clears up to 100,000.**
+**Place the OP Sponge in or next to water and it drains the connected water, with three power levels to choose from.**
 
-> Adds the OP Sponge, ten levels of Super Sponge, and an Extreme Sponge, powered up with sponge books from chests, Librarian villagers, or crafting.
+> Adds the OP Sponge, crafted from a Sponge and Prismarine Crystals, with Normal, Extremely and Unlimited power levels.
 
 ## Overview
 
-Craft an OP Sponge, then combine it with a sponge book to make a Super Sponge or an Extreme Sponge. Place the sponge in or next to water and it removes the connected water around it, then turns into its filled version.
+Craft an OP Sponge, then place it in or next to water. It removes the connected water around it, then turns into its filled version.
 
 ## Key Features
 
 ### OP Sponge
-- **What Happens**: When placed, it absorbs all the connected water around it, including water inside waterlogged blocks, with no block limit, then becomes a Water-Filled OP Sponge.
+- **What Happens**: When placed, it absorbs the connected water around it, including water inside waterlogged blocks, then becomes a Water-Filled OP Sponge.
+- **Power Levels**: Pick one in the pack settings. Normal OP absorbs up to 256 water blocks, Extremely OP up to 1,024, and Unlimited OP has no block limit. Unlimited OP is the default.
 - **Look**: The vanilla sponge look with a letter S on every side, in both the dry and the filled version.
 - **Good To Know**: It only absorbs water, and it only reaches water in chunks that are loaded.
 
-### Super Sponge I to X
-- **What Happens**: Each level absorbs more water.
-- **Good To Know**: Super Sponges and their filled versions glow like enchanted items in your inventory and hand.
-
-### Extreme Sponge I
-- **What Happens**: It keeps absorbing until no connected water is left in reach, up to 100,000 water blocks in one use.
-- **Good To Know**: A very large drain is spread over a short time, so the water disappears over a moment instead of all at once.
-
-### Sponge Books
-- **What Happens**: There is a Super Sponge Book for each level from I to X, plus an Extreme Sponge I Book.
-- **Good To Know**: These are custom books, not vanilla enchantments, so the enchanting table and the anvil do not offer them.
-
-### Finding Books
-- **What Happens**: Sponge books can appear in shipwreck treasure chests, buried treasure, big ocean ruins, dungeons, stronghold libraries, ancient cities, desert temples, woodland mansions, jungle temples, and end city chests.
-- **Good To Know**: To add the books, this add-on replaces the vanilla loot lists of those chests and the Librarian trade list.
-
 ### Filled Sponges
-- **What Happens**: Every sponge has a Water-Filled version that you can pick up, carry, and place like any other block.
+- **What Happens**: The OP Sponge has a Water-Filled version that you can pick up, carry, and place like any other block.
 - **Good To Know**: Filled sponges use the wet Sponge look.
 
 ### Crafting
@@ -46,8 +31,8 @@ Craft an OP Sponge, then combine it with a sponge book to make a Super Sponge or
 ## How to Use
 
 1. Craft an OP Sponge from a Sponge and Prismarine Crystals.
-2. Find or buy a sponge book, then craft it together with the OP Sponge to make a Super Sponge or an Extreme Sponge.
-3. Place the sponge in or next to the water you want to remove, then smelt the filled sponge in a furnace to reuse it.
+2. Place the OP Sponge in or next to the water you want to remove.
+3. Smelt the filled sponge in a furnace to reuse it.
 
 ## Compatibility
 
@@ -79,5 +64,5 @@ Craft an OP Sponge, then combine it with a sponge book to make a Super Sponge or
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, OP Sponge Bedrock mod, Super Sponge, Extreme Sponge, sponge books, drain water, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+Minecraft Bedrock add-on, OP Sponge Bedrock mod, sponge, drain water, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
 

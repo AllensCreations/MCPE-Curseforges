@@ -34,6 +34,16 @@
     "last_published_version": "1.0.4",
     "last_release_version": "1"
   },
+  "MCPEDL/Addons/ALNSpiritSphere": {
+    "project_id": "1831969",
+    "last_published_version": "7",
+    "last_release_version": "6"
+  },
+  "MCPEDL/Addons/ALNWarpScrolls": {
+    "project_id": "1831750",
+    "last_published_version": "5",
+    "last_release_version": "4"
+  },
   "MCPEDL/Addons/Cheat-Stick": {
     "project_id": "1798250",
     "last_published_version": "4",
@@ -74,6 +84,9 @@
     "last_published_version": "3",
     "last_release_version": "1.4.1"
   },
+  "MCPEDL/Addons/Smart-Tool-Hub": {
+    "project_id": "1832328"
+  },
   "MCPEDL/Addons/Talking-Pirate-Parrots_payload": {
     "project_id": "1826163",
     "last_published_version": "2",
@@ -101,7 +114,7 @@
   },
   "MCPEDL/Maps/ALNMultiIslandOneBlock": {
     "project_id": "1825799",
-    "last_published_version": "10",
+    "last_published_version": "12",
     "last_release_version": "4"
   },
   "MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks": {
@@ -111,7 +124,7 @@
   },
   "MCPEDL/Maps/OneBlock-Natural-Market": {
     "project_id": "1819420",
-    "last_published_version": "16.0.11",
+    "last_published_version": "17.0.1",
     "last_release_version": "12"
   },
   "MCPEDL/Maps/OneBlock-Void-Survival": {

@@ -1,4 +1,4 @@
-import { world, system, ItemStack, EntityComponentTypes, StructureSaveMode } from "@minecraft/server";
+import { world, system, ItemStack, EntityComponentTypes, EntityDamageCause, StructureSaveMode } from "@minecraft/server";
 
 const EMPTY_ID = "aln:soul_lantern";
 const GENERIC_ID = "aln:soul_lantern_filled";
@@ -10,6 +10,17 @@ const COOLDOWN_TICKS = 200;
 const DEBOUNCE_TICKS = 8;
 const REGROW_STEP = 0.02;
 const SHRUNK_SIZE = 0.3;
+const SEEK_RANGE = 12;
+const CHASE_STEP = 0.3;
+
+const COMBAT = {
+  melee: { reach: 2, dmg: 4, every: 20 },
+  fast: { reach: 2, dmg: 3, every: 12 },
+  heavy: { reach: 2.4, dmg: 8, every: 28 },
+  kamikaze: { reach: 2.4, dmg: 0, every: 0 },
+  archer: { reach: 10, dmg: 3, every: 30, ranged: true },
+  snow: { reach: 8, dmg: 1, every: 20, ranged: true },
+};
 
 const KIND_NAMES = ["", "creeper", "skeleton", "zombie", "spider", "pig", "cow", "sheep", "chicken", "wolf", "villager", "iron_golem", "enderman", "blaze", "snow_golem", "cat", "horse", "bee", "axolotl", "fox", "witch", "slime", "ghast", "rabbit", "polar_bear"];
 const BOSSES = new Set(["minecraft:ender_dragon", "minecraft:wither", "minecraft:warden", "minecraft:elder_guardian"]);
@@ -419,6 +430,56 @@ function toggleSpirit(player, slot) {
   tell(player, "§b", "Spectral Ally called. Hold again to recall it.");
 }
 
+function fight(s, dim, at, gap, now) {
+  const rule = COMBAT[s.mode] ?? COMBAT.melee;
+  if (s.mode === "kamikaze" && s.size < 1) return;
+  let foes;
+  try {
+    foes = dim.getEntities({ location: at, maxDistance: SEEK_RANGE, families: ["monster"] });
+  } catch (e) {
+    return;
+  }
+  let foe;
+  let best = Infinity;
+  for (const e of foes) {
+    if (e.id === s.entity.id || e.hasTag(SPIRIT_TAG)) continue;
+    if (e.typeId === "minecraft:creeper" && s.mode !== "kamikaze") continue;
+    const d = Math.hypot(e.location.x - at.x, e.location.y - at.y, e.location.z - at.z);
+    if (d < best) {
+      best = d;
+      foe = e;
+    }
+  }
+  if (!foe) return;
+  const fl = foe.location;
+  if (best > rule.reach) {
+    const k = Math.min(CHASE_STEP, best - rule.reach * 0.8) / best;
+    s.entity.teleport(
+      { x: at.x + (fl.x - at.x) * k, y: at.y + (fl.y + 0.8 - at.y) * k, z: at.z + (fl.z - at.z) * k },
+      { dimension: dim, facingLocation: { x: fl.x, y: fl.y + 1, z: fl.z } }
+    );
+    return;
+  }
+  if (s.mode === "kamikaze") {
+    if (gap > 3.5) {
+      dim.createExplosion(at, 2.5, { breaksBlocks: false, causesFire: false, source: s.entity });
+      s.size = SHRUNK_SIZE;
+      setSize(s.entity, s.size);
+    }
+    return;
+  }
+  if (now < (s.nextHit ?? 0)) return;
+  s.nextHit = now + rule.every;
+  foe.applyDamage(rule.dmg, { cause: EntityDamageCause.entityAttack, damagingEntity: s.owner });
+  if (rule.ranged) {
+    for (let k = 1; k <= 5; k++) {
+      const t = k / 6;
+      dim.spawnParticle("minecraft:endrod", { x: at.x + (fl.x - at.x) * t, y: at.y + 0.7 + (fl.y + 1 - at.y - 0.7) * t, z: at.z + (fl.z - at.z) * t });
+    }
+  }
+  dim.spawnParticle("minecraft:blue_flame_particle", { x: fl.x, y: fl.y + 1, z: fl.z });
+}
+
 function setSize(entity, value) {
   try {
     entity.setProperty("aln:size", value);
@@ -488,16 +549,8 @@ system.runInterval(() => {
       if (s.size < 1) {
         s.size = Math.min(1, s.size + REGROW_STEP);
         setSize(s.entity, s.size);
-      } else if (s.mode === "kamikaze" && gap > 3.5) {
-        const foe = dim
-          .getEntities({ location: at, maxDistance: 2.4, families: ["monster"] })
-          .find((e) => e.id !== s.entity.id && !e.hasTag(SPIRIT_TAG));
-        if (foe) {
-          dim.createExplosion(at, 2.5, { breaksBlocks: false, causesFire: false, source: s.entity });
-          s.size = SHRUNK_SIZE;
-          setSize(s.entity, s.size);
-        }
       }
+      fight(s, dim, at, gap, now);
     } catch (e) {}
   }
 }, 4);

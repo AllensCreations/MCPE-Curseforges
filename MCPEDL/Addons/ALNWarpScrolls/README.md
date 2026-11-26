@@ -1,7 +1,7 @@
 # ALNWarpScrolls
 
 <!-- CURSEFORGE-BADGE:START -->
-[![CurseForge](https://img.shields.io/badge/CurseForge-Not%20Published-lightgrey?style=flat-square&logo=curseforge)](https://www.curseforge.com/members/allenscreations/projects)
+[![CurseForge](https://img.shields.io/badge/CurseForge-v5-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1831750)
 <!-- CURSEFORGE-BADGE:END -->
 
 Download the current release of **ALNWarpScrolls** for Minecraft Bedrock Edition.
@@ -9,7 +9,7 @@ Download the current release of **ALNWarpScrolls** for Minecraft Bedrock Edition
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNWarpScrolls (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNWarpScrolls/ALNWarpScrolls%20V1.mcaddon)
+- **Direct download:** [Download ALNWarpScrolls (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNWarpScrolls/ALNWarpScrolls%20V6.mcaddon)
 
 ## Installation
 

@@ -25,8 +25,8 @@
               }
             },
             {
-              "origin": [-8.02, -0.02, -8.02],
-              "size": [16.04, 16.04, 16.04],
+              "origin": [-8.2, -0.2, -8.2],
+              "size": [16.4, 16.4, 16.4],
               "uv": {
                 "north": { "uv": [0, 0], "uv_size": [16, 16], "material_instance": "letter" },
                 "east": { "uv": [0, 0], "uv_size": [16, 16], "material_instance": "letter" },

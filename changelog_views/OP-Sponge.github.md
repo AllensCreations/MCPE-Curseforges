@@ -1,12 +1,49 @@
 # Changelog — OP Sponge
 
-## [v6] - 2026-11-25 - Letter S And Waterlogged Blocks
+## [v9] - 2026-11-26 - Sponges Simplified
+
+### Removed
+- **Sponge books**: Super Sponge I to X Book and Extreme Sponge I Book, with their crafting recipes and the chest loot changes. Chests use the game's normal loot again.
+- **Super Sponges and Extreme Sponge**: all ten Super Sponges, the Extreme Sponge, their Water-Filled versions, recipes, names and icons.
 
 ### Changed
+- **OP Sponge**: It is now the only sponge. Choose Normal, Extremely or Unlimited power with the pack subpacks.
+
+<details>
+<summary><b>8.0.x</b> (1 release)</summary>
+
+### [v8] - 2026-11-26 - Letter S Flicker Fix
+
+#### Fixed
+- **Letter S**: The S layer now sits a little further off the sponge surface, so it no longer flickers.
+
+</details>
+
+<details>
+<summary><b>7.0.x</b> (1 release)</summary>
+
+### [v7] - 2026-11-26 - Power Levels And Water Recheck
+
+#### Added
+- **Power Levels**: Three subpacks for the OP Sponge. Normal OP absorbs up to 256 water blocks, Extremely OP up to 1,024, and Unlimited OP has no block limit. Unlimited OP is the default. Choose one in the pack settings.
+
+#### Fixed
+- **Sponges**: After draining, every sponge now re-checks the cleared cells up to 3 times and removes water that flowed back in.
+
+</details>
+
+<details>
+<summary><b>6.0.x</b> (1 release)</summary>
+
+### [v6] - 2026-11-25 - Letter S And Waterlogged Blocks
+
+#### Changed
 - **Textures**: Back to the vanilla sponge textures. The OP Sponge and the Water-Filled OP Sponge now show a letter S on every side.
 - **Sponges**: Every sponge now also drains water inside waterlogged blocks, such as stairs and slabs.
 
-### Removed
+#### Removed
+
+</details>
 
 <details>
 <summary><b>5.0.x</b> (1 release)</summary>

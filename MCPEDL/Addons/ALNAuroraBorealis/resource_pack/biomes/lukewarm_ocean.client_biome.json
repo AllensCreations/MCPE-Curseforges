@@ -1,0 +1,19 @@
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:lukewarm_ocean"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#8F7FD8"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_violet"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#5E4FC0"
+      }
+    }
+  }
+}

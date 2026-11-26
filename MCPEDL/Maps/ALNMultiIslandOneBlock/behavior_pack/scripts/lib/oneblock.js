@@ -1,6 +1,6 @@
 import { world, system, ItemStack } from "@minecraft/server";
 import { ONE_BLOCK_Y, PROP, BONUS_CHANCE, BONUS_AMOUNT_MULT, BREAKS_PER_COIN, COINS_PER_REWARD, RARE_UNIT_PRICE, PHASE_REWARD, COIN_NAME } from "./config.js";
-import { slotAt, recordOf, slotOf, slotCoords } from "./slots.js";
+import { slotAt, recordOf, slotOf, slotCoords, islandMemberIds } from "./slots.js";
 import { phaseIndexFor, rollBonus, PHASES, phaseLabel, breaksToNextPhase } from "./phases.js";
 import { islandBreaks, addIslandBreak, regenerate } from "./island.js";
 import { traitLabel } from "./traits.js";
@@ -61,12 +61,15 @@ function handleBreak(event) {
   });
 
   if (after !== before) {
-    const owner = findPlayer(record.id);
-    announcePhase(owner && owner.id !== breaker.id ? [breaker, owner] : [breaker], after);
+    const memberIds = islandMemberIds(slot);
+    const others = memberIds.map((id) => findPlayer(id)).filter((p) => p && p.id !== breaker.id);
+    announcePhase([breaker, ...others], after);
     if (!isCreative(breaker)) {
-      const reward = PHASE_REWARD * after;
-      addCoins(record.id, reward);
-      if (owner) owner.sendMessage(`§6[ALN] §aPhase reward: ${reward} ${COIN_NAME}.`);
+      const share = Math.floor((PHASE_REWARD * after) / memberIds.length);
+      for (const memberId of memberIds) {
+        addCoins(memberId, share);
+        findPlayer(memberId)?.sendMessage(`§6[ALN] §aPhase reward: ${share} ${COIN_NAME}.`);
+      }
     }
   }
   const left = breaksToNextPhase(total);

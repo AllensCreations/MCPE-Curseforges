@@ -1,0 +1,79 @@
+{
+  "format_version": "1.21.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "aln:pipe_filter",
+      "menu_category": {
+        "category": "construction"
+      },
+      "states": {
+        "aln:out": [
+          "north",
+          "east",
+          "south",
+          "west",
+          "up",
+          "down"
+        ]
+      }
+    },
+    "components": {
+      "minecraft:geometry": "geometry.aln_pipe_filter_north",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "aln_pipe_filter",
+          "render_method": "blend",
+          "ambient_occlusion": false,
+          "face_dimming": false
+        }
+      },
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 1.5
+      },
+      "minecraft:map_color": "#b8662f",
+      "minecraft:light_dampening": 0,
+      "minecraft:custom_components": [
+        "aln:pipe"
+      ],
+      "minecraft:light_emission": 4
+    },
+    "permutations": [
+      {
+        "condition": "query.block_state('aln:out') == 'north'",
+        "components": {
+          "minecraft:geometry": "geometry.aln_pipe_filter_north"
+        }
+      },
+      {
+        "condition": "query.block_state('aln:out') == 'east'",
+        "components": {
+          "minecraft:geometry": "geometry.aln_pipe_filter_east"
+        }
+      },
+      {
+        "condition": "query.block_state('aln:out') == 'south'",
+        "components": {
+          "minecraft:geometry": "geometry.aln_pipe_filter_south"
+        }
+      },
+      {
+        "condition": "query.block_state('aln:out') == 'west'",
+        "components": {
+          "minecraft:geometry": "geometry.aln_pipe_filter_west"
+        }
+      },
+      {
+        "condition": "query.block_state('aln:out') == 'up'",
+        "components": {
+          "minecraft:geometry": "geometry.aln_pipe_filter_up"
+        }
+      },
+      {
+        "condition": "query.block_state('aln:out') == 'down'",
+        "components": {
+          "minecraft:geometry": "geometry.aln_pipe_filter_down"
+        }
+      }
+    ]
+  }
+}

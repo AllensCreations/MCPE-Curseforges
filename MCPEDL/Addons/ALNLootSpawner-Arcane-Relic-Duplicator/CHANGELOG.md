@@ -2,6 +2,11 @@
 
 ---
 
+## [1.0.7] - 2026-11-26 - Add Inventory Icon for Recipe Diagram
+
+### Added
+- **Inventory icon**: Added an inventory-style icon of the Loot Spawner so its crafting recipe diagram can be built for the pack page.
+
 ## [1.0.6] - 2026-11-25 - Translucent Glass and Redrawn Textures
 
 ### Fixed

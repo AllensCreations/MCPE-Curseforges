@@ -7,6 +7,7 @@ import { startOneBlock } from "./lib/oneblock.js";
 import { openLedger } from "./lib/ledger.js";
 import { startLedgerKeeper, ensureLedger } from "./lib/keeper.js";
 import { startCoinBoard } from "./lib/board.js";
+import { startProtection } from "./lib/social.js";
 import { collectPayout, payoutSummary, takeEarned } from "./lib/market.js";
 import { later } from "./lib/util.js";
 
@@ -21,7 +22,7 @@ function readyPlayer(player) {
   returnToIsland(player);
   later(() => {
     const earned = takeEarned(player.id);
-    if (earned > 0) player.sendMessage(`§6[ALN] §aWhile you were away you earned ${earned} ALN Coins from your sales.`);
+    if (earned > 0) player.sendMessage(`§6[ALN] §aWhile you were away you received ${earned} ALN Coins from sales, bonuses and gifts.`);
   }, 60);
   if (payoutSummary(player.id).length > 0) {
     later(() => {
@@ -71,6 +72,7 @@ world.afterEvents.worldLoad.subscribe(() => {
   startLedgerKeeper();
   startCoinBoard();
   startWelcomeGuard();
+  startProtection();
   for (const player of world.getAllPlayers()) {
     if (!joining.has(player.id)) readyPlayer(player);
   }

@@ -2,6 +2,32 @@
 
 ---
 
+## [17.0.1] - 2026-11-26 - Cooldown Bedrock and Market Search
+
+### Added
+- **Cooldown Bedrock**: after every 50 core breaks the core turns into Bedrock for 30 seconds, with a countdown on screen, so the Coins cannot be farmed without a pause.
+- **Phase countdown**: every time the shared progress reaches a new phase, the core turns into Bedrock for 1 minute with a countdown before the next block appears.
+- **Market Search**: a new Search button in the Ledger finds any unlocked supply by name and lets you buy it from the results. Locked supplies are not listed.
+
+### Improved & Balanced
+- **Break time**: Currency Blocks take about 25 percent longer to break, now from 0.5 to 2.2 seconds, still the same with any tool or bare hands.
+
+## [17.0.0] - 2026-11-26 - Natural Market Currency Blocks
+
+### Added
+- **Currency Blocks**: the central block is now 30 custom banknote-style blocks, numbered 1 to 30, one per tier. Each has its own break time, from 0.4 to 1.7 seconds, and it is the same with any tool or bare hands.
+- **Market demand**: every supply gets more expensive as it is bought. Each bundle bought raises that item's price by about 15 percent, up to 12 times the normal price, and a red percentage shows the current rise. Prices fall back by half every 8 to 25 minutes, and rare items take longer to settle.
+- **New natural supplies**: Raw Iron, Raw Copper, Raw Gold, Raw Beef, Raw Porkchop, Raw Chicken, Raw Mutton, Raw Rabbit, Raw Cod and Raw Salmon.
+
+### Improved & Balanced
+- **Natural supplies only**: the market no longer sells crafted items such as tools, weapons, planks, ingots, cooked food, redstone parts, glass or bricks. The Tools & Gear, Combat and Redstone sections are gone and Building Blocks is now Natural Blocks.
+- **Tool wear**: breaking the core costs more tool durability on higher Currency Blocks, from 1 to 3 times the usual amount.
+- **Prices**: late-tier supplies cost more to match the new Coin income and break times.
+- **Locked by default**: the Trident, Elytra and Totem of Undying start locked in the sell list.
+
+### Fixed
+- **Old core blocks**: a vanilla core block already in an existing world still pays Coins when broken and is then replaced by a Currency Block.
+
 ## [16.0.11] - 2026-11-24 - Core Tool Durability
 
 ### Improved & Balanced

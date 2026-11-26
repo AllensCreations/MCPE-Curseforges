@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:LootSpawner (v1.0.6)",
+    "name": "ALN:LootSpawner (v1.0.7)",
     "description": "Arcane Relic Duplicator Display Cage. by ALNStudios",
     "uuid": "168d9162-4f4a-4dda-a2c8-a550e2b9ad41",
     "version": [
       1,
       0,
-      6
+      7
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         0,
-        6
+        7
       ]
     },
     {
@@ -32,7 +32,7 @@
       "version": [
         1,
         0,
-        6
+        7
       ],
       "entry": "scripts/main.js"
     }
@@ -43,7 +43,7 @@
       "version": [
         1,
         0,
-        6
+        7
       ]
     },
     {
@@ -56,7 +56,7 @@
     }
   ],
   "metadata": {
-    "version": "1.0.6",
+    "version": "1.0.7",
     "authors": [
       "ALNStudios"
     ],

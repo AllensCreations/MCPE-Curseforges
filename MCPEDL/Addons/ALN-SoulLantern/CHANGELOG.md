@@ -2,6 +2,11 @@
 
 ---
 
+## [3.0.1] - 2026-11-26 - Ally Combat Fix
+
+### Fixed
+- **Spectral Ally**: The spirit now seeks out and attacks nearby monsters itself instead of relying on its AI, which did not attack.
+
 ## [3.0.0] - 2026-11-25 - Soul Lantern Expansion
 
 ### Added

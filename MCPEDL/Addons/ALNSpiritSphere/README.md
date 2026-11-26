@@ -1,7 +1,7 @@
 # ALNSpiritSphere
 
 <!-- CURSEFORGE-BADGE:START -->
-[![CurseForge](https://img.shields.io/badge/CurseForge-Not%20Published-lightgrey?style=flat-square&logo=curseforge)](https://www.curseforge.com/members/allenscreations/projects)
+[![CurseForge](https://img.shields.io/badge/CurseForge-v7-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1831969)
 <!-- CURSEFORGE-BADGE:END -->
 
 Download the current release of **ALNSpiritSphere** for Minecraft Bedrock Edition.
@@ -9,7 +9,7 @@ Download the current release of **ALNSpiritSphere** for Minecraft Bedrock Editio
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNSpiritSphere (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpiritSphere/ALNSpiritSphere%20V6.mcaddon)
+- **Direct download:** [Download ALNSpiritSphere (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpiritSphere/ALNSpiritSphere%20V7.mcaddon)
 
 ## Installation
 

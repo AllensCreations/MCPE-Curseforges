@@ -1,5 +1,5 @@
 import { world } from "@minecraft/server";
-import { PROP, GRID_STEP } from "./config.js";
+import { PROP, GRID_STEP, COOP_MAX_MEMBERS, PROTECT_RADIUS } from "./config.js";
 import { readJson, writeJson } from "./util.js";
 
 const CORE = [
@@ -107,6 +107,9 @@ export function recordOfPlayerId(id) {
   for (const key of Object.keys(slots)) {
     if (slots[key].id === id) return { slot: Number(key), record: slots[key] };
   }
+  for (const key of Object.keys(slots)) {
+    if (isMemberOf(Number(key), id)) return { slot: Number(key), record: slots[key] };
+  }
   return undefined;
 }
 
@@ -152,7 +155,10 @@ export function markBuilt(slot) {
 
 export function slotOf(player) {
   const stored = player.getDynamicProperty(PROP.SLOT);
-  if (typeof stored === "number" && recordOf(stored)?.id === player.id) return stored;
+  if (typeof stored === "number") {
+    const own = recordOf(stored);
+    if (own && (own.id === player.id || isMemberOf(stored, player.id))) return stored;
+  }
   const found = recordOfPlayerId(player.id);
   if (!found) return undefined;
   player.setDynamicProperty(PROP.SLOT, found.slot);
@@ -167,4 +173,65 @@ export function traitOf(player) {
 
 export function usedSlotCount() {
   return Object.keys(readSlots()).length;
+}
+
+export function coopMembers(slot) {
+  return readJson(world, PROP.COOP_PREFIX + slot, []);
+}
+
+export function setCoopMembers(slot, list) {
+  writeJson(world, PROP.COOP_PREFIX + slot, list);
+}
+
+export function isMemberOf(slot, id) {
+  return coopMembers(slot).some((m) => m.id === id);
+}
+
+export function addCoopMember(slot, player) {
+  const members = coopMembers(slot);
+  if (members.length >= COOP_MAX_MEMBERS || members.some((m) => m.id === player.id)) return false;
+  members.push({ id: player.id, name: player.name });
+  setCoopMembers(slot, members);
+  return true;
+}
+
+export function trustedOf(slot) {
+  return readJson(world, PROP.TRUST_PREFIX + slot, []);
+}
+
+export function setTrusted(slot, list) {
+  writeJson(world, PROP.TRUST_PREFIX + slot, list);
+}
+
+export function islandMemberIds(slot) {
+  const record = recordOf(slot);
+  return record ? [record.id, ...coopMembers(slot).map((m) => m.id)] : [];
+}
+
+export function canBuild(playerId, slot) {
+  const record = recordOf(slot);
+  if (!record || record.id === playerId) return true;
+  if (isMemberOf(slot, playerId)) return true;
+  return trustedOf(slot).some((t) => t.id === playerId);
+}
+
+export function slotNear(x, z) {
+  const cx = Math.round(x / GRID_STEP);
+  const cz = Math.round(z / GRID_STEP);
+  if (Math.abs(x - cx * GRID_STEP) > PROTECT_RADIUS || Math.abs(z - cz * GRID_STEP) > PROTECT_RADIUS) return undefined;
+  return slotAt(cx * GRID_STEP, cz * GRID_STEP);
+}
+
+export function inviteFor(playerId) {
+  const invite = readJson(world, PROP.INVITE_PREFIX + playerId, undefined);
+  if (!invite || !recordOf(invite.slot)) return undefined;
+  return invite;
+}
+
+export function setInvite(playerId, invite) {
+  writeJson(world, PROP.INVITE_PREFIX + playerId, invite);
+}
+
+export function clearInvite(playerId) {
+  world.setDynamicProperty(PROP.INVITE_PREFIX + playerId, undefined);
 }

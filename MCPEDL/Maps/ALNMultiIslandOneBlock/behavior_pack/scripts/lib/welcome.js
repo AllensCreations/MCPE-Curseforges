@@ -2,7 +2,8 @@ import { system } from "@minecraft/server";
 import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
 import { TITLE, WELCOME_BODY, RULES_BODY, WELCOME_RETRY_LIMIT, LOCK_EFFECT, LOCK_AMPLIFIER } from "./config.js";
 import { findPlayer, wait } from "./util.js";
-import { hasIsland, claimIsland } from "./claim.js";
+import { hasIsland, claimIsland, joinCoopIsland } from "./claim.js";
+import { inviteFor } from "./slots.js";
 
 const open = new Set();
 
@@ -45,11 +46,13 @@ export async function promptWelcome(player, attempt = 0) {
     while (true) {
       const p = findPlayer(id);
       if (!p || hasIsland(p)) return;
+      const invite = inviteFor(id);
       const form = new ActionFormData()
         .title(TITLE)
         .body(WELCOME_BODY)
         .button("Start / Claim Island")
         .button("About / Rules");
+      if (invite) form.button(`Join ${invite.owner}'s Island (Co-op)`);
       let res;
       try {
         res = await form.show(p);
@@ -63,6 +66,10 @@ export async function promptWelcome(player, attempt = 0) {
           return;
         }
         await wait(res.cancelationReason === FormCancelationReason.UserBusy ? 10 : 100);
+        continue;
+      }
+      if (res.selection === 2 && invite) {
+        if (joinCoopIsland(p, invite.slot)) return;
         continue;
       }
       if (res.selection === 0) {

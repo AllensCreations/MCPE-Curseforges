@@ -1,0 +1,9 @@
+# Script notes
+
+The `lib/` folder holds no `.js` files yet: both scripts are small and live in `scripts/`.
+
+- `main.js`: entry point, loads `oneblock_tier.js` and `legendary_piglin.js`, exports nothing.
+- `oneblock_tier.js`: registers a block-break listener for the OneBlock core at 0 0 0 in the Overworld, then places the next block from a weighted pool (oak, birch and spruce logs, cobblestone, stone, coal ore, iron ore, gold ore). Breaking a log can also drop a matching sapling. Depends on `@minecraft/server`.
+- `legendary_piglin.js`: spawns the entity `aln:legendary_piglin` named The Legendary One at the home station (4.5 1 0.5) once a player is in the world and the station floor exists. On death of that entity it plays a particle effect, broadcasts the chat line, and respawns him after 100 ticks, retrying every 100 ticks up to 12 times if the spawn fails. Depends on `@minecraft/server`.
+- Custom ids: `aln:legendary_piglin`. Loot table used by the entity: `loot_tables/entities/legendary_barter.json`.
+- Known limits: no state is saved between reloads, so a missing Legendary One is respawned only when the world finds none; bartering fields of the entity are not verified in game.

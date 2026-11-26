@@ -38,6 +38,12 @@ Each sphere has its own color and impact behavior. There is no switching: carry 
 ### Charge-Scaled Orb
 - **What Happens**: Releasing fires the Spirit Orb along your aim. A quick release lobs a slow orb with a small blast, a medium charge flies steadily, and a full charge flies almost straight and fast with a cratering explosion.
 
+### Energy Hands
+- **What Happens**: While you charge, glowing energy hands made of particles appear on both sides of the sphere, with energy arms running back to your shoulders. The hands close in as the sphere compresses and spread apart when it bursts open.
+
+### Flight Paths
+- **What Happens**: Each sphere flies its own way. Aero Vortex corkscrews in a spiral, Blaze Solar flies fast with a slight fireball drop, Frost Nova lobs in a high arc, Storm Surge zigzags side to side, Void Singularity slowly homes in on the nearest mob, Terra Quake flies as a heavy boulder arc, Toxic Bloom wobbles unpredictably, Gravity Warp bends in a wide curve to one side, Life Bloom seeks the nearest other player and Chrono Stasis starts slow and speeds up.
+
 ### Sweet Spot and Fading
 - **What Happens**: Full power lasts from 50 to 62 ticks. If you keep holding, the sphere shrinks, its tone falls in pitch, and the shot slowly weakens over the next 3 seconds down to 40 percent of its speed and blast. The action bar shows the current power.
 
