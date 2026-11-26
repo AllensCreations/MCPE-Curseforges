@@ -38,6 +38,7 @@ on:
           - "MCPEDL/Addons/ALN-Pointer"
           - "MCPEDL/Addons/ALNOneClickSort"
           - "MCPEDL/Addons/ALNPirateTokens"
+          - "MCPEDL/Addons/ALNSpiritSphere"
           - "MCPEDL/Addons/ALNWarpScrolls"
           - "MCPEDL/Addons/Cheat-Stick"
           - "MCPEDL/Addons/Enchanter"
@@ -53,7 +54,6 @@ on:
           - "MCPEDL/Addons/Vanilla-Quality-of-Life"
           - "MCPEDL/Addons/Waypoint-Helper"
           - "MCPEDL/Maps/ALNMultiIslandOneBlock"
-          - "MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks"
           # END registered
       publish_map_variant:
         description: "Maps only (default = auto, all = Creative + Survival + Hardcore). Other pack types ignore it and publish normally"
