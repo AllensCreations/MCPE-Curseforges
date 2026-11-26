@@ -98,7 +98,7 @@ export const MODES = [
     name: "Chrono Stasis",
     code: "§3",
     color: { red: 0.4, green: 0.9, blue: 0.95 },
-    speed: 1.2,
+    speed: 0.45,
   },
 ];
 

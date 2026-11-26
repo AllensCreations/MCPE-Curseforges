@@ -4,6 +4,18 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v306] - 2026-11-26 - Flight Paths and Energy Hands
+
+**Spec**: spec_v306.txt | **Target**: MCPEDL/Addons/ALNSpiritSphere | **Files edited**: 5
+
+### Added
+- **Flight paths**: Each of the ten spheres now flies its own path, from a spiral and a zigzag to arcs, homing, a wobble, a side curve and a speed-up.
+- **Energy hands**: Glowing particle hands and arms now appear on both sides of the sphere while you charge, so it looks held in two hands.
+
+### Improved & Balanced
+- **Sphere position**: The charging sphere and the launch point now sit in front of your chest instead of beside your right hand.
+- **Chrono Stasis speed**: The orb now starts at about 40 percent of its old speed and speeds up in flight.
+
 ## [v305] - 2026-11-26 - Add Inventory Icon for Recipe Diagram
 
 **Spec**: spec_v305.txt | **Target**: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator | **Files edited**: 2

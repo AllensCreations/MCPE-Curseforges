@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:SpiritSphere Behavior Pack (v6)",
+    "name": "ALN:SpiritSphere Behavior Pack (v7)",
     "description": "Charge one of ten elemental Spirit Spheres and release a Ghast-style energy orb by ALNStudios",
     "uuid": "951ab0f1-53a7-45a3-80fc-a610ec8e217b",
     "version": [
-      6,
+      7,
       0,
       0
     ],
@@ -20,7 +20,7 @@
       "type": "data",
       "uuid": "d58017bb-894b-4fd8-a26a-d2ab81d83a4e",
       "version": [
-        6,
+        7,
         0,
         0
       ]
@@ -30,7 +30,7 @@
       "language": "javascript",
       "uuid": "ad6704ec-178d-4dd3-b3eb-1a719bd5b2f0",
       "version": [
-        6,
+        7,
         0,
         0
       ],
@@ -41,7 +41,7 @@
     {
       "uuid": "c05699f5-364c-44cb-9978-490a4bc716e4",
       "version": [
-        6,
+        7,
         0,
         0
       ]
@@ -56,6 +56,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "6.0.0"
+    "version": "7.0.0"
   }
 }
