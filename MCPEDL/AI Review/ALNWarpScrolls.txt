@@ -7,7 +7,7 @@
 - **CURRENT VERSION: v5 / NEXT UPDATE: v6**  (`MCPEDL/Addons/ALNWarpScrolls/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 23
-- **Skipped binary:** 19
+- **Skipped binary:** 18
 - **Paths not found:** 0
 
 ### Files in this export
@@ -36,7 +36,7 @@
 - `MCPEDL/Addons/ALNWarpScrolls/resource_pack/ui/hud_screen.json`
 - `MCPEDL/Addons/ALNWarpScrolls/texture_sources/warp_scrolls.json`
 
-### Skipped (binary): 19 file(s)
+### Skipped (binary): 18 file(s)
 
 - `MCPEDL/Addons/ALNWarpScrolls/assets/banner.png`
 - `MCPEDL/Addons/ALNWarpScrolls/assets/items/warp_scroll.png`
@@ -45,7 +45,6 @@
 - `MCPEDL/Addons/ALNWarpScrolls/assets/recipes/beacon_gate_recipe_label.png`
 - `MCPEDL/Addons/ALNWarpScrolls/assets/recipes/warp_scroll_recipe.png`
 - `MCPEDL/Addons/ALNWarpScrolls/assets/recipes/warp_scroll_recipe_label.png`
-- `MCPEDL/Addons/ALNWarpScrolls/assets/snapshots/IMG_20260501_175903_111.jpg`
 - `MCPEDL/Addons/ALNWarpScrolls/assets/snapshots/Screenshot_20261126-092722.jpg`
 - `MCPEDL/Addons/ALNWarpScrolls/assets/snapshots/Screenshot_20261126-092732.jpg`
 - `MCPEDL/Addons/ALNWarpScrolls/assets/snapshots/Screenshot_20261126-093158.jpg`
