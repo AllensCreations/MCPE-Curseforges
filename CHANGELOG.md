@@ -4,6 +4,13 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v311] - 2026-11-26 - Scroll Retexture
+
+**Spec**: spec_v311.txt | **Target**: MCPEDL/Addons/ALNWarpScrolls | **Files edited**: 2
+
+### Improved & Balanced
+- **Warp Scroll texture**: Redrawn as a tilted parchment scroll with curled ends, a purple band, a gold-framed gem and a purple glow outline.
+
 ## [v310] - 2026-11-26 - Crafting Recipe and Hub Settings
 
 **Spec**: spec_v310.txt | **Target**: MCPEDL/Addons/Smart-Tool-Hub | **Files edited**: 5

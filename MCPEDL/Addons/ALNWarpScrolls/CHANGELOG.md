@@ -2,6 +2,11 @@
 
 ---
 
+## [v6] - 2026-11-26 - Scroll Retexture
+
+### Improved & Balanced
+- **Warp Scroll texture**: Redrawn as a tilted parchment scroll with curled ends, a purple band, a gold-framed gem and a purple glow outline.
+
 ## [v5] - 2026-11-26 - Beacon Gate Model
 
 ### Added
