@@ -9,7 +9,7 @@ Download the current release of **ALNWarpScrolls** for Minecraft Bedrock Edition
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNWarpScrolls (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNWarpScrolls/ALNWarpScrolls%20V4.mcaddon)
+- **Direct download:** [Download ALNWarpScrolls (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNWarpScrolls/ALNWarpScrolls%20V5.mcaddon)
 
 ## Installation
 

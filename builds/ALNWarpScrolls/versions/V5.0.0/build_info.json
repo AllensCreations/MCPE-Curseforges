@@ -1,0 +1,8 @@
+{
+  "changelog_version": "5.0.0",
+  "manifest_version": "5.0.0",
+  "packages": {
+    "ALNWarpScrolls V5.mcaddon": "76f57efc666e2756a1b5c94edaeb871ace461d59917559733f90e8b4310dc1db"
+  },
+  "source_sha256": "94b41bc11dfec59acd8397775deb6f20bb2f4ef05cf3be0ab8526918784a386e"
+}

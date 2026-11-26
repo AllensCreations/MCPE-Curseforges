@@ -45,7 +45,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | ALNPirateTokens | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALNPirateTokens/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNPirateTokens/ALNPirateTokens%20V1.0.4.mcaddon) |
 | ALNSpiritSphere | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALNSpiritSphere/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpiritSphere/ALNSpiritSphere%20V6.mcaddon) |
 | ALNChronoStop | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALNChronoStop/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNChronoStop/ALNChronoStop%20V1.mcaddon) |
-| ALNWarpScrolls | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALNWarpScrolls/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNWarpScrolls/ALNWarpScrolls%20V4.mcaddon) |
+| ALNWarpScrolls | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALNWarpScrolls/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNWarpScrolls/ALNWarpScrolls%20V5.mcaddon) |
 
 Download links point to the currently published package files.
 

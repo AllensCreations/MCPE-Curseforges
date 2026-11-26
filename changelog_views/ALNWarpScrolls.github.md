@@ -1,12 +1,22 @@
 # Changelog — ALN:WarpScrolls
 
-## [v4] - 2026-11-26 - Channel Cancel and Full Blackout
+## [v5] - 2026-11-26 - Beacon Gate Model
 
 ### Added
+- **Beacon Gate model**: The block now has a custom 3D model with a gold plinth, four obsidian pillars topped with gold and amethyst, gold rails and a floating crystal.
+
+<details>
+<summary><b>4.0.x</b> (1 release)</summary>
+
+### [v4] - 2026-11-26 - Channel Cancel and Full Blackout
+
+#### Added
 - **Channel cancel**: Moving during the 3-second charge now interrupts the warp. The scroll is kept, the Nausea and the charge sound stop, and the eyelids open.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **Full-screen blackout**: The eyelid screen now reaches past the screen edges, and a black veil fades in over the whole screen as the eyelids close.
+
+</details>
 
 <details>
 <summary><b>3.0.x</b> (1 release)</summary>
