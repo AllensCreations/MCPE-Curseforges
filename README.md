@@ -83,7 +83,7 @@ See the [repository changelog](CHANGELOG.md) for the latest updates.
 | [**Waypoint Helper**](MCPEDL/Addons/Waypoint-Helper/README.md) | Add-ons | [1799752](https://www.curseforge.com/projects/1799752) | `v2` | 🟢 Published |
 | [**ALN:MultiIslandOneBlock**](MCPEDL/Maps/ALNMultiIslandOneBlock/README.md) | Maps | [1825799](https://www.curseforge.com/projects/1825799) | `v12` | 🟢 Published |
 | [**One Block Skyblock Lucky Blocks**](MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/README.md) | Maps | [1821677](https://www.curseforge.com/projects/1821677) | `v9` | 🟢 Published |
-| [**OneBlock Natural Market**](MCPEDL/Maps/OneBlock-Natural-Market/README.md) | Maps | [1819420](https://www.curseforge.com/projects/1819420) | `v16.0.11` | 🟢 Published |
+| [**OneBlock Natural Market**](MCPEDL/Maps/OneBlock-Natural-Market/README.md) | Maps | [1819420](https://www.curseforge.com/projects/1819420) | `v17.0.1` | 🟢 Published |
 | [**OneBlock Void Survival**](MCPEDL/Maps/OneBlock-Void-Survival/README.md) | Maps | [1740769](https://www.curseforge.com/projects/1740769) | `v10` | 🟢 Published |
 | [**ALN:MobStacker**](MCPEDL/Script/ALN-MobStacker/README.md) | Scripts | [1821753](https://www.curseforge.com/projects/1821753) | `v5` | 🟢 Published |
 | [**ALN:SpawnControl**](MCPEDL/Script/ALNSpawnControl/README.md) | Scripts | [1812574](https://www.curseforge.com/projects/1812574) | `v3.0.3` | 🟢 Published |

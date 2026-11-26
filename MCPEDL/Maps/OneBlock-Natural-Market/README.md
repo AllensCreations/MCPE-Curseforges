@@ -1,7 +1,7 @@
 # OneBlock Natural Market
 
 <!-- CURSEFORGE-BADGE:START -->
-[![CurseForge](https://img.shields.io/badge/CurseForge-v16.0.11-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1819420)
+[![CurseForge](https://img.shields.io/badge/CurseForge-v17.0.1-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1819420)
 <!-- CURSEFORGE-BADGE:END -->
 
 Download the current release of **OneBlock Natural Market** for Minecraft Bedrock Edition.
