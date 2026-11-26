@@ -4,6 +4,18 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v312] - 2026-11-26 - Biome Fix and Aurora Palette
+
+**Spec**: spec_v312.txt | **Target**: MCPEDL/Addons/ALNAuroraBorealis | **Files edited**: 100
+
+### Added
+- **Aurora Palette**: Up to 47 Overworld biomes get an emerald, cyan or violet sky tint, with a matching haze at the edge of your view distance.
+- **Tinted Water**: Water surfaces match the biome's aurora color.
+- **Pack Icon**: A pixel-art aurora over snowy peaks shows in the pack list.
+
+### Fixed
+- **Biome Tints**: The sky, haze and water tints now load in game; they were stored where Minecraft does not read them.
+
 ## 2026-11-26 - New Addon ALNAuroraBorealis
 
 ### Added

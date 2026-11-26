@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:AuroraBorealis (v1)",
+    "name": "ALN:AuroraBorealis (v2)",
     "description": "Emerald aurora night sky tint and fog. by ALNStudios",
     "uuid": "1539c463-9ac1-426d-9063-382621784753",
     "version": [
-      1,
+      2,
       0,
       0
     ],
@@ -20,7 +20,7 @@
       "type": "resources",
       "uuid": "4f2a3520-e7e0-4aa6-bb03-bcf88c6d258c",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -31,6 +31,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "2.0.0"
   }
 }

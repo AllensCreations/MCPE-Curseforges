@@ -1,0 +1,22 @@
+{
+  "format_version": "1.21.40",
+  "minecraft:fog_settings": {
+    "description": {
+      "identifier": "aln:aurora_fog_violet"
+    },
+    "distance": {
+      "air": {
+        "fog_start": 0.85,
+        "fog_end": 1.0,
+        "fog_color": "#6A3FB0",
+        "render_distance_type": "render"
+      },
+      "water": {
+        "fog_start": 0.0,
+        "fog_end": 0.6,
+        "fog_color": "#6A3FB0",
+        "render_distance_type": "fixed"
+      }
+    }
+  }
+}

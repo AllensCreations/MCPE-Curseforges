@@ -1,0 +1,19 @@
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:mesa_bryce"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5BC8A4"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
+      }
+    }
+  }
+}

@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:AuroraBorealis (v1)",
+    "name": "ALN:AuroraBorealis (v2)",
     "description": "Companion pack with no gameplay content. by ALNStudios",
     "uuid": "3f16891f-0d78-400e-aa6a-a24685970ed3",
     "version": [
-      1,
+      2,
       0,
       0
     ],
@@ -20,7 +20,7 @@
       "type": "data",
       "uuid": "899e1348-05c5-4d32-a457-cfe803167aba",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -30,7 +30,7 @@
     {
       "uuid": "1539c463-9ac1-426d-9063-382621784753",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -41,6 +41,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "2.0.0"
   }
 }
