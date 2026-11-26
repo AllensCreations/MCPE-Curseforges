@@ -6,14 +6,15 @@
 - **Destination:** `MCPEDL/Addons/Smart-Tool-Hub`
 - **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/Smart-Tool-Hub/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
-- **Text files:** 11
-- **Skipped binary:** 4
+- **Text files:** 12
+- **Skipped binary:** 10
 - **Paths not found:** 0
 
 ### Files in this export
 
 - `MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/items/tool_hub.json`
 - `MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/manifest.json`
+- `MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/recipes/tool_hub.json`
 - `MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/scripts/lib/README.md`
 - `MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/scripts/main.js`
 - `MCPEDL/Addons/Smart-Tool-Hub/CHANGELOG.md`
@@ -24,9 +25,15 @@
 - `MCPEDL/Addons/Smart-Tool-Hub/resource_pack/textures/item_texture.json`
 - `MCPEDL/Addons/Smart-Tool-Hub/texture_sources/aln_tool_hub.json`
 
-### Skipped (binary): 4 file(s)
+### Skipped (binary): 10 file(s)
 
 - `MCPEDL/Addons/Smart-Tool-Hub/assets/banner.png`
+- `MCPEDL/Addons/Smart-Tool-Hub/assets/items/aln_tool_hub.png`
+- `MCPEDL/Addons/Smart-Tool-Hub/assets/items/aln_tool_hub_label.png`
+- `MCPEDL/Addons/Smart-Tool-Hub/assets/items/tool_hub.png`
+- `MCPEDL/Addons/Smart-Tool-Hub/assets/items/tool_hub_label.png`
+- `MCPEDL/Addons/Smart-Tool-Hub/assets/recipes/tool_hub_recipe.png`
+- `MCPEDL/Addons/Smart-Tool-Hub/assets/recipes/tool_hub_recipe_label.png`
 - `MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/pack_icon.png`
 - `MCPEDL/Addons/Smart-Tool-Hub/resource_pack/pack_icon.png`
 - `MCPEDL/Addons/Smart-Tool-Hub/resource_pack/textures/items/aln_tool_hub.png`
@@ -1179,13 +1186,13 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
 {
   "format_version": 2,
   "header": {
-    "name": "Smart Tool Hub (v1.0.1)",
+    "name": "Smart Tool Hub (v1.0.2)",
     "description": "Tool Hub item with a toggle menu for Passive Auto-Switch (offhand), Tree Capitator and Domino Ore Miner. by ALNStudios",
     "uuid": "f0d4552b-755e-4bac-a2db-403201a5d709",
     "version": [
       1,
       0,
-      1
+      2
     ],
     "min_engine_version": [
       1,
@@ -1200,7 +1207,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "version": [
         1,
         0,
-        1
+        2
       ]
     },
     {
@@ -1211,7 +1218,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "version": [
         1,
         0,
-        1
+        2
       ],
       "entry": "scripts/main.js"
     }
@@ -1222,7 +1229,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "version": [
         1,
         0,
-        1
+        2
       ]
     },
     {
@@ -1239,12 +1246,50 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.1"
+    "version": "1.0.2"
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/scripts/lib/README.md (43 lines, 2278 bytes)
+## FILE: MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/recipes/tool_hub.json (34 lines, 544 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:tool_hub"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "IRI",
+      "RDR",
+      "IRI"
+    ],
+    "key": {
+      "I": {
+        "item": "minecraft:iron_ingot"
+      },
+      "R": {
+        "item": "minecraft:redstone"
+      },
+      "D": {
+        "item": "minecraft:diamond"
+      }
+    },
+    "result": {
+      "item": "aln:tool_hub"
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/scripts/lib/README.md (46 lines, 3032 bytes)
 
 ```
 # Smart Tool Hub: script notes (scripts/lib)
@@ -1277,33 +1322,42 @@ Nothing here was run in game.
 
 ## Custom ids
 
-- `aln:tool_hub` (item, `items/tool_hub.json`, icon key `aln_tool_hub`, `minecraft:wearable` slot `slot.weapon.offhand` so it can be equipped in the offhand)
+- `aln:tool_hub` (item, `items/tool_hub.json`, icon key `aln_tool_hub`, `minecraft:wearable` slot `slot.weapon.offhand` so it can be equipped in the offhand; recipe `recipes/tool_hub.json`, shaped, iron ingots and redstone around a diamond, always unlocked)
 
 ## Behavior
 
 - While a player keeps hitting a block (a hit within the last 10 ticks), a 1-tick interval re-checks the block under the crosshair and swaps in the best tool every tick. The switch margin stops it flipping between similar tools.
-- Per-player settings (`autoSwitch`, `treeCapitator`, `dominoMiner`, all default on) are stored as one JSON string in the dynamic property `aln_tool_hub_settings`.
+- Per-player settings are stored as one JSON string in the dynamic property `aln_tool_hub_settings`. Toggles: `autoSwitch`, `keepCurrentTool`, `ignoreSwordsMining`, `treeCapitator`, `naturalTreesOnly`, `dominoMiner`, `requireHubForMiners`. Sliders: `maxTreeBlocks` (16 to 256, default 128), `maxOreBlocks` (8 to 128, default 64). Defaults: `keepCurrentTool`, `ignoreSwordsMining` and `requireHubForMiners` off, all others on.
+- After a swap, the same tool category cannot swap again for 5 ticks, so a block is not re-swapped while it is being broken.
+- A 10-tick poll shows an action bar message when the Tool Hub enters or leaves the offhand.
 - Auto Switch runs only when its setting is on AND the Tool Hub is in the offhand. It works on whichever hotbar slot is selected and swaps the best tool from any other inventory slot into it.
-- Tree Capitator and Domino Ore Miner need sneaking and their own toggle. They do not need the Tool Hub in the offhand.
+- Tree Capitator and Domino Ore Miner need sneaking and their own toggle. They need the Tool Hub in the offhand only when `requireHubForMiners` is on.
+- Natural trees only: stripped logs, `_wood` and `_hyphae` blocks are skipped, and at least 4 non-persistent leaf, wart block or shroomlight blocks must be near the top logs. This is a guess from block types, so it cannot tell a placed log from a natural one inside a real tree.
 
 ## Notes (AI review)
 
-Not verified against the docs at the time of writing: `minecraft:wearable` with slot `slot.weapon.offhand` on a custom item, `world.afterEvents.itemUse`, `Entity.getDynamicProperty` / `setDynamicProperty`, `ModalFormData.toggle(label, defaultValue)` signature, whether `Entity.isValid` is a method or a property (`isAlive` accepts both), and the `@minecraft/server` 1.15.0 / `@minecraft/server-ui` 1.3.0 pairing (taken from another pack's manifest in this repo).
+Not verified against the docs at the time of writing: `minecraft:wearable` with slot `slot.weapon.offhand` on a custom item, whether `Entity.isValid` is a method or a property (`isAlive` accepts both), and the `@minecraft/server` 1.15.0 / `@minecraft/server-ui` 1.3.0 pairing (taken from another pack's manifest in this repo).
 ```
 
-## FILE: MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/scripts/main.js (1334 lines, 36005 bytes)
+## FILE: MCPEDL/Addons/Smart-Tool-Hub/behavior_pack/scripts/main.js (1422 lines, 38964 bytes)
 
 ```
 import { world, system, EquipmentSlot, ItemStack } from "@minecraft/server";
 import { ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
-const VERSION = "1.0.0";
+const VERSION = "1.0.2";
 const HUB_ITEM_ID = "aln:tool_hub";
 const SETTINGS_KEY = "aln_tool_hub_settings";
 const DEFAULT_SETTINGS = {
   autoSwitch: true,
+  keepCurrentTool: false,
+  ignoreSwordsMining: false,
   treeCapitator: true,
+  naturalTreesOnly: true,
   dominoMiner: true,
+  requireHubForMiners: false,
+  maxTreeBlocks: 128,
+  maxOreBlocks: 64,
 };
 
 const SWITCH = {
@@ -1314,6 +1368,9 @@ const SWITCH = {
   retryTicks: 2,
   combatCooldownTicks: 10,
   miningWindowTicks: 10,
+  swapCooldownTicks: 5,
+  statusCheckTicks: 10,
+  naturalMinLeaves: 4,
   webCheckInterval: 2,
   webInteractionWindow: 12,
   webCombatCooldown: 40,
@@ -1354,7 +1411,9 @@ function loadSettings(player) {
     const stored = typeof raw === "string" ? JSON.parse(raw) : null;
 
     for (const key of Object.keys(DEFAULT_SETTINGS)) {
-      if (typeof stored?.[key] === "boolean") result[key] = stored[key];
+      if (typeof stored?.[key] === typeof DEFAULT_SETTINGS[key]) {
+        result[key] = stored[key];
+      }
     }
   } catch {}
 
@@ -1400,14 +1459,28 @@ function statusText(enabled) {
   return enabled ? "§aON" : "§cOFF";
 }
 
+function hubStatusMessage(settings) {
+  return (
+    `§b[Tool Hub] §fAuto Switch ${statusText(settings.autoSwitch)}` +
+    ` §7| §fTree ${statusText(settings.treeCapitator)}` +
+    ` §7| §fOre ${statusText(settings.dominoMiner)}`
+  );
+}
+
 function openHubMenu(player, attempt = 0) {
   const current = getSettings(player);
 
   const form = new ModalFormData()
     .title("Tool Hub")
     .toggle("Auto Switch Tools (Hub must be in offhand)", current.autoSwitch)
+    .toggle("Keep my current tool if it already works", current.keepCurrentTool)
+    .toggle("Never switch to a sword while mining", current.ignoreSwordsMining)
     .toggle("Tree Capitator (sneak + axe)", current.treeCapitator)
-    .toggle("Domino Ore Miner (sneak + pickaxe)", current.dominoMiner);
+    .toggle("Natural trees only (skip stripped logs, few leaves)", current.naturalTreesOnly)
+    .toggle("Domino Ore Miner (sneak + pickaxe)", current.dominoMiner)
+    .toggle("Capitator and Miner need Hub in offhand", current.requireHubForMiners)
+    .slider("Tree Capitator max blocks", 16, 256, 16, current.maxTreeBlocks)
+    .slider("Domino Ore Miner max blocks", 8, 128, 8, current.maxOreBlocks);
 
   form
     .show(player)
@@ -1429,16 +1502,19 @@ function openHubMenu(player, attempt = 0) {
 
       const updated = {
         autoSwitch: Boolean(values[0]),
-        treeCapitator: Boolean(values[1]),
-        dominoMiner: Boolean(values[2]),
+        keepCurrentTool: Boolean(values[1]),
+        ignoreSwordsMining: Boolean(values[2]),
+        treeCapitator: Boolean(values[3]),
+        naturalTreesOnly: Boolean(values[4]),
+        dominoMiner: Boolean(values[5]),
+        requireHubForMiners: Boolean(values[6]),
+        maxTreeBlocks: Number(values[7]) || DEFAULT_SETTINGS.maxTreeBlocks,
+        maxOreBlocks: Number(values[8]) || DEFAULT_SETTINGS.maxOreBlocks,
       };
 
       saveSettings(player, updated);
 
-      let message =
-        `§b[Tool Hub] §fAuto Switch ${statusText(updated.autoSwitch)}` +
-        ` §7| §fTree ${statusText(updated.treeCapitator)}` +
-        ` §7| §fOre ${statusText(updated.dominoMiner)}`;
+      let message = hubStatusMessage(updated);
 
       if (updated.autoSwitch && !hasHubInOffhand(player)) {
         message += "\n§eMove the Tool Hub to your offhand to use Auto Switch.";
@@ -1533,6 +1609,8 @@ const recentCombat = new Map();
 const pendingSwaps = new Map();
 const webInteraction = new Map();
 const miningState = new Map();
+const lastSwap = new Map();
+const hubSeen = new Map();
 
 function normalizeId(id) {
   return (id ?? "").replace(/^minecraft:/, "").toLowerCase();
@@ -1839,6 +1917,18 @@ function switchSelectedSlotTool(player, category, blockTypeId = "") {
 
   if (!container) return false;
 
+  const settings = getSettings(player);
+  const now = system.currentTick;
+  const previous = lastSwap.get(player.id);
+
+  if (
+    previous &&
+    previous.category === category &&
+    now - previous.tick < SWITCH.swapCooldownTicks
+  ) {
+    return false;
+  }
+
   const targetSlot = player.selectedSlotIndex;
   const heldItem = container.getItem(targetSlot);
 
@@ -1846,6 +1936,10 @@ function switchSelectedSlotTool(player, category, blockTypeId = "") {
 
   const blockId = normalizeId(blockTypeId);
   const currentScore = scoreItem(heldItem, category, targetSlot, blockId);
+
+  if (settings.keepCurrentTool && currentScore !== -Infinity) {
+    return false;
+  }
 
   let bestSlot = -1;
   let bestScore = -Infinity;
@@ -1856,6 +1950,14 @@ function switchSelectedSlotTool(player, category, blockTypeId = "") {
     const item = container.getItem(slot);
 
     if (!item) continue;
+
+    if (
+      settings.ignoreSwordsMining &&
+      category !== ToolCategory.WEAPON &&
+      normalizeId(item.typeId).includes("sword")
+    ) {
+      continue;
+    }
 
     const score = scoreItem(item, category, slot, blockId);
 
@@ -1878,6 +1980,7 @@ function switchSelectedSlotTool(player, category, blockTypeId = "") {
 
   try {
     container.swapItems(bestSlot, targetSlot, container);
+    lastSwap.set(player.id, { tick: now, category });
     return true;
   } catch {
     return false;
@@ -2102,10 +2205,31 @@ world.afterEvents.entityHitEntity.subscribe((event) => {
   } catch {}
 });
 
+system.runInterval(() => {
+  for (const player of world.getAllPlayers()) {
+    try {
+      const has = hasHubInOffhand(player);
+      const previous = hubSeen.get(player.id);
+
+      hubSeen.set(player.id, has);
+
+      if (previous === has || (previous === undefined && !has)) continue;
+
+      player.onScreenDisplay.setActionBar(
+        has
+          ? hubStatusMessage(getSettings(player))
+          : "§7[Tool Hub] Removed from offhand. Auto Switch paused."
+      );
+    } catch {}
+  }
+}, SWITCH.statusCheckTicks);
+
 world.afterEvents.playerLeave.subscribe((event) => {
   recentCombat.delete(event.playerId);
   webInteraction.delete(event.playerId);
   miningState.delete(event.playerId);
+  lastSwap.delete(event.playerId);
+  hubSeen.delete(event.playerId);
   settingsCache.delete(event.playerId);
   clearPendingSwap(event.playerId);
 });
@@ -2173,8 +2297,13 @@ function getWoodSpecies(typeId) {
   return match ? match[1].toLowerCase() : null;
 }
 
-function isMatchingLog(blockId, targetSpecies) {
+function isNaturalLog(blockId) {
+  return !blockId.includes("stripped_") && !/(_wood|_hyphae)$/.test(blockId);
+}
+
+function isMatchingLog(blockId, targetSpecies, naturalOnly = false) {
   if (!isEligibleLog(blockId)) return false;
+  if (naturalOnly && !isNaturalLog(blockId)) return false;
   if (!MINER.MATCH_TREE_SPECIES || !targetSpecies) return true;
   const species = getWoodSpecies(blockId);
   return !species || species === targetSpecies;
@@ -2337,33 +2466,29 @@ function calculateFortuneDropCount(fortuneLevel, minBase = 1, maxBase = 1) {
   return Math.min(baseCount * multiplier, 64);
 }
 
-function isTreeCanopy(dimension, blocks) {
+function isTreeCanopy(dimension, blocks, minCount = 1) {
   if (!blocks || blocks.length === 0) return false;
   const candidates = [...blocks].sort((a, b) => b.y - a.y).slice(0, 8);
+  const found = new Set();
   for (const pos of candidates) {
     for (let dx = -2; dx <= 2; dx++) {
       for (let dz = -2; dz <= 2; dz++) {
         for (let dy = -1; dy <= 2; dy++) {
           try {
-            const b = dimension.getBlock({
-              x: pos.x + dx,
-              y: pos.y + dy,
-              z: pos.z + dz,
-            });
+            const x = pos.x + dx;
+            const y = pos.y + dy;
+            const z = pos.z + dz;
+            const b = dimension.getBlock({ x, y, z });
             if (!b) continue;
 
             if (b.typeId.includes("wart_block") || b.typeId.includes("shroomlight")) {
-              return true;
+              found.add(`${x},${y},${z}`);
+            } else if (b.typeId.includes("leaves")) {
+              const isPersistent = b.permutation?.getState("persistent_bit");
+              if (isPersistent !== true) found.add(`${x},${y},${z}`);
             }
 
-            if (b.typeId.includes("leaves")) {
-              const permutation = b.permutation;
-              const isPersistent = permutation?.getState("persistent_bit");
-              if (isPersistent === true) {
-                continue;
-              }
-              return true;
-            }
+            if (found.size >= minCount) return true;
           } catch (e) {}
         }
       }
@@ -2382,6 +2507,9 @@ function executeTreeCapitator(player, dimension, startLoc, startBlockId, onCompl
     return;
   }
 
+  const settings = getSettings(player);
+  const maxBlocks = settings.maxTreeBlocks;
+  const naturalOnly = settings.naturalTreesOnly;
   const targetSpecies = startBlockId ? getWoodSpecies(startBlockId) : null;
   const visited = new Set();
   visited.add(`${startLoc.x},${startLoc.y},${startLoc.z}`);
@@ -2389,7 +2517,7 @@ function executeTreeCapitator(player, dimension, startLoc, startBlockId, onCompl
   const blocksToBreak = [];
   const queue = [{ x: startLoc.x, y: startLoc.y, z: startLoc.z }];
 
-  while (queue.length > 0 && blocksToBreak.length < MINER.MAX_TREE_BLOCKS) {
+  while (queue.length > 0 && blocksToBreak.length < maxBlocks) {
     const cur = queue.shift();
 
     for (let dy = 0; dy <= 1; dy++) {
@@ -2410,17 +2538,17 @@ function executeTreeCapitator(player, dimension, startLoc, startBlockId, onCompl
 
           try {
             const block = dimension.getBlock({ x: nx, y: ny, z: nz });
-            if (block && isMatchingLog(block.typeId, targetSpecies)) {
+            if (block && isMatchingLog(block.typeId, targetSpecies, naturalOnly)) {
               const logPos = { x: nx, y: ny, z: nz };
               blocksToBreak.push(logPos);
               queue.push(logPos);
-              if (blocksToBreak.length >= MINER.MAX_TREE_BLOCKS) break;
+              if (blocksToBreak.length >= maxBlocks) break;
             }
           } catch (e) {}
         }
-        if (blocksToBreak.length >= MINER.MAX_TREE_BLOCKS) break;
+        if (blocksToBreak.length >= maxBlocks) break;
       }
-      if (blocksToBreak.length >= MINER.MAX_TREE_BLOCKS) break;
+      if (blocksToBreak.length >= maxBlocks) break;
     }
   }
 
@@ -2429,7 +2557,7 @@ function executeTreeCapitator(player, dimension, startLoc, startBlockId, onCompl
     return;
   }
 
-  if (!isTreeCanopy(dimension, blocksToBreak)) {
+  if (!isTreeCanopy(dimension, blocksToBreak, naturalOnly ? SWITCH.naturalMinLeaves : 1)) {
     if (onComplete) onComplete();
     return;
   }
@@ -2471,13 +2599,14 @@ function executeDominoOreMiner(player, dimension, startLoc, startBlockId, onComp
     return;
   }
 
+  const maxBlocks = getSettings(player).maxOreBlocks;
   const queue = [{ x: startLoc.x, y: startLoc.y, z: startLoc.z }];
   const visited = new Set();
   visited.add(`${startLoc.x},${startLoc.y},${startLoc.z}`);
 
   const cluster = [];
 
-  while (queue.length > 0 && cluster.length < MINER.MAX_ORE_CLUSTER_SIZE) {
+  while (queue.length > 0 && cluster.length < maxBlocks) {
     const current = queue.shift();
 
     for (const offset of NEIGHBOR_OFFSETS_26) {
@@ -2506,7 +2635,7 @@ function executeDominoOreMiner(player, dimension, startLoc, startBlockId, onComp
           });
           queue.push({ x: nx, y: ny, z: nz });
 
-          if (cluster.length >= MINER.MAX_ORE_CLUSTER_SIZE) break;
+          if (cluster.length >= maxBlocks) break;
         }
       } catch (err) {}
     }
@@ -2600,8 +2729,15 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
 
   const toolTypeId = tool.typeId;
   const settings = getSettings(player);
+  const minersAllowed = !settings.requireHubForMiners || hasHubInOffhand(player);
 
-  if (settings.treeCapitator && isAxe(toolTypeId) && isEligibleLog(brokenTypeId)) {
+  if (
+    minersAllowed &&
+    settings.treeCapitator &&
+    isAxe(toolTypeId) &&
+    isEligibleLog(brokenTypeId) &&
+    (!settings.naturalTreesOnly || isNaturalLog(brokenTypeId))
+  ) {
     activeOperations.add(player.id);
     try {
       executeTreeCapitator(player, dimension, startLoc, brokenTypeId, () => {
@@ -2613,7 +2749,7 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
     return;
   }
 
-  if (settings.dominoMiner && isPickaxe(toolTypeId) && getOreInfo(brokenTypeId)) {
+  if (minersAllowed && settings.dominoMiner && isPickaxe(toolTypeId) && getOreInfo(brokenTypeId)) {
     activeOperations.add(player.id);
     try {
       executeDominoOreMiner(player, dimension, startLoc, brokenTypeId, () => {
@@ -2629,12 +2765,22 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
 console.warn(`[Smart Tool Hub v${VERSION}] Initialized.`);
 ```
 
-## FILE: MCPEDL/Addons/Smart-Tool-Hub/CHANGELOG.md (16 lines, 643 bytes)
+## FILE: MCPEDL/Addons/Smart-Tool-Hub/CHANGELOG.md (26 lines, 1346 bytes)
 
 ```
 # Changelog — Smart Tool Hub
 
 ---
+
+## [1.0.2] - 2026-11-26 - Crafting Recipe and Hub Settings
+
+### Added
+- **Crafting recipe**: The Tool Hub can be crafted with a diamond, 4 iron ingots and 4 redstone. The recipe is always unlocked.
+- **More Hub settings**: New toggles for keeping your current tool, skipping swords while mining, natural trees only, and requiring the Hub in the offhand for Tree Capitator and Domino Ore Miner. New sliders set the maximum blocks for each.
+- **Status message**: An action bar message shows when the Tool Hub enters or leaves the offhand.
+
+### Improved & Balanced
+- **Swap delay**: After a swap, the same tool type waits 5 ticks before it can swap again, so a block is not re-swapped while you break it.
 
 ## [1.0.1] - 2026-11-26 - Per-Tick Auto Switch
 
@@ -2649,7 +2795,7 @@ console.warn(`[Smart Tool Hub v${VERSION}] Initialized.`);
 - **32x32 icon**: A resource pack adds a Tool Hub emblem icon with a circle arrow.
 ```
 
-## FILE: MCPEDL/Addons/Smart-Tool-Hub/DESCRIPTION.md (79 lines, 3941 bytes)
+## FILE: MCPEDL/Addons/Smart-Tool-Hub/DESCRIPTION.md (91 lines, 5095 bytes)
 
 ```
 # Smart Tool Hub — Tool Hub Menu with Offhand Auto Switch
@@ -2670,7 +2816,7 @@ Smart Tool Hub combines Passive Auto-Switch Tools with Smart Tree Capitator and 
 ## Key Features
 
 ### Tool Hub Item
-- **What Happens**: Use the Tool Hub (`aln:tool_hub`) in your main hand to open a settings menu with three toggles.
+- **What Happens**: Use the Tool Hub (`aln:tool_hub`) in your main hand to open a settings menu with toggles and two sliders. Craft it with a diamond in the center, iron ingots in the corners and redstone on the sides.
 
 ### Offhand Slot
 - **What Happens**: The Tool Hub can be equipped in the offhand slot.
@@ -2687,14 +2833,26 @@ Smart Tool Hub combines Passive Auto-Switch Tools with Smart Tree Capitator and 
 ### Tool Protection
 - **What Happens**: Chain actions stop when the held tool is close to breaking, with a sound and an action bar warning.
 
+### Smarter Switching
+- **What Happens**: Turn on "Keep my current tool" to stop swaps when the tool in your hand already works. Turn on "Never switch to a sword while mining" to keep swords out of block breaking. After a swap, the same tool type waits 5 ticks before it can swap again.
+
+### Safer Tree Capitator
+- **What Happens**: "Natural trees only" skips stripped logs and wood blocks and needs at least 4 natural leaves near the top of the tree. You can also set the maximum number of blocks it breaks.
+
+### Offhand Requirement for Chain Mining
+- **What Happens**: Turn on "Capitator and Miner need Hub in offhand" so tree felling and ore mining only work while the Tool Hub is in your offhand.
+
+### Status Message
+- **What Happens**: An action bar message shows your Auto Switch, Tree and Ore status when the Tool Hub enters your offhand, and a pause notice when it leaves.
+
 ### Saved Settings
-- **What Happens**: Each player keeps their own toggles. All three start on.
+- **What Happens**: Each player keeps their own settings. Auto Switch, Tree Capitator, Domino Ore Miner and Natural trees only start on.
 
 ## How to Use
 
-1. Get the item with `/give @s aln:tool_hub`.
+1. Craft the Tool Hub at a crafting table (diamond in the center, iron ingots in the corners, redstone on the sides), or use `/give @s aln:tool_hub`.
 2. Hold the Tool Hub in your main hand and use it to open the menu.
-3. Turn each feature on or off and submit.
+3. Adjust the toggles and sliders, then submit.
 4. Move the Tool Hub to your offhand to use Auto Switch.
 5. Sneak while breaking a log with an axe, or an ore with a pickaxe, to use Tree Capitator or Domino Ore Miner.
 
@@ -2754,7 +2912,7 @@ Download the current release of **Smart Tool Hub** for Minecraft Bedrock Edition
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Smart Tool Hub (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Smart-Tool-Hub/SmartToolHub%20V1.0.1.mcaddon)
+- **Direct download:** [Download Smart Tool Hub (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Smart-Tool-Hub/SmartToolHub%20V1.0.2.mcaddon)
 
 ## Installation
 
@@ -2773,13 +2931,13 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "Smart Tool Hub (v1.0.1)",
+    "name": "Smart Tool Hub (v1.0.2)",
     "description": "32x32 Tool Hub emblem icon. by ALNStudios",
     "uuid": "87629f2e-265e-4288-aa92-42a34c0964bf",
     "version": [
       1,
       0,
-      1
+      2
     ],
     "min_engine_version": [
       1,
@@ -2794,7 +2952,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "version": [
         1,
         0,
-        1
+        2
       ]
     }
   ],
@@ -2803,7 +2961,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.1"
+    "version": "1.0.2"
   }
 }
 ```
