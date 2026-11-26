@@ -257,7 +257,7 @@ Pipeline (Dirtbound design) unless user says otherwise. `void_cleaner.mcfunction
 - ALWAYS skip any core-area clear once the core exists.
 - `oneblock_tick`: restores only missing Bedrock, only if a player has `void_cleaned`. NEVER reset spawn, teleport, place/replace core.
 - Script API owning the core waits for `void_cleaned` before replacing the placeholder.
-- Dirtbound coords: core `(0,0,0)`, Bedrock `(0,-1,0)`, spawn `(0,1,0)`. User coords win; every `fill` MUST cover what it claims to clear.
+- Standard map coords (EVERY map, ALWAYS): OneBlock core `(0,64,0)`, Bedrock under core `(0,63,0)`, spawn `(0,65,0)`. NEVER deviate unless the user explicitly overrides. Every `fill` MUST cover what it claims to clear. `setworldspawn 0 65 0` and `spawnpoint @a 0 65 0` in `void_cleaner.mcfunction`; core placeholder/block placed at `0 64 0`; Bedrock guard checks `if block 0 63 0 bedrock`.
 - Script teleport only in script, state it in summary. Idea cannot fit the `void_cleaner`-first pipeline: say so, NEVER silently change it.
 
 ### 4.6 Types: script and minigame

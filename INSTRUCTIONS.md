@@ -149,7 +149,8 @@ Paths from repo root. A function file existing != it runs.
 
 ### 1.7 OneBlock, Maps, Scripts, Minigames
 General:
-- OneBlock script = general pack. MUST work in any world. NEVER depend on a world's terrain/database/settings. Project-specific (coords, spawn, cleanup, shop) lives in that project's spec (Dirtbound: `SPEC.md` in its folder).
+- OneBlock script = general pack. MUST work in any world. NEVER depend on a world's terrain/database/settings. Project-specific (spawn, cleanup, shop) lives in that project's spec (Dirtbound: `SPEC.md` in its folder).
+- Standard map coords (EVERY map, ALWAYS): OneBlock core `(0,64,0)`, Bedrock under core `(0,63,0)`, spawn `(0,65,0)`. NEVER deviate unless the user explicitly overrides.
 - `Mcpeworlds/{Creative,Survival,Hardcore}/` = ONLY world foundations (convenience targets, not a usage limit). NEVER old world ZIPs, `Oneblock-assets.mcworld`, `assets/Void_For_Workv2.mcworld`, persisted `assets/oneblock-template/`.
 - NEVER create/fabricate/borrow/require `db/CURRENT` or LevelDB data (database-free void design). NEVER modify source foundations; build renames only the staged copy's world name.
 - Build: `build-and-sync.yml` (OneBlock steps) copies each foundation to staging, keeps its `level.dat`, adds map BP + RP, packages `.mcworld` into `MCPEDL/Maps/<Map-Name>/`. Source: `MCPEDL/Maps/<Map-Name>/behavior_pack/`, `resource_pack/`.
