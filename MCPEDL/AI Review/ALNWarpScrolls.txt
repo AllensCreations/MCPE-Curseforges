@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Addons/ALNWarpScrolls`
 - **Destination:** `MCPEDL/Addons/ALNWarpScrolls`
-- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/ALNWarpScrolls/CHANGELOG.md`)
+- **CURRENT VERSION: v4 / NEXT UPDATE: v5**  (`MCPEDL/Addons/ALNWarpScrolls/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 22
 - **Skipped binary:** 13
@@ -60,7 +60,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v4 / NEXT UPDATE: v5).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE self-contained update `.sh` (`<Pack>_v<Version>_<rand>.sh`) built with `make_update_script.py` (INSTRUCTIONS.md Reply Format).
@@ -276,11 +276,11 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:WarpScrolls (v2)",
+    "name": "ALN:WarpScrolls (v4)",
     "description": "Single-use Warp Scrolls teleport you to named Beacon Gate waypoints. by ALNStudios",
     "uuid": "385a1114-94c1-43be-a73e-c61a9eeef875",
     "version": [
-      2,
+      4,
       0,
       0
     ],
@@ -295,7 +295,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "type": "data",
       "uuid": "b557997e-6f03-4cd3-8686-94109496b2fa",
       "version": [
-        2,
+        4,
         0,
         0
       ]
@@ -306,7 +306,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "uuid": "3db2e03b-b444-4245-9c6e-67bbf6a4578c",
       "entry": "scripts/main.js",
       "version": [
-        2,
+        4,
         0,
         0
       ]
@@ -316,7 +316,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     {
       "uuid": "08b3a65a-a0d1-453a-a445-72cc1a9b1682",
       "version": [
-        2,
+        4,
         0,
         0
       ]
@@ -335,7 +335,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "4.0.0"
   }
 }
 ```
@@ -424,7 +424,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNWarpScrolls/behavior_pack/scripts/lib/config.js (26 lines, 845 bytes)
+## FILE: MCPEDL/Addons/ALNWarpScrolls/behavior_pack/scripts/lib/config.js (30 lines, 980 bytes)
 
 ```
 export const GATE_ID = "aln:beacon_gate";
@@ -440,6 +440,10 @@ export const EYES_HOLD_TICKS = 10;
 export const SPHERE_RADIUS = 1.4;
 export const SPHERE_RINGS = 12;
 export const SPHERE_LEAD = 6;
+export const BEAM_HEIGHT = 24;
+export const BEAM_RISE_TICKS = 10;
+export const BEAM_LINGER_STEPS = 24;
+export const MOVE_LIMIT = 0.35;
 export const SOUND = {
   charge: "aln.warp.charge",
   arrive: "aln.warp.arrive",
@@ -514,7 +518,7 @@ export async function chooseGate(player, gates) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNWarpScrolls/behavior_pack/scripts/lib/README.md (7 lines, 303 bytes)
+## FILE: MCPEDL/Addons/ALNWarpScrolls/behavior_pack/scripts/lib/README.md (7 lines, 332 bytes)
 
 ```
 # ALN:WarpScrolls script modules
@@ -522,7 +526,7 @@ export async function chooseGate(player, gates) {
 - `config.js`: ids, sound names, timing and dimension colors.
 - `registry.js`: Beacon Gate list saved in the world.
 - `menus.js`: the naming form and the destination menu.
-- `warp.js`: cooldown, Nausea, eyelid screen, particle spheres, teleport and scroll consumption.
+- `warp.js`: cooldown, Nausea, movement cancel, eyelid screen, particle spheres, light beam, teleport and scroll consumption.
 ```
 
 ## FILE: MCPEDL/Addons/ALNWarpScrolls/behavior_pack/scripts/lib/registry.js (66 lines, 1626 bytes)
@@ -595,7 +599,7 @@ export function removeGateAt(dim, x, y, z) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNWarpScrolls/behavior_pack/scripts/lib/warp.js (250 lines, 6955 bytes)
+## FILE: MCPEDL/Addons/ALNWarpScrolls/behavior_pack/scripts/lib/warp.js (310 lines, 8631 bytes)
 
 ```
 import { world, system, ItemComponentTypes, EntityInventoryComponent } from "@minecraft/server";
@@ -611,6 +615,10 @@ import {
   SPHERE_RADIUS,
   SPHERE_RINGS,
   SPHERE_LEAD,
+  BEAM_HEIGHT,
+  BEAM_RISE_TICKS,
+  BEAM_LINGER_STEPS,
+  MOVE_LIMIT,
 } from "./config.js";
 import { removeGateAt } from "./registry.js";
 
@@ -717,6 +725,7 @@ function sphereFrame(dimension, center, progress, tick) {
 function chargeParticles(player, tick) {
   const base = player.location;
   sphereFrame(player.dimension, { x: base.x, y: base.y - 0.5, z: base.z }, tick / (WARP_TICKS - SPHERE_LEAD), tick);
+  beamFrame(player.dimension, base, tick, tick / BEAM_RISE_TICKS);
 }
 
 function risingSphere(dimension, spot) {
@@ -726,6 +735,52 @@ function risingSphere(dimension, spot) {
     sphereFrame(dimension, { x: spot.x, y: spot.y - 0.5, z: spot.z }, step / 6, step * PARTICLE_STEP);
     if (step >= 6) system.clearRun(handle);
   }, PARTICLE_STEP);
+}
+
+function beamFrame(dimension, base, tick, grown) {
+  const height = Math.min(BEAM_HEIGHT, Math.round(Math.min(grown, 1) * BEAM_HEIGHT));
+  for (let y = 0; y < height; y++) {
+    spawn(dimension, "minecraft:endrod", { x: base.x, y: base.y + y, z: base.z });
+    if (y % 2 === 0) {
+      const angle = tick * 0.6 + y * 0.5;
+      spawn(dimension, "minecraft:basic_portal_particle", {
+        x: base.x + Math.cos(angle) * 0.45,
+        y: base.y + y,
+        z: base.z + Math.sin(angle) * 0.45,
+      });
+    }
+  }
+}
+
+function lingeringBeam(dimension, spot) {
+  let step = 0;
+  const handle = system.runInterval(() => {
+    step += 1;
+    beamFrame(dimension, spot, step * PARTICLE_STEP, step / 5);
+    if (step >= BEAM_LINGER_STEPS) system.clearRun(handle);
+  }, PARTICLE_STEP);
+}
+
+function moved(player, origin) {
+  const at = player.location;
+  const dx = at.x - origin.x;
+  const dy = at.y - origin.y;
+  const dz = at.z - origin.z;
+  return Math.sqrt(dx * dx + dy * dy + dz * dz) > MOVE_LIMIT;
+}
+
+function cancelWarp(player) {
+  openEyes(player);
+  try {
+    player.removeEffect("nausea");
+  } catch {
+    return;
+  }
+  try {
+    player.runCommand("stopsound @s " + SOUND.charge);
+  } catch {
+    return;
+  }
 }
 
 function closeEyes(player) {
@@ -804,6 +859,7 @@ function complete(player, gate) {
   player.playSound(SOUND.arrive, { volume: 1, pitch: 1 });
   arrivalBurst(dimension, spot);
   risingSphere(dimension, spot);
+  lingeringBeam(dimension, spot);
   system.runTimeout(() => {
     if (player.isValid) breakEffects(player);
   }, 6);
@@ -826,10 +882,18 @@ export function beginWarp(player, item, gate) {
   }
   player.playSound(SOUND.charge, { volume: 1, pitch: 1 });
   closeEyes(player);
+  const origin = { x: player.location.x, y: player.location.y, z: player.location.z };
   let tick = 0;
   const handle = system.runInterval(() => {
     if (!player.isValid) {
       system.clearRun(handle);
+      active.delete(player.id);
+      return;
+    }
+    if (moved(player, origin)) {
+      system.clearRun(handle);
+      cancelWarp(player);
+      tell(player, "§cYou moved. The warp was interrupted.");
       active.delete(player.id);
       return;
     }
@@ -936,12 +1000,25 @@ world.afterEvents.itemUse.subscribe((event) => {
 });
 ```
 
-## FILE: MCPEDL/Addons/ALNWarpScrolls/CHANGELOG.md (22 lines, 1120 bytes)
+## FILE: MCPEDL/Addons/ALNWarpScrolls/CHANGELOG.md (35 lines, 1740 bytes)
 
 ```
 # Changelog — ALN:WarpScrolls
 
 ---
+
+## [v4] - 2026-11-26 - Channel Cancel and Full Blackout
+
+### Added
+- **Channel cancel**: Moving during the 3-second charge now interrupts the warp. The scroll is kept, the Nausea and the charge sound stop, and the eyelids open.
+
+### Improved & Balanced
+- **Full-screen blackout**: The eyelid screen now reaches past the screen edges, and a black veil fades in over the whole screen as the eyelids close.
+
+## [v3] - 2026-11-26 - Light Beam
+
+### Added
+- **Light beam**: A pillar of light shoots up from you while the scroll charges, and a second beam shines over the Beacon Gate for a couple of seconds after you arrive.
 
 ## [v2] - 2026-11-26 - Recall Sphere and Eyelid Screen
 
@@ -962,7 +1039,7 @@ world.afterEvents.itemUse.subscribe((event) => {
 - **32x32 textures**: Hand-drawn pixel art for the Beacon Gate and the Warp Scroll.
 ```
 
-## FILE: MCPEDL/Addons/ALNWarpScrolls/DESCRIPTION.md (80 lines, 5035 bytes)
+## FILE: MCPEDL/Addons/ALNWarpScrolls/DESCRIPTION.md (80 lines, 5191 bytes)
 
 ```
 # ALN:WarpScrolls — Teleport Scrolls and Named Waypoint Gates
@@ -993,9 +1070,9 @@ Place a Beacon Gate wherever you want a destination and give it a name. Later, r
 - **Good To Know**: A Warp Scroll stacks to 1 and is used up when the teleport finishes.
 
 ### 3-Second Warp Sequence
-- **What Happens**: After you pick a gate, the scroll shows a 3-second cooldown sweep, you get 3 seconds of stronger Nausea, your eyelids slowly close over the screen, and a hollow sphere of portal particles rises from your feet to above your head while a rising charge sound plays.
-- **How It Works**: When the 3 seconds end, your eyes snap open, you land on the block directly above the Beacon Gate, a second sphere rises around you, an arrival chime and particle burst play, and the scroll tears apart.
-- **Good To Know**: If the scroll leaves your inventory during the charge, the warp fizzles out. The eyelid screen comes from the Resource Pack, so keep it enabled with the Behavior Pack.
+- **What Happens**: After you pick a gate, the scroll shows a 3-second cooldown sweep, you get 3 seconds of stronger Nausea, your eyelids slowly close over the screen, a hollow sphere of portal particles rises from your feet to above your head, and a pillar of light shoots up from you while a rising charge sound plays.
+- **How It Works**: When the 3 seconds end, your eyes snap open, you land on the block directly above the Beacon Gate, a second sphere rises around you, a light beam shines over the gate for a couple of seconds, an arrival chime and particle burst play, and the scroll tears apart.
+- **Good To Know**: Moving during the charge cancels the warp, and so does the scroll leaving your inventory. A cancelled warp keeps the scroll. The eyelid screen comes from the Resource Pack, so keep it enabled with the Behavior Pack.
 
 ### Custom Sound Effects
 - **What Happens**: Four new sounds ship with the pack: the warp charge, the crystal arrival, the paper and glass scroll break, and the gate registration chime.
@@ -1005,7 +1082,7 @@ Place a Beacon Gate wherever you want a destination and give it a name. Later, r
 
 1. Craft a Beacon Gate and place it, then type a waypoint name in the form.
 2. Craft a Warp Scroll and right-click it to open the destination menu.
-3. Pick a gate and wait 3 seconds until you land above it and the scroll breaks.
+3. Pick a gate and stand still for 3 seconds until you land above it and the scroll breaks.
 
 ## Common Questions
 
@@ -1068,7 +1145,7 @@ Download the current release of **ALNWarpScrolls** for Minecraft Bedrock Edition
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNWarpScrolls (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNWarpScrolls/ALNWarpScrolls%20V2.mcaddon)
+- **Direct download:** [Download ALNWarpScrolls (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNWarpScrolls/ALNWarpScrolls%20V4.mcaddon)
 
 ## Installation
 
@@ -1087,11 +1164,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:WarpScrolls (v2)",
+    "name": "ALN:WarpScrolls (v4)",
     "description": "Single-use Warp Scrolls teleport you to named Beacon Gate waypoints. by ALNStudios",
     "uuid": "08b3a65a-a0d1-453a-a445-72cc1a9b1682",
     "version": [
-      2,
+      4,
       0,
       0
     ],
@@ -1106,7 +1183,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "4c87a017-0e29-48d2-84d7-78e2e429cf10",
       "version": [
-        2,
+        4,
         0,
         0
       ]
@@ -1117,7 +1194,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "4.0.0"
   }
 }
 ```
@@ -1187,7 +1264,7 @@ tile.aln:beacon_gate.name=Beacon Gate
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNWarpScrolls/resource_pack/ui/hud_screen.json (103 lines, 1951 bytes)
+## FILE: MCPEDL/Addons/ALNWarpScrolls/resource_pack/ui/hud_screen.json (136 lines, 2525 bytes)
 
 ```
 {
@@ -1195,25 +1272,51 @@ tile.aln:beacon_gate.name=Beacon Gate
     "anim_type": "size",
     "easing": "linear",
     "from": [
-      "100%",
+      "100% + 800px",
       "0%"
     ],
     "to": [
-      "100%",
-      "51%"
+      "100% + 800px",
+      "51% + 300px"
     ],
     "duration": 2.6
+  },
+  "aln_veil_fade": {
+    "anim_type": "alpha",
+    "easing": "linear",
+    "from": 0,
+    "to": 1,
+    "duration": 2.6
+  },
+  "aln_veil": {
+    "type": "image",
+    "texture": "textures/ui/Black",
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "size": [
+      "100% + 800px",
+      "100% + 600px"
+    ],
+    "alpha": 0,
+    "layer": 1,
+    "anims": [
+      "@hud.aln_veil_fade"
+    ]
   },
   "aln_lid_top": {
     "type": "image",
     "texture": "textures/ui/Black",
     "anchor_from": "top_middle",
     "anchor_to": "top_middle",
+    "offset": [
+      0,
+      -300
+    ],
     "size": [
-      "100%",
+      "100% + 800px",
       "0%"
     ],
-    "layer": 10,
+    "layer": 2,
     "anims": [
       "@hud.aln_lid_close"
     ]
@@ -1223,11 +1326,15 @@ tile.aln:beacon_gate.name=Beacon Gate
     "texture": "textures/ui/Black",
     "anchor_from": "bottom_middle",
     "anchor_to": "bottom_middle",
+    "offset": [
+      0,
+      300
+    ],
     "size": [
-      "100%",
+      "100% + 800px",
       "0%"
     ],
-    "layer": 10,
+    "layer": 2,
     "anims": [
       "@hud.aln_lid_close"
     ]
@@ -1238,8 +1345,11 @@ tile.aln:beacon_gate.name=Beacon Gate
       "100%",
       "100%"
     ],
-    "layer": 10,
+    "layer": 50,
     "controls": [
+      {
+        "veil@hud.aln_veil": {}
+      },
       {
         "top@hud.aln_lid_top": {}
       },

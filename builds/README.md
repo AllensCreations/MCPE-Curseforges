@@ -48,7 +48,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **ALNPirateTokens** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNPirateTokens/ALNPirateTokens%20V1.0.4.mcaddon) | [`ALNPirateTokens/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNPirateTokens/) |
 | **ALNSpiritSphere** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNSpiritSphere/ALNSpiritSphere%20V6.mcaddon) | [`ALNSpiritSphere/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNSpiritSphere/) |
 | **ALNChronoStop** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNChronoStop/ALNChronoStop%20V1.mcaddon) | [`ALNChronoStop/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNChronoStop/) |
-| **ALNWarpScrolls** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNWarpScrolls/ALNWarpScrolls%20V2.mcaddon) | [`ALNWarpScrolls/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNWarpScrolls/) |
+| **ALNWarpScrolls** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNWarpScrolls/ALNWarpScrolls%20V4.mcaddon) | [`ALNWarpScrolls/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNWarpScrolls/) |
 
 ### Worlds and Maps
 
