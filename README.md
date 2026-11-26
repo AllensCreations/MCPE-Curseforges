@@ -55,7 +55,7 @@ See the [repository changelog](CHANGELOG.md) for the latest updates.
 
 ## CurseForge Live Status
 <!-- CURSEFORGE-STATUS:START -->
-### Published Packs on CurseForge (35)
+### Published Packs on CurseForge (36)
 
 | Pack | Category | CurseForge Project | Version | Status |
 | :--- | :--- | :---: | :---: | :---: |
@@ -65,6 +65,7 @@ See the [repository changelog](CHANGELOG.md) for the latest updates.
 | [**ALN-GlobalMarket**](MCPEDL/Addons/ALN-GlobalMarket/README.md) | Add-ons | [1826201](https://www.curseforge.com/projects/1826201) | `v1.0.2` | 🟢 Published |
 | [**ALN:OneClickSort**](MCPEDL/Addons/ALNOneClickSort/README.md) | Add-ons | [1818338](https://www.curseforge.com/projects/1818338) | `v12` | 🟢 Published |
 | [**ALN:PirateTokens**](MCPEDL/Addons/ALNPirateTokens/README.md) | Add-ons | [1824277](https://www.curseforge.com/projects/1824277) | `v1.0.4` | 🟢 Published |
+| [**ALN:WarpScrolls**](MCPEDL/Addons/ALNWarpScrolls/README.md) | Add-ons | [1831750](https://www.curseforge.com/projects/1831750) | `v5` | 🟢 Published |
 | [**Cheat Stick**](MCPEDL/Addons/Cheat-Stick/README.md) | Add-ons | [1798250](https://www.curseforge.com/projects/1798250) | `v4` | 🟢 Published |
 | [**Combat Helper**](MCPEDL/Addons/ALN-Pointer/README.md) | Add-ons | [1816055](https://www.curseforge.com/projects/1816055) | `v21` | 🟢 Published |
 | [**Enchanter**](MCPEDL/Addons/Enchanter/README.md) | Add-ons | [1802037](https://www.curseforge.com/projects/1802037) | `v2` | 🟢 Published |
