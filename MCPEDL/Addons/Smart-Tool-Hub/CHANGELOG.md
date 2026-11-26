@@ -2,6 +2,11 @@
 
 ---
 
+## [1.0.1] - 2026-11-26 - Per-Tick Auto Switch
+
+### Improved & Balanced
+- **Per-tick Auto Switch**: While you keep mining, Auto Switch re-checks the block under your crosshair every tick and switches to the best tool.
+
 ## [1.0.0] - 2026-11-26 - First Release
 
 ### Added

@@ -23,7 +23,7 @@ Nothing here was run in game.
 - `world.afterEvents.entityHitEntity`
 - `world.afterEvents.playerBreakBlock`
 - `world.afterEvents.playerLeave`
-- `system.runInterval` (cobweb check)
+- `system.runInterval` (1-tick mining re-check, 2-tick cobweb check)
 - `system.runTimeout` (swap retry, menu retry when the player is busy)
 
 ## Custom ids
@@ -32,6 +32,7 @@ Nothing here was run in game.
 
 ## Behavior
 
+- While a player keeps hitting a block (a hit within the last 10 ticks), a 1-tick interval re-checks the block under the crosshair and swaps in the best tool every tick. The switch margin stops it flipping between similar tools.
 - Per-player settings (`autoSwitch`, `treeCapitator`, `dominoMiner`, all default on) are stored as one JSON string in the dynamic property `aln_tool_hub_settings`.
 - Auto Switch runs only when its setting is on AND the Tool Hub is in the offhand. It works on whichever hotbar slot is selected and swaps the best tool from any other inventory slot into it.
 - Tree Capitator and Domino Ore Miner need sneaking and their own toggle. They do not need the Tool Hub in the offhand.

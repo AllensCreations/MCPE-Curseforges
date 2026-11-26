@@ -17,6 +17,7 @@ const SWITCH = {
   raycastDistance: 6,
   retryTicks: 2,
   combatCooldownTicks: 10,
+  miningWindowTicks: 10,
   webCheckInterval: 2,
   webInteractionWindow: 12,
   webCombatCooldown: 40,
@@ -235,6 +236,7 @@ const NON_COMBAT_ENTITIES = new Set([
 const recentCombat = new Map();
 const pendingSwaps = new Map();
 const webInteraction = new Map();
+const miningState = new Map();
 
 function normalizeId(id) {
   return (id ?? "").replace(/^minecraft:/, "").toLowerCase();
@@ -682,11 +684,45 @@ world.afterEvents.entityHitBlock.subscribe((event) => {
       lastInteractionTick: now,
     });
 
+    miningState.set(player.id, { lastHitTick: now, blockTypeId: block.typeId });
     if (!switchSelectedSlotTool(player, category, block.typeId)) {
       scheduleSwapRetry(player, category, block.typeId);
     }
   } catch {}
 });
+
+system.runInterval(() => {
+  const now = system.currentTick;
+
+  for (const player of world.getAllPlayers()) {
+    try {
+      const state = miningState.get(player.id);
+
+      if (!state) continue;
+
+      if (
+        now - state.lastHitTick > SWITCH.miningWindowTicks ||
+        !isAutoSwitchActive(player)
+      ) {
+        miningState.delete(player.id);
+        continue;
+      }
+
+      const lastCombat = recentCombat.get(player.id) ?? -Infinity;
+
+      if (now - lastCombat < SWITCH.combatCooldownTicks) continue;
+
+      const target = getTargetBlock(player);
+      const blockTypeId = target?.typeId ?? state.blockTypeId;
+      const category = getRequiredToolCategory(blockTypeId);
+
+      if (!category) continue;
+
+      state.blockTypeId = blockTypeId;
+      switchSelectedSlotTool(player, category, blockTypeId);
+    } catch {}
+  }
+}, 1);
 
 system.runInterval(() => {
   const now = system.currentTick;
@@ -764,6 +800,7 @@ world.afterEvents.entityHitEntity.subscribe((event) => {
 
     clearPendingSwap(player.id);
     webInteraction.delete(player.id);
+    miningState.delete(player.id);
 
     switchSelectedSlotTool(player, ToolCategory.WEAPON);
   } catch {}
@@ -772,6 +809,7 @@ world.afterEvents.entityHitEntity.subscribe((event) => {
 world.afterEvents.playerLeave.subscribe((event) => {
   recentCombat.delete(event.playerId);
   webInteraction.delete(event.playerId);
+  miningState.delete(event.playerId);
   settingsCache.delete(event.playerId);
   clearPendingSwap(event.playerId);
 });

@@ -4,6 +4,13 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v309] - 2026-11-26 - Per-Tick Auto Switch
+
+**Spec**: spec_v309.txt | **Target**: MCPEDL/Addons/Smart-Tool-Hub | **Files edited**: 4
+
+### Improved & Balanced
+- **Per-tick Auto Switch**: While you keep mining, Auto Switch re-checks the block under your crosshair every tick and switches to the best tool.
+
 ## 2026-11-26 - New Addon Smart Tool Hub
 
 ### Added

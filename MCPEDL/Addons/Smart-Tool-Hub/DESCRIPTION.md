@@ -22,7 +22,7 @@ Smart Tool Hub combines Passive Auto-Switch Tools with Smart Tree Capitator and 
 - **What Happens**: The Tool Hub can be equipped in the offhand slot.
 
 ### Auto Switch on Any Hotbar Slot
-- **What Happens**: While the Tool Hub is in your offhand and Auto Switch is on, hitting a block or a mob swaps the best tool or weapon into the hotbar slot you have selected.
+- **What Happens**: While the Tool Hub is in your offhand and Auto Switch is on, hitting a block or a mob swaps the best tool or weapon into the hotbar slot you have selected, and while you keep mining it re-checks the block every tick.
 
 ### Tree Capitator
 - **What Happens**: Sneak and break a log with an axe to fell the whole tree. It needs natural leaves nearby, so wooden builds stay safe.
