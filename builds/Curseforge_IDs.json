@@ -35,7 +35,9 @@
     "last_release_version": "1"
   },
   "MCPEDL/Addons/ALNSpiritSphere": {
-    "project_id": "1831969"
+    "project_id": "1831969",
+    "last_published_version": "7",
+    "last_release_version": "6"
   },
   "MCPEDL/Addons/ALNWarpScrolls": {
     "project_id": "1831750",
