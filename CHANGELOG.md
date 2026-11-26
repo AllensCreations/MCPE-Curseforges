@@ -4,6 +4,13 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v297] - 2026-11-26 - Light Beam
+
+**Spec**: spec_v297.txt | **Target**: MCPEDL/Addons/ALNWarpScrolls | **Files edited**: 5
+
+### Added
+- **Light beam**: A pillar of light shoots up from you while the scroll charges, and a second beam shines over the Beacon Gate for a couple of seconds after you arrive.
+
 ## [v296] - 2026-11-26 - Recall Sphere and Eyelid Screen
 
 **Spec**: spec_v296.txt | **Target**: MCPEDL/Addons/ALNWarpScrolls | **Files edited**: 6

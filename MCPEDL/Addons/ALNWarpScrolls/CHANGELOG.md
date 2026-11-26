@@ -2,6 +2,11 @@
 
 ---
 
+## [v3] - 2026-11-26 - Light Beam
+
+### Added
+- **Light beam**: A pillar of light shoots up from you while the scroll charges, and a second beam shines over the Beacon Gate for a couple of seconds after you arrive.
+
 ## [v2] - 2026-11-26 - Recall Sphere and Eyelid Screen
 
 ### Added

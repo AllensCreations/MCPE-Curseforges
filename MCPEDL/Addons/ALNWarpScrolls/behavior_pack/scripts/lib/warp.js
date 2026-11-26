@@ -11,6 +11,9 @@ import {
   SPHERE_RADIUS,
   SPHERE_RINGS,
   SPHERE_LEAD,
+  BEAM_HEIGHT,
+  BEAM_RISE_TICKS,
+  BEAM_LINGER_STEPS,
 } from "./config.js";
 import { removeGateAt } from "./registry.js";
 
@@ -117,6 +120,7 @@ function sphereFrame(dimension, center, progress, tick) {
 function chargeParticles(player, tick) {
   const base = player.location;
   sphereFrame(player.dimension, { x: base.x, y: base.y - 0.5, z: base.z }, tick / (WARP_TICKS - SPHERE_LEAD), tick);
+  beamFrame(player.dimension, base, tick, tick / BEAM_RISE_TICKS);
 }
 
 function risingSphere(dimension, spot) {
@@ -125,6 +129,30 @@ function risingSphere(dimension, spot) {
     step += 1;
     sphereFrame(dimension, { x: spot.x, y: spot.y - 0.5, z: spot.z }, step / 6, step * PARTICLE_STEP);
     if (step >= 6) system.clearRun(handle);
+  }, PARTICLE_STEP);
+}
+
+function beamFrame(dimension, base, tick, grown) {
+  const height = Math.min(BEAM_HEIGHT, Math.round(Math.min(grown, 1) * BEAM_HEIGHT));
+  for (let y = 0; y < height; y++) {
+    spawn(dimension, "minecraft:endrod", { x: base.x, y: base.y + y, z: base.z });
+    if (y % 2 === 0) {
+      const angle = tick * 0.6 + y * 0.5;
+      spawn(dimension, "minecraft:basic_portal_particle", {
+        x: base.x + Math.cos(angle) * 0.45,
+        y: base.y + y,
+        z: base.z + Math.sin(angle) * 0.45,
+      });
+    }
+  }
+}
+
+function lingeringBeam(dimension, spot) {
+  let step = 0;
+  const handle = system.runInterval(() => {
+    step += 1;
+    beamFrame(dimension, spot, step * PARTICLE_STEP, step / 5);
+    if (step >= BEAM_LINGER_STEPS) system.clearRun(handle);
   }, PARTICLE_STEP);
 }
 
@@ -204,6 +232,7 @@ function complete(player, gate) {
   player.playSound(SOUND.arrive, { volume: 1, pitch: 1 });
   arrivalBurst(dimension, spot);
   risingSphere(dimension, spot);
+  lingeringBeam(dimension, spot);
   system.runTimeout(() => {
     if (player.isValid) breakEffects(player);
   }, 6);

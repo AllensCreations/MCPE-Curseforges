@@ -26,8 +26,8 @@ Place a Beacon Gate wherever you want a destination and give it a name. Later, r
 - **Good To Know**: A Warp Scroll stacks to 1 and is used up when the teleport finishes.
 
 ### 3-Second Warp Sequence
-- **What Happens**: After you pick a gate, the scroll shows a 3-second cooldown sweep, you get 3 seconds of stronger Nausea, your eyelids slowly close over the screen, and a hollow sphere of portal particles rises from your feet to above your head while a rising charge sound plays.
-- **How It Works**: When the 3 seconds end, your eyes snap open, you land on the block directly above the Beacon Gate, a second sphere rises around you, an arrival chime and particle burst play, and the scroll tears apart.
+- **What Happens**: After you pick a gate, the scroll shows a 3-second cooldown sweep, you get 3 seconds of stronger Nausea, your eyelids slowly close over the screen, a hollow sphere of portal particles rises from your feet to above your head, and a pillar of light shoots up from you while a rising charge sound plays.
+- **How It Works**: When the 3 seconds end, your eyes snap open, you land on the block directly above the Beacon Gate, a second sphere rises around you, a light beam shines over the gate for a couple of seconds, an arrival chime and particle burst play, and the scroll tears apart.
 - **Good To Know**: If the scroll leaves your inventory during the charge, the warp fizzles out. The eyelid screen comes from the Resource Pack, so keep it enabled with the Behavior Pack.
 
 ### Custom Sound Effects
