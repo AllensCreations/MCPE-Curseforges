@@ -4,6 +4,13 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v305] - 2026-11-26 - Add Inventory Icon for Recipe Diagram
+
+**Spec**: spec_v305.txt | **Target**: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator | **Files edited**: 2
+
+### Added
+- **Inventory icon**: Added an inventory-style icon of the Loot Spawner so its crafting recipe diagram can be built for the pack page.
+
 ## [v304] - 2026-11-26 - Sponges Simplified
 
 **Spec**: spec_v304.txt | **Target**: MCPEDL/Addons/OP-Sponge | **Files edited**: 9
