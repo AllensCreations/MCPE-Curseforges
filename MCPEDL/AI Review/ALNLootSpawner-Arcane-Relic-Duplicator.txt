@@ -6,8 +6,8 @@
 - **Destination:** `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator`
 - **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
-- **Text files:** 17
-- **Skipped binary:** 4
+- **Text files:** 18
+- **Skipped binary:** 7
 - **Paths not found:** 0
 
 ### Files in this export
@@ -28,14 +28,18 @@
 - `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/texts/en_US.lang`
 - `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/texts/languages.json`
 - `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/textures/terrain_texture.json`
+- `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/texture_sources/aln_loot_spawner_icon.json`
 - `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/texture_sources/aln_loot_spawner_textures.json`
 
-### Skipped (binary): 4 file(s)
+### Skipped (binary): 7 file(s)
 
 - `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/assets/banner.png`
+- `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/assets/recipes/loot_spawner_recipe.png`
+- `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/assets/recipes/loot_spawner_recipe_label.png`
 - `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/textures/blocks/aln_loot_spawner_core.png`
 - `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/textures/blocks/aln_loot_spawner_frame.png`
 - `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/textures/blocks/aln_loot_spawner_glass.png`
+- `MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/resource_pack/textures/items/loot_spawner.png`
 
 ---
 
@@ -84,36 +88,31 @@ Output ONLY these three sections in order:
 ```markdown
 ---
 name: mcpe-context7
-description: Use before looking up ANY repo rule, repo script, Bedrock API member, vanilla id, texture, recipe, component, manifest field or version for the MCPE-Curseforges repo. Routes each need to one of the four Context7 libraries and says when a script must come from the kit zip instead.
+description: Use before looking up ANY Bedrock API member, vanilla id, texture, recipe, component, manifest field or version for the MCPE-Curseforges repo. Routes each need to one of the three Context7 libraries and says when a script must come from the kit zip instead.
 ---
 
 # mcpe-context7: Where to Look Things Up
 
 ## Authority
 
-- `INSTRUCTIONS.md` 1.16 (copy in `docs/instructions-reference.md`) is the policy. This skill is only its routing table and never overrides it.
-- An AI review kit (`*_tools.txt` inside the kit zip) holds a directory map and skills, no file contents. That is on purpose: read what the task needs through Context7, not from a pasted dump.
+- `INSTRUCTIONS.md` 1.16 (copy in the kit zip's instruction files) is the policy. This skill is only its routing table and never overrides it.
+- Repo rules, scripts and pack files come from the **kit zip** (`New-Pack.zip`, `Maintenance.zip` or the pack's review zip), NOT from Context7. The zip is always fresher.
 
-## Libraries (ONLY these four, IDs exactly, `query-docs` only)
+## Libraries (ONLY these three, IDs exactly, `query-docs` only)
 
 - `/microsoftdocs/minecraft-creator`: `@minecraft/server` and `@minecraft/server-ui` API, JSON schemas, stable and module versions.
 - `/mojang/bedrock-samples`: vanilla ids, textures, recipes, components, entities, formats, `version.json`.
 - `/websites/wiki_bedrock_dev`: manifest structure, scripting guides, techniques.
-- `/allenscreations/mcpe-curseforges`: this repo's rules, script summaries and Bedrock guide. Context7 indexes ONLY `docs/`.
 
 NEVER call `resolve-library-id`. NEVER query any other library.
 
-## Repo lookups (`/allenscreations/mcpe-curseforges`, `docs/` only)
+## Repo lookups (from the kit zip, NOT Context7)
 
-- `docs/instructions-reference.md`: `INSTRUCTIONS.md`, `DOCS_RULES.md`, `PACK_GENERATOR_INSTRUCTIONS.md` (Reply Format, Termux Script Rules, versions 1.3, recipes 1.4 and 1.5, templates 2.5, new packs Part 4).
-- `docs/scripts-and-workflows.md`: summary of every script and workflow, update spec syntax (`apply_update.py`, `make_update_script.py`).
-- `docs/mcicons-index.md`: every Minecraft icon id in MCicons (generated).
-- `docs/bedrock-guide.md`: add-on architecture, folder structure, manifest setup, target API versions.
-- Meaning of a build or doc check message: query the exact message text with the script name.
+Repo rules, scripts, instruction files, `DOCS_RULES.md`, `PACK_GENERATOR_INSTRUCTIONS.md`, `docs/mcicons-index.md`, `docs/bedrock-guide.md` and all script files come from the kit zip under `files/`. Read them from there. Context7 no longer indexes this repo.
 
 ## Rules
 
-1. Query first, write second. Batch: at most ONE `query-docs` call per needed `libraryId`, covering every topic needed from it, all calls in one parallel turn. NEVER two calls to the same `libraryId`. Name the exact member, file, id or schema and the game or module version.
+1. Query first, write second. Batch: at most ONE `query-docs` call per needed `libraryId`, covering every topic needed from it. NEVER two calls to the same `libraryId`. Name the exact member, file, id or schema and the game or module version. All three calls may go in one parallel turn.
 2. Verify every import, class, method, property and JSON field against the retrieved text. NEVER `mojang-minecraft`, `world.events` or 1.x syntax.
 3. Empty or doubtful result: no sequential retry loop. Say "not verified". NEVER fill the gap from memory.
 4. Versions come only from retrieved text. State the exact version used and the query date.
@@ -122,23 +121,22 @@ NEVER call `resolve-library-id`. NEVER query any other library.
 
 ## Scripts that must run
 
-- `make_pack_script.py`, `build_payload.py`, `import_project_payload.py`, `doc_template.py`, `pixel_json_to_png.py`, `make_update_script.py` and `apply_update.py` need their COMPLETE unchanged text. A Context7 snippet is not enough.
-- The complete files are in the kit zip (`New-Pack.zip`, `Maintenance.zip` or the pack's review zip `<Pack>.zip`) under `files/`. Specifically, `make_update_script.py`, `apply_update.py`, `pixel_json_to_png.py`, and `docs/mcicons-index.md` are packaged under `files/`. Unzip, run from there, NEVER retype or edit them.
-- No zip and only partial text from a query: stop and ask the user to attach the zip. NEVER rewrite a script from memory.
-- A file attached in the conversation or read from a clone wins over the Context7 index. Context7 shows the repo as last indexed. Tell the user about any difference.
+- `make_pack_script.py`, `build_payload.py`, `import_project_payload.py`, `doc_template.py`, `pixel_json_to_png.py`, `make_update_script.py` and `apply_update.py` need their COMPLETE unchanged text.
+- The complete files are in the kit zip (`New-Pack.zip`, `Maintenance.zip` or the pack's review zip `<Pack>.zip`) under `files/`. Unzip, run from there, NEVER retype or edit them.
+- No zip: stop and ask the user to attach the zip. NEVER rewrite a script from memory.
 
 ## Icons (MCicons)
 
-- Any vanilla item or block icon (recipe diagrams, sprites, README or listing images, UI art): use MCicons ONLY. It is the release file `reference/mcicons/mcicons-<ver>.tgz` in the repo (`package/dist/icons/minecraft_<id>.png`, 64x64, only `minecraft:` ids). It is NOT in Context7: read it with `scripts/lib/mcicons.py` (`has_icon(id)`, `icon_image(id)`), never retype or guess a PNG.
+- Any vanilla item or block icon (recipe diagrams, sprites, README or listing images, UI art): use MCicons ONLY. It is the release file `reference/mcicons/mcicons-<ver>.tgz` in the repo (`package/dist/icons/minecraft_<id>.png`, 64x64, only `minecraft:` ids). Read it with `scripts/lib/mcicons.py` (`has_icon(id)`, `icon_image(id)`), never retype or guess a PNG.
 - No icon for the id (custom ids, newer items): report it. NO fallback to Samples, the Wiki, another icon site or a third-party pack.
-- Context7 cannot index the binary `.tgz`, but `docs/mcicons-index.md` (`/allenscreations/mcpe-curseforges`) lists every icon id it holds: query it to check an id before using an icon.
+- `docs/mcicons-index.md` (in the kit zip under `files/`) lists every icon id it holds: check it before using an icon.
 - The `.tgz` itself is not in the kit zips. To run code that reads the pixels it must be in the clone; if it is missing, ask the user to attach it. NEVER substitute a lookalike.
 - Every manifest (BP and RP) carries `metadata.authors` = `["ALNStudios"]` and `metadata.product_type` = `"addon"`, always.
 - Keep its `ASSET-NOTICE.md` with any redistributed icon.
 
 ## Reading the directory map
 
-- The map lists directories with file counts. Pick the folder, then query for the file. For exact file text of a pack, ask for a Collect Files export of that path.
+- The map lists directories with file counts. Pick the folder, then read the file from the zip. For exact file text of a pack, ask for a Collect Files export of that path.
 - NEVER edit generated folders and files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`, `builds/README.md`.
 ```
 
@@ -282,13 +280,13 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:LootSpawner (v1.0.6)",
+    "name": "ALN:LootSpawner (v1.0.7)",
     "description": "Arcane Relic Duplicator Display Cage. by ALNStudios",
     "uuid": "168d9162-4f4a-4dda-a2c8-a550e2b9ad41",
     "version": [
       1,
       0,
-      6
+      7
     ],
     "min_engine_version": [
       1,
@@ -303,7 +301,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "version": [
         1,
         0,
-        6
+        7
       ]
     },
     {
@@ -313,7 +311,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "version": [
         1,
         0,
-        6
+        7
       ],
       "entry": "scripts/main.js"
     }
@@ -324,7 +322,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "version": [
         1,
         0,
-        6
+        7
       ]
     },
     {
@@ -337,7 +335,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     }
   ],
   "metadata": {
-    "version": "1.0.6",
+    "version": "1.0.7",
     "authors": [
       "ALNStudios"
     ],
@@ -729,12 +727,17 @@ system.runInterval(() => {
 }, STEP_TICKS);
 ```
 
-## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/CHANGELOG.md (58 lines, 4861 bytes)
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/CHANGELOG.md (63 lines, 5072 bytes)
 
 ```
 # Changelog — ALN:LootSpawner (Arcane Relic Duplicator)
 
 ---
+
+## [1.0.7] - 2026-11-26 - Add Inventory Icon for Recipe Diagram
+
+### Added
+- **Inventory icon**: Added an inventory-style icon of the Loot Spawner so its crafting recipe diagram can be built for the pack page.
 
 ## [1.0.6] - 2026-11-25 - Translucent Glass and Redrawn Textures
 
@@ -899,7 +902,7 @@ Download the current release of **ALNLootSpawner (Arcane Relic Duplicator)** for
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNLootSpawner (Arcane Relic Duplicator) (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNLootSpawner-Arcane-Relic-Duplicator/ALNLootSpawnerArcaneRelicDuplicator%20V1.0.6.mcaddon)
+- **Direct download:** [Download ALNLootSpawner (Arcane Relic Duplicator) (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNLootSpawner-Arcane-Relic-Duplicator/ALNLootSpawnerArcaneRelicDuplicator%20V1.0.7.mcaddon)
 
 ## Installation
 
@@ -926,13 +929,13 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:LootSpawner (v1.0.6)",
+    "name": "ALN:LootSpawner (v1.0.7)",
     "description": "Arcane Relic Duplicator Display Cage. by ALNStudios",
     "uuid": "1390b986-3030-4eee-a94b-1bd5ea7f88dd",
     "version": [
       1,
       0,
-      6
+      7
     ],
     "min_engine_version": [
       1,
@@ -947,12 +950,12 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "version": [
         1,
         0,
-        6
+        7
       ]
     }
   ],
   "metadata": {
-    "version": "1.0.6",
+    "version": "1.0.7",
     "authors": [
       "ALNStudios"
     ],
@@ -1408,6 +1411,35 @@ tile.aln:loot_spawner.name=Loot Spawner
       "textures": "textures/blocks/aln_loot_spawner_core"
     }
   }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator/texture_sources/aln_loot_spawner_icon.json (25 lines, 1123 bytes)
+
+```
+{
+  "name": "loot_spawner",
+  "size": 16,
+  "folder": "items",
+  "palette": {"0": "#00000000", "1": "#E5B84B", "2": "#A8832F", "3": "#F7D878", "4": "#B468FF", "5": "#7E46C8", "6": "#FFFFFF", "7": "#CDF2FC", "8": "#96CDDE", "9": "#70A2BC"},
+  "pixels": [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 1, 7, 7, 1, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 1, 6, 7, 7, 7, 7, 7, 1, 1, 0, 0, 0],
+    [0, 4, 1, 7, 6, 7, 7, 7, 7, 7, 7, 7, 7, 1, 4, 0],
+    [0, 1, 1, 1, 7, 7, 7, 7, 7, 7, 7, 7, 1, 1, 1, 0],
+    [0, 1, 8, 8, 1, 1, 7, 7, 7, 7, 1, 1, 9, 9, 1, 0],
+    [0, 1, 8, 6, 8, 8, 1, 4, 4, 1, 9, 9, 9, 9, 1, 0],
+    [0, 1, 8, 6, 8, 8, 8, 4, 4, 9, 9, 9, 9, 9, 1, 0],
+    [0, 1, 8, 8, 6, 8, 8, 1, 1, 9, 9, 9, 9, 9, 1, 0],
+    [0, 1, 8, 8, 8, 8, 8, 1, 1, 9, 9, 9, 9, 9, 1, 0],
+    [0, 4, 1, 8, 8, 8, 8, 1, 1, 9, 9, 9, 9, 1, 4, 0],
+    [0, 0, 0, 2, 2, 8, 8, 2, 2, 9, 9, 2, 2, 0, 0, 0],
+    [0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  ]
 }
 ```
 
