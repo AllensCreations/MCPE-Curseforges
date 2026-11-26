@@ -4,10 +4,10 @@
 
 - **Export request:** `MCPEDL/Addons/ALNAuroraBorealis`
 - **Destination:** `MCPEDL/Addons/ALNAuroraBorealis`
-- **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALNAuroraBorealis/CHANGELOG.md`)
+- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/ALNAuroraBorealis/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
-- **Text files:** 31
-- **Skipped binary:** 1
+- **Text files:** 104
+- **Skipped binary:** 4
 - **Paths not found:** 0
 
 ### Files in this export
@@ -17,36 +17,112 @@
 - `MCPEDL/Addons/ALNAuroraBorealis/DESCRIPTION.md`
 - `MCPEDL/Addons/ALNAuroraBorealis/project.json`
 - `MCPEDL/Addons/ALNAuroraBorealis/README.md`
-- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/beach.client_biome.json`
-- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/birch_forest.client_biome.json`
-- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/cherry_grove.client_biome.json`
-- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/cold_taiga.client_biome.json`
-- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/deep_ocean.client_biome.json`
-- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/desert.client_biome.json`
-- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/extreme_hills.client_biome.json`
-- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/flower_forest.client_biome.json`
-- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/forest.client_biome.json`
-- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/frozen_ocean.client_biome.json`
-- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/ice_mountains.client_biome.json`
-- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/ice_plains.client_biome.json`
-- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/jungle.client_biome.json`
-- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/mangrove_swamp.client_biome.json`
-- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/meadow.client_biome.json`
-- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/mesa.client_biome.json`
-- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/mushroom_island.client_biome.json`
-- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/ocean.client_biome.json`
-- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/plains.client_biome.json`
-- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/river.client_biome.json`
-- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/roofed_forest.client_biome.json`
-- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/savanna.client_biome.json`
-- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/swampland.client_biome.json`
-- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/taiga.client_biome.json`
-- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/fogs/aln_aurora_fog.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bamboo_jungle.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_bamboo_jungle.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_beach.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_birch_forest.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_cherry_grove.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_cold_beach.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_cold_ocean.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_cold_taiga.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_deep_cold_ocean.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_deep_frozen_ocean.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_deep_lukewarm_ocean.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_deep_ocean.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_desert.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_extreme_hills.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_flower_forest.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_forest.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_frozen_ocean.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_frozen_peaks.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_frozen_river.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_grove.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_ice_mountains.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_ice_plains.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_ice_plains_spikes.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_jagged_peaks.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_jungle.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_jungle_edge.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_lukewarm_ocean.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_mangrove_swamp.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_meadow.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_mega_taiga.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_mesa.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_mesa_bryce.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_mesa_plateau.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_mushroom_island.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_ocean.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_pale_garden.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_plains.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_river.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_roofed_forest.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_savanna.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_savanna_plateau.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_snowy_slopes.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_stone_beach.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_stony_peaks.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_sunflower_plains.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_swampland.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_taiga.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_warm_ocean.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/beach.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/birch_forest.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/cherry_grove.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/cold_beach.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/cold_ocean.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/cold_taiga.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/deep_cold_ocean.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/deep_frozen_ocean.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/deep_lukewarm_ocean.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/deep_ocean.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/desert.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/extreme_hills.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/flower_forest.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/forest.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/frozen_ocean.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/frozen_peaks.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/frozen_river.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/grove.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/ice_mountains.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/ice_plains.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/ice_plains_spikes.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/jagged_peaks.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/jungle.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/jungle_edge.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/lukewarm_ocean.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/mangrove_swamp.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/meadow.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/mega_taiga.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/mesa.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/mesa_bryce.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/mesa_plateau.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/mushroom_island.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/ocean.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/pale_garden.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/plains.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/river.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/roofed_forest.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/savanna.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/savanna_plateau.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/snowy_slopes.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/stone_beach.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/stony_peaks.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/sunflower_plains.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/swampland.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/taiga.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/warm_ocean.client_biome.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/fogs/aln_aurora_fog_cyan.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/fogs/aln_aurora_fog_emerald.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/fogs/aln_aurora_fog_violet.json`
 - `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/manifest.json`
+- `MCPEDL/Addons/ALNAuroraBorealis/texture_sources/aurora_icon.json`
 
-### Skipped (binary): 1 file(s)
+### Skipped (binary): 4 file(s)
 
 - `MCPEDL/Addons/ALNAuroraBorealis/assets/banner.png`
+- `MCPEDL/Addons/ALNAuroraBorealis/behavior_pack/pack_icon.png`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/pack_icon.png`
+- `MCPEDL/Addons/ALNAuroraBorealis/resource_pack/textures/items/aln_aurora_icon.png`
 
 ---
 
@@ -57,7 +133,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v1 / NEXT UPDATE: v2).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE self-contained update `.sh` (`<Pack>_v<Version>_<rand>.sh`) built with `make_update_script.py` (INSTRUCTIONS.md Reply Format).
@@ -1170,11 +1246,11 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:AuroraBorealis (v1)",
+    "name": "ALN:AuroraBorealis (v2)",
     "description": "Companion pack with no gameplay content. by ALNStudios",
     "uuid": "3f16891f-0d78-400e-aa6a-a24685970ed3",
     "version": [
-      1,
+      2,
       0,
       0
     ],
@@ -1189,7 +1265,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "type": "data",
       "uuid": "899e1348-05c5-4d32-a457-cfe803167aba",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -1199,7 +1275,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
     {
       "uuid": "1539c463-9ac1-426d-9063-382621784753",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -1210,17 +1286,27 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "2.0.0"
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNAuroraBorealis/CHANGELOG.md (10 lines, 304 bytes)
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/CHANGELOG.md (20 lines, 788 bytes)
 
 ```
 # Changelog — ALN:AuroraBorealis
 
 ---
+
+## [v2] - 2026-11-26 - Biome Fix and Aurora Palette
+
+### Added
+- **Aurora Palette**: Up to 47 Overworld biomes get an emerald, cyan or violet sky tint, with a matching haze at the edge of your view distance.
+- **Tinted Water**: Water surfaces match the biome's aurora color.
+- **Pack Icon**: A pixel-art aurora over snowy peaks shows in the pack list.
+
+### Fixed
+- **Biome Tints**: The sky, haze and water tints now load in game; they were stored where Minecraft does not read them.
 
 ## [1.0.0] - 2026-11-26 - Northern Lights Night
 
@@ -1229,19 +1315,19 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
 - **Emerald Fog**: A thin emerald haze appears at the edge of your view distance, leaving caves and bases clear.
 ```
 
-## FILE: MCPEDL/Addons/ALNAuroraBorealis/DESCRIPTION.md (64 lines, 3280 bytes)
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/DESCRIPTION.md (67 lines, 3649 bytes)
 
 ```
-# ALN:AuroraBorealis — Emerald Sky and Fog for Overworld Biomes
+# ALN:AuroraBorealis — Emerald, Cyan and Violet Skies for Overworld Biomes
 
 **By ALNStudios**
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Tints the Overworld sky teal and adds an emerald haze across 24 common biomes, with no scripts or gameplay changes.**
+**Gives up to 47 Overworld biomes an emerald, cyan or violet sky, haze and water tint, with no scripts or gameplay changes.**
 
-> This pack recolors the sky and distance fog in 24 Overworld biomes, from Plains to Deep Ocean. It suits players who want a cooler, northern-lights mood in survival worlds.
+> This pack recolors the sky, distance fog and water surface in up to 47 Overworld biomes, from Plains to Deep Ocean. It suits players who want a northern-lights mood in survival worlds.
 
 ## Overview
 
@@ -1249,19 +1335,22 @@ Install the pack, enable it in your world, and the sky and fog colors change in 
 
 ## Key Features
 
-### Teal Sky
-- **What Happens**: The sky color becomes a soft teal-green in 24 Overworld biomes.
+### Aurora Palette
+- **What Happens**: Each biome gets one of three aurora colors: emerald in forests, plains and warm lands; cyan in snowy, mountain, river and beach areas; violet in oceans, Mushroom Fields and Cherry Groves; biomes the game does not recognise are skipped.
 - **Good To Know**: The tint is a fixed color. It does not animate, and it does not fade in and out with the time of day.
 
-### Emerald Haze
-- **What Happens**: A light emerald fog appears only near the far edge of your view distance, so caves and bases stay clear.
+### Aurora Haze
+- **What Happens**: A light haze in the matching color appears only near the far edge of your view distance, so caves and bases stay clear.
 - **Good To Know**: Biomes not covered by this pack keep their normal look. Other packs that recolor the same biomes may override this one.
+
+### Tinted Water
+- **What Happens**: Water surfaces take a soft emerald, cyan or violet shade to match the sky above them.
 
 ## How to Use
 
 1. Import the Complete Pack (.mcaddon) with Minecraft.
 2. Open your world's settings and activate the Resource Pack and the Behavior Pack.
-3. Load the world and look at the sky and the horizon.
+3. Load the world and look at the sky, the horizon and the water.
 
 ## Compatibility
 
@@ -1293,7 +1382,7 @@ Install the pack, enable it in your world, and the sky and fog colors change in 
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, ALN:AuroraBorealis Bedrock mod, aurora borealis sky, emerald fog, northern lights, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+Minecraft Bedrock add-on, ALN:AuroraBorealis Bedrock mod, aurora borealis sky, emerald fog, violet sky, northern lights, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
 ```
 
 ## FILE: MCPEDL/Addons/ALNAuroraBorealis/project.json (5 lines, 54 bytes)
@@ -1305,17 +1394,21 @@ Minecraft Bedrock add-on, ALN:AuroraBorealis Bedrock mod, aurora borealis sky, e
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNAuroraBorealis/README.md (19 lines, 811 bytes)
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/README.md (23 lines, 1052 bytes)
 
 ```
 # ALNAuroraBorealis
+
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-Not%20Published-lightgrey?style=flat-square&logo=curseforge)](https://www.curseforge.com/members/allenscreations/projects)
+<!-- CURSEFORGE-BADGE:END -->
 
 Download the current release of **ALNAuroraBorealis** for Minecraft Bedrock Edition.
 
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNAuroraBorealis (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNAuroraBorealis/ALNAuroraBorealis%20V1.mcaddon)
+- **Direct download:** [Download ALNAuroraBorealis (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNAuroraBorealis/ALNAuroraBorealis%20V2.mcaddon)
 
 ## Installation
 
@@ -1328,7 +1421,55 @@ Download the current release of **ALNAuroraBorealis** for Minecraft Bedrock Edit
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALNAuroraBorealis/DESCRIPTION.md).
 ```
 
-## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/beach.client_biome.json (17 lines, 309 bytes)
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bamboo_jungle.client_biome.json (20 lines, 417 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:bamboo_jungle"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5BC8A4"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_bamboo_jungle.client_biome.json (20 lines, 407 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "bamboo_jungle"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5BC8A4"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_beach.client_biome.json (20 lines, 396 bytes)
 
 ```
 {
@@ -1339,17 +1480,20 @@ For gameplay features, usage details, compatibility notes, and other project inf
     },
     "components": {
       "minecraft:sky_color": {
-        "sky_color": "#5FB0C8"
+        "sky_color": "#5CC6E0"
       },
       "minecraft:fog_appearance": {
-        "fog_identifier": "aln:aurora_fog"
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/birch_forest.client_biome.json (17 lines, 316 bytes)
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_birch_forest.client_biome.json (20 lines, 406 bytes)
 
 ```
 {
@@ -1360,17 +1504,20 @@ For gameplay features, usage details, compatibility notes, and other project inf
     },
     "components": {
       "minecraft:sky_color": {
-        "sky_color": "#5FB0C8"
+        "sky_color": "#5BC8A4"
       },
       "minecraft:fog_appearance": {
-        "fog_identifier": "aln:aurora_fog"
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/cherry_grove.client_biome.json (17 lines, 316 bytes)
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_cherry_grove.client_biome.json (20 lines, 405 bytes)
 
 ```
 {
@@ -1381,17 +1528,68 @@ For gameplay features, usage details, compatibility notes, and other project inf
     },
     "components": {
       "minecraft:sky_color": {
-        "sky_color": "#5FB0C8"
+        "sky_color": "#8F7FD8"
       },
       "minecraft:fog_appearance": {
-        "fog_identifier": "aln:aurora_fog"
+        "fog_identifier": "aln:aurora_fog_violet"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#5E4FC0"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/cold_taiga.client_biome.json (17 lines, 314 bytes)
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_cold_beach.client_biome.json (20 lines, 401 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "cold_beach"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_cold_ocean.client_biome.json (20 lines, 401 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "cold_ocean"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_cold_taiga.client_biome.json (20 lines, 401 bytes)
 
 ```
 {
@@ -1402,17 +1600,92 @@ For gameplay features, usage details, compatibility notes, and other project inf
     },
     "components": {
       "minecraft:sky_color": {
-        "sky_color": "#5FB0C8"
+        "sky_color": "#5CC6E0"
       },
       "minecraft:fog_appearance": {
-        "fog_identifier": "aln:aurora_fog"
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/deep_ocean.client_biome.json (17 lines, 314 bytes)
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_deep_cold_ocean.client_biome.json (20 lines, 406 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "deep_cold_ocean"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_deep_frozen_ocean.client_biome.json (20 lines, 408 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "deep_frozen_ocean"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_deep_lukewarm_ocean.client_biome.json (20 lines, 412 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "deep_lukewarm_ocean"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#8F7FD8"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_violet"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#5E4FC0"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_deep_ocean.client_biome.json (20 lines, 403 bytes)
 
 ```
 {
@@ -1423,17 +1696,20 @@ For gameplay features, usage details, compatibility notes, and other project inf
     },
     "components": {
       "minecraft:sky_color": {
-        "sky_color": "#5FB0C8"
+        "sky_color": "#8F7FD8"
       },
       "minecraft:fog_appearance": {
-        "fog_identifier": "aln:aurora_fog"
+        "fog_identifier": "aln:aurora_fog_violet"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#5E4FC0"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/desert.client_biome.json (17 lines, 310 bytes)
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_desert.client_biome.json (20 lines, 400 bytes)
 
 ```
 {
@@ -1444,17 +1720,20 @@ For gameplay features, usage details, compatibility notes, and other project inf
     },
     "components": {
       "minecraft:sky_color": {
-        "sky_color": "#5FB0C8"
+        "sky_color": "#5BC8A4"
       },
       "minecraft:fog_appearance": {
-        "fog_identifier": "aln:aurora_fog"
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/extreme_hills.client_biome.json (17 lines, 317 bytes)
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_extreme_hills.client_biome.json (20 lines, 404 bytes)
 
 ```
 {
@@ -1465,17 +1744,20 @@ For gameplay features, usage details, compatibility notes, and other project inf
     },
     "components": {
       "minecraft:sky_color": {
-        "sky_color": "#5FB0C8"
+        "sky_color": "#5CC6E0"
       },
       "minecraft:fog_appearance": {
-        "fog_identifier": "aln:aurora_fog"
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/flower_forest.client_biome.json (17 lines, 317 bytes)
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_flower_forest.client_biome.json (20 lines, 407 bytes)
 
 ```
 {
@@ -1486,17 +1768,20 @@ For gameplay features, usage details, compatibility notes, and other project inf
     },
     "components": {
       "minecraft:sky_color": {
-        "sky_color": "#5FB0C8"
+        "sky_color": "#5BC8A4"
       },
       "minecraft:fog_appearance": {
-        "fog_identifier": "aln:aurora_fog"
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/forest.client_biome.json (17 lines, 310 bytes)
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_forest.client_biome.json (20 lines, 400 bytes)
 
 ```
 {
@@ -1507,17 +1792,20 @@ For gameplay features, usage details, compatibility notes, and other project inf
     },
     "components": {
       "minecraft:sky_color": {
-        "sky_color": "#5FB0C8"
+        "sky_color": "#5BC8A4"
       },
       "minecraft:fog_appearance": {
-        "fog_identifier": "aln:aurora_fog"
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/frozen_ocean.client_biome.json (17 lines, 316 bytes)
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_frozen_ocean.client_biome.json (20 lines, 403 bytes)
 
 ```
 {
@@ -1528,17 +1816,92 @@ For gameplay features, usage details, compatibility notes, and other project inf
     },
     "components": {
       "minecraft:sky_color": {
-        "sky_color": "#5FB0C8"
+        "sky_color": "#5CC6E0"
       },
       "minecraft:fog_appearance": {
-        "fog_identifier": "aln:aurora_fog"
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/ice_mountains.client_biome.json (17 lines, 317 bytes)
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_frozen_peaks.client_biome.json (20 lines, 403 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "frozen_peaks"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_frozen_river.client_biome.json (20 lines, 403 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "frozen_river"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_grove.client_biome.json (20 lines, 396 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "grove"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_ice_mountains.client_biome.json (20 lines, 404 bytes)
 
 ```
 {
@@ -1549,17 +1912,20 @@ For gameplay features, usage details, compatibility notes, and other project inf
     },
     "components": {
       "minecraft:sky_color": {
-        "sky_color": "#5FB0C8"
+        "sky_color": "#5CC6E0"
       },
       "minecraft:fog_appearance": {
-        "fog_identifier": "aln:aurora_fog"
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/ice_plains.client_biome.json (17 lines, 314 bytes)
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_ice_plains.client_biome.json (20 lines, 401 bytes)
 
 ```
 {
@@ -1570,17 +1936,68 @@ For gameplay features, usage details, compatibility notes, and other project inf
     },
     "components": {
       "minecraft:sky_color": {
-        "sky_color": "#5FB0C8"
+        "sky_color": "#5CC6E0"
       },
       "minecraft:fog_appearance": {
-        "fog_identifier": "aln:aurora_fog"
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/jungle.client_biome.json (17 lines, 310 bytes)
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_ice_plains_spikes.client_biome.json (20 lines, 408 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "ice_plains_spikes"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_jagged_peaks.client_biome.json (20 lines, 403 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "jagged_peaks"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_jungle.client_biome.json (20 lines, 400 bytes)
 
 ```
 {
@@ -1591,17 +2008,68 @@ For gameplay features, usage details, compatibility notes, and other project inf
     },
     "components": {
       "minecraft:sky_color": {
-        "sky_color": "#5FB0C8"
+        "sky_color": "#5BC8A4"
       },
       "minecraft:fog_appearance": {
-        "fog_identifier": "aln:aurora_fog"
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/mangrove_swamp.client_biome.json (17 lines, 318 bytes)
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_jungle_edge.client_biome.json (20 lines, 405 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "jungle_edge"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5BC8A4"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_lukewarm_ocean.client_biome.json (20 lines, 407 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "lukewarm_ocean"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#8F7FD8"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_violet"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#5E4FC0"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_mangrove_swamp.client_biome.json (20 lines, 408 bytes)
 
 ```
 {
@@ -1612,17 +2080,20 @@ For gameplay features, usage details, compatibility notes, and other project inf
     },
     "components": {
       "minecraft:sky_color": {
-        "sky_color": "#5FB0C8"
+        "sky_color": "#5BC8A4"
       },
       "minecraft:fog_appearance": {
-        "fog_identifier": "aln:aurora_fog"
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/meadow.client_biome.json (17 lines, 310 bytes)
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_meadow.client_biome.json (20 lines, 400 bytes)
 
 ```
 {
@@ -1633,17 +2104,44 @@ For gameplay features, usage details, compatibility notes, and other project inf
     },
     "components": {
       "minecraft:sky_color": {
-        "sky_color": "#5FB0C8"
+        "sky_color": "#5BC8A4"
       },
       "minecraft:fog_appearance": {
-        "fog_identifier": "aln:aurora_fog"
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/mesa.client_biome.json (17 lines, 308 bytes)
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_mega_taiga.client_biome.json (20 lines, 401 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "mega_taiga"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_mesa.client_biome.json (20 lines, 398 bytes)
 
 ```
 {
@@ -1654,17 +2152,68 @@ For gameplay features, usage details, compatibility notes, and other project inf
     },
     "components": {
       "minecraft:sky_color": {
-        "sky_color": "#5FB0C8"
+        "sky_color": "#5BC8A4"
       },
       "minecraft:fog_appearance": {
-        "fog_identifier": "aln:aurora_fog"
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/mushroom_island.client_biome.json (17 lines, 319 bytes)
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_mesa_bryce.client_biome.json (20 lines, 404 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "mesa_bryce"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5BC8A4"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_mesa_plateau.client_biome.json (20 lines, 406 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "mesa_plateau"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5BC8A4"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_mushroom_island.client_biome.json (20 lines, 408 bytes)
 
 ```
 {
@@ -1675,17 +2224,20 @@ For gameplay features, usage details, compatibility notes, and other project inf
     },
     "components": {
       "minecraft:sky_color": {
-        "sky_color": "#5FB0C8"
+        "sky_color": "#8F7FD8"
       },
       "minecraft:fog_appearance": {
-        "fog_identifier": "aln:aurora_fog"
+        "fog_identifier": "aln:aurora_fog_violet"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#5E4FC0"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/ocean.client_biome.json (17 lines, 309 bytes)
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_ocean.client_biome.json (20 lines, 398 bytes)
 
 ```
 {
@@ -1696,17 +2248,44 @@ For gameplay features, usage details, compatibility notes, and other project inf
     },
     "components": {
       "minecraft:sky_color": {
-        "sky_color": "#5FB0C8"
+        "sky_color": "#8F7FD8"
       },
       "minecraft:fog_appearance": {
-        "fog_identifier": "aln:aurora_fog"
+        "fog_identifier": "aln:aurora_fog_violet"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#5E4FC0"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/plains.client_biome.json (17 lines, 310 bytes)
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_pale_garden.client_biome.json (20 lines, 405 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "pale_garden"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5BC8A4"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_plains.client_biome.json (20 lines, 400 bytes)
 
 ```
 {
@@ -1717,17 +2296,20 @@ For gameplay features, usage details, compatibility notes, and other project inf
     },
     "components": {
       "minecraft:sky_color": {
-        "sky_color": "#5FB0C8"
+        "sky_color": "#5BC8A4"
       },
       "minecraft:fog_appearance": {
-        "fog_identifier": "aln:aurora_fog"
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/river.client_biome.json (17 lines, 309 bytes)
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_river.client_biome.json (20 lines, 396 bytes)
 
 ```
 {
@@ -1738,17 +2320,20 @@ For gameplay features, usage details, compatibility notes, and other project inf
     },
     "components": {
       "minecraft:sky_color": {
-        "sky_color": "#5FB0C8"
+        "sky_color": "#5CC6E0"
       },
       "minecraft:fog_appearance": {
-        "fog_identifier": "aln:aurora_fog"
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/roofed_forest.client_biome.json (17 lines, 317 bytes)
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_roofed_forest.client_biome.json (20 lines, 407 bytes)
 
 ```
 {
@@ -1759,17 +2344,20 @@ For gameplay features, usage details, compatibility notes, and other project inf
     },
     "components": {
       "minecraft:sky_color": {
-        "sky_color": "#5FB0C8"
+        "sky_color": "#5BC8A4"
       },
       "minecraft:fog_appearance": {
-        "fog_identifier": "aln:aurora_fog"
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/savanna.client_biome.json (17 lines, 311 bytes)
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_savanna.client_biome.json (20 lines, 401 bytes)
 
 ```
 {
@@ -1780,17 +2368,140 @@ For gameplay features, usage details, compatibility notes, and other project inf
     },
     "components": {
       "minecraft:sky_color": {
-        "sky_color": "#5FB0C8"
+        "sky_color": "#5BC8A4"
       },
       "minecraft:fog_appearance": {
-        "fog_identifier": "aln:aurora_fog"
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/swampland.client_biome.json (17 lines, 313 bytes)
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_savanna_plateau.client_biome.json (20 lines, 409 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "savanna_plateau"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5BC8A4"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_snowy_slopes.client_biome.json (20 lines, 403 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "snowy_slopes"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_stone_beach.client_biome.json (20 lines, 402 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "stone_beach"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_stony_peaks.client_biome.json (20 lines, 402 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "stony_peaks"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_sunflower_plains.client_biome.json (20 lines, 410 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "sunflower_plains"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5BC8A4"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_swampland.client_biome.json (20 lines, 403 bytes)
 
 ```
 {
@@ -1801,17 +2512,20 @@ For gameplay features, usage details, compatibility notes, and other project inf
     },
     "components": {
       "minecraft:sky_color": {
-        "sky_color": "#5FB0C8"
+        "sky_color": "#5BC8A4"
       },
       "minecraft:fog_appearance": {
-        "fog_identifier": "aln:aurora_fog"
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/client_biomes/taiga.client_biome.json (17 lines, 309 bytes)
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_taiga.client_biome.json (20 lines, 396 bytes)
 
 ```
 {
@@ -1822,24 +2536,1182 @@ For gameplay features, usage details, compatibility notes, and other project inf
     },
     "components": {
       "minecraft:sky_color": {
-        "sky_color": "#5FB0C8"
+        "sky_color": "#5CC6E0"
       },
       "minecraft:fog_appearance": {
-        "fog_identifier": "aln:aurora_fog"
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/fogs/aln_aurora_fog.json (23 lines, 453 bytes)
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/bare_warm_ocean.client_biome.json (20 lines, 403 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "warm_ocean"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#8F7FD8"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_violet"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#5E4FC0"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/beach.client_biome.json (20 lines, 406 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:beach"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/birch_forest.client_biome.json (20 lines, 416 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:birch_forest"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5BC8A4"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/cherry_grove.client_biome.json (20 lines, 415 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:cherry_grove"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#8F7FD8"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_violet"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#5E4FC0"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/cold_beach.client_biome.json (20 lines, 411 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:cold_beach"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/cold_ocean.client_biome.json (20 lines, 411 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:cold_ocean"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/cold_taiga.client_biome.json (20 lines, 411 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:cold_taiga"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/deep_cold_ocean.client_biome.json (20 lines, 416 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:deep_cold_ocean"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/deep_frozen_ocean.client_biome.json (20 lines, 418 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:deep_frozen_ocean"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/deep_lukewarm_ocean.client_biome.json (20 lines, 422 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:deep_lukewarm_ocean"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#8F7FD8"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_violet"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#5E4FC0"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/deep_ocean.client_biome.json (20 lines, 413 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:deep_ocean"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#8F7FD8"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_violet"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#5E4FC0"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/desert.client_biome.json (20 lines, 410 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:desert"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5BC8A4"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/extreme_hills.client_biome.json (20 lines, 414 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:extreme_hills"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/flower_forest.client_biome.json (20 lines, 417 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:flower_forest"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5BC8A4"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/forest.client_biome.json (20 lines, 410 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:forest"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5BC8A4"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/frozen_ocean.client_biome.json (20 lines, 413 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:frozen_ocean"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/frozen_peaks.client_biome.json (20 lines, 413 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:frozen_peaks"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/frozen_river.client_biome.json (20 lines, 413 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:frozen_river"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/grove.client_biome.json (20 lines, 406 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:grove"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/ice_mountains.client_biome.json (20 lines, 414 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:ice_mountains"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/ice_plains.client_biome.json (20 lines, 411 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:ice_plains"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/ice_plains_spikes.client_biome.json (20 lines, 418 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:ice_plains_spikes"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/jagged_peaks.client_biome.json (20 lines, 413 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:jagged_peaks"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/jungle.client_biome.json (20 lines, 410 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:jungle"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5BC8A4"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/jungle_edge.client_biome.json (20 lines, 415 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:jungle_edge"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5BC8A4"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/lukewarm_ocean.client_biome.json (20 lines, 417 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:lukewarm_ocean"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#8F7FD8"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_violet"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#5E4FC0"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/mangrove_swamp.client_biome.json (20 lines, 418 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:mangrove_swamp"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5BC8A4"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/meadow.client_biome.json (20 lines, 410 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:meadow"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5BC8A4"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/mega_taiga.client_biome.json (20 lines, 411 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:mega_taiga"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/mesa.client_biome.json (20 lines, 408 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:mesa"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5BC8A4"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/mesa_bryce.client_biome.json (20 lines, 414 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:mesa_bryce"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5BC8A4"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/mesa_plateau.client_biome.json (20 lines, 416 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:mesa_plateau"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5BC8A4"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/mushroom_island.client_biome.json (20 lines, 418 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:mushroom_island"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#8F7FD8"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_violet"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#5E4FC0"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/ocean.client_biome.json (20 lines, 408 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:ocean"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#8F7FD8"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_violet"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#5E4FC0"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/pale_garden.client_biome.json (20 lines, 415 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:pale_garden"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5BC8A4"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/plains.client_biome.json (20 lines, 410 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:plains"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5BC8A4"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/river.client_biome.json (20 lines, 406 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:river"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/roofed_forest.client_biome.json (20 lines, 417 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:roofed_forest"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5BC8A4"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/savanna.client_biome.json (20 lines, 411 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:savanna"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5BC8A4"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/savanna_plateau.client_biome.json (20 lines, 419 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:savanna_plateau"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5BC8A4"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/snowy_slopes.client_biome.json (20 lines, 413 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:snowy_slopes"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/stone_beach.client_biome.json (20 lines, 412 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:stone_beach"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/stony_peaks.client_biome.json (20 lines, 412 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:stony_peaks"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/sunflower_plains.client_biome.json (20 lines, 420 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:sunflower_plains"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5BC8A4"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/swampland.client_biome.json (20 lines, 413 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:swampland"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5BC8A4"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_emerald"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2BB58A"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/taiga.client_biome.json (20 lines, 406 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:taiga"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#5CC6E0"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_cyan"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#2AA6C8"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/biomes/warm_ocean.client_biome.json (20 lines, 413 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:client_biome": {
+    "description": {
+      "identifier": "minecraft:warm_ocean"
+    },
+    "components": {
+      "minecraft:sky_color": {
+        "sky_color": "#8F7FD8"
+      },
+      "minecraft:fog_appearance": {
+        "fog_identifier": "aln:aurora_fog_violet"
+      },
+      "minecraft:water_appearance": {
+        "surface_color": "#5E4FC0"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/fogs/aln_aurora_fog_cyan.json (23 lines, 458 bytes)
 
 ```
 {
   "format_version": "1.21.40",
   "minecraft:fog_settings": {
     "description": {
-      "identifier": "aln:aurora_fog"
+      "identifier": "aln:aurora_fog_cyan"
+    },
+    "distance": {
+      "air": {
+        "fog_start": 0.85,
+        "fog_end": 1.0,
+        "fog_color": "#1F8FA0",
+        "render_distance_type": "render"
+      },
+      "water": {
+        "fog_start": 0.0,
+        "fog_end": 0.6,
+        "fog_color": "#1F8FA0",
+        "render_distance_type": "fixed"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/fogs/aln_aurora_fog_emerald.json (23 lines, 461 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:fog_settings": {
+    "description": {
+      "identifier": "aln:aurora_fog_emerald"
     },
     "distance": {
       "air": {
@@ -1851,7 +3723,34 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "water": {
         "fog_start": 0.0,
         "fog_end": 0.6,
-        "fog_color": "#1F6F66",
+        "fog_color": "#2A8F66",
+        "render_distance_type": "fixed"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/resource_pack/fogs/aln_aurora_fog_violet.json (23 lines, 460 bytes)
+
+```
+{
+  "format_version": "1.21.40",
+  "minecraft:fog_settings": {
+    "description": {
+      "identifier": "aln:aurora_fog_violet"
+    },
+    "distance": {
+      "air": {
+        "fog_start": 0.85,
+        "fog_end": 1.0,
+        "fog_color": "#6A3FB0",
+        "render_distance_type": "render"
+      },
+      "water": {
+        "fog_start": 0.0,
+        "fog_end": 0.6,
+        "fog_color": "#6A3FB0",
         "render_distance_type": "fixed"
       }
     }
@@ -1865,11 +3764,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:AuroraBorealis (v1)",
+    "name": "ALN:AuroraBorealis (v2)",
     "description": "Emerald aurora night sky tint and fog. by ALNStudios",
     "uuid": "1539c463-9ac1-426d-9063-382621784753",
     "version": [
-      1,
+      2,
       0,
       0
     ],
@@ -1884,7 +3783,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "4f2a3520-e7e0-4aa6-bb03-bcf88c6d258c",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -1895,7 +3794,13 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "2.0.0"
   }
 }
+```
+
+## FILE: MCPEDL/Addons/ALNAuroraBorealis/texture_sources/aurora_icon.json (2 lines, 9500 bytes)
+
+```
+[{"name":"aln_aurora_icon","size":64,"palette":{"0":"#00000000","1":"#070B1F","2":"#0C1636","3":"#122552","4":"#2EE87A","5":"#1B9A5A","6":"#B033FF","7":"#6A1FA0","8":"#00F5FF","9":"#0A8F9A","10":"#FFFFFF","11":"#04060F"},"pixels":[[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9,1,9,1,1,1,9,1,7,1,1,1,7,1,7,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,10,10,1,1,9,1,1,1,9,1,9,1,1,1,9,1,7,1,1,1,7,1,7,10,1,1,1,10,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,10,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,10,10,9,1,9,1,1,1,9,1,7,1,1,1,7,1,7,1,1,1,7,1,7,10,1,1,7,1,7,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,10,1,1,1,1,1,1,1,9,1,1,1,9,1,9,1,1,1,9,1,7,1,1,1,7,1,7,1,1,1,7,1,7,1,1,1,7,1,1,1,1],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9,1,9,1,1,1,9,1,7,10,1,1,7,1,7,1,1,1,7,1,7,10,1,1,7,1,7,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9,1,9,1,1,1,9,1,9,1,1,1,9,1,7,1,1,1,7,1,7,1,1,1,7,1,7,1,1,1,7,1,7,1,1],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9,1,1,1,9,1,9,1,1,1,9,1,7,1,1,1,7,1,7,1,1,1,7,1,7,1,1,1,7,1,7,1,1,1,7,1],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,10,1,1,1,1,1,1,1,1,1,1,1,1,1,9,1,9,1,1,1,9,1,8,9,8,7,9,1,7,1,1,1,7,1,7,1,1,1,7,1,7,1,1,1,7,1,7,1,1],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,1,5,1,1,1,1,1,1,1,1,1,1,1,9,1,1,1,9,1,9,1,8,9,8,9,6,9,1,1,7,1,7,1,1,1,7,1,7,1,1,1,7,1,7,1,1,1,7,1],[1,5,1,1,1,1,1,1,1,1,1,5,1,5,1,1,1,5,1,1,1,1,1,1,1,1,1,1,1,9,1,9,1,1,1,8,9,8,9,8,7,8,7,7,1,1,1,7,1,7,1,1,1,7,1,7,1,10,1,7,1,7,1,1],[1,1,5,1,5,1,1,1,5,1,5,1,1,1,5,1,5,1,1,1,9,1,1,1,1,1,9,1,9,1,1,1,9,1,8,9,8,8,8,8,6,9,6,7,7,1,7,1,1,1,7,1,7,1,1,1,7,1,7,1,1,1,7,1],[1,5,1,1,1,5,1,5,1,1,1,5,10,5,1,1,1,5,1,5,1,1,1,9,10,9,1,1,1,9,1,9,1,1,9,8,8,8,8,8,6,8,7,6,7,1,1,7,1,7,1,1,1,7,1,7,1,1,10,7,1,7,1,1],[1,1,5,1,5,1,1,1,5,1,5,1,1,1,5,1,5,1,1,1,9,1,5,1,1,1,9,1,9,1,1,1,9,9,8,8,8,8,8,8,6,8,6,7,6,7,7,1,1,1,7,1,7,1,1,1,7,1,7,1,1,1,7,1],[1,5,1,1,1,5,1,5,1,1,1,5,1,5,1,1,1,5,1,5,1,1,1,9,1,9,1,1,1,9,1,9,1,8,8,8,8,8,8,8,6,8,6,6,7,6,7,7,1,7,1,1,1,7,1,7,1,1,1,7,1,7,1,1],[1,1,5,1,5,1,1,1,5,1,5,1,1,1,5,1,5,1,1,1,9,1,5,1,1,1,9,1,9,1,1,1,8,9,8,8,8,8,8,8,6,8,6,6,6,7,6,7,6,1,7,1,7,1,1,1,7,1,7,1,1,1,7,1],[1,5,1,1,1,5,1,5,1,1,1,5,1,5,1,1,1,5,1,5,1,1,1,9,1,9,10,1,1,9,1,8,9,8,8,8,8,8,8,8,6,8,6,6,6,6,7,6,7,6,7,1,1,7,1,7,1,1,1,7,1,7,1,1],[1,1,5,1,5,1,1,1,5,1,5,1,1,1,5,1,5,1,1,1,9,1,5,1,1,1,9,1,9,1,1,9,8,8,8,8,8,1,10,1,1,8,6,6,6,6,6,7,6,7,6,7,6,7,6,7,6,7,6,7,1,1,7,1],[2,5,2,1,2,5,2,5,2,1,2,5,10,5,2,1,2,5,2,5,2,1,2,9,2,9,2,1,2,9,9,8,8,8,8,8,2,1,2,10,2,1,6,6,6,6,6,6,6,6,7,6,7,6,7,6,7,6,7,6,7,7,2,1],[1,1,5,1,5,1,1,10,5,1,5,1,1,1,5,10,5,1,1,1,9,1,5,1,1,1,9,1,9,1,8,8,8,8,8,1,1,1,1,1,1,1,1,6,6,6,6,6,6,6,6,7,6,7,6,7,6,7,6,7,6,7,7,1],[2,5,2,1,2,5,2,5,2,1,2,5,2,5,2,1,2,5,2,5,2,1,2,9,2,9,2,1,2,8,9,8,8,8,2,1,2,1,2,1,2,1,2,1,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,7,6,7,1],[4,2,5,2,5,2,1,2,5,2,5,2,1,2,5,2,5,2,1,2,9,2,5,2,1,2,9,2,8,9,8,8,8,8,1,2,1,2,1,2,1,2,1,2,1,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,7,6,7],[5,5,2,1,2,5,2,5,2,1,2,5,2,5,2,1,2,5,2,5,2,1,2,9,2,9,2,1,9,8,8,8,8,1,2,1,2,1,2,1,2,1,2,1,2,1,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,7,6],[4,5,5,2,5,2,1,2,5,2,5,5,4,5,4,5,4,2,1,2,9,2,5,10,1,2,9,9,8,8,8,8,8,2,1,2,1,2,1,2,1,2,1,2,1,2,1,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,7],[4,4,5,2,2,5,2,5,2,4,5,4,5,4,5,4,5,4,5,5,2,2,2,9,2,9,9,8,8,8,8,8,2,2,2,2,2,2,2,2,2,2,2,10,2,2,2,2,2,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6],[4,5,4,5,4,5,4,5,4,5,4,5,4,5,4,5,4,5,4,5,8,2,5,2,8,9,8,9,8,8,8,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,6,6,6,6,6,6,6,6,6,6,6,6,6],[4,4,5,4,5,4,5,4,5,4,5,4,4,4,4,4,4,4,5,4,9,4,5,8,9,8,9,8,8,8,8,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,6,6,6,6],[4,4,4,5,4,5,4,5,4,4,4,4,4,4,4,4,4,4,4,5,8,5,4,9,8,9,8,8,8,8,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,6,6,6],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,8,4,5,8,8,8,8,8,8,8,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,6,6],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,8,4,4,8,8,8,8,8,8,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,6],[2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,8,4,4,8,8,8,8,8,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],[2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,8,4,4,8,8,8,8,8,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],[2,2,4,4,4,4,4,4,4,4,4,2,2,2,2,2,2,4,4,4,8,4,4,8,8,8,8,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],[2,2,2,4,4,4,4,4,4,2,2,2,2,2,2,2,2,2,2,4,8,4,4,8,8,8,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,4,4,8,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],[3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2],[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],[3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2],[2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3],[3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2],[2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3],[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,11,11,3,3,3,3],[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,11,11,11,11,3,3,3,3],[11,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,11,11,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,11,11,11,11,11,3,3,3],[11,11,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,11,11,3,3,3,3,11,11,11,11,11,11,11,11,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,11,11,11,11,11,11,11,3,3],[11,11,11,11,3,3,3,11,11,11,3,3,3,3,3,3,3,3,3,3,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,3,3,3,3,3,3,3,3,3,3,11,11,3,3,3,3,3,3,11,11,11,11,11,11,11,11,3,3],[11,11,11,11,11,11,11,11,11,11,11,3,3,3,3,3,3,3,3,3,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,3,3,3,3,3,3,3,11,11,11,11,11,11,3,3,11,11,11,11,11,11,11,11,11,11,11,3],[11,11,11,11,11,11,11,11,11,11,11,11,3,3,3,3,3,3,3,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,3,3,3,3,3,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],[11,11,11,11,11,11,11,11,11,11,11,11,11,3,3,3,3,3,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,3,3,3,3,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],[11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],[11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],[11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],[11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],[11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],[11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],[11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],[11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],[11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],[11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],[11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11]]}]
 ```

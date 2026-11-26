@@ -8,7 +8,7 @@ This folder contains compiled release packages for **ALNAuroraBorealis** by ALNS
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`ALNAuroraBorealis V1.mcaddon`** | `.mcaddon` | ~11 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNAuroraBorealis/ALNAuroraBorealis%20V1.mcaddon) |
+| **`ALNAuroraBorealis V2.mcaddon`** | `.mcaddon` | ~41 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNAuroraBorealis/ALNAuroraBorealis%20V2.mcaddon) |
 
 ---
 

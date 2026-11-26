@@ -9,7 +9,7 @@ Download the current release of **ALNAuroraBorealis** for Minecraft Bedrock Edit
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNAuroraBorealis (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNAuroraBorealis/ALNAuroraBorealis%20V1.mcaddon)
+- **Direct download:** [Download ALNAuroraBorealis (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNAuroraBorealis/ALNAuroraBorealis%20V2.mcaddon)
 
 ## Installation
 
