@@ -7,7 +7,7 @@
 - **CURRENT VERSION: v17 / NEXT UPDATE: v18**  (`MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 51
-- **Skipped binary:** 180
+- **Skipped binary:** 181
 - **Paths not found:** 0
 
 ### Files in this export
@@ -67,7 +67,7 @@
 
 - `MCPEDL/Maps/OneBlock-Natural-Market/texture_sources/core_blocks.json` (255212 bytes)
 
-### Skipped (binary): 180 file(s)
+### Skipped (binary): 181 file(s)
 
 - `MCPEDL/Maps/OneBlock-Natural-Market/OneBlock Natural Market - Creative.mcworld`
 - `MCPEDL/Maps/OneBlock-Natural-Market/OneBlock Natural Market - Hardcore.mcworld`
@@ -109,7 +109,7 @@
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/blocks/core_26_note.png`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/blocks/core_27_note.png`
 - `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/blocks/core_28_note.png`
-- ... and 140 more
+- ... and 141 more
 
 ---
 
@@ -283,7 +283,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     },
     "components": {
       "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.4
+        "seconds_to_destroy": 0.5
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -308,7 +308,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     },
     "components": {
       "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.4
+        "seconds_to_destroy": 0.5
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -333,7 +333,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     },
     "components": {
       "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.4
+        "seconds_to_destroy": 0.5
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -358,7 +358,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     },
     "components": {
       "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.4
+        "seconds_to_destroy": 0.5
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -383,7 +383,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     },
     "components": {
       "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.4
+        "seconds_to_destroy": 0.5
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -397,7 +397,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_06_note.json (21 lines, 462 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_06_note.json (21 lines, 461 bytes)
 
 ```
 {
@@ -408,7 +408,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     },
     "components": {
       "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.55
+        "seconds_to_destroy": 0.7
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -422,7 +422,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_07_note.json (21 lines, 462 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_07_note.json (21 lines, 461 bytes)
 
 ```
 {
@@ -433,7 +433,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     },
     "components": {
       "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.55
+        "seconds_to_destroy": 0.7
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -447,7 +447,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_08_note.json (21 lines, 462 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_08_note.json (21 lines, 461 bytes)
 
 ```
 {
@@ -458,7 +458,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     },
     "components": {
       "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.55
+        "seconds_to_destroy": 0.7
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -472,7 +472,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_09_note.json (21 lines, 462 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_09_note.json (21 lines, 461 bytes)
 
 ```
 {
@@ -483,7 +483,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     },
     "components": {
       "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.55
+        "seconds_to_destroy": 0.7
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -497,7 +497,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_10_note.json (21 lines, 462 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_10_note.json (21 lines, 461 bytes)
 
 ```
 {
@@ -508,7 +508,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     },
     "components": {
       "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.55
+        "seconds_to_destroy": 0.7
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -522,7 +522,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_11_note.json (21 lines, 462 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_11_note.json (21 lines, 461 bytes)
 
 ```
 {
@@ -533,7 +533,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     },
     "components": {
       "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.75
+        "seconds_to_destroy": 1.0
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -547,7 +547,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_12_note.json (21 lines, 462 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_12_note.json (21 lines, 461 bytes)
 
 ```
 {
@@ -558,7 +558,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     },
     "components": {
       "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.75
+        "seconds_to_destroy": 1.0
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -572,7 +572,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_13_note.json (21 lines, 462 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_13_note.json (21 lines, 461 bytes)
 
 ```
 {
@@ -583,7 +583,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     },
     "components": {
       "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.75
+        "seconds_to_destroy": 1.0
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -597,7 +597,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_14_note.json (21 lines, 462 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_14_note.json (21 lines, 461 bytes)
 
 ```
 {
@@ -608,7 +608,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     },
     "components": {
       "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.75
+        "seconds_to_destroy": 1.0
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -622,7 +622,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_15_note.json (21 lines, 462 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/blocks/core_15_note.json (21 lines, 461 bytes)
 
 ```
 {
@@ -633,7 +633,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     },
     "components": {
       "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.75
+        "seconds_to_destroy": 1.0
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -658,7 +658,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     },
     "components": {
       "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 1.0
+        "seconds_to_destroy": 1.3
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -683,7 +683,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     },
     "components": {
       "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 1.0
+        "seconds_to_destroy": 1.3
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -708,7 +708,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     },
     "components": {
       "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 1.0
+        "seconds_to_destroy": 1.3
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -733,7 +733,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     },
     "components": {
       "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 1.0
+        "seconds_to_destroy": 1.3
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -758,7 +758,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     },
     "components": {
       "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 1.0
+        "seconds_to_destroy": 1.3
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -783,7 +783,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     },
     "components": {
       "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 1.3
+        "seconds_to_destroy": 1.7
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -808,7 +808,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     },
     "components": {
       "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 1.3
+        "seconds_to_destroy": 1.7
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -833,7 +833,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     },
     "components": {
       "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 1.3
+        "seconds_to_destroy": 1.7
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -858,7 +858,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     },
     "components": {
       "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 1.3
+        "seconds_to_destroy": 1.7
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -883,7 +883,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     },
     "components": {
       "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 1.3
+        "seconds_to_destroy": 1.7
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -908,7 +908,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     },
     "components": {
       "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 1.7
+        "seconds_to_destroy": 2.2
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -933,7 +933,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     },
     "components": {
       "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 1.7
+        "seconds_to_destroy": 2.2
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -958,7 +958,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     },
     "components": {
       "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 1.7
+        "seconds_to_destroy": 2.2
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -983,7 +983,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     },
     "components": {
       "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 1.7
+        "seconds_to_destroy": 2.2
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -1008,7 +1008,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     },
     "components": {
       "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 1.7
+        "seconds_to_destroy": 2.2
       },
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
@@ -1092,19 +1092,19 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/manifest.json (66 lines, 1175 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/manifest.json (66 lines, 1179 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v17)",
+    "name": "OneBlock Natural Market (v17.0.1)",
     "description": "OneBlock survival with a progression market and regenerating core. by ALNStudios",
     "uuid": "77f07d1a-fa7a-437d-8fea-72068be05162",
     "version": [
       17,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -1119,7 +1119,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "version": [
         17,
         0,
-        0
+        1
       ]
     },
     {
@@ -1129,7 +1129,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "version": [
         17,
         0,
-        0
+        1
       ],
       "entry": "scripts/main.js"
     }
@@ -1140,7 +1140,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "version": [
         17,
         0,
-        0
+        1
       ]
     },
     {
@@ -1157,7 +1157,7 @@ execute as @a[tag=!void_cleaned] unless block 0 64 0 air run tag @s add void_cle
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "17.0.0"
+    "version": "17.0.1"
   }
 }
 ```
@@ -2109,7 +2109,7 @@ Extracted from the script files; nothing here was run in game.
 Known limits, design decisions and things to check on the next update go here. Not filled in yet.
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (803 lines, 37365 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (897 lines, 42262 bytes)
 
 ```
 import { world, system, ItemStack, ItemTypes, DisplaySlotId, ObjectiveSortOrder, EquipmentSlot } from "@minecraft/server";
@@ -2333,6 +2333,11 @@ function recordPurchase(item, units) {
     world.setDynamicProperty(MARKET_KEY, JSON.stringify(next));
   } catch (e) { logError("recordPurchase", e); }
 }
+const COOLDOWN_KEY = "obm_cooldown";
+const BURST_KEY = "obm_burst";
+const BURST_LIMIT = 50;
+const BURST_SECONDS = 30;
+const PHASE_SECONDS = 60;
 const LEDGER_PENDING = "obm_ledger_pending";
 const DEBUG_TAG = "obm_debug";
 const STATUS_EVENT = "allenscreations:obm_status";
@@ -2522,7 +2527,8 @@ function showAbout(player) {
     "by ALNStudios\n\n" +
     "Start in the void on a single regenerating block.\n" +
     "Break the core to earn Coins. Each block type pays its own value and takes its own time to break.\n" +
-    "Use the Natural Market Ledger to buy natural supplies. Prices rise when a lot is bought and slowly settle back down.\n\n" +
+    "Use the Natural Market Ledger to buy natural supplies. Prices rise when a lot is bought and slowly settle back down.\n" +
+    "After " + BURST_LIMIT + " breaks the core turns to Bedrock for " + BURST_SECONDS + " seconds, and for " + PHASE_SECONDS + " seconds at every new phase.\n\n" +
     "The Ledger cannot be dropped. It always returns to you.\n\n" +
     "Version: v17 | ALNStudios | CurseForge / MCPEDL");
   form = addOptional(form, "divider");
@@ -2544,16 +2550,61 @@ function marketMain(player) {
       "\nShared breaks: " + totalBreaks() + "\nUnlocked tier: " + (unlockedTier(player) + 1) + " / " + MILESTONES.length + "\n\nChoose a market section.");
   for (const c of CATEGORIES) form.button(c.name, c.icon);
   form
+    .button("Search", MCICON_DIR + "spyglass")
     .button("Sell Items", MCICON_DIR + "gold_ingot")
     .button("About", "textures/ui/icon_recipe_nature");
   showForm(form, player).then(r => {
     if (r.canceled) return;
     if (r.selection < CATEGORIES.length) return showCategory(player, CATEGORIES[r.selection].name);
-    if (r.selection === CATEGORIES.length) return showSellMenu(player);
-    if (r.selection === CATEGORIES.length + 1) return showAbout(player);
+    if (r.selection === CATEGORIES.length) return searchMarket(player);
+    if (r.selection === CATEGORIES.length + 1) return showSellMenu(player);
+    if (r.selection === CATEGORIES.length + 2) return showAbout(player);
   }).catch(e => { logError("marketMain", e); tell(player, "The market menu could not open. Try using the Ledger again."); });
 }
 
+function marketButtonText(item, market, now) {
+  const heat = itemHeat(item, market, now);
+  const demand = demandPercent(heat);
+  return item.name + "\n§e" + item.amount + "x - " + quote(item, heat) + " Coins" + (demand >= 5 ? " §c+" + demand + "%" : "");
+}
+function searchMarket(player) {
+  const form = new ModalFormData().title("SEARCH MARKET")
+    .textField("Item name (unlocked supplies only)", "for example: diamond, log, egg");
+  showForm(form, player).then(r => {
+    if (r.canceled) return marketMain(player);
+    const text = String(r.formValues?.[0] ?? "").trim().toLowerCase();
+    if (!text) { tell(player, "Type part of an item name to search."); return marketMain(player); }
+    return showSearchResults(player, text);
+  }).catch(e => { logError("searchMarket", e); tell(player, "The search could not open."); });
+}
+function showSearchResults(player, text) {
+  const tier = unlockedTier(player);
+  const words = text.split(/\s+/).filter(Boolean);
+  const matches = CATALOG.filter(item => {
+    const hay = (item.name + " " + item.raw.replace(/_/g, " ")).toLowerCase();
+    return words.every(w => hay.includes(w));
+  });
+  const items = matches.filter(item => item.tier <= tier && itemAvailable(item)).slice(0, 30);
+  const lockedCount = matches.filter(item => item.tier > tier).length;
+  if (!items.length) {
+    tell(player, lockedCount ? "Matching supplies are still locked. Keep mining the core!" : "No supplies match \"" + text + "\".");
+    return searchMarket(player);
+  }
+  const market = loadMarket();
+  const now = world.getAbsoluteTime();
+  const form = new ActionFormData().title("SEARCH: " + text.toUpperCase().slice(0, 20))
+    .body("§6Coins: §e" + balance(player) + "§r\nTap a supply slot to buy the listed bundle." +
+      (lockedCount ? "\n" + lockedCount + " more match(es) are still locked." : ""));
+  for (const item of items) form.button(marketButtonText(item, market, now), item.icon || undefined);
+  form.button("Search Again", MCICON_DIR + "spyglass");
+  form.button("Back to Market", "textures/ui/arrow_left");
+  showForm(form, player).then(r => {
+    if (r.canceled) return;
+    if (r.selection < items.length) return purchase(player, items[r.selection]);
+    if (r.selection === items.length) return searchMarket(player);
+    return marketMain(player);
+  }).catch(e => { logError("showSearchResults", e); tell(player, "The search results could not open."); });
+}
 function showCategory(player, category, page = 0) {
   const tier = unlockedTier(player);
   const items = CATALOG.filter(item => item.category === category && item.tier <= tier && itemAvailable(item));
@@ -2568,11 +2619,7 @@ function showCategory(player, category, page = 0) {
     .body("§6Coins: §e" + balance(player) + "§r  |  Page " + (safePage + 1) + "/" + pageCount +
       "\nTap a supply slot to buy the listed bundle. Prices rise when a lot is bought and settle back over time." +
       (locked.length ? "\nMore supplies unlock as you mine the core." : ""));
-  for (const item of visible) {
-    const heat = itemHeat(item, market, now);
-    const demand = demandPercent(heat);
-    form.button(item.name + "\n§e" + item.amount + "x - " + quote(item, heat) + " Coins" + (demand >= 5 ? " §c+" + demand + "%" : ""), item.icon || undefined);
-  }
+  for (const item of visible) form.button(marketButtonText(item, market, now), item.icon || undefined);
   if (safePage + 1 < pageCount) form.button("Next Page", "textures/ui/arrow_right");
   form.button("Back to Market", "textures/ui/arrow_left");
   showForm(form, player).then(r => {
@@ -2784,6 +2831,43 @@ function damageTool(player, heldId, brokenId) {
     slot.setItem(stack);
   } catch (e) { logError("damageTool", e); }
 }
+function cooldownState() {
+  try {
+    const raw = world.getDynamicProperty(COOLDOWN_KEY);
+    const data = typeof raw === "string" && raw ? JSON.parse(raw) : null;
+    return data && typeof data.until === "number" ? data : null;
+  } catch { return null; }
+}
+function coreCoolingDown() {
+  const state = cooldownState();
+  return !!state && world.getAbsoluteTime() < state.until;
+}
+function startCooldown(seconds, label) {
+  try {
+    world.setDynamicProperty(COOLDOWN_KEY, JSON.stringify({ until: world.getAbsoluteTime() + seconds * 20, label }));
+    world.setDynamicProperty(BURST_KEY, 0);
+    const block = world.getDimension("overworld").getBlock(CORE);
+    if (block) block.setType("minecraft:bedrock");
+    world.sendMessage("§6[Natural Market] §r" + label + ": the core is Bedrock for " + seconds + " seconds.");
+    log("INFO", "Cooldown started: " + label + " " + seconds + "s.");
+  } catch (e) { logError("startCooldown", e); }
+}
+function tickCooldown() {
+  const state = cooldownState();
+  if (!state) return;
+  try {
+    const left = state.until - world.getAbsoluteTime();
+    if (left > 0) {
+      const text = "§e" + state.label + ": the core returns in " + Math.ceil(left / 20) + "s";
+      for (const p of world.getAllPlayers()) { try { p.onScreenDisplay.setActionBar(text); } catch {} }
+      return;
+    }
+    world.setDynamicProperty(COOLDOWN_KEY, "");
+    const block = world.getDimension("overworld").getBlock(CORE);
+    if (block && ["minecraft:bedrock", "minecraft:air", "minecraft:grass_block"].includes(block.typeId)) placeCore(block);
+    world.sendMessage("§6[Natural Market] §rThe core is back. Keep mining!");
+  } catch (e) { logError("tickCooldown", e); }
+}
 let coreBreakPending = false;
 function onCoreBreak(player, brokenId) {
   const personal = personalBreaks(player) + 1;
@@ -2793,12 +2877,19 @@ function onCoreBreak(player, brokenId) {
   tutorialStep(player, total);
   const value = blockValue(brokenId);
   writeScore(COINS, player, balance(player) + value);
+  let cooldown = null;
   if (MILESTONES.some(m => m.unlock > 0 && m.unlock === total)) {
     world.sendMessage("§6[Natural Market] §rA new core milestone has been reached. More block types can now appear.");
+    cooldown = { seconds: PHASE_SECONDS, label: "New phase" };
+  } else {
+    const burst = (Number(world.getDynamicProperty(BURST_KEY)) || 0) + 1;
+    if (burst >= BURST_LIMIT) cooldown = { seconds: BURST_SECONDS, label: "Cooldown" };
+    else world.setDynamicProperty(BURST_KEY, burst);
   }
   log("INFO", player.name + " mined the core: personal=" + personal + " shared=" + total + " block=" + brokenId + " reward=" + value + ".");
   tell(player, "Core mined: " + blockName(brokenId) + " +" + value + " Coins.");
   showBalance(player);
+  return cooldown;
 }
 system.afterEvents.scriptEventReceive.subscribe(event => {
   if (event.id === STATUS_EVENT) {
@@ -2861,6 +2952,7 @@ world.beforeEvents.playerBreakBlock.subscribe(event => {
   if (!player || event.block.dimension.id !== "minecraft:overworld") return;
   if (location.x !== CORE.x || location.y !== CORE.y || location.z !== CORE.z) return;
   event.cancel = true;
+  if (coreCoolingDown() || event.block.typeId === "minecraft:bedrock") return;
   if (coreBreakPending) return;
   const brokenId = event.block.typeId;
   const heldId = event.itemStack?.typeId;
@@ -2869,10 +2961,11 @@ world.beforeEvents.playerBreakBlock.subscribe(event => {
     try {
       log("INFO", "Core break detected by " + player.name + " (void_cleaned tag=" + player.hasTag("void_cleaned") + ").");
       if (player.hasTag("void_cleaned")) {
-        onCoreBreak(player, brokenId);
+        const cooldown = onCoreBreak(player, brokenId);
         damageTool(player, heldId, brokenId);
         const block = world.getDimension("overworld").getBlock(CORE);
-        if (block) placeCore(block);
+        if (cooldown) startCooldown(cooldown.seconds, cooldown.label);
+        else if (block) placeCore(block);
       }
     } catch (e) { logError("core break", e); }
     coreBreakPending = false;
@@ -2900,6 +2993,7 @@ system.runInterval(() => {
   log("INFO", statusReport(), "status");
 }, 40);
 system.runInterval(rescuePhased, 5);
+system.runInterval(tickCooldown, 20);
 system.run(() => log("INFO", "Script started and handlers registered. Debug chat: /tag @s add obm_debug. Status: /scriptevent allenscreations:obm_status"));
 system.runInterval(() => {
   try {
@@ -2916,12 +3010,22 @@ system.runInterval(() => {
 }, 20);
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (62 lines, 3696 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (62 lines, 3926 bytes)
 
 ```
 # Changelog — OneBlock Natural Market
 
 ---
+
+## [17.0.1] - 2026-11-26 - Cooldown Bedrock and Market Search
+
+### Added
+- **Cooldown Bedrock**: after every 50 core breaks the core turns into Bedrock for 30 seconds, with a countdown on screen, so the Coins cannot be farmed without a pause.
+- **Phase countdown**: every time the shared progress reaches a new phase, the core turns into Bedrock for 1 minute with a countdown before the next block appears.
+- **Market Search**: a new Search button in the Ledger finds any unlocked supply by name and lets you buy it from the results. Locked supplies are not listed.
+
+### Improved & Balanced
+- **Break time**: Currency Blocks take about 25 percent longer to break, now from 0.5 to 2.2 seconds, still the same with any tool or bare hands.
 
 ## [17.0.0] - 2026-11-26 - Natural Market Currency Blocks
 
@@ -2970,20 +3074,10 @@ system.runInterval(() => {
 
 ## [16.0.7] - 2026-11-24 - Remove ALN Coins
 
-### Improved & Balanced
-- **ALN Coins removed**: breaking the central block no longer gives ALN Coins, and they no longer show in the market menu or the action bar. Coins, rewards and prices are unchanged.
-
-## [16.0.6] - 2026-11-23 - ALN Coins
-
-### Added
-- **ALN Coins**: every central-block break now also gives 1 ALN Coin, a separate currency kept on the `aln_coins` scoreboard. It shows in the market menu and in the action bar. The market still uses Coins.
-
-## [16.0.5] - 2026-11-23 - Sell Form Toggles
-
 (older entries omitted; ask for the full file if needed)
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/DESCRIPTION.md (83 lines, 5398 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/DESCRIPTION.md (85 lines, 5666 bytes)
 
 ```
 # OneBlock Natural Market — A OneBlock economy and supply shop
@@ -3004,6 +3098,7 @@ Start in the void on the central block at (0, 0, 0), with no bedrock beneath it.
 ### Regenerating OneBlock
 - The central block returns after a successful break. It drops no items; breaking it only earns Coins.
 - The core is a set of 30 custom Currency Blocks, numbered 1 to 30. Each has its own break time, the same with any tool or bare hands, and uses up more tool durability the higher it goes.
+- After every 50 breaks the core turns into Bedrock for 30 seconds, and for 60 seconds at every new phase. A countdown shows on screen and the core comes back by itself.
 - The central block is also restored automatically if something other than a player removes it.
 - If a player ends up inside the central block or the 3x3 platform, they are teleported on top of the central block.
 - The available natural block pool expands as shared mining milestones are reached.
@@ -3012,6 +3107,7 @@ Start in the void on the central block at (0, 0, 0), with no bedrock beneath it.
 ### Natural Market Ledger
 - Opens the market in the game's standard form screen: a button list with item icons for each category and supply bundle.
 - Tap a supply slot to purchase its displayed bundle directly; no separate purchase-confirmation screen.
+- The Search button finds any unlocked supply by name, so you do not have to browse each section.
 - Large categories use pages that reserve two slots for navigation controls.
 - The catalogue only sells natural supplies (blocks, crops, raw food, raw ores, mob drops, Nether and End finds) plus mid-game Spawn Eggs. Crafted items are not sold. Entries unavailable in the current game version are hidden.
 - Prices rise as supplies are bought and settle back down over time. Common supplies recover faster than rare ones.
@@ -3101,19 +3197,19 @@ Download the current release of **OneBlock Natural Market** for Minecraft Bedroc
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Natural-Market/DESCRIPTION.md).
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/manifest.json (37 lines, 629 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/manifest.json (37 lines, 633 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Natural Market (v17)",
+    "name": "OneBlock Natural Market (v17.0.1)",
     "description": "Trader Ledger icon for OneBlock Natural Market. by ALNStudios",
     "uuid": "187333a6-4353-4003-b379-471f85ce9021",
     "version": [
       17,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -3128,7 +3224,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "version": [
         17,
         0,
-        0
+        1
       ]
     }
   ],
@@ -3137,7 +3233,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "17.0.0"
+    "version": "17.0.1"
   }
 }
 ```
