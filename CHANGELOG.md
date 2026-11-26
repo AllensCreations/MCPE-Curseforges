@@ -4,6 +4,11 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## 2026-11-26 - New Map ALN-LegendaryPiglin
+
+### Added
+- **ALN-LegendaryPiglin**: New map project created from a pack script.
+
 ## [v312] - 2026-11-26 - Biome Fix and Aurora Palette
 
 **Spec**: spec_v312.txt | **Target**: MCPEDL/Addons/ALNAuroraBorealis | **Files edited**: 100
