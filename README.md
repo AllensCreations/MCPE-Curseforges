@@ -80,7 +80,7 @@ See the [repository changelog](CHANGELOG.md) for the latest updates.
 | [**Universal Leash**](MCPEDL/Addons/Universal-Leash/README.md) | Add-ons | [1795874](https://www.curseforge.com/projects/1795874) | `v3` | 🟢 Published |
 | [**Vanilla Quality of Life**](MCPEDL/Addons/Vanilla-Quality-of-Life/README.md) | Add-ons | [1742470](https://www.curseforge.com/projects/1742470) | `v12` | 🟢 Published |
 | [**Waypoint Helper**](MCPEDL/Addons/Waypoint-Helper/README.md) | Add-ons | [1799752](https://www.curseforge.com/projects/1799752) | `v2` | 🟢 Published |
-| [**ALN:MultiIslandOneBlock**](MCPEDL/Maps/ALNMultiIslandOneBlock/README.md) | Maps | [1825799](https://www.curseforge.com/projects/1825799) | `v10` | 🟢 Published |
+| [**ALN:MultiIslandOneBlock**](MCPEDL/Maps/ALNMultiIslandOneBlock/README.md) | Maps | [1825799](https://www.curseforge.com/projects/1825799) | `v12` | 🟢 Published |
 | [**One Block Skyblock Lucky Blocks**](MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/README.md) | Maps | [1821677](https://www.curseforge.com/projects/1821677) | `v9` | 🟢 Published |
 | [**OneBlock Natural Market**](MCPEDL/Maps/OneBlock-Natural-Market/README.md) | Maps | [1819420](https://www.curseforge.com/projects/1819420) | `v16.0.11` | 🟢 Published |
 | [**OneBlock Void Survival**](MCPEDL/Maps/OneBlock-Void-Survival/README.md) | Maps | [1740769](https://www.curseforge.com/projects/1740769) | `v10` | 🟢 Published |
