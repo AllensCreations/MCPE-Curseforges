@@ -4,9 +4,9 @@
 
 - **Export request:** `MCPEDL/Addons/OP-Sponge`
 - **Destination:** `MCPEDL/Addons/OP-Sponge`
-- **CURRENT VERSION: v6 / NEXT UPDATE: v7**  (`MCPEDL/Addons/OP-Sponge/CHANGELOG.md`)
+- **CURRENT VERSION: v7 / NEXT UPDATE: v8**  (`MCPEDL/Addons/OP-Sponge/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
-- **Text files:** 118
+- **Text files:** 121
 - **Skipped binary:** 118
 - **Paths not found:** 0
 
@@ -69,7 +69,6 @@
 - `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_book_7.json`
 - `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_book_8.json`
 - `MCPEDL/Addons/OP-Sponge/behavior_pack/items/super_sponge_book_9.json`
-- `MCPEDL/Addons/OP-Sponge/behavior_pack/loot_tables/chests/ancient_city.json`
 - `MCPEDL/Addons/OP-Sponge/behavior_pack/loot_tables/chests/buriedtreasure.json`
 - `MCPEDL/Addons/OP-Sponge/behavior_pack/loot_tables/chests/desert_pyramid.json`
 - `MCPEDL/Addons/OP-Sponge/behavior_pack/loot_tables/chests/end_city_treasure.json`
@@ -116,6 +115,9 @@
 - `MCPEDL/Addons/OP-Sponge/behavior_pack/recipes/super_sponge_book_9_from_books.json`
 - `MCPEDL/Addons/OP-Sponge/behavior_pack/scripts/lib/README.md`
 - `MCPEDL/Addons/OP-Sponge/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/OP-Sponge/behavior_pack/subpacks/extreme/scripts/main.js`
+- `MCPEDL/Addons/OP-Sponge/behavior_pack/subpacks/normal/scripts/main.js`
+- `MCPEDL/Addons/OP-Sponge/behavior_pack/subpacks/unlimited/scripts/main.js`
 - `MCPEDL/Addons/OP-Sponge/behavior_pack/texts/en_US.lang`
 - `MCPEDL/Addons/OP-Sponge/behavior_pack/texts/languages.json`
 - `MCPEDL/Addons/OP-Sponge/CHANGELOG.md`
@@ -130,8 +132,9 @@
 - `MCPEDL/Addons/OP-Sponge/resource_pack/textures/terrain_texture.json`
 - `MCPEDL/Addons/OP-Sponge/texture_sources/sponge_letter.json`
 
-### Not inlined: 1 larger file(s), ask the user for the exact paths you need
+### Not inlined: 2 larger file(s), ask the user for the exact paths you need
 
+- `MCPEDL/Addons/OP-Sponge/behavior_pack/loot_tables/chests/ancient_city.json` (10787 bytes)
 - `MCPEDL/Addons/OP-Sponge/behavior_pack/trading/economy_trades/librarian_trades.json` (20905 bytes)
 
 ### Skipped (binary): 118 file(s)
@@ -187,7 +190,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v6 / NEXT UPDATE: v7).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v7 / NEXT UPDATE: v8).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE self-contained update `.sh` (`<Pack>_v<Version>_<rand>.sh`) built with `make_update_script.py` (INSTRUCTIONS.md Reply Format).
@@ -2006,489 +2009,6 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "minecraft:glint": true
     }
   }
-}
-```
-
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/loot_tables/chests/ancient_city.json (479 lines, 10787 bytes)
-
-```
-{
-  "pools": [
-    {
-      "rolls": {
-        "min": 5,
-        "max": 10.0
-      },
-      "bonus_rolls": 0,
-      "entries": [
-        {
-          "type": "item",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 2.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:enchanted_golden_apple",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "minecraft:music_disc_otherside",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": 1,
-              "add": false
-            }
-          ],
-          "name": "minecraft:compass"
-        },
-        {
-          "type": "item",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 2.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:sculk_catalyst"
-        },
-        {
-          "type": "item",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": 1,
-              "add": false
-            },
-            {
-              "function": "set_damage",
-              "damage": {
-                "min": 0.8,
-                "max": 1.0
-              },
-              "add": false
-            },
-            {
-              "function": "enchant_with_levels",
-              "levels": {
-                "min": 30,
-                "max": 50.0
-              },
-              "treasure": true
-            }
-          ],
-          "name": "minecraft:diamond_hoe"
-        },
-        {
-          "type": "item",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": 1,
-              "add": false
-            }
-          ],
-          "name": "minecraft:lead"
-        },
-        {
-          "type": "item",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": 1,
-              "add": false
-            }
-          ],
-          "name": "minecraft:diamond_horse_armor"
-        },
-        {
-          "type": "item",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 5
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:leather"
-        },
-        {
-          "type": "item",
-          "weight": 2,
-          "name": "minecraft:music_disc_13"
-        },
-        {
-          "type": "item",
-          "weight": 2,
-          "name": "minecraft:music_disc_cat"
-        },
-        {
-          "type": "item",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "enchant_with_levels",
-              "levels": {
-                "min": 30,
-                "max": 50.0
-              },
-              "treasure": true
-            }
-          ],
-          "name": "minecraft:diamond_leggings"
-        },
-        {
-          "type": "item",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "specific_enchants",
-              "enchants": [
-                {
-                  "id": "swift_sneak",
-                  "level": [
-                    1,
-                    3
-                  ]
-                }
-              ]
-            }
-          ],
-          "name": "minecraft:book"
-        },
-        {
-          "type": "item",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 4,
-                "max": 10.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:sculk"
-        },
-        {
-          "type": "item",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 3.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:sculk_sensor"
-        },
-        {
-          "type": "item",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 4.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:candle"
-        },
-        {
-          "type": "item",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 15.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:amethyst_shard"
-        },
-        {
-          "type": "item",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 3.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:experience_bottle"
-        },
-        {
-          "type": "item",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 15.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:glow_berries"
-        },
-        {
-          "type": "item",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "enchant_with_levels",
-              "levels": {
-                "min": 20,
-                "max": 39.0
-              },
-              "treasure": true
-            }
-          ],
-          "name": "minecraft:iron_leggings"
-        },
-        {
-          "type": "item",
-          "weight": 4,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 3.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:echo_shard"
-        },
-        {
-          "type": "item",
-          "weight": 4,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 3.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:disc_fragment_5"
-        },
-        {
-          "type": "item",
-          "weight": 5,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 3.0
-              },
-              "add": false
-            },
-            {
-              "function": "set_potion",
-              "id": "strong_regeneration"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "item",
-          "weight": 5,
-          "functions": [
-            {
-              "function": "enchant_randomly"
-            }
-          ],
-          "name": "minecraft:book"
-        },
-        {
-          "type": "item",
-          "weight": 5,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 3,
-                "max": 10.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:book"
-        },
-        {
-          "type": "item",
-          "weight": 5,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 15.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:bone"
-        },
-        {
-          "type": "item",
-          "weight": 5,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 15.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:soul_torch"
-        },
-        {
-          "type": "item",
-          "weight": 7,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 6,
-                "max": 15.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:coal"
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "empty",
-          "weight": 75
-        },
-        {
-          "type": "item",
-          "name": "minecraft:ward_armor_trim_smithing_template",
-          "weight": 4
-        },
-        {
-          "type": "item",
-          "name": "minecraft:silence_armor_trim_smithing_template",
-          "weight": 1
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "empty",
-          "weight": 400
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_1",
-          "weight": 20
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_2",
-          "weight": 14
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_3",
-          "weight": 10
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_4",
-          "weight": 7
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_5",
-          "weight": 5
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_6",
-          "weight": 3
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_7",
-          "weight": 2
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_8",
-          "weight": 2
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_9",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:super_sponge_book_10",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "allenscreations:extreme_sponge_book_1",
-          "weight": 1
-        }
-      ]
-    }
-  ]
 }
 ```
 
@@ -5033,17 +4553,17 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/manifest.json (62 lines, 1034 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/manifest.json (79 lines, 1379 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "OP Sponge (v6)",
+    "name": "OP Sponge (v7)",
     "description": "A sponge that absorbs water. by ALNStudios",
     "uuid": "894911ae-ab32-43ea-8ab7-88823bcaab2a",
     "version": [
-      6,
+      7,
       0,
       0
     ],
@@ -5058,7 +4578,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "type": "data",
       "uuid": "ae723a26-8b15-4781-956c-81d53a3021fd",
       "version": [
-        6,
+        7,
         0,
         0
       ]
@@ -5069,7 +4589,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "uuid": "aa3774bf-f2b9-498d-aed8-1b816f595257",
       "entry": "scripts/main.js",
       "version": [
-        6,
+        7,
         0,
         0
       ]
@@ -5079,7 +4599,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     {
       "uuid": "67a33773-ea19-4d9c-a50c-0de79e1cf7aa",
       "version": [
-        6,
+        7,
         0,
         0
       ]
@@ -5089,12 +4609,29 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "version": "2.11.0"
     }
   ],
+  "subpacks": [
+    {
+      "folder_name": "normal",
+      "name": "Normal OP (256 blocks)",
+      "memory_tier": 1
+    },
+    {
+      "folder_name": "extreme",
+      "name": "Extremely OP (1024 blocks)",
+      "memory_tier": 2
+    },
+    {
+      "folder_name": "unlimited",
+      "name": "Unlimited OP (Max)",
+      "memory_tier": 3
+    }
+  ],
   "metadata": {
     "authors": [
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "6.0.0"
+    "version": "7.0.0"
   }
 }
 ```
@@ -5959,7 +5496,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 }
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/scripts/lib/README.md (32 lines, 685 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/scripts/lib/README.md (39 lines, 1512 bytes)
 
 ```
 # OP Sponge: script notes (scripts/lib)
@@ -5971,7 +5508,10 @@ Extracted from the script files; nothing here was run in game.
 
 | File | Lines | Purpose |
 | :-- | --: | :-- |
-| `scripts/main.js` | 131 | (no header comment) |
+| `scripts/main.js` | 167 | (no header comment) |
+| `subpacks/normal/scripts/main.js` | 167 | Same as `main.js`, OP Sponge capped at 256 blocks and 16 reach |
+| `subpacks/extreme/scripts/main.js` | 167 | Same as `main.js`, OP Sponge capped at 1024 blocks and 32 reach |
+| `subpacks/unlimited/scripts/main.js` | 167 | Same as `main.js`, OP Sponge with no cap |
 
 ## Imports
 
@@ -5992,10 +5532,14 @@ Extracted from the script files; nothing here was run in game.
 
 ## Notes (AI review)
 
-Known limits, design decisions and things to check on the next update go here. Not filled in yet.
+- The three subpack scripts are full copies of `main.js` that differ only in the `register("op_sponge", ...)` line. Change all four files together.
+- Water is removed while scanning. Afterwards the cleared cells are re-checked up to 3 times to remove water that flowed back in.
+- Cells outside 4095 blocks sideways or 511 up and down are never reached. Unloaded chunks are never reached.
+- Waterlogged blocks are drained with `Block.setWaterlogged(false)`; errors from it are caught and skipped.
+- Nothing here was run in game. Whether the game loads `scripts/main.js` from a behavior pack subpack is not verified.
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/scripts/main.js (140 lines, 3599 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/scripts/main.js (168 lines, 4365 bytes)
 
 ```
 import { system, world } from "@minecraft/server";
@@ -6009,6 +5553,7 @@ const EXTREME_RANGE = 2048;
 const BATCH = 200;
 const BOUND_XZ = 4096;
 const BOUND_Y = 512;
+const SWEEPS = 3;
 const SPARKLES = 16;
 const NEIGHBORS = [
   { x: 1, y: 0, z: 0 },
@@ -6044,6 +5589,14 @@ function keyOf(origin, location) {
     return -1;
   }
   return (dx * 2 * BOUND_XZ + dz) * 2 * BOUND_Y + dy;
+}
+
+function locationOf(origin, key) {
+  const dy = key % (2 * BOUND_Y);
+  const rest = Math.floor(key / (2 * BOUND_Y));
+  const dz = rest % (2 * BOUND_XZ);
+  const dx = Math.floor(rest / (2 * BOUND_XZ));
+  return { x: origin.x + dx - BOUND_XZ, y: origin.y + dy - BOUND_Y, z: origin.z + dz - BOUND_XZ };
 }
 
 function readBlock(dimension, location) {
@@ -6086,6 +5639,7 @@ function drain(block) {
 
 function* absorb(dimension, origin, spongeId, sponge) {
   const seen = new Set([keyOf(origin, origin)]);
+  const drained = [];
   let frontier = [origin];
   let removed = 0;
   let reads = 0;
@@ -6109,6 +5663,7 @@ function* absorb(dimension, origin, spongeId, sponge) {
         const block = readBlock(dimension, location);
         if (block && drain(block)) {
           removed++;
+          drained.push(key);
           next.push(location);
         }
       }
@@ -6117,6 +5672,539 @@ function* absorb(dimension, origin, spongeId, sponge) {
   }
   if (removed === 0) {
     return;
+  }
+  for (let pass = 0; pass < SWEEPS; pass++) {
+    const total = drained.length;
+    let again = 0;
+    for (let i = 0; i < total; i++) {
+      reads++;
+      if (reads % BATCH === 0) {
+        yield;
+      }
+      const block = readBlock(dimension, locationOf(origin, drained[i]));
+      if (block && drain(block)) {
+        again++;
+      }
+    }
+    if (again === 0) {
+      break;
+    }
+  }
+  const after = readBlock(dimension, origin);
+  if (!after || after.typeId !== spongeId) {
+    return;
+  }
+  after.setType(sponge.filled);
+  if (sponge.sparkle) {
+    sparkle(dimension, origin);
+  }
+}
+
+world.afterEvents.playerPlaceBlock.subscribe((event) => {
+  const block = event.block;
+  const sponge = SPONGES.get(block.typeId);
+  if (!sponge) {
+    return;
+  }
+  const origin = { x: block.location.x, y: block.location.y, z: block.location.z };
+  system.runJob(absorb(block.dimension, origin, block.typeId, sponge));
+});
+```
+
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/subpacks/extreme/scripts/main.js (168 lines, 4380 bytes)
+
+```
+import { system, world } from "@minecraft/server";
+
+const WATER = new Set(["minecraft:water", "minecraft:flowing_water"]);
+const BASE_CAPACITY = 256;
+const BASE_RANGE = 16;
+const LEVEL_RANGE = 2;
+const EXTREME_CAPACITY = 100000;
+const EXTREME_RANGE = 2048;
+const BATCH = 200;
+const BOUND_XZ = 4096;
+const BOUND_Y = 512;
+const SWEEPS = 3;
+const SPARKLES = 16;
+const NEIGHBORS = [
+  { x: 1, y: 0, z: 0 },
+  { x: -1, y: 0, z: 0 },
+  { x: 0, y: 1, z: 0 },
+  { x: 0, y: -1, z: 0 },
+  { x: 0, y: 0, z: 1 },
+  { x: 0, y: 0, z: -1 },
+];
+
+const SPONGES = new Map();
+
+function register(name, capacity, range, sparkle) {
+  SPONGES.set(`allenscreations:${name}`, {
+    filled: `allenscreations:${name}_wet`,
+    capacity,
+    range,
+    sparkle,
+  });
+}
+
+register("op_sponge", BASE_CAPACITY * 4, BASE_RANGE * 2, false);
+for (let level = 1; level <= 10; level++) {
+  register(`super_sponge_${level}`, BASE_CAPACITY * (level + 1), BASE_RANGE + level * LEVEL_RANGE, true);
+}
+register("extreme_sponge_1", EXTREME_CAPACITY, EXTREME_RANGE, true);
+
+function keyOf(origin, location) {
+  const dx = location.x - origin.x + BOUND_XZ;
+  const dz = location.z - origin.z + BOUND_XZ;
+  const dy = location.y - origin.y + BOUND_Y;
+  if (dx < 0 || dz < 0 || dy < 0 || dx >= 2 * BOUND_XZ || dz >= 2 * BOUND_XZ || dy >= 2 * BOUND_Y) {
+    return -1;
+  }
+  return (dx * 2 * BOUND_XZ + dz) * 2 * BOUND_Y + dy;
+}
+
+function locationOf(origin, key) {
+  const dy = key % (2 * BOUND_Y);
+  const rest = Math.floor(key / (2 * BOUND_Y));
+  const dz = rest % (2 * BOUND_XZ);
+  const dx = Math.floor(rest / (2 * BOUND_XZ));
+  return { x: origin.x + dx - BOUND_XZ, y: origin.y + dy - BOUND_Y, z: origin.z + dz - BOUND_XZ };
+}
+
+function readBlock(dimension, location) {
+  try {
+    return dimension.getBlock(location);
+  } catch (error) {
+    return undefined;
+  }
+}
+
+function sparkle(dimension, origin) {
+  for (let i = 0; i < SPARKLES; i++) {
+    try {
+      dimension.spawnParticle("minecraft:villager_happy", {
+        x: origin.x + Math.random(),
+        y: origin.y + Math.random(),
+        z: origin.z + Math.random(),
+      });
+    } catch (error) {
+      return;
+    }
+  }
+}
+
+function drain(block) {
+  try {
+    if (WATER.has(block.typeId)) {
+      block.setType("minecraft:air");
+      return true;
+    }
+    if (block.isWaterlogged) {
+      block.setWaterlogged(false);
+      return true;
+    }
+  } catch (error) {
+    return false;
+  }
+  return false;
+}
+
+function* absorb(dimension, origin, spongeId, sponge) {
+  const seen = new Set([keyOf(origin, origin)]);
+  const drained = [];
+  let frontier = [origin];
+  let removed = 0;
+  let reads = 0;
+  for (let distance = 1; distance <= sponge.range && frontier.length > 0 && removed < sponge.capacity; distance++) {
+    const next = [];
+    for (const cell of frontier) {
+      for (const step of NEIGHBORS) {
+        if (removed >= sponge.capacity) {
+          break;
+        }
+        const location = { x: cell.x + step.x, y: cell.y + step.y, z: cell.z + step.z };
+        const key = keyOf(origin, location);
+        if (key < 0 || seen.has(key)) {
+          continue;
+        }
+        seen.add(key);
+        reads++;
+        if (reads % BATCH === 0) {
+          yield;
+        }
+        const block = readBlock(dimension, location);
+        if (block && drain(block)) {
+          removed++;
+          drained.push(key);
+          next.push(location);
+        }
+      }
+    }
+    frontier = next;
+  }
+  if (removed === 0) {
+    return;
+  }
+  for (let pass = 0; pass < SWEEPS; pass++) {
+    const total = drained.length;
+    let again = 0;
+    for (let i = 0; i < total; i++) {
+      reads++;
+      if (reads % BATCH === 0) {
+        yield;
+      }
+      const block = readBlock(dimension, locationOf(origin, drained[i]));
+      if (block && drain(block)) {
+        again++;
+      }
+    }
+    if (again === 0) {
+      break;
+    }
+  }
+  const after = readBlock(dimension, origin);
+  if (!after || after.typeId !== spongeId) {
+    return;
+  }
+  after.setType(sponge.filled);
+  if (sponge.sparkle) {
+    sparkle(dimension, origin);
+  }
+}
+
+world.afterEvents.playerPlaceBlock.subscribe((event) => {
+  const block = event.block;
+  const sponge = SPONGES.get(block.typeId);
+  if (!sponge) {
+    return;
+  }
+  const origin = { x: block.location.x, y: block.location.y, z: block.location.z };
+  system.runJob(absorb(block.dimension, origin, block.typeId, sponge));
+});
+```
+
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/subpacks/normal/scripts/main.js (168 lines, 4372 bytes)
+
+```
+import { system, world } from "@minecraft/server";
+
+const WATER = new Set(["minecraft:water", "minecraft:flowing_water"]);
+const BASE_CAPACITY = 256;
+const BASE_RANGE = 16;
+const LEVEL_RANGE = 2;
+const EXTREME_CAPACITY = 100000;
+const EXTREME_RANGE = 2048;
+const BATCH = 200;
+const BOUND_XZ = 4096;
+const BOUND_Y = 512;
+const SWEEPS = 3;
+const SPARKLES = 16;
+const NEIGHBORS = [
+  { x: 1, y: 0, z: 0 },
+  { x: -1, y: 0, z: 0 },
+  { x: 0, y: 1, z: 0 },
+  { x: 0, y: -1, z: 0 },
+  { x: 0, y: 0, z: 1 },
+  { x: 0, y: 0, z: -1 },
+];
+
+const SPONGES = new Map();
+
+function register(name, capacity, range, sparkle) {
+  SPONGES.set(`allenscreations:${name}`, {
+    filled: `allenscreations:${name}_wet`,
+    capacity,
+    range,
+    sparkle,
+  });
+}
+
+register("op_sponge", BASE_CAPACITY, BASE_RANGE, false);
+for (let level = 1; level <= 10; level++) {
+  register(`super_sponge_${level}`, BASE_CAPACITY * (level + 1), BASE_RANGE + level * LEVEL_RANGE, true);
+}
+register("extreme_sponge_1", EXTREME_CAPACITY, EXTREME_RANGE, true);
+
+function keyOf(origin, location) {
+  const dx = location.x - origin.x + BOUND_XZ;
+  const dz = location.z - origin.z + BOUND_XZ;
+  const dy = location.y - origin.y + BOUND_Y;
+  if (dx < 0 || dz < 0 || dy < 0 || dx >= 2 * BOUND_XZ || dz >= 2 * BOUND_XZ || dy >= 2 * BOUND_Y) {
+    return -1;
+  }
+  return (dx * 2 * BOUND_XZ + dz) * 2 * BOUND_Y + dy;
+}
+
+function locationOf(origin, key) {
+  const dy = key % (2 * BOUND_Y);
+  const rest = Math.floor(key / (2 * BOUND_Y));
+  const dz = rest % (2 * BOUND_XZ);
+  const dx = Math.floor(rest / (2 * BOUND_XZ));
+  return { x: origin.x + dx - BOUND_XZ, y: origin.y + dy - BOUND_Y, z: origin.z + dz - BOUND_XZ };
+}
+
+function readBlock(dimension, location) {
+  try {
+    return dimension.getBlock(location);
+  } catch (error) {
+    return undefined;
+  }
+}
+
+function sparkle(dimension, origin) {
+  for (let i = 0; i < SPARKLES; i++) {
+    try {
+      dimension.spawnParticle("minecraft:villager_happy", {
+        x: origin.x + Math.random(),
+        y: origin.y + Math.random(),
+        z: origin.z + Math.random(),
+      });
+    } catch (error) {
+      return;
+    }
+  }
+}
+
+function drain(block) {
+  try {
+    if (WATER.has(block.typeId)) {
+      block.setType("minecraft:air");
+      return true;
+    }
+    if (block.isWaterlogged) {
+      block.setWaterlogged(false);
+      return true;
+    }
+  } catch (error) {
+    return false;
+  }
+  return false;
+}
+
+function* absorb(dimension, origin, spongeId, sponge) {
+  const seen = new Set([keyOf(origin, origin)]);
+  const drained = [];
+  let frontier = [origin];
+  let removed = 0;
+  let reads = 0;
+  for (let distance = 1; distance <= sponge.range && frontier.length > 0 && removed < sponge.capacity; distance++) {
+    const next = [];
+    for (const cell of frontier) {
+      for (const step of NEIGHBORS) {
+        if (removed >= sponge.capacity) {
+          break;
+        }
+        const location = { x: cell.x + step.x, y: cell.y + step.y, z: cell.z + step.z };
+        const key = keyOf(origin, location);
+        if (key < 0 || seen.has(key)) {
+          continue;
+        }
+        seen.add(key);
+        reads++;
+        if (reads % BATCH === 0) {
+          yield;
+        }
+        const block = readBlock(dimension, location);
+        if (block && drain(block)) {
+          removed++;
+          drained.push(key);
+          next.push(location);
+        }
+      }
+    }
+    frontier = next;
+  }
+  if (removed === 0) {
+    return;
+  }
+  for (let pass = 0; pass < SWEEPS; pass++) {
+    const total = drained.length;
+    let again = 0;
+    for (let i = 0; i < total; i++) {
+      reads++;
+      if (reads % BATCH === 0) {
+        yield;
+      }
+      const block = readBlock(dimension, locationOf(origin, drained[i]));
+      if (block && drain(block)) {
+        again++;
+      }
+    }
+    if (again === 0) {
+      break;
+    }
+  }
+  const after = readBlock(dimension, origin);
+  if (!after || after.typeId !== spongeId) {
+    return;
+  }
+  after.setType(sponge.filled);
+  if (sponge.sparkle) {
+    sparkle(dimension, origin);
+  }
+}
+
+world.afterEvents.playerPlaceBlock.subscribe((event) => {
+  const block = event.block;
+  const sponge = SPONGES.get(block.typeId);
+  if (!sponge) {
+    return;
+  }
+  const origin = { x: block.location.x, y: block.location.y, z: block.location.z };
+  system.runJob(absorb(block.dimension, origin, block.typeId, sponge));
+});
+```
+
+## FILE: MCPEDL/Addons/OP-Sponge/behavior_pack/subpacks/unlimited/scripts/main.js (168 lines, 4365 bytes)
+
+```
+import { system, world } from "@minecraft/server";
+
+const WATER = new Set(["minecraft:water", "minecraft:flowing_water"]);
+const BASE_CAPACITY = 256;
+const BASE_RANGE = 16;
+const LEVEL_RANGE = 2;
+const EXTREME_CAPACITY = 100000;
+const EXTREME_RANGE = 2048;
+const BATCH = 200;
+const BOUND_XZ = 4096;
+const BOUND_Y = 512;
+const SWEEPS = 3;
+const SPARKLES = 16;
+const NEIGHBORS = [
+  { x: 1, y: 0, z: 0 },
+  { x: -1, y: 0, z: 0 },
+  { x: 0, y: 1, z: 0 },
+  { x: 0, y: -1, z: 0 },
+  { x: 0, y: 0, z: 1 },
+  { x: 0, y: 0, z: -1 },
+];
+
+const SPONGES = new Map();
+
+function register(name, capacity, range, sparkle) {
+  SPONGES.set(`allenscreations:${name}`, {
+    filled: `allenscreations:${name}_wet`,
+    capacity,
+    range,
+    sparkle,
+  });
+}
+
+register("op_sponge", Infinity, Infinity, false);
+for (let level = 1; level <= 10; level++) {
+  register(`super_sponge_${level}`, BASE_CAPACITY * (level + 1), BASE_RANGE + level * LEVEL_RANGE, true);
+}
+register("extreme_sponge_1", EXTREME_CAPACITY, EXTREME_RANGE, true);
+
+function keyOf(origin, location) {
+  const dx = location.x - origin.x + BOUND_XZ;
+  const dz = location.z - origin.z + BOUND_XZ;
+  const dy = location.y - origin.y + BOUND_Y;
+  if (dx < 0 || dz < 0 || dy < 0 || dx >= 2 * BOUND_XZ || dz >= 2 * BOUND_XZ || dy >= 2 * BOUND_Y) {
+    return -1;
+  }
+  return (dx * 2 * BOUND_XZ + dz) * 2 * BOUND_Y + dy;
+}
+
+function locationOf(origin, key) {
+  const dy = key % (2 * BOUND_Y);
+  const rest = Math.floor(key / (2 * BOUND_Y));
+  const dz = rest % (2 * BOUND_XZ);
+  const dx = Math.floor(rest / (2 * BOUND_XZ));
+  return { x: origin.x + dx - BOUND_XZ, y: origin.y + dy - BOUND_Y, z: origin.z + dz - BOUND_XZ };
+}
+
+function readBlock(dimension, location) {
+  try {
+    return dimension.getBlock(location);
+  } catch (error) {
+    return undefined;
+  }
+}
+
+function sparkle(dimension, origin) {
+  for (let i = 0; i < SPARKLES; i++) {
+    try {
+      dimension.spawnParticle("minecraft:villager_happy", {
+        x: origin.x + Math.random(),
+        y: origin.y + Math.random(),
+        z: origin.z + Math.random(),
+      });
+    } catch (error) {
+      return;
+    }
+  }
+}
+
+function drain(block) {
+  try {
+    if (WATER.has(block.typeId)) {
+      block.setType("minecraft:air");
+      return true;
+    }
+    if (block.isWaterlogged) {
+      block.setWaterlogged(false);
+      return true;
+    }
+  } catch (error) {
+    return false;
+  }
+  return false;
+}
+
+function* absorb(dimension, origin, spongeId, sponge) {
+  const seen = new Set([keyOf(origin, origin)]);
+  const drained = [];
+  let frontier = [origin];
+  let removed = 0;
+  let reads = 0;
+  for (let distance = 1; distance <= sponge.range && frontier.length > 0 && removed < sponge.capacity; distance++) {
+    const next = [];
+    for (const cell of frontier) {
+      for (const step of NEIGHBORS) {
+        if (removed >= sponge.capacity) {
+          break;
+        }
+        const location = { x: cell.x + step.x, y: cell.y + step.y, z: cell.z + step.z };
+        const key = keyOf(origin, location);
+        if (key < 0 || seen.has(key)) {
+          continue;
+        }
+        seen.add(key);
+        reads++;
+        if (reads % BATCH === 0) {
+          yield;
+        }
+        const block = readBlock(dimension, location);
+        if (block && drain(block)) {
+          removed++;
+          drained.push(key);
+          next.push(location);
+        }
+      }
+    }
+    frontier = next;
+  }
+  if (removed === 0) {
+    return;
+  }
+  for (let pass = 0; pass < SWEEPS; pass++) {
+    const total = drained.length;
+    let again = 0;
+    for (let i = 0; i < total; i++) {
+      reads++;
+      if (reads % BATCH === 0) {
+        yield;
+      }
+      const block = readBlock(dimension, locationOf(origin, drained[i]));
+      if (block && drain(block)) {
+        again++;
+      }
+    }
+    if (again === 0) {
+      break;
+    }
   }
   const after = readBlock(dimension, origin);
   if (!after || after.typeId !== spongeId) {
@@ -6185,12 +6273,22 @@ item.allenscreations:extreme_sponge_book_1.name=Extreme Sponge I Book
 ["en_US"]
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/CHANGELOG.md (53 lines, 2600 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/CHANGELOG.md (62 lines, 2888 bytes)
 
 ```
 # Changelog — OP Sponge
 
 ---
+
+## [v7] - 2026-11-26 - Power Levels And Water Recheck
+
+### Added
+
+- **Power Levels**: Three subpacks for the OP Sponge. Normal OP absorbs up to 256 water blocks, Extremely OP up to 1,024, and Unlimited OP has no block limit. Unlimited OP is the default. Choose one in the pack settings.
+
+### Fixed
+
+- **Sponges**: After draining, every sponge now re-checks the cleared cells up to 3 times and removes water that flowed back in.
 
 ## [v6] - 2026-11-25 - Letter S And Waterlogged Blocks
 
@@ -6238,11 +6336,11 @@ item.allenscreations:extreme_sponge_book_1.name=Extreme Sponge I Book
 
 ### Added
 - **OP Sponge**: A sponge that absorbs up to 256 water blocks within 16 blocks when placed, then turns into a Water-Filled OP Sponge.
-- **Water-Filled OP Sponge**: A block that shows the sponge has been used. Smelt it in a furnace to get a dry OP Sponge back.
-- **Recipe**: Craft an OP Sponge from a Sponge and Prismarine Crystals.
+
+(older entries omitted; ask for the full file if needed)
 ```
 
-## FILE: MCPEDL/Addons/OP-Sponge/DESCRIPTION.md (84 lines, 4718 bytes)
+## FILE: MCPEDL/Addons/OP-Sponge/DESCRIPTION.md (85 lines, 4878 bytes)
 
 ```
 # OP Sponge — Enchantable Sponges That Absorb Up to 100,000 Water Blocks
@@ -6263,7 +6361,8 @@ Craft an OP Sponge, then combine it with a sponge book to make a Super Sponge or
 ## Key Features
 
 ### OP Sponge
-- **What Happens**: When placed, it absorbs all the connected water around it, including water inside waterlogged blocks, with no block limit, then becomes a Water-Filled OP Sponge.
+- **What Happens**: When placed, it absorbs the connected water around it, including water inside waterlogged blocks, then becomes a Water-Filled OP Sponge.
+- **Power Levels**: Pick one in the pack settings. Normal OP absorbs up to 256 water blocks, Extremely OP up to 1,024, and Unlimited OP has no block limit. Unlimited OP is the default.
 - **Look**: The vanilla sponge look with a letter S on every side, in both the dry and the filled version.
 - **Good To Know**: It only absorbs water, and it only reaches water in chunks that are loaded.
 
@@ -6349,7 +6448,7 @@ Download the current release of **OP Sponge** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download OP Sponge (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OP-Sponge/OPSponge%20V6.mcaddon)
+- **Direct download:** [Download OP Sponge (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OP-Sponge/OPSponge%20V7.mcaddon)
 
 ## Installation
 
@@ -6368,11 +6467,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "OP Sponge (v6)",
+    "name": "OP Sponge (v7)",
     "description": "Textures for the add-on. by ALNStudios",
     "uuid": "67a33773-ea19-4d9c-a50c-0de79e1cf7aa",
     "version": [
-      6,
+      7,
       0,
       0
     ],
@@ -6387,7 +6486,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "f8d35b1f-a27a-457d-a97c-2d29d3b0c5a8",
       "version": [
-        6,
+        7,
         0,
         0
       ]
@@ -6398,7 +6497,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "6.0.0"
+    "version": "7.0.0"
   }
 }
 ```

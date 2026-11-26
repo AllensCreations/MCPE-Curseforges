@@ -1,8 +1,8 @@
 {
-  "changelog_version": "6.0.0",
-  "manifest_version": "6.0.0",
+  "changelog_version": "7.0.0",
+  "manifest_version": "7.0.0",
   "packages": {
-    "OPSponge V6.mcaddon": "4ae581b98bbdb03f88d6be5560e632c68d3957d684b565bed3fd8a797e6f1786"
+    "OPSponge V7.mcaddon": "d7e479510bd47c1615b47d56c94c3855851a13349ad02e22df95eda86b82148a"
   },
-  "source_sha256": "d026dad00abf4a8be3688392e89ae987f0c964beaed5d84040dd64e1630f49c6"
+  "source_sha256": "f42eba7c180f894ed4c74e54a14520135e51ef09ca8095c0be09a8b5839517c8"
 }

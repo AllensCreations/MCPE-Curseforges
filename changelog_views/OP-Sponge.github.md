@@ -1,12 +1,25 @@
 # Changelog — OP Sponge
 
-## [v6] - 2026-11-25 - Letter S And Waterlogged Blocks
+## [v7] - 2026-11-26 - Power Levels And Water Recheck
 
-### Changed
+### Added
+- **Power Levels**: Three subpacks for the OP Sponge. Normal OP absorbs up to 256 water blocks, Extremely OP up to 1,024, and Unlimited OP has no block limit. Unlimited OP is the default. Choose one in the pack settings.
+
+### Fixed
+- **Sponges**: After draining, every sponge now re-checks the cleared cells up to 3 times and removes water that flowed back in.
+
+<details>
+<summary><b>6.0.x</b> (1 release)</summary>
+
+### [v6] - 2026-11-25 - Letter S And Waterlogged Blocks
+
+#### Changed
 - **Textures**: Back to the vanilla sponge textures. The OP Sponge and the Water-Filled OP Sponge now show a letter S on every side.
 - **Sponges**: Every sponge now also drains water inside waterlogged blocks, such as stairs and slabs.
 
-### Removed
+#### Removed
+
+</details>
 
 <details>
 <summary><b>5.0.x</b> (1 release)</summary>
