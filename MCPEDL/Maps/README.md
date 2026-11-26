@@ -11,6 +11,7 @@ Minecraft Bedrock maps and custom worlds by ALNStudios. OneBlock maps are availa
 | One Block Skyblock Lucky Blocks | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/) | [MCWORLD](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/One%20Block%20Skyblock%20Lucky%20Blocks%20-%20Creative.mcworld) |
 | OneBlock Natural Market | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/OneBlock-Natural-Market/) | [MCWORLD](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Natural-Market/OneBlock%20Natural%20Market%20-%20Creative.mcworld) |
 | ALNMultiIslandOneBlock | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/ALNMultiIslandOneBlock/) | [MCWORLD](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/ALNMultiIslandOneBlock/ALNMultiIslandOneBlock%20-%20Creative.mcworld) |
+| ALNLegendaryPiglin | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/ALN-LegendaryPiglin/) | [MCWORLD](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/ALN-LegendaryPiglin/ALN-LegendaryPiglin%20-%20Creative.mcworld) |
 
 Both OneBlock maps use separate mode-specific foundations. Archives receive structural validation but have not been tested in-game.
 
