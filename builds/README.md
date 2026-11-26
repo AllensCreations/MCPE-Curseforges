@@ -50,7 +50,8 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **ALNChronoStop** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNChronoStop/ALNChronoStop%20V1.mcaddon) | [`ALNChronoStop/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNChronoStop/) |
 | **ALNWarpScrolls** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNWarpScrolls/ALNWarpScrolls%20V6.mcaddon) | [`ALNWarpScrolls/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNWarpScrolls/) |
 | **Smart Tool Hub** | Add-on (.mcaddon) | [Download (.mcaddon)](Smart-Tool-Hub/SmartToolHub%20V1.0.2.mcaddon) | [`Smart-Tool-Hub/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Smart-Tool-Hub/) |
-| **ALN HyperPipes** | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-HyperPipes/ALNHyperPipes%20V1.mcaddon) | [`ALN-HyperPipes/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-HyperPipes/) |
+| **ALN HyperPipes** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-HyperPipes/ALNHyperPipes%20V1.mcaddon) | [`ALN-HyperPipes/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-HyperPipes/) |
+| **ALNAuroraBorealis** | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNAuroraBorealis/ALNAuroraBorealis%20V1.mcaddon) | [`ALNAuroraBorealis/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNAuroraBorealis/) |
 
 ### Worlds and Maps
 

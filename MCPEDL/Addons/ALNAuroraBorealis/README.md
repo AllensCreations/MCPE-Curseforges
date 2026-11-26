@@ -1,11 +1,15 @@
-# ALN:AuroraBorealis
+# ALNAuroraBorealis
 
-Download the current release of **ALN:AuroraBorealis** for Minecraft Bedrock Edition.
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-Not%20Published-lightgrey?style=flat-square&logo=curseforge)](https://www.curseforge.com/members/allenscreations/projects)
+<!-- CURSEFORGE-BADGE:END -->
+
+Download the current release of **ALNAuroraBorealis** for Minecraft Bedrock Edition.
 
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN:AuroraBorealis (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/README.md#available-add-ons)
+- **Direct download:** [Download ALNAuroraBorealis (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNAuroraBorealis/ALNAuroraBorealis%20V1.mcaddon)
 
 ## Installation
 
@@ -15,4 +19,4 @@ Download the current release of **ALN:AuroraBorealis** for Minecraft Bedrock Edi
 
 ## Pack Information
 
-For gameplay features, usage details, compatibility notes, and other project information, read the [full description](DESCRIPTION.md).
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALNAuroraBorealis/DESCRIPTION.md).

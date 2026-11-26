@@ -1,0 +1,8 @@
+{
+  "changelog_version": "1.0.0",
+  "manifest_version": "1.0.0",
+  "packages": {
+    "ALNAuroraBorealis V1.mcaddon": "b48cfe05867120220f1532baf8902432ba9a686f7ce9d88babe0ca76a0928fe8"
+  },
+  "source_sha256": "dd68c2c1db97beee7688df0438adb64b29693efc2305eaec62043f2d0e9e3673"
+}

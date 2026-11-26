@@ -60,3 +60,4 @@ Install the pack, enable it in your world, and the sky and fog colors change in 
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, ALN:AuroraBorealis Bedrock mod, aurora borealis sky, emerald fog, northern lights, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+

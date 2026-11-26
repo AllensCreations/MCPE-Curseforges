@@ -2,7 +2,7 @@
 
 Generated file. Do not edit by hand: it is rebuilt with every build.
 
-42 Add-ons · 5 Maps · 11 Scripts · 6 Minigames
+43 Add-ons · 5 Maps · 11 Scripts · 6 Minigames
 
 ## AI Review Kits
 
@@ -27,6 +27,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | **ALN SoulLantern** | 3.0.1 | ⚪ Not Published | [Source](Addons/ALN-SoulLantern) | [Package](../Package/ALN-SoulLantern.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-SoulLantern-3.0.1.zip) |
 | **ALN Wireless Headphones** | v11 | ⚪ Not Published | [Source](Addons/ALN-Wireless-Headphones) | [Package](../Package/ALN-Wireless-Headphones.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-Wireless-Headphones-v11.zip) |
 | **ALN-GlobalMarket** | 1.0.2 | 🟢 Published ([1.0.2](https://www.curseforge.com/projects/1826201)) | [Source](Addons/ALN-GlobalMarket) | [Package](../Package/ALN-GlobalMarket.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-GlobalMarket-1.0.2.zip) |
+| **ALN:AuroraBorealis** | 1.0.0 | ⚪ Not Published | [Source](Addons/ALNAuroraBorealis) | [Package](../Package/ALNAuroraBorealis.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNAuroraBorealis-1.0.0.zip) |
 | **ALN:ChronoStop** | 1.0.0 | ⚪ Not Published | [Source](Addons/ALNChronoStop) | [Package](../Package/ALNChronoStop.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNChronoStop-1.0.0.zip) |
 | **ALN:LootSpawner (Arcane Relic Duplicator)** | 1.0.7 | ⚪ Not Published | [Source](Addons/ALNLootSpawner-Arcane-Relic-Duplicator) | [Package](../Package/ALNLootSpawner-Arcane-Relic-Duplicator.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNLootSpawner-Arcane-Relic-Duplicator-1.0.7.zip) |
 | **ALN:OneClickSort** | v12 | 🟢 Published ([v12](https://www.curseforge.com/projects/1818338)) | [Source](Addons/ALNOneClickSort) | [Package](../Package/ALNOneClickSort.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNOneClickSort-v12.zip) |
