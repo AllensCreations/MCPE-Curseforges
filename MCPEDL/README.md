@@ -2,7 +2,7 @@
 
 Generated file. Do not edit by hand: it is rebuilt with every build.
 
-43 Add-ons · 5 Maps · 11 Scripts · 6 Minigames
+43 Add-ons · 6 Maps · 11 Scripts · 6 Minigames
 
 ## AI Review Kits
 
@@ -66,6 +66,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 
 | Pack | Version | Status | Source | Package | AI review |
 | :-- | :-- | :-- | :-- | :-- | :-- |
+| **ALN:LegendaryPiglin** | 1.0.0 | ⚪ Not Published | [Source](Maps/ALN-LegendaryPiglin) | [Package](../Package/ALN-LegendaryPiglin.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-LegendaryPiglin-1.0.0.zip) |
 | **ALN:MultiIslandOneBlock** | v12 | 🟢 Published ([v12](https://www.curseforge.com/projects/1825799)) | [Source](Maps/ALNMultiIslandOneBlock) | [Package](../Package/ALNMultiIslandOneBlock.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNMultiIslandOneBlock-v12.zip) |
 | **One Block Skyblock Lucky Blocks** | 9.0.0 | 🟢 Published ([v9](https://www.curseforge.com/projects/1821677)) | [Source](Maps/One-Block-Skyblock-Lucky-Blocks) | [Package](../Package/One-Block-Skyblock-Lucky-Blocks.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/One-Block-Skyblock-Lucky-Blocks-9.0.0.zip) |
 | **OneBlock Natural Market** | 17.0.1 | 🟢 Published ([17.0.1](https://www.curseforge.com/projects/1819420)) | [Source](Maps/OneBlock-Natural-Market) | [Package](../Package/OneBlock-Natural-Market.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/OneBlock-Natural-Market-17.0.1.zip) |

@@ -74,3 +74,4 @@ A short blackstone bridge leads to a small station where The Legendary One waits
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, ALN:LegendaryPiglin Bedrock mod, OneBlock map, Piglin bartering, immortal Piglin merchant, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+
