@@ -35,6 +35,7 @@ KIT_FILES = {
         "scripts/make_pack_script.py", "scripts/build_payload.py", "scripts/import_project_payload.py",
         "scripts/doc_template.py", "scripts/pixel_json_to_png.py",
         "docs/mcicons-index.md",
+        "INSTRUCTIONS.md", "DOCS_RULES.md", "PACK_GENERATOR_INSTRUCTIONS.md",
         "assets/aln-ui-redesign/README.txt", "assets/aln-ui-redesign/design.json",
         "assets/aln-ui-redesign/font/README.txt", "assets/aln-ui-redesign/font/pixelify.js",
     ],

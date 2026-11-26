@@ -71,6 +71,15 @@ def top_version(pack: Path) -> str:
     return ""
 
 
+def repo_version() -> str:
+    vp = ROOT / "REPO_VERSION"
+    if vp.is_file():
+        v = vp.read_text(encoding="utf-8").strip()
+        if v:
+            return f"v{v}" if not v.startswith("v") else v
+    return ""
+
+
 def packages():
     for cat in CATEGORIES:
         base = ROOT / "MCPEDL" / cat
@@ -178,9 +187,14 @@ def main() -> int:
                 tool_paths.append(target)
         tools_dir = ROOT / OUT_DIR
         tools_hash = digest(tool_paths)
-        for zip_name, paths_kw in (("Maintenance.zip", "REPO"), ("New-Pack.zip", "NEW")):
+        rver = repo_version()
+        rver_suffix = f"-{rver}" if rver else ""
+        for base_name, paths_kw in (("Maintenance", "REPO"), ("New-Pack", "NEW")):
+            zip_name = f"{base_name}{rver_suffix}.zip"
             kit_path = tools_dir / zip_name
-            kit_stamp = tools_dir / f".{zip_name[:-4]}-hash"
+            kit_stamp = tools_dir / f".{base_name}-hash"
+            old_kit_zips = [p for p in tools_dir.glob(f"{base_name}-*.zip") if p != kit_path]
+            old_kit_zips += [tools_dir / f"{base_name}.zip"]  # unversioned
             if args.all or not kit_path.is_file() or not kit_stamp.is_file() or kit_stamp.read_text().strip() != tools_hash:
                 out = Path(tmp) / f"kit_{paths_kw}"
                 try:
@@ -188,7 +202,14 @@ def main() -> int:
                     made = sorted(out.glob("*_tools.txt"))
                     if made:
                         tools_dir.mkdir(parents=True, exist_ok=True)
-                        write_kit_zip(kit_path, made[0], zip_name[:-4] + "_tools.txt", sorted(out.glob("*_files.zip")))
+                        write_kit_zip(kit_path, made[0], base_name + "_tools.txt", sorted(out.glob("*_files.zip")))
+                        # Also keep unversioned copy for backwards compatibility with existing links/workflows
+                        unversioned_kit = tools_dir / f"{base_name}.zip"
+                        if unversioned_kit != kit_path:
+                            shutil.copyfile(kit_path, unversioned_kit)
+                        for old in old_kit_zips:
+                            if old.is_file() and old != kit_path and old != unversioned_kit:
+                                old.unlink()
                         changed.append(kit_path.relative_to(ROOT).as_posix())
                         print(f"Built {kit_path.relative_to(ROOT)}")
                         kit_stamp.write_text(tools_hash + "\n", encoding="utf-8")

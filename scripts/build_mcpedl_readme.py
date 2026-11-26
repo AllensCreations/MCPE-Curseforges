@@ -63,9 +63,21 @@ def get_ai_kits(root: Path):
         bundle_path = "reference/bedrock-samples/bedrock-reference-pack.zip"
         bundle_label = "Complete Bedrock Reference Bundle (Samples, Schemas & Types Zip)"
 
+    new_pack_zip = "MCPEDL/AI Review/New-Pack.zip"
+    maint_zip = "MCPEDL/AI Review/Maintenance.zip"
+    # Prefer versioned kit zip if present (e.g. New-Pack-v312.zip)
+    ai_rev_dir = root / "MCPEDL" / "AI Review"
+    if ai_rev_dir.is_dir():
+        np_zips = sorted(ai_rev_dir.glob("New-Pack-v*.zip"))
+        if np_zips:
+            new_pack_zip = np_zips[-1].relative_to(root).as_posix()
+        m_zips = sorted(ai_rev_dir.glob("Maintenance-v*.zip"))
+        if m_zips:
+            maint_zip = m_zips[-1].relative_to(root).as_posix()
+
     return (
-        ("New Pack Kit (zip: map and scripts)", "MCPEDL/AI Review/New-Pack.zip"),
-        ("Repo Maintenance Kit (zip: map and scripts)", "MCPEDL/AI Review/Maintenance.zip"),
+        ("New Pack Kit (zip: map and scripts)", new_pack_zip),
+        ("Repo Maintenance Kit (zip: map and scripts)", maint_zip),
         ("Vanilla Bedrock Reference (JSON.gz)", "reference/bedrock-samples/bedrock-samples.min.json.gz"),
         (bundle_label, bundle_path),
         ("Minecraft Script API TypeScript Definitions (.d.ts Zip)", "reference/typescript-definitions/minecraft-bedrock-types.zip"),
