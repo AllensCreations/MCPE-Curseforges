@@ -12,278 +12,212 @@ const GLOBAL_KEY = "OneBlockNaturalMarket";
 const READY_EVENT = "allenscreations:oneblock_ready";
 const MCICON_DIR = "textures/ui/natural_market/icons/";
 const CATEGORIES = [
-  { name: "Building Blocks", icon: MCICON_DIR + "stone" },
-  { name: "Tools & Gear", icon: MCICON_DIR + "iron_pickaxe" },
+  { name: "Natural Blocks", icon: MCICON_DIR + "stone" },
   { name: "Farming", icon: MCICON_DIR + "wheat" },
-  { name: "Food", icon: MCICON_DIR + "bread" },
-  { name: "Combat", icon: MCICON_DIR + "iron_sword" },
+  { name: "Food", icon: MCICON_DIR + "beef" },
   { name: "Ores & Minerals", icon: MCICON_DIR + "diamond" },
-  { name: "Redstone", icon: MCICON_DIR + "redstone" },
   { name: "Mob Drops", icon: MCICON_DIR + "bone" },
-  { name: "Spawn Eggs", icon: MCICON_DIR + "cow_spawn_egg" },
   { name: "Nether", icon: MCICON_DIR + "netherrack" },
-  { name: "Endgame", icon: MCICON_DIR + "ender_pearl" }
+  { name: "Endgame", icon: MCICON_DIR + "ender_pearl" },
+  { name: "Spawn Eggs", icon: MCICON_DIR + "cow_spawn_egg" }
 ];
-const TIER_BLOCKS = [
-  ["dirt"], ["coarse_dirt"], ["clay"],
-  ["oak_log"], ["spruce_log"], ["birch_log"], ["jungle_log"], ["acacia_log"],
-  ["cobblestone"], ["stone"], ["andesite"], ["diorite"], ["granite"],
-  ["coal_ore", "copper_ore"], ["iron_ore"], ["gold_ore"], ["lapis_ore"], ["redstone_ore"],
-  ["deepslate_iron_ore"], ["deepslate_gold_ore"], ["diamond_ore"], ["emerald_ore"],
-  ["nether_gold_ore"], ["quartz_ore"],
-  ["stone_bricks"], ["quartz_block"], ["purpur_block"], ["crying_obsidian"],
-  ["ancient_debris"], ["obsidian"]
+const CORE_PREFIX = "allenscreations:core_";
+const CORE_COUNT = 30;
+const LEGACY_CORE = [
+  "dirt", "coarse_dirt", "clay", "oak_log", "spruce_log", "birch_log",
+  "jungle_log", "acacia_log", "cobblestone", "stone", "andesite", "diorite",
+  "granite", "coal_ore", "copper_ore", "iron_ore", "gold_ore", "lapis_ore",
+  "redstone_ore", "deepslate_iron_ore", "deepslate_gold_ore", "diamond_ore", "emerald_ore", "nether_gold_ore",
+  "quartz_ore", "blackstone", "end_stone", "crying_obsidian", "ancient_debris", "obsidian"
 ];
 const TIER_VALUES = [1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 14, 15, 17, 18, 20, 22, 24, 26, 28, 31, 33, 36, 39, 42, 45, 49, 52, 56, 60];
-const MILESTONES = TIER_BLOCKS.map((ids, i) => ({
-  unlock: i === 0 ? 0 : Math.round(10000 * Math.pow(i / (TIER_BLOCKS.length - 1), 1.6) / 10) * 10,
-  ids: ids.map(id => "minecraft:" + id),
+const TIER_WEAR = [1, 1, 2, 2, 3, 3];
+const CORE_ID = Array.from({ length: CORE_COUNT }, (_, i) => CORE_PREFIX + String(i + 1).padStart(2, "0") + "_note");
+const MILESTONES = CORE_ID.map((id, i) => ({
+  unlock: i === 0 ? 0 : Math.round(10000 * Math.pow(i / (CORE_COUNT - 1), 1.6) / 10) * 10,
+  ids: [id],
   reward: TIER_VALUES[i]
 }));
-const BLOCK_VALUE = new Map(MILESTONES.flatMap(m => m.ids.map(id => [id, m.reward])));
-function blockValue(id) { return BLOCK_VALUE.get(id) ?? 1; }
-function blockName(id) { return id.replace("minecraft:", "").split("_").map(w => w[0].toUpperCase() + w.slice(1)).join(" "); }
-const CATALOG = [
-  ["dirt", 2, 16, "Building Blocks", 0, true, "textures/blocks/dirt"],
-  ["coarse_dirt", 2, 16, "Building Blocks", 0, true, "textures/blocks/coarse_dirt"],
-  ["sand", 2, 16, "Building Blocks", 0, true, "textures/blocks/sand"],
-  ["gravel", 2, 16, "Building Blocks", 0, true, "textures/blocks/gravel"],
-  ["oak_log", 3, 8, "Building Blocks", 0, true, "textures/blocks/log_oak"],
-  ["oak_planks", 2, 16, "Building Blocks", 0, true, "textures/blocks/planks_oak"],
-  ["stick", 2, 16, "Tools & Gear", 0, false, "textures/items/stick"],
-  ["crafting_table", 5, 1, "Building Blocks", 0, true, "textures/blocks/crafting_table_front"],
-  ["torch", 2, 16, "Building Blocks", 0, true, "textures/blocks/torch_on"],
-  ["bread", 4, 4, "Food", 0, false, "textures/items/bread"],
-  ["wheat_seeds", 2, 16, "Farming", 0, false, "textures/items/seeds_wheat"],
-  ["oak_sapling", 4, 4, "Farming", 0, true, "textures/blocks/sapling_oak"],
-  ["chest", 8, 1, "Building Blocks", 0, true, "textures/blocks/chest_front"],
-  ["furnace", 10, 1, "Building Blocks", 0, true, "textures/blocks/furnace_front_off"],
-  ["wooden_pickaxe", 8, 1, "Tools & Gear", 0, false, "textures/items/wood_pickaxe"],
-  ["wooden_axe", 8, 1, "Tools & Gear", 0, false, "textures/items/wood_axe"],
-  ["wooden_shovel", 5, 1, "Tools & Gear", 0, false, "textures/items/wood_shovel"],
-  ["wooden_sword", 6, 1, "Combat", 0, false, "textures/items/wood_sword"],
-  ["cobblestone", 3, 16, "Building Blocks", 1, true, "textures/blocks/cobblestone"],
-  ["stone", 5, 16, "Building Blocks", 1, true, "textures/blocks/stone"],
-  ["glass", 6, 16, "Building Blocks", 1, true, "textures/blocks/glass"],
-  ["bricks", 12, 8, "Building Blocks", 1, true, "textures/blocks/brick"],
-  ["oak_door", 6, 4, "Building Blocks", 1, true, "textures/items/door_wood"],
-  ["oak_fence", 5, 8, "Building Blocks", 1, true, "textures/blocks/planks_oak"],
-  ["ladder", 4, 8, "Building Blocks", 1, true, "textures/blocks/ladder"],
-  ["stone_pickaxe", 16, 1, "Tools & Gear", 1, false, "textures/items/stone_pickaxe"],
-  ["stone_axe", 15, 1, "Tools & Gear", 1, false, "textures/items/stone_axe"],
-  ["stone_sword", 14, 1, "Combat", 1, false, "textures/items/stone_sword"],
-  ["stone_shovel", 10, 1, "Tools & Gear", 1, false, "textures/items/stone_shovel"],
-  ["carrot", 3, 8, "Farming", 1, false, "textures/items/carrot"],
-  ["potato", 3, 8, "Farming", 1, false, "textures/items/potato"],
-  ["wheat", 4, 8, "Farming", 1, false, "textures/items/wheat"],
-  ["composter", 8, 1, "Farming", 1, true, "textures/blocks/composter_side"],
-  ["bucket", 18, 1, "Farming", 1, false, "textures/items/bucket_empty"],
-  ["iron_ingot", 20, 2, "Ores & Minerals", 2, false, "textures/items/iron_ingot"],
-  ["coal", 8, 8, "Ores & Minerals", 2, false, "textures/items/coal"],
-  ["coal_ore", 12, 4, "Ores & Minerals", 2, true, "textures/blocks/coal_ore"],
-  ["iron_ore", 22, 4, "Ores & Minerals", 2, true, "textures/blocks/iron_ore"],
-  ["stone_bricks", 10, 16, "Building Blocks", 2, true, "textures/blocks/stonebrick"],
-  ["lantern", 12, 4, "Building Blocks", 2, true, "textures/items/lantern"],
-  ["iron_pickaxe", 45, 1, "Tools & Gear", 2, false, "textures/items/iron_pickaxe"],
-  ["iron_axe", 40, 1, "Tools & Gear", 2, false, "textures/items/iron_axe"],
-  ["iron_sword", 38, 1, "Combat", 2, false, "textures/items/iron_sword"],
-  ["iron_shovel", 24, 1, "Tools & Gear", 2, false, "textures/items/iron_shovel"],
-  ["shield", 35, 1, "Combat", 2, false, ""],
-  ["bow", 30, 1, "Combat", 2, false, "textures/items/bow_standby"],
-  ["arrow", 3, 16, "Combat", 2, false, "textures/items/arrow"],
-  ["pumpkin_seeds", 4, 8, "Farming", 2, false, "textures/items/seeds_pumpkin"],
-  ["melon_seeds", 4, 8, "Farming", 2, false, "textures/items/seeds_melon"],
-  ["hay_block", 10, 4, "Farming", 2, true, "textures/blocks/hay_block_side"],
-  ["redstone", 14, 8, "Redstone", 3, false, "textures/items/redstone_dust"],
-  ["redstone_torch", 12, 8, "Redstone", 3, true, "textures/blocks/redstone_torch_on"],
-  ["lever", 8, 4, "Redstone", 3, true, "textures/items/lever"],
-  ["piston", 25, 2, "Redstone", 3, true, "textures/blocks/piston_top_normal"],
-  ["dispenser", 18, 1, "Redstone", 3, true, "textures/blocks/dispenser_front_horizontal"],
-  ["hopper", 30, 1, "Redstone", 3, true, "textures/items/hopper"],
-  ["iron_block", 90, 2, "Ores & Minerals", 3, true, "textures/blocks/iron_block"],
-  ["gold_ingot", 35, 2, "Ores & Minerals", 3, false, "textures/items/gold_ingot"],
-  ["gold_ore", 38, 4, "Ores & Minerals", 3, true, "textures/blocks/gold_ore"],
-  ["anvil", 70, 1, "Tools & Gear", 3, true, "textures/blocks/anvil_base"],
-  ["fishing_rod", 25, 1, "Tools & Gear", 3, false, "textures/items/fishing_rod_uncast"],
-  ["shears", 28, 1, "Tools & Gear", 3, false, "textures/items/shears"],
-  ["apple", 5, 8, "Food", 3, false, "textures/items/apple"],
-  ["cooked_beef", 8, 8, "Food", 3, false, "textures/items/beef_cooked"],
-  ["bone", 8, 8, "Mob Drops", 3, false, "textures/items/bone"],
-  ["string", 8, 8, "Mob Drops", 3, false, "textures/items/string"],
-  ["rotten_flesh", 3, 8, "Mob Drops", 3, false, "textures/items/rotten_flesh"],
-  ["golden_apple", 80, 1, "Food", 4, false, "textures/items/apple_golden"],
-  ["diamond", 60, 2, "Ores & Minerals", 4, false, "textures/items/diamond"],
-  ["diamond_ore", 90, 4, "Ores & Minerals", 4, true, "textures/blocks/diamond_ore"],
-  ["emerald", 65, 2, "Ores & Minerals", 4, false, "textures/items/emerald"],
-  ["emerald_ore", 95, 4, "Ores & Minerals", 4, true, "textures/blocks/emerald_ore"],
-  ["lapis_lazuli", 18, 8, "Ores & Minerals", 4, false, "textures/items/dye_powder_blue"],
-  ["enchanting_table", 120, 1, "Tools & Gear", 4, true, "textures/blocks/enchanting_table_side"],
-  ["diamond_pickaxe", 140, 1, "Tools & Gear", 4, false, "textures/items/diamond_pickaxe"],
-  ["diamond_sword", 120, 1, "Combat", 4, false, "textures/items/diamond_sword"],
-  ["diamond_axe", 130, 1, "Tools & Gear", 4, false, "textures/items/diamond_axe"],
-  ["experience_bottle", 25, 4, "Tools & Gear", 4, false, "textures/items/experience_bottle"],
-  ["ender_pearl", 35, 2, "Endgame", 5, false, "textures/items/ender_pearl"],
-  ["blaze_rod", 40, 2, "Nether", 5, false, "textures/items/blaze_rod"],
-  ["blaze_powder", 24, 4, "Nether", 5, false, "textures/items/blaze_powder"],
-  ["netherrack", 12, 16, "Nether", 5, true, "textures/blocks/netherrack"],
-  ["soul_sand", 15, 8, "Nether", 5, true, "textures/blocks/soul_sand"],
-  ["nether_brick", 18, 8, "Nether", 5, true, "textures/blocks/nether_brick"],
-  ["magma_block", 20, 8, "Nether", 5, true, "textures/blocks/magma"],
-  ["obsidian", 30, 4, "Nether", 6, true, "textures/blocks/obsidian"],
-  ["crying_obsidian", 45, 4, "Nether", 6, true, "textures/blocks/crying_obsidian"],
-  ["ghast_tear", 55, 1, "Mob Drops", 6, false, "textures/items/ghast_tear"],
-  ["nether_wart", 18, 8, "Farming", 6, false, "textures/items/nether_wart"],
-  ["quartz", 24, 8, "Nether", 6, false, "textures/items/quartz"],
-  ["quartz_block", 28, 8, "Nether", 6, true, "textures/blocks/quartz_block_side"],
-  ["ender_eye", 65, 2, "Endgame", 7, false, "textures/items/ender_eye"],
-  ["end_stone", 25, 16, "Endgame", 7, true, "textures/blocks/end_stone"],
-  ["purpur_block", 32, 8, "Endgame", 7, true, "textures/blocks/purpur_block"],
-  ["chorus_fruit", 20, 4, "Endgame", 7, false, "textures/items/chorus_fruit"],
-  ["shulker_shell", 75, 1, "Endgame", 7, false, "textures/items/shulker_shell"],
-  ["elytra", 800, 1, "Endgame", 8, false, "textures/items/elytra"],
-  ["shulker_box", 150, 1, "Endgame", 8, true, "textures/blocks/shulker_top_undyed"],
-  ["nether_star", 600, 1, "Endgame", 8, false, "textures/items/nether_star"],
-  ["beacon", 750, 1, "Endgame", 8, true, "textures/blocks/beacon"],
-  ["ancient_debris", 250, 2, "Nether", 8, true, "textures/blocks/ancient_debris_side"],
-  ["netherite_ingot", 500, 1, "Ores & Minerals", 9, false, "textures/items/netherite_ingot"],
-  ["netherite_block", 1200, 1, "Endgame", 9, true, "textures/blocks/netherite_block"],
-  ["totem_of_undying", 900, 1, "Combat", 9, false, "textures/items/totem"],
-  ["enchanted_golden_apple", 500, 1, "Food", 9, false, "textures/items/apple_golden"],
-  ["spruce_log", 3, 8, "Building Blocks", 0, true, "textures/blocks/log_spruce"],
-  ["birch_log", 3, 8, "Building Blocks", 0, true, "textures/blocks/log_birch"],
-  ["jungle_log", 3, 8, "Building Blocks", 0, true, "textures/blocks/log_jungle"],
-  ["acacia_log", 3, 8, "Building Blocks", 0, true, "textures/blocks/log_acacia"],
-  ["dark_oak_log", 3, 8, "Building Blocks", 0, true, "textures/blocks/log_big_oak"],
-  ["mangrove_log", 4, 8, "Building Blocks", 1, true, "textures/blocks/mangrove_log_side"],
-  ["cherry_log", 4, 8, "Building Blocks", 1, true, "textures/blocks/cherry_log_top"],
-  ["spruce_planks", 2, 16, "Building Blocks", 0, true, "textures/blocks/planks_spruce"],
-  ["birch_planks", 2, 16, "Building Blocks", 0, true, "textures/blocks/planks_birch"],
-  ["dark_oak_planks", 2, 16, "Building Blocks", 1, true, "textures/blocks/planks_big_oak"],
-  ["sandstone", 4, 16, "Building Blocks", 1, true, "textures/blocks/sandstone_normal"],
-  ["red_sandstone", 5, 16, "Building Blocks", 2, true, "textures/blocks/red_sandstone_normal"],
-  ["moss_block", 8, 8, "Building Blocks", 2, true, "textures/blocks/moss_block"],
-  ["mossy_cobblestone", 7, 16, "Building Blocks", 2, true, "textures/blocks/cobblestone_mossy"],
-  ["granite", 4, 16, "Building Blocks", 1, true, "textures/blocks/stone_granite"],
-  ["diorite", 4, 16, "Building Blocks", 1, true, "textures/blocks/stone_diorite"],
-  ["andesite", 4, 16, "Building Blocks", 1, true, "textures/blocks/stone_andesite"],
-  ["deepslate", 8, 16, "Building Blocks", 3, true, "textures/blocks/deepslate/deepslate"],
-  ["calcite", 7, 16, "Building Blocks", 3, true, "textures/blocks/calcite"],
-  ["tuff", 6, 16, "Building Blocks", 3, true, "textures/blocks/tuff"],
-  ["terracotta", 8, 16, "Building Blocks", 3, true, "textures/blocks/hardened_clay"],
-  ["white_wool", 6, 16, "Building Blocks", 1, true, "textures/blocks/wool_colored_white"],
-  ["blue_wool", 7, 16, "Building Blocks", 2, true, "textures/blocks/wool_colored_blue"],
-  ["packed_ice", 12, 8, "Building Blocks", 4, true, "textures/blocks/ice_packed"],
-  ["snow_block", 5, 8, "Building Blocks", 2, true, "textures/blocks/snow"],
-  ["brick_block", 12, 8, "Building Blocks", 2, true, "textures/blocks/brick"],
-  ["stone_hoe", 12, 1, "Tools & Gear", 1, false, "textures/items/stone_hoe"],
-  ["iron_hoe", 28, 1, "Tools & Gear", 2, false, "textures/items/iron_hoe"],
-  ["diamond_hoe", 95, 1, "Tools & Gear", 4, false, "textures/items/diamond_hoe"],
-  ["golden_pickaxe", 22, 1, "Tools & Gear", 3, false, "textures/items/gold_pickaxe"],
-  ["golden_axe", 20, 1, "Tools & Gear", 3, false, "textures/items/gold_axe"],
-  ["golden_sword", 18, 1, "Combat", 3, false, "textures/items/gold_sword"],
-  ["crossbow", 48, 1, "Combat", 4, false, "textures/items/crossbow_standby"],
-  ["trident", 280, 1, "Combat", 7, false, "textures/items/trident"],
-  ["beetroot", 3, 8, "Farming", 1, false, "textures/items/beetroot"],
-  ["beetroot_seeds", 3, 8, "Farming", 1, false, "textures/items/seeds_beetroot"],
-  ["melon_slice", 3, 8, "Food", 1, false, "textures/items/melon"],
-  ["pumpkin", 4, 4, "Farming", 1, true, "textures/blocks/pumpkin_side"],
-  ["sugar_cane", 3, 8, "Farming", 1, true, "textures/items/reeds"],
-  ["bamboo", 4, 8, "Farming", 1, true, "textures/blocks/bamboo_stem"],
-  ["cocoa_beans", 4, 8, "Farming", 2, false, "textures/items/dye_powder_brown"],
-  ["sweet_berries", 5, 8, "Farming", 2, false, "textures/items/sweet_berries"],
-  ["cooked_chicken", 7, 8, "Food", 2, false, "textures/items/chicken_cooked"],
-  ["cooked_porkchop", 8, 8, "Food", 2, false, "textures/items/porkchop_cooked"],
-  ["cooked_mutton", 8, 8, "Food", 3, false, "textures/items/mutton_cooked"],
-  ["baked_potato", 5, 8, "Food", 2, false, "textures/items/potato_baked"],
-  ["golden_carrot", 18, 4, "Food", 4, false, "textures/items/carrot_golden"],
-  ["pumpkin_pie", 10, 4, "Food", 3, false, "textures/items/pumpkin_pie"],
-  ["cookie", 4, 8, "Food", 1, false, "textures/items/cookie"],
-  ["cake", 20, 1, "Food", 3, false, "textures/items/cake"],
-  ["redstone_block", 60, 2, "Redstone", 4, true, "textures/blocks/redstone_block"],
-  ["repeater", 18, 4, "Redstone", 3, true, "textures/items/repeater"],
-  ["comparator", 24, 2, "Redstone", 4, true, "textures/items/comparator"],
-  ["observer", 28, 2, "Redstone", 4, true, "textures/blocks/observer_front"],
-  ["dropper", 18, 2, "Redstone", 3, true, "textures/blocks/dropper_front_horizontal"],
-  ["sticky_piston", 32, 2, "Redstone", 4, true, "textures/blocks/piston_top_sticky"],
-  ["daylight_detector", 26, 1, "Redstone", 4, true, "textures/blocks/daylight_detector_top"],
-  ["target", 22, 2, "Redstone", 4, true, "textures/blocks/target_side"],
-  ["tripwire_hook", 8, 4, "Redstone", 3, false, "textures/blocks/trip_wire_source"],
-  ["spider_eye", 8, 8, "Mob Drops", 3, false, "textures/items/spider_eye"],
-  ["gunpowder", 10, 8, "Mob Drops", 3, false, "textures/items/gunpowder"],
-  ["slime_ball", 18, 4, "Mob Drops", 4, false, "textures/items/slimeball"],
-  ["leather", 8, 8, "Mob Drops", 3, false, "textures/items/leather"],
-  ["feather", 5, 8, "Mob Drops", 2, false, "textures/items/feather"],
-  ["ink_sac", 7, 8, "Mob Drops", 3, false, "textures/items/dye_powder_black"],
-  ["prismarine_shard", 18, 4, "Mob Drops", 5, false, "textures/items/prismarine_shard"],
-  ["prismarine_crystals", 20, 4, "Mob Drops", 5, false, "textures/items/prismarine_crystals"],
-  ["rabbit_hide", 6, 8, "Mob Drops", 3, false, "textures/items/rabbit_hide"],
-  ["nautilus_shell", 45, 1, "Mob Drops", 6, false, "textures/items/nautilus"],
-
-  ["basalt", 10, 16, "Nether", 5, true, "textures/blocks/basalt_side"],
-  ["blackstone", 10, 16, "Nether", 5, true, "textures/blocks/blackstone"],
-  ["polished_blackstone", 12, 16, "Nether", 6, true, "textures/blocks/polished_blackstone"],
-  ["crimson_stem", 8, 8, "Nether", 5, true, "textures/blocks/huge_fungus/crimson_log_top"],
-  ["warped_stem", 8, 8, "Nether", 5, true, "textures/blocks/huge_fungus/warped_stem_top"],
-
-  ["glowstone_dust", 15, 8, "Nether", 5, false, "textures/items/glowstone_dust"],
-  ["soul_torch", 5, 8, "Nether", 5, true, "textures/blocks/soul_torch"],
-
-  ["ender_chest", 120, 1, "Endgame", 6, true, "textures/blocks/ender_chest_front"],
-
-  ["end_crystal", 120, 1, "Endgame", 8, false, "textures/items/end_crystal"],
-  ["dragon_breath", 90, 1, "Endgame", 8, false, "textures/items/dragons_breath"],
-  ["conduit", 350, 1, "Endgame", 8, true, "textures/blocks/conduit_base"],
-
-  ["heart_of_the_sea", 160, 1, "Endgame", 7, false, "textures/items/heartofthesea_closed"]
-].map(([raw, price, amount, category, tier, block, icon]) => ({
-  id: "minecraft:" + raw, raw, price, amount, category, tier, block, icon,
-  name: raw.split("_").map(s => s[0].toUpperCase() + s.slice(1)).join(" ")
-}));
-
-const OLD_TIER_TO_NEW = [0, 2, 4, 7, 12, 18, 21, 24, 26, 28];
-const TIER_FIX = {
-  oak_log: 1, oak_planks: 1, spruce_log: 1, birch_log: 1, jungle_log: 1, acacia_log: 1, dark_oak_log: 1,
-  spruce_planks: 1, birch_planks: 1, stick: 1, crafting_table: 1, chest: 1,
-  wooden_pickaxe: 1, wooden_axe: 1, wooden_shovel: 1, wooden_sword: 1,
-  furnace: 2, torch: 3, coal: 3, coal_ore: 3,
-  gold_ore: 5, gold_ingot: 5, golden_pickaxe: 5, golden_axe: 5, golden_sword: 5,
-  lapis_lazuli: 8, crying_obsidian: 27, ancient_debris: 28, obsidian: 29
-};
-for (const item of CATALOG) {
-  let t = OLD_TIER_TO_NEW[item.tier] ?? 0;
-  if (item.category === "Redstone" && item.tier === 3) t = 9;
-  item.tier = TIER_FIX[item.raw] ?? t;
+const BLOCK_TIER = new Map();
+CORE_ID.forEach((id, i) => BLOCK_TIER.set(id, i));
+LEGACY_CORE.forEach((slug, i) => BLOCK_TIER.set("minecraft:" + slug, i));
+BLOCK_TIER.set("minecraft:stone_bricks", 25);
+BLOCK_TIER.set("minecraft:quartz_block", 26);
+BLOCK_TIER.set("minecraft:purpur_block", 26);
+function coreTier(id) { return BLOCK_TIER.get(id) ?? 0; }
+function blockValue(id) { return BLOCK_TIER.has(id) ? TIER_VALUES[BLOCK_TIER.get(id)] : 1; }
+function blockName(id) {
+  const note = /^allenscreations:core_(\d+)_note$/.exec(id);
+  if (note) return "Currency Block " + Number(note[1]);
+  return id.replace(/^[^:]*:/, "").split("_").map(w => w[0].toUpperCase() + w.slice(1)).join(" ");
 }
-function makeEntry(raw, price, amount, category, tier, block, icon) {
+const NAME_FIX = {
+  beef: "Raw Beef", porkchop: "Raw Porkchop", chicken: "Raw Chicken", mutton: "Raw Mutton",
+  rabbit: "Raw Rabbit", cod: "Raw Cod", salmon: "Raw Salmon"
+};
+function makeEntry(raw, price, amount, category, tier) {
   return {
-    id: "minecraft:" + raw, raw, price, amount, category, tier, block, icon,
-    name: raw.split("_").map(w => w[0].toUpperCase() + w.slice(1)).join(" ")
+    id: "minecraft:" + raw, raw, price, amount, category, tier,
+    name: NAME_FIX[raw] ?? raw.split("_").map(w => w[0].toUpperCase() + w.slice(1)).join(" ")
   };
 }
-CATALOG.push(
-  makeEntry("copper_ore", 14, 4, "Ores & Minerals", 3, true, "textures/blocks/copper_ore"),
-  makeEntry("copper_ingot", 12, 4, "Ores & Minerals", 3, false, "textures/items/copper_ingot")
-);
+const CATALOG = [
+  ["dirt", 2, 16, "Natural Blocks", 0],
+  ["sand", 2, 16, "Natural Blocks", 0],
+  ["gravel", 2, 16, "Natural Blocks", 0],
+  ["wheat_seeds", 2, 16, "Farming", 0],
+  ["coarse_dirt", 2, 16, "Natural Blocks", 1],
+  ["clay", 4, 8, "Natural Blocks", 2],
+  ["oak_sapling", 4, 4, "Farming", 2],
+  ["oak_log", 3, 8, "Natural Blocks", 3],
+  ["carrot", 3, 8, "Farming", 3],
+  ["potato", 3, 8, "Farming", 3],
+  ["beetroot_seeds", 3, 8, "Farming", 3],
+  ["spruce_log", 3, 8, "Natural Blocks", 4],
+  ["wheat", 4, 8, "Farming", 4],
+  ["pumpkin", 4, 4, "Farming", 4],
+  ["beetroot", 3, 8, "Farming", 4],
+  ["apple", 5, 8, "Food", 4],
+  ["birch_log", 3, 8, "Natural Blocks", 5],
+  ["white_wool", 6, 16, "Natural Blocks", 5],
+  ["pumpkin_seeds", 4, 8, "Farming", 5],
+  ["melon_seeds", 4, 8, "Farming", 5],
+  ["melon_slice", 3, 8, "Food", 5],
+  ["sugar_cane", 3, 8, "Farming", 5],
+  ["feather", 5, 8, "Mob Drops", 5],
+  ["jungle_log", 3, 8, "Natural Blocks", 6],
+  ["bamboo", 4, 8, "Farming", 6],
+  ["beef", 5, 8, "Food", 6],
+  ["porkchop", 5, 8, "Food", 6],
+  ["chicken", 4, 8, "Food", 6],
+  ["bone", 8, 8, "Mob Drops", 6],
+  ["rotten_flesh", 3, 8, "Mob Drops", 6],
+  ["leather", 8, 8, "Mob Drops", 6],
+  ["acacia_log", 3, 8, "Natural Blocks", 7],
+  ["dark_oak_log", 3, 8, "Natural Blocks", 7],
+  ["sweet_berries", 5, 8, "Farming", 7],
+  ["mutton", 5, 8, "Food", 7],
+  ["rabbit", 4, 8, "Food", 7],
+  ["string", 8, 8, "Mob Drops", 7],
+  ["mangrove_log", 4, 8, "Natural Blocks", 8],
+  ["cherry_log", 4, 8, "Natural Blocks", 8],
+  ["cobblestone", 3, 16, "Natural Blocks", 8],
+  ["cocoa_beans", 4, 8, "Farming", 8],
+  ["cod", 4, 8, "Food", 8],
+  ["salmon", 5, 8, "Food", 8],
+  ["coal", 8, 8, "Ores & Minerals", 8],
+  ["spider_eye", 8, 8, "Mob Drops", 8],
+  ["rabbit_hide", 6, 8, "Mob Drops", 8],
+  ["stone", 5, 16, "Natural Blocks", 9],
+  ["sandstone", 4, 16, "Natural Blocks", 9],
+  ["gunpowder", 10, 8, "Mob Drops", 9],
+  ["ink_sac", 7, 8, "Mob Drops", 9],
+  ["andesite", 4, 16, "Natural Blocks", 10],
+  ["red_sandstone", 5, 16, "Natural Blocks", 10],
+  ["diorite", 4, 16, "Natural Blocks", 11],
+  ["granite", 4, 16, "Natural Blocks", 12],
+  ["terracotta", 8, 16, "Natural Blocks", 12],
+  ["mossy_cobblestone", 7, 16, "Natural Blocks", 12],
+  ["slime_ball", 18, 4, "Mob Drops", 12],
+  ["moss_block", 8, 8, "Natural Blocks", 13],
+  ["coal_ore", 12, 4, "Ores & Minerals", 13],
+  ["raw_copper", 8, 8, "Ores & Minerals", 13],
+  ["tuff", 6, 16, "Natural Blocks", 14],
+  ["copper_ore", 10, 4, "Ores & Minerals", 14],
+  ["raw_iron", 14, 8, "Ores & Minerals", 14],
+  ["iron_ore", 18, 4, "Ores & Minerals", 15],
+  ["packed_ice", 12, 8, "Natural Blocks", 16],
+  ["raw_gold", 25, 4, "Ores & Minerals", 16],
+  ["prismarine_shard", 18, 4, "Mob Drops", 16],
+  ["prismarine_crystals", 20, 4, "Mob Drops", 16],
+  ["calcite", 7, 16, "Natural Blocks", 17],
+  ["gold_ore", 30, 4, "Ores & Minerals", 17],
+  ["netherrack", 12, 16, "Nether", 17],
+  ["lapis_lazuli", 18, 8, "Ores & Minerals", 18],
+  ["soul_sand", 15, 8, "Nether", 18],
+  ["deepslate", 8, 16, "Natural Blocks", 19],
+  ["redstone", 14, 8, "Ores & Minerals", 19],
+  ["basalt", 10, 16, "Nether", 19],
+  ["blackstone", 10, 16, "Nether", 19],
+  ["nautilus_shell", 45, 1, "Mob Drops", 20],
+  ["ender_pearl", 35, 2, "Endgame", 20],
+  ["crimson_stem", 8, 8, "Nether", 20],
+  ["warped_stem", 8, 8, "Nether", 20],
+  ["glowstone_dust", 15, 8, "Nether", 21],
+  ["diamond", 60, 2, "Ores & Minerals", 22],
+  ["blaze_rod", 40, 2, "Nether", 22],
+  ["quartz", 24, 8, "Nether", 22],
+  ["nether_wart", 18, 8, "Nether", 22],
+  ["diamond_ore", 90, 4, "Ores & Minerals", 23],
+  ["emerald", 65, 2, "Ores & Minerals", 23],
+  ["emerald_ore", 95, 4, "Ores & Minerals", 24],
+  ["ghast_tear", 55, 1, "Mob Drops", 24],
+  ["trident", 280, 1, "Endgame", 25],
+  ["end_stone", 25, 16, "Endgame", 25],
+  ["shulker_shell", 75, 1, "Endgame", 26],
+  ["heart_of_the_sea", 160, 1, "Endgame", 26],
+  ["chorus_fruit", 20, 4, "Endgame", 26],
+  ["crying_obsidian", 45, 4, "Nether", 27],
+  ["totem_of_undying", 900, 1, "Endgame", 27],
+  ["ancient_debris", 250, 2, "Nether", 28],
+  ["nether_star", 600, 1, "Endgame", 28],
+  ["elytra", 800, 1, "Endgame", 28],
+  ["obsidian", 30, 4, "Nether", 29]
+].map(row => makeEntry(...row));
 const SPAWN_EGGS = [
-  ["chicken", 50, 9], ["pig", 60, 9], ["cow", 60, 10], ["sheep", 60, 10], ["rabbit", 70, 10],
-  ["cat", 90, 11], ["wolf", 110, 11], ["horse", 130, 12], ["donkey", 130, 12], ["llama", 140, 12],
-  ["fox", 120, 13], ["bee", 100, 13], ["zombie", 120, 13], ["skeleton", 150, 13],
-  ["mooshroom", 160, 14], ["goat", 130, 14], ["frog", 120, 14], ["spider", 130, 14],
-  ["turtle", 150, 15], ["axolotl", 150, 15], ["creeper", 200, 15],
-  ["slime", 180, 16], ["panda", 220, 16], ["witch", 260, 17], ["camel", 240, 17],
-  ["enderman", 320, 19], ["blaze", 350, 20], ["magma_cube", 260, 20]
+    ["chicken", 50, 9], ["pig", 60, 9], ["cow", 60, 10], ["sheep", 60, 10], ["rabbit", 70, 10],
+    ["cat", 90, 11], ["wolf", 110, 11], ["horse", 130, 12], ["donkey", 130, 12], ["llama", 140, 12],
+    ["fox", 120, 13], ["bee", 100, 13], ["zombie", 120, 13], ["skeleton", 150, 13], ["mooshroom", 160, 14],
+    ["goat", 130, 14], ["frog", 120, 14], ["spider", 130, 14], ["turtle", 150, 15], ["axolotl", 150, 15],
+    ["creeper", 200, 15], ["slime", 180, 16], ["panda", 220, 16], ["witch", 260, 17], ["camel", 240, 17],
+    ["enderman", 320, 19], ["blaze", 350, 20], ["magma_cube", 260, 20]
 ];
-for (const [mob, price, tier] of SPAWN_EGGS) {
-  CATALOG.push(makeEntry(mob + "_spawn_egg", price, 1, "Spawn Eggs", tier, false, "textures/items/spawn_eggs/spawn_egg_" + mob));
-}
-const BASE_PRICE_FIX = { iron_block: 100, hay_block: 20, redstone_block: 70, netherite_block: 4500 };
-const SELL_FIX = { netherite_block: 100, ancient_debris: 40, obsidian: 10 };
-const priceMult = tier => (tier <= 5 ? 1 : 1 + (tier - 5) * 0.4);
+for (const [mob, price, tier] of SPAWN_EGGS) CATALOG.push(makeEntry(mob + "_spawn_egg", price, 1, "Spawn Eggs", tier));
+const SELL_FIX = { ancient_debris: 40, obsidian: 10 };
+const priceMult = tier => (tier <= 5 ? 1 : 1 + (tier - 5) * 0.4 + (tier - 5) * (tier - 5) * 0.012);
 for (const item of CATALOG) {
-  const base = BASE_PRICE_FIX[item.raw] ?? item.price;
-  item.sell = item.category === "Spawn Eggs" ? 0 : (SELL_FIX[item.raw] ?? Math.max(1, Math.floor(base / 2)));
-  item.price = Math.max(1, Math.round(base * priceMult(item.tier)));
+  item.sell = item.category === "Spawn Eggs" ? 0 : (SELL_FIX[item.raw] ?? Math.max(1, Math.floor(item.price / 2)));
+  item.price = Math.max(1, Math.round(item.price * priceMult(item.tier)));
   item.icon = MCICON_DIR + item.raw;
+}
+const MARKET_KEY = "obm_market";
+const HEAT_STEP = 0.15;
+const PRICE_CAP = 12;
+const HEAT_CAP = Math.log(PRICE_CAP);
+const TICKS_PER_MINUTE = 1200;
+function loadMarket() {
+  try {
+    const raw = world.getDynamicProperty(MARKET_KEY);
+    const data = typeof raw === "string" ? JSON.parse(raw) : {};
+    return data && typeof data === "object" && !Array.isArray(data) ? data : {};
+  } catch { return {}; }
+}
+function itemHeat(item, market, now) {
+  const entry = market[item.raw];
+  if (!Array.isArray(entry)) return 0;
+  const age = Math.max(0, now - entry[1]);
+  return entry[0] * Math.pow(0.5, age / ((8 + item.tier * 0.6) * TICKS_PER_MINUTE));
+}
+function unitPrice(item, heat) { return Math.max(1, Math.round(item.price * Math.min(PRICE_CAP, Math.exp(heat)))); }
+function quote(item, heat, units = item.amount) {
+  let total = 0;
+  for (let i = 0; i < units; i++) total += unitPrice(item, Math.min(HEAT_CAP, heat + HEAT_STEP * i / item.amount));
+  return total;
+}
+function demandPercent(heat) { return Math.round((Math.min(PRICE_CAP, Math.exp(heat)) - 1) * 100); }
+function recordPurchase(item, units) {
+  try {
+    const now = world.getAbsoluteTime();
+    const market = loadMarket();
+    const next = {};
+    for (const other of CATALOG) {
+      const heat = other === item
+        ? Math.min(HEAT_CAP, itemHeat(other, market, now) + HEAT_STEP * units / item.amount)
+        : itemHeat(other, market, now);
+      if (heat >= 0.02) next[other.raw] = [Math.round(heat * 1000) / 1000, now];
+    }
+    world.setDynamicProperty(MARKET_KEY, JSON.stringify(next));
+  } catch (e) { logError("recordPurchase", e); }
 }
 const LEDGER_PENDING = "obm_ledger_pending";
 const DEBUG_TAG = "obm_debug";
@@ -473,10 +407,10 @@ function showAbout(player) {
   form = addOptional(form, "label",
     "by ALNStudios\n\n" +
     "Start in the void on a single regenerating block.\n" +
-    "Break the core to earn Coins. Each block type pays its own value.\n" +
-    "Use the Natural Market Ledger to buy supplies.\n\n" +
+    "Break the core to earn Coins. Each block type pays its own value and takes its own time to break.\n" +
+    "Use the Natural Market Ledger to buy natural supplies. Prices rise when a lot is bought and slowly settle back down.\n\n" +
     "The Ledger cannot be dropped. It always returns to you.\n\n" +
-    "Version: v16 | ALNStudios | CurseForge / MCPEDL");
+    "Version: v17 | ALNStudios | CurseForge / MCPEDL");
   form = addOptional(form, "divider");
   form = form.toggle("Hide my name on the Coins scoreboard", { defaultValue: nameHidden(player) });
   form = form.submitButton("Save");
@@ -514,12 +448,16 @@ function showCategory(player, category, page = 0) {
   const pageCount = Math.max(1, Math.ceil(items.length / pageSize));
   const safePage = Math.max(0, Math.min(page, pageCount - 1));
   const visible = items.slice(safePage * pageSize, (safePage + 1) * pageSize);
+  const market = loadMarket();
+  const now = world.getAbsoluteTime();
   const form = new ActionFormData().title(category.toUpperCase())
     .body("§6Coins: §e" + balance(player) + "§r  |  Page " + (safePage + 1) + "/" + pageCount +
-      "\nTap a supply slot to buy the listed bundle." +
+      "\nTap a supply slot to buy the listed bundle. Prices rise when a lot is bought and settle back over time." +
       (locked.length ? "\nMore supplies unlock as you mine the core." : ""));
   for (const item of visible) {
-    form.button(item.name + "\n§e" + item.amount + "x - " + (item.price * item.amount) + " Coins", item.icon || undefined);
+    const heat = itemHeat(item, market, now);
+    const demand = demandPercent(heat);
+    form.button(item.name + "\n§e" + item.amount + "x - " + quote(item, heat) + " Coins" + (demand >= 5 ? " §c+" + demand + "%" : ""), item.icon || undefined);
   }
   if (safePage + 1 < pageCount) form.button("Next Page", "textures/ui/arrow_right");
   form.button("Back to Market", "textures/ui/arrow_left");
@@ -536,7 +474,8 @@ function purchase(player, item) {
   const inv = inventoryOf(player);
   if (!inv) return tell(player, "Your inventory is unavailable.");
   const funds = balance(player);
-  const totalPrice = item.price * item.amount;
+  const heat = itemHeat(item, loadMarket(), world.getAbsoluteTime());
+  const totalPrice = quote(item, heat);
   if (funds < totalPrice) return tell(player, "Not enough Coins. You need " + totalPrice + " Coins.");
   let stack;
   try { stack = new ItemStack(item.id, item.amount); } catch { return tell(player, "This item is not available in the current game version."); }
@@ -544,9 +483,10 @@ function purchase(player, item) {
   let leftover;
   try { leftover = inv.addItem(stack); } catch { leftover = stack; }
   const delivered = item.amount - (leftover?.amount ?? 0);
-  const charged = delivered * item.price;
+  const charged = quote(item, heat, delivered);
   if (charged < totalPrice) setBalance(player, balance(player) + totalPrice - charged);
   if (delivered <= 0) return tell(player, "Inventory full. No Coins were taken.");
+  recordPurchase(item, delivered);
   if (delivered < item.amount) tell(player, "Only " + delivered + " item(s) fit; charged " + charged + " Coins.");
   else tell(player, "Purchased " + delivered + " x " + item.name + " for " + charged + " Coins.");
   showBalance(player);
@@ -566,10 +506,7 @@ function scanSellable(inv, values) {
   return { slots, payout, count };
 }
 const LOCK_PREFIX = "obm_locks_";
-const DEFAULT_LOCKED = new Set(CATALOG
-  .filter(item => (item.category === "Tools & Gear" || item.category === "Combat") &&
-    /(pickaxe|_axe|_shovel|_hoe|_sword)$|^(shears|fishing_rod|bow|crossbow|trident|shield)$/.test(item.raw))
-  .map(item => item.raw));
+const DEFAULT_LOCKED = new Set(["trident", "elytra", "totem_of_undying"]);
 function lockOverrides(player) {
   try {
     const raw = world.getDynamicProperty(LOCK_PREFIX + player.name);
@@ -707,13 +644,14 @@ function rescuePhased() {
     } catch (e) { logError("rescuePhased", e); }
   }
 }
-function damageTool(player, heldId) {
+function damageTool(player, heldId, brokenId) {
   try {
     let creative = false;
     try { creative = String(player.getGameMode()).toLowerCase() === "creative"; } catch {}
     if (creative || !heldId) return;
-    const cost = /_sword$/.test(heldId) ? 2 : /(pickaxe|_axe|_shovel|_hoe|shears)$/.test(heldId) ? 1 : 0;
-    if (!cost) return;
+    const base = /_sword$/.test(heldId) ? 2 : /(pickaxe|_axe|_shovel|_hoe|shears)$/.test(heldId) ? 1 : 0;
+    if (!base) return;
+    const cost = base * (TIER_WEAR[Math.floor(coreTier(brokenId) / 5)] ?? 1);
     const slot = player.getComponent("minecraft:equippable")?.getEquipmentSlot(EquipmentSlot.Mainhand);
     const stack = slot?.getItem();
     const durability = stack?.getComponent("minecraft:durability");
@@ -818,7 +756,7 @@ world.beforeEvents.playerBreakBlock.subscribe(event => {
       log("INFO", "Core break detected by " + player.name + " (void_cleaned tag=" + player.hasTag("void_cleaned") + ").");
       if (player.hasTag("void_cleaned")) {
         onCoreBreak(player, brokenId);
-        damageTool(player, heldId);
+        damageTool(player, heldId, brokenId);
         const block = world.getDimension("overworld").getBlock(CORE);
         if (block) placeCore(block);
       }
