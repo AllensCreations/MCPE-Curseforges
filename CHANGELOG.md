@@ -4,6 +4,14 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v303] - 2026-11-26 - Letter S Flicker Fix
+
+**Spec**: spec_v303.txt | **Target**: MCPEDL/Addons/OP-Sponge | **Files edited**: 2
+
+### Fixed
+
+- **Letter S**: The S layer now sits a little further off the sponge surface, so it no longer flickers.
+
 ## [v302] - 2026-11-26 - Power Levels And Water Recheck
 
 **Spec**: spec_v302.txt | **Target**: MCPEDL/Addons/OP-Sponge | **Files edited**: 8

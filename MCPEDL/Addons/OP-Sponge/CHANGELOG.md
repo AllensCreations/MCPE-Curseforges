@@ -2,6 +2,12 @@
 
 ---
 
+## [v8] - 2026-11-26 - Letter S Flicker Fix
+
+### Fixed
+
+- **Letter S**: The S layer now sits a little further off the sponge surface, so it no longer flickers.
+
 ## [v7] - 2026-11-26 - Power Levels And Water Recheck
 
 ### Added
