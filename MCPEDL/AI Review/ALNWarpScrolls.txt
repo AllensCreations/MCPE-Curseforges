@@ -4,9 +4,9 @@
 
 - **Export request:** `MCPEDL/Addons/ALNWarpScrolls`
 - **Destination:** `MCPEDL/Addons/ALNWarpScrolls`
-- **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALNWarpScrolls/CHANGELOG.md`)
+- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/ALNWarpScrolls/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
-- **Text files:** 21
+- **Text files:** 22
 - **Skipped binary:** 13
 - **Paths not found:** 0
 
@@ -32,6 +32,7 @@
 - `MCPEDL/Addons/ALNWarpScrolls/resource_pack/texts/en_US.lang`
 - `MCPEDL/Addons/ALNWarpScrolls/resource_pack/textures/item_texture.json`
 - `MCPEDL/Addons/ALNWarpScrolls/resource_pack/textures/terrain_texture.json`
+- `MCPEDL/Addons/ALNWarpScrolls/resource_pack/ui/hud_screen.json`
 - `MCPEDL/Addons/ALNWarpScrolls/texture_sources/warp_scrolls.json`
 
 ### Skipped (binary): 13 file(s)
@@ -59,7 +60,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v1 / NEXT UPDATE: v2).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE self-contained update `.sh` (`<Pack>_v<Version>_<rand>.sh`) built with `make_update_script.py` (INSTRUCTIONS.md Reply Format).
@@ -275,11 +276,11 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:WarpScrolls (v1)",
+    "name": "ALN:WarpScrolls (v2)",
     "description": "Single-use Warp Scrolls teleport you to named Beacon Gate waypoints. by ALNStudios",
     "uuid": "385a1114-94c1-43be-a73e-c61a9eeef875",
     "version": [
-      1,
+      2,
       0,
       0
     ],
@@ -294,7 +295,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "type": "data",
       "uuid": "b557997e-6f03-4cd3-8686-94109496b2fa",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -305,7 +306,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "uuid": "3db2e03b-b444-4245-9c6e-67bbf6a4578c",
       "entry": "scripts/main.js",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -315,7 +316,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     {
       "uuid": "08b3a65a-a0d1-453a-a445-72cc1a9b1682",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -334,7 +335,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "2.0.0"
   }
 }
 ```
@@ -423,7 +424,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNWarpScrolls/behavior_pack/scripts/lib/config.js (20 lines, 640 bytes)
+## FILE: MCPEDL/Addons/ALNWarpScrolls/behavior_pack/scripts/lib/config.js (26 lines, 845 bytes)
 
 ```
 export const GATE_ID = "aln:beacon_gate";
@@ -433,6 +434,12 @@ export const MAX_GATES = 100;
 export const MAX_NAME = 24;
 export const WARP_TICKS = 60;
 export const PARTICLE_STEP = 2;
+export const NAUSEA_AMPLIFIER = 4;
+export const EYES_MARKER = "aln_eyes";
+export const EYES_HOLD_TICKS = 10;
+export const SPHERE_RADIUS = 1.4;
+export const SPHERE_RINGS = 12;
+export const SPHERE_LEAD = 6;
 export const SOUND = {
   charge: "aln.warp.charge",
   arrive: "aln.warp.arrive",
@@ -507,7 +514,7 @@ export async function chooseGate(player, gates) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNWarpScrolls/behavior_pack/scripts/lib/README.md (7 lines, 281 bytes)
+## FILE: MCPEDL/Addons/ALNWarpScrolls/behavior_pack/scripts/lib/README.md (7 lines, 303 bytes)
 
 ```
 # ALN:WarpScrolls script modules
@@ -515,7 +522,7 @@ export async function chooseGate(player, gates) {
 - `config.js`: ids, sound names, timing and dimension colors.
 - `registry.js`: Beacon Gate list saved in the world.
 - `menus.js`: the naming form and the destination menu.
-- `warp.js`: cooldown, Nausea, particles, teleport and scroll consumption.
+- `warp.js`: cooldown, Nausea, eyelid screen, particle spheres, teleport and scroll consumption.
 ```
 
 ## FILE: MCPEDL/Addons/ALNWarpScrolls/behavior_pack/scripts/lib/registry.js (66 lines, 1626 bytes)
@@ -588,11 +595,23 @@ export function removeGateAt(dim, x, y, z) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNWarpScrolls/behavior_pack/scripts/lib/warp.js (186 lines, 5322 bytes)
+## FILE: MCPEDL/Addons/ALNWarpScrolls/behavior_pack/scripts/lib/warp.js (250 lines, 6955 bytes)
 
 ```
 import { world, system, ItemComponentTypes, EntityInventoryComponent } from "@minecraft/server";
-import { GATE_ID, SCROLL_ID, WARP_TICKS, PARTICLE_STEP, SOUND } from "./config.js";
+import {
+  GATE_ID,
+  SCROLL_ID,
+  WARP_TICKS,
+  PARTICLE_STEP,
+  SOUND,
+  NAUSEA_AMPLIFIER,
+  EYES_MARKER,
+  EYES_HOLD_TICKS,
+  SPHERE_RADIUS,
+  SPHERE_RINGS,
+  SPHERE_LEAD,
+} from "./config.js";
 import { removeGateAt } from "./registry.js";
 
 const active = new Set();
@@ -664,20 +683,69 @@ function spawn(dimension, id, location) {
   }
 }
 
-function chargeParticles(player, tick) {
-  const dimension = player.dimension;
-  const base = player.location;
-  const progress = tick / WARP_TICKS;
-  const radius = 1.5 - progress * 0.9;
-  for (let k = 0; k < 3; k++) {
-    const angle = tick * 0.4 + (k * Math.PI * 2) / 3;
-    spawn(dimension, "minecraft:basic_portal_particle", {
-      x: base.x + Math.cos(angle) * radius,
-      y: base.y + 0.2 + progress * 1.7,
-      z: base.z + Math.sin(angle) * radius,
+function sphereFrame(dimension, center, progress, tick) {
+  const radius = SPHERE_RADIUS;
+  const reach = Math.min(progress, 1) * 2 * radius;
+  for (let ring = 0; ring <= SPHERE_RINGS; ring++) {
+    const rise = (ring / SPHERE_RINGS) * 2 * radius;
+    if (rise > reach) break;
+    const lat = rise - radius;
+    const ringRadius = Math.sqrt(Math.max(radius * radius - lat * lat, 0));
+    const points = Math.max(1, Math.round(ringRadius * 5));
+    const spin = tick * 0.35 + ring * 0.7;
+    for (let p = 0; p < points; p++) {
+      const angle = spin + (p / points) * Math.PI * 2;
+      spawn(dimension, "minecraft:basic_portal_particle", {
+        x: center.x + Math.cos(angle) * ringRadius,
+        y: center.y + rise,
+        z: center.z + Math.sin(angle) * ringRadius,
+      });
+    }
+  }
+  const frontLat = reach - radius;
+  const frontRadius = Math.sqrt(Math.max(radius * radius - frontLat * frontLat, 0));
+  for (let p = 0; p < 18; p++) {
+    const angle = tick * 0.5 + (p / 18) * Math.PI * 2;
+    spawn(dimension, "minecraft:endrod", {
+      x: center.x + Math.cos(angle) * frontRadius,
+      y: center.y + reach,
+      z: center.z + Math.sin(angle) * frontRadius,
     });
   }
-  spawn(dimension, "minecraft:endrod", { x: base.x, y: base.y + 0.3 + progress * 1.6, z: base.z });
+}
+
+function chargeParticles(player, tick) {
+  const base = player.location;
+  sphereFrame(player.dimension, { x: base.x, y: base.y - 0.5, z: base.z }, tick / (WARP_TICKS - SPHERE_LEAD), tick);
+}
+
+function risingSphere(dimension, spot) {
+  let step = 0;
+  const handle = system.runInterval(() => {
+    step += 1;
+    sphereFrame(dimension, { x: spot.x, y: spot.y - 0.5, z: spot.z }, step / 6, step * PARTICLE_STEP);
+    if (step >= 6) system.clearRun(handle);
+  }, PARTICLE_STEP);
+}
+
+function closeEyes(player) {
+  try {
+    player.onScreenDisplay.setTitle(EYES_MARKER, {
+      fadeInDuration: 0,
+      stayDuration: WARP_TICKS + EYES_HOLD_TICKS,
+      fadeOutDuration: 0,
+    });
+  } catch {
+    return;
+  }
+}
+
+function openEyes(player) {
+  try {
+    player.onScreenDisplay.setTitle("");
+  } catch {
+    return;
+  }
 }
 
 export function arrivalBurst(dimension, at) {
@@ -735,6 +803,7 @@ function complete(player, gate) {
   }
   player.playSound(SOUND.arrive, { volume: 1, pitch: 1 });
   arrivalBurst(dimension, spot);
+  risingSphere(dimension, spot);
   system.runTimeout(() => {
     if (player.isValid) breakEffects(player);
   }, 6);
@@ -751,11 +820,12 @@ export function beginWarp(player, item, gate) {
     tell(player, "§7The cooldown overlay could not start.");
   }
   try {
-    player.addEffect("nausea", WARP_TICKS, { amplifier: 0, showParticles: false });
+    player.addEffect("nausea", WARP_TICKS, { amplifier: NAUSEA_AMPLIFIER, showParticles: false });
   } catch {
     tell(player, "§7The nausea effect could not start.");
   }
   player.playSound(SOUND.charge, { volume: 1, pitch: 1 });
+  closeEyes(player);
   let tick = 0;
   const handle = system.runInterval(() => {
     if (!player.isValid) {
@@ -769,6 +839,7 @@ export function beginWarp(player, item, gate) {
       return;
     }
     system.clearRun(handle);
+    openEyes(player);
     try {
       complete(player, gate);
     } finally {
@@ -865,12 +936,21 @@ world.afterEvents.itemUse.subscribe((event) => {
 });
 ```
 
-## FILE: MCPEDL/Addons/ALNWarpScrolls/CHANGELOG.md (13 lines, 637 bytes)
+## FILE: MCPEDL/Addons/ALNWarpScrolls/CHANGELOG.md (22 lines, 1120 bytes)
 
 ```
 # Changelog — ALN:WarpScrolls
 
 ---
+
+## [v2] - 2026-11-26 - Recall Sphere and Eyelid Screen
+
+### Added
+- **Recall sphere**: A hollow sphere of portal particles now rises from your feet to above your head while the scroll charges, and a second sphere rises around you on arrival.
+- **Eyelid screen**: Your eyelids slowly close over the screen during the 3-second charge and snap open when you arrive.
+
+### Improved & Balanced
+- **Stronger Nausea**: The Nausea applied during the warp now uses a higher strength setting.
 
 ## [1.0.0] - 2026-11-25 - First Release
 
@@ -882,7 +962,7 @@ world.afterEvents.itemUse.subscribe((event) => {
 - **32x32 textures**: Hand-drawn pixel art for the Beacon Gate and the Warp Scroll.
 ```
 
-## FILE: MCPEDL/Addons/ALNWarpScrolls/DESCRIPTION.md (80 lines, 4796 bytes)
+## FILE: MCPEDL/Addons/ALNWarpScrolls/DESCRIPTION.md (80 lines, 5035 bytes)
 
 ```
 # ALN:WarpScrolls — Teleport Scrolls and Named Waypoint Gates
@@ -913,9 +993,9 @@ Place a Beacon Gate wherever you want a destination and give it a name. Later, r
 - **Good To Know**: A Warp Scroll stacks to 1 and is used up when the teleport finishes.
 
 ### 3-Second Warp Sequence
-- **What Happens**: After you pick a gate, the scroll shows a 3-second cooldown sweep, you get 3 seconds of Nausea, and portal particles spiral around you while a rising charge sound plays.
-- **How It Works**: When the 3 seconds end, you land on the block directly above the Beacon Gate, an arrival chime and particle burst play, and the scroll tears apart.
-- **Good To Know**: If the scroll leaves your inventory during the charge, the warp fizzles out.
+- **What Happens**: After you pick a gate, the scroll shows a 3-second cooldown sweep, you get 3 seconds of stronger Nausea, your eyelids slowly close over the screen, and a hollow sphere of portal particles rises from your feet to above your head while a rising charge sound plays.
+- **How It Works**: When the 3 seconds end, your eyes snap open, you land on the block directly above the Beacon Gate, a second sphere rises around you, an arrival chime and particle burst play, and the scroll tears apart.
+- **Good To Know**: If the scroll leaves your inventory during the charge, the warp fizzles out. The eyelid screen comes from the Resource Pack, so keep it enabled with the Behavior Pack.
 
 ### Custom Sound Effects
 - **What Happens**: Four new sounds ship with the pack: the warp charge, the crystal arrival, the paper and glass scroll break, and the gate registration chime.
@@ -974,17 +1054,21 @@ Minecraft Bedrock add-on, ALN:WarpScrolls Bedrock mod, teleport scroll, waypoint
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNWarpScrolls/README.md (19 lines, 793 bytes)
+## FILE: MCPEDL/Addons/ALNWarpScrolls/README.md (23 lines, 1034 bytes)
 
 ```
 # ALNWarpScrolls
+
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-Not%20Published-lightgrey?style=flat-square&logo=curseforge)](https://www.curseforge.com/members/allenscreations/projects)
+<!-- CURSEFORGE-BADGE:END -->
 
 Download the current release of **ALNWarpScrolls** for Minecraft Bedrock Edition.
 
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNWarpScrolls (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNWarpScrolls/ALNWarpScrolls%20V1.mcaddon)
+- **Direct download:** [Download ALNWarpScrolls (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNWarpScrolls/ALNWarpScrolls%20V2.mcaddon)
 
 ## Installation
 
@@ -1003,11 +1087,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:WarpScrolls (v1)",
+    "name": "ALN:WarpScrolls (v2)",
     "description": "Single-use Warp Scrolls teleport you to named Beacon Gate waypoints. by ALNStudios",
     "uuid": "08b3a65a-a0d1-453a-a445-72cc1a9b1682",
     "version": [
-      1,
+      2,
       0,
       0
     ],
@@ -1022,7 +1106,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "4c87a017-0e29-48d2-84d7-78e2e429cf10",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -1033,7 +1117,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "2.0.0"
   }
 }
 ```
@@ -1099,6 +1183,113 @@ tile.aln:beacon_gate.name=Beacon Gate
     "aln_beacon_gate": {
       "textures": "textures/blocks/beacon_gate"
     }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNWarpScrolls/resource_pack/ui/hud_screen.json (103 lines, 1951 bytes)
+
+```
+{
+  "aln_lid_close": {
+    "anim_type": "size",
+    "easing": "linear",
+    "from": [
+      "100%",
+      "0%"
+    ],
+    "to": [
+      "100%",
+      "51%"
+    ],
+    "duration": 2.6
+  },
+  "aln_lid_top": {
+    "type": "image",
+    "texture": "textures/ui/Black",
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "size": [
+      "100%",
+      "0%"
+    ],
+    "layer": 10,
+    "anims": [
+      "@hud.aln_lid_close"
+    ]
+  },
+  "aln_lid_bottom": {
+    "type": "image",
+    "texture": "textures/ui/Black",
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "size": [
+      "100%",
+      "0%"
+    ],
+    "layer": 10,
+    "anims": [
+      "@hud.aln_lid_close"
+    ]
+  },
+  "aln_eyes": {
+    "type": "panel",
+    "size": [
+      "100%",
+      "100%"
+    ],
+    "layer": 10,
+    "controls": [
+      {
+        "top@hud.aln_lid_top": {}
+      },
+      {
+        "bottom@hud.aln_lid_bottom": {}
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_eyes')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_eyes_factory": {
+    "type": "panel",
+    "factory": {
+      "name": "hud_title_text_factory",
+      "control_ids": {
+        "hud_title_text": "aln_eyes@hud.aln_eyes"
+      }
+    }
+  },
+  "hud_title_text/title_frame/title": {
+    "modifications": [
+      {
+        "array_name": "bindings",
+        "operation": "insert_back",
+        "value": {
+          "binding_type": "view",
+          "source_property_name": "(not (#text = 'aln_eyes'))",
+          "target_property_name": "#visible"
+        }
+      }
+    ]
+  },
+  "root_panel": {
+    "modifications": [
+      {
+        "array_name": "controls",
+        "operation": "insert_front",
+        "value": {
+          "aln_eyes_factory@hud.aln_eyes_factory": {}
+        }
+      }
+    ]
   }
 }
 ```
