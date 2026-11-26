@@ -1,0 +1,8 @@
+{
+  "changelog_version": "7.0.0",
+  "manifest_version": "7.0.0",
+  "packages": {
+    "ALNSpiritSphere V7.mcaddon": "a22abd562ff4a8e1b3b7f443ee7ff3bc93dbba8110cbc5fa767d15c1c7b0ccd9"
+  },
+  "source_sha256": "68639b5bbb7a99b4eb6966449c0621730440101635815b20db79fdad93ab1258"
+}

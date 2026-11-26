@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Addons/ALNSpiritSphere`
 - **Destination:** `MCPEDL/Addons/ALNSpiritSphere`
-- **CURRENT VERSION: v6 / NEXT UPDATE: v7**  (`MCPEDL/Addons/ALNSpiritSphere/CHANGELOG.md`)
+- **CURRENT VERSION: v7 / NEXT UPDATE: v8**  (`MCPEDL/Addons/ALNSpiritSphere/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 50
 - **Skipped binary:** 125
@@ -116,7 +116,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v6 / NEXT UPDATE: v7).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v7 / NEXT UPDATE: v8).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE self-contained update `.sh` (`<Pack>_v<Version>_<rand>.sh`) built with `make_update_script.py` (INSTRUCTIONS.md Reply Format).
@@ -154,36 +154,31 @@ Output ONLY these three sections in order:
 ```markdown
 ---
 name: mcpe-context7
-description: Use before looking up ANY repo rule, repo script, Bedrock API member, vanilla id, texture, recipe, component, manifest field or version for the MCPE-Curseforges repo. Routes each need to one of the four Context7 libraries and says when a script must come from the kit zip instead.
+description: Use before looking up ANY Bedrock API member, vanilla id, texture, recipe, component, manifest field or version for the MCPE-Curseforges repo. Routes each need to one of the three Context7 libraries and says when a script must come from the kit zip instead.
 ---
 
 # mcpe-context7: Where to Look Things Up
 
 ## Authority
 
-- `INSTRUCTIONS.md` 1.16 (copy in `docs/instructions-reference.md`) is the policy. This skill is only its routing table and never overrides it.
-- An AI review kit (`*_tools.txt` inside the kit zip) holds a directory map and skills, no file contents. That is on purpose: read what the task needs through Context7, not from a pasted dump.
+- `INSTRUCTIONS.md` 1.16 (copy in the kit zip's instruction files) is the policy. This skill is only its routing table and never overrides it.
+- Repo rules, scripts and pack files come from the **kit zip** (`New-Pack.zip`, `Maintenance.zip` or the pack's review zip), NOT from Context7. The zip is always fresher.
 
-## Libraries (ONLY these four, IDs exactly, `query-docs` only)
+## Libraries (ONLY these three, IDs exactly, `query-docs` only)
 
 - `/microsoftdocs/minecraft-creator`: `@minecraft/server` and `@minecraft/server-ui` API, JSON schemas, stable and module versions.
 - `/mojang/bedrock-samples`: vanilla ids, textures, recipes, components, entities, formats, `version.json`.
 - `/websites/wiki_bedrock_dev`: manifest structure, scripting guides, techniques.
-- `/allenscreations/mcpe-curseforges`: this repo's rules, script summaries and Bedrock guide. Context7 indexes ONLY `docs/`.
 
 NEVER call `resolve-library-id`. NEVER query any other library.
 
-## Repo lookups (`/allenscreations/mcpe-curseforges`, `docs/` only)
+## Repo lookups (from the kit zip, NOT Context7)
 
-- `docs/instructions-reference.md`: `INSTRUCTIONS.md`, `DOCS_RULES.md`, `PACK_GENERATOR_INSTRUCTIONS.md` (Reply Format, Termux Script Rules, versions 1.3, recipes 1.4 and 1.5, templates 2.5, new packs Part 4).
-- `docs/scripts-and-workflows.md`: summary of every script and workflow, update spec syntax (`apply_update.py`, `make_update_script.py`).
-- `docs/mcicons-index.md`: every Minecraft icon id in MCicons (generated).
-- `docs/bedrock-guide.md`: add-on architecture, folder structure, manifest setup, target API versions.
-- Meaning of a build or doc check message: query the exact message text with the script name.
+Repo rules, scripts, instruction files, `DOCS_RULES.md`, `PACK_GENERATOR_INSTRUCTIONS.md`, `docs/mcicons-index.md`, `docs/bedrock-guide.md` and all script files come from the kit zip under `files/`. Read them from there. Context7 no longer indexes this repo.
 
 ## Rules
 
-1. Query first, write second. Batch: at most ONE `query-docs` call per needed `libraryId`, covering every topic needed from it, all calls in one parallel turn. NEVER two calls to the same `libraryId`. Name the exact member, file, id or schema and the game or module version.
+1. Query first, write second. Batch: at most ONE `query-docs` call per needed `libraryId`, covering every topic needed from it. NEVER two calls to the same `libraryId`. Name the exact member, file, id or schema and the game or module version. All three calls may go in one parallel turn.
 2. Verify every import, class, method, property and JSON field against the retrieved text. NEVER `mojang-minecraft`, `world.events` or 1.x syntax.
 3. Empty or doubtful result: no sequential retry loop. Say "not verified". NEVER fill the gap from memory.
 4. Versions come only from retrieved text. State the exact version used and the query date.
@@ -192,23 +187,22 @@ NEVER call `resolve-library-id`. NEVER query any other library.
 
 ## Scripts that must run
 
-- `make_pack_script.py`, `build_payload.py`, `import_project_payload.py`, `doc_template.py`, `pixel_json_to_png.py`, `make_update_script.py` and `apply_update.py` need their COMPLETE unchanged text. A Context7 snippet is not enough.
-- The complete files are in the kit zip (`New-Pack.zip`, `Maintenance.zip` or the pack's review zip `<Pack>.zip`) under `files/`. Specifically, `make_update_script.py`, `apply_update.py`, `pixel_json_to_png.py`, and `docs/mcicons-index.md` are packaged under `files/`. Unzip, run from there, NEVER retype or edit them.
-- No zip and only partial text from a query: stop and ask the user to attach the zip. NEVER rewrite a script from memory.
-- A file attached in the conversation or read from a clone wins over the Context7 index. Context7 shows the repo as last indexed. Tell the user about any difference.
+- `make_pack_script.py`, `build_payload.py`, `import_project_payload.py`, `doc_template.py`, `pixel_json_to_png.py`, `make_update_script.py` and `apply_update.py` need their COMPLETE unchanged text.
+- The complete files are in the kit zip (`New-Pack.zip`, `Maintenance.zip` or the pack's review zip `<Pack>.zip`) under `files/`. Unzip, run from there, NEVER retype or edit them.
+- No zip: stop and ask the user to attach the zip. NEVER rewrite a script from memory.
 
 ## Icons (MCicons)
 
-- Any vanilla item or block icon (recipe diagrams, sprites, README or listing images, UI art): use MCicons ONLY. It is the release file `reference/mcicons/mcicons-<ver>.tgz` in the repo (`package/dist/icons/minecraft_<id>.png`, 64x64, only `minecraft:` ids). It is NOT in Context7: read it with `scripts/lib/mcicons.py` (`has_icon(id)`, `icon_image(id)`), never retype or guess a PNG.
+- Any vanilla item or block icon (recipe diagrams, sprites, README or listing images, UI art): use MCicons ONLY. It is the release file `reference/mcicons/mcicons-<ver>.tgz` in the repo (`package/dist/icons/minecraft_<id>.png`, 64x64, only `minecraft:` ids). Read it with `scripts/lib/mcicons.py` (`has_icon(id)`, `icon_image(id)`), never retype or guess a PNG.
 - No icon for the id (custom ids, newer items): report it. NO fallback to Samples, the Wiki, another icon site or a third-party pack.
-- Context7 cannot index the binary `.tgz`, but `docs/mcicons-index.md` (`/allenscreations/mcpe-curseforges`) lists every icon id it holds: query it to check an id before using an icon.
+- `docs/mcicons-index.md` (in the kit zip under `files/`) lists every icon id it holds: check it before using an icon.
 - The `.tgz` itself is not in the kit zips. To run code that reads the pixels it must be in the clone; if it is missing, ask the user to attach it. NEVER substitute a lookalike.
 - Every manifest (BP and RP) carries `metadata.authors` = `["ALNStudios"]` and `metadata.product_type` = `"addon"`, always.
 - Keep its `ASSET-NOTICE.md` with any redistributed icon.
 
 ## Reading the directory map
 
-- The map lists directories with file counts. Pick the folder, then query for the file. For exact file text of a pack, ask for a Collect Files export of that path.
+- The map lists directories with file counts. Pick the folder, then read the file from the zip. For exact file text of a pack, ask for a Collect Files export of that path.
 - NEVER edit generated folders and files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`, `builds/README.md`.
 ```
 
@@ -674,11 +668,11 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:SpiritSphere Behavior Pack (v6)",
+    "name": "ALN:SpiritSphere Behavior Pack (v7)",
     "description": "Charge one of ten elemental Spirit Spheres and release a Ghast-style energy orb by ALNStudios",
     "uuid": "951ab0f1-53a7-45a3-80fc-a610ec8e217b",
     "version": [
-      6,
+      7,
       0,
       0
     ],
@@ -693,7 +687,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "type": "data",
       "uuid": "d58017bb-894b-4fd8-a26a-d2ab81d83a4e",
       "version": [
-        6,
+        7,
         0,
         0
       ]
@@ -703,7 +697,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "language": "javascript",
       "uuid": "ad6704ec-178d-4dd3-b3eb-1a719bd5b2f0",
       "version": [
-        6,
+        7,
         0,
         0
       ],
@@ -714,7 +708,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
     {
       "uuid": "c05699f5-364c-44cb-9978-490a4bc716e4",
       "version": [
-        6,
+        7,
         0,
         0
       ]
@@ -729,7 +723,7 @@ bash ~/storage/downloads/<PackName>_v<Version>_*.sh
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "6.0.0"
+    "version": "7.0.0"
   }
 }
 ```
@@ -1160,7 +1154,7 @@ export function chargeSound(player, held, mode) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/elements.js (117 lines, 2610 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/elements.js (117 lines, 2611 bytes)
 
 ```
 export const ORB_ID = "aln:spirit_orb";
@@ -1263,7 +1257,7 @@ export const MODES = [
     name: "Chrono Stasis",
     code: "§3",
     color: { red: 0.4, green: 0.9, blue: 0.95 },
-    speed: 1.2,
+    speed: 0.45,
   },
 ];
 
@@ -1367,12 +1361,12 @@ system.runInterval(() => {
 }, 1);
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/orbs.js (250 lines, 7454 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/orbs.js (346 lines, 10725 bytes)
 
 ```
 import { world } from "@minecraft/server";
 import { MODES, ORB_ID, FULL_TICKS, OVER_TICKS, MAX_ORB_AGE, powerOf } from "./elements.js";
-import { sound, impactBurst, orbTrail, handPoint, voidSwirl } from "./visuals.js";
+import { sound, impactBurst, orbTrail, handPoint, voidSwirl, basisOf } from "./visuals.js";
 
 const orbs = new Map();
 const PLAYER_ID = "minecraft:player";
@@ -1553,6 +1547,100 @@ function tickAnchors() {
   }
 }
 
+const PATHS = {
+  aero: { kind: "spiral", w: 0.8, k: 0.384 },
+  blaze: { kind: "arc", g: 0.012, up: 0 },
+  frost: { kind: "arc", g: 0.045, up: 0.3 },
+  storm: { kind: "zigzag", w: 0.9, k: 0.7 },
+  void: { kind: "home", k: 0.1, range: 16 },
+  terra: { kind: "arc", g: 0.06, up: 0.35 },
+  toxic: { kind: "wobble", k: 0.06 },
+  gravity: { kind: "curve", k: 0.025 },
+  life: { kind: "seek", k: 0.12, range: 24 },
+  chrono: { kind: "accel", k: 0.03, ticks: 40 },
+};
+
+function startPath(orb, id, view, f) {
+  const cfg = PATHS[id];
+  if (!cfg) return null;
+  const { right, up } = basisOf(view);
+  const p = { ...cfg, view, right, up, t: 0, side: Math.random() < 0.5 ? -1 : 1 };
+  try {
+    if (cfg.kind === "spiral") {
+      const ur = cfg.k / 2;
+      const uu = -cfg.k / 2 / Math.tan(cfg.w / 2);
+      orb.applyImpulse({ x: right.x * ur + up.x * uu, y: right.y * ur + up.y * uu, z: right.z * ur + up.z * uu });
+    } else if (cfg.kind === "zigzag") {
+      orb.applyImpulse({ x: right.x * (cfg.k / 2), y: 0, z: right.z * (cfg.k / 2) });
+    } else if (cfg.kind === "arc" && cfg.up > 0) {
+      orb.applyImpulse({ x: 0, y: cfg.up, z: 0 });
+    }
+  } catch (e) {}
+  if (cfg.kind === "accel") p.k = cfg.k + 0.03 * f;
+  return p;
+}
+
+function homeIn(s, p, loc) {
+  let found;
+  try {
+    found = s.dimension.getEntities(
+      p.kind === "seek"
+        ? { location: loc, maxDistance: p.range, type: PLAYER_ID }
+        : { location: loc, maxDistance: p.range, families: ["mob"] }
+    );
+  } catch (e) {
+    return;
+  }
+  let best = null;
+  let bestD = Infinity;
+  for (const e of found) {
+    if (e.id === s.owner || e.typeId === ORB_ID) continue;
+    if (p.kind === "home" && e.typeId === PLAYER_ID) continue;
+    try {
+      const l = e.location;
+      const d = Math.hypot(l.x - loc.x, l.y + 1 - loc.y, l.z - loc.z);
+      if (d < bestD) {
+        best = l;
+        bestD = d;
+      }
+    } catch (err) {}
+  }
+  if (!best || bestD < 0.01) return;
+  s.orb.applyImpulse({
+    x: ((best.x - loc.x) / bestD) * p.k,
+    y: ((best.y + 1 - loc.y) / bestD) * p.k,
+    z: ((best.z - loc.z) / bestD) * p.k,
+  });
+}
+
+function steerOrb(s, loc) {
+  const p = s.path;
+  if (!p) return;
+  p.t++;
+  const o = s.orb;
+  if (p.kind === "spiral") {
+    const c = Math.cos(p.w * p.t) * p.k;
+    const n = Math.sin(p.w * p.t) * p.k;
+    o.applyImpulse({ x: p.right.x * c + p.up.x * n, y: p.right.y * c + p.up.y * n, z: p.right.z * c + p.up.z * n });
+  } else if (p.kind === "zigzag") {
+    const c = Math.cos(p.w * p.t) * p.k;
+    o.applyImpulse({ x: p.right.x * c, y: 0, z: p.right.z * c });
+  } else if (p.kind === "arc") {
+    o.applyImpulse({ x: 0, y: -p.g, z: 0 });
+  } else if (p.kind === "wobble") {
+    const a = (Math.random() * 2 - 1) * p.k;
+    const b = (Math.random() * 2 - 1) * p.k;
+    o.applyImpulse({ x: p.right.x * a + p.up.x * b, y: p.right.y * a + p.up.y * b, z: p.right.z * a + p.up.z * b });
+  } else if (p.kind === "curve") {
+    const c = p.k * p.side;
+    o.applyImpulse({ x: p.right.x * c, y: 0, z: p.right.z * c });
+  } else if (p.kind === "accel") {
+    if (p.t <= p.ticks) o.applyImpulse({ x: p.view.x * p.k, y: p.view.y * p.k, z: p.view.z * p.k });
+  } else {
+    homeIn(s, p, loc);
+  }
+}
+
 export function launchOrb(player, modeIndex, held) {
   const mode = MODES[modeIndex];
   const f = powerOf(held);
@@ -1572,6 +1660,7 @@ export function launchOrb(player, modeIndex, held) {
     age: 0,
     last: start,
     lob: f < 0.35 ? 0.035 * (1 - f / 0.35) : 0,
+    path: startPath(orb, mode.id, view, f),
   });
   sound(dimension, `${mode.sfx}.launch`, start);
 }
@@ -1585,6 +1674,7 @@ export function tickOrbs() {
       s.age++;
       orbTrail(s.dimension, loc, s.mode.color, s.age);
       if (s.lob > 0) s.orb.applyImpulse({ x: 0, y: -s.lob, z: 0 });
+      steerOrb(s, loc);
       if (s.age > MAX_ORB_AGE) {
         orbs.delete(id);
         if (s.mode.id === "void") anchorOrb(id, s, loc);
@@ -1621,7 +1711,7 @@ export function registerHits() {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/visuals.js (140 lines, 4864 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/visuals.js (177 lines, 6122 bytes)
 
 ```
 import { MolangVariableMap } from "@minecraft/server";
@@ -1662,11 +1752,10 @@ export function basisOf(view) {
 
 export function handPoint(player, view) {
   const loc = player.location;
-  const { right } = basisOf(view);
   return {
-    x: loc.x + view.x * 0.9 + right.x * 0.4,
+    x: loc.x + view.x * 0.9,
     y: loc.y + 1.2 + view.y * 0.9,
-    z: loc.z + view.z * 0.9 + right.z * 0.4,
+    z: loc.z + view.z * 0.9,
   };
 }
 
@@ -1710,11 +1799,49 @@ export function phaseOf(held) {
   return 1;
 }
 
+function energyHands(dimension, player, center, view, held, color) {
+  const { right, up } = basisOf(view);
+  const loc = player.location;
+  const k = Math.min(held / FULL_TICKS, 1);
+  const spread = held >= BURST_TICK ? 0.8 : 0.65 - 0.35 * k;
+  const at = (a, b, c) => ({
+    x: center.x + right.x * a + up.x * b + view.x * c,
+    y: center.y + right.y * a + up.y * b + view.y * c,
+    z: center.z + right.z * a + up.z * b + view.z * c,
+  });
+  for (const side of [-1, 1]) {
+    const palm = at(side * spread, -0.12, -0.12);
+    puff(dimension, MID, palm, color);
+    for (let f = 0; f < 4; f++) {
+      const rise = -0.12 + f * 0.1;
+      for (let j = 1; j <= 3; j++) {
+        const t = j / 3;
+        puff(dimension, SMALL, at(side * spread * (1 - 0.45 * t), rise, -0.12 + 0.24 * t), color);
+      }
+    }
+    const shoulder = { x: loc.x + right.x * side * 0.38, y: loc.y + 1.3, z: loc.z + right.z * side * 0.38 };
+    for (let j = 1; j <= 5; j++) {
+      const t = j / 6;
+      puff(
+        dimension,
+        SMALL,
+        {
+          x: shoulder.x + (palm.x - shoulder.x) * t,
+          y: shoulder.y + (palm.y - shoulder.y) * t,
+          z: shoulder.z + (palm.z - shoulder.z) * t,
+        },
+        color
+      );
+    }
+  }
+}
+
 export function renderCharge(player, held, mode) {
   const dimension = player.dimension;
   const view = player.getViewDirection();
   const center = handPoint(player, view);
   const phase = phaseOf(held);
+  if (held % 2 === 0) energyHands(dimension, player, center, view, held, mode.color);
   if (phase === 1) {
     if (held % 2 === 0) ring(dimension, center, view, 0.55, 8, held * 0.25, SMALL, mode.color);
     if (held % 6 === 0) puff(dimension, PULL_HAND, center, mode.color);
@@ -1765,12 +1892,22 @@ export function voidSwirl(dimension, center, radius, color, tick) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/CHANGELOG.md (58 lines, 3223 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/CHANGELOG.md (68 lines, 3845 bytes)
 
 ```
 # Changelog — ALN:SpiritSphere
 
 ---
+
+## [7.0.0] - 2026-11-26 - Flight Paths and Energy Hands
+
+### Added
+- **Flight paths**: Each of the ten spheres now flies its own path, from a spiral and a zigzag to arcs, homing, a wobble, a side curve and a speed-up.
+- **Energy hands**: Glowing particle hands and arms now appear on both sides of the sphere while you charge, so it looks held in two hands.
+
+### Improved & Balanced
+- **Sphere position**: The charging sphere and the launch point now sit in front of your chest instead of beside your right hand.
+- **Chrono Stasis speed**: The orb now starts at about 40 percent of its old speed and speeds up in flight.
 
 ## [6.0.0] - 2026-11-25 - Ten Spheres
 
@@ -1827,7 +1964,7 @@ export function voidSwirl(dimension, center, radius, color, tick) {
 - **Five elements**: Players can sneak and use the focus to switch between Aero Vortex, Blaze Solar, Frost Nova, Storm Surge and Void Singularity.
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/DESCRIPTION.md (98 lines, 7252 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/DESCRIPTION.md (104 lines, 8001 bytes)
 
 ```
 # ALN:SpiritSphere — Chargeable Elemental Energy Orbs
@@ -1869,6 +2006,12 @@ Each sphere has its own color and impact behavior. There is no switching: carry 
 
 ### Charge-Scaled Orb
 - **What Happens**: Releasing fires the Spirit Orb along your aim. A quick release lobs a slow orb with a small blast, a medium charge flies steadily, and a full charge flies almost straight and fast with a cratering explosion.
+
+### Energy Hands
+- **What Happens**: While you charge, glowing energy hands made of particles appear on both sides of the sphere, with energy arms running back to your shoulders. The hands close in as the sphere compresses and spread apart when it bursts open.
+
+### Flight Paths
+- **What Happens**: Each sphere flies its own way. Aero Vortex corkscrews in a spiral, Blaze Solar flies fast with a slight fireball drop, Frost Nova lobs in a high arc, Storm Surge zigzags side to side, Void Singularity slowly homes in on the nearest mob, Terra Quake flies as a heavy boulder arc, Toxic Bloom wobbles unpredictably, Gravity Warp bends in a wide curve to one side, Life Bloom seeks the nearest other player and Chrono Stasis starts slow and speeds up.
 
 ### Sweet Spot and Fading
 - **What Happens**: Full power lasts from 50 to 62 ticks. If you keep holding, the sphere shrinks, its tone falls in pitch, and the shot slowly weakens over the next 3 seconds down to 40 percent of its speed and blast. The action bar shows the current power.
@@ -1951,7 +2094,7 @@ Download the current release of **ALNSpiritSphere** for Minecraft Bedrock Editio
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNSpiritSphere (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpiritSphere/ALNSpiritSphere%20V6.mcaddon)
+- **Direct download:** [Download ALNSpiritSphere (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpiritSphere/ALNSpiritSphere%20V7.mcaddon)
 
 ## Installation
 
@@ -1995,11 +2138,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:SpiritSphere Resource Pack (v6)",
+    "name": "ALN:SpiritSphere Resource Pack (v7)",
     "description": "Charge one of ten elemental Spirit Spheres and release a Ghast-style energy orb by ALNStudios",
     "uuid": "c05699f5-364c-44cb-9978-490a4bc716e4",
     "version": [
-      6,
+      7,
       0,
       0
     ],
@@ -2014,7 +2157,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "6ef1070d-ea7a-4d3f-8c1b-02834809e5e6",
       "version": [
-        6,
+        7,
         0,
         0
       ]
@@ -2025,7 +2168,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "6.0.0"
+    "version": "7.0.0"
   }
 }
 ```

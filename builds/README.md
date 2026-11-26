@@ -46,7 +46,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **ALN Bow Aimbot** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-Bow-Aimbot/ALNBowAimbot%20V1.0.1.mcaddon) | [`ALN-Bow-Aimbot/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-Bow-Aimbot/) |
 | **ALN SoulLantern** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-SoulLantern/ALNSoulLantern%20V3.0.1.mcaddon) | [`ALN-SoulLantern/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-SoulLantern/) |
 | **ALNPirateTokens** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNPirateTokens/ALNPirateTokens%20V1.0.4.mcaddon) | [`ALNPirateTokens/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNPirateTokens/) |
-| **ALNSpiritSphere** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNSpiritSphere/ALNSpiritSphere%20V6.mcaddon) | [`ALNSpiritSphere/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNSpiritSphere/) |
+| **ALNSpiritSphere** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNSpiritSphere/ALNSpiritSphere%20V7.mcaddon) | [`ALNSpiritSphere/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNSpiritSphere/) |
 | **ALNChronoStop** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNChronoStop/ALNChronoStop%20V1.mcaddon) | [`ALNChronoStop/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNChronoStop/) |
 | **ALNWarpScrolls** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNWarpScrolls/ALNWarpScrolls%20V5.mcaddon) | [`ALNWarpScrolls/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNWarpScrolls/) |
 
