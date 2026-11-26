@@ -974,10 +974,14 @@ Minecraft Bedrock add-on, ALN:WarpScrolls Bedrock mod, teleport scroll, waypoint
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNWarpScrolls/README.md (19 lines, 793 bytes)
+## FILE: MCPEDL/Addons/ALNWarpScrolls/README.md (23 lines, 1034 bytes)
 
 ```
 # ALNWarpScrolls
+
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-Not%20Published-lightgrey?style=flat-square&logo=curseforge)](https://www.curseforge.com/members/allenscreations/projects)
+<!-- CURSEFORGE-BADGE:END -->
 
 Download the current release of **ALNWarpScrolls** for Minecraft Bedrock Edition.
 

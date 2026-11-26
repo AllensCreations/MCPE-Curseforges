@@ -38,8 +38,16 @@ KIT_FILES = {
         "assets/aln-ui-redesign/README.txt", "assets/aln-ui-redesign/design.json",
         "assets/aln-ui-redesign/font/README.txt", "assets/aln-ui-redesign/font/pixelify.js",
     ],
-    "UPDATE": ["scripts/make_update_script.py", "scripts/apply_update.py", "scripts/pixel_json_to_png.py", "docs/mcicons-index.md"],
-    "REPO": ["scripts/make_update_script.py", "scripts/apply_update.py", "scripts/check_instruction_files.py", "docs/mcicons-index.md"],
+    "UPDATE": [
+        "scripts/make_update_script.py", "scripts/apply_update.py", "scripts/pixel_json_to_png.py",
+        "docs/mcicons-index.md",
+        "INSTRUCTIONS.md", "DOCS_RULES.md", "PACK_GENERATOR_INSTRUCTIONS.md",
+    ],
+    "REPO": [
+        "scripts/make_update_script.py", "scripts/apply_update.py", "scripts/check_instruction_files.py",
+        "docs/mcicons-index.md",
+        "INSTRUCTIONS.md", "DOCS_RULES.md", "PACK_GENERATOR_INSTRUCTIONS.md",
+    ],
 }
 
 TREE_SKIP = {".git", "node_modules", "__pycache__", "db", "exports"}

@@ -1118,10 +1118,14 @@ Minecraft Bedrock add-on, ALN QualityOfLife Part 2 Bedrock mod, filter hopper, v
 }
 ```
 
-## FILE: MCPEDL/Script/ALN-QualityOfLife-Part-2/README.md (19 lines, 847 bytes)
+## FILE: MCPEDL/Script/ALN-QualityOfLife-Part-2/README.md (23 lines, 1088 bytes)
 
 ```
 # ALN QualityOfLife Part 2
+
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-Not%20Published-lightgrey?style=flat-square&logo=curseforge)](https://www.curseforge.com/members/allenscreations/projects)
+<!-- CURSEFORGE-BADGE:END -->
 
 Download the current release of **ALN QualityOfLife Part 2** for Minecraft Bedrock Edition.
 

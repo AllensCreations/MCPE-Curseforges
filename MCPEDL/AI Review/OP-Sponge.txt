@@ -7,7 +7,7 @@
 - **CURRENT VERSION: v6 / NEXT UPDATE: v7**  (`MCPEDL/Addons/OP-Sponge/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 118
-- **Skipped binary:** 118
+- **Skipped binary:** 121
 - **Paths not found:** 0
 
 ### Files in this export
@@ -134,7 +134,7 @@
 
 - `MCPEDL/Addons/OP-Sponge/behavior_pack/trading/economy_trades/librarian_trades.json` (20905 bytes)
 
-### Skipped (binary): 118 file(s)
+### Skipped (binary): 121 file(s)
 
 - `MCPEDL/Addons/OP-Sponge/assets/banner.png`
 - `MCPEDL/Addons/OP-Sponge/assets/items/allenscreations_sponge_book.png`
@@ -176,7 +176,7 @@
 - `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_6.png`
 - `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_6_label.png`
 - `MCPEDL/Addons/OP-Sponge/assets/items/super_sponge_6_wet.png`
-- ... and 78 more
+- ... and 81 more
 
 ---
 
