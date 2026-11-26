@@ -3468,7 +3468,7 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
 - **Sapling Drops**: Breaking a log can also drop a matching sapling.
 ```
 
-## FILE: MCPEDL/Maps/ALN-LegendaryPiglin/DESCRIPTION.md (77 lines, 4594 bytes)
+## FILE: MCPEDL/Maps/ALN-LegendaryPiglin/DESCRIPTION.md (78 lines, 4595 bytes)
 
 ```
 # ALN:LegendaryPiglin — OneBlock map with an immortal bartering Piglin
