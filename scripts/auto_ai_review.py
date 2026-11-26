@@ -42,7 +42,8 @@ START, END = "<!-- AI-REVIEW:START -->", "<!-- AI-REVIEW:END -->"
 SKIP = {".git", "node_modules", "__pycache__", LEGACY_DIR, "db", "exports"}
 TOOL_INPUTS = [".agents/skills/*/SKILL.md", "scripts/collect_ai_review.py", "scripts/make_pack_script.py", "scripts/build_payload.py",
                "scripts/import_project_payload.py", "scripts/doc_template.py", "scripts/pixel_json_to_png.py", "scripts/make_update_script.py",
-               "scripts/apply_update.py", "scripts/check_instruction_files.py", "assets/aln-ui-redesign"]
+               "scripts/apply_update.py", "scripts/check_instruction_files.py", "assets/aln-ui-redesign",
+               "INSTRUCTIONS.md", "PACK_GENERATOR_INSTRUCTIONS.md", "DOCS_RULES.md"]
 
 
 def digest(paths) -> str:

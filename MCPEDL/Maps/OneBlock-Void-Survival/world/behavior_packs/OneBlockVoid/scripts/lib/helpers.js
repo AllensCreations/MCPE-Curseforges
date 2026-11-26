@@ -1,7 +1,13 @@
 import { ItemStack, system, world } from "@minecraft/server";
 import { getPhaseLength, ONEBLOCK_POS } from "./config.js";
-import { NETHER_PHASES, END_PHASES, OVERWORLD_PHASES } from "./phases.js";
+import { ONEBLOCK_PROGRESSION_POOLS } from "./Oneblock_Progression.js";
 import { RARITY_TIERS } from "./rarities.js";
+
+// Derive dimension-specific phase arrays from the shared progression foundation.
+// phases 1-19 = overworld, 20-22 = nether, 23+ = the end (matching Oneblock_Progression.js ordering).
+export const OVERWORLD_PHASES = ONEBLOCK_PROGRESSION_POOLS.filter(p => p.phase <= 19);
+export const NETHER_PHASES    = ONEBLOCK_PROGRESSION_POOLS.filter(p => p.phase >= 20 && p.phase <= 22);
+export const END_PHASES       = ONEBLOCK_PROGRESSION_POOLS.filter(p => p.phase >= 23);
 
 export function rollRarityTier() {
   const total = 100.0;
