@@ -1,9 +1,19 @@
 # Changelog — ALN:WarpScrolls
 
-## [v5] - 2026-11-26 - Beacon Gate Model
+## [v6] - 2026-11-26 - Scroll Retexture
 
-### Added
+### Improved & Balanced
+- **Warp Scroll texture**: Redrawn as a tilted parchment scroll with curled ends, a purple band, a gold-framed gem and a purple glow outline.
+
+<details>
+<summary><b>5.0.x</b> (1 release)</summary>
+
+### [v5] - 2026-11-26 - Beacon Gate Model
+
+#### Added
 - **Beacon Gate model**: The block now has a custom 3D model with a gold plinth, four obsidian pillars topped with gold and amethyst, gold rails and a floating crystal.
+
+</details>
 
 <details>
 <summary><b>4.0.x</b> (1 release)</summary>
