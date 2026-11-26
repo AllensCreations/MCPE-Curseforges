@@ -14,6 +14,7 @@ export const SPHERE_LEAD = 6;
 export const BEAM_HEIGHT = 24;
 export const BEAM_RISE_TICKS = 10;
 export const BEAM_LINGER_STEPS = 24;
+export const MOVE_LIMIT = 0.35;
 export const SOUND = {
   charge: "aln.warp.charge",
   arrive: "aln.warp.arrive",

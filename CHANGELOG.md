@@ -4,6 +4,16 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v298] - 2026-11-26 - Channel Cancel and Full Blackout
+
+**Spec**: spec_v298.txt | **Target**: MCPEDL/Addons/ALNWarpScrolls | **Files edited**: 6
+
+### Added
+- **Channel cancel**: Moving during the 3-second charge now interrupts the warp. The scroll is kept, the Nausea and the charge sound stop, and the eyelids open.
+
+### Improved & Balanced
+- **Full-screen blackout**: The eyelid screen now reaches past the screen edges, and a black veil fades in over the whole screen as the eyelids close.
+
 ## [v297] - 2026-11-26 - Light Beam
 
 **Spec**: spec_v297.txt | **Target**: MCPEDL/Addons/ALNWarpScrolls | **Files edited**: 5

@@ -14,6 +14,7 @@ import {
   BEAM_HEIGHT,
   BEAM_RISE_TICKS,
   BEAM_LINGER_STEPS,
+  MOVE_LIMIT,
 } from "./config.js";
 import { removeGateAt } from "./registry.js";
 
@@ -156,6 +157,28 @@ function lingeringBeam(dimension, spot) {
   }, PARTICLE_STEP);
 }
 
+function moved(player, origin) {
+  const at = player.location;
+  const dx = at.x - origin.x;
+  const dy = at.y - origin.y;
+  const dz = at.z - origin.z;
+  return Math.sqrt(dx * dx + dy * dy + dz * dz) > MOVE_LIMIT;
+}
+
+function cancelWarp(player) {
+  openEyes(player);
+  try {
+    player.removeEffect("nausea");
+  } catch {
+    return;
+  }
+  try {
+    player.runCommand("stopsound @s " + SOUND.charge);
+  } catch {
+    return;
+  }
+}
+
 function closeEyes(player) {
   try {
     player.onScreenDisplay.setTitle(EYES_MARKER, {
@@ -255,10 +278,18 @@ export function beginWarp(player, item, gate) {
   }
   player.playSound(SOUND.charge, { volume: 1, pitch: 1 });
   closeEyes(player);
+  const origin = { x: player.location.x, y: player.location.y, z: player.location.z };
   let tick = 0;
   const handle = system.runInterval(() => {
     if (!player.isValid) {
       system.clearRun(handle);
+      active.delete(player.id);
+      return;
+    }
+    if (moved(player, origin)) {
+      system.clearRun(handle);
+      cancelWarp(player);
+      tell(player, "§cYou moved. The warp was interrupted.");
       active.delete(player.id);
       return;
     }

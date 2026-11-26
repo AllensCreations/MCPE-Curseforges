@@ -2,6 +2,14 @@
 
 ---
 
+## [v4] - 2026-11-26 - Channel Cancel and Full Blackout
+
+### Added
+- **Channel cancel**: Moving during the 3-second charge now interrupts the warp. The scroll is kept, the Nausea and the charge sound stop, and the eyelids open.
+
+### Improved & Balanced
+- **Full-screen blackout**: The eyelid screen now reaches past the screen edges, and a black veil fades in over the whole screen as the eyelids close.
+
 ## [v3] - 2026-11-26 - Light Beam
 
 ### Added
