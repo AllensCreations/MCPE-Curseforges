@@ -4,6 +4,11 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## 2026-11-26 - New Addon ALNAuroraBorealis
+
+### Added
+- **ALNAuroraBorealis**: New addon project created from a pack script.
+
 ## 2026-11-26 - New Addon ALN HyperPipes
 
 ### Added
