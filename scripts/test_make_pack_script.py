@@ -79,9 +79,10 @@ class PackScriptTests(unittest.TestCase):
         self.assertNotEqual(code, 0)
 
     def test_mcstructure_allowed(self):
+        import build_payload as bp
         st_file = self.root / "build/Sample-Addon/behavior_pack/structures/sample.mcstructure"
         st_file.parent.mkdir(parents=True, exist_ok=True)
-        st_file.write_bytes(b"\x00\x01\x02\x03\x04")
+        st_file.write_bytes(bp.make_valid_mcstructure())
         sh = self.build()
         self.assertTrue(sh.is_file())
 

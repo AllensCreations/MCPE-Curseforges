@@ -104,6 +104,12 @@ def write(p: Path, text: str) -> None:
     p.write_text(text, encoding="utf-8")
 
 
+def write_b(p: Path, data: bytes) -> None:
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_bytes(data)
+
+
+
 def sample(root: Path, ptype: str, name: str, **kw) -> Path:
     d = root / "build" / name
     shutil.rmtree(d, ignore_errors=True)
@@ -434,6 +440,15 @@ def main() -> int:
         reject("payload reusing UUIDs of an imported project", lambda d: write(d / "behavior_pack/manifest.json", (root / "MCPEDL/Addons/Sample-Addon/behavior_pack/manifest.json").read_text()), "already used by")
         reject("world data (db folder)", lambda d: write(d / "behavior_pack/db/x.json", "{}"), "world data")
         reject("map without the void cleaner line", lambda d: write(d / "behavior_pack/functions/void_cleaner.mcfunction", "say hi\n"), "void_cleaner", ptype="map")
+        reject("truncated .mcstructure file", lambda d: write_b(d / "behavior_pack/structures/test.mcstructure", b"\x0a\x00\x00\x03\x0e\x00format_version"), "invalid little-endian NBT", ptype="addon")
+        import build_payload as bp_lib
+        reject(".mcstructure placed outside structures folder", lambda d: write_b(d / "behavior_pack/test.mcstructure", bp_lib.make_valid_mcstructure()), "only allowed under behavior_pack/structures/", ptype="addon")
+        reject(".nbt file with invalid header", lambda d: write_b(d / "behavior_pack/structures/test.nbt", b"\x00\x01\x02\x03"), "invalid little-endian NBT", ptype="addon")
+        d = sample(root, "addon", "Structure-Addon")
+        write_b(d / "behavior_pack/structures/house.mcstructure", bp_lib.make_valid_mcstructure())
+        (r, log), out = build_payload(root, d)
+        ok(r == 0, "addon: valid .mcstructure passes payload build")
+
         d = sample(root, "addon", "Furnace-Addon")
         write(d / "behavior_pack/recipes/f.json", json.dumps({"format_version": "1.20.10", "minecraft:recipe_furnace": {"description": {"identifier": "x:f"}, "tags": ["furnace"], "input": "minecraft:sand", "output": "minecraft:glass"}}))
         write(d / "behavior_pack/recipes/ok.json", json.dumps({"format_version": "1.20.10", "minecraft:recipe_shapeless": {"description": {"identifier": "x:s"}, "tags": ["crafting_table"], "ingredients": [{"item": "minecraft:stick"}], "result": {"item": "minecraft:stick"}, "unlock": [{"context": "AlwaysUnlocked"}]}}))

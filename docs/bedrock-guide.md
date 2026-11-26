@@ -35,7 +35,8 @@ Structure (`/websites/wiki_bedrock_dev`, 2026-11-21): `format_version`, `header`
 
 ```text
 MCPEDL/<Addons|Maps|Script|Minigame>/<Name>/
-  behavior_pack/   manifest.json, items/, recipes/, scripts/ (main.js, lib/README.md, optional lib/*.js), subpacks/, LOCK
+  behavior_pack/   manifest.json, items/, recipes/, structures/, scripts/ (main.js, lib/README.md, optional lib/*.js), subpacks/, LOCK
+
   resource_pack/   manifest.json, textures/, texts/, ui/
   assets/          listing images
   CHANGELOG.md  README.md  DESCRIPTION.md  LOCK

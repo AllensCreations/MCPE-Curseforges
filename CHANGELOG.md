@@ -4,6 +4,19 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v313] - 2026-11-27 - Bedrock Structure and NBT Support
+
+**Spec**: spec_v313.txt | **Target**: repo | **Files edited**: 6
+
+### Added
+- **Bedrock Structure Support**: Added support for `.mcstructure` and raw `.nbt` files under `behavior_pack/structures/` across all project types.
+- **NBT Structural Validation**: Added zero-dependency little-endian NBT parsing in `build_payload.py` to validate headers, format versions, and compound tag trees.
+- **Structure Self-Tests**: Added end-to-end tests in `selftest_project_types.py` verifying acceptance of valid structures and rejection of truncated, wrongly placed, or corrupted files.
+
+### Improved
+- **Documentation Standards**: Updated `INSTRUCTIONS.md` (v47) and `PACK_GENERATOR_INSTRUCTIONS.md` (v42) with structure placement rules, size caps (2 MB), and gameplay limits.
+- **Folder Structure Reference**: Updated `docs/bedrock-guide.md` to formally document `behavior_pack/structures/`.
+
 ## 2026-11-26 - New Map ALN-LegendaryPiglin
 
 ### Added

@@ -1,4 +1,5 @@
-# Instructions: Core Repository Policy (v46)
+# Instructions: Core Repository Policy (v47)
+
 
 
 Repo policy, docs rules for AllensCreations/MCPE-Curseforges (creator name `ALNStudios`). Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
@@ -225,6 +226,8 @@ Applies to every addon, map, script, minigame, item, entity, block, trade, recip
 - Conflict Prevention & Isolation:
   1. Custom namespace isolation: Always prefix custom items, blocks, and entities with `aln:<name>` (e.g. `aln:<minigame_name>_controller`).
   2. Avoid Vanilla Entity Overrides: Overriding vanilla entity JSON files (e.g. `entities/zombie.json`) completely wipes out other addons modifying the same entity in Bedrock's load order. Whenever possible, hook into vanilla entity mechanics using `@minecraft/server` Script API event subscriptions (`world.afterEvents.entityDie`, `playerInteractWithEntity`, `entityHurt`, etc.) rather than replacing the vanilla entity JSON.
+- Structural NBT & .mcstructure: When a mechanic requires pre-built templates or saved blocks/entities, place `.mcstructure` and `.nbt` files strictly under `behavior_pack/structures/` (or an optional namespace subfolder like `behavior_pack/structures/aln/<name>.mcstructure`). These files must be generated only by code or exported from Bedrock tools (never hand-written arbitrary bytes). Shipped files must contain no comments, obey the 2 MB per-file size cap, and be stated as "not tested in game" until verified in Minecraft.
+
 - Docs (`DOCS_RULES.md`): player-facing result only, no code or API names; the trade-off under Good To Know. State achievement and experiment impact per 1.2.
 
 ### 1.13 ALN UI Redesign (UI skin)
@@ -292,6 +295,8 @@ Docs, API, vanilla data and repo files are read with the Context7 MCP tool `quer
 - [ ] Manifest versions use `[X, Y, Z]` / `"X.Y.Z"` format; per-pack titles/changelogs/packages use `vX` format (1.3).
 
 ## Version History
+- **v47:** Added support for Bedrock structure (.mcstructure) and plain NBT (.nbt) files under behavior_pack/structures/ with little-endian NBT validation.
+
 - **v46:** Removed `/allenscreations/mcpe-curseforges` from the Context7 library list (redundant — the kit zip always has fresher repo files and already takes priority). Context7 now covers only the three external Bedrock doc libraries. Updated the per-turn batching note: all three calls fit in one parallel turn.
 - **v45:** Context7 query batching rule updated: when all four libraries are needed and the tool enforces a per-turn call cap, run remaining library calls in the next turn BEFORE writing code — never skip a needed library or use the cap as a reason to stop or guess.
 - **v44:** Pack generation protocol requires mandatory deep research (~90% thoroughness) on the requested idea and latest Bedrock Script APIs, selection of latest stable modules, and presenting the implementation Plan for user approval before building any files or `.sh` pack script.

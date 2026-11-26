@@ -299,9 +299,129 @@ ATTRIBUTION = "by ALNStudios"
 NAME_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$")
 UUID_V4 = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$", re.I)
 TITLE = re.compile(r"^.+ \(v(\d+)\.(\d+)\.(\d+)\)$")
-ALLOWED = {".json", ".js", ".mcfunction", ".md", ".txt", ".lang", ".png", ".jpg", ".jpeg", ".tga", ".ogg", ".mcstructure"}
+ALLOWED = {".json", ".js", ".mcfunction", ".md", ".txt", ".lang", ".png", ".jpg", ".jpeg", ".tga", ".ogg", ".mcstructure", ".nbt"}
 BLOCKED = (".mcworld", ".mcpack", ".mcaddon", ".zip")
 MAX_FILES, MAX_FILE, MAX_TOTAL, ZIP_LIMIT = 500, 5 * 1024 * 1024, 25 * 1024 * 1024, 48000
+MAX_STRUCTURE_FILE = 2 * 1024 * 1024
+MCSTRUCTURE_ROOT_TAGS = {"format_version", "size", "structure", "structure_world_origin"}
+
+
+def make_valid_mcstructure() -> bytes:
+    buf = bytearray()
+    buf.append(0x0A)
+    buf.extend(struct.pack("<H", 0))
+    for tag_name, tag_type in (("format_version", 3), ("size", 9), ("structure", 10), ("structure_world_origin", 9)):
+        nb = tag_name.encode("utf-8")
+        buf.append(tag_type)
+        buf.extend(struct.pack("<H", len(nb)) + nb)
+        if tag_type == 3:
+            buf.extend(struct.pack("<i", 1))
+        elif tag_type == 9:
+            buf.extend(struct.pack("<bi", 3, 3))
+            buf.extend(struct.pack("<iii", 0, 0, 0))
+        elif tag_type == 10:
+            buf.append(0x00)
+    buf.append(0x00)
+    return bytes(buf)
+
+
+def validate_nbt_file(data: bytes, max_depth: int = 16) -> set[str]:
+    if len(data) < 3:
+        raise ValueError("File too short for NBT header")
+    if data[0] != 0x0A:
+        raise ValueError(f"Expected root TAG_Compound (0x0A), got 0x{data[0]:02X}")
+    name_len = struct.unpack_from("<H", data, 1)[0]
+    pos = 3 + name_len
+    if pos > len(data):
+        raise ValueError("Root compound name length overflows data")
+    keys: set[str] = set()
+
+    def skip_payload(tag: int, p: int, depth: int = 0) -> int:
+        if depth > max_depth:
+            raise ValueError("NBT depth limit exceeded")
+        if tag == 1:
+            return p + 1
+        elif tag == 2:
+            return p + 2
+        elif tag == 3:
+            return p + 4
+        elif tag == 4:
+            return p + 8
+        elif tag == 5:
+            return p + 4
+        elif tag == 6:
+            return p + 8
+        elif tag == 7:
+            if p + 4 > len(data):
+                raise ValueError("Byte array header overflows data")
+            l = struct.unpack_from("<i", data, p)[0]
+            if l < 0:
+                raise ValueError("Negative byte array length")
+            return p + 4 + l
+        elif tag == 8:
+            if p + 2 > len(data):
+                raise ValueError("String header overflows data")
+            l = struct.unpack_from("<H", data, p)[0]
+            return p + 2 + l
+        elif tag == 9:
+            if p + 5 > len(data):
+                raise ValueError("List header overflows data")
+            sub_tag, l = struct.unpack_from("<bi", data, p)
+            p += 5
+            if l < 0:
+                raise ValueError("Negative list length")
+            for _ in range(l):
+                p = skip_payload(sub_tag, p, depth + 1)
+            return p
+        elif tag == 10:
+            while p < len(data):
+                sub_tag = data[p]
+                p += 1
+                if sub_tag == 0:
+                    return p
+                if p + 2 > len(data):
+                    raise ValueError("Compound tag name header overflows data")
+                sub_name_len = struct.unpack_from("<H", data, p)[0]
+                p += 2 + sub_name_len
+                p = skip_payload(sub_tag, p, depth + 1)
+            raise ValueError("Unterminated compound tag")
+        elif tag == 11:
+            if p + 4 > len(data):
+                raise ValueError("Int array header overflows data")
+            l = struct.unpack_from("<i", data, p)[0]
+            if l < 0:
+                raise ValueError("Negative int array length")
+            return p + 4 + l * 4
+        elif tag == 12:
+            if p + 4 > len(data):
+                raise ValueError("Long array header overflows data")
+            l = struct.unpack_from("<i", data, p)[0]
+            if l < 0:
+                raise ValueError("Negative long array length")
+            return p + 4 + l * 8
+        else:
+            raise ValueError(f"Unknown tag type {tag}")
+
+    while pos < len(data):
+        tag = data[pos]
+        pos += 1
+        if tag == 0:
+            break
+        if pos + 2 > len(data):
+            raise ValueError("Tag name length overflows data")
+        klen = struct.unpack_from("<H", data, pos)[0]
+        pos += 2
+        if pos + klen > len(data):
+            raise ValueError("Tag name overflows data")
+        kname = data[pos:pos+klen].decode("utf-8", errors="replace")
+        pos += klen
+        keys.add(kname)
+        pos = skip_payload(tag, pos, depth=1)
+        if pos > len(data):
+            raise ValueError(f"Tag '{kname}' payload overflows data")
+
+    return keys
+
 ACHIEVEMENT = ("yes, achievement-friendly",)
 COMMON_REQUIRED = ("project.json", "README.md", "DESCRIPTION.md", "CHANGELOG.md", "behavior_pack/manifest.json")
 MAP_REQUIRED = ("resource_pack/manifest.json", "behavior_pack/functions/tick.json",
@@ -539,6 +659,19 @@ def run_checks(root, repo_root=None, folder=None):
         check(not p.is_symlink(), f"{rel}: symlink")
         check(not rel.startswith("Mcpeworlds/"), f"{rel}: Mcpeworlds paths must not be shipped")
         check(low.name != "test_world.json", f"{rel}: test worlds were removed; delete test_world.json")
+        if low.suffix in (".mcstructure", ".nbt"):
+            check(rel.startswith("behavior_pack/structures/"), f"{rel}: structure/NBT files are only allowed under behavior_pack/structures/")
+            check(" " not in rel, f"{rel}: spaces not allowed in structure path")
+            check(size > 0, f"{rel}: structure file cannot be empty")
+            check(size <= MAX_STRUCTURE_FILE, f"{rel}: over 2 MB structure cap")
+            try:
+                keys = validate_nbt_file(p.read_bytes())
+                if low.suffix == ".mcstructure":
+                    missing = sorted(MCSTRUCTURE_ROOT_TAGS - keys)
+                    check(not missing, f"{rel}: .mcstructure root compound missing required tags: {', '.join(missing)}")
+            except Exception as exc:
+                check(False, f"{rel}: invalid little-endian NBT ({exc})")
+
         if low.suffix == ".json" and rel not in strict and not rel.startswith("behavior_pack/recipes/"):
             jload(rel, strict=False)
     check(total <= MAX_TOTAL, f"total {total} bytes (max 25 MB)")

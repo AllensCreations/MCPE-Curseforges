@@ -1,4 +1,5 @@
-# Pack Generator Instructions (AI Agent, v41)
+# Pack Generator Instructions (AI Agent, v42)
+
 
 
 Builds a complete **addon**, **map**, **script**, or **minigame** from the user's idea. Returns ONE Termux `.sh` pack script that carries the whole project inside it (as base64). No other file is delivered.
@@ -178,6 +179,8 @@ Before generating any files, scratch workspaces, or pack `.sh` scripts:
 - Shell may be plain `sh`: NEVER brace expansion. After creating files, list them, confirm they exist.
 - `.sh` names: 1.1 rule (`(Repofilename)_(Version)_(Rand).sh`).
 - NEVER comments in `.js`, `.mcfunction`, `.json`. Prefer event-driven logic. NEVER claim a README/catalog link to a `.mcworld` that does not exist yet.
+- Structure files: Bedrock structure (.mcstructure, little-endian NBT) and raw NBT (.nbt) files are permitted ONLY under behavior_pack/structures/ (an optional namespace subfolder like structures/aln/<name>.mcstructure is fine). Generated only by code, no comments, max 2 MB per file, no spaces in paths, "not tested in game" until verified in Minecraft.
+
 - Every reply = the three 4.11 sections (File Needed, Changelog, Termux Script). NEVER a Summary section.
 - Vanilla limit blocks a requested mechanic: follow 4.12.
 
@@ -187,14 +190,16 @@ ZIP root = project folder contents, built in `build/<Name>/`:
 project.json          REQUIRED: {"type": "addon|map|script|minigame", "name": "Display Name"}
 README.md  DESCRIPTION.md  CHANGELOG.md
 behavior_pack/manifest.json
-behavior_pack/...     functions/ items/ blocks/ entities/ recipes/ loot_tables/ texts/ scripts/main.js
+behavior_pack/...     functions/ items/ blocks/ entities/ recipes/ loot_tables/ texts/ structures/ scripts/main.js
+
                       scripts/lib/README.md (REQUIRED with main.js), lib/*.js optional
 resource_pack/        map/minigame REQUIRED. addon optional. script FORBIDDEN.
 texture_sources/      optional pixel JSON for custom textures (4.13). NEVER inside resource_pack/.
 ```
 - NEVER ship `oneblock.json` (importer writes for maps), `LOCK` (importer writes for add-ons), another type's `project.json`.
 - NEVER include: `db/`, `level.dat`, `world_behavior_packs.json`, `world_resource_packs.json`, `.mcworld/.mcpack/.mcaddon/.zip`, symlinks, `Mcpeworlds/...` or `assets/...` paths. NEVER name a file/folder exactly `db`.
-- Limits (see `build_payload.py`): 500 files, 5 MB/file, 25 MB total. Delivery = the one pack `.sh`, nothing else.
+- Limits (see `build_payload.py`): 500 files, 5 MB/file (2 MB for .mcstructure / .nbt), 25 MB total. Delivery = the one pack `.sh`, nothing else.
+
 - NEVER create `test_world.json` or promise a test world (removed). The importer creates `assets/snapshots/`, `assets/recipes/`, `assets/items/` itself: NEVER ship `assets/`.
 
 ### 4.3 Manifests (all types)
