@@ -1,0 +1,16 @@
+@@ version 9.0.0
+@@ project MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks
+@@ file behavior_pack/functions/void_cleaner.mcfunction
+@@ replace
+execute as @a[tag=!void_cleaned] run item replace block -1 65 -1 slot.container 0 with oak_sapling 3
+execute as @a[tag=!void_cleaned] run item replace block -1 65 -1 slot.container 1 with bone_meal 4
+execute as @a[tag=!void_cleaned] run item replace block -1 65 -1 slot.container 2 with bread 4
+execute as @a[tag=!void_cleaned] run item replace block -1 65 -1 slot.container 3 with bucket 1
+@@ with
+execute as @a[tag=!void_cleaned] run replaceitem block -1 65 -1 slot.container 0 oak_sapling 3
+execute as @a[tag=!void_cleaned] run replaceitem block -1 65 -1 slot.container 1 bone_meal 4
+execute as @a[tag=!void_cleaned] run replaceitem block -1 65 -1 slot.container 2 bread 4
+execute as @a[tag=!void_cleaned] run replaceitem block -1 65 -1 slot.container 3 bucket 1
+@@ changelog Starter Chest Fix
+### Fixed
+- **Starter chest**: The island function now fills the starter chest with the command Bedrock accepts, so the function loads without errors.
