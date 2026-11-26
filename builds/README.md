@@ -49,7 +49,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **ALNSpiritSphere** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNSpiritSphere/ALNSpiritSphere%20V7.mcaddon) | [`ALNSpiritSphere/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNSpiritSphere/) |
 | **ALNChronoStop** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNChronoStop/ALNChronoStop%20V1.mcaddon) | [`ALNChronoStop/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNChronoStop/) |
 | **ALNWarpScrolls** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNWarpScrolls/ALNWarpScrolls%20V5.mcaddon) | [`ALNWarpScrolls/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNWarpScrolls/) |
-| **Smart Tool Hub** | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Smart-Tool-Hub/SmartToolHub%20V1.mcaddon) | [`Smart-Tool-Hub/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Smart-Tool-Hub/) |
+| **Smart Tool Hub** | Add-on (.mcaddon) | [Download (.mcaddon)](Smart-Tool-Hub/SmartToolHub%20V1.mcaddon) | [`Smart-Tool-Hub/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Smart-Tool-Hub/) |
 
 ### Worlds and Maps
 

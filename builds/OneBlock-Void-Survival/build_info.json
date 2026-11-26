@@ -2,7 +2,7 @@
   "changelog_version": "10.0.0",
   "manifest_version": "10.0.0",
   "packages": {
-    "VoidSurvival V10.mcworld": "538ba514568b15e64b7127a90fc9609b2ed03283662605a61fc6e18fc47a3cf0"
+    "VoidSurvival V10.mcworld": "7d25616d4cb6b905c49696fe606d7c384af53604560d8503fcdbe09109f03892"
   },
-  "source_sha256": "34a3053359ed144f99399c33db5f51c84e0f754a25aa15235cbf73f26a7004b0"
+  "source_sha256": "a115eaf6e2dd02328a6ef09c4d6784f3fd86b50d3ae26bcd36a35b91c26fb42e"
 }
