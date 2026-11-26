@@ -5,6 +5,12 @@ export const MAX_GATES = 100;
 export const MAX_NAME = 24;
 export const WARP_TICKS = 60;
 export const PARTICLE_STEP = 2;
+export const NAUSEA_AMPLIFIER = 4;
+export const EYES_MARKER = "aln_eyes";
+export const EYES_HOLD_TICKS = 10;
+export const SPHERE_RADIUS = 1.4;
+export const SPHERE_RINGS = 12;
+export const SPHERE_LEAD = 6;
 export const SOUND = {
   charge: "aln.warp.charge",
   arrive: "aln.warp.arrive",

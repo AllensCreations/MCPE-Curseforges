@@ -4,6 +4,17 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v296] - 2026-11-26 - Recall Sphere and Eyelid Screen
+
+**Spec**: spec_v296.txt | **Target**: MCPEDL/Addons/ALNWarpScrolls | **Files edited**: 6
+
+### Added
+- **Recall sphere**: A hollow sphere of portal particles now rises from your feet to above your head while the scroll charges, and a second sphere rises around you on arrival.
+- **Eyelid screen**: Your eyelids slowly close over the screen during the 3-second charge and snap open when you arrive.
+
+### Improved & Balanced
+- **Stronger Nausea**: The Nausea applied during the warp now uses a higher strength setting.
+
 ## 2026-11-25 - New Script ALN QualityOfLife Part 2
 
 ### Added
