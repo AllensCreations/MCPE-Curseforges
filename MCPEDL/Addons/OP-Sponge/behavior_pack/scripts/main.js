@@ -9,6 +9,7 @@ const EXTREME_RANGE = 2048;
 const BATCH = 200;
 const BOUND_XZ = 4096;
 const BOUND_Y = 512;
+const SWEEPS = 3;
 const SPARKLES = 16;
 const NEIGHBORS = [
   { x: 1, y: 0, z: 0 },
@@ -44,6 +45,14 @@ function keyOf(origin, location) {
     return -1;
   }
   return (dx * 2 * BOUND_XZ + dz) * 2 * BOUND_Y + dy;
+}
+
+function locationOf(origin, key) {
+  const dy = key % (2 * BOUND_Y);
+  const rest = Math.floor(key / (2 * BOUND_Y));
+  const dz = rest % (2 * BOUND_XZ);
+  const dx = Math.floor(rest / (2 * BOUND_XZ));
+  return { x: origin.x + dx - BOUND_XZ, y: origin.y + dy - BOUND_Y, z: origin.z + dz - BOUND_XZ };
 }
 
 function readBlock(dimension, location) {
@@ -86,6 +95,7 @@ function drain(block) {
 
 function* absorb(dimension, origin, spongeId, sponge) {
   const seen = new Set([keyOf(origin, origin)]);
+  const drained = [];
   let frontier = [origin];
   let removed = 0;
   let reads = 0;
@@ -109,6 +119,7 @@ function* absorb(dimension, origin, spongeId, sponge) {
         const block = readBlock(dimension, location);
         if (block && drain(block)) {
           removed++;
+          drained.push(key);
           next.push(location);
         }
       }
@@ -117,6 +128,23 @@ function* absorb(dimension, origin, spongeId, sponge) {
   }
   if (removed === 0) {
     return;
+  }
+  for (let pass = 0; pass < SWEEPS; pass++) {
+    const total = drained.length;
+    let again = 0;
+    for (let i = 0; i < total; i++) {
+      reads++;
+      if (reads % BATCH === 0) {
+        yield;
+      }
+      const block = readBlock(dimension, locationOf(origin, drained[i]));
+      if (block && drain(block)) {
+        again++;
+      }
+    }
+    if (again === 0) {
+      break;
+    }
   }
   const after = readBlock(dimension, origin);
   if (!after || after.typeId !== spongeId) {

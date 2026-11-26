@@ -4,6 +4,18 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v302] - 2026-11-26 - Power Levels And Water Recheck
+
+**Spec**: spec_v302.txt | **Target**: MCPEDL/Addons/OP-Sponge | **Files edited**: 8
+
+### Added
+
+- **Power Levels**: Three subpacks for the OP Sponge. Normal OP absorbs up to 256 water blocks, Extremely OP up to 1,024, and Unlimited OP has no block limit. Unlimited OP is the default. Choose one in the pack settings.
+
+### Fixed
+
+- **Sponges**: After draining, every sponge now re-checks the cleared cells up to 3 times and removes water that flowed back in.
+
 ## [v301] - 2026-11-26 - Ally Combat Fix
 
 **Spec**: spec_v301.txt | **Target**: MCPEDL/Addons/ALN-SoulLantern | **Files edited**: 3

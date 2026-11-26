@@ -16,7 +16,8 @@ Craft an OP Sponge, then combine it with a sponge book to make a Super Sponge or
 ## Key Features
 
 ### OP Sponge
-- **What Happens**: When placed, it absorbs all the connected water around it, including water inside waterlogged blocks, with no block limit, then becomes a Water-Filled OP Sponge.
+- **What Happens**: When placed, it absorbs the connected water around it, including water inside waterlogged blocks, then becomes a Water-Filled OP Sponge.
+- **Power Levels**: Pick one in the pack settings. Normal OP absorbs up to 256 water blocks, Extremely OP up to 1,024, and Unlimited OP has no block limit. Unlimited OP is the default.
 - **Look**: The vanilla sponge look with a letter S on every side, in both the dry and the filled version.
 - **Good To Know**: It only absorbs water, and it only reaches water in chunks that are loaded.
 

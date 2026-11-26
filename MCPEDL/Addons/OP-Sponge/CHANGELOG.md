@@ -2,6 +2,16 @@
 
 ---
 
+## [v7] - 2026-11-26 - Power Levels And Water Recheck
+
+### Added
+
+- **Power Levels**: Three subpacks for the OP Sponge. Normal OP absorbs up to 256 water blocks, Extremely OP up to 1,024, and Unlimited OP has no block limit. Unlimited OP is the default. Choose one in the pack settings.
+
+### Fixed
+
+- **Sponges**: After draining, every sponge now re-checks the cleared cells up to 3 times and removes water that flowed back in.
+
 ## [v6] - 2026-11-25 - Letter S And Waterlogged Blocks
 
 ### Changed
