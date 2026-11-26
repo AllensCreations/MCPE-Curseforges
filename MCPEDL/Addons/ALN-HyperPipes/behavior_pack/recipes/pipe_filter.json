@@ -1,0 +1,33 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:pipe_filter"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "NGN",
+      " P "
+    ],
+    "key": {
+      "N": {
+        "item": "minecraft:iron_nugget"
+      },
+      "G": {
+        "item": "minecraft:glowstone_dust"
+      },
+      "P": {
+        "item": "aln:pipe_standard"
+      }
+    },
+    "result": {
+      "item": "aln:pipe_filter",
+      "count": 1
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
+  }
+}

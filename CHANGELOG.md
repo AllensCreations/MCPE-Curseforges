@@ -4,6 +4,11 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## 2026-11-26 - New Addon ALN HyperPipes
+
+### Added
+- **ALN HyperPipes**: New addon project created from a pack script.
+
 ## [v311] - 2026-11-26 - Scroll Retexture
 
 **Spec**: spec_v311.txt | **Target**: MCPEDL/Addons/ALNWarpScrolls | **Files edited**: 2

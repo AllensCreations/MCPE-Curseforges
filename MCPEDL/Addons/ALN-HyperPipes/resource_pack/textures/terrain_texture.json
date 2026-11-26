@@ -1,0 +1,20 @@
+{
+  "resource_pack_name": "aln_hyperpipes",
+  "texture_name": "atlas.terrain",
+  "padding": 8,
+  "num_mip_levels": 4,
+  "texture_data": {
+    "aln_pipe_standard": {
+      "textures": "textures/blocks/aln_pipe_standard"
+    },
+    "aln_pipe_receiver": {
+      "textures": "textures/blocks/aln_pipe_receiver"
+    },
+    "aln_pipe_filter": {
+      "textures": "textures/blocks/aln_pipe_filter"
+    },
+    "aln_pipe_junction": {
+      "textures": "textures/blocks/aln_pipe_junction"
+    }
+  }
+}
