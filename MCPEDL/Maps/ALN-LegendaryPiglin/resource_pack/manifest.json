@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:LegendaryPiglin (v1)",
+    "name": "ALN:LegendaryPiglin (v2)",
     "description": "Textures and models for The Legendary One. by ALNStudios",
     "uuid": "e684d30f-bc40-4f76-9968-2786a745624f",
     "version": [
-      1,
+      2,
       0,
       0
     ],
@@ -20,7 +20,7 @@
       "type": "resources",
       "uuid": "04ac6e28-a6da-478b-a12f-7d466b153274",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -31,6 +31,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "2.0.0"
   }
 }

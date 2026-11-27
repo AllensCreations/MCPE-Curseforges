@@ -1,6 +1,6 @@
 import { world, system, ItemStack } from "@minecraft/server";
 
-const CORE = { x: 0, y: 0, z: 0 };
+const CORE = { x: 0, y: 64, z: 0 };
 const OVERWORLD = "minecraft:overworld";
 const FALLBACK = "minecraft:oak_log";
 const SAPLING_CHANCE = 0.3;

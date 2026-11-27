@@ -2,6 +2,12 @@
 
 ---
 
+## [v2] - 2026-11-27 - Legendary Station
+
+### Improved & Balanced
+- **Island Height**: The OneBlock island now sits at height 64 like every ALN map, with spawn standing on top of the block.
+- **Pre-built Merchant**: The Legendary One now arrives as a named merchant at his blackstone station.
+
 ## [1.0.0] - 2026-11-26 - Legendary Launch
 
 ### Added

@@ -2,8 +2,11 @@ import { world, system } from "@minecraft/server";
 
 const ENTITY_ID = "aln:legendary_piglin";
 const DISPLAY_NAME = "The Legendary One";
-const HOME = { x: 4.5, y: 1, z: 0.5 };
-const STATION_FLOOR = { x: 4, y: 0, z: 0 };
+const HOME = { x: 4.5, y: 65, z: 0.5 };
+const STRUCTURE_ID = "aln:legendary_piglin";
+const STRUCTURE_ORIGIN = { x: 4, y: 65, z: 0 };
+const STATION_FLOOR = { x: 4, y: 64, z: 0 };
+const NAME_DELAY = 5;
 const MESSAGE = "§c[The Legendary One] §eI will never die!";
 const RESPAWN_DELAY = 100;
 const RETRY_DELAY = 100;
@@ -26,10 +29,22 @@ function stationReady(dimension) {
   return Boolean(floor) && floor.typeId !== "minecraft:air";
 }
 
+function nameLegendary(dimension) {
+  for (const piglin of dimension.getEntities({ type: ENTITY_ID })) {
+    if (piglin.nameTag !== DISPLAY_NAME) piglin.nameTag = DISPLAY_NAME;
+  }
+}
+
 function spawnLegendary(dimension) {
-  const piglin = dimension.spawnEntity(ENTITY_ID, HOME);
-  piglin.nameTag = DISPLAY_NAME;
-  return piglin;
+  try {
+    world.structureManager.place(STRUCTURE_ID, dimension, STRUCTURE_ORIGIN, {
+      includeBlocks: false,
+      includeEntities: true,
+    });
+  } catch (error) {
+    dimension.spawnEntity(ENTITY_ID, HOME);
+  }
+  system.runTimeout(() => nameLegendary(dimension), NAME_DELAY);
 }
 
 function playEffect(dimension, location) {

@@ -1,1 +1,1 @@
-setworldspawn 0 1 0
+setworldspawn 0 65 0

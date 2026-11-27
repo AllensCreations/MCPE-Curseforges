@@ -4,6 +4,14 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v323] - 2026-11-27 - Legendary Station
+
+**Spec**: spec_v323.txt | **Target**: MCPEDL/Maps/ALN-LegendaryPiglin | **Files edited**: 7
+
+### Improved & Balanced
+- **Island Height**: The OneBlock island now sits at height 64 like every ALN map, with spawn standing on top of the block.
+- **Pre-built Merchant**: The Legendary One now arrives as a named merchant at his blackstone station.
+
 ## [v322] - 2026-11-27 - Craftable OP Book
 
 **Spec**: spec_v322.txt | **Target**: MCPEDL/Addons/ALNOpCodex | **Files edited**: 6
