@@ -55,12 +55,13 @@ See the [repository changelog](CHANGELOG.md) for the latest updates.
 
 ## CurseForge Live Status
 <!-- CURSEFORGE-STATUS:START -->
-### Published Packs on CurseForge (39)
+### Published Packs on CurseForge (40)
 
 | Pack | Category | CurseForge Project | Version | Status |
 | :--- | :--- | :---: | :---: | :---: |
 | [**2-in-1 Loot & XP Booster**](MCPEDL/Addons/2-in-1-Loot--XP-Booster/README.md) | Add-ons | [1800032](https://www.curseforge.com/projects/1800032) | `v10` | 🟢 Published |
 | [**ALN Bow Aimbot**](MCPEDL/Addons/ALN-Bow-Aimbot/README.md) | Add-ons | [1822973](https://www.curseforge.com/projects/1822973) | `v1.0.1` | 🟢 Published |
+| [**ALN ChestLog**](MCPEDL/Addons/ALN-ChestLog/README.md) | Add-ons | [1835099](https://www.curseforge.com/projects/1835099) | `v4` | 🟢 Published |
 | [**ALN MoreDiscs**](MCPEDL/Addons/ALN-MoreDiscs/README.md) | Add-ons | [1821812](https://www.curseforge.com/projects/1821812) | `v7` | 🟢 Published |
 | [**ALN-GlobalMarket**](MCPEDL/Addons/ALN-GlobalMarket/README.md) | Add-ons | [1826201](https://www.curseforge.com/projects/1826201) | `v1.0.2` | 🟢 Published |
 | [**ALN:OneClickSort**](MCPEDL/Addons/ALNOneClickSort/README.md) | Add-ons | [1818338](https://www.curseforge.com/projects/1818338) | `v12` | 🟢 Published |

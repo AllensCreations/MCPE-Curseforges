@@ -1,7 +1,7 @@
 # ALN ChestLog
 
 <!-- CURSEFORGE-BADGE:START -->
-[![CurseForge](https://img.shields.io/badge/CurseForge-Not%20Published-lightgrey?style=flat-square&logo=curseforge)](https://www.curseforge.com/members/allenscreations/projects)
+[![CurseForge](https://img.shields.io/badge/CurseForge-v4-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1835099)
 <!-- CURSEFORGE-BADGE:END -->
 
 Download the current release of **ALN ChestLog** for Minecraft Bedrock Edition.
