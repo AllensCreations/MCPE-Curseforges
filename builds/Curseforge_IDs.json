@@ -29,6 +29,9 @@
     "last_published_version": "12",
     "last_release_version": "9"
   },
+  "MCPEDL/Addons/ALNOpCodex": {
+    "project_id": "1834372"
+  },
   "MCPEDL/Addons/ALNPirateTokens": {
     "project_id": "1824277",
     "last_published_version": "1.0.4",

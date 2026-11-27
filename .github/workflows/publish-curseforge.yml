@@ -37,6 +37,7 @@ on:
           - "MCPEDL/Addons/ALN-MoreDiscs"
           - "MCPEDL/Addons/ALN-Pointer"
           - "MCPEDL/Addons/ALNOneClickSort"
+          - "MCPEDL/Addons/ALNOpCodex"
           - "MCPEDL/Addons/ALNPirateTokens"
           - "MCPEDL/Addons/ALNSpiritSphere"
           - "MCPEDL/Addons/ALNWarpScrolls"
@@ -53,7 +54,6 @@ on:
           - "MCPEDL/Addons/Tameable-Companion-Fox"
           - "MCPEDL/Addons/Universal-Leash"
           - "MCPEDL/Addons/Vanilla-Quality-of-Life"
-          - "MCPEDL/Addons/Waypoint-Helper"
           # END registered
       publish_map_variant:
         description: "Maps only (default = auto, all = Creative + Survival + Hardcore). Other pack types ignore it and publish normally"
