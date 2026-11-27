@@ -10,9 +10,11 @@ IDS = {
     "sharpness": 9, "smite": 10, "bane_of_arthropods": 11, "knockback": 12, "fire_aspect": 13,
     "looting": 14, "efficiency": 15, "silk_touch": 16, "unbreaking": 17, "fortune": 18, "power": 19,
     "punch": 20, "flame": 21, "infinity": 22, "frost_walker": 25, "mending": 26, "soul_speed": 36,
-    "swift_sneak": 37,
+    "swift_sneak": 37, "impaling": 29, "riptide": 30, "loyalty": 31, "channeling": 32, "multishot": 33,
+    "piercing": 34, "quick_charge": 35, "wind_burst": 38, "density": 39, "breach": 40, "lunge": 41,
 }
-LIMITS = {"knockback": 2, "punch": 2, "depth_strider": 3, "frost_walker": 2, "soul_speed": 3, "swift_sneak": 3}
+LIMITS = {"knockback": 2, "punch": 2, "depth_strider": 3, "frost_walker": 2, "soul_speed": 3, "swift_sneak": 3,
+          "riptide": 3, "loyalty": 3, "quick_charge": 3, "wind_burst": 3, "lunge": 3}
 
 
 def text(value):
@@ -76,6 +78,14 @@ TOOLS = [
     ("netherite_shovel", "God Silk Touch Shovel", "efficiency silk_touch " + KEEP),
     ("bow", "God Infinity Bow", "power punch flame infinity unbreaking"),
     ("bow", "God Mending Bow", "power punch flame " + KEEP),
+    ("netherite_hoe", "God Fortune Hoe", "efficiency fortune " + KEEP),
+    ("netherite_hoe", "God Silk Touch Hoe", "efficiency silk_touch " + KEEP),
+    ("trident", "God Loyalty Trident", "impaling loyalty channeling " + KEEP),
+    ("trident", "God Riptide Trident", "impaling riptide " + KEEP),
+    ("crossbow", "God Multishot Crossbow", "multishot quick_charge " + KEEP),
+    ("crossbow", "God Piercing Crossbow", "piercing quick_charge " + KEEP),
+    ("mace", "God Mace", "density breach smite bane_of_arthropods wind_burst fire_aspect " + KEEP),
+    ("netherite_spear", "God Spear", DAMAGE + " knockback fire_aspect looting lunge " + KEEP),
 ]
 ARMOR = [
     ("netherite_helmet", "God Helmet", GUARD + " respiration aqua_affinity"),

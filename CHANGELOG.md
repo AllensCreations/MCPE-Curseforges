@@ -4,6 +4,16 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v320] - 2026-11-27 - More Weapons and Tools
+
+**Spec**: spec_v320.txt | **Target**: MCPEDL/Addons/ALNOpCodex | **Files edited**: 4
+
+### Added
+- **New gear**: The tools box now holds hoes, tridents, crossbows, a mace and a spear, for 17 items in total.
+
+### Improved & Balanced
+- **Balance**: Most enchantments are level 255, while Riptide, Loyalty, Quick Charge, Wind Burst and Lunge stay at 3.
+
 ## [v319] - 2026-11-27 - Full Enchantment Kits
 
 **Spec**: spec_v319.txt | **Target**: MCPEDL/Addons/ALNOpCodex | **Files edited**: 5

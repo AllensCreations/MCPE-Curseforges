@@ -2,6 +2,14 @@
 
 ---
 
+## [v5] - 2026-11-27 - More Weapons and Tools
+
+### Added
+- **New gear**: The tools box now holds hoes, tridents, crossbows, a mace and a spear, for 17 items in total.
+
+### Improved & Balanced
+- **Balance**: Most enchantments are level 255, while Riptide, Loyalty, Quick Charge, Wind Burst and Lunge stay at 3.
+
 ## [v4] - 2026-11-27 - Full Enchantment Kits
 
 ### Added
