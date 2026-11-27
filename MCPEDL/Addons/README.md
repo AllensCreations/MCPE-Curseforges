@@ -49,6 +49,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | Smart Tool Hub | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Smart-Tool-Hub/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Smart-Tool-Hub/SmartToolHub%20V1.0.2.mcaddon) |
 | ALN HyperPipes | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-HyperPipes/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-HyperPipes/ALNHyperPipes%20V1.mcaddon) |
 | ALNAuroraBorealis | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALNAuroraBorealis/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNAuroraBorealis/ALNAuroraBorealis%20V2.mcaddon) |
+| ALNCamouflageDoors | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALNCamouflageDoors/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNCamouflageDoors/ALNCamouflageDoors%20V1.mcaddon) |
 
 Download links point to the currently published package files.
 

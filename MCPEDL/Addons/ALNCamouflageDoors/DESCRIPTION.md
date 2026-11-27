@@ -73,3 +73,4 @@ Craft a Door Painter and place it. Right-click it, choose a door, then choose a 
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, ALN:CamouflageDoors Bedrock mod, secret door, painted door, door painter workstation, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+

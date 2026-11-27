@@ -1,11 +1,15 @@
-# ALN:CamouflageDoors
+# ALNCamouflageDoors
 
-Download the current release of **ALN:CamouflageDoors** for Minecraft Bedrock Edition.
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-Not%20Published-lightgrey?style=flat-square&logo=curseforge)](https://www.curseforge.com/members/allenscreations/projects)
+<!-- CURSEFORGE-BADGE:END -->
+
+Download the current release of **ALNCamouflageDoors** for Minecraft Bedrock Edition.
 
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN:CamouflageDoors (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/README.md)
+- **Direct download:** [Download ALNCamouflageDoors (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNCamouflageDoors/ALNCamouflageDoors%20V1.mcaddon)
 
 ## Installation
 
@@ -15,4 +19,4 @@ Download the current release of **ALN:CamouflageDoors** for Minecraft Bedrock Ed
 
 ## Pack Information
 
-For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-CamouflageDoors/DESCRIPTION.md).
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALNCamouflageDoors/DESCRIPTION.md).
