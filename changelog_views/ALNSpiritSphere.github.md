@@ -1,14 +1,28 @@
 # Changelog — ALN:SpiritSphere
 
-## [7.0.0] - 2026-11-26 - Flight Paths and Energy Hands
+## [8.0.0] - 2026-11-27 - Icon Projectile
 
 ### Added
+- **Icon projectile**: The flying orb is now drawn as the sphere's own icon texture instead of the generic glowing blob.
+
+### Improved & Balanced
+- **No gravity**: Orbs are no longer pulled down. Quick releases fly straight, and Blaze Solar and Terra Quake fly straight while Frost Nova now glides in a gentle wave.
+- **Unlimited range**: Orbs keep flying until they hit something, with a 5 minute safety limit so stray orbs do not pile up.
+
+<details>
+<summary><b>7.0.x</b> (1 release)</summary>
+
+### [7.0.0] - 2026-11-26 - Flight Paths and Energy Hands
+
+#### Added
 - **Flight paths**: Each of the ten spheres now flies its own path, from a spiral and a zigzag to arcs, homing, a wobble, a side curve and a speed-up.
 - **Energy hands**: Glowing particle hands and arms now appear on both sides of the sphere while you charge, so it looks held in two hands.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **Sphere position**: The charging sphere and the launch point now sit in front of your chest instead of beside your right hand.
 - **Chrono Stasis speed**: The orb now starts at about 40 percent of its old speed and speeds up in flight.
+
+</details>
 
 <details>
 <summary><b>6.0.x</b> (1 release)</summary>

@@ -4,9 +4,9 @@
 
 - **Export request:** `MCPEDL/Addons/ALNSpiritSphere`
 - **Destination:** `MCPEDL/Addons/ALNSpiritSphere`
-- **CURRENT VERSION: v7 / NEXT UPDATE: v8**  (`MCPEDL/Addons/ALNSpiritSphere/CHANGELOG.md`)
+- **CURRENT VERSION: v8 / NEXT UPDATE: v9**  (`MCPEDL/Addons/ALNSpiritSphere/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
-- **Text files:** 50
+- **Text files:** 60
 - **Skipped binary:** 131
 - **Paths not found:** 0
 
@@ -48,6 +48,16 @@
 - `MCPEDL/Addons/ALNSpiritSphere/resource_pack/entity/spirit_orb.entity.json`
 - `MCPEDL/Addons/ALNSpiritSphere/resource_pack/manifest.json`
 - `MCPEDL/Addons/ALNSpiritSphere/resource_pack/models/entity/spirit_orb.geo.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_aero.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_blaze.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_chrono.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_frost.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_gravity.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_life.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_storm.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_terra.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_toxic.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_void.json`
 - `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ss_big.json`
 - `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ss_mid.json`
 - `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ss_pull_core.json`
@@ -231,7 +241,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v7 / NEXT UPDATE: v8).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v8 / NEXT UPDATE: v9).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE self-contained update `.sh` (`<Pack>_v<Version>_<rand>.sh`) built with `make_update_script.py` (INSTRUCTIONS.md Reply Format).
@@ -267,7 +277,8 @@ Output ONLY these three sections in order:
 ## Policy Doc: INSTRUCTIONS.md
 
 ````markdown
-# Instructions: Core Repository Policy (v46)
+# Instructions: Core Repository Policy (v47)
+
 
 
 Repo policy, docs rules for AllensCreations/MCPE-Curseforges (creator name `ALNStudios`). Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
@@ -494,6 +505,8 @@ Applies to every addon, map, script, minigame, item, entity, block, trade, recip
 - Conflict Prevention & Isolation:
   1. Custom namespace isolation: Always prefix custom items, blocks, and entities with `aln:<name>` (e.g. `aln:<minigame_name>_controller`).
   2. Avoid Vanilla Entity Overrides: Overriding vanilla entity JSON files (e.g. `entities/zombie.json`) completely wipes out other addons modifying the same entity in Bedrock's load order. Whenever possible, hook into vanilla entity mechanics using `@minecraft/server` Script API event subscriptions (`world.afterEvents.entityDie`, `playerInteractWithEntity`, `entityHurt`, etc.) rather than replacing the vanilla entity JSON.
+- Structural NBT & .mcstructure: When a mechanic requires pre-built templates or saved blocks/entities, place `.mcstructure` and `.nbt` files strictly under `behavior_pack/structures/` (or an optional namespace subfolder like `behavior_pack/structures/aln/<name>.mcstructure`). These files must be generated only by code or exported from Bedrock tools (never hand-written arbitrary bytes). Shipped files must contain no comments, obey the 2 MB per-file size cap, and be stated as "not tested in game" until verified in Minecraft.
+
 - Docs (`DOCS_RULES.md`): player-facing result only, no code or API names; the trade-off under Good To Know. State achievement and experiment impact per 1.2.
 
 ### 1.13 ALN UI Redesign (UI skin)
@@ -561,6 +574,8 @@ Docs, API, vanilla data and repo files are read with the Context7 MCP tool `quer
 - [ ] Manifest versions use `[X, Y, Z]` / `"X.Y.Z"` format; per-pack titles/changelogs/packages use `vX` format (1.3).
 
 ## Version History
+- **v47:** Added support for Bedrock structure (.mcstructure) and plain NBT (.nbt) files under behavior_pack/structures/ with little-endian NBT validation.
+
 - **v46:** Removed `/allenscreations/mcpe-curseforges` from the Context7 library list (redundant — the kit zip always has fresher repo files and already takes priority). Context7 now covers only the three external Bedrock doc libraries. Updated the per-turn batching note: all three calls fit in one parallel turn.
 - **v45:** Context7 query batching rule updated: when all four libraries are needed and the tool enforces a per-turn call cap, run remaining library calls in the next turn BEFORE writing code — never skip a needed library or use the cap as a reason to stop or guess.
 - **v44:** Pack generation protocol requires mandatory deep research (~90% thoroughness) on the requested idea and latest Bedrock Script APIs, selection of latest stable modules, and presenting the implementation Plan for user approval before building any files or `.sh` pack script.
@@ -602,7 +617,8 @@ Docs, API, vanilla data and repo files are read with the Context7 MCP tool `quer
 ## Policy Doc: PACK_GENERATOR_INSTRUCTIONS.md
 
 ````markdown
-# Pack Generator Instructions (AI Agent, v41)
+# Pack Generator Instructions (AI Agent, v42)
+
 
 
 Builds a complete **addon**, **map**, **script**, or **minigame** from the user's idea. Returns ONE Termux `.sh` pack script that carries the whole project inside it (as base64). No other file is delivered.
@@ -782,6 +798,8 @@ Before generating any files, scratch workspaces, or pack `.sh` scripts:
 - Shell may be plain `sh`: NEVER brace expansion. After creating files, list them, confirm they exist.
 - `.sh` names: 1.1 rule (`(Repofilename)_(Version)_(Rand).sh`).
 - NEVER comments in `.js`, `.mcfunction`, `.json`. Prefer event-driven logic. NEVER claim a README/catalog link to a `.mcworld` that does not exist yet.
+- Structure files: Bedrock structure (.mcstructure, little-endian NBT) and raw NBT (.nbt) files are permitted ONLY under behavior_pack/structures/ (an optional namespace subfolder like structures/aln/<name>.mcstructure is fine). Generated only by code, no comments, max 2 MB per file, no spaces in paths, "not tested in game" until verified in Minecraft.
+
 - Every reply = the three 4.11 sections (File Needed, Changelog, Termux Script). NEVER a Summary section.
 - Vanilla limit blocks a requested mechanic: follow 4.12.
 
@@ -791,14 +809,16 @@ ZIP root = project folder contents, built in `build/<Name>/`:
 project.json          REQUIRED: {"type": "addon|map|script|minigame", "name": "Display Name"}
 README.md  DESCRIPTION.md  CHANGELOG.md
 behavior_pack/manifest.json
-behavior_pack/...     functions/ items/ blocks/ entities/ recipes/ loot_tables/ texts/ scripts/main.js
+behavior_pack/...     functions/ items/ blocks/ entities/ recipes/ loot_tables/ texts/ structures/ scripts/main.js
+
                       scripts/lib/README.md (REQUIRED with main.js), lib/*.js optional
 resource_pack/        map/minigame REQUIRED. addon optional. script FORBIDDEN.
 texture_sources/      optional pixel JSON for custom textures (4.13). NEVER inside resource_pack/.
 ```
 - NEVER ship `oneblock.json` (importer writes for maps), `LOCK` (importer writes for add-ons), another type's `project.json`.
 - NEVER include: `db/`, `level.dat`, `world_behavior_packs.json`, `world_resource_packs.json`, `.mcworld/.mcpack/.mcaddon/.zip`, symlinks, `Mcpeworlds/...` or `assets/...` paths. NEVER name a file/folder exactly `db`.
-- Limits (see `build_payload.py`): 500 files, 5 MB/file, 25 MB total. Delivery = the one pack `.sh`, nothing else.
+- Limits (see `build_payload.py`): 500 files, 5 MB/file (2 MB for .mcstructure / .nbt), 25 MB total. Delivery = the one pack `.sh`, nothing else.
+
 - NEVER create `test_world.json` or promise a test world (removed). The importer creates `assets/snapshots/`, `assets/recipes/`, `assets/items/` itself: NEVER ship `assets/`.
 
 ### 4.3 Manifests (all types)
@@ -1633,11 +1653,11 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:SpiritSphere Behavior Pack (v7)",
+    "name": "ALN:SpiritSphere Behavior Pack (v8)",
     "description": "Charge one of ten elemental Spirit Spheres and release a Ghast-style energy orb by ALNStudios",
     "uuid": "951ab0f1-53a7-45a3-80fc-a610ec8e217b",
     "version": [
-      7,
+      8,
       0,
       0
     ],
@@ -1652,7 +1672,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "type": "data",
       "uuid": "d58017bb-894b-4fd8-a26a-d2ab81d83a4e",
       "version": [
-        7,
+        8,
         0,
         0
       ]
@@ -1662,7 +1682,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "language": "javascript",
       "uuid": "ad6704ec-178d-4dd3-b3eb-1a719bd5b2f0",
       "version": [
-        7,
+        8,
         0,
         0
       ],
@@ -1673,7 +1693,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
     {
       "uuid": "c05699f5-364c-44cb-9978-490a4bc716e4",
       "version": [
-        7,
+        8,
         0,
         0
       ]
@@ -1688,7 +1708,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "7.0.0"
+    "version": "8.0.0"
   }
 }
 ```
@@ -2119,7 +2139,7 @@ export function chargeSound(player, held, mode) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/elements.js (117 lines, 2611 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/elements.js (117 lines, 2612 bytes)
 
 ```
 export const ORB_ID = "aln:spirit_orb";
@@ -2131,7 +2151,7 @@ export const DECAY_TICKS = 60;
 export const MIN_POWER = 0.4;
 export const COOLDOWN_TICKS = 60;
 export const MIN_HOLD = 4;
-export const MAX_ORB_AGE = 120;
+export const MAX_ORB_AGE = 6000;
 
 export const MODES = [
   {
@@ -2326,7 +2346,7 @@ system.runInterval(() => {
 }, 1);
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/orbs.js (346 lines, 10725 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/orbs.js (347 lines, 10815 bytes)
 
 ```
 import { world } from "@minecraft/server";
@@ -2514,11 +2534,11 @@ function tickAnchors() {
 
 const PATHS = {
   aero: { kind: "spiral", w: 0.8, k: 0.384 },
-  blaze: { kind: "arc", g: 0.012, up: 0 },
-  frost: { kind: "arc", g: 0.045, up: 0.3 },
+  blaze: { kind: "straight" },
+  frost: { kind: "wave", w: 0.5, k: 0.2 },
   storm: { kind: "zigzag", w: 0.9, k: 0.7 },
   void: { kind: "home", k: 0.1, range: 16 },
-  terra: { kind: "arc", g: 0.06, up: 0.35 },
+  terra: { kind: "straight" },
   toxic: { kind: "wobble", k: 0.06 },
   gravity: { kind: "curve", k: 0.025 },
   life: { kind: "seek", k: 0.12, range: 24 },
@@ -2537,8 +2557,8 @@ function startPath(orb, id, view, f) {
       orb.applyImpulse({ x: right.x * ur + up.x * uu, y: right.y * ur + up.y * uu, z: right.z * ur + up.z * uu });
     } else if (cfg.kind === "zigzag") {
       orb.applyImpulse({ x: right.x * (cfg.k / 2), y: 0, z: right.z * (cfg.k / 2) });
-    } else if (cfg.kind === "arc" && cfg.up > 0) {
-      orb.applyImpulse({ x: 0, y: cfg.up, z: 0 });
+    } else if (cfg.kind === "wave") {
+      orb.applyImpulse({ x: up.x * (cfg.k / 2), y: up.y * (cfg.k / 2), z: up.z * (cfg.k / 2) });
     }
   } catch (e) {}
   if (cfg.kind === "accel") p.k = cfg.k + 0.03 * f;
@@ -2590,8 +2610,9 @@ function steerOrb(s, loc) {
   } else if (p.kind === "zigzag") {
     const c = Math.cos(p.w * p.t) * p.k;
     o.applyImpulse({ x: p.right.x * c, y: 0, z: p.right.z * c });
-  } else if (p.kind === "arc") {
-    o.applyImpulse({ x: 0, y: -p.g, z: 0 });
+  } else if (p.kind === "wave") {
+    const c = Math.cos(p.w * p.t) * p.k;
+    o.applyImpulse({ x: p.up.x * c, y: p.up.y * c, z: p.up.z * c });
   } else if (p.kind === "wobble") {
     const a = (Math.random() * 2 - 1) * p.k;
     const b = (Math.random() * 2 - 1) * p.k;
@@ -2601,7 +2622,7 @@ function steerOrb(s, loc) {
     o.applyImpulse({ x: p.right.x * c, y: 0, z: p.right.z * c });
   } else if (p.kind === "accel") {
     if (p.t <= p.ticks) o.applyImpulse({ x: p.view.x * p.k, y: p.view.y * p.k, z: p.view.z * p.k });
-  } else {
+  } else if (p.kind === "home" || p.kind === "seek") {
     homeIn(s, p, loc);
   }
 }
@@ -2624,7 +2645,7 @@ export function launchOrb(player, modeIndex, held) {
     owner: player.id,
     age: 0,
     last: start,
-    lob: f < 0.35 ? 0.035 * (1 - f / 0.35) : 0,
+    lob: 0,
     path: startPath(orb, mode.id, view, f),
   });
   sound(dimension, `${mode.sfx}.launch`, start);
@@ -2637,7 +2658,7 @@ export function tickOrbs() {
       const loc = s.orb.location;
       s.last = loc;
       s.age++;
-      orbTrail(s.dimension, loc, s.mode.color, s.age);
+      orbTrail(s.dimension, loc, s.mode.color, s.age, s.mode.id);
       if (s.lob > 0) s.orb.applyImpulse({ x: 0, y: -s.lob, z: 0 });
       steerOrb(s, loc);
       if (s.age > MAX_ORB_AGE) {
@@ -2676,7 +2697,7 @@ export function registerHits() {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/visuals.js (177 lines, 6122 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/visuals.js (179 lines, 6190 bytes)
 
 ```
 import { MolangVariableMap } from "@minecraft/server";
@@ -2836,8 +2857,10 @@ export function impactBurst(dimension, center, radius, color) {
   }
 }
 
-export function orbTrail(dimension, center, color, age) {
-  puff(dimension, BIG, center, color);
+export function orbTrail(dimension, center, color, age, id) {
+  try {
+    dimension.spawnParticle(`aln:ic_${id}`, center, new MolangVariableMap());
+  } catch (e) {}
   if (age % 2 === 0) puff(dimension, PULL_ORB, center, color);
   const a = age * 0.9;
   puff(dimension, SMALL, { x: center.x + Math.cos(a) * 0.5, y: center.y + Math.sin(a * 1.3) * 0.5, z: center.z + Math.sin(a) * 0.5 }, color);
@@ -2857,12 +2880,21 @@ export function voidSwirl(dimension, center, radius, color, tick) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/CHANGELOG.md (68 lines, 3845 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/CHANGELOG.md (77 lines, 4340 bytes)
 
 ```
 # Changelog — ALN:SpiritSphere
 
 ---
+
+## [8.0.0] - 2026-11-27 - Icon Projectile
+
+### Added
+- **Icon projectile**: The flying orb is now drawn as the sphere's own icon texture instead of the generic glowing blob.
+
+### Improved & Balanced
+- **No gravity**: Orbs are no longer pulled down. Quick releases fly straight, and Blaze Solar and Terra Quake fly straight while Frost Nova now glides in a gentle wave.
+- **Unlimited range**: Orbs keep flying until they hit something, with a 5 minute safety limit so stray orbs do not pile up.
 
 ## [7.0.0] - 2026-11-26 - Flight Paths and Energy Hands
 
@@ -2929,7 +2961,7 @@ export function voidSwirl(dimension, center, radius, color, tick) {
 - **Five elements**: Players can sneak and use the focus to switch between Aero Vortex, Blaze Solar, Frost Nova, Storm Surge and Void Singularity.
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/DESCRIPTION.md (104 lines, 8001 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/DESCRIPTION.md (107 lines, 8233 bytes)
 
 ```
 # ALN:SpiritSphere — Chargeable Elemental Energy Orbs
@@ -2970,13 +3002,16 @@ Each sphere has its own color and impact behavior. There is no switching: carry 
 - **What Happens**: At 50 ticks (2.5 seconds) the core bursts into a large glowing sphere with a sonic pulse. Releasing within the next 0.6 seconds is the sweet spot and gives a 25 percent larger blast.
 
 ### Charge-Scaled Orb
-- **What Happens**: Releasing fires the Spirit Orb along your aim. A quick release lobs a slow orb with a small blast, a medium charge flies steadily, and a full charge flies almost straight and fast with a cratering explosion.
+- **What Happens**: Releasing fires the Spirit Orb along your aim. A quick release flies slowly with a small blast, a medium charge flies steadily, and a full charge flies fast with a cratering explosion.
+
+### Icon Projectile
+- **What Happens**: The flying orb is drawn as the sphere's own icon, so you can tell the element at a glance, and it leaves a glowing trail behind it.
 
 ### Energy Hands
 - **What Happens**: While you charge, glowing energy hands made of particles appear on both sides of the sphere, with energy arms running back to your shoulders. The hands close in as the sphere compresses and spread apart when it bursts open.
 
 ### Flight Paths
-- **What Happens**: Each sphere flies its own way. Aero Vortex corkscrews in a spiral, Blaze Solar flies fast with a slight fireball drop, Frost Nova lobs in a high arc, Storm Surge zigzags side to side, Void Singularity slowly homes in on the nearest mob, Terra Quake flies as a heavy boulder arc, Toxic Bloom wobbles unpredictably, Gravity Warp bends in a wide curve to one side, Life Bloom seeks the nearest other player and Chrono Stasis starts slow and speeds up.
+- **What Happens**: Each sphere flies its own way. Aero Vortex corkscrews in a spiral, Blaze Solar flies fast and straight, Frost Nova glides in a gentle wave, Storm Surge zigzags side to side, Void Singularity slowly homes in on the nearest mob, Terra Quake flies as a heavy straight boulder, Toxic Bloom wobbles unpredictably, Gravity Warp bends in a wide curve to one side, Life Bloom seeks the nearest other player and Chrono Stasis starts slow and speeds up. No orb is pulled down by gravity, and every orb keeps flying until it hits something.
 
 ### Sweet Spot and Fading
 - **What Happens**: Full power lasts from 50 to 62 ticks. If you keep holding, the sphere shrinks, its tone falls in pitch, and the shot slowly weakens over the next 3 seconds down to 40 percent of its speed and blast. The action bar shows the current power.
@@ -3000,7 +3035,7 @@ Each sphere has its own color and impact behavior. There is no switching: carry 
 
 1. Craft a sphere from an Ender Pearl, an Amethyst Shard, Blaze Powder and its element item, such as a Wind Charge or Feather for Aero Vortex or a Clock for Chrono Stasis.
 2. Hold use. The view zooms in, a tone rises and the three charge phases build in your hand.
-3. Release to fire the orb along your aim. Release early for a slow lob, or release between 50 and 62 ticks for the strongest shot. Holding longer weakens it.
+3. Release to fire the orb along your aim. Release early for a slow shot, or release between 50 and 62 ticks for the strongest shot. Holding longer weakens it.
 4. Pick another sphere from the hotbar to change the element. The action bar shows the element while you charge.
 
 ## Compatibility
@@ -3059,7 +3094,7 @@ Download the current release of **ALNSpiritSphere** for Minecraft Bedrock Editio
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNSpiritSphere (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpiritSphere/ALNSpiritSphere%20V7.mcaddon)
+- **Direct download:** [Download ALNSpiritSphere (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpiritSphere/ALNSpiritSphere%20V8.mcaddon)
 
 ## Installation
 
@@ -3103,11 +3138,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:SpiritSphere Resource Pack (v7)",
+    "name": "ALN:SpiritSphere Resource Pack (v8)",
     "description": "Charge one of ten elemental Spirit Spheres and release a Ghast-style energy orb by ALNStudios",
     "uuid": "c05699f5-364c-44cb-9978-490a4bc716e4",
     "version": [
-      7,
+      8,
       0,
       0
     ],
@@ -3122,7 +3157,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "6ef1070d-ea7a-4d3f-8c1b-02834809e5e6",
       "version": [
-        7,
+        8,
         0,
         0
       ]
@@ -3133,7 +3168,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "7.0.0"
+    "version": "8.0.0"
   }
 }
 ```
@@ -3187,6 +3222,486 @@ For gameplay features, usage details, compatibility notes, and other project inf
       ]
     }
   ]
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_aero.json (44 lines, 946 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:ic_aero",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/items/aln_aero_sphere"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.12
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.8,
+          0.8
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 32,
+          "texture_height": 32,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            32,
+            32
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_blaze.json (44 lines, 948 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:ic_blaze",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/items/aln_blaze_sphere"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.12
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.8,
+          0.8
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 32,
+          "texture_height": 32,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            32,
+            32
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_chrono.json (44 lines, 950 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:ic_chrono",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/items/aln_chrono_sphere"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.12
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.8,
+          0.8
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 32,
+          "texture_height": 32,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            32,
+            32
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_frost.json (44 lines, 948 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:ic_frost",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/items/aln_frost_sphere"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.12
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.8,
+          0.8
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 32,
+          "texture_height": 32,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            32,
+            32
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_gravity.json (44 lines, 952 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:ic_gravity",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/items/aln_gravity_sphere"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.12
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.8,
+          0.8
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 32,
+          "texture_height": 32,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            32,
+            32
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_life.json (44 lines, 946 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:ic_life",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/items/aln_life_sphere"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.12
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.8,
+          0.8
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 32,
+          "texture_height": 32,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            32,
+            32
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_storm.json (44 lines, 948 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:ic_storm",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/items/aln_storm_sphere"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.12
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.8,
+          0.8
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 32,
+          "texture_height": 32,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            32,
+            32
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_terra.json (44 lines, 948 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:ic_terra",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/items/aln_terra_sphere"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.12
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.8,
+          0.8
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 32,
+          "texture_height": 32,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            32,
+            32
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_toxic.json (44 lines, 948 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:ic_toxic",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/items/aln_toxic_sphere"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.12
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.8,
+          0.8
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 32,
+          "texture_height": 32,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            32,
+            32
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_void.json (44 lines, 946 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:ic_void",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/items/aln_void_sphere"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.12
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.8,
+          0.8
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 32,
+          "texture_height": 32,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            32,
+            32
+          ]
+        }
+      }
+    }
+  }
 }
 ```
 
