@@ -2,6 +2,15 @@
 
 ---
 
+## [8.0.0] - 2026-11-27 - Icon Projectile
+
+### Added
+- **Icon projectile**: The flying orb is now drawn as the sphere's own icon texture instead of the generic glowing blob.
+
+### Improved & Balanced
+- **No gravity**: Orbs are no longer pulled down. Quick releases fly straight, and Blaze Solar and Terra Quake fly straight while Frost Nova now glides in a gentle wave.
+- **Unlimited range**: Orbs keep flying until they hit something, with a 5 minute safety limit so stray orbs do not pile up.
+
 ## [7.0.0] - 2026-11-26 - Flight Paths and Energy Hands
 
 ### Added

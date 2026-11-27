@@ -4,6 +4,17 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v315] - 2026-11-27 - Icon Projectile
+
+**Spec**: spec_v315.txt | **Target**: MCPEDL/Addons/ALNSpiritSphere | **Files edited**: 15
+
+### Added
+- **Icon projectile**: The flying orb is now drawn as the sphere's own icon texture instead of the generic glowing blob.
+
+### Improved & Balanced
+- **No gravity**: Orbs are no longer pulled down. Quick releases fly straight, and Blaze Solar and Terra Quake fly straight while Frost Nova now glides in a gentle wave.
+- **Unlimited range**: Orbs keep flying until they hit something, with a 5 minute safety limit so stray orbs do not pile up.
+
 ## [v314] - 2026-11-27 - Floating Item Display and Click to Insert
 
 **Spec**: spec_v314.txt | **Target**: MCPEDL/Addons/ALNLootSpawner-Arcane-Relic-Duplicator | **Files edited**: 3

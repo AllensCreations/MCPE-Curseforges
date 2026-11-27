@@ -155,8 +155,10 @@ export function impactBurst(dimension, center, radius, color) {
   }
 }
 
-export function orbTrail(dimension, center, color, age) {
-  puff(dimension, BIG, center, color);
+export function orbTrail(dimension, center, color, age, id) {
+  try {
+    dimension.spawnParticle(`aln:ic_${id}`, center, new MolangVariableMap());
+  } catch (e) {}
   if (age % 2 === 0) puff(dimension, PULL_ORB, center, color);
   const a = age * 0.9;
   puff(dimension, SMALL, { x: center.x + Math.cos(a) * 0.5, y: center.y + Math.sin(a * 1.3) * 0.5, z: center.z + Math.sin(a) * 0.5 }, color);

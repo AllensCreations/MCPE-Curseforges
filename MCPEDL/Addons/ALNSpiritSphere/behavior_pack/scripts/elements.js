@@ -7,7 +7,7 @@ export const DECAY_TICKS = 60;
 export const MIN_POWER = 0.4;
 export const COOLDOWN_TICKS = 60;
 export const MIN_HOLD = 4;
-export const MAX_ORB_AGE = 120;
+export const MAX_ORB_AGE = 6000;
 
 export const MODES = [
   {

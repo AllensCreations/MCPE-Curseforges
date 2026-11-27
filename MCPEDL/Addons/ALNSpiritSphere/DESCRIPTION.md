@@ -36,13 +36,16 @@ Each sphere has its own color and impact behavior. There is no switching: carry 
 - **What Happens**: At 50 ticks (2.5 seconds) the core bursts into a large glowing sphere with a sonic pulse. Releasing within the next 0.6 seconds is the sweet spot and gives a 25 percent larger blast.
 
 ### Charge-Scaled Orb
-- **What Happens**: Releasing fires the Spirit Orb along your aim. A quick release lobs a slow orb with a small blast, a medium charge flies steadily, and a full charge flies almost straight and fast with a cratering explosion.
+- **What Happens**: Releasing fires the Spirit Orb along your aim. A quick release flies slowly with a small blast, a medium charge flies steadily, and a full charge flies fast with a cratering explosion.
+
+### Icon Projectile
+- **What Happens**: The flying orb is drawn as the sphere's own icon, so you can tell the element at a glance, and it leaves a glowing trail behind it.
 
 ### Energy Hands
 - **What Happens**: While you charge, glowing energy hands made of particles appear on both sides of the sphere, with energy arms running back to your shoulders. The hands close in as the sphere compresses and spread apart when it bursts open.
 
 ### Flight Paths
-- **What Happens**: Each sphere flies its own way. Aero Vortex corkscrews in a spiral, Blaze Solar flies fast with a slight fireball drop, Frost Nova lobs in a high arc, Storm Surge zigzags side to side, Void Singularity slowly homes in on the nearest mob, Terra Quake flies as a heavy boulder arc, Toxic Bloom wobbles unpredictably, Gravity Warp bends in a wide curve to one side, Life Bloom seeks the nearest other player and Chrono Stasis starts slow and speeds up.
+- **What Happens**: Each sphere flies its own way. Aero Vortex corkscrews in a spiral, Blaze Solar flies fast and straight, Frost Nova glides in a gentle wave, Storm Surge zigzags side to side, Void Singularity slowly homes in on the nearest mob, Terra Quake flies as a heavy straight boulder, Toxic Bloom wobbles unpredictably, Gravity Warp bends in a wide curve to one side, Life Bloom seeks the nearest other player and Chrono Stasis starts slow and speeds up. No orb is pulled down by gravity, and every orb keeps flying until it hits something.
 
 ### Sweet Spot and Fading
 - **What Happens**: Full power lasts from 50 to 62 ticks. If you keep holding, the sphere shrinks, its tone falls in pitch, and the shot slowly weakens over the next 3 seconds down to 40 percent of its speed and blast. The action bar shows the current power.
@@ -66,7 +69,7 @@ Each sphere has its own color and impact behavior. There is no switching: carry 
 
 1. Craft a sphere from an Ender Pearl, an Amethyst Shard, Blaze Powder and its element item, such as a Wind Charge or Feather for Aero Vortex or a Clock for Chrono Stasis.
 2. Hold use. The view zooms in, a tone rises and the three charge phases build in your hand.
-3. Release to fire the orb along your aim. Release early for a slow lob, or release between 50 and 62 ticks for the strongest shot. Holding longer weakens it.
+3. Release to fire the orb along your aim. Release early for a slow shot, or release between 50 and 62 ticks for the strongest shot. Holding longer weakens it.
 4. Pick another sphere from the hotbar to change the element. The action bar shows the element while you charge.
 
 ## Compatibility

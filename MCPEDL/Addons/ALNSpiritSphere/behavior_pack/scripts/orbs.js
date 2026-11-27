@@ -183,11 +183,11 @@ function tickAnchors() {
 
 const PATHS = {
   aero: { kind: "spiral", w: 0.8, k: 0.384 },
-  blaze: { kind: "arc", g: 0.012, up: 0 },
-  frost: { kind: "arc", g: 0.045, up: 0.3 },
+  blaze: { kind: "straight" },
+  frost: { kind: "wave", w: 0.5, k: 0.2 },
   storm: { kind: "zigzag", w: 0.9, k: 0.7 },
   void: { kind: "home", k: 0.1, range: 16 },
-  terra: { kind: "arc", g: 0.06, up: 0.35 },
+  terra: { kind: "straight" },
   toxic: { kind: "wobble", k: 0.06 },
   gravity: { kind: "curve", k: 0.025 },
   life: { kind: "seek", k: 0.12, range: 24 },
@@ -206,8 +206,8 @@ function startPath(orb, id, view, f) {
       orb.applyImpulse({ x: right.x * ur + up.x * uu, y: right.y * ur + up.y * uu, z: right.z * ur + up.z * uu });
     } else if (cfg.kind === "zigzag") {
       orb.applyImpulse({ x: right.x * (cfg.k / 2), y: 0, z: right.z * (cfg.k / 2) });
-    } else if (cfg.kind === "arc" && cfg.up > 0) {
-      orb.applyImpulse({ x: 0, y: cfg.up, z: 0 });
+    } else if (cfg.kind === "wave") {
+      orb.applyImpulse({ x: up.x * (cfg.k / 2), y: up.y * (cfg.k / 2), z: up.z * (cfg.k / 2) });
     }
   } catch (e) {}
   if (cfg.kind === "accel") p.k = cfg.k + 0.03 * f;
@@ -259,8 +259,9 @@ function steerOrb(s, loc) {
   } else if (p.kind === "zigzag") {
     const c = Math.cos(p.w * p.t) * p.k;
     o.applyImpulse({ x: p.right.x * c, y: 0, z: p.right.z * c });
-  } else if (p.kind === "arc") {
-    o.applyImpulse({ x: 0, y: -p.g, z: 0 });
+  } else if (p.kind === "wave") {
+    const c = Math.cos(p.w * p.t) * p.k;
+    o.applyImpulse({ x: p.up.x * c, y: p.up.y * c, z: p.up.z * c });
   } else if (p.kind === "wobble") {
     const a = (Math.random() * 2 - 1) * p.k;
     const b = (Math.random() * 2 - 1) * p.k;
@@ -270,7 +271,7 @@ function steerOrb(s, loc) {
     o.applyImpulse({ x: p.right.x * c, y: 0, z: p.right.z * c });
   } else if (p.kind === "accel") {
     if (p.t <= p.ticks) o.applyImpulse({ x: p.view.x * p.k, y: p.view.y * p.k, z: p.view.z * p.k });
-  } else {
+  } else if (p.kind === "home" || p.kind === "seek") {
     homeIn(s, p, loc);
   }
 }
@@ -293,7 +294,7 @@ export function launchOrb(player, modeIndex, held) {
     owner: player.id,
     age: 0,
     last: start,
-    lob: f < 0.35 ? 0.035 * (1 - f / 0.35) : 0,
+    lob: 0,
     path: startPath(orb, mode.id, view, f),
   });
   sound(dimension, `${mode.sfx}.launch`, start);
@@ -306,7 +307,7 @@ export function tickOrbs() {
       const loc = s.orb.location;
       s.last = loc;
       s.age++;
-      orbTrail(s.dimension, loc, s.mode.color, s.age);
+      orbTrail(s.dimension, loc, s.mode.color, s.age, s.mode.id);
       if (s.lob > 0) s.orb.applyImpulse({ x: 0, y: -s.lob, z: 0 });
       steerOrb(s, loc);
       if (s.age > MAX_ORB_AGE) {
