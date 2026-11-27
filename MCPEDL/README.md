@@ -8,8 +8,8 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 
 | Kit | Download |
 | :-- | :-- |
-| **New Pack Kit (zip: map and scripts)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/New-Pack-v322.zip) |
-| **Repo Maintenance Kit (zip: map and scripts)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Maintenance-v322.zip) |
+| **New Pack Kit (zip: map and scripts)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/New-Pack-v323.zip) |
+| **Repo Maintenance Kit (zip: map and scripts)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Maintenance-v323.zip) |
 | **Vanilla Bedrock Reference (JSON.gz)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/bedrock-samples/bedrock-samples.min.json.gz) |
 | **Bedrock Reference Bundle (v1.26.60)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/bedrock-samples/bedrock-reference-pack-1.26.60.zip) |
 | **Minecraft Script API TypeScript Definitions (.d.ts Zip)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/typescript-definitions/minecraft-bedrock-types.zip) |
@@ -70,7 +70,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 
 | Pack | Version | Status | Source | Package | AI review |
 | :-- | :-- | :-- | :-- | :-- | :-- |
-| **ALN:LegendaryPiglin** | 1.0.0 | ⚪ Not Published | [Source](Maps/ALN-LegendaryPiglin) | [Package](../Package/ALN-LegendaryPiglin.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-LegendaryPiglin-1.0.0.zip) |
+| **ALN:LegendaryPiglin** | v2 | ⚪ Not Published | [Source](Maps/ALN-LegendaryPiglin) | [Package](../Package/ALN-LegendaryPiglin.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-LegendaryPiglin-v2.zip) |
 | **ALN:MultiIslandOneBlock** | v12 | 🟢 Published ([v12](https://www.curseforge.com/projects/1825799)) | [Source](Maps/ALNMultiIslandOneBlock) | [Package](../Package/ALNMultiIslandOneBlock.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNMultiIslandOneBlock-v12.zip) |
 | **One Block Skyblock Lucky Blocks** | 9.0.0 | 🟢 Published ([v9](https://www.curseforge.com/projects/1821677)) | [Source](Maps/One-Block-Skyblock-Lucky-Blocks) | [Package](../Package/One-Block-Skyblock-Lucky-Blocks.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/One-Block-Skyblock-Lucky-Blocks-9.0.0.zip) |
 | **OneBlock Natural Market** | 17.0.1 | 🟢 Published ([17.0.1](https://www.curseforge.com/projects/1819420)) | [Source](Maps/OneBlock-Natural-Market) | [Package](../Package/OneBlock-Natural-Market.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/OneBlock-Natural-Market-17.0.1.zip) |
