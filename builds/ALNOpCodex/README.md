@@ -8,7 +8,7 @@ This folder contains compiled release packages for **ALNOpCodex** by ALNStudios.
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`ALNOpCodex V6.mcaddon`** | `.mcaddon` | ~9 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNOpCodex/ALNOpCodex%20V6.mcaddon) |
+| **`ALNOpCodex V7.mcaddon`** | `.mcaddon` | ~9 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNOpCodex/ALNOpCodex%20V7.mcaddon) |
 
 ---
 

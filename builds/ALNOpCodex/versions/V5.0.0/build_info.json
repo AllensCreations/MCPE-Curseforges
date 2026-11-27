@@ -1,8 +1,0 @@
-{
-  "changelog_version": "5.0.0",
-  "manifest_version": "5.0.0",
-  "packages": {
-    "ALNOpCodex V5.mcaddon": "10373726a3afd6f66cbd202d358db02ae579577895a1070946a0426e202b609a"
-  },
-  "source_sha256": "378e8f5ac47a2b5d8f33cab7064e8601d361e4ff39ae409d4d5933d3a17310eb"
-}

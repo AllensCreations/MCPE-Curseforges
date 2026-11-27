@@ -1,10 +1,23 @@
 # Changelog — ALN:OpCodex
 
-## [v6] - 2026-11-27 - Elytra and Supplies Kit
+## [v7] - 2026-11-27 - Craftable OP Book
 
 ### Added
+- **OP book recipe**: Craft the book from 1 Book, 4 Diamonds and 4 Netherite Ingots.
+
+### Improved & Balanced
+- **No free book**: The pack no longer gives the OP book when you join.
+
+<details>
+<summary><b>6.0.x</b> (1 release)</summary>
+
+### [v6] - 2026-11-27 - Elytra and Supplies Kit
+
+#### Added
 - **Elytra**: The armor box now holds an elytra with Unbreaking and Mending.
 - **Supplies kit**: A new Supplies button gives long flight rockets, totems, food, arrows, experience bottles and utility tools.
+
+</details>
 
 <details>
 <summary><b>5.0.x</b> (1 release)</summary>
