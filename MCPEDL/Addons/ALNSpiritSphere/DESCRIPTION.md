@@ -38,6 +38,12 @@ Each sphere has its own color and impact behavior. There is no switching: carry 
 ### Charge-Scaled Orb
 - **What Happens**: Releasing fires the Spirit Orb along your aim. A quick release flies slowly with a small blast, a medium charge flies steadily, and a full charge flies fast with a cratering explosion.
 
+### Crosshair Sphere
+- **What Happens**: The charging sphere now floats exactly at the center of your crosshair, so you aim with the sphere itself, and the orb launches from that point. The energy hands reach out to it from your shoulders.
+
+### Element Particles
+- **What Happens**: Every sphere has its own particle shapes and motion: curling wind for Aero Vortex, rising embers and flames for Blaze Solar, drifting crystals and snowflakes for Frost Nova, jittering sparks and bolts for Storm Surge, spiraling rings for Void Singularity, falling pebbles for Terra Quake, wobbling bubbles and drops for Toxic Bloom, orbiting rings for Gravity Warp, floating sparkles and leaves for Life Bloom and spinning ticks and gears for Chrono Stasis.
+
 ### Icon Projectile
 - **What Happens**: The flying orb is drawn as the sphere's own icon, so you can tell the element at a glance, and it leaves a glowing trail behind it.
 

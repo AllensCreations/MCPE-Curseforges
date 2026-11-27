@@ -2,6 +2,15 @@
 
 ---
 
+## [9.0.0] - 2026-11-27 - Element Particles
+
+### Added
+- **Element particles**: Each of the ten spheres now has its own particle shapes and motion, 20 new particle designs in total, used for the charge rings, the core, the orb sparks and the impact burst.
+- **Crosshair sphere**: The charging sphere now sits at the center of your crosshair and the orb launches from that point.
+
+### Improved & Balanced
+- **Energy arms**: The energy arms from your shoulders now use more points so they read as a line reaching the sphere.
+
 ## [8.0.0] - 2026-11-27 - Icon Projectile
 
 ### Added

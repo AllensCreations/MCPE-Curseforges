@@ -1,5 +1,5 @@
 import { MolangVariableMap } from "@minecraft/server";
-import { BURST_TICK, FULL_TICKS, OVER_TICKS, powerOf } from "./elements.js";
+import { MODES, BURST_TICK, FULL_TICKS, OVER_TICKS, powerOf } from "./elements.js";
 
 const SMALL = "aln:ss_small";
 const MID = "aln:ss_mid";
@@ -9,11 +9,17 @@ const PULL_ORB = "aln:ss_pull_orb";
 const PULL_VOID = "aln:ss_pull_void";
 const PULL_CORE = "aln:ss_pull_core";
 
+const ELEMENT_OF = new Map(MODES.map((m) => [m.color, m.id]));
+
 export function puff(dimension, id, location, color) {
+  let effect = id;
+  const element = ELEMENT_OF.get(color);
+  if (element && id === SMALL) effect = `aln:pt_${element}_a`;
+  else if (element && id === MID) effect = `aln:pt_${element}_b`;
   try {
     const vars = new MolangVariableMap();
     vars.setColorRGB("variable.color", color);
-    dimension.spawnParticle(id, location, vars);
+    dimension.spawnParticle(effect, location, vars);
   } catch (e) {}
 }
 
@@ -36,10 +42,11 @@ export function basisOf(view) {
 
 export function handPoint(player, view) {
   const loc = player.location;
+  const eye = loc.y + (player.isSneaking ? 1.27 : 1.62);
   return {
-    x: loc.x + view.x * 0.9,
-    y: loc.y + 1.2 + view.y * 0.9,
-    z: loc.z + view.z * 0.9,
+    x: loc.x + view.x * 2.4,
+    y: eye + view.y * 2.4,
+    z: loc.z + view.z * 2.4,
   };
 }
 
@@ -104,8 +111,8 @@ function energyHands(dimension, player, center, view, held, color) {
       }
     }
     const shoulder = { x: loc.x + right.x * side * 0.38, y: loc.y + 1.3, z: loc.z + right.z * side * 0.38 };
-    for (let j = 1; j <= 5; j++) {
-      const t = j / 6;
+    for (let j = 1; j <= 9; j++) {
+      const t = j / 10;
       puff(
         dimension,
         SMALL,
