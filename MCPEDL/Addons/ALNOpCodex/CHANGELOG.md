@@ -2,6 +2,12 @@
 
 ---
 
+## [v6] - 2026-11-27 - Elytra and Supplies Kit
+
+### Added
+- **Elytra**: The armor box now holds an elytra with Unbreaking and Mending.
+- **Supplies kit**: A new Supplies button gives long flight rockets, totems, food, arrows, experience bottles and utility tools.
+
 ## [v5] - 2026-11-27 - More Weapons and Tools
 
 ### Added

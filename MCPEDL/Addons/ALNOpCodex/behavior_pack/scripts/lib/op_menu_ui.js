@@ -37,18 +37,20 @@ async function openGearMenu(player) {
     .body("§7Each choice gives one filled shulker box:")
     .button("Tools")
     .button("Armor")
+    .button("Supplies")
     .button("Back");
   const response = await show(player, form);
   if (!response) return;
   if (response.selection === 0) deliverKit(player, "tools");
   else if (response.selection === 1) deliverKit(player, "armor");
+  else if (response.selection === 2) deliverKit(player, "supplies");
   else openRootMenu(player);
 }
 
 async function openAboutMenu(player) {
   const form = new ActionFormData()
     .title(TITLE)
-    .body("Creator: ALNStudios\nALN:OpCodex v5\nGod tier Netherite kits from one book.\nCurseForge: allenscreations\nMCPEDL: alnstudios\nNot affiliated with Mojang.")
+    .body("Creator: ALNStudios\nALN:OpCodex v6\nGod tier Netherite kits from one book.\nCurseForge: allenscreations\nMCPEDL: alnstudios\nNot affiliated with Mojang.")
     .button("Back");
   const response = await show(player, form);
   if (response) openRootMenu(player);

@@ -3,6 +3,7 @@ import { world, system } from "@minecraft/server";
 const KITS = {
   tools: { structure: "aln:god_tools", name: "OpCodex God Tools" },
   armor: { structure: "aln:god_armor", name: "OpCodex God Armor" },
+  supplies: { structure: "aln:god_supplies", name: "OpCodex God Supplies" },
 };
 const HEIGHTS = [2, 3, 4, 5];
 const SIDES = [[0, 0], [1, 0], [-1, 0], [0, 1], [0, -1]];

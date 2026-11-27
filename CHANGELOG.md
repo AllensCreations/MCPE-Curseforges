@@ -4,6 +4,14 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v321] - 2026-11-27 - Elytra and Supplies Kit
+
+**Spec**: spec_v321.txt | **Target**: MCPEDL/Addons/ALNOpCodex | **Files edited**: 6
+
+### Added
+- **Elytra**: The armor box now holds an elytra with Unbreaking and Mending.
+- **Supplies kit**: A new Supplies button gives long flight rockets, totems, food, arrows, experience bottles and utility tools.
+
 ## [v320] - 2026-11-27 - More Weapons and Tools
 
 **Spec**: spec_v320.txt | **Target**: MCPEDL/Addons/ALNOpCodex | **Files edited**: 4

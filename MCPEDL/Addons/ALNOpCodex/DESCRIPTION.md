@@ -5,9 +5,9 @@
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Use the OP book to get 17 tools and weapons, or 5 Netherite armor pieces, in a named shulker box.**
+**Use the OP book to get 17 tools and weapons, 5 armor pieces plus elytra, or supplies, in a named shulker box.**
 
-> The OP book hands out two kits, OpCodex God Tools and OpCodex God Armor. It suits creative testing and private worlds where every player may have top gear.
+> The OP book hands out three kits: God Tools, God Armor and God Supplies. It suits creative testing and private worlds where every player may have top gear.
 
 ## Overview
 
@@ -16,7 +16,7 @@ A player who joins without an OP book receives one. Using it opens a menu where 
 ## Key Features
 
 ### OP Book Menu
-- **What Happens**: The menu offers Tools and Armor, About, and Exit. Tools and Armor leads to the two kit choices.
+- **What Happens**: The menu offers Tools and Armor, About, and Exit. Tools and Armor leads to the three kit choices.
 - **Good To Know**: Every player can use the book.
 
 ### OpCodex God Tools
@@ -24,13 +24,16 @@ A player who joins without an OP book receives one. Using it opens a menu where 
 - **Good To Know**: Most enchantments are prepared at level 255, including Mending. Knockback and Punch stay at 2. Riptide, Loyalty, Quick Charge, Wind Burst and Lunge stay at 3.
 
 ### OpCodex God Armor
-- **What Happens**: A shulker box holds a helmet, chestplate, leggings, Depth Strider boots and Frost Walker boots.
+- **What Happens**: A shulker box holds a helmet, chestplate, leggings, Depth Strider boots and Frost Walker boots, plus an elytra.
 - **Good To Know**: Boots include Feather Falling. Soul Speed, Swift Sneak and Depth Strider stay at 3, and Frost Walker at 2.
+
+### OpCodex God Supplies
+- **What Happens**: A shulker box holds long flight rockets, totems, enchanted golden apples, golden carrots, ender pearls, arrows, experience bottles, a shield, a fishing rod, shears and flint and steel.
 
 ## How to Use
 
 1. Hold the OP book and use it.
-2. Choose Tools and Armor, then Tools or Armor.
+2. Choose Tools and Armor, then Tools, Armor or Supplies.
 3. Place the new shulker box and open it to collect the gear.
 
 ## Commands

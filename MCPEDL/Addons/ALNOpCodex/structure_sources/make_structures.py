@@ -11,10 +11,10 @@ IDS = {
     "looting": 14, "efficiency": 15, "silk_touch": 16, "unbreaking": 17, "fortune": 18, "power": 19,
     "punch": 20, "flame": 21, "infinity": 22, "frost_walker": 25, "mending": 26, "soul_speed": 36,
     "swift_sneak": 37, "impaling": 29, "riptide": 30, "loyalty": 31, "channeling": 32, "multishot": 33,
-    "piercing": 34, "quick_charge": 35, "wind_burst": 38, "density": 39, "breach": 40, "lunge": 41,
+    "piercing": 34, "quick_charge": 35, "luck_of_the_sea": 23, "lure": 24, "wind_burst": 38, "density": 39, "breach": 40, "lunge": 41,
 }
 LIMITS = {"knockback": 2, "punch": 2, "depth_strider": 3, "frost_walker": 2, "soul_speed": 3, "swift_sneak": 3,
-          "riptide": 3, "loyalty": 3, "quick_charge": 3, "wind_burst": 3, "lunge": 3}
+          "riptide": 3, "loyalty": 3, "quick_charge": 3, "wind_burst": 3, "lunge": 3, "luck_of_the_sea": 3, "lure": 3}
 
 
 def text(value):
@@ -93,11 +93,33 @@ ARMOR = [
     ("netherite_leggings", "God Leggings", GUARD + " swift_sneak"),
     ("netherite_boots", "God Depth Strider Boots", GUARD + " feather_falling soul_speed depth_strider"),
     ("netherite_boots", "God Frost Walker Boots", GUARD + " feather_falling soul_speed frost_walker"),
+    ("elytra", "God Elytra", KEEP),
 ]
 
 
-def write(name, color, label, rows):
-    box = item(0, color + "_shulker_box", {"display": display(label), "Items": array(10, kit(rows))})
+GEAR_SUPPLIES = [
+    ("shield", "God Shield", KEEP),
+    ("fishing_rod", "God Fishing Rod", "luck_of_the_sea lure " + KEEP),
+    ("shears", "God Shears", "efficiency " + KEEP),
+    ("flint_and_steel", "God Flint and Steel", KEEP),
+]
+ROCKET = {"display": display("God Long Flight Rocket"),
+          "Fireworks": compound({"Flight": byte(20), "Explosions": array(10, [])})}
+STACKS = ([("firework_rocket", 64, ROCKET)] * 3 + [("totem_of_undying", 1, {})] * 4
+          + [("enchanted_golden_apple", 64, {}), ("golden_carrot", 64, {}), ("ender_pearl", 16, {})]
+          + [("arrow", 64, {})] * 2 + [("experience_bottle", 64, {})] * 2)
+
+
+def stack(slot, name, count, tag):
+    fields = {"Slot": byte(slot), "Name": string("minecraft:" + name), "Count": byte(count),
+              "Damage": short(0), "WasPickedUp": byte(0)}
+    if tag:
+        fields["tag"] = compound(tag)
+    return compound(fields)
+
+
+def write(name, color, label, rows, stacks=()):
+    box = item(0, color + "_shulker_box", {"display": display(label), "Items": array(10, kit(rows) + [stack(len(rows) + i, *entry) for i, entry in enumerate(stacks)])})
     chest = compound({"id": string("Chest"), "Findable": byte(0), "isMovable": byte(1), "x": integer(0),
                       "y": integer(0), "z": integer(0), "Items": array(10, [box])})
     block = compound({"name": string("minecraft:chest"), "states": compound({}), "version": integer(17959425)})
@@ -112,8 +134,9 @@ def write(name, color, label, rows):
         "structure_world_origin": array(3, [integer(0), integer(0), integer(0)])})
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / (name + ".mcstructure")).write_bytes(bytes([10]) + text("") + root[1])
-    print(f"wrote {name}.mcstructure ({len(rows)} items)")
+    print(f"wrote {name}.mcstructure ({len(rows) + len(stacks)} slots)")
 
 
 write("god_tools", "purple", "OpCodex God Tools", TOOLS)
 write("god_armor", "red", "OpCodex God Armor", ARMOR)
+write("god_supplies", "blue", "OpCodex God Supplies", GEAR_SUPPLIES, STACKS)
