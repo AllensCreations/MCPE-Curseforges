@@ -2,7 +2,7 @@
 
 Generated file. Do not edit by hand: it is rebuilt with every build.
 
-44 Add-ons · 6 Maps · 11 Scripts · 6 Minigames
+45 Add-ons · 6 Maps · 11 Scripts · 6 Minigames
 
 ## AI Review Kits
 
@@ -34,6 +34,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | **ALN:OneClickSort** | v12 | 🟢 Published ([v12](https://www.curseforge.com/projects/1818338)) | [Source](Addons/ALNOneClickSort) | [Package](../Package/ALNOneClickSort.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNOneClickSort-v12.zip) |
 | **ALN:PirateTokens** | 1.0.4 | 🟢 Published ([1.0.4](https://www.curseforge.com/projects/1824277)) | [Source](Addons/ALNPirateTokens) | [Package](../Package/ALNPirateTokens.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNPirateTokens-1.0.4.zip) |
 | **ALN:SpiritSphere** | 7.0.0 | 🟢 Published ([v7](https://www.curseforge.com/projects/1831969)) | [Source](Addons/ALNSpiritSphere) | [Package](../Package/ALNSpiritSphere.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNSpiritSphere-7.0.0.zip) |
+| **ALN:UncraftableCraftable** | 1.0.0 | ⚪ Not Published | [Source](Addons/ALNUncraftableCraftable) | [Package](../Package/ALNUncraftableCraftable.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNUncraftableCraftable-1.0.0.zip) |
 | **ALN:WarpScrolls** | v6 | 🟡 Update Ready ([v5](https://www.curseforge.com/projects/1831750) → v6) | [Source](Addons/ALNWarpScrolls) | [Package](../Package/ALNWarpScrolls.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNWarpScrolls-v6.zip) |
 | **Cheat Stick** | v4 | 🟢 Published ([v4](https://www.curseforge.com/projects/1798250)) | [Source](Addons/Cheat-Stick) | [Package](../Package/Cheat-Stick.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Cheat-Stick-v4.zip) |
 | **Combat Helper** | v21 | 🟢 Published ([v21](https://www.curseforge.com/projects/1816055)) | [Source](Addons/ALN-Pointer) | [Package](../Package/ALN-Pointer.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-Pointer-v21.zip) |

@@ -1,0 +1,8 @@
+{
+  "changelog_version": "1.0.0",
+  "manifest_version": "1.0.0",
+  "packages": {
+    "ALNUncraftableCraftable V1.mcaddon": "7688186d0d4ce8c38c2c61d28abb4a7213d1ec671f22fe293fe33172ca8b34fd"
+  },
+  "source_sha256": "c8271aceaeb59933938b0bffe2516b76c53979987a027e4fdb81da4207ddd6c8"
+}

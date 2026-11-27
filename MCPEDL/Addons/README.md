@@ -50,6 +50,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | ALN HyperPipes | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-HyperPipes/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-HyperPipes/ALNHyperPipes%20V1.mcaddon) |
 | ALNAuroraBorealis | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALNAuroraBorealis/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNAuroraBorealis/ALNAuroraBorealis%20V2.mcaddon) |
 | ALNCamouflageDoors | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALNCamouflageDoors/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNCamouflageDoors/ALNCamouflageDoors%20V1.mcaddon) |
+| ALNUncraftableCraftable | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALNUncraftableCraftable/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNUncraftableCraftable/ALNUncraftableCraftable%20V1.mcaddon) |
 
 Download links point to the currently published package files.
 

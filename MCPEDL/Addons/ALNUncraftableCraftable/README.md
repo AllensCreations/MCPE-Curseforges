@@ -1,11 +1,15 @@
-# ALN:UncraftableCraftable
+# ALNUncraftableCraftable
 
-Download the current release of **ALN:UncraftableCraftable** for Minecraft Bedrock Edition.
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-Not%20Published-lightgrey?style=flat-square&logo=curseforge)](https://www.curseforge.com/members/allenscreations/projects)
+<!-- CURSEFORGE-BADGE:END -->
+
+Download the current release of **ALNUncraftableCraftable** for Minecraft Bedrock Edition.
 
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN:UncraftableCraftable (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons)
+- **Direct download:** [Download ALNUncraftableCraftable (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNUncraftableCraftable/ALNUncraftableCraftable%20V1.mcaddon)
 
 ## Installation
 
@@ -15,4 +19,4 @@ Download the current release of **ALN:UncraftableCraftable** for Minecraft Bedro
 
 ## Pack Information
 
-For gameplay features, usage details, compatibility notes, and other project information, read the [full description](DESCRIPTION.md).
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALNUncraftableCraftable/DESCRIPTION.md).

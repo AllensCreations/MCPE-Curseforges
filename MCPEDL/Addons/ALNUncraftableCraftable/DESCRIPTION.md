@@ -66,3 +66,4 @@ Craft the three catalysts and a Fabrication Altar at a crafting table, then plac
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, ALN:UncraftableCraftable Bedrock mod, craftable Elytra, craftable Totem of Undying, craftable Nether Star, Dragon Head recipe, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+

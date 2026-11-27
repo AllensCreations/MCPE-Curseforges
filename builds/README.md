@@ -52,7 +52,8 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **Smart Tool Hub** | Add-on (.mcaddon) | [Download (.mcaddon)](Smart-Tool-Hub/SmartToolHub%20V1.0.2.mcaddon) | [`Smart-Tool-Hub/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Smart-Tool-Hub/) |
 | **ALN HyperPipes** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-HyperPipes/ALNHyperPipes%20V1.mcaddon) | [`ALN-HyperPipes/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-HyperPipes/) |
 | **ALNAuroraBorealis** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNAuroraBorealis/ALNAuroraBorealis%20V2.mcaddon) | [`ALNAuroraBorealis/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNAuroraBorealis/) |
-| **ALNCamouflageDoors** | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNCamouflageDoors/ALNCamouflageDoors%20V1.mcaddon) | [`ALNCamouflageDoors/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNCamouflageDoors/) |
+| **ALNCamouflageDoors** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNCamouflageDoors/ALNCamouflageDoors%20V1.mcaddon) | [`ALNCamouflageDoors/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNCamouflageDoors/) |
+| **ALNUncraftableCraftable** | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNUncraftableCraftable/ALNUncraftableCraftable%20V1.mcaddon) | [`ALNUncraftableCraftable/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNUncraftableCraftable/) |
 
 ### Worlds and Maps
 
