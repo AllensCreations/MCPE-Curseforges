@@ -7,7 +7,7 @@
 - **CURRENT VERSION: v7 / NEXT UPDATE: v8**  (`MCPEDL/Addons/ALNOpCodex/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 15
-- **Skipped binary:** 9
+- **Skipped binary:** 13
 - **Paths not found:** 0
 
 ### Files in this export
@@ -28,13 +28,17 @@
 - `MCPEDL/Addons/ALNOpCodex/structure_sources/make_structures.py`
 - `MCPEDL/Addons/ALNOpCodex/texture_sources/op_book.json`
 
-### Skipped (binary): 9 file(s)
+### Skipped (binary): 13 file(s)
 
 - `MCPEDL/Addons/ALNOpCodex/assets/banner.png`
 - `MCPEDL/Addons/ALNOpCodex/assets/items/op_book.png`
 - `MCPEDL/Addons/ALNOpCodex/assets/items/op_book_label.png`
 - `MCPEDL/Addons/ALNOpCodex/assets/recipes/op_book_recipe.png`
 - `MCPEDL/Addons/ALNOpCodex/assets/recipes/op_book_recipe_label.png`
+- `MCPEDL/Addons/ALNOpCodex/assets/snapshots/Screenshot_20261127_144013_com.mojang.v126661xxxx.jpg`
+- `MCPEDL/Addons/ALNOpCodex/assets/snapshots/Screenshot_20261127_144030_com.mojang.v126661xxxx.jpg`
+- `MCPEDL/Addons/ALNOpCodex/assets/snapshots/Screenshot_20261127_144038_com.mojang.v126661xxxx.jpg`
+- `MCPEDL/Addons/ALNOpCodex/assets/snapshots/Screenshot_20261127_144050_com.mojang.v126661xxxx.jpg`
 - `MCPEDL/Addons/ALNOpCodex/behavior_pack/structures/aln/god_armor.mcstructure`
 - `MCPEDL/Addons/ALNOpCodex/behavior_pack/structures/aln/god_supplies.mcstructure`
 - `MCPEDL/Addons/ALNOpCodex/behavior_pack/structures/aln/god_tools.mcstructure`
