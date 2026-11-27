@@ -2,6 +2,17 @@
 
 ---
 
+## [1.0.8] - 2026-11-27 - Floating Item Display and Click to Insert
+
+### Added
+- **Floating item display**: The inserted item now floats, spins and bobs inside the glass case, and spins faster as the next duplicate gets closer.
+- **Click to insert and remove**: Interact with an empty Loot Spawner while holding an item to insert it, and interact with it again to take the item back out.
+### Improved & Balanced
+- **Status panel**: Sneak and interact with a filled Loot Spawner to open the status panel, which still shows the item, rarity, progress and countdown.
+### Fixed
+- **Stray blocks**: Interacting with the Loot Spawner while holding a block no longer places that block beside it.
+- **Break safety**: Breaking a Loot Spawner is now saved immediately, so the template item cannot drop twice if the world is closed right afterward.
+
 ## [1.0.7] - 2026-11-26 - Add Inventory Icon for Recipe Diagram
 
 ### Added

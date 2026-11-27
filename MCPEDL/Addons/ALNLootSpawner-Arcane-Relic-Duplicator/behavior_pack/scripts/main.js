@@ -8,8 +8,17 @@ const LEGACY_TYPE = "aln:spawner_type";
 const LEGACY_TICK = "aln:spawner_tick";
 const STEP_TICKS = 20;
 const SAVE_EVERY_STEPS = 5;
+const SWEEP_EVERY_STEPS = 10;
 const SPARK_RANGE = 24;
 const OUTPUT_CONTAINERS = new Set(["minecraft:chest", "minecraft:trapped_chest", "minecraft:barrel", "minecraft:hopper"]);
+const FLOATING_DISPLAY = true;
+const DISPLAY_TYPE = "minecraft:armor_stand";
+const DISPLAY_TAG = "aln_loot_display";
+const DISPLAY_RANGE = 24;
+const DISPLAY_STEP = 2;
+const HAND_HEIGHT = 0.95;
+const CLICK_COOLDOWN = 6;
+const DIMENSIONS = ["minecraft:overworld", "minecraft:nether", "minecraft:the_end"];
 
 const RARITY = {
   common:   { label: "Common",   color: "§f", ticks: 160  },
@@ -65,9 +74,32 @@ function getRarity(typeId) {
 let spawners = null;
 let dirty = false;
 let steps = 0;
+let displayTick = 0;
+const displays = new Map();
+const angles = new Map();
+const misses = new Map();
+const lastClick = new Map();
+let fallbackClock = 0;
+
+if (typeof system.currentTick !== "number") {
+  system.runInterval(() => { fallbackClock++; }, 1);
+}
+
+function nowTick() {
+  return typeof system.currentTick === "number" ? system.currentTick : fallbackClock;
+}
 
 function keyOf(dimId, x, y, z) {
   return `${dimId}|${x}|${y}|${z}`;
+}
+
+function isLive(entity) {
+  try {
+    const flag = entity.isValid;
+    return typeof flag === "function" ? flag.call(entity) === true : flag === true;
+  } catch (e) {
+    return false;
+  }
 }
 
 function loadSpawners() {
@@ -144,6 +176,96 @@ function nearbyPlayers(entry, range) {
   return out;
 }
 
+function centerOf(entry) {
+  return { x: entry.x + 0.5, y: entry.y + 0.5, z: entry.z + 0.5 };
+}
+
+function findDisplays(dimension, entry) {
+  try {
+    return dimension.getEntities({ type: DISPLAY_TYPE, tags: [DISPLAY_TAG], location: centerOf(entry), maxDistance: 1.6 });
+  } catch (e) {
+    return [];
+  }
+}
+
+function setHeld(stand, itemId) {
+  try {
+    const equip = stand.getComponent("minecraft:equippable");
+    if (equip && equip.setEquipment("Offhand", new ItemStack(itemId, 1))) return true;
+  } catch (e) {}
+  try {
+    stand.runCommand(`replaceitem entity @s slot.weapon.offhand 0 ${itemId}`);
+    return true;
+  } catch (e) {}
+  return false;
+}
+
+function spawnDisplay(dimension, entry) {
+  try {
+    const stand = dimension.spawnEntity(DISPLAY_TYPE, { x: entry.x + 0.5, y: entry.y + 0.5 - HAND_HEIGHT, z: entry.z + 0.5 });
+    stand.addTag(DISPLAY_TAG);
+    try { stand.addEffect("invisibility", 20000000, { amplifier: 1, showParticles: false }); } catch (e) {}
+    setHeld(stand, entry.item);
+    return stand;
+  } catch (e) {
+    return undefined;
+  }
+}
+
+function ensureDisplay(dimension, entry, key) {
+  const cached = displays.get(key);
+  if (cached && isLive(cached)) return cached;
+  let stand;
+  for (const candidate of findDisplays(dimension, entry)) {
+    if (!stand) {
+      stand = candidate;
+      setHeld(stand, entry.item);
+    } else {
+      try { candidate.remove(); } catch (e) {}
+    }
+  }
+  if (!stand) stand = spawnDisplay(dimension, entry);
+  if (stand) displays.set(key, stand);
+  else displays.delete(key);
+  return stand;
+}
+
+function removeDisplay(dimension, entry, key) {
+  const cached = displays.get(key);
+  displays.delete(key);
+  angles.delete(key);
+  if (cached && isLive(cached)) {
+    try { cached.remove(); } catch (e) {}
+  }
+  if (dimension) {
+    for (const stand of findDisplays(dimension, entry)) {
+      try { stand.remove(); } catch (e) {}
+    }
+  }
+}
+
+function animateDisplay(stand, entry, key) {
+  const total = (RARITY[entry.rarity] || RARITY.common).ticks;
+  const progress = Math.max(0, Math.min(1, 1 - entry.left / total));
+  const angle = (angles.get(key) || 0) + 0.12 + 0.3 * progress;
+  angles.set(key, angle);
+  const bob = Math.sin(displayTick * 0.18) * 0.07;
+  try {
+    stand.teleport(
+      { x: entry.x + 0.5, y: entry.y + 0.5 - HAND_HEIGHT + bob, z: entry.z + 0.5 },
+      { facingLocation: { x: entry.x + 0.5 + Math.cos(angle) * 4, y: entry.y + 0.5, z: entry.z + 0.5 + Math.sin(angle) * 4 } }
+    );
+  } catch (e) {}
+}
+
+function isDisplay(entity) {
+  try {
+    return entity.typeId === DISPLAY_TYPE && entity.hasTag(DISPLAY_TAG);
+  } catch (e) {
+    return false;
+  }
+}
+
 function sparks(dimension, entry, count) {
   for (let i = 0; i < count; i++) {
     try {
@@ -198,6 +320,32 @@ function giveToPlayer(player, itemId) {
   }
 }
 
+function takeOneFromPlayer(player, typeId) {
+  try {
+    const inv = player.getComponent("minecraft:inventory");
+    if (!inv || !inv.container) return false;
+    const container = inv.container;
+    const selected = typeof player.selectedSlotIndex === "number" ? player.selectedSlotIndex : -1;
+    const order = selected >= 0 ? [selected] : [];
+    for (let i = 0; i < container.size; i++) {
+      if (i !== selected) order.push(i);
+    }
+    for (const i of order) {
+      const slot = container.getItem(i);
+      if (slot && slot.typeId === typeId) {
+        if (slot.amount > 1) {
+          slot.amount -= 1;
+          container.setItem(i, slot);
+        } else {
+          container.setItem(i, undefined);
+        }
+        return true;
+      }
+    }
+  } catch (e) {}
+  return false;
+}
+
 async function openSpawnerUI(player, key) {
   const entry = loadSpawners().get(key);
   if (!entry) return;
@@ -218,77 +366,170 @@ async function openSpawnerUI(player, key) {
   let res;
   try { res = await form.show(player); } catch (e) { return; }
   if (!res || res.canceled || res.selection !== 0) return;
+  retrieveTemplate(player, key);
+}
 
-  const current = loadSpawners().get(key);
-  if (!current) return;
-  loadSpawners().delete(key);
+function retrieveTemplate(player, key) {
+  const reg = loadSpawners();
+  const entry = reg.get(key);
+  if (!entry) return;
+  reg.delete(key);
   saveSpawners();
-  giveToPlayer(player, current.item);
+  let dimension;
+  try { dimension = world.getDimension(entry.d); } catch (e) {}
+  removeDisplay(dimension, entry, key);
+  giveToPlayer(player, entry.item);
   try { player.playSound("random.orb"); } catch (e) {}
-  player.onScreenDisplay.setActionBar("§aTemplate retrieved.");
+  const rar = RARITY[entry.rarity] || RARITY.common;
+  player.onScreenDisplay.setActionBar(`§aTemplate retrieved: §r${prettyName(entry.item)} §8[${rar.color}${rar.label}§8]`);
 }
 
-function takeOneFromPlayer(player, typeId) {
-  try {
-    const inv = player.getComponent("minecraft:inventory");
-    if (!inv || !inv.container) return false;
-    const container = inv.container;
-    for (let i = 0; i < container.size; i++) {
-      const slot = container.getItem(i);
-      if (slot && slot.typeId === typeId) {
-        if (slot.amount > 1) {
-          slot.amount -= 1;
-          container.setItem(i, slot);
-        } else {
-          container.setItem(i, undefined);
-        }
-        return true;
-      }
-    }
-  } catch (e) {}
-  return false;
-}
+function insertTemplate(player, block, key, heldTypeId) {
+  if (!heldTypeId || heldTypeId === "minecraft:air" || heldTypeId === BLOCK_ID) {
+    player.onScreenDisplay.setActionBar("§eHold an item and interact to insert it.");
+    return;
+  }
+  if (BLOCKED_CONTAINERS.has(heldTypeId)) {
+    player.onScreenDisplay.setActionBar("§cFilled containers cannot be inserted.");
+    return;
+  }
+  if (!takeOneFromPlayer(player, heldTypeId)) return;
 
-world.afterEvents.playerInteractWithBlock.subscribe(({ player, block, beforeItemStack }) => {
-  if (block.typeId !== BLOCK_ID) return;
   const loc = block.location;
-  const key = keyOf(block.dimension.id, loc.x, loc.y, loc.z);
-
-  if (loadSpawners().has(key) || importLegacy(block)) {
-    system.run(() => openSpawnerUI(player, key));
-    return;
-  }
-
-  const held = beforeItemStack;
-  if (!held || held.typeId === "minecraft:air" || held.typeId === BLOCK_ID) {
-    player.onScreenDisplay.setActionBar("§eHold an item and interact to attune it.");
-    return;
-  }
-  const typeId = held.typeId;
-  if (BLOCKED_CONTAINERS.has(typeId)) {
-    player.onScreenDisplay.setActionBar("§cFilled containers cannot be attuned.");
-    return;
-  }
-  if (!takeOneFromPlayer(player, typeId)) return;
-
-  const rarity = getRarity(typeId);
-  loadSpawners().set(key, {
+  const rarity = getRarity(heldTypeId);
+  const entry = {
     d: block.dimension.id, x: loc.x, y: loc.y, z: loc.z,
-    item: typeId, rarity, left: RARITY[rarity].ticks
-  });
+    item: heldTypeId, rarity, left: RARITY[rarity].ticks
+  };
+  loadSpawners().set(key, entry);
   saveSpawners();
+  if (FLOATING_DISPLAY) ensureDisplay(block.dimension, entry, key);
+  sparks(block.dimension, entry, 8);
   try { player.playSound("beacon.activate"); } catch (e) {}
   const rar = RARITY[rarity];
-  player.onScreenDisplay.setActionBar(`§bAttuned: §r${prettyName(typeId)} §8[${rar.color}${rar.label}§8]`);
-});
+  player.onScreenDisplay.setActionBar(`§bInserted: §r${prettyName(heldTypeId)} §8[${rar.color}${rar.label}§8]`);
+}
 
-const misses = new Map();
+function handleClick(player, block, heldTypeId, sneaking) {
+  const loc = block.location;
+  const key = keyOf(block.dimension.id, loc.x, loc.y, loc.z);
+  const entry = loadSpawners().get(key) || importLegacy(block);
+  if (entry) {
+    if (sneaking) {
+      openSpawnerUI(player, key);
+    } else {
+      retrieveTemplate(player, key);
+    }
+    return;
+  }
+  insertTemplate(player, block, key, heldTypeId);
+}
+
+function runClick(player, dimension, loc, heldTypeId, sneaking) {
+  try {
+    const block = dimension.getBlock(loc);
+    if (!block || block.typeId !== BLOCK_ID) return;
+    const who = String(player.id !== undefined ? player.id : player.name);
+    const now = nowTick();
+    const last = lastClick.get(who);
+    if (last !== undefined && now - last < CLICK_COOLDOWN) return;
+    lastClick.set(who, now);
+    handleClick(player, block, heldTypeId, sneaking);
+  } catch (e) {}
+}
+
+const beforeInteract = world.beforeEvents && world.beforeEvents.playerInteractWithBlock;
+if (beforeInteract && typeof beforeInteract.subscribe === "function") {
+  beforeInteract.subscribe((event) => {
+    const block = event.block;
+    if (!block || block.typeId !== BLOCK_ID) return;
+    event.cancel = true;
+    if (event.isFirstEvent === false) return;
+    const player = event.player;
+    const dimension = block.dimension;
+    const loc = { x: block.location.x, y: block.location.y, z: block.location.z };
+    const held = event.itemStack ? event.itemStack.typeId : undefined;
+    const sneaking = player.isSneaking === true;
+    system.run(() => runClick(player, dimension, loc, held, sneaking));
+  });
+} else {
+  world.afterEvents.playerInteractWithBlock.subscribe(({ player, block, beforeItemStack }) => {
+    if (block.typeId !== BLOCK_ID) return;
+    const loc = { x: block.location.x, y: block.location.y, z: block.location.z };
+    runClick(player, block.dimension, loc, beforeItemStack ? beforeItemStack.typeId : undefined, player.isSneaking === true);
+  });
+}
+
+try {
+  if (world.beforeEvents && world.beforeEvents.entityHurt && typeof world.beforeEvents.entityHurt.subscribe === "function") {
+    world.beforeEvents.entityHurt.subscribe((event) => {
+      if (isDisplay(event.hurtEntity)) event.cancel = true;
+    });
+  }
+} catch (e) {}
+
+try {
+  if (world.beforeEvents && world.beforeEvents.playerInteractWithEntity && typeof world.beforeEvents.playerInteractWithEntity.subscribe === "function") {
+    world.beforeEvents.playerInteractWithEntity.subscribe((event) => {
+      if (isDisplay(event.target)) event.cancel = true;
+    });
+  }
+} catch (e) {}
+
+try {
+  world.afterEvents.entityDie.subscribe((event) => {
+    const dead = event.deadEntity;
+    let dimension;
+    let where;
+    try {
+      if (!isDisplay(dead)) return;
+      dimension = dead.dimension;
+      where = dead.location;
+    } catch (e) {
+      return;
+    }
+    system.run(() => {
+      let template;
+      for (const entry of loadSpawners().values()) {
+        if (entry.d === dimension.id && Math.abs(entry.x + 0.5 - where.x) <= 1.6 && Math.abs(entry.z + 0.5 - where.z) <= 1.6) template = entry.item;
+      }
+      try {
+        for (const drop of dimension.getEntities({ type: "minecraft:item", location: where, maxDistance: 3 })) {
+          const stack = drop.getComponent("minecraft:item").itemStack;
+          if (stack && (stack.typeId === DISPLAY_TYPE || stack.typeId === template)) drop.remove();
+        }
+      } catch (e) {}
+    });
+  });
+} catch (e) {}
+
+function sweepOrphans() {
+  const reg = loadSpawners();
+  for (const dimId of DIMENSIONS) {
+    let list;
+    try {
+      list = world.getDimension(dimId).getEntities({ type: DISPLAY_TYPE, tags: [DISPLAY_TAG] });
+    } catch (e) {
+      continue;
+    }
+    for (const stand of list) {
+      let owned = false;
+      try {
+        for (const entry of reg.values()) {
+          if (entry.d === dimId && Math.abs(entry.x + 0.5 - stand.location.x) <= 1.6 && Math.abs(entry.z + 0.5 - stand.location.z) <= 1.6) owned = true;
+        }
+        if (!owned) stand.remove();
+      } catch (e) {}
+    }
+  }
+}
 
 system.runInterval(() => {
   const reg = loadSpawners();
   if (reg.size === 0) return;
   steps++;
 
+  let changed = false;
   for (const [key, entry] of [...reg.entries()]) {
     let dimension;
     let block;
@@ -304,9 +545,10 @@ system.runInterval(() => {
       const count = (misses.get(key) || 0) + 1;
       if (count >= 2) {
         dropTemplate(dimension, entry);
+        removeDisplay(dimension, entry, key);
         reg.delete(key);
         misses.delete(key);
-        dirty = true;
+        changed = true;
       } else {
         misses.set(key, count);
       }
@@ -327,5 +569,26 @@ system.runInterval(() => {
     }
   }
 
-  if (dirty && steps % SAVE_EVERY_STEPS === 0) saveSpawners();
+  if (changed || (dirty && steps % SAVE_EVERY_STEPS === 0)) saveSpawners();
+  if (FLOATING_DISPLAY && steps % SWEEP_EVERY_STEPS === 0) sweepOrphans();
 }, STEP_TICKS);
+
+system.runInterval(() => {
+  if (!FLOATING_DISPLAY) return;
+  const reg = loadSpawners();
+  if (reg.size === 0) return;
+  displayTick++;
+  for (const [key, entry] of reg.entries()) {
+    if (nearbyPlayers(entry, DISPLAY_RANGE).length === 0) continue;
+    let dimension;
+    try {
+      dimension = world.getDimension(entry.d);
+      const block = dimension.getBlock({ x: entry.x, y: entry.y, z: entry.z });
+      if (!block || block.typeId !== BLOCK_ID) continue;
+    } catch (e) {
+      continue;
+    }
+    const stand = ensureDisplay(dimension, entry, key);
+    if (stand) animateDisplay(stand, entry, key);
+  }
+}, DISPLAY_STEP);
