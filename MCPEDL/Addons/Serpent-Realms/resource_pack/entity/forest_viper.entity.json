@@ -1,0 +1,44 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "aln:forest_viper",
+      "min_engine_version": "1.8.0",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/items/serpent/forest_viper"
+      },
+      "geometry": {
+        "default": "geometry.aln_snake_viper"
+      },
+      "animations": {
+        "move_controller": "controller.animation.aln_snake.move",
+        "look": "animation.aln_snake.look",
+        "bite": "animation.aln_snake.bite",
+        "tongue": "animation.aln_snake.tongue",
+        "idle": "animation.aln_snake.idle",
+        "slither": "animation.aln_snake.slither"
+      },
+      "scripts": {
+        "pre_animation": [
+          "variable.aln_wave_speed = 1.3;"
+        ],
+        "animate": [
+          "move_controller",
+          "look",
+          "bite",
+          "tongue"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.aln_snake"
+      ],
+      "spawn_egg": {
+        "base_color": "#2e8b3d",
+        "overlay_color": "#f2e34a"
+      }
+    }
+  }
+}

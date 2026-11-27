@@ -1,0 +1,44 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "aln:coral_snake",
+      "min_engine_version": "1.8.0",
+      "materials": {
+        "default": "entity_emissive_alpha"
+      },
+      "textures": {
+        "default": "textures/items/serpent/coral_snake"
+      },
+      "geometry": {
+        "default": "geometry.aln_snake_coral"
+      },
+      "animations": {
+        "move_controller": "controller.animation.aln_snake.move",
+        "look": "animation.aln_snake.look",
+        "bite": "animation.aln_snake.bite",
+        "tongue": "animation.aln_snake.tongue",
+        "idle": "animation.aln_snake.idle",
+        "slither": "animation.aln_snake.slither"
+      },
+      "scripts": {
+        "pre_animation": [
+          "variable.aln_wave_speed = 1.1;"
+        ],
+        "animate": [
+          "move_controller",
+          "look",
+          "bite",
+          "tongue"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.aln_snake"
+      ],
+      "spawn_egg": {
+        "base_color": "#15131f",
+        "overlay_color": "#31f0d8"
+      }
+    }
+  }
+}

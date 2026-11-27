@@ -1,0 +1,43 @@
+{
+  "format_version": "1.8.0",
+  "minecraft:spawn_rules": {
+    "description": {
+      "identifier": "aln:coral_snake",
+      "population_control": "monster"
+    },
+    "conditions": [
+      {
+        "minecraft:spawns_underground": {},
+        "minecraft:height_filter": {
+          "min": -64,
+          "max": 0
+        },
+        "minecraft:difficulty_filter": {
+          "min": "easy",
+          "max": "hard"
+        },
+        "minecraft:weight": {
+          "default": 6
+        },
+        "minecraft:herd": {
+          "min_size": 1,
+          "max_size": 2
+        },
+        "minecraft:biome_filter": {
+          "any_of": [
+            {
+              "test": "has_biome_tag",
+              "operator": "==",
+              "value": "dripstone_caves"
+            },
+            {
+              "test": "has_biome_tag",
+              "operator": "==",
+              "value": "lush_caves"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

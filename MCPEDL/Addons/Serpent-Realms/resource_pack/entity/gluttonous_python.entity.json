@@ -1,0 +1,47 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "aln:gluttonous_python",
+      "min_engine_version": "1.8.0",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/items/serpent/gluttonous_python"
+      },
+      "geometry": {
+        "default": "geometry.aln_snake_python"
+      },
+      "animations": {
+        "move_controller": "controller.animation.aln_snake.move",
+        "look": "animation.aln_snake.look",
+        "bite": "animation.aln_snake.bite",
+        "tongue": "animation.aln_snake.tongue",
+        "idle": "animation.aln_snake.idle",
+        "slither": "animation.aln_snake.slither",
+        "belly_controller": "controller.animation.aln_snake.belly",
+        "python_belly": "animation.aln_snake.python_belly"
+      },
+      "scripts": {
+        "pre_animation": [
+          "variable.aln_wave_speed = 0.8;"
+        ],
+        "animate": [
+          "move_controller",
+          "look",
+          "bite",
+          "tongue",
+          "belly_controller"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.aln_snake"
+      ],
+      "spawn_egg": {
+        "base_color": "#a67c3d",
+        "overlay_color": "#4a2f14"
+      }
+    }
+  }
+}
