@@ -55,6 +55,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **ALNCamouflageDoors** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNCamouflageDoors/ALNCamouflageDoors%20V1.mcaddon) | [`ALNCamouflageDoors/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNCamouflageDoors/) |
 | **ALNUncraftableCraftable** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNUncraftableCraftable/ALNUncraftableCraftable%20V1.mcaddon) | [`ALNUncraftableCraftable/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNUncraftableCraftable/) |
 | **Serpent Realms** | Add-on (.mcaddon) | [Download (.mcaddon)](Serpent-Realms/SerpentRealms%20V1.mcaddon) | [`Serpent-Realms/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Serpent-Realms/) |
+| **ALNOpCodex** | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNOpCodex/ALNOpCodex%20V1.mcaddon) | [`ALNOpCodex/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNOpCodex/) |
 
 ### Worlds and Maps
 

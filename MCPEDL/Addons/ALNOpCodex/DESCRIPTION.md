@@ -68,3 +68,4 @@ Each player receives one OP book on first joining. Using it opens a menu where a
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, ALN:OpCodex Bedrock mod, OP book, Netherite tools, Netherite armor, shulker box kit, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+
