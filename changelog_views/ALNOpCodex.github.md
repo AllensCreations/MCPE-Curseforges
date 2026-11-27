@@ -1,13 +1,26 @@
 # Changelog — ALN:OpCodex
 
-## [v4] - 2026-11-27 - Full Enchantment Kits
+## [v5] - 2026-11-27 - More Weapons and Tools
 
 ### Added
+- **New gear**: The tools box now holds hoes, tridents, crossbows, a mace and a spear, for 17 items in total.
+
+### Improved & Balanced
+- **Balance**: Most enchantments are level 255, while Riptide, Loyalty, Quick Charge, Wind Burst and Lunge stay at 3.
+
+<details>
+<summary><b>4.0.x</b> (1 release)</summary>
+
+### [v4] - 2026-11-27 - Full Enchantment Kits
+
+#### Added
 - **More enchantments**: Gear now carries Mending, Feather Falling and the other enchantments that fit each piece. The Mending bow and Infinity bow are separate.
 - **Paired copies**: Pickaxe, axe and shovel come in Fortune and Silk Touch versions, and boots in Depth Strider and Frost Walker versions.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **Movement and push limits**: Knockback, Punch and the boot and legging movement enchantments stay at normal levels.
+
+</details>
 
 <details>
 <summary><b>3.0.x</b> (1 release)</summary>
