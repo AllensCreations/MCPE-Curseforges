@@ -4,6 +4,17 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v319] - 2026-11-27 - Full Enchantment Kits
+
+**Spec**: spec_v319.txt | **Target**: MCPEDL/Addons/ALNOpCodex | **Files edited**: 5
+
+### Added
+- **More enchantments**: Gear now carries Mending, Feather Falling and the other enchantments that fit each piece. The Mending bow and Infinity bow are separate.
+- **Paired copies**: Pickaxe, axe and shovel come in Fortune and Silk Touch versions, and boots in Depth Strider and Frost Walker versions.
+
+### Improved & Balanced
+- **Movement and push limits**: Knockback, Punch and the boot and legging movement enchantments stay at normal levels.
+
 ## [v318] - 2026-11-27 - Shulker Box Drop
 
 **Spec**: spec_v318.txt | **Target**: MCPEDL/Addons/ALNOpCodex | **Files edited**: 5
