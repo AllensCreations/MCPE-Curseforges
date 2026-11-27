@@ -1,10 +1,20 @@
 # Changelog — ALN:LegendaryPiglin
 
-## [v2] - 2026-11-27 - Legendary Station
+## [v3] - 2026-11-27 - Working Trades
 
-### Improved & Balanced
+### Fixed
+- **Bartering**: The Legendary One now accepts a Gold Ingot: hold one and interact with him, or throw it near him, and he admires it before handing over his trade.
+
+<details>
+<summary><b>2.0.x</b> (1 release)</summary>
+
+### [v2] - 2026-11-27 - Legendary Station
+
+#### Improved & Balanced
 - **Island Height**: The OneBlock island now sits at height 64 like every ALN map, with spawn standing on top of the block.
 - **Pre-built Merchant**: The Legendary One now arrives as a named merchant at his blackstone station.
+
+</details>
 
 <details>
 <summary><b>1.0.x</b> (1 release)</summary>

@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Maps/ALN-LegendaryPiglin`
 - **Destination:** `MCPEDL/Maps/ALN-LegendaryPiglin`
-- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Maps/ALN-LegendaryPiglin/CHANGELOG.md`)
+- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Maps/ALN-LegendaryPiglin/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 24
 - **Skipped binary:** 5
@@ -169,7 +169,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v3 / NEXT UPDATE: v4).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE self-contained update `.sh` (`<Pack>_v<Version>_<rand>.sh`) built with `make_update_script.py` (INSTRUCTIONS.md Reply Format).
@@ -1175,7 +1175,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
 
 ## File Contents
 
-## FILE: MCPEDL/Maps/ALN-LegendaryPiglin/behavior_pack/entities/legendary_piglin.json (66 lines, 1654 bytes)
+## FILE: MCPEDL/Maps/ALN-LegendaryPiglin/behavior_pack/entities/legendary_piglin.json (110 lines, 2875 bytes)
 
 ```
 {
@@ -1226,13 +1226,57 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "minecraft:behavior.barter": {
         "priority": 3
       },
+      "minecraft:admire_item": {
+        "duration": 8,
+        "cooldown_after_being_attacked": 20
+      },
+      "minecraft:behavior.admire_item": {
+        "priority": 2,
+        "admire_item_sound": "admire",
+        "sound_interval": {
+          "range_min": 2.0,
+          "range_max": 5.0
+        }
+      },
+      "minecraft:behavior.equip_item": {
+        "priority": 5
+      },
       "minecraft:behavior.pickup_items": {
-        "priority": 4,
+        "priority": 6,
         "max_dist": 10,
         "goal_radius": 2,
-        "speed_multiplier": 1.0,
+        "speed_multiplier": 0.8,
         "pickup_based_on_chance": false,
-        "can_pickup_any_item": true
+        "can_pickup_any_item": false,
+        "cooldown_after_being_attacked": 20.0
+      },
+      "minecraft:interact": {
+        "interactions": [
+          {
+            "on_interact": {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "has_equipment",
+                    "subject": "other",
+                    "domain": "hand",
+                    "value": "gold_ingot"
+                  },
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "player"
+                  }
+                ]
+              }
+            },
+            "barter": true,
+            "admire": true,
+            "use_item": true,
+            "cooldown_after_being_attacked": 20,
+            "interact_text": "action.interact.barter"
+          }
+        ]
       },
       "minecraft:behavior.look_at_player": {
         "priority": 7,
@@ -2034,11 +2078,11 @@ execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cle
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:LegendaryPiglin (v2)",
+    "name": "ALN:LegendaryPiglin (v3)",
     "description": "Focused OneBlock drops and The Legendary One, an immortal bartering Piglin. by ALNStudios",
     "uuid": "03276258-f4d0-4006-b445-c4e3c5beaba8",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -2053,7 +2097,7 @@ execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cle
       "type": "data",
       "uuid": "116cce4e-6f73-4d84-9a55-a1fae7403463",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -2063,7 +2107,7 @@ execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cle
       "language": "javascript",
       "uuid": "4ecc40a2-c438-490f-ba7e-74393bb98d94",
       "version": [
-        2,
+        3,
         0,
         0
       ],
@@ -2074,7 +2118,7 @@ execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cle
     {
       "uuid": "e684d30f-bc40-4f76-9968-2786a745624f",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -2089,7 +2133,7 @@ execute as @a[tag=!void_cleaned] if block 0 63 0 bedrock run tag @s add void_cle
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "3.0.0"
   }
 }
 ```
@@ -3481,12 +3525,17 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
 });
 ```
 
-## FILE: MCPEDL/Maps/ALN-LegendaryPiglin/CHANGELOG.md (18 lines, 926 bytes)
+## FILE: MCPEDL/Maps/ALN-LegendaryPiglin/CHANGELOG.md (23 lines, 1140 bytes)
 
 ```
 # Changelog — ALN:LegendaryPiglin
 
 ---
+
+## [v3] - 2026-11-27 - Working Trades
+
+### Fixed
+- **Bartering**: The Legendary One now accepts a Gold Ingot: hold one and interact with him, or throw it near him, and he admires it before handing over his trade.
 
 ## [v2] - 2026-11-27 - Legendary Station
 
@@ -3656,11 +3705,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:LegendaryPiglin (v2)",
+    "name": "ALN:LegendaryPiglin (v3)",
     "description": "Textures and models for The Legendary One. by ALNStudios",
     "uuid": "e684d30f-bc40-4f76-9968-2786a745624f",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -3675,7 +3724,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "04ac6e28-a6da-478b-a12f-7d466b153274",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -3686,7 +3735,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "3.0.0"
   }
 }
 ```
