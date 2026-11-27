@@ -55,7 +55,7 @@ See the [repository changelog](CHANGELOG.md) for the latest updates.
 
 ## CurseForge Live Status
 <!-- CURSEFORGE-STATUS:START -->
-### Published Packs on CurseForge (37)
+### Published Packs on CurseForge (39)
 
 | Pack | Category | CurseForge Project | Version | Status |
 | :--- | :--- | :---: | :---: | :---: |
@@ -64,9 +64,10 @@ See the [repository changelog](CHANGELOG.md) for the latest updates.
 | [**ALN MoreDiscs**](MCPEDL/Addons/ALN-MoreDiscs/README.md) | Add-ons | [1821812](https://www.curseforge.com/projects/1821812) | `v7` | 🟢 Published |
 | [**ALN-GlobalMarket**](MCPEDL/Addons/ALN-GlobalMarket/README.md) | Add-ons | [1826201](https://www.curseforge.com/projects/1826201) | `v1.0.2` | 🟢 Published |
 | [**ALN:OneClickSort**](MCPEDL/Addons/ALNOneClickSort/README.md) | Add-ons | [1818338](https://www.curseforge.com/projects/1818338) | `v12` | 🟢 Published |
+| [**ALN:OpCodex**](MCPEDL/Addons/ALNOpCodex/README.md) | Add-ons | [1834372](https://www.curseforge.com/projects/1834372) | `v7` | 🟢 Published |
 | [**ALN:PirateTokens**](MCPEDL/Addons/ALNPirateTokens/README.md) | Add-ons | [1824277](https://www.curseforge.com/projects/1824277) | `v1.0.4` | 🟢 Published |
-| [**ALN:SpiritSphere**](MCPEDL/Addons/ALNSpiritSphere/README.md) | Add-ons | [1831969](https://www.curseforge.com/projects/1831969) | `v7` | 🟢 Published |
-| [**ALN:WarpScrolls**](MCPEDL/Addons/ALNWarpScrolls/README.md) | Add-ons | [1831750](https://www.curseforge.com/projects/1831750) | `v5` | 🟢 Published |
+| [**ALN:SpiritSphere**](MCPEDL/Addons/ALNSpiritSphere/README.md) | Add-ons | [1831969](https://www.curseforge.com/projects/1831969) | `v9` | 🟢 Published |
+| [**ALN:WarpScrolls**](MCPEDL/Addons/ALNWarpScrolls/README.md) | Add-ons | [1831750](https://www.curseforge.com/projects/1831750) | `v6` | 🟢 Published |
 | [**Cheat Stick**](MCPEDL/Addons/Cheat-Stick/README.md) | Add-ons | [1798250](https://www.curseforge.com/projects/1798250) | `v4` | 🟢 Published |
 | [**Combat Helper**](MCPEDL/Addons/ALN-Pointer/README.md) | Add-ons | [1816055](https://www.curseforge.com/projects/1816055) | `v21` | 🟢 Published |
 | [**Enchanter**](MCPEDL/Addons/Enchanter/README.md) | Add-ons | [1802037](https://www.curseforge.com/projects/1802037) | `v2` | 🟢 Published |
@@ -76,6 +77,7 @@ See the [repository changelog](CHANGELOG.md) for the latest updates.
 | [**Mining Helmet**](MCPEDL/Addons/Mining-Helmet/README.md) | Add-ons | [1744147](https://www.curseforge.com/projects/1744147) | `v2` | 🟢 Published |
 | [**Monster Companions**](MCPEDL/Addons/Monster-Companions/README.md) | Add-ons | [1742867](https://www.curseforge.com/projects/1742867) | `v12` | 🟢 Published |
 | [**Padlock & Key**](MCPEDL/Addons/Padlock-and-Key/README.md) | Add-ons | [1809473](https://www.curseforge.com/projects/1809473) | `v3` | 🟢 Published |
+| [**Smart Tool Hub**](MCPEDL/Addons/Smart-Tool-Hub/README.md) | Add-ons | [1832328](https://www.curseforge.com/projects/1832328) | `v1.0.2` | 🟢 Published |
 | [**Talking Pirate Parrots**](MCPEDL/Addons/Talking-Pirate-Parrots_payload/README.md) | Add-ons | [1826163](https://www.curseforge.com/projects/1826163) | `v2` | 🟢 Published |
 | [**Tameable Companion Fox**](MCPEDL/Addons/Tameable-Companion-Fox/README.md) | Add-ons | [1807465](https://www.curseforge.com/projects/1807465) | `v2` | 🟢 Published |
 | [**Universal Leash**](MCPEDL/Addons/Universal-Leash/README.md) | Add-ons | [1795874](https://www.curseforge.com/projects/1795874) | `v3` | 🟢 Published |

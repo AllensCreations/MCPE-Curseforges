@@ -30,7 +30,9 @@
     "last_release_version": "9"
   },
   "MCPEDL/Addons/ALNOpCodex": {
-    "project_id": "1834372"
+    "project_id": "1834372",
+    "last_published_version": "7",
+    "last_release_version": "7"
   },
   "MCPEDL/Addons/ALNPirateTokens": {
     "project_id": "1824277",
@@ -39,12 +41,12 @@
   },
   "MCPEDL/Addons/ALNSpiritSphere": {
     "project_id": "1831969",
-    "last_published_version": "7",
+    "last_published_version": "9",
     "last_release_version": "6"
   },
   "MCPEDL/Addons/ALNWarpScrolls": {
     "project_id": "1831750",
-    "last_published_version": "5",
+    "last_published_version": "6",
     "last_release_version": "4"
   },
   "MCPEDL/Addons/Cheat-Stick": {
@@ -88,7 +90,9 @@
     "last_release_version": "1.4.1"
   },
   "MCPEDL/Addons/Smart-Tool-Hub": {
-    "project_id": "1832328"
+    "project_id": "1832328",
+    "last_published_version": "1.0.2",
+    "last_release_version": "1.0.2"
   },
   "MCPEDL/Addons/Talking-Pirate-Parrots_payload": {
     "project_id": "1826163",

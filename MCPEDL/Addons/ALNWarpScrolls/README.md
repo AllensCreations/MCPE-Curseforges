@@ -1,7 +1,7 @@
 # ALNWarpScrolls
 
 <!-- CURSEFORGE-BADGE:START -->
-[![CurseForge](https://img.shields.io/badge/CurseForge-v5-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1831750)
+[![CurseForge](https://img.shields.io/badge/CurseForge-v6-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1831750)
 <!-- CURSEFORGE-BADGE:END -->
 
 Download the current release of **ALNWarpScrolls** for Minecraft Bedrock Edition.

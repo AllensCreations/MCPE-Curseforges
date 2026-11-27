@@ -86,24 +86,23 @@ jobs:
         with:
           ref: ${{ github.ref }}
 
-      # Publishing and the passive build both write to builds/ and the READMEs. Let a running
-      # build finish first so the two never push over each other.
-      - name: Wait for running builds to finish
+      # Publishing and the passive build both write to builds/ and the READMEs.
+      # Cancel any running/queued passive build runs immediately so they don't block
+      # publish, race against uploads, or push conflicting commits.
+      - name: Cancel running builds and sync to latest remote
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -uo pipefail
-          for attempt in $(seq 1 60); do
-            busy=0
-            for status in in_progress queued; do
-              count="$(gh run list --workflow build-and-sync.yml --status "$status" --json databaseId --jq length 2>/dev/null || echo 0)"
-              busy=$((busy + count))
-            done
-            [ "$busy" -eq 0 ] && exit 0
-            echo "A build is still running ($busy); waiting (attempt $attempt/60)..."
-            sleep 20
+          echo "Cancelling any running or queued build-and-sync runs..."
+          for run_id in $(gh run list --workflow build-and-sync.yml --status in_progress --status queued --json databaseId --jq '.[].databaseId' 2>/dev/null || true); do
+            echo "Cancelling build run $run_id"
+            gh run cancel "$run_id" 2>/dev/null || true
           done
-          echo "::warning::A build is still running after 20 minutes; continuing anyway."
+          sleep 3
+          # Ensure checkout is at the latest remote tip after clearing builds
+          git fetch origin "${GITHUB_REF#refs/heads/}"
+          git reset --hard "origin/${GITHUB_REF#refs/heads/}"
 
       - name: Set up Python
         uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
@@ -206,6 +205,8 @@ jobs:
             echo "::group::$P"
             PACK_VARIANT="$(variant_for "$P")"
             echo "Map variant for $P: $PACK_VARIANT"
+            # Ensure branch is clean and up to date with remote before publishing each pack
+            git pull --rebase origin "$BRANCH" 2>/dev/null || true
             if python3 scripts/auto_publish_curseforge.py --project "$P" --map-variant "$PACK_VARIANT" --release-type "$RELEASE_TYPE"; then
               DONE=$((DONE + 1))
               python3 scripts/sync_curseforge_status.py || true
@@ -213,7 +214,11 @@ jobs:
               git add -A
               if ! git diff --cached --quiet; then
                 git commit -m "chore(curseforge): publish ${P##*/} [skip ci]"
-                python3 scripts/git_push_retry.py --branch "$BRANCH" || FAILED+=("$P (uploaded, push failed)")
+                if ! python3 scripts/git_push_retry.py --branch "$BRANCH"; then
+                  echo "::error::Push failed for $P; resetting working tree so next pack starts clean."
+                  FAILED+=("$P (uploaded, push failed)")
+                  git reset --hard "origin/$BRANCH" || true
+                fi
               fi
             else
               FAILED+=("$P")
