@@ -2,6 +2,13 @@
 
 ---
 
+## [10.0.0] - 2026-11-27 - Clear View
+
+### Improved & Balanced
+- **Lighter particles**: All particle sprites are about 40 percent smaller and fewer particles are drawn, so the effects no longer cover the screen.
+- **Clear view**: The charging sphere now floats 3.2 blocks ahead instead of 2.4, and the long energy arms from your shoulders are removed. The energy hands stay, with fewer fingers.
+- **Density setting**: A single FX_DENSITY value in the elements script (0.6 now, 1 for the full effect) controls how many of the charge, orb and impact particles are drawn.
+
 ## [9.0.0] - 2026-11-27 - Element Particles
 
 ### Added

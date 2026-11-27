@@ -29,8 +29,8 @@
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          "0.32*(1-variable.particle_age/variable.particle_lifetime)",
-          "0.32*(1-variable.particle_age/variable.particle_lifetime)"
+          "0.192*(1-variable.particle_age/variable.particle_lifetime)",
+          "0.192*(1-variable.particle_age/variable.particle_lifetime)"
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {

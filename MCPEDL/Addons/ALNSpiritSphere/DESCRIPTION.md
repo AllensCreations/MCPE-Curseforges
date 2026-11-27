@@ -39,7 +39,7 @@ Each sphere has its own color and impact behavior. There is no switching: carry 
 - **What Happens**: Releasing fires the Spirit Orb along your aim. A quick release flies slowly with a small blast, a medium charge flies steadily, and a full charge flies fast with a cratering explosion.
 
 ### Crosshair Sphere
-- **What Happens**: The charging sphere now floats exactly at the center of your crosshair, so you aim with the sphere itself, and the orb launches from that point. The energy hands reach out to it from your shoulders.
+- **What Happens**: The charging sphere now floats exactly at the center of your crosshair, so you aim with the sphere itself, and the orb launches from that point. The effects are kept light so they do not block your view.
 
 ### Element Particles
 - **What Happens**: Every sphere has its own particle shapes and motion: curling wind for Aero Vortex, rising embers and flames for Blaze Solar, drifting crystals and snowflakes for Frost Nova, jittering sparks and bolts for Storm Surge, spiraling rings for Void Singularity, falling pebbles for Terra Quake, wobbling bubbles and drops for Toxic Bloom, orbiting rings for Gravity Warp, floating sparkles and leaves for Life Bloom and spinning ticks and gears for Chrono Stasis.
@@ -48,7 +48,7 @@ Each sphere has its own color and impact behavior. There is no switching: carry 
 - **What Happens**: The flying orb is drawn as the sphere's own icon, so you can tell the element at a glance, and it leaves a glowing trail behind it.
 
 ### Energy Hands
-- **What Happens**: While you charge, glowing energy hands made of particles appear on both sides of the sphere, with energy arms running back to your shoulders. The hands close in as the sphere compresses and spread apart when it bursts open.
+- **What Happens**: While you charge, glowing energy hands made of particles appear on both sides of the sphere. The hands close in as the sphere compresses and spread apart when it bursts open.
 
 ### Flight Paths
 - **What Happens**: Each sphere flies its own way. Aero Vortex corkscrews in a spiral, Blaze Solar flies fast and straight, Frost Nova glides in a gentle wave, Storm Surge zigzags side to side, Void Singularity slowly homes in on the nearest mob, Terra Quake flies as a heavy straight boulder, Toxic Bloom wobbles unpredictably, Gravity Warp bends in a wide curve to one side, Life Bloom seeks the nearest other player and Chrono Stasis starts slow and speeds up. No orb is pulled down by gravity, and every orb keeps flying until it hits something.
