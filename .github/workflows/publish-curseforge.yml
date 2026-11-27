@@ -33,6 +33,7 @@ on:
           - "ALL"
           - "MCPEDL/Addons/2-in-1-Loot--XP-Booster"
           - "MCPEDL/Addons/ALN-Bow-Aimbot"
+          - "MCPEDL/Addons/ALN-ChestLog"
           - "MCPEDL/Addons/ALN-GlobalMarket"
           - "MCPEDL/Addons/ALN-MoreDiscs"
           - "MCPEDL/Addons/ALN-Pointer"
@@ -53,7 +54,6 @@ on:
           - "MCPEDL/Addons/Talking-Pirate-Parrots_payload"
           - "MCPEDL/Addons/Tameable-Companion-Fox"
           - "MCPEDL/Addons/Universal-Leash"
-          - "MCPEDL/Addons/Vanilla-Quality-of-Life"
           # END registered
       publish_map_variant:
         description: "Maps only (default = auto, all = Creative + Survival + Hardcore). Other pack types ignore it and publish normally"
