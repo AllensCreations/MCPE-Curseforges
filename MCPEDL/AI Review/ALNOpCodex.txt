@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Addons/ALNOpCodex`
 - **Destination:** `MCPEDL/Addons/ALNOpCodex`
-- **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALNOpCodex/CHANGELOG.md`)
+- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/ALNOpCodex/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 13
 - **Skipped binary:** 4
@@ -157,7 +157,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v1 / NEXT UPDATE: v2).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE self-contained update `.sh` (`<Pack>_v<Version>_<rand>.sh`) built with `make_update_script.py` (INSTRUCTIONS.md Reply Format).
@@ -1196,11 +1196,11 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:OpCodex (v1)",
+    "name": "ALN:OpCodex (v2)",
     "description": "OP book that delivers god tier Netherite kits. by ALNStudios",
     "uuid": "c597255b-8868-43ab-b7b5-4a58d676dbf3",
     "version": [
-      1,
+      2,
       0,
       0
     ],
@@ -1215,7 +1215,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "type": "data",
       "uuid": "deac6a69-d3d1-4671-8849-b30d63e4933b",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -1226,7 +1226,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "entry": "scripts/main.js",
       "uuid": "bfb7ceb5-e784-4b96-9bd3-5a72bde0d709",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -1236,7 +1236,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
     {
       "uuid": "142a6097-6927-4bf7-aef6-b24a7691e75d",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -1255,12 +1255,12 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "2.0.0"
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNOpCodex/behavior_pack/scripts/lib/op_item_distributor.js (86 lines, 2504 bytes)
+## FILE: MCPEDL/Addons/ALNOpCodex/behavior_pack/scripts/lib/op_item_distributor.js (100 lines, 3065 bytes)
 
 ```
 import { world, system } from "@minecraft/server";
@@ -1322,35 +1322,49 @@ export function deliverKit(player, kitId) {
   try {
     world.structureManager.place(kit.structure, dimension, found.spot);
   } catch (e) {
+    console.warn(`[OpCodex] structure: ${e}`);
     busy.delete(found.key);
     tell(player, "§cThe kit could not be created.");
     return;
   }
-  system.run(() => {
-    let delivered = false;
-    let chest;
+  const finish = (message) => {
     try {
-      chest = dimension.getBlock(found.spot)?.getComponent("minecraft:inventory")?.container;
-      if (chest?.getItem(0)) delivered = chest.transferItem(0, inventory) === undefined;
-    } catch (e) {}
-    try {
-      chest?.setItem(0, undefined);
-    } catch (e) {}
-    try {
+      dimension.getBlock(found.spot)?.getComponent("minecraft:inventory")?.container?.setItem(0, undefined);
       dimension.getBlock(found.spot)?.setType("minecraft:air");
-    } catch (e) {}
+    } catch (e) {
+      console.warn(`[OpCodex] cleanup: ${e}`);
+    }
     busy.delete(found.key);
-    if (!delivered) {
-      tell(player, "§cThe kit could not be delivered.");
+    tell(player, message);
+  };
+  const collect = (attempt) => {
+    let block;
+    try {
+      block = dimension.getBlock(found.spot);
+      const chest = block?.getComponent("minecraft:inventory")?.container;
+      if (chest?.getItem(0)) {
+        if (chest.transferItem(0, inventory) !== undefined) {
+          finish("§cInventory could not take the box.");
+          return;
+        }
+        celebrate(player);
+        finish(`§a${kit.name} added to your inventory.`);
+        return;
+      }
+    } catch (e) {
+      console.warn(`[OpCodex] delivery: ${e}`);
+    }
+    if (attempt < 20) {
+      system.runTimeout(() => collect(attempt + 1), 2);
       return;
     }
-    celebrate(player);
-    tell(player, `§a${kit.name} added to your inventory.`);
-  });
+    finish(block?.typeId === "minecraft:chest" ? "§cError: the kit chest was empty." : "§cError: the kit chest did not appear.");
+  };
+  system.runTimeout(() => collect(0), 2);
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNOpCodex/behavior_pack/scripts/lib/op_menu_ui.js (56 lines, 1890 bytes)
+## FILE: MCPEDL/Addons/ALNOpCodex/behavior_pack/scripts/lib/op_menu_ui.js (56 lines, 1853 bytes)
 
 ```
 import { system } from "@minecraft/server";
@@ -1377,9 +1391,9 @@ export async function openRootMenu(player) {
   const form = new ActionFormData()
     .title(TITLE)
     .body("§7Select an option below:")
-    .button("🛠️ Tools and Armor")
-    .button("📖 About")
-    .button("🚪 Exit");
+    .button("Tools and Armor")
+    .button("About")
+    .button("Exit");
   const response = await show(player, form);
   if (!response) return;
   if (response.selection === 0) openGearMenu(player);
@@ -1390,8 +1404,8 @@ async function openGearMenu(player) {
   const form = new ActionFormData()
     .title(TITLE)
     .body("§7Each choice gives one filled shulker box:")
-    .button("⛏️ Tools")
-    .button("🛡️ Armor")
+    .button("Tools")
+    .button("Armor")
     .button("Back");
   const response = await show(player, form);
   if (!response) return;
@@ -1403,62 +1417,89 @@ async function openGearMenu(player) {
 async function openAboutMenu(player) {
   const form = new ActionFormData()
     .title(TITLE)
-    .body("Creator: ALNStudios\nALN:OpCodex v1.0.0\nGod tier Netherite kits from one book.\nCurseForge: allenscreations\nMCPEDL: alnstudios\nNot affiliated with Mojang.")
+    .body("Creator: ALNStudios\nALN:OpCodex v2\nGod tier Netherite kits from one book.\nCurseForge: allenscreations\nMCPEDL: alnstudios\nNot affiliated with Mojang.")
     .button("Back");
   const response = await show(player, form);
   if (response) openRootMenu(player);
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNOpCodex/behavior_pack/scripts/lib/README.md (10 lines, 685 bytes)
+## FILE: MCPEDL/Addons/ALNOpCodex/behavior_pack/scripts/lib/README.md (10 lines, 756 bytes)
 
 ```
 # Script notes
 
-- main.js: registers the item use listener after the world loads and gives each player one OP book. Depends on lib/op_menu_ui.js.
+- main.js: registers the item use listener after the world loads, registers the /aln:alnop command and gives an OP book to a joining player who carries none. Depends on lib/op_menu_ui.js.
 - lib/op_menu_ui.js: exports openRootMenu. Root, gear and about forms.
-- lib/op_item_distributor.js: exports deliverKit. Places a one-block structure holding a chest, moves the filled shulker box to the player, then restores air.
+- lib/op_item_distributor.js: exports deliverKit. Places a one-block structure holding a chest, waits up to about two seconds for it, moves the filled shulker box to the player, then restores air.
 
-Custom item: aln:op_book. Structures: aln:god_tools, aln:god_armor. Script events: none. World keys: aln:op_book_given_<player id>.
+Custom item: aln:op_book. Structures: aln:god_tools, aln:god_armor. Script events: none. World keys: none.
 
 Known limits: not tested in game. Level 255 and combined protections are written into the structure data and the game may lower or remove them. Every player can use the book.
 ```
 
-## FILE: MCPEDL/Addons/ALNOpCodex/behavior_pack/scripts/main.js (25 lines, 900 bytes)
+## FILE: MCPEDL/Addons/ALNOpCodex/behavior_pack/scripts/main.js (40 lines, 1382 bytes)
 
 ```
-import { world, system, ItemStack } from "@minecraft/server";
+import { world, system, ItemStack, CommandPermissionLevel } from "@minecraft/server";
 import { openRootMenu } from "./lib/op_menu_ui.js";
 
 const BOOK_ID = "aln:op_book";
 
-function giveBookOnce(player) {
-  const key = `aln:op_book_given_${player.id}`;
-  if (world.getDynamicProperty(key) !== undefined) return;
+function giveBook(player) {
   const container = player.getComponent("minecraft:inventory")?.container;
-  if (!container || container.emptySlotsCount < 1) return;
-  container.addItem(new ItemStack(BOOK_ID, 1));
-  world.setDynamicProperty(key, "yes");
+  if (!container) return;
+  for (let slot = 0; slot < container.size; slot++) {
+    if (container.getItem(slot)?.typeId === BOOK_ID) return;
+  }
+  if (container.emptySlotsCount < 1) return;
+  try {
+    container.addItem(new ItemStack(BOOK_ID, 1));
+  } catch (e) {
+    console.warn(`[OpCodex] book: ${e}`);
+  }
 }
+
+system.beforeEvents.startup.subscribe(({ customCommandRegistry }) => {
+  customCommandRegistry.registerCommand(
+    { name: "aln:alnop", description: "Open the ALN:OpCodex menu", permissionLevel: CommandPermissionLevel.Any, cheatsRequired: false },
+    (origin) => {
+      const player = origin.sourceEntity;
+      if (player?.typeId === "minecraft:player") system.run(() => openRootMenu(player));
+    }
+  );
+});
 
 world.afterEvents.worldLoad.subscribe(() => {
   world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
     if (itemStack?.typeId === BOOK_ID) openRootMenu(source);
   });
-  for (const player of world.getAllPlayers()) giveBookOnce(player);
+  for (const player of world.getAllPlayers()) giveBook(player);
 });
 
 world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
-  if (initialSpawn) system.run(() => giveBookOnce(player));
+  if (initialSpawn) system.run(() => giveBook(player));
 });
 ```
 
-## FILE: MCPEDL/Addons/ALNOpCodex/CHANGELOG.md (10 lines, 242 bytes)
+## FILE: MCPEDL/Addons/ALNOpCodex/CHANGELOG.md (22 lines, 644 bytes)
 
 ```
 # Changelog — ALN:OpCodex
 
 ---
+
+## [v2] - 2026-11-27 - Menu Command and Delivery Fix
+
+### Added
+- **Menu command**: Typing /aln:alnop opens the OP book menu without the book.
+
+### Improved & Balanced
+- **Plain menu buttons**: Menu buttons no longer show emojis.
+- **OP book**: A player who joins without the book receives a new one.
+
+### Fixed
+- **Kit delivery**: The pack now waits longer for a kit before reporting that it failed.
 
 ## [1.0.0] - 2026-11-27 - First Release
 
@@ -1467,7 +1508,7 @@ world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
 - **God kits**: Named shulker boxes with Netherite tools or armor go into your inventory.
 ```
 
-## FILE: MCPEDL/Addons/ALNOpCodex/DESCRIPTION.md (72 lines, 3522 bytes)
+## FILE: MCPEDL/Addons/ALNOpCodex/DESCRIPTION.md (76 lines, 3600 bytes)
 
 ```
 # ALN:OpCodex — Netherite kits from one book
@@ -1483,7 +1524,7 @@ world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
 
 ## Overview
 
-Each player receives one OP book on first joining. Using it opens a menu where a kit is chosen, and the filled shulker box goes into the inventory.
+A player who joins without an OP book receives one. Using it opens a menu where a kit is chosen, and the filled shulker box goes into the inventory.
 
 ## Key Features
 
@@ -1504,6 +1545,10 @@ Each player receives one OP book on first joining. Using it opens a menu where a
 1. Hold the OP book and use it.
 2. Choose Tools and Armor, then Tools or Armor.
 3. Place the new shulker box and open it to collect the gear.
+
+## Commands
+
+- `/aln:alnop`: Opens the OP book menu, even without the book.
 
 ## Common Questions
 
@@ -1551,17 +1596,21 @@ Minecraft Bedrock add-on, ALN:OpCodex Bedrock mod, OP book, Netherite tools, Net
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNOpCodex/README.md (19 lines, 769 bytes)
+## FILE: MCPEDL/Addons/ALNOpCodex/README.md (23 lines, 1010 bytes)
 
 ```
 # ALNOpCodex
+
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-Not%20Published-lightgrey?style=flat-square&logo=curseforge)](https://www.curseforge.com/members/allenscreations/projects)
+<!-- CURSEFORGE-BADGE:END -->
 
 Download the current release of **ALNOpCodex** for Minecraft Bedrock Edition.
 
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNOpCodex (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNOpCodex/ALNOpCodex%20V1.mcaddon)
+- **Direct download:** [Download ALNOpCodex (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNOpCodex/ALNOpCodex%20V2.mcaddon)
 
 ## Installation
 
@@ -1580,11 +1629,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:OpCodex (v1)",
+    "name": "ALN:OpCodex (v2)",
     "description": "Textures for the OP book. by ALNStudios",
     "uuid": "142a6097-6927-4bf7-aef6-b24a7691e75d",
     "version": [
-      1,
+      2,
       0,
       0
     ],
@@ -1599,7 +1648,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "03a56b67-e123-4f41-8814-6d877670c13c",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -1610,7 +1659,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "2.0.0"
   }
 }
 ```
