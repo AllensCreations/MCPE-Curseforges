@@ -1,0 +1,543 @@
+{
+  "format_version": "1.21.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "aln:painted_door",
+      "menu_category": {
+        "category": "none"
+      },
+      "states": {
+        "aln:half": [
+          "lower",
+          "upper"
+        ],
+        "aln:tex": [
+          "oak_planks",
+          "spruce_planks",
+          "birch_planks",
+          "dark_oak_planks",
+          "stone",
+          "cobblestone",
+          "stone_bricks",
+          "bricks",
+          "sandstone",
+          "dirt",
+          "iron_block",
+          "quartz_block",
+          "netherrack",
+          "white_wool",
+          "coal_block",
+          "vanilla"
+        ],
+        "aln:kind": [
+          "wood",
+          "iron"
+        ],
+        "aln:dir": [
+          "north",
+          "south",
+          "east",
+          "west"
+        ],
+        "aln:open": [
+          false,
+          true
+        ]
+      }
+    },
+    "components": {
+      "minecraft:geometry": "geometry.aln_painted_door_closed_north",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "aln_cd_door_wood_lower",
+          "render_method": "alpha_test"
+        }
+      },
+      "minecraft:collision_box": {
+        "origin": [
+          -8,
+          0,
+          -8
+        ],
+        "size": [
+          16,
+          16,
+          3
+        ]
+      },
+      "minecraft:selection_box": {
+        "origin": [
+          -8,
+          0,
+          -8
+        ],
+        "size": [
+          16,
+          16,
+          3
+        ]
+      },
+      "minecraft:loot": "loot_tables/aln_empty.json",
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 3
+      },
+      "minecraft:destructible_by_explosion": {
+        "explosion_resistance": 15
+      },
+      "minecraft:custom_components": [
+        "aln:painted_door_use"
+      ]
+    },
+    "permutations": [
+      {
+        "condition": "q.block_state('aln:dir') == 'north' && q.block_state('aln:open') == false",
+        "components": {
+          "minecraft:geometry": "geometry.aln_painted_door_closed_north",
+          "minecraft:collision_box": {
+            "origin": [
+              -8,
+              0,
+              -8
+            ],
+            "size": [
+              16,
+              16,
+              3
+            ]
+          },
+          "minecraft:selection_box": {
+            "origin": [
+              -8,
+              0,
+              -8
+            ],
+            "size": [
+              16,
+              16,
+              3
+            ]
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('aln:dir') == 'north' && q.block_state('aln:open') == true",
+        "components": {
+          "minecraft:geometry": "geometry.aln_painted_door_open_north",
+          "minecraft:collision_box": {
+            "origin": [
+              -8,
+              0,
+              -8
+            ],
+            "size": [
+              3,
+              16,
+              16
+            ]
+          },
+          "minecraft:selection_box": {
+            "origin": [
+              -8,
+              0,
+              -8
+            ],
+            "size": [
+              3,
+              16,
+              16
+            ]
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('aln:dir') == 'south' && q.block_state('aln:open') == false",
+        "components": {
+          "minecraft:geometry": "geometry.aln_painted_door_closed_south",
+          "minecraft:collision_box": {
+            "origin": [
+              -8,
+              0,
+              5
+            ],
+            "size": [
+              16,
+              16,
+              3
+            ]
+          },
+          "minecraft:selection_box": {
+            "origin": [
+              -8,
+              0,
+              5
+            ],
+            "size": [
+              16,
+              16,
+              3
+            ]
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('aln:dir') == 'south' && q.block_state('aln:open') == true",
+        "components": {
+          "minecraft:geometry": "geometry.aln_painted_door_open_south",
+          "minecraft:collision_box": {
+            "origin": [
+              5,
+              0,
+              -8
+            ],
+            "size": [
+              3,
+              16,
+              16
+            ]
+          },
+          "minecraft:selection_box": {
+            "origin": [
+              5,
+              0,
+              -8
+            ],
+            "size": [
+              3,
+              16,
+              16
+            ]
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('aln:dir') == 'east' && q.block_state('aln:open') == false",
+        "components": {
+          "minecraft:geometry": "geometry.aln_painted_door_closed_east",
+          "minecraft:collision_box": {
+            "origin": [
+              5,
+              0,
+              -8
+            ],
+            "size": [
+              3,
+              16,
+              16
+            ]
+          },
+          "minecraft:selection_box": {
+            "origin": [
+              5,
+              0,
+              -8
+            ],
+            "size": [
+              3,
+              16,
+              16
+            ]
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('aln:dir') == 'east' && q.block_state('aln:open') == true",
+        "components": {
+          "minecraft:geometry": "geometry.aln_painted_door_open_east",
+          "minecraft:collision_box": {
+            "origin": [
+              -8,
+              0,
+              -8
+            ],
+            "size": [
+              16,
+              16,
+              3
+            ]
+          },
+          "minecraft:selection_box": {
+            "origin": [
+              -8,
+              0,
+              -8
+            ],
+            "size": [
+              16,
+              16,
+              3
+            ]
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('aln:dir') == 'west' && q.block_state('aln:open') == false",
+        "components": {
+          "minecraft:geometry": "geometry.aln_painted_door_closed_west",
+          "minecraft:collision_box": {
+            "origin": [
+              -8,
+              0,
+              -8
+            ],
+            "size": [
+              3,
+              16,
+              16
+            ]
+          },
+          "minecraft:selection_box": {
+            "origin": [
+              -8,
+              0,
+              -8
+            ],
+            "size": [
+              3,
+              16,
+              16
+            ]
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('aln:dir') == 'west' && q.block_state('aln:open') == true",
+        "components": {
+          "minecraft:geometry": "geometry.aln_painted_door_open_west",
+          "minecraft:collision_box": {
+            "origin": [
+              -8,
+              0,
+              5
+            ],
+            "size": [
+              16,
+              16,
+              3
+            ]
+          },
+          "minecraft:selection_box": {
+            "origin": [
+              -8,
+              0,
+              5
+            ],
+            "size": [
+              16,
+              16,
+              3
+            ]
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('aln:tex') == 'oak_planks'",
+        "components": {
+          "minecraft:material_instances": {
+            "*": {
+              "texture": "aln_cd_oak_planks",
+              "render_method": "alpha_test"
+            }
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('aln:tex') == 'spruce_planks'",
+        "components": {
+          "minecraft:material_instances": {
+            "*": {
+              "texture": "aln_cd_spruce_planks",
+              "render_method": "alpha_test"
+            }
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('aln:tex') == 'birch_planks'",
+        "components": {
+          "minecraft:material_instances": {
+            "*": {
+              "texture": "aln_cd_birch_planks",
+              "render_method": "alpha_test"
+            }
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('aln:tex') == 'dark_oak_planks'",
+        "components": {
+          "minecraft:material_instances": {
+            "*": {
+              "texture": "aln_cd_dark_oak_planks",
+              "render_method": "alpha_test"
+            }
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('aln:tex') == 'stone'",
+        "components": {
+          "minecraft:material_instances": {
+            "*": {
+              "texture": "aln_cd_stone",
+              "render_method": "alpha_test"
+            }
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('aln:tex') == 'cobblestone'",
+        "components": {
+          "minecraft:material_instances": {
+            "*": {
+              "texture": "aln_cd_cobblestone",
+              "render_method": "alpha_test"
+            }
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('aln:tex') == 'stone_bricks'",
+        "components": {
+          "minecraft:material_instances": {
+            "*": {
+              "texture": "aln_cd_stone_bricks",
+              "render_method": "alpha_test"
+            }
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('aln:tex') == 'bricks'",
+        "components": {
+          "minecraft:material_instances": {
+            "*": {
+              "texture": "aln_cd_bricks",
+              "render_method": "alpha_test"
+            }
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('aln:tex') == 'sandstone'",
+        "components": {
+          "minecraft:material_instances": {
+            "*": {
+              "texture": "aln_cd_sandstone",
+              "render_method": "alpha_test"
+            }
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('aln:tex') == 'dirt'",
+        "components": {
+          "minecraft:material_instances": {
+            "*": {
+              "texture": "aln_cd_dirt",
+              "render_method": "alpha_test"
+            }
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('aln:tex') == 'iron_block'",
+        "components": {
+          "minecraft:material_instances": {
+            "*": {
+              "texture": "aln_cd_iron_block",
+              "render_method": "alpha_test"
+            }
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('aln:tex') == 'quartz_block'",
+        "components": {
+          "minecraft:material_instances": {
+            "*": {
+              "texture": "aln_cd_quartz_block",
+              "render_method": "alpha_test"
+            }
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('aln:tex') == 'netherrack'",
+        "components": {
+          "minecraft:material_instances": {
+            "*": {
+              "texture": "aln_cd_netherrack",
+              "render_method": "alpha_test"
+            }
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('aln:tex') == 'white_wool'",
+        "components": {
+          "minecraft:material_instances": {
+            "*": {
+              "texture": "aln_cd_white_wool",
+              "render_method": "alpha_test"
+            }
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('aln:tex') == 'coal_block'",
+        "components": {
+          "minecraft:material_instances": {
+            "*": {
+              "texture": "aln_cd_coal_block",
+              "render_method": "alpha_test"
+            }
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('aln:tex') == 'vanilla' && q.block_state('aln:kind') == 'wood' && q.block_state('aln:half') == 'lower'",
+        "components": {
+          "minecraft:material_instances": {
+            "*": {
+              "texture": "aln_cd_door_wood_lower",
+              "render_method": "alpha_test"
+            }
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('aln:tex') == 'vanilla' && q.block_state('aln:kind') == 'wood' && q.block_state('aln:half') == 'upper'",
+        "components": {
+          "minecraft:material_instances": {
+            "*": {
+              "texture": "aln_cd_door_wood_upper",
+              "render_method": "alpha_test"
+            }
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('aln:tex') == 'vanilla' && q.block_state('aln:kind') == 'iron' && q.block_state('aln:half') == 'lower'",
+        "components": {
+          "minecraft:material_instances": {
+            "*": {
+              "texture": "aln_cd_door_iron_lower",
+              "render_method": "alpha_test"
+            }
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('aln:tex') == 'vanilla' && q.block_state('aln:kind') == 'iron' && q.block_state('aln:half') == 'upper'",
+        "components": {
+          "minecraft:material_instances": {
+            "*": {
+              "texture": "aln_cd_door_iron_upper",
+              "render_method": "alpha_test"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

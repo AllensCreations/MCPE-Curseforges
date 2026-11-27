@@ -1,0 +1,68 @@
+{
+  "resource_pack_name": "aln_camouflage_doors",
+  "texture_name": "atlas.terrain",
+  "padding": 8,
+  "num_mip_levels": 4,
+  "texture_data": {
+    "aln_door_painter": {
+      "textures": "textures/blocks/aln_door_painter"
+    },
+    "aln_cd_oak_planks": {
+      "textures": "textures/blocks/planks_oak"
+    },
+    "aln_cd_spruce_planks": {
+      "textures": "textures/blocks/planks_spruce"
+    },
+    "aln_cd_birch_planks": {
+      "textures": "textures/blocks/planks_birch"
+    },
+    "aln_cd_dark_oak_planks": {
+      "textures": "textures/blocks/planks_big_oak"
+    },
+    "aln_cd_stone": {
+      "textures": "textures/blocks/stone"
+    },
+    "aln_cd_cobblestone": {
+      "textures": "textures/blocks/cobblestone"
+    },
+    "aln_cd_stone_bricks": {
+      "textures": "textures/blocks/stonebrick"
+    },
+    "aln_cd_bricks": {
+      "textures": "textures/blocks/brick"
+    },
+    "aln_cd_sandstone": {
+      "textures": "textures/blocks/sandstone_normal"
+    },
+    "aln_cd_dirt": {
+      "textures": "textures/blocks/dirt"
+    },
+    "aln_cd_iron_block": {
+      "textures": "textures/blocks/iron_block"
+    },
+    "aln_cd_quartz_block": {
+      "textures": "textures/blocks/quartz_block_side"
+    },
+    "aln_cd_netherrack": {
+      "textures": "textures/blocks/netherrack"
+    },
+    "aln_cd_white_wool": {
+      "textures": "textures/blocks/wool_colored_white"
+    },
+    "aln_cd_coal_block": {
+      "textures": "textures/blocks/coal_block"
+    },
+    "aln_cd_door_wood_lower": {
+      "textures": "textures/blocks/door_wood_lower"
+    },
+    "aln_cd_door_wood_upper": {
+      "textures": "textures/blocks/door_wood_upper"
+    },
+    "aln_cd_door_iron_lower": {
+      "textures": "textures/blocks/door_iron_lower"
+    },
+    "aln_cd_door_iron_upper": {
+      "textures": "textures/blocks/door_iron_upper"
+    }
+  }
+}

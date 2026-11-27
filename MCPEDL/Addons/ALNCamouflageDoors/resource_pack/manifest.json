@@ -1,0 +1,36 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN:CamouflageDoors (v1)",
+    "description": "Textures and models for the Door Painter by ALNStudios",
+    "uuid": "5a87bd6e-bd4a-48e4-a22c-3c6b04b31af1",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      100
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "b5d5298f-4e37-4ff6-9bb5-63dabccba333",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}

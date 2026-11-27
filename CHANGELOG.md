@@ -4,6 +4,11 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## 2026-11-27 - New Addon ALNCamouflageDoors
+
+### Added
+- **ALNCamouflageDoors**: New addon project created from a pack script.
+
 ## [v313] - 2026-11-27 - Bedrock Structure and NBT Support
 
 **Spec**: spec_v313.txt | **Target**: repo | **Files edited**: 6
