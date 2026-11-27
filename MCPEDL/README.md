@@ -8,8 +8,8 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 
 | Kit | Download |
 | :-- | :-- |
-| **New Pack Kit (zip: map and scripts)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/New-Pack-v324.zip) |
-| **Repo Maintenance Kit (zip: map and scripts)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Maintenance-v324.zip) |
+| **New Pack Kit (zip: map and scripts)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/New-Pack-v325.zip) |
+| **Repo Maintenance Kit (zip: map and scripts)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Maintenance-v325.zip) |
 | **Vanilla Bedrock Reference (JSON.gz)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/bedrock-samples/bedrock-samples.min.json.gz) |
 | **Bedrock Reference Bundle (v1.26.60)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/bedrock-samples/bedrock-reference-pack-1.26.60.zip) |
 | **Minecraft Script API TypeScript Definitions (.d.ts Zip)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/typescript-definitions/minecraft-bedrock-types.zip) |
@@ -34,7 +34,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | **ALN:OneClickSort** | v12 | 🟢 Published ([v12](https://www.curseforge.com/projects/1818338)) | [Source](Addons/ALNOneClickSort) | [Package](../Package/ALNOneClickSort.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNOneClickSort-v12.zip) |
 | **ALN:OpCodex** | v7 | 🟢 Published ([v7](https://www.curseforge.com/projects/1834372)) | [Source](Addons/ALNOpCodex) | [Package](../Package/ALNOpCodex.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNOpCodex-v7.zip) |
 | **ALN:PirateTokens** | 1.0.4 | 🟢 Published ([1.0.4](https://www.curseforge.com/projects/1824277)) | [Source](Addons/ALNPirateTokens) | [Package](../Package/ALNPirateTokens.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNPirateTokens-1.0.4.zip) |
-| **ALN:SpiritSphere** | 9.0.0 | 🟢 Published ([v9](https://www.curseforge.com/projects/1831969)) | [Source](Addons/ALNSpiritSphere) | [Package](../Package/ALNSpiritSphere.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNSpiritSphere-9.0.0.zip) |
+| **ALN:SpiritSphere** | 10.0.0 | 🟡 Update Ready ([v9](https://www.curseforge.com/projects/1831969) → 10.0.0) | [Source](Addons/ALNSpiritSphere) | [Package](../Package/ALNSpiritSphere.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNSpiritSphere-10.0.0.zip) |
 | **ALN:UncraftableCraftable** | 1.0.0 | ⚪ Not Published | [Source](Addons/ALNUncraftableCraftable) | [Package](../Package/ALNUncraftableCraftable.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNUncraftableCraftable-1.0.0.zip) |
 | **ALN:WarpScrolls** | v6 | 🟢 Published ([v6](https://www.curseforge.com/projects/1831750)) | [Source](Addons/ALNWarpScrolls) | [Package](../Package/ALNWarpScrolls.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNWarpScrolls-v6.zip) |
 | **Cheat Stick** | v4 | 🟢 Published ([v4](https://www.curseforge.com/projects/1798250)) | [Source](Addons/Cheat-Stick) | [Package](../Package/Cheat-Stick.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Cheat-Stick-v4.zip) |

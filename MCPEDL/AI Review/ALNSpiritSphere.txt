@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Addons/ALNSpiritSphere`
 - **Destination:** `MCPEDL/Addons/ALNSpiritSphere`
-- **CURRENT VERSION: v9 / NEXT UPDATE: v10**  (`MCPEDL/Addons/ALNSpiritSphere/CHANGELOG.md`)
+- **CURRENT VERSION: v10 / NEXT UPDATE: v11**  (`MCPEDL/Addons/ALNSpiritSphere/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 81
 - **Skipped binary:** 151
@@ -265,7 +265,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v9 / NEXT UPDATE: v10).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v10 / NEXT UPDATE: v11).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE self-contained update `.sh` (`<Pack>_v<Version>_<rand>.sh`) built with `make_update_script.py` (INSTRUCTIONS.md Reply Format).
@@ -1671,17 +1671,17 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/manifest.json (62 lines, 1105 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/manifest.json (62 lines, 1111 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:SpiritSphere Behavior Pack (v9)",
+    "name": "ALN:SpiritSphere Behavior Pack (v10)",
     "description": "Charge one of ten elemental Spirit Spheres and release a Ghast-style energy orb by ALNStudios",
     "uuid": "951ab0f1-53a7-45a3-80fc-a610ec8e217b",
     "version": [
-      9,
+      10,
       0,
       0
     ],
@@ -1696,7 +1696,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "type": "data",
       "uuid": "d58017bb-894b-4fd8-a26a-d2ab81d83a4e",
       "version": [
-        9,
+        10,
         0,
         0
       ]
@@ -1706,7 +1706,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "language": "javascript",
       "uuid": "ad6704ec-178d-4dd3-b3eb-1a719bd5b2f0",
       "version": [
-        9,
+        10,
         0,
         0
       ],
@@ -1717,7 +1717,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
     {
       "uuid": "c05699f5-364c-44cb-9978-490a4bc716e4",
       "version": [
-        9,
+        10,
         0,
         0
       ]
@@ -1732,7 +1732,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "9.0.0"
+    "version": "10.0.0"
   }
 }
 ```
@@ -2163,7 +2163,7 @@ export function chargeSound(player, held, mode) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/elements.js (117 lines, 2612 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/elements.js (118 lines, 2643 bytes)
 
 ```
 export const ORB_ID = "aln:spirit_orb";
@@ -2176,6 +2176,7 @@ export const MIN_POWER = 0.4;
 export const COOLDOWN_TICKS = 60;
 export const MIN_HOLD = 4;
 export const MAX_ORB_AGE = 6000;
+export const FX_DENSITY = 0.6;
 
 export const MODES = [
   {
@@ -2721,11 +2722,11 @@ export function registerHits() {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/visuals.js (186 lines, 6504 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/visuals.js (172 lines, 6161 bytes)
 
 ```
 import { MolangVariableMap } from "@minecraft/server";
-import { MODES, BURST_TICK, FULL_TICKS, OVER_TICKS, powerOf } from "./elements.js";
+import { MODES, BURST_TICK, FULL_TICKS, OVER_TICKS, FX_DENSITY, powerOf } from "./elements.js";
 
 const SMALL = "aln:ss_small";
 const MID = "aln:ss_mid";
@@ -2738,6 +2739,7 @@ const PULL_CORE = "aln:ss_pull_core";
 const ELEMENT_OF = new Map(MODES.map((m) => [m.color, m.id]));
 
 export function puff(dimension, id, location, color) {
+  if (FX_DENSITY < 1 && Math.random() > FX_DENSITY) return;
   let effect = id;
   const element = ELEMENT_OF.get(color);
   if (element && id === SMALL) effect = `aln:pt_${element}_a`;
@@ -2770,9 +2772,9 @@ export function handPoint(player, view) {
   const loc = player.location;
   const eye = loc.y + (player.isSneaking ? 1.27 : 1.62);
   return {
-    x: loc.x + view.x * 2.4,
-    y: eye + view.y * 2.4,
-    z: loc.z + view.z * 2.4,
+    x: loc.x + view.x * 3.2,
+    y: eye + view.y * 3.2,
+    z: loc.z + view.z * 3.2,
   };
 }
 
@@ -2818,7 +2820,6 @@ export function phaseOf(held) {
 
 function energyHands(dimension, player, center, view, held, color) {
   const { right, up } = basisOf(view);
-  const loc = player.location;
   const k = Math.min(held / FULL_TICKS, 1);
   const spread = held >= BURST_TICK ? 0.8 : 0.65 - 0.35 * k;
   const at = (a, b, c) => ({
@@ -2829,26 +2830,12 @@ function energyHands(dimension, player, center, view, held, color) {
   for (const side of [-1, 1]) {
     const palm = at(side * spread, -0.12, -0.12);
     puff(dimension, MID, palm, color);
-    for (let f = 0; f < 4; f++) {
-      const rise = -0.12 + f * 0.1;
-      for (let j = 1; j <= 3; j++) {
-        const t = j / 3;
+    for (let f = 0; f < 3; f++) {
+      const rise = -0.1 + f * 0.1;
+      for (let j = 1; j <= 2; j++) {
+        const t = j / 2;
         puff(dimension, SMALL, at(side * spread * (1 - 0.45 * t), rise, -0.12 + 0.24 * t), color);
       }
-    }
-    const shoulder = { x: loc.x + right.x * side * 0.38, y: loc.y + 1.3, z: loc.z + right.z * side * 0.38 };
-    for (let j = 1; j <= 9; j++) {
-      const t = j / 10;
-      puff(
-        dimension,
-        SMALL,
-        {
-          x: shoulder.x + (palm.x - shoulder.x) * t,
-          y: shoulder.y + (palm.y - shoulder.y) * t,
-          z: shoulder.z + (palm.z - shoulder.z) * t,
-        },
-        color
-      );
     }
   }
 }
@@ -2873,8 +2860,8 @@ export function renderCharge(player, held, mode) {
       ring(dimension, center, view, 0.9, 16, 0, BIG, mode.color);
       sound(dimension, `${mode.sfx}.burst`, center);
     }
-    puff(dimension, BIG, center, mode.color);
-    shell(dimension, center, 0.55 * Math.max(powerOf(held), 0.5), 8, SMALL, mode.color);
+    if (held % 3 === 0) puff(dimension, BIG, center, mode.color);
+    shell(dimension, center, 0.55 * Math.max(powerOf(held), 0.5), 5, SMALL, mode.color);
     if (phase === 4 && held % 3 === 0) shell(dimension, center, 0.8, 4, MID, { red: 1, green: 1, blue: 1 });
   }
 }
@@ -2905,18 +2892,25 @@ export function voidSwirl(dimension, center, radius, color, tick) {
     const a = tick * 0.35 + (i * Math.PI) / 4;
     puff(dimension, SMALL, { x: center.x + Math.cos(a) * r, y: center.y + Math.sin(a * 0.5) * r * 0.4, z: center.z + Math.sin(a) * r }, color);
   }
-  puff(dimension, BIG, center, color);
-  if (tick % 2 === 0) puff(dimension, PULL_VOID, center, color);
+  if (tick % 3 === 0) puff(dimension, BIG, center, color);
+  if (tick % 3 === 0) puff(dimension, PULL_VOID, center, color);
   if (tick > 80) puff(dimension, PULL_CORE, center, color);
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/CHANGELOG.md (62 lines, 3444 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/CHANGELOG.md (62 lines, 3619 bytes)
 
 ```
 # Changelog — ALN:SpiritSphere
 
 ---
+
+## [10.0.0] - 2026-11-27 - Clear View
+
+### Improved & Balanced
+- **Lighter particles**: All particle sprites are about 40 percent smaller and fewer particles are drawn, so the effects no longer cover the screen.
+- **Clear view**: The charging sphere now floats 3.2 blocks ahead instead of 2.4, and the long energy arms from your shoulders are removed. The energy hands stay, with fewer fingers.
+- **Density setting**: A single FX_DENSITY value in the elements script (0.6 now, 1 for the full effect) controls how many of the charge, orb and impact particles are drawn.
 
 ## [9.0.0] - 2026-11-27 - Element Particles
 
@@ -2967,18 +2961,11 @@ export function voidSwirl(dimension, center, radius, color, tick) {
 ### Improved & Balanced
 - **Shared sounds removed**: The old shared pulse, launch and explosion sounds are replaced by the per-element sounds, including the Void Singularity landing pulse.
 
-## [4.0.0] - 2026-11-24 - Inward Pull Particles
-
-### Added
-- **Inward pull particles**: Particles now stream inward toward your hand while charging and toward the orb in flight for every element.
-- **Void Singularity pull**: The hover phase shows a wide inward stream across its 10 block range and a tighter collapse stream in the last second.
-
-## [3.0.0] - 2026-11-24 - Void Singularity Rework
 
 (older entries omitted; ask for the full file if needed)
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/DESCRIPTION.md (113 lines, 8975 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/DESCRIPTION.md (113 lines, 8931 bytes)
 
 ```
 # ALN:SpiritSphere — Chargeable Elemental Energy Orbs
@@ -3022,7 +3009,7 @@ Each sphere has its own color and impact behavior. There is no switching: carry 
 - **What Happens**: Releasing fires the Spirit Orb along your aim. A quick release flies slowly with a small blast, a medium charge flies steadily, and a full charge flies fast with a cratering explosion.
 
 ### Crosshair Sphere
-- **What Happens**: The charging sphere now floats exactly at the center of your crosshair, so you aim with the sphere itself, and the orb launches from that point. The energy hands reach out to it from your shoulders.
+- **What Happens**: The charging sphere now floats exactly at the center of your crosshair, so you aim with the sphere itself, and the orb launches from that point. The effects are kept light so they do not block your view.
 
 ### Element Particles
 - **What Happens**: Every sphere has its own particle shapes and motion: curling wind for Aero Vortex, rising embers and flames for Blaze Solar, drifting crystals and snowflakes for Frost Nova, jittering sparks and bolts for Storm Surge, spiraling rings for Void Singularity, falling pebbles for Terra Quake, wobbling bubbles and drops for Toxic Bloom, orbiting rings for Gravity Warp, floating sparkles and leaves for Life Bloom and spinning ticks and gears for Chrono Stasis.
@@ -3031,7 +3018,7 @@ Each sphere has its own color and impact behavior. There is no switching: carry 
 - **What Happens**: The flying orb is drawn as the sphere's own icon, so you can tell the element at a glance, and it leaves a glowing trail behind it.
 
 ### Energy Hands
-- **What Happens**: While you charge, glowing energy hands made of particles appear on both sides of the sphere, with energy arms running back to your shoulders. The hands close in as the sphere compresses and spread apart when it bursts open.
+- **What Happens**: While you charge, glowing energy hands made of particles appear on both sides of the sphere. The hands close in as the sphere compresses and spread apart when it bursts open.
 
 ### Flight Paths
 - **What Happens**: Each sphere flies its own way. Aero Vortex corkscrews in a spiral, Blaze Solar flies fast and straight, Frost Nova glides in a gentle wave, Storm Surge zigzags side to side, Void Singularity slowly homes in on the nearest mob, Terra Quake flies as a heavy straight boulder, Toxic Bloom wobbles unpredictably, Gravity Warp bends in a wide curve to one side, Life Bloom seeks the nearest other player and Chrono Stasis starts slow and speeds up. No orb is pulled down by gravity, and every orb keeps flying until it hits something.
@@ -3103,13 +3090,13 @@ Minecraft Bedrock add-on, ALN:SpiritSphere Bedrock mod, Spirit Sphere, charge pr
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/README.md (23 lines, 1008 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/README.md (23 lines, 1009 bytes)
 
 ```
 # ALNSpiritSphere
 
 <!-- CURSEFORGE-BADGE:START -->
-[![CurseForge](https://img.shields.io/badge/CurseForge-v7-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1831969)
+[![CurseForge](https://img.shields.io/badge/CurseForge-v9-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1831969)
 <!-- CURSEFORGE-BADGE:END -->
 
 Download the current release of **ALNSpiritSphere** for Minecraft Bedrock Edition.
@@ -3117,7 +3104,7 @@ Download the current release of **ALNSpiritSphere** for Minecraft Bedrock Editio
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNSpiritSphere (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpiritSphere/ALNSpiritSphere%20V9.mcaddon)
+- **Direct download:** [Download ALNSpiritSphere (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpiritSphere/ALNSpiritSphere%20V10.mcaddon)
 
 ## Installation
 
@@ -3155,17 +3142,17 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/manifest.json (37 lines, 664 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/manifest.json (37 lines, 668 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:SpiritSphere Resource Pack (v9)",
+    "name": "ALN:SpiritSphere Resource Pack (v10)",
     "description": "Charge one of ten elemental Spirit Spheres and release a Ghast-style energy orb by ALNStudios",
     "uuid": "c05699f5-364c-44cb-9978-490a4bc716e4",
     "version": [
-      9,
+      10,
       0,
       0
     ],
@@ -3180,7 +3167,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "6ef1070d-ea7a-4d3f-8c1b-02834809e5e6",
       "version": [
-        9,
+        10,
         0,
         0
       ]
@@ -3191,7 +3178,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "9.0.0"
+    "version": "10.0.0"
   }
 }
 ```
@@ -3248,7 +3235,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_aero.json (44 lines, 946 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_aero.json (44 lines, 948 bytes)
 
 ```
 {
@@ -3274,8 +3261,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.8,
-          0.8
+          0.55,
+          0.55
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -3296,7 +3283,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_blaze.json (44 lines, 948 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_blaze.json (44 lines, 950 bytes)
 
 ```
 {
@@ -3322,8 +3309,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.8,
-          0.8
+          0.55,
+          0.55
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -3344,7 +3331,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_chrono.json (44 lines, 950 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_chrono.json (44 lines, 952 bytes)
 
 ```
 {
@@ -3370,8 +3357,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.8,
-          0.8
+          0.55,
+          0.55
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -3392,7 +3379,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_frost.json (44 lines, 948 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_frost.json (44 lines, 950 bytes)
 
 ```
 {
@@ -3418,8 +3405,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.8,
-          0.8
+          0.55,
+          0.55
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -3440,7 +3427,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_gravity.json (44 lines, 952 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_gravity.json (44 lines, 954 bytes)
 
 ```
 {
@@ -3466,8 +3453,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.8,
-          0.8
+          0.55,
+          0.55
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -3488,7 +3475,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_life.json (44 lines, 946 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_life.json (44 lines, 948 bytes)
 
 ```
 {
@@ -3514,8 +3501,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.8,
-          0.8
+          0.55,
+          0.55
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -3536,7 +3523,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_storm.json (44 lines, 948 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_storm.json (44 lines, 950 bytes)
 
 ```
 {
@@ -3562,8 +3549,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.8,
-          0.8
+          0.55,
+          0.55
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -3584,7 +3571,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_terra.json (44 lines, 948 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_terra.json (44 lines, 950 bytes)
 
 ```
 {
@@ -3610,8 +3597,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.8,
-          0.8
+          0.55,
+          0.55
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -3632,7 +3619,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_toxic.json (44 lines, 948 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_toxic.json (44 lines, 950 bytes)
 
 ```
 {
@@ -3658,8 +3645,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.8,
-          0.8
+          0.55,
+          0.55
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -3680,7 +3667,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_void.json (44 lines, 946 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_void.json (44 lines, 948 bytes)
 
 ```
 {
@@ -3706,8 +3693,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.8,
-          0.8
+          0.55,
+          0.55
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -3728,7 +3715,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_aero_a.json (51 lines, 1196 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_aero_a.json (51 lines, 1198 bytes)
 
 ```
 {
@@ -3761,8 +3748,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.14,
-          0.14
+          0.084,
+          0.084
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -3783,7 +3770,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_aero_b.json (55 lines, 1299 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_aero_b.json (55 lines, 1301 bytes)
 
 ```
 {
@@ -3820,8 +3807,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.3,
-          0.3
+          0.18,
+          0.18
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -3842,7 +3829,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_blaze_a.json (52 lines, 1246 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_blaze_a.json (52 lines, 1248 bytes)
 
 ```
 {
@@ -3876,8 +3863,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          "0.16*(1-variable.particle_age/variable.particle_lifetime)",
-          "0.16*(1-variable.particle_age/variable.particle_lifetime)"
+          "0.096*(1-variable.particle_age/variable.particle_lifetime)",
+          "0.096*(1-variable.particle_age/variable.particle_lifetime)"
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -3898,7 +3885,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_blaze_b.json (52 lines, 1247 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_blaze_b.json (52 lines, 1249 bytes)
 
 ```
 {
@@ -3932,8 +3919,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          "0.32*(1-variable.particle_age/variable.particle_lifetime)",
-          "0.32*(1-variable.particle_age/variable.particle_lifetime)"
+          "0.192*(1-variable.particle_age/variable.particle_lifetime)",
+          "0.192*(1-variable.particle_age/variable.particle_lifetime)"
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -3954,7 +3941,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_chrono_a.json (48 lines, 1065 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_chrono_a.json (48 lines, 1067 bytes)
 
 ```
 {
@@ -3984,8 +3971,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.14,
-          0.14
+          0.084,
+          0.084
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -4006,7 +3993,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_chrono_b.json (48 lines, 1064 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_chrono_b.json (48 lines, 1066 bytes)
 
 ```
 {
@@ -4036,8 +4023,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.3,
-          0.3
+          0.18,
+          0.18
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -4058,7 +4045,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_frost_a.json (55 lines, 1200 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_frost_a.json (55 lines, 1202 bytes)
 
 ```
 {
@@ -4095,8 +4082,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.13,
-          0.13
+          0.078,
+          0.078
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -4117,7 +4104,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_frost_b.json (55 lines, 1198 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_frost_b.json (55 lines, 1200 bytes)
 
 ```
 {
@@ -4154,8 +4141,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.3,
-          0.3
+          0.18,
+          0.18
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -4176,7 +4163,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_gravity_a.json (51 lines, 1217 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_gravity_a.json (51 lines, 1219 bytes)
 
 ```
 {
@@ -4209,8 +4196,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.14,
-          0.14
+          0.084,
+          0.084
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -4231,7 +4218,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_gravity_b.json (55 lines, 1319 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_gravity_b.json (55 lines, 1321 bytes)
 
 ```
 {
@@ -4268,8 +4255,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.3,
-          0.3
+          0.18,
+          0.18
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -4290,7 +4277,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_life_a.json (55 lines, 1197 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_life_a.json (55 lines, 1199 bytes)
 
 ```
 {
@@ -4327,8 +4314,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.14,
-          0.14
+          0.084,
+          0.084
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -4349,7 +4336,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_life_b.json (55 lines, 1195 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_life_b.json (55 lines, 1197 bytes)
 
 ```
 {
@@ -4386,8 +4373,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.3,
-          0.3
+          0.18,
+          0.18
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -4408,7 +4395,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_storm_a.json (51 lines, 1168 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_storm_a.json (51 lines, 1170 bytes)
 
 ```
 {
@@ -4441,8 +4428,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.14,
-          0.14
+          0.084,
+          0.084
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -4463,7 +4450,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_storm_b.json (51 lines, 1167 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_storm_b.json (51 lines, 1169 bytes)
 
 ```
 {
@@ -4496,8 +4483,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.28,
-          0.28
+          0.168,
+          0.168
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -4518,7 +4505,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_terra_a.json (55 lines, 1206 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_terra_a.json (55 lines, 1208 bytes)
 
 ```
 {
@@ -4555,8 +4542,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.13,
-          0.13
+          0.078,
+          0.078
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -4577,7 +4564,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_terra_b.json (55 lines, 1206 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_terra_b.json (55 lines, 1208 bytes)
 
 ```
 {
@@ -4614,8 +4601,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.26,
-          0.26
+          0.156,
+          0.156
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -4636,7 +4623,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_toxic_a.json (51 lines, 1199 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_toxic_a.json (51 lines, 1201 bytes)
 
 ```
 {
@@ -4669,8 +4656,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.14,
-          0.14
+          0.084,
+          0.084
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -4691,7 +4678,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_toxic_b.json (51 lines, 1197 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_toxic_b.json (51 lines, 1199 bytes)
 
 ```
 {
@@ -4724,8 +4711,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.3,
-          0.3
+          0.18,
+          0.18
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -4746,7 +4733,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_void_a.json (51 lines, 1316 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_void_a.json (51 lines, 1318 bytes)
 
 ```
 {
@@ -4779,8 +4766,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.12,
-          0.12
+          0.072,
+          0.072
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -4801,7 +4788,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_void_b.json (55 lines, 1421 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_void_b.json (55 lines, 1423 bytes)
 
 ```
 {
@@ -4838,8 +4825,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.28,
-          0.28
+          0.168,
+          0.168
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -4886,8 +4873,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.5,
-          0.5
+          0.3,
+          0.3
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -4916,7 +4903,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ss_mid.json (52 lines, 1133 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ss_mid.json (52 lines, 1131 bytes)
 
 ```
 {
@@ -4942,8 +4929,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.16,
-          0.16
+          0.1,
+          0.1
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -4972,7 +4959,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ss_pull_core.json (57 lines, 1276 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ss_pull_core.json (57 lines, 1277 bytes)
 
 ```
 {
@@ -4987,7 +4974,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
     },
     "components": {
       "minecraft:emitter_rate_instant": {
-        "num_particles": 14
+        "num_particles": 8
       },
       "minecraft:emitter_lifetime_once": {
         "active_time": 1
@@ -5003,8 +4990,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.1,
-          0.1
+          0.07,
+          0.07
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -5048,7 +5035,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
     },
     "components": {
       "minecraft:emitter_rate_instant": {
-        "num_particles": 6
+        "num_particles": 3
       },
       "minecraft:emitter_lifetime_once": {
         "active_time": 1
@@ -5064,8 +5051,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.06,
-          0.06
+          0.04,
+          0.04
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -5109,7 +5096,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
     },
     "components": {
       "minecraft:emitter_rate_instant": {
-        "num_particles": 5
+        "num_particles": 3
       },
       "minecraft:emitter_lifetime_once": {
         "active_time": 1
@@ -5125,8 +5112,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.07,
-          0.07
+          0.05,
+          0.05
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -5170,7 +5157,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
     },
     "components": {
       "minecraft:emitter_rate_instant": {
-        "num_particles": 20
+        "num_particles": 12
       },
       "minecraft:emitter_lifetime_once": {
         "active_time": 1
@@ -5186,8 +5173,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.12,
-          0.12
+          0.08,
+          0.08
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {
@@ -5216,7 +5203,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ss_small.json (52 lines, 1134 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ss_small.json (52 lines, 1136 bytes)
 
 ```
 {
@@ -5242,8 +5229,8 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.07,
-          0.07
+          0.045,
+          0.045
         ],
         "facing_camera_mode": "lookat_xyz",
         "uv": {

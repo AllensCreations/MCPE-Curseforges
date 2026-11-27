@@ -1,13 +1,25 @@
 # Changelog — ALN:SpiritSphere
 
-## [9.0.0] - 2026-11-27 - Element Particles
+## [10.0.0] - 2026-11-27 - Clear View
 
-### Added
+### Improved & Balanced
+- **Lighter particles**: All particle sprites are about 40 percent smaller and fewer particles are drawn, so the effects no longer cover the screen.
+- **Clear view**: The charging sphere now floats 3.2 blocks ahead instead of 2.4, and the long energy arms from your shoulders are removed. The energy hands stay, with fewer fingers.
+- **Density setting**: A single FX_DENSITY value in the elements script (0.6 now, 1 for the full effect) controls how many of the charge, orb and impact particles are drawn.
+
+<details>
+<summary><b>9.0.x</b> (1 release)</summary>
+
+### [9.0.0] - 2026-11-27 - Element Particles
+
+#### Added
 - **Element particles**: Each of the ten spheres now has its own particle shapes and motion, 20 new particle designs in total, used for the charge rings, the core, the orb sparks and the impact burst.
 - **Crosshair sphere**: The charging sphere now sits at the center of your crosshair and the orb launches from that point.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **Energy arms**: The energy arms from your shoulders now use more points so they read as a line reaching the sphere.
+
+</details>
 
 <details>
 <summary><b>8.0.x</b> (1 release)</summary>

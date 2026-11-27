@@ -1,8 +1,8 @@
 {
-  "changelog_version": "9.0.0",
-  "manifest_version": "9.0.0",
+  "changelog_version": "10.0.0",
+  "manifest_version": "10.0.0",
   "packages": {
-    "ALNSpiritSphere V9.mcaddon": "3730f116f0a4a23865a6bd3ef4422ea7356bf097003406b89f378ae590669b27"
+    "ALNSpiritSphere V10.mcaddon": "a8bf4de82ce7fd196e60904b518b9bfda50f9e0db5cc0cbcb1f65ae4323a0bdb"
   },
-  "source_sha256": "a1b3622d09b729a59c415695a276514b1418e6f84328aaae9f047743d1ba1a75"
+  "source_sha256": "946d075229e4302a1e8dde3af2401185ddcaaaf5dfc4eaa434ac8478a403260d"
 }
