@@ -42,7 +42,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **ALN-GlobalMarket** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-GlobalMarket/ALNGlobalMarket%20V1.0.2.mcaddon) | [`ALN-GlobalMarket/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-GlobalMarket/) |
 | **ALN ChestLog** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-ChestLog/ALNChestLog%20V4.mcaddon) | [`ALN-ChestLog/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-ChestLog/) |
 | **ALN PortalDoors** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-PortalDoors/ALNPortalDoors%20V1.mcaddon) | [`ALN-PortalDoors/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-PortalDoors/) |
-| **ALNLootSpawner (Arcane Relic Duplicator)** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNLootSpawner-Arcane-Relic-Duplicator/ALNLootSpawnerArcaneRelicDuplicator%20V1.0.7.mcaddon) | [`ALNLootSpawner-Arcane-Relic-Duplicator/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNLootSpawner-Arcane-Relic-Duplicator/) |
+| **ALNLootSpawner (Arcane Relic Duplicator)** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNLootSpawner-Arcane-Relic-Duplicator/ALNLootSpawnerArcaneRelicDuplicator%20V1.0.8.mcaddon) | [`ALNLootSpawner-Arcane-Relic-Duplicator/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNLootSpawner-Arcane-Relic-Duplicator/) |
 | **ALN Bow Aimbot** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-Bow-Aimbot/ALNBowAimbot%20V1.0.1.mcaddon) | [`ALN-Bow-Aimbot/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-Bow-Aimbot/) |
 | **ALN SoulLantern** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-SoulLantern/ALNSoulLantern%20V3.0.1.mcaddon) | [`ALN-SoulLantern/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-SoulLantern/) |
 | **ALNPirateTokens** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNPirateTokens/ALNPirateTokens%20V1.0.4.mcaddon) | [`ALNPirateTokens/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNPirateTokens/) |
@@ -54,7 +54,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **ALNAuroraBorealis** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNAuroraBorealis/ALNAuroraBorealis%20V2.mcaddon) | [`ALNAuroraBorealis/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNAuroraBorealis/) |
 | **ALNCamouflageDoors** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNCamouflageDoors/ALNCamouflageDoors%20V1.mcaddon) | [`ALNCamouflageDoors/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNCamouflageDoors/) |
 | **ALNUncraftableCraftable** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNUncraftableCraftable/ALNUncraftableCraftable%20V1.mcaddon) | [`ALNUncraftableCraftable/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNUncraftableCraftable/) |
-| **Serpent Realms** | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Serpent-Realms/SerpentRealms%20V1.mcaddon) | [`Serpent-Realms/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Serpent-Realms/) |
+| **Serpent Realms** | Add-on (.mcaddon) | [Download (.mcaddon)](Serpent-Realms/SerpentRealms%20V1.mcaddon) | [`Serpent-Realms/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Serpent-Realms/) |
 
 ### Worlds and Maps
 

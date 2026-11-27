@@ -1,8 +1,8 @@
 {
-  "changelog_version": "1.0.7",
-  "manifest_version": "1.0.7",
+  "changelog_version": "1.0.8",
+  "manifest_version": "1.0.8",
   "packages": {
-    "ALNLootSpawnerArcaneRelicDuplicator V1.0.7.mcaddon": "462b0d2c7109ac4caa5adebaac623abcbbd59486c448a356696fa912129b7c12"
+    "ALNLootSpawnerArcaneRelicDuplicator V1.0.8.mcaddon": "89c844f4352b2d7b319ca9f1f002fc7352eb08ddd090101bab62ed2996030b8e"
   },
-  "source_sha256": "39fcb3b161eeebe23ca44971190df697aa15ae97dc9a68ba3855f13b7d6cf7f6"
+  "source_sha256": "2200e39b5fdb166127a9b58fd0d1f09032f0463588cc294a6bff3f64a9b8297d"
 }

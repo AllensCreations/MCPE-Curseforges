@@ -9,7 +9,7 @@ Download the current release of **ALNLootSpawner (Arcane Relic Duplicator)** for
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNLootSpawner (Arcane Relic Duplicator) (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNLootSpawner-Arcane-Relic-Duplicator/ALNLootSpawnerArcaneRelicDuplicator%20V1.0.7.mcaddon)
+- **Direct download:** [Download ALNLootSpawner (Arcane Relic Duplicator) (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNLootSpawner-Arcane-Relic-Duplicator/ALNLootSpawnerArcaneRelicDuplicator%20V1.0.8.mcaddon)
 
 ## Installation
 
