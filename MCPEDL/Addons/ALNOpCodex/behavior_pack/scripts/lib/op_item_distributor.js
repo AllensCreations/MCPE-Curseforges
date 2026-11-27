@@ -72,18 +72,44 @@ export function deliverKit(player, kitId) {
     busy.delete(found.key);
     tell(player, message);
   };
+  const center = { x: found.spot.x + 0.5, y: found.spot.y + 0.5, z: found.spot.z + 0.5 };
+  const nearbyItems = () => dimension.getEntities({ type: "minecraft:item", location: center, maxDistance: 3 });
+  const gather = (attempt, before) => {
+    let received = false;
+    try {
+      for (const entity of nearbyItems()) {
+        if (before.has(entity.id)) continue;
+        const typeId = entity.getComponent("minecraft:item")?.itemStack.typeId;
+        if (typeId?.endsWith("_shulker_box")) {
+          entity.teleport(player.location);
+          received = true;
+        } else if (typeId === "minecraft:chest") {
+          entity.remove();
+        }
+      }
+    } catch (e) {
+      console.warn(`[OpCodex] pickup: ${e}`);
+    }
+    if (received) {
+      celebrate(player);
+      finish(`§a${kit.name} dropped to you.`);
+      return;
+    }
+    if (attempt < 10) {
+      system.runTimeout(() => gather(attempt + 1, before), 2);
+      return;
+    }
+    finish("§cError: the shulker box did not drop.");
+  };
   const collect = (attempt) => {
     let block;
     try {
       block = dimension.getBlock(found.spot);
       const chest = block?.getComponent("minecraft:inventory")?.container;
       if (chest?.getItem(0)) {
-        if (chest.transferItem(0, inventory) !== undefined) {
-          finish("§cInventory could not take the box.");
-          return;
-        }
-        celebrate(player);
-        finish(`§a${kit.name} added to your inventory.`);
+        const before = new Set(nearbyItems().map((entity) => entity.id));
+        dimension.runCommand(`setblock ${found.spot.x} ${found.spot.y} ${found.spot.z} air destroy`);
+        system.runTimeout(() => gather(0, before), 2);
         return;
       }
     } catch (e) {

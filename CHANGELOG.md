@@ -4,6 +4,13 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v318] - 2026-11-27 - Shulker Box Drop
+
+**Spec**: spec_v318.txt | **Target**: MCPEDL/Addons/ALNOpCodex | **Files edited**: 5
+
+### Fixed
+- **Kit delivery**: The filled shulker box now drops straight to you so you can pick it up.
+
 ## [v317] - 2026-11-27 - Menu Command and Delivery Fix
 
 **Spec**: spec_v317.txt | **Target**: MCPEDL/Addons/ALNOpCodex | **Files edited**: 6

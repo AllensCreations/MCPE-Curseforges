@@ -11,7 +11,7 @@
 
 ## Overview
 
-A player who joins without an OP book receives one. Using it opens a menu where a kit is chosen, and the filled shulker box goes into the inventory.
+A player who joins without an OP book receives one. Using it opens a menu where a kit is chosen, and the filled shulker box drops to the player to be picked up.
 
 ## Key Features
 
@@ -40,6 +40,8 @@ A player who joins without an OP book receives one. Using it opens a menu where 
 ## Common Questions
 
 - **What do I need before picking a kit?**: One free inventory slot and some empty space above you.
+
+- **Why did no box arrive?**: Check that block drops are turned on in the world settings or game rules.
 
 ## Compatibility
 

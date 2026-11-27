@@ -2,6 +2,11 @@
 
 ---
 
+## [v3] - 2026-11-27 - Shulker Box Drop
+
+### Fixed
+- **Kit delivery**: The filled shulker box now drops straight to you so you can pick it up.
+
 ## [v2] - 2026-11-27 - Menu Command and Delivery Fix
 
 ### Added

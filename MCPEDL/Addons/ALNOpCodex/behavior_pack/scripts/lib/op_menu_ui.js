@@ -48,7 +48,7 @@ async function openGearMenu(player) {
 async function openAboutMenu(player) {
   const form = new ActionFormData()
     .title(TITLE)
-    .body("Creator: ALNStudios\nALN:OpCodex v2\nGod tier Netherite kits from one book.\nCurseForge: allenscreations\nMCPEDL: alnstudios\nNot affiliated with Mojang.")
+    .body("Creator: ALNStudios\nALN:OpCodex v3\nGod tier Netherite kits from one book.\nCurseForge: allenscreations\nMCPEDL: alnstudios\nNot affiliated with Mojang.")
     .button("Back");
   const response = await show(player, form);
   if (response) openRootMenu(player);
