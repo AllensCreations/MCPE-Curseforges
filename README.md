@@ -67,7 +67,7 @@ See the [repository changelog](CHANGELOG.md) for the latest updates.
 | [**ALN:OneClickSort**](MCPEDL/Addons/ALNOneClickSort/README.md) | Add-ons | [1818338](https://www.curseforge.com/projects/1818338) | `v12` | 🟢 Published |
 | [**ALN:OpCodex**](MCPEDL/Addons/ALNOpCodex/README.md) | Add-ons | [1834372](https://www.curseforge.com/projects/1834372) | `v7` | 🟢 Published |
 | [**ALN:PirateTokens**](MCPEDL/Addons/ALNPirateTokens/README.md) | Add-ons | [1824277](https://www.curseforge.com/projects/1824277) | `v1.0.4` | 🟢 Published |
-| [**ALN:SpiritSphere**](MCPEDL/Addons/ALNSpiritSphere/README.md) | Add-ons | [1831969](https://www.curseforge.com/projects/1831969) | `v9` | 🟢 Published |
+| [**ALN:SpiritSphere**](MCPEDL/Addons/ALNSpiritSphere/README.md) | Add-ons | [1831969](https://www.curseforge.com/projects/1831969) | `v10` | 🟢 Published |
 | [**ALN:WarpScrolls**](MCPEDL/Addons/ALNWarpScrolls/README.md) | Add-ons | [1831750](https://www.curseforge.com/projects/1831750) | `v6` | 🟢 Published |
 | [**Cheat Stick**](MCPEDL/Addons/Cheat-Stick/README.md) | Add-ons | [1798250](https://www.curseforge.com/projects/1798250) | `v4` | 🟢 Published |
 | [**Combat Helper**](MCPEDL/Addons/ALN-Pointer/README.md) | Add-ons | [1816055](https://www.curseforge.com/projects/1816055) | `v21` | 🟢 Published |
