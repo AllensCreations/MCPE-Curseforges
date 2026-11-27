@@ -53,7 +53,8 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **ALN HyperPipes** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-HyperPipes/ALNHyperPipes%20V1.mcaddon) | [`ALN-HyperPipes/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-HyperPipes/) |
 | **ALNAuroraBorealis** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNAuroraBorealis/ALNAuroraBorealis%20V2.mcaddon) | [`ALNAuroraBorealis/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNAuroraBorealis/) |
 | **ALNCamouflageDoors** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNCamouflageDoors/ALNCamouflageDoors%20V1.mcaddon) | [`ALNCamouflageDoors/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNCamouflageDoors/) |
-| **ALNUncraftableCraftable** | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNUncraftableCraftable/ALNUncraftableCraftable%20V1.mcaddon) | [`ALNUncraftableCraftable/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNUncraftableCraftable/) |
+| **ALNUncraftableCraftable** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNUncraftableCraftable/ALNUncraftableCraftable%20V1.mcaddon) | [`ALNUncraftableCraftable/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNUncraftableCraftable/) |
+| **Serpent Realms** | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Serpent-Realms/SerpentRealms%20V1.mcaddon) | [`Serpent-Realms/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Serpent-Realms/) |
 
 ### Worlds and Maps
 
