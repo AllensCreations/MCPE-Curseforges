@@ -4,6 +4,11 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## 2026-11-27 - New Addon ALNOpCodex
+
+### Added
+- **ALNOpCodex**: New addon project created from a pack script.
+
 ## [v316] - 2026-11-27 - Element Particles
 
 **Spec**: spec_v316.txt | **Target**: MCPEDL/Addons/ALNSpiritSphere | **Files edited**: 24

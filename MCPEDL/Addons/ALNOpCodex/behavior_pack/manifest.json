@@ -1,0 +1,65 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN:OpCodex (v1)",
+    "description": "OP book that delivers god tier Netherite kits. by ALNStudios",
+    "uuid": "c597255b-8868-43ab-b7b5-4a58d676dbf3",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      50
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "deac6a69-d3d1-4671-8849-b30d63e4933b",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "entry": "scripts/main.js",
+      "uuid": "bfb7ceb5-e784-4b96-9bd3-5a72bde0d709",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "142a6097-6927-4bf7-aef6-b24a7691e75d",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.3.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}
