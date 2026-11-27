@@ -1,9 +1,23 @@
 # Changelog — ALN:OpCodex
 
-## [v3] - 2026-11-27 - Shulker Box Drop
+## [v4] - 2026-11-27 - Full Enchantment Kits
 
-### Fixed
+### Added
+- **More enchantments**: Gear now carries Mending, Feather Falling and the other enchantments that fit each piece. The Mending bow and Infinity bow are separate.
+- **Paired copies**: Pickaxe, axe and shovel come in Fortune and Silk Touch versions, and boots in Depth Strider and Frost Walker versions.
+
+### Improved & Balanced
+- **Movement and push limits**: Knockback, Punch and the boot and legging movement enchantments stay at normal levels.
+
+<details>
+<summary><b>3.0.x</b> (1 release)</summary>
+
+### [v3] - 2026-11-27 - Shulker Box Drop
+
+#### Fixed
 - **Kit delivery**: The filled shulker box now drops straight to you so you can pick it up.
+
+</details>
 
 <details>
 <summary><b>2.0.x</b> (1 release)</summary>

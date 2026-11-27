@@ -1,8 +1,0 @@
-{
-  "changelog_version": "2.0.0",
-  "manifest_version": "2.0.0",
-  "packages": {
-    "ALNOpCodex V2.mcaddon": "7f82a608f0f2ed59e1b081fbb7b558f39b96e2be9d874a19fe202d8b344580d9"
-  },
-  "source_sha256": "d993c21cb266d365d4c853926fe07b8de275caefe32f84bd7974d718bc14e42e"
-}
