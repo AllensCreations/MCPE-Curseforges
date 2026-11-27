@@ -402,9 +402,72 @@ def render_flat_entry(new_version, date_text, merged):
     return f"## [v{new_version}] - {date_text}\n\n" + (intro + "\n\n" if intro else "") + body
 
 
-def changelog_type(release_type):
+def changelog_style():
+    return os.environ.get(CHANGELOG_STYLE_ENV, "spoiler")
+
+
+def changelog_type(release_type=None):
     """CurseForge changelogType for an upload: html only when a fold layout is sent."""
-    return "markdown"
+    return "markdown" if changelog_style() == "plain" else "html"
+
+
+def _render_version_card_html(ver_str, date_str, name_str, body_text):
+    """Render a single version update as an Ingame UI theme dropdown card for CurseForge."""
+    sections = _merge_sections([body_text])
+    sec_html = []
+    for heading, lines in sections.items():
+        if heading:
+            sec_html.append(
+                f'<p style="color:#55ff55;font-weight:bold;font-size:13px;margin:8px 0 3px 0;">'
+                f'{html.escape(heading, quote=False)}</p>'
+            )
+        items = []
+        for line in lines:
+            stripped = line.strip()
+            if stripped.startswith(("- ", "* ")):
+                content = stripped[2:].strip()
+                m = re.match(r"^\*\*([^*]+)\*\*:\s*(.+)$", content)
+                if m:
+                    item_html = (
+                        f'<li style="color:#e0e0e0;margin-bottom:3px;">'
+                        f'<strong style="color:#ffffff;">{html.escape(m.group(1), quote=False)}:</strong> '
+                        f'{_inline_html(m.group(2))}</li>'
+                    )
+                else:
+                    item_html = f'<li style="color:#e0e0e0;margin-bottom:3px;">{_inline_html(content)}</li>'
+                items.append(item_html)
+            else:
+                if items:
+                    sec_html.append(f'<ul style="color:#e0e0e0;margin:2px 0 6px 18px;padding-left:0;">{"".join(items)}</ul>')
+                    items = []
+                if stripped:
+                    sec_html.append(f'<p style="color:#e0e0e0;margin:2px 0;">{_inline_html(stripped)}</p>')
+        if items:
+            sec_html.append(f'<ul style="color:#e0e0e0;margin:2px 0 6px 18px;padding-left:0;">{"".join(items)}</ul>')
+
+    if not sec_html and body_text.strip():
+        sec_html.append(f'<p style="color:#e0e0e0;margin:4px 0;">{_inline_html(body_text.strip())}</p>')
+
+    content_inner = "".join(sec_html)
+    dropdown_title = f"{ver_str} Changelog" + (f" - {name_str}" if name_str else "")
+    dropdown_title_esc = html.escape(dropdown_title, quote=True)
+    name_display = f' &nbsp;&middot;&nbsp; <strong style="color:#ffffff;">{html.escape(name_str, quote=False)}</strong>' if name_str else ""
+    date_display = f' <span style="color:#a0a0a0;font-size:12px;">({date_str})</span>' if date_str else ""
+
+    card = (
+        f'<div style="background-color:#202021;border:1px solid #4a4b4d;border-radius:8px;margin-bottom:10px;padding-left:12px;margin-right:12px;">'
+        f'<p style="margin:8px 0 6px 0;font-size:14px;line-height:1.4;">'
+        f'<span style="background-color:#4a4b4d;color:#55ff55;font-weight:bold;padding-left:6px;margin-right:6px;border-radius:4px;font-size:12px;">&nbsp;{ver_str}&nbsp;</span>'
+        f'{name_display}{date_display}'
+        f'</p>'
+        f'<div class="spoiler" title="{dropdown_title_esc}" data-title="{dropdown_title_esc}">'
+        f'<div style="padding-left:6px;margin-right:6px;color:#e0e0e0;font-size:13px;">'
+        f'{content_inner}'
+        f'</div>'
+        f'</div>'
+        f'</div>'
+    )
+    return card
 
 
 def _fold(summary, inner, is_open, style, level):
@@ -430,9 +493,38 @@ def _series_block(major, minor, items, is_open, style, level):
 
 
 def render_upload_changelog(new_version, date_text, merged, entries, release_type, style=None):
-    """The changelog text sent to CurseForge: flat markdown for beta, grouped release history."""
-    # Everything is a Release now: one flat entry, no per-version grouping.
-    return render_flat_entry(new_version, date_text, merged or entries)
+    """The changelog text sent to CurseForge: Ingame UI theme with dropdown spoilers per version update."""
+    if style is None:
+        style = changelog_style()
+    if style == "plain":
+        return render_flat_entry(new_version, date_text, merged or entries)
+
+    target_entries = merged or entries
+    intro_text = _intro(new_version, [e[1] for e in target_entries], [_entry_name(e) for e in target_entries])
+    intro_html = _inline_html(intro_text) if intro_text else ""
+
+    cards = []
+    for entry in target_entries:
+        raw_v, norm_v, heading, segment = entry
+        ver_str = f"v{norm_v}"
+        match = CHANGELOG_HEADER.fullmatch(heading)
+        date_str = match.group(2) if match and match.group(2) else ""
+        name_str = _entry_name(entry)
+        body_text = segment.partition("\n")[2]
+        cards.append(_render_version_card_html(ver_str, date_str, name_str, body_text))
+
+    intro_box = (
+        f'<div style="background-color:#313233;border:2px solid #4a4b4d;border-radius:8px;padding-left:14px;margin-right:14px;margin-bottom:12px;">'
+        f'<div style="background-color:#4a4b4d;font-size:4px;line-height:4px;border-radius:4px;margin-top:4px;">&nbsp;</div>'
+        f'<p style="margin:8px 0 4px 0;font-size:15px;line-height:1.5;">'
+        f'<span style="background-color:#4a4b4d;color:#55ff55;font-weight:bold;padding-left:8px;margin-right:8px;border-radius:4px;font-size:13px;">&nbsp;v{new_version}&nbsp;</span>'
+        f'<strong style="color:#ffffff;">Latest Release &nbsp;&middot;&nbsp; {date_text}</strong>'
+        f'</p>'
+        + (f'<p style="color:#e0e0e0;font-size:13px;margin:0 0 8px 0;">{intro_html}</p>' if intro_html else '')
+        + f'</div>'
+    )
+
+    return f'<div style="max-width:800px;font-family:sans-serif;">{intro_box}{"".join(cards)}</div>'
 
 
 def merge_baseline(release_type, info):
@@ -473,7 +565,7 @@ def combine_changelog(project_dir, changelog_path, last_published=None, today=No
     baseline_text = merge_baseline(release_type, {"last_published_version": last_published, "last_release_version": last_release})
     baseline = parse_version(baseline_text) if baseline_text else None
     if baseline: baseline_text = format_version(baseline)  # registry may hold 'v12'; show it once as v12
-    merged = entries[:1] if baseline is None else [entry for entry in entries if entry[0] > baseline]
+    merged = entries if baseline is None else [entry for entry in entries if entry[0] > baseline]
     if not merged and release_type in {"beta", "keep"}:
         raise ValueError(f"Nothing new to publish: no changelog entry newer than v{baseline_text}. Add a changelog entry first.")
     history = [entry for entry in entries if _has_content(entry)]

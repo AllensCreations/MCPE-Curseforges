@@ -88,22 +88,34 @@ def build_github(name, releases, keep_open):
 
 
 def release_html(r, level):
-    out = [f"<h{level}>{ver(r)} - {r['date']}" + (f" - {html.escape(r['name'])}" if r.get("name") else "") + f"</h{level}>"]
+    name_str = f" - {html.escape(r['name'])}" if r.get("name") else ""
+    header_text = f"{ver(r)} - {r['date']}{name_str}"
+    out = [
+        f'<div style="background-color:#202021;border:1px solid #4a4b4d;border-radius:8px;margin-bottom:10px;padding-left:12px;margin-right:12px;">',
+        f'<h{level} style="color:#ffffff;font-size:15px;margin:8px 0 4px 0;"><span style="background-color:#4a4b4d;color:#55ff55;font-weight:bold;padding-left:6px;margin-right:6px;border-radius:4px;font-size:13px;">&nbsp;{ver(r)}&nbsp;</span> {header_text}</h{level}>'
+    ]
     for g in r["groups"]:
-        out.append(f"<h{level + 1}>{html.escape(g['title'])}</h{level + 1}>")
-        items = "".join(f"<li><strong>{html.escape(t)}</strong>: {html.escape(x)}</li>" for t, x in g["items"])
-        out.append(f"<ul>{items}</ul>")
+        out.append(f'<p style="color:#55ff55;font-weight:bold;font-size:13px;margin:8px 0 2px 0;">{html.escape(g["title"])}</p>')
+        items = "".join(f'<li style="color:#e0e0e0;margin-bottom:3px;"><strong style="color:#ffffff;">{html.escape(t)}:</strong> {html.escape(x)}</li>' for t, x in g["items"])
+        out.append(f'<ul style="color:#e0e0e0;margin:2px 0 6px 18px;padding-left:0;">{items}</ul>')
+    out.append('</div>')
     return "".join(out)
 
 
 def build_curseforge(name, releases, keep_open):
-    out = []
+    out = ['<div style="max-width:800px;font-family:sans-serif;">']
     for r in releases[:keep_open]:
         out.append(release_html(r, 2))
     for label, rs in series(releases[keep_open:]):
         count = f"{len(rs)} release" + ("s" if len(rs) != 1 else "")
         inner = "".join(release_html(r, 3) for r in rs)
-        out.append(f'<h2>{label} ({count})</h2><div class="spoiler">{inner}</div>')
+        out.append(
+            f'<div style="background-color:#313233;border:2px solid #4a4b4d;border-radius:8px;margin-bottom:12px;padding-left:12px;margin-right:12px;">'
+            f'<h2 style="color:#ffffff;font-size:16px;margin:8px 0;"><span style="background-color:#4a4b4d;color:#55ff55;padding-left:6px;margin-right:6px;border-radius:4px;">&nbsp;{label}&nbsp;</span> ({count})</h2>'
+            f'<div class="spoiler" title="{label} ({count})" data-title="{label} ({count})">{inner}</div>'
+            f'</div>'
+        )
+    out.append('</div>')
     return "\n".join(out) + "\n"
 
 
