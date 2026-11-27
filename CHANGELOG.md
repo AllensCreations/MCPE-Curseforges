@@ -4,6 +4,13 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v324] - 2026-11-27 - Working Trades
+
+**Spec**: spec_v324.txt | **Target**: MCPEDL/Maps/ALN-LegendaryPiglin | **Files edited**: 2
+
+### Fixed
+- **Bartering**: The Legendary One now accepts a Gold Ingot: hold one and interact with him, or throw it near him, and he admires it before handing over his trade.
+
 ## [v323] - 2026-11-27 - Legendary Station
 
 **Spec**: spec_v323.txt | **Target**: MCPEDL/Maps/ALN-LegendaryPiglin | **Files edited**: 7

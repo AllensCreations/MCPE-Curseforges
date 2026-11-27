@@ -2,6 +2,11 @@
 
 ---
 
+## [v3] - 2026-11-27 - Working Trades
+
+### Fixed
+- **Bartering**: The Legendary One now accepts a Gold Ingot: hold one and interact with him, or throw it near him, and he admires it before handing over his trade.
+
 ## [v2] - 2026-11-27 - Legendary Station
 
 ### Improved & Balanced

@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:LegendaryPiglin (v2)",
+    "name": "ALN:LegendaryPiglin (v3)",
     "description": "Focused OneBlock drops and The Legendary One, an immortal bartering Piglin. by ALNStudios",
     "uuid": "03276258-f4d0-4006-b445-c4e3c5beaba8",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -20,7 +20,7 @@
       "type": "data",
       "uuid": "116cce4e-6f73-4d84-9a55-a1fae7403463",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -30,7 +30,7 @@
       "language": "javascript",
       "uuid": "4ecc40a2-c438-490f-ba7e-74393bb98d94",
       "version": [
-        2,
+        3,
         0,
         0
       ],
@@ -41,7 +41,7 @@
     {
       "uuid": "e684d30f-bc40-4f76-9968-2786a745624f",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -56,6 +56,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "3.0.0"
   }
 }
