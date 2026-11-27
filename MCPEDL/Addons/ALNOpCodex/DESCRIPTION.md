@@ -11,9 +11,13 @@
 
 ## Overview
 
-A player who joins without an OP book receives one. Using it opens a menu where a kit is chosen, and the filled shulker box drops to the player to be picked up.
+Players craft the OP book at a crafting table. Using it opens a menu where a kit is chosen, and the filled shulker box drops to the player to be picked up.
 
 ## Key Features
+
+### Craftable OP Book
+- **What Happens**: Craft one OP book from 1 Book, 4 Diamonds and 4 Netherite Ingots at a crafting table.
+- **How It Works**: Put the Book in the middle, Diamonds on the four sides and Netherite Ingots in the four corners.
 
 ### OP Book Menu
 - **What Happens**: The menu offers Tools and Armor, About, and Exit. Tools and Armor leads to the three kit choices.
@@ -32,7 +36,7 @@ A player who joins without an OP book receives one. Using it opens a menu where 
 
 ## How to Use
 
-1. Hold the OP book and use it.
+1. Craft the OP book, hold it and use it.
 2. Choose Tools and Armor, then Tools, Armor or Supplies.
 3. Place the new shulker box and open it to collect the gear.
 

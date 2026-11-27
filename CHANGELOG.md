@@ -4,6 +4,16 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v322] - 2026-11-27 - Craftable OP Book
+
+**Spec**: spec_v322.txt | **Target**: MCPEDL/Addons/ALNOpCodex | **Files edited**: 6
+
+### Added
+- **OP book recipe**: Craft the book from 1 Book, 4 Diamonds and 4 Netherite Ingots.
+
+### Improved & Balanced
+- **No free book**: The pack no longer gives the OP book when you join.
+
 ## [v321] - 2026-11-27 - Elytra and Supplies Kit
 
 **Spec**: spec_v321.txt | **Target**: MCPEDL/Addons/ALNOpCodex | **Files edited**: 6
