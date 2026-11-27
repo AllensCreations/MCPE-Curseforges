@@ -1,12 +1,23 @@
 # Changelog — ALN:OpCodex
 
-## [v5] - 2026-11-27 - More Weapons and Tools
+## [v6] - 2026-11-27 - Elytra and Supplies Kit
 
 ### Added
+- **Elytra**: The armor box now holds an elytra with Unbreaking and Mending.
+- **Supplies kit**: A new Supplies button gives long flight rockets, totems, food, arrows, experience bottles and utility tools.
+
+<details>
+<summary><b>5.0.x</b> (1 release)</summary>
+
+### [v5] - 2026-11-27 - More Weapons and Tools
+
+#### Added
 - **New gear**: The tools box now holds hoes, tridents, crossbows, a mace and a spear, for 17 items in total.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **Balance**: Most enchantments are level 255, while Riptide, Loyalty, Quick Charge, Wind Burst and Lunge stay at 3.
+
+</details>
 
 <details>
 <summary><b>4.0.x</b> (1 release)</summary>

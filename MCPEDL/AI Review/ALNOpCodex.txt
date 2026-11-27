@@ -4,10 +4,10 @@
 
 - **Export request:** `MCPEDL/Addons/ALNOpCodex`
 - **Destination:** `MCPEDL/Addons/ALNOpCodex`
-- **CURRENT VERSION: v5 / NEXT UPDATE: v6**  (`MCPEDL/Addons/ALNOpCodex/CHANGELOG.md`)
+- **CURRENT VERSION: v6 / NEXT UPDATE: v7**  (`MCPEDL/Addons/ALNOpCodex/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 14
-- **Skipped binary:** 4
+- **Skipped binary:** 5
 - **Paths not found:** 0
 
 ### Files in this export
@@ -27,10 +27,11 @@
 - `MCPEDL/Addons/ALNOpCodex/structure_sources/make_structures.py`
 - `MCPEDL/Addons/ALNOpCodex/texture_sources/op_book.json`
 
-### Skipped (binary): 4 file(s)
+### Skipped (binary): 5 file(s)
 
 - `MCPEDL/Addons/ALNOpCodex/assets/banner.png`
 - `MCPEDL/Addons/ALNOpCodex/behavior_pack/structures/aln/god_armor.mcstructure`
+- `MCPEDL/Addons/ALNOpCodex/behavior_pack/structures/aln/god_supplies.mcstructure`
 - `MCPEDL/Addons/ALNOpCodex/behavior_pack/structures/aln/god_tools.mcstructure`
 - `MCPEDL/Addons/ALNOpCodex/resource_pack/textures/items/op_book.png`
 
@@ -158,7 +159,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v5 / NEXT UPDATE: v6).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v6 / NEXT UPDATE: v7).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE self-contained update `.sh` (`<Pack>_v<Version>_<rand>.sh`) built with `make_update_script.py` (INSTRUCTIONS.md Reply Format).
@@ -1197,11 +1198,11 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:OpCodex (v5)",
+    "name": "ALN:OpCodex (v6)",
     "description": "OP book that delivers god tier Netherite kits. by ALNStudios",
     "uuid": "c597255b-8868-43ab-b7b5-4a58d676dbf3",
     "version": [
-      5,
+      6,
       0,
       0
     ],
@@ -1216,7 +1217,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "type": "data",
       "uuid": "deac6a69-d3d1-4671-8849-b30d63e4933b",
       "version": [
-        5,
+        6,
         0,
         0
       ]
@@ -1227,7 +1228,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "entry": "scripts/main.js",
       "uuid": "bfb7ceb5-e784-4b96-9bd3-5a72bde0d709",
       "version": [
-        5,
+        6,
         0,
         0
       ]
@@ -1237,7 +1238,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
     {
       "uuid": "142a6097-6927-4bf7-aef6-b24a7691e75d",
       "version": [
-        5,
+        6,
         0,
         0
       ]
@@ -1256,12 +1257,12 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "5.0.0"
+    "version": "6.0.0"
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNOpCodex/behavior_pack/scripts/lib/op_item_distributor.js (126 lines, 4075 bytes)
+## FILE: MCPEDL/Addons/ALNOpCodex/behavior_pack/scripts/lib/op_item_distributor.js (127 lines, 4152 bytes)
 
 ```
 import { world, system } from "@minecraft/server";
@@ -1269,6 +1270,7 @@ import { world, system } from "@minecraft/server";
 const KITS = {
   tools: { structure: "aln:god_tools", name: "OpCodex God Tools" },
   armor: { structure: "aln:god_armor", name: "OpCodex God Armor" },
+  supplies: { structure: "aln:god_supplies", name: "OpCodex God Supplies" },
 };
 const HEIGHTS = [2, 3, 4, 5];
 const SIDES = [[0, 0], [1, 0], [-1, 0], [0, 1], [0, -1]];
@@ -1391,7 +1393,7 @@ export function deliverKit(player, kitId) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNOpCodex/behavior_pack/scripts/lib/op_menu_ui.js (56 lines, 1853 bytes)
+## FILE: MCPEDL/Addons/ALNOpCodex/behavior_pack/scripts/lib/op_menu_ui.js (58 lines, 1946 bytes)
 
 ```
 import { system } from "@minecraft/server";
@@ -1433,25 +1435,27 @@ async function openGearMenu(player) {
     .body("§7Each choice gives one filled shulker box:")
     .button("Tools")
     .button("Armor")
+    .button("Supplies")
     .button("Back");
   const response = await show(player, form);
   if (!response) return;
   if (response.selection === 0) deliverKit(player, "tools");
   else if (response.selection === 1) deliverKit(player, "armor");
+  else if (response.selection === 2) deliverKit(player, "supplies");
   else openRootMenu(player);
 }
 
 async function openAboutMenu(player) {
   const form = new ActionFormData()
     .title(TITLE)
-    .body("Creator: ALNStudios\nALN:OpCodex v5\nGod tier Netherite kits from one book.\nCurseForge: allenscreations\nMCPEDL: alnstudios\nNot affiliated with Mojang.")
+    .body("Creator: ALNStudios\nALN:OpCodex v6\nGod tier Netherite kits from one book.\nCurseForge: allenscreations\nMCPEDL: alnstudios\nNot affiliated with Mojang.")
     .button("Back");
   const response = await show(player, form);
   if (response) openRootMenu(player);
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNOpCodex/behavior_pack/scripts/lib/README.md (12 lines, 889 bytes)
+## FILE: MCPEDL/Addons/ALNOpCodex/behavior_pack/scripts/lib/README.md (12 lines, 909 bytes)
 
 ```
 # Script notes
@@ -1460,9 +1464,9 @@ async function openAboutMenu(player) {
 - lib/op_menu_ui.js: exports openRootMenu. Root, gear and about forms.
 - lib/op_item_distributor.js: exports deliverKit. Places a one-block structure holding a chest, waits up to about two seconds for it, breaks the chest with a command, moves the dropped shulker box to the player, removes the dropped chest and leaves air.
 
-The two structure files are built by structure_sources/make_structures.py.
+The three structure files are built by structure_sources/make_structures.py.
 
-Custom item: aln:op_book. Structures: aln:god_tools, aln:god_armor. Script events: none. World keys: none.
+Custom item: aln:op_book. Structures: aln:god_tools, aln:god_armor, aln:god_supplies. Script events: none. World keys: none.
 
 Known limits: not tested in game. Level 255 and combined protections are written into the structure data and the game may lower or remove them. Every player can use the book.
 ```
@@ -1511,12 +1515,18 @@ world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
 });
 ```
 
-## FILE: MCPEDL/Addons/ALNOpCodex/CHANGELOG.md (44 lines, 1602 bytes)
+## FILE: MCPEDL/Addons/ALNOpCodex/CHANGELOG.md (50 lines, 1867 bytes)
 
 ```
 # Changelog — ALN:OpCodex
 
 ---
+
+## [v6] - 2026-11-27 - Elytra and Supplies Kit
+
+### Added
+- **Elytra**: The armor box now holds an elytra with Unbreaking and Mending.
+- **Supplies kit**: A new Supplies button gives long flight rockets, totems, food, arrows, experience bottles and utility tools.
 
 ## [v5] - 2026-11-27 - More Weapons and Tools
 
@@ -1559,7 +1569,7 @@ world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
 - **God kits**: Named shulker boxes with Netherite tools or armor go into your inventory.
 ```
 
-## FILE: MCPEDL/Addons/ALNOpCodex/DESCRIPTION.md (78 lines, 3797 bytes)
+## FILE: MCPEDL/Addons/ALNOpCodex/DESCRIPTION.md (81 lines, 4068 bytes)
 
 ```
 # ALN:OpCodex — Netherite kits from one book
@@ -1569,9 +1579,9 @@ world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Use the OP book to get 17 tools and weapons, or 5 Netherite armor pieces, in a named shulker box.**
+**Use the OP book to get 17 tools and weapons, 5 armor pieces plus elytra, or supplies, in a named shulker box.**
 
-> The OP book hands out two kits, OpCodex God Tools and OpCodex God Armor. It suits creative testing and private worlds where every player may have top gear.
+> The OP book hands out three kits: God Tools, God Armor and God Supplies. It suits creative testing and private worlds where every player may have top gear.
 
 ## Overview
 
@@ -1580,7 +1590,7 @@ A player who joins without an OP book receives one. Using it opens a menu where 
 ## Key Features
 
 ### OP Book Menu
-- **What Happens**: The menu offers Tools and Armor, About, and Exit. Tools and Armor leads to the two kit choices.
+- **What Happens**: The menu offers Tools and Armor, About, and Exit. Tools and Armor leads to the three kit choices.
 - **Good To Know**: Every player can use the book.
 
 ### OpCodex God Tools
@@ -1588,13 +1598,16 @@ A player who joins without an OP book receives one. Using it opens a menu where 
 - **Good To Know**: Most enchantments are prepared at level 255, including Mending. Knockback and Punch stay at 2. Riptide, Loyalty, Quick Charge, Wind Burst and Lunge stay at 3.
 
 ### OpCodex God Armor
-- **What Happens**: A shulker box holds a helmet, chestplate, leggings, Depth Strider boots and Frost Walker boots.
+- **What Happens**: A shulker box holds a helmet, chestplate, leggings, Depth Strider boots and Frost Walker boots, plus an elytra.
 - **Good To Know**: Boots include Feather Falling. Soul Speed, Swift Sneak and Depth Strider stay at 3, and Frost Walker at 2.
+
+### OpCodex God Supplies
+- **What Happens**: A shulker box holds long flight rockets, totems, enchanted golden apples, golden carrots, ender pearls, arrows, experience bottles, a shield, a fishing rod, shears and flint and steel.
 
 ## How to Use
 
 1. Hold the OP book and use it.
-2. Choose Tools and Armor, then Tools or Armor.
+2. Choose Tools and Armor, then Tools, Armor or Supplies.
 3. Place the new shulker box and open it to collect the gear.
 
 ## Commands
@@ -1663,7 +1676,7 @@ Download the current release of **ALNOpCodex** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNOpCodex (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNOpCodex/ALNOpCodex%20V5.mcaddon)
+- **Direct download:** [Download ALNOpCodex (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNOpCodex/ALNOpCodex%20V6.mcaddon)
 
 ## Installation
 
@@ -1682,11 +1695,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:OpCodex (v5)",
+    "name": "ALN:OpCodex (v6)",
     "description": "Textures for the OP book. by ALNStudios",
     "uuid": "142a6097-6927-4bf7-aef6-b24a7691e75d",
     "version": [
-      5,
+      6,
       0,
       0
     ],
@@ -1701,7 +1714,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "03a56b67-e123-4f41-8814-6d877670c13c",
       "version": [
-        5,
+        6,
         0,
         0
       ]
@@ -1712,7 +1725,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "5.0.0"
+    "version": "6.0.0"
   }
 }
 ```
@@ -1731,7 +1744,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNOpCodex/structure_sources/make_structures.py (120 lines, 5637 bytes)
+## FILE: MCPEDL/Addons/ALNOpCodex/structure_sources/make_structures.py (143 lines, 6812 bytes)
 
 ```
 import pathlib
@@ -1747,10 +1760,10 @@ IDS = {
     "looting": 14, "efficiency": 15, "silk_touch": 16, "unbreaking": 17, "fortune": 18, "power": 19,
     "punch": 20, "flame": 21, "infinity": 22, "frost_walker": 25, "mending": 26, "soul_speed": 36,
     "swift_sneak": 37, "impaling": 29, "riptide": 30, "loyalty": 31, "channeling": 32, "multishot": 33,
-    "piercing": 34, "quick_charge": 35, "wind_burst": 38, "density": 39, "breach": 40, "lunge": 41,
+    "piercing": 34, "quick_charge": 35, "luck_of_the_sea": 23, "lure": 24, "wind_burst": 38, "density": 39, "breach": 40, "lunge": 41,
 }
 LIMITS = {"knockback": 2, "punch": 2, "depth_strider": 3, "frost_walker": 2, "soul_speed": 3, "swift_sneak": 3,
-          "riptide": 3, "loyalty": 3, "quick_charge": 3, "wind_burst": 3, "lunge": 3}
+          "riptide": 3, "loyalty": 3, "quick_charge": 3, "wind_burst": 3, "lunge": 3, "luck_of_the_sea": 3, "lure": 3}
 
 
 def text(value):
@@ -1829,11 +1842,33 @@ ARMOR = [
     ("netherite_leggings", "God Leggings", GUARD + " swift_sneak"),
     ("netherite_boots", "God Depth Strider Boots", GUARD + " feather_falling soul_speed depth_strider"),
     ("netherite_boots", "God Frost Walker Boots", GUARD + " feather_falling soul_speed frost_walker"),
+    ("elytra", "God Elytra", KEEP),
 ]
 
 
-def write(name, color, label, rows):
-    box = item(0, color + "_shulker_box", {"display": display(label), "Items": array(10, kit(rows))})
+GEAR_SUPPLIES = [
+    ("shield", "God Shield", KEEP),
+    ("fishing_rod", "God Fishing Rod", "luck_of_the_sea lure " + KEEP),
+    ("shears", "God Shears", "efficiency " + KEEP),
+    ("flint_and_steel", "God Flint and Steel", KEEP),
+]
+ROCKET = {"display": display("God Long Flight Rocket"),
+          "Fireworks": compound({"Flight": byte(20), "Explosions": array(10, [])})}
+STACKS = ([("firework_rocket", 64, ROCKET)] * 3 + [("totem_of_undying", 1, {})] * 4
+          + [("enchanted_golden_apple", 64, {}), ("golden_carrot", 64, {}), ("ender_pearl", 16, {})]
+          + [("arrow", 64, {})] * 2 + [("experience_bottle", 64, {})] * 2)
+
+
+def stack(slot, name, count, tag):
+    fields = {"Slot": byte(slot), "Name": string("minecraft:" + name), "Count": byte(count),
+              "Damage": short(0), "WasPickedUp": byte(0)}
+    if tag:
+        fields["tag"] = compound(tag)
+    return compound(fields)
+
+
+def write(name, color, label, rows, stacks=()):
+    box = item(0, color + "_shulker_box", {"display": display(label), "Items": array(10, kit(rows) + [stack(len(rows) + i, *entry) for i, entry in enumerate(stacks)])})
     chest = compound({"id": string("Chest"), "Findable": byte(0), "isMovable": byte(1), "x": integer(0),
                       "y": integer(0), "z": integer(0), "Items": array(10, [box])})
     block = compound({"name": string("minecraft:chest"), "states": compound({}), "version": integer(17959425)})
@@ -1848,11 +1883,12 @@ def write(name, color, label, rows):
         "structure_world_origin": array(3, [integer(0), integer(0), integer(0)])})
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / (name + ".mcstructure")).write_bytes(bytes([10]) + text("") + root[1])
-    print(f"wrote {name}.mcstructure ({len(rows)} items)")
+    print(f"wrote {name}.mcstructure ({len(rows) + len(stacks)} slots)")
 
 
 write("god_tools", "purple", "OpCodex God Tools", TOOLS)
 write("god_armor", "red", "OpCodex God Armor", ARMOR)
+write("god_supplies", "blue", "OpCodex God Supplies", GEAR_SUPPLIES, STACKS)
 ```
 
 ## FILE: MCPEDL/Addons/ALNOpCodex/texture_sources/op_book.json (1108 lines, 12071 bytes)

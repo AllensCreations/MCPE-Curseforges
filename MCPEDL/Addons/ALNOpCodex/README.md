@@ -9,7 +9,7 @@ Download the current release of **ALNOpCodex** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNOpCodex (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNOpCodex/ALNOpCodex%20V5.mcaddon)
+- **Direct download:** [Download ALNOpCodex (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNOpCodex/ALNOpCodex%20V6.mcaddon)
 
 ## Installation
 

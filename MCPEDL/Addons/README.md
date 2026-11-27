@@ -52,7 +52,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | ALNCamouflageDoors | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALNCamouflageDoors/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNCamouflageDoors/ALNCamouflageDoors%20V1.mcaddon) |
 | ALNUncraftableCraftable | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALNUncraftableCraftable/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNUncraftableCraftable/ALNUncraftableCraftable%20V1.mcaddon) |
 | Serpent Realms | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Serpent-Realms/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Serpent-Realms/SerpentRealms%20V1.mcaddon) |
-| ALNOpCodex | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALNOpCodex/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNOpCodex/ALNOpCodex%20V5.mcaddon) |
+| ALNOpCodex | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALNOpCodex/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNOpCodex/ALNOpCodex%20V6.mcaddon) |
 
 Download links point to the currently published package files.
 
