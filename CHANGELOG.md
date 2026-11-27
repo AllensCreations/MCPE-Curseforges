@@ -4,6 +4,11 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## 2026-11-27 - New Addon ALNUncraftableCraftable
+
+### Added
+- **ALNUncraftableCraftable**: New addon project created from a pack script.
+
 ## 2026-11-27 - New Addon ALNCamouflageDoors
 
 ### Added

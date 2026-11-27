@@ -1,0 +1,33 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:fabrication_altar"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "OEO",
+      "ODO",
+      "OOO"
+    ],
+    "key": {
+      "O": {
+        "item": "minecraft:obsidian"
+      },
+      "E": {
+        "item": "minecraft:ender_eye"
+      },
+      "D": {
+        "item": "minecraft:diamond_block"
+      }
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
+    "result": {
+      "item": "aln:fabrication_altar"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "resource_pack_name": "aln_uncraftablecraftable",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "aln_dragon_essence": {
+      "textures": "textures/items/aln_dragon_essence"
+    },
+    "aln_void_shard": {
+      "textures": "textures/items/aln_void_shard"
+    },
+    "aln_phantom_core": {
+      "textures": "textures/items/aln_phantom_core"
+    }
+  }
+}

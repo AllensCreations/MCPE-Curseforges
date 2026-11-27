@@ -1,0 +1,24 @@
+{
+  "format_version": "1.26.60",
+  "minecraft:block": {
+    "description": {
+      "identifier": "aln:fabrication_altar",
+      "menu_category": {
+        "category": "construction"
+      }
+    },
+    "components": {
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "aln_fabrication_altar"
+        }
+      },
+      "minecraft:destroy_time": 5,
+      "minecraft:light_emission": 7,
+      "minecraft:custom_components": [
+        "aln:fabrication_altar"
+      ]
+    }
+  }
+}

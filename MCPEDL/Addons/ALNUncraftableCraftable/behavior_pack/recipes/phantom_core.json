@@ -1,0 +1,30 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:phantom_core"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " M ",
+      "MEM",
+      " M "
+    ],
+    "key": {
+      "M": {
+        "item": "minecraft:phantom_membrane"
+      },
+      "E": {
+        "item": "minecraft:ender_eye"
+      }
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
+    "result": {
+      "item": "aln:phantom_core"
+    }
+  }
+}

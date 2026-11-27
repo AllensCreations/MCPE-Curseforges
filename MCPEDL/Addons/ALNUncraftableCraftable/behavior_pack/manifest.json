@@ -1,0 +1,56 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN:UncraftableCraftable (v1)",
+    "description": "Endgame fabrication recipes for Elytra, Totem of Undying, Nether Star, Trident and Dragon Head. by ALNStudios",
+    "uuid": "03f3f3e8-e9a7-41a5-9e3e-b5032838fc3f",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "script",
+      "language": "javascript",
+      "entry": "scripts/main.js",
+      "uuid": "bd7097ad-f981-48af-bbc9-cb7b8b0b41e9",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "ebe33641-5afc-4dd4-aa65-c6e81e4760f1",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.2.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}
