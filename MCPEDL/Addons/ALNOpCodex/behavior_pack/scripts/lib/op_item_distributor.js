@@ -57,29 +57,43 @@ export function deliverKit(player, kitId) {
   try {
     world.structureManager.place(kit.structure, dimension, found.spot);
   } catch (e) {
+    console.warn(`[OpCodex] structure: ${e}`);
     busy.delete(found.key);
     tell(player, "§cThe kit could not be created.");
     return;
   }
-  system.run(() => {
-    let delivered = false;
-    let chest;
+  const finish = (message) => {
     try {
-      chest = dimension.getBlock(found.spot)?.getComponent("minecraft:inventory")?.container;
-      if (chest?.getItem(0)) delivered = chest.transferItem(0, inventory) === undefined;
-    } catch (e) {}
-    try {
-      chest?.setItem(0, undefined);
-    } catch (e) {}
-    try {
+      dimension.getBlock(found.spot)?.getComponent("minecraft:inventory")?.container?.setItem(0, undefined);
       dimension.getBlock(found.spot)?.setType("minecraft:air");
-    } catch (e) {}
+    } catch (e) {
+      console.warn(`[OpCodex] cleanup: ${e}`);
+    }
     busy.delete(found.key);
-    if (!delivered) {
-      tell(player, "§cThe kit could not be delivered.");
+    tell(player, message);
+  };
+  const collect = (attempt) => {
+    let block;
+    try {
+      block = dimension.getBlock(found.spot);
+      const chest = block?.getComponent("minecraft:inventory")?.container;
+      if (chest?.getItem(0)) {
+        if (chest.transferItem(0, inventory) !== undefined) {
+          finish("§cInventory could not take the box.");
+          return;
+        }
+        celebrate(player);
+        finish(`§a${kit.name} added to your inventory.`);
+        return;
+      }
+    } catch (e) {
+      console.warn(`[OpCodex] delivery: ${e}`);
+    }
+    if (attempt < 20) {
+      system.runTimeout(() => collect(attempt + 1), 2);
       return;
     }
-    celebrate(player);
-    tell(player, `§a${kit.name} added to your inventory.`);
-  });
+    finish(block?.typeId === "minecraft:chest" ? "§cError: the kit chest was empty." : "§cError: the kit chest did not appear.");
+  };
+  system.runTimeout(() => collect(0), 2);
 }

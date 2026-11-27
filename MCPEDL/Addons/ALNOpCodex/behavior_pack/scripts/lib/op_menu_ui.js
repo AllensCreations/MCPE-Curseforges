@@ -22,9 +22,9 @@ export async function openRootMenu(player) {
   const form = new ActionFormData()
     .title(TITLE)
     .body("§7Select an option below:")
-    .button("🛠️ Tools and Armor")
-    .button("📖 About")
-    .button("🚪 Exit");
+    .button("Tools and Armor")
+    .button("About")
+    .button("Exit");
   const response = await show(player, form);
   if (!response) return;
   if (response.selection === 0) openGearMenu(player);
@@ -35,8 +35,8 @@ async function openGearMenu(player) {
   const form = new ActionFormData()
     .title(TITLE)
     .body("§7Each choice gives one filled shulker box:")
-    .button("⛏️ Tools")
-    .button("🛡️ Armor")
+    .button("Tools")
+    .button("Armor")
     .button("Back");
   const response = await show(player, form);
   if (!response) return;
@@ -48,7 +48,7 @@ async function openGearMenu(player) {
 async function openAboutMenu(player) {
   const form = new ActionFormData()
     .title(TITLE)
-    .body("Creator: ALNStudios\nALN:OpCodex v1.0.0\nGod tier Netherite kits from one book.\nCurseForge: allenscreations\nMCPEDL: alnstudios\nNot affiliated with Mojang.")
+    .body("Creator: ALNStudios\nALN:OpCodex v2\nGod tier Netherite kits from one book.\nCurseForge: allenscreations\nMCPEDL: alnstudios\nNot affiliated with Mojang.")
     .button("Back");
   const response = await show(player, form);
   if (response) openRootMenu(player);

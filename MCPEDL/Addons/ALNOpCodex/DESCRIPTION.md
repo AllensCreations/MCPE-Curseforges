@@ -11,7 +11,7 @@
 
 ## Overview
 
-Each player receives one OP book on first joining. Using it opens a menu where a kit is chosen, and the filled shulker box goes into the inventory.
+A player who joins without an OP book receives one. Using it opens a menu where a kit is chosen, and the filled shulker box goes into the inventory.
 
 ## Key Features
 
@@ -32,6 +32,10 @@ Each player receives one OP book on first joining. Using it opens a menu where a
 1. Hold the OP book and use it.
 2. Choose Tools and Armor, then Tools or Armor.
 3. Place the new shulker box and open it to collect the gear.
+
+## Commands
+
+- `/aln:alnop`: Opens the OP book menu, even without the book.
 
 ## Common Questions
 

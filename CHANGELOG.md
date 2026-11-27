@@ -4,6 +4,20 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v317] - 2026-11-27 - Menu Command and Delivery Fix
+
+**Spec**: spec_v317.txt | **Target**: MCPEDL/Addons/ALNOpCodex | **Files edited**: 6
+
+### Added
+- **Menu command**: Typing /aln:alnop opens the OP book menu without the book.
+
+### Improved & Balanced
+- **Plain menu buttons**: Menu buttons no longer show emojis.
+- **OP book**: A player who joins without the book receives a new one.
+
+### Fixed
+- **Kit delivery**: The pack now waits longer for a kit before reporting that it failed.
+
 ## 2026-11-27 - New Addon ALNOpCodex
 
 ### Added
