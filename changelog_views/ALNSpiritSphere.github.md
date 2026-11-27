@@ -1,13 +1,27 @@
 # Changelog — ALN:SpiritSphere
 
-## [8.0.0] - 2026-11-27 - Icon Projectile
+## [9.0.0] - 2026-11-27 - Element Particles
 
 ### Added
-- **Icon projectile**: The flying orb is now drawn as the sphere's own icon texture instead of the generic glowing blob.
+- **Element particles**: Each of the ten spheres now has its own particle shapes and motion, 20 new particle designs in total, used for the charge rings, the core, the orb sparks and the impact burst.
+- **Crosshair sphere**: The charging sphere now sits at the center of your crosshair and the orb launches from that point.
 
 ### Improved & Balanced
+- **Energy arms**: The energy arms from your shoulders now use more points so they read as a line reaching the sphere.
+
+<details>
+<summary><b>8.0.x</b> (1 release)</summary>
+
+### [8.0.0] - 2026-11-27 - Icon Projectile
+
+#### Added
+- **Icon projectile**: The flying orb is now drawn as the sphere's own icon texture instead of the generic glowing blob.
+
+#### Improved & Balanced
 - **No gravity**: Orbs are no longer pulled down. Quick releases fly straight, and Blaze Solar and Terra Quake fly straight while Frost Nova now glides in a gentle wave.
 - **Unlimited range**: Orbs keep flying until they hit something, with a 5 minute safety limit so stray orbs do not pile up.
+
+</details>
 
 <details>
 <summary><b>7.0.x</b> (1 release)</summary>

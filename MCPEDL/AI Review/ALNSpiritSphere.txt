@@ -4,10 +4,10 @@
 
 - **Export request:** `MCPEDL/Addons/ALNSpiritSphere`
 - **Destination:** `MCPEDL/Addons/ALNSpiritSphere`
-- **CURRENT VERSION: v8 / NEXT UPDATE: v9**  (`MCPEDL/Addons/ALNSpiritSphere/CHANGELOG.md`)
+- **CURRENT VERSION: v9 / NEXT UPDATE: v10**  (`MCPEDL/Addons/ALNSpiritSphere/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
-- **Text files:** 60
-- **Skipped binary:** 131
+- **Text files:** 81
+- **Skipped binary:** 151
 - **Paths not found:** 0
 
 ### Files in this export
@@ -58,6 +58,26 @@
 - `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_terra.json`
 - `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_toxic.json`
 - `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ic_void.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_aero_a.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_aero_b.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_blaze_a.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_blaze_b.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_chrono_a.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_chrono_b.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_frost_a.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_frost_b.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_gravity_a.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_gravity_b.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_life_a.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_life_b.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_storm_a.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_storm_b.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_terra_a.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_terra_b.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_toxic_a.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_toxic_b.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_void_a.json`
+- `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_void_b.json`
 - `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ss_big.json`
 - `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ss_mid.json`
 - `MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/ss_pull_core.json`
@@ -71,9 +91,13 @@
 - `MCPEDL/Addons/ALNSpiritSphere/resource_pack/texts/languages.json`
 - `MCPEDL/Addons/ALNSpiritSphere/resource_pack/textures/item_texture.json`
 - `MCPEDL/Addons/ALNSpiritSphere/sound_sources/make_sounds.py`
-- `MCPEDL/Addons/ALNSpiritSphere/texture_sources/spirit_sphere.json`
+- `MCPEDL/Addons/ALNSpiritSphere/texture_sources/spirit_particles.json`
 
-### Skipped (binary): 131 file(s)
+### Not inlined: 1 larger file(s), ask the user for the exact paths you need
+
+- `MCPEDL/Addons/ALNSpiritSphere/texture_sources/spirit_sphere.json` (27153 bytes)
+
+### Skipped (binary): 151 file(s)
 
 - `MCPEDL/Addons/ALNSpiritSphere/assets/banner.png`
 - `MCPEDL/Addons/ALNSpiritSphere/assets/items/aero_sphere.png`
@@ -115,7 +139,7 @@
 - `MCPEDL/Addons/ALNSpiritSphere/assets/items/spirit_focus.png`
 - `MCPEDL/Addons/ALNSpiritSphere/assets/items/spirit_focus_label.png`
 - `MCPEDL/Addons/ALNSpiritSphere/assets/items/storm_sphere.png`
-- ... and 91 more
+- ... and 111 more
 
 ---
 
@@ -241,7 +265,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v8 / NEXT UPDATE: v9).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v9 / NEXT UPDATE: v10).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE self-contained update `.sh` (`<Pack>_v<Version>_<rand>.sh`) built with `make_update_script.py` (INSTRUCTIONS.md Reply Format).
@@ -1653,11 +1677,11 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:SpiritSphere Behavior Pack (v8)",
+    "name": "ALN:SpiritSphere Behavior Pack (v9)",
     "description": "Charge one of ten elemental Spirit Spheres and release a Ghast-style energy orb by ALNStudios",
     "uuid": "951ab0f1-53a7-45a3-80fc-a610ec8e217b",
     "version": [
-      8,
+      9,
       0,
       0
     ],
@@ -1672,7 +1696,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "type": "data",
       "uuid": "d58017bb-894b-4fd8-a26a-d2ab81d83a4e",
       "version": [
-        8,
+        9,
         0,
         0
       ]
@@ -1682,7 +1706,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "language": "javascript",
       "uuid": "ad6704ec-178d-4dd3-b3eb-1a719bd5b2f0",
       "version": [
-        8,
+        9,
         0,
         0
       ],
@@ -1693,7 +1717,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
     {
       "uuid": "c05699f5-364c-44cb-9978-490a4bc716e4",
       "version": [
-        8,
+        9,
         0,
         0
       ]
@@ -1708,7 +1732,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "8.0.0"
+    "version": "9.0.0"
   }
 }
 ```
@@ -2697,11 +2721,11 @@ export function registerHits() {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/visuals.js (179 lines, 6190 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/behavior_pack/scripts/visuals.js (186 lines, 6504 bytes)
 
 ```
 import { MolangVariableMap } from "@minecraft/server";
-import { BURST_TICK, FULL_TICKS, OVER_TICKS, powerOf } from "./elements.js";
+import { MODES, BURST_TICK, FULL_TICKS, OVER_TICKS, powerOf } from "./elements.js";
 
 const SMALL = "aln:ss_small";
 const MID = "aln:ss_mid";
@@ -2711,11 +2735,17 @@ const PULL_ORB = "aln:ss_pull_orb";
 const PULL_VOID = "aln:ss_pull_void";
 const PULL_CORE = "aln:ss_pull_core";
 
+const ELEMENT_OF = new Map(MODES.map((m) => [m.color, m.id]));
+
 export function puff(dimension, id, location, color) {
+  let effect = id;
+  const element = ELEMENT_OF.get(color);
+  if (element && id === SMALL) effect = `aln:pt_${element}_a`;
+  else if (element && id === MID) effect = `aln:pt_${element}_b`;
   try {
     const vars = new MolangVariableMap();
     vars.setColorRGB("variable.color", color);
-    dimension.spawnParticle(id, location, vars);
+    dimension.spawnParticle(effect, location, vars);
   } catch (e) {}
 }
 
@@ -2738,10 +2768,11 @@ export function basisOf(view) {
 
 export function handPoint(player, view) {
   const loc = player.location;
+  const eye = loc.y + (player.isSneaking ? 1.27 : 1.62);
   return {
-    x: loc.x + view.x * 0.9,
-    y: loc.y + 1.2 + view.y * 0.9,
-    z: loc.z + view.z * 0.9,
+    x: loc.x + view.x * 2.4,
+    y: eye + view.y * 2.4,
+    z: loc.z + view.z * 2.4,
   };
 }
 
@@ -2806,8 +2837,8 @@ function energyHands(dimension, player, center, view, held, color) {
       }
     }
     const shoulder = { x: loc.x + right.x * side * 0.38, y: loc.y + 1.3, z: loc.z + right.z * side * 0.38 };
-    for (let j = 1; j <= 5; j++) {
-      const t = j / 6;
+    for (let j = 1; j <= 9; j++) {
+      const t = j / 10;
       puff(
         dimension,
         SMALL,
@@ -2880,12 +2911,21 @@ export function voidSwirl(dimension, center, radius, color, tick) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/CHANGELOG.md (77 lines, 4340 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/CHANGELOG.md (62 lines, 3444 bytes)
 
 ```
 # Changelog — ALN:SpiritSphere
 
 ---
+
+## [9.0.0] - 2026-11-27 - Element Particles
+
+### Added
+- **Element particles**: Each of the ten spheres now has its own particle shapes and motion, 20 new particle designs in total, used for the charge rings, the core, the orb sparks and the impact burst.
+- **Crosshair sphere**: The charging sphere now sits at the center of your crosshair and the orb launches from that point.
+
+### Improved & Balanced
+- **Energy arms**: The energy arms from your shoulders now use more points so they read as a line reaching the sphere.
 
 ## [8.0.0] - 2026-11-27 - Icon Projectile
 
@@ -2935,33 +2975,10 @@ export function voidSwirl(dimension, center, radius, color, tick) {
 
 ## [3.0.0] - 2026-11-24 - Void Singularity Rework
 
-### Added
-- **Void Singularity hold**: The orb now stops where it lands, hovers for 5 seconds, pulls all mobs within 10 blocks into its core, then explodes with a larger blast.
-
-### Fixed
-- **Recipes**: The six sphere recipes now use the object form of the unlock entry.
-- **Spirit Orb model**: The orb now uses the entity_alphatest material instead of entity_alpha.
-
-## [2.0.0] - 2026-11-24 - Element Spheres
-
-### Added
-- **Five Spirit Spheres**: Players can craft Aero Vortex, Blaze Solar, Frost Nova, Storm Surge and Void Singularity spheres, each with its own icon and recipe.
-- **Bow zoom**: The view zooms in through the three charge phases and eases back on release.
-- **Charge sound**: A tone rises in pitch while the sphere charges.
-
-### Improved & Balanced
-- **Element choice**: Each element is now its own item, so sneak-switching is gone and the Spirit Focus is removed.
-
-## [1.0.0] - 2026-11-24 - First Release
-
-### Added
-- **Spirit Focus**: Players can craft a chargeable focus item with two recipes, one using a Wind Charge and one using a Feather.
-- **Charge phases**: Players see a loose ring, a compressed core and a burst into a glowing sphere with a sonic pulse while charging.
-- **Spirit Orb**: Releasing fires an orb whose speed and blast size grow with the hold time, with an overcharge bonus at 70 ticks.
-- **Five elements**: Players can sneak and use the focus to switch between Aero Vortex, Blaze Solar, Frost Nova, Storm Surge and Void Singularity.
+(older entries omitted; ask for the full file if needed)
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/DESCRIPTION.md (107 lines, 8233 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/DESCRIPTION.md (113 lines, 8975 bytes)
 
 ```
 # ALN:SpiritSphere — Chargeable Elemental Energy Orbs
@@ -3003,6 +3020,12 @@ Each sphere has its own color and impact behavior. There is no switching: carry 
 
 ### Charge-Scaled Orb
 - **What Happens**: Releasing fires the Spirit Orb along your aim. A quick release flies slowly with a small blast, a medium charge flies steadily, and a full charge flies fast with a cratering explosion.
+
+### Crosshair Sphere
+- **What Happens**: The charging sphere now floats exactly at the center of your crosshair, so you aim with the sphere itself, and the orb launches from that point. The energy hands reach out to it from your shoulders.
+
+### Element Particles
+- **What Happens**: Every sphere has its own particle shapes and motion: curling wind for Aero Vortex, rising embers and flames for Blaze Solar, drifting crystals and snowflakes for Frost Nova, jittering sparks and bolts for Storm Surge, spiraling rings for Void Singularity, falling pebbles for Terra Quake, wobbling bubbles and drops for Toxic Bloom, orbiting rings for Gravity Warp, floating sparkles and leaves for Life Bloom and spinning ticks and gears for Chrono Stasis.
 
 ### Icon Projectile
 - **What Happens**: The flying orb is drawn as the sphere's own icon, so you can tell the element at a glance, and it leaves a glowing trail behind it.
@@ -3094,7 +3117,7 @@ Download the current release of **ALNSpiritSphere** for Minecraft Bedrock Editio
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNSpiritSphere (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpiritSphere/ALNSpiritSphere%20V8.mcaddon)
+- **Direct download:** [Download ALNSpiritSphere (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpiritSphere/ALNSpiritSphere%20V9.mcaddon)
 
 ## Installation
 
@@ -3138,11 +3161,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:SpiritSphere Resource Pack (v8)",
+    "name": "ALN:SpiritSphere Resource Pack (v9)",
     "description": "Charge one of ten elemental Spirit Spheres and release a Ghast-style energy orb by ALNStudios",
     "uuid": "c05699f5-364c-44cb-9978-490a4bc716e4",
     "version": [
-      8,
+      9,
       0,
       0
     ],
@@ -3157,7 +3180,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "6ef1070d-ea7a-4d3f-8c1b-02834809e5e6",
       "version": [
-        8,
+        9,
         0,
         0
       ]
@@ -3168,7 +3191,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "8.0.0"
+    "version": "9.0.0"
   }
 }
 ```
@@ -3697,6 +3720,1138 @@ For gameplay features, usage details, compatibility notes, and other project inf
           "uv_size": [
             32,
             32
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_aero_a.json (51 lines, 1196 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:pt_aero_a",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/items/spirit_fx/aln_pt_aero_a"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.5
+      },
+      "minecraft:particle_motion_parametric": {
+        "relative_position": [
+          "Math.cos(variable.particle_age*9)*0.2",
+          "variable.particle_age*0.25",
+          "Math.sin(variable.particle_age*9)*0.2"
+        ]
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.14,
+          0.14
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 16,
+          "texture_height": 16,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            16,
+            16
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_aero_b.json (55 lines, 1299 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:pt_aero_b",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/items/spirit_fx/aln_pt_aero_b"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.45
+      },
+      "minecraft:particle_motion_parametric": {
+        "relative_position": [
+          "Math.cos(variable.particle_age*9)*0.2",
+          "variable.particle_age*0.25",
+          "Math.sin(variable.particle_age*9)*0.2"
+        ]
+      },
+      "minecraft:particle_initial_spin": {
+        "rotation": 0,
+        "rotation_rate": 260
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.3,
+          0.3
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 16,
+          "texture_height": 16,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            16,
+            16
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_blaze_a.json (52 lines, 1246 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:pt_blaze_a",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/items/spirit_fx/aln_pt_blaze_a"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.5
+      },
+      "minecraft:particle_motion_dynamic": {
+        "linear_acceleration": [
+          0,
+          1.6,
+          0
+        ],
+        "linear_drag_coefficient": 1.0
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          "0.16*(1-variable.particle_age/variable.particle_lifetime)",
+          "0.16*(1-variable.particle_age/variable.particle_lifetime)"
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 16,
+          "texture_height": 16,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            16,
+            16
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_blaze_b.json (52 lines, 1247 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:pt_blaze_b",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/items/spirit_fx/aln_pt_blaze_b"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.55
+      },
+      "minecraft:particle_motion_dynamic": {
+        "linear_acceleration": [
+          0,
+          1.6,
+          0
+        ],
+        "linear_drag_coefficient": 1.0
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          "0.32*(1-variable.particle_age/variable.particle_lifetime)",
+          "0.32*(1-variable.particle_age/variable.particle_lifetime)"
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 16,
+          "texture_height": 16,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            16,
+            16
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_chrono_a.json (48 lines, 1065 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:pt_chrono_a",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/items/spirit_fx/aln_pt_chrono_a"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.5
+      },
+      "minecraft:particle_initial_spin": {
+        "rotation": 0,
+        "rotation_rate": 180
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.14,
+          0.14
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 16,
+          "texture_height": 16,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            16,
+            16
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_chrono_b.json (48 lines, 1064 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:pt_chrono_b",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/items/spirit_fx/aln_pt_chrono_b"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.6
+      },
+      "minecraft:particle_initial_spin": {
+        "rotation": 0,
+        "rotation_rate": -120
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.3,
+          0.3
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 16,
+          "texture_height": 16,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            16,
+            16
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_frost_a.json (55 lines, 1200 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:pt_frost_a",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/items/spirit_fx/aln_pt_frost_a"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.7
+      },
+      "minecraft:particle_motion_dynamic": {
+        "linear_acceleration": [
+          0,
+          -0.4,
+          0
+        ]
+      },
+      "minecraft:particle_initial_spin": {
+        "rotation": 0,
+        "rotation_rate": 90
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.13,
+          0.13
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 16,
+          "texture_height": 16,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            16,
+            16
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_frost_b.json (55 lines, 1198 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:pt_frost_b",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/items/spirit_fx/aln_pt_frost_b"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.6
+      },
+      "minecraft:particle_motion_dynamic": {
+        "linear_acceleration": [
+          0,
+          -0.4,
+          0
+        ]
+      },
+      "minecraft:particle_initial_spin": {
+        "rotation": 0,
+        "rotation_rate": 60
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.3,
+          0.3
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 16,
+          "texture_height": 16,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            16,
+            16
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_gravity_a.json (51 lines, 1217 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:pt_gravity_a",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/items/spirit_fx/aln_pt_gravity_a"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.6
+      },
+      "minecraft:particle_motion_parametric": {
+        "relative_position": [
+          "Math.cos(variable.particle_age*10)*0.4",
+          "Math.sin(variable.particle_age*10)*0.15",
+          "Math.sin(variable.particle_age*10)*0.4"
+        ]
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.14,
+          0.14
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 16,
+          "texture_height": 16,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            16,
+            16
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_gravity_b.json (55 lines, 1319 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:pt_gravity_b",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/items/spirit_fx/aln_pt_gravity_b"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.6
+      },
+      "minecraft:particle_motion_parametric": {
+        "relative_position": [
+          "Math.cos(variable.particle_age*10)*0.4",
+          "Math.sin(variable.particle_age*10)*0.15",
+          "Math.sin(variable.particle_age*10)*0.4"
+        ]
+      },
+      "minecraft:particle_initial_spin": {
+        "rotation": 0,
+        "rotation_rate": 120
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.3,
+          0.3
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 16,
+          "texture_height": 16,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            16,
+            16
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_life_a.json (55 lines, 1197 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:pt_life_a",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/items/spirit_fx/aln_pt_life_a"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.8
+      },
+      "minecraft:particle_motion_dynamic": {
+        "linear_acceleration": [
+          0,
+          0.6,
+          0
+        ]
+      },
+      "minecraft:particle_initial_spin": {
+        "rotation": 0,
+        "rotation_rate": 40
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.14,
+          0.14
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 16,
+          "texture_height": 16,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            16,
+            16
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_life_b.json (55 lines, 1195 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:pt_life_b",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/items/spirit_fx/aln_pt_life_b"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.9
+      },
+      "minecraft:particle_motion_dynamic": {
+        "linear_acceleration": [
+          0,
+          0.6,
+          0
+        ]
+      },
+      "minecraft:particle_initial_spin": {
+        "rotation": 0,
+        "rotation_rate": 50
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.3,
+          0.3
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 16,
+          "texture_height": 16,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            16,
+            16
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_storm_a.json (51 lines, 1168 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:pt_storm_a",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/items/spirit_fx/aln_pt_storm_a"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.25
+      },
+      "minecraft:particle_motion_parametric": {
+        "relative_position": [
+          "Math.random(-0.12,0.12)",
+          "Math.random(-0.12,0.12)",
+          "Math.random(-0.12,0.12)"
+        ]
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.14,
+          0.14
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 16,
+          "texture_height": 16,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            16,
+            16
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_storm_b.json (51 lines, 1167 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:pt_storm_b",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/items/spirit_fx/aln_pt_storm_b"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.2
+      },
+      "minecraft:particle_motion_parametric": {
+        "relative_position": [
+          "Math.random(-0.12,0.12)",
+          "Math.random(-0.12,0.12)",
+          "Math.random(-0.12,0.12)"
+        ]
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.28,
+          0.28
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 16,
+          "texture_height": 16,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            16,
+            16
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_terra_a.json (55 lines, 1206 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:pt_terra_a",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/items/spirit_fx/aln_pt_terra_a"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_sphere": {
+        "radius": 0.05,
+        "direction": "outwards"
+      },
+      "minecraft:particle_initial_speed": 1.5,
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.6
+      },
+      "minecraft:particle_motion_dynamic": {
+        "linear_acceleration": [
+          0,
+          -9,
+          0
+        ]
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.13,
+          0.13
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 16,
+          "texture_height": 16,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            16,
+            16
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_terra_b.json (55 lines, 1206 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:pt_terra_b",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/items/spirit_fx/aln_pt_terra_b"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_sphere": {
+        "radius": 0.05,
+        "direction": "outwards"
+      },
+      "minecraft:particle_initial_speed": 2.0,
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.7
+      },
+      "minecraft:particle_motion_dynamic": {
+        "linear_acceleration": [
+          0,
+          -9,
+          0
+        ]
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.26,
+          0.26
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 16,
+          "texture_height": 16,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            16,
+            16
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_toxic_a.json (51 lines, 1199 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:pt_toxic_a",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/items/spirit_fx/aln_pt_toxic_a"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.7
+      },
+      "minecraft:particle_motion_parametric": {
+        "relative_position": [
+          "Math.sin(variable.particle_age*6)*0.12",
+          "variable.particle_age*0.5",
+          "Math.cos(variable.particle_age*5)*0.12"
+        ]
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.14,
+          0.14
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 16,
+          "texture_height": 16,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            16,
+            16
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_toxic_b.json (51 lines, 1197 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:pt_toxic_b",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/items/spirit_fx/aln_pt_toxic_b"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.8
+      },
+      "minecraft:particle_motion_parametric": {
+        "relative_position": [
+          "Math.sin(variable.particle_age*6)*0.12",
+          "variable.particle_age*0.5",
+          "Math.cos(variable.particle_age*5)*0.12"
+        ]
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.3,
+          0.3
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 16,
+          "texture_height": 16,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            16,
+            16
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_void_a.json (51 lines, 1316 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:pt_void_a",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/items/spirit_fx/aln_pt_void_a"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.5
+      },
+      "minecraft:particle_motion_parametric": {
+        "relative_position": [
+          "Math.cos(variable.particle_age*14)*0.5*(1-variable.particle_age/variable.particle_lifetime)",
+          "Math.sin(variable.particle_age*9)*0.15",
+          "Math.sin(variable.particle_age*14)*0.5*(1-variable.particle_age/variable.particle_lifetime)"
+        ]
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.12,
+          0.12
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 16,
+          "texture_height": 16,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            16,
+            16
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNSpiritSphere/resource_pack/particles/pt_void_b.json (55 lines, 1421 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "aln:pt_void_b",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/items/spirit_fx/aln_pt_void_b"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.45
+      },
+      "minecraft:particle_motion_parametric": {
+        "relative_position": [
+          "Math.cos(variable.particle_age*14)*0.5*(1-variable.particle_age/variable.particle_lifetime)",
+          "Math.sin(variable.particle_age*9)*0.15",
+          "Math.sin(variable.particle_age*14)*0.5*(1-variable.particle_age/variable.particle_lifetime)"
+        ]
+      },
+      "minecraft:particle_initial_spin": {
+        "rotation": 0,
+        "rotation_rate": 120
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          0.28,
+          0.28
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 16,
+          "texture_height": 16,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            16,
+            16
           ]
         }
       }
@@ -5135,8 +6290,8 @@ if __name__ == "__main__":
     sys.exit(main())
 ```
 
-## FILE: MCPEDL/Addons/ALNSpiritSphere/texture_sources/spirit_sphere.json (2 lines, 27153 bytes)
+## FILE: MCPEDL/Addons/ALNSpiritSphere/texture_sources/spirit_particles.json (2 lines, 14055 bytes)
 
 ```
-{"textures":[{"name":"aln_aero_sphere","size":32,"folder":"items","palette":{"0":"#00000000","1":"#0f3342","2":"#17566b","3":"#1f7f99","4":"#2aa7c4","5":"#49d0e6","6":"#7cecf5","7":"#b8fbff","8":"#e8ffff","9":"#ffffff","10":"#ffffff","11":"#bff6ff","12":"#6fe0ee"},"pixels":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,11,10,11,11,11,10,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,10,11,10,0,0,0,0,11,10,11,11,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,11,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,10,11,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,7,8,7,7,6,7,1,1,1,0,0,0,11,11,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,1,1,8,10,10,7,7,7,7,6,6,5,1,1,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,1,8,8,10,8,8,8,7,7,7,7,6,6,5,5,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,1,7,8,10,8,7,8,9,7,7,7,6,6,6,6,5,5,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,1,8,8,10,9,9,9,8,8,7,7,7,7,6,6,6,6,5,5,1,0,0,0,0,0,0],[0,0,0,0,0,1,1,8,7,9,9,9,9,9,7,7,7,7,6,6,6,6,5,5,4,1,1,0,0,0,0,0],[0,0,0,0,0,1,8,8,10,9,9,9,9,9,8,7,7,7,7,6,6,5,5,5,5,4,1,0,0,0,0,0],[0,11,0,0,0,1,7,8,10,8,7,8,7,7,7,7,11,7,6,11,10,6,5,5,4,4,1,0,0,0,0,0],[11,10,0,0,1,7,8,7,10,7,8,7,8,7,7,11,7,6,7,6,6,10,5,4,4,3,3,1,0,0,0,0],[11,0,0,0,1,7,7,7,10,7,7,7,7,7,7,7,6,6,6,6,5,5,10,4,4,3,3,1,0,0,0,0],[11,0,0,0,1,7,7,7,10,7,7,7,7,7,7,6,7,6,6,5,6,5,10,4,4,3,3,1,0,0,0,0],[11,0,0,0,1,7,6,7,7,10,7,7,6,7,6,6,6,6,5,5,5,5,4,10,3,3,3,1,0,0,0,0],[11,0,0,0,1,6,7,7,7,10,7,6,7,6,7,6,6,5,6,5,5,4,4,10,4,3,3,1,0,0,0,0],[10,11,0,0,1,6,6,6,6,7,10,6,6,6,6,6,11,5,5,5,4,4,3,10,3,3,3,1,0,10,0,0],[0,11,0,0,0,1,6,6,6,6,6,10,11,6,6,11,6,5,5,4,4,4,4,10,3,3,1,0,0,11,0,0],[0,10,0,0,0,1,5,6,5,6,5,6,5,6,5,5,5,5,4,4,3,4,3,10,3,3,1,0,0,11,0,0],[0,11,0,0,0,1,1,5,6,5,6,5,6,5,5,5,5,4,4,4,4,3,10,3,3,1,1,0,10,11,0,0],[0,0,11,0,0,0,1,5,5,5,5,5,4,5,4,4,4,4,3,3,3,3,10,3,3,1,0,0,11,0,0,0],[0,0,10,0,0,0,0,1,5,4,5,4,5,4,4,4,4,3,4,3,3,10,3,3,1,0,0,11,10,0,0,0],[0,0,0,11,0,0,0,0,1,4,4,4,4,4,3,4,3,3,3,3,10,3,3,1,0,0,0,10,0,0,0,0],[0,0,0,11,11,0,0,0,0,1,1,3,4,3,3,3,3,3,10,10,3,1,1,0,0,0,10,0,0,0,0,0],[0,0,0,0,10,11,0,0,0,0,1,1,1,3,3,3,3,3,3,1,1,1,0,0,0,10,0,0,0,0,0,0],[0,0,0,0,0,10,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,10,11,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11,10,11,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11,11,11,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"name":"aln_blaze_sphere","size":32,"folder":"items","palette":{"0":"#00000000","1":"#3a0d02","2":"#6e1505","3":"#a3260a","4":"#d9480f","5":"#ff7a12","6":"#ffa51f","7":"#ffd23f","8":"#fff0a0","9":"#ffffff","10":"#ff6a00","11":"#ffe066","12":"#ff3d00"},"pixels":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,12,10,12,12,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,12,12,12,12,0,0,0,0,0,0,0,0,10,10,10,10,10,12,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,12,10,10,10,10,0,0,0,0,0,0,10,11,11,11,10,10,10,12,12,0,0,0,0,0,0,0],[0,0,0,0,0,10,10,10,10,10,10,0,0,0,0,10,11,11,11,11,11,11,10,10,10,12,12,0,0,0,0,0],[0,0,0,0,12,10,10,11,11,11,11,11,0,1,1,1,1,1,1,11,11,11,11,11,10,10,12,0,0,0,0,0],[0,0,0,0,12,10,11,11,11,11,1,1,1,7,8,7,7,6,7,1,1,1,11,11,11,10,10,12,0,0,0,0],[0,0,0,0,12,10,11,11,11,1,1,8,7,8,7,7,7,7,6,6,5,1,1,11,11,11,10,12,0,0,0,0],[0,0,0,0,12,10,11,11,1,8,8,8,8,8,8,7,7,7,7,6,6,5,5,1,11,11,10,0,0,0,0,0],[0,0,0,0,10,11,11,1,7,8,8,8,7,8,9,7,7,7,6,6,6,6,5,5,1,11,10,0,0,0,0,0],[0,0,0,12,10,11,1,8,8,8,9,9,9,8,8,7,11,7,11,6,6,6,6,5,5,1,10,0,0,0,0,0],[0,0,0,10,11,1,1,8,7,9,9,9,9,9,7,7,7,7,6,6,6,6,5,5,4,1,1,0,0,0,0,0],[0,0,0,10,11,1,8,8,11,9,9,9,9,9,8,7,7,7,7,6,6,5,5,5,5,4,1,0,0,0,0,0],[0,0,0,10,11,1,7,8,7,8,7,8,7,7,7,11,6,7,6,11,5,11,5,5,4,4,1,11,0,0,0,0],[0,0,0,12,1,7,8,7,8,7,8,7,8,7,7,7,11,6,11,6,6,5,5,4,4,3,3,1,10,12,0,0],[0,0,0,0,1,7,7,7,11,7,7,7,7,7,7,7,6,11,11,6,5,5,4,4,4,3,3,1,11,10,12,0],[0,0,0,0,1,7,7,7,8,7,7,7,7,7,7,6,7,6,6,5,6,5,5,4,4,3,3,1,11,10,10,0],[0,0,0,0,1,7,6,7,11,7,7,7,6,7,6,6,6,6,5,5,5,5,4,4,3,3,3,1,11,11,10,0],[0,0,0,10,1,6,7,7,7,7,11,11,7,11,7,6,6,5,6,5,5,4,4,4,4,3,3,1,11,10,10,0],[0,0,12,11,1,6,6,6,6,7,6,6,6,6,6,6,5,5,5,5,4,4,3,3,3,3,3,1,11,10,12,0],[0,0,10,11,11,1,6,6,6,6,6,6,6,6,6,5,6,5,5,4,11,4,4,3,3,3,1,11,10,12,0,0],[0,12,10,11,11,1,5,6,5,6,5,6,5,6,5,5,5,5,4,4,3,4,3,3,3,3,1,11,10,0,0,0],[0,12,10,11,11,1,1,5,6,5,6,5,11,5,11,5,5,4,4,4,4,3,3,3,3,1,1,10,0,0,0,0],[0,12,10,10,11,11,1,5,5,5,5,5,4,5,4,4,11,4,3,3,3,3,3,3,3,1,11,10,0,0,0,0],[0,0,0,12,10,11,11,1,5,4,5,4,5,4,4,4,4,3,11,3,3,3,3,3,1,11,10,0,0,0,0,0],[0,0,0,0,0,0,10,11,1,4,4,4,4,4,3,4,3,3,3,3,3,3,3,1,11,10,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,11,1,1,3,4,3,3,3,3,3,3,3,3,1,1,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,11,1,1,1,3,3,3,3,3,3,1,1,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,10,11,11,1,1,1,1,1,1,11,11,10,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,11,11,11,11,11,10,12,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,10,11,11,10,10,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,10,10,10,12,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"name":"aln_frost_sphere","size":32,"folder":"items","palette":{"0":"#00000000","1":"#0f2a52","2":"#1f4d8f","3":"#2f6fc4","4":"#4b93e3","5":"#7cb8f2","6":"#a9d6fb","7":"#d3ecff","8":"#f2fbff","9":"#ffffff","10":"#ffffff","11":"#c8ecff","12":"#7ec8ff"},"pixels":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,11,9,9,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,1,11,9,9,11,1,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,9,0,0,0,0,1,1,1,7,8,7,7,6,7,1,1,1,0,0,0,0,9,0,0,0,0,0],[0,0,0,0,0,0,9,11,0,1,1,8,7,8,7,11,7,7,6,6,5,1,1,0,11,9,0,0,0,0,0,0],[0,0,0,0,0,0,11,9,11,8,8,8,8,8,8,11,7,7,7,6,6,5,5,11,9,11,0,0,0,0,0,0],[0,0,0,0,0,0,0,11,7,8,8,8,7,8,9,11,7,7,6,6,6,6,5,5,11,0,0,0,0,0,0,0],[0,0,0,0,0,0,1,8,8,8,9,9,9,8,8,11,7,7,7,6,6,6,6,5,5,1,0,0,0,0,0,0],[0,0,0,0,0,1,1,8,7,9,9,9,9,9,11,11,11,11,6,6,6,6,5,5,4,1,1,0,0,0,0,0],[0,0,0,0,0,1,8,8,11,9,9,9,9,9,8,11,11,7,11,11,6,5,5,11,5,4,1,0,0,0,0,0],[0,0,0,0,0,1,7,8,7,11,11,11,11,7,7,7,11,7,6,11,11,11,11,5,4,4,1,0,0,0,0,0],[0,0,0,0,1,7,8,7,8,7,11,11,11,7,7,7,11,6,7,11,11,11,5,4,4,3,3,1,0,0,0,0],[0,0,0,11,11,7,7,7,7,7,11,7,11,11,11,7,11,11,11,11,5,11,4,4,4,3,3,11,11,0,0,0],[9,9,9,9,9,7,7,7,8,7,11,7,7,7,11,11,11,11,6,5,6,11,5,4,4,3,3,9,9,9,9,9],[9,9,9,9,9,7,6,7,7,7,11,7,6,7,11,11,11,11,5,5,5,11,4,4,3,3,3,9,9,9,9,9],[0,0,0,11,11,6,7,7,7,7,11,6,11,11,11,6,11,11,11,11,5,11,4,4,4,3,3,11,11,0,0,0],[0,0,0,0,1,6,6,6,6,7,11,11,11,6,6,6,11,5,5,11,11,11,3,3,3,3,3,1,0,0,0,0],[0,0,0,0,0,1,6,6,6,11,11,11,11,6,6,5,11,5,5,11,11,11,11,3,3,3,1,0,0,0,0,0],[0,0,0,0,0,1,5,6,11,6,5,6,11,11,5,5,11,5,11,11,3,4,3,11,3,3,1,0,0,0,0,0],[0,0,0,0,0,1,1,5,6,5,6,5,6,5,11,11,11,11,4,4,4,3,3,3,3,1,1,0,0,0,0,0],[0,0,0,0,0,0,1,5,5,5,5,5,4,5,4,4,11,4,3,3,3,3,3,3,3,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,11,5,4,5,4,5,4,4,4,11,3,4,3,3,3,3,3,11,0,0,0,0,0,0,0],[0,0,0,0,0,0,11,9,11,4,4,4,4,4,3,4,11,3,3,3,3,3,3,11,9,11,0,0,0,0,0,0],[0,0,0,0,0,0,9,11,0,1,1,3,4,3,3,3,3,3,3,3,3,1,1,0,11,9,0,0,0,0,0,0],[0,0,0,0,0,9,0,0,0,0,1,1,1,3,3,3,3,3,3,1,1,1,0,0,0,0,9,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,1,11,9,9,11,1,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,11,9,9,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"name":"aln_storm_sphere","size":32,"folder":"items","palette":{"0":"#00000000","1":"#1d0d36","2":"#2b1456","3":"#43208a","4":"#5e2fb8","5":"#7d45e0","6":"#a06bff","7":"#c9a3ff","8":"#ecdcff","9":"#ffffff","10":"#ffe94d","11":"#fff7b0","12":"#ffffff"},"pixels":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11,11,10,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,11,10,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,7,8,7,7,6,11,1,1,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,1,1,8,7,8,7,7,7,11,11,10,5,1,1,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,10,0,1,8,8,8,8,8,8,7,11,11,10,10,6,5,5,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,1,7,8,8,8,7,8,9,7,11,11,10,6,6,6,5,5,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,1,10,10,8,9,9,9,8,8,11,11,10,10,6,6,6,6,5,5,1,0,0,0,0,0,0],[0,0,0,0,0,1,1,8,10,9,9,9,9,9,7,11,11,10,6,6,6,6,5,5,4,1,1,0,12,11,0,0],[0,0,0,0,0,1,8,8,8,9,9,9,9,9,11,11,10,7,7,6,6,5,5,5,5,4,1,0,0,0,0,0],[0,0,0,0,0,1,7,8,10,8,7,8,7,7,11,11,10,7,6,6,5,6,5,5,4,4,1,0,0,0,0,0],[0,0,0,0,1,7,8,7,10,7,8,7,8,11,11,10,10,10,11,6,6,5,5,4,4,3,3,1,0,0,0,0],[0,0,0,0,1,7,7,10,7,7,7,7,7,7,11,11,11,10,10,10,5,5,4,4,4,3,3,1,0,0,0,0],[0,0,0,0,1,7,7,7,8,7,7,7,7,7,7,6,11,11,10,10,10,10,5,4,4,3,3,1,0,0,0,0],[0,0,0,0,1,7,6,7,7,7,7,7,6,7,6,6,11,11,10,5,5,10,10,10,3,3,3,1,0,0,0,0],[0,0,0,0,1,6,7,7,7,7,7,6,7,6,7,11,11,10,10,5,5,4,4,10,10,3,3,1,0,0,0,0],[0,0,0,12,1,6,6,6,6,7,6,6,6,6,6,11,11,10,5,5,4,4,3,3,3,10,3,1,0,0,0,0],[0,0,0,0,0,1,6,6,6,6,6,6,6,6,11,11,10,10,5,4,4,4,4,3,3,3,1,0,0,0,0,0],[0,0,0,0,0,1,5,6,5,6,5,6,5,6,11,11,10,5,4,4,3,4,3,3,3,3,1,0,0,0,0,0],[0,0,0,0,0,1,1,5,6,5,6,5,6,11,11,10,10,4,4,4,4,3,3,3,3,1,1,0,0,0,0,0],[0,0,0,0,0,0,1,5,5,5,5,5,4,11,11,10,4,4,3,3,3,3,3,3,3,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,1,5,4,5,4,11,11,10,10,4,3,4,3,3,3,3,3,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,1,4,4,4,11,11,10,4,3,3,3,3,3,3,3,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,1,1,11,11,10,10,3,3,3,3,3,3,1,1,0,0,0,0,12,11,0,0,0],[0,0,0,0,0,12,11,0,0,0,1,1,1,10,3,3,3,3,3,1,1,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,11,11,10,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,11,11,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"name":"aln_void_sphere","size":32,"folder":"items","palette":{"0":"#00000000","1":"#05000a","2":"#08000f","3":"#12001f","4":"#210033","5":"#3a0652","6":"#5a0a78","7":"#8a1496","8":"#c01fb8","9":"#ffffff","10":"#ff3fd0","11":"#a020f0","12":"#ffffff"},"pixels":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,12,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,7,7,7,7,6,6,1,1,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,1,1,8,7,7,7,7,6,6,6,6,5,1,1,0,0,0,0,0,12,0,0,0],[0,0,0,0,0,0,0,0,1,8,8,8,8,7,8,7,7,6,6,6,6,5,5,1,0,12,0,12,12,0,0,0],[0,0,0,0,0,0,0,1,7,8,8,8,7,8,9,7,6,7,6,6,5,5,4,4,1,10,10,10,10,12,0,0],[0,0,0,0,0,0,1,7,8,8,9,9,9,7,8,7,7,6,6,6,6,5,5,4,4,11,11,11,10,12,0,0],[0,0,0,0,0,1,1,8,7,9,9,9,9,9,7,7,6,6,6,6,5,5,4,4,3,1,1,0,11,12,0,0],[0,0,0,0,0,1,8,7,8,9,9,9,9,9,7,7,7,6,6,5,5,5,5,4,4,3,1,0,0,12,0,0],[0,0,0,0,0,1,7,8,7,8,7,8,7,7,7,7,6,6,5,5,5,5,4,4,3,3,1,0,12,10,0,0],[0,0,0,0,1,7,7,7,8,7,8,7,7,7,7,6,6,6,6,5,5,4,4,3,3,3,3,12,10,11,0,0],[0,0,0,0,1,7,7,7,7,7,7,7,6,7,6,6,6,6,5,5,4,4,3,4,3,12,10,10,11,0,0,0],[0,12,0,0,1,6,7,7,7,7,7,7,7,6,6,6,6,5,5,5,5,4,4,3,3,10,10,11,0,0,0,0],[0,0,0,0,1,6,6,7,6,7,6,6,6,6,6,6,5,5,4,5,4,4,3,12,10,10,11,1,0,0,0,0],[0,0,0,12,10,6,6,6,7,6,6,6,6,6,6,5,5,5,5,4,4,3,12,10,11,11,3,1,0,0,12,0],[0,0,12,10,11,5,5,6,5,6,5,6,5,5,5,5,4,5,4,4,12,10,10,11,2,2,2,1,0,0,0,0],[0,0,12,11,0,1,6,5,6,5,6,5,6,5,5,4,5,12,4,10,10,11,11,2,3,2,1,0,0,0,0,0],[0,0,12,11,0,1,4,5,5,5,5,5,4,5,4,12,10,10,10,11,11,3,2,2,2,2,1,0,0,0,0,0],[0,0,12,0,0,1,1,4,5,4,5,12,5,12,10,10,10,11,11,3,3,2,3,2,3,1,1,0,0,0,0,0],[0,0,11,12,12,0,12,12,4,12,10,10,10,10,11,11,11,3,3,3,2,2,2,2,2,1,0,0,0,0,0,0],[0,0,11,11,10,10,10,10,10,10,10,11,11,11,4,3,3,3,3,2,3,2,3,2,1,0,0,0,0,0,0,0],[0,0,0,11,11,11,11,11,11,11,11,3,3,3,3,3,2,3,2,2,2,2,2,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,1,1,2,3,2,3,2,3,2,3,2,3,1,1,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,2,2,2,2,2,2,1,1,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,12,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"name":"aln_terra_sphere","size":32,"folder":"items","palette":{"0":"#00000000","1":"#2a1608","2":"#4a2c12","3":"#6b4220","4":"#8a5a2c","5":"#a8743a","6":"#c48d4a","7":"#dba865","8":"#efc88a","9":"#ffffff","10":"#ff7a1a","11":"#5fae3a","12":"#3f7f28"},"pixels":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,4,4,0,0],[0,7,4,4,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,4,4,4,0,0],[0,4,4,4,0,0,0,0,0,0,1,1,1,7,8,7,7,6,7,1,1,1,0,0,0,0,0,4,4,4,0,0],[0,4,4,4,0,0,0,0,0,1,1,8,6,8,6,7,7,6,6,6,5,1,1,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,1,12,8,8,8,8,8,7,7,7,7,5,6,5,5,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,1,7,11,8,8,11,8,9,6,7,7,6,11,6,6,5,12,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,1,8,11,8,9,9,9,8,7,7,6,7,7,6,6,6,6,11,5,1,0,0,0,0,0,0],[0,0,0,0,0,1,1,7,7,9,9,9,9,9,6,10,1,7,6,6,6,6,11,5,11,1,1,0,0,0,0,0],[0,0,0,0,0,1,8,8,8,9,9,9,9,9,1,1,6,6,7,6,6,5,5,5,5,4,1,0,0,0,0,0],[0,0,0,0,0,1,7,8,7,8,7,8,10,1,1,7,5,7,6,6,4,6,5,5,4,4,1,0,0,0,0,0],[0,0,0,0,1,7,7,7,8,7,7,10,1,7,7,7,6,6,7,6,6,5,5,4,4,3,3,1,0,0,0,0],[0,0,0,0,1,7,7,7,7,7,7,10,1,7,7,7,6,6,6,6,5,5,3,4,3,3,3,1,0,0,0,0],[0,0,0,0,1,7,7,7,8,6,7,10,1,1,7,6,7,6,6,5,6,5,5,4,4,3,3,1,0,0,0,0],[0,0,0,0,1,7,6,7,7,7,7,7,10,1,6,6,6,6,5,5,5,5,3,3,3,2,3,1,0,0,0,0],[0,0,0,0,1,6,6,6,7,6,7,6,10,1,7,6,6,5,6,5,5,4,4,10,1,1,1,1,0,0,0,0],[0,0,0,0,1,6,6,6,6,7,10,1,1,10,1,6,4,5,5,5,4,10,1,1,1,3,3,1,0,0,0,0],[0,0,0,0,0,1,6,6,6,10,1,1,6,6,10,1,6,5,5,3,10,1,4,3,2,3,1,0,0,0,0,0],[0,0,0,0,0,1,5,6,10,1,4,6,5,6,5,10,1,5,3,10,1,1,3,3,3,3,1,0,0,0,0,0],[0,0,0,0,0,1,1,5,6,5,6,5,6,5,5,5,10,1,3,10,1,3,3,3,3,1,1,0,0,0,0,0],[0,0,0,0,0,0,1,5,5,5,5,5,3,5,4,10,1,1,10,1,3,2,3,2,3,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,1,5,4,5,3,5,3,4,10,1,3,4,3,3,3,2,3,1,0,0,0,7,4,4,0],[0,0,0,0,0,0,0,0,1,4,4,4,4,4,10,1,1,3,3,3,3,3,3,1,0,0,0,0,4,4,4,0],[0,0,7,4,4,0,0,0,0,1,1,3,3,3,10,1,2,3,3,2,3,1,1,0,0,0,0,0,4,4,4,0],[0,0,4,4,4,0,0,0,0,0,1,1,1,3,3,3,3,3,3,1,1,1,0,0,0,0,0,0,0,0,0,0],[0,0,4,4,4,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"name":"aln_toxic_sphere","size":32,"folder":"items","palette":{"0":"#00000000","1":"#123008","2":"#1f4d12","3":"#2e7a1a","4":"#43a82a","5":"#66cf3a","6":"#8ee85a","7":"#bcf58a","8":"#e6ffc0","9":"#ffffff","10":"#d8ff5a","11":"#f6ff9a","12":"#7a3fb8"},"pixels":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,11,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,11,12,0,0,0,0],[0,0,0,0,0,12,12,12,0,0,1,1,1,7,8,7,7,6,7,1,1,1,0,0,0,0,12,12,12,0,0,0],[0,0,0,0,0,0,12,0,0,1,1,8,7,8,7,7,7,7,6,6,5,1,1,0,0,0,0,12,0,0,0,0],[0,0,0,0,0,0,0,0,1,8,8,8,8,8,8,7,7,7,7,6,6,5,5,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,1,7,8,8,8,7,8,9,7,7,7,6,6,6,6,5,5,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,1,8,8,8,9,9,9,8,8,7,7,7,7,6,11,10,10,5,5,1,0,0,0,0,0,0],[0,0,0,0,0,1,1,8,7,9,9,9,9,9,7,7,7,7,6,6,10,6,10,5,4,1,1,0,0,0,0,0],[0,0,0,0,0,1,8,8,8,9,9,9,9,9,10,7,7,7,7,6,10,10,10,5,5,4,1,0,0,0,0,0],[0,0,0,0,0,1,7,8,7,10,7,11,7,7,7,10,6,7,6,6,5,6,5,5,4,4,1,0,0,0,0,0],[0,0,0,0,1,7,8,7,8,10,8,7,8,7,7,10,7,6,7,6,6,5,5,4,4,3,3,1,0,12,0,0],[0,0,0,0,1,7,7,7,7,10,7,7,7,7,7,10,6,6,6,6,5,5,4,4,4,3,3,1,11,12,12,0],[0,0,0,0,1,7,7,7,8,7,10,7,7,7,10,6,7,6,6,5,6,5,5,4,4,3,3,1,0,12,0,0],[0,0,0,0,1,7,6,7,7,7,7,10,10,10,6,6,6,6,5,10,10,10,4,4,3,3,3,1,0,0,0,0],[0,0,0,0,1,6,7,7,7,7,7,6,7,6,7,6,6,5,10,11,5,4,10,4,4,3,3,1,0,0,0,0],[0,0,0,0,1,6,6,6,6,7,6,6,6,6,6,6,5,5,10,5,4,4,10,3,3,3,3,1,0,0,0,0],[0,0,0,0,0,1,6,6,6,6,6,6,6,6,10,5,6,5,10,4,4,4,10,3,3,3,1,0,0,0,0,0],[0,0,0,0,0,1,5,6,5,6,5,6,5,11,5,10,5,5,4,10,10,10,3,3,3,3,1,0,0,0,0,0],[0,0,0,12,0,1,1,5,6,5,6,5,10,5,5,5,10,4,4,4,4,3,3,3,3,1,1,0,0,0,0,0],[0,0,11,12,12,0,1,5,5,5,5,5,4,10,4,10,4,4,3,3,3,3,3,3,3,1,0,0,0,0,0,0],[0,0,0,12,0,0,0,1,5,4,5,4,5,4,10,4,4,3,4,3,3,3,3,3,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,1,4,4,4,4,4,3,4,3,3,3,3,3,3,3,1,12,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,12,1,1,3,4,3,3,3,3,3,3,3,3,1,1,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,3,3,3,3,3,3,1,1,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,10,0,0,0,1,1,1,1,1,1,0,0,0,10,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,11,0,0,0,0,0,11,0,0,0,0,0,0,11,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"name":"aln_gravity_sphere","size":32,"folder":"items","palette":{"0":"#00000000","1":"#0f0b3a","2":"#1b1666","3":"#2a2394","4":"#3b33c4","5":"#5a50e8","6":"#8077ff","7":"#aaa2ff","8":"#d8d4ff","9":"#ffffff","10":"#ffffff","11":"#c9c4ff","12":"#ff9ad5"},"pixels":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,7,8,7,7,6,7,1,1,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,11,11,0,0,1,1,8,7,8,7,7,7,7,6,6,5,1,1,0,0,11,11,0,0,0,0,0],[0,0,0,11,11,11,11,11,1,8,8,8,8,8,11,11,11,11,7,6,6,5,5,1,11,11,11,11,11,0,0,0],[0,0,10,10,0,0,0,1,7,8,8,11,11,11,9,7,7,7,11,11,11,6,5,5,1,0,0,0,10,10,0,0],[0,0,10,0,0,0,1,8,8,8,9,9,9,8,8,7,7,7,7,6,11,11,6,5,5,1,0,0,0,10,0,0],[0,0,10,10,0,1,1,8,7,9,9,9,9,9,7,7,7,7,6,6,6,6,11,5,4,1,1,0,10,10,0,0],[0,0,0,10,0,1,8,8,11,9,9,9,9,9,1,1,1,1,1,6,6,5,11,11,5,4,1,0,10,0,0,0],[0,0,0,10,10,1,7,8,11,8,7,8,1,1,7,7,6,7,1,1,5,6,5,11,4,4,1,10,10,0,0,0],[0,0,0,0,1,10,8,7,11,7,8,1,1,7,7,7,7,6,7,1,1,5,5,11,4,3,10,1,0,0,0,0],[0,0,0,0,1,10,10,11,7,7,7,1,7,7,7,7,6,6,6,6,1,5,4,4,11,10,10,1,0,0,0,0],[0,0,0,0,1,7,10,11,8,7,7,1,7,7,7,1,1,6,6,5,1,5,5,4,11,10,3,1,0,0,0,0],[0,0,0,0,1,7,6,11,10,7,7,1,6,7,6,1,1,6,5,5,1,5,4,10,11,3,3,1,0,0,0,0],[0,0,0,0,1,6,7,11,10,10,7,1,7,6,7,6,6,5,6,5,1,4,10,10,11,3,3,1,0,0,0,0],[0,0,0,0,1,6,6,6,11,7,10,1,1,6,6,6,5,5,5,1,1,10,3,11,3,3,3,1,0,0,0,0],[0,0,0,11,11,1,6,6,11,6,6,10,1,1,6,5,6,5,1,1,10,4,4,11,3,3,1,11,11,0,0,0],[0,0,0,11,0,1,5,6,11,11,5,6,5,1,1,1,1,1,1,4,3,4,11,11,3,3,1,0,11,0,0,0],[0,0,11,11,0,1,1,5,6,11,6,5,6,5,10,10,10,10,4,4,4,3,11,3,3,1,1,0,11,11,0,0],[0,0,11,0,0,0,1,5,5,5,11,11,4,10,10,10,10,10,10,3,11,11,3,3,3,1,0,0,0,11,0,0],[0,0,11,10,0,0,0,1,5,4,5,11,11,11,4,4,4,3,11,11,11,9,12,3,1,0,0,0,10,11,0,0],[0,0,0,10,10,9,12,12,1,10,10,4,4,4,11,11,11,11,3,3,3,12,12,1,10,10,10,10,10,0,0,0],[0,0,0,0,0,12,12,12,0,1,1,3,4,3,3,3,3,3,3,3,3,1,1,0,0,10,10,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,3,3,3,3,3,3,1,1,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"name":"aln_life_sphere","size":32,"folder":"items","palette":{"0":"#00000000","1":"#5a1030","2":"#a8365f","3":"#d1527f","4":"#ee7a9f","5":"#ffa3bd","6":"#ffc4d4","7":"#ffe0e8","8":"#fff5f8","9":"#ffffff","10":"#4fd36a","11":"#9af5a6","12":"#2a9e48"},"pixels":[[0,0,0,0,0,0,0,0,0,0,0,10,10,0,0,0,0,0,0,10,10,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,11,10,10,10,0,0,0,0,10,10,10,11,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,11,11,10,10,10,0,0,0,0,10,10,10,11,11,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,11,11,0,0,10,10,0,0,10,10,0,0,11,11,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,11,11,0,0,0,1,1,1,1,1,1,0,0,0,11,11,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,11,0,1,1,1,7,8,7,12,7,7,1,1,1,0,11,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,1,1,8,7,8,12,7,12,12,6,7,6,1,1,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,1,8,8,8,8,12,12,7,12,12,12,6,7,6,6,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,1,7,8,8,8,7,12,9,8,12,7,12,7,6,6,5,5,1,0,0,0,0,0,0,0],[0,0,0,10,0,0,1,8,8,8,9,9,9,8,8,7,8,7,7,6,7,6,6,5,5,1,0,0,0,0,0,0],[0,0,10,11,10,1,1,8,8,9,9,9,9,9,7,7,9,7,6,7,6,6,5,5,4,1,1,0,0,0,0,0],[0,0,0,10,0,1,8,8,8,9,9,9,9,9,8,7,9,7,7,6,7,6,6,5,5,4,1,0,10,0,0,0],[0,0,0,0,0,1,7,8,7,8,7,8,7,8,7,7,9,7,6,6,6,6,5,5,4,4,1,10,11,10,0,0],[0,0,0,0,1,7,8,7,8,8,8,7,8,7,8,7,9,7,7,6,6,6,6,5,5,4,4,1,10,0,0,0],[0,0,0,0,1,7,7,8,7,8,7,7,7,7,7,7,9,7,6,6,5,6,5,5,4,4,3,1,0,0,0,0],[0,0,0,0,1,7,8,7,8,7,8,7,7,7,7,7,9,6,6,6,6,5,5,4,4,3,4,1,0,0,0,0],[0,0,0,0,1,7,7,7,7,7,9,9,9,9,9,9,9,9,9,9,9,5,4,4,4,4,3,1,0,0,0,0],[0,0,0,0,1,6,7,7,7,7,7,7,7,7,7,6,9,6,6,5,6,5,5,4,4,3,4,1,0,0,0,0],[0,0,0,0,1,6,6,7,6,7,6,7,6,6,6,6,9,6,5,5,5,5,4,4,3,4,3,1,0,0,0,0],[0,0,0,0,0,1,7,6,7,6,7,6,7,6,6,6,9,5,6,5,5,4,4,3,4,3,1,0,0,0,0,0],[0,0,0,0,0,1,6,6,6,6,6,6,6,6,5,6,9,5,5,5,4,4,3,4,3,4,1,0,0,0,0,0],[0,0,0,0,0,1,1,6,6,6,6,6,6,5,6,5,5,5,5,4,4,3,4,3,4,1,1,0,0,0,0,0],[0,0,0,0,0,0,1,5,5,6,5,5,5,5,5,5,4,5,4,4,3,4,3,4,3,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,1,5,5,5,5,5,5,5,4,5,4,4,3,4,3,4,3,1,0,0,0,0,0,0,0],[0,0,0,0,0,10,0,0,1,4,4,5,4,4,4,4,3,4,3,4,3,4,3,1,0,0,0,0,0,0,0,0],[0,0,0,0,10,11,10,0,0,1,1,4,4,4,4,3,4,3,4,3,4,1,1,0,0,0,0,10,0,0,0,0],[0,0,0,0,0,10,0,0,0,0,1,1,1,4,3,4,3,4,3,1,1,1,0,0,0,0,10,11,10,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,10,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,11,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"name":"aln_chrono_sphere","size":32,"folder":"items","palette":{"0":"#00000000","1":"#3a2a05","2":"#0e4f5c","3":"#127585","4":"#1a9cb0","5":"#34c4d4","6":"#6ee2ec","7":"#aef3f6","8":"#e2fdfe","9":"#ffffff","10":"#ffc83a","11":"#ffe58a","12":"#b8860b"},"pixels":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,12,0,10,0,0,0,0,12,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,10,10,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,10,0,0,1,1,1,7,8,7,7,6,7,1,1,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,12,0,0,1,1,8,7,10,10,10,10,10,10,6,5,1,1,0,0,12,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,1,8,8,10,10,8,8,11,7,7,7,10,10,5,5,1,0,0,10,0,0,0,0,0],[0,0,0,0,0,0,0,1,7,10,10,11,7,8,9,11,7,7,6,6,11,10,10,5,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,1,8,10,10,9,9,9,8,8,11,7,7,7,11,6,6,10,10,5,1,0,0,0,0,0,0],[0,0,0,0,0,1,1,8,10,9,9,9,9,9,7,7,7,7,10,10,6,6,5,10,4,1,1,0,0,0,0,0],[0,0,0,10,0,1,8,10,11,9,9,9,9,9,8,7,7,7,10,6,6,5,5,11,10,4,1,0,0,0,0,0],[0,0,12,10,0,1,7,10,7,11,7,8,7,7,7,7,6,10,10,6,5,6,11,5,10,4,1,0,10,12,0,0],[0,0,0,0,1,7,10,7,8,7,8,7,8,7,7,7,7,10,7,6,6,5,5,4,4,10,3,1,0,0,0,0],[0,0,0,0,1,7,10,7,7,7,7,7,7,7,7,7,11,10,6,6,5,5,4,4,4,10,3,1,0,10,0,0],[0,0,0,0,1,7,10,7,8,7,7,7,7,7,7,12,12,6,6,5,6,5,5,4,4,10,3,1,0,0,0,0],[0,0,0,0,1,7,10,11,11,11,7,7,6,7,11,12,12,11,5,5,5,5,11,11,11,10,3,1,0,0,0,0],[0,0,10,0,1,6,10,7,7,7,7,6,7,6,7,11,11,11,6,5,5,4,4,4,4,10,3,1,0,0,0,0],[0,0,0,0,1,6,10,6,6,7,6,6,6,6,6,11,11,11,5,5,4,4,3,3,3,10,3,1,0,0,0,0],[0,0,12,10,0,1,6,10,6,11,6,6,6,6,6,11,11,11,5,4,4,4,11,3,10,3,1,0,10,12,0,0],[0,0,0,0,0,1,5,10,11,6,5,6,5,6,5,5,11,11,11,4,3,4,3,11,10,3,1,0,10,0,0,0],[0,0,0,0,0,1,1,5,10,5,6,5,6,5,5,5,5,11,4,4,4,3,3,10,3,1,1,0,0,0,0,0],[0,0,0,0,0,0,1,5,10,10,5,5,11,5,4,4,11,4,3,11,3,3,10,10,3,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,1,5,10,10,11,5,4,4,4,11,3,4,3,11,10,10,3,1,0,0,0,0,0,0,0],[0,0,0,0,0,10,0,0,1,4,4,10,10,4,3,4,11,3,3,10,10,3,3,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,12,0,0,1,1,3,4,10,10,10,10,10,10,3,3,1,1,0,0,12,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,3,3,3,3,3,3,1,1,1,0,0,10,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,10,10,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,12,0,0,0,0,10,0,12,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"name":"aln_orb_core","size":32,"folder":"items","palette":{"0":"#5fd8ff","1":"#9ae9ff","2":"#d8f8ff","3":"#ffffff","4":"#a85cff"},"pixels":[[0,0,0,0,1,1,0,0,0,0,1,1,1,0,0,1,1,1,0,1,1,0,0,0,0,0,1,0,0,4,0,0],[0,0,0,0,1,0,1,0,1,0,0,1,1,1,1,0,1,1,1,1,1,1,0,0,1,1,1,0,0,0,1,1],[0,0,0,0,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1,0,0,0],[0,0,0,0,0,1,1,0,1,4,1,1,1,1,1,1,4,1,1,1,1,1,1,1,1,1,4,0,1,0,0,0],[1,1,1,1,1,1,1,1,1,1,1,1,2,1,2,1,1,2,2,1,1,1,1,0,1,1,0,1,1,0,0,1],[0,0,1,0,1,1,1,1,1,1,2,1,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0],[0,0,1,0,1,1,1,1,1,2,1,1,1,2,1,2,2,2,1,2,1,2,2,2,1,1,4,4,1,4,0,0],[0,0,1,1,1,1,1,1,1,2,1,1,1,2,4,1,2,2,2,2,1,2,2,4,1,1,1,1,0,1,1,0],[0,0,1,0,1,1,1,1,2,2,1,2,2,2,2,2,1,1,2,1,1,2,1,2,1,1,1,1,1,1,1,1],[1,0,1,0,1,1,2,1,1,2,2,2,4,2,2,2,2,3,2,2,2,2,2,2,2,1,1,1,1,1,1,1],[0,1,1,1,2,1,1,2,2,2,2,4,2,2,4,2,2,2,2,2,2,2,2,1,1,1,2,2,1,1,1,1],[1,0,1,2,4,1,2,2,2,2,2,2,2,2,2,3,2,3,3,2,3,2,2,1,2,1,1,1,1,1,1,1],[0,1,1,1,1,1,2,2,2,2,2,2,2,3,2,3,2,2,2,3,2,2,2,2,2,2,2,1,1,0,1,0],[0,1,1,1,4,2,1,2,2,2,2,2,3,2,2,3,3,4,2,2,3,2,2,1,2,2,1,1,1,1,0,1],[4,1,1,1,4,1,1,2,2,3,2,2,2,3,2,3,3,3,2,2,2,2,2,4,2,2,1,2,2,1,1,1],[1,1,1,1,1,1,1,2,2,2,2,3,2,2,3,3,2,3,2,3,4,2,2,2,2,1,1,1,2,1,1,1],[4,1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,2,3,2,3,2,1,2,1,1,2,1,1,1,1],[1,1,1,1,4,2,1,2,2,2,2,3,2,3,3,3,3,3,3,2,3,2,2,2,1,2,1,2,1,1,0,1],[0,0,1,1,1,1,2,2,2,2,2,3,3,4,3,3,3,3,3,3,3,4,2,2,2,1,2,1,1,1,4,1],[1,1,1,1,1,1,2,4,2,2,2,4,3,3,3,3,2,3,2,2,2,2,2,2,2,2,1,4,1,1,1,1],[1,1,1,1,1,2,1,2,1,2,4,2,4,2,3,3,4,2,3,3,3,2,2,2,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,2,1,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,0,1],[0,0,0,1,1,2,1,1,1,1,2,2,2,3,2,2,2,3,2,2,2,1,2,2,1,2,1,1,0,1,0,1],[0,0,0,1,1,2,2,2,1,1,2,1,2,2,2,2,4,2,1,2,2,2,2,1,1,2,4,1,0,0,1,0],[0,0,1,1,1,1,1,1,1,1,1,2,1,2,2,2,1,4,2,1,1,2,1,4,1,2,1,1,1,1,1,1],[0,0,0,1,1,1,1,1,2,1,2,1,1,2,2,1,2,2,1,2,2,2,1,2,1,1,1,1,1,1,0,0],[0,1,0,0,1,1,1,0,1,1,1,1,1,1,1,1,2,2,2,2,1,2,1,1,1,1,1,1,1,0,1,0],[0,0,1,1,1,1,0,4,1,1,1,2,1,2,1,1,2,1,2,1,1,1,2,1,1,1,1,1,1,1,0,0],[4,0,0,0,0,1,1,0,0,1,1,1,1,4,2,1,1,1,2,1,1,1,1,1,1,1,1,1,1,0,4,0],[4,0,0,1,1,1,1,0,1,0,1,1,1,2,1,1,1,1,2,1,1,1,1,0,1,1,1,0,0,1,0,0],[0,0,0,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,4,1,1,1,1,1,1,0,1,1,0,0,0],[0,0,0,0,1,0,1,0,1,0,0,0,1,1,1,1,1,0,4,1,1,0,1,0,0,0,1,0,0,0,0,0]]}]}
+{"textures":[{"name":"aln_pt_aero_a","size":16,"folder":"items/spirit_fx","palette":{"0":"#00000000","1":"#2aa7c4","2":"#7cecf5","3":"#ffffff","4":"#bff6ff"},"pixels":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,2,2,2,2,0,0,0,0,0],[0,0,0,0,0,2,2,0,0,0,0,2,0,0,0,0],[0,0,0,0,2,2,0,0,0,0,0,0,3,3,0,0],[0,0,0,0,2,0,0,0,0,0,0,0,0,3,0,0],[0,0,0,0,2,0,0,0,0,0,0,0,0,0,3,0],[0,0,0,0,2,0,0,0,0,0,0,0,0,0,3,0],[0,0,0,0,2,0,0,0,2,2,0,0,0,0,3,0],[0,0,0,0,2,2,0,0,2,2,0,0,0,0,3,0],[0,0,0,0,0,2,2,2,2,0,0,0,0,0,3,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0],[0,0,0,0,0,0,0,0,0,0,0,3,3,0,0,0],[0,0,0,0,0,0,0,0,0,3,3,0,0,0,0,0]]},{"name":"aln_pt_aero_b","size":16,"folder":"items/spirit_fx","palette":{"0":"#00000000","1":"#2aa7c4","2":"#7cecf5","3":"#ffffff","4":"#bff6ff"},"pixels":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0],[0,0,0,0,1,1,3,3,3,3,3,3,1,1,0,0],[0,3,0,0,1,3,3,0,0,0,0,3,3,0,1,0],[1,3,0,1,2,2,0,1,1,1,1,0,0,3,1,0],[1,3,0,1,2,0,1,2,2,2,2,1,0,3,3,1],[3,0,1,2,2,1,2,2,0,0,2,2,1,0,3,1],[3,0,1,2,2,1,2,2,0,0,0,2,1,0,3,3],[3,3,0,1,2,0,1,2,2,2,1,2,2,1,0,3],[1,3,0,1,2,2,0,0,2,2,1,2,2,1,0,3],[1,3,3,0,1,2,2,2,2,1,0,2,1,0,3,1],[0,1,3,0,0,1,1,1,1,0,2,2,1,0,3,1],[0,1,0,3,3,0,0,0,0,3,3,1,0,0,3,0],[0,0,1,1,3,3,3,3,3,3,1,1,0,0,0,0],[0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"name":"aln_pt_blaze_a","size":16,"folder":"items/spirit_fx","palette":{"0":"#00000000","1":"#d9480f","2":"#ff9a1f","3":"#ffe066","4":"#fff6d0"},"pixels":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,2,2,2,0,0,0,0,0,0],[0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,0],[0,0,0,0,0,0,2,2,2,2,2,0,0,0,0,0],[0,0,0,0,0,2,2,3,3,2,2,2,0,0,0,0],[0,0,0,0,0,2,2,3,3,2,2,0,0,0,0,0],[0,0,0,0,0,2,3,3,3,3,2,0,0,0,0,0],[0,0,0,0,0,2,2,3,4,2,2,0,0,0,0,0],[0,0,0,0,0,2,2,3,3,2,2,0,0,0,0,0],[0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,0],[0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"name":"aln_pt_blaze_b","size":16,"folder":"items/spirit_fx","palette":{"0":"#00000000","1":"#d9480f","2":"#ff9a1f","3":"#ffe066","4":"#fff6d0"},"pixels":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,1,1,2,1,1,0,0,0,0,0],[0,0,0,0,0,1,1,2,2,2,1,1,0,0,0,0],[0,0,0,1,1,1,2,2,2,2,1,1,1,1,0,0],[0,0,0,1,1,2,2,2,2,2,2,1,1,0,0,0],[0,0,0,1,1,2,2,2,2,2,2,1,1,0,0,0],[0,0,0,1,1,2,2,3,3,2,2,1,1,0,0,0],[0,0,0,1,1,2,3,3,3,3,2,1,1,0,0,0],[0,0,0,1,1,2,2,3,4,2,2,1,1,0,0,0],[0,0,0,0,1,1,2,3,3,2,1,1,0,0,0,0],[0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"name":"aln_pt_frost_a","size":16,"folder":"items/spirit_fx","palette":{"0":"#00000000","1":"#4b93e3","2":"#a9d6fb","3":"#ffffff","4":"#c8ecff"},"pixels":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0],[0,0,0,0,0,0,2,3,3,2,0,0,0,0,0,0],[0,0,0,0,0,0,2,3,3,2,0,0,0,0,0,0],[0,0,0,0,0,2,2,3,3,2,2,0,0,0,0,0],[0,0,0,0,0,2,2,2,2,2,2,0,0,0,0,0],[0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,0],[0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,0],[0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"name":"aln_pt_frost_b","size":16,"folder":"items/spirit_fx","palette":{"0":"#00000000","1":"#4b93e3","2":"#a9d6fb","3":"#ffffff","4":"#c8ecff"},"pixels":[[0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0],[0,0,0,0,0,0,3,0,2,3,0,0,0,0,0,0],[0,0,0,0,0,0,0,3,3,0,0,0,0,0,0,0],[0,0,0,3,3,0,3,3,3,3,0,3,3,0,0,0],[0,2,2,3,3,0,0,3,3,0,0,3,3,2,2,0],[0,0,3,3,3,0,0,0,2,0,0,3,3,3,0,0],[0,3,0,3,3,2,2,0,2,2,2,3,3,0,3,0],[0,0,3,0,0,0,2,4,4,2,0,0,0,3,0,0],[0,0,3,0,0,0,2,4,4,2,0,0,0,3,0,0],[0,3,0,3,3,2,2,0,2,2,2,3,3,0,3,0],[0,0,3,3,3,0,0,0,2,0,0,3,3,3,0,0],[0,2,2,3,3,0,0,3,3,0,0,3,3,2,2,0],[0,0,0,3,3,0,3,3,3,3,0,3,3,0,0,0],[0,0,0,0,0,0,0,3,3,0,0,0,0,0,0,0],[0,0,0,0,0,0,3,0,2,3,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"name":"aln_pt_storm_a","size":16,"folder":"items/spirit_fx","palette":{"0":"#00000000","1":"#5e2fb8","2":"#a06bff","3":"#ffe94d","4":"#fff7b0"},"pixels":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0],[0,0,0,1,0,0,0,0,2,0,0,0,1,0,0,0],[0,0,0,0,1,0,0,0,2,0,0,1,0,0,0,0],[0,0,0,0,0,1,0,0,2,0,1,0,0,0,0,0],[0,0,0,0,0,0,1,3,3,1,0,0,0,0,0,0],[0,0,0,0,0,0,3,3,3,3,0,0,0,0,0,0],[0,2,2,2,2,2,3,3,4,3,2,2,2,2,2,0],[0,0,0,0,0,0,1,3,3,1,0,0,0,0,0,0],[0,0,0,0,0,1,0,0,2,0,1,0,0,0,0,0],[0,0,0,0,1,0,0,0,2,0,0,1,0,0,0,0],[0,0,0,1,0,0,0,0,2,0,0,0,1,0,0,0],[0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"name":"aln_pt_storm_b","size":16,"folder":"items/spirit_fx","palette":{"0":"#00000000","1":"#5e2fb8","2":"#a06bff","3":"#ffe94d","4":"#fff7b0"},"pixels":[[0,0,0,0,0,0,0,0,0,1,3,1,0,0,0,0],[0,0,0,0,0,0,0,0,1,3,3,1,0,0,0,0],[0,0,0,0,0,0,0,0,1,3,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,3,1,0,0,0,0,0,0],[0,0,0,0,0,0,1,3,3,1,0,0,0,0,0,0],[0,0,0,0,0,0,1,3,1,0,0,0,0,0,0,0],[0,0,0,0,0,1,3,1,0,0,0,0,0,0,0,0],[0,0,0,0,1,3,3,1,0,0,0,0,0,0,0,0],[0,0,0,0,3,3,3,3,2,2,0,0,0,0,0,0],[0,0,0,0,0,0,1,1,3,2,2,2,0,0,0,0],[0,0,0,0,0,0,1,3,1,0,0,2,2,0,0,0],[0,0,0,0,0,0,1,3,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,3,3,1,0,0,0,0,0,0,0],[0,0,0,0,0,1,3,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,3,1,0,0,0,0,0,0,0,0],[0,0,0,0,1,1,3,1,0,0,0,0,0,0,0,0]]},{"name":"aln_pt_void_a","size":16,"folder":"items/spirit_fx","palette":{"0":"#00000000","1":"#3a0652","2":"#8a1496","3":"#ff3fd0","4":"#ffffff"},"pixels":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,1,1,1,0,0,1,1,1,0,0,0,0],[0,0,0,1,1,0,2,2,2,2,0,1,1,0,0,0],[0,0,0,1,0,2,0,0,0,0,2,0,1,0,0,0],[0,0,1,1,2,0,0,3,3,0,0,2,1,1,0,0],[0,0,1,0,2,0,3,4,3,3,0,2,0,1,0,0],[0,0,1,0,2,0,3,3,3,3,0,2,0,1,0,0],[0,0,1,1,2,0,0,3,3,0,0,2,1,1,0,0],[0,0,0,1,0,2,0,0,0,0,2,0,1,0,0,0],[0,0,0,1,1,0,2,2,2,2,0,1,1,0,0,0],[0,0,0,0,1,1,1,0,0,1,1,1,0,0,0,0],[0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"name":"aln_pt_void_b","size":16,"folder":"items/spirit_fx","palette":{"0":"#00000000","1":"#3a0652","2":"#8a1496","3":"#ff3fd0","4":"#ffffff"},"pixels":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,2,2,2,2,2,2,0,0,0,0,0],[0,0,0,0,2,2,2,2,2,3,2,2,0,0,0,0],[0,0,0,2,2,3,2,1,1,2,2,2,2,0,0,0],[0,0,2,2,2,1,1,1,1,1,1,2,3,2,0,0],[0,2,2,3,3,1,3,3,0,3,3,1,3,2,2,0],[0,3,3,3,1,0,0,0,0,0,0,1,2,3,3,0],[3,2,2,1,1,0,0,0,0,0,0,1,1,2,3,3],[3,3,2,1,1,0,0,0,0,0,0,1,1,2,2,3],[0,3,3,3,1,0,0,0,0,0,0,1,2,3,3,0],[0,2,2,3,1,3,3,0,3,3,1,3,3,2,2,0],[0,0,2,2,2,1,1,1,1,1,1,2,2,2,0,0],[0,0,0,2,2,3,2,1,1,2,2,2,2,0,0,0],[0,0,0,0,2,2,2,2,2,2,2,2,0,0,0,0],[0,0,0,0,0,2,2,2,2,2,2,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"name":"aln_pt_terra_a","size":16,"folder":"items/spirit_fx","palette":{"0":"#00000000","1":"#6b4220","2":"#a8743a","3":"#dba865","4":"#5fae3a"},"pixels":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0],[0,0,0,0,2,2,2,2,3,2,2,0,0,0,0,0],[0,0,0,0,3,3,3,3,3,2,2,2,0,0,0,0],[0,0,0,0,2,3,3,3,3,2,2,2,2,2,0,0],[0,0,0,0,2,3,3,3,3,2,2,2,2,0,0,0],[0,0,0,0,2,2,2,2,2,2,2,1,2,0,0,0],[0,0,0,2,2,2,2,2,2,2,2,1,2,0,0,0],[0,0,0,0,2,2,2,2,2,2,2,1,1,0,0,0],[0,0,0,0,0,2,2,2,2,2,2,2,1,0,0,0],[0,0,0,0,0,2,2,2,2,1,1,1,1,0,0,0],[0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"name":"aln_pt_terra_b","size":16,"folder":"items/spirit_fx","palette":{"0":"#00000000","1":"#6b4220","2":"#a8743a","3":"#dba865","4":"#5fae3a"},"pixels":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0],[0,0,0,1,1,1,1,2,2,2,1,1,1,1,0,0],[0,0,0,1,1,2,2,3,3,2,2,2,1,1,0,0],[0,0,0,1,1,2,3,3,3,3,3,2,2,1,0,0],[0,0,0,1,1,2,2,3,3,2,2,2,2,1,0,0],[0,0,0,1,2,2,2,2,1,2,2,2,2,1,0,0],[0,0,0,1,2,2,2,1,1,1,2,2,2,1,1,0],[0,0,1,1,2,2,4,1,2,4,2,2,1,1,0,0],[0,0,0,1,1,2,1,2,2,1,2,2,1,0,0,0],[0,0,0,0,1,2,2,2,2,2,1,1,1,0,0,0],[0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0],[0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"name":"aln_pt_toxic_a","size":16,"folder":"items/spirit_fx","palette":{"0":"#00000000","1":"#2e7a1a","2":"#66cf3a","3":"#d8ff5a","4":"#7a3fb8"},"pixels":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,2,2,2,2,2,2,0,0,0,0,0],[0,0,0,0,2,2,2,0,0,2,2,2,0,0,0,0],[0,0,0,2,2,1,3,1,1,1,1,2,2,0,0,0],[0,0,2,2,1,3,1,1,1,1,1,1,2,2,0,0],[0,0,2,2,3,1,1,1,1,1,1,1,2,2,0,0],[0,0,2,0,1,1,1,1,1,1,1,1,0,2,0,0],[0,0,2,0,1,1,1,1,1,1,1,1,0,2,0,0],[0,0,2,2,1,1,1,1,1,1,1,1,2,2,0,0],[0,0,2,2,1,1,1,1,1,1,1,1,2,2,0,0],[0,0,0,2,2,1,1,1,1,1,1,2,2,0,0,0],[0,0,0,0,2,2,2,0,0,2,2,2,0,0,0,0],[0,0,0,0,0,2,2,2,2,2,2,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"name":"aln_pt_toxic_b","size":16,"folder":"items/spirit_fx","palette":{"0":"#00000000","1":"#2e7a1a","2":"#66cf3a","3":"#d8ff5a","4":"#7a3fb8"},"pixels":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,1,2,2,1,0,0,0,0,0,0],[0,0,0,0,0,1,1,2,2,1,1,0,0,0,0,0],[0,0,0,0,0,1,2,2,2,2,1,0,0,0,0,0],[0,0,0,0,1,1,2,2,2,2,1,1,0,0,0,0],[0,0,0,0,1,2,2,2,2,2,2,1,0,0,0,0],[0,0,0,1,1,2,3,2,2,2,2,1,1,0,0,0],[0,0,0,1,1,2,3,2,2,2,2,1,1,0,0,0],[0,0,0,1,1,2,3,2,2,2,2,1,1,0,0,0],[0,0,0,0,1,2,2,2,2,4,2,1,0,0,0,0],[0,0,0,0,0,1,1,2,2,1,1,0,0,0,0,0],[0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"name":"aln_pt_gravity_a","size":16,"folder":"items/spirit_fx","palette":{"0":"#00000000","1":"#3b33c4","2":"#8077ff","3":"#ffffff","4":"#ff9ad5"},"pixels":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,3,3,0,0,0,0,0,0,0],[0,0,0,0,0,2,2,3,3,2,2,0,0,0,0,0],[0,0,0,2,2,2,0,3,3,0,2,2,2,0,0,0],[0,0,0,2,0,0,1,1,1,1,0,0,2,0,0,0],[0,0,2,2,0,1,0,0,0,0,1,0,2,2,0,0],[0,0,2,0,1,0,0,0,0,0,0,1,0,2,0,0],[0,0,2,0,1,0,0,0,0,0,0,1,0,2,0,0],[0,0,2,0,1,0,0,0,0,0,0,1,0,2,0,0],[0,0,2,0,1,0,0,0,0,0,0,1,0,2,0,0],[0,0,2,2,0,1,0,0,0,0,1,0,2,2,0,0],[0,0,0,2,0,0,1,1,1,1,0,0,2,0,0,0],[0,0,0,2,2,2,0,0,0,0,2,2,2,0,0,0],[0,0,0,0,0,2,2,2,2,2,2,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"name":"aln_pt_gravity_b","size":16,"folder":"items/spirit_fx","palette":{"0":"#00000000","1":"#3b33c4","2":"#8077ff","3":"#ffffff","4":"#ff9ad5"},"pixels":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,2,2,2,2,0,0,0,0,3,3,3,3,0,0],[0,0,2,0,0,0,2,2,3,3,0,0,0,3,0,0],[0,0,2,0,0,0,3,3,2,2,0,0,0,3,0,0],[0,0,2,0,0,3,3,1,1,2,2,0,0,3,0,0],[0,0,0,2,3,0,1,4,1,1,0,2,3,0,0,0],[0,0,0,3,2,0,1,1,1,1,0,3,2,0,0,0],[0,0,3,0,0,2,2,1,1,3,3,0,0,2,0,0],[0,0,3,0,0,0,2,2,3,3,0,0,0,2,0,0],[0,0,3,0,0,0,3,3,2,2,0,0,0,2,0,0],[0,0,3,3,3,3,0,0,0,0,2,2,2,2,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"name":"aln_pt_life_a","size":16,"folder":"items/spirit_fx","palette":{"0":"#00000000","1":"#d1527f","2":"#ffa3bd","3":"#4fd36a","4":"#ffffff"},"pixels":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0],[0,0,0,0,0,0,3,3,3,3,0,0,0,0,0,0],[0,0,0,0,0,0,3,3,3,3,0,0,0,0,0,0],[0,2,2,2,2,2,3,3,4,3,2,2,2,2,2,0],[0,0,0,0,0,0,3,3,3,3,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"name":"aln_pt_life_b","size":16,"folder":"items/spirit_fx","palette":{"0":"#00000000","1":"#d1527f","2":"#ffa3bd","3":"#4fd36a","4":"#ffffff"},"pixels":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,2,1,0,0,0,0,0,0,0],[0,0,0,0,0,2,2,3,1,2,2,0,0,0,0,0],[0,0,0,0,1,1,1,3,1,1,1,2,0,0,0,0],[0,0,0,0,2,3,3,1,1,3,3,2,0,0,0,0],[0,0,0,0,1,3,3,3,1,3,1,2,0,0,0,0],[0,0,0,2,2,1,1,3,1,1,1,2,2,0,0,0],[0,0,0,2,2,3,3,1,1,3,3,2,2,0,0,0],[0,0,0,2,2,3,3,3,1,3,3,2,2,0,0,0],[0,0,0,0,1,1,1,3,1,1,1,2,0,0,0,0],[0,0,0,0,2,2,3,1,1,3,2,2,0,0,0,0],[0,0,0,0,0,2,3,3,1,3,2,0,0,0,0,0],[0,0,0,0,0,2,2,2,1,2,2,0,0,0,0,0],[0,0,0,0,0,0,0,2,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0]]},{"name":"aln_pt_chrono_a","size":16,"folder":"items/spirit_fx","palette":{"0":"#00000000","1":"#127585","2":"#6ee2ec","3":"#ffc83a","4":"#ffe58a"},"pixels":[[0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,3,0,0,2,2,2,2,2,2,0,0,3,0,0],[0,0,0,2,2,2,0,0,3,0,2,2,2,0,0,0],[0,0,0,2,0,0,0,0,3,0,0,0,2,0,0,0],[0,0,2,2,0,0,0,0,3,0,0,0,2,2,0,0],[0,0,2,0,0,0,0,0,3,0,0,0,0,2,0,0],[0,0,2,0,0,0,0,0,3,0,0,0,0,2,0,0],[3,0,2,0,0,0,0,0,4,4,0,0,0,2,0,3],[0,0,2,0,0,0,0,0,0,0,4,0,0,2,0,0],[0,0,2,2,0,0,0,0,0,0,0,0,2,2,0,0],[0,0,0,2,0,0,0,0,0,0,0,0,2,0,0,0],[0,0,0,2,2,2,0,0,0,0,2,2,2,0,0,0],[0,0,3,0,0,2,2,2,2,2,2,0,0,3,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0]]},{"name":"aln_pt_chrono_b","size":16,"folder":"items/spirit_fx","palette":{"0":"#00000000","1":"#127585","2":"#6ee2ec","3":"#ffc83a","4":"#ffe58a"},"pixels":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,3,3,0,0,0,0,0,0,0],[0,0,0,3,3,0,3,3,3,3,0,3,3,0,0,0],[0,0,3,3,3,3,3,3,3,3,3,3,3,3,0,0],[0,0,3,3,3,2,2,2,4,2,2,3,3,3,0,0],[0,0,0,3,2,2,2,2,4,2,2,2,3,0,0,0],[0,0,3,3,2,2,2,0,4,2,2,2,3,3,0,0],[0,3,3,3,2,2,0,0,4,0,2,2,3,3,3,0],[0,3,3,3,2,2,0,0,4,4,2,2,3,3,3,0],[0,0,3,3,2,2,2,0,0,4,4,2,3,3,0,0],[0,0,0,3,2,2,2,2,2,2,2,2,3,0,0,0],[0,0,3,3,3,2,2,2,2,2,2,3,3,3,0,0],[0,0,3,3,3,3,3,3,3,3,3,3,3,3,0,0],[0,0,0,3,3,0,3,3,3,3,0,3,3,0,0,0],[0,0,0,0,0,0,0,3,3,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]}]}
 ```
