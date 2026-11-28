@@ -119,13 +119,15 @@ def stack(slot, name, count, tag):
 
 
 def write(name, color, label, rows, stacks=()):
-    box = item(0, color + "_shulker_box", {"display": display(label), "Items": array(10, kit(rows) + [stack(len(rows) + i, *entry) for i, entry in enumerate(stacks)])})
-    chest = compound({"id": string("Chest"), "Findable": byte(0), "isMovable": byte(1), "x": integer(0),
-                      "y": integer(0), "z": integer(0), "Items": array(10, [box])})
-    block = compound({"name": string("minecraft:chest"), "states": compound({}), "version": integer(17959425)})
+    contents = kit(rows) + [stack(len(rows) + i, *entry) for i, entry in enumerate(stacks)]
+    kind = "minecraft:" + color + "_shulker_box"
+    holder = compound({"id": string("ShulkerBox"), "CustomName": string(label), "facing": byte(1),
+                       "Findable": byte(0), "isMovable": byte(1), "x": integer(0), "y": integer(0),
+                       "z": integer(0), "Items": array(10, contents)})
+    block = compound({"name": string(kind), "states": compound({}), "version": integer(17959425)})
     palette = compound({"default": compound({
         "block_palette": array(10, [block]),
-        "block_position_data": compound({"0": compound({"block_entity_data": chest})})})})
+        "block_position_data": compound({"0": compound({"block_entity_data": holder})})})})
     root = compound({
         "format_version": integer(1),
         "size": array(3, [integer(1), integer(1), integer(1)]),

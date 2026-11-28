@@ -11,7 +11,7 @@
 
 ## Overview
 
-Players craft the OP book at a crafting table. Using it opens a menu where a kit is chosen, and the filled shulker box drops to the player to be picked up.
+Players craft the OP book at a crafting table. Using it opens a menu where a kit is chosen, and the filled shulker box goes into the inventory.
 
 ## Key Features
 
@@ -48,7 +48,7 @@ Players craft the OP book at a crafting table. Using it opens a menu where a kit
 
 - **What do I need before picking a kit?**: One free inventory slot and some empty space above you.
 
-- **Why did no box arrive?**: Check that block drops are turned on in the world settings or game rules.
+- **Where does the box go?**: Straight into your inventory.
 
 ## Compatibility
 

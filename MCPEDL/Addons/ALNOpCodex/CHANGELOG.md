@@ -2,6 +2,11 @@
 
 ---
 
+## [v8] - 2026-11-28 - Direct Inventory Delivery
+
+### Improved & Balanced
+- **Kit delivery**: The filled shulker box now goes straight into your inventory, with no chest or dropped items.
+
 ## [v7] - 2026-11-27 - Craftable OP Book
 
 ### Added

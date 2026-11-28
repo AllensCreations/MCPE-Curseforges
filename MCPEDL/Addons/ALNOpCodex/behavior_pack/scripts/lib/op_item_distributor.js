@@ -40,6 +40,14 @@ function celebrate(player) {
   } catch (e) {}
 }
 
+function countBoxes(container) {
+  let total = 0;
+  for (let slot = 0; slot < container.size; slot++) {
+    if (container.getItem(slot)?.typeId.endsWith("_shulker_box")) total++;
+  }
+  return total;
+}
+
 export function deliverKit(player, kitId) {
   const kit = KITS[kitId];
   const inventory = player.getComponent("minecraft:inventory")?.container;
@@ -65,52 +73,30 @@ export function deliverKit(player, kitId) {
   }
   const finish = (message) => {
     try {
-      dimension.getBlock(found.spot)?.getComponent("minecraft:inventory")?.container?.setItem(0, undefined);
-      dimension.getBlock(found.spot)?.setType("minecraft:air");
+      const block = dimension.getBlock(found.spot);
+      const contents = block?.getComponent("minecraft:inventory")?.container;
+      if (contents) {
+        for (let slot = 0; slot < contents.size; slot++) contents.setItem(slot, undefined);
+      }
+      block?.setType("minecraft:air");
     } catch (e) {
       console.warn(`[OpCodex] cleanup: ${e}`);
     }
     busy.delete(found.key);
     tell(player, message);
   };
-  const center = { x: found.spot.x + 0.5, y: found.spot.y + 0.5, z: found.spot.z + 0.5 };
-  const nearbyItems = () => dimension.getEntities({ type: "minecraft:item", location: center, maxDistance: 3 });
-  const gather = (attempt, before) => {
-    let received = false;
-    try {
-      for (const entity of nearbyItems()) {
-        if (before.has(entity.id)) continue;
-        const typeId = entity.getComponent("minecraft:item")?.itemStack.typeId;
-        if (typeId?.endsWith("_shulker_box")) {
-          entity.teleport(player.location);
-          received = true;
-        } else if (typeId === "minecraft:chest") {
-          entity.remove();
-        }
-      }
-    } catch (e) {
-      console.warn(`[OpCodex] pickup: ${e}`);
-    }
-    if (received) {
-      celebrate(player);
-      finish(`§a${kit.name} dropped to you.`);
-      return;
-    }
-    if (attempt < 10) {
-      system.runTimeout(() => gather(attempt + 1, before), 2);
-      return;
-    }
-    finish("§cError: the shulker box did not drop.");
-  };
   const collect = (attempt) => {
-    let block;
     try {
-      block = dimension.getBlock(found.spot);
-      const chest = block?.getComponent("minecraft:inventory")?.container;
-      if (chest?.getItem(0)) {
-        const before = new Set(nearbyItems().map((entity) => entity.id));
-        dimension.runCommand(`setblock ${found.spot.x} ${found.spot.y} ${found.spot.z} air destroy`);
-        system.runTimeout(() => gather(0, before), 2);
+      const contents = dimension.getBlock(found.spot)?.getComponent("minecraft:inventory")?.container;
+      if (contents?.getItem(0)) {
+        const before = countBoxes(inventory);
+        player.runCommand(`loot give @s mine ${found.spot.x} ${found.spot.y} ${found.spot.z}`);
+        if (countBoxes(inventory) > before) {
+          celebrate(player);
+          finish(`§a${kit.name} added to your inventory.`);
+        } else {
+          finish("§cError: the shulker box was not received.");
+        }
         return;
       }
     } catch (e) {
@@ -120,7 +106,7 @@ export function deliverKit(player, kitId) {
       system.runTimeout(() => collect(attempt + 1), 2);
       return;
     }
-    finish(block?.typeId === "minecraft:chest" ? "§cError: the kit chest was empty." : "§cError: the kit chest did not appear.");
+    finish("§cError: the kit box did not appear.");
   };
   system.runTimeout(() => collect(0), 2);
 }

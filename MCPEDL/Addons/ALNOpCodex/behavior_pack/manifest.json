@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:OpCodex (v7)",
+    "name": "ALN:OpCodex (v8)",
     "description": "OP book that delivers god tier Netherite kits. by ALNStudios",
     "uuid": "c597255b-8868-43ab-b7b5-4a58d676dbf3",
     "version": [
-      7,
+      8,
       0,
       0
     ],
@@ -20,7 +20,7 @@
       "type": "data",
       "uuid": "deac6a69-d3d1-4671-8849-b30d63e4933b",
       "version": [
-        7,
+        8,
         0,
         0
       ]
@@ -31,7 +31,7 @@
       "entry": "scripts/main.js",
       "uuid": "bfb7ceb5-e784-4b96-9bd3-5a72bde0d709",
       "version": [
-        7,
+        8,
         0,
         0
       ]
@@ -41,7 +41,7 @@
     {
       "uuid": "142a6097-6927-4bf7-aef6-b24a7691e75d",
       "version": [
-        7,
+        8,
         0,
         0
       ]
@@ -60,6 +60,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "7.0.0"
+    "version": "8.0.0"
   }
 }

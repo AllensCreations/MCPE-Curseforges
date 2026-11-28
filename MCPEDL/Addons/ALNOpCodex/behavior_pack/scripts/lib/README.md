@@ -2,7 +2,7 @@
 
 - main.js: registers the item use listener after the world loads, and registers the /aln:alnop command. Depends on lib/op_menu_ui.js.
 - lib/op_menu_ui.js: exports openRootMenu. Root, gear and about forms.
-- lib/op_item_distributor.js: exports deliverKit. Places a one-block structure holding a chest, waits up to about two seconds for it, breaks the chest with a command, moves the dropped shulker box to the player, removes the dropped chest and leaves air.
+- lib/op_item_distributor.js: exports deliverKit. Places a one-block structure holding a filled shulker box, waits up to about two seconds for it, runs the loot command to give the box to the player, then empties and removes the placed block.
 
 The three structure files are built by structure_sources/make_structures.py.
 

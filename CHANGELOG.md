@@ -4,6 +4,13 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v331] - 2026-11-28 - Direct Inventory Delivery
+
+**Spec**: spec_v331.txt | **Target**: MCPEDL/Addons/ALNOpCodex | **Files edited**: 6
+
+### Improved & Balanced
+- **Kit delivery**: The filled shulker box now goes straight into your inventory, with no chest or dropped items.
+
 ## [v330] - 2026-11-28 - Sizes and Smoother Bodies
 
 **Spec**: spec_v330.txt | **Target**: MCPEDL/Addons/Serpent-Realms | **Files edited**: 14
