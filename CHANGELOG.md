@@ -4,6 +4,13 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v327] - 2026-11-28 - Painted Door Fix
+
+**Spec**: spec_v327.txt | **Target**: MCPEDL/Addons/ALNCamouflageDoors | **Files edited**: 5
+
+### Fixed
+- **Painted Door item**: Taking the result in the Door Painter no longer fails, and the painted door keeps its bottom and top blocks.
+
 ## [v326] - 2026-11-28 - Right-Click Fix
 
 **Spec**: spec_v326.txt | **Target**: MCPEDL/Addons/ALNCamouflageDoors | **Files edited**: 10

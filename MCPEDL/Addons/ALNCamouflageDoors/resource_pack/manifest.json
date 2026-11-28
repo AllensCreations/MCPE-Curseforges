@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:CamouflageDoors (v2)",
+    "name": "ALN:CamouflageDoors (v3)",
     "description": "Textures and models for the Door Painter by ALNStudios",
     "uuid": "5a87bd6e-bd4a-48e4-a22c-3c6b04b31af1",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -20,7 +20,7 @@
       "type": "resources",
       "uuid": "b5d5298f-4e37-4ff6-9bb5-63dabccba333",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -31,6 +31,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "3.0.0"
   }
 }

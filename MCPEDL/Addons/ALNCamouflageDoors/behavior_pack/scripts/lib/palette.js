@@ -1,8 +1,5 @@
 export const VANILLA_KEY = "vanilla";
 export const PAINTED_DOOR_ID = "aln:painted_door";
-export const PROP_KIND = "aln:door_kind";
-export const PROP_BOTTOM = "aln:bottom_block";
-export const PROP_TOP = "aln:top_block";
 
 export const PALETTE = [
   { key: "oak_planks", item: "minecraft:oak_planks", name: "Oak Planks" },
@@ -31,6 +28,15 @@ export function paletteByItem(typeId) {
 
 export function paletteByKey(key) {
   return BY_KEY.get(key);
+}
+
+export function keyForName(name) {
+  for (const entry of PALETTE) {
+    if (entry.name === name) {
+      return entry.key;
+    }
+  }
+  return VANILLA_KEY;
 }
 
 export function nameForKey(key) {

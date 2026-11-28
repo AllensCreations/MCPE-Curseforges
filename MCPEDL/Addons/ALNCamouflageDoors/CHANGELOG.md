@@ -2,6 +2,11 @@
 
 ---
 
+## [v3] - 2026-11-28 - Painted Door Fix
+
+### Fixed
+- **Painted Door item**: Taking the result in the Door Painter no longer fails, and the painted door keeps its bottom and top blocks.
+
 ## [v2] - 2026-11-28 - Right-Click Fix
 
 ### Added

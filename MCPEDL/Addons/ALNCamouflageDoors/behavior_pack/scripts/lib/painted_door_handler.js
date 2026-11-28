@@ -1,15 +1,12 @@
 import { world, system, BlockPermutation, ItemStack } from "@minecraft/server";
 import { createLogger } from "./logger.js";
-import { PAINTED_DOOR_ID, VANILLA_KEY, PROP_KIND, PROP_BOTTOM, PROP_TOP, nameForKey } from "./palette.js";
+import { PAINTED_DOOR_ID, VANILLA_KEY, keyForName, nameForKey } from "./palette.js";
 
 const log = createLogger("painted_door");
 const pending = new Map();
 
 export function createPaintedDoorItem(kind, bottom, top) {
   const item = new ItemStack(PAINTED_DOOR_ID, 1);
-  item.setDynamicProperty(PROP_KIND, kind);
-  item.setDynamicProperty(PROP_BOTTOM, bottom);
-  item.setDynamicProperty(PROP_TOP, top);
   item.setLore([
     "§b" + (kind === "iron" ? "Iron" : "Wooden") + " Door, painted",
     "§aBottom: §f" + nameForKey(bottom),
@@ -19,14 +16,19 @@ export function createPaintedDoorItem(kind, bottom, top) {
 }
 
 function readItem(item) {
-  const kind = item.getDynamicProperty(PROP_KIND);
-  const bottom = item.getDynamicProperty(PROP_BOTTOM);
-  const top = item.getDynamicProperty(PROP_TOP);
-  return {
-    kind: kind === "iron" ? "iron" : "wood",
-    bottom: typeof bottom === "string" ? bottom : VANILLA_KEY,
-    top: typeof top === "string" ? top : VANILLA_KEY,
-  };
+  const data = { kind: "wood", bottom: VANILLA_KEY, top: VANILLA_KEY };
+  const lore = item.getLore();
+  for (const raw of lore) {
+    const line = raw.replace(/§./g, "");
+    if (line.startsWith("Iron Door")) {
+      data.kind = "iron";
+    } else if (line.startsWith("Bottom: ")) {
+      data.bottom = keyForName(line.slice(8));
+    } else if (line.startsWith("Top: ")) {
+      data.top = keyForName(line.slice(5));
+    }
+  }
+  return data;
 }
 
 function edgeFacingPlayer(player) {
