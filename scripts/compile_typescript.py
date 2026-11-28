@@ -94,6 +94,7 @@ def compile_ts_files(paths, root: Path = ROOT, remove_comments: bool = True, che
         "--module", "es2022",
         "--moduleResolution", "bundler",
         "--skipLibCheck",
+        "--noEmitOnError",
     ]
     if remove_comments:
         cmd.append("--removeComments")

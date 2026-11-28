@@ -42,6 +42,7 @@ class TestTypeScriptSupport(unittest.TestCase):
         ok, msg = cts.compile_ts_files([ts_file], root=ROOT)
         self.assertFalse(ok, "Type error was not detected")
         self.assertIn("error TS2322", msg)
+        self.assertFalse((self.tmp / "bad.js").is_file(), "bad.js was emitted despite type error")
 
     def test_build_payload_accepts_ts(self):
         bp_dir = self.tmp / "behavior_pack"
