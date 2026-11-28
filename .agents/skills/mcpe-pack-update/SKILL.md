@@ -1,9 +1,19 @@
 ---
 name: mcpe-pack-update
-description: Use for any change to an existing project, workflow, script or doc in the MCPE-Curseforges repository (update, fix, add, rename). Delivers every change as ONE self-contained Termux update script (<Pack>_v<Version>_<rand>.sh) containing the spec and rich UI.
+description: Use for ANY change to an existing project, workflow, script or doc in the MCPE-Curseforges repository (update, fix, add, rename). NEVER use the new-pack base64 payload for existing projects. Delivers every change as ONE self-contained Termux update script (<Pack>_v<Version>_<rand>.sh) built with make_update_script.py.
 ---
 
 # mcpe-pack-update: Update Delivery
+
+## !! CRITICAL: NEVER base64 for existing packs !!
+
+This skill is for **existing projects only**. When the user asks for a change to a pack that already exists in `MCPEDL/`, the ONLY valid delivery is a self-contained `.sh` update script built with `scripts/make_update_script.py`. NEVER deliver:
+- A base64 payload or `.b64` file
+- A new-pack `.sh` from `make_pack_script.py`
+- A raw `.zip`, `.mcaddon`, `.mcpack`, `.mcworld`, `.json`, or `.js`
+- Inline pasted file content instead of a `.sh`
+
+If you are unsure whether the target project already exists, check `MCPEDL/` first. If it exists, use this skill. If it truly does not exist, stop and use `mcpe-new-pack` instead.
 
 ## Authority
 
@@ -18,9 +28,19 @@ description: Use for any change to an existing project, workflow, script or doc 
 - Read-only audit or report: use `checkrm`.
 - New project from an idea: follow `PACK_GENERATOR_INSTRUCTIONS.md` Part 4 (ask the type first, base64 payload).
 
+## Reading Source Files Without the AI Review Zip
+
+When working from a direct conversation (not an AI Review export), read the pack's source files from the repo clone directly:
+- Manifests: `MCPEDL/<Category>/<Name>/behavior_pack/manifest.json`, `resource_pack/manifest.json`
+- Scripts: `MCPEDL/<Category>/<Name>/behavior_pack/scripts/main.js` (and `lib/`)
+- Docs: `MCPEDL/<Category>/<Name>/CHANGELOG.md`, `README.md`, `DESCRIPTION.md`
+- Policy scripts: `scripts/make_update_script.py`, `scripts/apply_update.py` (read from repo, run them locally)
+
+NEVER skip reading the real source. NEVER work from memory or a previous session's cached content.
+
 ## Procedure
 
-1. Read `INSTRUCTIONS.md` Parts 1 and 2 before writing anything, through Context7 as the `mcpe-context7` skill says. `make_update_script.py`, `apply_update.py`, and `pixel_json_to_png.py` are complete in the pack's review zip (`<Pack>.zip`) under `files/`; run them from there.
+1. Read `INSTRUCTIONS.md` Parts 1 and 2 before writing anything, through Context7 as the `mcpe-context7` skill says. `make_update_script.py`, `apply_update.py`, and `pixel_json_to_png.py` are complete in the pack's review zip (`<Pack>.zip`) under `files/`; if the zip is not available, read the scripts directly from `scripts/` in the repo clone.
 2. Find the destination folder: the path the user named, otherwise the matching project folder. Do not substitute a similar name; report ambiguity or a missing target.
 3. Read the real source (manifests, scripts, items, recipes, loot tables, functions, lang files) before writing any claim. Source priority when sources disagree: the project's own files, Mojang Bedrock Samples, official Minecraft Creator Documentation, Minecraft Wiki, Bedrock Wiki.
 4. Make the smallest possible change. No unrelated rewrites. Never invent features, versions, links, assets, test results or compatibility. Never write comments in shipped `.js`, `.mcfunction` or `.json` files.
@@ -31,8 +51,10 @@ description: Use for any change to an existing project, workflow, script or doc 
 Generate the spec with `apply_update.py` directives (replace, replace-all, insert-after, insert-before, create, overwrite, delete, changelog).
 Then build the single `.sh` using:
 ```bash
-python3 files/scripts/make_update_script.py spec.txt --out-dir .
+python3 scripts/make_update_script.py spec.txt --out-dir .
 ```
+(If running from an extracted kit zip: `python3 files/scripts/make_update_script.py spec.txt --out-dir .`)
+
 This produces ONE single `.sh` file (`<PackName>_v<Version>_<rand>.sh`) that contains the embedded update payload, ANSI colored status UI, automated git rebase, validation checks, commit, and push.
 
 ## Reply

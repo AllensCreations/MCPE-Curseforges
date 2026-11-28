@@ -195,6 +195,7 @@ __DEST__
 2. Output only what changed. Smallest edits. No unrelated rewrites.
 3. No notes or summaries unless asked.
 4. NEVER edit generated files: `builds/`, `Package/`, `changelog_views/`, `MCPEDL/AI Review/`, `MCPEDL/README.md`.
+5. NEVER use a base64 payload or new-pack `.sh` for an existing pack update. Use `make_update_script.py` only.
 
 ## Reply Format (STRICT, same as INSTRUCTIONS.md "Reply Format")
 ```
@@ -397,9 +398,10 @@ if skipped:
 if new_pack:
     action_type = "Package Creation Notes"
     action_notes = (
-        "- **Mode**: NEW pack creation.\n"
+        "- **Mode**: NEW pack creation. This is for projects that DO NOT yet exist in MCPEDL/.\n"
         "- Follow PACK_GENERATOR_INSTRUCTIONS.md (query via Context7).\n"
-        "- Deliver ONE pack `.sh` generated from `scripts/make_pack_script.py` with base64 payload."
+        "- Deliver ONE pack `.sh` generated from `scripts/make_pack_script.py` with base64 payload.\n"
+        "- NEVER use this mode for an existing pack. For existing packs, use UPDATE mode and `make_update_script.py`."
     )
 elif repo_kit:
     action_type = "Repo Improvement / Maintenance Notes"
@@ -413,9 +415,11 @@ else:
     v_info = ", ".join(v.split('  (')[0] for v in version_lines) if version_lines else "Target Update: vNext"
     action_notes = (
         f"- **Mode**: UPDATE existing package ({v_info}).\n"
-        "- Retain all UUIDs in manifests.\n"
+        "- NEVER use a base64 payload or new-pack `.sh` for an existing pack. This is an UPDATE.\n"
+        "- Retain all UUIDs in manifests. NEVER regenerate UUIDs.\n"
         "- Update CHANGELOG.md with a new release entry at top under `---`.\n"
-        "- Deliver changes as ONE self-contained update `.sh` (`<Pack>_v<Version>_<rand>.sh`) built with `make_update_script.py` (INSTRUCTIONS.md Reply Format).\n"
+        "- Deliver ALL changes as ONE self-contained update `.sh` (`<Pack>_v<Version>_<rand>.sh`) built with `make_update_script.py` (INSTRUCTIONS.md Reply Format).\n"
+        "- Read the pack's real source files (manifests, scripts, lang, recipes) from this export before writing any change.\n"
         "- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`."
     )
 

@@ -1,9 +1,20 @@
 ---
 name: mcpe-new-pack
-description: Create a NEW addon, map, script or minigame for the MCPE-Curseforges repo. Use for any "new pack", "make me an addon/map/script/minigame" request. Read this first; it sets the reading order and the checks that are most often skipped.
+description: Create a NEW addon, map, script or minigame for the MCPE-Curseforges repo. ONLY use for truly new projects that do NOT yet exist in MCPEDL/. For ANY change to an existing pack, use mcpe-pack-update instead (delivers a .sh update script, NEVER base64).
 ---
 
 # mcpe-new-pack: Build a New Pack
+
+## !! CRITICAL: Existing pack? Use mcpe-pack-update instead !!
+
+This skill is for **truly new projects only** — packs that do NOT yet exist under `MCPEDL/`.
+
+If the user is asking for a **change, fix, addition or update to a pack that already exists**, stop immediately and use the `mcpe-pack-update` skill. That skill delivers a `.sh` update script via `make_update_script.py`. It NEVER uses a base64 payload.
+
+**Signs you must switch to mcpe-pack-update:**
+- The user says "update", "fix", "add", "change" or "improve" and names an existing pack.
+- The pack folder already exists under `MCPEDL/Addons/`, `MCPEDL/Maps/`, `MCPEDL/Script/`, or `MCPEDL/Minigame/`.
+- You can see a `CHANGELOG.md`, `manifest.json`, or `project.json` for the named pack.
 
 ## Authority
 
