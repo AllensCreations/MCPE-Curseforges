@@ -33,19 +33,21 @@ KIT_SKILLS = {
 KIT_FILES = {
     "NEW": [
         "scripts/make_pack_script.py", "scripts/build_payload.py", "scripts/import_project_payload.py",
-        "scripts/doc_template.py", "scripts/pixel_json_to_png.py",
+        "scripts/compile_typescript.py", "scripts/doc_template.py", "scripts/pixel_json_to_png.py",
         "docs/mcicons-index.md",
         "INSTRUCTIONS.md", "DOCS_RULES.md", "PACK_GENERATOR_INSTRUCTIONS.md",
         "assets/aln-ui-redesign/README.txt", "assets/aln-ui-redesign/design.json",
         "assets/aln-ui-redesign/font/README.txt", "assets/aln-ui-redesign/font/pixelify.js",
     ],
     "UPDATE": [
-        "scripts/make_update_script.py", "scripts/apply_update.py", "scripts/pixel_json_to_png.py",
+        "scripts/make_update_script.py", "scripts/apply_update.py", "scripts/compile_typescript.py",
+        "scripts/pixel_json_to_png.py",
         "docs/mcicons-index.md",
         "INSTRUCTIONS.md", "DOCS_RULES.md", "PACK_GENERATOR_INSTRUCTIONS.md",
     ],
     "REPO": [
-        "scripts/make_update_script.py", "scripts/apply_update.py", "scripts/check_instruction_files.py",
+        "scripts/make_update_script.py", "scripts/apply_update.py", "scripts/compile_typescript.py",
+        "scripts/check_instruction_files.py",
         "docs/mcicons-index.md",
         "INSTRUCTIONS.md", "DOCS_RULES.md", "PACK_GENERATOR_INSTRUCTIONS.md",
     ],

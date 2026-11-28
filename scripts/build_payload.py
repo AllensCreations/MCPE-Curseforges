@@ -299,7 +299,7 @@ ATTRIBUTION = "by ALNStudios"
 NAME_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$")
 UUID_V4 = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$", re.I)
 TITLE = re.compile(r"^.+ \(v(\d+)\.(\d+)\.(\d+)\)$")
-ALLOWED = {".json", ".js", ".mcfunction", ".md", ".txt", ".lang", ".png", ".jpg", ".jpeg", ".tga", ".ogg", ".mcstructure", ".nbt"}
+ALLOWED = {".json", ".js", ".ts", ".mcfunction", ".md", ".txt", ".lang", ".png", ".jpg", ".jpeg", ".tga", ".ogg", ".mcstructure", ".nbt"}
 BLOCKED = (".mcworld", ".mcpack", ".mcaddon", ".zip")
 MAX_FILES, MAX_FILE, MAX_TOTAL, ZIP_LIMIT = 500, 5 * 1024 * 1024, 25 * 1024 * 1024, 48000
 MAX_STRUCTURE_FILE = 2 * 1024 * 1024
@@ -558,13 +558,15 @@ def install_assets(root):
             e.write_text(END_LINE + "\n", encoding="utf-8")
             print("installed  behavior_pack/functions/end_game.mcfunction")
         mjs = root / "behavior_pack/scripts/main.js"
+        mts = root / "behavior_pack/scripts/main.ts"
         cjs = root / CONTROLLER_JS_REL
         pjs = root / PIXELIFY_JS_REL
-        if not pjs.exists() and mjs.is_file() and "registerController(" in mjs.read_text(encoding="utf-8"):
+        main_text = (mjs if mjs.is_file() else mts).read_text(encoding="utf-8") if (mjs.is_file() or mts.is_file()) else ""
+        if not pjs.exists() and "registerController(" in main_text:
             pjs.parent.mkdir(parents=True, exist_ok=True)
             pjs.write_text(PIXELIFY_JS, encoding="utf-8", newline="\n")
             print("installed  " + PIXELIFY_JS_REL)
-        if not cjs.exists() and mjs.is_file() and "registerController(" in mjs.read_text(encoding="utf-8"):
+        if not cjs.exists() and "registerController(" in main_text:
             cjs.parent.mkdir(parents=True, exist_ok=True)
             cjs.write_text(CONTROLLER_JS, encoding="utf-8", newline="\n")
             print("installed  " + CONTROLLER_JS_REL)
@@ -684,9 +686,10 @@ def run_checks(root, repo_root=None, folder=None):
     if controller:
         for rel in CONTROLLER_REQUIRED:
             check((root / rel).is_file(), f"missing required file: {rel}")
+    has_main = (root / "behavior_pack/scripts/main.js").is_file() or (root / "behavior_pack/scripts/main.ts").is_file()
     if ptype in ("script", "minigame"):
-        check((root / "behavior_pack/scripts/main.js").is_file(), "missing required file: behavior_pack/scripts/main.js")
-    if (root / "behavior_pack/scripts/main.js").is_file() and not (root / "behavior_pack/scripts/lib/README.md").is_file():
+        check(has_main, "missing required file: behavior_pack/scripts/main.js (or main.ts)")
+    if has_main and not (root / "behavior_pack/scripts/lib/README.md").is_file():
         warns.append("missing behavior_pack/scripts/lib/README.md: every pack with a main.js carries a scripts/lib/ folder with this README (PACK_GENERATOR_INSTRUCTIONS.md, Script module)")
     if ptype == "script":
         check(not (root / "resource_pack").exists(), "script projects must be Behavior Pack-only so the package is a .mcpack")
@@ -853,7 +856,20 @@ def run_checks(root, repo_root=None, folder=None):
         check(icon == key, f"{item_rel}: icon default must be {key}")
 
     scripts_dir = root / "behavior_pack/scripts"
-    for jp in sorted(scripts_dir.rglob("*.js")) if scripts_dir.is_dir() else []:
+    ts_files = [p for p in scripts_dir.rglob("*.ts") if not p.name.endswith(".d.ts")] if scripts_dir.is_dir() else []
+    if ts_files:
+        try:
+            import compile_typescript
+            ok, err = compile_typescript.compile_ts_files(ts_files, root=repo_root or root)
+            if not ok:
+                fails.append(f"TypeScript compilation failed: {err}")
+        except Exception as exc:
+            warns.append(f"TypeScript compilation skipped: {exc}")
+
+    all_scripts = sorted(list(scripts_dir.rglob("*.js")) + list(scripts_dir.rglob("*.ts"))) if scripts_dir.is_dir() else []
+    for jp in all_scripts:
+        if jp.name.endswith(".d.ts"):
+            continue
         jrel = jp.relative_to(root).as_posix()
         jtxt = jp.read_text(encoding="utf-8")
         for spec in IMPORT_RE.findall(jtxt):
@@ -863,39 +879,42 @@ def run_checks(root, repo_root=None, folder=None):
         check(not re.search(r"\bimport\s*\(\s*(?![\"'])", jtxt), f"{jrel}: dynamic import with a computed specifier is not allowed (it bypasses the module allowlist)")
         if re.search(r"\b(?:globalThis|window|self)\s*\[", jtxt):
             warns.append(f"{jrel}: indexed global access can bypass the eval and import checks: a reviewer must read this file")
-        if _has_comment(jtxt):
-            warns.append(jrel + ": remove comments (no comments in scripts)")
-        ran, err = _node_syntax(jp)
-        if ran and err:
-            fails.append(f"{jrel}: syntax error: {err}")
-        elif not ran:
-            warns.append(f"{jrel}: syntax not checked (node not found or not working)")
+        if jp.suffix == ".js":
+            if _has_comment(jtxt):
+                warns.append(jrel + ": remove comments (no comments in scripts)")
+            ran, err = _node_syntax(jp)
+            if ran and err:
+                fails.append(f"{jrel}: syntax error: {err}")
+            elif not ran:
+                warns.append(f"{jrel}: syntax not checked (node not found or not working)")
 
     if ptype == "map":
         icon_checks("trader_ledger", "allenscreations:trader_ledger", "behavior_pack/items/trader_ledger.json", LEDGER_SHA256, (32, 32))
     if controller:
         icon_checks("controller", "allenscreations:controller", "behavior_pack/items/controller.json", CONTROLLER_SHA256, (16, 16))
         mj = root / "behavior_pack/scripts/main.js"
+        mt = root / "behavior_pack/scripts/main.ts"
         cj = root / CONTROLLER_JS_REL
-        if mj.is_file():
-            js = mj.read_text(encoding="utf-8")
+        main_file = mj if mj.is_file() else mt if mt.is_file() else None
+        if main_file:
+            js = main_file.read_text(encoding="utf-8")
             if "registerController(" in js:
                 check(cj.is_file(), "missing required file: " + CONTROLLER_JS_REL)
                 if cj.is_file():
                     check(cj.read_text(encoding="utf-8").replace("\r\n", "\n") == CONTROLLER_JS,
                           "controller.js must be the unchanged generator copy")
-                check(re.search(r"from\s+[\"']\./controller\.js[\"']", js) is not None,
-                      "main.js: must import registerController from ./controller.js")
+                check(re.search(r"from\s+[\"']\./controller(?:\.js)?[\"']", js) is not None,
+                      "main script: must import registerController from ./controller.js")
                 for key in ("title", "about", "gameInfo", "howToPlay"):
                     check(re.search(r"\b" + key + r"\s*:\s*(?![\"'`]{2})\S", js) is not None,
-                          f"main.js: registerController needs a non-empty {key}")
-                check(re.search(r"\bonStart\s*[:(]", js) is not None, "main.js: registerController needs onStart")
+                          f"main script: registerController needs a non-empty {key}")
+                check(re.search(r"\bonStart\s*[:(]", js) is not None, "main script: registerController needs onStart")
                 mv = re.search(r"\bversion\s*:\s*[\"'](\d+\.\d+\.\d+)[\"']", js)
-                check(mv is not None, "main.js: registerController needs version: \"X.Y.Z\" (the Behavior Pack version)")
+                check(mv is not None, "main script: registerController needs version: \"X.Y.Z\" (the Behavior Pack version)")
                 bpv = (jload("behavior_pack/manifest.json") or {}).get("header", {}).get("version")
                 if mv and isinstance(bpv, list):
                     check(mv.group(1) == ".".join(str(x) for x in bpv),
-                          f"main.js: registerController version {mv.group(1)} must equal the Behavior Pack manifest version")
+                          f"main script: registerController version {mv.group(1)} must equal the Behavior Pack manifest version")
                 pj_js = root / PIXELIFY_JS_REL
                 check(pj_js.is_file() and pj_js.read_text(encoding="utf-8").replace("\r\n", "\n") == PIXELIFY_JS,
                       f"{PIXELIFY_JS_REL} must be the unchanged generator copy")

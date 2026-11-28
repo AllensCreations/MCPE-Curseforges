@@ -11,3 +11,6 @@ __pycache__/
 *.pyc
 
 tests/output/
+
+# Dependencies
+node_modules/
