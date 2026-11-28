@@ -2,7 +2,7 @@
 
 Generated file. Do not edit by hand: it is rebuilt with every build.
 
-47 Add-ons · 6 Maps · 11 Scripts · 6 Minigames
+48 Add-ons · 6 Maps · 11 Scripts · 6 Minigames
 
 ## AI Review Kits
 
@@ -26,6 +26,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | **ALN PortalDoors** | 1.0.0 | ⚪ Not Published | [Source](Addons/ALN-PortalDoors) | [Package](../Package/ALN-PortalDoors.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-PortalDoors-1.0.0.zip) |
 | **ALN SoulLantern** | 3.0.1 | ⚪ Not Published | [Source](Addons/ALN-SoulLantern) | [Package](../Package/ALN-SoulLantern.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-SoulLantern-3.0.1.zip) |
 | **ALN Wireless Headphones** | v11 | ⚪ Not Published | [Source](Addons/ALN-Wireless-Headphones) | [Package](../Package/ALN-Wireless-Headphones.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-Wireless-Headphones-v11.zip) |
+| **ALN Wireless Hopper** | 1.0.0 | ⚪ Not Published | [Source](Addons/ALN-Wireless-Hopper) | [Package](../Package/ALN-Wireless-Hopper.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-Wireless-Hopper-1.0.0.zip) |
 | **ALN-GlobalMarket** | 1.0.2 | 🟢 Published ([1.0.2](https://www.curseforge.com/projects/1826201)) | [Source](Addons/ALN-GlobalMarket) | [Package](../Package/ALN-GlobalMarket.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-GlobalMarket-1.0.2.zip) |
 | **ALN:AuroraBorealis** | v2 | ⚪ Not Published | [Source](Addons/ALNAuroraBorealis) | [Package](../Package/ALNAuroraBorealis.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNAuroraBorealis-v2.zip) |
 | **ALN:CamouflageDoors** | v4 | ⚪ Not Published | [Source](Addons/ALNCamouflageDoors) | [Package](../Package/ALNCamouflageDoors.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNCamouflageDoors-v4.zip) |
