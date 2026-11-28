@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Addons/ALN-ChestLog`
 - **Destination:** `MCPEDL/Addons/ALN-ChestLog`
-- **CURRENT VERSION: v4 / NEXT UPDATE: v5**  (`MCPEDL/Addons/ALN-ChestLog/CHANGELOG.md`)
+- **CURRENT VERSION: v5 / NEXT UPDATE: v6**  (`MCPEDL/Addons/ALN-ChestLog/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 14
 - **Skipped binary:** 13
@@ -15,11 +15,11 @@
 - `MCPEDL/Addons/ALN-ChestLog/behavior_pack/items/chest_log.json`
 - `MCPEDL/Addons/ALN-ChestLog/behavior_pack/manifest.json`
 - `MCPEDL/Addons/ALN-ChestLog/behavior_pack/recipes/chest_log.json`
-- `MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/chest_register.js`
-- `MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/chest_sync.js`
-- `MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/chest_ui.js`
+- `MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/chest_register.ts`
+- `MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/chest_sync.ts`
+- `MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/chest_ui.ts`
 - `MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/lib/README.md`
-- `MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/main.ts`
 - `MCPEDL/Addons/ALN-ChestLog/CHANGELOG.md`
 - `MCPEDL/Addons/ALN-ChestLog/DESCRIPTION.md`
 - `MCPEDL/Addons/ALN-ChestLog/project.json`
@@ -189,7 +189,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v4 / NEXT UPDATE: v5).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v5 / NEXT UPDATE: v6).
 - NEVER use a base64 payload or new-pack `.sh` for an existing pack. This is an UPDATE.
 - Retain all UUIDs in manifests. NEVER regenerate UUIDs.
 - Update CHANGELOG.md with a new release entry at top under `---`.
@@ -912,1099 +912,1188 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/chest_register.js (163 lines, 6008 bytes)
+## FILE: MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/chest_register.ts (184 lines, 5955 bytes)
 
 ```
 import { world, system, BlockInventoryComponent } from "@minecraft/server";
+import type { Block, Player, Vector3 } from "@minecraft/server";
 import { ModalFormData } from "@minecraft/server-ui";
-import { ITEM_ID, CONTAINER_TYPES, findEntry, saveEntry, deleteEntry, newId, refreshKnown, markSuppressed, showForm, flushEntry, releasePending, lockPlayer, unlockPlayer, callOptional, plainName, } from "./chest_sync.js";
+import {
+  ITEM_ID,
+  CONTAINER_TYPES,
+  findEntry,
+  saveEntry,
+  deleteEntry,
+  newId,
+  refreshKnown,
+  markSuppressed,
+  showForm,
+  flushEntry,
+  releasePending,
+  lockPlayer,
+  unlockPlayer,
+  callOptional,
+  plainName,
+} from "./chest_sync.js";
+import type { ChestEntry } from "./chest_sync.js";
+
 const DEFAULT_NAME = "Storage Chest";
-const NEIGHBORS = [
-    { x: 1, y: 0, z: 0 },
-    { x: -1, y: 0, z: 0 },
-    { x: 0, y: 0, z: 1 },
-    { x: 0, y: 0, z: -1 },
+const NEIGHBORS: Vector3[] = [
+  { x: 1, y: 0, z: 0 },
+  { x: -1, y: 0, z: 0 },
+  { x: 0, y: 0, z: 1 },
+  { x: 0, y: 0, z: -1 },
 ];
-function inventorySize(block) {
-    const component = block.getComponent(BlockInventoryComponent.componentId);
-    return component && component.container ? component.container.size : 0;
+
+function inventorySize(block: Block): number {
+  const component = block.getComponent(BlockInventoryComponent.componentId) as
+    | BlockInventoryComponent
+    | undefined;
+  return component && component.container ? component.container.size : 0;
 }
-function facingOf(block) {
-    try {
-        const value = block.permutation.getState("minecraft:cardinal_direction");
-        return typeof value === "string" ? value : undefined;
-    }
-    catch {
-        return undefined;
-    }
+
+function facingOf(block: Block): string | undefined {
+  try {
+    const value = block.permutation.getState("minecraft:cardinal_direction" as never) as unknown;
+    return typeof value === "string" ? value : undefined;
+  } catch {
+    return undefined;
+  }
 }
-function facingAligned(a, b) {
-    const facing = facingOf(a);
-    if (!facing || facing !== facingOf(b))
-        return false;
-    const alongX = b.x !== a.x;
-    const northSouth = facing === "north" || facing === "south";
-    return alongX === northSouth;
+
+function facingAligned(a: Block, b: Block): boolean {
+  const facing = facingOf(a);
+  if (!facing || facing !== facingOf(b)) return false;
+  const alongX = b.x !== a.x;
+  const northSouth = facing === "north" || facing === "south";
+  return alongX === northSouth;
 }
-function findPartner(block) {
-    if (block.typeId === "minecraft:barrel")
-        return undefined;
-    if (inventorySize(block) <= 27)
-        return undefined;
-    const candidates = [];
-    for (const offset of NEIGHBORS) {
-        const neighbor = block.offset(offset);
-        if (neighbor && neighbor.typeId === block.typeId && inventorySize(neighbor) > 27) {
-            candidates.push(neighbor);
-        }
+
+function findPartner(block: Block): Vector3 | undefined {
+  if (block.typeId === "minecraft:barrel") return undefined;
+  if (inventorySize(block) <= 27) return undefined;
+  const candidates: Block[] = [];
+  for (const offset of NEIGHBORS) {
+    const neighbor = block.offset(offset);
+    if (neighbor && neighbor.typeId === block.typeId && inventorySize(neighbor) > 27) {
+      candidates.push(neighbor);
     }
-    if (candidates.length === 0)
-        return undefined;
-    const chosen = candidates.length === 1 ? candidates : candidates.filter((n) => facingAligned(block, n));
-    if (chosen.length !== 1)
-        return undefined;
-    return { x: chosen[0].x, y: chosen[0].y, z: chosen[0].z };
+  }
+  if (candidates.length === 0) return undefined;
+  const chosen = candidates.length === 1 ? candidates : candidates.filter((n) => facingAligned(block, n));
+  if (chosen.length !== 1) return undefined;
+  return { x: chosen[0].x, y: chosen[0].y, z: chosen[0].z };
 }
-function tell(player, text) {
-    player.onScreenDisplay.setActionBar(text);
+
+function tell(player: Player, text: string): void {
+  player.onScreenDisplay.setActionBar(text);
 }
-async function openRegisterForm(player, dimensionId, clicked) {
-    const dimension = world.getDimension(dimensionId);
-    const block = dimension.getBlock(clicked);
-    if (!block)
-        return;
-    const existing = findEntry(dimensionId, clicked);
-    if (existing && existing.owner !== player.id) {
-        tell(player, "§c[ChestLog] §fThis chest is registered by another player.");
-        return;
-    }
-    let location = { x: clicked.x, y: clicked.y, z: clicked.z };
-    let partner = findPartner(block);
-    if (partner && (partner.x < location.x || (partner.x === location.x && partner.z < location.z))) {
-        const swap = location;
-        location = partner;
-        partner = swap;
-    }
-    const form = new ModalFormData().title(existing ? "§lEdit Chest" : "§lRegister Chest");
-    callOptional(form, "header", existing ? plainName(existing) : "New chest");
-    form.textField("§lChest Name§r", "e.g., Ores, Building Blocks, Mob Drops", {
-        defaultValue: existing ? existing.name : DEFAULT_NAME,
-    });
+
+async function openRegisterForm(player: Player, dimensionId: string, clicked: Vector3): Promise<void> {
+  const dimension = world.getDimension(dimensionId);
+  const block = dimension.getBlock(clicked);
+  if (!block) return;
+
+  const existing = findEntry(dimensionId, clicked);
+  if (existing && existing.owner !== player.id) {
+    tell(player, "§c[ChestLog] §fThis chest is registered by another player.");
+    return;
+  }
+
+  let location: Vector3 = { x: clicked.x, y: clicked.y, z: clicked.z };
+  let partner = findPartner(block);
+  if (partner && (partner.x < location.x || (partner.x === location.x && partner.z < location.z))) {
+    const swap = location;
+    location = partner;
+    partner = swap;
+  }
+
+  const form = new ModalFormData().title(existing ? "§lEdit Chest" : "§lRegister Chest");
+  callOptional(form, "header", existing ? plainName(existing) : "New chest");
+  form.textField("§lChest Name§r", "e.g., Ores, Building Blocks, Mob Drops", {
+    defaultValue: existing ? existing.name : DEFAULT_NAME,
+  });
+  callOptional(form, "divider");
+  form.toggle("§lAuto-sort this chest§r", { defaultValue: existing ? existing.autoSort !== false : true });
+  callOptional(form, "divider");
+  if (existing) {
+    form.toggle("§lUnregister this chest§r");
     callOptional(form, "divider");
-    form.toggle("§lAuto-sort this chest§r", { defaultValue: existing ? existing.autoSort !== false : true });
-    callOptional(form, "divider");
-    if (existing) {
-        form.toggle("§lUnregister this chest§r");
-        callOptional(form, "divider");
+  }
+  form.submitButton(existing ? "Save" : "Register");
+  const response = await showForm(form, player);
+  if (!response || response.canceled || !response.formValues) return;
+
+  const values = response.formValues as unknown[];
+  const texts = values.filter((v): v is string => typeof v === "string");
+  const flags = values.filter((v): v is boolean => typeof v === "boolean");
+
+  const current = findEntry(dimensionId, clicked);
+  if (current && current.owner !== player.id) return;
+
+  if (current && flags[1] === true) {
+    flushEntry(current);
+    if (!releasePending(current)) {
+      saveEntry(current);
+      tell(player, "§c[ChestLog] §fCould not release the waiting items. The chest stays registered.");
+      return;
     }
-    form.submitButton(existing ? "Save" : "Register");
-    const response = await showForm(form, player);
-    if (!response || response.canceled || !response.formValues)
-        return;
-    const values = response.formValues;
-    const texts = values.filter((v) => typeof v === "string");
-    const flags = values.filter((v) => typeof v === "boolean");
-    const current = findEntry(dimensionId, clicked);
-    if (current && current.owner !== player.id)
-        return;
-    if (current && flags[1] === true) {
-        flushEntry(current);
-        if (!releasePending(current)) {
-            saveEntry(current);
-            tell(player, "§c[ChestLog] §fCould not release the waiting items. The chest stays registered.");
-            return;
-        }
-        deleteEntry(current);
-        tell(player, `§e[ChestLog] §f${current.name} was unregistered.`);
-        return;
-    }
-    const typed = String(texts[0] ?? "");
-    const name = typed.replace(/§./g, "").trim().slice(0, 32) || DEFAULT_NAME;
-    const entry = current ?? {
-        id: newId(),
-        owner: player.id,
-        created: Date.now(),
-        name,
-        dimensionId,
-        location,
-        pendingQueue: [],
-        known: [],
-    };
-    if (!current && partner)
-        entry.partner = partner;
-    entry.name = name;
-    entry.autoSort = flags[0] !== false;
-    refreshKnown(entry);
-    if (!saveEntry(entry)) {
-        tell(player, "§c[ChestLog] §fCould not save the chest.");
-        return;
-    }
-    try {
-        player.playSound("random.orb");
-    }
-    catch { }
-    try {
-        dimension.spawnParticle("minecraft:totem_particle", {
-            x: entry.location.x + 0.5,
-            y: entry.location.y + 1.2,
-            z: entry.location.z + 0.5,
-        });
-    }
-    catch { }
-    tell(player, `§a[ChestLog] §fRegistered §e${name}§f.`);
-}
-export function initRegister() {
-    world.beforeEvents.playerInteractWithBlock.subscribe((event) => {
-        const { player, block, itemStack, isFirstEvent } = event;
-        if (!itemStack || itemStack.typeId !== ITEM_ID)
-            return;
-        if (!CONTAINER_TYPES.has(block.typeId))
-            return;
-        markSuppressed(player);
-        if (!player.isSneaking)
-            return;
-        event.cancel = true;
-        if (!isFirstEvent)
-            return;
-        const dimensionId = block.dimension.id;
-        const clicked = { x: block.x, y: block.y, z: block.z };
-        system.run(() => {
-            if (!lockPlayer(player))
-                return;
-            openRegisterForm(player, dimensionId, clicked)
-                .catch(() => { })
-                .finally(() => unlockPlayer(player));
-        });
+    deleteEntry(current);
+    tell(player, `§e[ChestLog] §f${current.name} was unregistered.`);
+    return;
+  }
+
+  const typed = String(texts[0] ?? "");
+  const name = typed.replace(/§./g, "").trim().slice(0, 32) || DEFAULT_NAME;
+
+  const entry: ChestEntry = current ?? {
+    id: newId(),
+    owner: player.id,
+    created: Date.now(),
+    name,
+    dimensionId,
+    location,
+    pendingQueue: [],
+    known: [],
+  };
+  if (!current && partner) entry.partner = partner;
+  entry.name = name;
+  entry.autoSort = flags[0] !== false;
+  refreshKnown(entry);
+
+  if (!saveEntry(entry)) {
+    tell(player, "§c[ChestLog] §fCould not save the chest.");
+    return;
+  }
+
+  try {
+    player.playSound("random.orb");
+  } catch {}
+  try {
+    dimension.spawnParticle("minecraft:totem_particle", {
+      x: entry.location.x + 0.5,
+      y: entry.location.y + 1.2,
+      z: entry.location.z + 0.5,
     });
+  } catch {}
+  tell(player, `§a[ChestLog] §fRegistered §e${name}§f.`);
+}
+
+export function initRegister(): void {
+  world.beforeEvents.playerInteractWithBlock.subscribe((event) => {
+    const { player, block, itemStack, isFirstEvent } = event;
+    if (!itemStack || itemStack.typeId !== ITEM_ID) return;
+    if (!CONTAINER_TYPES.has(block.typeId)) return;
+    markSuppressed(player);
+    if (!player.isSneaking) return;
+    event.cancel = true;
+    if (!isFirstEvent) return;
+    const dimensionId = block.dimension.id;
+    const clicked: Vector3 = { x: block.x, y: block.y, z: block.z };
+    system.run(() => {
+      if (!lockPlayer(player)) return;
+      openRegisterForm(player, dimensionId, clicked)
+        .catch(() => {})
+        .finally(() => unlockPlayer(player));
+    });
+  });
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/chest_sync.js (684 lines, 21894 bytes)
+## FILE: MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/chest_sync.ts (721 lines, 22204 bytes)
 
 ```
-import { world, system, ItemStack, EnchantmentType, BlockInventoryComponent, EntityInventoryComponent, } from "@minecraft/server";
+import {
+  world,
+  system,
+  ItemStack,
+  EnchantmentType,
+  BlockInventoryComponent,
+  EntityInventoryComponent,
+} from "@minecraft/server";
+import type { Container, Dimension, Player, Vector3 } from "@minecraft/server";
 import { FormCancelationReason } from "@minecraft/server-ui";
+import type {
+  ActionFormData,
+  ActionFormResponse,
+  ModalFormData,
+  ModalFormResponse,
+} from "@minecraft/server-ui";
+
 export const ITEM_ID = "aln:chest_log";
 export const PACK_NAME = "ChestLog";
 export const PACK_VERSION = "5.0.0";
-export const CONTAINER_TYPES = new Set([
-    "minecraft:chest",
-    "minecraft:trapped_chest",
-    "minecraft:barrel",
+export const CONTAINER_TYPES = new Set<string>([
+  "minecraft:chest",
+  "minecraft:trapped_chest",
+  "minecraft:barrel",
 ]);
+
+export interface ItemRecord {
+  typeId: string;
+  amount: number;
+  nameTag?: string;
+  lore?: string[];
+  damage?: number;
+  enchantments?: { id: string; level: number }[];
+}
+
+export interface ChestEntry {
+  id: string;
+  owner: string;
+  created: number;
+  name: string;
+  dimensionId: string;
+  location: Vector3;
+  partner?: Vector3;
+  pendingQueue: ItemRecord[];
+  known: string[];
+  autoSort?: boolean;
+}
+
+export interface DepositStep {
+  slot: number;
+  typeId: string;
+  amount: number;
+  targets: ChestEntry[];
+}
+
+export interface DepositResult {
+  total: number;
+  chests: number;
+  failed?: boolean;
+}
+
+type Resolved =
+  | { state: "unloaded" }
+  | { state: "gone" }
+  | { state: "loaded"; container: Container };
+
 const PREFIX = "aln_chestlog:chest:";
 const LEGACY_KEY = "aln_chestlog_list";
 const MAX_KNOWN = 150;
 const ALERT_COOLDOWN = 600;
-const TOOL_TAGS = new Set([
-    "minecraft:is_tool",
-    "minecraft:is_sword",
-    "minecraft:is_axe",
-    "minecraft:is_pickaxe",
-    "minecraft:is_shovel",
-    "minecraft:is_hoe",
-    "minecraft:is_trident",
-    "minecraft:is_shears",
-    "minecraft:digger",
+const TOOL_TAGS = new Set<string>([
+  "minecraft:is_tool",
+  "minecraft:is_sword",
+  "minecraft:is_axe",
+  "minecraft:is_pickaxe",
+  "minecraft:is_shovel",
+  "minecraft:is_hoe",
+  "minecraft:is_trident",
+  "minecraft:is_shears",
+  "minecraft:digger",
 ]);
-const chests = new Map();
-const alertTicks = new Map();
-const suppressed = new Map();
-const openMenus = new Set();
-const unsaved = new Set();
-function loadAll() {
-    chests.clear();
-    for (const key of world.getDynamicPropertyIds()) {
-        if (!key.startsWith(PREFIX))
-            continue;
-        const raw = world.getDynamicProperty(key);
-        if (typeof raw !== "string")
-            continue;
-        try {
-            const entry = JSON.parse(raw);
-            if (entry && typeof entry.id === "string")
-                chests.set(entry.id, entry);
-        }
-        catch { }
-    }
-}
-export function saveEntry(entry) {
+
+const chests = new Map<string, ChestEntry>();
+const alertTicks = new Map<string, number>();
+const suppressed = new Map<string, number>();
+const openMenus = new Set<string>();
+const unsaved = new Set<string>();
+
+function loadAll(): void {
+  chests.clear();
+  for (const key of world.getDynamicPropertyIds()) {
+    if (!key.startsWith(PREFIX)) continue;
+    const raw = world.getDynamicProperty(key);
+    if (typeof raw !== "string") continue;
     try {
-        world.setDynamicProperty(PREFIX + entry.id, JSON.stringify(entry));
-        chests.set(entry.id, entry);
-        return true;
-    }
-    catch {
-        return false;
-    }
+      const entry = JSON.parse(raw) as ChestEntry;
+      if (entry && typeof entry.id === "string") chests.set(entry.id, entry);
+    } catch {}
+  }
 }
-function persist(entry) {
-    if (saveEntry(entry)) {
-        unsaved.delete(entry.id);
-        return true;
-    }
-    unsaved.add(entry.id);
-    return false;
-}
-export function deleteEntry(entry) {
-    try {
-        world.setDynamicProperty(PREFIX + entry.id, undefined);
-    }
-    catch { }
-    chests.delete(entry.id);
-    unsaved.delete(entry.id);
-}
-export function getEntry(id) {
-    return chests.get(id);
-}
-export function newId() {
-    return Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
-}
-export function chestsOf(player) {
-    return Array.from(chests.values())
-        .filter((entry) => entry.owner === player.id)
-        .sort((a, b) => (a.created ?? 0) - (b.created ?? 0));
-}
-function sameLocation(a, b) {
-    return !!a && !!b && a.x === b.x && a.y === b.y && a.z === b.z;
-}
-export function findEntry(dimensionId, location) {
-    for (const entry of chests.values()) {
-        if (entry.dimensionId === dimensionId &&
-            (sameLocation(entry.location, location) || sameLocation(entry.partner, location))) {
-            return entry;
-        }
-    }
-    return undefined;
-}
-function migratePlayer(player) {
-    const raw = player.getDynamicProperty(LEGACY_KEY);
-    if (typeof raw !== "string")
-        return;
-    try {
-        const legacy = JSON.parse(raw);
-        if (Array.isArray(legacy)) {
-            for (const entry of legacy) {
-                if (!entry || typeof entry.id !== "string" || chests.has(entry.id))
-                    continue;
-                entry.owner = player.id;
-                entry.created = entry.created ?? Date.now();
-                saveEntry(entry);
-            }
-        }
-        player.setDynamicProperty(LEGACY_KEY, undefined);
-    }
-    catch { }
-}
-export function lockPlayer(player) {
-    if (openMenus.has(player.id))
-        return false;
-    openMenus.add(player.id);
+
+export function saveEntry(entry: ChestEntry): boolean {
+  try {
+    world.setDynamicProperty(PREFIX + entry.id, JSON.stringify(entry));
+    chests.set(entry.id, entry);
     return true;
+  } catch {
+    return false;
+  }
 }
-export function unlockPlayer(player) {
-    openMenus.delete(player.id);
+
+function persist(entry: ChestEntry): boolean {
+  if (saveEntry(entry)) {
+    unsaved.delete(entry.id);
+    return true;
+  }
+  unsaved.add(entry.id);
+  return false;
 }
-export function callOptional(form, method, ...args) {
+
+export function deleteEntry(entry: ChestEntry): void {
+  try {
+    world.setDynamicProperty(PREFIX + entry.id, undefined);
+  } catch {}
+  chests.delete(entry.id);
+  unsaved.delete(entry.id);
+}
+
+export function getEntry(id: string): ChestEntry | undefined {
+  return chests.get(id);
+}
+
+export function newId(): string {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+}
+
+export function chestsOf(player: Player): ChestEntry[] {
+  return Array.from(chests.values())
+    .filter((entry) => entry.owner === player.id)
+    .sort((a, b) => (a.created ?? 0) - (b.created ?? 0));
+}
+
+function sameLocation(a: Vector3 | undefined, b: Vector3 | undefined): boolean {
+  return !!a && !!b && a.x === b.x && a.y === b.y && a.z === b.z;
+}
+
+export function findEntry(dimensionId: string, location: Vector3): ChestEntry | undefined {
+  for (const entry of chests.values()) {
+    if (
+      entry.dimensionId === dimensionId &&
+      (sameLocation(entry.location, location) || sameLocation(entry.partner, location))
+    ) {
+      return entry;
+    }
+  }
+  return undefined;
+}
+
+function migratePlayer(player: Player): void {
+  const raw = player.getDynamicProperty(LEGACY_KEY);
+  if (typeof raw !== "string") return;
+  try {
+    const legacy = JSON.parse(raw) as ChestEntry[];
+    if (Array.isArray(legacy)) {
+      for (const entry of legacy) {
+        if (!entry || typeof entry.id !== "string" || chests.has(entry.id)) continue;
+        entry.owner = player.id;
+        entry.created = entry.created ?? Date.now();
+        saveEntry(entry);
+      }
+    }
+    player.setDynamicProperty(LEGACY_KEY, undefined);
+  } catch {}
+}
+
+export function lockPlayer(player: Player): boolean {
+  if (openMenus.has(player.id)) return false;
+  openMenus.add(player.id);
+  return true;
+}
+
+export function unlockPlayer(player: Player): void {
+  openMenus.delete(player.id);
+}
+
+export function callOptional(form: object, method: string, ...args: unknown[]): void {
+  try {
+    const fn = (form as Record<string, unknown>)[method];
+    if (typeof fn === "function") fn.apply(form, args);
+  } catch {}
+}
+
+export async function showForm(form: ActionFormData, player: Player): Promise<ActionFormResponse | undefined>;
+export async function showForm(form: ModalFormData, player: Player): Promise<ModalFormResponse | undefined>;
+export async function showForm(
+  form: ActionFormData | ModalFormData,
+  player: Player
+): Promise<ActionFormResponse | ModalFormResponse | undefined> {
+  for (let attempt = 0; attempt < 6; attempt++) {
+    let response: ActionFormResponse | ModalFormResponse;
     try {
-        const fn = form[method];
-        if (typeof fn === "function")
-            fn.apply(form, args);
+      response = await form.show(player);
+    } catch {
+      return undefined;
     }
-    catch { }
-}
-export async function showForm(form, player) {
-    for (let attempt = 0; attempt < 6; attempt++) {
-        let response;
-        try {
-            response = await form.show(player);
-        }
-        catch {
-            return undefined;
-        }
-        if (response.canceled && response.cancelationReason === FormCancelationReason.UserBusy) {
-            await new Promise((resolve) => system.runTimeout(resolve, 10));
-            continue;
-        }
-        return response;
+    if (response.canceled && response.cancelationReason === FormCancelationReason.UserBusy) {
+      await new Promise<void>((resolve) => system.runTimeout(resolve, 10));
+      continue;
     }
-    return undefined;
+    return response;
+  }
+  return undefined;
 }
-export function markSuppressed(player) {
-    suppressed.set(player.id, system.currentTick);
+
+export function markSuppressed(player: Player): void {
+  suppressed.set(player.id, system.currentTick);
 }
-export function isSuppressed(player) {
-    const tick = suppressed.get(player.id);
-    return tick !== undefined && system.currentTick - tick <= 3;
+
+export function isSuppressed(player: Player): boolean {
+  const tick = suppressed.get(player.id);
+  return tick !== undefined && system.currentTick - tick <= 3;
 }
-export function dimensionColor(dimensionId) {
-    if (dimensionId.includes("nether"))
-        return "§c";
-    if (dimensionId.includes("the_end"))
-        return "§d";
-    return "§a";
+
+export function dimensionColor(dimensionId: string): string {
+  if (dimensionId.includes("nether")) return "§c";
+  if (dimensionId.includes("the_end")) return "§d";
+  return "§a";
 }
-export function dimensionLabel(dimensionId) {
-    if (dimensionId.includes("nether"))
-        return "Nether";
-    if (dimensionId.includes("the_end"))
-        return "The End";
-    return "Overworld";
+
+export function dimensionLabel(dimensionId: string): string {
+  if (dimensionId.includes("nether")) return "Nether";
+  if (dimensionId.includes("the_end")) return "The End";
+  return "Overworld";
 }
-export function coloredName(entry) {
-    return dimensionColor(entry.dimensionId) + entry.name;
+
+export function coloredName(entry: ChestEntry): string {
+  return dimensionColor(entry.dimensionId) + entry.name;
 }
-export function plainName(entry) {
-    return `${entry.name} [${dimensionLabel(entry.dimensionId)}]`;
+
+export function plainName(entry: ChestEntry): string {
+  return `${entry.name} [${dimensionLabel(entry.dimensionId)}]`;
 }
-export function itemDisplayName(item) {
-    if (item.nameTag)
-        return item.nameTag;
-    return item.typeId
-        .replace(/^[^:]+:/, "")
-        .split("_")
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(" ");
+
+export function itemDisplayName(item: ItemStack): string {
+  if (item.nameTag) return item.nameTag;
+  return item.typeId
+    .replace(/^[^:]+:/, "")
+    .split("_")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 }
-export function getInventory(player) {
-    const component = player.getComponent(EntityInventoryComponent.componentId);
-    return component ? component.container : undefined;
+
+export function getInventory(player: Player): Container | undefined {
+  const component = player.getComponent(EntityInventoryComponent.componentId) as
+    | EntityInventoryComponent
+    | undefined;
+  return component ? component.container : undefined;
 }
-function notifyOwner(entry, text) {
-    const owner = world.getAllPlayers().find((player) => player.id === entry.owner);
-    if (owner)
-        owner.onScreenDisplay.setActionBar(text);
+
+function notifyOwner(entry: ChestEntry, text: string): void {
+  const owner = world.getAllPlayers().find((player) => player.id === entry.owner);
+  if (owner) owner.onScreenDisplay.setActionBar(text);
 }
-function containerAt(dimension, location) {
-    const block = dimension.getBlock(location);
-    if (!block)
-        return { state: "unloaded" };
-    if (!CONTAINER_TYPES.has(block.typeId))
-        return { state: "gone" };
-    const component = block.getComponent(BlockInventoryComponent.componentId);
-    if (!component || !component.container)
-        return { state: "gone" };
-    return { state: "loaded", container: component.container };
+
+function containerAt(dimension: Dimension, location: Vector3): Resolved {
+  const block = dimension.getBlock(location);
+  if (!block) return { state: "unloaded" };
+  if (!CONTAINER_TYPES.has(block.typeId)) return { state: "gone" };
+  const component = block.getComponent(BlockInventoryComponent.componentId) as
+    | BlockInventoryComponent
+    | undefined;
+  if (!component || !component.container) return { state: "gone" };
+  return { state: "loaded", container: component.container };
 }
-function resolveContainer(entry) {
-    try {
-        const dimension = world.getDimension(entry.dimensionId);
-        const primary = containerAt(dimension, entry.location);
-        if (primary.state !== "gone" || !entry.partner)
-            return primary;
-        const secondary = containerAt(dimension, entry.partner);
-        if (secondary.state === "unloaded")
-            return secondary;
-        if (secondary.state !== "loaded")
-            return primary;
-        entry.location = entry.partner;
-        delete entry.partner;
-        return secondary;
+
+function resolveContainer(entry: ChestEntry): Resolved {
+  try {
+    const dimension = world.getDimension(entry.dimensionId);
+    const primary = containerAt(dimension, entry.location);
+    if (primary.state !== "gone" || !entry.partner) return primary;
+    const secondary = containerAt(dimension, entry.partner);
+    if (secondary.state === "unloaded") return secondary;
+    if (secondary.state !== "loaded") return primary;
+    entry.location = entry.partner;
+    delete entry.partner;
+    return secondary;
+  } catch {
+    return { state: "unloaded" };
+  }
+}
+
+function serializeItem(item: ItemStack): ItemRecord {
+  const record: ItemRecord = { typeId: item.typeId, amount: item.amount };
+  if (item.nameTag) record.nameTag = item.nameTag;
+  const lore = item.getLore();
+  if (lore.length > 0) record.lore = lore;
+  const durability = item.getComponent("minecraft:durability");
+  if (durability && durability.damage > 0) record.damage = durability.damage;
+  const enchantable = item.getComponent("minecraft:enchantable");
+  if (enchantable) {
+    const list = enchantable.getEnchantments();
+    if (list.length > 0) {
+      record.enchantments = list.map((e) => ({ id: e.type.id, level: e.level }));
     }
-    catch {
-        return { state: "unloaded" };
-    }
+  }
+  return record;
 }
-function serializeItem(item) {
-    const record = { typeId: item.typeId, amount: item.amount };
-    if (item.nameTag)
-        record.nameTag = item.nameTag;
-    const lore = item.getLore();
-    if (lore.length > 0)
-        record.lore = lore;
+
+function buildStack(record: ItemRecord, amount: number): ItemStack {
+  const item = new ItemStack(record.typeId, amount);
+  if (record.nameTag) item.nameTag = record.nameTag;
+  if (record.lore && record.lore.length > 0) item.setLore(record.lore);
+  if (record.damage) {
     const durability = item.getComponent("minecraft:durability");
-    if (durability && durability.damage > 0)
-        record.damage = durability.damage;
+    if (durability) durability.damage = record.damage;
+  }
+  if (record.enchantments && record.enchantments.length > 0) {
     const enchantable = item.getComponent("minecraft:enchantable");
     if (enchantable) {
-        const list = enchantable.getEnchantments();
-        if (list.length > 0) {
-            record.enchantments = list.map((e) => ({ id: e.type.id, level: e.level }));
-        }
-    }
-    return record;
-}
-function buildStack(record, amount) {
-    const item = new ItemStack(record.typeId, amount);
-    if (record.nameTag)
-        item.nameTag = record.nameTag;
-    if (record.lore && record.lore.length > 0)
-        item.setLore(record.lore);
-    if (record.damage) {
-        const durability = item.getComponent("minecraft:durability");
-        if (durability)
-            durability.damage = record.damage;
-    }
-    if (record.enchantments && record.enchantments.length > 0) {
-        const enchantable = item.getComponent("minecraft:enchantable");
-        if (enchantable) {
-            for (const e of record.enchantments) {
-                try {
-                    enchantable.addEnchantment({ type: new EnchantmentType(e.id), level: e.level });
-                }
-                catch { }
-            }
-        }
-    }
-    return item;
-}
-function recordKey(record) {
-    return JSON.stringify([
-        record.typeId,
-        record.nameTag ?? "",
-        record.lore ?? [],
-        record.damage ?? 0,
-        record.enchantments ?? [],
-    ]);
-}
-function enqueue(entry, item) {
-    if (!Array.isArray(entry.pendingQueue))
-        entry.pendingQueue = [];
-    const record = serializeItem(item);
-    const key = recordKey(record);
-    const hit = entry.pendingQueue.find((r) => recordKey(r) === key);
-    if (hit)
-        hit.amount += record.amount;
-    else
-        entry.pendingQueue.push(record);
-}
-function rememberType(entry, typeId) {
-    if (!Array.isArray(entry.known))
-        entry.known = [];
-    if (entry.known.includes(typeId))
-        return;
-    entry.known.push(typeId);
-    if (entry.known.length > MAX_KNOWN)
-        entry.known.shift();
-}
-function pendingTypes(entry) {
-    return (entry.pendingQueue ?? []).map((r) => r.typeId);
-}
-export function refreshKnown(entry) {
-    const resolved = resolveContainer(entry);
-    if (resolved.state !== "loaded")
-        return;
-    const types = new Set(pendingTypes(entry));
-    const container = resolved.container;
-    for (let i = 0; i < container.size; i++) {
-        const item = container.getItem(i);
-        if (item)
-            types.add(item.typeId);
-    }
-    entry.known = Array.from(types).slice(0, MAX_KNOWN);
-}
-function entryTypeSet(entry) {
-    const resolved = resolveContainer(entry);
-    if (resolved.state === "loaded") {
-        refreshKnown(entry);
-        return new Set(entry.known);
-    }
-    return new Set([...(entry.known ?? []), ...pendingTypes(entry)]);
-}
-function categoryOf(item) {
-    let tags;
-    try {
-        tags = item.getTags();
-    }
-    catch {
-        return 3;
-    }
-    if (tags.some((tag) => TOOL_TAGS.has(tag)))
-        return 0;
-    if (tags.includes("minecraft:is_armor"))
-        return 1;
-    if (tags.includes("minecraft:is_food"))
-        return 2;
-    return 3;
-}
-export function sortContainer(container) {
-    const original = [];
-    try {
-        const stacks = [];
-        for (let i = 0; i < container.size; i++) {
-            const item = container.getItem(i);
-            original.push(item);
-            if (item)
-                stacks.push(item);
-        }
-        const merged = [];
-        for (const item of stacks) {
-            let remaining = item.amount;
-            for (const target of merged) {
-                if (remaining <= 0)
-                    break;
-                if (target.amount < target.maxAmount && target.isStackableWith(item)) {
-                    const move = Math.min(target.maxAmount - target.amount, remaining);
-                    target.amount += move;
-                    remaining -= move;
-                }
-            }
-            if (remaining > 0) {
-                const copy = item.clone();
-                copy.amount = remaining;
-                merged.push(copy);
-            }
-        }
-        const ranked = merged.map((item) => ({ item, category: categoryOf(item) }));
-        ranked.sort((a, b) => a.category - b.category ||
-            a.item.typeId.localeCompare(b.item.typeId) ||
-            b.item.amount - a.item.amount);
-        if (ranked.length > container.size)
-            return;
-        for (let i = 0; i < container.size; i++) {
-            container.setItem(i, i < ranked.length ? ranked[i].item : undefined);
-        }
-    }
-    catch {
+      for (const e of record.enchantments) {
         try {
-            for (let i = 0; i < original.length; i++)
-                container.setItem(i, original[i]);
-        }
-        catch { }
+          enchantable.addEnchantment({ type: new EnchantmentType(e.id), level: e.level });
+        } catch {}
+      }
     }
+  }
+  return item;
 }
-function sortEntry(entry) {
-    if (entry.autoSort === false)
-        return;
-    const resolved = resolveContainer(entry);
-    if (resolved.state === "loaded")
-        sortContainer(resolved.container);
+
+function recordKey(record: ItemRecord): string {
+  return JSON.stringify([
+    record.typeId,
+    record.nameTag ?? "",
+    record.lore ?? [],
+    record.damage ?? 0,
+    record.enchantments ?? [],
+  ]);
 }
-function depositItem(entry, part) {
-    const amount = part.amount;
-    const resolved = resolveContainer(entry);
-    if (resolved.state === "loaded") {
-        let rest;
-        try {
-            rest = resolved.container.addItem(part);
-        }
-        catch {
-            return { stored: 0, queued: false };
-        }
-        rememberType(entry, part.typeId);
-        return { stored: amount - (rest ? rest.amount : 0), queued: false };
-    }
-    if (resolved.state === "unloaded") {
-        enqueue(entry, part);
-        rememberType(entry, part.typeId);
-        return { stored: amount, queued: true };
-    }
-    return { stored: 0, queued: false };
+
+function enqueue(entry: ChestEntry, item: ItemStack): void {
+  if (!Array.isArray(entry.pendingQueue)) entry.pendingQueue = [];
+  const record = serializeItem(item);
+  const key = recordKey(record);
+  const hit = entry.pendingQueue.find((r) => recordKey(r) === key);
+  if (hit) hit.amount += record.amount;
+  else entry.pendingQueue.push(record);
 }
-export function runDeposit(player, plan) {
-    const inventory = getInventory(player);
-    if (!inventory)
-        return { total: 0, chests: 0 };
-    const snapshots = new Map();
-    const results = [];
-    const loadedHits = new Set();
-    const queuedHits = new Set();
-    for (const step of plan) {
-        const held = inventory.getItem(step.slot);
-        if (!held || held.typeId !== step.typeId)
-            continue;
-        let left = Math.min(step.amount, held.amount);
-        const result = { slot: step.slot, held, stored: 0, queuedBy: new Map() };
-        for (const entry of step.targets) {
-            if (left <= 0)
-                break;
-            if (!snapshots.has(entry.id))
-                snapshots.set(entry.id, JSON.stringify(entry.pendingQueue ?? []));
-            const part = held.clone();
-            part.amount = left;
-            const out = depositItem(entry, part);
-            if (out.stored <= 0)
-                continue;
-            result.stored += out.stored;
-            left -= out.stored;
-            if (out.queued) {
-                queuedHits.add(entry);
-                result.queuedBy.set(entry.id, (result.queuedBy.get(entry.id) ?? 0) + out.stored);
-            }
-            else {
-                loadedHits.add(entry);
-            }
-        }
-        results.push(result);
-    }
-    let failed = false;
-    for (const entry of new Set([...queuedHits, ...loadedHits])) {
-        if (persist(entry))
-            continue;
-        if (!queuedHits.has(entry))
-            continue;
-        failed = true;
-        entry.pendingQueue = JSON.parse(snapshots.get(entry.id) ?? "[]");
-        queuedHits.delete(entry);
-        unsaved.delete(entry.id);
-        for (const result of results) {
-            result.stored -= result.queuedBy.get(entry.id) ?? 0;
-            result.queuedBy.delete(entry.id);
-        }
-    }
-    let total = 0;
-    for (const result of results) {
-        if (result.stored <= 0)
-            continue;
-        total += result.stored;
-        const remain = result.held.amount - result.stored;
-        if (remain <= 0) {
-            inventory.setItem(result.slot, undefined);
-        }
-        else {
-            const keep = result.held.clone();
-            keep.amount = remain;
-            inventory.setItem(result.slot, keep);
-        }
-    }
-    for (const entry of loadedHits)
-        sortEntry(entry);
-    return { total, chests: new Set([...loadedHits, ...queuedHits]).size, failed };
+
+function rememberType(entry: ChestEntry, typeId: string): void {
+  if (!Array.isArray(entry.known)) entry.known = [];
+  if (entry.known.includes(typeId)) return;
+  entry.known.push(typeId);
+  if (entry.known.length > MAX_KNOWN) entry.known.shift();
 }
-export function depositAll(player) {
-    const entries = chestsOf(player);
-    if (entries.length === 0) {
-        player.onScreenDisplay.setActionBar("§e[ChestLog] §fNo chests registered yet.");
-        return;
-    }
-    const inventory = getInventory(player);
-    if (!inventory)
-        return;
-    const sets = entries.map(entryTypeSet);
-    const plan = [];
-    for (let slot = 0; slot < 36; slot++) {
-        const item = inventory.getItem(slot);
-        if (!item || item.typeId === ITEM_ID)
-            continue;
-        const targets = entries.filter((entry, index) => sets[index].has(item.typeId));
-        if (targets.length > 0)
-            plan.push({ slot, typeId: item.typeId, amount: item.amount, targets });
-    }
-    const result = runDeposit(player, plan);
-    if (result.failed) {
-        player.onScreenDisplay.setActionBar("§c[ChestLog] §fCould not buffer items for an unloaded chest.");
-        return;
-    }
-    if (result.total === 0) {
-        player.onScreenDisplay.setActionBar("§e[ChestLog] §fNo matching items to deposit.");
-        return;
-    }
-    player.onScreenDisplay.setActionBar(`§a[ChestLog] §fSorted & deposited §e${result.total} §fitems across §b${result.chests} §fchests!`);
+
+function pendingTypes(entry: ChestEntry): string[] {
+  return (entry.pendingQueue ?? []).map((r) => r.typeId);
 }
-function alertFull(entry) {
-    const last = alertTicks.get(entry.id);
-    if (last !== undefined && system.currentTick - last < ALERT_COOLDOWN)
-        return;
-    alertTicks.set(entry.id, system.currentTick);
-    const waiting = entry.pendingQueue.reduce((sum, r) => sum + r.amount, 0);
-    notifyOwner(entry, `§c[ChestLog] ${coloredName(entry)} §fis full. §e${waiting} §fitems are waiting.`);
+
+export function refreshKnown(entry: ChestEntry): void {
+  const resolved = resolveContainer(entry);
+  if (resolved.state !== "loaded") return;
+  const types = new Set<string>(pendingTypes(entry));
+  const container = resolved.container;
+  for (let i = 0; i < container.size; i++) {
+    const item = container.getItem(i);
+    if (item) types.add(item.typeId);
+  }
+  entry.known = Array.from(types).slice(0, MAX_KNOWN);
 }
-export function flushEntry(entry) {
-    if (!Array.isArray(entry.pendingQueue) || entry.pendingQueue.length === 0)
-        return false;
-    const resolved = resolveContainer(entry);
-    if (resolved.state !== "loaded")
-        return false;
-    let changed = false;
-    let blocked = false;
-    const remainingQueue = [];
-    for (const record of entry.pendingQueue) {
-        let remaining = record.amount;
-        if (!blocked) {
-            let max;
-            try {
-                max = new ItemStack(record.typeId, 1).maxAmount;
-            }
-            catch {
-                remainingQueue.push(record);
-                continue;
-            }
-            while (remaining > 0) {
-                const amount = Math.min(remaining, max);
-                let rest;
-                try {
-                    rest = resolved.container.addItem(buildStack(record, amount));
-                }
-                catch {
-                    blocked = true;
-                    break;
-                }
-                const moved = amount - (rest ? rest.amount : 0);
-                remaining -= moved;
-                if (moved > 0)
-                    changed = true;
-                if (rest) {
-                    blocked = true;
-                    break;
-                }
-            }
-        }
-        if (remaining > 0)
-            remainingQueue.push({ ...record, amount: remaining });
-    }
-    entry.pendingQueue = remainingQueue;
-    if (blocked && remainingQueue.length > 0)
-        alertFull(entry);
-    return changed;
-}
-export function releasePending(entry) {
-    const queue = entry.pendingQueue ?? [];
-    const failedRecords = [];
-    let dimension;
-    try {
-        dimension = world.getDimension(entry.dimensionId);
-    }
-    catch { }
-    const at = { x: entry.location.x + 0.5, y: entry.location.y + 1, z: entry.location.z + 0.5 };
-    for (const record of queue) {
-        let max;
-        try {
-            max = new ItemStack(record.typeId, 1).maxAmount;
-        }
-        catch {
-            continue;
-        }
-        let remaining = record.amount;
-        while (remaining > 0 && dimension) {
-            const amount = Math.min(remaining, max);
-            try {
-                dimension.spawnItem(buildStack(record, amount), at);
-            }
-            catch {
-                break;
-            }
-            remaining -= amount;
-        }
-        if (remaining > 0)
-            failedRecords.push({ ...record, amount: remaining });
-    }
-    entry.pendingQueue = failedRecords;
-    return failedRecords.length === 0;
-}
-function flushSweep() {
-    for (const entry of Array.from(chests.values())) {
-        if (!entry.pendingQueue || entry.pendingQueue.length === 0)
-            continue;
-        const before = JSON.stringify(entry);
-        if (flushEntry(entry)) {
-            refreshKnown(entry);
-            sortEntry(entry);
-        }
-        if (JSON.stringify(entry) !== before)
-            persist(entry);
-    }
-}
-function goneSweep() {
-    for (const player of world.getAllPlayers()) {
-        try {
-            migratePlayer(player);
-        }
-        catch { }
-    }
-    for (const id of Array.from(unsaved)) {
-        const pending = chests.get(id);
-        if (pending)
-            persist(pending);
-        else
-            unsaved.delete(id);
-    }
-    for (const entry of Array.from(chests.values())) {
-        const before = JSON.stringify(entry);
-        const resolved = resolveContainer(entry);
-        if (resolved.state === "gone") {
-            if (releasePending(entry)) {
-                notifyOwner(entry, `§e[ChestLog] §fThe chest ${coloredName(entry)} §fwas removed and unregistered.`);
-                deleteEntry(entry);
-            }
-            else {
-                persist(entry);
-            }
-        }
-        else if (JSON.stringify(entry) !== before) {
-            persist(entry);
-        }
-    }
-}
-function flushAtLocation(dimensionId, location) {
-    const entry = findEntry(dimensionId, location);
-    if (!entry)
-        return;
-    const changed = flushEntry(entry);
+
+function entryTypeSet(entry: ChestEntry): Set<string> {
+  const resolved = resolveContainer(entry);
+  if (resolved.state === "loaded") {
     refreshKnown(entry);
-    if (changed)
-        sortEntry(entry);
-    persist(entry);
+    return new Set(entry.known);
+  }
+  return new Set([...(entry.known ?? []), ...pendingTypes(entry)]);
 }
-export function initSync() {
-    loadAll();
-    system.runInterval(() => {
-        try {
-            flushSweep();
+
+function categoryOf(item: ItemStack): number {
+  let tags: string[];
+  try {
+    tags = item.getTags();
+  } catch {
+    return 3;
+  }
+  if (tags.some((tag) => TOOL_TAGS.has(tag))) return 0;
+  if (tags.includes("minecraft:is_armor")) return 1;
+  if (tags.includes("minecraft:is_food")) return 2;
+  return 3;
+}
+
+export function sortContainer(container: Container): void {
+  const original: (ItemStack | undefined)[] = [];
+  try {
+    const stacks: ItemStack[] = [];
+    for (let i = 0; i < container.size; i++) {
+      const item = container.getItem(i);
+      original.push(item);
+      if (item) stacks.push(item);
+    }
+    const merged: ItemStack[] = [];
+    for (const item of stacks) {
+      let remaining = item.amount;
+      for (const target of merged) {
+        if (remaining <= 0) break;
+        if (target.amount < target.maxAmount && target.isStackableWith(item)) {
+          const move = Math.min(target.maxAmount - target.amount, remaining);
+          target.amount += move;
+          remaining -= move;
         }
-        catch { }
-    }, 20);
-    system.runInterval(() => {
+      }
+      if (remaining > 0) {
+        const copy = item.clone();
+        copy.amount = remaining;
+        merged.push(copy);
+      }
+    }
+    const ranked = merged.map((item) => ({ item, category: categoryOf(item) }));
+    ranked.sort(
+      (a, b) =>
+        a.category - b.category ||
+        a.item.typeId.localeCompare(b.item.typeId) ||
+        b.item.amount - a.item.amount
+    );
+    if (ranked.length > container.size) return;
+    for (let i = 0; i < container.size; i++) {
+      container.setItem(i, i < ranked.length ? ranked[i].item : undefined);
+    }
+  } catch {
+    try {
+      for (let i = 0; i < original.length; i++) container.setItem(i, original[i]);
+    } catch {}
+  }
+}
+
+function sortEntry(entry: ChestEntry): void {
+  if (entry.autoSort === false) return;
+  const resolved = resolveContainer(entry);
+  if (resolved.state === "loaded") sortContainer(resolved.container);
+}
+
+function depositItem(entry: ChestEntry, part: ItemStack): { stored: number; queued: boolean } {
+  const amount = part.amount;
+  const resolved = resolveContainer(entry);
+  if (resolved.state === "loaded") {
+    let rest: ItemStack | undefined;
+    try {
+      rest = resolved.container.addItem(part);
+    } catch {
+      return { stored: 0, queued: false };
+    }
+    rememberType(entry, part.typeId);
+    return { stored: amount - (rest ? rest.amount : 0), queued: false };
+  }
+  if (resolved.state === "unloaded") {
+    enqueue(entry, part);
+    rememberType(entry, part.typeId);
+    return { stored: amount, queued: true };
+  }
+  return { stored: 0, queued: false };
+}
+
+interface StepResult {
+  slot: number;
+  held: ItemStack;
+  stored: number;
+  queuedBy: Map<string, number>;
+}
+
+export function runDeposit(player: Player, plan: DepositStep[]): DepositResult {
+  const inventory = getInventory(player);
+  if (!inventory) return { total: 0, chests: 0 };
+  const snapshots = new Map<string, string>();
+  const results: StepResult[] = [];
+  const loadedHits = new Set<ChestEntry>();
+  const queuedHits = new Set<ChestEntry>();
+
+  for (const step of plan) {
+    const held = inventory.getItem(step.slot);
+    if (!held || held.typeId !== step.typeId) continue;
+    let left = Math.min(step.amount, held.amount);
+    const result: StepResult = { slot: step.slot, held, stored: 0, queuedBy: new Map() };
+    for (const entry of step.targets) {
+      if (left <= 0) break;
+      if (!snapshots.has(entry.id)) snapshots.set(entry.id, JSON.stringify(entry.pendingQueue ?? []));
+      const part = held.clone();
+      part.amount = left;
+      const out = depositItem(entry, part);
+      if (out.stored <= 0) continue;
+      result.stored += out.stored;
+      left -= out.stored;
+      if (out.queued) {
+        queuedHits.add(entry);
+        result.queuedBy.set(entry.id, (result.queuedBy.get(entry.id) ?? 0) + out.stored);
+      } else {
+        loadedHits.add(entry);
+      }
+    }
+    results.push(result);
+  }
+
+  let failed = false;
+  for (const entry of new Set([...queuedHits, ...loadedHits])) {
+    if (persist(entry)) continue;
+    if (!queuedHits.has(entry)) continue;
+    failed = true;
+    entry.pendingQueue = JSON.parse(snapshots.get(entry.id) ?? "[]") as ItemRecord[];
+    queuedHits.delete(entry);
+    unsaved.delete(entry.id);
+    for (const result of results) {
+      result.stored -= result.queuedBy.get(entry.id) ?? 0;
+      result.queuedBy.delete(entry.id);
+    }
+  }
+
+  let total = 0;
+  for (const result of results) {
+    if (result.stored <= 0) continue;
+    total += result.stored;
+    const remain = result.held.amount - result.stored;
+    if (remain <= 0) {
+      inventory.setItem(result.slot, undefined);
+    } else {
+      const keep = result.held.clone();
+      keep.amount = remain;
+      inventory.setItem(result.slot, keep);
+    }
+  }
+
+  for (const entry of loadedHits) sortEntry(entry);
+  return { total, chests: new Set([...loadedHits, ...queuedHits]).size, failed };
+}
+
+export function depositAll(player: Player): void {
+  const entries = chestsOf(player);
+  if (entries.length === 0) {
+    player.onScreenDisplay.setActionBar("§e[ChestLog] §fNo chests registered yet.");
+    return;
+  }
+  const inventory = getInventory(player);
+  if (!inventory) return;
+  const sets = entries.map(entryTypeSet);
+  const plan: DepositStep[] = [];
+  for (let slot = 0; slot < 36; slot++) {
+    const item = inventory.getItem(slot);
+    if (!item || item.typeId === ITEM_ID) continue;
+    const targets = entries.filter((entry, index) => sets[index].has(item.typeId));
+    if (targets.length > 0) plan.push({ slot, typeId: item.typeId, amount: item.amount, targets });
+  }
+  const result = runDeposit(player, plan);
+  if (result.failed) {
+    player.onScreenDisplay.setActionBar("§c[ChestLog] §fCould not buffer items for an unloaded chest.");
+    return;
+  }
+  if (result.total === 0) {
+    player.onScreenDisplay.setActionBar("§e[ChestLog] §fNo matching items to deposit.");
+    return;
+  }
+  player.onScreenDisplay.setActionBar(
+    `§a[ChestLog] §fSorted & deposited §e${result.total} §fitems across §b${result.chests} §fchests!`
+  );
+}
+
+function alertFull(entry: ChestEntry): void {
+  const last = alertTicks.get(entry.id);
+  if (last !== undefined && system.currentTick - last < ALERT_COOLDOWN) return;
+  alertTicks.set(entry.id, system.currentTick);
+  const waiting = entry.pendingQueue.reduce((sum, r) => sum + r.amount, 0);
+  notifyOwner(entry, `§c[ChestLog] ${coloredName(entry)} §fis full. §e${waiting} §fitems are waiting.`);
+}
+
+export function flushEntry(entry: ChestEntry): boolean {
+  if (!Array.isArray(entry.pendingQueue) || entry.pendingQueue.length === 0) return false;
+  const resolved = resolveContainer(entry);
+  if (resolved.state !== "loaded") return false;
+  let changed = false;
+  let blocked = false;
+  const remainingQueue: ItemRecord[] = [];
+  for (const record of entry.pendingQueue) {
+    let remaining = record.amount;
+    if (!blocked) {
+      let max: number;
+      try {
+        max = new ItemStack(record.typeId, 1).maxAmount;
+      } catch {
+        remainingQueue.push(record);
+        continue;
+      }
+      while (remaining > 0) {
+        const amount = Math.min(remaining, max);
+        let rest: ItemStack | undefined;
         try {
-            goneSweep();
+          rest = resolved.container.addItem(buildStack(record, amount));
+        } catch {
+          blocked = true;
+          break;
         }
-        catch { }
-    }, 100);
-    world.beforeEvents.playerInteractWithBlock.subscribe((event) => {
-        const { player, block, itemStack, isFirstEvent } = event;
-        if (!isFirstEvent || !CONTAINER_TYPES.has(block.typeId))
-            return;
-        if (itemStack && itemStack.typeId === ITEM_ID && player.isSneaking)
-            return;
-        const dimensionId = block.dimension.id;
-        const location = { x: block.x, y: block.y, z: block.z };
-        system.run(() => {
-            try {
-                flushAtLocation(dimensionId, location);
-            }
-            catch { }
-        });
+        const moved = amount - (rest ? rest.amount : 0);
+        remaining -= moved;
+        if (moved > 0) changed = true;
+        if (rest) {
+          blocked = true;
+          break;
+        }
+      }
+    }
+    if (remaining > 0) remainingQueue.push({ ...record, amount: remaining });
+  }
+  entry.pendingQueue = remainingQueue;
+  if (blocked && remainingQueue.length > 0) alertFull(entry);
+  return changed;
+}
+
+export function releasePending(entry: ChestEntry): boolean {
+  const queue = entry.pendingQueue ?? [];
+  const failedRecords: ItemRecord[] = [];
+  let dimension: Dimension | undefined;
+  try {
+    dimension = world.getDimension(entry.dimensionId);
+  } catch {}
+  const at: Vector3 = { x: entry.location.x + 0.5, y: entry.location.y + 1, z: entry.location.z + 0.5 };
+  for (const record of queue) {
+    let max: number;
+    try {
+      max = new ItemStack(record.typeId, 1).maxAmount;
+    } catch {
+      continue;
+    }
+    let remaining = record.amount;
+    while (remaining > 0 && dimension) {
+      const amount = Math.min(remaining, max);
+      try {
+        dimension.spawnItem(buildStack(record, amount), at);
+      } catch {
+        break;
+      }
+      remaining -= amount;
+    }
+    if (remaining > 0) failedRecords.push({ ...record, amount: remaining });
+  }
+  entry.pendingQueue = failedRecords;
+  return failedRecords.length === 0;
+}
+
+function flushSweep(): void {
+  for (const entry of Array.from(chests.values())) {
+    if (!entry.pendingQueue || entry.pendingQueue.length === 0) continue;
+    const before = JSON.stringify(entry);
+    if (flushEntry(entry)) {
+      refreshKnown(entry);
+      sortEntry(entry);
+    }
+    if (JSON.stringify(entry) !== before) persist(entry);
+  }
+}
+
+function goneSweep(): void {
+  for (const player of world.getAllPlayers()) {
+    try {
+      migratePlayer(player);
+    } catch {}
+  }
+  for (const id of Array.from(unsaved)) {
+    const pending = chests.get(id);
+    if (pending) persist(pending);
+    else unsaved.delete(id);
+  }
+  for (const entry of Array.from(chests.values())) {
+    const before = JSON.stringify(entry);
+    const resolved = resolveContainer(entry);
+    if (resolved.state === "gone") {
+      if (releasePending(entry)) {
+        notifyOwner(entry, `§e[ChestLog] §fThe chest ${coloredName(entry)} §fwas removed and unregistered.`);
+        deleteEntry(entry);
+      } else {
+        persist(entry);
+      }
+    } else if (JSON.stringify(entry) !== before) {
+      persist(entry);
+    }
+  }
+}
+
+function flushAtLocation(dimensionId: string, location: Vector3): void {
+  const entry = findEntry(dimensionId, location);
+  if (!entry) return;
+  const changed = flushEntry(entry);
+  refreshKnown(entry);
+  if (changed) sortEntry(entry);
+  persist(entry);
+}
+
+export function initSync(): void {
+  loadAll();
+  system.runInterval(() => {
+    try {
+      flushSweep();
+    } catch {}
+  }, 20);
+  system.runInterval(() => {
+    try {
+      goneSweep();
+    } catch {}
+  }, 100);
+
+  world.beforeEvents.playerInteractWithBlock.subscribe((event) => {
+    const { player, block, itemStack, isFirstEvent } = event;
+    if (!isFirstEvent || !CONTAINER_TYPES.has(block.typeId)) return;
+    if (itemStack && itemStack.typeId === ITEM_ID && player.isSneaking) return;
+    const dimensionId = block.dimension.id;
+    const location: Vector3 = { x: block.x, y: block.y, z: block.z };
+    system.run(() => {
+      try {
+        flushAtLocation(dimensionId, location);
+      } catch {}
     });
+  });
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/chest_ui.js (165 lines, 6310 bytes)
+## FILE: MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/chest_ui.ts (182 lines, 6040 bytes)
 
 ```
 import { world, system } from "@minecraft/server";
+import type { Player } from "@minecraft/server";
 import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
-import { ITEM_ID, PACK_NAME, PACK_VERSION, chestsOf, getEntry, plainName, itemDisplayName, getInventory, runDeposit, depositAll, isSuppressed, showForm, lockPlayer, unlockPlayer, callOptional, } from "./chest_sync.js";
+import {
+  ITEM_ID,
+  PACK_NAME,
+  PACK_VERSION,
+  chestsOf,
+  getEntry,
+  plainName,
+  itemDisplayName,
+  getInventory,
+  runDeposit,
+  depositAll,
+  isSuppressed,
+  showForm,
+  lockPlayer,
+  unlockPlayer,
+  callOptional,
+} from "./chest_sync.js";
+import type { DepositStep } from "./chest_sync.js";
+
 const ICON = "textures/items/aln_chest_log";
 const ABOUT_ICON = "textures/items/name_tag";
 const MAIN_TITLE = `§l§6@ALNStudios §e${PACK_NAME}§r (v${PACK_VERSION})`;
 const LORE = ["§eSneak + Use on a Chest to register", "§eUse in air to open Remote Deposit"];
-async function showChestList(player) {
-    while (true) {
-        const list = chestsOf(player);
-        const form = new ActionFormData()
-            .title("§lChests")
-            .body(list.length === 0
-            ? "§lNo chests registered yet.§r Sneak + Use the ChestLog on a Chest, Trapped Chest or Barrel."
-            : "§lPick a chest to deposit into, or sort everything at once.§r")
-            .button("§lDeposit All (Sort)§r", ICON);
-        for (const entry of list)
-            form.button(`§l${plainName(entry)}§r`, ICON);
-        form.button("§lBack§r");
-        const response = await showForm(form, player);
-        if (!response || response.canceled || response.selection === undefined)
-            return false;
-        const selection = response.selection;
-        if (selection === list.length + 1)
-            return true;
-        if (selection === 0) {
-            depositAll(player);
-            continue;
-        }
-        const entry = list[selection - 1];
-        if (entry && !(await showDepositForm(player, entry.id)))
-            return false;
-    }
-}
-async function showDepositForm(player, entryId) {
-    const entry = getEntry(entryId);
-    if (!entry || entry.owner !== player.id)
-        return true;
-    const inventory = getInventory(player);
-    if (!inventory)
-        return true;
-    const rows = [];
-    for (let slot = 0; slot < 36; slot++) {
-        const item = inventory.getItem(slot);
-        if (!item || item.typeId === ITEM_ID)
-            continue;
-        rows.push({ slot, typeId: item.typeId, amount: item.amount, label: itemDisplayName(item) });
-    }
-    if (rows.length === 0) {
-        player.onScreenDisplay.setActionBar("§e[ChestLog] §fYou have nothing to deposit.");
-        return true;
-    }
-    const form = new ModalFormData().title(`§l${plainName(entry)}§r`);
-    for (const row of rows) {
-        callOptional(form, "header", row.label);
-        form.slider(`§lAmount§r (Held: ${row.amount})`, 0, row.amount, {
-            valueStep: 1,
-            defaultValue: 0,
-        });
-        callOptional(form, "divider");
-    }
-    form.submitButton("Deposit");
+
+async function showChestList(player: Player): Promise<boolean> {
+  while (true) {
+    const list = chestsOf(player);
+    const form = new ActionFormData()
+      .title("§lChests")
+      .body(
+        list.length === 0
+          ? "§lNo chests registered yet.§r Sneak + Use the ChestLog on a Chest, Trapped Chest or Barrel."
+          : "§lPick a chest to deposit into, or sort everything at once.§r"
+      )
+      .button("§lDeposit All (Sort)§r", ICON);
+    for (const entry of list) form.button(`§l${plainName(entry)}§r`, ICON);
+    form.button("§lBack§r");
     const response = await showForm(form, player);
-    if (!response || response.canceled || !response.formValues)
-        return false;
-    const amounts = response.formValues.filter((v) => typeof v === "number");
-    if (amounts.length < rows.length)
-        return true;
-    const target = getEntry(entryId);
-    if (!target)
-        return true;
-    const plan = [];
-    rows.forEach((row, i) => {
-        const amount = Number(amounts[i]);
-        if (amount > 0)
-            plan.push({ slot: row.slot, typeId: row.typeId, amount, targets: [target] });
-    });
-    if (plan.length === 0)
-        return true;
-    const result = runDeposit(player, plan);
-    if (result.failed) {
-        player.onScreenDisplay.setActionBar("§c[ChestLog] §fCould not buffer items for an unloaded chest.");
-        return true;
+    if (!response || response.canceled || response.selection === undefined) return false;
+    const selection = response.selection;
+    if (selection === list.length + 1) return true;
+    if (selection === 0) {
+      depositAll(player);
+      continue;
     }
-    player.onScreenDisplay.setActionBar(`§a[ChestLog] §fDeposited §e${result.total} §fitems into ${target.name}§f!`);
+    const entry = list[selection - 1];
+    if (entry && !(await showDepositForm(player, entry.id))) return false;
+  }
+}
+
+async function showDepositForm(player: Player, entryId: string): Promise<boolean> {
+  const entry = getEntry(entryId);
+  if (!entry || entry.owner !== player.id) return true;
+  const inventory = getInventory(player);
+  if (!inventory) return true;
+
+  const rows: { slot: number; typeId: string; amount: number; label: string }[] = [];
+  for (let slot = 0; slot < 36; slot++) {
+    const item = inventory.getItem(slot);
+    if (!item || item.typeId === ITEM_ID) continue;
+    rows.push({ slot, typeId: item.typeId, amount: item.amount, label: itemDisplayName(item) });
+  }
+  if (rows.length === 0) {
+    player.onScreenDisplay.setActionBar("§e[ChestLog] §fYou have nothing to deposit.");
     return true;
-}
-async function showAbout(player) {
-    const response = await showForm(new ActionFormData()
-        .title("About ALNStudios")
-        .body([
-        "§lCreator:§r ALNStudios",
-        `§lPack:§r ${PACK_NAME} (v${PACK_VERSION})`,
-        "Wireless chest deposit with an unloaded-chunk buffer.",
-        "§lCurseForge:§r curseforge.com/members/allenscreations/projects",
-        "§lMCPEDL:§r mcpedl.com/user/alnstudios/",
-        "This is an unofficial community creation. It is not affiliated with Mojang or Microsoft.",
-    ].join("\n\n"))
-        .button("§lBack§r", ABOUT_ICON), player);
-    return !!response && !response.canceled;
-}
-async function openMenu(player) {
-    if (!lockPlayer(player))
-        return;
-    try {
-        while (true) {
-            const list = chestsOf(player);
-            const response = await showForm(new ActionFormData()
-                .title(MAIN_TITLE)
-                .body(`§lRegistered Chests:§r ${list.length}`)
-                .button("§lChests§r", ICON)
-                .button("§lAbout§r", ABOUT_ICON)
-                .button("§lExit§r"), player);
-            if (!response || response.canceled)
-                return;
-            if (response.selection === 0) {
-                if (!(await showChestList(player)))
-                    return;
-            }
-            else if (response.selection === 1) {
-                if (!(await showAbout(player)))
-                    return;
-            }
-            else {
-                return;
-            }
-        }
-    }
-    finally {
-        unlockPlayer(player);
-    }
-}
-function applyLore() {
-    for (const player of world.getAllPlayers()) {
-        try {
-            const inventory = getInventory(player);
-            if (!inventory)
-                continue;
-            for (let slot = 0; slot < 36; slot++) {
-                const item = inventory.getItem(slot);
-                if (!item || item.typeId !== ITEM_ID || item.getLore().length > 0)
-                    continue;
-                item.setLore(LORE);
-                inventory.setItem(slot, item);
-            }
-        }
-        catch { }
-    }
-}
-export function initUI() {
-    world.afterEvents.itemUse.subscribe((event) => {
-        const player = event.source;
-        if (!event.itemStack || event.itemStack.typeId !== ITEM_ID)
-            return;
-        if (isSuppressed(player))
-            return;
-        system.runTimeout(() => {
-            if (isSuppressed(player))
-                return;
-            openMenu(player).catch(() => { });
-        }, 2);
+  }
+
+  const form = new ModalFormData().title(`§l${plainName(entry)}§r`);
+  for (const row of rows) {
+    callOptional(form, "header", row.label);
+    form.slider(`§lAmount§r (Held: ${row.amount})`, 0, row.amount, {
+      valueStep: 1,
+      defaultValue: 0,
     });
-    system.runInterval(applyLore, 40);
+    callOptional(form, "divider");
+  }
+  form.submitButton("Deposit");
+
+  const response = await showForm(form, player);
+  if (!response || response.canceled || !response.formValues) return false;
+  const amounts = (response.formValues as unknown[]).filter((v): v is number => typeof v === "number");
+  if (amounts.length < rows.length) return true;
+
+  const target = getEntry(entryId);
+  if (!target) return true;
+  const plan: DepositStep[] = [];
+  rows.forEach((row, i) => {
+    const amount = Number(amounts[i]);
+    if (amount > 0) plan.push({ slot: row.slot, typeId: row.typeId, amount, targets: [target] });
+  });
+  if (plan.length === 0) return true;
+
+  const result = runDeposit(player, plan);
+  if (result.failed) {
+    player.onScreenDisplay.setActionBar("§c[ChestLog] §fCould not buffer items for an unloaded chest.");
+    return true;
+  }
+  player.onScreenDisplay.setActionBar(
+    `§a[ChestLog] §fDeposited §e${result.total} §fitems into ${target.name}§f!`
+  );
+  return true;
+}
+
+async function showAbout(player: Player): Promise<boolean> {
+  const response = await showForm(
+    new ActionFormData()
+      .title("About ALNStudios")
+      .body(
+        [
+          "§lCreator:§r ALNStudios",
+          `§lPack:§r ${PACK_NAME} (v${PACK_VERSION})`,
+          "Wireless chest deposit with an unloaded-chunk buffer.",
+          "§lCurseForge:§r curseforge.com/members/allenscreations/projects",
+          "§lMCPEDL:§r mcpedl.com/user/alnstudios/",
+          "This is an unofficial community creation. It is not affiliated with Mojang or Microsoft.",
+        ].join("\n\n")
+      )
+      .button("§lBack§r", ABOUT_ICON),
+    player
+  );
+  return !!response && !response.canceled;
+}
+
+async function openMenu(player: Player): Promise<void> {
+  if (!lockPlayer(player)) return;
+  try {
+    while (true) {
+      const list = chestsOf(player);
+      const response = await showForm(
+        new ActionFormData()
+          .title(MAIN_TITLE)
+          .body(`§lRegistered Chests:§r ${list.length}`)
+          .button("§lChests§r", ICON)
+          .button("§lAbout§r", ABOUT_ICON)
+          .button("§lExit§r"),
+        player
+      );
+      if (!response || response.canceled) return;
+      if (response.selection === 0) {
+        if (!(await showChestList(player))) return;
+      } else if (response.selection === 1) {
+        if (!(await showAbout(player))) return;
+      } else {
+        return;
+      }
+    }
+  } finally {
+    unlockPlayer(player);
+  }
+}
+
+function applyLore(): void {
+  for (const player of world.getAllPlayers()) {
+    try {
+      const inventory = getInventory(player);
+      if (!inventory) continue;
+      for (let slot = 0; slot < 36; slot++) {
+        const item = inventory.getItem(slot);
+        if (!item || item.typeId !== ITEM_ID || item.getLore().length > 0) continue;
+        item.setLore(LORE);
+        inventory.setItem(slot, item);
+      }
+    } catch {}
+  }
+}
+
+export function initUI(): void {
+  world.afterEvents.itemUse.subscribe((event) => {
+    const player = event.source;
+    if (!event.itemStack || event.itemStack.typeId !== ITEM_ID) return;
+    if (isSuppressed(player)) return;
+    system.runTimeout(() => {
+      if (isSuppressed(player)) return;
+      openMenu(player).catch(() => {});
+    }, 2);
+  });
+  system.runInterval(applyLore, 40);
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/lib/README.md (45 lines, 1313 bytes)
+## FILE: MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/lib/README.md (40 lines, 1749 bytes)
 
 ```
 # ALN ChestLog: script notes (scripts/lib)
 
 For the AI review. Keep this file in step with the scripts: update it whenever a file in `scripts/` changes.
-Extracted from the script files; nothing here was run in game.
+Scripts are written in TypeScript (`.ts`) and compiled to `.js` by the repo tooling. `scripts/lib/` holds no `.js` files.
 
 ## Files
 
 | File | Lines | Purpose |
 | :-- | --: | :-- |
-| `scripts/chest_register.js` | 133 | (no header comment) |
-| `scripts/chest_sync.js` | 593 | (no header comment) |
-| `scripts/chest_ui.js` | 162 | (no header comment) |
-| `scripts/main.js` | 11 | (no header comment) |
+| `scripts/main.ts` | 10 | Entry: on world load starts sync, registration and UI. |
+| `scripts/chest_sync.ts` | 720 | Saved chest entries, deposits, unloaded-chunk buffer, sorting, form helpers, menu lock. |
+| `scripts/chest_register.ts` | 183 | Sneak + use on a chest: register, edit, unregister form; double chest partner detection. |
+| `scripts/chest_ui.ts` | 181 | ALNStudios menu: Chests, About, Exit; deposit all; per-item deposit; item lore. |
 
 ## Imports
 
-- `@minecraft/server` (in `chest_register.js`, `chest_sync.js`, `chest_ui.js`, `main.js`)
-- `@minecraft/server-ui` (in `chest_register.js`, `chest_sync.js`, `chest_ui.js`)
-- `./chest_register.js` (in `main.js`)
-- `./chest_sync.js` (in `chest_register.js`, `chest_ui.js`, `main.js`)
-- `./chest_ui.js` (in `main.js`)
+- `@minecraft/server` (in all four files)
+- `@minecraft/server-ui` (in `chest_register.ts`, `chest_sync.ts`, `chest_ui.ts`)
+- `./chest_sync.js` (in `main.ts`, `chest_register.ts`, `chest_ui.ts`)
+- `./chest_register.js`, `./chest_ui.js` (in `main.ts`)
 
 ## Events
 
-- `world.afterEvents.itemUse`
 - `world.afterEvents.worldLoad`
+- `world.afterEvents.itemUse`
 - `world.beforeEvents.playerInteractWithBlock`
 
 ## Custom ids
 
-- `aln:chest_log` (`chest_sync.js`)
+- `aln:chest_log` (`chest_sync.ts`)
 - plus 17 vanilla `minecraft:` id(s)
-
-## Features found
-
-- ActionFormData
-- ModalFormData
-- delayed task (system.runTimeout)
-- dynamic properties (saved data)
-- repeating timer (system.runInterval)
 
 ## Notes (AI review)
 
-Known limits, design decisions and things to check on the next update go here. Not filled in yet.
+- Script version constant in `chest_sync.ts` must equal the manifest version.
+- A per-player lock keeps one menu or form open at a time.
+- Failed saves are retried by the 100-tick sweep; waiting items are only removed after they drop.
+- Auto-sort is per chest (`autoSort`, on when missing). Double chest partner uses neighbor size, then facing as tie-break.
+- Not run in game. Pixelify font and the shared About icon are not shipped yet; About uses the name tag icon.
 ```
 
-## FILE: MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/main.js (10 lines, 279 bytes)
+## FILE: MCPEDL/Addons/ALN-ChestLog/behavior_pack/scripts/main.ts (11 lines, 274 bytes)
 
 ```
 import { world } from "@minecraft/server";
 import { initSync } from "./chest_sync.js";
 import { initRegister } from "./chest_register.js";
 import { initUI } from "./chest_ui.js";
+
 world.afterEvents.worldLoad.subscribe(() => {
-    initSync();
-    initRegister();
-    initUI();
+  initSync();
+  initRegister();
+  initUI();
 });
 ```
 
-## FILE: MCPEDL/Addons/ALN-ChestLog/CHANGELOG.md (50 lines, 2586 bytes)
+## FILE: MCPEDL/Addons/ALN-ChestLog/CHANGELOG.md (68 lines, 3454 bytes)
 
 ```
 # Changelog — ALN ChestLog
 
 ---
+
+## [v5] - 2026-11-28 - Menu Style and Safety Fixes
+
+### Added
+
+- **Auto-sort switch**: Turn Auto-sort on or off for each chest when you register or edit it.
+
+### Improved & Balanced
+
+- **ALNStudios menu style**: The ChestLog menu uses the standard ALNStudios title, the standard About page and plain text without colors. Chests show a dimension tag instead of a color.
+- **Menus stay open**: After a deposit you return to the chest list, and Back returns to the main menu.
+
+### Fixed
+
+- **Double chest pairing**: Registering a chest next to other chests no longer links the wrong half.
+- **Repeated menus**: Holding use no longer opens the menu several times.
+- **Waiting items**: Items waiting for an unloaded chest are kept safe if saving fails or if they cannot drop when a chest is removed.
+- **Sorting**: A sort that fails partway puts the chest back as it was.
 
 ## [v4] - 2026-11-22 - Shapeless Recipe Fix
 
@@ -2053,7 +2142,7 @@ world.afterEvents.worldLoad.subscribe(() => {
 - **Unloaded chunk buffer**: Items for unloaded chests are held and delivered when the chunk loads.
 ```
 
-## FILE: MCPEDL/Addons/ALN-ChestLog/DESCRIPTION.md (86 lines, 4971 bytes)
+## FILE: MCPEDL/Addons/ALN-ChestLog/DESCRIPTION.md (86 lines, 5067 bytes)
 
 ```
 # ALN ChestLog — Wireless remote chest deposit with an unloaded-chunk buffer
@@ -2080,10 +2169,10 @@ Register any chest, trapped chest or barrel by sneaking and using the ChestLog o
 - **What Happens**: Both halves of a double chest share one entry, so registering either half registers the whole chest. Only the player who registered a chest can rename or unregister it.
 
 ### Remote Menu
-- **What Happens**: Use the ChestLog in the air to open a menu with Chest, About and Exit. The Chest screen lists your chests colored by dimension and never shows coordinates.
+- **What Happens**: Use the ChestLog in the air to open a menu with Chest, About and Exit. The Chest screen lists your chests with a dimension tag and never shows coordinates.
 
 ### Deposit All (Sort)
-- **What Happens**: Sends matching items from your inventory to your registered chests, sorts those chests, and reports the totals on the action bar.
+- **What Happens**: Sends matching items from your inventory to your registered chests, sorts the chests that have Auto-sort on, and reports the totals on the action bar.
 
 ### Per-Item Deposit
 - **What Happens**: Pick one chest and use a slider for each item stack in your inventory to choose exactly how many to deposit.
@@ -2092,7 +2181,7 @@ Register any chest, trapped chest or barrel by sneaking and using the ChestLog o
 - **What Happens**: Items sent to a chest in an unloaded chunk are held safely, with their names, enchantments and durability, and moved in as soon as the chunk loads, even while you are offline. If the chest is full, the overflow waits and you get an alert.
 
 ### Smart Sorting
-- **What Happens**: Identical items merge up to full stacks after every deposit. Chests are ordered as tools, armor, food, then everything else, alphabetically within each group.
+- **What Happens**: Identical items merge up to full stacks after every deposit. Chests are ordered as tools, armor, food, then everything else, alphabetically within each group. Switch Auto-sort off for a chest when you register or edit it to keep your own layout.
 
 ### Unregister and Cleanup
 - **What Happens**: Switch on Unregister when you sneak and use the ChestLog on a registered chest, and any waiting items are delivered or dropped. If a registered chest is broken, it is unregistered automatically and its waiting items drop where it stood.
@@ -2107,7 +2196,7 @@ Register any chest, trapped chest or barrel by sneaking and using the ChestLog o
 3. Use the ChestLog in the air to open the menu and choose Chest.
 4. Pick Deposit All (Sort) for a quick sweep, or select one chest and set quantities with the sliders.
 5. To remove a chest from your network, sneak and use the ChestLog on it again and switch on Unregister.
-6. Chest names are colored green in the Overworld, red in the Nether and purple in The End.
+6. Each chest in your list shows a dimension tag: Overworld, Nether or The End.
 
 ## Compatibility
 

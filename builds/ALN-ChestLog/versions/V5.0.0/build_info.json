@@ -1,8 +1,8 @@
 {
-  "changelog_version": "4.0.0",
+  "changelog_version": "5.0.0",
   "manifest_version": "5.0.0",
   "packages": {
-    "ALNChestLog V5.mcaddon": "3002edb7ef91408db20172e529348e1f13c754da985232492e1375b1ffc47ae5"
+    "ALNChestLog V5.mcaddon": "90aba2a52ca263190408a4bdfed9835a9f40f169cf998602d699a6c34c89e741"
   },
-  "source_sha256": "60fdcef662b48ee52c220f8399c9e20f1d4a9582a7552d70ba2f107f4afaca9d"
+  "source_sha256": "62531fd16568ae9790fc32f98fb85a7d72d845e0a9751db0287e9a31559a3d87"
 }

@@ -1,9 +1,29 @@
 # Changelog — ALN ChestLog
 
-## [v4] - 2026-11-22 - Shapeless Recipe Fix
+## [v5] - 2026-11-28 - Menu Style and Safety Fixes
+
+### Added
+- **Auto-sort switch**: Turn Auto-sort on or off for each chest when you register or edit it.
+
+### Improved & Balanced
+- **ALNStudios menu style**: The ChestLog menu uses the standard ALNStudios title, the standard About page and plain text without colors. Chests show a dimension tag instead of a color.
+- **Menus stay open**: After a deposit you return to the chest list, and Back returns to the main menu.
 
 ### Fixed
+- **Double chest pairing**: Registering a chest next to other chests no longer links the wrong half.
+- **Repeated menus**: Holding use no longer opens the menu several times.
+- **Waiting items**: Items waiting for an unloaded chest are kept safe if saving fails or if they cannot drop when a chest is removed.
+- **Sorting**: A sort that fails partway puts the chest back as it was.
+
+<details>
+<summary><b>4.0.x</b> (1 release)</summary>
+
+### [v4] - 2026-11-22 - Shapeless Recipe Fix
+
+#### Fixed
 - **Shapeless Recipes**: The shapeless crafting recipes now use the unlock format shown in the game's own recipe documentation, so they load without errors.
+
+</details>
 
 <details>
 <summary><b>3.0.x</b> (1 release)</summary>
