@@ -2,6 +2,11 @@
 
 ---
 
+## [1.0.1] - 2026-11-28 - Block Loading Fix
+
+### Fixed
+- **Wireless Hopper Not Appearing**: The Wireless Hopper now loads correctly in the world, and its crafting recipe works again.
+
 ## [1.0.0] - 2026-11-28 - Initial Release
 
 ### Added

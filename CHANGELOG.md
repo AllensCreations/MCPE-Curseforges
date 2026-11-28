@@ -4,6 +4,13 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v329] - 2026-11-28 - Block Loading Fix
+
+**Spec**: spec_v329.txt | **Target**: MCPEDL/Addons/ALN-Wireless-Hopper | **Files edited**: 2
+
+### Fixed
+- **Wireless Hopper Not Appearing**: The Wireless Hopper now loads correctly in the world, and its crafting recipe works again.
+
 ## 2026-11-28 - New Addon ALN Wireless Hopper
 
 ### Added

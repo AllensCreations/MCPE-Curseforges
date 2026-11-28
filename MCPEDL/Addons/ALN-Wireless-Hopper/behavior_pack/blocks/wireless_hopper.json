@@ -14,7 +14,9 @@
           "texture": "aln_wireless_hopper"
         }
       },
-      "minecraft:destroy_time": 3.0,
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 3
+      },
       "minecraft:loot": "loot_tables/blocks/wireless_hopper.json"
     }
   }

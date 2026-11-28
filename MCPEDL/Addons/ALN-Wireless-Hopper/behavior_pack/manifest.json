@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN Wireless Hopper (v1)",
+    "name": "ALN Wireless Hopper (v1.0.1)",
     "description": "Link a Wireless Hopper to chests, barrels and hoppers with the Wireless Remote. by ALNStudios",
     "uuid": "3e825946-6f8f-4608-8499-8be44efb8375",
     "version": [
       1,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -23,7 +23,7 @@
       "version": [
         1,
         0,
-        0
+        1
       ],
       "entry": "scripts/main.js"
     }
@@ -34,7 +34,7 @@
       "version": [
         1,
         0,
-        0
+        1
       ]
     },
     {
@@ -47,6 +47,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "1.0.1"
   }
 }

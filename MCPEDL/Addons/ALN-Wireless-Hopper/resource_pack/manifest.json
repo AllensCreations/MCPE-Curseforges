@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN Wireless Hopper (v1)",
+    "name": "ALN Wireless Hopper (v1.0.1)",
     "description": "Antenna hopper model and 32x32 textures. by ALNStudios",
     "uuid": "efd2b549-540a-4d94-8162-9d92e74c0edb",
     "version": [
       1,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         0,
-        0
+        1
       ]
     }
   ],
@@ -31,6 +31,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "1.0.1"
   }
 }
