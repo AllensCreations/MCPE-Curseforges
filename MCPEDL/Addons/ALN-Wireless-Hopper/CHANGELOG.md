@@ -2,6 +2,17 @@
 
 ---
 
+## [2.0.0] - 2026-11-28 - Wireless Remote Rework
+
+### Added
+- **Linked Wireless Remote**: Right-click any Hopper with the Wireless Remote to register it. The Remote gets a new texture and shows which Hopper it controls.
+- **Hopper Registration**: Right-click the registered Hopper again with its Linked Remote to turn it back into a blank Remote.
+
+### Improved & Balanced
+- **Any Hopper Sends**: A normal Hopper is now the sender. Items it takes in are delivered to every linked Chest, Barrel or Hopper about four times per second.
+- **Wireless Hopper Block Removed**: The custom block and its recipe are gone. Wireless Hopper blocks already placed in a world disappear.
+- **Link Rules**: A sending Hopper cannot be a receiver, and a Hopper cannot be its own receiver.
+
 ## [1.0.1] - 2026-11-28 - Block Loading Fix
 
 ### Fixed

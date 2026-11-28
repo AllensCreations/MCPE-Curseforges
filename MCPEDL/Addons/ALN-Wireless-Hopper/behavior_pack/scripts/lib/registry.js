@@ -1,106 +1,132 @@
 import { world } from "@minecraft/server";
 import { DIM_CODES, MAX_HOPPERS, MAX_RECEIVERS, PROP_LINKS } from "./constants.js";
-
-let cache = null;
-
+let cache;
 function load() {
-  if (cache) return cache;
-  let raw;
-  try {
-    raw = world.getDynamicProperty(PROP_LINKS);
-  } catch {
-    raw = undefined;
-  }
-  let data = {};
-  if (typeof raw === "string") {
+    if (cache)
+        return cache;
+    let raw;
     try {
-      data = JSON.parse(raw);
-    } catch {
-      data = {};
+        raw = world.getDynamicProperty(PROP_LINKS);
     }
-  }
-  if (!data || typeof data !== "object" || Array.isArray(data)) data = {};
-  cache = data;
-  return cache;
+    catch {
+        raw = undefined;
+    }
+    let parsed = {};
+    if (typeof raw === "string") {
+        try {
+            parsed = JSON.parse(raw);
+        }
+        catch {
+            parsed = {};
+        }
+    }
+    const links = {};
+    if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+        for (const [key, value] of Object.entries(parsed)) {
+            if (Array.isArray(value)) {
+                const list = value.filter((entry) => typeof entry === "string");
+                if (list.length > 0)
+                    links[key] = list;
+            }
+        }
+    }
+    cache = links;
+    return links;
 }
-
 function save() {
-  try {
-    world.setDynamicProperty(PROP_LINKS, JSON.stringify(cache));
-  } catch {
-    return;
-  }
+    try {
+        world.setDynamicProperty(PROP_LINKS, JSON.stringify(load()));
+    }
+    catch {
+        return;
+    }
 }
-
 export function makeKey(dimensionId, x, y, z) {
-  const code = DIM_CODES[dimensionId] ?? dimensionId;
-  return `${code}|${x}|${y}|${z}`;
+    const code = DIM_CODES[dimensionId] ?? dimensionId;
+    return `${code}|${x}|${y}|${z}`;
 }
-
 export function blockKey(block) {
-  const l = block.location;
-  return makeKey(block.dimension.id, l.x, l.y, l.z);
+    const location = block.location;
+    return makeKey(block.dimension.id, location.x, location.y, location.z);
 }
-
 export function parseKey(key) {
-  if (typeof key !== "string") return undefined;
-  const p = key.split("|");
-  if (p.length !== 4) return undefined;
-  const entry = Object.entries(DIM_CODES).find(([, code]) => code === p[0]);
-  const dimensionId = entry ? entry[0] : p[0];
-  const x = Number(p[1]);
-  const y = Number(p[2]);
-  const z = Number(p[3]);
-  if (![x, y, z].every(Number.isFinite)) return undefined;
-  return { dimensionId, x, y, z };
+    const parts = key.split("|");
+    if (parts.length !== 4)
+        return undefined;
+    const entry = Object.entries(DIM_CODES).find(([, code]) => code === parts[0]);
+    const dimensionId = entry ? entry[0] : parts[0];
+    const x = Number(parts[1]);
+    const y = Number(parts[2]);
+    const z = Number(parts[3]);
+    if (![x, y, z].every(Number.isFinite))
+        return undefined;
+    return { dimensionId, x, y, z };
 }
-
-export function getReceivers(hopperKey) {
-  const data = load();
-  return Array.isArray(data[hopperKey]) ? data[hopperKey].slice() : [];
+export function getReceivers(senderKey) {
+    return (load()[senderKey] ?? []).slice();
 }
-
 export function hasLinks() {
-  return Object.keys(load()).length > 0;
+    return Object.keys(load()).length > 0;
 }
-
 export function linkedHopperKeys() {
-  return Object.keys(load());
+    return Object.keys(load());
 }
-
-export function toggleReceiver(hopperKey, receiverKey) {
-  const data = load();
-  const list = Array.isArray(data[hopperKey]) ? data[hopperKey] : [];
-  const index = list.indexOf(receiverKey);
-  if (index >= 0) {
-    list.splice(index, 1);
-    if (list.length === 0) delete data[hopperKey];
-    else data[hopperKey] = list;
+export function isSender(key) {
+    return key in load();
+}
+export function isReceiver(key) {
+    return Object.values(load()).some((list) => list.includes(key));
+}
+export function toggleReceiver(senderKey, receiverKey) {
+    const links = load();
+    const list = links[senderKey] ?? [];
+    const index = list.indexOf(receiverKey);
+    if (index >= 0) {
+        list.splice(index, 1);
+        if (list.length === 0)
+            delete links[senderKey];
+        else
+            links[senderKey] = list;
+        save();
+        return "removed";
+    }
+    if (receiverKey === senderKey)
+        return "self";
+    if (isSender(receiverKey))
+        return "chain";
+    if (list.length === 0 && isReceiver(senderKey))
+        return "chain";
+    if (list.length >= MAX_RECEIVERS)
+        return "full";
+    if (!(senderKey in links) && Object.keys(links).length >= MAX_HOPPERS)
+        return "limit";
+    list.push(receiverKey);
+    links[senderKey] = list;
     save();
-    return "removed";
-  }
-  if (list.length >= MAX_RECEIVERS) return "full";
-  if (!data[hopperKey] && Object.keys(data).length >= MAX_HOPPERS) return "limit";
-  list.push(receiverKey);
-  data[hopperKey] = list;
-  save();
-  return "added";
+    return "added";
 }
-
-export function dropReceiver(hopperKey, receiverKey) {
-  const data = load();
-  const list = data[hopperKey];
-  if (!Array.isArray(list)) return;
-  const index = list.indexOf(receiverKey);
-  if (index < 0) return;
-  list.splice(index, 1);
-  if (list.length === 0) delete data[hopperKey];
-  save();
+export function dropReceiver(senderKey, receiverKey) {
+    const links = load();
+    const list = links[senderKey];
+    if (!list)
+        return;
+    const index = list.indexOf(receiverKey);
+    if (index < 0)
+        return;
+    list.splice(index, 1);
+    if (list.length === 0)
+        delete links[senderKey];
+    save();
 }
-
-export function removeHopper(hopperKey) {
-  const data = load();
-  if (!(hopperKey in data)) return;
-  delete data[hopperKey];
-  save();
+export function dropReceiverEverywhere(receiverKey) {
+    for (const senderKey of Object.keys(load())) {
+        dropReceiver(senderKey, receiverKey);
+    }
+}
+export function removeHopper(senderKey) {
+    const links = load();
+    if (!(senderKey in links))
+        return;
+    delete links[senderKey];
+    save();
 }

@@ -1,5 +1,6 @@
-import { initWirelessLink } from "./lib/wireless_link.js";
-import { initItemCatcher } from "./lib/item_catcher.js";
-
-initWirelessLink();
-initItemCatcher();
+import { initCleanup } from "./lib/cleanup.js";
+import { initRemote } from "./lib/remote.js";
+import { initSenderLoop } from "./lib/sender_loop.js";
+initRemote();
+initSenderLoop();
+initCleanup();

@@ -4,6 +4,9 @@
   "texture_data": {
     "wireless_remote": {
       "textures": "textures/items/wireless_remote"
+    },
+    "wireless_remote_linked": {
+      "textures": "textures/items/wireless_remote_linked"
     }
   }
 }
