@@ -9,7 +9,7 @@ Download the current release of **ALN Wireless Hopper** for Minecraft Bedrock Ed
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN Wireless Hopper (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Hopper/ALNWirelessHopper%20V1.mcaddon)
+- **Direct download:** [Download ALN Wireless Hopper (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Hopper/ALNWirelessHopper%20V1.0.1.mcaddon)
 
 ## Installation
 

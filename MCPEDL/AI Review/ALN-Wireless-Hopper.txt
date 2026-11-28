@@ -1180,7 +1180,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
 
 ## File Contents
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/blocks/wireless_hopper.json (22 lines, 500 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/blocks/wireless_hopper.json (24 lines, 548 bytes)
 
 ```
 {
@@ -1199,7 +1199,9 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
           "texture": "aln_wireless_hopper"
         }
       },
-      "minecraft:destroy_time": 3.0,
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 3
+      },
       "minecraft:loot": "loot_tables/blocks/wireless_hopper.json"
     }
   }
@@ -1250,19 +1252,19 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/manifest.json (53 lines, 946 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/manifest.json (53 lines, 950 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "ALN Wireless Hopper (v1)",
+    "name": "ALN Wireless Hopper (v1.0.1)",
     "description": "Link a Wireless Hopper to chests, barrels and hoppers with the Wireless Remote. by ALNStudios",
     "uuid": "3e825946-6f8f-4608-8499-8be44efb8375",
     "version": [
       1,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -1278,7 +1280,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "version": [
         1,
         0,
-        0
+        1
       ],
       "entry": "scripts/main.js"
     }
@@ -1289,7 +1291,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "version": [
         1,
         0,
-        0
+        1
       ]
     },
     {
@@ -1302,7 +1304,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "1.0.1"
   }
 }
 ```
@@ -1945,12 +1947,17 @@ initWirelessLink();
 initItemCatcher();
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/CHANGELOG.md (13 lines, 731 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/CHANGELOG.md (18 lines, 915 bytes)
 
 ```
 # Changelog — ALN Wireless Hopper
 
 ---
+
+## [1.0.1] - 2026-11-28 - Block Loading Fix
+
+### Fixed
+- **Wireless Hopper Not Appearing**: The Wireless Hopper now loads correctly in the world, and its crafting recipe works again.
 
 ## [1.0.0] - 2026-11-28 - Initial Release
 
@@ -2051,17 +2058,21 @@ Minecraft Bedrock add-on, ALN Wireless Hopper Bedrock mod, wireless hopper, remo
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/README.md (19 lines, 821 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/README.md (23 lines, 1066 bytes)
 
 ```
 # ALN Wireless Hopper
+
+<!-- CURSEFORGE-BADGE:START -->
+[![CurseForge](https://img.shields.io/badge/CurseForge-Not%20Published-lightgrey?style=flat-square&logo=curseforge)](https://www.curseforge.com/members/allenscreations/projects)
+<!-- CURSEFORGE-BADGE:END -->
 
 Download the current release of **ALN Wireless Hopper** for Minecraft Bedrock Edition.
 
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN Wireless Hopper (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Hopper/ALNWirelessHopper%20V1.mcaddon)
+- **Direct download:** [Download ALN Wireless Hopper (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Hopper/ALNWirelessHopper%20V1.0.1.mcaddon)
 
 ## Installation
 
@@ -2074,19 +2085,19 @@ Download the current release of **ALN Wireless Hopper** for Minecraft Bedrock Ed
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALN-Wireless-Hopper/DESCRIPTION.md).
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/resource_pack/manifest.json (37 lines, 614 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/resource_pack/manifest.json (37 lines, 618 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "ALN Wireless Hopper (v1)",
+    "name": "ALN Wireless Hopper (v1.0.1)",
     "description": "Antenna hopper model and 32x32 textures. by ALNStudios",
     "uuid": "efd2b549-540a-4d94-8162-9d92e74c0edb",
     "version": [
       1,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -2101,7 +2112,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "version": [
         1,
         0,
-        0
+        1
       ]
     }
   ],
@@ -2110,7 +2121,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "1.0.1"
   }
 }
 ```

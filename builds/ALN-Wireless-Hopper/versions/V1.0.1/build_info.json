@@ -1,0 +1,8 @@
+{
+  "changelog_version": "1.0.1",
+  "manifest_version": "1.0.1",
+  "packages": {
+    "ALNWirelessHopper V1.0.1.mcaddon": "4465aa58e42550897f4cd4b470b9914e0be386f4fe2e4e9abadffd304a3bc59f"
+  },
+  "source_sha256": "52e06cb37b67482b632c4d182d74cf6c560eba7a3e1585794cc5ba50299c1b7f"
+}

@@ -53,7 +53,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | ALNUncraftableCraftable | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALNUncraftableCraftable/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNUncraftableCraftable/ALNUncraftableCraftable%20V1.mcaddon) |
 | Serpent Realms | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Serpent-Realms/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Serpent-Realms/SerpentRealms%20V1.mcaddon) |
 | ALNOpCodex | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALNOpCodex/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNOpCodex/ALNOpCodex%20V7.mcaddon) |
-| ALN Wireless Hopper | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Hopper/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Hopper/ALNWirelessHopper%20V1.mcaddon) |
+| ALN Wireless Hopper | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Hopper/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Hopper/ALNWirelessHopper%20V1.0.1.mcaddon) |
 
 Download links point to the currently published package files.
 
