@@ -4,6 +4,11 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## 2026-11-28 - New Addon Light Hostile Overlay
+
+### Added
+- **Light Hostile Overlay**: New addon project created from a pack script.
+
 ## [v332] - 2026-11-28 - Wireless Remote Rework
 
 **Spec**: spec_v332.txt | **Target**: MCPEDL/Addons/ALN-Wireless-Hopper | **Files edited**: 17

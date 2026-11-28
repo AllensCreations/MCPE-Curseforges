@@ -1,0 +1,9 @@
+export const COMMAND = ".light";
+export const SCAN_HALF_XZ = 8;
+export const SCAN_BELOW = 4;
+export const SCAN_ABOVE = 3;
+export const UNSAFE_MAX_LIGHT = 7;
+export const MAX_MARKERS = 400;
+export const MARKER_HEIGHT = 1.2;
+export const COOLDOWN_TICKS = 40;
+export const PARTICLE_PREFIX = "aln:lho_";

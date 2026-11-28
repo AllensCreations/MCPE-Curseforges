@@ -1,0 +1,53 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Light Hostile Overlay (v1)",
+    "description": "Type .light in chat to see the light level of nearby floor blocks as red or green numbers. by ALNStudios",
+    "uuid": "139713e8-3c72-415e-99ac-e31fa4f67691",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      50
+    ]
+  },
+  "modules": [
+    {
+      "description": "Light level scanner",
+      "type": "script",
+      "language": "javascript",
+      "uuid": "0f8d0c2a-abbf-4bee-8da6-382d671e2f33",
+      "version": [
+        1,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "d1fe1f43-ffc2-418d-aecc-e20ea5e307aa",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.10.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}
