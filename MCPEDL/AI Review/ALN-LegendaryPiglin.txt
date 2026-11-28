@@ -3676,14 +3676,10 @@ Minecraft Bedrock add-on, ALN:LegendaryPiglin Bedrock mod, OneBlock map, Piglin 
 }
 ```
 
-## FILE: MCPEDL/Maps/ALN-LegendaryPiglin/README.md (23 lines, 1363 bytes)
+## FILE: MCPEDL/Maps/ALN-LegendaryPiglin/README.md (19 lines, 1122 bytes)
 
 ```
 # ALN-LegendaryPiglin
-
-<!-- CURSEFORGE-BADGE:START -->
-[![CurseForge](https://img.shields.io/badge/CurseForge-Not%20Published-lightgrey?style=flat-square&logo=curseforge)](https://www.curseforge.com/members/allenscreations/projects)
-<!-- CURSEFORGE-BADGE:END -->
 
 Download the current release of **ALN-LegendaryPiglin** for Minecraft Bedrock Edition.
 

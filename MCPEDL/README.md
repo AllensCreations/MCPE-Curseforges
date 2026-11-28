@@ -8,8 +8,8 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 
 | Kit | Download |
 | :-- | :-- |
-| **New Pack Kit (zip: map and scripts)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/New-Pack-v329.zip) |
-| **Repo Maintenance Kit (zip: map and scripts)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Maintenance-v329.zip) |
+| **New Pack Kit (zip: map and scripts)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/New-Pack-v330.zip) |
+| **Repo Maintenance Kit (zip: map and scripts)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Maintenance-v330.zip) |
 | **Vanilla Bedrock Reference (JSON.gz)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/bedrock-samples/bedrock-samples.min.json.gz) |
 | **Bedrock Reference Bundle (v1.26.60)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/bedrock-samples/bedrock-reference-pack-1.26.60.zip) |
 | **Minecraft Script API TypeScript Definitions (.d.ts Zip)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/typescript-definitions/minecraft-bedrock-types.zip) |
@@ -56,7 +56,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | **Padlock & Key** | v3 | 🟢 Published ([v3](https://www.curseforge.com/projects/1809473)) | [Source](Addons/Padlock-and-Key) | [Package](../Package/Padlock-and-Key.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Padlock-and-Key-v3.zip) |
 | **Passive Auto-Switch Tools** | v2 | ⚪ Not Published | [Source](Addons/Passive-Auto-Switch-Tools) | [Package](../Package/Passive-Auto-Switch-Tools.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Passive-Auto-Switch-Tools-v2.zip) |
 | **Selective Mob Controller** | v2 | ⚪ Not Published | [Source](Addons/Selective-Mob-Controller) | [Package](../Package/Selective-Mob-Controller.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Selective-Mob-Controller-v2.zip) |
-| **Serpent Realms** | 1.0.0 | ⚪ Not Published | [Source](Addons/Serpent-Realms) | [Package](../Package/Serpent-Realms.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Serpent-Realms-1.0.0.zip) |
+| **Serpent Realms** | v2 | ⚪ Not Published | [Source](Addons/Serpent-Realms) | [Package](../Package/Serpent-Realms.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Serpent-Realms-v2.zip) |
 | **Smart Tool Hub** | 1.0.2 | 🟢 Published ([1.0.2](https://www.curseforge.com/projects/1832328)) | [Source](Addons/Smart-Tool-Hub) | [Package](../Package/Smart-Tool-Hub.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Smart-Tool-Hub-1.0.2.zip) |
 | **Smart Tree Capitator and Domino Ore Miner** | v2 | ⚪ Not Published | [Source](Addons/Smart-Tree-Capitator-and-Domino-Ore-Miner) | [Package](../Package/Smart-Tree-Capitator-and-Domino-Ore-Miner.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Smart-Tree-Capitator-and-Domino-Ore-Miner-v2.zip) |
 | **Sudden Death Roulette** | v2 | ⚪ Not Published | [Source](Addons/Sudden-Death-Roulette) | [Package](../Package/Sudden-Death-Roulette.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Sudden-Death-Roulette-v2.zip) |

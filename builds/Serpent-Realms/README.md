@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Serpent Realms** by ALNStud
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`SerpentRealms V1.mcaddon`** | `.mcaddon` | ~24 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Serpent-Realms/SerpentRealms%20V1.mcaddon) |
+| **`SerpentRealms V2.mcaddon`** | `.mcaddon` | ~29 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Serpent-Realms/SerpentRealms%20V2.mcaddon) |
 
 ---
 

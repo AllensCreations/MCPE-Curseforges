@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Addons/Serpent-Realms`
 - **Destination:** `MCPEDL/Addons/Serpent-Realms`
-- **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/Serpent-Realms/CHANGELOG.md`)
+- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/Serpent-Realms/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
 - **Text files:** 35
 - **Skipped binary:** 6
@@ -49,7 +49,7 @@
 
 ### Not inlined: 1 larger file(s), ask the user for the exact paths you need
 
-- `MCPEDL/Addons/Serpent-Realms/resource_pack/models/entity/snake.geo.json` (179889 bytes)
+- `MCPEDL/Addons/Serpent-Realms/resource_pack/models/entity/snake.geo.json` (300898 bytes)
 
 ### Skipped (binary): 6 file(s)
 
@@ -206,7 +206,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v1 / NEXT UPDATE: v2).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
 - NEVER use a base64 payload or new-pack `.sh` for an existing pack. This is an UPDATE.
 - Retain all UUIDs in manifests. NEVER regenerate UUIDs.
 - Update CHANGELOG.md with a new release entry at top under `---`.
@@ -1215,7 +1215,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
 
 ## File Contents
 
-## FILE: MCPEDL/Addons/Serpent-Realms/behavior_pack/entities/coral_snake.json (82 lines, 1902 bytes)
+## FILE: MCPEDL/Addons/Serpent-Realms/behavior_pack/entities/coral_snake.json (158 lines, 3449 bytes)
 
 ```
 {
@@ -1296,12 +1296,88 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
           }
         ]
       }
+    },
+    "component_groups": {
+      "aln:size_hatchling": {
+        "minecraft:scale": {
+          "value": 0.7
+        },
+        "minecraft:health": {
+          "value": 7,
+          "max": 7
+        }
+      },
+      "aln:size_normal": {
+        "minecraft:scale": {
+          "value": 1.0
+        },
+        "minecraft:health": {
+          "value": 10,
+          "max": 10
+        }
+      },
+      "aln:size_large": {
+        "minecraft:scale": {
+          "value": 1.25
+        },
+        "minecraft:health": {
+          "value": 12,
+          "max": 12
+        }
+      },
+      "aln:size_giant": {
+        "minecraft:scale": {
+          "value": 1.5
+        },
+        "minecraft:health": {
+          "value": 15,
+          "max": 15
+        }
+      }
+    },
+    "events": {
+      "minecraft:entity_spawned": {
+        "randomize": [
+          {
+            "weight": 25,
+            "add": {
+              "component_groups": [
+                "aln:size_hatchling"
+              ]
+            }
+          },
+          {
+            "weight": 45,
+            "add": {
+              "component_groups": [
+                "aln:size_normal"
+              ]
+            }
+          },
+          {
+            "weight": 22,
+            "add": {
+              "component_groups": [
+                "aln:size_large"
+              ]
+            }
+          },
+          {
+            "weight": 8,
+            "add": {
+              "component_groups": [
+                "aln:size_giant"
+              ]
+            }
+          }
+        ]
+      }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Serpent-Realms/behavior_pack/entities/desert_racer.json (82 lines, 1900 bytes)
+## FILE: MCPEDL/Addons/Serpent-Realms/behavior_pack/entities/desert_racer.json (158 lines, 3444 bytes)
 
 ```
 {
@@ -1382,12 +1458,88 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
           }
         ]
       }
+    },
+    "component_groups": {
+      "aln:size_hatchling": {
+        "minecraft:scale": {
+          "value": 0.7
+        },
+        "minecraft:health": {
+          "value": 6,
+          "max": 6
+        }
+      },
+      "aln:size_normal": {
+        "minecraft:scale": {
+          "value": 1.0
+        },
+        "minecraft:health": {
+          "value": 8,
+          "max": 8
+        }
+      },
+      "aln:size_large": {
+        "minecraft:scale": {
+          "value": 1.3
+        },
+        "minecraft:health": {
+          "value": 10,
+          "max": 10
+        }
+      },
+      "aln:size_giant": {
+        "minecraft:scale": {
+          "value": 1.6
+        },
+        "minecraft:health": {
+          "value": 13,
+          "max": 13
+        }
+      }
+    },
+    "events": {
+      "minecraft:entity_spawned": {
+        "randomize": [
+          {
+            "weight": 25,
+            "add": {
+              "component_groups": [
+                "aln:size_hatchling"
+              ]
+            }
+          },
+          {
+            "weight": 45,
+            "add": {
+              "component_groups": [
+                "aln:size_normal"
+              ]
+            }
+          },
+          {
+            "weight": 22,
+            "add": {
+              "component_groups": [
+                "aln:size_large"
+              ]
+            }
+          },
+          {
+            "weight": 8,
+            "add": {
+              "component_groups": [
+                "aln:size_giant"
+              ]
+            }
+          }
+        ]
+      }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Serpent-Realms/behavior_pack/entities/forest_viper.json (84 lines, 1966 bytes)
+## FILE: MCPEDL/Addons/Serpent-Realms/behavior_pack/entities/forest_viper.json (160 lines, 3515 bytes)
 
 ```
 {
@@ -1470,12 +1622,88 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
           }
         ]
       }
+    },
+    "component_groups": {
+      "aln:size_hatchling": {
+        "minecraft:scale": {
+          "value": 0.7
+        },
+        "minecraft:health": {
+          "value": 10,
+          "max": 10
+        }
+      },
+      "aln:size_normal": {
+        "minecraft:scale": {
+          "value": 1.0
+        },
+        "minecraft:health": {
+          "value": 14,
+          "max": 14
+        }
+      },
+      "aln:size_large": {
+        "minecraft:scale": {
+          "value": 1.35
+        },
+        "minecraft:health": {
+          "value": 19,
+          "max": 19
+        }
+      },
+      "aln:size_giant": {
+        "minecraft:scale": {
+          "value": 1.7
+        },
+        "minecraft:health": {
+          "value": 24,
+          "max": 24
+        }
+      }
+    },
+    "events": {
+      "minecraft:entity_spawned": {
+        "randomize": [
+          {
+            "weight": 25,
+            "add": {
+              "component_groups": [
+                "aln:size_hatchling"
+              ]
+            }
+          },
+          {
+            "weight": 45,
+            "add": {
+              "component_groups": [
+                "aln:size_normal"
+              ]
+            }
+          },
+          {
+            "weight": 22,
+            "add": {
+              "component_groups": [
+                "aln:size_large"
+              ]
+            }
+          },
+          {
+            "weight": 8,
+            "add": {
+              "component_groups": [
+                "aln:size_giant"
+              ]
+            }
+          }
+        ]
+      }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Serpent-Realms/behavior_pack/entities/gluttonous_python.json (133 lines, 3031 bytes)
+## FILE: MCPEDL/Addons/Serpent-Realms/behavior_pack/entities/gluttonous_python.json (205 lines, 4526 bytes)
 
 ```
 {
@@ -1590,6 +1818,42 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
             "target": "self"
           }
         }
+      },
+      "aln:size_hatchling": {
+        "minecraft:scale": {
+          "value": 0.65
+        },
+        "minecraft:health": {
+          "value": 16,
+          "max": 16
+        }
+      },
+      "aln:size_normal": {
+        "minecraft:scale": {
+          "value": 1.0
+        },
+        "minecraft:health": {
+          "value": 24,
+          "max": 24
+        }
+      },
+      "aln:size_large": {
+        "minecraft:scale": {
+          "value": 1.4
+        },
+        "minecraft:health": {
+          "value": 34,
+          "max": 34
+        }
+      },
+      "aln:size_giant": {
+        "minecraft:scale": {
+          "value": 1.8
+        },
+        "minecraft:health": {
+          "value": 43,
+          "max": 43
+        }
       }
     },
     "events": {
@@ -1606,13 +1870,49 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
             "aln:swollen"
           ]
         }
+      },
+      "minecraft:entity_spawned": {
+        "randomize": [
+          {
+            "weight": 25,
+            "add": {
+              "component_groups": [
+                "aln:size_hatchling"
+              ]
+            }
+          },
+          {
+            "weight": 45,
+            "add": {
+              "component_groups": [
+                "aln:size_normal"
+              ]
+            }
+          },
+          {
+            "weight": 22,
+            "add": {
+              "component_groups": [
+                "aln:size_large"
+              ]
+            }
+          },
+          {
+            "weight": 8,
+            "add": {
+              "component_groups": [
+                "aln:size_giant"
+              ]
+            }
+          }
+        ]
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/Serpent-Realms/behavior_pack/entities/titan_anaconda.json (84 lines, 1969 bytes)
+## FILE: MCPEDL/Addons/Serpent-Realms/behavior_pack/entities/titan_anaconda.json (160 lines, 3518 bytes)
 
 ```
 {
@@ -1695,6 +1995,82 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
           }
         ]
       }
+    },
+    "component_groups": {
+      "aln:size_hatchling": {
+        "minecraft:scale": {
+          "value": 0.6
+        },
+        "minecraft:health": {
+          "value": 24,
+          "max": 24
+        }
+      },
+      "aln:size_normal": {
+        "minecraft:scale": {
+          "value": 1.0
+        },
+        "minecraft:health": {
+          "value": 40,
+          "max": 40
+        }
+      },
+      "aln:size_large": {
+        "minecraft:scale": {
+          "value": 1.35
+        },
+        "minecraft:health": {
+          "value": 54,
+          "max": 54
+        }
+      },
+      "aln:size_giant": {
+        "minecraft:scale": {
+          "value": 1.7
+        },
+        "minecraft:health": {
+          "value": 68,
+          "max": 68
+        }
+      }
+    },
+    "events": {
+      "minecraft:entity_spawned": {
+        "randomize": [
+          {
+            "weight": 25,
+            "add": {
+              "component_groups": [
+                "aln:size_hatchling"
+              ]
+            }
+          },
+          {
+            "weight": 45,
+            "add": {
+              "component_groups": [
+                "aln:size_normal"
+              ]
+            }
+          },
+          {
+            "weight": 22,
+            "add": {
+              "component_groups": [
+                "aln:size_large"
+              ]
+            }
+          },
+          {
+            "weight": 8,
+            "add": {
+              "component_groups": [
+                "aln:size_giant"
+              ]
+            }
+          }
+        ]
+      }
     }
   }
 }
@@ -1706,11 +2082,11 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
 {
   "format_version": 2,
   "header": {
-    "name": "Serpent Realms (v1)",
+    "name": "Serpent Realms (v2)",
     "description": "Five custom snakes with their own models and behavior. by ALNStudios",
     "uuid": "a5fffaa7-167e-49fe-b20c-a35d86da5a2e",
     "version": [
-      1,
+      2,
       0,
       0
     ],
@@ -1725,7 +2101,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "type": "data",
       "uuid": "d048793d-ee30-4ac5-a61c-0c5ee7d4da30",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -1736,7 +2112,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "entry": "scripts/main.js",
       "uuid": "fccf5b7e-37b9-48e6-a920-b602c6934bb0",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -1746,7 +2122,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
     {
       "uuid": "8b864c13-55fa-47f9-8b0e-8741ace4b901",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -1761,7 +2137,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "2.0.0"
   }
 }
 ```
@@ -2187,12 +2563,23 @@ registerSnakeAI();
 }
 ```
 
-## FILE: MCPEDL/Addons/Serpent-Realms/CHANGELOG.md (14 lines, 597 bytes)
+## FILE: MCPEDL/Addons/Serpent-Realms/CHANGELOG.md (25 lines, 1218 bytes)
 
 ```
 # Changelog — Serpent Realms
 
 ---
+
+## [v2] - 2026-11-28 - Sizes and Smoother Bodies
+
+### Added
+- **Size Variety**: Every snake now spawns as a hatchling, normal, large or giant, from about 0.6x up to 1.8x its normal size.
+
+### Improved & Balanced
+- **Smoother Bodies**: Snakes now have 24 to 32 body segments instead of 12 to 14, so they bend and slither more like real snakes.
+- **Tapered Shape**: The neck narrows and the tail tapers smoothly to a thin tip.
+- **Python Belly**: A larger part of the python's body now swells after a meal, with a smooth bulge.
+- **Health**: Health now scales with size, so a giant snake is much tougher than a hatchling.
 
 ## [1.0.0] - 2026-11-27 - Serpent Realms
 
@@ -2205,7 +2592,7 @@ registerSnakeAI();
 - **Custom Models**: Segmented snake bodies with jaw and tongue animation and 32x32 skins, plus spawn eggs for all five.
 ```
 
-## FILE: MCPEDL/Addons/Serpent-Realms/DESCRIPTION.md (81 lines, 4530 bytes)
+## FILE: MCPEDL/Addons/Serpent-Realms/DESCRIPTION.md (85 lines, 4932 bytes)
 
 ```
 # Serpent Realms — Five Custom Snakes With Their Own Models and Behavior
@@ -2227,28 +2614,32 @@ Explore the world and meet five snakes in their own habitats. Each one slithers 
 
 ### Forest Viper
 - **What Happens**: A slender green snake of the forest. Its bite poisons the target for 8 seconds.
-- **Good To Know**: Attacks players within 7 blocks and has 14 health.
+- **Good To Know**: Attacks players within 7 blocks and has 14 health at normal size.
 
 ### Titan Anaconda
 - **What Happens**: The largest snake, found in swamps and mangrove swamps. Its bite slows the target, then it latches on and squeezes for up to 5 seconds, dealing 2 damage every second.
 - **How It Works**: Move more than 4 blocks away from it to break free.
-- **Good To Know**: Has 40 health and hits for 6 damage.
+- **Good To Know**: Has 40 health at normal size and hits for 6 damage.
 
 ### Desert Racer
 - **What Happens**: A thin sand-colored snake of the desert with a much faster move speed than the other four.
-- **Good To Know**: Has 8 health and hits for 3 damage.
+- **Good To Know**: Has 8 health at normal size and hits for 3 damage.
 
 ### Gluttonous Python
 - **What Happens**: A thick jungle snake that hunts Chickens, Rabbits and Frogs. After it kills one, its belly swells and it stays still for 60 seconds while it digests.
 - **How It Works**: Attack it while it digests, because it cannot move.
-- **Good To Know**: Has 24 health and leaves players alone unless hurt.
+- **Good To Know**: Has 24 health at normal size and leaves players alone unless hurt.
 
 ### Coral Snake
 - **What Happens**: A small black and red snake with glowing teal rings that crawls in dripstone caves and lush caves below sea level.
 - **Good To Know**: The rings glow in the dark as a visual effect only. The snake does not light up the area around it.
 
 ### Custom Models and Skins
-- **What Happens**: Every snake uses a segmented body that bends as it moves, with a jaw, a forked tongue and its own 32x32 skin.
+- **What Happens**: Every snake has a long body made of 24 to 32 small segments that bend one after another as it moves, plus a jaw, a forked tongue and its own 32x32 skin.
+
+### Size Variety
+- **What Happens**: Each snake spawns in one of four sizes: hatchling, normal, large or giant. Bigger snakes have more health, and a giant Titan Anaconda is far longer than a normal one.
+- **Good To Know**: Roughly 25% of snakes are hatchlings, 45% normal, 22% large and 8% giant.
 
 ## How to Use
 
@@ -2312,7 +2703,7 @@ Download the current release of **Serpent Realms** for Minecraft Bedrock Edition
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Serpent Realms (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Serpent-Realms/SerpentRealms%20V1.mcaddon)
+- **Direct download:** [Download Serpent Realms (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Serpent-Realms/SerpentRealms%20V2.mcaddon)
 
 ## Installation
 
@@ -2385,7 +2776,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/Serpent-Realms/resource_pack/animations/snake.animation.json (300 lines, 6256 bytes)
+## FILE: MCPEDL/Addons/Serpent-Realms/resource_pack/animations/snake.animation.json (517 lines, 13396 bytes)
 
 ```
 {
@@ -2399,98 +2790,196 @@ For gameplay features, usage details, compatibility notes, and other project inf
         "s1": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 360 - 40) * 9",
+            "math.sin(query.anim_time * 360 - 1 * variable.aln_wave_step) * variable.aln_wave_amp",
             0
           ]
         },
         "s2": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 360 - 80) * 9",
+            "math.sin(query.anim_time * 360 - 2 * variable.aln_wave_step) * variable.aln_wave_amp",
             0
           ]
         },
         "s3": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 360 - 120) * 9",
+            "math.sin(query.anim_time * 360 - 3 * variable.aln_wave_step) * variable.aln_wave_amp",
             0
           ]
         },
         "s4": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 360 - 160) * 9",
+            "math.sin(query.anim_time * 360 - 4 * variable.aln_wave_step) * variable.aln_wave_amp",
             0
           ]
         },
         "s5": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 360 - 200) * 9",
+            "math.sin(query.anim_time * 360 - 5 * variable.aln_wave_step) * variable.aln_wave_amp",
             0
           ]
         },
         "s6": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 360 - 240) * 9",
+            "math.sin(query.anim_time * 360 - 6 * variable.aln_wave_step) * variable.aln_wave_amp",
             0
           ]
         },
         "s7": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 360 - 280) * 9",
+            "math.sin(query.anim_time * 360 - 7 * variable.aln_wave_step) * variable.aln_wave_amp",
             0
           ]
         },
         "s8": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 360 - 320) * 9",
+            "math.sin(query.anim_time * 360 - 8 * variable.aln_wave_step) * variable.aln_wave_amp",
             0
           ]
         },
         "s9": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 360 - 360) * 9",
+            "math.sin(query.anim_time * 360 - 9 * variable.aln_wave_step) * variable.aln_wave_amp",
+            0
+          ]
+        },
+        "s10": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 360 - 10 * variable.aln_wave_step) * variable.aln_wave_amp",
+            0
+          ]
+        },
+        "s11": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 360 - 11 * variable.aln_wave_step) * variable.aln_wave_amp",
+            0
+          ]
+        },
+        "s12": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 360 - 12 * variable.aln_wave_step) * variable.aln_wave_amp",
+            0
+          ]
+        },
+        "s13": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 360 - 13 * variable.aln_wave_step) * variable.aln_wave_amp",
+            0
+          ]
+        },
+        "s14": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 360 - 14 * variable.aln_wave_step) * variable.aln_wave_amp",
+            0
+          ]
+        },
+        "s15": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 360 - 15 * variable.aln_wave_step) * variable.aln_wave_amp",
+            0
+          ]
+        },
+        "s16": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 360 - 16 * variable.aln_wave_step) * variable.aln_wave_amp",
+            0
+          ]
+        },
+        "s17": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 360 - 17 * variable.aln_wave_step) * variable.aln_wave_amp",
+            0
+          ]
+        },
+        "s18": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 360 - 18 * variable.aln_wave_step) * variable.aln_wave_amp",
             0
           ]
         },
         "t1": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 360 - 400) * 12",
+            "math.sin(query.anim_time * 360 - (variable.aln_body_n + 1) * variable.aln_wave_step) * variable.aln_wave_amp * 1.3",
             0
           ]
         },
         "t2": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 360 - 440) * 12",
+            "math.sin(query.anim_time * 360 - (variable.aln_body_n + 2) * variable.aln_wave_step) * variable.aln_wave_amp * 1.3",
             0
           ]
         },
         "t3": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 360 - 480) * 12",
+            "math.sin(query.anim_time * 360 - (variable.aln_body_n + 3) * variable.aln_wave_step) * variable.aln_wave_amp * 1.3",
             0
           ]
         },
         "t4": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 360 - 520) * 12",
+            "math.sin(query.anim_time * 360 - (variable.aln_body_n + 4) * variable.aln_wave_step) * variable.aln_wave_amp * 1.3",
             0
           ]
         },
         "t5": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 360 - 560) * 12",
+            "math.sin(query.anim_time * 360 - (variable.aln_body_n + 5) * variable.aln_wave_step) * variable.aln_wave_amp * 1.3",
+            0
+          ]
+        },
+        "t6": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 360 - (variable.aln_body_n + 6) * variable.aln_wave_step) * variable.aln_wave_amp * 1.3",
+            0
+          ]
+        },
+        "t7": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 360 - (variable.aln_body_n + 7) * variable.aln_wave_step) * variable.aln_wave_amp * 1.3",
+            0
+          ]
+        },
+        "t8": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 360 - (variable.aln_body_n + 8) * variable.aln_wave_step) * variable.aln_wave_amp * 1.3",
+            0
+          ]
+        },
+        "t9": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 360 - (variable.aln_body_n + 9) * variable.aln_wave_step) * variable.aln_wave_amp * 1.3",
+            0
+          ]
+        },
+        "t10": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 360 - (variable.aln_body_n + 10) * variable.aln_wave_step) * variable.aln_wave_amp * 1.3",
             0
           ]
         },
@@ -2510,98 +2999,196 @@ For gameplay features, usage details, compatibility notes, and other project inf
         "s1": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 90 - 30) * 3",
+            "math.sin(query.anim_time * 90 - 1 * variable.aln_wave_step * 0.5) * 1.5",
             0
           ]
         },
         "s2": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 90 - 60) * 3",
+            "math.sin(query.anim_time * 90 - 2 * variable.aln_wave_step * 0.5) * 1.5",
             0
           ]
         },
         "s3": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 90 - 90) * 3",
+            "math.sin(query.anim_time * 90 - 3 * variable.aln_wave_step * 0.5) * 1.5",
             0
           ]
         },
         "s4": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 90 - 120) * 3",
+            "math.sin(query.anim_time * 90 - 4 * variable.aln_wave_step * 0.5) * 1.5",
             0
           ]
         },
         "s5": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 90 - 150) * 3",
+            "math.sin(query.anim_time * 90 - 5 * variable.aln_wave_step * 0.5) * 1.5",
             0
           ]
         },
         "s6": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 90 - 180) * 3",
+            "math.sin(query.anim_time * 90 - 6 * variable.aln_wave_step * 0.5) * 1.5",
             0
           ]
         },
         "s7": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 90 - 210) * 3",
+            "math.sin(query.anim_time * 90 - 7 * variable.aln_wave_step * 0.5) * 1.5",
             0
           ]
         },
         "s8": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 90 - 240) * 3",
+            "math.sin(query.anim_time * 90 - 8 * variable.aln_wave_step * 0.5) * 1.5",
             0
           ]
         },
         "s9": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 90 - 270) * 3",
+            "math.sin(query.anim_time * 90 - 9 * variable.aln_wave_step * 0.5) * 1.5",
+            0
+          ]
+        },
+        "s10": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 90 - 10 * variable.aln_wave_step * 0.5) * 1.5",
+            0
+          ]
+        },
+        "s11": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 90 - 11 * variable.aln_wave_step * 0.5) * 1.5",
+            0
+          ]
+        },
+        "s12": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 90 - 12 * variable.aln_wave_step * 0.5) * 1.5",
+            0
+          ]
+        },
+        "s13": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 90 - 13 * variable.aln_wave_step * 0.5) * 1.5",
+            0
+          ]
+        },
+        "s14": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 90 - 14 * variable.aln_wave_step * 0.5) * 1.5",
+            0
+          ]
+        },
+        "s15": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 90 - 15 * variable.aln_wave_step * 0.5) * 1.5",
+            0
+          ]
+        },
+        "s16": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 90 - 16 * variable.aln_wave_step * 0.5) * 1.5",
+            0
+          ]
+        },
+        "s17": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 90 - 17 * variable.aln_wave_step * 0.5) * 1.5",
+            0
+          ]
+        },
+        "s18": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 90 - 18 * variable.aln_wave_step * 0.5) * 1.5",
             0
           ]
         },
         "t1": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 90 - 300) * 4",
+            "math.sin(query.anim_time * 90 - (variable.aln_body_n + 1) * variable.aln_wave_step * 0.5) * 2",
             0
           ]
         },
         "t2": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 90 - 330) * 4",
+            "math.sin(query.anim_time * 90 - (variable.aln_body_n + 2) * variable.aln_wave_step * 0.5) * 2",
             0
           ]
         },
         "t3": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 90 - 360) * 4",
+            "math.sin(query.anim_time * 90 - (variable.aln_body_n + 3) * variable.aln_wave_step * 0.5) * 2",
             0
           ]
         },
         "t4": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 90 - 390) * 4",
+            "math.sin(query.anim_time * 90 - (variable.aln_body_n + 4) * variable.aln_wave_step * 0.5) * 2",
             0
           ]
         },
         "t5": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 90 - 420) * 4",
+            "math.sin(query.anim_time * 90 - (variable.aln_body_n + 5) * variable.aln_wave_step * 0.5) * 2",
+            0
+          ]
+        },
+        "t6": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 90 - (variable.aln_body_n + 6) * variable.aln_wave_step * 0.5) * 2",
+            0
+          ]
+        },
+        "t7": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 90 - (variable.aln_body_n + 7) * variable.aln_wave_step * 0.5) * 2",
+            0
+          ]
+        },
+        "t8": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 90 - (variable.aln_body_n + 8) * variable.aln_wave_step * 0.5) * 2",
+            0
+          ]
+        },
+        "t9": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 90 - (variable.aln_body_n + 9) * variable.aln_wave_step * 0.5) * 2",
+            0
+          ]
+        },
+        "t10": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 90 - (variable.aln_body_n + 10) * variable.aln_wave_step * 0.5) * 2",
             0
           ]
         },
@@ -2662,25 +3249,46 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "loop": true,
       "animation_length": 1.0,
       "bones": {
-        "belly3": {
+        "belly6": {
           "scale": [
-            1.5,
-            1.9,
-            1.1
+            1.3,
+            1.6,
+            1.05
           ]
         },
-        "belly4": {
+        "belly7": {
           "scale": [
-            1.9,
-            2.3,
-            1.2
+            1.7,
+            2.1,
+            1.12
           ]
         },
-        "belly5": {
+        "belly8": {
           "scale": [
-            1.5,
-            1.9,
-            1.1
+            2.0,
+            2.4,
+            1.15
+          ]
+        },
+        "belly9": {
+          "scale": [
+            2.0,
+            2.4,
+            1.15
+          ]
+        },
+        "belly10": {
+          "scale": [
+            1.7,
+            2.1,
+            1.12
+          ]
+        },
+        "belly11": {
+          "scale": [
+            1.3,
+            1.6,
+            1.05
           ]
         }
       }
@@ -2689,7 +3297,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/Serpent-Realms/resource_pack/entity/coral_snake.entity.json (45 lines, 1129 bytes)
+## FILE: MCPEDL/Addons/Serpent-Realms/resource_pack/entity/coral_snake.entity.json (45 lines, 1213 bytes)
 
 ```
 {
@@ -2717,7 +3325,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "scripts": {
         "pre_animation": [
-          "variable.aln_wave_speed = 1.1;"
+          "variable.aln_wave_speed = 1.1; variable.aln_wave_step = 18; variable.aln_wave_amp = 5.5; variable.aln_body_n = 16;"
         ],
         "animate": [
           "move_controller",
@@ -2738,7 +3346,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/Serpent-Realms/resource_pack/entity/desert_racer.entity.json (45 lines, 1126 bytes)
+## FILE: MCPEDL/Addons/Serpent-Realms/resource_pack/entity/desert_racer.entity.json (45 lines, 1208 bytes)
 
 ```
 {
@@ -2766,7 +3374,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "scripts": {
         "pre_animation": [
-          "variable.aln_wave_speed = 2.4;"
+          "variable.aln_wave_speed = 2.4; variable.aln_wave_step = 14; variable.aln_wave_amp = 5; variable.aln_body_n = 18;"
         ],
         "animate": [
           "move_controller",
@@ -2787,7 +3395,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/Serpent-Realms/resource_pack/entity/forest_viper.entity.json (45 lines, 1126 bytes)
+## FILE: MCPEDL/Addons/Serpent-Realms/resource_pack/entity/forest_viper.entity.json (45 lines, 1210 bytes)
 
 ```
 {
@@ -2815,7 +3423,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "scripts": {
         "pre_animation": [
-          "variable.aln_wave_speed = 1.3;"
+          "variable.aln_wave_speed = 1.3; variable.aln_wave_step = 18; variable.aln_wave_amp = 5.5; variable.aln_body_n = 16;"
         ],
         "animate": [
           "move_controller",
@@ -2836,7 +3444,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/Serpent-Realms/resource_pack/entity/gluttonous_python.entity.json (48 lines, 1295 bytes)
+## FILE: MCPEDL/Addons/Serpent-Realms/resource_pack/entity/gluttonous_python.entity.json (48 lines, 1379 bytes)
 
 ```
 {
@@ -2866,7 +3474,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "scripts": {
         "pre_animation": [
-          "variable.aln_wave_speed = 0.8;"
+          "variable.aln_wave_speed = 0.8; variable.aln_wave_step = 16; variable.aln_wave_amp = 6.5; variable.aln_body_n = 16;"
         ],
         "animate": [
           "move_controller",
@@ -2888,7 +3496,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Addons/Serpent-Realms/resource_pack/entity/titan_anaconda.entity.json (45 lines, 1133 bytes)
+## FILE: MCPEDL/Addons/Serpent-Realms/resource_pack/entity/titan_anaconda.entity.json (45 lines, 1215 bytes)
 
 ```
 {
@@ -2916,7 +3524,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       },
       "scripts": {
         "pre_animation": [
-          "variable.aln_wave_speed = 0.7;"
+          "variable.aln_wave_speed = 0.7; variable.aln_wave_step = 14; variable.aln_wave_amp = 7; variable.aln_body_n = 14;"
         ],
         "animate": [
           "move_controller",
@@ -2943,11 +3551,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "Serpent Realms (v1)",
+    "name": "Serpent Realms (v2)",
     "description": "Snake models and 32x32 textures for the add-on. by ALNStudios",
     "uuid": "8b864c13-55fa-47f9-8b0e-8741ace4b901",
     "version": [
-      1,
+      2,
       0,
       0
     ],
@@ -2962,7 +3570,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "d2c2dad2-f7fb-4494-92f1-61f0f22b4510",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -2973,7 +3581,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "2.0.0"
   }
 }
 ```

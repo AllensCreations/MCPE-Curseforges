@@ -1,0 +1,8 @@
+{
+  "changelog_version": "2.0.0",
+  "manifest_version": "2.0.0",
+  "packages": {
+    "SerpentRealms V2.mcaddon": "ad8334efabea12c09401412d96285f847765a1a6e25f3efa7e9722cf268c03d5"
+  },
+  "source_sha256": "35cc4ce0dc5b135a5651a9e4c7093d7fcff9886bd92c5effd9987c4ce842d772"
+}

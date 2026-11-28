@@ -9,7 +9,7 @@ Download the current release of **Serpent Realms** for Minecraft Bedrock Edition
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Serpent Realms (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Serpent-Realms/SerpentRealms%20V1.mcaddon)
+- **Direct download:** [Download Serpent Realms (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Serpent-Realms/SerpentRealms%20V2.mcaddon)
 
 ## Installation
 

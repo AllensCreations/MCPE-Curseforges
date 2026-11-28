@@ -4125,14 +4125,10 @@ Minecraft Bedrock add-on, OneBlock Sovereign Market Bedrock mod, Minecraft PE su
 }
 ```
 
-## FILE: MCPEDL/Maps/Oneblock-SM/README.md (23 lines, 1379 bytes)
+## FILE: MCPEDL/Maps/Oneblock-SM/README.md (19 lines, 1138 bytes)
 
 ```
 # OneBlock Sovereign Market
-
-<!-- CURSEFORGE-BADGE:START -->
-[![CurseForge](https://img.shields.io/badge/CurseForge-Not%20Published-lightgrey?style=flat-square&logo=curseforge)](https://www.curseforge.com/members/allenscreations/projects)
-<!-- CURSEFORGE-BADGE:END -->
 
 Download the current release of **OneBlock Sovereign Market** for Minecraft Bedrock Edition.
 

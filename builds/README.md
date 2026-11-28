@@ -54,7 +54,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **ALNAuroraBorealis** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNAuroraBorealis/ALNAuroraBorealis%20V2.mcaddon) | [`ALNAuroraBorealis/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNAuroraBorealis/) |
 | **ALNCamouflageDoors** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNCamouflageDoors/ALNCamouflageDoors%20V4.mcaddon) | [`ALNCamouflageDoors/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNCamouflageDoors/) |
 | **ALNUncraftableCraftable** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNUncraftableCraftable/ALNUncraftableCraftable%20V1.mcaddon) | [`ALNUncraftableCraftable/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNUncraftableCraftable/) |
-| **Serpent Realms** | Add-on (.mcaddon) | [Download (.mcaddon)](Serpent-Realms/SerpentRealms%20V1.mcaddon) | [`Serpent-Realms/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Serpent-Realms/) |
+| **Serpent Realms** | Add-on (.mcaddon) | [Download (.mcaddon)](Serpent-Realms/SerpentRealms%20V2.mcaddon) | [`Serpent-Realms/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Serpent-Realms/) |
 | **ALNOpCodex** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNOpCodex/ALNOpCodex%20V7.mcaddon) | [`ALNOpCodex/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNOpCodex/) |
 | **ALN Wireless Hopper** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-Wireless-Hopper/ALNWirelessHopper%20V1.0.1.mcaddon) | [`ALN-Wireless-Hopper/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-Wireless-Hopper/) |
 

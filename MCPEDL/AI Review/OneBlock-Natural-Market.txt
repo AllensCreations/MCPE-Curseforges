@@ -4452,14 +4452,10 @@ Minecraft Bedrock add-on, OneBlock Natural Market Bedrock mod, Minecraft PE surv
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Natural-Market/README.md (23 lines, 1388 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/README.md (19 lines, 1174 bytes)
 
 ```
 # OneBlock Natural Market
-
-<!-- CURSEFORGE-BADGE:START -->
-[![CurseForge](https://img.shields.io/badge/CurseForge-v17.0.1-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1819420)
-<!-- CURSEFORGE-BADGE:END -->
 
 Download the current release of **OneBlock Natural Market** for Minecraft Bedrock Edition.
 
