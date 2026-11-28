@@ -1,8 +1,8 @@
 {
-  "changelog_version": "7.0.0",
-  "manifest_version": "7.0.0",
+  "changelog_version": "8.0.0",
+  "manifest_version": "8.0.0",
   "packages": {
-    "ALNOpCodex V7.mcaddon": "e9a348383375c25d7e2530e1268f61b9e450f25438c2571ed3cadcdc97528183"
+    "ALNOpCodex V8.mcaddon": "6cfb70a9b15fb4dc8370a0e0461bc9c135aebff723a4d4fe05d0ce056d93467c"
   },
-  "source_sha256": "42d3702fef328356c450643552455d2d62d4bf4c103b2de2b5450bf44388def5"
+  "source_sha256": "f185172ae3700427fae97b0f33fe059e59cfb6cc1148be6607116e9aca399f21"
 }

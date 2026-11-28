@@ -1,12 +1,22 @@
 # Changelog — ALN:OpCodex
 
-## [v7] - 2026-11-27 - Craftable OP Book
-
-### Added
-- **OP book recipe**: Craft the book from 1 Book, 4 Diamonds and 4 Netherite Ingots.
+## [v8] - 2026-11-28 - Direct Inventory Delivery
 
 ### Improved & Balanced
+- **Kit delivery**: The filled shulker box now goes straight into your inventory, with no chest or dropped items.
+
+<details>
+<summary><b>7.0.x</b> (1 release)</summary>
+
+### [v7] - 2026-11-27 - Craftable OP Book
+
+#### Added
+- **OP book recipe**: Craft the book from 1 Book, 4 Diamonds and 4 Netherite Ingots.
+
+#### Improved & Balanced
 - **No free book**: The pack no longer gives the OP book when you join.
+
+</details>
 
 <details>
 <summary><b>6.0.x</b> (1 release)</summary>
