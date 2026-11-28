@@ -41,6 +41,7 @@ LEGACY_DIR = "ai-review"
 START, END = "<!-- AI-REVIEW:START -->", "<!-- AI-REVIEW:END -->"
 SKIP = {".git", "node_modules", "__pycache__", LEGACY_DIR, "db", "exports"}
 TOOL_INPUTS = [".agents/skills/*/SKILL.md", "scripts/collect_ai_review.py", "scripts/make_pack_script.py", "scripts/build_payload.py",
+               "scripts/compile_typescript.py",
                "scripts/import_project_payload.py", "scripts/doc_template.py", "scripts/pixel_json_to_png.py", "scripts/make_update_script.py",
                "scripts/apply_update.py", "scripts/check_instruction_files.py", "assets/aln-ui-redesign",
                "INSTRUCTIONS.md", "DOCS_RULES.md", "PACK_GENERATOR_INSTRUCTIONS.md"]
@@ -224,6 +225,7 @@ def main() -> int:
     update_scripts = [
         ("files/scripts/make_update_script.py", ROOT / "scripts" / "make_update_script.py"),
         ("files/scripts/apply_update.py", ROOT / "scripts" / "apply_update.py"),
+        ("files/scripts/compile_typescript.py", ROOT / "scripts" / "compile_typescript.py"),
         ("files/scripts/pixel_json_to_png.py", ROOT / "scripts" / "pixel_json_to_png.py"),
         ("files/docs/mcicons-index.md", ROOT / "docs" / "mcicons-index.md"),
         ("files/INSTRUCTIONS.md", ROOT / "INSTRUCTIONS.md"),

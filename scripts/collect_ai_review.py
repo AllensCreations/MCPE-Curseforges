@@ -33,19 +33,21 @@ KIT_SKILLS = {
 KIT_FILES = {
     "NEW": [
         "scripts/make_pack_script.py", "scripts/build_payload.py", "scripts/import_project_payload.py",
-        "scripts/doc_template.py", "scripts/pixel_json_to_png.py",
+        "scripts/compile_typescript.py", "scripts/doc_template.py", "scripts/pixel_json_to_png.py",
         "docs/mcicons-index.md",
         "INSTRUCTIONS.md", "DOCS_RULES.md", "PACK_GENERATOR_INSTRUCTIONS.md",
         "assets/aln-ui-redesign/README.txt", "assets/aln-ui-redesign/design.json",
         "assets/aln-ui-redesign/font/README.txt", "assets/aln-ui-redesign/font/pixelify.js",
     ],
     "UPDATE": [
-        "scripts/make_update_script.py", "scripts/apply_update.py", "scripts/pixel_json_to_png.py",
+        "scripts/make_update_script.py", "scripts/apply_update.py", "scripts/compile_typescript.py",
+        "scripts/pixel_json_to_png.py",
         "docs/mcicons-index.md",
         "INSTRUCTIONS.md", "DOCS_RULES.md", "PACK_GENERATOR_INSTRUCTIONS.md",
     ],
     "REPO": [
-        "scripts/make_update_script.py", "scripts/apply_update.py", "scripts/check_instruction_files.py",
+        "scripts/make_update_script.py", "scripts/apply_update.py", "scripts/compile_typescript.py",
+        "scripts/check_instruction_files.py",
         "docs/mcicons-index.md",
         "INSTRUCTIONS.md", "DOCS_RULES.md", "PACK_GENERATOR_INSTRUCTIONS.md",
     ],
@@ -271,6 +273,9 @@ def add(p: pathlib.Path):
         return
     if not p.is_file():
         return
+    # Token optimization: skip compiled .js if corresponding .ts source exists
+    if p.suffix == ".js" and p.with_suffix(".ts").is_file():
+        return
     if is_text(p):
         selected[rel.as_posix()] = p
     else:
@@ -442,9 +447,14 @@ if not new_pack and not repo_kit:
 
 skills_section = "\n---\n\n## Skills\n" + "".join(skill_blocks) if skill_blocks else ""
 
-# Embed core policy docs so the AI has them without a Context7 round-trip
+# Embed core policy docs so the AI has them without a Context7 round-trip.
+# Token optimization: PACK_GENERATOR_INSTRUCTIONS.md is only embedded for NEW packs,
+# preventing ~12,000 wasted tokens and avoiding base64 confusion on existing pack updates.
 doc_blocks = []
-for doc_rel in ["INSTRUCTIONS.md", "PACK_GENERATOR_INSTRUCTIONS.md", "DOCS_RULES.md"]:
+docs_to_embed = ["INSTRUCTIONS.md", "DOCS_RULES.md"]
+if new_pack:
+    docs_to_embed.append("PACK_GENERATOR_INSTRUCTIONS.md")
+for doc_rel in docs_to_embed:
     doc_path = root / doc_rel
     if doc_path.is_file():
         doc_text = doc_path.read_text(encoding="utf-8", errors="replace").rstrip("\n")

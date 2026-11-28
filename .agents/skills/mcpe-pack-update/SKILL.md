@@ -32,7 +32,7 @@ If you are unsure whether the target project already exists, check `MCPEDL/` fir
 
 When working from a direct conversation (not an AI Review export), read the pack's source files from the repo clone directly:
 - Manifests: `MCPEDL/<Category>/<Name>/behavior_pack/manifest.json`, `resource_pack/manifest.json`
-- Scripts: `MCPEDL/<Category>/<Name>/behavior_pack/scripts/main.js` (and `lib/`)
+- Scripts: `MCPEDL/<Category>/<Name>/behavior_pack/scripts/main.ts` (or `main.js`, and `lib/`)
 - Docs: `MCPEDL/<Category>/<Name>/CHANGELOG.md`, `README.md`, `DESCRIPTION.md`
 - Policy scripts: `scripts/make_update_script.py`, `scripts/apply_update.py` (read from repo, run them locally)
 
@@ -43,7 +43,7 @@ NEVER skip reading the real source. NEVER work from memory or a previous session
 1. Read `INSTRUCTIONS.md` Parts 1 and 2 before writing anything, through Context7 as the `mcpe-context7` skill says. `make_update_script.py`, `apply_update.py`, and `pixel_json_to_png.py` are complete in the pack's review zip (`<Pack>.zip`) under `files/`; if the zip is not available, read the scripts directly from `scripts/` in the repo clone.
 2. Find the destination folder: the path the user named, otherwise the matching project folder. Do not substitute a similar name; report ambiguity or a missing target.
 3. Read the real source (manifests, scripts, items, recipes, loot tables, functions, lang files) before writing any claim. Source priority when sources disagree: the project's own files, Mojang Bedrock Samples, official Minecraft Creator Documentation, Minecraft Wiki, Bedrock Wiki.
-4. Make the smallest possible change. No unrelated rewrites. Never invent features, versions, links, assets, test results or compatibility. Never write comments in shipped `.js`, `.mcfunction` or `.json` files.
+4. Make the smallest possible change. No unrelated rewrites. Never invent features, versions, links, assets, test results or compatibility. You may write or update scripts in TypeScript (`.ts`); `apply_update.py` and `scripts/compile_typescript.py` automatically compile `.ts` edits into comment-free `.js` for Bedrock runtime compatibility. Never write comments in shipped `.js`, `.mcfunction` or `.json` files.
 5. Generate the spec, convert it with `make_update_script.py` into a single self-contained `<Pack>_v<Version>_<rand>.sh` file, and provide the one-line run command for the user.
 
 ## The update script

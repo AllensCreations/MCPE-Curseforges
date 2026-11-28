@@ -296,6 +296,21 @@ def run(spec, root, date, dry=False):
                 p.parent.mkdir(parents=True, exist_ok=True)
                 p.write_text(t, encoding="utf-8", newline="\n")
     if not dry:
+        ts_touched = [p for p in touched if p.suffix == ".ts" and not p.name.endswith(".d.ts")]
+        if ts_touched:
+            sys.path.insert(0, str(root / "scripts"))
+            try:
+                import compile_typescript
+                ok, err = compile_typescript.compile_ts_files(ts_touched, root=root)
+                if not ok:
+                    raise Fail(f"TypeScript compilation error: {err}", 4)
+                notes.append(f"compiled {len(ts_touched)} TypeScript file(s) to JavaScript")
+                for tp in ts_touched:
+                    jp = tp.with_suffix(".js")
+                    if jp.is_file() and jp not in touched:
+                        touched.append(jp)
+            except ImportError:
+                notes.append("warning: compile_typescript script not found; skipped TypeScript build")
         unchecked = False
         for p in touched:
             if p.suffix in (".js", ".mjs"):
