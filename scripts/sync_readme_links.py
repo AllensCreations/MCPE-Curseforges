@@ -17,7 +17,7 @@ CATEGORIES = ("Addons", "Maps", "Script", "Minigame")
 PACKAGE_EXT = (".mcaddon", ".mcpack", ".mcworld")
 MODES = ("Creative", "Survival", "Hardcore")
 LINK_RE = re.compile(r"(\]\()((?:[^()\s]|\([^()]*\))+)(\))")
-VERSION_TOKEN = re.compile(r"(?:\(V|(?<= )V)(\d+)\.(\d+)\.(\d+)(?:\.(\d+))?\)?(?=\.[A-Za-z]+$|\s|$)")
+VERSION_TOKEN = re.compile(r"(?:\(V|(?<= )V)(\d+)(?:\.(\d+)\.(\d+)(?:\.(\d+))?)?\)?(?=\.[A-Za-z]+$|\s|$)")
 CELL_VERSION = re.compile(r"^(\s*)(v?)(\d+\.\d+\.\d+(?:\.\d+)?)(\s*)$")
 
 
@@ -27,7 +27,13 @@ def posix(path):
 
 def file_version(name):
     match = VERSION_TOKEN.search(name)
-    return tuple(int(g or 0) for g in match.groups()) if match else (0, 0, 0, 0)
+    if not match:
+        return (0, 0, 0, 0)
+    groups = match.groups()
+    first = int(groups[0])
+    if groups[1] is None:
+        return (first, 0, 0, 0)
+    return (first, int(groups[1] or 0), int(groups[2] or 0), int(groups[3] or 0))
 
 
 def shape(name):

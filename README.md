@@ -12,7 +12,8 @@ ALNStudios makes free Minecraft Bedrock add-ons, maps, script packs and minigame
 - [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
 - [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
 
-## Installation
+## Compatibility and Installation
+<a id="installation"></a><a id="compatibility-and-installation"></a>
 1. Download the pack you want from CurseForge or MCPEDL.
 2. Open the downloaded file with Minecraft to import it.
 3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
