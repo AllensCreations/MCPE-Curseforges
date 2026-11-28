@@ -2,6 +2,14 @@
 
 ---
 
+## [v4] - 2026-11-28 - Anvil Screen
+
+### Added
+- **Anvil-style screen**: The Door Painter now opens a custom screen with Door, Bottom Block, Top Block and Result slots, each showing an item icon.
+
+### Improved & Balanced
+- **Item picker**: Choosing an item shows a scrolling list with icons, and Empty slot clears a slot.
+
 ## [v3] - 2026-11-28 - Painted Door Fix
 
 ### Fixed

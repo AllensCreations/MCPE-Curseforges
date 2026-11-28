@@ -20,7 +20,7 @@ Craft a Door Painter and place it. Right-click it, choose a door, then choose a 
 - **How It Works**: Craft it from 5 Iron Ingots and 1 Crafting Table.
 
 ### Anvil-Style Paint Menu
-- **What Happens**: The menu shows Door + Bottom Block + Top Block = Result. Each slot lets you pick an item from your inventory.
+- **What Happens**: A custom Anvil-style screen shows Door + Bottom Block + Top Block = Result, with an item icon in each slot. Tap the name under a slot to pick an item from your inventory, then tap Result to take the painted door.
 - **Good To Know**: Painting uses 1 door and 1 of each chosen block. Empty block slots cost nothing.
 
 ### Painted Door

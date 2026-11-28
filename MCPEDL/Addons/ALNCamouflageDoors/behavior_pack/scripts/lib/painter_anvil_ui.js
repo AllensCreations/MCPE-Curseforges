@@ -1,12 +1,14 @@
 import { ActionFormData } from "@minecraft/server-ui";
 import { createLogger } from "./logger.js";
-import { VANILLA_KEY, paletteByItem, isDoorItem, doorKind, itemLabel } from "./palette.js";
+import { VANILLA_KEY, paletteByItem, isDoorItem, doorKind, itemLabel, iconForItem } from "./palette.js";
 import { scanInventory, readSlot, consume, giveOrDrop } from "./inventory_utils.js";
 import { createPaintedDoorItem } from "./painted_door_handler.js";
 
 const log = createLogger("painter_ui");
 const sessions = new Map();
 const SLOT_NAMES = ["door", "bottom", "top"];
+const MAIN_KEY = "ALNPAINTER";
+const PICK_KEY = "ALNPICKER";
 
 function getSession(player) {
   let session = sessions.get(player.id);
@@ -51,13 +53,11 @@ function resultLine(session) {
 
 function buildBody(session) {
   return [
-    "§e[Door] §f+ §a[Bottom Block] §f+ §d[Top Block] §f= §b[Result]",
-    "",
+    "§fTap the name under a slot to change it.",
     "§eDoor: §f" + labelOf(session.door, "Empty"),
     "§aBottom: §f" + labelOf(session.bottom, "Vanilla texture"),
     "§dTop: §f" + labelOf(session.top, "Vanilla texture"),
     "§bResult: §f" + resultLine(session),
-    "",
     "§fPainting uses 1 door and 1 of each chosen block.",
   ].join("\n");
 }
@@ -67,7 +67,8 @@ async function pickItem(player, slotName) {
   const isDoor = slotName === "door";
   const entries = scanInventory(player, (item) => (isDoor ? isDoorItem(item.typeId) : paletteByItem(item.typeId) !== undefined));
   const form = new ActionFormData();
-  form.title(isDoor ? "§l§eChoose Door" : slotName === "bottom" ? "§l§aChoose Bottom Block" : "§l§dChoose Top Block");
+  const heading = isDoor ? "§l§eChoose Door" : slotName === "bottom" ? "§l§aChoose Bottom Block" : "§l§dChoose Top Block";
+  form.title(heading + "§r " + PICK_KEY);
   if (entries.length === 0) {
     form.body(isDoor ? "§cNo doors in your inventory." : "§cNo paintable blocks in your inventory.");
   } else {
@@ -75,7 +76,7 @@ async function pickItem(player, slotName) {
   }
   form.button("§l§cEmpty slot");
   for (const entry of entries) {
-    form.button("§f" + itemLabel(entry.typeId) + " §ex" + entry.amount);
+    form.button("§f" + itemLabel(entry.typeId) + " §ex" + entry.amount, iconForItem(entry.typeId));
   }
   const response = await form.show(player);
   log.step("picker " + slotName + " closed: canceled=" + response.canceled + (response.canceled ? " reason=" + response.cancelationReason : " selection=" + response.selection));
@@ -126,13 +127,12 @@ async function showMain(player) {
   const session = getSession(player);
   refresh(player, session);
   const form = new ActionFormData();
-  form.title("§l§bDoor Painter");
+  form.title("§l§bDoor Painter§r " + MAIN_KEY);
   form.body(buildBody(session));
-  form.button("§l§eDoor Slot\n§f" + labelOf(session.door, "Empty"));
-  form.button("§l§aBottom Block\n§f" + labelOf(session.bottom, "Vanilla texture"));
-  form.button("§l§dTop Block\n§f" + labelOf(session.top, "Vanilla texture"));
-  form.button(session.door ? "§l§bTake Result\n" + resultLine(session) : "§l§cResult\n§fNeeds a door");
-  form.button("§l§cClear Slots");
+  form.button("§l§eDoor\n§f" + labelOf(session.door, "Empty"), session.door ? iconForItem(session.door.typeId) : undefined);
+  form.button("§l§aBottom\n§f" + labelOf(session.bottom, "Vanilla"), session.bottom ? iconForItem(session.bottom.typeId) : undefined);
+  form.button("§l§dTop\n§f" + labelOf(session.top, "Vanilla"), session.top ? iconForItem(session.top.typeId) : undefined);
+  form.button(session.door ? "§l§bResult\n§fTake it" : "§l§cResult\n§fNeeds a door", session.door ? iconForItem(session.door.typeId) : undefined);
   log.step("showing main painter form");
   const response = await form.show(player);
   log.step("main form closed: canceled=" + response.canceled + (response.canceled ? " reason=" + response.cancelationReason : " selection=" + response.selection));
@@ -145,12 +145,8 @@ async function showMain(player) {
     await pickItem(player, "bottom");
   } else if (response.selection === 2) {
     await pickItem(player, "top");
-  } else if (response.selection === 3) {
-    paint(player, session);
   } else {
-    session.door = undefined;
-    session.bottom = undefined;
-    session.top = undefined;
+    paint(player, session);
   }
   await showMain(player);
 }

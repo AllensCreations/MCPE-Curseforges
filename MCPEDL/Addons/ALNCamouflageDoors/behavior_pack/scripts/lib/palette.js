@@ -2,21 +2,21 @@ export const VANILLA_KEY = "vanilla";
 export const PAINTED_DOOR_ID = "aln:painted_door";
 
 export const PALETTE = [
-  { key: "oak_planks", item: "minecraft:oak_planks", name: "Oak Planks" },
-  { key: "spruce_planks", item: "minecraft:spruce_planks", name: "Spruce Planks" },
-  { key: "birch_planks", item: "minecraft:birch_planks", name: "Birch Planks" },
-  { key: "dark_oak_planks", item: "minecraft:dark_oak_planks", name: "Dark Oak Planks" },
-  { key: "stone", item: "minecraft:stone", name: "Stone" },
-  { key: "cobblestone", item: "minecraft:cobblestone", name: "Cobblestone" },
-  { key: "stone_bricks", item: "minecraft:stone_bricks", name: "Stone Bricks" },
-  { key: "bricks", item: "minecraft:brick_block", name: "Bricks" },
-  { key: "sandstone", item: "minecraft:sandstone", name: "Sandstone" },
-  { key: "dirt", item: "minecraft:dirt", name: "Dirt" },
-  { key: "iron_block", item: "minecraft:iron_block", name: "Block of Iron" },
-  { key: "quartz_block", item: "minecraft:quartz_block", name: "Block of Quartz" },
-  { key: "netherrack", item: "minecraft:netherrack", name: "Netherrack" },
-  { key: "white_wool", item: "minecraft:white_wool", name: "White Wool" },
-  { key: "coal_block", item: "minecraft:coal_block", name: "Block of Coal" },
+  { key: "oak_planks", item: "minecraft:oak_planks", name: "Oak Planks", icon: "textures/blocks/planks_oak" },
+  { key: "spruce_planks", item: "minecraft:spruce_planks", name: "Spruce Planks", icon: "textures/blocks/planks_spruce" },
+  { key: "birch_planks", item: "minecraft:birch_planks", name: "Birch Planks", icon: "textures/blocks/planks_birch" },
+  { key: "dark_oak_planks", item: "minecraft:dark_oak_planks", name: "Dark Oak Planks", icon: "textures/blocks/planks_big_oak" },
+  { key: "stone", item: "minecraft:stone", name: "Stone", icon: "textures/blocks/stone" },
+  { key: "cobblestone", item: "minecraft:cobblestone", name: "Cobblestone", icon: "textures/blocks/cobblestone" },
+  { key: "stone_bricks", item: "minecraft:stone_bricks", name: "Stone Bricks", icon: "textures/blocks/stonebrick" },
+  { key: "bricks", item: "minecraft:brick_block", name: "Bricks", icon: "textures/blocks/brick" },
+  { key: "sandstone", item: "minecraft:sandstone", name: "Sandstone", icon: "textures/blocks/sandstone_normal" },
+  { key: "dirt", item: "minecraft:dirt", name: "Dirt", icon: "textures/blocks/dirt" },
+  { key: "iron_block", item: "minecraft:iron_block", name: "Block of Iron", icon: "textures/blocks/iron_block" },
+  { key: "quartz_block", item: "minecraft:quartz_block", name: "Block of Quartz", icon: "textures/blocks/quartz_block_side" },
+  { key: "netherrack", item: "minecraft:netherrack", name: "Netherrack", icon: "textures/blocks/netherrack" },
+  { key: "white_wool", item: "minecraft:white_wool", name: "White Wool", icon: "textures/blocks/wool_colored_white" },
+  { key: "coal_block", item: "minecraft:coal_block", name: "Block of Coal", icon: "textures/blocks/coal_block" },
 ];
 
 const BY_ITEM = new Map(PALETTE.map((entry) => [entry.item, entry]));
@@ -60,4 +60,15 @@ export function prettyName(typeId) {
 export function itemLabel(typeId) {
   const entry = BY_ITEM.get(typeId);
   return entry ? entry.name : prettyName(typeId);
+}
+
+export function iconForItem(typeId) {
+  const entry = BY_ITEM.get(typeId);
+  if (entry) {
+    return entry.icon;
+  }
+  if (isDoorItem(typeId)) {
+    return doorKind(typeId) === "iron" ? "textures/items/door_iron" : "textures/items/door_wood";
+  }
+  return undefined;
 }

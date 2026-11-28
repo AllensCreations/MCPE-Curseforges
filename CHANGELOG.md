@@ -4,6 +4,16 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v328] - 2026-11-28 - Anvil Screen
+
+**Spec**: spec_v328.txt | **Target**: MCPEDL/Addons/ALNCamouflageDoors | **Files edited**: 6
+
+### Added
+- **Anvil-style screen**: The Door Painter now opens a custom screen with Door, Bottom Block, Top Block and Result slots, each showing an item icon.
+
+### Improved & Balanced
+- **Item picker**: Choosing an item shows a scrolling list with icons, and Empty slot clears a slot.
+
 ## [v327] - 2026-11-28 - Painted Door Fix
 
 **Spec**: spec_v327.txt | **Target**: MCPEDL/Addons/ALNCamouflageDoors | **Files edited**: 5

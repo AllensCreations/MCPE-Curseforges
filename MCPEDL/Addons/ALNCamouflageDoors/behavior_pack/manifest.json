@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:CamouflageDoors (v3)",
+    "name": "ALN:CamouflageDoors (v4)",
     "description": "Door Painter workstation and camouflage doors by ALNStudios",
     "uuid": "1893c240-881d-4f0f-a0ff-046f09947711",
     "version": [
-      3,
+      4,
       0,
       0
     ],
@@ -20,7 +20,7 @@
       "type": "data",
       "uuid": "52f368ae-f610-4d1c-92f5-fbc32af756b9",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -30,7 +30,7 @@
       "language": "javascript",
       "uuid": "14c9afed-4aa9-4296-b823-aa64b3d62c22",
       "version": [
-        3,
+        4,
         0,
         0
       ],
@@ -41,7 +41,7 @@
     {
       "uuid": "5a87bd6e-bd4a-48e4-a22c-3c6b04b31af1",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -60,6 +60,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "3.0.0"
+    "version": "4.0.0"
   }
 }
