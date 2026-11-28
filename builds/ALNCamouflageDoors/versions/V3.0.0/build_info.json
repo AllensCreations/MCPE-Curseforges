@@ -1,0 +1,8 @@
+{
+  "changelog_version": "3.0.0",
+  "manifest_version": "3.0.0",
+  "packages": {
+    "ALNCamouflageDoors V3.mcaddon": "2ca53fa0f05cca4d3e72ad0abdb93ba9552cd71c1c9f37a41b237282d2deb5ab"
+  },
+  "source_sha256": "064ef7132b4caae842a64ff4978a163d3fab63d5864e5e03c4f2474fa1f26bd1"
+}

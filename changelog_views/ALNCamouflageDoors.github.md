@@ -1,14 +1,24 @@
 # Changelog — ALN:CamouflageDoors
 
-## [v2] - 2026-11-28 - Right-Click Fix
-
-### Added
-- **Chat diagnostics**: The add-on posts a start-up check result when you join and a chat message for each Door Painter and Painted Door step, so a failing step shows up in chat.
+## [v3] - 2026-11-28 - Painted Door Fix
 
 ### Fixed
+- **Painted Door item**: Taking the result in the Door Painter no longer fails, and the painted door keeps its bottom and top blocks.
+
+<details>
+<summary><b>2.0.x</b> (1 release)</summary>
+
+### [v2] - 2026-11-28 - Right-Click Fix
+
+#### Added
+- **Chat diagnostics**: The add-on posts a start-up check result when you join and a chat message for each Door Painter and Painted Door step, so a failing step shows up in chat.
+
+#### Fixed
 - **Door Painter menu**: Right-clicking the Door Painter now opens the paint menu.
 - **Painted Door**: Right-clicking a placed Painted Door now opens and closes it.
 - **Silent failures**: Menu, placing and opening errors now report the failing step instead of doing nothing.
+
+</details>
 
 <details>
 <summary><b>1.0.x</b> (1 release)</summary>
