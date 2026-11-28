@@ -56,7 +56,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **ALNUncraftableCraftable** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNUncraftableCraftable/ALNUncraftableCraftable%20V1.mcaddon) | [`ALNUncraftableCraftable/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNUncraftableCraftable/) |
 | **Serpent Realms** | Add-on (.mcaddon) | [Download (.mcaddon)](Serpent-Realms/SerpentRealms%20V2.mcaddon) | [`Serpent-Realms/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Serpent-Realms/) |
 | **ALNOpCodex** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNOpCodex/ALNOpCodex%20V8.mcaddon) | [`ALNOpCodex/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNOpCodex/) |
-| **ALN Wireless Hopper** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-Wireless-Hopper/ALNWirelessHopper%20V1.0.1.mcaddon) | [`ALN-Wireless-Hopper/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-Wireless-Hopper/) |
+| **ALN Wireless Hopper** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-Wireless-Hopper/ALNWirelessHopper%20V2.mcaddon) | [`ALN-Wireless-Hopper/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-Wireless-Hopper/) |
 
 ### Worlds and Maps
 

@@ -83,3 +83,4 @@ You craft a Wireless Remote and right-click a Hopper with it. The Remote turns i
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, ALN Wireless Hopper Bedrock mod, wireless hopper, remote item transfer, chest linking, Wireless Remote, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+

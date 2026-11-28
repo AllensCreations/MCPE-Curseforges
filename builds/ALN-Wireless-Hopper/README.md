@@ -8,7 +8,7 @@ This folder contains compiled release packages for **ALN Wireless Hopper** by AL
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`ALNWirelessHopper V1.0.1.mcaddon`** | `.mcaddon` | ~14 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Hopper/ALNWirelessHopper%20V1.0.1.mcaddon) |
+| **`ALNWirelessHopper V2.mcaddon`** | `.mcaddon` | ~19 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Hopper/ALNWirelessHopper%20V2.mcaddon) |
 
 ---
 

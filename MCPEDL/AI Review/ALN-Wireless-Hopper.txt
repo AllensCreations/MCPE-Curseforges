@@ -4,38 +4,36 @@
 
 - **Export request:** `MCPEDL/Addons/ALN-Wireless-Hopper`
 - **Destination:** `MCPEDL/Addons/ALN-Wireless-Hopper`
-- **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALN-Wireless-Hopper/CHANGELOG.md`)
+- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/ALN-Wireless-Hopper/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
-- **Text files:** 25
+- **Text files:** 23
 - **Skipped binary:** 9
 - **Paths not found:** 0
 
 ### Files in this export
 
-- `MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/blocks/wireless_hopper.json`
 - `MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/items/wireless_remote.json`
-- `MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/loot_tables/blocks/wireless_hopper.json`
+- `MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/items/wireless_remote_linked.json`
 - `MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/manifest.json`
-- `MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/recipes/wireless_hopper.json`
 - `MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/recipes/wireless_remote.json`
-- `MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/lib/constants.js`
-- `MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/lib/distribute.js`
-- `MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/lib/feedback.js`
-- `MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/lib/item_catcher.js`
+- `MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/lib/cleanup.ts`
+- `MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/lib/constants.ts`
+- `MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/lib/distribute.ts`
+- `MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/lib/feedback.ts`
+- `MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/lib/lore.ts`
 - `MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/lib/README.md`
-- `MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/lib/registry.js`
-- `MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/lib/wireless_link.js`
-- `MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/lib/registry.ts`
+- `MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/lib/remote.ts`
+- `MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/lib/sender_loop.ts`
+- `MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/main.ts`
 - `MCPEDL/Addons/ALN-Wireless-Hopper/CHANGELOG.md`
 - `MCPEDL/Addons/ALN-Wireless-Hopper/DESCRIPTION.md`
 - `MCPEDL/Addons/ALN-Wireless-Hopper/project.json`
 - `MCPEDL/Addons/ALN-Wireless-Hopper/README.md`
 - `MCPEDL/Addons/ALN-Wireless-Hopper/resource_pack/manifest.json`
-- `MCPEDL/Addons/ALN-Wireless-Hopper/resource_pack/models/blocks/wireless_hopper.geo.json`
 - `MCPEDL/Addons/ALN-Wireless-Hopper/resource_pack/texts/en_US.lang`
 - `MCPEDL/Addons/ALN-Wireless-Hopper/resource_pack/texts/languages.json`
 - `MCPEDL/Addons/ALN-Wireless-Hopper/resource_pack/textures/item_texture.json`
-- `MCPEDL/Addons/ALN-Wireless-Hopper/resource_pack/textures/terrain_texture.json`
 - `MCPEDL/Addons/ALN-Wireless-Hopper/texture_sources/wireless_hopper_textures.json`
 
 ### Skipped (binary): 9 file(s)
@@ -43,12 +41,12 @@
 - `MCPEDL/Addons/ALN-Wireless-Hopper/assets/banner.png`
 - `MCPEDL/Addons/ALN-Wireless-Hopper/assets/items/wireless_remote.png`
 - `MCPEDL/Addons/ALN-Wireless-Hopper/assets/items/wireless_remote_label.png`
-- `MCPEDL/Addons/ALN-Wireless-Hopper/assets/recipes/wireless_hopper_recipe.png`
-- `MCPEDL/Addons/ALN-Wireless-Hopper/assets/recipes/wireless_hopper_recipe_label.png`
+- `MCPEDL/Addons/ALN-Wireless-Hopper/assets/items/wireless_remote_linked.png`
+- `MCPEDL/Addons/ALN-Wireless-Hopper/assets/items/wireless_remote_linked_label.png`
 - `MCPEDL/Addons/ALN-Wireless-Hopper/assets/recipes/wireless_remote_recipe.png`
 - `MCPEDL/Addons/ALN-Wireless-Hopper/assets/recipes/wireless_remote_recipe_label.png`
-- `MCPEDL/Addons/ALN-Wireless-Hopper/resource_pack/textures/blocks/wireless_hopper.png`
 - `MCPEDL/Addons/ALN-Wireless-Hopper/resource_pack/textures/items/wireless_remote.png`
+- `MCPEDL/Addons/ALN-Wireless-Hopper/resource_pack/textures/items/wireless_remote_linked.png`
 
 ---
 
@@ -151,7 +149,7 @@ If you are unsure whether the target project already exists, check `MCPEDL/` fir
 
 When working from a direct conversation (not an AI Review export), read the pack's source files from the repo clone directly:
 - Manifests: `MCPEDL/<Category>/<Name>/behavior_pack/manifest.json`, `resource_pack/manifest.json`
-- Scripts: `MCPEDL/<Category>/<Name>/behavior_pack/scripts/main.js` (and `lib/`)
+- Scripts: `MCPEDL/<Category>/<Name>/behavior_pack/scripts/main.ts` (or `main.js`, and `lib/`)
 - Docs: `MCPEDL/<Category>/<Name>/CHANGELOG.md`, `README.md`, `DESCRIPTION.md`
 - Policy scripts: `scripts/make_update_script.py`, `scripts/apply_update.py` (read from repo, run them locally)
 
@@ -162,7 +160,7 @@ NEVER skip reading the real source. NEVER work from memory or a previous session
 1. Read `INSTRUCTIONS.md` Parts 1 and 2 before writing anything, through Context7 as the `mcpe-context7` skill says. `make_update_script.py`, `apply_update.py`, and `pixel_json_to_png.py` are complete in the pack's review zip (`<Pack>.zip`) under `files/`; if the zip is not available, read the scripts directly from `scripts/` in the repo clone.
 2. Find the destination folder: the path the user named, otherwise the matching project folder. Do not substitute a similar name; report ambiguity or a missing target.
 3. Read the real source (manifests, scripts, items, recipes, loot tables, functions, lang files) before writing any claim. Source priority when sources disagree: the project's own files, Mojang Bedrock Samples, official Minecraft Creator Documentation, Minecraft Wiki, Bedrock Wiki.
-4. Make the smallest possible change. No unrelated rewrites. Never invent features, versions, links, assets, test results or compatibility. Never write comments in shipped `.js`, `.mcfunction` or `.json` files.
+4. Make the smallest possible change. No unrelated rewrites. Never invent features, versions, links, assets, test results or compatibility. You may write or update scripts in TypeScript (`.ts`); `apply_update.py` and `scripts/compile_typescript.py` automatically compile `.ts` edits into comment-free `.js` for Bedrock runtime compatibility. Never write comments in shipped `.js`, `.mcfunction` or `.json` files.
 5. Generate the spec, convert it with `make_update_script.py` into a single self-contained `<Pack>_v<Version>_<rand>.sh` file, and provide the one-line run command for the user.
 
 ## The update script
@@ -196,7 +194,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v1 / NEXT UPDATE: v2).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
 - NEVER use a base64 payload or new-pack `.sh` for an existing pack. This is an UPDATE.
 - Retain all UUIDs in manifests. NEVER regenerate UUIDs.
 - Update CHANGELOG.md with a new release entry at top under `---`.
@@ -493,7 +491,7 @@ Placeholders `<PackName>`, `<MainAction>`, `<version>`. NEVER hardcode one pack.
 
 ### 1.16 Bedrock Developer Role and Trusted Sources
 - Role: expert Minecraft Bedrock Add-on and Script API developer. Build and maintain complete Behavior Packs, Resource Packs and Script API modules. Official NPM packages first (`@minecraft/server`, `@minecraft/server-ui`, `@minecraft/math`); on any error, deprecated API or version mismatch verify through the Context7 libraries below (1.17).
-- Structure: valid `manifest.json` (1.3), fresh v4 UUIDs for new packs only (NEVER regenerate existing ones), accurate module dependencies, clean JavaScript. NEVER ship TypeScript (`build_payload.py` allows only `.js`). `@minecraft/math` is NOT in `ALLOWED_MODULES` of `build_payload.py` (1.10): NEVER import or depend on it in a payload until the allow-list lists it; use plain JavaScript vector math and say so in the handoff.
+- Structure: valid `manifest.json` (1.3), fresh v4 UUIDs for new packs only (NEVER regenerate existing ones), accurate module dependencies. TypeScript (.ts) is fully supported for all new packs and updates: write clean TypeScript under behavior_pack/scripts/ (`scripts/compile_typescript.py` automatically type-checks and compiles them to comment-free .js for Minecraft Bedrock runtime compatibility). Existing packs may keep their clean JavaScript. `@minecraft/math` is NOT in `ALLOWED_MODULES` of `build_payload.py` (1.10): NEVER import or depend on it in a payload until the allow-list lists it; use plain vector math and say so in the handoff.
 - Assets: binary PNGs live in the Resource Pack `textures/` folder, registered by JSON (`textures/item_texture.json`, `textures/terrain_texture.json`), NEVER mixed with the registration files. Recipes reference vanilla item identifiers directly. NEVER duplicate vanilla PNGs unless needed as templates.
 - Trusted sources (rely strictly and exclusively on these four Context7 libraries, queried per 1.17; NEVER invent API methods, outdated syntax or item ids): `/microsoftdocs/minecraft-creator` (Script API, `@minecraft/server`, `@minecraft/server-ui`, JSON schemas, versions); `/mojang/bedrock-samples` (vanilla textures, recipes, entities, definitions, formats); `/websites/wiki_bedrock_dev` (manifest structure, techniques); `/allenscreations/mcpe-curseforges` (this repo's rules and scripts). No other library, site or package page is a source. Priority and disagreements follow 1.1: report, NEVER choose silently.
 - Failure (script does not load, texture does not render, syntax changed in a newer update): query the Context7 libraries above (1.17) for the exact updated syntax, manifest dependency versions, valid vanilla identifiers and working patterns BEFORE rewriting code.
@@ -570,423 +568,6 @@ Docs, API, vanilla data and repo files are read with the Context7 MCP tool `quer
 - **v14:** `CHECKRM_REFERENCE.md` merged into `DOCS_RULES.md` (Part 3); 1.8 entry-point list removed; one `requirements.txt` for workflows.
 - **v13:** Docs rules and templates moved to `DOCS_RULES.md` (single source for both instruction files); the generator's Part 1 excerpt is kept identical to this file by the checker.
 - **v12:** Part 3 moved to `CHECKRM_REFERENCE.md`; Dirtbound spec moved to its project folder; scripts reference-only for agents; duplicates and contradictions removed; size cap 60,000 bytes.
-````
-
-## Policy Doc: PACK_GENERATOR_INSTRUCTIONS.md
-
-````markdown
-# Pack Generator Instructions (AI Agent, v42)
-
-
-
-Builds a complete **addon**, **map**, **script**, or **minigame** from the user's idea. Returns ONE Termux `.sh` pack script that carries the whole project inside it (as base64). No other file is delivered.
-
-Read `.agents/skills/mcpe-new-pack/SKILL.md` first (it is also `SKILL.md` at the root of the AI review zip), then this file and `DOCS_RULES.md` for a build task. Part 1 below is an excerpt of `INSTRUCTIONS.md`; the checker keeps its lines identical. Maintenance, workflows, audits, recipe images: `INSTRUCTIONS.md`. Numbers 1.x and 4.x refer to this file; 2.x to `DOCS_RULES.md`.
-
-| Part | Covers |
-| :--- | :--- |
-| 1 (excerpt) | Accuracy, versions, manifests, recipe unlock, functions, security, untested assumptions |
-| 2 | In `DOCS_RULES.md`: README, DESCRIPTION, CHANGELOG rules, templates |
-| 4 | Generator: ask type, build, check, deliver, reply |
-
-Precedence: Part 1 wins. `DOCS_RULES.md` follows Part 1. Part 4 follows both. `INSTRUCTIONS.md` wins on conflict. Accuracy and requested scope outrank any template. Script and file disagree: tell the user.
-Order of work: read Part 1 (incl. 1.17), `DOCS_RULES.md`, then Part 4 from 4.0. Query Context7 per 1.17 before writing any code, manifest, JSON or doc fact. Unclear request: ask ONE line, then proceed. New pack creation: conduct mandatory ~90% research and present the Plan first (4.0a); wait for user confirmation before building.
-
----
-
-## Part 1 (excerpt): Core Policy
-
-### 1.1 Accuracy
-- ALWAYS inspect source files before claims. Ask only if an unresolved choice affects gameplay, compatibility, distribution, data loss, or versioning. Else use defaults.
-- NEVER invent features, versions, links, assets, test results, compatibility, achievement support, performance, platform behavior. Separate verified facts from assumptions.
-- NEVER claim in-game test/function run/gameplay result unless tested in Minecraft. Archive/JSON/syntax checks prove structure only.
-- Source priority (report disagreements, NEVER choose silently). Read sources 2, 3 and 5 through Context7 (1.17): 1 add-on's own files; 1b MCicons release file `reference/mcicons/mcicons-<ver>.tgz` (NOT in Context7; ids in `docs/mcicons-index.md`; the ONLY source of vanilla item and block icons, no fallback); 2 Mojang Bedrock Samples (`/mojang/bedrock-samples`; offline copy reference/bedrock-samples/bedrock-samples.min.json.gz): vanilla ids, textures, recipes, components, formats;
- 3 Minecraft Creator Docs (`/microsoftdocs/minecraft-creator`): stable versions, API; 4 Minecraft Wiki (https://minecraft.wiki/, not in Context7, only through a web tool when one exists): display names, edition, icon look; 5 Bedrock Wiki (`/websites/wiki_bedrock_dev`): formats, techniques. Sources 4-5 NEVER override 1-3 on ids, versions, API.
-- NEVER comments in shipped `.js`, `.mcfunction`, `.json`. Explanations go in docs or handoff.
-- NEVER imply Mojang/Microsoft endorsement.
-- `.sh` names: `(Repofilename)_(Version)_(Rand).sh`. Repofilename = project/folder/file changed, no extension, no spaces (hyphens). Version = new `vX` (e.g. `v2`, or legacy `X.Y.Z`), instruction version (`v5`) or repo version (`v80`). Rand = >=5 random lowercase/digits, fresh each time (`head -c 200 /dev/urandom | tr -dc 'a-z0-9' | head -c 6`), NEVER reused. Example `Dirtbound_v2_k7q2x.sh`. Same name in reply and run command.
-
-
-### 1.2 Versions and Compatibility
-Latest stable:
-- ALWAYS look up latest stable Bedrock release and Script API module versions at time of work. Record date. NEVER trust numbers in this file or memory.
-- Refs: Context7 `/microsoftdocs/minecraft-creator` (Script API versioning, `@minecraft/server` and `@minecraft/server-ui` stable references, platform version guidance), queried per 1.17. Community wikis NEVER pick versions or confirm API.
-- Pick highest stable module version supported by target game and every dependency (check peers). NEVER preview/beta/RC unless a requested feature needs it; then disclose in docs and handoff.
-- Game version and module version are separate. NEVER infer one from the other.
-
-Engine:
-- `min_engine_version` = lowest game version the pack needs. 3-integer array in the manifest form `[1, RELEASE, PATCH]`: game 26.60 = `[1, 26, 60]`, NEVER `[26, 60, 0]` (Minecraft rejects it and caps at the highest released version). Real looked-up value, NEVER `[0,0,0]`. NEVER hardcode a minimum in docs; a documented minimum uses the same form (`1.26.60`).
-- Manifest `format_version` = 2. Item/block `format_version` NEVER newer than `min_engine_version`.
-- Compatibility line states only a verified minimum. NEVER "or newer" unverified.
-- Updating old pack: ALWAYS keep UUIDs, persistent ids, working behavior. Upgrade deps deliberately. Raising `min_engine_version` drops players: say so in CHANGELOG.
-
-Achievements/experiments (every new pack, meaningful update):
-- ALWAYS inspect manifests, deps, stable-vs-preview imports, JSON, components, scripts, functions, world settings. Confirm experiment needs against current docs, NEVER keyword match. Stable Script API alone != experiment or achievements disabled.
-- Pack files NEVER establish an existing world's settings.
-- Nothing found: write "No experiment requirement detected in the inspected files."
-- Prefer stable implementation. NEVER silently weaken a feature to dodge an experiment.
-- Status: EVERY pack (add-on, map, script, minigame) = ALWAYS `Yes, achievement-friendly.` Every manifest carries `metadata.product_type` = `"addon"`, and the owner confirmed in game (ALN Pointer V20 `.mcaddon`) that a pack of that type keeps achievements allowed. Keep any cheat/command/world caveat as a following sentence. NEVER write Likely, Not or Unknown.
-- Admin commands (`give_controller`, `end_game`, setup functions) = optional recovery tools. Cheats disable achievements in that world: say so wherever documented.
-- Handoff: achievement status, experiments (none/required name/unknown), evidence, scope.
-
-Implementation:
-1. ALWAYS inspect manifest, entry points, imports, structure first.
-2. Confirm each API member exists in the chosen stable module version.
-3. Prefer event-driven logic. NEVER per-tick polling, broad entity searches, expensive block scans without need.
-4. Vanilla JSON components and `.mcfunction` when simpler. Script API when needed.
-5. Fix obvious malformed files.
-6. Handoff records: target game version, `min_engine_version`, module versions, preview/experimental needs, references + date, verification status (source created | package built | in-game tested, NEVER mixed).
-
-### 1.3 Version Format and Manifests
-**Manifest versioning (Bedrock engine format):** `header.version` MUST be a 3-integer array `[X, Y, Z]` (e.g. `[1, 0, 0]`, `[2, 0, 0]`); `metadata.version` MUST be the string `"X.Y.Z"` (e.g. `"1.0.0"`). The Bedrock engine rejects non-array values or strings like `"vX"` in manifests. NEVER use `vX` syntax inside any `manifest.json` field.
-**Per-pack user-facing format:** Every user-visible reference to a version uses `vX` (a single whole number): pack title suffix `(vX)`, changelog headings `## [vX]`, package filenames `(Shortcut VX.ext)`, README download links, CurseForge/MCPEDL release names, snapshot folder prefix `V`. The two formats are strictly separate: manifests = `[X, 0, 0]` / `"X.0.0"`, everything the user sees = `vX`.
-- Version = `vX` format (single whole number, e.g. `v2`, `v3`; Bedrock `header.version` maps to `[X, 0, 0]`; legacy `X.Y.Z` supported). NEVER `X.Y.Z.A`. No fourth part, no Alpha. Same version in `metadata.version`, `(vX)` titles, changelog headings, package names, README links, snapshots.
-
-- Update: X+1 (v1 -> v2, v2 -> v3; legacy 1.2.3 converts to v2). Manifest title suffix equals version (e.g. `(v2)`).
-- Manifest title = `Add-on Name (vX)` (e.g. `Vanilla Quality of Life (v2)`). Exactly one terminal suffix, equals `header.version` (or major integer), BP/RP match. NEVER duplicate suffixes. `scripts/validate_manifest_titles.py [--project <path>]` fails the job on violation (also notes non-fail: format_version != 2, missing/zero `min_engine_version`, missing `metadata.authors`).
-
-- `header.description` contains `by ALNStudios` exactly once. NEVER attribution in title.
-- NEVER change pack UUIDs or world storage keys to rename a title. NEVER regenerate header UUIDs (breaks worlds).
-- Build sync: every processed project aligns all source manifests to one highest `X.Y.Z`: `header.version`, `metadata.version`, title suffix, module versions, same-project BP/RP deps. FORCES `metadata.authors` = `["ALNStudios"]` and `metadata.product_type` = `"addon"` in EVERY BP and RP manifest (new packs, updates, builds; NEVER another author or type), optional `metadata.license`. `product_type` `"addon"` is what keeps achievements allowed (owner-confirmed in game). The Bedrock Wiki says Mojang removed this in game 26.50 (MCPE-242529): if a newer game version shows achievements disabled, report it, do not hide it.
-- Snapshots: `builds/<pack>/versions/V<X.Y.Z>/` (packages, `source.zip`, `source.sha256`, `build_info.json`). Refreshed when source/packages differ. Last 5 kept.
-- NOTHING auto-bumps. The new version is written in CHANGELOG.md AND, in the same update script, into every source manifest with `python3 scripts/manifest_tools.py --project <path> --set vX` (header.version, metadata.version, title suffix, module and dependency versions; UUIDs untouched; never lowers)
-, so every update changes the build. Publish to CurseForge uploads the newest changelog version as written and groups every entry since the last publish. The passive build (`Build Changed Packs & Sync Catalogs`) aligns each pack to its highest existing version and rebuilds. `--bump` / `AUTO_BUMP_MANIFEST=true` remain in `scripts/auto_bump_and_build.py` for manual use only.
-- Package name: **`(<Shortcut> VX.<ext>)`** (example **`(MiningHelmet V1.mcaddon)`**, or legacy **`(<Shortcut> VX.Y.Z.<ext>)`**). Always format name references in bold with parentheses. Shortcut = short, letters and digits only (NEVER `-`, `_`, spaces, `by ALNStudios`), close to the add-on name, kept in `scripts/pack_shortcuts.json` by project folder (fallback: folder name joined). Custom via `metadata.package_filename` or `PACK_FILENAME_TEMPLATE`; MUST contain `V{version}` and no parenthesis in the file name itself, else the default is used. CurseForge upload copy uses the same name. `python3 scripts/rename_packages.py --check|--apply` renames old packages and repairs references.
-- Creator name `ALNStudios`. `python3 scripts/rename_brand.py --apply` migrates old name. NEVER rename lowercase namespaces (`allenscreations:`).
-- Tools: `python3 scripts/manifest_tools.py --project <path> --check|--align|--bump` (`--all --check`). `sync_manifest_versions.py`: deps and `min_engine_version` maintenance; set `min_engine_version` by hand after lookup. `sync_project_docs.py` NOT in build: edit DESCRIPTION/CHANGELOG deliberately. `sync_readme_links.py [--check]` repairs README links (runs after every build).
-- LOCK: every `MCPEDL/Addons/` project has `LOCK` at root starting `ALNStudios Add-on Lock v1`. Importer creates it, build enforces it. Missing/invalid = release-blocking: report path, NEVER call build-ready. Safeguard only, not encryption.
-
-### 1.4 Recipe Unlock
-- ALWAYS unlock every custom crafting recipe by default. Shaped = object `"unlock": { "context": "AlwaysUnlocked" }`. Shapeless = array `"unlock": [{ "context": "AlwaysUnlocked" }]`. NEVER mix forms in one recipe. Validators accept either; generator writes these.
-- Covers `minecraft:recipe_shaped`, `minecraft:recipe_shapeless` only. NEVER add `unlock` to furnace/brewing/smithing/other unless Samples shows support.
-- Validators parse JSON and check `unlock` key. NEVER text search for `AlwaysUnlocked`.
-- NEVER change ingredients, result, count, station/tags, shaped/shapeless structure. NEVER rely on recipe-book discovery unless asked.
-- Applies to all new recipes and any recipe touched. Check type against Samples first.
-
-### 1.6 Function Files
-Paths from repo root. A function file existing != it runs.
-- Functions: `<project>/behavior_pack/functions/<name>.mcfunction`. Tick: `functions/tick.json` `values` = names without suffix (`oneblock_tick`).
-- Before delivery: 1 inspect real manifest, functions, `tick.json`, install steps, report paths; 2 `tick.json` valid, right dir, names existing function; 3 check syntax, ids, coordinates, deps (scoreboards). NEVER make a score-dependent command the only initial-block path unless init guaranteed; 4 validate JSON and `node --check` JS directly (project scripts run in the `.sh`), state what passed; 5 custom item delivered but block missing: diagnose item delivery and function execution separately (pack activation, world links, tick registration, name/path, command errors) BEFORE fallbacks or version bump.
-- NEVER claim `tick.json` missing without inspecting installed/packaged copy.
-
-### 1.10 Review and Security
-AI payloads = untrusted until a person reviews. Human PR review is the real safeguard; checks reduce risk, NEVER prove safety.
-- ALWAYS review `behavior_pack/scripts/` and every `.mcfunction` in the PR before merge. `direct` commit only for a payload you made and checked. PR mode needs "Allow GitHub Actions to create and approve pull requests".
-- `build_payload.py` enforces: imports only `@minecraft/server`, `@minecraft/server-ui`, `@minecraft/vanilla-data`, relative files; `eval`/`Function` rejected; every `.js` passes `node --check`. Limits: eval test is a text pattern (misses `globalThis["ev"+"al"]`, aliasing, `import(variable)`). Reviewers MUST read scripts.
-- UUIDs unique across `MCPEDL/` (own folder excluded). `min_engine_version` = real looked-up version.
-- NEVER `${{ inputs.* }}` or step outputs inside `run:`. Pass via `env:`, quote.
-- Docs MUST pass `build_payload.py` `DOC:` checks (failures, not warnings).
-
-### 1.11 Known Untested Assumptions
-Open until confirmed in game. NEVER state as fact in docs.
-1. Void cleaner: Y=-64 fill succeeds for a player spawning in a fresh void world; conditional tag (Dirtbound `SPEC.md`) retries correctly.
-2. World host reports as Operator via `playerPermissionLevel` with cheats off (Controller reaches host on achievement-eligible world).
-3. `isOp()` absent in 2.x `@minecraft/server` (Controller uses a helper). Re-check on every module bump.
-4. Controller behavior across rejoin, death, reload. Tested only with mocked modules.
-5. Shipped functions and Controller do not disable achievements unless an admin command is run.
-6. Experiment/achievement state of each `Mcpeworlds/` foundation.
-
-### 1.16 Bedrock Developer Role and Trusted Sources
-- Role: expert Minecraft Bedrock Add-on and Script API developer. Build and maintain complete Behavior Packs, Resource Packs and Script API modules. Official NPM packages first (`@minecraft/server`, `@minecraft/server-ui`, `@minecraft/math`); on any error, deprecated API or version mismatch verify through the Context7 libraries below (1.17).
-- Structure: valid `manifest.json` (1.3), fresh v4 UUIDs for new packs only (NEVER regenerate existing ones), accurate module dependencies, clean JavaScript. NEVER ship TypeScript (`build_payload.py` allows only `.js`). `@minecraft/math` is NOT in `ALLOWED_MODULES` of `build_payload.py` (1.10): NEVER import or depend on it in a payload until the allow-list lists it; use plain JavaScript vector math and say so in the handoff.
-- Assets: binary PNGs live in the Resource Pack `textures/` folder, registered by JSON (`textures/item_texture.json`, `textures/terrain_texture.json`), NEVER mixed with the registration files. Recipes reference vanilla item identifiers directly. NEVER duplicate vanilla PNGs unless needed as templates.
-- Trusted sources (rely strictly and exclusively on these four Context7 libraries, queried per 1.17; NEVER invent API methods, outdated syntax or item ids): `/microsoftdocs/minecraft-creator` (Script API, `@minecraft/server`, `@minecraft/server-ui`, JSON schemas, versions); `/mojang/bedrock-samples` (vanilla textures, recipes, entities, definitions, formats); `/websites/wiki_bedrock_dev` (manifest structure, techniques); `/allenscreations/mcpe-curseforges` (this repo's rules and scripts). No other library, site or package page is a source. Priority and disagreements follow 1.1: report, NEVER choose silently.
-- Failure (script does not load, texture does not render, syntax changed in a newer update): query the Context7 libraries above (1.17) for the exact updated syntax, manifest dependency versions, valid vanilla identifiers and working patterns BEFORE rewriting code.
-- Output: complete ready-to-use files with exact repo-root-relative paths, delivered ONLY as the single update `.sh` (`<Repofilename>_<Version>_<Rand>.sh`) or the single pack `.sh` (new packs) and reply format above (Reply Format, Termux Script Rules).
-
-### 1.17 Documentation Lookup (Context7 MCP)
-Docs, API, vanilla data and repo files are read with the Context7 MCP tool `query-docs`. NEVER by pasted URL, NEVER from memory. Applies to every addon, map, script, minigame, update and docs task.
-- Libraries: ONLY these three, IDs passed exactly. NEVER call `resolve-library-id`, NEVER query any other library.
-  - `/mojang/bedrock-samples`: vanilla ids, textures, recipes, components, entities, formats, `version.json` (1.1 priority 2).
-  - `/microsoftdocs/minecraft-creator`: `@minecraft/server` and `@minecraft/server-ui` API, JSON schemas, stable and module versions (1.1 priority 3).
-  - `/websites/wiki_bedrock_dev`: manifest structure, scripting guides, techniques (1.1 priority 5).
-- Before ANY code, manifest, JSON, `.mcfunction`, recipe, version or doc fact: query first, write second. Batch: at most ONE `query-docs` call per needed `libraryId` (several topics together in that call). NEVER several calls to the same `libraryId`, NEVER sequential retry loops. Name the exact member, file, id or schema and the module or game version (e.g. `ItemStack constructor @minecraft/server`, `recipe_shaped format`). All three calls may go in one parallel turn.
-- Verify every import, class, method, property, event, enum, component and JSON field against the retrieved text before using it. NEVER guess. NEVER outdated syntax: the `mojang-minecraft` modules, `world.events`, 1.x-era imports.
-- Empty or doubtful result: do NOT query again. Say "not verified" (1.2), NEVER fill the gap from memory. Results that disagree with each other: report per 1.1.
-- Context7 is an index and can lag the game. Versions come from the retrieved text only, with the query date. A result that does not state the latest stable version = "not verified". Preview/beta members only as 1.2 allows.
-- Repo files: read from the kit zip (`New-Pack.zip`, `Maintenance.zip` or the pack's review zip) or from the repo clone — these always beat any external index. Scripts that must run (`build_payload.py`, `doc_template.py`, `import_project_payload.py`, `make_pack_script.py`, `pixel_json_to_png.py`) need their COMPLETE unchanged text from the zip under `files/`. Incomplete: ask the user to attach the zip. NEVER rewrite from memory.
-- Handoff: one bullet `Docs queried (YYYY-MM-DD): <library IDs and topics>`.
-- NEVER put library IDs, query text or the word Context7 in shipped files or player-facing docs (2.2).
-
----
-
-## Part 2: Docs (moved)
-Every README, DESCRIPTION and CHANGELOG rule and template: `DOCS_RULES.md` (sections 2.1 to 2.5). Read it before writing any doc.
-
----
-
-## Part 4: Pack Generator
-
-Agent builds a full project from the user's idea and returns ONE `.sh` pack script (`scripts/make_pack_script.py`). The user runs it in Termux (`bash <file>.sh` creates the project, builds worlds, pushes; `bash <file>.sh stage` only copies it to `MCPEDL/incoming/`) or runs GitHub workflow **Create Project from Base64** with `payload_file` = the `.sh` (the workflow only reads the payload block, it never runs the file).
-
-Source of truth = scripts: `scripts/build_payload.py` (packager + checks), `scripts/doc_template.py`, `scripts/import_project_payload.py` from ALNStudios/MCPE-Curseforges. ALWAYS read them before building. Disagreement with this file: tell the user. Read them through Context7 `/allenscreations/mcpe-curseforges` (1.17); an attached `tools.txt` wins on any difference. Complete text not retrievable: ask the user to attach `tools.txt`, use that exact text. NEVER rewrite a script from memory. NEVER use a stale copy.
-
-### 4.0 Ask the type first
-Type unknown: ask exactly this, wait:
-> What do you want to make: **addon** (.mcaddon), **map** (.mcworld), **script** (.mcpack), or **minigame** (.mcaddon with the Controller item)?
-
-NEVER guess the type. At most ONE more question, only if the answer changes the build.
-
-| Type | Folder | Extra |
-|---|---|---|
-| addon | `MCPEDL/Addons/<Name>/` | `.mcaddon` |
-| map | `MCPEDL/Maps/<Name>/` | `.mcworld`; Creative, Survival, Hardcore worlds |
-| script | `MCPEDL/Script/<Name>/` | `.mcpack`; BP only |
-| minigame | `MCPEDL/Minigame/<Name>/` | `.mcaddon`; Controller, RP |
-
-### 4.0a Research and Plan First (MANDATORY)
-Before generating any files, scratch workspaces, or pack `.sh` scripts:
-1. **Deep Research (~90% Thoroughness)**: Investigate the user's idea thoroughly (~90% confidence). Query Context7 (1.17) for Bedrock vanilla item/block/entity components, event hooks, mechanics, and limits.
-2. **Select Latest Best API**: Determine and verify the latest stable `@minecraft/server` and `@minecraft/server-ui` versions and modern component `format_version`. Ensure compatibility against `min_engine_version`.
-3. **Present the Plan**: Outline the implementation plan to the user:
-   - Target project type and folder path.
-   - Core gameplay mechanics and Bedrock systems used.
-   - Modules, APIs, components, and events.
-   - File manifest (manifests, scripts, functions, items/blocks, documentation).
-   - Any limits, fallbacks, or trade-offs.
-4. **Wait for User Approval**: Await user review and confirmation ("go" or requested changes). NEVER build files, scratch directories, or `.sh` scripts until the user explicitly approves the plan.
-
-### 4.1 Hard rules
-- NEVER write base64 or the `.sh` by hand. Create files in scratch `build/<Name>/`, then RUN `make_pack_script.py` (4.8). Cannot run code: reply `CANNOT BUILD` (4.11). NEVER invent base64.
-- Deliver ONLY the one pack `.sh`. NEVER deliver a separate `.zip`, pack file (`.mcaddon`/`.mcworld`/`.mcpack`), `.json`, `.js`, `.b64` or any other file; every file lives inside the `.sh`. `build/` is scratch: never delivered, never committed.
-- NEVER invent features, versions, links, assets, results, compatibility. ZIP build proves structure only.
-- ALWAYS look up latest stable Bedrock + `@minecraft/server` + `@minecraft/server-ui` at time of work, record date (1.2). NEVER preview/beta/RC unless a requested feature needs it (then disclose in DESCRIPTION). `min_engine_version` per 1.2. Cannot confirm which game version first shipped your module version: say so.
-- Art: vanilla item and block icons ONLY from MCicons (`reference/mcicons/mcicons-<ver>.tgz` via `scripts/lib/mcicons.py`; only `minecraft:` ids; no icon for an id = report it); NEVER Samples, Wiki or other icon sources. NEVER AI-generated images; new custom textures ONLY as pixel JSON (4.13). NEVER CurseForge/MCPEDL listing images in the payload (linked by URL from `assets/Images/`). Trader Ledger (maps) and Controller (minigames) icons ONLY from the repo copy that `build_payload.py` installs. Other textures: real vanilla names, user-supplied, pixel JSON (4.13), or omit.
-- Gap in the idea: choose the most reasonable option, state it in DESCRIPTION.md.
-- Shell may be plain `sh`: NEVER brace expansion. After creating files, list them, confirm they exist.
-- `.sh` names: 1.1 rule (`(Repofilename)_(Version)_(Rand).sh`).
-- NEVER comments in `.js`, `.mcfunction`, `.json`. Prefer event-driven logic. NEVER claim a README/catalog link to a `.mcworld` that does not exist yet.
-- Structure files: Bedrock structure (.mcstructure, little-endian NBT) and raw NBT (.nbt) files are permitted ONLY under behavior_pack/structures/ (an optional namespace subfolder like structures/aln/<name>.mcstructure is fine). Generated only by code, no comments, max 2 MB per file, no spaces in paths, "not tested in game" until verified in Minecraft.
-
-- Every reply = the three 4.11 sections (File Needed, Changelog, Termux Script). NEVER a Summary section.
-- Vanilla limit blocks a requested mechanic: follow 4.12.
-
-### 4.2 Delivery layout
-ZIP root = project folder contents, built in `build/<Name>/`:
-```
-project.json          REQUIRED: {"type": "addon|map|script|minigame", "name": "Display Name"}
-README.md  DESCRIPTION.md  CHANGELOG.md
-behavior_pack/manifest.json
-behavior_pack/...     functions/ items/ blocks/ entities/ recipes/ loot_tables/ texts/ structures/ scripts/main.js
-
-                      scripts/lib/README.md (REQUIRED with main.js), lib/*.js optional
-resource_pack/        map/minigame REQUIRED. addon optional. script FORBIDDEN.
-texture_sources/      optional pixel JSON for custom textures (4.13). NEVER inside resource_pack/.
-```
-- NEVER ship `oneblock.json` (importer writes for maps), `LOCK` (importer writes for add-ons), another type's `project.json`.
-- NEVER include: `db/`, `level.dat`, `world_behavior_packs.json`, `world_resource_packs.json`, `.mcworld/.mcpack/.mcaddon/.zip`, symlinks, `Mcpeworlds/...` or `assets/...` paths. NEVER name a file/folder exactly `db`.
-- Limits (see `build_payload.py`): 500 files, 5 MB/file (2 MB for .mcstructure / .nbt), 25 MB total. Delivery = the one pack `.sh`, nothing else.
-
-- NEVER create `test_world.json` or promise a test world (removed). The importer creates `assets/snapshots/`, `assets/recipes/`, `assets/items/` itself: NEVER ship `assets/`.
-
-### 4.3 Manifests (all types)
-`behavior_pack/manifest.json` and `resource_pack/manifest.json` (if present). Part 1 (1.2, 1.3) applies.
-- `format_version` 2. `min_engine_version` = looked-up `[1, RELEASE, PATCH]` (game 26.60 = `[1, 26, 60]`, NEVER `[26, 60, 0]`), NEVER `[0,0,0]`.
-- `header.name` = `Add-on Name (vX)`: one terminal suffix == `header.version`. Both packs same version.
-
-- `header.description` contains `by ALNStudios` exactly once. NEVER in name.
-- Fresh unique v4 UUIDs for every header and module. NEVER reuse/copy from examples.
-- RP exists: BP `dependencies` include `{ "uuid": "<RP header.uuid>", "version": [x, y, z] }` matching.
-- Script module: `"type": "script"`, `"language": "javascript"`, `"entry": "scripts/main.js"`; deps `{ "module_name": "@minecraft/server", "version": "<latest stable string>" }`. Add `@minecraft/server-ui` for forms (always for Controller).
-- Script `lib/` folder: EVERY pack that has a `behavior_pack/scripts/main.js` ALSO has `behavior_pack/scripts/lib/README.md` (create the folder together with `main.js`, never later). The README is for the AI review: what the pack's script code does, one line per file in `scripts/` and `scripts/lib/` (purpose, what it exports or registers, what it depends on), the script events and custom item/entity ids it uses, and known limits. When `lib/` holds no `.js` files yet, the README says so in one line. Never write library IDs, query text or the word Context7 in it (2.2). Update it whenever the scripts change.
-- Helper code in `lib/` (only when `main.js` grows past one readable file, e.g. shared helpers, constants, form builders): put the helpers in `behavior_pack/scripts/lib/<name>.js` and import them from `main.js` with a relative path and the `.js` extension (`import "./lib/<name>.js";`). `entry` stays `scripts/main.js`. Verified form (Context7 2026-11-21): relative `./file.js` import from the entry file; named exports from `lib/` files are not verified, query before using them. A small pack keeps everything in `main.js` and only the README in `lib/`.
-- NEVER experiments unless needed (name in docs). Deps/imports ONLY `@minecraft/server`, `@minecraft/server-ui`, `@minecraft/vanilla-data`.
-- RP template (replace every placeholder; run `python3 -m json.tool`):
-```json
-{
-  "format_version": 2,
-  "header": {
-    "name": "Add-on Name (v1)",
-    "description": "Textures for the add-on. by ALNStudios",
-    "uuid": "<fresh uuid v4>",
-    "version": [1, 0, 0],
-    "min_engine_version": [1, LOOKED_UP_RELEASE, LOOKED_UP_PATCH]
-  },
-  "modules": [
-    { "type": "resources", "uuid": "<fresh uuid v4>", "version": [1, 0, 0] }
-  ],
-  "metadata": { "authors": ["ALNStudios"], "product_type": "addon" }
-}
-```
-
-### 4.4 Type: addon
-- `.mcaddon`. BP required, RP optional. No void cleaner, ledger, Controller.
-- `functions/tick.json` names MUST exist as `functions/<name>.mcfunction`.
-- NEVER create `LOCK`.
-
-### 4.5 Type: map (OneBlock)
-Works in any database-free void world. NEVER depend on terrain, database, world settings.
-Required (`build_payload.py` installs the 3 ledger files if missing):
-```
-behavior_pack/functions/tick.json              {"values": ["void_cleaner", "oneblock_tick"]}  void_cleaner FIRST
-behavior_pack/functions/void_cleaner.mcfunction
-behavior_pack/functions/oneblock_setup.mcfunction
-behavior_pack/items/trader_ledger.json
-resource_pack/textures/item_texture.json
-resource_pack/textures/items/trader_ledger.png
-```
-1. `tick.json` valid, non-empty `values`, `void_cleaner` first, every name exists.
-2. `void_cleaner.mcfunction` FIRST command, own line, no trailing spaces:
-   ```
-   execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air
-   ```
-3. `oneblock_setup.mcfunction`: exists, harmless, idempotent. NEVER in `tick.json`. DESCRIPTION says in plain words (no file name) that the optional setup command needs cheats and cheats disable achievements.
-4. Trader Ledger MANDATORY, ONLY from repo copy (32x32 RGBA `Mcpeworlds/assets/resources_pack/textures/items/trader_ledger.png`). Identifier stays `allenscreations:trader_ledger`; display name may change. NEVER redraw/recolor/resize/re-encode. NEVER copy the whole `Mcpeworlds/assets/`.
-5. Ledger role follows the idea (Dirtbound: only way to open a shop menu). No role: still ship, say so in DESCRIPTION.md.
-6. Progression data pool: Every OneBlock map's Script module uses the centralized data pool at `behavior_pack/scripts/lib/Oneblock_Progression.js` (copied from `Mcpeworlds/Progression/Oneblock_Progression.js`). The file contains only the blocks, loot, and mob pools; map-specific spawn chances, island rules, and event triggers remain in the map's own scripts. The importer installs it automatically if omitted.
-
-Pipeline (Dirtbound design) unless user says otherwise. `void_cleaner.mcfunction` runs every tick, each command guarded `tag=!void_cleaned`, order: (1) required Y=-64 line; (2) teleport untagged player to spawn (only function-side teleport); (3) Bedrock under core; (4) placeholder at core only if empty; (5) world spawn; (6) optional notice; (7) add `void_cleaned` tag LAST, CONDITIONAL on core Bedrock existing (`execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cleaned`). Without the tag every guarded command repeats forever; unconditional tag never retries a fill on unloaded chunks. NEVER add a "clear starting area" step.
-- ALWAYS skip any core-area clear once the core exists.
-- `oneblock_tick`: restores only missing Bedrock, only if a player has `void_cleaned`. NEVER reset spawn, teleport, place/replace core.
-- Script API owning the core waits for `void_cleaned` before replacing the placeholder.
-- Standard map coords (EVERY map, ALWAYS): OneBlock core `(0,64,0)`, Bedrock under core `(0,63,0)`, spawn `(0,65,0)`. NEVER deviate unless the user explicitly overrides. Every `fill` MUST cover what it claims to clear. `setworldspawn 0 65 0` and `spawnpoint @a 0 65 0` in `void_cleaner.mcfunction`; core placeholder/block placed at `0 64 0`; Bedrock guard checks `if block 0 63 0 bedrock`.
-- Script teleport only in script, state it in summary. Idea cannot fit the `void_cleaner`-first pipeline: say so, NEVER silently change it.
-
-### 4.6 Types: script and minigame
-Script: standalone BP for general logic. `project.json` type `script`, `behavior_pack/manifest.json`, `behavior_pack/scripts/main.js`. NEVER RP or Controller. Always `.mcpack`.
-
-Minigame: playable challenge driven by a script. `project.json` type `minigame`, BP + RP. Always `.mcaddon`. Uses the Controller.
-
-Required (`build_payload.py` installs Controller files if missing):
-```
-behavior_pack/manifest.json                    script module + @minecraft/server + @minecraft/server-ui
-behavior_pack/scripts/main.js                  the game only; imports ./controller.js
-behavior_pack/scripts/controller.js            fixed copy installed by build_payload.py, NEVER edited
-behavior_pack/items/controller.json
-behavior_pack/functions/give_controller.mcfunction
-behavior_pack/functions/end_game.mcfunction
-resource_pack/manifest.json
-resource_pack/textures/item_texture.json
-resource_pack/textures/items/controller.png    16 x 16, from repo, NEVER redrawn
-```
-Controller (item `aln:<minigame_name>_controller`; NEVER opt out): ALN UI Redesign main menu per `INSTRUCTIONS.md` 1.13/1.14 with exactly 3 buttons **Start**, **About**, **Exit** (this order); while running the first button = **End Game**. All of it lives in `controller.js`: NEVER build another form.
-- Only host/operator gets/uses it, via `isHost` in `controller.js`, NEVER `player.isOp()` alone. Start works while not running (re-read state after form closes). Running: End Game -> confirm form (**End Game** / **Back**) -> `endGame()`, no cheats. Start opens How to play (rules, **Start Game**, **Back**). About: creator, pack + version, one line, profiles, Back.
-- KEPT while the game runs. `consumeOnStart: true` restores old behavior (Start consumes first Controller unless `getGameMode()` is `GameMode.Creative`; End Game then only reachable by a host still carrying one).
-- Game logic calls `endGame()` on win/lose. `endGame()` sets `ended`, gives host/operator a fresh Controller if none.
-- Stuck state: NEVER `running` after reload with no live game. Reset to `idle` on world load, give Controller (1.11 item 4). `give_controller`/`end_game` need cheats: last resort.
-- Giving: host/operator on every spawn incl. death when carrying none (`consumeOnStart: true`: first spawn when not `running`; Creative operators always). State `idle|running|ended` in a world dynamic property.
-- Form shows state and whether Controller is kept. NEVER add Restart/other buttons. Fill `about`, `gameInfo` and `howToPlay` with real text and NO `§` color codes. Colors, the ALNStudios title, bold text, Pixelify font and action bar feedback are done by `controller.js`. The importer copies the skin font + About icon from `assets/aln-ui-redesign/` into the RP and `lib/pixelify.js` is installed with `controller.js`: NEVER ship or edit them.
-- `controller.js` installed when `main.js` calls `registerController(`; check fails if it differs, NEVER edit. Write BP manifest with looked-up `min_engine_version` BEFORE running the script (item JSON takes `format_version` from it). You write `resource_pack/manifest.json` (4.3, fresh UUIDs, same version) and add its dependency + `@minecraft/server-ui` to the BP manifest. NEVER copy anything else from `Mcpeworlds/assets/`.
-`main.js` template:
-```js
-import { world } from "@minecraft/server";
-import { registerController, endGame } from "./controller.js";
-function win() {
-  world.sendMessage("You won.");
-  endGame();
-}
-registerController({
-  title: "Sample Game",
-  version: "1.0.0",
-  about: "One plain sentence about the pack.",
-  gameInfo: "Type: Challenge\nPlayers: 1 or more\nGoal: Replace this text with a short description of the game.",
-  howToPlay: "Goal: replace this text.\nControls: replace this text.\nHow it ends: replace this text.",
-  onStart: () => {
-    world.sendMessage("Game started.");
-  },
-  onEnd: () => {
-    world.sendMessage("Game ended.");
-  },
-});
-```
-- `title`, `version` (EXACTLY the Behavior Pack manifest version, bump both together), `about`, `gameInfo`, `howToPlay` required; `consumeOnStart` optional (default false). `onStart(player)` throws: state -> `idle`, Controller returned. `onEnd()` runs via `endGame()`. Script event `allenscreations:end` also ends the game. Template `win()` only sends a message: REPLACE with real logic. Old inline Controllers pass with a warning.
-
-### 4.7 Recipes
-- Every custom shaped/shapeless crafting recipe: unlock per 1.4. Other recipe types: no `unlock`.
-
-### 4.8 Build the pack script
-NEVER hand-write ZIP, base64 or the `.sh`. `scripts/make_pack_script.py` installs missing Ledger/Controller files, runs every `build_payload.py` check, builds the ZIP in memory and writes ONE Termux `.sh` that carries the project as a base64 block at its end. It writes nothing else. The importer reads that same block.
-1. Create `build/<Name>/` per 4.2 incl. `project.json` + BP manifest with looked-up `min_engine_version`. `build/` is scratch.
-2. Get `scripts/make_pack_script.py`, `build_payload.py`, `import_project_payload.py`, `doc_template.py`, plus `pixel_json_to_png.py` when `texture_sources/` exists (complete text from `/allenscreations/mcpe-curseforges` via Context7, or from the attached `tools.txt`), all in one folder next to `build/`.
-3. With `texture_sources/`: `python3 pixel_json_to_png.py build/Name` first, fix every FAIL line, rerun (4.13). Then `python3 make_pack_script.py build/Name` (`--check-only` to test only).
-4. Fix every failure incl. every `DOC:`, rerun. Put the SELF-TEST PASSED + PACK SCRIPT OK + BUILD OK (+ PIXEL TEXTURES OK when textures were drawn) result after the file name in File Needed. Proves structure only. Node MUST be installed for syntax check; if output says not checked, say so.
-5. Run `python3 doc_template.py --style build/Name`; rewrite every STYLE hint with a specific fact, rebuild.
-6. Deliver ONLY `<Name>_<Version>_<Rand>.sh` (fresh Rand, 1.1 rule). NEVER retype or edit it.
-
-### 4.9 Final self-check before replying
-- [ ] Type asked/given before building.
-- [ ] `behavior_pack/scripts/lib/README.md` exists whenever `main.js` does.
-- [ ] Context7 queried (1.17) before code, manifests, JSON and version claims; four fixed libraries only; `Docs queried` bullet written.
-- [ ] SELF-TEST PASSED + PACK SCRIPT OK + BUILD OK printed; exactly one `.sh` delivered, no other file.
-- [ ] Module versions latest stable, date recorded. `min_engine_version` looked up in the form `[1, RELEASE, PATCH]`, docs state only a verified minimum.
-- [ ] Docs state achievement status (+cheats caveat), experiments, "not tested in game"; no `DOC:` failures; no STYLE hints; tagline one concrete sentence.
-- [ ] Every README/DESCRIPTION/CHANGELOG matches `DOCS_RULES.md` exactly, no placeholders, DESCRIPTION has both listing images.
-- [ ] Map: `oneblock_setup` harmless+idempotent; `void_cleaner` ends with conditional `void_cleaned` tag.
-- [ ] Script: BP only, `.mcpack`, no Controller/RP, real `main.js` logic.
-- [ ] Minigame: Controller unchanged; `title`, `version` == BP manifest, `about`, real `gameInfo`/`howToPlay` without color codes; real logic calling `endGame()`; stuck-state recovery.
-- [ ] No comments in scripts/functions/JSON. Versions `vX` format only.
-- [ ] No `Mcpeworlds/assets/` file copied except ledger/controller; nothing from `assets/Images/`.
-- [ ] Any `.sh` named `(Repofilename)_(Version)_(Rand).sh`, fresh Rand >=5.
-- [ ] Reply = only the three 4.11 sections (or one exception).
-
-### 4.10 Build failures
-Paste the workflow error log back to the agent. Find the rule here and the check in `build_payload.py`/`doc_template.py`.
-| Message contains | Fix |
-|---|---|
-| `type must be one of` | `project.json` type: addon, map, script, minigame. |
-| `File type not allowed` / `world data not allowed` / `link files not allowed` | Remove it (4.2). |
-| `header.name must end with one (vX)` / `title version does not match` | One suffix == `header.version`, both packs. |
-
-| `description needs 'by ALNStudios' exactly once` | Once per description, never in name. |
-| `must depend on the resource pack header.uuid` | Add dependency (4.3). |
-| `first entry must be void_cleaner` / `lacks the exact required fill line` / `the last command must add the void_cleaned tag` | Fix `tick.json`, `void_cleaner.mcfunction` (4.5). |
-| `missing required file` | Add the file for your type. |
-| `is not a byte-for-byte copy` | Use the repo PNG unchanged. |
-| `controller.js must be the unchanged generator copy` | Delete it, rerun the script. |
-| `registerController needs ...` | Fill the call's fields (`version` must equal the BP manifest version). |
-| `import ... is not allowed` / `eval and the Function constructor` / `syntax error` | Fix the named line. |
-| `min_engine_version must be 3 integers` | Use looked-up game version. |
-| Minecraft import: `min_engine_version` too high ("highest value we accept") | Use `[1, RELEASE, PATCH]` (game 26.60 = `[1, 26, 60]`), at most the highest released version. |
-| `format_version ... newer than min_engine_version` | Raise `min_engine_version` or lower item `format_version`. |
-| `is already used by MCPEDL/...` | Fresh UUIDs. |
-| `Name clash` / `already exists` / `also exists under` | Other folder name or `overwrite` true. |
-| `test worlds were removed` | Delete `test_world.json` from the project (no test world exists anymore). |
-| `missing the unlock context` | Add unlock (1.4). |
-| `clickable CurseForge image` / `clickable MCPEDL image` | Paste the exact HTML line from `DOCS_RULES.md` 2.5 into Creator and Permissions. |
-| `run scripts/optimize_images.py` | Compress `assets/Images/` (workflow does it). |
-| `old hardcoded-version Minecraft Bedrock badge` | Use the version-free badge from `DOCS_RULES.md` 2.5. |
-| `DOC: ...` | Fix exactly what it names; template in `DOCS_RULES.md` 2.5. |
-
-### 4.11 Reply format
-Every reply = exactly these three sections, this order, these headings (`INSTRUCTIONS.md` Reply Format). NOTHING before, between or after. NEVER a Summary section. Empty: `- None`.
-
-**File Needed:** the one pack `.sh`, attached as the downloadable file, then its check result on the same line, e.g. `<Name>_<Version>_<Rand>.sh (SELF-TEST PASSED, PACK SCRIPT OK, BUILD OK)`. No other file.
-
-**Changelog:** brief bullets: what the project does; `min_engine_version` and module versions with the check date (verified or not verified); `Docs queried (date): <library IDs and topics>`; deviations from this file or `None`; `Source created, not tested in game.`
-
-**Termux Script:** ONE fenced `bash` block with ONLY the run commands, nothing else inside it:
-```bash
-bash ~/storage/downloads/<file>.sh
-bash ~/storage/downloads/<file>.sh stage
-```
-First line creates the project and pushes. Second line only stages it for GitHub workflow **Create Project from Base64** (`payload_file` = `<file>.sh`). Use one or both lines as the user needs.
-
-Exceptions (INSTEAD of the three sections, nothing else):
-- Cannot run code: `CANNOT BUILD` and one line why. No files, no base64.
-- Build failed, unfixable: `BUILD FAILED`, exact failing lines from `make_pack_script.py`, the rule each names. No `.sh`.
-- Type unknown: only the 4.0 question.
-- Planning phase (4.0a): present the ~90% research plan and await user approval before proceeding to build.
-
-### 4.12 Vanilla Limits and Workarounds
-Same rules as `INSTRUCTIONS.md` 1.12. Read it when a mechanic hits a vanilla limit.
-### 4.13 Pixel textures (custom item and block art)
-- The ONLY way to draw new art: pixel JSON, rendered to PNG by `scripts/pixel_json_to_png.py`. NEVER AI-generated images, NEVER copied or guessed art. A vanilla look = use the real vanilla texture name instead. NEVER for `script` projects (no resource_pack).
-- Source: `texture_sources/<any>.json` = array of textures. NEVER inside `resource_pack/`. No comments.
-- One texture: `{"name": "shepherds_pie", "size": 64, "palette": {"0": "#00000000", "1": "#3d2817"}, "pixels": [[0, 0, 1, ...], ...]}`
-- `name`: lowercase letters, digits, `_`. It is the PNG name, the key in `resource_pack/textures/item_texture.json` and the item's `minecraft:icon`. ALWAYS register it there.
-- `size`: 64 standard for richer detail and styling freedom (16, 32 or 128 allowed when requested). `pixels` = exactly `size` rows of exactly `size` palette indexes.
-- `palette`: keys are numbers in quotes, `"0"` = `#00000000` (transparent). Values `#RRGGBB` or `#RRGGBBAA`. Every index used MUST exist in the palette. Max 12 colors.
-- Optional `folder`: `items` (default), `blocks` or `items/<sub>`. The PNG goes to `resource_pack/textures/<folder>/<name>.png`.
-- Style: Minecraft pixel art, clean outlines, depth, light from the top left, no gradients, no blurry anti-aliasing, styled for 64x64 high detail. Recolors share one grid with a different palette.
-- RUN `python3 pixel_json_to_png.py build/<Name>` BEFORE `make_pack_script.py` (4.8): it checks every texture, lists every problem together and writes the PNGs. Fix, rerun. NEVER hand-write a PNG or base64.
-- Ship the JSON AND the PNGs. The JSON is the source: later changes edit the JSON and rerun the script, NEVER the PNG. `--preview [file]` writes a review sheet outside the project: NEVER ship it.
-
-### 4.14 Custom Sounds
-- Audio files cannot travel inside a spec or pack script. A project that needs custom sounds keeps a pure-Python synthesizer at `<project>/sound_sources/make_sounds.py` (reference: `MCPEDL/Addons/ALNSpiritSphere/sound_sources/make_sounds.py`). It writes `.ogg` files into `<project>/resource_pack/sounds/` and needs ffmpeg (Termux: `pkg install ffmpeg`).
-- An update that adds sounds uses `@@ create` for `make_sounds.py` and `resource_pack/sounds/sound_definitions.json` (`format_version` 1.14.0, one event per sound, sound paths without extension, category neutral). After the update script runs, the user runs: `python3 <project>/sound_sources/make_sounds.py`, then `git add`, `commit`, `push`.
-- Sound event ids use the pattern `aln.<project>.<element>.<kind>` and are played from scripts with `playSound`. NEVER guess vanilla sound ids; use only ids verified through Context7.
-- New sound files need a full Minecraft client restart to load. Say so in the handoff.
-- `.ogg` is the only audio type allowed. `DESCRIPTION.md` must describe sounds in player terms and never name the script, ffmpeg or file names.
 ````
 
 ## Policy Doc: DOCS_RULES.md
@@ -1205,34 +786,6 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
 
 ## File Contents
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/blocks/wireless_hopper.json (24 lines, 548 bytes)
-
-```
-{
-  "format_version": "1.26.60",
-  "minecraft:block": {
-    "description": {
-      "identifier": "aln:wireless_hopper",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {
-      "minecraft:geometry": "geometry.aln_wireless_hopper",
-      "minecraft:material_instances": {
-        "*": {
-          "texture": "aln_wireless_hopper"
-        }
-      },
-      "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 3
-      },
-      "minecraft:loot": "loot_tables/blocks/wireless_hopper.json"
-    }
-  }
-}
-```
-
 ## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/items/wireless_remote.json (21 lines, 400 bytes)
 
 ```
@@ -1258,38 +811,44 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/loot_tables/blocks/wireless_hopper.json (15 lines, 187 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/items/wireless_remote_linked.json (21 lines, 414 bytes)
 
 ```
 {
-  "pools": [
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "item",
-          "name": "aln:wireless_hopper",
-          "weight": 1
+  "format_version": "1.26.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:wireless_remote_linked",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "wireless_remote_linked"
         }
-      ]
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:hand_equipped": true
     }
-  ]
+  }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/manifest.json (53 lines, 950 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/manifest.json (53 lines, 947 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "ALN Wireless Hopper (v1.0.1)",
+    "name": "ALN Wireless Hopper (v2)",
     "description": "Link a Wireless Hopper to chests, barrels and hoppers with the Wireless Remote. by ALNStudios",
     "uuid": "3e825946-6f8f-4608-8499-8be44efb8375",
     "version": [
-      1,
+      2,
       0,
-      1
+      0
     ],
     "min_engine_version": [
       1,
@@ -1303,9 +862,9 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "language": "javascript",
       "uuid": "38d625ee-9655-4586-b8e1-6b2ff27000bc",
       "version": [
-        1,
+        2,
         0,
-        1
+        0
       ],
       "entry": "scripts/main.js"
     }
@@ -1314,14 +873,14 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
     {
       "uuid": "efd2b549-540a-4d94-8162-9d92e74c0edb",
       "version": [
-        1,
+        2,
         0,
-        1
+        0
       ]
     },
     {
       "module_name": "@minecraft/server",
-      "version": "2.0.0"
+      "version": "2.11.0"
     }
   ],
   "metadata": {
@@ -1329,52 +888,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.1"
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/recipes/wireless_hopper.json (41 lines, 697 bytes)
-
-```
-{
-  "format_version": "1.12",
-  "minecraft:recipe_shaped": {
-    "description": {
-      "identifier": "aln:wireless_hopper"
-    },
-    "tags": [
-      "crafting_table"
-    ],
-    "pattern": [
-      " C ",
-      "RHR",
-      "IEI"
-    ],
-    "key": {
-      "C": {
-        "item": "minecraft:copper_ingot"
-      },
-      "R": {
-        "item": "minecraft:redstone"
-      },
-      "H": {
-        "item": "minecraft:hopper"
-      },
-      "I": {
-        "item": "minecraft:iron_ingot"
-      },
-      "E": {
-        "item": "minecraft:ender_pearl"
-      }
-    },
-    "unlock": {
-      "context": "AlwaysUnlocked"
-    },
-    "result": {
-      "item": "aln:wireless_hopper",
-      "count": 1
-    }
+    "version": "2.0.0"
   }
 }
 ```
@@ -1421,41 +935,78 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/lib/constants.js (21 lines, 599 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/lib/cleanup.ts (18 lines, 587 bytes)
 
 ```
-export const HOPPER_ID = "aln:wireless_hopper";
+import { world } from "@minecraft/server";
+import { RECEIVER_TYPES } from "./constants.js";
+import { dropReceiverEverywhere, makeKey, removeHopper } from "./registry.js";
+
+export function initCleanup(): void {
+  world.afterEvents.playerBreakBlock.subscribe((event) => {
+    try {
+      if (!RECEIVER_TYPES.has(event.brokenBlockPermutation.type.id)) return;
+      const location = event.block.location;
+      const key = makeKey(event.dimension.id, location.x, location.y, location.z);
+      removeHopper(key);
+      dropReceiverEverywhere(key);
+    } catch {
+      return;
+    }
+  });
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/lib/constants.ts (22 lines, 599 bytes)
+
+```
+export const HOPPER_TYPE = "minecraft:hopper";
 export const REMOTE_ID = "aln:wireless_remote";
-export const RECEIVER_TYPES = new Set([
+export const LINKED_ID = "aln:wireless_remote_linked";
+
+export const RECEIVER_TYPES: ReadonlySet<string> = new Set([
   "minecraft:chest",
   "minecraft:trapped_chest",
   "minecraft:barrel",
   "minecraft:hopper",
 ]);
+
 export const PROP_LINKS = "aln:wh_links";
-export const PROP_SELECTED = "aln:wh_selected";
 export const MAX_RECEIVERS = 24;
 export const MAX_HOPPERS = 64;
-export const WATCH_INTERVAL = 4;
-export const WATCH_TICKS = 100;
-export const WATCH_RADIUS = 6;
-export const DIM_CODES = {
+export const SEND_INTERVAL = 5;
+
+export const DIM_CODES: Readonly<Record<string, string>> = {
   "minecraft:overworld": "o",
   "minecraft:nether": "n",
   "minecraft:the_end": "e",
 };
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/lib/distribute.js (83 lines, 2506 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/lib/distribute.ts (97 lines, 2978 bytes)
 
 ```
-import { world } from "@minecraft/server";
+import { world, Container, ItemStack } from "@minecraft/server";
 import { RECEIVER_TYPES } from "./constants.js";
 import { dropReceiver, getReceivers, parseKey } from "./registry.js";
 
-const cursors = new Map();
+export interface Target {
+  key: string;
+  container: Container;
+}
 
-function resolveContainer(key) {
+export interface DistributeResult {
+  accepted: number;
+  remaining: number;
+  receivers: number;
+  offline: number;
+}
+
+type Resolved = { state: "ok"; container: Container } | { state: "stale" } | { state: "offline" };
+
+const cursors = new Map<string, number>();
+
+function resolveContainer(key: string): Resolved {
   const info = parseKey(key);
   if (!info) return { state: "stale" };
   try {
@@ -1470,32 +1021,32 @@ function resolveContainer(key) {
   }
 }
 
-export function resolveTargets(hopperKey) {
-  const targets = [];
+export function resolveTargets(senderKey: string): { targets: Target[]; offline: number } {
+  const targets: Target[] = [];
   let offline = 0;
-  for (const key of getReceivers(hopperKey)) {
+  for (const key of getReceivers(senderKey)) {
     const result = resolveContainer(key);
     if (result.state === "ok") targets.push({ key, container: result.container });
-    else if (result.state === "stale") dropReceiver(hopperKey, key);
+    else if (result.state === "stale") dropReceiver(senderKey, key);
     else offline += 1;
   }
   return { targets, offline };
 }
 
-export function distribute(hopperKey, stack) {
-  const { targets, offline } = resolveTargets(hopperKey);
+export function distribute(senderKey: string, stack: ItemStack): DistributeResult {
+  const { targets, offline } = resolveTargets(senderKey);
   const total = stack.amount;
   if (targets.length === 0) return { accepted: 0, remaining: total, receivers: 0, offline };
 
   let remaining = total;
   let active = targets.slice();
-  const cursor = cursors.get(hopperKey) ?? 0;
+  const cursor = cursors.get(senderKey) ?? 0;
 
   while (remaining > 0 && active.length > 0) {
     const count = active.length;
     const base = Math.floor(remaining / count);
     let extra = remaining % count;
-    const next = [];
+    const next: Target[] = [];
     let progress = 0;
     for (let i = 0; i < count; i += 1) {
       const target = active[(cursor + i) % count];
@@ -1510,7 +1061,7 @@ export function distribute(hopperKey, stack) {
       }
       const part = stack.clone();
       part.amount = share;
-      let rest;
+      let rest: ItemStack | undefined;
       try {
         rest = target.container.addItem(part);
       } catch {
@@ -1528,279 +1079,251 @@ export function distribute(hopperKey, stack) {
     if (progress === 0) break;
   }
 
-  cursors.set(hopperKey, (cursor + 1) % targets.length);
+  cursors.set(senderKey, (cursor + 1) % targets.length);
   return { accepted: total - remaining, remaining, receivers: targets.length, offline };
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/lib/feedback.js (15 lines, 365 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/lib/feedback.ts (14 lines, 348 bytes)
 
 ```
-const COLORS = { ok: "§a", warn: "§e", error: "§c" };
+import { Player } from "@minecraft/server";
 
-export function notify(player, text, kind) {
+export type Kind = "ok" | "warn" | "error";
+
+const COLORS: Record<Kind, string> = { ok: "§a", warn: "§e", error: "§c" };
+
+export function notify(player: Player, text: string, kind: Kind): void {
   try {
-    player.onScreenDisplay.setActionBar(`${COLORS[kind] ?? COLORS.warn}${text}`);
+    player.onScreenDisplay.setActionBar(`${COLORS[kind]}${text}`);
   } catch {
     return;
   }
 }
+```
 
-export function itemLabel(typeId) {
-  const name = typeId.includes(":") ? typeId.split(":")[1] : typeId;
-  return name.replace(/_/g, " ");
+## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/lib/lore.ts (23 lines, 830 bytes)
+
+```
+import { makeKey, parseKey } from "./registry.js";
+
+const PATTERN = /^§7Hopper: (-?\d+) (-?\d+) (-?\d+) \(([a-z_:]+)\)$/;
+
+export function encodeSender(senderKey: string): string[] {
+  const info = parseKey(senderKey);
+  if (!info) return [];
+  const dimension = info.dimensionId.replace("minecraft:", "");
+  return [
+    `§7Hopper: ${info.x} ${info.y} ${info.z} (${dimension})`,
+    "§7Right-click a container to link it.",
+  ];
+}
+
+export function decodeSender(lore: string[]): string | undefined {
+  const line = lore.find((entry) => PATTERN.test(entry));
+  if (!line) return undefined;
+  const match = PATTERN.exec(line);
+  if (!match) return undefined;
+  const dimensionId = match[4].includes(":") ? match[4] : `minecraft:${match[4]}`;
+  return makeKey(dimensionId, Number(match[1]), Number(match[2]), Number(match[3]));
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/lib/item_catcher.js (93 lines, 2531 bytes)
-
-```
-import { world, system } from "@minecraft/server";
-import { HOPPER_ID, WATCH_INTERVAL, WATCH_RADIUS, WATCH_TICKS } from "./constants.js";
-import { distribute } from "./distribute.js";
-import { blockKey, hasLinks, linkedHopperKeys, parseKey } from "./registry.js";
-
-const ignored = new Set();
-
-function nearLinkedHopper(entity) {
-  if (!hasLinks()) return false;
-  const loc = entity.location;
-  const dimensionId = entity.dimension.id;
-  for (const key of linkedHopperKeys()) {
-    const info = parseKey(key);
-    if (!info || info.dimensionId !== dimensionId) continue;
-    if (
-      Math.abs(info.x + 0.5 - loc.x) <= WATCH_RADIUS &&
-      Math.abs(info.y + 1 - loc.y) <= WATCH_RADIUS + 2 &&
-      Math.abs(info.z + 0.5 - loc.z) <= WATCH_RADIUS
-    ) {
-      return true;
-    }
-  }
-  return false;
-}
-
-function hopperBelow(entity) {
-  const l = entity.location;
-  const block = entity.dimension.getBlock({
-    x: Math.floor(l.x),
-    y: Math.floor(l.y - 0.1),
-    z: Math.floor(l.z),
-  });
-  return block && block.typeId === HOPPER_ID ? block : undefined;
-}
-
-function isValid(entity) {
-  const flag = entity.isValid;
-  return typeof flag === "function" ? entity.isValid() : Boolean(flag);
-}
-
-function catchItem(entity) {
-  const block = hopperBelow(entity);
-  if (!block) return;
-  const stack = entity.getComponent("minecraft:item")?.itemStack;
-  if (!stack) return;
-  const result = distribute(blockKey(block), stack);
-  if (result.accepted === 0) return;
-  const loc = entity.location;
-  const dimension = entity.dimension;
-  entity.remove();
-  if (result.remaining > 0) {
-    const rest = stack.clone();
-    rest.amount = result.remaining;
-    const spawned = dimension.spawnItem(rest, loc);
-    ignored.add(spawned.id);
-  }
-}
-
-function watch(entity) {
-  let ticks = 0;
-  const handle = system.runInterval(() => {
-    ticks += WATCH_INTERVAL;
-    try {
-      if (!isValid(entity) || ticks > WATCH_TICKS) {
-        system.clearRun(handle);
-        return;
-      }
-      if (!entity.isOnGround) return;
-      catchItem(entity);
-      system.clearRun(handle);
-    } catch {
-      system.clearRun(handle);
-    }
-  }, WATCH_INTERVAL);
-}
-
-export function initItemCatcher() {
-  world.afterEvents.entitySpawn.subscribe((event) => {
-    try {
-      const entity = event.entity;
-      if (entity.typeId !== "minecraft:item") return;
-      if (ignored.has(entity.id)) {
-        ignored.delete(entity.id);
-        return;
-      }
-      if (!nearLinkedHopper(entity)) return;
-      watch(entity);
-    } catch {
-      return;
-    }
-  });
-}
-```
-
-## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/lib/README.md (27 lines, 2511 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/lib/README.md (30 lines, 2986 bytes)
 
 ```
 # ALN Wireless Hopper: script notes
 
-Entry point: `scripts/main.js` imports the two init functions below and calls them once. Imports used: `@minecraft/server` (manifest dependency 2.0.0) and relative files only.
+Entry point: `scripts/main.ts` (compiled to `main.js`) calls `initRemote()`, `initSenderLoop()` and `initCleanup()` once. Imports used: `@minecraft/server` (manifest dependency 2.11.0) and relative files only. Sources are TypeScript; the `.js` files are generated by the repo compile step.
 
 ## Files
 
-- `main.js`: calls `initWirelessLink()` and `initItemCatcher()`.
-- `lib/constants.js`: ids (`aln:wireless_hopper`, `aln:wireless_remote`), receiver block types, dynamic property names, limits (24 receivers per hopper, 64 hoppers), dimension short codes. No dependencies.
-- `lib/registry.js`: stores hopper-to-receiver links as one JSON string in a world dynamic property, with an in-memory cache. Exports `makeKey`, `blockKey`, `parseKey`, `getReceivers`, `hasLinks`, `linkedHopperKeys`, `toggleReceiver`, `dropReceiver`, `removeHopper`. Depends on `constants.js`.
-- `lib/feedback.js`: action bar messages (green success, yellow warning, red error) and item name labels. No dependencies.
-- `lib/distribute.js`: resolves receiver containers and splits an item stack evenly across them in rotating order, redistributing what full receivers reject. Skips receivers in unloaded chunks, removes receivers whose block is no longer a Chest, Barrel or Hopper. Depends on `registry.js`, `constants.js`.
-- `lib/wireless_link.js`: right-click handling. Remote on a Wireless Hopper selects it (player dynamic property). Remote on a Chest, Barrel or Hopper links or unlinks it. Any other held item on a Wireless Hopper is beamed to the receivers and leftovers return to the player. Empty hand shows receiver status. Breaking a Wireless Hopper removes its links. Depends on `distribute.js`, `registry.js`, `feedback.js`, `constants.js`.
-- `lib/item_catcher.js`: when a dropped item spawns within 6 blocks of a linked hopper, watches it for up to 5 seconds and beams it when it lands on the hopper. Remainders are respawned and ignored once. Depends on `distribute.js`, `registry.js`, `constants.js`.
+- `main.ts`: starts the three modules below.
+- `lib/constants.ts`: ids (`minecraft:hopper`, `aln:wireless_remote`, `aln:wireless_remote_linked`), receiver block types, the world dynamic property name, limits (24 receivers per hopper, 64 registered hoppers), the 5-tick send interval, dimension short codes. No dependencies.
+- `lib/registry.ts`: stores sender-to-receiver links as one JSON string in a world dynamic property with an in-memory cache. Exports `makeKey`, `blockKey`, `parseKey`, `getReceivers`, `hasLinks`, `linkedHopperKeys`, `isSender`, `isReceiver`, `toggleReceiver`, `dropReceiver`, `dropReceiverEverywhere`, `removeHopper`. Blocks chains: a sender cannot be a receiver and a receiver cannot send. Depends on `constants.ts`.
+- `lib/lore.ts`: writes and reads the registered Hopper position in the Linked Wireless Remote's lore. Depends on `registry.ts`.
+- `lib/feedback.ts`: action bar messages (green success, yellow warning, red error). No dependencies.
+- `lib/distribute.ts`: resolves receiver containers and splits an item stack evenly in rotating order, redistributing what full receivers reject. Skips receivers in unloaded chunks and removes receivers whose block is no longer a Chest, Barrel or Hopper. Depends on `registry.ts`, `constants.ts`.
+- `lib/remote.ts`: right-click handling. Remote on a Hopper registers it and becomes the Linked Remote. Linked Remote on a Chest, Barrel or other Hopper links or unlinks it. Linked Remote on its own Hopper turns it back into a blank Remote. Depends on `registry.ts`, `lore.ts`, `feedback.ts`, `constants.ts`.
+- `lib/sender_loop.ts`: every 5 ticks, empties each registered Hopper in a loaded chunk into its receivers through `distribute.ts`. Removes a registration when the block is no longer a Hopper. Does nothing when no Hopper is registered. Depends on `distribute.ts`, `registry.ts`, `constants.ts`.
+- `lib/cleanup.ts`: breaking a Hopper, Chest or Barrel removes its links. Depends on `registry.ts`, `constants.ts`.
 
 ## Ids and events
 
-- Block `aln:wireless_hopper`, item `aln:wireless_remote`.
-- Events: `world.beforeEvents.playerInteractWithBlock`, `world.afterEvents.playerBreakBlock`, `world.afterEvents.entitySpawn`.
-- Dynamic properties: world `aln:wh_links`, player `aln:wh_selected`.
+- Items `aln:wireless_remote` and `aln:wireless_remote_linked`.
+- Events: `world.beforeEvents.playerInteractWithBlock`, `world.afterEvents.playerBreakBlock`, `system.runInterval`.
+- Dynamic property: world `aln:wh_links`.
 
 ## Known limits
 
-- A custom block has no inventory, so items enter by right-click or by landing on the block as a dropped item.
+- There is no event for items entering a container, so registered Hoppers are checked on a timer.
+- A Hopper still pushes items into whatever it faces, which can race with the wireless delivery.
 - Receivers in unloaded chunks are skipped.
-- Hoppers destroyed by explosions or commands keep their stored links until the position is reused.
+- Hoppers destroyed by explosions or commands keep their stored links until the position is checked again.
 - Both halves of a double chest are separate links.
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/lib/registry.js (107 lines, 2667 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/lib/registry.ts (141 lines, 3885 bytes)
 
 ```
-import { world } from "@minecraft/server";
+import { world, Block } from "@minecraft/server";
 import { DIM_CODES, MAX_HOPPERS, MAX_RECEIVERS, PROP_LINKS } from "./constants.js";
 
-let cache = null;
+export interface KeyInfo {
+  dimensionId: string;
+  x: number;
+  y: number;
+  z: number;
+}
 
-function load() {
+export type ToggleResult = "added" | "removed" | "full" | "limit" | "self" | "chain";
+
+type LinkMap = Record<string, string[]>;
+
+let cache: LinkMap | undefined;
+
+function load(): LinkMap {
   if (cache) return cache;
-  let raw;
+  let raw: unknown;
   try {
     raw = world.getDynamicProperty(PROP_LINKS);
   } catch {
     raw = undefined;
   }
-  let data = {};
+  let parsed: unknown = {};
   if (typeof raw === "string") {
     try {
-      data = JSON.parse(raw);
+      parsed = JSON.parse(raw);
     } catch {
-      data = {};
+      parsed = {};
     }
   }
-  if (!data || typeof data !== "object" || Array.isArray(data)) data = {};
-  cache = data;
-  return cache;
+  const links: LinkMap = {};
+  if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+    for (const [key, value] of Object.entries(parsed as Record<string, unknown>)) {
+      if (Array.isArray(value)) {
+        const list = value.filter((entry): entry is string => typeof entry === "string");
+        if (list.length > 0) links[key] = list;
+      }
+    }
+  }
+  cache = links;
+  return links;
 }
 
-function save() {
+function save(): void {
   try {
-    world.setDynamicProperty(PROP_LINKS, JSON.stringify(cache));
+    world.setDynamicProperty(PROP_LINKS, JSON.stringify(load()));
   } catch {
     return;
   }
 }
 
-export function makeKey(dimensionId, x, y, z) {
+export function makeKey(dimensionId: string, x: number, y: number, z: number): string {
   const code = DIM_CODES[dimensionId] ?? dimensionId;
   return `${code}|${x}|${y}|${z}`;
 }
 
-export function blockKey(block) {
-  const l = block.location;
-  return makeKey(block.dimension.id, l.x, l.y, l.z);
+export function blockKey(block: Block): string {
+  const location = block.location;
+  return makeKey(block.dimension.id, location.x, location.y, location.z);
 }
 
-export function parseKey(key) {
-  if (typeof key !== "string") return undefined;
-  const p = key.split("|");
-  if (p.length !== 4) return undefined;
-  const entry = Object.entries(DIM_CODES).find(([, code]) => code === p[0]);
-  const dimensionId = entry ? entry[0] : p[0];
-  const x = Number(p[1]);
-  const y = Number(p[2]);
-  const z = Number(p[3]);
+export function parseKey(key: string): KeyInfo | undefined {
+  const parts = key.split("|");
+  if (parts.length !== 4) return undefined;
+  const entry = Object.entries(DIM_CODES).find(([, code]) => code === parts[0]);
+  const dimensionId = entry ? entry[0] : parts[0];
+  const x = Number(parts[1]);
+  const y = Number(parts[2]);
+  const z = Number(parts[3]);
   if (![x, y, z].every(Number.isFinite)) return undefined;
   return { dimensionId, x, y, z };
 }
 
-export function getReceivers(hopperKey) {
-  const data = load();
-  return Array.isArray(data[hopperKey]) ? data[hopperKey].slice() : [];
+export function getReceivers(senderKey: string): string[] {
+  return (load()[senderKey] ?? []).slice();
 }
 
-export function hasLinks() {
+export function hasLinks(): boolean {
   return Object.keys(load()).length > 0;
 }
 
-export function linkedHopperKeys() {
+export function linkedHopperKeys(): string[] {
   return Object.keys(load());
 }
 
-export function toggleReceiver(hopperKey, receiverKey) {
-  const data = load();
-  const list = Array.isArray(data[hopperKey]) ? data[hopperKey] : [];
+export function isSender(key: string): boolean {
+  return key in load();
+}
+
+export function isReceiver(key: string): boolean {
+  return Object.values(load()).some((list) => list.includes(key));
+}
+
+export function toggleReceiver(senderKey: string, receiverKey: string): ToggleResult {
+  const links = load();
+  const list = links[senderKey] ?? [];
   const index = list.indexOf(receiverKey);
   if (index >= 0) {
     list.splice(index, 1);
-    if (list.length === 0) delete data[hopperKey];
-    else data[hopperKey] = list;
+    if (list.length === 0) delete links[senderKey];
+    else links[senderKey] = list;
     save();
     return "removed";
   }
+  if (receiverKey === senderKey) return "self";
+  if (isSender(receiverKey)) return "chain";
+  if (list.length === 0 && isReceiver(senderKey)) return "chain";
   if (list.length >= MAX_RECEIVERS) return "full";
-  if (!data[hopperKey] && Object.keys(data).length >= MAX_HOPPERS) return "limit";
+  if (!(senderKey in links) && Object.keys(links).length >= MAX_HOPPERS) return "limit";
   list.push(receiverKey);
-  data[hopperKey] = list;
+  links[senderKey] = list;
   save();
   return "added";
 }
 
-export function dropReceiver(hopperKey, receiverKey) {
-  const data = load();
-  const list = data[hopperKey];
-  if (!Array.isArray(list)) return;
+export function dropReceiver(senderKey: string, receiverKey: string): void {
+  const links = load();
+  const list = links[senderKey];
+  if (!list) return;
   const index = list.indexOf(receiverKey);
   if (index < 0) return;
   list.splice(index, 1);
-  if (list.length === 0) delete data[hopperKey];
+  if (list.length === 0) delete links[senderKey];
   save();
 }
 
-export function removeHopper(hopperKey) {
-  const data = load();
-  if (!(hopperKey in data)) return;
-  delete data[hopperKey];
+export function dropReceiverEverywhere(receiverKey: string): void {
+  for (const senderKey of Object.keys(load())) {
+    dropReceiver(senderKey, receiverKey);
+  }
+}
+
+export function removeHopper(senderKey: string): void {
+  const links = load();
+  if (!(senderKey in links)) return;
+  delete links[senderKey];
   save();
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/lib/wireless_link.js (167 lines, 5724 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/lib/remote.ts (134 lines, 4652 bytes)
 
 ```
-import { world, system } from "@minecraft/server";
-import { HOPPER_ID, PROP_SELECTED, RECEIVER_TYPES, REMOTE_ID } from "./constants.js";
-import { distribute, resolveTargets } from "./distribute.js";
-import { itemLabel, notify } from "./feedback.js";
-import { blockKey, getReceivers, makeKey, parseKey, removeHopper, toggleReceiver } from "./registry.js";
+import { world, system, Block, Dimension, ItemStack, Player, Vector3 } from "@minecraft/server";
+import { HOPPER_TYPE, LINKED_ID, RECEIVER_TYPES, REMOTE_ID } from "./constants.js";
+import { notify } from "./feedback.js";
+import { decodeSender, encodeSender } from "./lore.js";
+import { getReceivers, makeKey, parseKey, removeHopper, toggleReceiver } from "./registry.js";
 
-function safeBlock(dimension, loc) {
+interface Context {
+  player: Player;
+  dimension: Dimension;
+  loc: Vector3;
+}
+
+function safeBlock(dimension: Dimension, loc: Vector3): Block | undefined {
   try {
     return dimension.getBlock(loc);
   } catch {
@@ -1808,176 +1331,206 @@ function safeBlock(dimension, loc) {
   }
 }
 
-function selectHopper(player, dimension, loc) {
-  const block = safeBlock(dimension, loc);
-  if (!block || block.typeId !== HOPPER_ID) {
-    notify(player, "That Wireless Hopper is gone.", "error");
-    return;
-  }
-  const key = makeKey(dimension.id, loc.x, loc.y, loc.z);
-  try {
-    player.setDynamicProperty(PROP_SELECTED, key);
-  } catch {
-    notify(player, "Could not store the selection.", "error");
-    return;
-  }
-  const count = getReceivers(key).length;
-  notify(player, `Wireless Hopper selected (${count} linked). Right-click a container to link it.`, "ok");
-}
-
-function readSelection(player) {
-  let key;
-  try {
-    key = player.getDynamicProperty(PROP_SELECTED);
-  } catch {
-    key = undefined;
-  }
-  if (typeof key !== "string") {
-    notify(player, "Select a Wireless Hopper first: right-click it with the Remote.", "warn");
-    return undefined;
-  }
-  const info = parseKey(key);
-  if (!info) {
-    notify(player, "Select a Wireless Hopper first: right-click it with the Remote.", "warn");
-    return undefined;
-  }
-  let block;
-  try {
-    block = world.getDimension(info.dimensionId).getBlock({ x: info.x, y: info.y, z: info.z });
-  } catch {
-    block = undefined;
-  }
-  if (!block) {
-    notify(player, "The selected Wireless Hopper is not loaded right now.", "warn");
-    return undefined;
-  }
-  if (block.typeId !== HOPPER_ID) {
-    removeHopper(key);
-    try {
-      player.setDynamicProperty(PROP_SELECTED, undefined);
-    } catch {
-      return undefined;
-    }
-    notify(player, "The selected Wireless Hopper no longer exists.", "error");
-    return undefined;
-  }
-  return key;
-}
-
-function bindContainer(player, dimension, loc) {
-  const hopperKey = readSelection(player);
-  if (!hopperKey) return;
-  const block = safeBlock(dimension, loc);
-  if (!block || !RECEIVER_TYPES.has(block.typeId)) {
-    notify(player, "That is not a Chest, Barrel or Hopper.", "error");
-    return;
-  }
-  const result = toggleReceiver(hopperKey, makeKey(dimension.id, loc.x, loc.y, loc.z));
-  const count = getReceivers(hopperKey).length;
-  if (result === "added") notify(player, `Receiver linked (${count} total).`, "ok");
-  else if (result === "removed") notify(player, `Receiver unlinked (${count} total).`, "warn");
-  else if (result === "full") notify(player, "This Wireless Hopper has the maximum number of receivers.", "error");
-  else notify(player, "The world has the maximum number of Wireless Hoppers with receivers.", "error");
-}
-
-function showStatus(player, dimension, loc) {
-  const block = safeBlock(dimension, loc);
-  if (!block || block.typeId !== HOPPER_ID) return;
-  const key = blockKey(block);
-  const { targets, offline } = resolveTargets(key);
-  const suffix = offline > 0 ? `, ${offline} offline` : "";
-  notify(player, `Wireless Hopper: ${targets.length} receivers online${suffix}.`, "ok");
-}
-
-function deposit(player, dimension, loc) {
-  const block = safeBlock(dimension, loc);
-  if (!block || block.typeId !== HOPPER_ID) return;
-  const key = blockKey(block);
+function setHeld(player: Player, item: ItemStack): void {
   const container = player.getComponent("inventory")?.container;
   if (!container) return;
-  const slot = player.selectedSlotIndex;
-  const held = container.getItem(slot);
-  if (!held || held.typeId === REMOTE_ID) return;
-  if (getReceivers(key).length === 0) {
-    notify(player, "No receivers linked. Use the Wireless Remote first.", "warn");
-    return;
-  }
-  const result = distribute(key, held);
-  if (result.accepted === 0) {
-    notify(player, "Receivers are full or offline. Nothing was sent.", "error");
-    return;
-  }
-  if (result.remaining > 0) {
-    held.amount = result.remaining;
-    container.setItem(slot, held);
-  } else {
-    container.setItem(slot, undefined);
-  }
-  const label = itemLabel(held.typeId);
-  const kind = result.remaining > 0 ? "warn" : "ok";
-  const tail = result.remaining > 0 ? ` ${result.remaining} returned.` : "";
-  notify(player, `Beamed ${result.accepted} ${label} to ${result.receivers} receivers.${tail}`, kind);
+  container.setItem(player.selectedSlotIndex, item);
 }
 
-export function initWirelessLink() {
+function blankRemote(): ItemStack {
+  return new ItemStack(REMOTE_ID, 1);
+}
+
+function register(ctx: Context): void {
+  const block = safeBlock(ctx.dimension, ctx.loc);
+  if (!block || block.typeId !== HOPPER_TYPE) {
+    notify(ctx.player, "That Hopper is gone.", "error");
+    return;
+  }
+  const key = makeKey(ctx.dimension.id, ctx.loc.x, ctx.loc.y, ctx.loc.z);
+  const linked = new ItemStack(LINKED_ID, 1);
+  linked.setLore(encodeSender(key));
+  setHeld(ctx.player, linked);
+  const count = getReceivers(key).length;
+  notify(ctx.player, `Hopper registered (${count} linked). Right-click containers to link them.`, "ok");
+}
+
+function unregister(ctx: Context): void {
+  setHeld(ctx.player, blankRemote());
+  notify(ctx.player, "Remote cleared. Right-click a Hopper to register it.", "warn");
+}
+
+function bind(ctx: Context, senderKey: string): void {
+  const info = parseKey(senderKey);
+  if (!info) {
+    setHeld(ctx.player, blankRemote());
+    notify(ctx.player, "This Remote has no valid Hopper. It was cleared.", "error");
+    return;
+  }
+  let senderBlock: Block | undefined;
+  try {
+    senderBlock = world.getDimension(info.dimensionId).getBlock({ x: info.x, y: info.y, z: info.z });
+  } catch {
+    senderBlock = undefined;
+  }
+  if (!senderBlock) {
+    notify(ctx.player, "The registered Hopper is not loaded right now.", "warn");
+    return;
+  }
+  if (senderBlock.typeId !== HOPPER_TYPE) {
+    removeHopper(senderKey);
+    setHeld(ctx.player, blankRemote());
+    notify(ctx.player, "The registered Hopper no longer exists. Remote cleared.", "error");
+    return;
+  }
+  const target = safeBlock(ctx.dimension, ctx.loc);
+  if (!target || !RECEIVER_TYPES.has(target.typeId)) {
+    notify(ctx.player, "That is not a Chest, Barrel or Hopper.", "error");
+    return;
+  }
+  const result = toggleReceiver(senderKey, makeKey(ctx.dimension.id, ctx.loc.x, ctx.loc.y, ctx.loc.z));
+  const count = getReceivers(senderKey).length;
+  switch (result) {
+    case "added":
+      notify(ctx.player, `Receiver linked (${count} total).`, "ok");
+      break;
+    case "removed":
+      notify(ctx.player, `Receiver unlinked (${count} total).`, "warn");
+      break;
+    case "full":
+      notify(ctx.player, "This Hopper has the maximum number of receivers.", "error");
+      break;
+    case "limit":
+      notify(ctx.player, "The world has the maximum number of registered Hoppers.", "error");
+      break;
+    case "self":
+      notify(ctx.player, "A Hopper cannot be its own receiver.", "error");
+      break;
+    default:
+      notify(ctx.player, "A sending Hopper cannot be a receiver, and a receiver cannot send.", "error");
+      break;
+  }
+}
+
+export function initRemote(): void {
   world.beforeEvents.playerInteractWithBlock.subscribe((event) => {
     if (!event.isFirstEvent) return;
-    const { player, block, itemStack } = event;
+    const held = event.itemStack;
+    if (!held) return;
+    const isBlank = held.typeId === REMOTE_ID;
+    const isLinked = held.typeId === LINKED_ID;
+    if (!isBlank && !isLinked) return;
+    const block = event.block;
     const typeId = block.typeId;
-    const dimension = block.dimension;
-    const loc = { x: block.location.x, y: block.location.y, z: block.location.z };
+    if (!RECEIVER_TYPES.has(typeId)) return;
 
-    if (itemStack && itemStack.typeId === REMOTE_ID) {
-      if (typeId === HOPPER_ID) {
-        event.cancel = true;
-        system.run(() => selectHopper(player, dimension, loc));
-      } else if (RECEIVER_TYPES.has(typeId)) {
-        event.cancel = true;
-        system.run(() => bindContainer(player, dimension, loc));
-      }
+    const player = event.player;
+    const dimension = block.dimension;
+    const loc: Vector3 = { x: block.location.x, y: block.location.y, z: block.location.z };
+    const ctx: Context = { player, dimension, loc };
+    const isHopper = typeId === HOPPER_TYPE;
+    const senderKey = isLinked ? decodeSender(held.getLore()) : undefined;
+
+    event.cancel = true;
+
+    if (!senderKey) {
+      if (isHopper) system.run(() => register(ctx));
+      else system.run(() => notify(player, "Right-click a Hopper with the Remote first.", "warn"));
       return;
     }
 
-    if (typeId !== HOPPER_ID) return;
-    if (itemStack) {
-      event.cancel = true;
-      system.run(() => deposit(player, dimension, loc));
-    } else {
-      system.run(() => showStatus(player, dimension, loc));
-    }
+    const key = makeKey(dimension.id, loc.x, loc.y, loc.z);
+    if (isHopper && key === senderKey) system.run(() => unregister(ctx));
+    else system.run(() => bind(ctx, senderKey));
   });
-
-  const afterBreak = world.afterEvents.playerBreakBlock;
-  if (afterBreak) {
-    afterBreak.subscribe((event) => {
-      try {
-        if (event.brokenBlockPermutation.type.id !== HOPPER_ID) return;
-        const l = event.block.location;
-        removeHopper(makeKey(event.dimension.id, l.x, l.y, l.z));
-      } catch {
-        return;
-      }
-    });
-  }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/main.js (6 lines, 156 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/lib/sender_loop.ts (52 lines, 1433 bytes)
 
 ```
-import { initWirelessLink } from "./lib/wireless_link.js";
-import { initItemCatcher } from "./lib/item_catcher.js";
+import { world, system, Block } from "@minecraft/server";
+import { HOPPER_TYPE, SEND_INTERVAL } from "./constants.js";
+import { distribute } from "./distribute.js";
+import { hasLinks, linkedHopperKeys, parseKey, removeHopper } from "./registry.js";
 
-initWirelessLink();
-initItemCatcher();
+function drain(senderKey: string): void {
+  const info = parseKey(senderKey);
+  if (!info) {
+    removeHopper(senderKey);
+    return;
+  }
+  let block: Block | undefined;
+  try {
+    block = world.getDimension(info.dimensionId).getBlock({ x: info.x, y: info.y, z: info.z });
+  } catch {
+    return;
+  }
+  if (!block) return;
+  if (block.typeId !== HOPPER_TYPE) {
+    removeHopper(senderKey);
+    return;
+  }
+  const container = block.getComponent("inventory")?.container;
+  if (!container) return;
+  for (let slot = 0; slot < container.size; slot += 1) {
+    const item = container.getItem(slot);
+    if (!item) continue;
+    const result = distribute(senderKey, item);
+    if (result.receivers === 0) return;
+    if (result.accepted === 0) continue;
+    if (result.remaining > 0) {
+      item.amount = result.remaining;
+      container.setItem(slot, item);
+    } else {
+      container.setItem(slot, undefined);
+    }
+  }
+}
+
+export function initSenderLoop(): void {
+  system.runInterval(() => {
+    if (!hasLinks()) return;
+    for (const senderKey of linkedHopperKeys()) {
+      try {
+        drain(senderKey);
+      } catch {
+        continue;
+      }
+    }
+  }, SEND_INTERVAL);
+}
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/CHANGELOG.md (18 lines, 915 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/behavior_pack/scripts/main.ts (8 lines, 197 bytes)
+
+```
+import { initCleanup } from "./lib/cleanup.js";
+import { initRemote } from "./lib/remote.js";
+import { initSenderLoop } from "./lib/sender_loop.js";
+
+initRemote();
+initSenderLoop();
+initCleanup();
+```
+
+## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/CHANGELOG.md (29 lines, 1685 bytes)
 
 ```
 # Changelog — ALN Wireless Hopper
 
 ---
+
+## [2.0.0] - 2026-11-28 - Wireless Remote Rework
+
+### Added
+- **Linked Wireless Remote**: Right-click any Hopper with the Wireless Remote to register it. The Remote gets a new texture and shows which Hopper it controls.
+- **Hopper Registration**: Right-click the registered Hopper again with its Linked Remote to turn it back into a blank Remote.
+
+### Improved & Balanced
+- **Any Hopper Sends**: A normal Hopper is now the sender. Items it takes in are delivered to every linked Chest, Barrel or Hopper about four times per second.
+- **Wireless Hopper Block Removed**: The custom block and its recipe are gone. Wireless Hopper blocks already placed in a world disappear.
+- **Link Rules**: A sending Hopper cannot be a receiver, and a Hopper cannot be its own receiver.
 
 ## [1.0.1] - 2026-11-28 - Block Loading Fix
 
@@ -1994,7 +1547,7 @@ initItemCatcher();
 - **Crafting Recipes**: Both the Wireless Hopper and the Wireless Remote are craftable from the start.
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/DESCRIPTION.md (77 lines, 4553 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/DESCRIPTION.md (87 lines, 5384 bytes)
 
 ```
 # ALN Wireless Hopper — Remote-Linked Item Delivery
@@ -2004,42 +1557,52 @@ initItemCatcher();
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Link one Wireless Hopper to up to 24 Chests, Barrels or Hoppers with the Wireless Remote, anywhere in the world.**
+**Register any Hopper with the Wireless Remote, then link up to 24 Chests, Barrels or Hoppers to receive everything it takes in.**
 
-> This pack adds the Wireless Hopper block and the Wireless Remote tool. Send items into one block and they are shared out to every container you linked, with no menus and no item sorters.
+> This pack adds the Wireless Remote and the Linked Wireless Remote. A normal Hopper becomes a wireless sender, and its items are shared out to every container you link, with no menus.
 
 ## Overview
 
-You craft a Wireless Hopper and a Wireless Remote. Place the hopper, select it with the Remote, then right-click each container you want to link. After that, anything you put into the hopper is split evenly across your linked containers, even when they are far away from the hopper.
+You craft a Wireless Remote and right-click a Hopper with it. The Remote turns into a Linked Wireless Remote with its own texture and shows which Hopper it controls. Use the Linked Remote on Chests, Barrels and other Hoppers to link them. Anything the registered Hopper takes in is then split evenly across your linked containers, wherever they are.
 
 ## Key Features
 
-### Wireless Hopper
-- **What Happens**: A hopper with a radio antenna and glowing rings. Items that enter it are sent to all linked containers at once.
-- **How It Works**: Hold any item and right-click the hopper to send the whole stack. Items dropped onto the hopper are sent too.
-- **Good To Know**: The block cannot hold items itself, so nothing is stored in it. Hoppers and droppers cannot push into it.
-
 ### Wireless Remote
-- **What Happens**: Links a Wireless Hopper to Chests, Barrels and Hoppers with right-clicks and no menu.
-- **How It Works**: Right-click a Wireless Hopper to select it, then right-click a container to link it. Right-click a linked container again to unlink it.
-- **Good To Know**: Each Wireless Hopper holds up to 24 links. Linking does not open the container.
+- **What Happens**: A handheld tool that registers a Hopper. Right-click any Hopper and the Remote becomes a Linked Wireless Remote for that Hopper.
+- **How It Works**: The Linked Remote's tooltip shows the Hopper's coordinates and dimension, so you can see which Hopper it controls.
+- **Good To Know**: Right-click the registered Hopper again with its Linked Remote to turn it back into a blank Remote and register a different Hopper. The Hopper keeps its links.
+
+### Linked Wireless Remote
+- **What Happens**: Links containers to the registered Hopper with a right-click and no menu.
+- **How It Works**: Right-click a Chest, Barrel or Hopper to link it. Right-click a linked one again to unlink it.
+- **Good To Know**: Each registered Hopper holds up to 24 links. Linking does not open the container.
+
+### Wireless Delivery
+- **What Happens**: Items that enter a registered Hopper are moved out to the linked containers about four times per second.
+- **How It Works**: Feed the Hopper the normal way: from a Hopper above it, from a dropper, or by dropping items on it.
+- **Good To Know**: The Hopper still pushes items into whatever it faces. Point it at a wall or empty space if you want every item delivered wirelessly.
 
 ### Even Distribution
-- **What Happens**: Each item stack is divided evenly across all linked containers, one after another in rotation.
-- **How It Works**: If a container is full, its share goes to the others. Anything nobody can take goes back to your inventory.
-- **Good To Know**: Containers in unloaded areas are skipped until you are nearby again.
+- **What Happens**: Each stack is divided evenly across all linked containers, one after another in rotation.
+- **How It Works**: If a container is full, its share goes to the others. Items nobody can take stay in the Hopper.
+- **Good To Know**: Containers in unloaded areas are skipped until you are nearby again. A sending Hopper cannot be a receiver, and a Hopper cannot be its own receiver.
 
 ### Crafting
-- **What Happens**: Both items are craftable at a crafting table and unlocked from the start.
-- **How It Works**: Wireless Hopper: Copper Ingot, 2 Redstone, Hopper, 2 Iron Ingots, Ender Pearl. Wireless Remote: Copper Ingot, 2 Iron Ingots, Ender Pearl, Redstone.
-- **Good To Know**: Place the ingredients in the shape shown by the crafting table recipe book.
+- **What Happens**: The Wireless Remote is craftable at a crafting table and unlocked from the start.
+- **How It Works**: Copper Ingot, 2 Iron Ingots, Ender Pearl and Redstone. Place them as the recipe book shows.
+- **Good To Know**: The Linked Wireless Remote is not crafted. You make it by registering a Hopper.
 
 ## How to Use
 
-1. Craft a Wireless Hopper and a Wireless Remote, then place the hopper.
-2. Hold the Remote and right-click the hopper. The action bar confirms the selection.
-3. Right-click each Chest, Barrel or Hopper you want to link.
-4. Hold any other item and right-click the hopper to send it to every linked container.
+1. Craft a Wireless Remote and place a Hopper.
+2. Right-click the Hopper with the Remote. The Remote changes texture and the action bar confirms it.
+3. Right-click each Chest, Barrel or Hopper you want to link with the Linked Remote.
+4. Put items into the registered Hopper. They are delivered to every linked container.
+
+## Common Questions
+
+- **Can a Hopper be a receiver?**: Yes. Right-click it with a Linked Remote. A Hopper that sends cannot also receive.
+- **How do I register a different Hopper?**: Right-click the registered Hopper with its Linked Remote to get a blank Remote back.
 
 ## Compatibility
 
@@ -2083,7 +1646,7 @@ Minecraft Bedrock add-on, ALN Wireless Hopper Bedrock mod, wireless hopper, remo
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/README.md (23 lines, 1066 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/README.md (23 lines, 1062 bytes)
 
 ```
 # ALN Wireless Hopper
@@ -2097,7 +1660,7 @@ Download the current release of **ALN Wireless Hopper** for Minecraft Bedrock Ed
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN Wireless Hopper (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Hopper/ALNWirelessHopper%20V1.0.1.mcaddon)
+- **Direct download:** [Download ALN Wireless Hopper (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Hopper/ALNWirelessHopper%20V2.mcaddon)
 
 ## Installation
 
@@ -2110,19 +1673,19 @@ Download the current release of **ALN Wireless Hopper** for Minecraft Bedrock Ed
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALN-Wireless-Hopper/DESCRIPTION.md).
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/resource_pack/manifest.json (37 lines, 618 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/resource_pack/manifest.json (37 lines, 614 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "ALN Wireless Hopper (v1.0.1)",
+    "name": "ALN Wireless Hopper (v2)",
     "description": "Antenna hopper model and 32x32 textures. by ALNStudios",
     "uuid": "efd2b549-540a-4d94-8162-9d92e74c0edb",
     "version": [
-      1,
+      2,
       0,
-      1
+      0
     ],
     "min_engine_version": [
       1,
@@ -2135,9 +1698,9 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "c7f087ac-9719-4eea-9f17-38125ad3492d",
       "version": [
-        1,
+        2,
         0,
-        1
+        0
       ]
     }
   ],
@@ -2146,866 +1709,16 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.1"
+    "version": "2.0.0"
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/resource_pack/models/blocks/wireless_hopper.geo.json (845 lines, 18980 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/resource_pack/texts/en_US.lang (3 lines, 106 bytes)
 
 ```
-{
-  "format_version": "1.12.0",
-  "minecraft:geometry": [
-    {
-      "description": {
-        "identifier": "geometry.aln_wireless_hopper",
-        "texture_width": 32,
-        "texture_height": 32,
-        "visible_bounds_width": 2,
-        "visible_bounds_height": 2,
-        "visible_bounds_offset": [
-          0,
-          0.5,
-          0
-        ]
-      },
-      "bones": [
-        {
-          "name": "wireless_hopper",
-          "pivot": [
-            0,
-            0,
-            0
-          ],
-          "cubes": [
-            {
-              "origin": [
-                -8,
-                10,
-                -8
-              ],
-              "size": [
-                16,
-                3,
-                2
-              ],
-              "uv": {
-                "north": {
-                  "uv": [
-                    16,
-                    0
-                  ],
-                  "uv_size": [
-                    16,
-                    3
-                  ]
-                },
-                "south": {
-                  "uv": [
-                    16,
-                    0
-                  ],
-                  "uv_size": [
-                    16,
-                    3
-                  ]
-                },
-                "east": {
-                  "uv": [
-                    16,
-                    0
-                  ],
-                  "uv_size": [
-                    2,
-                    3
-                  ]
-                },
-                "west": {
-                  "uv": [
-                    16,
-                    0
-                  ],
-                  "uv_size": [
-                    2,
-                    3
-                  ]
-                },
-                "up": {
-                  "uv": [
-                    0,
-                    0
-                  ],
-                  "uv_size": [
-                    16,
-                    2
-                  ]
-                },
-                "down": {
-                  "uv": [
-                    0,
-                    16
-                  ],
-                  "uv_size": [
-                    16,
-                    2
-                  ]
-                }
-              }
-            },
-            {
-              "origin": [
-                -8,
-                10,
-                6
-              ],
-              "size": [
-                16,
-                3,
-                2
-              ],
-              "uv": {
-                "north": {
-                  "uv": [
-                    16,
-                    0
-                  ],
-                  "uv_size": [
-                    16,
-                    3
-                  ]
-                },
-                "south": {
-                  "uv": [
-                    16,
-                    0
-                  ],
-                  "uv_size": [
-                    16,
-                    3
-                  ]
-                },
-                "east": {
-                  "uv": [
-                    16,
-                    0
-                  ],
-                  "uv_size": [
-                    2,
-                    3
-                  ]
-                },
-                "west": {
-                  "uv": [
-                    16,
-                    0
-                  ],
-                  "uv_size": [
-                    2,
-                    3
-                  ]
-                },
-                "up": {
-                  "uv": [
-                    0,
-                    14
-                  ],
-                  "uv_size": [
-                    16,
-                    2
-                  ]
-                },
-                "down": {
-                  "uv": [
-                    0,
-                    16
-                  ],
-                  "uv_size": [
-                    16,
-                    2
-                  ]
-                }
-              }
-            },
-            {
-              "origin": [
-                -8,
-                10,
-                -6
-              ],
-              "size": [
-                2,
-                3,
-                12
-              ],
-              "uv": {
-                "north": {
-                  "uv": [
-                    16,
-                    0
-                  ],
-                  "uv_size": [
-                    2,
-                    3
-                  ]
-                },
-                "south": {
-                  "uv": [
-                    16,
-                    0
-                  ],
-                  "uv_size": [
-                    2,
-                    3
-                  ]
-                },
-                "east": {
-                  "uv": [
-                    16,
-                    0
-                  ],
-                  "uv_size": [
-                    12,
-                    3
-                  ]
-                },
-                "west": {
-                  "uv": [
-                    16,
-                    0
-                  ],
-                  "uv_size": [
-                    12,
-                    3
-                  ]
-                },
-                "up": {
-                  "uv": [
-                    0,
-                    2
-                  ],
-                  "uv_size": [
-                    2,
-                    12
-                  ]
-                },
-                "down": {
-                  "uv": [
-                    0,
-                    16
-                  ],
-                  "uv_size": [
-                    2,
-                    12
-                  ]
-                }
-              }
-            },
-            {
-              "origin": [
-                6,
-                10,
-                -6
-              ],
-              "size": [
-                2,
-                3,
-                12
-              ],
-              "uv": {
-                "north": {
-                  "uv": [
-                    16,
-                    0
-                  ],
-                  "uv_size": [
-                    2,
-                    3
-                  ]
-                },
-                "south": {
-                  "uv": [
-                    16,
-                    0
-                  ],
-                  "uv_size": [
-                    2,
-                    3
-                  ]
-                },
-                "east": {
-                  "uv": [
-                    16,
-                    0
-                  ],
-                  "uv_size": [
-                    12,
-                    3
-                  ]
-                },
-                "west": {
-                  "uv": [
-                    16,
-                    0
-                  ],
-                  "uv_size": [
-                    12,
-                    3
-                  ]
-                },
-                "up": {
-                  "uv": [
-                    14,
-                    2
-                  ],
-                  "uv_size": [
-                    2,
-                    12
-                  ]
-                },
-                "down": {
-                  "uv": [
-                    0,
-                    16
-                  ],
-                  "uv_size": [
-                    2,
-                    12
-                  ]
-                }
-              }
-            },
-            {
-              "origin": [
-                -6,
-                10,
-                -6
-              ],
-              "size": [
-                12,
-                1,
-                12
-              ],
-              "uv": {
-                "north": {
-                  "uv": [
-                    16,
-                    7
-                  ],
-                  "uv_size": [
-                    6,
-                    1
-                  ]
-                },
-                "south": {
-                  "uv": [
-                    16,
-                    7
-                  ],
-                  "uv_size": [
-                    6,
-                    1
-                  ]
-                },
-                "east": {
-                  "uv": [
-                    16,
-                    7
-                  ],
-                  "uv_size": [
-                    6,
-                    1
-                  ]
-                },
-                "west": {
-                  "uv": [
-                    16,
-                    7
-                  ],
-                  "uv_size": [
-                    6,
-                    1
-                  ]
-                },
-                "up": {
-                  "uv": [
-                    2,
-                    2
-                  ],
-                  "uv_size": [
-                    12,
-                    12
-                  ]
-                },
-                "down": {
-                  "uv": [
-                    2,
-                    18
-                  ],
-                  "uv_size": [
-                    12,
-                    12
-                  ]
-                }
-              }
-            },
-            {
-              "origin": [
-                -5,
-                6,
-                -5
-              ],
-              "size": [
-                10,
-                4,
-                10
-              ],
-              "uv": {
-                "north": {
-                  "uv": [
-                    16,
-                    3
-                  ],
-                  "uv_size": [
-                    10,
-                    4
-                  ]
-                },
-                "south": {
-                  "uv": [
-                    16,
-                    3
-                  ],
-                  "uv_size": [
-                    10,
-                    4
-                  ]
-                },
-                "east": {
-                  "uv": [
-                    16,
-                    3
-                  ],
-                  "uv_size": [
-                    10,
-                    4
-                  ]
-                },
-                "west": {
-                  "uv": [
-                    16,
-                    3
-                  ],
-                  "uv_size": [
-                    10,
-                    4
-                  ]
-                },
-                "up": {
-                  "uv": [
-                    3,
-                    3
-                  ],
-                  "uv_size": [
-                    10,
-                    10
-                  ]
-                },
-                "down": {
-                  "uv": [
-                    3,
-                    19
-                  ],
-                  "uv_size": [
-                    10,
-                    10
-                  ]
-                }
-              }
-            },
-            {
-              "origin": [
-                -5.5,
-                7,
-                -5.5
-              ],
-              "size": [
-                11,
-                1,
-                11
-              ],
-              "uv": {
-                "north": {
-                  "uv": [
-                    16,
-                    15
-                  ],
-                  "uv_size": [
-                    11,
-                    1
-                  ]
-                },
-                "south": {
-                  "uv": [
-                    16,
-                    15
-                  ],
-                  "uv_size": [
-                    11,
-                    1
-                  ]
-                },
-                "east": {
-                  "uv": [
-                    16,
-                    15
-                  ],
-                  "uv_size": [
-                    11,
-                    1
-                  ]
-                },
-                "west": {
-                  "uv": [
-                    16,
-                    15
-                  ],
-                  "uv_size": [
-                    11,
-                    1
-                  ]
-                },
-                "up": {
-                  "uv": [
-                    16,
-                    16
-                  ],
-                  "uv_size": [
-                    11,
-                    11
-                  ]
-                },
-                "down": {
-                  "uv": [
-                    16,
-                    16
-                  ],
-                  "uv_size": [
-                    11,
-                    11
-                  ]
-                }
-              }
-            },
-            {
-              "origin": [
-                -3,
-                3,
-                -3
-              ],
-              "size": [
-                6,
-                3,
-                6
-              ],
-              "uv": {
-                "north": {
-                  "uv": [
-                    16,
-                    7
-                  ],
-                  "uv_size": [
-                    6,
-                    3
-                  ]
-                },
-                "south": {
-                  "uv": [
-                    16,
-                    7
-                  ],
-                  "uv_size": [
-                    6,
-                    3
-                  ]
-                },
-                "east": {
-                  "uv": [
-                    16,
-                    7
-                  ],
-                  "uv_size": [
-                    6,
-                    3
-                  ]
-                },
-                "west": {
-                  "uv": [
-                    16,
-                    7
-                  ],
-                  "uv_size": [
-                    6,
-                    3
-                  ]
-                },
-                "up": {
-                  "uv": [
-                    4,
-                    20
-                  ],
-                  "uv_size": [
-                    6,
-                    6
-                  ]
-                },
-                "down": {
-                  "uv": [
-                    4,
-                    20
-                  ],
-                  "uv_size": [
-                    6,
-                    6
-                  ]
-                }
-              }
-            },
-            {
-              "origin": [
-                -2,
-                0,
-                -2
-              ],
-              "size": [
-                4,
-                3,
-                4
-              ],
-              "uv": {
-                "north": {
-                  "uv": [
-                    22,
-                    7
-                  ],
-                  "uv_size": [
-                    4,
-                    3
-                  ]
-                },
-                "south": {
-                  "uv": [
-                    22,
-                    7
-                  ],
-                  "uv_size": [
-                    4,
-                    3
-                  ]
-                },
-                "east": {
-                  "uv": [
-                    22,
-                    7
-                  ],
-                  "uv_size": [
-                    4,
-                    3
-                  ]
-                },
-                "west": {
-                  "uv": [
-                    22,
-                    7
-                  ],
-                  "uv_size": [
-                    4,
-                    3
-                  ]
-                },
-                "up": {
-                  "uv": [
-                    4,
-                    20
-                  ],
-                  "uv_size": [
-                    4,
-                    4
-                  ]
-                },
-                "down": {
-                  "uv": [
-                    4,
-                    20
-                  ],
-                  "uv_size": [
-                    4,
-                    4
-                  ]
-                }
-              }
-            },
-            {
-              "origin": [
-                -1,
-                11,
-                -1
-              ],
-              "size": [
-                2,
-                5,
-                2
-              ],
-              "uv": {
-                "north": {
-                  "uv": [
-                    26,
-                    7
-                  ],
-                  "uv_size": [
-                    2,
-                    5
-                  ]
-                },
-                "south": {
-                  "uv": [
-                    26,
-                    7
-                  ],
-                  "uv_size": [
-                    2,
-                    5
-                  ]
-                },
-                "east": {
-                  "uv": [
-                    26,
-                    7
-                  ],
-                  "uv_size": [
-                    2,
-                    5
-                  ]
-                },
-                "west": {
-                  "uv": [
-                    26,
-                    7
-                  ],
-                  "uv_size": [
-                    2,
-                    5
-                  ]
-                },
-                "up": {
-                  "uv": [
-                    26,
-                    12
-                  ],
-                  "uv_size": [
-                    2,
-                    2
-                  ]
-                },
-                "down": {
-                  "uv": [
-                    26,
-                    7
-                  ],
-                  "uv_size": [
-                    2,
-                    2
-                  ]
-                }
-              }
-            },
-            {
-              "origin": [
-                -2,
-                13,
-                -2
-              ],
-              "size": [
-                4,
-                1,
-                4
-              ],
-              "uv": {
-                "north": {
-                  "uv": [
-                    16,
-                    10
-                  ],
-                  "uv_size": [
-                    4,
-                    1
-                  ]
-                },
-                "south": {
-                  "uv": [
-                    16,
-                    10
-                  ],
-                  "uv_size": [
-                    4,
-                    1
-                  ]
-                },
-                "east": {
-                  "uv": [
-                    16,
-                    10
-                  ],
-                  "uv_size": [
-                    4,
-                    1
-                  ]
-                },
-                "west": {
-                  "uv": [
-                    16,
-                    10
-                  ],
-                  "uv_size": [
-                    4,
-                    1
-                  ]
-                },
-                "up": {
-                  "uv": [
-                    16,
-                    11
-                  ],
-                  "uv_size": [
-                    4,
-                    4
-                  ]
-                },
-                "down": {
-                  "uv": [
-                    16,
-                    11
-                  ],
-                  "uv_size": [
-                    4,
-                    4
-                  ]
-                }
-              }
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-```
-
-## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/resource_pack/texts/en_US.lang (3 lines, 92 bytes)
-
-```
-tile.aln:wireless_hopper.name=Wireless Hopper
 item.aln:wireless_remote.name=Wireless Remote
+item.aln:wireless_remote_linked.name=Linked Wireless Remote
 ```
 
 ## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/resource_pack/texts/languages.json (2 lines, 10 bytes)
@@ -3014,7 +1727,7 @@ item.aln:wireless_remote.name=Wireless Remote
 ["en_US"]
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/resource_pack/textures/item_texture.json (10 lines, 190 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/resource_pack/textures/item_texture.json (13 lines, 287 bytes)
 
 ```
 {
@@ -3023,29 +1736,16 @@ item.aln:wireless_remote.name=Wireless Remote
   "texture_data": {
     "wireless_remote": {
       "textures": "textures/items/wireless_remote"
+    },
+    "wireless_remote_linked": {
+      "textures": "textures/items/wireless_remote_linked"
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/resource_pack/textures/terrain_texture.json (12 lines, 236 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/texture_sources/wireless_hopper_textures.json (2 lines, 4671 bytes)
 
 ```
-{
-  "resource_pack_name": "aln_wireless_hopper",
-  "texture_name": "atlas.terrain",
-  "padding": 8,
-  "num_mip_levels": 4,
-  "texture_data": {
-    "aln_wireless_hopper": {
-      "textures": "textures/blocks/wireless_hopper"
-    }
-  }
-}
-```
-
-## FILE: MCPEDL/Addons/ALN-Wireless-Hopper/texture_sources/wireless_hopper_textures.json (1 lines, 4664 bytes)
-
-```
-[{"name":"wireless_hopper","size":32,"folder":"blocks","palette":{"0":"#00000000","1":"#1b1f26","2":"#343b46","3":"#566070","4":"#7d889a","5":"#b3bccb","6":"#0e7490","7":"#22d3ee","8":"#b8f5ff","9":"#d97706"},"pixels":[[5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5],[4,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,7,7,7,8,7,7,7,8,7,7,7,8,7,7,7,8],[4,3,1,2,1,2,1,2,1,2,1,2,1,2,3,4,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],[4,3,2,1,2,8,8,8,8,8,8,1,2,1,3,4,4,4,4,4,4,4,4,4,4,4,1,1,1,1,1,1],[4,3,1,2,8,8,1,2,1,2,8,8,1,2,3,4,3,5,3,3,3,3,3,3,5,3,1,1,1,1,1,1],[4,3,2,8,8,1,1,1,1,1,2,8,8,1,3,4,3,1,3,3,3,3,3,3,1,3,1,1,1,1,1,1],[4,3,1,8,1,1,1,1,1,1,1,2,8,2,3,4,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1],[4,3,2,7,2,1,1,9,9,1,1,1,7,1,3,4,4,3,3,3,3,4,2,2,2,2,2,4,1,1,1,1],[4,3,1,7,1,1,1,9,9,1,1,2,7,2,3,4,3,3,3,3,3,3,2,2,2,2,9,9,1,1,1,1],[4,3,2,7,2,1,1,1,1,1,1,1,7,1,3,4,2,2,2,2,2,2,1,1,1,1,2,4,1,1,1,1],[4,3,1,7,7,2,1,1,1,1,1,7,7,2,3,4,7,7,7,7,1,1,1,1,1,1,9,9,1,1,1,1],[4,3,2,1,7,7,2,1,2,1,7,7,2,1,3,4,7,7,7,7,1,1,1,1,1,1,2,4,1,1,1,1],[4,3,1,2,1,7,7,7,7,7,7,2,1,2,3,4,7,8,8,7,1,1,1,1,1,1,8,8,1,1,1,1],[4,3,2,1,2,1,2,1,2,1,2,1,2,1,3,4,7,8,8,7,1,1,1,1,1,1,8,8,1,1,1,1],[4,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,7,7,7,7,1,1,1,1,1,1,1,1,1,1,1,1],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,7,8,7,7,8,7,7,8,7,7,8,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,7,7,7,7,7,7,7,7,7,7,7,1,1,1,1,1],[1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,7,7,7,7,7,7,7,7,7,7,7,1,1,1,1,1],[1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,7,7,7,7,7,7,7,7,7,7,7,1,1,1,1,1],[1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,7,7,7,7,7,7,7,7,7,7,7,1,1,1,1,1],[1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,7,7,7,7,7,7,7,7,7,7,7,1,1,1,1,1],[1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,7,7,7,7,7,7,7,7,7,7,7,1,1,1,1,1],[1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,7,7,7,7,7,7,7,7,7,7,7,1,1,1,1,1],[1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,7,7,7,7,7,7,7,7,7,7,7,1,1,1,1,1],[1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,7,7,7,7,7,7,7,7,7,7,7,1,1,1,1,1],[1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,7,7,7,7,7,7,7,7,7,7,7,1,1,1,1,1],[1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,7,7,7,7,7,7,7,7,7,7,7,1,1,1,1,1],[1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]]},{"name":"wireless_remote","size":32,"folder":"items","palette":{"0":"#00000000","1":"#1b1f26","2":"#343b46","3":"#566070","4":"#7d889a","5":"#b3bccb","6":"#0e7490","7":"#22d3ee","8":"#b8f5ff","9":"#d97706"},"pixels":[[0,0,0,0,0,0,0,6,0,0,7,7,0,0,0,0,0,0,0,0,7,7,0,0,6,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,6,0,0,7,0,0,0,1,8,8,1,0,0,0,7,0,0,6,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,6,0,0,7,0,0,0,1,8,8,1,0,0,0,7,0,0,6,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,6,0,0,7,0,0,0,1,1,1,1,0,0,0,7,0,0,6,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,6,0,0,7,7,0,0,0,5,4,0,0,0,7,7,0,0,6,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,6,0,0,7,7,0,0,4,4,0,0,7,7,0,0,6,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,6,6,0,0,7,7,0,4,4,0,7,7,0,0,6,6,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,4,4,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,6,6,0,0,0,4,4,0,0,0,6,6,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,5,5,5,5,5,5,5,5,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,3,3,3,3,3,3,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,1,1,1,1,1,1,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,1,6,6,6,6,1,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,1,7,6,6,6,1,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,1,8,7,7,8,1,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,1,6,6,6,7,1,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,1,1,1,1,1,1,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,3,3,3,3,3,3,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,3,3,3,3,3,3,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,9,9,3,3,7,7,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,9,9,3,3,7,7,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,3,3,3,3,3,3,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,3,3,3,3,3,3,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,6,6,3,3,6,6,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,6,6,3,3,6,6,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,3,3,3,3,3,3,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,3,3,3,3,3,3,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]}]
+[{"name":"wireless_remote","size":32,"folder":"items","palette":{"0":"#00000000","1":"#1b1f26","2":"#343b46","3":"#566070","4":"#7d889a","5":"#b3bccb","6":"#0e7490","7":"#22d3ee","8":"#b8f5ff","9":"#d97706"},"pixels":[[0,0,0,0,0,0,0,6,0,0,7,7,0,0,0,0,0,0,0,0,7,7,0,0,6,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,6,0,0,7,0,0,0,1,8,8,1,0,0,0,7,0,0,6,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,6,0,0,7,0,0,0,1,8,8,1,0,0,0,7,0,0,6,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,6,0,0,7,0,0,0,1,1,1,1,0,0,0,7,0,0,6,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,6,0,0,7,7,0,0,0,5,4,0,0,0,7,7,0,0,6,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,6,0,0,7,7,0,0,4,4,0,0,7,7,0,0,6,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,6,6,0,0,7,7,0,4,4,0,7,7,0,0,6,6,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,4,4,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,6,6,0,0,0,4,4,0,0,0,6,6,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,5,5,5,5,5,5,5,5,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,3,3,3,3,3,3,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,1,1,1,1,1,1,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,1,6,6,6,6,1,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,1,7,6,6,6,1,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,1,8,7,7,8,1,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,1,6,6,6,7,1,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,1,1,1,1,1,1,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,3,3,3,3,3,3,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,3,3,3,3,3,3,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,9,9,3,3,7,7,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,9,9,3,3,7,7,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,3,3,3,3,3,3,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,3,3,3,3,3,3,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,6,6,3,3,6,6,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,6,6,3,3,6,6,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,3,3,3,3,3,3,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,3,3,3,3,3,3,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"name":"wireless_remote_linked","size":32,"folder":"items","palette":{"0":"#00000000","1":"#1b1f26","2":"#343b46","3":"#566070","4":"#7d889a","5":"#b3bccb","6":"#0e7490","7":"#22d3ee","8":"#b8f5ff","9":"#d97706"},"pixels":[[0,0,0,0,0,0,0,7,0,0,7,7,0,0,0,0,0,0,0,0,7,7,0,0,7,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,7,0,0,7,0,0,0,1,8,8,1,0,0,0,7,0,0,7,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,7,0,0,7,0,0,0,1,8,8,1,0,0,0,7,0,0,7,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,7,0,0,7,0,0,0,1,1,1,1,0,0,0,7,0,0,7,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,7,0,0,7,7,0,0,0,5,4,0,0,0,7,7,0,0,7,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,7,0,0,7,7,0,0,4,4,0,0,7,7,0,0,7,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,7,7,0,0,7,7,0,4,4,0,7,7,0,0,7,7,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,4,4,0,0,0,0,0,7,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,7,7,0,0,0,4,4,0,0,0,7,7,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,7,8,8,8,8,8,8,8,8,7,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,3,3,3,3,3,3,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,1,1,1,1,1,1,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,1,7,8,8,7,1,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,1,8,7,7,8,1,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,1,8,7,7,8,1,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,1,7,8,8,7,1,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,1,1,1,1,1,1,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,3,3,3,3,3,3,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,3,3,3,3,3,3,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,7,7,3,3,7,7,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,7,7,3,3,7,7,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,3,3,3,3,3,3,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,3,3,3,3,3,3,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,7,7,3,3,7,7,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,7,7,3,3,7,7,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,3,3,3,3,3,3,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,4,3,3,3,3,3,3,3,3,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]}]
 ```
