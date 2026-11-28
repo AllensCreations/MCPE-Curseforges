@@ -1,0 +1,44 @@
+@@ version v7
+@@ project MCPEDL/Maps/ALNMultiIslandOneBlock
+@@ file behavior_pack/scripts/lib/util.js
+@@ insert-after
+import { world, system, ItemStack, EntityComponentTypes } from "@minecraft/server";
+@@ with
+import { LEDGER_ID } from "./config.js";
+@@ replace
+    if (!item || !isPlain(item)) continue;
+@@ with
+    if (!item || item.typeId === LEDGER_ID || !isPlain(item)) continue;
+@@ replace
+export function countPlain(player, typeId) {
+@@ with
+export function countPlain(player, typeId) {
+  if (typeId === LEDGER_ID) return 0;
+@@ file behavior_pack/scripts/lib/market.js
+@@ replace
+  STARTER_COINS,
+  COIN_NAME,
+} from "./config.js";
+@@ with
+  STARTER_COINS,
+  COIN_NAME,
+  LEDGER_ID,
+} from "./config.js";
+@@ replace
+  return listing && typeof listing.price === "number" ? listing : undefined;
+@@ with
+  return listing && typeof listing.price === "number" && listing.give?.id !== LEDGER_ID ? listing : undefined;
+@@ insert-after
+    if (!listing) continue;
+@@ with
+    if (listing.give?.id === LEDGER_ID) {
+      world.setDynamicProperty(listingKey(id), undefined);
+      continue;
+    }
+@@ insert-after
+  if (!isValidItem(itemId)) return fail("The item you want to sell is not valid.");
+@@ with
+  if (itemId === LEDGER_ID) return fail("The TRADERS Item cannot be sold.");
+@@ changelog TRADERS Item Sale Fix
+### Fixed
+- **TRADERS Item Sale Bug**: The TRADERS Item can no longer be listed or sold. It is hidden from the sell lists, and any old offer that held it is removed.

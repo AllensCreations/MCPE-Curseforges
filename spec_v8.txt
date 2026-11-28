@@ -1,0 +1,25 @@
+@@ version v8
+@@ project MCPEDL/Maps/ALNMultiIslandOneBlock
+@@ file behavior_pack/scripts/lib/config.js
+@@ replace
+export const BONUS_CHANCE = 0.3;
+@@ with
+export const BONUS_CHANCE = 0.05;
+export const BONUS_AMOUNT_MULT = 1;
+@@ file behavior_pack/scripts/lib/oneblock.js
+@@ replace
+import { ONE_BLOCK_Y, PROP, BONUS_CHANCE, BREAKS_PER_COIN, COINS_PER_REWARD } from "./config.js";
+@@ with
+import { ONE_BLOCK_Y, PROP, BONUS_CHANCE, BONUS_AMOUNT_MULT, BREAKS_PER_COIN, COINS_PER_REWARD } from "./config.js";
+@@ replace
+import { blockIdAt, isLoaded, isValidItem, overworld } from "./util.js";
+@@ with
+import { blockIdAt, isLoaded, isValidItem, overworld, stackLimit } from "./util.js";
+@@ replace
+      dim.spawnItem(new ItemStack(bonus.id, bonus.amount), { x: x + 0.5, y: ONE_BLOCK_Y + 1.2, z: z + 0.5 });
+@@ with
+      const amount = Math.min(bonus.amount * BONUS_AMOUNT_MULT, stackLimit(bonus.id));
+      dim.spawnItem(new ItemStack(bonus.id, amount), { x: x + 0.5, y: ONE_BLOCK_Y + 1.2, z: z + 0.5 });
+@@ changelog Rare Bonus Drops
+### Improved & Balanced
+- **Rare Bonus Drops**: Richness bonus drops now happen on about 5% of OneBlock breaks instead of 30%.

@@ -1,0 +1,287 @@
+@@ version v10
+@@ project MCPEDL/Maps/ALNMultiIslandOneBlock
+@@ file behavior_pack/scripts/lib/config.js
+@@ insert-after
+  GLOBAL: "aln:global_breaks",
+@@ with
+  ISLAND_PREFIX: "aln:island_breaks_",
+@@ replace
+export const BREAKS_PER_COIN = 10;
+@@ with
+export const BREAKS_PER_COIN = 5;
+@@ insert-after
+export const SERVER_BUY_RATIO = 0.5;
+@@ with
+export const RARE_UNIT_PRICE = 40;
+export const RARE_BUY_RATIO = 0.25;
+export const MARKET_FEE_RATIO = 0.05;
+@@ replace
+  "§7- All islands share the same phase. Every OneBlock broken on any island moves the whole world closer to the next phase.",
+@@ with
+  "§7- Every island has its own phase. Every OneBlock you break on your island moves it closer to the next phase.",
+@@ insert-after
+  "§7- Listed items are held safely until they sell or you cancel the listing.",
+@@ with
+  `§7- A ${Math.round(MARKET_FEE_RATIO * 100)}% fee is taken from the seller when an offer sells.`,
+@@ file behavior_pack/scripts/lib/prices.js
+@@ replace
+import { SERVER_BUY_RATIO } from "./config.js";
+@@ with
+import { SERVER_BUY_RATIO, RARE_UNIT_PRICE, RARE_BUY_RATIO } from "./config.js";
+@@ replace
+  return info.listed ? Math.floor(info.unit * amount * SERVER_BUY_RATIO) : 0;
+@@ with
+  if (!info.listed) return 0;
+  const ratio = info.unit >= RARE_UNIT_PRICE ? RARE_BUY_RATIO : SERVER_BUY_RATIO;
+  return Math.floor(info.unit * amount * ratio);
+@@ file behavior_pack/scripts/lib/util.js
+@@ replace
+import { world, system, ItemStack, EntityComponentTypes } from "@minecraft/server";
+@@ with
+import { world, system, ItemStack, EntityComponentTypes, GameMode } from "@minecraft/server";
+@@ append
+
+export function isCreative(player) {
+  try {
+    return player.getGameMode() === GameMode.Creative;
+  } catch (e) {
+    return false;
+  }
+}
+@@ file behavior_pack/scripts/lib/slots.js
+@@ insert-after
+  player.setDynamicProperty(PROP.BREAKS, 0);
+@@ with
+  world.setDynamicProperty(PROP.ISLAND_PREFIX + slot, 0);
+@@ file behavior_pack/scripts/lib/island.js
+@@ replace
+export function globalBreaks() {
+  const v = world.getDynamicProperty(PROP.GLOBAL);
+  return typeof v === "number" ? v : 0;
+}
+
+export function currentPhase() {
+  return phaseIndexFor(globalBreaks());
+}
+@@ with
+function legacyBreaks() {
+  const v = world.getDynamicProperty(PROP.GLOBAL);
+  return typeof v === "number" ? v : 0;
+}
+
+export function islandBreaks(slot) {
+  const v = world.getDynamicProperty(PROP.ISLAND_PREFIX + slot);
+  return typeof v === "number" ? v : legacyBreaks();
+}
+
+export function addIslandBreak(slot) {
+  const total = islandBreaks(slot) + 1;
+  world.setDynamicProperty(PROP.ISLAND_PREFIX + slot, total);
+  return total;
+}
+@@ replace
+function placeIsland(dim, x, z, trait) {
+  const first = nextBlockId(currentPhase(), trait);
+@@ with
+function placeIsland(dim, x, z, trait, slot) {
+  const first = nextBlockId(phaseIndexFor(islandBreaks(slot)), trait);
+@@ replace
+placeIsland(dim, c.x, c.z, trait)
+@@ with
+placeIsland(dim, c.x, c.z, trait, slot)
+@@ file behavior_pack/scripts/lib/claim.js
+@@ replace
+import { ensureIsland, currentPhase } from "./island.js";
+@@ with
+import { ensureIsland } from "./island.js";
+@@ replace
+§fWorld phase: ${phaseLabel(currentPhase())}§f.
+@@ with
+§fIsland phase: ${phaseLabel(0)}§f.
+@@ file behavior_pack/scripts/lib/ledger.js
+@@ replace
+import { globalBreaks } from "./island.js";
+@@ with
+import { islandBreaks } from "./island.js";
+@@ replace
+  const phase = phaseIndexFor(globalBreaks());
+@@ with
+  const phase = phaseIndexFor(islandBreaks(slot));
+@@ replace
+§7World phase: ${phaseLabel(phase)}
+@@ with
+§7Island phase: ${phaseLabel(phase)}
+@@ replace
+  const total = globalBreaks();
+@@ with
+  const total = islandBreaks(slot);
+@@ replace
+§fWorld phase: ${phaseLabel(phaseIndexFor(total))}
+@@ with
+§fIsland phase: ${phaseLabel(phaseIndexFor(total))}
+@@ replace
+"§7The world is in its final phase."
+@@ with
+"§7Your island is in its final phase."
+@@ replace
+§7World breaks: ${total}
+@@ with
+§7Island breaks: ${total}
+@@ file behavior_pack/scripts/lib/market.js
+@@ replace
+  LEDGER_ID,
+} from "./config.js";
+@@ with
+  LEDGER_ID,
+  MARKET_FEE_RATIO,
+} from "./config.js";
+@@ replace
+  niceName,
+} from "./util.js";
+@@ with
+  niceName,
+  isCreative,
+} from "./util.js";
+@@ insert-after
+  if (itemId === LEDGER_ID) return fail("The TRADERS Item cannot be sold.");
+@@ with
+  if (isCreative(player)) return fail("Players in Creative mode cannot sell items.");
+@@ insert-after
+export function sellToServer(player, itemId, amount) {
+@@ with
+  if (isCreative(player)) return fail("Players in Creative mode cannot sell items.");
+@@ replace
+  dropListing(id);
+  addCoins(buyer.id, -listing.price);
+  addCoins(listing.seller, listing.price);
+  giveItem(buyer, listing.give.id, listing.give.amount);
+  const seller = findPlayer(listing.seller);
+  if (seller) {
+    seller.sendMessage(`§6[ALN] §a${buyer.name} bought your offer. You received ${listing.price} ${COIN_NAME}.`);
+  } else {
+    addEarned(listing.seller, listing.price);
+  }
+@@ with
+  const net = listing.price - Math.floor(listing.price * MARKET_FEE_RATIO);
+  dropListing(id);
+  addCoins(buyer.id, -listing.price);
+  addCoins(listing.seller, net);
+  giveItem(buyer, listing.give.id, listing.give.amount);
+  const seller = findPlayer(listing.seller);
+  if (seller) {
+    seller.sendMessage(`§6[ALN] §a${buyer.name} bought your offer. You received ${net} ${COIN_NAME} after the market fee.`);
+  } else {
+    addEarned(listing.seller, net);
+  }
+@@ file behavior_pack/scripts/lib/oneblock.js
+@@ replace
+import { ONE_BLOCK_Y, PROP, BONUS_CHANCE, BONUS_AMOUNT_MULT, BREAKS_PER_COIN, COINS_PER_REWARD } from "./config.js";
+@@ with
+import { ONE_BLOCK_Y, PROP, BONUS_CHANCE, BONUS_AMOUNT_MULT, BREAKS_PER_COIN, COINS_PER_REWARD, RARE_UNIT_PRICE } from "./config.js";
+@@ replace
+import { globalBreaks, regenerate } from "./island.js";
+@@ with
+import { islandBreaks, addIslandBreak, regenerate } from "./island.js";
+@@ replace
+import { blockIdAt, isLoaded, isValidItem, overworld, stackLimit } from "./util.js";
+@@ with
+import { blockIdAt, isLoaded, isValidItem, overworld, stackLimit, findPlayer, isCreative } from "./util.js";
+@@ replace
+import { addCoins } from "./market.js";
+@@ with
+import { addCoins } from "./market.js";
+import { priceInfo } from "./prices.js";
+@@ replace
+function announcePhase(index) {
+  const p = PHASES[index];
+  world.sendMessage(`§6§l[ALN] §r§eThe whole world advances to phase ${index + 1}: ${p.color}${p.name}§e.`);
+  for (const player of world.getAllPlayers()) {
+    try {
+@@ with
+function announcePhase(players, index) {
+  const p = PHASES[index];
+  for (const player of players) {
+    try {
+      player.sendMessage(`§6§l[ALN] §r§eYour island advances to phase ${index + 1}: ${p.color}${p.name}§e.`);
+@@ replace
+      const amount = Math.min(bonus.amount * BONUS_AMOUNT_MULT, stackLimit(bonus.id));
+@@ with
+      const mult = priceInfo(bonus.id).unit >= RARE_UNIT_PRICE ? 1 : BONUS_AMOUNT_MULT;
+      const amount = Math.min(bonus.amount * mult, stackLimit(bonus.id));
+@@ replace
+  const before = phaseIndexFor(globalBreaks());
+  const total = globalBreaks() + 1;
+  world.setDynamicProperty(PROP.GLOBAL, total);
+  const after = phaseIndexFor(total);
+@@ with
+  const before = phaseIndexFor(islandBreaks(slot));
+  const total = addIslandBreak(slot);
+  const after = phaseIndexFor(total);
+@@ replace
+  if (mine % BREAKS_PER_COIN === 0) addCoins(breaker.id, COINS_PER_REWARD);
+@@ with
+  if (mine % BREAKS_PER_COIN === 0 && !isCreative(breaker)) addCoins(breaker.id, COINS_PER_REWARD);
+@@ replace
+  if (after !== before) announcePhase(after);
+@@ with
+  if (after !== before) {
+    const owner = findPlayer(record.id);
+    announcePhase(owner && owner.id !== breaker.id ? [breaker, owner] : [breaker], after);
+  }
+@@ replace
+  const phase = phaseIndexFor(globalBreaks());
+  for (const player of world.getAllPlayers()) {
+@@ with
+  for (const player of world.getAllPlayers()) {
+@@ replace
+      regenerate(dim, c.x, c.z, record.trait, phase);
+@@ with
+      regenerate(dim, c.x, c.z, record.trait, phaseIndexFor(islandBreaks(slot)));
+@@ file behavior_pack/scripts/lib/README.md
+@@ replace
+the eight shared OneBlock phases, their thresholds
+@@ with
+the eight OneBlock phases (tracked per island), their thresholds
+@@ replace
+handles broken OneBlocks, global phase counting,
+@@ with
+handles broken OneBlocks, per-island phase counting,
+@@ file DESCRIPTION.md
+@@ replace
+every island shares the same OneBlock phase
+@@ with
+every island climbs through its own OneBlock phases
+@@ replace
+All islands share one progression, and each island carries a Richness trait
+@@ with
+Each island has its own progression, and each island carries a Richness trait
+@@ replace
+### Shared OneBlock Phases
+- **What Happens**: Every OneBlock broken on any island moves the whole world forward through eight phases: Forest, Underground, Desert, Frozen Tundra, Ocean Monument, Nether, Deepslate Depths and The End. All islands always draw blocks from the same phase.
+@@ with
+### Individual OneBlock Phases
+- **What Happens**: Every OneBlock broken on an island moves that island forward through eight phases: Forest, Underground, Desert, Frozen Tundra, Ocean Monument, Nether, Deepslate Depths and The End. Each island draws blocks from its own phase, so one player cannot rush everyone else.
+@@ replace
+Roughly three out of ten OneBlock breaks drop an extra item that matches the island's trait and the current phase.
+@@ with
+About one in twenty OneBlock breaks drops an extra item that matches the island's trait and the island's phase.
+@@ replace
+The market also buys those items directly for half of the recommended price.
+@@ with
+The market also buys those items directly for half of the recommended price, or a quarter for very valuable items, and sellers pay a 5% fee when an offer sells. Players in Creative mode cannot sell.
+@@ replace
+Players also earn 1 ALN Coin for every 10 OneBlock breaks, and a sidebar
+@@ with
+Players also earn 1 ALN Coin for every 5 OneBlock breaks (not in Creative mode), and a sidebar
+@@ replace
+and the whole world advances through its phases as islands keep breaking blocks.
+@@ with
+and your island advances through its phases as you keep breaking blocks.
+@@ changelog Individual Phases and Market Balance
+### Added
+- **Individual Island Phases**: Every island now has its own OneBlock phase. Breaking blocks on your island moves only your island forward, and the phase message goes to the island owner and the breaker. Existing islands keep their current phase until they break their next block.
+- **Market Fee**: Sellers pay a 5% fee when a player offer sells. The fee leaves the economy.
+### Improved & Balanced
+- **Creative Mode Restriction**: Players in Creative mode cannot create offers, sell to the market or earn ALN Coins from OneBlock breaks.
+- **Rare Items**: Items worth 40 ALN Coins or more (diamonds, emeralds, netherite scrap, nautilus shells, name tags, saddles) are no longer doubled as bonus drops, and the market pays a quarter of the recommended price for them instead of half.
+- **Faster Coin Reward**: Players now earn 1 ALN Coin for every 5 OneBlock breaks instead of every 10.

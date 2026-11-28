@@ -1,0 +1,619 @@
+@@ version 2.0.0
+@@ project MCPEDL/Addons/ALNSpiritSphere
+@@ delete-file MCPEDL/Addons/ALNSpiritSphere/behavior_pack/items/spirit_focus.json
+@@ delete-file MCPEDL/Addons/ALNSpiritSphere/behavior_pack/recipes/spirit_focus_feather.json
+@@ delete-file MCPEDL/Addons/ALNSpiritSphere/behavior_pack/recipes/spirit_focus_wind_charge.json
+@@ delete-file MCPEDL/Addons/ALNSpiritSphere/resource_pack/textures/items/aln_spirit_focus.png
+@@ file behavior_pack/manifest.json
+@@ replace
+Charge the Spirit Focus, release a Ghast-style energy orb, and switch between five elements by ALNStudios
+@@ with
+Charge one of five elemental Spirit Spheres and release a Ghast-style energy orb by ALNStudios
+@@ file resource_pack/manifest.json
+@@ replace
+Charge the Spirit Focus, release a Ghast-style energy orb, and switch between five elements by ALNStudios
+@@ with
+Charge one of five elemental Spirit Spheres and release a Ghast-style energy orb by ALNStudios
+@@ file behavior_pack/items/aero_sphere.json
+@@ create
+{
+  "format_version": "1.26.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:aero_sphere",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "textures": {
+          "default": "aln_aero_sphere"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "§l§bAero Vortex §fSphere"
+      },
+      "minecraft:use_animation": "spyglass",
+      "minecraft:use_modifiers": {
+        "use_duration": 3600,
+        "movement_modifier": 0.7
+      }
+    }
+  }
+}
+@@ file behavior_pack/recipes/aero_sphere_wind_charge.json
+@@ create
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "aln:aero_sphere_wind_charge"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:ender_pearl"
+      },
+      {
+        "item": "minecraft:amethyst_shard"
+      },
+      {
+        "item": "minecraft:blaze_powder"
+      },
+      {
+        "item": "minecraft:wind_charge"
+      }
+    ],
+    "result": {
+      "item": "aln:aero_sphere"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+@@ file behavior_pack/recipes/aero_sphere_feather.json
+@@ create
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "aln:aero_sphere_feather"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:ender_pearl"
+      },
+      {
+        "item": "minecraft:amethyst_shard"
+      },
+      {
+        "item": "minecraft:blaze_powder"
+      },
+      {
+        "item": "minecraft:feather"
+      }
+    ],
+    "result": {
+      "item": "aln:aero_sphere"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+@@ file behavior_pack/items/blaze_sphere.json
+@@ create
+{
+  "format_version": "1.26.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:blaze_sphere",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "textures": {
+          "default": "aln_blaze_sphere"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "§l§6Blaze Solar §eSphere"
+      },
+      "minecraft:use_animation": "spyglass",
+      "minecraft:use_modifiers": {
+        "use_duration": 3600,
+        "movement_modifier": 0.7
+      }
+    }
+  }
+}
+@@ file behavior_pack/recipes/blaze_sphere.json
+@@ create
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "aln:blaze_sphere"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:ender_pearl"
+      },
+      {
+        "item": "minecraft:amethyst_shard"
+      },
+      {
+        "item": "minecraft:blaze_powder"
+      },
+      {
+        "item": "minecraft:blaze_rod"
+      }
+    ],
+    "result": {
+      "item": "aln:blaze_sphere"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+@@ file behavior_pack/items/frost_sphere.json
+@@ create
+{
+  "format_version": "1.26.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:frost_sphere",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "textures": {
+          "default": "aln_frost_sphere"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "§l§9Frost Nova §bSphere"
+      },
+      "minecraft:use_animation": "spyglass",
+      "minecraft:use_modifiers": {
+        "use_duration": 3600,
+        "movement_modifier": 0.7
+      }
+    }
+  }
+}
+@@ file behavior_pack/recipes/frost_sphere.json
+@@ create
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "aln:frost_sphere"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:ender_pearl"
+      },
+      {
+        "item": "minecraft:amethyst_shard"
+      },
+      {
+        "item": "minecraft:blaze_powder"
+      },
+      {
+        "item": "minecraft:blue_ice"
+      }
+    ],
+    "result": {
+      "item": "aln:frost_sphere"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+@@ file behavior_pack/items/storm_sphere.json
+@@ create
+{
+  "format_version": "1.26.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:storm_sphere",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "textures": {
+          "default": "aln_storm_sphere"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "§l§5Storm Surge §eSphere"
+      },
+      "minecraft:use_animation": "spyglass",
+      "minecraft:use_modifiers": {
+        "use_duration": 3600,
+        "movement_modifier": 0.7
+      }
+    }
+  }
+}
+@@ file behavior_pack/recipes/storm_sphere.json
+@@ create
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "aln:storm_sphere"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:ender_pearl"
+      },
+      {
+        "item": "minecraft:amethyst_shard"
+      },
+      {
+        "item": "minecraft:blaze_powder"
+      },
+      {
+        "item": "minecraft:lightning_rod"
+      }
+    ],
+    "result": {
+      "item": "aln:storm_sphere"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+@@ file behavior_pack/items/void_sphere.json
+@@ create
+{
+  "format_version": "1.26.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:void_sphere",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "textures": {
+          "default": "aln_void_sphere"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "§l§dVoid Singularity §8Sphere"
+      },
+      "minecraft:use_animation": "spyglass",
+      "minecraft:use_modifiers": {
+        "use_duration": 3600,
+        "movement_modifier": 0.7
+      }
+    }
+  }
+}
+@@ file behavior_pack/recipes/void_sphere.json
+@@ create
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "aln:void_sphere"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:ender_pearl"
+      },
+      {
+        "item": "minecraft:amethyst_shard"
+      },
+      {
+        "item": "minecraft:blaze_powder"
+      },
+      {
+        "item": "minecraft:obsidian"
+      }
+    ],
+    "result": {
+      "item": "aln:void_sphere"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}
+@@ file behavior_pack/scripts/elements.js
+@@ overwrite
+export const ORB_ID = "aln:spirit_orb";
+
+export const FULL_TICKS = 50;
+export const BURST_TICK = 50;
+export const OVER_TICKS = 70;
+export const MIN_HOLD = 4;
+export const MAX_ORB_AGE = 120;
+
+export const MODES = [
+  {
+    id: "aero",
+    itemId: "aln:aero_sphere",
+    name: "Aero Vortex",
+    code: "§b",
+    color: { red: 0.45, green: 1.0, blue: 1.0 },
+    speed: 1.0,
+  },
+  {
+    id: "blaze",
+    itemId: "aln:blaze_sphere",
+    name: "Blaze Solar",
+    code: "§6",
+    color: { red: 1.0, green: 0.6, blue: 0.1 },
+    speed: 1.0,
+  },
+  {
+    id: "frost",
+    itemId: "aln:frost_sphere",
+    name: "Frost Nova",
+    code: "§9",
+    color: { red: 0.55, green: 0.85, blue: 1.0 },
+    speed: 1.0,
+  },
+  {
+    id: "storm",
+    itemId: "aln:storm_sphere",
+    name: "Storm Surge",
+    code: "§5",
+    color: { red: 0.7, green: 0.25, blue: 1.0 },
+    speed: 1.4,
+  },
+  {
+    id: "void",
+    itemId: "aln:void_sphere",
+    name: "Void Singularity",
+    code: "§d",
+    color: { red: 0.65, green: 0.05, blue: 0.5 },
+    speed: 0.9,
+  },
+];
+
+export const MODE_BY_ITEM = new Map(MODES.map((m, i) => [m.itemId, i]));
+
+export const state = {
+  tick: 0,
+};
+@@ file behavior_pack/scripts/charge_fx.js
+@@ create
+const ZOOM_FOV = [70, 62, 50, 38, 34];
+
+export function applyZoom(entry, phase) {
+  if (entry.zoom === phase) return;
+  entry.zoom = phase;
+  try {
+    entry.player.runCommand(`camera @s fov_set ${ZOOM_FOV[phase]} 0.35 linear`);
+  } catch (e) {}
+}
+
+export function clearZoom(player) {
+  try {
+    player.runCommand("camera @s fov_clear 0.2 linear");
+  } catch (e) {}
+}
+
+export function chargeSound(player, held) {
+  if (held < 2 || held % 3 !== 0) return;
+  const k = Math.min(held, 70) / 70;
+  try {
+    player.playSound("random.orb", { pitch: 0.6 + 1.4 * k, volume: 0.5 + 0.4 * k });
+  } catch (e) {}
+}
+@@ file behavior_pack/scripts/main.js
+@@ overwrite
+import { world, system } from "@minecraft/server";
+import { MODES, MODE_BY_ITEM, MIN_HOLD, OVER_TICKS, state } from "./elements.js";
+import { renderCharge, phaseOf } from "./visuals.js";
+import { launchOrb, tickOrbs, registerHits } from "./orbs.js";
+import { applyZoom, clearZoom, chargeSound } from "./charge_fx.js";
+
+const chargers = new Map();
+const PHASES = ["", "Gathering", "Compressing", "Max Charge", "Overcharged"];
+
+function finish(source, itemStack) {
+  if (!itemStack || !MODE_BY_ITEM.has(itemStack.typeId)) return;
+  const entry = chargers.get(source.id);
+  if (!entry || entry.fired) return;
+  entry.fired = true;
+  entry.doneTick = state.tick;
+  clearZoom(source);
+  const held = state.tick - entry.start;
+  if (held >= MIN_HOLD) {
+    try {
+      launchOrb(source, entry.mode, held);
+    } catch (e) {}
+  }
+}
+
+world.afterEvents.itemStartUse.subscribe((ev) => {
+  const player = ev.source;
+  const mode = MODE_BY_ITEM.get(ev.itemStack?.typeId);
+  if (mode === undefined) return;
+  chargers.set(player.id, { player, mode, start: state.tick, fired: false, doneTick: -1, zoom: -1 });
+});
+
+world.afterEvents.itemReleaseUse.subscribe((ev) => finish(ev.source, ev.itemStack));
+world.afterEvents.itemStopUse.subscribe((ev) => finish(ev.source, ev.itemStack));
+
+registerHits();
+
+system.runInterval(() => {
+  state.tick++;
+  for (const [id, entry] of chargers) {
+    if (entry.fired) {
+      if (state.tick - entry.doneTick > 3) chargers.delete(id);
+      continue;
+    }
+    try {
+      const held = state.tick - entry.start;
+      const mode = MODES[entry.mode];
+      const phase = phaseOf(held);
+      renderCharge(entry.player, held, mode);
+      applyZoom(entry, phase);
+      chargeSound(entry.player, held);
+      if (held % 5 === 0) {
+        const tail = held >= OVER_TICKS ? "§c" : "§f";
+        entry.player.onScreenDisplay.setActionBar(`${mode.code}${mode.name} §7| ${tail}${PHASES[phase]}`);
+      }
+    } catch (e) {
+      clearZoom(entry.player);
+      chargers.delete(id);
+    }
+  }
+  tickOrbs();
+}, 1);
+@@ file resource_pack/textures/item_texture.json
+@@ overwrite
+{
+  "resource_pack_name": "aln_spiritsphere",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "aln_aero_sphere": {
+      "textures": "textures/items/aln_aero_sphere"
+    },
+    "aln_blaze_sphere": {
+      "textures": "textures/items/aln_blaze_sphere"
+    },
+    "aln_frost_sphere": {
+      "textures": "textures/items/aln_frost_sphere"
+    },
+    "aln_storm_sphere": {
+      "textures": "textures/items/aln_storm_sphere"
+    },
+    "aln_void_sphere": {
+      "textures": "textures/items/aln_void_sphere"
+    },
+    "aln_orb_core": {
+      "textures": "textures/items/aln_orb_core"
+    }
+  }
+}
+@@ file resource_pack/texts/en_US.lang
+@@ overwrite
+item.aln:aero_sphere=Aero Vortex Sphere
+item.aln:blaze_sphere=Blaze Solar Sphere
+item.aln:frost_sphere=Frost Nova Sphere
+item.aln:storm_sphere=Storm Surge Sphere
+item.aln:void_sphere=Void Singularity Sphere
+entity.aln:spirit_orb.name=Spirit Orb
+@@ file texture_sources/spirit_sphere.json
+@@ overwrite
+{"textures": [{"name": "aln_aero_sphere", "size": 16, "folder": "items", "palette": {"0": "#00000000", "1": "#123a4a", "2": "#e8fbff", "3": "#2aa7c4", "4": "#59f0ff", "5": "#b8fbff", "6": "#ffffff"}, "pixels": [[0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0], [0, 0, 0, 2, 2, 1, 1, 3, 3, 1, 1, 2, 2, 0, 0, 0], [0, 0, 2, 1, 1, 3, 3, 3, 3, 3, 3, 1, 1, 2, 0, 0], [0, 0, 2, 1, 3, 3, 4, 4, 4, 4, 3, 3, 1, 2, 0, 0], [0, 2, 1, 3, 3, 4, 4, 5, 5, 4, 4, 3, 3, 1, 2, 0], [0, 2, 1, 3, 4, 4, 5, 5, 5, 5, 4, 4, 3, 1, 2, 0], [2, 2, 3, 3, 4, 5, 5, 6, 6, 5, 5, 4, 3, 3, 2, 2], [2, 2, 3, 3, 4, 5, 5, 6, 6, 5, 5, 4, 3, 3, 2, 2], [0, 2, 1, 3, 4, 4, 5, 5, 5, 5, 4, 4, 3, 1, 2, 0], [0, 2, 1, 3, 3, 4, 4, 5, 5, 4, 4, 3, 3, 1, 2, 0], [0, 0, 2, 1, 3, 3, 4, 4, 4, 4, 3, 3, 1, 2, 0, 0], [0, 0, 2, 1, 1, 3, 3, 3, 3, 3, 3, 1, 1, 2, 0, 0], [0, 0, 0, 2, 2, 1, 1, 3, 3, 1, 1, 2, 2, 0, 0, 0], [0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0]]}, {"name": "aln_blaze_sphere", "size": 16, "folder": "items", "palette": {"0": "#00000000", "1": "#4a1a05", "2": "#ffd25a", "3": "#d9480f", "4": "#ff9a1f", "5": "#ffd36a", "6": "#fff6d0"}, "pixels": [[0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0], [0, 0, 0, 2, 2, 1, 1, 3, 3, 1, 1, 2, 2, 0, 0, 0], [0, 0, 2, 1, 1, 3, 3, 3, 3, 3, 3, 1, 1, 2, 0, 0], [0, 0, 2, 1, 3, 3, 4, 4, 4, 4, 3, 3, 1, 2, 0, 0], [0, 2, 1, 3, 3, 4, 4, 5, 5, 4, 4, 3, 3, 1, 2, 0], [0, 2, 1, 3, 4, 4, 5, 5, 5, 5, 4, 4, 3, 1, 2, 0], [2, 2, 3, 3, 4, 5, 5, 6, 6, 5, 5, 4, 3, 3, 2, 2], [2, 2, 3, 3, 4, 5, 5, 6, 6, 5, 5, 4, 3, 3, 2, 2], [0, 2, 1, 3, 4, 4, 5, 5, 5, 5, 4, 4, 3, 1, 2, 0], [0, 2, 1, 3, 3, 4, 4, 5, 5, 4, 4, 3, 3, 1, 2, 0], [0, 0, 2, 1, 3, 3, 4, 4, 4, 4, 3, 3, 1, 2, 0, 0], [0, 0, 2, 1, 1, 3, 3, 3, 3, 3, 3, 1, 1, 2, 0, 0], [0, 0, 0, 2, 2, 1, 1, 3, 3, 1, 1, 2, 2, 0, 0, 0], [0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0]]}, {"name": "aln_frost_sphere", "size": 16, "folder": "items", "palette": {"0": "#00000000", "1": "#123055", "2": "#dff3ff", "3": "#3b7bd6", "4": "#8cd0ff", "5": "#d6f1ff", "6": "#ffffff"}, "pixels": [[0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0], [0, 0, 0, 2, 2, 1, 1, 3, 3, 1, 1, 2, 2, 0, 0, 0], [0, 0, 2, 1, 1, 3, 3, 3, 3, 3, 3, 1, 1, 2, 0, 0], [0, 0, 2, 1, 3, 3, 4, 4, 4, 4, 3, 3, 1, 2, 0, 0], [0, 2, 1, 3, 3, 4, 4, 5, 5, 4, 4, 3, 3, 1, 2, 0], [0, 2, 1, 3, 4, 4, 5, 5, 5, 5, 4, 4, 3, 1, 2, 0], [2, 2, 3, 3, 4, 5, 5, 6, 6, 5, 5, 4, 3, 3, 2, 2], [2, 2, 3, 3, 4, 5, 5, 6, 6, 5, 5, 4, 3, 3, 2, 2], [0, 2, 1, 3, 4, 4, 5, 5, 5, 5, 4, 4, 3, 1, 2, 0], [0, 2, 1, 3, 3, 4, 4, 5, 5, 4, 4, 3, 3, 1, 2, 0], [0, 0, 2, 1, 3, 3, 4, 4, 4, 4, 3, 3, 1, 2, 0, 0], [0, 0, 2, 1, 1, 3, 3, 3, 3, 3, 3, 1, 1, 2, 0, 0], [0, 0, 0, 2, 2, 1, 1, 3, 3, 1, 1, 2, 2, 0, 0, 0], [0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0]]}, {"name": "aln_storm_sphere", "size": 16, "folder": "items", "palette": {"0": "#00000000", "1": "#2b1648", "2": "#e9b949", "3": "#7a2fd6", "4": "#b46bff", "5": "#e3c4ff", "6": "#ffffff"}, "pixels": [[0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0], [0, 0, 0, 2, 2, 1, 1, 3, 3, 1, 1, 2, 2, 0, 0, 0], [0, 0, 2, 1, 1, 3, 3, 3, 3, 3, 3, 1, 1, 2, 0, 0], [0, 0, 2, 1, 3, 3, 4, 4, 4, 4, 3, 3, 1, 2, 0, 0], [0, 2, 1, 3, 3, 4, 4, 5, 5, 4, 4, 3, 3, 1, 2, 0], [0, 2, 1, 3, 4, 4, 5, 5, 5, 5, 4, 4, 3, 1, 2, 0], [2, 2, 3, 3, 4, 5, 5, 6, 6, 5, 5, 4, 3, 3, 2, 2], [2, 2, 3, 3, 4, 5, 5, 6, 6, 5, 5, 4, 3, 3, 2, 2], [0, 2, 1, 3, 4, 4, 5, 5, 5, 5, 4, 4, 3, 1, 2, 0], [0, 2, 1, 3, 3, 4, 4, 5, 5, 4, 4, 3, 3, 1, 2, 0], [0, 0, 2, 1, 3, 3, 4, 4, 4, 4, 3, 3, 1, 2, 0, 0], [0, 0, 2, 1, 1, 3, 3, 3, 3, 3, 3, 1, 1, 2, 0, 0], [0, 0, 0, 2, 2, 1, 1, 3, 3, 1, 1, 2, 2, 0, 0, 0], [0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0]]}, {"name": "aln_void_sphere", "size": 16, "folder": "items", "palette": {"0": "#00000000", "1": "#0a0010", "2": "#8a2a9e", "3": "#2a0636", "4": "#6e0f66", "5": "#b01f8f", "6": "#0a0010"}, "pixels": [[0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0], [0, 0, 0, 2, 2, 1, 1, 3, 3, 1, 1, 2, 2, 0, 0, 0], [0, 0, 2, 1, 1, 3, 3, 3, 3, 3, 3, 1, 1, 2, 0, 0], [0, 0, 2, 1, 3, 3, 4, 4, 4, 4, 3, 3, 1, 2, 0, 0], [0, 2, 1, 3, 3, 4, 4, 5, 5, 4, 4, 3, 3, 1, 2, 0], [0, 2, 1, 3, 4, 4, 5, 5, 5, 5, 4, 4, 3, 1, 2, 0], [2, 2, 3, 3, 4, 5, 5, 6, 6, 5, 5, 4, 3, 3, 2, 2], [2, 2, 3, 3, 4, 5, 5, 6, 6, 5, 5, 4, 3, 3, 2, 2], [0, 2, 1, 3, 4, 4, 5, 5, 5, 5, 4, 4, 3, 1, 2, 0], [0, 2, 1, 3, 3, 4, 4, 5, 5, 4, 4, 3, 3, 1, 2, 0], [0, 0, 2, 1, 3, 3, 4, 4, 4, 4, 3, 3, 1, 2, 0, 0], [0, 0, 2, 1, 1, 3, 3, 3, 3, 3, 3, 1, 1, 2, 0, 0], [0, 0, 0, 2, 2, 1, 1, 3, 3, 1, 1, 2, 2, 0, 0, 0], [0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0]]}, {"name": "aln_orb_core", "size": 16, "folder": "items", "palette": {"0": "#6fe6ff", "1": "#bff6ff", "2": "#ffffff", "3": "#a85cff"}, "pixels": [[3, 0, 0, 0, 1, 0, 0, 2, 1, 0, 0, 3, 1, 0, 2, 0], [0, 0, 0, 2, 0, 0, 0, 1, 0, 3, 2, 1, 0, 0, 0, 1], [0, 0, 1, 0, 0, 0, 2, 3, 0, 0, 1, 0, 0, 2, 1, 0], [0, 1, 2, 0, 0, 3, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0], [1, 0, 0, 3, 1, 2, 0, 0, 1, 0, 0, 0, 2, 0, 3, 0], [0, 3, 0, 1, 0, 0, 0, 1, 2, 0, 0, 1, 3, 0, 0, 2], [0, 0, 1, 0, 2, 0, 1, 0, 0, 0, 3, 2, 0, 0, 1, 0], [2, 1, 0, 0, 0, 1, 0, 2, 3, 1, 0, 0, 0, 1, 2, 0], [1, 0, 0, 2, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 0, 0], [0, 0, 0, 1, 3, 0, 2, 1, 0, 0, 0, 1, 0, 2, 0, 3], [0, 0, 3, 0, 0, 0, 1, 0, 0, 2, 1, 0, 0, 3, 1, 0], [3, 1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 3, 2, 1, 0, 0], [1, 2, 0, 0, 1, 0, 0, 0, 2, 3, 0, 0, 1, 0, 0, 2], [0, 0, 0, 1, 2, 0, 0, 3, 0, 0, 0, 2, 0, 0, 0, 1], [2, 0, 1, 0, 0, 3, 1, 2, 0, 0, 1, 0, 0, 0, 2, 0], [0, 1, 0, 3, 0, 1, 0, 0, 0, 1, 2, 0, 0, 1, 3, 0]]}]}
+@@ file DESCRIPTION.md
+@@ replace
+**Charge the Spirit Focus for 50 ticks, then fire 1 of 5 elemental orbs that fly faster and blast harder the longer you hold.**
+@@ with
+**Craft 1 of 5 elemental Spirit Spheres, charge it with a zooming bow-style draw, and fire an orb that blasts harder the longer you hold.**
+@@ replace
+> Craft one item, charge it in your hand, and throw an energy sphere that behaves like an enhanced Ghast fireball.
+@@ with
+> Pick an element, charge its sphere in your hand, and throw an energy orb that behaves like an enhanced Ghast fireball.
+@@ replace
+ALN:SpiritSphere adds the Spirit Focus, a craftable item that charges like a bow. While you hold use, energy swirls in your hand through three visual phases.
+@@ with
+ALN:SpiritSphere adds five craftable Spirit Spheres, one per element, that charge like a bow. While you hold use, the view zooms in, a rising tone plays and energy swirls in your hand through three visual phases.
+@@ replace
+Sneaking while using the item switches between five elements, each with its own color and impact behavior.
+@@ with
+Each sphere has its own color and impact behavior. There is no switching: carry the elements you want and pick them from the hotbar.
+@@ replace
+### Spirit Focus Item
+- **What Happens**: Craft the Spirit Focus with an Ender Pearl, Blaze Powder, a Wind Charge (or a Feather) and an Amethyst Shard in any order on the crafting grid. Two recipes are included, one for each of the Wind Charge and Feather versions.
+@@ with
+### Five Spirit Spheres
+- **What Happens**: Craft the Aero Vortex, Blaze Solar, Frost Nova, Storm Surge and Void Singularity spheres. Each needs an Ender Pearl, an Amethyst Shard and Blaze Powder plus one element item: a Wind Charge or Feather, a Blaze Rod, a Blue Ice, a Lightning Rod or an Obsidian.
+@@ replace
+- **What Happens**: Hold use with the Spirit Focus like a bow. The longer you hold, the faster the orb flies and the larger its blast.
+@@ with
+- **What Happens**: Hold use with a sphere like a bow. The longer you hold, the faster the orb flies and the larger its blast.
+@@ replace
+### Phase 1: Loose Ring
+@@ with
+### Zoom and Charge Sound
+- **What Happens**: The view zooms in as the charge passes each of the 3 phases and eases back when you release. A tone rises in pitch while you hold.
+
+### Phase 1: Loose Ring
+@@ replace
+### Five Elements
+- **What Happens**: Sneak and use the Spirit Focus to cycle Aero Vortex, Blaze Solar, Frost Nova, Storm Surge and Void Singularity. The item lore, particle colors and impact effect change with the element.
+@@ with
+### Element Colors
+- **What Happens**: Each sphere has its own particle color: cyan and white for Aero Vortex, orange and gold for Blaze Solar, icy blue for Frost Nova, purple for Storm Surge and dark magenta for Void Singularity.
+@@ replace
+1. Craft the Spirit Focus with an Ender Pearl, Blaze Powder, a Wind Charge or Feather, and an Amethyst Shard.
+@@ with
+1. Craft a sphere from an Ender Pearl, an Amethyst Shard, Blaze Powder and one element item (Wind Charge or Feather for Aero Vortex, then Blaze Rod, Blue Ice, Lightning Rod or Obsidian for the others).
+@@ replace
+2. Hold use and watch the three charge phases build in your hand.
+@@ with
+2. Hold use. The view zooms in, a tone rises and the three charge phases build in your hand.
+@@ replace
+4. Sneak and use the item to switch the element. The item lore and the action bar show the active element.
+@@ with
+4. Pick another sphere from the hotbar to change the element. The action bar shows the element while you charge.
+@@ replace
+Spirit Focus, charge projectile
+@@ with
+Spirit Sphere, charge projectile, bow zoom
+@@ file CHANGELOG.md
+@@ changelog Element Spheres
+### Added
+- **Five Spirit Spheres**: Players can craft Aero Vortex, Blaze Solar, Frost Nova, Storm Surge and Void Singularity spheres, each with its own icon and recipe.
+- **Bow zoom**: The view zooms in through the three charge phases and eases back on release.
+- **Charge sound**: A tone rises in pitch while the sphere charges.
+
+### Improved & Balanced
+- **Element choice**: Each element is now its own item, so sneak-switching is gone and the Spirit Focus is removed.
