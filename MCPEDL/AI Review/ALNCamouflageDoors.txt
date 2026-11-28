@@ -4,9 +4,9 @@
 
 - **Export request:** `MCPEDL/Addons/ALNCamouflageDoors`
 - **Destination:** `MCPEDL/Addons/ALNCamouflageDoors`
-- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Addons/ALNCamouflageDoors/CHANGELOG.md`)
+- **CURRENT VERSION: v4 / NEXT UPDATE: v5**  (`MCPEDL/Addons/ALNCamouflageDoors/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
-- **Text files:** 24
+- **Text files:** 25
 - **Skipped binary:** 4
 - **Paths not found:** 0
 
@@ -35,6 +35,7 @@
 - `MCPEDL/Addons/ALNCamouflageDoors/resource_pack/texts/en_US.lang`
 - `MCPEDL/Addons/ALNCamouflageDoors/resource_pack/texts/languages.json`
 - `MCPEDL/Addons/ALNCamouflageDoors/resource_pack/textures/terrain_texture.json`
+- `MCPEDL/Addons/ALNCamouflageDoors/resource_pack/ui/server_form.json`
 - `MCPEDL/Addons/ALNCamouflageDoors/texture_sources/door_painter.json`
 
 ### Skipped (binary): 4 file(s)
@@ -168,7 +169,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v3 / NEXT UPDATE: v4).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v4 / NEXT UPDATE: v5).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE self-contained update `.sh` (`<Pack>_v<Version>_<rand>.sh`) built with `make_update_script.py` (INSTRUCTIONS.md Reply Format).
@@ -1790,11 +1791,11 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:CamouflageDoors (v3)",
+    "name": "ALN:CamouflageDoors (v4)",
     "description": "Door Painter workstation and camouflage doors by ALNStudios",
     "uuid": "1893c240-881d-4f0f-a0ff-046f09947711",
     "version": [
-      3,
+      4,
       0,
       0
     ],
@@ -1809,7 +1810,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "type": "data",
       "uuid": "52f368ae-f610-4d1c-92f5-fbc32af756b9",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -1819,7 +1820,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "language": "javascript",
       "uuid": "14c9afed-4aa9-4296-b823-aa64b3d62c22",
       "version": [
-        3,
+        4,
         0,
         0
       ],
@@ -1830,7 +1831,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
     {
       "uuid": "5a87bd6e-bd4a-48e4-a22c-3c6b04b31af1",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -1849,7 +1850,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "3.0.0"
+    "version": "4.0.0"
   }
 }
 ```
@@ -2290,18 +2291,20 @@ export function initPaintedDoorEvents() {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNCamouflageDoors/behavior_pack/scripts/lib/painter_anvil_ui.js (169 lines, 6041 bytes)
+## FILE: MCPEDL/Addons/ALNCamouflageDoors/behavior_pack/scripts/lib/painter_anvil_ui.js (165 lines, 6189 bytes)
 
 ```
 import { ActionFormData } from "@minecraft/server-ui";
 import { createLogger } from "./logger.js";
-import { VANILLA_KEY, paletteByItem, isDoorItem, doorKind, itemLabel } from "./palette.js";
+import { VANILLA_KEY, paletteByItem, isDoorItem, doorKind, itemLabel, iconForItem } from "./palette.js";
 import { scanInventory, readSlot, consume, giveOrDrop } from "./inventory_utils.js";
 import { createPaintedDoorItem } from "./painted_door_handler.js";
 
 const log = createLogger("painter_ui");
 const sessions = new Map();
 const SLOT_NAMES = ["door", "bottom", "top"];
+const MAIN_KEY = "ALNPAINTER";
+const PICK_KEY = "ALNPICKER";
 
 function getSession(player) {
   let session = sessions.get(player.id);
@@ -2346,13 +2349,11 @@ function resultLine(session) {
 
 function buildBody(session) {
   return [
-    "§e[Door] §f+ §a[Bottom Block] §f+ §d[Top Block] §f= §b[Result]",
-    "",
+    "§fTap the name under a slot to change it.",
     "§eDoor: §f" + labelOf(session.door, "Empty"),
     "§aBottom: §f" + labelOf(session.bottom, "Vanilla texture"),
     "§dTop: §f" + labelOf(session.top, "Vanilla texture"),
     "§bResult: §f" + resultLine(session),
-    "",
     "§fPainting uses 1 door and 1 of each chosen block.",
   ].join("\n");
 }
@@ -2362,7 +2363,8 @@ async function pickItem(player, slotName) {
   const isDoor = slotName === "door";
   const entries = scanInventory(player, (item) => (isDoor ? isDoorItem(item.typeId) : paletteByItem(item.typeId) !== undefined));
   const form = new ActionFormData();
-  form.title(isDoor ? "§l§eChoose Door" : slotName === "bottom" ? "§l§aChoose Bottom Block" : "§l§dChoose Top Block");
+  const heading = isDoor ? "§l§eChoose Door" : slotName === "bottom" ? "§l§aChoose Bottom Block" : "§l§dChoose Top Block";
+  form.title(heading + "§r " + PICK_KEY);
   if (entries.length === 0) {
     form.body(isDoor ? "§cNo doors in your inventory." : "§cNo paintable blocks in your inventory.");
   } else {
@@ -2370,7 +2372,7 @@ async function pickItem(player, slotName) {
   }
   form.button("§l§cEmpty slot");
   for (const entry of entries) {
-    form.button("§f" + itemLabel(entry.typeId) + " §ex" + entry.amount);
+    form.button("§f" + itemLabel(entry.typeId) + " §ex" + entry.amount, iconForItem(entry.typeId));
   }
   const response = await form.show(player);
   log.step("picker " + slotName + " closed: canceled=" + response.canceled + (response.canceled ? " reason=" + response.cancelationReason : " selection=" + response.selection));
@@ -2421,13 +2423,12 @@ async function showMain(player) {
   const session = getSession(player);
   refresh(player, session);
   const form = new ActionFormData();
-  form.title("§l§bDoor Painter");
+  form.title("§l§bDoor Painter§r " + MAIN_KEY);
   form.body(buildBody(session));
-  form.button("§l§eDoor Slot\n§f" + labelOf(session.door, "Empty"));
-  form.button("§l§aBottom Block\n§f" + labelOf(session.bottom, "Vanilla texture"));
-  form.button("§l§dTop Block\n§f" + labelOf(session.top, "Vanilla texture"));
-  form.button(session.door ? "§l§bTake Result\n" + resultLine(session) : "§l§cResult\n§fNeeds a door");
-  form.button("§l§cClear Slots");
+  form.button("§l§eDoor\n§f" + labelOf(session.door, "Empty"), session.door ? iconForItem(session.door.typeId) : undefined);
+  form.button("§l§aBottom\n§f" + labelOf(session.bottom, "Vanilla"), session.bottom ? iconForItem(session.bottom.typeId) : undefined);
+  form.button("§l§dTop\n§f" + labelOf(session.top, "Vanilla"), session.top ? iconForItem(session.top.typeId) : undefined);
+  form.button(session.door ? "§l§bResult\n§fTake it" : "§l§cResult\n§fNeeds a door", session.door ? iconForItem(session.door.typeId) : undefined);
   log.step("showing main painter form");
   const response = await form.show(player);
   log.step("main form closed: canceled=" + response.canceled + (response.canceled ? " reason=" + response.cancelationReason : " selection=" + response.selection));
@@ -2440,12 +2441,8 @@ async function showMain(player) {
     await pickItem(player, "bottom");
   } else if (response.selection === 2) {
     await pickItem(player, "top");
-  } else if (response.selection === 3) {
-    paint(player, session);
   } else {
-    session.door = undefined;
-    session.bottom = undefined;
-    session.top = undefined;
+    paint(player, session);
   }
   await showMain(player);
 }
@@ -2463,28 +2460,28 @@ export function registerPainterBlock(blockComponentRegistry) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNCamouflageDoors/behavior_pack/scripts/lib/palette.js (64 lines, 2388 bytes)
+## FILE: MCPEDL/Addons/ALNCamouflageDoors/behavior_pack/scripts/lib/palette.js (75 lines, 3213 bytes)
 
 ```
 export const VANILLA_KEY = "vanilla";
 export const PAINTED_DOOR_ID = "aln:painted_door";
 
 export const PALETTE = [
-  { key: "oak_planks", item: "minecraft:oak_planks", name: "Oak Planks" },
-  { key: "spruce_planks", item: "minecraft:spruce_planks", name: "Spruce Planks" },
-  { key: "birch_planks", item: "minecraft:birch_planks", name: "Birch Planks" },
-  { key: "dark_oak_planks", item: "minecraft:dark_oak_planks", name: "Dark Oak Planks" },
-  { key: "stone", item: "minecraft:stone", name: "Stone" },
-  { key: "cobblestone", item: "minecraft:cobblestone", name: "Cobblestone" },
-  { key: "stone_bricks", item: "minecraft:stone_bricks", name: "Stone Bricks" },
-  { key: "bricks", item: "minecraft:brick_block", name: "Bricks" },
-  { key: "sandstone", item: "minecraft:sandstone", name: "Sandstone" },
-  { key: "dirt", item: "minecraft:dirt", name: "Dirt" },
-  { key: "iron_block", item: "minecraft:iron_block", name: "Block of Iron" },
-  { key: "quartz_block", item: "minecraft:quartz_block", name: "Block of Quartz" },
-  { key: "netherrack", item: "minecraft:netherrack", name: "Netherrack" },
-  { key: "white_wool", item: "minecraft:white_wool", name: "White Wool" },
-  { key: "coal_block", item: "minecraft:coal_block", name: "Block of Coal" },
+  { key: "oak_planks", item: "minecraft:oak_planks", name: "Oak Planks", icon: "textures/blocks/planks_oak" },
+  { key: "spruce_planks", item: "minecraft:spruce_planks", name: "Spruce Planks", icon: "textures/blocks/planks_spruce" },
+  { key: "birch_planks", item: "minecraft:birch_planks", name: "Birch Planks", icon: "textures/blocks/planks_birch" },
+  { key: "dark_oak_planks", item: "minecraft:dark_oak_planks", name: "Dark Oak Planks", icon: "textures/blocks/planks_big_oak" },
+  { key: "stone", item: "minecraft:stone", name: "Stone", icon: "textures/blocks/stone" },
+  { key: "cobblestone", item: "minecraft:cobblestone", name: "Cobblestone", icon: "textures/blocks/cobblestone" },
+  { key: "stone_bricks", item: "minecraft:stone_bricks", name: "Stone Bricks", icon: "textures/blocks/stonebrick" },
+  { key: "bricks", item: "minecraft:brick_block", name: "Bricks", icon: "textures/blocks/brick" },
+  { key: "sandstone", item: "minecraft:sandstone", name: "Sandstone", icon: "textures/blocks/sandstone_normal" },
+  { key: "dirt", item: "minecraft:dirt", name: "Dirt", icon: "textures/blocks/dirt" },
+  { key: "iron_block", item: "minecraft:iron_block", name: "Block of Iron", icon: "textures/blocks/iron_block" },
+  { key: "quartz_block", item: "minecraft:quartz_block", name: "Block of Quartz", icon: "textures/blocks/quartz_block_side" },
+  { key: "netherrack", item: "minecraft:netherrack", name: "Netherrack", icon: "textures/blocks/netherrack" },
+  { key: "white_wool", item: "minecraft:white_wool", name: "White Wool", icon: "textures/blocks/wool_colored_white" },
+  { key: "coal_block", item: "minecraft:coal_block", name: "Block of Coal", icon: "textures/blocks/coal_block" },
 ];
 
 const BY_ITEM = new Map(PALETTE.map((entry) => [entry.item, entry]));
@@ -2529,9 +2526,20 @@ export function itemLabel(typeId) {
   const entry = BY_ITEM.get(typeId);
   return entry ? entry.name : prettyName(typeId);
 }
+
+export function iconForItem(typeId) {
+  const entry = BY_ITEM.get(typeId);
+  if (entry) {
+    return entry.icon;
+  }
+  if (isDoorItem(typeId)) {
+    return doorKind(typeId) === "iron" ? "textures/items/door_iron" : "textures/items/door_wood";
+  }
+  return undefined;
+}
 ```
 
-## FILE: MCPEDL/Addons/ALNCamouflageDoors/behavior_pack/scripts/lib/README.md (13 lines, 1992 bytes)
+## FILE: MCPEDL/Addons/ALNCamouflageDoors/behavior_pack/scripts/lib/README.md (13 lines, 2110 bytes)
 
 ```
 # Script library
@@ -2539,7 +2547,7 @@ export function itemLabel(typeId) {
 - `scripts/main.js`: entry point. Registers the two block components on startup and starts the door events one tick later.
 - `lib/palette.js`: the list of paintable blocks (id, display name, key), the stored property names, and name helpers. Imported by every other file.
 - `lib/inventory_utils.js`: inventory helpers (scan slots, check and consume items, give or drop an item). Depends on `@minecraft/server`.
-- `lib/painter_anvil_ui.js`: registers the Door Painter right-click component and shows the Anvil-style forms (door, bottom block, top block, result). Exports `registerPainterBlock`. Depends on `@minecraft/server-ui`, `palette.js`, `inventory_utils.js`, `painted_door_handler.js`.
+- `lib/painter_anvil_ui.js`: registers the Door Painter right-click component and shows the Anvil-style forms (door, bottom block, top block, result) with title keys ALNPAINTER and ALNPICKER that the resource pack's `ui/server_form.json` turns into the custom screens. Exports `registerPainterBlock`. Depends on `@minecraft/server-ui`, `palette.js`, `inventory_utils.js`, `painted_door_handler.js`.
 - `lib/painted_door_handler.js`: builds the painted door item (the door kind, bottom block and top block are kept in its lore because block items are stackable), registers the open and close component, and handles placing and breaking of both door halves. Exports `createPaintedDoorItem`, `registerPaintedDoor`, `initPaintedDoorEvents`. Depends on `@minecraft/server`, `palette.js`.
 - `lib/logger.js`: `createLogger(name)` with info, step, warn, error and guard. Writes to the content log and, while `DEBUG_CHAT` is true, to chat. Keeps the last 200 lines. Depends on `@minecraft/server`.
 - `lib/diagnostics.js`: start-up checks that the needed events, item methods, forms and both custom blocks exist, then reports the result to each player on first spawn. Depends on `@minecraft/server`, `@minecraft/server-ui`, `logger.js`, `palette.js`.
@@ -2574,12 +2582,20 @@ system.run(() => {
 });
 ```
 
-## FILE: MCPEDL/Addons/ALNCamouflageDoors/CHANGELOG.md (26 lines, 1149 bytes)
+## FILE: MCPEDL/Addons/ALNCamouflageDoors/CHANGELOG.md (34 lines, 1472 bytes)
 
 ```
 # Changelog — ALN:CamouflageDoors
 
 ---
+
+## [v4] - 2026-11-28 - Anvil Screen
+
+### Added
+- **Anvil-style screen**: The Door Painter now opens a custom screen with Door, Bottom Block, Top Block and Result slots, each showing an item icon.
+
+### Improved & Balanced
+- **Item picker**: Choosing an item shows a scrolling list with icons, and Empty slot clears a slot.
 
 ## [v3] - 2026-11-28 - Painted Door Fix
 
@@ -2604,7 +2620,7 @@ system.run(() => {
 - **Painted Door**: A two-block-tall door that shows the chosen block textures on each half and opens and closes with a right-click.
 ```
 
-## FILE: MCPEDL/Addons/ALNCamouflageDoors/DESCRIPTION.md (77 lines, 4280 bytes)
+## FILE: MCPEDL/Addons/ALNCamouflageDoors/DESCRIPTION.md (77 lines, 4383 bytes)
 
 ```
 # ALN:CamouflageDoors — Paint doors with real block textures
@@ -2629,7 +2645,7 @@ Craft a Door Painter and place it. Right-click it, choose a door, then choose a 
 - **How It Works**: Craft it from 5 Iron Ingots and 1 Crafting Table.
 
 ### Anvil-Style Paint Menu
-- **What Happens**: The menu shows Door + Bottom Block + Top Block = Result. Each slot lets you pick an item from your inventory.
+- **What Happens**: A custom Anvil-style screen shows Door + Bottom Block + Top Block = Result, with an item icon in each slot. Tap the name under a slot to pick an item from your inventory, then tap Result to take the painted door.
 - **Good To Know**: Painting uses 1 door and 1 of each chosen block. Empty block slots cost nothing.
 
 ### Painted Door
@@ -2707,7 +2723,7 @@ Download the current release of **ALNCamouflageDoors** for Minecraft Bedrock Edi
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNCamouflageDoors (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNCamouflageDoors/ALNCamouflageDoors%20V3.mcaddon)
+- **Direct download:** [Download ALNCamouflageDoors (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNCamouflageDoors/ALNCamouflageDoors%20V4.mcaddon)
 
 ## Installation
 
@@ -2726,11 +2742,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:CamouflageDoors (v3)",
+    "name": "ALN:CamouflageDoors (v4)",
     "description": "Textures and models for the Door Painter by ALNStudios",
     "uuid": "5a87bd6e-bd4a-48e4-a22c-3c6b04b31af1",
     "version": [
-      3,
+      4,
       0,
       0
     ],
@@ -2745,7 +2761,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "b5d5298f-4e37-4ff6-9bb5-63dabccba333",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -2756,7 +2772,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "3.0.0"
+    "version": "4.0.0"
   }
 }
 ```
@@ -3987,6 +4003,560 @@ tile.aln:painted_door.name=Painted Door
     "aln_cd_door_iron_upper": {
       "textures": "textures/blocks/door_iron_upper"
     }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALNCamouflageDoors/resource_pack/ui/server_form.json (550 lines, 13879 bytes)
+
+```
+{
+  "namespace": "server_form",
+  "long_form": {
+    "modifications": [
+      {
+        "array_name": "bindings",
+        "operation": "insert_back",
+        "value": [
+          {
+            "binding_name": "#title_text"
+          },
+          {
+            "binding_type": "view",
+            "source_property_name": "((#title_text - 'ALNPAINTER' - 'ALNPICKER') = #title_text)",
+            "target_property_name": "#visible"
+          }
+        ]
+      }
+    ]
+  },
+  "main_screen_content": {
+    "modifications": [
+      {
+        "array_name": "controls",
+        "operation": "insert_back",
+        "value": [
+          {
+            "aln_painter_form@server_form.aln_painter_form": {}
+          },
+          {
+            "aln_picker_form@server_form.aln_picker_form": {}
+          }
+        ]
+      }
+    ]
+  },
+  "aln_title_label": {
+    "type": "label",
+    "text": "#text",
+    "layer": 3,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "bindings": [
+      {
+        "binding_name": "#title_text"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#title_text - 'ALNPAINTER' - 'ALNPICKER')",
+        "target_property_name": "#text"
+      }
+    ]
+  },
+  "aln_painter_form@common_dialogs.main_panel_no_buttons": {
+    "$title_panel": "server_form.aln_title_label",
+    "$title_size": [
+      "100% - 15px",
+      10
+    ],
+    "$title_max_size": [
+      "100% - 15px",
+      10
+    ],
+    "size": [
+      300,
+      178
+    ],
+    "$text_name": "#title_text",
+    "$title_text_binding_type": "none",
+    "$child_control": "server_form.aln_painter_panel",
+    "layer": 2,
+    "bindings": [
+      {
+        "binding_name": "#title_text"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not ((#title_text - 'ALNPAINTER') = #title_text))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_picker_form@common_dialogs.main_panel_no_buttons": {
+    "$title_panel": "server_form.aln_title_label",
+    "$title_size": [
+      "100% - 15px",
+      10
+    ],
+    "$title_max_size": [
+      "100% - 15px",
+      10
+    ],
+    "size": [
+      240,
+      214
+    ],
+    "$text_name": "#title_text",
+    "$title_text_binding_type": "none",
+    "$child_control": "server_form.aln_picker_panel",
+    "layer": 2,
+    "bindings": [
+      {
+        "binding_name": "#title_text"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not ((#title_text - 'ALNPICKER') = #title_text))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_painter_panel": {
+    "type": "panel",
+    "size": [
+      "100%",
+      "100%"
+    ],
+    "layer": 1,
+    "controls": [
+      {
+        "aln_row": {
+          "type": "panel",
+          "size": [
+            280,
+            84
+          ],
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "offset": [
+            0,
+            4
+          ],
+          "controls": [
+            {
+              "aln_ops": {
+                "type": "panel",
+                "size": [
+                  "100%",
+                  "100%"
+                ],
+                "layer": 3,
+                "controls": [
+                  {
+                    "aln_op_0": {
+                      "type": "label",
+                      "text": "+",
+                      "layer": 3,
+                      "color": [
+                        1,
+                        0.85,
+                        0.25
+                      ],
+                      "anchor_from": "top_left",
+                      "anchor_to": "top_left",
+                      "offset": [
+                        60,
+                        16
+                      ]
+                    }
+                  },
+                  {
+                    "aln_op_1": {
+                      "type": "label",
+                      "text": "+",
+                      "layer": 3,
+                      "color": [
+                        1,
+                        0.85,
+                        0.25
+                      ],
+                      "anchor_from": "top_left",
+                      "anchor_to": "top_left",
+                      "offset": [
+                        130,
+                        16
+                      ]
+                    }
+                  },
+                  {
+                    "aln_op_2": {
+                      "type": "label",
+                      "text": "=",
+                      "layer": 3,
+                      "color": [
+                        1,
+                        0.85,
+                        0.25
+                      ],
+                      "anchor_from": "top_left",
+                      "anchor_to": "top_left",
+                      "offset": [
+                        200,
+                        16
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "aln_slots@server_form.aln_slots_panel": {}
+            }
+          ]
+        }
+      },
+      {
+        "aln_body": {
+          "type": "label",
+          "text": "#form_text",
+          "layer": 2,
+          "color": "$main_header_text_color",
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "offset": [
+            0,
+            94
+          ],
+          "size": [
+            "100% - 16px",
+            "default"
+          ]
+        }
+      }
+    ]
+  },
+  "aln_slots_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [
+      "100%c",
+      84
+    ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "factory": {
+      "name": "buttons",
+      "control_ids": {
+        "button": "server_form.aln_slot",
+        "label": "@server_form.dynamic_label",
+        "header": "@server_form.dynamic_header",
+        "divider": "@settings_common.option_group_section_divider"
+      }
+    },
+    "collection_name": "form_buttons",
+    "bindings": [
+      {
+        "binding_name": "#form_button_contents",
+        "binding_name_override": "#collection_length"
+      }
+    ]
+  },
+  "aln_slot": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [
+      70,
+      84
+    ],
+    "controls": [
+      {
+        "aln_col": {
+          "type": "stack_panel",
+          "orientation": "vertical",
+          "size": [
+            56,
+            84
+          ],
+          "controls": [
+            {
+              "aln_cell": {
+                "type": "panel",
+                "size": [
+                  36,
+                  40
+                ],
+                "controls": [
+                  {
+                    "frame": {
+                      "type": "image",
+                      "texture": "textures/ui/item_cell",
+                      "size": [
+                        36,
+                        36
+                      ],
+                      "layer": 1
+                    }
+                  },
+                  {
+                    "icon": {
+                      "type": "image",
+                      "layer": 2,
+                      "size": [
+                        28,
+                        28
+                      ],
+                      "bindings": [
+                        {
+                          "binding_name": "#form_button_texture",
+                          "binding_name_override": "#texture",
+                          "binding_type": "collection",
+                          "binding_collection_name": "form_buttons"
+                        },
+                        {
+                          "binding_name": "#form_button_texture_file_system",
+                          "binding_name_override": "#texture_file_system",
+                          "binding_type": "collection",
+                          "binding_collection_name": "form_buttons"
+                        },
+                        {
+                          "binding_type": "view",
+                          "source_property_name": "(not ((#texture = '') or (#texture = 'loading')))",
+                          "target_property_name": "#visible"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "form_button@common_buttons.light_text_button": {
+                "$pressed_button_name": "button.form_button_click",
+                "size": [
+                  56,
+                  44
+                ],
+                "$button_text": "#form_button_text",
+                "$button_text_binding_type": "collection",
+                "$button_text_grid_collection_name": "form_buttons",
+                "$button_text_max_size": [
+                  "100%",
+                  40
+                ],
+                "bindings": [
+                  {
+                    "binding_type": "collection_details",
+                    "binding_collection_name": "form_buttons"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "aln_gap": {
+          "type": "panel",
+          "size": [
+            14,
+            84
+          ]
+        }
+      }
+    ]
+  },
+  "aln_picker_panel": {
+    "type": "panel",
+    "size": [
+      "100%",
+      "100%"
+    ],
+    "layer": 1,
+    "controls": [
+      {
+        "aln_pick_scroll@common.scrolling_panel": {
+          "anchor_to": "top_left",
+          "anchor_from": "top_left",
+          "$show_background": false,
+          "size": [
+            "100%",
+            "100%"
+          ],
+          "$scrolling_content": "server_form.aln_pick_content",
+          "$scroll_size": [
+            5,
+            "100% - 4px"
+          ],
+          "$scrolling_pane_size": [
+            "100% - 4px",
+            "100% - 2px"
+          ],
+          "$scrolling_pane_offset": [
+            2,
+            0
+          ],
+          "$scroll_bar_right_padding_size": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  "aln_pick_content": {
+    "type": "stack_panel",
+    "size": [
+      "100% - 4px",
+      "100%c"
+    ],
+    "orientation": "vertical",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "controls": [
+      {
+        "aln_pick_text": {
+          "type": "label",
+          "text": "#form_text",
+          "layer": 2,
+          "color": "$main_header_text_color",
+          "size": [
+            "100% - 12px",
+            "default"
+          ],
+          "offset": [
+            6,
+            4
+          ]
+        }
+      },
+      {
+        "aln_pick_gap": {
+          "type": "panel",
+          "size": [
+            "100%",
+            6
+          ]
+        }
+      },
+      {
+        "aln_pick_list@server_form.aln_pick_buttons": {}
+      }
+    ]
+  },
+  "aln_pick_buttons": {
+    "type": "stack_panel",
+    "size": [
+      "100% - 4px",
+      "100%c"
+    ],
+    "offset": [
+      2,
+      0
+    ],
+    "orientation": "vertical",
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "factory": {
+      "name": "buttons",
+      "control_ids": {
+        "button": "server_form.aln_pick_button",
+        "label": "@server_form.dynamic_label",
+        "header": "@server_form.dynamic_header",
+        "divider": "@settings_common.option_group_section_divider"
+      }
+    },
+    "collection_name": "form_buttons",
+    "bindings": [
+      {
+        "binding_name": "#form_button_contents",
+        "binding_name_override": "#collection_length"
+      }
+    ]
+  },
+  "aln_pick_button": {
+    "type": "stack_panel",
+    "size": [
+      "100%",
+      36
+    ],
+    "orientation": "horizontal",
+    "controls": [
+      {
+        "aln_pick_cell": {
+          "type": "panel",
+          "size": [
+            38,
+            "100%"
+          ],
+          "controls": [
+            {
+              "frame": {
+                "type": "image",
+                "texture": "textures/ui/item_cell",
+                "size": [
+                  36,
+                  36
+                ],
+                "layer": 1
+              }
+            },
+            {
+              "icon": {
+                "type": "image",
+                "layer": 2,
+                "size": [
+                  28,
+                  28
+                ],
+                "bindings": [
+                  {
+                    "binding_name": "#form_button_texture",
+                    "binding_name_override": "#texture",
+                    "binding_type": "collection",
+                    "binding_collection_name": "form_buttons"
+                  },
+                  {
+                    "binding_name": "#form_button_texture_file_system",
+                    "binding_name_override": "#texture_file_system",
+                    "binding_type": "collection",
+                    "binding_collection_name": "form_buttons"
+                  },
+                  {
+                    "binding_type": "view",
+                    "source_property_name": "(not ((#texture = '') or (#texture = 'loading')))",
+                    "target_property_name": "#visible"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "form_button@common_buttons.light_text_button": {
+          "$pressed_button_name": "button.form_button_click",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "size": [
+            "fill",
+            36
+          ],
+          "$button_text": "#form_button_text",
+          "$button_text_binding_type": "collection",
+          "$button_text_grid_collection_name": "form_buttons",
+          "$button_text_max_size": [
+            "100%",
+            32
+          ],
+          "bindings": [
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "form_buttons"
+            }
+          ]
+        }
+      }
+    ]
   }
 }
 ```

@@ -1,0 +1,8 @@
+{
+  "changelog_version": "4.0.0",
+  "manifest_version": "4.0.0",
+  "packages": {
+    "ALNCamouflageDoors V4.mcaddon": "e23579a877adb7764be9124b88bef04aff797dcd0620b94478310c2294eedb21"
+  },
+  "source_sha256": "982ef37b1810375c9408364084c875cf4f3ec0ee68821816a4b67d098ac9e5ba"
+}

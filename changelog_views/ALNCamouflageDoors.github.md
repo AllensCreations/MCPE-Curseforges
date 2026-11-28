@@ -1,9 +1,22 @@
 # Changelog — ALN:CamouflageDoors
 
-## [v3] - 2026-11-28 - Painted Door Fix
+## [v4] - 2026-11-28 - Anvil Screen
 
-### Fixed
+### Added
+- **Anvil-style screen**: The Door Painter now opens a custom screen with Door, Bottom Block, Top Block and Result slots, each showing an item icon.
+
+### Improved & Balanced
+- **Item picker**: Choosing an item shows a scrolling list with icons, and Empty slot clears a slot.
+
+<details>
+<summary><b>3.0.x</b> (1 release)</summary>
+
+### [v3] - 2026-11-28 - Painted Door Fix
+
+#### Fixed
 - **Painted Door item**: Taking the result in the Door Painter no longer fails, and the painted door keeps its bottom and top blocks.
+
+</details>
 
 <details>
 <summary><b>2.0.x</b> (1 release)</summary>
