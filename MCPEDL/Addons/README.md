@@ -54,6 +54,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | Serpent Realms | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Serpent-Realms/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Serpent-Realms/SerpentRealms%20V2.mcaddon) |
 | ALNOpCodex | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALNOpCodex/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNOpCodex/ALNOpCodex%20V8.mcaddon) |
 | ALN Wireless Hopper | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Hopper/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Hopper/ALNWirelessHopper%20V2.mcaddon) |
+| Light Hostile Overlay | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Light-Hostile-Overlay/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Light-Hostile-Overlay/LightHostileOverlay%20V1.mcaddon) |
 
 Download links point to the currently published package files.
 

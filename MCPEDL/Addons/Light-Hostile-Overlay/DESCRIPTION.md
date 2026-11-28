@@ -57,3 +57,4 @@ Type .light in chat and the message is not shown to other players. The add-on fl
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, Light Hostile Overlay Bedrock mod, light level checker, mob spawn light, .light command, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+

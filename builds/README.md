@@ -57,6 +57,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **Serpent Realms** | Add-on (.mcaddon) | [Download (.mcaddon)](Serpent-Realms/SerpentRealms%20V2.mcaddon) | [`Serpent-Realms/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Serpent-Realms/) |
 | **ALNOpCodex** | Add-on (.mcaddon) | [Download (.mcaddon)](ALNOpCodex/ALNOpCodex%20V8.mcaddon) | [`ALNOpCodex/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNOpCodex/) |
 | **ALN Wireless Hopper** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-Wireless-Hopper/ALNWirelessHopper%20V2.mcaddon) | [`ALN-Wireless-Hopper/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-Wireless-Hopper/) |
+| **Light Hostile Overlay** | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Light-Hostile-Overlay/LightHostileOverlay%20V1.mcaddon) | [`Light-Hostile-Overlay/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Light-Hostile-Overlay/) |
 
 ### Worlds and Maps
 

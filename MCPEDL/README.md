@@ -2,7 +2,7 @@
 
 Generated file. Do not edit by hand: it is rebuilt with every build.
 
-48 Add-ons · 6 Maps · 11 Scripts · 6 Minigames
+49 Add-ons · 6 Maps · 11 Scripts · 6 Minigames
 
 ## AI Review Kits
 
@@ -48,6 +48,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | **Grimoire Relics V2** | v3 | 🟢 Published ([v3](https://www.curseforge.com/projects/1747867)) | [Source](Addons/Grimoire-Relics-V2) | [Package](../Package/Grimoire-Relics-V2.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Grimoire-Relics-V2-v3.zip) |
 | **Harvest Intelligence** | v2 | ⚪ Not Published | [Source](Addons/Harvest-Intelligence) | [Package](../Package/Harvest-Intelligence.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Harvest-Intelligence-v2.zip) |
 | **Immortal Pets** | v2 | 🟢 Published ([v2](https://www.curseforge.com/projects/1745909)) | [Source](Addons/Immortal-Pets) | [Package](../Package/Immortal-Pets.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Immortal-Pets-v2.zip) |
+| **Light Hostile Overlay** | 1.0.0 | ⚪ Not Published | [Source](Addons/Light-Hostile-Overlay) | [Package](../Package/Light-Hostile-Overlay.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Light-Hostile-Overlay-1.0.0.zip) |
 | **Magnetic Satchel** | v2 | ⚪ Not Published | [Source](Addons/Magnetic-Satchel) | [Package](../Package/Magnetic-Satchel.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Magnetic-Satchel-v2.zip) |
 | **Melody Figurine** | v2 | ⚪ Not Published | [Source](Addons/Melody-Figurine) | [Package](../Package/Melody-Figurine.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Melody-Figurine-v2.zip) |
 | **Mining Helmet** | v2 | 🟢 Published ([v2](https://www.curseforge.com/projects/1744147)) | [Source](Addons/Mining-Helmet) | [Package](../Package/Mining-Helmet.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Mining-Helmet-v2.zip) |

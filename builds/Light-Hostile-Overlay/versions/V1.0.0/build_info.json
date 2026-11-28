@@ -1,0 +1,8 @@
+{
+  "changelog_version": "1.0.0",
+  "manifest_version": "1.0.0",
+  "packages": {
+    "LightHostileOverlay V1.mcaddon": "0791b17f84f20e680f0a994a60c1caffaa8fcdd89117b422b86e6370615b6883"
+  },
+  "source_sha256": "49beb079d306903ff04df19b0052b9a830389b94bcaa84b50faddd882548e364"
+}
