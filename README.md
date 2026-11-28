@@ -65,7 +65,7 @@ See the [repository changelog](CHANGELOG.md) for the latest updates.
 | [**ALN MoreDiscs**](MCPEDL/Addons/ALN-MoreDiscs/README.md) | Add-ons | [1821812](https://www.curseforge.com/projects/1821812) | `v7` | 🟢 Published |
 | [**ALN-GlobalMarket**](MCPEDL/Addons/ALN-GlobalMarket/README.md) | Add-ons | [1826201](https://www.curseforge.com/projects/1826201) | `v1.0.2` | 🟢 Published |
 | [**ALN:OneClickSort**](MCPEDL/Addons/ALNOneClickSort/README.md) | Add-ons | [1818338](https://www.curseforge.com/projects/1818338) | `v12` | 🟢 Published |
-| [**ALN:OpCodex**](MCPEDL/Addons/ALNOpCodex/README.md) | Add-ons | [1834372](https://www.curseforge.com/projects/1834372) | `v7` | 🟢 Published |
+| [**ALN:OpCodex**](MCPEDL/Addons/ALNOpCodex/README.md) | Add-ons | [1834372](https://www.curseforge.com/projects/1834372) | `v8` | 🟢 Published |
 | [**ALN:PirateTokens**](MCPEDL/Addons/ALNPirateTokens/README.md) | Add-ons | [1824277](https://www.curseforge.com/projects/1824277) | `v1.0.4` | 🟢 Published |
 | [**ALN:SpiritSphere**](MCPEDL/Addons/ALNSpiritSphere/README.md) | Add-ons | [1831969](https://www.curseforge.com/projects/1831969) | `v10` | 🟢 Published |
 | [**ALN:WarpScrolls**](MCPEDL/Addons/ALNWarpScrolls/README.md) | Add-ons | [1831750](https://www.curseforge.com/projects/1831750) | `v6` | 🟢 Published |

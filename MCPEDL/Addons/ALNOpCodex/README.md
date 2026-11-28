@@ -1,7 +1,7 @@
 # ALNOpCodex
 
 <!-- CURSEFORGE-BADGE:START -->
-[![CurseForge](https://img.shields.io/badge/CurseForge-v7-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1834372)
+[![CurseForge](https://img.shields.io/badge/CurseForge-v8-orange?style=flat-square&logo=curseforge)](https://www.curseforge.com/projects/1834372)
 <!-- CURSEFORGE-BADGE:END -->
 
 Download the current release of **ALNOpCodex** for Minecraft Bedrock Edition.
