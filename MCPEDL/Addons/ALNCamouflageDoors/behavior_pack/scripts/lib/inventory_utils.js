@@ -1,8 +1,15 @@
 import { EntityComponentTypes } from "@minecraft/server";
+import { createLogger } from "./logger.js";
+
+const log = createLogger("inventory");
 
 export function getContainer(player) {
   const inventory = player.getComponent(EntityComponentTypes.Inventory);
-  return inventory ? inventory.container : undefined;
+  if (!inventory || !inventory.container) {
+    log.error("player has no inventory container");
+    return undefined;
+  }
+  return inventory.container;
 }
 
 export function scanInventory(player, predicate) {
@@ -17,6 +24,7 @@ export function scanInventory(player, predicate) {
       found.push({ slot, typeId: item.typeId, amount: item.amount });
     }
   }
+  log.step("scan found " + found.length + " matching stacks in " + container.size + " slots");
   return found;
 }
 
@@ -33,6 +41,7 @@ export function consume(player, needs) {
   for (const [slot, need] of needs) {
     const item = container.getItem(slot);
     if (!item || item.typeId !== need.typeId || item.amount < need.count) {
+      log.warn("consume check failed for slot " + slot + " expecting " + need.count + " of " + need.typeId + " got " + (item ? item.amount + " of " + item.typeId : "nothing"));
       return false;
     }
   }
@@ -45,6 +54,7 @@ export function consume(player, needs) {
       container.setItem(slot, item);
     }
   }
+  log.step("consumed items from " + needs.size + " slots");
   return true;
 }
 
@@ -55,6 +65,9 @@ export function giveOrDrop(player, item) {
     leftover = container.addItem(item);
   }
   if (leftover) {
+    log.warn("inventory full, dropping the result");
     player.dimension.spawnItem(leftover, player.location);
+  } else {
+    log.step("result item added to inventory");
   }
 }

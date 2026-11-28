@@ -1,6 +1,8 @@
 import { world, system, BlockPermutation, ItemStack } from "@minecraft/server";
+import { createLogger } from "./logger.js";
 import { PAINTED_DOOR_ID, VANILLA_KEY, PROP_KIND, PROP_BOTTOM, PROP_TOP, nameForKey } from "./palette.js";
 
+const log = createLogger("painted_door");
 const pending = new Map();
 
 export function createPaintedDoorItem(kind, bottom, top) {
@@ -65,6 +67,7 @@ function onInteractBefore(event) {
     return;
   }
   const data = readItem(item);
+  log.step("placing painted door: kind=" + data.kind + " bottom=" + data.bottom + " top=" + data.top);
   pending.set(event.player.id, {
     kind: data.kind,
     bottom: data.bottom,
@@ -81,12 +84,14 @@ function onPlaced(event) {
   }
   const info = pending.get(event.player.id);
   pending.delete(event.player.id);
+  log.step("painted door placed at " + block.x + "," + block.y + "," + block.z + " cached=" + (info ? "yes" : "no"));
   const data =
     info && system.currentTick - info.tick <= 10
       ? info
       : { kind: "wood", bottom: VANILLA_KEY, top: VANILLA_KEY, dir: edgeFacingPlayer(event.player) };
   const upper = block.above();
   if (!upper || upper.typeId !== "minecraft:air") {
+    log.warn("no room for the upper half, returning the item");
     block.setPermutation(airPermutation());
     event.player.dimension.spawnItem(createPaintedDoorItem(data.kind, data.bottom, data.top), centerOf(block));
     return;
@@ -100,6 +105,7 @@ function onBroken(event) {
   if (permutation.type.id !== PAINTED_DOOR_ID) {
     return;
   }
+  log.step("painted door broken at " + event.block.x + "," + event.block.y + "," + event.block.z);
   const half = permutation.getState("aln:half");
   const kind = permutation.getState("aln:kind") === "iron" ? "iron" : "wood";
   const ownTex = permutation.getState("aln:tex");
@@ -119,6 +125,7 @@ function onBroken(event) {
 }
 
 function toggleDoor(block) {
+  log.step("door toggled at " + block.x + "," + block.y + "," + block.z);
   const permutation = block.permutation;
   const half = permutation.getState("aln:half");
   const open = permutation.getState("aln:open") === true;
@@ -132,16 +139,18 @@ function toggleDoor(block) {
 export function registerPaintedDoor(blockComponentRegistry) {
   blockComponentRegistry.registerCustomComponent("aln:painted_door_use", {
     onPlayerInteract(event) {
-      toggleDoor(event.block);
+      log.guard("toggle door", () => toggleDoor(event.block));
     },
   });
+  log.step("registered aln:painted_door_use");
 }
 
 export function initPaintedDoorEvents() {
-  world.beforeEvents.playerInteractWithBlock.subscribe(onInteractBefore);
-  world.afterEvents.playerPlaceBlock.subscribe(onPlaced);
-  world.afterEvents.playerBreakBlock.subscribe(onBroken);
+  world.beforeEvents.playerInteractWithBlock.subscribe((event) => log.guard("interact before", () => onInteractBefore(event)));
+  world.afterEvents.playerPlaceBlock.subscribe((event) => log.guard("place after", () => onPlaced(event)));
+  world.afterEvents.playerBreakBlock.subscribe((event) => log.guard("break after", () => onBroken(event)));
   world.afterEvents.playerLeave.subscribe((event) => {
     pending.delete(event.playerId);
   });
+  log.step("door events subscribed");
 }

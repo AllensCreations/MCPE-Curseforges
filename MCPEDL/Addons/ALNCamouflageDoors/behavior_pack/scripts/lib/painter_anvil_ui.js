@@ -1,8 +1,10 @@
 import { ActionFormData } from "@minecraft/server-ui";
+import { createLogger } from "./logger.js";
 import { VANILLA_KEY, paletteByItem, isDoorItem, doorKind, itemLabel } from "./palette.js";
 import { scanInventory, readSlot, consume, giveOrDrop } from "./inventory_utils.js";
 import { createPaintedDoorItem } from "./painted_door_handler.js";
 
+const log = createLogger("painter_ui");
 const sessions = new Map();
 const SLOT_NAMES = ["door", "bottom", "top"];
 
@@ -76,6 +78,7 @@ async function pickItem(player, slotName) {
     form.button("§f" + itemLabel(entry.typeId) + " §ex" + entry.amount);
   }
   const response = await form.show(player);
+  log.step("picker " + slotName + " closed: canceled=" + response.canceled + (response.canceled ? " reason=" + response.cancelationReason : " selection=" + response.selection));
   if (response.canceled) {
     return;
   }
@@ -113,6 +116,7 @@ function paint(player, session) {
     return false;
   }
   const result = createPaintedDoorItem(doorKind(session.door.typeId), keyOf(session.bottom), keyOf(session.top));
+  log.step("painted result built: kind=" + doorKind(session.door.typeId) + " bottom=" + keyOf(session.bottom) + " top=" + keyOf(session.top));
   giveOrDrop(player, result);
   player.sendMessage("§aPainted door ready: §f" + labelOf(session.bottom, "Vanilla") + " / " + labelOf(session.top, "Vanilla"));
   return true;
@@ -129,7 +133,9 @@ async function showMain(player) {
   form.button("§l§dTop Block\n§f" + labelOf(session.top, "Vanilla texture"));
   form.button(session.door ? "§l§bTake Result\n" + resultLine(session) : "§l§cResult\n§fNeeds a door");
   form.button("§l§cClear Slots");
+  log.step("showing main painter form");
   const response = await form.show(player);
+  log.step("main form closed: canceled=" + response.canceled + (response.canceled ? " reason=" + response.cancelationReason : " selection=" + response.selection));
   if (response.canceled) {
     return;
   }
@@ -152,9 +158,11 @@ async function showMain(player) {
 export function registerPainterBlock(blockComponentRegistry) {
   blockComponentRegistry.registerCustomComponent("aln:door_painter_use", {
     onPlayerInteract(event) {
+      log.step("door painter interact fired, player=" + (event.player ? event.player.name : "none"));
       if (event.player) {
-        showMain(event.player);
+        log.guard("open painter form", () => showMain(event.player));
       }
     },
   });
+  log.step("registered aln:door_painter_use");
 }

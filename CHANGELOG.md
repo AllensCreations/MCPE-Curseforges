@@ -4,6 +4,18 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## [v326] - 2026-11-28 - Right-Click Fix
+
+**Spec**: spec_v326.txt | **Target**: MCPEDL/Addons/ALNCamouflageDoors | **Files edited**: 10
+
+### Added
+- **Chat diagnostics**: The add-on posts a start-up check result when you join and a chat message for each Door Painter and Painted Door step, so a failing step shows up in chat.
+
+### Fixed
+- **Door Painter menu**: Right-clicking the Door Painter now opens the paint menu.
+- **Painted Door**: Right-clicking a placed Painted Door now opens and closes it.
+- **Silent failures**: Menu, placing and opening errors now report the failing step instead of doing nothing.
+
 ## [v325] - 2026-11-27 - Clear View
 
 **Spec**: spec_v325.txt | **Target**: MCPEDL/Addons/ALNSpiritSphere | **Files edited**: 41

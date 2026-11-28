@@ -45,9 +45,7 @@
       "minecraft:destructible_by_explosion": {
         "explosion_resistance": 10
       },
-      "minecraft:custom_components": [
-        "aln:door_painter_use"
-      ]
+      "aln:door_painter_use": {}
     }
   }
 }

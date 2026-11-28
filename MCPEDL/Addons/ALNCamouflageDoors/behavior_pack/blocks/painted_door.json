@@ -84,9 +84,7 @@
       "minecraft:destructible_by_explosion": {
         "explosion_resistance": 15
       },
-      "minecraft:custom_components": [
-        "aln:painted_door_use"
-      ]
+      "aln:painted_door_use": {}
     },
     "permutations": [
       {
