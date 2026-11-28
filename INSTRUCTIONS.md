@@ -1,4 +1,4 @@
-# Instructions: Core Repository Policy (v47)
+# Instructions: Core Repository Policy (v48)
 
 
 
@@ -163,6 +163,7 @@ General:
 
 Payload import:
 - `PACK_GENERATOR_INSTRUCTIONS.md` is the generator file. Agent asks type (addon|map|script|minigame), conducts ~90% research on latest stable Bedrock APIs, presents the Plan for user confirmation, and returns single-line base64 ZIP made by running code, NEVER by hand. `project.json` = `{"type": "...", "name": "..."}`.
+- Auto-run staged `.sh` pack scripts / base64: when a `.sh` file with a base64 payload block (or raw base64) is given or staged in `MCPEDL/incoming/`, agents must automatically execute the payload import locally via `scripts/import_project_payload.py` directly on the `main` branch, run manifest/listing kit/changelog view tools, update `CHANGELOG.md`, delete the incoming script from `MCPEDL/incoming/`, commit, and push straight to `main` without requiring manual execution of the GitHub Actions workflow.
 - `create-project-from-base64.yml`: folder name + base64 (or `.b64` under `MCPEDL/incoming/`) -> `scripts/import_project_payload.py` -> imports `scripts/build_payload.py` (same checks agent-side and repo-side).
 - Destinations: addon `MCPEDL/Addons/<Name>/` (`.mcaddon`, importer writes `LOCK`); map `MCPEDL/Maps/<Name>/` (`.mcworld`, importer writes `oneblock.json`, installs `scripts/lib/Oneblock_Progression.js`, builds 3 worlds); script `MCPEDL/Script/<Name>/` (`.mcpack`, no Controller); minigame `MCPEDL/Minigame/<Name>/` (`.mcaddon`, Controller).
 - Importer creates `assets/snapshots/`, `assets/recipes/` and `assets/items/` (each with `.gitkeep`) in every imported project when missing, never touching existing files. Payloads NEVER ship `assets/`.
@@ -295,6 +296,7 @@ Docs, API, vanilla data and repo files are read with the Context7 MCP tool `quer
 - [ ] Manifest versions use `[X, Y, Z]` / `"X.Y.Z"` format; per-pack titles/changelogs/packages use `vX` format (1.3).
 
 ## Version History
+- **v48:** Automated handling of staged `.sh` pack scripts / base64: agents directly run `scripts/import_project_payload.py` on `main`, run alignment & kit tools, update `CHANGELOG.md`, delete the incoming script, and commit & push directly without requiring manual trigger of the GitHub workflow.
 - **v47:** Added support for Bedrock structure (.mcstructure) and plain NBT (.nbt) files under behavior_pack/structures/ with little-endian NBT validation.
 
 - **v46:** Removed `/allenscreations/mcpe-curseforges` from the Context7 library list (redundant — the kit zip always has fresher repo files and already takes priority). Context7 now covers only the three external Bedrock doc libraries. Updated the per-turn batching note: all three calls fit in one parallel turn.
