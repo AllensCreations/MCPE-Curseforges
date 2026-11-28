@@ -8,8 +8,8 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 
 | Kit | Download |
 | :-- | :-- |
-| **New Pack Kit (zip: map and scripts)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/New-Pack-v325.zip) |
-| **Repo Maintenance Kit (zip: map and scripts)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Maintenance-v325.zip) |
+| **New Pack Kit (zip: map and scripts)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/New-Pack-v326.zip) |
+| **Repo Maintenance Kit (zip: map and scripts)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/Maintenance-v326.zip) |
 | **Vanilla Bedrock Reference (JSON.gz)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/bedrock-samples/bedrock-samples.min.json.gz) |
 | **Bedrock Reference Bundle (v1.26.60)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/bedrock-samples/bedrock-reference-pack-1.26.60.zip) |
 | **Minecraft Script API TypeScript Definitions (.d.ts Zip)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/typescript-definitions/minecraft-bedrock-types.zip) |
@@ -28,7 +28,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | **ALN Wireless Headphones** | v11 | ⚪ Not Published | [Source](Addons/ALN-Wireless-Headphones) | [Package](../Package/ALN-Wireless-Headphones.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-Wireless-Headphones-v11.zip) |
 | **ALN-GlobalMarket** | 1.0.2 | 🟢 Published ([1.0.2](https://www.curseforge.com/projects/1826201)) | [Source](Addons/ALN-GlobalMarket) | [Package](../Package/ALN-GlobalMarket.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALN-GlobalMarket-1.0.2.zip) |
 | **ALN:AuroraBorealis** | v2 | ⚪ Not Published | [Source](Addons/ALNAuroraBorealis) | [Package](../Package/ALNAuroraBorealis.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNAuroraBorealis-v2.zip) |
-| **ALN:CamouflageDoors** | 1.0.0 | ⚪ Not Published | [Source](Addons/ALNCamouflageDoors) | [Package](../Package/ALNCamouflageDoors.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNCamouflageDoors-1.0.0.zip) |
+| **ALN:CamouflageDoors** | v2 | ⚪ Not Published | [Source](Addons/ALNCamouflageDoors) | [Package](../Package/ALNCamouflageDoors.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNCamouflageDoors-v2.zip) |
 | **ALN:ChronoStop** | 1.0.0 | ⚪ Not Published | [Source](Addons/ALNChronoStop) | [Package](../Package/ALNChronoStop.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNChronoStop-1.0.0.zip) |
 | **ALN:LootSpawner (Arcane Relic Duplicator)** | 1.0.8 | ⚪ Not Published | [Source](Addons/ALNLootSpawner-Arcane-Relic-Duplicator) | [Package](../Package/ALNLootSpawner-Arcane-Relic-Duplicator.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNLootSpawner-Arcane-Relic-Duplicator-1.0.8.zip) |
 | **ALN:OneClickSort** | v12 | 🟢 Published ([v12](https://www.curseforge.com/projects/1818338)) | [Source](Addons/ALNOneClickSort) | [Package](../Package/ALNOneClickSort.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/AI%20Review/ALNOneClickSort-v12.zip) |

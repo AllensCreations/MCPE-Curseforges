@@ -4,9 +4,9 @@
 
 - **Export request:** `MCPEDL/Addons/ALNCamouflageDoors`
 - **Destination:** `MCPEDL/Addons/ALNCamouflageDoors`
-- **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Addons/ALNCamouflageDoors/CHANGELOG.md`)
+- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/ALNCamouflageDoors/CHANGELOG.md`)
 - **Current version:** Project version and release notes: see the pack's own `CHANGELOG.md`.
-- **Text files:** 22
+- **Text files:** 24
 - **Skipped binary:** 4
 - **Paths not found:** 0
 
@@ -17,7 +17,9 @@
 - `MCPEDL/Addons/ALNCamouflageDoors/behavior_pack/loot_tables/aln_empty.json`
 - `MCPEDL/Addons/ALNCamouflageDoors/behavior_pack/manifest.json`
 - `MCPEDL/Addons/ALNCamouflageDoors/behavior_pack/recipes/door_painter.json`
+- `MCPEDL/Addons/ALNCamouflageDoors/behavior_pack/scripts/lib/diagnostics.js`
 - `MCPEDL/Addons/ALNCamouflageDoors/behavior_pack/scripts/lib/inventory_utils.js`
+- `MCPEDL/Addons/ALNCamouflageDoors/behavior_pack/scripts/lib/logger.js`
 - `MCPEDL/Addons/ALNCamouflageDoors/behavior_pack/scripts/lib/painted_door_handler.js`
 - `MCPEDL/Addons/ALNCamouflageDoors/behavior_pack/scripts/lib/painter_anvil_ui.js`
 - `MCPEDL/Addons/ALNCamouflageDoors/behavior_pack/scripts/lib/palette.js`
@@ -166,7 +168,7 @@ Use Context7 to query this repository's documentation (`docs/`) for project scri
 Delivery steps: the `mcpe-pack-update` skill (new project: `mcpe-new-pack`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v1 / NEXT UPDATE: v2).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE self-contained update `.sh` (`<Pack>_v<Version>_<rand>.sh`) built with `make_update_script.py` (INSTRUCTIONS.md Reply Format).
@@ -1172,7 +1174,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
 
 ## File Contents
 
-## FILE: MCPEDL/Addons/ALNCamouflageDoors/behavior_pack/blocks/door_painter.json (54 lines, 1057 bytes)
+## FILE: MCPEDL/Addons/ALNCamouflageDoors/behavior_pack/blocks/door_painter.json (52 lines, 1012 bytes)
 
 ```
 {
@@ -1222,15 +1224,13 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "minecraft:destructible_by_explosion": {
         "explosion_resistance": 10
       },
-      "minecraft:custom_components": [
-        "aln:door_painter_use"
-      ]
+      "aln:door_painter_use": {}
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNCamouflageDoors/behavior_pack/blocks/painted_door.json (544 lines, 13266 bytes)
+## FILE: MCPEDL/Addons/ALNCamouflageDoors/behavior_pack/blocks/painted_door.json (542 lines, 13221 bytes)
 
 ```
 {
@@ -1319,9 +1319,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "minecraft:destructible_by_explosion": {
         "explosion_resistance": 15
       },
-      "minecraft:custom_components": [
-        "aln:painted_door_use"
-      ]
+      "aln:painted_door_use": {}
     },
     "permutations": [
       {
@@ -1792,11 +1790,11 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:CamouflageDoors (v1)",
+    "name": "ALN:CamouflageDoors (v2)",
     "description": "Door Painter workstation and camouflage doors by ALNStudios",
     "uuid": "1893c240-881d-4f0f-a0ff-046f09947711",
     "version": [
-      1,
+      2,
       0,
       0
     ],
@@ -1811,7 +1809,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "type": "data",
       "uuid": "52f368ae-f610-4d1c-92f5-fbc32af756b9",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -1821,7 +1819,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "language": "javascript",
       "uuid": "14c9afed-4aa9-4296-b823-aa64b3d62c22",
       "version": [
-        1,
+        2,
         0,
         0
       ],
@@ -1832,7 +1830,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
     {
       "uuid": "5a87bd6e-bd4a-48e4-a22c-3c6b04b31af1",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -1851,7 +1849,7 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "2.0.0"
   }
 }
 ```
@@ -1891,14 +1889,100 @@ CHANGELOG.md. Newest first. Versions use `vX` (e.g. `v1`, `v2`; legacy `X.Y.Z` s
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNCamouflageDoors/behavior_pack/scripts/lib/inventory_utils.js (61 lines, 1592 bytes)
+## FILE: MCPEDL/Addons/ALNCamouflageDoors/behavior_pack/scripts/lib/diagnostics.js (75 lines, 3310 bytes)
+
+```
+import { world, system, ItemStack, BlockPermutation } from "@minecraft/server";
+import { ActionFormData } from "@minecraft/server-ui";
+import { createLogger, describeError } from "./logger.js";
+import { PAINTED_DOOR_ID, PALETTE } from "./palette.js";
+
+const log = createLogger("diagnostics");
+let summary = "ALN:CamouflageDoors diagnostics have not run yet.";
+
+function buildChecks() {
+  return [
+    ["system.beforeEvents.startup", () => typeof system.beforeEvents.startup.subscribe === "function"],
+    ["world.beforeEvents.playerInteractWithBlock", () => typeof world.beforeEvents.playerInteractWithBlock.subscribe === "function"],
+    ["world.afterEvents.playerPlaceBlock", () => typeof world.afterEvents.playerPlaceBlock.subscribe === "function"],
+    ["world.afterEvents.playerBreakBlock", () => typeof world.afterEvents.playerBreakBlock.subscribe === "function"],
+    ["world.afterEvents.playerLeave", () => typeof world.afterEvents.playerLeave.subscribe === "function"],
+    ["world.afterEvents.playerSpawn", () => typeof world.afterEvents.playerSpawn.subscribe === "function"],
+    ["world.sendMessage", () => typeof world.sendMessage === "function"],
+    ["ItemStack.setDynamicProperty", () => typeof ItemStack.prototype.setDynamicProperty === "function"],
+    ["ItemStack.getDynamicProperty", () => typeof ItemStack.prototype.getDynamicProperty === "function"],
+    ["ItemStack.setLore", () => typeof ItemStack.prototype.setLore === "function"],
+    ["BlockPermutation.resolve", () => typeof BlockPermutation.resolve === "function"],
+    ["ActionFormData.button and show", () => typeof ActionFormData.prototype.button === "function" && typeof ActionFormData.prototype.show === "function"],
+    ["block aln:door_painter is registered", () => BlockPermutation.resolve("aln:door_painter") !== undefined],
+    ["block aln:painted_door is registered", () => BlockPermutation.resolve(PAINTED_DOOR_ID) !== undefined],
+    [
+      "painted door states accept every palette key",
+      () => {
+        for (const entry of PALETTE) {
+          BlockPermutation.resolve(PAINTED_DOOR_ID, {
+            "aln:half": "lower",
+            "aln:tex": entry.key,
+            "aln:kind": "wood",
+            "aln:dir": "north",
+            "aln:open": false,
+          });
+        }
+        return true;
+      },
+    ],
+  ];
+}
+
+export function runDiagnostics() {
+  const checks = buildChecks();
+  let passed = 0;
+  const failures = [];
+  for (const [label, check] of checks) {
+    try {
+      if (check()) {
+        passed += 1;
+        log.info("PASS " + label);
+      } else {
+        failures.push(label);
+        log.error("FAIL " + label + " (returned false)");
+      }
+    } catch (error) {
+      failures.push(label);
+      log.error("FAIL " + label + ": " + describeError(error));
+    }
+  }
+  summary = "ALN:CamouflageDoors diagnostics: " + passed + "/" + checks.length + " passed" + (failures.length ? ". Failed: " + failures.join(", ") : ".");
+  log.step(summary);
+}
+
+export function initDiagnostics() {
+  log.guard("run diagnostics", () => runDiagnostics());
+  log.guard("subscribe playerSpawn", () => {
+    world.afterEvents.playerSpawn.subscribe((event) => {
+      if (event.initialSpawn) {
+        event.player.sendMessage((summary.includes("Failed") ? "§c" : "§a") + summary);
+      }
+    });
+  });
+}
+```
+
+## FILE: MCPEDL/Addons/ALNCamouflageDoors/behavior_pack/scripts/lib/inventory_utils.js (74 lines, 2218 bytes)
 
 ```
 import { EntityComponentTypes } from "@minecraft/server";
+import { createLogger } from "./logger.js";
+
+const log = createLogger("inventory");
 
 export function getContainer(player) {
   const inventory = player.getComponent(EntityComponentTypes.Inventory);
-  return inventory ? inventory.container : undefined;
+  if (!inventory || !inventory.container) {
+    log.error("player has no inventory container");
+    return undefined;
+  }
+  return inventory.container;
 }
 
 export function scanInventory(player, predicate) {
@@ -1913,6 +1997,7 @@ export function scanInventory(player, predicate) {
       found.push({ slot, typeId: item.typeId, amount: item.amount });
     }
   }
+  log.step("scan found " + found.length + " matching stacks in " + container.size + " slots");
   return found;
 }
 
@@ -1929,6 +2014,7 @@ export function consume(player, needs) {
   for (const [slot, need] of needs) {
     const item = container.getItem(slot);
     if (!item || item.typeId !== need.typeId || item.amount < need.count) {
+      log.warn("consume check failed for slot " + slot + " expecting " + need.count + " of " + need.typeId + " got " + (item ? item.amount + " of " + item.typeId : "nothing"));
       return false;
     }
   }
@@ -1941,6 +2027,7 @@ export function consume(player, needs) {
       container.setItem(slot, item);
     }
   }
+  log.step("consumed items from " + needs.size + " slots");
   return true;
 }
 
@@ -1951,17 +2038,104 @@ export function giveOrDrop(player, item) {
     leftover = container.addItem(item);
   }
   if (leftover) {
+    log.warn("inventory full, dropping the result");
     player.dimension.spawnItem(leftover, player.location);
+  } else {
+    log.step("result item added to inventory");
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNCamouflageDoors/behavior_pack/scripts/lib/painted_door_handler.js (148 lines, 4762 bytes)
+## FILE: MCPEDL/Addons/ALNCamouflageDoors/behavior_pack/scripts/lib/logger.js (78 lines, 2072 bytes)
+
+```
+import { world } from "@minecraft/server";
+
+export const DEBUG_CHAT = true;
+const BUFFER_LIMIT = 200;
+const PREFIX = "[ALN:CamouflageDoors]";
+const COLORS = { ERROR: "§c", WARN: "§e", STEP: "§b", INFO: "§a" };
+const buffer = [];
+
+export function describeError(error) {
+  if (error && error.message) {
+    const stack = typeof error.stack === "string" ? error.stack.split("\n").slice(0, 3).join(" | ") : "";
+    return error.message + (stack ? " @ " + stack : "");
+  }
+  return String(error);
+}
+
+function emit(level, moduleName, message) {
+  const line = PREFIX + "[" + level + "][" + moduleName + "] " + message;
+  buffer.push(line);
+  if (buffer.length > BUFFER_LIMIT) {
+    buffer.shift();
+  }
+  try {
+    if (level === "ERROR") {
+      console.error(line);
+    } else if (level === "WARN") {
+      console.warn(line);
+    } else {
+      console.log(line);
+    }
+  } catch (consoleError) {
+    buffer.push(PREFIX + "[WARN][logger] console unavailable: " + describeError(consoleError));
+  }
+  if (DEBUG_CHAT) {
+    try {
+      world.sendMessage(COLORS[level] + line);
+    } catch (chatError) {
+      buffer.push(PREFIX + "[WARN][logger] chat unavailable: " + describeError(chatError));
+    }
+  }
+}
+
+export function getRecentLogs() {
+  return buffer.slice();
+}
+
+export function createLogger(moduleName) {
+  const logger = {
+    info(message) {
+      emit("INFO", moduleName, message);
+    },
+    step(message) {
+      emit("STEP", moduleName, message);
+    },
+    warn(message) {
+      emit("WARN", moduleName, message);
+    },
+    error(message) {
+      emit("ERROR", moduleName, message);
+    },
+    guard(label, task) {
+      try {
+        const result = task();
+        if (result && typeof result.catch === "function") {
+          result.catch((error) => {
+            emit("ERROR", moduleName, label + " failed (async): " + describeError(error));
+          });
+        }
+        return result;
+      } catch (error) {
+        emit("ERROR", moduleName, label + " failed: " + describeError(error));
+        return undefined;
+      }
+    },
+  };
+  return logger;
+}
+```
+
+## FILE: MCPEDL/Addons/ALNCamouflageDoors/behavior_pack/scripts/lib/painted_door_handler.js (157 lines, 5577 bytes)
 
 ```
 import { world, system, BlockPermutation, ItemStack } from "@minecraft/server";
+import { createLogger } from "./logger.js";
 import { PAINTED_DOOR_ID, VANILLA_KEY, PROP_KIND, PROP_BOTTOM, PROP_TOP, nameForKey } from "./palette.js";
 
+const log = createLogger("painted_door");
 const pending = new Map();
 
 export function createPaintedDoorItem(kind, bottom, top) {
@@ -2026,6 +2200,7 @@ function onInteractBefore(event) {
     return;
   }
   const data = readItem(item);
+  log.step("placing painted door: kind=" + data.kind + " bottom=" + data.bottom + " top=" + data.top);
   pending.set(event.player.id, {
     kind: data.kind,
     bottom: data.bottom,
@@ -2042,12 +2217,14 @@ function onPlaced(event) {
   }
   const info = pending.get(event.player.id);
   pending.delete(event.player.id);
+  log.step("painted door placed at " + block.x + "," + block.y + "," + block.z + " cached=" + (info ? "yes" : "no"));
   const data =
     info && system.currentTick - info.tick <= 10
       ? info
       : { kind: "wood", bottom: VANILLA_KEY, top: VANILLA_KEY, dir: edgeFacingPlayer(event.player) };
   const upper = block.above();
   if (!upper || upper.typeId !== "minecraft:air") {
+    log.warn("no room for the upper half, returning the item");
     block.setPermutation(airPermutation());
     event.player.dimension.spawnItem(createPaintedDoorItem(data.kind, data.bottom, data.top), centerOf(block));
     return;
@@ -2061,6 +2238,7 @@ function onBroken(event) {
   if (permutation.type.id !== PAINTED_DOOR_ID) {
     return;
   }
+  log.step("painted door broken at " + event.block.x + "," + event.block.y + "," + event.block.z);
   const half = permutation.getState("aln:half");
   const kind = permutation.getState("aln:kind") === "iron" ? "iron" : "wood";
   const ownTex = permutation.getState("aln:tex");
@@ -2080,6 +2258,7 @@ function onBroken(event) {
 }
 
 function toggleDoor(block) {
+  log.step("door toggled at " + block.x + "," + block.y + "," + block.z);
   const permutation = block.permutation;
   const half = permutation.getState("aln:half");
   const open = permutation.getState("aln:open") === true;
@@ -2093,29 +2272,33 @@ function toggleDoor(block) {
 export function registerPaintedDoor(blockComponentRegistry) {
   blockComponentRegistry.registerCustomComponent("aln:painted_door_use", {
     onPlayerInteract(event) {
-      toggleDoor(event.block);
+      log.guard("toggle door", () => toggleDoor(event.block));
     },
   });
+  log.step("registered aln:painted_door_use");
 }
 
 export function initPaintedDoorEvents() {
-  world.beforeEvents.playerInteractWithBlock.subscribe(onInteractBefore);
-  world.afterEvents.playerPlaceBlock.subscribe(onPlaced);
-  world.afterEvents.playerBreakBlock.subscribe(onBroken);
+  world.beforeEvents.playerInteractWithBlock.subscribe((event) => log.guard("interact before", () => onInteractBefore(event)));
+  world.afterEvents.playerPlaceBlock.subscribe((event) => log.guard("place after", () => onPlaced(event)));
+  world.afterEvents.playerBreakBlock.subscribe((event) => log.guard("break after", () => onBroken(event)));
   world.afterEvents.playerLeave.subscribe((event) => {
     pending.delete(event.playerId);
   });
+  log.step("door events subscribed");
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNCamouflageDoors/behavior_pack/scripts/lib/painter_anvil_ui.js (161 lines, 5244 bytes)
+## FILE: MCPEDL/Addons/ALNCamouflageDoors/behavior_pack/scripts/lib/painter_anvil_ui.js (169 lines, 6041 bytes)
 
 ```
 import { ActionFormData } from "@minecraft/server-ui";
+import { createLogger } from "./logger.js";
 import { VANILLA_KEY, paletteByItem, isDoorItem, doorKind, itemLabel } from "./palette.js";
 import { scanInventory, readSlot, consume, giveOrDrop } from "./inventory_utils.js";
 import { createPaintedDoorItem } from "./painted_door_handler.js";
 
+const log = createLogger("painter_ui");
 const sessions = new Map();
 const SLOT_NAMES = ["door", "bottom", "top"];
 
@@ -2189,6 +2372,7 @@ async function pickItem(player, slotName) {
     form.button("§f" + itemLabel(entry.typeId) + " §ex" + entry.amount);
   }
   const response = await form.show(player);
+  log.step("picker " + slotName + " closed: canceled=" + response.canceled + (response.canceled ? " reason=" + response.cancelationReason : " selection=" + response.selection));
   if (response.canceled) {
     return;
   }
@@ -2226,6 +2410,7 @@ function paint(player, session) {
     return false;
   }
   const result = createPaintedDoorItem(doorKind(session.door.typeId), keyOf(session.bottom), keyOf(session.top));
+  log.step("painted result built: kind=" + doorKind(session.door.typeId) + " bottom=" + keyOf(session.bottom) + " top=" + keyOf(session.top));
   giveOrDrop(player, result);
   player.sendMessage("§aPainted door ready: §f" + labelOf(session.bottom, "Vanilla") + " / " + labelOf(session.top, "Vanilla"));
   return true;
@@ -2242,7 +2427,9 @@ async function showMain(player) {
   form.button("§l§dTop Block\n§f" + labelOf(session.top, "Vanilla texture"));
   form.button(session.door ? "§l§bTake Result\n" + resultLine(session) : "§l§cResult\n§fNeeds a door");
   form.button("§l§cClear Slots");
+  log.step("showing main painter form");
   const response = await form.show(player);
+  log.step("main form closed: canceled=" + response.canceled + (response.canceled ? " reason=" + response.cancelationReason : " selection=" + response.selection));
   if (response.canceled) {
     return;
   }
@@ -2265,11 +2452,13 @@ async function showMain(player) {
 export function registerPainterBlock(blockComponentRegistry) {
   blockComponentRegistry.registerCustomComponent("aln:door_painter_use", {
     onPlayerInteract(event) {
+      log.step("door painter interact fired, player=" + (event.player ? event.player.name : "none"));
       if (event.player) {
-        showMain(event.player);
+        log.guard("open painter form", () => showMain(event.player));
       }
     },
   });
+  log.step("registered aln:door_painter_use");
 }
 ```
 
@@ -2335,7 +2524,7 @@ export function itemLabel(typeId) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALNCamouflageDoors/behavior_pack/scripts/lib/README.md (11 lines, 1466 bytes)
+## FILE: MCPEDL/Addons/ALNCamouflageDoors/behavior_pack/scripts/lib/README.md (13 lines, 1924 bytes)
 
 ```
 # Script library
@@ -2345,34 +2534,55 @@ export function itemLabel(typeId) {
 - `lib/inventory_utils.js`: inventory helpers (scan slots, check and consume items, give or drop an item). Depends on `@minecraft/server`.
 - `lib/painter_anvil_ui.js`: registers the Door Painter right-click component and shows the Anvil-style forms (door, bottom block, top block, result). Exports `registerPainterBlock`. Depends on `@minecraft/server-ui`, `palette.js`, `inventory_utils.js`, `painted_door_handler.js`.
 - `lib/painted_door_handler.js`: builds the painted door item (dynamic properties plus lore), registers the open and close component, and handles placing and breaking of both door halves. Exports `createPaintedDoorItem`, `registerPaintedDoor`, `initPaintedDoorEvents`. Depends on `@minecraft/server`, `palette.js`.
+- `lib/logger.js`: `createLogger(name)` with info, step, warn, error and guard. Writes to the content log and, while `DEBUG_CHAT` is true, to chat. Keeps the last 200 lines. Depends on `@minecraft/server`.
+- `lib/diagnostics.js`: start-up checks that the needed events, item methods, forms and both custom blocks exist, then reports the result to each player on first spawn. Depends on `@minecraft/server`, `@minecraft/server-ui`, `logger.js`, `palette.js`.
 - Custom ids used: block `aln:door_painter`, block `aln:painted_door`, components `aln:door_painter_use` and `aln:painted_door_use`.
 - Script events used: block startup registration, interact-with-block (before), block placed (after), block broken (after), player leave (after).
 - Known limits: only the listed blocks can be painted; explosions break a painted door without a drop; item and event members were not verified against the docs.
 ```
 
-## FILE: MCPEDL/Addons/ALNCamouflageDoors/behavior_pack/scripts/main.js (13 lines, 428 bytes)
+## FILE: MCPEDL/Addons/ALNCamouflageDoors/behavior_pack/scripts/main.js (22 lines, 852 bytes)
 
 ```
 import { system } from "@minecraft/server";
+import { createLogger } from "./lib/logger.js";
 import { registerPainterBlock } from "./lib/painter_anvil_ui.js";
 import { registerPaintedDoor, initPaintedDoorEvents } from "./lib/painted_door_handler.js";
+import { initDiagnostics } from "./lib/diagnostics.js";
+
+const log = createLogger("main");
+
+log.step("main.js loaded");
 
 system.beforeEvents.startup.subscribe((initEvent) => {
-  registerPainterBlock(initEvent.blockComponentRegistry);
-  registerPaintedDoor(initEvent.blockComponentRegistry);
+  log.step("startup event fired");
+  log.guard("register painter component", () => registerPainterBlock(initEvent.blockComponentRegistry));
+  log.guard("register painted door component", () => registerPaintedDoor(initEvent.blockComponentRegistry));
 });
 
 system.run(() => {
-  initPaintedDoorEvents();
+  log.step("first tick: starting door events and diagnostics");
+  log.guard("init door events", () => initPaintedDoorEvents());
+  initDiagnostics();
 });
 ```
 
-## FILE: MCPEDL/Addons/ALNCamouflageDoors/CHANGELOG.md (11 lines, 447 bytes)
+## FILE: MCPEDL/Addons/ALNCamouflageDoors/CHANGELOG.md (21 lines, 963 bytes)
 
 ```
 # Changelog — ALN:CamouflageDoors
 
 ---
+
+## [v2] - 2026-11-28 - Right-Click Fix
+
+### Added
+- **Chat diagnostics**: The add-on posts a start-up check result when you join and a chat message for each Door Painter and Painted Door step, so a failing step shows up in chat.
+
+### Fixed
+- **Door Painter menu**: Right-clicking the Door Painter now opens the paint menu.
+- **Painted Door**: Right-clicking a placed Painted Door now opens and closes it.
+- **Silent failures**: Menu, placing and opening errors now report the failing step instead of doing nothing.
 
 ## [1.0.0] - 2026-11-27 - Door Painter
 
@@ -2485,7 +2695,7 @@ Download the current release of **ALNCamouflageDoors** for Minecraft Bedrock Edi
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALNCamouflageDoors (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNCamouflageDoors/ALNCamouflageDoors%20V1.mcaddon)
+- **Direct download:** [Download ALNCamouflageDoors (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNCamouflageDoors/ALNCamouflageDoors%20V2.mcaddon)
 
 ## Installation
 
@@ -2504,11 +2714,11 @@ For gameplay features, usage details, compatibility notes, and other project inf
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:CamouflageDoors (v1)",
+    "name": "ALN:CamouflageDoors (v2)",
     "description": "Textures and models for the Door Painter by ALNStudios",
     "uuid": "5a87bd6e-bd4a-48e4-a22c-3c6b04b31af1",
     "version": [
-      1,
+      2,
       0,
       0
     ],
@@ -2523,7 +2733,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "b5d5298f-4e37-4ff6-9bb5-63dabccba333",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -2534,7 +2744,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "2.0.0"
   }
 }
 ```

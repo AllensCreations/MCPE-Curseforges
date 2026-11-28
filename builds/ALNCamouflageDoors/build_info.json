@@ -1,8 +1,8 @@
 {
-  "changelog_version": "1.0.0",
-  "manifest_version": "1.0.0",
+  "changelog_version": "2.0.0",
+  "manifest_version": "2.0.0",
   "packages": {
-    "ALNCamouflageDoors V1.mcaddon": "5a9e020f3c7ddba88fd1f7413c0e5c9061bd8d13878cd54951e6190877677370"
+    "ALNCamouflageDoors V2.mcaddon": "407c76cbd1eb0b9ce8ebaa4ea48e3c7be615af79d3eb5dcb9d365af001aebe6e"
   },
-  "source_sha256": "8a52b68f5b7c5e0dfa2be093c51c2d1df1208e662a23a401e8a815c30070e3a5"
+  "source_sha256": "978333dc2b4a9c7526ab50097190e39d9ffe3f9b1f6e0218f4d565df59c2b117"
 }
