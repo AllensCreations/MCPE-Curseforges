@@ -23,7 +23,7 @@
       },
       "scripts": {
         "pre_animation": [
-          "variable.aln_wave_speed = 1.3;"
+          "variable.aln_wave_speed = 1.3; variable.aln_wave_step = 18; variable.aln_wave_amp = 5.5; variable.aln_body_n = 16;"
         ],
         "animate": [
           "move_controller",

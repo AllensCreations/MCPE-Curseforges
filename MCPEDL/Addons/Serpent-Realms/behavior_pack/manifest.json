@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Serpent Realms (v1)",
+    "name": "Serpent Realms (v2)",
     "description": "Five custom snakes with their own models and behavior. by ALNStudios",
     "uuid": "a5fffaa7-167e-49fe-b20c-a35d86da5a2e",
     "version": [
-      1,
+      2,
       0,
       0
     ],
@@ -20,7 +20,7 @@
       "type": "data",
       "uuid": "d048793d-ee30-4ac5-a61c-0c5ee7d4da30",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -31,7 +31,7 @@
       "entry": "scripts/main.js",
       "uuid": "fccf5b7e-37b9-48e6-a920-b602c6934bb0",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -41,7 +41,7 @@
     {
       "uuid": "8b864c13-55fa-47f9-8b0e-8741ace4b901",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -56,6 +56,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "2.0.0"
   }
 }

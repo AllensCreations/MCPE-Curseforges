@@ -76,6 +76,82 @@
           }
         ]
       }
+    },
+    "component_groups": {
+      "aln:size_hatchling": {
+        "minecraft:scale": {
+          "value": 0.7
+        },
+        "minecraft:health": {
+          "value": 7,
+          "max": 7
+        }
+      },
+      "aln:size_normal": {
+        "minecraft:scale": {
+          "value": 1.0
+        },
+        "minecraft:health": {
+          "value": 10,
+          "max": 10
+        }
+      },
+      "aln:size_large": {
+        "minecraft:scale": {
+          "value": 1.25
+        },
+        "minecraft:health": {
+          "value": 12,
+          "max": 12
+        }
+      },
+      "aln:size_giant": {
+        "minecraft:scale": {
+          "value": 1.5
+        },
+        "minecraft:health": {
+          "value": 15,
+          "max": 15
+        }
+      }
+    },
+    "events": {
+      "minecraft:entity_spawned": {
+        "randomize": [
+          {
+            "weight": 25,
+            "add": {
+              "component_groups": [
+                "aln:size_hatchling"
+              ]
+            }
+          },
+          {
+            "weight": 45,
+            "add": {
+              "component_groups": [
+                "aln:size_normal"
+              ]
+            }
+          },
+          {
+            "weight": 22,
+            "add": {
+              "component_groups": [
+                "aln:size_large"
+              ]
+            }
+          },
+          {
+            "weight": 8,
+            "add": {
+              "component_groups": [
+                "aln:size_giant"
+              ]
+            }
+          }
+        ]
+      }
     }
   }
 }

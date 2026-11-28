@@ -9,98 +9,196 @@
         "s1": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 360 - 40) * 9",
+            "math.sin(query.anim_time * 360 - 1 * variable.aln_wave_step) * variable.aln_wave_amp",
             0
           ]
         },
         "s2": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 360 - 80) * 9",
+            "math.sin(query.anim_time * 360 - 2 * variable.aln_wave_step) * variable.aln_wave_amp",
             0
           ]
         },
         "s3": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 360 - 120) * 9",
+            "math.sin(query.anim_time * 360 - 3 * variable.aln_wave_step) * variable.aln_wave_amp",
             0
           ]
         },
         "s4": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 360 - 160) * 9",
+            "math.sin(query.anim_time * 360 - 4 * variable.aln_wave_step) * variable.aln_wave_amp",
             0
           ]
         },
         "s5": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 360 - 200) * 9",
+            "math.sin(query.anim_time * 360 - 5 * variable.aln_wave_step) * variable.aln_wave_amp",
             0
           ]
         },
         "s6": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 360 - 240) * 9",
+            "math.sin(query.anim_time * 360 - 6 * variable.aln_wave_step) * variable.aln_wave_amp",
             0
           ]
         },
         "s7": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 360 - 280) * 9",
+            "math.sin(query.anim_time * 360 - 7 * variable.aln_wave_step) * variable.aln_wave_amp",
             0
           ]
         },
         "s8": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 360 - 320) * 9",
+            "math.sin(query.anim_time * 360 - 8 * variable.aln_wave_step) * variable.aln_wave_amp",
             0
           ]
         },
         "s9": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 360 - 360) * 9",
+            "math.sin(query.anim_time * 360 - 9 * variable.aln_wave_step) * variable.aln_wave_amp",
+            0
+          ]
+        },
+        "s10": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 360 - 10 * variable.aln_wave_step) * variable.aln_wave_amp",
+            0
+          ]
+        },
+        "s11": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 360 - 11 * variable.aln_wave_step) * variable.aln_wave_amp",
+            0
+          ]
+        },
+        "s12": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 360 - 12 * variable.aln_wave_step) * variable.aln_wave_amp",
+            0
+          ]
+        },
+        "s13": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 360 - 13 * variable.aln_wave_step) * variable.aln_wave_amp",
+            0
+          ]
+        },
+        "s14": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 360 - 14 * variable.aln_wave_step) * variable.aln_wave_amp",
+            0
+          ]
+        },
+        "s15": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 360 - 15 * variable.aln_wave_step) * variable.aln_wave_amp",
+            0
+          ]
+        },
+        "s16": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 360 - 16 * variable.aln_wave_step) * variable.aln_wave_amp",
+            0
+          ]
+        },
+        "s17": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 360 - 17 * variable.aln_wave_step) * variable.aln_wave_amp",
+            0
+          ]
+        },
+        "s18": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 360 - 18 * variable.aln_wave_step) * variable.aln_wave_amp",
             0
           ]
         },
         "t1": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 360 - 400) * 12",
+            "math.sin(query.anim_time * 360 - (variable.aln_body_n + 1) * variable.aln_wave_step) * variable.aln_wave_amp * 1.3",
             0
           ]
         },
         "t2": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 360 - 440) * 12",
+            "math.sin(query.anim_time * 360 - (variable.aln_body_n + 2) * variable.aln_wave_step) * variable.aln_wave_amp * 1.3",
             0
           ]
         },
         "t3": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 360 - 480) * 12",
+            "math.sin(query.anim_time * 360 - (variable.aln_body_n + 3) * variable.aln_wave_step) * variable.aln_wave_amp * 1.3",
             0
           ]
         },
         "t4": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 360 - 520) * 12",
+            "math.sin(query.anim_time * 360 - (variable.aln_body_n + 4) * variable.aln_wave_step) * variable.aln_wave_amp * 1.3",
             0
           ]
         },
         "t5": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 360 - 560) * 12",
+            "math.sin(query.anim_time * 360 - (variable.aln_body_n + 5) * variable.aln_wave_step) * variable.aln_wave_amp * 1.3",
+            0
+          ]
+        },
+        "t6": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 360 - (variable.aln_body_n + 6) * variable.aln_wave_step) * variable.aln_wave_amp * 1.3",
+            0
+          ]
+        },
+        "t7": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 360 - (variable.aln_body_n + 7) * variable.aln_wave_step) * variable.aln_wave_amp * 1.3",
+            0
+          ]
+        },
+        "t8": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 360 - (variable.aln_body_n + 8) * variable.aln_wave_step) * variable.aln_wave_amp * 1.3",
+            0
+          ]
+        },
+        "t9": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 360 - (variable.aln_body_n + 9) * variable.aln_wave_step) * variable.aln_wave_amp * 1.3",
+            0
+          ]
+        },
+        "t10": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 360 - (variable.aln_body_n + 10) * variable.aln_wave_step) * variable.aln_wave_amp * 1.3",
             0
           ]
         },
@@ -120,98 +218,196 @@
         "s1": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 90 - 30) * 3",
+            "math.sin(query.anim_time * 90 - 1 * variable.aln_wave_step * 0.5) * 1.5",
             0
           ]
         },
         "s2": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 90 - 60) * 3",
+            "math.sin(query.anim_time * 90 - 2 * variable.aln_wave_step * 0.5) * 1.5",
             0
           ]
         },
         "s3": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 90 - 90) * 3",
+            "math.sin(query.anim_time * 90 - 3 * variable.aln_wave_step * 0.5) * 1.5",
             0
           ]
         },
         "s4": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 90 - 120) * 3",
+            "math.sin(query.anim_time * 90 - 4 * variable.aln_wave_step * 0.5) * 1.5",
             0
           ]
         },
         "s5": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 90 - 150) * 3",
+            "math.sin(query.anim_time * 90 - 5 * variable.aln_wave_step * 0.5) * 1.5",
             0
           ]
         },
         "s6": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 90 - 180) * 3",
+            "math.sin(query.anim_time * 90 - 6 * variable.aln_wave_step * 0.5) * 1.5",
             0
           ]
         },
         "s7": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 90 - 210) * 3",
+            "math.sin(query.anim_time * 90 - 7 * variable.aln_wave_step * 0.5) * 1.5",
             0
           ]
         },
         "s8": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 90 - 240) * 3",
+            "math.sin(query.anim_time * 90 - 8 * variable.aln_wave_step * 0.5) * 1.5",
             0
           ]
         },
         "s9": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 90 - 270) * 3",
+            "math.sin(query.anim_time * 90 - 9 * variable.aln_wave_step * 0.5) * 1.5",
+            0
+          ]
+        },
+        "s10": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 90 - 10 * variable.aln_wave_step * 0.5) * 1.5",
+            0
+          ]
+        },
+        "s11": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 90 - 11 * variable.aln_wave_step * 0.5) * 1.5",
+            0
+          ]
+        },
+        "s12": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 90 - 12 * variable.aln_wave_step * 0.5) * 1.5",
+            0
+          ]
+        },
+        "s13": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 90 - 13 * variable.aln_wave_step * 0.5) * 1.5",
+            0
+          ]
+        },
+        "s14": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 90 - 14 * variable.aln_wave_step * 0.5) * 1.5",
+            0
+          ]
+        },
+        "s15": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 90 - 15 * variable.aln_wave_step * 0.5) * 1.5",
+            0
+          ]
+        },
+        "s16": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 90 - 16 * variable.aln_wave_step * 0.5) * 1.5",
+            0
+          ]
+        },
+        "s17": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 90 - 17 * variable.aln_wave_step * 0.5) * 1.5",
+            0
+          ]
+        },
+        "s18": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 90 - 18 * variable.aln_wave_step * 0.5) * 1.5",
             0
           ]
         },
         "t1": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 90 - 300) * 4",
+            "math.sin(query.anim_time * 90 - (variable.aln_body_n + 1) * variable.aln_wave_step * 0.5) * 2",
             0
           ]
         },
         "t2": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 90 - 330) * 4",
+            "math.sin(query.anim_time * 90 - (variable.aln_body_n + 2) * variable.aln_wave_step * 0.5) * 2",
             0
           ]
         },
         "t3": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 90 - 360) * 4",
+            "math.sin(query.anim_time * 90 - (variable.aln_body_n + 3) * variable.aln_wave_step * 0.5) * 2",
             0
           ]
         },
         "t4": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 90 - 390) * 4",
+            "math.sin(query.anim_time * 90 - (variable.aln_body_n + 4) * variable.aln_wave_step * 0.5) * 2",
             0
           ]
         },
         "t5": {
           "rotation": [
             0,
-            "math.sin(query.anim_time * 90 - 420) * 4",
+            "math.sin(query.anim_time * 90 - (variable.aln_body_n + 5) * variable.aln_wave_step * 0.5) * 2",
+            0
+          ]
+        },
+        "t6": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 90 - (variable.aln_body_n + 6) * variable.aln_wave_step * 0.5) * 2",
+            0
+          ]
+        },
+        "t7": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 90 - (variable.aln_body_n + 7) * variable.aln_wave_step * 0.5) * 2",
+            0
+          ]
+        },
+        "t8": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 90 - (variable.aln_body_n + 8) * variable.aln_wave_step * 0.5) * 2",
+            0
+          ]
+        },
+        "t9": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 90 - (variable.aln_body_n + 9) * variable.aln_wave_step * 0.5) * 2",
+            0
+          ]
+        },
+        "t10": {
+          "rotation": [
+            0,
+            "math.sin(query.anim_time * 90 - (variable.aln_body_n + 10) * variable.aln_wave_step * 0.5) * 2",
             0
           ]
         },
@@ -272,25 +468,46 @@
       "loop": true,
       "animation_length": 1.0,
       "bones": {
-        "belly3": {
+        "belly6": {
           "scale": [
-            1.5,
-            1.9,
-            1.1
+            1.3,
+            1.6,
+            1.05
           ]
         },
-        "belly4": {
+        "belly7": {
           "scale": [
-            1.9,
-            2.3,
-            1.2
+            1.7,
+            2.1,
+            1.12
           ]
         },
-        "belly5": {
+        "belly8": {
           "scale": [
-            1.5,
-            1.9,
-            1.1
+            2.0,
+            2.4,
+            1.15
+          ]
+        },
+        "belly9": {
+          "scale": [
+            2.0,
+            2.4,
+            1.15
+          ]
+        },
+        "belly10": {
+          "scale": [
+            1.7,
+            2.1,
+            1.12
+          ]
+        },
+        "belly11": {
+          "scale": [
+            1.3,
+            1.6,
+            1.05
           ]
         }
       }

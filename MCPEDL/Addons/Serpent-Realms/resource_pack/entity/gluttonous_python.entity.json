@@ -25,7 +25,7 @@
       },
       "scripts": {
         "pre_animation": [
-          "variable.aln_wave_speed = 0.8;"
+          "variable.aln_wave_speed = 0.8; variable.aln_wave_step = 16; variable.aln_wave_amp = 6.5; variable.aln_body_n = 16;"
         ],
         "animate": [
           "move_controller",

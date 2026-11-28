@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Serpent Realms (v1)",
+    "name": "Serpent Realms (v2)",
     "description": "Snake models and 32x32 textures for the add-on. by ALNStudios",
     "uuid": "8b864c13-55fa-47f9-8b0e-8741ace4b901",
     "version": [
-      1,
+      2,
       0,
       0
     ],
@@ -20,7 +20,7 @@
       "type": "resources",
       "uuid": "d2c2dad2-f7fb-4494-92f1-61f0f22b4510",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -31,6 +31,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "2.0.0"
   }
 }

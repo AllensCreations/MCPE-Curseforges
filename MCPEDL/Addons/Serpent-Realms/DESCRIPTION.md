@@ -17,28 +17,32 @@ Explore the world and meet five snakes in their own habitats. Each one slithers 
 
 ### Forest Viper
 - **What Happens**: A slender green snake of the forest. Its bite poisons the target for 8 seconds.
-- **Good To Know**: Attacks players within 7 blocks and has 14 health.
+- **Good To Know**: Attacks players within 7 blocks and has 14 health at normal size.
 
 ### Titan Anaconda
 - **What Happens**: The largest snake, found in swamps and mangrove swamps. Its bite slows the target, then it latches on and squeezes for up to 5 seconds, dealing 2 damage every second.
 - **How It Works**: Move more than 4 blocks away from it to break free.
-- **Good To Know**: Has 40 health and hits for 6 damage.
+- **Good To Know**: Has 40 health at normal size and hits for 6 damage.
 
 ### Desert Racer
 - **What Happens**: A thin sand-colored snake of the desert with a much faster move speed than the other four.
-- **Good To Know**: Has 8 health and hits for 3 damage.
+- **Good To Know**: Has 8 health at normal size and hits for 3 damage.
 
 ### Gluttonous Python
 - **What Happens**: A thick jungle snake that hunts Chickens, Rabbits and Frogs. After it kills one, its belly swells and it stays still for 60 seconds while it digests.
 - **How It Works**: Attack it while it digests, because it cannot move.
-- **Good To Know**: Has 24 health and leaves players alone unless hurt.
+- **Good To Know**: Has 24 health at normal size and leaves players alone unless hurt.
 
 ### Coral Snake
 - **What Happens**: A small black and red snake with glowing teal rings that crawls in dripstone caves and lush caves below sea level.
 - **Good To Know**: The rings glow in the dark as a visual effect only. The snake does not light up the area around it.
 
 ### Custom Models and Skins
-- **What Happens**: Every snake uses a segmented body that bends as it moves, with a jaw, a forked tongue and its own 32x32 skin.
+- **What Happens**: Every snake has a long body made of 24 to 32 small segments that bend one after another as it moves, plus a jaw, a forked tongue and its own 32x32 skin.
+
+### Size Variety
+- **What Happens**: Each snake spawns in one of four sizes: hatchling, normal, large or giant. Bigger snakes have more health, and a giant Titan Anaconda is far longer than a normal one.
+- **Good To Know**: Roughly 25% of snakes are hatchlings, 45% normal, 22% large and 8% giant.
 
 ## How to Use
 
