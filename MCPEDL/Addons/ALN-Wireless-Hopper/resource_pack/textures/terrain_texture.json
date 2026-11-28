@@ -1,0 +1,11 @@
+{
+  "resource_pack_name": "aln_wireless_hopper",
+  "texture_name": "atlas.terrain",
+  "padding": 8,
+  "num_mip_levels": 4,
+  "texture_data": {
+    "aln_wireless_hopper": {
+      "textures": "textures/blocks/wireless_hopper"
+    }
+  }
+}

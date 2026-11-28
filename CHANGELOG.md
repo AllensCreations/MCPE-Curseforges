@@ -4,6 +4,11 @@ One entry per delivered spec, newest first. `## [vN]` is the spec number (`spec_
 
 ---
 
+## 2026-11-28 - New Addon ALN Wireless Hopper
+
+### Added
+- **ALN Wireless Hopper**: New addon project created from a pack script.
+
 ## [v328] - 2026-11-28 - Anvil Screen
 
 **Spec**: spec_v328.txt | **Target**: MCPEDL/Addons/ALNCamouflageDoors | **Files edited**: 6

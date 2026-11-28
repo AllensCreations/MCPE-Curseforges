@@ -1,0 +1,40 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:wireless_hopper"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " C ",
+      "RHR",
+      "IEI"
+    ],
+    "key": {
+      "C": {
+        "item": "minecraft:copper_ingot"
+      },
+      "R": {
+        "item": "minecraft:redstone"
+      },
+      "H": {
+        "item": "minecraft:hopper"
+      },
+      "I": {
+        "item": "minecraft:iron_ingot"
+      },
+      "E": {
+        "item": "minecraft:ender_pearl"
+      }
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
+    "result": {
+      "item": "aln:wireless_hopper",
+      "count": 1
+    }
+  }
+}

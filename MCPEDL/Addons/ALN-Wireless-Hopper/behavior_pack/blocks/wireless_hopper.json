@@ -1,0 +1,21 @@
+{
+  "format_version": "1.26.60",
+  "minecraft:block": {
+    "description": {
+      "identifier": "aln:wireless_hopper",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:geometry": "geometry.aln_wireless_hopper",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "aln_wireless_hopper"
+        }
+      },
+      "minecraft:destroy_time": 3.0,
+      "minecraft:loot": "loot_tables/blocks/wireless_hopper.json"
+    }
+  }
+}

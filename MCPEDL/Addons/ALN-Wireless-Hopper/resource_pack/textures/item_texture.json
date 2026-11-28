@@ -1,0 +1,9 @@
+{
+  "resource_pack_name": "aln_wireless_hopper",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "wireless_remote": {
+      "textures": "textures/items/wireless_remote"
+    }
+  }
+}
